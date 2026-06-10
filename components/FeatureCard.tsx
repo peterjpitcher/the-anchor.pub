@@ -19,8 +19,8 @@ export function FeatureCard({
 
   const variantClasses = {
     default: '',
-    cream: 'bg-anchor-bg-raised',
-    colored: color || 'bg-anchor-bg'
+    cream: 'bg-anchor-green-raised',
+    colored: color || 'bg-anchor-green-deep'
   }
 
   const renderIcon = () => {
@@ -34,7 +34,7 @@ export function FeatureCard({
   return (
     <div className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
       {renderIcon()}
-      <h3 className="font-bold text-lg mb-2 text-anchor-gold-vivid">{title}</h3>
+      <h3 className="font-bold text-lg mb-2 text-anchor-gold-bright">{title}</h3>
       <div className="text-anchor-cream-text/70">{description}</div>
     </div>
   )

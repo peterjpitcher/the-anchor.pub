@@ -86,7 +86,7 @@ export default function CorporateEventsPage() {
       <TrustBar variant="private-hire" />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -103,7 +103,7 @@ export default function CorporateEventsPage() {
       </section>
 
       {/* Why Choose The Anchor for Business */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Why Leading Companies Choose The Anchor"
@@ -128,15 +128,15 @@ export default function CorporateEventsPage() {
                   <>
                     <p className="mb-4">Strategic advantages for your corporate events:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Outside ULEZ zone</strong> - no charges for attendees</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>M25 Junction 14</strong> - 3 minutes away</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Heathrow hotels</strong> - 5-10 minutes for overnight guests</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Central location</strong> - accessible from London &amp; Surrey</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Outside ULEZ zone</strong> - no charges for attendees</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>M25 Junction 14</strong> - 3 minutes away</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Heathrow hotels</strong> - 5-10 minutes for overnight guests</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Central location</strong> - accessible from London &amp; Surrey</span></li>
                     </ul>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               },
               {
                 title: "Professional Service",
@@ -144,15 +144,15 @@ export default function CorporateEventsPage() {
                   <>
                     <p className="mb-4">Everything you need for successful business events:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Dedicated event coordinator</strong> for seamless planning</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional catering</strong> from coffee mornings to formal dinners</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Tech support</strong> for presentations and video calls</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timings</strong> - early starts and late finishes available</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Dedicated event coordinator</strong> for seamless planning</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Professional catering</strong> from coffee mornings to formal dinners</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Tech support</strong> for presentations and video calls</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Flexible timings</strong> - early starts and late finishes available</span></li>
                     </ul>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               }
             ]}
           />
@@ -160,13 +160,13 @@ export default function CorporateEventsPage() {
       </section>
 
       {/* Event Types */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader title="Corporate Event Solutions" subtitle="From board meetings to company celebrations" />
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Business Meetings</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">Business Meetings</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Private space for confidential discussions, client meetings, and presentations.
                 Configurable for boardroom or theatre style.
@@ -180,7 +180,7 @@ export default function CorporateEventsPage() {
             </div>
             <div className="card-dark rounded-none p-6">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Team Building</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">Team Building</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Bring your team together for workshops, training sessions, and team building
                 activities in a relaxed environment.
@@ -194,7 +194,7 @@ export default function CorporateEventsPage() {
             </div>
             <div className="card-dark rounded-none p-6">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Corporate Hospitality</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">Corporate Hospitality</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Impress clients and reward staff with corporate entertainment, celebrations,
                 and networking events.
@@ -233,7 +233,7 @@ export default function CorporateEventsPage() {
       </section>
 
       {/* Corporate Solutions */}
-      <section id="solutions" className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section id="solutions" className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Tailored Corporate Event Solutions"
@@ -249,11 +249,11 @@ export default function CorporateEventsPage() {
                     <>
                       <p className="mb-4">Every corporate event is unique. We provide:</p>
                       <ul className="space-y-3">
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timing</strong> - Half day, full day, or evening sessions</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Scalable spaces</strong> - Configure rooms for 10-50 attendees, with larger events by enquiry</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Custom catering</strong> - From coffee breaks to formal dinners</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional support</strong> - AV equipment and dedicated coordinator</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Transparent pricing</strong> - Clear quotes with no hidden fees</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Flexible timing</strong> - Half day, full day, or evening sessions</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Scalable spaces</strong> - Configure rooms for 10-50 attendees, with larger events by enquiry</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Custom catering</strong> - From coffee breaks to formal dinners</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Professional support</strong> - AV equipment and dedicated coordinator</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Transparent pricing</strong> - Clear quotes with no hidden fees</span></li>
                       </ul>
                     </>
                   ),
@@ -265,10 +265,10 @@ export default function CorporateEventsPage() {
                     <>
                       <p className="mb-4">We believe in fair, flexible pricing:</p>
                       <ul className="space-y-3">
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Venue hire fees</strong> - Vary by day, time, and group size with no minimum spend</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Weekday rates</strong> - More competitive for daytime events</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Bespoke quotes</strong> - Based on your specific requirements</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>All-inclusive options</strong> - Know your total cost upfront</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-dark">•</span><span><strong>Venue hire fees</strong> - Vary by day, time, and group size with no minimum spend</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-dark">•</span><span><strong>Weekday rates</strong> - More competitive for daytime events</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-dark">•</span><span><strong>Bespoke quotes</strong> - Based on your specific requirements</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-dark">•</span><span><strong>All-inclusive options</strong> - Know your total cost upfront</span></li>
                       </ul>
                     </>
                   ),
@@ -321,56 +321,56 @@ export default function CorporateEventsPage() {
       </section>
 
       {/* Facilities & Amenities */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader title="Professional Facilities" subtitle="Everything you need for productive business events" />
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Technology &amp; Equipment</h3>
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Technology &amp; Equipment</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>High-speed WiFi</strong><p className="text-sm text-anchor-cream-text/70">Reliable connection for video calls and presentations</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Presentation Equipment</strong><p className="text-sm text-anchor-cream-text/70">Projector/screen available, laptop connections</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Power Access</strong><p className="text-sm text-anchor-cream-text/70">Multiple power points for devices</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Audio System</strong><p className="text-sm text-anchor-cream-text/70">Microphone and speakers for larger groups</p></div>
                   </li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Comfort &amp; Convenience</h3>
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Comfort &amp; Convenience</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Climate Control</strong><p className="text-sm text-anchor-cream-text/70">Air conditioning and heating for year-round comfort</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Natural Light</strong><p className="text-sm text-anchor-cream-text/70">Bright spaces with blackout options available</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Full Accessibility</strong><p className="text-sm text-anchor-cream-text/70">Wheelchair access and accessible facilities</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div><strong>Private Facilities</strong><p className="text-sm text-anchor-cream-text/70">Dedicated restrooms for your event</p></div>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="mt-12 card-dark rounded-none p-8">
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 text-center">Additional Services</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 text-center">Additional Services</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-3xl mb-2"></div>
@@ -395,12 +395,12 @@ export default function CorporateEventsPage() {
 
 
       {/* Location Advantages */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader title="Strategic Location for Business" />
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="font-bold text-lg mb-4">Quick Access From</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li><strong>Heathrow Business Parks:</strong> 5-10 mins</li>
@@ -411,7 +411,7 @@ export default function CorporateEventsPage() {
                   <li><strong>Woking:</strong> 20 mins</li>
                 </ul>
               </div>
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="font-bold text-lg mb-4">Transport Links</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li><strong>M25 Junction 14:</strong> 3 mins</li>
@@ -447,7 +447,7 @@ export default function CorporateEventsPage() {
         </Container>
       </section>
 
-      <div className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <div className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto">
             <div className="mb-6">
@@ -508,14 +508,14 @@ export default function CorporateEventsPage() {
             answer: "Yes, many businesses use us for regular meetings, training sessions, or team events. We ensure consistency in setup and service for our regular clients."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}
-      <section className="bg-anchor-bg-raised section-spacing-lg border-t border-anchor-gold/15">
+      <section className="bg-anchor-green-raised section-spacing-lg border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-bright mb-6">
               Plan Your Corporate Event Today
             </h2>
             <p className="text-xl text-anchor-cream-text/70 mb-8">
@@ -551,7 +551,7 @@ export default function CorporateEventsPage() {
                 </Button>
               </Link>
             </div>
-            <div className="mt-8 bg-anchor-bg-card rounded-xl p-6 max-w-2xl mx-auto border border-anchor-gold/15">
+            <div className="mt-8 bg-anchor-green-card rounded-xl p-6 max-w-2xl mx-auto border border-anchor-gold-dark/15">
               <p className="text-anchor-cream-text/70 text-center text-lg">
                 <strong>Quick Response Guaranteed</strong><br />
                 We understand business moves fast. We will respond to your enquiry within 2 hours during business hours.

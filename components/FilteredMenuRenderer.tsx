@@ -103,7 +103,7 @@ export function FilteredMenuRenderer({ menuData, showBookingCtas = false }: Filt
             </p>
             <button
               onClick={clearAllFilters}
-              className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline"
+              className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline"
             >
               Clear all filters
             </button>

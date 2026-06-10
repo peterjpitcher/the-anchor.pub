@@ -56,7 +56,7 @@ export default function PubNearSofitelHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -70,16 +70,16 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Key facts */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces if you\'re driving', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Half Price', description: 'vs Sofitel restaurant mains', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces if you\'re driving', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Half Price', description: 'vs Sofitel restaurant mains', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -88,7 +88,7 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Why The Anchor over Sofitel dining */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -96,8 +96,8 @@ export default function PubNearSofitelHeathrowPage() {
               subtitle="The Sofitel is one of the finest airport hotels in the world, but for a proper British pub night, The Anchor is your answer."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What You Get at The Anchor</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What You Get at The Anchor</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food from £8.99',
@@ -108,14 +108,14 @@ export default function PubNearSofitelHeathrowPage() {
                     'Full VAT receipts for business expenses',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Directions from Sofitel T5</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Sofitel T5</h3>
                 <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                   <li>Exit Sofitel, head north on Northern Perimeter Rd</li>
                   <li>Turn left at Stanwell Moor Road</li>
@@ -131,16 +131,16 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Food highlights */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="What Sofitel Guests Order at The Anchor" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, a British institution worth experiencing', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -154,7 +154,7 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Opening hours */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -192,7 +192,7 @@ export default function PubNearSofitelHeathrowPage() {
             answer: 'Yes, our staff can help you call a taxi, or you can use Uber from the pub. The return journey to Sofitel Heathrow Terminal 5 typically takes 7–10 minutes and costs £12–15.'
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

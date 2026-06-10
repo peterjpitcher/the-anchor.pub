@@ -14,8 +14,8 @@ export function GreenSection({
   const baseClasses = 'text-anchor-cream-text' // Force cream text on dark backgrounds
 
   const variants = {
-    solid: 'bg-anchor-bg-card',
-    gradient: 'bg-gradient-to-br from-anchor-bg-card to-anchor-bg'
+    solid: 'bg-anchor-green-card',
+    gradient: 'bg-gradient-to-br from-anchor-green-card to-anchor-green-deep'
   }
   
   return (
@@ -41,7 +41,7 @@ export function GreenHeading({
   as: Component = 'h2'
 }: GreenHeadingProps) {
   return (
-    <Component className={cn('text-anchor-gold-vivid', className)}>
+    <Component className={cn('text-anchor-gold-bright', className)}>
       {children}
     </Component>
   )

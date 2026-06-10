@@ -8,10 +8,10 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        info: 'bg-anchor-bg-raised text-anchor-cream-text border border-blue-500/30',
-        success: 'bg-anchor-bg-raised text-anchor-cream-text border border-green-500/30',
-        warning: 'bg-anchor-bg-raised text-anchor-cream-text border border-anchor-gold/40',
-        error: 'bg-anchor-bg-raised text-anchor-cream-text border border-red-500/30'
+        info: 'bg-anchor-green-raised text-anchor-cream-text border border-blue-500/30',
+        success: 'bg-anchor-green-raised text-anchor-cream-text border border-green-500/30',
+        warning: 'bg-anchor-green-raised text-anchor-cream-text border border-anchor-gold-dark/40',
+        error: 'bg-anchor-green-raised text-anchor-cream-text border border-red-500/30'
       }
     },
     defaultVariants: {
@@ -32,7 +32,7 @@ const iconMap: Record<Status, React.ReactNode> = {
     </svg>
   ),
   warning: (
-    <svg className="w-5 h-5 flex-shrink-0 text-anchor-gold-vivid" fill="currentColor" viewBox="0 0 20 20">
+    <svg className="w-5 h-5 flex-shrink-0 text-anchor-gold-bright" fill="currentColor" viewBox="0 0 20 20">
       <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
     </svg>
   ),

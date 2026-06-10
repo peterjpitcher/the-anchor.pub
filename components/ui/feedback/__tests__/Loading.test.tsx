@@ -16,7 +16,7 @@ describe('Spinner', () => {
     const spinner = screen.getByRole('status')
     expect(spinner).toBeInTheDocument()
     expect(spinner).toHaveClass('h-6', 'w-6') // Default size md
-    expect(spinner).toHaveClass('text-anchor-gold') // Default colour primary
+    expect(spinner).toHaveClass('text-anchor-gold-dark') // Default colour primary
   })
 
   it('renders with different sizes', () => {
@@ -55,7 +55,7 @@ describe('Skeleton', () => {
     
     const skeleton = screen.getByRole('status')
     expect(skeleton).toBeInTheDocument()
-    expect(skeleton).toHaveClass('animate-pulse', 'bg-anchor-bg-raised', 'rounded')
+    expect(skeleton).toHaveClass('animate-pulse', 'bg-anchor-green-raised', 'rounded')
     expect(skeleton).toHaveClass('w-full') // Default width
   })
 

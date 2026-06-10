@@ -299,7 +299,7 @@ export default async function ValentinesDayPage() {
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
             <Card variant="elevated" className="overflow-hidden">
-              <div className="relative aspect-[3/4] bg-anchor-bg-raised">
+              <div className="relative aspect-[3/4] bg-anchor-green-raised">
                 <Image
                   src={heroImage}
                   alt={event ? `${event.name} promotional poster` : "Valentine's Day event poster"}
@@ -312,11 +312,11 @@ export default async function ValentinesDayPage() {
               <CardBody className="space-y-4 p-6">
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Date</p>
-                  <p className="text-lg font-bold text-anchor-gold-vivid">{eventDate}</p>
+                  <p className="text-lg font-bold text-anchor-gold-bright">{eventDate}</p>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Time</p>
-                  <p className="text-lg font-bold text-anchor-gold-vivid">{eventTime}</p>
+                  <p className="text-lg font-bold text-anchor-gold-bright">{eventTime}</p>
                 </div>
                 {event?.highlights?.length ? (
                   <div className="space-y-2">
@@ -324,7 +324,7 @@ export default async function ValentinesDayPage() {
                     <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                       {event.highlights.map((highlight) => (
                         <li key={highlight} className="flex gap-2">
-                          <span className="text-anchor-gold">•</span>
+                          <span className="text-anchor-gold-dark">•</span>
                           <span>{highlight}</span>
                         </li>
                       ))}
@@ -342,7 +342,7 @@ export default async function ValentinesDayPage() {
                 <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
                   Celebrate Valentine's Day in Stanwell Moor at The Anchor, a cosy village pub with free parking,
                   seven minutes from{' '}
-                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
                     Heathrow Terminal 5
                   </Link>
                   .
@@ -354,14 +354,14 @@ export default async function ValentinesDayPage() {
                 </p>
 
                 {event?.about && (
-                  <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">What to expect</h3>
+                  <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+                    <h3 className="text-lg font-semibold text-anchor-gold-bright">What to expect</h3>
                     <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                       {getTextExcerpt(event.about, 520)}
                     </p>
                     <Link
                       href={eventPageUrl}
-                      className="mt-3 inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light"
+                      className="mt-3 inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold"
                     >
                       Read the full event details<span className="ml-1">→</span>
                     </Link>
@@ -370,7 +370,7 @@ export default async function ValentinesDayPage() {
               </div>
 
               {event ? (
-                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
                   <div className="flex flex-wrap items-center gap-3">
                     <Badge variant="success" size="sm">
                       {isFreeEntry ? 'Free entry' : 'Booking recommended'}
@@ -410,32 +410,32 @@ export default async function ValentinesDayPage() {
                   </div>
 
                   {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
-                    <div className="mt-6 rounded-2xl bg-anchor-bg-card p-5 border border-anchor-gold/15">
-                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">
+                    <div className="mt-6 rounded-2xl bg-anchor-green-card p-5 border border-anchor-gold-dark/15">
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">
                         Timings at a glance
                       </h3>
                       <dl className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                         {dinnerRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-vivid">Full menu</dt>
+                            <dt className="font-semibold text-anchor-gold-bright">Full menu</dt>
                             <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
                           </div>
                         )}
                         {musicRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-vivid">Live music</dt>
+                            <dt className="font-semibold text-anchor-gold-bright">Live music</dt>
                             <dd className="text-right">{formatTimeRange(musicRange)}</dd>
                           </div>
                         )}
                         {lateMenuRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-vivid">Late menu</dt>
+                            <dt className="font-semibold text-anchor-gold-bright">Late menu</dt>
                             <dd className="text-right">{formatTimeRange(lateMenuRange)}</dd>
                           </div>
                         )}
                         {partyUntilMidnight && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-vivid">Party tunes</dt>
+                            <dt className="font-semibold text-anchor-gold-bright">Party tunes</dt>
                             <dd className="text-right">until midnight</dd>
                           </div>
                         )}
@@ -444,7 +444,7 @@ export default async function ValentinesDayPage() {
                   )}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 text-anchor-cream-text/70">
+                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 text-anchor-cream-text/70">
                   <p className="font-semibold text-anchor-cream-text">We're updating our Valentine's listings.</p>
                   <p className="mt-2 text-sm">
                     In the meantime, book online via our table booking page or call us to reserve your table.
@@ -455,11 +455,11 @@ export default async function ValentinesDayPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-gold-vivid">Getting here</h2>
+                    <h2 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h2>
                     <p className="text-sm text-anchor-cream-text/70">
                       {addressLine}. Free parking on site, seven minutes from Heathrow Terminal 5, and outside the ULEZ.
                     </p>
-                    <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light">
+                    <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold">
                       Get directions
                       <span className="ml-1">→</span>
                     </Link>
@@ -468,7 +468,7 @@ export default async function ValentinesDayPage() {
 
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h2>
+                    <h2 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h2>
                     <p className="text-sm text-anchor-cream-text/70">
                       Booking for 8+ or need a special request? Give us a call and we'll sort it.
                     </p>
@@ -529,7 +529,7 @@ export default async function ValentinesDayPage() {
                   near Heathrow, this is the easy, stress-free option with free parking.
                 </p>
                 <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -554,7 +554,7 @@ export default async function ValentinesDayPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

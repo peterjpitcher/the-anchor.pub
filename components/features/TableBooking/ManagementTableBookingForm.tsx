@@ -469,10 +469,10 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
       <div className="flex justify-between text-xs text-anchor-cream-text/50 mb-1">
         <span>Step {currentStep} of {totalSteps}</span>
         {isAlmostDone && (
-          <span className="text-anchor-gold-vivid font-medium">Almost there!</span>
+          <span className="text-anchor-gold-bright font-medium">Almost there!</span>
         )}
       </div>
-      <div className="h-1.5 w-full rounded-full bg-anchor-bg-raised">
+      <div className="h-1.5 w-full rounded-full bg-anchor-green-raised">
         <div
           className="h-1.5 rounded-full bg-anchor-green transition-all duration-300"
           style={{ width: `${pct}%` }}
@@ -1152,7 +1152,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (selectedDateEventsLoading) {
       return (
-        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
+        <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm text-anchor-cream-text/70">
           Checking events on {formatDateForDisplay(date)}...
         </div>
       )
@@ -1169,13 +1169,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       <div
         className={`rounded-xl border p-4 ${
           options.highlight
-            ? 'border-anchor-gold/30 bg-anchor-gold/10'
-            : 'border-anchor-gold/15 bg-anchor-bg-raised'
+            ? 'border-anchor-gold-dark/30 bg-anchor-gold-dark/10'
+            : 'border-anchor-gold-dark/15 bg-anchor-green-raised'
         }`}
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <p className="text-sm font-semibold text-anchor-gold-vivid">{options.title}</p>
+            <p className="text-sm font-semibold text-anchor-gold-bright">{options.title}</p>
             <p className="mt-1 text-sm text-anchor-cream-text/70">{options.description}</p>
             <p className="mt-1 text-xs text-anchor-cream-text/60">Tap an event below to book it without leaving this page.</p>
           </div>
@@ -1193,7 +1193,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             return (
               <div
                 key={event.id}
-                className="flex flex-wrap items-start justify-between gap-3 rounded-lg border border-anchor-gold/15 bg-anchor-bg-card px-3 py-3"
+                className="flex flex-wrap items-start justify-between gap-3 rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card px-3 py-3"
               >
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold text-anchor-cream-text">{event.name}</p>
@@ -1638,7 +1638,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       <div className="space-y-4">
         <Card variant="elevated">
           <CardBody className="space-y-3 p-4">
-            <h3 className="text-lg font-semibold text-anchor-gold-vivid">Event booking</h3>
+            <h3 className="text-lg font-semibold text-anchor-gold-bright">Event booking</h3>
             <p className="text-sm text-anchor-cream-text/70">
               You're booking <strong>{selectedSuggestedEvent.name}</strong> on{' '}
               <strong>{selectedEventDateLabel}</strong> at <strong>{selectedEventTimeLabel}</strong>.
@@ -1683,8 +1683,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <p className="mt-2">We&apos;ve sent confirmation details by SMS.</p>
           </Alert>
 
-          <div className="mt-4 rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-4 text-sm text-anchor-cream-text/70 space-y-1">
-            <p className="font-semibold text-anchor-gold-vivid">When you arrive:</p>
+          <div className="mt-4 rounded-xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-4 text-sm text-anchor-cream-text/70 space-y-1">
+            <p className="font-semibold text-anchor-gold-bright">When you arrive:</p>
             <p>&#x2022; Free parking right outside, no ticket needed</p>
             <p>&#x2022; No need to check in, just head to the bar and we&apos;ll find your table</p>
             <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
@@ -1714,10 +1714,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 key={stepKey}
                 className={`rounded-xl border px-3 py-2 text-center text-sm ${
                   isCurrent
-                    ? 'border-anchor-gold bg-anchor-gold/15 font-semibold text-anchor-gold-vivid'
+                    ? 'border-anchor-gold-dark bg-anchor-gold-dark/15 font-semibold text-anchor-gold-bright'
                     : isComplete
                     ? 'border-anchor-green/40 bg-anchor-green/10 text-anchor-cream-text'
-                    : 'border-anchor-gold/15 bg-anchor-bg-raised text-anchor-cream-text/50'
+                    : 'border-anchor-gold-dark/15 bg-anchor-green-raised text-anchor-cream-text/50'
                 }`}
               >
                 <div className="text-xs uppercase tracking-wide">Step {index + 1}</div>
@@ -1745,14 +1745,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             }}
           >
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Find a table</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Find a table</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {`Start with party size, date, and time. We'll ask for contact details after you pick a slot.`}
               </p>
             </div>
 
             {hoursNote ? (
-              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/50 p-3 text-sm text-anchor-cream-text/80">
+              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/50 p-3 text-sm text-anchor-cream-text/80">
                 <p className="font-semibold text-anchor-cream-text">
                   {formatDateForDisplay(date)}
                 </p>
@@ -1818,7 +1818,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             />
 
             <div
-              className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/50 p-3 text-sm text-anchor-cream-text/80"
+              className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/50 p-3 text-sm text-anchor-cream-text/80"
               aria-live="polite"
             >
               <p className="font-medium text-anchor-cream-text">{aircraftOverheadNote.message}</p>
@@ -1852,7 +1852,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'choose' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Choose your time</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Choose your time</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
@@ -1880,8 +1880,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         onClick={() => handleSlotSelect(slot)}
                         className={`min-h-14 rounded-xl border px-3 py-3 text-center transition-colors ${
                           isSelected
-                            ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
-                            : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
+                            ? 'border-anchor-gold-dark bg-anchor-gold-dark/15 text-anchor-gold-bright'
+                            : 'border-anchor-gold-dark/25 bg-anchor-green-card text-anchor-cream-text hover:border-anchor-gold-dark'
                         }`}
                       >
                         <span className="block text-base font-semibold">
@@ -1901,7 +1901,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <button
                     type="button"
                     onClick={() => setShowAllTimes(true)}
-                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-anchor-gold/30 px-4 py-3 text-base font-medium text-anchor-gold-vivid transition-colors hover:border-anchor-gold hover:bg-anchor-gold/5 focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 sm:w-auto sm:px-6"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-anchor-gold-dark/30 px-4 py-3 text-base font-medium text-anchor-gold-bright transition-colors hover:border-anchor-gold-dark hover:bg-anchor-gold-dark/5 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 sm:w-auto sm:px-6"
                   >
                     See more times
                     <ChevronDown aria-hidden="true" className="h-4 w-4" />
@@ -1934,7 +1934,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               })}
 
             {availableSlots.length === 0 && (
-              <div className="space-y-3 rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+              <div className="space-y-3 rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
                 <p className="text-sm font-semibold text-anchor-cream-text/80">Nearest alternatives</p>
 
                 {alternativesLoading ? (
@@ -1946,10 +1946,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         key={`${option.date}-${option.time}`}
                         type="button"
                         onClick={() => handleChooseAlternative(option)}
-                        className="flex min-h-12 w-full items-center justify-between rounded-lg border border-anchor-gold/25 bg-anchor-bg-card px-3 py-3 text-left text-base hover:border-anchor-gold"
+                        className="flex min-h-12 w-full items-center justify-between rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-card px-3 py-3 text-left text-base hover:border-anchor-gold-dark"
                       >
                         <span className="font-medium text-anchor-cream-text/80">{formatDateForDisplay(option.date)}</span>
-                        <span className="text-anchor-gold-vivid font-semibold">{formatTimeForDisplay(option.time)}</span>
+                        <span className="text-anchor-gold-bright font-semibold">{formatTimeForDisplay(option.time)}</span>
                       </button>
                     ))}
                   </div>
@@ -1957,7 +1957,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <p className="text-sm text-anchor-cream-text/70">No nearby online alternatives were found.</p>
                 )}
 
-                <div className="rounded-lg border border-anchor-gold/25 bg-anchor-gold/10 p-3 text-sm text-anchor-cream-text">
+                <div className="rounded-lg border border-anchor-gold-dark/25 bg-anchor-gold-dark/10 p-3 text-sm text-anchor-cream-text">
                   <p className="font-semibold">Join waitlist</p>
                   <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
@@ -1994,14 +1994,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         {step === 'details' && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
+            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm text-anchor-cream-text/70">
               <p>
                 <strong>{partySize}</strong> guests on <strong>{formatDateForDisplay(date)}</strong> at{' '}
                 <strong>{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
               </p>
             </div>
 
-            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
               <Input
                 label="Mobile Number"
                 type="tel"
@@ -2046,7 +2046,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               {lookupError ? <p className="mt-3 text-sm text-red-400">{lookupError}</p> : null}
 
               {isKnownCustomer ? (
-                <p className="mt-3 text-sm font-medium text-anchor-gold-vivid">
+                <p className="mt-3 text-sm font-medium text-anchor-gold-bright">
                   Welcome back{knownCustomer?.full_name ? `, ${knownCustomer.full_name}` : ''}. We've skipped your personal details.
                 </p>
               ) : null}
@@ -2124,11 +2124,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'review' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Review your booking</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Review your booking</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">Check details, then confirm your booking.</p>
             </div>
 
-            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm">
+            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm">
               <dl className="space-y-2 text-anchor-cream-text/80">
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Party size</dt>

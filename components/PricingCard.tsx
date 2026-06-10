@@ -23,8 +23,8 @@ export function PricingCard({
     <div className={`
       relative overflow-hidden rounded-2xl p-8 text-center
       ${featured
-        ? 'bg-anchor-gold/10 border-2 border-anchor-gold/50 shadow-xl'
-        : 'card-dark rounded-none border-2 border-anchor-gold/15 hover:border-anchor-gold/30'
+        ? 'bg-anchor-gold-dark/10 border-2 border-anchor-gold-dark/50 shadow-xl'
+        : 'card-dark rounded-none border-2 border-anchor-gold-dark/15 hover:border-anchor-gold-dark/30'
       }
       transition-all duration-300 hover:scale-105
       ${className}
@@ -41,12 +41,12 @@ export function PricingCard({
       )}
 
       <div className="mb-4">
-        <div className="text-4xl font-bold text-anchor-gold-vivid mb-1">{currentPrice}</div>
+        <div className="text-4xl font-bold text-anchor-gold-bright mb-1">{currentPrice}</div>
         <div className="text-lg text-anchor-cream-text/55 line-through">{originalPrice}</div>
       </div>
 
       {savings && (
-        <div className="inline-block bg-anchor-gold/20 text-anchor-gold-vivid text-sm font-semibold px-3 py-1 rounded-full">
+        <div className="inline-block bg-anchor-gold-dark/20 text-anchor-gold-bright text-sm font-semibold px-3 py-1 rounded-full">
           Save {savings}
         </div>
       )}

@@ -100,7 +100,7 @@ export default function SunburyPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -119,7 +119,7 @@ export default function SunburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -135,7 +135,7 @@ export default function SunburyPubPage() {
                                     title: "Famous Roasts",
                                     description: "Generous portions of high-quality meat and fresh veg - booking essential!",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -143,7 +143,7 @@ export default function SunburyPubPage() {
                                     title: "Stress-Free Parking",
                                     description: "Park right outside for free - no fighting for spaces",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -151,7 +151,7 @@ export default function SunburyPubPage() {
                                     title: "Family Friendly",
                                     description: "Relaxed atmosphere where kids are welcome",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -161,7 +161,7 @@ export default function SunburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -197,7 +197,7 @@ export default function SunburyPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -221,7 +221,7 @@ export default function SunburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -247,7 +247,7 @@ export default function SunburyPubPage() {
                         answer: "Yes, Sunday is our busiest day and we are often fully booked with regulars from Sunbury and surrounding areas. We recommend booking by Wednesday/Thursday for the coming Sunday."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

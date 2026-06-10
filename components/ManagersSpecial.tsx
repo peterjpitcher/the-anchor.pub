@@ -100,10 +100,10 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
                 </div>
 
                 {/* Price Box */}
-                <div className="bg-anchor-gold/10 border-2 border-anchor-gold/30 rounded-none p-6 mb-6">
+                <div className="bg-anchor-gold-dark/10 border-2 border-anchor-gold-dark/30 rounded-none p-6 mb-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-anchor-cream-text/55 line-through text-xl">{spirit.originalPrice}</span>
-                    <span className="text-4xl font-bold text-anchor-gold-vivid">{spirit.specialPrice}</span>
+                    <span className="text-4xl font-bold text-anchor-gold-bright">{spirit.specialPrice}</span>
                   </div>
                   <p className="text-center text-anchor-cream-text/70 font-medium">{promotion.offerText}</p>
                 </div>
@@ -126,14 +126,14 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
               </div>
 
               {/* Right Column - Tasting & Serving */}
-              <div className="bg-anchor-bg-raised p-8 md:p-12">
+              <div className="bg-anchor-green-raised p-8 md:p-12">
                 {/* Tasting Notes */}
                 <div className="mb-8">
                   <h4 className="text-2xl font-bold text-anchor-cream-text mb-4">Tasting Notes</h4>
                   <ul className="space-y-2">
                     {spirit.tastingNotes.map((note: string, index: number) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-anchor-gold mr-2">•</span>
+                        <span className="text-anchor-gold-dark mr-2">•</span>
                         <span className="text-anchor-cream-text/70">{note}</span>
                       </li>
                     ))}
@@ -145,7 +145,7 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
                   <h4 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect Serves</h4>
                   <div className="space-y-3">
                     {spirit.servingsuggestions.map((suggestion: string, index: number) => (
-                      <div key={index} className="bg-anchor-bg-card rounded-none p-3">
+                      <div key={index} className="bg-anchor-green-card rounded-none p-3">
                         <p className="text-anchor-cream-text/70">{suggestion}</p>
                       </div>
                     ))}
@@ -158,7 +158,7 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
                     <h4 className="text-xl font-bold text-anchor-cream-text mb-3">
                       {spirit.botanicals.length === 22 ? '22 Hand-Foraged ' : ''}Botanicals
                     </h4>
-                    <div className="bg-anchor-bg-card rounded-none p-4">
+                    <div className="bg-anchor-green-card rounded-none p-4">
                       <p className="text-sm text-anchor-cream-text/55 leading-relaxed">
                         {spirit.botanicals.join(' • ')}
                       </p>
@@ -168,7 +168,7 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
 
                 {/* CTA */}
                 <div className="mt-8 text-center">
-                  <p className="text-2xl font-bold text-anchor-gold-vivid mb-2">{promotion.ctaText}</p>
+                  <p className="text-2xl font-bold text-anchor-gold-bright mb-2">{promotion.ctaText}</p>
                   <p className="text-sm text-anchor-cream-text/55">
                     Valid until {new Date(promotionData.promotion.endDate).toLocaleDateString('en-GB', {
                       day: 'numeric',

@@ -41,10 +41,10 @@ export default function F1Page() {
               showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-vivid mb-4">
+                        <PageTitle className="text-anchor-gold-bright mb-4">
                             The Fast Lane
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
@@ -54,7 +54,7 @@ export default function F1Page() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -70,7 +70,7 @@ export default function F1Page() {
                                     title: "Commentary On",
                                     description: "For the race itself, we turn the music off and the commentary up so you don't miss a beat.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -78,7 +78,7 @@ export default function F1Page() {
                                     title: "Live F1 Coverage",
                                     description: "We show F1 on free-to-air channels (Channel 4), including build-up, race highlights, and podium analysis.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -86,7 +86,7 @@ export default function F1Page() {
                                     title: "Sunday Roast",
                                     description: "Most races happen on Sundays. Combine the Grand Prix with our legendary Sunday Roast.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -118,7 +118,7 @@ export default function F1Page() {
                         answer: "Absolutely. Our full food menu is available, or grab a Sunday Roast during European race times."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

@@ -123,7 +123,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               },
               {
                 title: "Food in Terminal 3 Heathrow - leave the airport",
@@ -134,7 +134,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               },
               {
                 title: "Terminal 2 & 4 layovers",
@@ -145,7 +145,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               },
               {
                 title: "Book ahead for express service",
@@ -156,7 +156,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               }
             ]}
           />
@@ -261,8 +261,8 @@ export default function HeathrowLayoverDiningPage() {
             title="Travel Times & Costs"
             subtitle="Budget your layover with realistic timings and typical fares."
           />
-          <div className="overflow-x-auto rounded-xl border border-anchor-gold/15 bg-anchor-bg-card">
-            <table className="min-w-full divide-y divide-anchor-gold/15">
+          <div className="overflow-x-auto rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card">
+            <table className="min-w-full divide-y divide-anchor-gold-dark/15">
               <thead className="bg-anchor-green text-white">
                 <tr>
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Terminal</th>
@@ -271,7 +271,7 @@ export default function HeathrowLayoverDiningPage() {
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-anchor-gold/15 text-sm text-anchor-cream-text/70">
+              <tbody className="divide-y divide-anchor-gold-dark/15 text-sm text-anchor-cream-text/70">
 	                <tr>
 	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 5</td>
 	                  <td className="px-6 py-4">7 minutes • £12–18</td>
@@ -341,12 +341,12 @@ export default function HeathrowLayoverDiningPage() {
       <FAQAccordionWithSchema
         title="Heathrow Layover Dining FAQs"
         faqs={faqItems}
-        className="bg-anchor-bg-raised border border-anchor-gold/15"
+        className="bg-anchor-green-raised border border-anchor-gold-dark/15"
       />
 
       <Section background="dark" spacing="lg">
         <Container>
-          <div className="max-w-4xl mx-auto text-center bg-anchor-bg-raised rounded-3xl p-10 border border-anchor-gold/15">
+          <div className="max-w-4xl mx-auto text-center bg-anchor-green-raised rounded-3xl p-10 border border-anchor-gold-dark/15">
             <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Ready to Book Your Layover Meal?</h2>
             <p className="text-lg text-anchor-cream-text/70 mb-6">
               Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary, reserve parking, and keep a taxi on standby so you return to Heathrow relaxed.

@@ -103,7 +103,7 @@ export default async function EngagementPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
@@ -116,7 +116,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -132,7 +132,7 @@ export default async function EngagementPartiesPage() {
                                     title: "Prosecco Packages",
                                     description: "Pre-order welcome drinks for your guests to start the night right.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -140,7 +140,7 @@ export default async function EngagementPartiesPage() {
                                     title: "Flexible Buffets",
                                     description: "From finger food to hearty spreads, we cater to all budgets.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -148,7 +148,7 @@ export default async function EngagementPartiesPage() {
                                     title: "Music & Atmosphere",
                                     description: "Bring your own playlist or book our function area with space for a DJ.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -158,7 +158,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -190,7 +190,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -199,15 +199,15 @@ export default async function EngagementPartiesPage() {
                         />
                         <div className="grid md:grid-cols-3 gap-6 mb-6">
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-vivid">No min spend</p>
+                                <p className="text-3xl font-bold text-anchor-gold-bright">No min spend</p>
                                 <p className="text-sm text-anchor-cream-text/70">Pay for what you order</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-vivid">From &pound;9.95pp</p>
+                                <p className="text-3xl font-bold text-anchor-gold-bright">From &pound;9.95pp</p>
                                 <p className="text-sm text-anchor-cream-text/70">Buffet catering</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-vivid">20 free</p>
+                                <p className="text-3xl font-bold text-anchor-gold-bright">20 free</p>
                                 <p className="text-sm text-anchor-cream-text/70">Parking spaces</p>
                             </div>
                         </div>
@@ -226,7 +226,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -261,7 +261,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable
@@ -275,7 +275,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <SectionHeader title="Ready to start planning?" />
@@ -294,7 +294,7 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70">
@@ -349,7 +349,7 @@ export default async function EngagementPartiesPage() {
                         answer: "We're in Stanwell Moor, Surrey — 7 minutes from Heathrow Terminal 5 and about 8 minutes from Staines. Postcode for sat nav: TW19 6AQ. We're just off the M25 at Junction 14."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
         </>
     )

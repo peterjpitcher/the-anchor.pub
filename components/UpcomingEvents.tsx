@@ -75,11 +75,11 @@ export async function UpcomingEvents() {
                 return (
                   <div key={event.id} className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-20 text-center">
-                      <p className="text-anchor-gold font-bold text-lg">{startTime}</p>
+                      <p className="text-anchor-gold-dark font-bold text-lg">{startTime}</p>
                     </div>
                     <div className="flex-1">
                       <Link href={`/events/${event.slug || event.id}`}>
-                        <h4 className="text-xl font-bold text-anchor-gold-vivid mb-2 hover:text-anchor-gold transition-colors">
+                        <h4 className="text-xl font-bold text-anchor-gold-bright mb-2 hover:text-anchor-gold-dark transition-colors">
                           {event.name}
                         </h4>
                       </Link>
@@ -88,7 +88,7 @@ export async function UpcomingEvents() {
                       </p>
                       <div className="flex items-center gap-4 text-sm">
                         {event.offers && (
-                          <span className={event.offers.price === "0" ? "text-anchor-gold-vivid font-semibold" : "text-anchor-gold font-semibold"}>
+                          <span className={event.offers.price === "0" ? "text-anchor-gold-bright font-semibold" : "text-anchor-gold-dark font-semibold"}>
                             {event.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : formatPrice(event.offers.price, event.offers.priceCurrency)}
                           </span>
                         )}
@@ -132,7 +132,7 @@ export async function UpcomingEvents() {
                         )}
                         <Link 
                           href={`/events/${event.slug || event.id}`}
-                          className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
+                          className="inline-flex items-center text-anchor-gold-dark hover:text-anchor-gold font-semibold text-sm"
                         >
                           View {event.name} Details
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -156,7 +156,7 @@ export async function UpcomingEvents() {
     return (
       <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-6 text-center">
         <p className="text-red-400 mb-2">We couldn't load the events right now. Please refresh the page or try again in a moment.</p>
-        <p className="text-anchor-cream-text/70 text-sm mt-2">Need help? <PhoneLink phone="+441753682707" source="upcoming_events_error" className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline" showIcon={false}>Call us at 01753 682707</PhoneLink></p>
+        <p className="text-anchor-cream-text/70 text-sm mt-2">Need help? <PhoneLink phone="+441753682707" source="upcoming_events_error" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline" showIcon={false}>Call us at 01753 682707</PhoneLink></p>
       </div>
     )
   }

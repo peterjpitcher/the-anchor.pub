@@ -80,7 +80,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       </section>
 
       {/* Breadcrumb */}
-      <Section spacing="none" className="py-4 bg-anchor-bg-raised">
+      <Section spacing="none" className="py-4 bg-anchor-green-raised">
         <Container>
           <Breadcrumb items={breadcrumbItems} />
         </Container>
@@ -122,7 +122,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       />
 
       {/* Content */}
-      <article className="bg-anchor-bg">
+      <article className="bg-anchor-green-deep">
         <Section>
           <Container size="md">
             <div 
@@ -130,7 +130,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 prose prose-lg lg:prose-xl max-w-none
                 
                 /* Headings */
-                prose-headings:font-serif
+                prose-headings:font-display
                 prose-headings:text-anchor-cream-text
                 prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
                 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
@@ -141,9 +141,9 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 prose-p:mb-6
                 
                 /* Links */
-                prose-a:text-anchor-gold prose-a:font-semibold
+                prose-a:text-anchor-gold-dark prose-a:font-semibold
                 prose-a:no-underline hover:prose-a:underline
-                prose-a:transition-colours hover:prose-a:text-anchor-gold-light
+                prose-a:transition-colours hover:prose-a:text-anchor-gold
                 
                 /* Strong/Bold */
                 prose-strong:text-anchor-cream-text prose-strong:font-bold
@@ -159,12 +159,12 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 prose-figure:my-8
                 
                 /* Blockquotes */
-                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold
+                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold-dark
                 prose-blockquote:pl-6 prose-blockquote:italic
                 prose-blockquote:text-anchor-cream-text/70 prose-blockquote:my-8
                 
                 /* Code */
-                prose-code:bg-anchor-bg-raised prose-code:px-2 prose-code:py-1
+                prose-code:bg-anchor-green-raised prose-code:px-2 prose-code:py-1
                 prose-code:rounded prose-code:text-sm
                 prose-pre:bg-gray-900 prose-pre:text-gray-100
                 
@@ -172,11 +172,11 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 prose-table:my-8
                 prose-th:bg-anchor-green prose-th:text-white
                 prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-anchor-gold/15
+                prose-td:border prose-td:border-anchor-gold-dark/15
                 prose-td:px-6 prose-td:py-3
                 
                 /* HR */
-                prose-hr:border-anchor-gold/15 prose-hr:my-12
+                prose-hr:border-anchor-gold-dark/15 prose-hr:my-12
               "
               dangerouslySetInnerHTML={{ __html: post.htmlContent || '' }}
             />
@@ -185,7 +185,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       </article>
 
       {/* Share Section */}
-      <Section spacing="sm" className="bg-anchor-bg-raised">
+      <Section spacing="sm" className="bg-anchor-green-raised">
         <Container size="md" className="text-center">
           <p className="text-anchor-cream-text/70 mb-4">Enjoyed this article? Share it with your friends!</p>
           <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
@@ -193,7 +193,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       </Section>
 
       {/* Navigation */}
-      <Section className="bg-anchor-bg">
+      <Section className="bg-anchor-green-deep">
         <Container size="lg">
           <Grid cols={2} gap="md">
             {prevPost && (
@@ -201,7 +201,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 <Card variant="default" className="hover:shadow-md transition-shadow">
                   <CardBody>
                     <p className="text-sm text-anchor-cream-text/70 mb-2">← Previous Post</p>
-                    <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold transition-colours">
+                    <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold-dark transition-colours">
                       {prevPost.title}
                     </h3>
                   </CardBody>
@@ -213,7 +213,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
                 <Card variant="default" className="hover:shadow-md transition-shadow">
                   <CardBody>
                     <p className="text-sm text-anchor-cream-text/70 mb-2">Next Post →</p>
-                    <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold transition-colours">
+                    <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold-dark transition-colours">
                       {nextPost.title}
                     </h3>
                   </CardBody>
@@ -237,7 +237,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
             <Button 
               variant="secondary"
               size="lg"
-              className="bg-anchor-gold text-anchor-charcoal hover:bg-anchor-gold-light"
+              className="bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold"
               onClick={() => window.location.href = '/find-us'}
             >
               Get Directions
@@ -245,7 +245,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
             <Button 
               variant="secondary"
               size="lg"
-              className="bg-anchor-gold text-anchor-charcoal hover:bg-anchor-gold-light"
+              className="bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold"
               onClick={() => window.location.href = '/blog'}
             >
               More Stories

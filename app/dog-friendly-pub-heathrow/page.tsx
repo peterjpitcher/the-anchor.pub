@@ -43,7 +43,7 @@ export default async function DogFriendlyPage() {
             />
 
             {/* Definitive answer for featured snippets */}
-            <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
+            <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
                 <Container>
                     <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
                         The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor, welcoming dogs in both our bar area and beer garden. We provide water bowls and dog treats for four-legged visitors.
@@ -51,7 +51,7 @@ export default async function DogFriendlyPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
@@ -64,7 +64,7 @@ export default async function DogFriendlyPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -80,7 +80,7 @@ export default async function DogFriendlyPage() {
                                     title: "Water Bowls",
                                     description: "Fresh water always available. Just ask at the bar if you can't see a bowl.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -88,7 +88,7 @@ export default async function DogFriendlyPage() {
                                     title: "Treats Available",
                                     description: "Dog biscuits in a jar near the door for our favourite customers.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -96,7 +96,7 @@ export default async function DogFriendlyPage() {
                                     title: "Large Garden",
                                     description: "Plenty of grassy space outside for a sniff and a stretch of the legs.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -128,7 +128,7 @@ export default async function DogFriendlyPage() {
                         answer: "Yes, there are some nice walking routes around Stanwell Moor and the reservoirs nearby."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

@@ -215,9 +215,9 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           enableSmartCtas={true}
           showContextStrip={true}
         />
-        <Section spacing="md" container className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Section spacing="md" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-            <PageTitle className="text-anchor-gold-vivid" seo={{ structured: true }}>
+            <PageTitle className="text-anchor-gold-bright" seo={{ structured: true }}>
               Manager&apos;s Special at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
@@ -239,7 +239,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           </div>
         </Section>
 
-        <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="why">
+        <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="why">
           <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
             <div>
               <h2 className="text-3xl font-bold text-anchor-cream-text">Why we do it</h2>
@@ -248,36 +248,36 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </p>
               <ul className="mt-6 space-y-3 text-anchor-cream-text/70">
                 <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                   <span>Give back to our community with a proper discount on a standout bottle.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                   <span>Help everyone explore new flavours without committing to a full bottle.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                   <span>Showcase what we love from the top shelf, with simple, great serves at the bar.</span>
                 </li>
               </ul>
             </div>
-            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm md:p-8">
+            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-6 shadow-sm md:p-8">
               <h3 className="text-xl font-bold text-anchor-cream-text">How it works</h3>
               <ol className="mt-5 space-y-4 text-anchor-cream-text/70">
                 <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                     1
                   </span>
                   <span>We pick one premium spirit for the month.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                     2
                   </span>
                   <span>Every serve of that bottle is 25% off for the whole month.</span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                     3
                   </span>
                   <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
@@ -290,11 +290,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           </div>
         </Section>
 
-        <Section spacing="lg" container className="bg-anchor-bg">
+        <Section spacing="lg" container className="bg-anchor-green-deep">
           <FAQAccordionWithSchema
             title="Manager's Special FAQs"
             faqs={fallbackFaqs}
-            className="bg-anchor-bg"
+            className="bg-anchor-green-deep"
           />
         </Section>
       </>
@@ -426,9 +426,9 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         showContextStrip={true}
       />
 
-      <Section spacing="sm" container className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section spacing="sm" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <PageTitle
-          className="text-center text-anchor-gold-vivid"
+          className="text-center text-anchor-gold-bright"
           seo={{ structured: true }}
         >
           {promotionMonthName}&apos;s Product of the Month: {spirit.name}
@@ -438,11 +438,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         </p>
       </Section>
 
-      <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <div id="details" className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
           <div className="space-y-6">
-            <div className="overflow-hidden rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-3 shadow-xl">
-              <div className="relative aspect-square overflow-hidden rounded-md bg-anchor-bg">
+            <div className="overflow-hidden rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-3 shadow-xl">
+              <div className="relative aspect-square overflow-hidden rounded-md bg-anchor-green-deep">
                 <Image
                   src={dynamicImagePath || DEFAULT_DRINKS_IMAGE}
                   alt={promotion.heroAlt || `${spirit.name} Manager's Special at The Anchor`}
@@ -469,7 +469,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           </div>
 
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-bright">
               Learn the bottle
             </p>
             <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
@@ -480,20 +480,20 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-card p-5">
+              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
                 <h3 className="text-lg font-bold text-anchor-cream-text">Why we picked it</h3>
                 <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.whyPicked}</p>
               </div>
-              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-card p-5">
+              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
                 <h3 className="text-lg font-bold text-anchor-cream-text">What to taste for</h3>
                 <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.flavourProfile}</p>
               </div>
             </div>
 
-            <div className="mt-8 rounded-lg border border-anchor-gold/20 bg-anchor-bg p-6">
+            <div className="mt-8 rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-deep p-6">
               <h3 className="text-xl font-bold text-anchor-cream-text">Best first serve</h3>
               <p className="mt-3 text-anchor-cream-text/70">{education.perfectServe}</p>
-              <p className="mt-5 border-l-4 border-anchor-gold/60 pl-4 text-sm italic text-anchor-cream-text/65">
+              <p className="mt-5 border-l-4 border-anchor-gold-dark/60 pl-4 text-sm italic text-anchor-cream-text/65">
                 Bar team tip: {education.barTeamTip}
               </p>
             </div>
@@ -514,10 +514,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         </div>
       </Section>
 
-      <Section spacing="lg" container className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section spacing="lg" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-bright">
               Tasting guide
             </p>
             <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
@@ -529,36 +529,36 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <h3 className="text-xl font-bold text-anchor-cream-text">Pairs well with</h3>
               <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
                 {education.foodPairings.map((pairing) => (
                   <li key={pairing} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                     <span>{pairing}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <h3 className="text-xl font-bold text-anchor-cream-text">Try it if you like</h3>
               <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
                 {education.tryIfYouLike.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <h3 className="text-xl font-bold text-anchor-cream-text">Useful words</h3>
               <div className="mt-5 space-y-4">
                 {education.glossary.map((item) => (
                   <div key={item.term}>
-                    <p className="font-semibold text-anchor-gold-vivid">{item.term}</p>
+                    <p className="font-semibold text-anchor-gold-bright">{item.term}</p>
                     <p className="mt-1 text-sm leading-relaxed text-anchor-cream-text/70">{item.definition}</p>
                   </div>
                 ))}
@@ -568,7 +568,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         </div>
       </Section>
 
-      <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="why">
+      <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="why">
         <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
           <div>
             <h2 className="text-3xl font-bold text-anchor-cream-text">Why we do it</h2>
@@ -577,36 +577,36 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             </p>
             <ul className="mt-6 space-y-3 text-anchor-cream-text/70">
               <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                 <span>Give back to our locals with a proper discount on a standout bottle.</span>
               </li>
               <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                 <span>Make it easy to try something premium without committing to a full bottle.</span>
               </li>
               <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
                 <span>Showcase the best of our spirits range at genuine pub prices.</span>
               </li>
             </ul>
           </div>
-          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm md:p-8">
+          <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-6 shadow-sm md:p-8">
             <h3 className="text-xl font-bold text-anchor-cream-text">How it works</h3>
             <ol className="mt-5 space-y-4 text-anchor-cream-text/70">
               <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                   1
                 </span>
                 <span>We pick one premium spirit for the month.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                   2
                 </span>
                 <span>Every serve of that bottle is 25% off for the whole month.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-bg text-anchor-gold-vivid font-bold">
+                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
                   3
                 </span>
                 <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
@@ -619,11 +619,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         </div>
       </Section>
 
-      <Section spacing="lg" container className="bg-anchor-bg">
+      <Section spacing="lg" container className="bg-anchor-green-deep">
         <FAQAccordionWithSchema
           title="Manager's Special FAQs"
           faqs={faqs}
-          className="bg-anchor-bg"
+          className="bg-anchor-green-deep"
         />
       </Section>
 
@@ -641,7 +641,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                 source="managers_special_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               />
               <Link href="/find-us">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20">

@@ -92,7 +92,7 @@ export default async function BlogPage({
       />
 
       {/* Page Title */}
-      <Section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
+      <Section className="py-8 bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -113,10 +113,10 @@ export default async function BlogPage({
 
       {/* Tag Cloud - Only on first page */}
       {currentPage === 1 && (
-        <Section background="gray" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Section background="gray" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-8 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8 text-center">
                 Browse by Topic
               </h2>
               <div className="flex flex-wrap gap-3 justify-center mb-6">
@@ -124,12 +124,12 @@ export default async function BlogPage({
                   <Link
                     key={tag}
                     href={`/blog/tag/${tag}`}
-                    className="group relative px-4 py-2 bg-anchor-bg-card rounded-none border border-anchor-gold/15 hover:border-anchor-gold/40 transition-all"
+                    className="group relative px-4 py-2 bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-all"
                   >
                     <span className="text-sm font-medium text-anchor-cream-text/70 group-hover:text-anchor-cream-text transition-colors">
                       {tagNames[tag] || tag.replace(/-/g, ' ')}
                     </span>
-                    <span className="ml-2 text-sm sm:text-xs text-anchor-cream-text/55 bg-anchor-bg px-2 py-0.5 rounded-full">
+                    <span className="ml-2 text-sm sm:text-xs text-anchor-cream-text/55 bg-anchor-green-deep px-2 py-0.5 rounded-full">
                       {count}
                     </span>
                   </Link>
@@ -139,7 +139,7 @@ export default async function BlogPage({
                 <div className="text-center">
                   <Link
                     href="/blog/tags"
-                    className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold transition-colours"
+                    className="inline-flex items-center text-anchor-gold-dark hover:text-anchor-gold font-semibold transition-colours"
                   >
                     View all {sortedTags.length} topics
                     <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -155,15 +155,15 @@ export default async function BlogPage({
 
       {/* Featured Post (only on first page) */}
       {featuredPost && currentPage === 1 && (
-        <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-8">Featured Story</h2>
-              <Card variant="elevated" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 hover:border-anchor-gold/40 transition-shadow">
+              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">Featured Story</h2>
+              <Card variant="elevated" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
                 <div className="grid md:grid-cols-2 gap-0 overflow-hidden">
                   <Link
                     href={`/blog/${featuredPost.slug}`}
-                    className="relative block h-64 md:h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold"
+                    className="relative block h-64 md:h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                   >
                     <Image
                       src={getBlogHeroUrl(featuredPost.slug, featuredPost.hero)}
@@ -182,7 +182,7 @@ export default async function BlogPage({
                           <Badge
                             variant="default"
                             size="sm"
-                            className="bg-anchor-gold/20 text-anchor-gold-vivid hover:bg-anchor-gold hover:text-white transition-colours"
+                            className="bg-anchor-gold-dark/20 text-anchor-gold-bright hover:bg-anchor-gold-dark hover:text-white transition-colours"
                           >
                             {tag}
                           </Badge>
@@ -191,7 +191,7 @@ export default async function BlogPage({
                     </div>
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="text-2xl font-bold text-anchor-gold-vivid mb-4 hover:text-anchor-gold transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold"
+                      className="text-2xl font-bold text-anchor-gold-bright mb-4 hover:text-anchor-gold-dark transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                     >
                       {featuredPost.title}
                     </Link>
@@ -206,7 +206,7 @@ export default async function BlogPage({
                       </div>
                       <Link
                         href={`/blog/${featuredPost.slug}`}
-                        className="text-anchor-gold font-semibold hover:text-anchor-gold-light transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold"
+                        className="text-anchor-gold-dark font-semibold hover:text-anchor-gold transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                       >
                         Read more →
                       </Link>
@@ -220,10 +220,10 @@ export default async function BlogPage({
       )}
 
       {/* Other Posts */}
-      <Section background="gray" spacing="md" className="bg-anchor-bg-raised">
+      <Section background="gray" spacing="md" className="bg-anchor-green-raised">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">
               {currentPage === 1 ? 'Latest Stories' : 'All Stories'}
             </h2>
 
@@ -231,11 +231,11 @@ export default async function BlogPage({
               <>
                 <Grid cols={3} gap="lg" className="mb-12">
                   {otherPosts.map(post => (
-                    <Card key={post.slug} variant="default" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 hover:border-anchor-gold/40 transition-shadow">
+                    <Card key={post.slug} variant="default" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
                       <div className="relative h-48">
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold"
+                          className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                         >
                           <Image
                             src={getBlogHeroUrl(post.slug, post.hero)}
@@ -255,7 +255,7 @@ export default async function BlogPage({
                               <Badge
                                 variant="default"
                                 size="sm"
-                                className="bg-anchor-bg text-anchor-cream-text/55 hover:bg-anchor-gold hover:text-white transition-colours"
+                                className="bg-anchor-green-deep text-anchor-cream-text/55 hover:bg-anchor-gold-dark hover:text-white transition-colours"
                               >
                                 {tag}
                               </Badge>
@@ -264,7 +264,7 @@ export default async function BlogPage({
                         </div>
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="text-lg font-bold text-anchor-gold-vivid mb-2 line-clamp-2 hover:text-anchor-gold transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold"
+                          className="text-lg font-bold text-anchor-gold-bright mb-2 line-clamp-2 hover:text-anchor-gold-dark transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                         >
                           {post.title}
                         </Link>
@@ -383,7 +383,7 @@ export default async function BlogPage({
                 variant="secondary"
                 size="lg"
                 fullWidth
-                className="sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 View Upcoming Events
               </Button>
@@ -393,7 +393,7 @@ export default async function BlogPage({
                 variant="secondary"
                 size="lg"
                 fullWidth
-                className="sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 Visit Us Today
               </Button>

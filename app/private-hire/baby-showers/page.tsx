@@ -128,7 +128,7 @@ export default async function BabyShowersPage() {
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Baby Shower Venue Near Ashford Hospital & Heathrow
@@ -138,8 +138,8 @@ export default async function BabyShowersPage() {
                             Treat the mum-to-be to a relaxing afternoon of good food and laughter. Our bright and airy spaces are perfect for afternoon tea, games, and opening gifts.
                         </p>
                         {nearbyHospitals.length > 0 && (
-                            <div className="bg-anchor-bg-raised p-4 rounded-xl inline-block text-center border border-anchor-gold/15">
-                                <span className="font-bold text-anchor-gold-vivid mr-2">Ideally located near:</span>
+                            <div className="bg-anchor-green-raised p-4 rounded-xl inline-block text-center border border-anchor-gold-dark/15">
+                                <span className="font-bold text-anchor-gold-bright mr-2">Ideally located near:</span>
                                 {nearbyHospitals.map(l => (
                                     <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                         {l.name} ({l.distance})
@@ -151,7 +151,7 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Food & Drink"
@@ -168,7 +168,7 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Games & Activities"
@@ -179,7 +179,7 @@ export default async function BabyShowersPage() {
                             We have plenty of space to accommodate all the baby shower classics. Bring your own game kits or improvise, our team will make sure you have room to set everything up.
                         </p>
                         <div className="grid sm:grid-cols-2 gap-4">
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-4">
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-4">
                                 <h4 className="font-semibold text-anchor-cream-text mb-2">Popular games we host</h4>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-1">
                                     <li>Guess the baby weight</li>
@@ -189,7 +189,7 @@ export default async function BabyShowersPage() {
                                     <li>Baby photo quiz</li>
                                 </ul>
                             </div>
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-4">
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-4">
                                 <h4 className="font-semibold text-anchor-cream-text mb-2">Photo area and backdrop</h4>
                                 <p className="text-sm text-anchor-cream-text/70">
                                     We can help you set up a dedicated photo area or backdrop in your reserved space. Bring your props, banners, and balloon arrangements, we'll give you room to create something special.
@@ -200,7 +200,7 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="All The Little Extras"
@@ -231,14 +231,14 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Baby Shower Catering Packages"
                         subtitle="Treat the mum-to-be to something special"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 mb-8">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 mb-8">
                             <CateringPackagesTable
                                 packages={foodPackages}
                                 showDescription={true}
@@ -246,16 +246,16 @@ export default async function BabyShowersPage() {
                             />
                         </div>
 
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-bright">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
                             </p>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Decorations & Styling"
@@ -306,14 +306,14 @@ export default async function BabyShowersPage() {
 
             <TestimonialSection
                 variant="compact"
-                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15 px-4"
+                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15 px-4"
                 reviews={[
                     { quote: "We hosted my sister's baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.", author: "Emma, Staines", source: "Google Review", rating: 5 },
                     { quote: "The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.", author: "Jasmine, Ashford", source: "Google Review", rating: 5 },
                 ]}
             />
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Planning a Christening or Gender Reveal Too?</h2>
@@ -323,13 +323,13 @@ export default async function BabyShowersPage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/private-hire/christenings"
-                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
                             >
                                 Christening Venue
                             </Link>
                             <Link
                                 href="/private-hire/gender-reveal"
-                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
                             >
                                 Gender Reveal Venue
                             </Link>

@@ -151,8 +151,8 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               ? []
               : matches.filter(({ match }) => !match.showing)
           return (
-            <Card key={dateKey} className="overflow-hidden border border-anchor-gold/15">
-              <div className="flex flex-col gap-3 bg-anchor-bg-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <Card key={dateKey} className="overflow-hidden border border-anchor-gold-dark/15">
+              <div className="flex flex-col gap-3 bg-anchor-green-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-anchor-cream-text">{displayDate}</p>
                   <p className="text-xs text-anchor-cream-text/70">
@@ -169,7 +169,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                 </div>
               </div>
 
-              <div className="divide-y divide-anchor-gold/15">
+              <div className="divide-y divide-anchor-gold-dark/15">
                 {visibleMatches.map(({ match, londonDateTime }) => {
                   const timeLabel = londonDateTime.toFormat('HH:mm')
                   const stageText = stageLabel[match.stage]
@@ -185,24 +185,24 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                       id={`match-${match.matchNumber}`}
                       className={cn(
                         'flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between',
-                        !match.showing && 'bg-anchor-bg-raised'
+                        !match.showing && 'bg-anchor-green-raised'
                       )}
                     >
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-vivid">
+                          <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-bright">
                             {timeLabel}
                           </span>
                           <span className={cn(
                             'inline-flex rounded-full px-2.5 py-1 text-xs font-semibold',
                             match.showing
-                              ? 'bg-anchor-green/20 text-anchor-gold-vivid'
-                              : 'bg-anchor-bg-raised text-anchor-cream-text/55'
+                              ? 'bg-anchor-green/20 text-anchor-gold-bright'
+                              : 'bg-anchor-green-raised text-anchor-cream-text/55'
                           )}>
                             {match.showing ? 'Showing' : 'Not showing'}
                           </span>
                           {isEnglandMatch && (
-                            <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-vivid">
+                            <span className="inline-flex rounded-full bg-anchor-gold-dark/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-bright">
                               England
                             </span>
                           )}
@@ -242,11 +242,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               </div>
 
               {fixtureVisibility === 'showing' && hiddenMatches.length > 0 && (
-                <details className="border-t border-anchor-gold/15 bg-anchor-bg-card">
-                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-anchor-cream-text/70 hover:bg-anchor-bg-raised">
+                <details className="border-t border-anchor-gold-dark/15 bg-anchor-green-card">
+                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-anchor-cream-text/70 hover:bg-anchor-green-raised">
                     {hiddenMatches.length} match{hiddenMatches.length === 1 ? '' : 'es'} not showing (outside opening hours)
                   </summary>
-                  <div className="divide-y divide-anchor-gold/15">
+                  <div className="divide-y divide-anchor-gold-dark/15">
                     {hiddenMatches.map(({ match, londonDateTime }) => {
                       const timeLabel = londonDateTime.toFormat('HH:mm')
                       const stageText = stageLabel[match.stage]
@@ -263,18 +263,18 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                         <div
                           key={match.matchNumber}
                           id={`match-${match.matchNumber}`}
-                          className="flex flex-col gap-3 bg-anchor-bg-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                          className="flex flex-col gap-3 bg-anchor-green-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
                         >
                           <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                              <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-vivid">
+                              <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-bright">
                                 {timeLabel}
                               </span>
-                              <span className="inline-flex rounded-full bg-anchor-bg-card px-2.5 py-1 text-xs font-semibold text-anchor-cream-text/55">
+                              <span className="inline-flex rounded-full bg-anchor-green-card px-2.5 py-1 text-xs font-semibold text-anchor-cream-text/55">
                                 Not showing
                               </span>
                               {isEnglandMatch && (
-                                <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-vivid">
+                                <span className="inline-flex rounded-full bg-anchor-gold-dark/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-bright">
                                   England
                                 </span>
                               )}

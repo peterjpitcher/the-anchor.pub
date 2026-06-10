@@ -10,7 +10,7 @@ interface HeroTagProps {
 
 const variantClasses = {
   default: 'bg-white/90 text-gray-800',
-  primary: 'bg-anchor-gold/90 text-white',
+  primary: 'bg-anchor-gold-dark/90 text-white',
   success: 'bg-green-600/90 text-white',
   warning: 'bg-amber-600/90 text-white',
   danger: 'bg-red-600/90 text-white'

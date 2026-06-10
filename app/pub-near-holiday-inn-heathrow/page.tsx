@@ -41,7 +41,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -54,16 +54,16 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '‍‍', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '‍‍', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -71,7 +71,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -79,8 +79,8 @@ export default function PubNearHolidayInnHeathrowPage() {
               subtitle="Whether you're travelling with children or looking for a relaxed group dinner, The Anchor is the family-friendly local that Holiday Inn guests return to time and time again."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Family-Friendly Features</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Family-Friendly Features</h3>
                 <ul className="space-y-3">
                   {[
                     'Large beer garden, great for kids to run around',
@@ -91,14 +91,14 @@ export default function PubNearHolidayInnHeathrowPage() {
                     'Free parking so you can come by car',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Holiday Inn</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Getting Here from Holiday Inn</h3>
                 <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
@@ -108,7 +108,7 @@ export default function PubNearHolidayInnHeathrowPage() {
                     <p className="font-semibold">By Car</p>
                     <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell. Turn right onto Horton Road, free parking on arrival.</p>
                   </div>
-                  <div className="pt-2 border-t border-anchor-gold/15">
+                  <div className="pt-2 border-t border-anchor-gold-dark/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Taxis easily arranged from Holiday Inn reception</p>
                   </div>
@@ -119,7 +119,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Deals for Holiday Inn Guests" />
@@ -136,7 +136,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -151,7 +151,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -199,7 +199,7 @@ export default function PubNearHolidayInnHeathrowPage() {
             answer: 'The walking route between most Holiday Inn Heathrow locations and The Anchor is not pedestrian-friendly due to road layouts. A taxi (12 mins, £15–18) is the recommended option. Free parking is available if you prefer to drive.'
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

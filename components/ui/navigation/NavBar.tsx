@@ -25,7 +25,7 @@ const navBarVariants = cva(
     variants: {
       variant: {
         default: 'bg-anchor-green text-white',
-        light: 'bg-anchor-bg-card text-anchor-cream-text',
+        light: 'bg-anchor-green-card text-anchor-cream-text',
         transparent: 'bg-transparent'
       },
       size: {
@@ -204,8 +204,8 @@ interface NavItemProps {
 const NavItem = ({ item, variant = 'default', onClick, isMobile = false }: NavItemProps) => {
   const linkClasses = cn(
     'font-medium transition-colours flex items-center gap-2',
-    variant === 'default' && 'text-white hover:text-anchor-gold',
-    variant === 'light' && 'text-anchor-cream-text/70 hover:text-anchor-gold',
+    variant === 'default' && 'text-white hover:text-anchor-gold-dark',
+    variant === 'light' && 'text-anchor-cream-text/70 hover:text-anchor-gold-dark',
     variant === 'transparent' && 'text-current hover:opacity-80'
   )
 
@@ -214,7 +214,7 @@ const NavItem = ({ item, variant = 'default', onClick, isMobile = false }: NavIt
       {item.icon}
       {item.label}
       {item.badge && (
-        <span className="ml-1 px-2 py-0.5 text-sm sm:text-xs bg-anchor-gold text-white rounded-full">
+        <span className="ml-1 px-2 py-0.5 text-sm sm:text-xs bg-anchor-gold-dark text-white rounded-full">
           {item.badge}
         </span>
       )}
@@ -285,8 +285,8 @@ const MobileMenu = ({ isOpen, items, actions, variant = 'default', onClose }: Mo
   const menuClasses = cn(
     'absolute top-full left-0 right-0 shadow-lg',
     variant === 'default' && 'bg-anchor-green-dark',
-    variant === 'light' && 'bg-anchor-bg-card',
-    variant === 'transparent' && 'bg-anchor-bg-card/95 backdrop-blur'
+    variant === 'light' && 'bg-anchor-green-card',
+    variant === 'transparent' && 'bg-anchor-green-card/95 backdrop-blur'
   )
 
   return (

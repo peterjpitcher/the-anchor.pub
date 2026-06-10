@@ -27,20 +27,20 @@ function getConfig(status: NonNullable<KitchenStatusData>): StatusConfig {
         icon: '',
         message: "Kitchen's having a rest today",
         linkText: 'book for another day',
-        colorClass: 'text-anchor-cream-text/70 bg-anchor-bg-raised border-anchor-gold/15',
+        colorClass: 'text-anchor-cream-text/70 bg-anchor-green-raised border-anchor-gold-dark/15',
       }
     case 'opens-later':
       return {
         icon: '',
         message: `Kitchen opens at ${status.opensAt}`,
         linkText: 'reserve your table now',
-        colorClass: 'text-anchor-gold-vivid bg-anchor-green/10 border-anchor-green/30',
+        colorClass: 'text-anchor-gold-bright bg-anchor-green/10 border-anchor-green/30',
       }
     case 'open':
       return {
         icon: '',
         message: `Kitchen open until ${status.closesAt}`,
-        colorClass: 'text-anchor-gold-vivid bg-anchor-green/10 border-anchor-green/30',
+        colorClass: 'text-anchor-gold-bright bg-anchor-green/10 border-anchor-green/30',
       }
     case 'closing-soon':
       return {

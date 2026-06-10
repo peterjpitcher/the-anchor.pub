@@ -19,14 +19,14 @@ import type {
 
 const buttonVariants = cva(
   // Base styles
-  'inline-flex min-w-0 max-w-full items-center justify-center break-words text-center font-semibold whitespace-normal rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+  'inline-flex min-w-0 max-w-full items-center justify-center break-words text-center font-semibold whitespace-normal rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-anchor-gold text-white hover:bg-anchor-gold-light',
-        secondary: 'bg-anchor-bg-card text-anchor-cream-text border-2 border-anchor-gold/30 hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid',
-        ghost: 'text-anchor-cream-text hover:bg-anchor-bg-raised',
-        outline: 'border-2 border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-white',
+        primary: 'bg-anchor-gold-dark text-white hover:bg-anchor-gold',
+        secondary: 'bg-anchor-green-card text-anchor-cream-text border-2 border-anchor-gold-dark/30 hover:bg-anchor-green-raised hover:text-anchor-gold-bright',
+        ghost: 'text-anchor-cream-text hover:bg-anchor-green-raised',
+        outline: 'border-2 border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-white',
         danger: 'bg-red-600 text-white hover:bg-red-700',
         warning: 'bg-yellow-500 text-white hover:bg-yellow-600'
       },

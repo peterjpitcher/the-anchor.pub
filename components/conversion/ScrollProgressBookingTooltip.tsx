@@ -116,7 +116,7 @@ export function ScrollProgressBookingTooltip() {
       role="status"
       aria-live="polite"
       data-testid="scroll-progress-booking-tooltip"
-      className="fixed right-4 bottom-20 z-30 max-w-xs rounded-md border border-anchor-gold/30 bg-anchor-bg-card text-anchor-cream-text shadow-luxury-lg lg:bottom-4 transition-opacity motion-reduce:transition-none"
+      className="fixed right-4 bottom-20 z-30 max-w-xs rounded-md border border-anchor-gold-dark/30 bg-anchor-green-card text-anchor-cream-text shadow-lg lg:bottom-4 transition-opacity motion-reduce:transition-none"
     >
       <div className="flex items-start gap-3 p-4">
         <div className="flex-1 text-sm">
@@ -126,7 +126,7 @@ export function ScrollProgressBookingTooltip() {
           </p>
           <Link
             href="/book-table?source=sunday_lunch_scroll_tooltip"
-            className="mt-2 inline-flex items-center text-anchor-gold-bright underline hover:text-anchor-gold-vivid focus:outline-none focus:ring-2 focus:ring-anchor-gold rounded-sm"
+            className="mt-2 inline-flex items-center text-anchor-gold-bright underline hover:text-anchor-gold-bright focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark rounded-sm"
             onClick={() => dismiss()}
           >
             Book a table
@@ -136,7 +136,7 @@ export function ScrollProgressBookingTooltip() {
           type="button"
           onClick={dismiss}
           aria-label="Dismiss booking tooltip"
-          className="rounded-sm p-1 text-anchor-cream-text/70 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+          className="rounded-sm p-1 text-anchor-cream-text/70 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

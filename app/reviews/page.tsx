@@ -164,11 +164,11 @@ export default function ReviewsPage() {
       />
 
       {/* Rating Summary */}
-      <div className="bg-anchor-bg-raised py-8 border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-raised py-8 border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex flex-col items-center gap-3 bg-anchor-bg-card rounded-xl p-6 border border-anchor-gold/20">
-              <div className="text-5xl font-bold text-anchor-gold-vivid">
+            <div className="inline-flex flex-col items-center gap-3 bg-anchor-green-card rounded-xl p-6 border border-anchor-gold-dark/20">
+              <div className="text-5xl font-bold text-anchor-gold-bright">
                 {rating}
               </div>
               <StarRating rating={Math.round(rating)} />
@@ -181,7 +181,7 @@ export default function ReviewsPage() {
       </div>
 
       {/* Review Highlights */}
-      <div className="bg-anchor-bg section-spacing-md border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Guest Reviews"
@@ -199,7 +199,7 @@ export default function ReviewsPage() {
                   <blockquote className="text-anchor-cream-text/80 mt-3 flex-1 italic">
                     &ldquo;{review.quote}&rdquo;
                   </blockquote>
-                  <div className="mt-4 pt-3 border-t border-anchor-gold/10">
+                  <div className="mt-4 pt-3 border-t border-anchor-gold-dark/10">
                     <p className="font-semibold text-anchor-cream-text">
                       {review.name}
                     </p>
@@ -215,7 +215,7 @@ export default function ReviewsPage() {
       </div>
 
       {/* Leave a Review CTA */}
-      <div className="bg-anchor-bg-raised section-spacing-md border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
@@ -248,7 +248,7 @@ export default function ReviewsPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         title="Reviews FAQ"
         faqs={[
           {

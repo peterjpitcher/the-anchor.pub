@@ -357,19 +357,19 @@ export default async function HeathrowParkingPage() {
               Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all point to the same problem: official car parks keep getting pricier. Our Stanwell Moor car park keeps costs simple, publishes prices upfront and still delivers CCTV, lighting and 24/7 access.
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
+              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
 	                <h3 className="text-lg font-semibold text-anchor-cream-text">Daily price promise</h3>
 	                <p className="mt-2 text-sm text-anchor-cream-text/70">
 	                  Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
 	                </p>
               </div>
-              <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
+              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal-specific savings</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">
                   Beat “cheap parking near Heathrow Terminal 5/3/4/2” searches by parking once and taxiing to any terminal in 7–12 minutes.
                 </p>
               </div>
-              <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
+              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Keep your keys, skip the upsell</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">
                   No valet upsells or key drops. Park it yourself, keep your keys and enjoy the pub while you wait for your ride.
@@ -405,7 +405,7 @@ export default async function HeathrowParkingPage() {
 
       <Section background="dark" spacing="md">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-bg-raised border border-anchor-gold/15">
+          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-green-raised border border-anchor-gold-dark/15">
             <h2 className="text-2xl font-bold text-anchor-cream-text text-center">
               Heathrow Airport Car Parking for Every Terminal
             </h2>
@@ -414,13 +414,13 @@ export default async function HeathrowParkingPage() {
               The Anchor keeps you close to Terminals 2, 3, 4 and 5 without the on-airport queues.
             </p>
             <div className="grid md:grid-cols-2 mt-4 gap-4">
-              <div className="rounded-xl p-4 bg-anchor-bg-raised border border-anchor-gold/15">
+              <div className="rounded-xl p-4 bg-anchor-green-raised border border-anchor-gold-dark/15">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal 5 car parking alternative</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">
                   We are 7 minutes from T5, making us a smart option for Terminal 5 car parking without premium prices.
                 </p>
               </div>
-              <div className="rounded-xl p-4 bg-anchor-bg-raised border border-anchor-gold/15">
+              <div className="rounded-xl p-4 bg-anchor-green-raised border border-anchor-gold-dark/15">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal 2, 3 & 4 parking</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">
                   Park once and reach Terminals 2, 3 or 4 in 10-12 minutes. Ideal for long stay, overnight or crew parking.
@@ -433,7 +433,7 @@ export default async function HeathrowParkingPage() {
 
       <Section background="dark" spacing="lg">
         <Container>
-          <div className="mx-auto max-w-4xl rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+          <div className="mx-auto max-w-4xl rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text text-center">How you get from The Anchor to Heathrow</h2>
             <div className="mt-4 grid gap-6 md:grid-cols-2">
               <div>
@@ -474,26 +474,26 @@ export default async function HeathrowParkingPage() {
 
       <Section background="dark" spacing="lg" id="price-comparison">
         <Container>
-          <div className="overflow-hidden rounded-2xl border border-anchor-gold/15">
+          <div className="overflow-hidden rounded-2xl border border-anchor-gold-dark/15">
             {/* Title + column headers */}
-            <div className="bg-anchor-bg-raised border-b border-anchor-gold/30 px-6 py-4">
-              <p className="text-anchor-gold-vivid text-xl font-semibold">Heathrow Parking Price Comparison</p>
+            <div className="bg-anchor-green-raised border-b border-anchor-gold-dark/30 px-6 py-4">
+              <p className="text-anchor-gold-bright text-xl font-semibold">Heathrow Parking Price Comparison</p>
               <div className="mt-3 hidden md:grid md:grid-cols-3 gap-4 text-xs font-semibold uppercase tracking-wider text-anchor-cream-text/50">
                 <span></span>
                 <span>The Anchor</span>
                 <span>Official Heathrow</span>
               </div>
             </div>
-            <div className="divide-y divide-anchor-gold/15 bg-anchor-bg-card">
+            <div className="divide-y divide-anchor-gold-dark/15 bg-anchor-green-card">
               {comparisonRows.map(row => (
                 <div key={row.label} className="grid gap-2 px-6 py-4 md:grid-cols-3 md:gap-4 md:items-center">
                   <div className="font-semibold text-anchor-cream-text">{row.label}</div>
                   <div className="text-sm text-anchor-cream-text/80">
-                    <span className="md:hidden text-anchor-gold-vivid font-semibold">The Anchor: </span>
+                    <span className="md:hidden text-anchor-gold-bright font-semibold">The Anchor: </span>
                     {row.anchor}
                   </div>
                   <div className="text-sm text-anchor-cream-text/80">
-                    <span className="md:hidden text-anchor-gold-vivid font-semibold">Official Heathrow: </span>
+                    <span className="md:hidden text-anchor-gold-bright font-semibold">Official Heathrow: </span>
                     {row.heathrow}
                   </div>
                 </div>
@@ -522,11 +522,11 @@ export default async function HeathrowParkingPage() {
               <Link
                 key={page.href}
                 href={page.href}
-                className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 text-left transition-colors hover:border-anchor-gold"
+                className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 text-left transition-colors hover:border-anchor-gold-dark"
               >
                 <h3 className="text-lg font-semibold text-anchor-cream-text">{page.title}</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">{page.description}</p>
-                <p className="mt-3 text-sm font-semibold text-anchor-gold">Open terminal guide</p>
+                <p className="mt-3 text-sm font-semibold text-anchor-gold-dark">Open terminal guide</p>
               </Link>
             ))}
           </div>
@@ -548,7 +548,7 @@ export default async function HeathrowParkingPage() {
                 <li>• Optional overnight pub stays for early flights</li>
               </ul>
             </div>
-            <div className="rounded-2xl bg-anchor-bg-raised border border-anchor-gold/15 p-6">
+            <div className="rounded-2xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-6">
               <h3 className="text-2xl font-semibold text-anchor-cream-text">Quick Heathrow parking checklist</h3>
               <ol className="mt-4 space-y-3 text-anchor-cream-text/70">
                 <li><strong>1.</strong> Book online and pay with PayPal or card.</li>

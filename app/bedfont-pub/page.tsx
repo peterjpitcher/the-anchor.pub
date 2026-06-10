@@ -97,7 +97,7 @@ export default function BedfontPubPage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -117,7 +117,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -154,28 +154,28 @@ export default function BedfontPubPage() {
 
             {/* Why Choose Us */}
             <div className="card-dark rounded-none p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">
                 Why Bedfont Residents Love The Anchor
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Your nearest traditional pub - no need to travel to Feltham or Staines</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Perfect meeting point for East and West Bedfont friends</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Free parking for all - essential for family gatherings</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Dog-friendly throughout - perfect for Bedfont dog walkers</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Regular quiz nights popular with Bedfont teams</span>
                 </li>
               </ul>
@@ -185,7 +185,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -197,19 +197,19 @@ export default function BedfontPubPage() {
                 <h3 className="font-bold text-xl mb-4">From East Bedfont</h3>
                 <ol className="space-y-3">
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">1.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
                     Head west on Staines Road from Bedfont Green
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">2.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
                     Continue for 0.8 miles past the cemetery
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">3.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
                     Turn left onto Horton Road
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">4.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
                     The Anchor is 0.5 miles on your left
                   </li>
                 </ol>
@@ -219,19 +219,19 @@ export default function BedfontPubPage() {
                 <h3 className="font-bold text-xl mb-4">From West Bedfont</h3>
                 <ol className="space-y-3">
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">1.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
                     Take Bedfont Road heading south
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">2.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
                     Turn left onto Staines Road
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">3.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
                     After 0.3 miles, turn left onto Horton Road
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">4.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
                     The Anchor is on your left with parking
                   </li>
                 </ol>
@@ -239,7 +239,7 @@ export default function BedfontPubPage() {
             </div>
 
             <div className="mt-8 p-6 card-dark rounded-none">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-3">From Bedfont Lakes Business Park</h3>
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-3">From Bedfont Lakes Business Park</h3>
               <p className="text-anchor-cream-text/70">
                 Just 7 minutes via Bedfont Road and Staines Road. Perfect for lunch meetings, after-work drinks, 
                 or team celebrations. We offer reserved areas for corporate groups.
@@ -250,15 +250,15 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Local Features */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Perfect for Bedfont Locals"
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
-                <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Family Gatherings</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
+                <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Family Gatherings</h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   The go-to venue for Bedfont family celebrations
                 </p>
@@ -269,8 +269,8 @@ export default function BedfontPubPage() {
                   <li>• Birthday party packages</li>
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
-                <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Local Groups Welcome</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
+                <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Local Groups Welcome</h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   Home to many Bedfont clubs and societies
                 </p>
@@ -284,7 +284,7 @@ export default function BedfontPubPage() {
             </div>
 
             <div className="mt-8 text-center">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Weekly Highlights for Bedfont</h3>
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Weekly Highlights for Bedfont</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="card-dark rounded-none p-4">
                   <p className="font-bold">Tuesday</p>
@@ -305,7 +305,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -330,7 +330,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -357,7 +357,7 @@ export default function BedfontPubPage() {
             answer: "Yes! We're very popular with workers from Bedfont Lakes Business Park. We offer versatile venue spaces for corporate events, team meetings, and celebrations. With comprehensive catering options and our preferred vendor network, we're perfect for business functions. Just 7 minutes away with free parking."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

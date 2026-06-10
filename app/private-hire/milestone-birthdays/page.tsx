@@ -103,7 +103,7 @@ export default async function MilestoneBirthdaysPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
@@ -116,7 +116,7 @@ export default async function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -131,7 +131,7 @@ export default async function MilestoneBirthdaysPage() {
                                     title: "Entertainment Ready",
                                     description: "Space for DJs or live singers to get the party started.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -139,7 +139,7 @@ export default async function MilestoneBirthdaysPage() {
                                     title: "Hearty Buffets",
                                     description: "Keep your guests fuelled with finger food, sliders, or pizza buffets.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -147,7 +147,7 @@ export default async function MilestoneBirthdaysPage() {
                                     title: "Easy Access",
                                     description: "Free parking for drivers and tons of Uber availability for the drinkers.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -157,67 +157,67 @@ export default async function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl font-bold text-center mb-12 text-anchor-cream-text">Choose Your Party Style</h2>
 
                         <div className="grid md:grid-cols-3 gap-6">
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-green-raised">
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Garden Party</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Perfect for summer birthdays. Reserve an area of our beer garden, order a BBQ buffet, and enjoy the sunshine.</p>
-                                <span className="text-sm font-semibold text-anchor-gold-vivid">Great for 21sts & 30ths</span>
+                                <span className="text-sm font-semibold text-anchor-gold-bright">Great for 21sts & 30ths</span>
                             </div>
 
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-green-raised">
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Big Bash</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Hire our main function area. Clear the tables for a dance floor, set up a DJ, and party until late(ish).</p>
-                                <span className="text-sm font-semibold text-anchor-gold-vivid">Best for 40ths & 50ths</span>
+                                <span className="text-sm font-semibold text-anchor-gold-bright">Best for 40ths & 50ths</span>
                             </div>
 
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-green-raised">
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Dinner Party</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Sit-down meal with 10-20 of your closest friends. Pre-order from our main menu or set menus available.</p>
-                                <span className="text-sm font-semibold text-anchor-gold-vivid">Perfect for 60ths+</span>
+                                <span className="text-sm font-semibold text-anchor-gold-bright">Perfect for 60ths+</span>
                             </div>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold text-center mb-8 text-anchor-cream-text">Birthday Party Venue by Age</h2>
                         <div className="space-y-8">
                             <div className="space-y-3">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">21st Birthday Venue</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright">21st Birthday Venue</h3>
                                 <p className="text-anchor-cream-text/70">
                                     A 21st is the first big one worth celebrating properly. Our beer garden works brilliantly for summer 21sts — reserve an area, order a buffet, and let the evening unfold naturally. Strict ID policies apply, but the vibe is relaxed. Most 21sts here run 15&ndash;30 guests with a finger buffet and a bar tab.
                                 </p>
                             </div>
                             <div className="space-y-3">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">30th Birthday Party Venue Near Heathrow</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright">30th Birthday Party Venue Near Heathrow</h3>
                                 <p className="text-anchor-cream-text/70">
-                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No minimum spend means your budget goes on exactly what you want — food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">30th birthday party ideas</Link> for inspiration.
+                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No minimum spend means your budget goes on exactly what you want — food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">30th birthday party ideas</Link> for inspiration.
                                 </p>
                             </div>
                             <div className="space-y-3">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">40th Birthday Party Venue</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright">40th Birthday Party Venue</h3>
                                 <p className="text-anchor-cream-text/70">
-                                    The big four-oh is when parties get good — people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">40th birthday party ideas</Link> guide.
+                                    The big four-oh is when parties get good — people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">40th birthday party ideas</Link> guide.
                                 </p>
                             </div>
                             <div className="space-y-3">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">50th Birthday Party Venue Near Staines</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright">50th Birthday Party Venue Near Staines</h3>
                                 <p className="text-anchor-cream-text/70">
-                                    Half a century calls for a proper celebration. Our 50th birthday parties often start with afternoon tea or a sit-down dinner, then transition to an evening party with music and drinks. The dining room works well for a more elegant feel, with French doors opening onto the garden in warmer months. Browse our <Link href="/blog/50th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">50th birthday party ideas</Link> for more.
+                                    Half a century calls for a proper celebration. Our 50th birthday parties often start with afternoon tea or a sit-down dinner, then transition to an evening party with music and drinks. The dining room works well for a more elegant feel, with French doors opening onto the garden in warmer months. Browse our <Link href="/blog/50th-birthday-party-ideas-venues" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">50th birthday party ideas</Link> for more.
                                 </p>
                             </div>
                             <div className="space-y-3">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">60th &amp; Beyond</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright">60th &amp; Beyond</h3>
                                 <p className="text-anchor-cream-text/70">
-                                    60th, 70th, and 80th birthdays tend to be more intimate — a long table, a great meal, and the people who matter most. We can set a private dining area for 10&ndash;20 guests with a set menu or à la carte service. The atmosphere is warm without being fussy, and there&apos;s no pressure to rush. See our <Link href="/blog/60th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">60th birthday party ideas</Link>.
+                                    60th, 70th, and 80th birthdays tend to be more intimate — a long table, a great meal, and the people who matter most. We can set a private dining area for 10&ndash;20 guests with a set menu or à la carte service. The atmosphere is warm without being fussy, and there&apos;s no pressure to rush. See our <Link href="/blog/60th-birthday-party-ideas-venues" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">60th birthday party ideas</Link>.
                                 </p>
                             </div>
                         </div>
@@ -225,7 +225,7 @@ export default async function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable
@@ -238,7 +238,7 @@ export default async function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="card-dark rounded-none p-8 max-w-3xl mx-auto text-center">
                         <h3 className="text-2xl font-bold mb-4 text-anchor-cream-text">Planning a Surprise Party?</h3>
@@ -250,7 +250,7 @@ export default async function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70">
@@ -281,7 +281,7 @@ export default async function MilestoneBirthdaysPage() {
                         answer: "Yes, you are usually welcome to arrive 30-60 minutes before your guests to set up balloons, cakes, and decorations."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
         </>
     )

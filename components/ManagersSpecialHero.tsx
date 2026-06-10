@@ -108,7 +108,7 @@ export function ManagersSpecialHero() {
                 <div className="flex flex-wrap gap-4 items-center">
                   <Button 
                     size="lg"
-                    className="bg-anchor-gold text-anchor-charcoal hover:bg-anchor-gold-light"
+                    className="bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold"
                     asChild
                   >
                     <Link href="/drinks/managers-special">

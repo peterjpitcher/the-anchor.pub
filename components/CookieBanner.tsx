@@ -68,7 +68,7 @@ export default function CookieBanner() {
   return (
     <>
       {/* Main Banner - Mobile-optimized with collapsible design */}
-      <div className="fixed bottom-0 left-0 right-0 bg-anchor-bg-card border-t border-anchor-gold/20 shadow-[0_-18px_50px_rgba(0,0,0,0.45)] z-[80] animate-slide-up safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 bg-anchor-green-card border-t border-anchor-gold-dark/20 shadow-[0_-18px_50px_rgba(0,0,0,0.45)] z-[80] animate-slide-up safe-area-inset-bottom">
         <div className="max-w-7xl mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
           {/* Mobile: Compact single-line design */}
           <div className="sm:hidden">
@@ -118,7 +118,7 @@ export default function CookieBanner() {
               <p className="font-medium">We value your privacy</p>
               <p className="text-xs mt-1 text-anchor-cream-text/65">
                 We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
-                <Link href="/privacy-policy" className="underline hover:text-anchor-gold">
+                <Link href="/privacy-policy" className="underline hover:text-anchor-gold-dark">
                   Read our privacy policy
                 </Link>
               </p>
@@ -162,12 +162,12 @@ export default function CookieBanner() {
       {/* Preferences Modal */}
       {showPreferences && (
         <div className="fixed inset-0 bg-black/70 z-[90] flex items-end sm:items-center justify-center sm:p-4">
-          <div className="bg-anchor-bg-card border border-anchor-gold/30 rounded-t-lg sm:rounded-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
-            <div className="sticky top-0 bg-anchor-bg-card border-b border-anchor-gold/20 p-4 sm:p-6 flex items-center justify-between">
+          <div className="bg-anchor-green-card border border-anchor-gold-dark/30 rounded-t-lg sm:rounded-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
+            <div className="sticky top-0 bg-anchor-green-card border-b border-anchor-gold-dark/20 p-4 sm:p-6 flex items-center justify-between">
               <h2 className="text-lg sm:text-2xl font-bold text-anchor-cream-text">Cookie Preferences</h2>
               <button
                 onClick={() => setShowPreferences(false)}
-                className="p-2 text-anchor-cream-text/60 hover:text-anchor-cream-text hover:bg-anchor-bg-raised rounded-lg transition-colors"
+                className="p-2 text-anchor-cream-text/60 hover:text-anchor-cream-text hover:bg-anchor-green-raised rounded-lg transition-colors"
                 aria-label="Close preferences"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,9 +178,9 @@ export default function CookieBanner() {
             <div className="p-4 sm:p-6">
               <div className="space-y-4 sm:space-y-6">
                 {/* Necessary Cookies - Always enabled */}
-                <div className="border-b border-anchor-gold/20 pb-4">
+                <div className="border-b border-anchor-gold-dark/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-anchor-gold-vivid">Necessary Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-bright">Necessary Cookies</h3>
                     <span className="text-sm text-anchor-cream-text/50">Always Enabled</span>
                   </div>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -189,9 +189,9 @@ export default function CookieBanner() {
                 </div>
 
                 {/* Analytics Cookies */}
-                <div className="border-b border-anchor-gold/20 pb-4">
+                <div className="border-b border-anchor-gold-dark/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-anchor-gold-vivid">Analytics Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-bright">Analytics Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -199,7 +199,7 @@ export default function CookieBanner() {
                         onChange={(e) => setConsent(prev => ({ ...prev!, analytics: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
+                      <div className="w-11 h-6 bg-anchor-green-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold-dark rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-bright"></div>
                     </label>
                   </div>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -208,9 +208,9 @@ export default function CookieBanner() {
                 </div>
 
                 {/* Marketing Cookies */}
-                <div className="border-b border-anchor-gold/20 pb-4">
+                <div className="border-b border-anchor-gold-dark/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-anchor-gold-vivid">Marketing Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-bright">Marketing Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -218,7 +218,7 @@ export default function CookieBanner() {
                         onChange={(e) => setConsent(prev => ({ ...prev!, marketing: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
+                      <div className="w-11 h-6 bg-anchor-green-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold-dark rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-bright"></div>
                     </label>
                   </div>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -229,7 +229,7 @@ export default function CookieBanner() {
                 {/* Preference Cookies */}
                 <div className="pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-anchor-gold-vivid">Preference Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-bright">Preference Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -237,7 +237,7 @@ export default function CookieBanner() {
                         onChange={(e) => setConsent(prev => ({ ...prev!, preferences: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
+                      <div className="w-11 h-6 bg-anchor-green-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold-dark rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-bright"></div>
                     </label>
                   </div>
                   <p className="text-sm text-anchor-cream-text/70">

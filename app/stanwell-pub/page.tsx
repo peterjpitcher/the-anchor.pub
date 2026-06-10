@@ -119,14 +119,14 @@ export default function StanwellPubPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -146,7 +146,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -162,24 +162,24 @@ export default function StanwellPubPage() {
                   title: "Village Heart",
                   description: "The social hub of Stanwell Moor, where locals gather daily",
                   variant: "colored",
-                  color: "bg-anchor-bg-card",
-                  className: "rounded-none p-6 text-center border border-anchor-gold/15"
+                  color: "bg-anchor-green-card",
+                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
                   title: "Traditional Values",
                   description: "Proper British pub with draught beers and honest food",
                   variant: "colored",
-                  color: "bg-anchor-bg-card",
-                  className: "rounded-none p-6 text-center border border-anchor-gold/15"
+                  color: "bg-anchor-green-card",
+                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "‍‍‍",
                   title: "Family Friendly",
                   description: "Children and dogs always welcome in our community pub",
                   variant: "colored",
-                  color: "bg-anchor-bg-card",
-                  className: "rounded-none p-6 text-center border border-anchor-gold/15"
+                  color: "bg-anchor-green-card",
+                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 }
               ]}
               className="mb-8"
@@ -189,7 +189,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Why Stanwell Residents Choose Us */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -198,28 +198,28 @@ export default function StanwellPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Your Nearest Traditional Pub</h3>
+                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Your Nearest Traditional Pub</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Walking distance from Stanwell Village</strong> - Just a pleasant stroll through Stanwell Moor
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Free parking for 20 cars</strong> - Never worry about parking charges
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Dog-friendly throughout</strong> - Bring your four-legged friends
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Large beer garden</strong> - Perfect for Stanwell's sunny days
                     </div>
@@ -228,28 +228,28 @@ export default function StanwellPubPage() {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Community Events & Activities</h3>
+                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Community Events & Activities</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Monthly Quiz Nights</strong> - Test your knowledge with fellow Stanwell residents
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Pool & Darts</strong> - Join our local leagues or play casually
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Stone-baked pizzas</strong> - Stanwell's favourite midweek treat
                     </div>
@@ -258,7 +258,7 @@ export default function StanwellPubPage() {
               </div>
             </div>
 
-	            <div className="mt-8 bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center">
+	            <div className="mt-8 bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center">
 	              <p className="text-lg text-anchor-cream-text/70">
 	                <span className="font-bold text-anchor-cream-text">Outside ULEZ Zone</span> - Perfect for visitors from
 	                London without the £12.50 daily charge
@@ -269,7 +269,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Local Favourites */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -278,7 +278,7 @@ export default function StanwellPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Famous Sunday Roasts</h3>
                 <p className="text-anchor-cream-text/70 mb-3">
                   The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
                 </p>
@@ -289,11 +289,11 @@ export default function StanwellPubPage() {
 	                  <li>• Beetroot &amp; Butternut Squash Wellington (VG) - £20</li>
 	                  <li>• Kids Roast - £14</li>
 	                </ul>
-                <p className="mt-3 text-sm text-anchor-gold">Book ahead for peak slots - walk-ins are welcome.</p>
+                <p className="mt-3 text-sm text-anchor-gold-dark">Book ahead for peak slots - walk-ins are welcome.</p>
               </div>
 
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Weekday Favourites</h3>
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Weekday Favourites</h3>
                 <p className="text-anchor-cream-text/70 mb-3">Classic British pub fare loved by Stanwell residents</p>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Fish & Chips Fridays</li>
@@ -301,7 +301,7 @@ export default function StanwellPubPage() {
                   <li>• Chicken Katsu Curry</li>
                   <li>• Stone-baked Pizzas</li>
                 </ul>
-                <div className="mt-3 text-sm text-anchor-gold"><BusinessHours showKitchen={true} /></div>
+                <div className="mt-3 text-sm text-anchor-gold-dark"><BusinessHours showKitchen={true} /></div>
               </div>
             </div>
 
@@ -317,7 +317,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Location & Directions */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -329,23 +329,23 @@ export default function StanwellPubPage() {
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">From Stanwell Village</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">1.</span>
+                    <span className="font-bold text-anchor-gold-dark">1.</span>
                     <span className="text-anchor-cream-text/70">Head north on Oaks Road from the village centre</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">2.</span>
+                    <span className="font-bold text-anchor-gold-dark">2.</span>
                     <span className="text-anchor-cream-text/70">Turn left onto Stanwell Moor Road</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">3.</span>
+                    <span className="font-bold text-anchor-gold-dark">3.</span>
                     <span className="text-anchor-cream-text/70">Continue for about half a mile</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">4.</span>
+                    <span className="font-bold text-anchor-gold-dark">4.</span>
                     <span className="text-anchor-cream-text/70">Turn right onto Horton Road</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">5.</span>
+                    <span className="font-bold text-anchor-gold-dark">5.</span>
                     <span className="text-anchor-cream-text/70">The Anchor is on your right with free parking</span>
                   </li>
                 </ol>
@@ -365,8 +365,8 @@ export default function StanwellPubPage() {
                     <p className="font-semibold text-anchor-cream-text mb-2">Walking from Stanwell</p>
                     <p className="text-anchor-cream-text/70">Pleasant 20-minute walk through residential areas. Popular route for dog walkers!</p>
                   </div>
-                  <div className="pt-4 border-t border-anchor-gold/15">
-                    <p className="font-semibold text-anchor-gold-vivid">Eco-Friendly Route</p>
+                  <div className="pt-4 border-t border-anchor-gold-dark/15">
+                    <p className="font-semibold text-anchor-gold-bright">Eco-Friendly Route</p>
                     <p className="text-anchor-cream-text/70">Outside ULEZ zone - no charges for any vehicles</p>
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Stanwell Community */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -428,7 +428,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Stanwell Heritage & Walking */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -464,7 +464,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
@@ -506,7 +506,7 @@ export default function StanwellPubPage() {
             answer: "All our regular offers are available to everyone! This includes our famous Sunday roasts and stone-baked pizzas. We're Stanwell's local, so all locals are treated like family!"
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

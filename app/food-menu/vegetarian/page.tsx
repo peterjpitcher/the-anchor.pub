@@ -102,7 +102,7 @@ export default async function VegetarianMenuPage() {
         showContextStrip={true}
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -123,13 +123,13 @@ export default async function VegetarianMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep">
         <Container>
           <DietaryMenuNav />
         </Container>
       </Section>
 
-      <div id="menu" className="section-spacing bg-anchor-bg">
+      <div id="menu" className="section-spacing bg-anchor-green-deep">
         <Container>
           <SectionHeader
             title="Current Vegetarian Menu"
@@ -150,7 +150,7 @@ export default async function VegetarianMenuPage() {
         )}
       </div>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -195,7 +195,7 @@ export default async function VegetarianMenuPage() {
         />
       </div>
 
-      <Section background="gray" spacing="md" className="bg-anchor-bg">
+      <Section background="gray" spacing="md" className="bg-anchor-green-deep">
         <Container>
           <Alert
             variant="warning"
@@ -209,7 +209,7 @@ export default async function VegetarianMenuPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema faqs={faqItems} className="bg-anchor-bg-card" />
+      <FAQAccordionWithSchema faqs={faqItems} className="bg-anchor-green-card" />
 
       <script
         type="application/ld+json"
@@ -226,21 +226,21 @@ export default async function VegetarianMenuPage() {
         }}
       />
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-6">Explore More</h2>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/food-menu" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
                 Full Food Menu
               </Link>
-              <Link href="/food-menu/vegan" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu/vegan" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
                 Vegan Menu
               </Link>
-              <Link href="/food-menu/gluten-free" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu/gluten-free" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
                 Gluten-Free Menu
               </Link>
-              <Link href="/book-table" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/book-table" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
                 Book a Table
               </Link>
             </div>

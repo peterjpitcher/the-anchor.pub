@@ -11,14 +11,14 @@ export function VenueSpacesTable({ spaces }: VenueSpacesTableProps): JSX.Element
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="border-b border-anchor-gold/30">
-            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Space</th>
-            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Seated</th>
-            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Standing</th>
-            <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-vivid">Rate</th>
+          <tr className="border-b border-anchor-gold-dark/30">
+            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Space</th>
+            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Seated</th>
+            <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Standing</th>
+            <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-bright">Rate</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-anchor-gold/10">
+        <tbody className="divide-y divide-anchor-gold-dark/10">
           {spaces.map((space) => (
             <tr key={space.id}>
               <td className="py-3 pr-4 text-anchor-cream-text font-medium">{space.name}</td>

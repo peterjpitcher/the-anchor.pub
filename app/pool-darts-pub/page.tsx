@@ -40,10 +40,10 @@ export default function PoolAndDartsPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-vivid mb-4">
+                        <PageTitle className="text-anchor-gold-bright mb-4">
                             A Pub with Pool Table, Darts & Great Beer
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70 mb-4">
@@ -56,7 +56,7 @@ export default function PoolAndDartsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -65,12 +65,12 @@ export default function PoolAndDartsPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
+                            <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
                                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Pool Table</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     A quality table with a level surface, re-covered regularly so the cloth plays true. No dead spots, no dodgy cushions. Just a clean game with yellow and red balls.
                                 </p>
-                                <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
+                                <ul className="text-left space-y-2 text-sm bg-anchor-green-raised p-4 rounded-lg">
                                     <li className="flex items-center">Full set of yellows &amp; reds</li>
                                     <li className="flex items-center">Quality cues provided</li>
                                     <li className="flex items-center">£1 per game (coin-operated)</li>
@@ -78,12 +78,12 @@ export default function PoolAndDartsPage() {
                                 </ul>
                             </div>
 
-                            <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
+                            <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
                                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Darts</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     A dartboard with a proper throw area — not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
                                 </p>
-                                <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
+                                <ul className="text-left space-y-2 text-sm bg-anchor-green-raised p-4 rounded-lg">
                                     <li className="flex items-center">Dartboard with clear throw area</li>
                                     <li className="flex items-center">Darts provided (or bring your own)</li>
                                     <li className="flex items-center">Upgrade coming 2026: pro board, electronic scorer &amp; lighting</li>
@@ -95,7 +95,7 @@ export default function PoolAndDartsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg">
+            <section className="section-spacing bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -112,7 +112,7 @@ export default function PoolAndDartsPage() {
                             </p>
 
                             <div className="grid md:grid-cols-2 gap-6 my-8 not-prose">
-                                <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
+                                <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
                                     <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Getting Here</h3>
                                     <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                                         <li>7 minutes from Heathrow Terminal 5</li>
@@ -121,7 +121,7 @@ export default function PoolAndDartsPage() {
                                     </ul>
                                 </div>
 
-                                <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
+                                <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
                                     <h3 className="text-lg font-bold text-anchor-cream-text mb-3">When to Visit</h3>
                                     <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                                         <li>Tuesday – Thursday: 4pm – 11pm</li>
@@ -136,7 +136,7 @@ export default function PoolAndDartsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -183,7 +183,7 @@ export default function PoolAndDartsPage() {
                         answer: "Not yet, but we'd love to start one. We're looking for a captain to pull a team together for either pool or darts. If that's you, ask at the bar or call us on 01753 682707."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

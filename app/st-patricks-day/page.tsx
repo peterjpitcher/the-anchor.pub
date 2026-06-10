@@ -124,27 +124,27 @@ export default function StPatricksDayPage(): React.JSX.Element {
               If you&apos;re planning to eat, we&apos;d recommend booking a table in advance. Walk-ins are
               always welcome for drinks, but the kitchen gets busy on St Patrick&apos;s Day.
             </p>
-            <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse our regular menus</h3>
+            <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our regular menus</h3>
               <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                 Take a look at our{' '}
                 <Link
                   href="/food-menu"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   food menu
                 </Link>
                 ,{' '}
                 <Link
                   href="/pizza-menu"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   pizza menu
                 </Link>{' '}
                 and{' '}
                 <Link
                   href="/drinks"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   drinks menu
                 </Link>
@@ -175,7 +175,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             <div className="grid gap-4 sm:grid-cols-2">
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Free parking</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     20 free spaces on site. No meters, no charges. Designated drivers and taxi-home plans both welcome.
                   </p>
@@ -183,7 +183,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
               </Card>
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Dog-friendly</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Well-behaved dogs are welcome inside the pub. Bring them along for the craic.
                   </p>
@@ -212,7 +212,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </p>
             <Link
               href="/near-heathrow/terminal-5"
-              className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+              className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
             >
               More about The Anchor near Heathrow Terminal 5
               <span className="ml-1">&rarr;</span>
@@ -265,7 +265,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
                 <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -290,7 +290,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="St Patrick's Day FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="St Patrick's Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

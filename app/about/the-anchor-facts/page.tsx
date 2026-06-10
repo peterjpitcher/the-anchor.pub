@@ -143,10 +143,10 @@ export default function AnchorFactsPage() {
         showContextStrip={true}
       />
 
-      <Section background="dark" spacing="lg" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-vivid">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-bright">
               Source of truth
             </p>
             <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
@@ -170,12 +170,12 @@ export default function AnchorFactsPage() {
         </Container>
       </Section>
 
-      <Section background="dark" spacing="lg" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="lg" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <dl className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
             {primaryFacts.map(([label, value]) => (
-              <div key={label} className="rounded-md border border-anchor-gold/15 bg-anchor-bg-card p-5">
-                <dt className="text-sm font-semibold uppercase tracking-[0.16em] text-anchor-gold-vivid">
+              <div key={label} className="rounded-md border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
+                <dt className="text-sm font-semibold uppercase tracking-[0.16em] text-anchor-gold-bright">
                   {label}
                 </dt>
                 <dd className="mt-2 text-base leading-relaxed text-anchor-cream-text/75">
@@ -187,7 +187,7 @@ export default function AnchorFactsPage() {
         </Container>
       </Section>
 
-      <Section background="dark" spacing="lg" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             <div>
@@ -195,7 +195,7 @@ export default function AnchorFactsPage() {
               <ul className="mt-5 space-y-3">
                 {keyLinks.map(([label, href]) => (
                   <li key={href}>
-                    <Link href={href} className="font-semibold text-anchor-gold-vivid underline underline-offset-4 hover:text-anchor-gold">
+                    <Link href={href} className="font-semibold text-anchor-gold-bright underline underline-offset-4 hover:text-anchor-gold-dark">
                       {label}
                     </Link>
                   </li>
@@ -207,7 +207,7 @@ export default function AnchorFactsPage() {
               <ul className="mt-5 space-y-3">
                 {socialLinks.map(([label, href]) => (
                   <li key={href}>
-                    <a href={href} className="font-semibold text-anchor-gold-vivid underline underline-offset-4 hover:text-anchor-gold">
+                    <a href={href} className="font-semibold text-anchor-gold-bright underline underline-offset-4 hover:text-anchor-gold-dark">
                       {label}
                     </a>
                   </li>

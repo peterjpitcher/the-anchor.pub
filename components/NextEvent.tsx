@@ -65,11 +65,11 @@ export function NextEvent() {
   if (error || !nextEvent) {
     return (
       <div className="text-center py-8">
-        <div className="bg-anchor-bg-raised rounded-none p-8 max-w-md mx-auto">
+        <div className="bg-anchor-green-raised rounded-none p-8 max-w-md mx-auto">
           <p className="text-anchor-cream-text/70 text-lg mb-4">
             {error || 'No upcoming events at the moment'}
           </p>
-          <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold inline-flex items-center gap-2">
+          <Link href="/whats-on" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold inline-flex items-center gap-2">
             Check our events calendar
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -107,12 +107,12 @@ export function NextEvent() {
         <div className="p-8">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="text-3xl font-bold text-anchor-gold-vivid mb-2">{nextEvent.name}</h3>
-              <p className="text-xl text-anchor-gold font-medium">{eventTime}</p>
+              <h3 className="text-3xl font-bold text-anchor-gold-bright mb-2">{nextEvent.name}</h3>
+              <p className="text-xl text-anchor-gold-dark font-medium">{eventTime}</p>
             </div>
             {nextEvent.offers && (
               <div className="text-right">
-	                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-anchor-gold-vivid" : "text-anchor-gold"}`}>
+	                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-anchor-gold-bright" : "text-anchor-gold-dark"}`}>
 	                  {nextEvent.offers.price === "0"
 	                    ? "FREE TICKETS - Book while they're available"
 	                    : formatPrice(nextEvent.offers.price, nextEvent.offers.priceCurrency)}
@@ -131,7 +131,7 @@ export function NextEvent() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link 
               href={link}
-              className="inline-flex items-center justify-center px-6 py-3 bg-anchor-gold text-white font-semibold rounded-full hover:bg-anchor-gold-light transition-colors gap-2"
+              className="inline-flex items-center justify-center px-6 py-3 bg-anchor-gold-dark text-white font-semibold rounded-full hover:bg-anchor-gold transition-colors gap-2"
             >
               View {nextEvent.name} Details
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -141,7 +141,7 @@ export function NextEvent() {
             
             <Link 
               href="/whats-on"
-              className="inline-flex items-center justify-center px-6 py-3 bg-transparent text-anchor-gold font-semibold rounded-full border-2 border-anchor-gold hover:bg-anchor-gold hover:text-anchor-charcoal transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 bg-transparent text-anchor-gold-dark font-semibold rounded-full border-2 border-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-anchor-charcoal transition-colors"
             >
               View All Events
             </Link>

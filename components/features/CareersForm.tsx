@@ -254,10 +254,10 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
   // --- Success state ---
   if (success) {
     return (
-      <Card variant="elevated" className="bg-anchor-bg-card border border-anchor-gold/20">
+      <Card variant="elevated" className="bg-anchor-green-card border border-anchor-gold-dark/20">
         <CardBody>
           <div className="text-center py-8 space-y-4">
-            <h3 className="text-xl font-semibold text-anchor-gold-vivid">
+            <h3 className="text-xl font-semibold text-anchor-gold-bright">
               Application sent
             </h3>
             <p className="text-anchor-cream-text/80 max-w-md mx-auto">
@@ -283,7 +283,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
 
   // --- Form state ---
   return (
-    <Card variant="elevated" className="bg-anchor-bg-card border border-anchor-gold/20">
+    <Card variant="elevated" className="bg-anchor-green-card border border-anchor-gold-dark/20">
       <CardBody>
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
           {/* Name, email, phone */}
@@ -410,7 +410,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
               accept={CAREERS_CV_ALLOWED_EXTENSIONS.join(',')}
               onChange={handleFileChange}
               disabled={loading}
-              className="block w-full text-sm text-anchor-cream-text/80 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-anchor-gold/20 file:text-anchor-gold-vivid hover:file:bg-anchor-gold/30 file:cursor-pointer file:transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="block w-full text-sm text-anchor-cream-text/80 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-anchor-gold-dark/20 file:text-anchor-gold-bright hover:file:bg-anchor-gold-dark/30 file:cursor-pointer file:transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               aria-describedby={
                 fieldErrors.cv ? 'careers-cv-error' : 'careers-cv-help'
               }
@@ -440,7 +440,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
                     trackInteraction()
                   }}
                   disabled={loading}
-                  className="rounded border-gray-300 text-anchor-gold focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-5 h-5"
+                  className="rounded border-gray-300 text-anchor-gold-dark focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer w-5 h-5"
                   aria-invalid={!!fieldErrors.consent}
                   aria-describedby={
                     fieldErrors.consent ? 'careers-consent-error' : undefined
@@ -456,7 +456,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
                   recruitment purposes. See our{' '}
                   <Link
                     href="/privacy-policy"
-                    className="text-anchor-gold-vivid underline hover:text-anchor-gold"
+                    className="text-anchor-gold-bright underline hover:text-anchor-gold-dark"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

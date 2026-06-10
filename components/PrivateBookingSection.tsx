@@ -17,12 +17,12 @@ export function PrivateBookingSection({
 }: PrivateBookingSectionProps) {
   return (
     <>
-      <section id={id} className="border-y py-12 bg-anchor-bg-raised border-anchor-gold/15" data-sticky-cta-guard="true">
+      <section id={id} className="border-y py-12 bg-anchor-green-raised border-anchor-gold-dark/15" data-sticky-cta-guard="true">
         <Container size="md">
           <SectionHeader title={title} subtitle={subtitle} />
           <p className="text-center text-sm text-anchor-cream-text/60 -mt-4 mb-6">
             Want to see the space first?{' '}
-            <Link href="/our-pub" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
+            <Link href="/our-pub" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
               View photos of our pub &rarr;
             </Link>
           </p>

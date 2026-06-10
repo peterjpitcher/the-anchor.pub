@@ -110,7 +110,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
       title: `${event.name} is almost here`,
       message: `Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Book early to get your preferred time.`,
       tone: 'light' as BannerTone,
-      backgroundClass: 'bg-anchor-gold text-anchor-charcoal'
+      backgroundClass: 'bg-anchor-gold-dark text-anchor-charcoal'
     }
   }
 

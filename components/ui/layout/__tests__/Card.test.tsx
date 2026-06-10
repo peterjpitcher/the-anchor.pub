@@ -18,14 +18,14 @@ describe('Card', () => {
         <CardBody>Default</CardBody>
       </Card>
     )
-    expect(screen.getByTestId('card')).toHaveClass('border', 'border-anchor-gold/20')
+    expect(screen.getByTestId('card')).toHaveClass('border', 'border-anchor-gold-dark/20')
     
     rerender(
       <Card variant="outlined" testId="card">
         <CardBody>Outlined</CardBody>
       </Card>
     )
-    expect(screen.getByTestId('card')).toHaveClass('border-2', 'border-anchor-gold/40')
+    expect(screen.getByTestId('card')).toHaveClass('border-2', 'border-anchor-gold-dark/40')
     
     rerender(
       <Card variant="elevated" testId="card">
@@ -111,7 +111,7 @@ describe('CardHeader', () => {
     render(<CardHeader>Header</CardHeader>)
     
     const header = screen.getByText('Header')
-    expect(header).toHaveClass('border-b', 'border-anchor-gold/15')
+    expect(header).toHaveClass('border-b', 'border-anchor-gold-dark/15')
   })
 
   it('applies custom className', () => {
@@ -171,7 +171,7 @@ describe('CardFooter', () => {
     render(<CardFooter>Footer</CardFooter>)
     
     const footer = screen.getByText('Footer')
-    expect(footer).toHaveClass('border-t', 'border-anchor-gold/15')
+    expect(footer).toHaveClass('border-t', 'border-anchor-gold-dark/15')
   })
 
   it('applies custom className', () => {

@@ -133,7 +133,7 @@ export default function HistoryPage(): React.JSX.Element {
       />
 
       {/* Intro */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -170,7 +170,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* Auctions, Blacksmiths and Working Village Life */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -203,7 +203,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* The Publicans of The Anchor */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -212,7 +212,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-2xl mx-auto mb-10">
-              <div className="relative w-full overflow-hidden border border-anchor-gold/20">
+              <div className="relative w-full overflow-hidden border border-anchor-gold-dark/20">
                 <Image
                   src="/images/history/the-anchor-c1910.png"
                   alt="The Anchor, Stanwell Moor, around 1910 — the brick pub with Isleworth Brewery 'Ales and Stout' signage and a group of villagers gathered outside the entrance"
@@ -285,7 +285,7 @@ export default function HistoryPage(): React.JSX.Element {
                   { year: '2019–', event: 'Billy and Peter take over The Anchor' },
                 ].map((item) => (
                   <div key={item.year} className="flex gap-4 items-baseline">
-                    <span className="text-anchor-gold-vivid font-bold text-sm whitespace-nowrap min-w-[100px] text-right">
+                    <span className="text-anchor-gold-bright font-bold text-sm whitespace-nowrap min-w-[100px] text-right">
                       {item.year}
                     </span>
                     <span className="text-anchor-cream-text/80">
@@ -300,7 +300,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* Sarah Cooper and Family Memory */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -361,7 +361,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* The Eeles Family */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -410,7 +410,7 @@ export default function HistoryPage(): React.JSX.Element {
               </div>
 
               <div className="mt-8 md:mt-0 md:w-[420px] flex-shrink-0">
-                <div className="relative aspect-[4/3] w-full overflow-hidden border border-anchor-gold/20">
+                <div className="relative aspect-[4/3] w-full overflow-hidden border border-anchor-gold-dark/20">
                   <Image
                     src="/images/history/lal-and-charlie-eeles.jpg"
                     alt="Lal and Charlie Eeles behind the bar at The Anchor, Stanwell Moor, with Watney's Special Mild, Carlsberg and Ben Truman visible on the pumps"
@@ -429,7 +429,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* Lal's Prayer */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader
@@ -438,7 +438,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-xl mx-auto">
-              <div className="relative w-full overflow-hidden border border-anchor-gold/20">
+              <div className="relative w-full overflow-hidden border border-anchor-gold-dark/20">
                 <Image
                   src="/images/history/lals-prayer-handwritten.png"
                   alt="The original handwritten manuscript of Lal's Prayer by Lal Eeles, landlady of The Anchor"
@@ -501,7 +501,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* The Anchor in the 1950s and Changing Village */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -537,7 +537,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* The Anchor Today */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -546,7 +546,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-xs mx-auto mb-10">
-              <div className="relative aspect-square w-full overflow-hidden border border-anchor-gold/20">
+              <div className="relative aspect-square w-full overflow-hidden border border-anchor-gold-dark/20">
                 <Image
                   src="/images/history/handover-day-2019.jpg"
                   alt="Handover day at The Anchor, 5 March 2019 — Martine and Ronnie's last drink and Billy and Peter's first"
@@ -565,15 +565,15 @@ export default function HistoryPage(): React.JSX.Element {
               <p>
                 Today, The Anchor has a new identity as a traditional village pub beside
                 Heathrow. It is just{' '}
-                <Link href="/near-heathrow/terminal-5" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/near-heathrow/terminal-5" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   seven minutes from Terminal 5
                 </Link>
                 , with a{' '}
-                <Link href="/beer-garden" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/beer-garden" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   beer garden under the flight path
                 </Link>
                 ,{' '}
-                <Link href="/find-us" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/find-us" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   free parking
                 </Link>
                 {' '}and a warm welcome for locals, travellers, families, dogs and plane
@@ -596,23 +596,23 @@ export default function HistoryPage(): React.JSX.Element {
 
               <p>
                 We have our{' '}
-                <Link href="/quiz-night" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/quiz-night" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   quiz nights
                 </Link>
                 ,{' '}
-                <Link href="/music-bingo" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/music-bingo" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   music bingo
                 </Link>
                 {' '}and{' '}
-                <Link href="/karaoke" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/karaoke" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   karaoke
                 </Link>
                 . The kids play in the garden while the dogs snooze under the tables. The{' '}
-                <Link href="/food-menu" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/food-menu" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   kitchen turns out honest British food
                 </Link>
                 , and on Sundays we serve{' '}
-                <Link href="/sunday-roast" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/sunday-roast" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
                   proper roasts with all the trimmings
                 </Link>
                 . That&apos;s what we&apos;ve been doing since George II was on the
@@ -624,7 +624,7 @@ export default function HistoryPage(): React.JSX.Element {
       </Section>
 
       {/* Share Your Memories */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <SectionHeader
@@ -650,7 +650,7 @@ export default function HistoryPage(): React.JSX.Element {
               </PhoneButton>
               <a
                 href={`mailto:${CONTACT.email}?subject=Memories%20of%20The%20Anchor`}
-                className="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold border border-anchor-gold/30 text-anchor-cream-text hover:bg-anchor-gold/10 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold border border-anchor-gold-dark/30 text-anchor-cream-text hover:bg-anchor-gold-dark/10 transition-colors"
               >
                 Email Your Stories
               </a>
@@ -661,7 +661,7 @@ export default function HistoryPage(): React.JSX.Element {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg-raised"
+        className="bg-anchor-green-raised"
         title="History of The Anchor: Questions & Answers"
         faqs={[
           {

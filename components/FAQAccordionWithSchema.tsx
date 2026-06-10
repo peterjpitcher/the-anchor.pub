@@ -60,7 +60,7 @@ export function FAQAccordionWithSchema({
         />
       )}
       
-      <section className={cn('section-spacing bg-anchor-bg-card', className)}>
+      <section className={cn('section-spacing bg-anchor-green-card', className)}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
@@ -76,7 +76,7 @@ export function FAQAccordionWithSchema({
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-anchor-bg-raised transition-colors focus:outline-none focus:bg-anchor-bg-raised focus:ring-2 focus:ring-anchor-gold focus:ring-inset"
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-anchor-green-raised transition-colors focus:outline-none focus:bg-anchor-green-raised focus:ring-2 focus:ring-anchor-gold-dark focus:ring-inset"
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
@@ -84,7 +84,7 @@ export function FAQAccordionWithSchema({
                       {faq.question}
                     </h3>
                     <svg 
-                      className={`w-5 h-5 text-anchor-gold-vivid flex-shrink-0 transition-transform duration-200 ${
+                      className={`w-5 h-5 text-anchor-gold-bright flex-shrink-0 transition-transform duration-200 ${
                         openIndex === index ? 'transform rotate-180' : ''
                       }`}
                       fill="none"

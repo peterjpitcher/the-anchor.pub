@@ -38,7 +38,7 @@ export function ContactLink({
       <a
         href={phoneNumber === CONTACT_INFO.phone ? CONTACT_INFO.phoneLink : `tel:${phoneNumber.replace(/\s/g, '')}`}
         className={cn(
-          'inline-flex items-center gap-1 text-anchor-gold hover:text-anchor-gold-light transition-colors',
+          'inline-flex items-center gap-1 text-anchor-gold-dark hover:text-anchor-gold transition-colors',
           className
         )}
       >
@@ -54,7 +54,7 @@ export function ContactLink({
         email={email}
         source="contact_link_component"
         className={cn(
-          'inline-flex items-center gap-1 text-anchor-gold hover:text-anchor-gold-light transition-colors',
+          'inline-flex items-center gap-1 text-anchor-gold-dark hover:text-anchor-gold transition-colors',
           className
         )}
         showIcon={showIcon}
@@ -73,7 +73,7 @@ export function ContactLink({
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          'inline-flex items-center gap-1 text-anchor-gold hover:text-anchor-gold-light transition-colors',
+          'inline-flex items-center gap-1 text-anchor-gold-dark hover:text-anchor-gold transition-colors',
           className
         )}
       >

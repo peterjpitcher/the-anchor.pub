@@ -166,15 +166,15 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
               The Anchor gives you a lower-cost alternative while keeping transfer times predictable.
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Typical transfer</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.transferTime} by taxi or rideshare.</p>
               </div>
-              <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Typical taxi fare</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.taxiRange} depending on traffic and time of day.</p>
               </div>
-              <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Anchor postcode</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">TW19 6AQ (Stanwell Moor, Horton Road).</p>
               </div>
@@ -185,7 +185,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
       <Section background="dark" spacing="lg">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 md:p-8">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 md:p-8">
             <h2 className="text-2xl font-bold text-anchor-cream-text">
               Looking for Heathrow Terminal {terminalNumber} parking postcode details?
             </h2>
@@ -224,7 +224,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                 <Link
                   key={slug}
                   href={`/heathrow-parking/${slug}`}
-                  className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 transition-colors hover:border-anchor-gold"
+                  className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 transition-colors hover:border-anchor-gold-dark"
                 >
                   <h3 className="text-lg font-semibold text-anchor-cream-text">
                     Terminal {item.number} parking guide
@@ -242,7 +242,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
       <FAQAccordionWithSchema
         title={`Terminal ${terminalNumber} parking FAQs`}
         faqs={buildFaqs(terminalNumber)}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <OrganicSearchClusterLinks

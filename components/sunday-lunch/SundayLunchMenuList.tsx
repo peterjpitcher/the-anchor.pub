@@ -34,7 +34,7 @@ export interface SundayLunchMenuListProps {
 export function SundayLunchMenuList({ items }: SundayLunchMenuListProps): ReactNode {
   return (
     <ul
-      className="mt-8 mx-auto max-w-3xl divide-y divide-anchor-gold/15 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/40 px-4"
+      className="mt-8 mx-auto max-w-3xl divide-y divide-anchor-gold-dark/15 rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/40 px-4"
       aria-label="Sunday roast menu"
     >
       {items.map((item) => (
@@ -43,12 +43,12 @@ export function SundayLunchMenuList({ items }: SundayLunchMenuListProps): ReactN
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 min-w-0">
               <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
               {item.badge ? (
-                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full border border-anchor-gold/30 px-2 py-0.5 text-anchor-gold-vivid">
+                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full border border-anchor-gold-dark/30 px-2 py-0.5 text-anchor-gold-bright">
                   {item.badge}
                 </span>
               ) : null}
             </div>
-            <span className="font-semibold text-anchor-gold-vivid whitespace-nowrap">
+            <span className="font-semibold text-anchor-gold-bright whitespace-nowrap">
               {item.priceLabel}
             </span>
           </div>

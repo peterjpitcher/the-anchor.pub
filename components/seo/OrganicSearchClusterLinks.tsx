@@ -37,11 +37,11 @@ export function OrganicSearchClusterLinks({
   if (links.length === 0) return null
 
   return (
-    <Section className={`bg-anchor-bg-raised border-y border-anchor-gold/15 ${className}`}>
+    <Section className={`bg-anchor-green-raised border-y border-anchor-gold-dark/15 ${className}`}>
       <Container>
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-anchor-gold">
+            <p className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-dark">
               {seoCluster.label}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-anchor-cream-text">
@@ -59,9 +59,9 @@ export function OrganicSearchClusterLinks({
               <Link
                 key={link.href}
                 href={link.href}
-                className="block border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors hover:border-anchor-gold/45"
+                className="block border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors hover:border-anchor-gold-dark/45"
               >
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid">
+                <h3 className="text-lg font-semibold text-anchor-gold-bright">
                   {link.label}
                 </h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">

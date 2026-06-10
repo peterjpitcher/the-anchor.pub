@@ -56,12 +56,12 @@ export default function AccessibilityPage() {
               ].map(({ area, icon, note }) => (
                 <div
                   key={area}
-                  className="flex items-start gap-4 rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5"
+                  className="flex items-start gap-4 rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card p-5"
                 >
                   <span className="text-2xl" aria-hidden="true">{icon}</span>
                   <div>
-                    <p className="font-semibold text-anchor-gold-vivid">{area}</p>
-                    {area !== 'Beer garden' && <p className="text-sm text-anchor-gold-vivid font-medium">Step-free</p>}
+                    <p className="font-semibold text-anchor-gold-bright">{area}</p>
+                    {area !== 'Beer garden' && <p className="text-sm text-anchor-gold-bright font-medium">Step-free</p>}
                     {note && <p className="text-sm text-anchor-cream-text/55 mt-1">{note}</p>}
                   </div>
                 </div>
@@ -76,11 +76,11 @@ export default function AccessibilityPage() {
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Accessible toilet" />
-            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to
                 check what will work best for you, give us a call on{' '}
-                <PhoneLink phone={CONTACT.phone} source="accessibility_toilet" className="font-semibold text-anchor-gold hover:underline" showIcon={false} />{' '}
+                <PhoneLink phone={CONTACT.phone} source="accessibility_toilet" className="font-semibold text-anchor-gold-dark hover:underline" showIcon={false} />{' '}
                 and we&apos;ll help you plan your visit.
               </p>
             </div>
@@ -94,7 +94,7 @@ export default function AccessibilityPage() {
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Getting here" />
             <div className="space-y-4">
-              <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-6">
+              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card p-6">
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
@@ -141,7 +141,7 @@ export default function AccessibilityPage() {
       {/* FAQ */}
       <FAQAccordionWithSchema
         title="Accessibility FAQ"
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
@@ -186,7 +186,7 @@ export default function AccessibilityPage() {
                 source="accessibility_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised"
+                className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised"
               />
               <Link href="/near-heathrow">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">

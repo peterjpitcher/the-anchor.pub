@@ -5,11 +5,11 @@ import type { BaseComponentProps, WithChildren } from '../types'
 import { ChevronDownIcon } from '../Icon'
 
 const selectVariants = cva(
-  'flex w-full appearance-none rounded-md border bg-anchor-bg-card px-3 py-2 pr-10 text-base text-anchor-cream-text ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors',
+  'flex w-full appearance-none rounded-md border bg-anchor-green-card px-3 py-2 pr-10 text-base text-anchor-cream-text ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors',
   {
     variants: {
       variant: {
-        default: 'border-anchor-gold/30 focus:border-anchor-gold',
+        default: 'border-anchor-gold-dark/30 focus:border-anchor-gold-dark',
         error: 'border-red-500 focus:border-red-500 focus-visible:ring-red-500',
         success: 'border-green-500 focus:border-green-500 focus-visible:ring-green-500'
       },

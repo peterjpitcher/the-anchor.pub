@@ -145,16 +145,16 @@ function EventHighlights({
     <Card
       variant="default"
       padding={compact ? 'none' : undefined}
-      className={`border border-anchor-gold/15 bg-anchor-bg-card rounded-none ${className}`.trim()}
+      className={`border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none ${className}`.trim()}
     >
       <CardBody className={compact ? 'p-3' : 'p-4 md:p-6'}>
-        <h3 className={compact ? 'mb-2 text-lg font-bold leading-tight text-anchor-gold-vivid' : 'text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4'}>
+        <h3 className={compact ? 'mb-2 text-lg font-bold leading-tight text-anchor-gold-bright' : 'text-xl md:text-2xl font-bold text-anchor-gold-bright mb-3 md:mb-4'}>
           Event Highlights
         </h3>
         <ul className={compact ? 'space-y-1' : 'space-y-2'}>
           {highlights.map((highlight, index) => (
             <li key={`${highlight}-${index}`} className={compact ? 'flex items-start gap-2' : 'flex items-start gap-3'}>
-              <svg className={compact ? 'mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold' : 'w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5'} fill="currentColor" viewBox="0 0 20 20">
+              <svg className={compact ? 'mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold-dark' : 'w-5 h-5 text-anchor-gold-dark flex-shrink-0 mt-0.5'} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span className={compact ? 'text-anchor-cream-text/70 text-sm' : 'text-anchor-cream-text/70 text-base'}>
@@ -180,7 +180,7 @@ function EventInformationList({ items }: { items: EventInformationItem[] }) {
     <dl className="grid gap-x-4 gap-y-3 text-sm text-anchor-cream-text/70 sm:grid-cols-2">
       {visibleItems.map((item) => (
         <div key={item.label}>
-          <dt className="font-semibold text-anchor-gold-vivid">{item.label}</dt>
+          <dt className="font-semibold text-anchor-gold-bright">{item.label}</dt>
           <dd>{item.value}</dd>
         </div>
       ))}
@@ -430,7 +430,7 @@ export default async function EventPage({ params }: Props) {
       />
 
       {statusNotice ? (
-        <Section background="white" spacing="none" className="pt-4 bg-anchor-bg">
+        <Section background="white" spacing="none" className="pt-4 bg-anchor-green-deep">
           <Container>
             <div className="mx-auto max-w-6xl">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>
@@ -473,7 +473,7 @@ export default async function EventPage({ params }: Props) {
         }
       />
 
-      <Section background="white" spacing="none" className="bg-anchor-bg">
+      <Section background="white" spacing="none" className="bg-anchor-green-deep">
         <Container>
           <div className="mx-auto max-w-6xl">
             <EventBookingFactsStrip
@@ -487,7 +487,7 @@ export default async function EventPage({ params }: Props) {
       </Section>
 
       {/* Event Details - Mobile First */}
-      <Section background="white" spacing="md" className="bg-anchor-bg py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
         <Container>
           <div className="max-w-6xl mx-auto">
             {/* Main Content Grid */}
@@ -510,28 +510,28 @@ export default async function EventPage({ params }: Props) {
 
                 <EventHighlights highlights={event.highlights} compact />
 
-                <details className="mb-3 border border-anchor-gold/15 bg-anchor-bg-card lg:hidden">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-bold text-anchor-gold-vivid [&::-webkit-details-marker]:hidden">
+                <details className="mb-3 border border-anchor-gold-dark/15 bg-anchor-green-card lg:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-bold text-anchor-gold-bright [&::-webkit-details-marker]:hidden">
                     <span>More event details</span>
                     <span className="text-xl leading-none text-anchor-cream-text/60" aria-hidden="true">+</span>
                   </summary>
-                  <div className="border-t border-anchor-gold/15 p-3">
+                  <div className="border-t border-anchor-gold-dark/15 p-3">
                     <EventInformationList items={eventInformationItems} />
                   </div>
                 </details>
 
-                <Card variant="default" padding="none" className="mb-6 mt-6 hidden border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8 lg:block">
+                <Card variant="default" padding="none" className="mb-6 mt-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
-                    <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Event information</h2>
+                    <h2 className="text-lg font-bold text-anchor-gold-bright md:text-xl">Event information</h2>
                     <div className="mt-4">
                       <EventInformationList items={eventInformationItems} />
                     </div>
                   </CardBody>
                 </Card>
 
-                <Card variant="default" padding="none" className="mb-6 hidden border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8 lg:block">
+                <Card variant="default" padding="none" className="mb-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
-                    <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Booking and payment</h2>
+                    <h2 className="text-lg font-bold text-anchor-gold-bright md:text-xl">Booking and payment</h2>
                     <div className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                       <p>{eventBookingCopy.policy}</p>
                       <p>{eventBookingCopy.foodPrompt}</p>
@@ -542,7 +542,7 @@ export default async function EventPage({ params }: Props) {
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
                   <div className="mb-6 lg:mb-8">
-                    <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4">About This Event</h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-bright mb-3 md:mb-4">About This Event</h2>
                     <p className="text-anchor-cream-text/70 whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
                   </div>
                 )}
@@ -551,7 +551,7 @@ export default async function EventPage({ params }: Props) {
                 {event.category && (
                   <Link
                     href={getCategoryPageUrl(event.category.slug)}
-                    className="inline-flex items-center text-sm text-anchor-gold hover:text-anchor-gold-light hover:underline mb-6"
+                    className="inline-flex items-center text-sm text-anchor-gold-dark hover:text-anchor-gold hover:underline mb-6"
                   >
                     View all {event.category.name} events &rarr;
                   </Link>
@@ -559,8 +559,8 @@ export default async function EventPage({ params }: Props) {
 
                 {/* Cancellation Policy */}
                 {event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
-                  <div className="mt-4 mb-6 p-3 rounded-md bg-anchor-bg-raised/20 border border-anchor-gold/10">
-                    <p className="text-xs font-medium text-anchor-gold-vivid mb-1">Cancellation Policy</p>
+                  <div className="mt-4 mb-6 p-3 rounded-md bg-anchor-green-raised/20 border border-anchor-gold-dark/10">
+                    <p className="text-xs font-medium text-anchor-gold-bright mb-1">Cancellation Policy</p>
                     <p className="text-sm text-anchor-cream-text/70">{event.cancellation_policy}</p>
                   </div>
                 )}
@@ -571,10 +571,10 @@ export default async function EventPage({ params }: Props) {
               <div className="order-1 lg:order-2">
                 <div className="lg:sticky lg:top-24">
                   {(event.previous_event_summary || event.attendance_note) && (
-                    <div className="mb-4 rounded-lg border border-anchor-gold/10 bg-anchor-bg-raised/30 p-4">
+                    <div className="mb-4 rounded-lg border border-anchor-gold-dark/10 bg-anchor-green-raised/30 p-4">
                       {event.previous_event_summary && (
                         <p className="text-sm text-anchor-cream-text/70">
-                          <span className="font-medium text-anchor-gold-vivid">Last time:</span> {event.previous_event_summary}
+                          <span className="font-medium text-anchor-gold-bright">Last time:</span> {event.previous_event_summary}
                         </p>
                       )}
                       {event.attendance_note && (
@@ -587,9 +587,9 @@ export default async function EventPage({ params }: Props) {
 
                   <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
                     {mothersDayBookingFlow ? (
-                      <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
+                      <Card variant="elevated" padding="none" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                         <CardBody className="space-y-3 p-4">
-                          <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                          <h2 className="text-xl font-bold text-anchor-gold-bright">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
                           <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
                           <Button asChild fullWidth size="lg">
                             <Link href={mothersDayBookingUrl}>
@@ -627,11 +627,11 @@ export default async function EventPage({ params }: Props) {
             {/* Full Width Sections */}
             <div className="mt-6 space-y-5 md:mt-8 md:space-y-8">
               {/* Location */}
-              <Card variant="elevated" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
+              <Card variant="elevated" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="p-4 md:p-8">
                   <div className="grid gap-4 md:gap-6 lg:grid-cols-[minmax(0,320px),minmax(0,1fr)] lg:items-start">
                     <div>
-                      <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4">Location</h2>
+                      <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-bright mb-3 md:mb-4">Location</h2>
                       <address className="not-italic text-anchor-cream-text/70 text-base">
                         <p className="font-semibold">{event.location.name}</p>
                         <p>{event.location.address.streetAddress}</p>
@@ -641,7 +641,7 @@ export default async function EventPage({ params }: Props) {
                       <div className="mt-4 flex flex-wrap gap-3">
                         <Link
                           href="/find-us"
-                          className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-base"
+                          className="inline-flex items-center text-anchor-gold-dark hover:text-anchor-gold font-semibold text-base"
                         >
                           Get directions
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -669,8 +669,8 @@ export default async function EventPage({ params }: Props) {
 
               {/* Accessibility */}
               {event.accessibility_notes && (
-                <div className="p-3 rounded-md bg-anchor-bg-raised/20 border border-anchor-gold/10">
-                  <p className="text-xs font-medium text-anchor-gold-vivid mb-1">Accessibility</p>
+                <div className="p-3 rounded-md bg-anchor-green-raised/20 border border-anchor-gold-dark/10">
+                  <p className="text-xs font-medium text-anchor-gold-bright mb-1">Accessibility</p>
                   <p className="text-sm text-anchor-cream-text/70">{event.accessibility_notes}</p>
                 </div>
               )}
@@ -678,12 +678,12 @@ export default async function EventPage({ params }: Props) {
               {/* FAQs */}
               {((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-4 md:mb-6">Frequently Asked Questions</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-bright mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
                     {(event.faq || event.faqPage?.mainEntity || []).map((faq, index) => (
-                      <Card key={index} variant="default" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
+                      <Card key={index} variant="default" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                         <CardBody className="p-4 md:p-6">
-                          <h3 className="font-semibold text-base md:text-lg text-anchor-gold-vivid mb-2">{faq.name}</h3>
+                          <h3 className="font-semibold text-base md:text-lg text-anchor-gold-bright mb-2">{faq.name}</h3>
                           <p className="text-anchor-cream-text/70 text-sm md:text-base">{faq.acceptedAnswer.text}</p>
                         </CardBody>
                       </Card>
@@ -695,10 +695,10 @@ export default async function EventPage({ params }: Props) {
               {/* Videos */}
               {event.video && event.video.length > 0 && (
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-4 md:mb-6">Event Videos</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-bright mb-4 md:mb-6">Event Videos</h2>
                   <div className="grid gap-4">
                     {event.video.map((videoUrl, index) => (
-                      <div key={index} className="relative aspect-video rounded-none overflow-hidden bg-anchor-bg-raised">
+                      <div key={index} className="relative aspect-video rounded-none overflow-hidden bg-anchor-green-raised">
                         {videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') ? (
                           <LiteYouTube url={videoUrl} title={`${event.name} - Video ${index + 1}`} />
                         ) : (
@@ -764,7 +764,7 @@ export default async function EventPage({ params }: Props) {
                 source={`event_page_${params.id}`}
                 variant="secondary"
                 size="lg"
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light w-full sm:w-auto"
+                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold w-full sm:w-auto"
               >
                  Call: 01753 682707
               </PhoneButton>

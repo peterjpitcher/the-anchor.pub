@@ -31,7 +31,7 @@ export async function NextEventServer() {
       return (
         <div className="max-w-3xl mx-auto">
           <div className="card-dark">
-            <div className="border-b border-anchor-gold/25 p-6">
+            <div className="border-b border-anchor-gold-dark/25 p-6">
               <h2 className="text-2xl font-bold text-anchor-cream-text text-center">Coming Soon</h2>
             </div>
             <div className="p-8 text-center">
@@ -101,16 +101,16 @@ export async function NextEventServer() {
             weekday: 'long',
             timeZone: LONDON_TIME_ZONE
           })}. Book early to get your preferred time.`,
-          badgeClassName: 'bg-anchor-gold-vivid text-anchor-bg',
-          panelClassName: 'bg-anchor-gold-vivid/15 border border-anchor-gold/40 text-anchor-cream-text'
+          badgeClassName: 'bg-anchor-gold-bright text-anchor-green-deep',
+          panelClassName: 'bg-anchor-gold-bright/15 border border-anchor-gold-dark/40 text-anchor-cream-text'
         }
       } else if (daysUntil <= MAX_URGENCY_DAYS) {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
         urgency = {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
           message: 'Book early to get your preferred time.',
-          badgeClassName: 'bg-anchor-bg-raised border border-anchor-gold/40 text-anchor-gold-vivid',
-          panelClassName: 'bg-anchor-bg-raised border border-anchor-gold/25 text-anchor-cream-text'
+          badgeClassName: 'bg-anchor-green-raised border border-anchor-gold-dark/40 text-anchor-gold-bright',
+          panelClassName: 'bg-anchor-green-raised border border-anchor-gold-dark/25 text-anchor-cream-text'
         }
       }
     }
@@ -124,7 +124,7 @@ export async function NextEventServer() {
           <EventSchema event={nextEvent} />
 
           <div className="grid min-w-0 gap-0 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
-            <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="relative flex min-w-0 items-center justify-center bg-anchor-bg border-b border-anchor-gold/15 p-4 sm:p-5 lg:border-b-0 lg:border-r lg:p-6">
+            <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="relative flex min-w-0 items-center justify-center bg-anchor-green-deep border-b border-anchor-gold-dark/15 p-4 sm:p-5 lg:border-b-0 lg:border-r lg:p-6">
               <div className="relative aspect-square w-full max-w-[260px] sm:max-w-[280px] lg:max-w-full">
                 <Image
                   src={eventImage}
@@ -138,7 +138,7 @@ export async function NextEventServer() {
 
             <div className="flex min-w-0 flex-col gap-4 p-4 sm:p-5 lg:p-6">
               <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide">
-                <span className="inline-flex min-w-0 items-center gap-2 rounded-full bg-anchor-gold-vivid/15 border border-anchor-gold/30 px-3 py-1 text-anchor-gold-vivid">
+                <span className="inline-flex min-w-0 items-center gap-2 rounded-full bg-anchor-gold-bright/15 border border-anchor-gold-dark/30 px-3 py-1 text-anchor-gold-bright">
                   {relativeLabel}
                 </span>
                 {nextEvent.category && (
@@ -164,7 +164,7 @@ export async function NextEventServer() {
                 <h2 className="break-words text-2xl lg:text-3xl font-bold text-anchor-cream-text leading-tight">
                   {nextEvent.name}
                 </h2>
-                <p className="break-words text-base text-anchor-gold-vivid font-semibold">
+                <p className="break-words text-base text-anchor-gold-bright font-semibold">
                   {nextEvent.shortDescription || 'Special Event'}
                 </p>
               </div>
@@ -180,7 +180,7 @@ export async function NextEventServer() {
                 </div>
               )}
 
-              <div className="flex min-w-0 flex-wrap gap-x-6 gap-y-1 text-sm border-t border-anchor-gold/15 pt-4">
+              <div className="flex min-w-0 flex-wrap gap-x-6 gap-y-1 text-sm border-t border-anchor-gold-dark/15 pt-4">
                 <div className="min-w-0">
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">Date &amp; Time</span>
                   <p className="break-words font-bold text-anchor-cream-text">{longDateLabel} · {timeLabel}</p>
@@ -188,7 +188,7 @@ export async function NextEventServer() {
                 {priceLabel && (
                   <div className="min-w-0">
                     <span className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">Price</span>
-                    <p className="break-words font-bold text-anchor-gold-vivid">{priceLabel}</p>
+                    <p className="break-words font-bold text-anchor-gold-bright">{priceLabel}</p>
                   </div>
                 )}
               </div>
@@ -243,7 +243,7 @@ export async function NextEventServer() {
                 <div key={event.id} className="card-dark min-w-0">
                   <EventSchema event={event} />
                   <div className="grid min-w-0 gap-4 p-4 sm:grid-cols-[160px_1fr]">
-                    <Link href={`/events/${event.slug || event.id}`} className="relative block aspect-square min-w-0 overflow-hidden bg-anchor-bg border border-anchor-gold/15">
+                    <Link href={`/events/${event.slug || event.id}`} className="relative block aspect-square min-w-0 overflow-hidden bg-anchor-green-deep border border-anchor-gold-dark/15">
                       <Image
                         src={previewImage}
                         alt={`${event.name} event promotional poster`}
@@ -258,7 +258,7 @@ export async function NextEventServer() {
                         {previewDateLabel} · {previewTimeLabel}
                       </p>
                       <Link href={`/events/${event.slug || event.id}`}>
-                        <h3 className="mt-0.5 break-words text-base font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
+                        <h3 className="mt-0.5 break-words text-base font-bold text-anchor-cream-text hover:text-anchor-gold-bright transition-colors leading-snug">
                           {event.name}
                         </h3>
                       </Link>

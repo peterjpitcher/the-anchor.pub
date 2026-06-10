@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const checkboxVariants = cva(
-  'rounded border-gray-300 text-anchor-gold focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colours',
+  'rounded border-gray-300 text-anchor-gold-dark focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colours',
   {
     variants: {
       size: {

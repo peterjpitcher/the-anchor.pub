@@ -181,13 +181,13 @@ export default async function PrivateHirePage() {
                 subtitle="Choose your event type, preferred date, guest count, timing and food options."
             />
 
-            <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
+            <section className="bg-anchor-green-deep border-b border-anchor-gold-dark/15 py-8">
                 <Container size="md">
                     <StaticHoursSummary compact />
                 </Container>
             </section>
 
-            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
                         Private Rooms Near Staines and Heathrow, Function Room and Party Venue
@@ -215,9 +215,9 @@ export default async function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Wakes & Memorials</h3>
+                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Wakes & Memorials</h3>
                                     <p className="text-anchor-cream-text/70 mb-4">Respectful, private reception spaces near local crematoriums. Fully catered with compassionate service.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
+                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
                                         View Wake Packages <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -237,9 +237,9 @@ export default async function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Christenings</h3>
+                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Christenings</h3>
                                     <p className="text-anchor-cream-text/70 mb-4">Celebrate your little one's special day with family. Relaxed buffet options and space for the kids.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
+                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
                                         View Christening Details <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -260,9 +260,9 @@ export default async function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Private Parties</h3>
+                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Private Parties</h3>
                                     <p className="text-anchor-cream-text/70 mb-4">Milestone birthdays, anniversaries, and family reunions. Dance floors, DJs, and great food.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
+                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
                                         View Party Venue <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -282,9 +282,9 @@ export default async function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Baby Showers</h3>
+                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Baby Showers</h3>
                                     <p className="text-anchor-cream-text/70 mb-4">Afternoon tea, mocktails, and plenty of space for games. The perfect daytime celebration.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
+                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
                                         View Baby Showers <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -304,9 +304,9 @@ export default async function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Corporate Events</h3>
+                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Corporate Events</h3>
                                     <p className="text-anchor-cream-text/70 mb-4">Meetings, training days, and team lunches. AV equipment and fast WiFi included.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
+                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
                                         View Corporate <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -316,7 +316,7 @@ export default async function PrivateHirePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Private Hire Near Local Venues and Landmarks"
@@ -330,7 +330,7 @@ export default async function PrivateHirePage() {
                             return (
                                 <div key={group.title}>
                                     <div className="mb-4">
-                                        <h3 className="text-2xl font-bold text-anchor-gold-vivid">{group.title}</h3>
+                                        <h3 className="text-2xl font-bold text-anchor-gold-bright">{group.title}</h3>
                                         <p className="mt-2 text-anchor-cream-text/70">{group.description}</p>
                                     </div>
 
@@ -341,8 +341,8 @@ export default async function PrivateHirePage() {
                                                 href={`/private-hire/near/${landmark.slug}`}
                                                 className="group block h-full"
                                             >
-                                                <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
-                                                    <h4 className="font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                                                <div className="h-full border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors group-hover:border-anchor-gold-dark/45">
+                                                    <h4 className="font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark">
                                                         {landmark.name}
                                                     </h4>
                                                     <p className="mt-2 text-sm text-anchor-cream-text/70">
@@ -360,7 +360,7 @@ export default async function PrivateHirePage() {
             </section>
 
             {/* Pricing Bands */}
-            <section id="pricing" className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section id="pricing" className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -388,7 +388,7 @@ export default async function PrivateHirePage() {
                             {spaces.length > 0 && (
                                 <div>
                                     <div className="mb-4">
-                                        <h3 className="text-xl font-bold text-anchor-gold-vivid">Venue Hire</h3>
+                                        <h3 className="text-xl font-bold text-anchor-gold-bright">Venue Hire</h3>
                                         <p className="text-sm text-anchor-cream-text/60 mt-1">Room hire rates vary by day and group size</p>
                                     </div>
                                     <VenueSpacesTable spaces={spaces} />
@@ -411,7 +411,7 @@ export default async function PrivateHirePage() {
                                 source="private_hire_pricing_cta"
                                 variant="outline"
                                 size="lg"
-                                className="w-full sm:w-auto border-anchor-gold/30 text-anchor-cream-text hover:bg-anchor-bg-raised"
+                                className="w-full sm:w-auto border-anchor-gold-dark/30 text-anchor-cream-text hover:bg-anchor-green-raised"
                             >
                                 Call: 01753 682707
                             </PhoneButton>
@@ -421,7 +421,7 @@ export default async function PrivateHirePage() {
             </section>
 
             {/* Our Spaces */}
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -450,7 +450,7 @@ export default async function PrivateHirePage() {
                         </div>
                         <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
                             Our main function room, seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden.{' '}
-                            <Link href="/our-pub" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
+                            <Link href="/our-pub" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
                                 View all venue photos &rarr;
                             </Link>
                         </p>
@@ -459,7 +459,7 @@ export default async function PrivateHirePage() {
             </section>
 
             {/* How We Compare */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -470,13 +470,13 @@ export default async function PrivateHirePage() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-left border-collapse">
                                 <thead>
-                                    <tr className="border-b border-anchor-gold/30">
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Feature</th>
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">The Anchor</th>
+                                    <tr className="border-b border-anchor-gold-dark/30">
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Feature</th>
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">The Anchor</th>
                                         <th scope="col" className="py-3 text-sm font-semibold text-anchor-cream-text/50">Hotel Venue (typical)</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-anchor-gold/10">
+                                <tbody className="divide-y divide-anchor-gold-dark/10">
                                     <tr>
                                         <td className="py-3 pr-4 text-anchor-cream-text font-medium">Room hire</td>
                                         <td className="py-3 pr-4 text-anchor-cream-text">From &pound;25/hr</td>
@@ -520,7 +520,7 @@ export default async function PrivateHirePage() {
             </section>
 
             {/* Small Parties Welcome */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -533,20 +533,20 @@ export default async function PrivateHirePage() {
                         </p>
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">10+</p>
+                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">10+</p>
                                 <p className="text-sm text-anchor-cream-text/70">Birthday dinners</p>
                             </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">15+</p>
+                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">15+</p>
                                 <p className="text-sm text-anchor-cream-text/70">Retirement lunches</p>
                             </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">20+</p>
+                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">20+</p>
                                 <p className="text-sm text-anchor-cream-text/70">Christening teas</p>
                             </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">10+</p>
+                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">10+</p>
                                 <p className="text-sm text-anchor-cream-text/70">Work gatherings</p>
                             </div>
                         </div>
@@ -559,7 +559,7 @@ export default async function PrivateHirePage() {
                 variant="full"
                 title="What Our Guests Say"
                 subtitle="From Google Reviews"
-                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15"
+                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15"
                 reviews={[
                     { quote: "We had our baby's Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.", author: "Rachel", source: "TripAdvisor", rating: 5 },
                     { quote: "Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.", author: "Dave", source: "Google Review", rating: 5 },
@@ -569,7 +569,7 @@ export default async function PrivateHirePage() {
             />
 
             {/* WhatsApp & Contact CTA */}
-            <section className="section-spacing bg-anchor-green text-white border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green text-white border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="text-center max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Plan Your Event?</h2>
@@ -584,12 +584,12 @@ export default async function PrivateHirePage() {
                                 rel="noopener noreferrer"
                                 className="w-full sm:w-auto"
                             >
-                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light border-anchor-gold">
+                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold border-anchor-gold-dark">
                                     WhatsApp Us
                                 </Button>
                             </Link>
                             <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-anchor-green">
+                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-anchor-green">
                                     Enquire Online
                                 </Button>
                             </Link>
@@ -598,7 +598,7 @@ export default async function PrivateHirePage() {
                                 source="private_hire_green_cta"
                                 variant="outline"
                                 size="lg"
-                                className="w-full sm:w-auto border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-anchor-green"
+                                className="w-full sm:w-auto border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-anchor-green"
                             >
                                 Call: 01753 682707
                             </PhoneButton>
@@ -607,7 +607,7 @@ export default async function PrivateHirePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Why Choose The Anchor?"
@@ -675,18 +675,18 @@ export default async function PrivateHirePage() {
                 intro="Compare room sizes, catering, meeting options and routes from Staines, Stanwell Moor and Heathrow before you enquire."
             />
 
-            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-4">Accessibility</h2>
+                        <h2 className="text-3xl font-bold text-anchor-gold-bright mb-4">Accessibility</h2>
                         <p className="text-anchor-cream-text/70 mb-3">
                             Step-free access to the bar, dining area and beer garden.
                         </p>
                         <p className="text-anchor-cream-text/70 mb-4">
                             We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-                            <PhoneLink phone={CONTACT.phone} source="private-hire_accessibility" className="text-anchor-gold font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
+                            <PhoneLink phone={CONTACT.phone} source="private-hire_accessibility" className="text-anchor-gold-dark font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
                         </p>
-                        <Link href="/accessibility" className="text-anchor-gold font-semibold hover:underline">
+                        <Link href="/accessibility" className="text-anchor-gold-dark font-semibold hover:underline">
                             Full accessibility information &rarr;
                         </Link>
                     </div>

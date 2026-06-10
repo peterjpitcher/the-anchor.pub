@@ -39,7 +39,7 @@ export function StickyMobileBookingCTA() {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 bg-anchor-green/95 backdrop-blur border-t border-anchor-gold/30 px-4 py-2.5 lg:hidden transition-transform motion-reduce:transition-none ${
+      className={`fixed bottom-0 left-0 right-0 z-40 bg-anchor-green/95 backdrop-blur border-t border-anchor-gold-dark/30 px-4 py-2.5 lg:hidden transition-transform motion-reduce:transition-none ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
       aria-hidden={!visible}
@@ -67,7 +67,7 @@ export function StickyMobileBookingCTA() {
             })
           }
           aria-label={`Call The Anchor on ${PHONE_NUMBER}`}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-anchor-gold/50 bg-anchor-bg-card text-anchor-cream-text hover:bg-anchor-bg-raised focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 focus:ring-offset-anchor-green"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-anchor-gold-dark/50 bg-anchor-green-card text-anchor-cream-text hover:bg-anchor-green-raised focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 focus:ring-offset-anchor-green"
         >
           <Phone className="h-5 w-5" aria-hidden="true" />
         </Link>

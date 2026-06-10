@@ -24,7 +24,7 @@ function formatMenuPrice(price: string): string {
   return /\d/.test(displayPrice) ? `(${displayPrice})` : displayPrice
 }
 
-export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDisplayProps) {
+export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: MenuDisplayProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   
@@ -102,7 +102,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
       
       {/* Kitchen Hours */}
       {menuData.kitchenHours && (
-        <Section spacing="sm" className="bg-anchor-gold/10">
+        <Section spacing="sm" className="bg-anchor-gold-dark/10">
           <Container size="md" className="text-center">
             <Alert variant="info" icon={false} className="inline-block">
               <p className="text-lg font-semibold">
@@ -134,7 +134,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
           <Section 
             key={category.id} 
             id={category.id} 
-            className={categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}
+            className={categoryIndex % 2 === 0 ? 'bg-anchor-green-raised' : 'bg-anchor-green-deep'}
             itemScope 
             itemType="https://schema.org/MenuSection"
           >
@@ -213,7 +213,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
 
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
-        <Section className="bg-anchor-bg-raised">
+        <Section className="bg-anchor-green-raised">
           <Container size="md">
             <Alert variant="warning" className="text-center">
               <h3 className="text-xl font-bold mb-2">
@@ -242,7 +242,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
   return (
     <Card 
       variant={isFocused ? 'outlined' : 'elevated'}
-      className={isFocused ? 'ring-2 ring-anchor-gold' : ''}
+      className={isFocused ? 'ring-2 ring-anchor-gold-dark' : ''}
       itemScope 
       itemType="https://schema.org/MenuItem"
       role="listitem"
@@ -253,13 +253,13 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
     >
       <CardBody>
         <div className="flex min-w-0 justify-between gap-3 items-start mb-2">
-          <h3 className="min-w-0 break-words font-bold text-xl text-anchor-gold-vivid flex items-center gap-2" itemProp="name">
+          <h3 className="min-w-0 break-words font-bold text-xl text-anchor-gold-bright flex items-center gap-2" itemProp="name">
             {item.name}
             {item.vegetarian && (
               <Badge variant="success" size="sm">(V)</Badge>
             )}
           </h3>
-          <span className="shrink-0 text-xl font-bold text-anchor-gold whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <span className="shrink-0 text-xl font-bold text-anchor-gold-dark whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <span itemProp="price" content={schemaPrice}>
               {displayPrice}
             </span>
@@ -284,7 +284,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
   return (
     <div 
       className={`flex justify-between items-center p-2 rounded-lg transition-colours ${
-        isFocused ? 'bg-amber-500/10' : 'hover:bg-anchor-bg-raised'
+        isFocused ? 'bg-amber-500/10' : 'hover:bg-anchor-green-raised'
       }`}
       itemScope 
       itemType="https://schema.org/MenuItem"
@@ -298,7 +298,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
         {item.name}
         {item.vegetarian && <Badge variant="success" size="sm" dot>(V)</Badge>}
       </span>
-      <span className="text-anchor-gold font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+      <span className="text-anchor-gold-dark font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
         <span itemProp="price" content={schemaPrice}>
           {displayPrice}
         </span>

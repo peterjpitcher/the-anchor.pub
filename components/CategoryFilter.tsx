@@ -214,8 +214,8 @@ export function CategoryFilter() {
           className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 whitespace-nowrap ${
             !currentCategory 
               ? 'bg-anchor-green text-white' 
-              : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card'
-          } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold`}
+              : 'bg-anchor-green-raised text-anchor-cream-text/70 hover:bg-anchor-green-card'
+          } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark`}
         >
           All Events
         </button>
@@ -232,7 +232,7 @@ export function CategoryFilter() {
               currentCategory === category.slug
                 ? 'text-white'
                 : 'text-anchor-cream-text/70 hover:opacity-80'
-            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold`}
+            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark`}
             style={{
               backgroundColor: currentCategory === category.slug 
                 ? category.color 
@@ -257,7 +257,7 @@ export function CategoryFilter() {
             <div
               key={idx}
               className={`h-1.5 rounded-full transition-all ${
-                idx === focusedIndex ? 'w-6 bg-anchor-gold' : 'w-1.5 bg-anchor-bg-raised'
+                idx === focusedIndex ? 'w-6 bg-anchor-gold-dark' : 'w-1.5 bg-anchor-green-raised'
               }`}
             />
           ))}

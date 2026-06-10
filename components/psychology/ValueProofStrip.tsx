@@ -27,7 +27,7 @@ export function ValueProofStrip({ variant = 'food', className }: ValueProofStrip
     <ul
       aria-label="Why visit The Anchor"
       className={cn(
-        'flex flex-col gap-1.5 rounded-xl border border-anchor-gold/30 bg-anchor-gold/5 px-4 py-3',
+        'flex flex-col gap-1.5 rounded-xl border border-anchor-gold-dark/30 bg-anchor-gold-dark/5 px-4 py-3',
         'sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-1.5',
         className
       )}

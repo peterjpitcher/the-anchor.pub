@@ -117,7 +117,7 @@ export default async function PizzaMenuPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-lg bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-lg bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center mb-12">
             <PageTitle className="text-anchor-cream-text mb-6">
@@ -138,7 +138,7 @@ export default async function PizzaMenuPage() {
               />
             </div>
             <div className="space-y-6 text-left">
-              <h2 className="text-3xl font-bold text-anchor-gold-vivid">Dietary Notes</h2>
+              <h2 className="text-3xl font-bold text-anchor-gold-bright">Dietary Notes</h2>
               <ul className="space-y-4 text-anchor-cream-text/70">
                 <li>Gluten-free availability is shown on each live menu item when available.</li>
                 <li>Vegan-option dishes are labelled from the menu data and should be requested at the bar.</li>
@@ -149,7 +149,7 @@ export default async function PizzaMenuPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -160,16 +160,16 @@ export default async function PizzaMenuPage() {
             {pizzaItems.length > 0 ? (
               <div className="grid md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
                 {pizzaItems.map((item) => (
-                  <div key={item.id} className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 hover:border-anchor-gold/40 transition-shadow">
+                  <div key={item.id} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 hover:border-anchor-gold-dark/40 transition-shadow">
                     <div className="flex justify-between items-start mb-2 gap-4">
-                      <h2 className="font-bold text-xl text-anchor-gold-vivid">{item.name}</h2>
-                      {item.priceLabel && <span className="font-semibold text-anchor-gold bg-anchor-bg px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
+                      <h2 className="font-bold text-xl text-anchor-gold-bright">{item.name}</h2>
+                      {item.priceLabel && <span className="font-semibold text-anchor-gold-dark bg-anchor-green-deep px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
                     </div>
                     {item.description && (
                       <p className="text-anchor-cream-text/70 mb-3 text-sm leading-relaxed">{item.description}</p>
                     )}
                     <div className="flex gap-2 text-xs flex-wrap">
-                      {item.vegetarian && <span className="bg-green-900/30 text-anchor-gold-vivid px-2 py-0.5 rounded-full font-medium">Vegetarian</span>}
+                      {item.vegetarian && <span className="bg-green-900/30 text-anchor-gold-bright px-2 py-0.5 rounded-full font-medium">Vegetarian</span>}
                       {item.vegan && <span className="bg-green-900/30 text-green-300 px-2 py-0.5 rounded-full font-medium">Vegan</span>}
                       {item.veganOptionAvailable && <span className="bg-green-900/30 text-green-300 px-2 py-0.5 rounded-full font-medium">Vegan option</span>}
                       {item.glutenFreeAvailable && <span className="bg-amber-900/20 text-amber-400 px-2 py-0.5 rounded-full font-medium">GF option</span>}
@@ -208,7 +208,7 @@ export default async function PizzaMenuPage() {
             answer: 'Yes. Call us on 01753 682707 to order from the current menu for collection.'
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

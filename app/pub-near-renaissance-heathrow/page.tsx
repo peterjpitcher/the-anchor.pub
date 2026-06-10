@@ -41,7 +41,7 @@ export default function PubNearRenaissanceHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -54,16 +54,16 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Renaissance Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Village Pub', description: 'A genuine British local community pub', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Renaissance Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Village Pub', description: 'A genuine British local community pub', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -71,7 +71,7 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -79,8 +79,8 @@ export default function PubNearRenaissanceHeathrowPage() {
               subtitle="The Renaissance is renowned for its design and character. For guests who appreciate authenticity, The Anchor offers something the hotel simply can't, a real British community pub with history, warmth, and genuine local life."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">The Anchor Experience</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">The Anchor Experience</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food, from £8.99',
@@ -91,14 +91,14 @@ export default function PubNearRenaissanceHeathrowPage() {
                     'Events: quiz, karaoke, music bingo and more',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Directions from Renaissance Heathrow</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Renaissance Heathrow</h3>
                 <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
@@ -108,7 +108,7 @@ export default function PubNearRenaissanceHeathrowPage() {
                     <p className="font-semibold">By Car</p>
                     <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell village. Turn right onto Horton Road. Free parking on arrival.</p>
                   </div>
-                  <div className="pt-2 border-t border-anchor-gold/15">
+                  <div className="pt-2 border-t border-anchor-gold-dark/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
                   </div>
@@ -119,16 +119,16 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="What Renaissance Guests Enjoy Most" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £16, the definitive Sunday roast experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Fish & Chips', description: 'Fresh battered cod with chips, the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £16, the definitive Sunday roast experience.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'Fresh battered cod with chips, the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -141,7 +141,7 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -179,7 +179,7 @@ export default function PubNearRenaissanceHeathrowPage() {
             answer: 'Yes, ask the Renaissance concierge to arrange a taxi, or use Uber. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 12 minutes and costs around £15–18.'
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

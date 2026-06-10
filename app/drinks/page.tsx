@@ -51,7 +51,7 @@ export default async function DrinksMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-anchor-bg">
+      <div className="min-h-screen flex items-center justify-center bg-anchor-green-deep">
         <p className="text-xl text-anchor-cream-text/70">Menu temporarily unavailable. Please call us on 01753 682707.</p>
       </div>
     )
@@ -200,7 +200,7 @@ export default async function DrinksMenuPage() {
             variant="secondary"
             size="lg"
             fullWidth
-            className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+            className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
           >
             Reserve a Table
           </BookTableButton>
@@ -251,7 +251,7 @@ export default async function DrinksMenuPage() {
       />
 
       {/* Page Title */}
-      <Section className="py-8 bg-anchor-bg border-b border-anchor-gold/15" id="menu">
+      <Section className="py-8 bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="menu">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -271,30 +271,30 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Quick Links */}
-      <Section background="gray" spacing="sm" className="border-b border-anchor-gold/15">
+      <Section background="gray" spacing="sm" className="border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mb-5 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-anchor-gold-vivid">Jump straight to</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-anchor-gold-bright">Jump straight to</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {menuData.categories.map((category) => (
               <Link
                 key={category.id}
                 href={`#${category.id}`}
-                className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+                className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
               >
                 {category.title}
               </Link>
             ))}
             <Link
               href="/food-menu#pizza"
-              className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+              className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
             >
               Pizza Menu
             </Link>
             <Link
               href="/sunday-roast"
-              className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+              className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
             >
               Sunday Roast Booking
             </Link>
@@ -306,7 +306,7 @@ export default async function DrinksMenuPage() {
       <MenuRenderer menuData={menuDataWithoutManagersSpecial} eyebrow="Drinks list" />
 
       {/* Popular Draught & Spirits */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="featured-offers">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="featured-offers">
         <Container>
           <SectionHeader
             title="Bar Team Favourites"
@@ -324,7 +324,7 @@ export default async function DrinksMenuPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               },
               {
                 title: "Guinness & Inch's Cider",
@@ -334,7 +334,7 @@ export default async function DrinksMenuPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               },
               {
                 title: "Premium Spirits & Chambord",
@@ -344,7 +344,7 @@ export default async function DrinksMenuPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               }
             ]}
           />
@@ -352,7 +352,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Your Local After Landing */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -386,7 +386,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Why The Anchor for Drinks */}
-      <Section background="gray" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="gray" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -404,7 +404,7 @@ export default async function DrinksMenuPage() {
                     </>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
                 },
                 {
                   title: "Sports & Atmosphere",
@@ -415,7 +415,7 @@ export default async function DrinksMenuPage() {
                     </>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
                 },
                 {
                   title: "Local Institution",
@@ -426,7 +426,7 @@ export default async function DrinksMenuPage() {
                     </>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
                 },
                 {
                   title: "Quality & Choice",
@@ -437,7 +437,7 @@ export default async function DrinksMenuPage() {
                     </>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
                 }
               ]}
             />
@@ -447,7 +447,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Seasonal Highlights */}
-      <Section background="white" className="bg-anchor-bg-raised border-b border-anchor-gold/15" spacing="md">
+      <Section background="white" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -461,28 +461,28 @@ export default async function DrinksMenuPage() {
                   title: "Summer",
                   description: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
                 },
                 {
                   icon: "",
                   title: "Autumn",
                   description: "Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
                 },
                 {
                   icon: "",
                   title: "Winter",
                   description: "Mulled wine, Bailey's hot chocolate, and hearty stouts by the cosy fire",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
                 },
                 {
                   icon: "",
                   title: "Spring",
                   description: "Fresh G&Ts, crisp rosé, and the return of beer garden season",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
                 }
               ]}
             />
@@ -490,7 +490,7 @@ export default async function DrinksMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Popular Shots & Cocktails Near Heathrow"
@@ -499,14 +499,14 @@ export default async function DrinksMenuPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card className="card-dark rounded-none shadow-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Popular shots at the bar</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Popular shots at the bar</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-3">
                   Guests regularly order popular shots like Baby Guinness at our Heathrow bar, alongside creamy
                   liqueurs and seasonal specials. Tell us what you like and we will recommend a pour.
                 </p>
                 <Link
                   href="/drinks/baby-guinness"
-                  className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
+                  className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition"
                 >
                   Baby Guinness guide →
                 </Link>
@@ -514,7 +514,7 @@ export default async function DrinksMenuPage() {
             </Card>
             <Card className="card-dark rounded-none shadow-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Cocktails, mixers and long drinks</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Cocktails, mixers and long drinks</h3>
                 <p className="text-sm text-anchor-cream-text/70">
                   Espresso martinis, mojitos and classic G&Ts share the menu with premium spirits and
                   alcohol-free options, perfect for pre-flight meetups or Staines nights out near Heathrow.
@@ -567,7 +567,7 @@ export default async function DrinksMenuPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're settling a tab, buying rounds, or paying for events, we make it easy with multiple payment options."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}
@@ -586,7 +586,7 @@ export default async function DrinksMenuPage() {
                 size="lg"
                 variant="secondary"
                 fullWidth
-                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 Reserve a Table
               </BookTableButton>

@@ -104,10 +104,10 @@ export default function SixNationsPage() {
               showContextStrip={true}
             />
 
-            <section className="section-spacing-lg bg-anchor-bg">
+            <section className="section-spacing-lg bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
-                        <PageTitle className="text-anchor-gold-vivid mb-4">
+                        <PageTitle className="text-anchor-gold-bright mb-4">
                             Six Nations Pub Near Me, Live Rugby in Stanwell Moor
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
@@ -124,7 +124,7 @@ export default function SixNationsPage() {
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                            <h3 className="text-white text-2xl font-bold font-serif">Live Every Match. Loud & Proud.</h3>
+                            <h3 className="text-white text-2xl font-bold font-display">Live Every Match. Loud & Proud.</h3>
                         </div>
                     </div>
 
@@ -136,28 +136,28 @@ export default function SixNationsPage() {
                                 title: "Sound On",
                                 description: "Commentary on for every match.",
                                 variant: "default",
-                                className: "text-center border border-anchor-gold/15"
+                                className: "text-center border border-anchor-gold-dark/15"
                             },
                             {
                                 icon: "",
                                 title: "4 Screens",
                                 description: "Visible from the bar and dining areas.",
                                 variant: "default",
-                                className: "text-center border border-anchor-gold/15"
+                                className: "text-center border border-anchor-gold-dark/15"
                             },
                             {
                                 icon: "",
                                 title: "Kitchen Open",
                                 description: "Food served during all games.",
                                 variant: "default",
-                                className: "text-center border border-anchor-gold/15"
+                                className: "text-center border border-anchor-gold-dark/15"
                             },
                             {
                                 icon: "",
                                 title: "Free Parking",
                                 description: "20 spaces + easy M25 access.",
                                 variant: "default",
-                                className: "text-center border border-anchor-gold/15"
+                                className: "text-center border border-anchor-gold-dark/15"
                             }
                         ]}
                         className="mb-8"
@@ -165,7 +165,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised" id="fixtures">
+            <section className="section-spacing bg-anchor-green-raised" id="fixtures">
                 <Container>
                     <SectionHeader
                         title="Six Nations 2026 Fixtures"
@@ -189,7 +189,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg">
+            <section className="section-spacing bg-anchor-green-deep">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -215,15 +215,15 @@ export default function SixNationsPage() {
                                 <Link href="/drinks"><Button variant="outline">Drinks List</Button></Link>
                             </div>
                         </div>
-                        <div className="bg-anchor-bg-raised rounded-2xl p-8">
-                            <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Find Us Near Heathrow</h3>
+                        <div className="bg-anchor-green-raised rounded-2xl p-8">
+                            <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Find Us Near Heathrow</h3>
                             <ul className="space-y-3 text-sm text-anchor-cream-text/70 mb-6">
                                 <li className="flex gap-2"><span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
                                 <li className="flex gap-2"><span>7 mins from Terminal 5</span></li>
                                 <li className="flex gap-2"><span>Free parking ({PARKING.capacity} spaces)</span></li>
                                 <li className="flex gap-2"><span>Bus routes from Staines & Heathrow</span></li>
                             </ul>
-                            <Link href="/find-us" className="text-anchor-gold font-bold hover:underline">
+                            <Link href="/find-us" className="text-anchor-gold-dark font-bold hover:underline">
                                 Get Directions →
                             </Link>
                         </div>
@@ -231,7 +231,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <SectionHeader title="Frequently Asked Questions" />
                     <FAQAccordionWithSchema
@@ -265,7 +265,7 @@ export default function SixNationsPage() {
                                 answer: "We are located in Stanwell Moor, just a 7-minute drive from Terminal 5, making us the perfect stopover for rugby fans travelling through the airport."
                             }
                         ]}
-                        className="bg-anchor-bg-card max-w-3xl mx-auto"
+                        className="bg-anchor-green-card max-w-3xl mx-auto"
                     />
                 </Container>
             </section>

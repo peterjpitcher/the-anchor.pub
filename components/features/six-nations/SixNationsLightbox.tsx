@@ -154,8 +154,8 @@ export function SixNationsLightbox() {
                     />
                     <div className="absolute inset-0 bg-black/60" /> {/* Darker overlay for text contrast */}
                     <div className="relative z-10 text-center px-6">
-                        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-2 text-white">Six Nations 2026</h2>
-                        <p className="text-anchor-gold font-medium uppercase tracking-widest text-sm">Live at The Anchor</p>
+                        <h2 className="text-3xl sm:text-4xl font-display font-bold mb-2 text-white">Six Nations 2026</h2>
+                        <p className="text-anchor-gold-dark font-medium uppercase tracking-widest text-sm">Live at The Anchor</p>
                     </div>
                 </div>
 

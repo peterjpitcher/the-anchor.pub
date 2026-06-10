@@ -193,27 +193,27 @@ export default function FathersDayPage() {
               Walk in or book ahead, deposits only apply to groups of 10 or more.
             </p>
 
-            <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse menus</h3>
+            <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse menus</h3>
               <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                 Planning the day? Take a look at our{' '}
                 <Link
                   href="/sunday-roast"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   Sunday roast menu
                 </Link>
                 ,{' '}
                 <Link
                   href="/drinks"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   drinks menu
                 </Link>{' '}
                 and{' '}
                 <Link
                   href="/pizza-menu"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   pizza menu
                 </Link>
@@ -359,7 +359,7 @@ export default function FathersDayPage() {
             </div>
             <p className="text-sm text-anchor-cream-text/70">
               Or visit our{' '}
-              <Link href="/sunday-roast" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+              <Link href="/sunday-roast" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
                 Sunday roast page
               </Link>{' '}
               for the full menu.
@@ -376,13 +376,13 @@ export default function FathersDayPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy to reach from{' '}
-                <Link href="/staines-pub" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+                <Link href="/staines-pub" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
                   Staines-upon-Thames
                 </Link>
                 , with free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">
-                Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -406,7 +406,7 @@ export default function FathersDayPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Father&rsquo;s Day FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Father&rsquo;s Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

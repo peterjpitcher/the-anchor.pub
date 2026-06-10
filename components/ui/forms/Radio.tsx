@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const radioVariants = cva(
-  'rounded-full border-gray-300 text-anchor-gold focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors',
+  'rounded-full border-gray-300 text-anchor-gold-dark focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors',
   {
     variants: {
       size: {
@@ -226,8 +226,8 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
         htmlFor={radioId}
         className={cn(
           'relative flex cursor-pointer rounded-lg border p-4 transition-all',
-          checked ? 'border-anchor-gold bg-anchor-gold/10' : 'border-anchor-gold/15',
-          !disabled && 'hover:border-anchor-gold/40',
+          checked ? 'border-anchor-gold-dark bg-anchor-gold-dark/10' : 'border-anchor-gold-dark/15',
+          !disabled && 'hover:border-anchor-gold-dark/40',
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >
@@ -254,13 +254,13 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
             <div className="flex items-center">
               <h3 className={cn(
                 'text-sm font-medium',
-                checked ? 'text-anchor-gold' : 'text-anchor-cream-text'
+                checked ? 'text-anchor-gold-dark' : 'text-anchor-cream-text'
               )}>
                 {label}
               </h3>
               {checked && (
                 <svg 
-                  className="ml-2 h-5 w-5 text-anchor-gold" 
+                  className="ml-2 h-5 w-5 text-anchor-gold-dark" 
                   fill="currentColor" 
                   viewBox="0 0 20 20"
                 >
@@ -285,7 +285,7 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
         
         <div className={cn(
           'absolute -inset-px rounded-lg pointer-events-none',
-          checked && 'border-2 border-anchor-gold'
+          checked && 'border-2 border-anchor-gold-dark'
         )} />
       </label>
     )

@@ -99,7 +99,7 @@ export default function OurPubPage() {
       />
 
       {/* Intro */}
-      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-3xl mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
@@ -111,7 +111,7 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Bar ── */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
@@ -146,7 +146,7 @@ export default function OurPubPage() {
                 more besides.{' '}
                 <Link
                   href="/drinks"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   Browse the full drinks menu&nbsp;&rarr;
                 </Link>
@@ -162,7 +162,7 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Dining Room ── */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
@@ -208,7 +208,7 @@ export default function OurPubPage() {
                 into{' '}
                 <Link
                   href="/plane-spotting-heathrow"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   plane spotting
                 </Link>
@@ -218,14 +218,14 @@ export default function OurPubPage() {
                 The dining room doubles as our{' '}
                 <Link
                   href="/function-room-hire"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   private hire space
                 </Link>{' '}
                 too. Book it for{' '}
                 <Link
                   href="/private-party-venue"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   birthday parties
                 </Link>
@@ -240,7 +240,7 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Garden ── */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
@@ -262,7 +262,7 @@ export default function OurPubPage() {
                 This is the one we&apos;re properly proud of. Our{' '}
                 <Link
                   href="/beer-garden"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   beer garden
                 </Link>{' '}
@@ -278,7 +278,7 @@ export default function OurPubPage() {
                 pack. On a warm afternoon, this{' '}
                 <Link
                   href="/beer-garden"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   pub garden near Heathrow
                 </Link>{' '}
@@ -292,7 +292,7 @@ export default function OurPubPage() {
       </section>
 
       {/* ── Where the Action Happens ── */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
@@ -322,7 +322,7 @@ export default function OurPubPage() {
                 follows you wherever you go. And the{' '}
                 <Link
                   href="/pool-darts-pub"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   dartboard
                 </Link>
@@ -335,7 +335,7 @@ export default function OurPubPage() {
       </section>
 
       {/* ── Pool, Games & a Quiet Corner ── */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
@@ -368,7 +368,7 @@ export default function OurPubPage() {
                 Our{' '}
                 <Link
                   href="/pool-darts-pub"
-                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
+                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
                 >
                   pool table
                 </Link>{' '}
@@ -392,7 +392,7 @@ export default function OurPubPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg-raised"
+        className="bg-anchor-green-raised"
         faqs={[
           {
             question: 'What drinks do you have on draught?',

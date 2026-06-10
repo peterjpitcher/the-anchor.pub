@@ -542,9 +542,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               Whether you're after a shared Christmas party night, a private festive dinner or a buffet for the whole department, we've got transparent per-person pricing with no hidden hire fees. Pick your Christmas party package, then send your enquiry to lock in a date.
             </p>
           </div>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card">
+          <div className="mt-8 overflow-hidden rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-card">
             <table className="w-full text-left text-sm text-anchor-cream-text/70">
-              <thead className="bg-anchor-bg-raised text-anchor-cream-text text-xs uppercase tracking-wide">
+              <thead className="bg-anchor-green-raised text-anchor-cream-text text-xs uppercase tracking-wide">
                 <tr>
                   <th className="px-4 py-3">Package</th>
                   <th className="px-4 py-3">Pricing</th>
@@ -553,9 +553,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               </thead>
               <tbody>
                 {FESTIVE_PRICING.map(row => (
-                  <tr key={row.tier} className="border-t border-anchor-gold/15">
+                  <tr key={row.tier} className="border-t border-anchor-gold-dark/15">
                     <td className="px-4 py-4 font-semibold text-anchor-cream-text">{row.tier}</td>
-                    <td className="px-4 py-4 text-anchor-gold-vivid font-semibold">{row.price}</td>
+                    <td className="px-4 py-4 text-anchor-gold-bright font-semibold">{row.price}</td>
                     <td className="px-4 py-4">{row.includes}</td>
                   </tr>
                 ))}
@@ -632,7 +632,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-full border border-anchor-gold/15 px-4 py-2 text-sm font-semibold text-anchor-cream-text/70 transition hover:border-anchor-gold hover:text-anchor-gold"
+                  className="rounded-full border border-anchor-gold-dark/15 px-4 py-2 text-sm font-semibold text-anchor-cream-text/70 transition hover:border-anchor-gold-dark hover:text-anchor-gold-dark"
                 >
                   {link.label}
                 </Link>
@@ -646,16 +646,16 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas pricing at a glance</h2>
-            <div className="overflow-hidden rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card">
+            <div className="overflow-hidden rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-card">
               <table className="w-full text-left text-sm md:text-base text-anchor-cream-text/70">
                 <tbody>
-                  <tr className="border-b border-anchor-gold/15 bg-anchor-bg-raised">
+                  <tr className="border-b border-anchor-gold-dark/15 bg-anchor-green-raised">
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Tue-Thu</th>
-                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">£36.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-bright">£36.95 per person</td>
                   </tr>
-                  <tr className="border-b border-anchor-gold/15">
+                  <tr className="border-b border-anchor-gold-dark/15">
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Fri-Sat</th>
-                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">£39.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-bright">£39.95 per person</td>
                   </tr>
                   <tr>
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Children (under 12)</th>
@@ -663,7 +663,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   </tr>
                 </tbody>
               </table>
-              <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold/15">
+              <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold-dark/15">
                 Our festive menu is available for parties of six or more. A £10 per person deposit secures your Christmas party booking and is non-refundable. Full pre-orders for every guest are due seven days in advance, we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
@@ -705,7 +705,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-card">
+      <Section background="white" spacing="md" className="bg-anchor-green-card">
         <Container>
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="space-y-6">
@@ -715,9 +715,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <p className="text-base sm:text-lg text-anchor-cream-text/70">
                 Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy. It's the same festive menu for lunch and dinner, so your Christmas meal tastes just as good at midday.
               </p>
-              <p className="text-sm text-anchor-gold font-semibold">Available for festive parties of six or more guests.</p>
+              <p className="text-sm text-anchor-gold-dark font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
-                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 space-y-3">
                   <h3 className="text-lg font-semibold text-anchor-cream-text">Starter</h3>
                   <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                     <li>
@@ -734,7 +734,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                     </li>
                   </ul>
                 </div>
-                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 space-y-3">
                   <h3 className="text-lg font-semibold text-anchor-cream-text">Main</h3>
                   <p className="text-sm text-anchor-cream-text/70">All served with Christmas trimmings.</p>
                   <ul className="space-y-3 text-sm text-anchor-cream-text/70">
@@ -758,7 +758,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   </ul>
                   <p className="mt-3 text-xs text-anchor-cream-text/55">Vegetarian gravy available on request for every main course.</p>
                 </div>
-                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 space-y-3">
                   <h3 className="text-lg font-semibold text-anchor-cream-text">Dessert</h3>
                   <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                     <li>
@@ -777,11 +777,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <p className="text-xs text-anchor-cream-text/70">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+£3) or add it as a fourth course for £7.95.</p>
                 </div>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-4 py-2 text-sm font-semibold text-anchor-gold-vivid">
+              <div className="inline-flex items-center gap-2 rounded-full bg-anchor-green-raised px-4 py-2 text-sm font-semibold text-anchor-gold-bright">
                 <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy.
               </div>
             </div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-anchor-gold/15">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-anchor-gold-dark/15">
               <Image
                 src="/images/page-headers/christmas-parties/2026/trimmings-board.jpg"
                 alt="Christmas trimmings board at The Anchor pub near Staines with Yorkshire puddings and pigs in blankets"
@@ -976,7 +976,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-anchor-gold/15">
+            <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-anchor-gold-dark/15">
               <Image
                 src="/images/events/christmas/christmas-buffet-table.jpg"
                 alt="Festive buffet spread for Heathrow Christmas parties at The Anchor"
@@ -1035,9 +1035,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <p>Free on-site parking for around 20 cars · Seven minutes from Heathrow Terminal 5 · Ten minutes to Staines-upon-Thames · Outside the ULEZ · Sheltered smoking area</p>
             <p>
               Driving from farther afield?{' '}
-              <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
+              <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
               or{' '}
-              <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-book parking at The Anchor</Link>{' '}
+              <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">pre-book parking at The Anchor</Link>{' '}
               so your guests arrive stress-free.
             </p>
           </div>
@@ -1051,15 +1051,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div className="max-w-3xl mx-auto mt-8">
             <ul className="space-y-3 text-sm text-anchor-cream-text/70">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />A £10 per person deposit secures your Christmas party booking. Deposits are non-refundable.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Full pre-orders for every guest are due at least seven days before your Christmas meal.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />We&apos;ll always try to accommodate last-minute changes, but once your order is confirmed we can&apos;t guarantee them.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Standard table time is two hours. Longer sittings available for larger parties.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />An optional 10% service charge applies to tables of six or more.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Include dietary requirements or allergies with your pre-order so the kitchen can prepare suitable alternatives. Some substitutions may carry a small surcharge.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />A £10 per person deposit secures your Christmas party booking. Deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />Full pre-orders for every guest are due at least seven days before your Christmas meal.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />We&apos;ll always try to accommodate last-minute changes, but once your order is confirmed we can&apos;t guarantee them.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />Standard table time is two hours. Longer sittings available for larger parties.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />An optional 10% service charge applies to tables of six or more.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />Include dietary requirements or allergies with your pre-order so the kitchen can prepare suitable alternatives. Some substitutions may carry a small surcharge.</li>
               <li className="flex items-start gap-3">
-                <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />
-                <span>Guests driving? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">cheap Heathrow parking tips</Link> or point them to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-booked spaces at The Anchor</Link>.</span>
+                <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright" />
+                <span>Guests driving? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">cheap Heathrow parking tips</Link> or point them to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">pre-booked spaces at The Anchor</Link>.</span>
               </li>
             </ul>
           </div>
@@ -1105,23 +1105,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <h3 className="text-xl font-semibold text-anchor-cream-text">Why offices choose us</h3>
                 <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
-                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright flex-shrink-0" />
                     <span><strong className="text-anchor-cream-text">Central for distributed teams</strong>, Seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright flex-shrink-0" />
                     <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong>, Proper invoices for accounts, pre-payment options for bar tabs, and deposit invoicing so finance stays happy.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright flex-shrink-0" />
                     <span><strong className="text-anchor-cream-text">Simple pre-order system</strong>, No more chasing colleagues for menu choices on spreadsheets. We send you a form link to share with the team.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright flex-shrink-0" />
                     <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong>, Around 20 free spaces plus we're outside the ULEZ zone. No parking charges, no congestion fees.</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-bright flex-shrink-0" />
                     <span><strong className="text-anchor-cream-text">The organiser perk</strong>, Book a staff Christmas party for 20 or more and receive a £40 voucher for yourself in January. You've earned it.</span>
                   </li>
                 </ul>
@@ -1129,15 +1129,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="space-y-5">
                 <h3 className="text-xl font-semibold text-anchor-cream-text">Popular corporate setups</h3>
                 <div className="space-y-4">
-                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                  <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                     <h4 className="font-semibold text-anchor-cream-text mb-1">Small team dinner (6–25)</h4>
                     <p className="text-sm text-anchor-cream-text/70">Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
                   </div>
-                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                  <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                     <h4 className="font-semibold text-anchor-cream-text mb-1">Department celebration (26–60)</h4>
                     <p className="text-sm text-anchor-cream-text/70">Main bar configured for your group with buffet or sit-down service. Add a quiz or Music Bingo for a memorable works Christmas do.</p>
                   </div>
-                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                  <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
                     <h4 className="font-semibold text-anchor-cream-text mb-1">Full venue hire (60–200)</h4>
                     <p className="text-sm text-anchor-cream-text/70">Exclusive use of the entire pub. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Perfect for airline crews and larger corporate Christmas parties.</p>
                   </div>
@@ -1146,7 +1146,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </div>
             <div className="text-center">
               <p className="text-sm text-anchor-cream-text/70 mb-4">
-                Already organising? See our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-anchor-gold hover:text-anchor-gold-vivid transition">dedicated corporate Christmas parties page</Link> for detailed packages.
+                Already organising? See our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-anchor-gold-dark hover:text-anchor-gold-bright transition">dedicated corporate Christmas parties page</Link> for detailed packages.
               </p>
             </div>
           </div>
@@ -1168,7 +1168,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <div className="p-6 space-y-3">
                     <h3 className="text-lg font-semibold text-anchor-cream-text">{idea.title}</h3>
                     <p className="text-sm text-anchor-cream-text/70">{idea.description}</p>
-                    <p className="text-xs text-anchor-gold font-semibold">Best for: {idea.ideal}</p>
+                    <p className="text-xs text-anchor-gold-dark font-semibold">Best for: {idea.ideal}</p>
                   </div>
                 </Card>
               ))}
@@ -1241,7 +1241,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <a
                   href={CONTACT_PHONE_LINK}
                   onClick={() => trackPhoneCallClick({ source: 'christmas_urgency', phone: CONTACT_PHONE })}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-anchor-gold/30 px-6 py-3 text-sm font-semibold text-anchor-cream-text/70 hover:border-anchor-gold hover:text-anchor-gold transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-anchor-gold-dark/30 px-6 py-3 text-sm font-semibold text-anchor-cream-text/70 hover:border-anchor-gold-dark hover:text-anchor-gold-dark transition"
                 >
                   <Icon name="phone" className="h-4 w-4" /> Call {CONTACT_PHONE}
                 </a>
@@ -1256,15 +1256,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <FAQAccordionWithSchema
             title="Christmas Party FAQs"
             faqs={FAQ_ITEMS}
-            className="bg-anchor-bg"
+            className="bg-anchor-green-deep"
           />
         </Container>
       </Section>
 
-      <Section className="py-20 bg-anchor-bg-raised border-t border-anchor-gold/15">
+      <Section className="py-20 bg-anchor-green-raised border-t border-anchor-gold-dark/15">
         <Container>
           <div className="text-center space-y-8">
-            <h2 className="text-4xl font-bold text-anchor-gold-vivid">Ready to plan your Christmas at The Anchor?</h2>
+            <h2 className="text-4xl font-bold text-anchor-gold-bright">Ready to plan your Christmas at The Anchor?</h2>
             <p className="text-lg text-anchor-cream-text/70 max-w-2xl mx-auto">
               Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team, we're here to help.
             </p>
@@ -1379,13 +1379,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         testId="christmas-enquiry-drawer"
       >
         <div className="p-4 sm:p-6">
-          <div className="flex gap-2 bg-anchor-bg-raised rounded-full p-1 mb-6">
+          <div className="flex gap-2 bg-anchor-green-raised rounded-full p-1 mb-6">
             {(['dinner', 'buffet'] as EnquiryMode[]).map(mode => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => handleContextChange({ mode })}
-                className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-bg-card'}`}
+                className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-green-card'}`}
               >
                 {mode === 'dinner' ? 'Dinner (up to 25)' : 'Buffet (26+)'}
               </button>
@@ -1519,10 +1519,10 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   }
 
   return (
-    <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card p-6">
+    <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-card p-6">
       <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Send your Christmas enquiry</h3>
       <p className="text-sm text-anchor-cream-text/70">We reply within one working day (often sooner).</p>
-      <p className="text-sm text-anchor-cream-text/70 mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-anchor-gold">{CONTACT_EMAIL}</a></p>
+      <p className="text-sm text-anchor-cream-text/70 mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-anchor-gold-dark">{CONTACT_EMAIL}</a></p>
 
       {status === 'success' && (
         <Alert variant="success" className="mb-6" title="Enquiry sent">
@@ -1540,14 +1540,14 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'dinner' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/15 hover:border-anchor-gold'}`}
+            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'dinner' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-green-raised text-anchor-cream-text border-anchor-gold-dark/15 hover:border-anchor-gold-dark'}`}
             onClick={() => onContextChange({ mode: 'dinner' })}
           >
             Dinner (up to 25)
           </button>
           <button
             type="button"
-            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'buffet' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/15 hover:border-anchor-gold'}`}
+            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'buffet' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-green-raised text-anchor-cream-text border-anchor-gold-dark/15 hover:border-anchor-gold-dark'}`}
             onClick={() => onContextChange({ mode: 'buffet' })}
           >
             Buffet (26+)
@@ -1563,7 +1563,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               onChange={event => setName(event.target.value)}
               autoComplete="name"
               placeholder="Your full name"
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1575,7 +1575,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
               placeholder="you@example.com"
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1588,7 +1588,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               autoComplete="tel"
               inputMode="tel"
               placeholder="Best number for a quick call"
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1600,7 +1600,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               value={partySize}
               onChange={event => setPartySize(event.target.value)}
               placeholder="e.g. 18"
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1614,7 +1614,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               value={preferredDate}
               onChange={event => setPreferredDate(event.target.value)}
               data-native-date-time="true"
-              className="mt-1 block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1623,7 +1623,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
             <select
               value={preferredTime}
               onChange={event => setPreferredTime(event.target.value)}
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             >
               {TIME_OPTIONS.map(option => (
                 <option key={option} value={option}>{option}</option>
@@ -1633,7 +1633,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         </div>
 
         {(context.extras.length > 0 || context.perks.length > 0) && (
-          <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised px-4 py-3 text-sm text-anchor-cream-text/70">
+          <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised px-4 py-3 text-sm text-anchor-cream-text/70">
             <Icon name="gift" className="mr-2 inline h-4 w-4" />
             We've noted your selected extras and offers for our reply.
           </div>
@@ -1645,7 +1645,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
             rows={4}
             value={notes}
             onChange={event => setNotes(event.target.value)}
-            className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+            className="mt-1 w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             placeholder="Share dietary notes, entertainment ideas or anything else we should prepare for."
           />
         </div>
@@ -1682,17 +1682,17 @@ function StickyEnquiryBar({ visible, context, onContextChange, onOpenForm }: Sti
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-anchor-bg-card/95 shadow-lg backdrop-blur border-t border-anchor-gold/15">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-anchor-green-card/95 shadow-lg backdrop-blur border-t border-anchor-gold-dark/15">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3 text-sm font-semibold text-anchor-cream-text">
           <span className="hidden md:inline">Plan your Christmas:</span>
-          <div className="flex gap-2 bg-anchor-bg-raised rounded-full p-1">
+          <div className="flex gap-2 bg-anchor-green-raised rounded-full p-1">
             {(['dinner', 'buffet'] as EnquiryMode[]).map(mode => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => onContextChange({ mode })}
-                className={`rounded-full px-3 py-1 text-xs font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-bg-card'}`}
+                className={`rounded-full px-3 py-1 text-xs font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-green-card'}`}
               >
                 {mode === 'dinner' ? 'Dinner (≤25)' : 'Buffet (26+)'}
               </button>
@@ -1887,7 +1887,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="w-full max-w-lg rounded-2xl bg-anchor-bg-card p-6 shadow-xl relative border border-anchor-gold/15">
+      <div className="w-full max-w-lg rounded-2xl bg-anchor-green-card p-6 shadow-xl relative border border-anchor-gold-dark/15">
         <button
           type="button"
           onClick={closeLightbox}
@@ -1914,7 +1914,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               value={name}
               onChange={event => setName(event.target.value)}
               autoComplete="name"
-              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <input
               type="email"
@@ -1922,7 +1922,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               value={email}
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
-              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <input
               type="tel"
@@ -1931,7 +1931,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               onChange={event => setPhone(event.target.value)}
               autoComplete="tel"
               inputMode="tel"
-              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <div className="grid grid-cols-2 gap-3">
               <input
@@ -1940,14 +1940,14 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                 placeholder="Party size"
                 value={partySize}
                 onChange={event => setPartySize(event.target.value)}
-                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               />
               <input
                 type="date"
                 value={preferredDate}
                 onChange={event => setPreferredDate(event.target.value)}
                 data-native-date-time="true"
-                className="block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+                className="block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               />
             </div>
             <div className="flex gap-2">
@@ -1956,7 +1956,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                   key={mode}
                   type="button"
                   onClick={() => onContextChange({ mode })}
-                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${context.mode === mode ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/30'}`}
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${context.mode === mode ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-green-raised text-anchor-cream-text border-anchor-gold-dark/30'}`}
                 >
                   {mode === 'dinner' ? 'Dinner (≤25)' : 'Buffet (26+)'}
                 </button>

@@ -137,7 +137,7 @@ export default function HalloweenPage() {
             </div>
 
             {/* Booking */}
-            <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 space-y-4">
+            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 space-y-4">
               <h2 className="text-2xl font-bold text-anchor-cream-text">Booking</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Walk-ins are welcome for drinks all evening. If you&apos;d like to eat, we recommend booking
@@ -206,7 +206,7 @@ export default function HalloweenPage() {
                   from Heathrow Terminal 5, with free on-site parking.
                 </p>
                 <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -231,7 +231,7 @@ export default function HalloweenPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Halloween FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Halloween FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

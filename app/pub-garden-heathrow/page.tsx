@@ -41,7 +41,7 @@ export default function PubGardenPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
@@ -54,7 +54,7 @@ export default function PubGardenPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -70,7 +70,7 @@ export default function PubGardenPage() {
                                     title: "Real Grass",
                                     description: "A proper lawn, perfect for kids to play on or for sprawling out on a picnic blanket.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -78,7 +78,7 @@ export default function PubGardenPage() {
                                     title: "Outdoor Dining",
                                     description: "We serve our full menu outside. Just grab a table number and order at the bar.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -86,7 +86,7 @@ export default function PubGardenPage() {
                                     title: "Smoking Area",
                                     description: "Designated sheltered smoking areas for when the British weather does its thing.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -118,7 +118,7 @@ export default function PubGardenPage() {
                         answer: "Yes, the garden is beautifully lit with festoon lighting in the evenings."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

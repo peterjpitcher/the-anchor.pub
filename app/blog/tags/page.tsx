@@ -72,8 +72,8 @@ export default async function AllTagsPage() {
       />
 
       {/* Tags Grid */}
-      <Section spacing="lg" container containerSize="lg" className="bg-anchor-bg">
-        <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
+      <Section spacing="lg" container containerSize="lg" className="bg-anchor-green-deep">
+        <h2 className="text-2xl font-bold text-anchor-gold-bright mb-6">
           Browse by Topic
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -84,15 +84,15 @@ export default async function AllTagsPage() {
               <Link
                 key={tag}
                 href={`/blog/tag/${tag}`}
-                className="group bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-4 hover:border-anchor-gold/40 transition-all"
+                className="group bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-4 hover:border-anchor-gold-dark/40 transition-all"
               >
-                <h3 className="font-semibold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours mb-1">
+                <h3 className="font-semibold text-anchor-gold-bright group-hover:text-anchor-gold-dark transition-colours mb-1">
                   {seoContent.name}
                 </h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-2 line-clamp-2">
                   {seoContent.description}
                 </p>
-                <span className="text-sm sm:text-xs bg-anchor-bg px-2 py-1 rounded-full text-anchor-cream-text/55">
+                <span className="text-sm sm:text-xs bg-anchor-green-deep px-2 py-1 rounded-full text-anchor-cream-text/55">
                   {count} {count === 1 ? 'post' : 'posts'}
                 </span>
               </Link>
@@ -111,12 +111,12 @@ export default async function AllTagsPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/blog">
-            <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
+            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
               Back to Blog
             </Button>
           </Link>
           <Link href="/whats-on">
-            <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
+            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
               Upcoming Events
             </Button>
           </Link>

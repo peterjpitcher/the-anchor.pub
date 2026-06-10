@@ -43,7 +43,7 @@ export default function PreFlightDiningPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
@@ -56,7 +56,7 @@ export default function PreFlightDiningPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -98,7 +98,7 @@ export default function PreFlightDiningPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -106,7 +106,7 @@ export default function PreFlightDiningPage() {
                             <p className="mb-4 text-anchor-cream-text/70">
                                 We know you have a flight to catch. Our service is friendly but efficient. Let us know your timeline when you arrive, and we'll make sure you're fed and watered with plenty of time to get to the gate.
                             </p>
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 p-4 rounded-lg">
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 p-4 rounded-lg">
                                 <p className="font-bold">Estimated Taxi Times:</p>
                                 <ul className="mt-2 space-y-1 text-sm text-anchor-cream-text/55">
                                     <li>Terminal 5: 5-7 mins</li>
@@ -143,7 +143,7 @@ export default function PreFlightDiningPage() {
                         answer: "Yes! We are very luggage friendly. We have ample space to stow suitcases safely while you eat."
                     }
                 ]}
-                className="bg-anchor-bg"
+                className="bg-anchor-green-deep"
             />
 
             <CTASection

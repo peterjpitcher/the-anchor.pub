@@ -145,7 +145,7 @@ export default async function WakesPage() {
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container size="md">
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Wake Venue & Funeral Receptions Near Heathrow
@@ -161,8 +161,8 @@ export default async function WakesPage() {
                             <ul className="grid sm:grid-cols-2 gap-2 mt-2">
                                 {nearbyCrematoriums.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
-                                        <span className="text-anchor-gold"></span>
-                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-gold font-medium">
+                                        <span className="text-anchor-gold-dark"></span>
+                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-gold-dark font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
                                     </li>
@@ -175,7 +175,7 @@ export default async function WakesPage() {
 
             <PrivateBookingSection id="enquiry" eventType="Wake / Memorial" />
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Private Spaces"
@@ -195,7 +195,7 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <Section className="bg-anchor-bg border-b border-anchor-gold/15">
+            <Section className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Wake Reception Packages"
@@ -204,12 +204,12 @@ export default async function WakesPage() {
                     <div className="prose prose-invert max-w-3xl mx-auto mb-8">
                         <p>We offer a range of buffet and tea &amp; coffee packages to suit your needs and budget. Use our calculator below to get an instant indication of costs for your gathering, or call us to discuss your requirements.</p>
                         <p>All packages include use of our private dining room, dedicated staff, free parking, and setup and cleardown. We can also arrange flowers, photos, and order of service display.</p>
-                        <p>Guests who choose to stay on after the reception are welcome to order from <Link href="/food-menu" className="text-anchor-gold hover:underline">our full food menu</Link> at their leisure.</p>
+                        <p>Guests who choose to stay on after the reception are welcome to order from <Link href="/food-menu" className="text-anchor-gold-dark hover:underline">our full food menu</Link> at their leisure.</p>
                     </div>
                 </Container>
             </Section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Facilities & Accessibility"
@@ -253,7 +253,7 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="What to Expect on the Day"
@@ -282,7 +282,7 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Celebration of Life"
@@ -308,7 +308,7 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <Section className="bg-anchor-bg border-b border-anchor-gold/15">
+            <Section className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable
@@ -319,9 +319,9 @@ export default async function WakesPage() {
                             filterNames={WAKE_PACKAGE_NAMES}
                         />
 
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-8">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 text-center mt-8">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All funeral tea packages include use of the private dining room, dedicated staff, setup, cleardown, and free parking. Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote tailored to your needs.
+                                All funeral tea packages include use of the private dining room, dedicated staff, setup, cleardown, and free parking. Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-anchor-gold-bright">01753 682707</strong> for a bespoke quote tailored to your needs.
                             </p>
                         </div>
                     </div>
@@ -332,7 +332,7 @@ export default async function WakesPage() {
                 variant="full"
                 title="What Families Say About Us"
                 subtitle="Words from families who have trusted us with their arrangements"
-                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15"
+                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15"
                 reviews={[
                     { quote: "The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.", author: "Sarah, Staines", source: "Google Review", rating: 5 },
                     { quote: "We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.", author: "James, Ashford", source: "Google Review", rating: 5 },
@@ -340,7 +340,7 @@ export default async function WakesPage() {
                 ]}
             />
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Planning a Wake, Step by Step"
@@ -349,28 +349,28 @@ export default async function WakesPage() {
                     <div className="max-w-3xl mx-auto">
                         <ol className="space-y-6">
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Call us or ask your funeral director to call</h3>
                                     <p className="text-anchor-cream-text/70">You can call us directly on 01753 682707, or your funeral director can make the arrangements on your behalf. We are available seven days a week and can often accommodate bookings within 24 to 48 hours.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Choose your catering package</h3>
                                     <p className="text-anchor-cream-text/70">Select from our classic finger buffet, enhanced buffet, or afternoon tea. We can also create a bespoke menu if you have something specific in mind. Let us know about any dietary requirements and we will cater for everyone.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Share any personal touches</h3>
                                     <p className="text-anchor-cream-text/70">Let us know if you would like to display photographs, an order of service, or flowers. Tell us about any music you would like played or any other details that would make the day feel personal and meaningful.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Leave the rest to us</h3>
                                     <p className="text-anchor-cream-text/70">On the day, everything will be ready before your guests arrive. We handle the setup, the catering, and the cleardown. You and your family can focus entirely on being together and remembering your loved one.</p>
@@ -381,10 +381,10 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-4">Near Slough Crematorium</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-4">Near Slough Crematorium</h2>
                         <p className="text-anchor-cream-text/70 mb-4">
                             Slough Cemetery and Crematorium on Stoke Road is around 12 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
                         </p>
@@ -392,16 +392,16 @@ export default async function WakesPage() {
                             We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-anchor-gold hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
+                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-anchor-gold-dark hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-4">Near Staines Cemetery</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-4">Near Staines Cemetery</h2>
                         <p className="text-anchor-cream-text/70 mb-4">
                             Staines Cemetery on London Road is approximately 8 minutes from The Anchor, making it one of the most convenient wake venues for families gathering after a burial or committal service in Staines-upon-Thames. The route along the B378 is direct and avoids the busiest parts of the town centre.
                         </p>
@@ -409,7 +409,7 @@ export default async function WakesPage() {
                             Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-anchor-gold hover:underline" showIcon={false} />, there is always someone here to help.
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-anchor-gold-dark hover:underline" showIcon={false} />, there is always someone here to help.
                         </p>
                     </div>
                 </Container>
@@ -463,9 +463,9 @@ export default async function WakesPage() {
                 ]}
             />
 
-            <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-raised border-t border-anchor-gold-dark/15">
                 <Container size="sm" className="text-center">
-                    <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Contact Our Team</h2>
+                    <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">Contact Our Team</h2>
                     <p className="mb-8 text-anchor-cream-text/70">We are here to help make this day as stress-free as possible.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <PhoneButton phone="01753 682707" size="lg" variant="primary" source="wakes_cta_bottom">Call 01753 682707</PhoneButton>

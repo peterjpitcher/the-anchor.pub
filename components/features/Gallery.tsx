@@ -210,7 +210,7 @@ export function Gallery({
               <Card 
                 variant="elevated" 
                 padding="none"
-                className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-anchor-gold focus-visible:outline-none"
+                className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:outline-none"
                 onClick={() => handleImageClick(image, index)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleImageClick(image, index) } }}
                 role="button"
@@ -248,7 +248,7 @@ export function Gallery({
                 
                 {/* Caption */}
                 {showCaptions && image.caption && (
-                  <div className="p-4 bg-anchor-bg-raised">
+                  <div className="p-4 bg-anchor-green-raised">
                     <p className="text-sm text-anchor-cream-text/70">{image.caption}</p>
                   </div>
                 )}

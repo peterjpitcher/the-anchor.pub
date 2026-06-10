@@ -76,14 +76,14 @@ export default function EventAvailability({ eventId, className = '', showDetails
           <span className={`text-sm font-semibold ${
             isNearlySoldOut ? 'text-amber-400 animate-pulse' :
             isLimited ? 'text-amber-400' :
-            'text-anchor-gold-vivid'
+            'text-anchor-gold-bright'
           }`} role={isLimited ? 'alert' : undefined}>
             {isNearlySoldOut ? 'NEARLY SOLD OUT' : 
              isLimited ? 'LIMITED AVAILABILITY' : 
              'SPACES AVAILABLE'}
           </span>
         </div>
-        <div className="w-full bg-anchor-bg-raised rounded-full h-2" role="progressbar" aria-valuenow={percentageFull} aria-valuemin={0} aria-valuemax={100} aria-label="Booking capacity">
+        <div className="w-full bg-anchor-green-raised rounded-full h-2" role="progressbar" aria-valuenow={percentageFull} aria-valuemin={0} aria-valuemax={100} aria-label="Booking capacity">
           <div 
             className={`h-2 rounded-full transition-all duration-300 ${
               percentageFull >= 90 ? 'bg-red-500' :

@@ -39,7 +39,7 @@ export function BotanicalsGrid({
         {botanicals.map((botanical, index) => (
           <div
             key={index}
-            className="min-w-0 bg-anchor-bg-raised hover:bg-anchor-bg-card transition-colors rounded-none p-4 text-center border border-anchor-gold/15"
+            className="min-w-0 bg-anchor-green-raised hover:bg-anchor-green-card transition-colors rounded-none p-4 text-center border border-anchor-gold-dark/15"
           >
             <span className="break-words text-sm text-anchor-cream-text/70 font-medium">{botanical}</span>
           </div>

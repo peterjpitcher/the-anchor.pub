@@ -93,7 +93,7 @@ export default function EghamPubPage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -113,7 +113,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -150,28 +150,28 @@ export default function EghamPubPage() {
 
             {/* Why Choose Us */}
             <div className="card-dark rounded-none p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">
                 Why Egham Residents & Students Choose The Anchor
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Free parking - no expensive Egham parking charges</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Traditional pub atmosphere away from chain venues</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Perfect for Royal Holloway society meetups</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Regular quiz nights - build your own team</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3"></span>
+                  <span className="text-anchor-gold-dark mr-3"></span>
                   <span>Our celebrated Sunday roasts worth the journey</span>
                 </li>
               </ul>
@@ -181,7 +181,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -193,27 +193,27 @@ export default function EghamPubPage() {
                 <h3 className="font-bold text-xl mb-4">From Egham Town Centre</h3>
                 <ol className="space-y-3">
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">1.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
                     Take the A30 towards Staines
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">2.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
                     After 2 miles, turn left onto A308 Staines bypass
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">3.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
                     At the roundabout, take 3rd exit onto A3044
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">4.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
                     Continue for 1.5 miles
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">5.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">5.</span>
                     Turn right onto Horton Road
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">6.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">6.</span>
                     The Anchor is on your right with free parking
                   </li>
                 </ol>
@@ -223,19 +223,19 @@ export default function EghamPubPage() {
                 <h3 className="font-bold text-xl mb-4">From Royal Holloway</h3>
                 <ol className="space-y-3">
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">1.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
                     Exit campus and join A30 towards Staines
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">2.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
                     Follow A30 for 3 miles
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">3.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
                     Turn left onto A308 (Staines bypass)
                   </li>
                   <li className="flex">
-                    <span className="text-anchor-gold font-bold mr-3">4.</span>
+                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
                     Follow directions above from step 3
                   </li>
                 </ol>
@@ -258,7 +258,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Student & Local Offers */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -274,26 +274,26 @@ export default function EghamPubPage() {
                       <p className="mb-3">Popular with Royal Holloway students and staff</p>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Perfect for society meetups
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           End-of-term celebrations
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Sports team dinners
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Quiz team headquarters
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-card"
+                  color: "bg-anchor-green-card"
                 },
                 {
                   title: "Egham Favourites",
@@ -302,32 +302,32 @@ export default function EghamPubPage() {
                       <p className="mb-3">Join other Egham locals who make the journey</p>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Stone-Baked Pizzas
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Wednesday Quiz Nights
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
                         </li>
                         <li className="flex items-start">
-                          <span className="text-anchor-gold mr-2">•</span>
+                          <span className="text-anchor-gold-dark mr-2">•</span>
                           Sunday Roast (book early)
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-card"
+                  color: "bg-anchor-green-card"
                 }
               ]}
             />
 
             <div className="mt-8 text-center card-dark rounded-none p-8">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Transport Options</h3>
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Transport Options</h3>
               <div className="text-center">
                 <p className="font-semibold mb-2">Taxi Services</p>
                 <p className="text-anchor-cream-text/70">We can arrange taxis back to Egham/Royal Holloway</p>
@@ -338,7 +338,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -363,7 +363,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -390,7 +390,7 @@ export default function EghamPubPage() {
             answer: "Absolutely! We regularly host Royal Holloway society events, sports team celebrations, and end-of-term parties. We can reserve areas for your society and help make your event special."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

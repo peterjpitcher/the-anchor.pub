@@ -57,10 +57,10 @@ interface NavigationProps {
 const defaultTheme = {
   background: 'bg-anchor-green',
   text: 'text-white',
-  hoverText: 'hover:text-anchor-gold',
-  ctaBackground: 'bg-anchor-gold',
+  hoverText: 'hover:text-anchor-gold-dark',
+  ctaBackground: 'bg-anchor-gold-dark',
   ctaText: 'text-white',
-  ctaHoverBackground: 'hover:bg-anchor-gold-light'
+  ctaHoverBackground: 'hover:bg-anchor-gold'
 }
 
 const defaultItems: NavigationItem[] = [
@@ -590,7 +590,7 @@ export function Navigation({
                   key={subItem.href}
                   href={subItem.href}
                   className={cn(
-                    'block px-4 py-2.5 text-sm text-white hover:bg-anchor-gold hover:text-white transition-colors',
+                    'block px-4 py-2.5 text-sm text-white hover:bg-anchor-gold-dark hover:text-white transition-colors',
                     subItem.description && 'border-b border-white/10 last:border-b-0'
                   )}
                   role="menuitem"
@@ -788,7 +788,7 @@ export function Navigation({
 
     const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
     const variantClasses = button.variant === 'secondary'
-      ? 'bg-anchor-bg-card text-anchor-cream-text hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid border border-anchor-gold/30'
+      ? 'bg-anchor-green-card text-anchor-cream-text hover:bg-anchor-green-raised hover:text-anchor-gold-bright border border-anchor-gold-dark/30'
       : cn(mergedTheme.ctaBackground, mergedTheme.ctaText, mergedTheme.ctaHoverBackground)
 
     const ctaClass = cn(
@@ -911,7 +911,7 @@ export function Navigation({
       className={cn(
         'group flex items-start gap-3 rounded-lg border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
         task.featured
-          ? 'border-anchor-gold bg-anchor-gold px-4 py-4 text-white hover:bg-anchor-gold-light'
+          ? 'border-anchor-gold-dark bg-anchor-gold-dark px-4 py-4 text-white hover:bg-anchor-gold'
           : 'border-white/10 bg-white/10 px-4 py-3 text-white hover:bg-white/20'
       )}
       onClick={() => {

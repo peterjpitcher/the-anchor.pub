@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Outfit, Merriweather } from 'next/font/google'
+import { DM_Serif_Display, Outfit, Clicker_Script } from 'next/font/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import './globals.css'
@@ -38,16 +38,25 @@ const PrivateHire2026PromoGate = dynamic(
   { ssr: false }
 )
 
-const outfit = Outfit({
+const display = DM_Serif_Display({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-display',
   display: 'swap',
 })
 
-const merriweather = Merriweather({
-  weight: ['300', '400', '700', '900'],
+const body = Outfit({
   subsets: ['latin'],
-  variable: '--font-merriweather',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
+const script = Clicker_Script({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-script',
   display: 'swap',
 })
 
@@ -160,7 +169,7 @@ export default function RootLayout({
   })()
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${body.variable} ${script.variable}`}>
       <head>
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
@@ -212,7 +221,7 @@ function gtag(){dataLayer.push(arguments);}
           }}
         />
       </head>
-      <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
+      <body className="font-sans antialiased">
         {/* Global structured data (JSON-LD), placed in body to avoid Next.js head deduplication */}
         <DynamicSchema />
         {/* Google Tag Manager (noscript) */}
@@ -246,7 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               {/* Skip Navigation Links for Accessibility */}
               <a
                 href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold-dark focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark"
               >
                 Skip to main content
               </a>

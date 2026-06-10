@@ -15,12 +15,12 @@ export function PhoneLinksSection({ source, className = '' }: PhoneLinksSectionP
       <PhoneLink 
         phone="01753682707" 
         source={source} 
-        className={`hover:text-anchor-gold transition-colors block ${className}`}
+        className={`hover:text-anchor-gold-dark transition-colors block ${className}`}
       />
       <WhatsAppLink
         phone="01753682707"
         source={source}
-        className="hover:text-anchor-gold transition-colors block mt-1"
+        className="hover:text-anchor-gold-dark transition-colors block mt-1"
       >
         WhatsApp
       </WhatsAppLink>
@@ -35,13 +35,13 @@ export function QuickEnquiryLinks() {
       <PhoneLink 
         phone="01753682707" 
         source="homepage_private_events" 
-        className="text-anchor-gold hover:text-anchor-gold-light font-semibold"
+        className="text-anchor-gold-dark hover:text-anchor-gold font-semibold"
       />
       <WhatsAppLink
         phone="01753682707"
         source="homepage_private_events"
         message="Hi, I'd like to enquire about hosting an event"
-        className="text-anchor-gold hover:text-anchor-gold-light font-semibold"
+        className="text-anchor-gold-dark hover:text-anchor-gold font-semibold"
       >
         WhatsApp
       </WhatsAppLink>
@@ -49,7 +49,7 @@ export function QuickEnquiryLinks() {
         email="manager@the-anchor.pub"
         source="homepage_private_events"
         subject="Event Enquiry"
-        className="text-anchor-gold hover:text-anchor-gold-light font-semibold"
+        className="text-anchor-gold-dark hover:text-anchor-gold font-semibold"
         showIcon={false}
       >
         Email Us

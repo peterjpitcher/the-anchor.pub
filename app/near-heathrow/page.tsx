@@ -80,7 +80,7 @@ export default function NearHeathrowPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="section-spacing-tight bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             Searching for pubs near Heathrow Airport or restaurants near Heathrow Airport? The Anchor is one of the best places to eat near Heathrow, a proper country pub in Stanwell Moor, just 7 minutes from Terminal 5. We serve freshly prepared British pub food with free parking, a dog-friendly beer garden under the flight path, and a warm welcome for travellers and locals alike.
@@ -89,7 +89,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Page Title for SEO */}
-      <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
             <PageTitle
             className="text-center text-anchor-cream-text"
@@ -105,7 +105,7 @@ export default function NearHeathrowPage() {
       <HeathrowFoodBestFor />
 
       {/* Food CTA for Travellers */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -113,8 +113,8 @@ export default function NearHeathrowPage() {
               subtitle="Swap airport fast food for proper pub dining minutes from your terminal."
             />
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Sunday Roast</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
                 </p>
@@ -127,13 +127,13 @@ export default function NearHeathrowPage() {
                   >
                     Book Roast Table
                   </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-light transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
                     View roast menu →
                   </Link>
                 </div>
               </div>
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched bases and generous toppings, ideal for crew nights or family send-offs.
                 </p>
@@ -147,13 +147,13 @@ export default function NearHeathrowPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-light transition">
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
                     View pizza menu →
                   </Link>
                 </div>
               </div>
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu</h3>
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">All-Day Menu</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, veggie options and sharers served fast, great for pre-flight meals or meeting arrivals.
                 </p>
@@ -166,7 +166,7 @@ export default function NearHeathrowPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-light transition">
+                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
                     Browse full menu →
                   </Link>
                 </div>
@@ -177,7 +177,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Why Choose The Anchor */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Why Travellers Love The Anchor"
@@ -185,44 +185,44 @@ export default function NearHeathrowPage() {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Free Parking for Patrons</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Free Parking for Patrons</h2>
               <p className="text-anchor-cream-text/70">
                 20 free parking spaces while you're visiting us. No stress, no fees.
                 Perfect for meeting arriving passengers over a meal or drink. Staying longer?{' '}
-                <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">
+                <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">
                   Pre-book our cheap Heathrow parking
                 </Link>{' '}
                 or share the{' '}
-                <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">
+                <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">
                   savings guide
                 </Link>{' '}
                 with your travel group.
               </p>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Proper British Pub</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Proper British Pub</h2>
               <p className="text-anchor-cream-text/70">
                 Traditional pub atmosphere with draught beers, hearty food, and genuine
                 British hospitality. A taste of local life.
               </p>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Flexible Hours</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Flexible Hours</h2>
               <p className="text-anchor-cream-text/70">
                 Open late Fridays & Saturdays. Kitchen hours designed around flight
                 times. Call ahead for early/late arrangements.
               </p>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Business Friendly</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Business Friendly</h2>
               <p className="text-anchor-cream-text/70">
                 Free WiFi throughout, dining room with power points at tables,
                 quiet corners for meetings, and proper coffee. Popular with flight
@@ -230,18 +230,18 @@ export default function NearHeathrowPage() {
               </p>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Luggage Welcome</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Luggage Welcome</h2>
               <p className="text-anchor-cream-text/70">
                 Plenty of space for bags and cases. Safe luggage storage available.
                 No cramped city pub experience here - we&apos;ve got room for travelers.
               </p>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
               <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">All Welcome</h2>
+              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">All Welcome</h2>
               <p className="text-anchor-cream-text/70">
                 International menu options alongside British classics.
                 Dietary requirements catered for. Everyone&apos;s local.
@@ -251,27 +251,27 @@ export default function NearHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Workspace Near Heathrow Airport"
             subtitle="A useful base for travellers, cabin crew, contractors and remote workers who need WiFi, food and a table close to the terminals."
           />
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-vivid">Free guest WiFi</h2>
+            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-bright">Free guest WiFi</h2>
               <p className="mt-3 text-anchor-cream-text/70">
                 Check emails, track flights, join a quick call or plan the next leg of your journey from the dining room.
               </p>
             </div>
-            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-vivid">Food and coffee</h2>
+            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-bright">Food and coffee</h2>
               <p className="mt-3 text-anchor-cream-text/70">
                 Order from the live menu during kitchen hours, with hot drinks, soft drinks and pub classics available.
               </p>
             </div>
-            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-vivid">Close to T5</h2>
+            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-bright">Close to T5</h2>
               <p className="mt-3 text-anchor-cream-text/70">
                 We are 7 minutes from Terminal 5 and outside the airport bubble, with free customer parking while you visit.
               </p>
@@ -293,7 +293,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Google Rating Badge */}
-      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="text-center">
             <HeroBadge className="text-sm" />
@@ -302,7 +302,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Plan Your Visit */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Plan Your Visit, The Best Pub Near Heathrow"
@@ -337,12 +337,12 @@ export default function NearHeathrowPage() {
               }
             ].map(card => (
               <Link key={card.href} href={card.href} className="block h-full group">
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 h-full p-6 transition group-hover:border-anchor-gold/40">
-                  <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 h-full p-6 transition group-hover:border-anchor-gold-dark/40">
+                  <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition">
                     {card.title}
                   </h3>
                   <p className="text-sm text-anchor-cream-text/70">{card.description}</p>
-                  <span className="mt-4 inline-flex items-center text-sm font-semibold text-anchor-gold group-hover:underline">
+                  <span className="mt-4 inline-flex items-center text-sm font-semibold text-anchor-gold-dark group-hover:underline">
                     Learn more →
                   </span>
                 </div>
@@ -353,7 +353,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Terminal-Specific Directions */}
-      <section id="terminals" className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section id="terminals" className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Directions from Each Terminal"
@@ -364,10 +364,10 @@ export default function NearHeathrowPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {/* Terminal 2 */}
               <Link href="/near-heathrow/terminal-2" className="block group">
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 h-full group-hover:border-anchor-gold/40 transition-all">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-vivid">Terminal 2</h2>
-                    <span className="text-anchor-gold font-semibold">11 mins</span>
+                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 2</h2>
+                    <span className="text-anchor-gold-dark font-semibold">11 mins</span>
                   </div>
                   <p className="text-anchor-cream-text/70 mb-4">The Queen&apos;s Terminal</p>
                   <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
@@ -375,7 +375,7 @@ export default function NearHeathrowPage() {
                     <li>• Follow signs to Staines/Stanwell</li>
                     <li>• Free parking available</li>
                   </ul>
-                  <p className="text-anchor-gold font-semibold mt-4 group-hover:underline">
+                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
                     Get full directions →
                   </p>
                 </div>
@@ -383,10 +383,10 @@ export default function NearHeathrowPage() {
 
               {/* Terminal 3 */}
               <Link href="/near-heathrow/terminal-3" className="block group">
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 h-full group-hover:border-anchor-gold/40 transition-all">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-vivid">Terminal 3</h2>
-                    <span className="text-anchor-gold font-semibold">11 mins</span>
+                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 3</h2>
+                    <span className="text-anchor-gold-dark font-semibold">11 mins</span>
                   </div>
                   <p className="text-anchor-cream-text/70 mb-4">Virgin Atlantic & Emirates</p>
                   <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
@@ -394,7 +394,7 @@ export default function NearHeathrowPage() {
                     <li>• Exit at Stanwell Moor</li>
                     <li>• Straight down Horton Road</li>
                   </ul>
-                  <p className="text-anchor-gold font-semibold mt-4 group-hover:underline">
+                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
                     Get full directions →
                   </p>
                 </div>
@@ -402,10 +402,10 @@ export default function NearHeathrowPage() {
 
               {/* Terminal 4 */}
               <Link href="/near-heathrow/terminal-4" className="block group">
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 h-full group-hover:border-anchor-gold/40 transition-all">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-vivid">Terminal 4</h2>
-                    <span className="text-anchor-gold font-semibold">12 mins</span>
+                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 4</h2>
+                    <span className="text-anchor-gold-dark font-semibold">12 mins</span>
                   </div>
                   <p className="text-anchor-cream-text/70 mb-4">Alliance Hub</p>
                   <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
@@ -413,7 +413,7 @@ export default function NearHeathrowPage() {
                     <li>• Through Cargo tunnel</li>
                     <li>• Exit Stanwell Moor</li>
                   </ul>
-                  <p className="text-anchor-gold font-semibold mt-4 group-hover:underline">
+                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
                     Get full directions →
                   </p>
                 </div>
@@ -421,10 +421,10 @@ export default function NearHeathrowPage() {
 
               {/* Terminal 5 */}
               <Link href="/near-heathrow/terminal-5" className="block group">
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 h-full group-hover:border-anchor-gold/40 transition-all">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-vivid">Terminal 5</h2>
-                    <span className="text-anchor-gold font-semibold">7 mins</span>
+                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 5</h2>
+                    <span className="text-anchor-gold-dark font-semibold">7 mins</span>
                   </div>
                   <p className="text-anchor-cream-text/70 mb-4">British Airways Home</p>
                   <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
@@ -432,17 +432,17 @@ export default function NearHeathrowPage() {
                     <li>• Via A3044 direct</li>
                     <li>• We&apos;re the closest pub</li>
                   </ul>
-                  <p className="text-anchor-gold font-semibold mt-4 group-hover:underline">
+                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
                     Get full directions →
                   </p>
                 </div>
               </Link>
 
               {/* General/Taxi */}
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-anchor-gold-vivid">By Taxi</h2>
-                  <span className="text-anchor-gold font-semibold">£25</span>
+                  <h2 className="text-2xl font-bold text-anchor-gold-bright">By Taxi</h2>
+                  <span className="text-anchor-gold-dark font-semibold">£25</span>
                 </div>
                 <p className="text-anchor-cream-text/70 mb-4">All terminals</p>
                 <p className="text-anchor-cream-text/70 text-sm mb-4">
@@ -454,10 +454,10 @@ export default function NearHeathrowPage() {
               </div>
 
               {/* Bus */}
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-anchor-gold-vivid">By Bus</h2>
-                  <span className="text-anchor-gold font-semibold">442</span>
+                  <h2 className="text-2xl font-bold text-anchor-gold-bright">By Bus</h2>
+                  <span className="text-anchor-gold-dark font-semibold">442</span>
                 </div>
                 <p className="text-anchor-cream-text/70 mb-4">From Central Bus Station</p>
                 <p className="text-anchor-cream-text/70 text-sm">
@@ -470,30 +470,30 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Popular with Travellers */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-gold-vivid mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-gold-bright mb-4">
               Popular with Heathrow Travellers
             </h2>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-8">
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Pre-Flight Dining</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Pre-Flight Dining</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Enjoy a proper meal with us before your flight.
                 We&apos;re just minutes away with free parking for patrons, a much more relaxing start to your journey.
               </p>
               <ul className="space-y-2 text-anchor-cream-text/70">
                 <li>• Quick lunch options for tight schedules</li>
-                <li>• Relax in our <Link href="/beer-garden" className="text-anchor-gold hover:text-anchor-gold-light underline">beer garden</Link> before long flights</li>
+                <li>• Relax in our <Link href="/beer-garden" className="text-anchor-gold-dark hover:text-anchor-gold underline">beer garden</Link> before long flights</li>
                 <li>• Watch planes overhead while you dine</li>
               </ul>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Meeting Point for Arrivals</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Meeting Point for Arrivals</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Perfect meeting spot when picking up friends and family. Free parking for patrons means
                 no airport fees, and you can track flights while enjoying a drink.
@@ -505,8 +505,8 @@ export default function NearHeathrowPage() {
               </ul>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Layovers & Crew Stops</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Layovers & Crew Stops</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Regular stop for flight crews and travelers with long layovers.
                 Get out of the airport and experience a real British pub.
@@ -522,7 +522,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Plane Spotting Section */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -537,21 +537,21 @@ export default function NearHeathrowPage() {
                   title: "Every 90 Seconds",
                   description: "Constant stream of aircraft during peak times",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 text-center"
+                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
                 },
                 {
                   icon: "",
                   title: "Photo Opportunities",
                   description: "Perfect for aviation photographers",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 text-center"
+                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
                 },
                 {
                   icon: "",
                   title: "Comfort & Service",
                   description: "Full bar and food service to your table",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 text-center"
+                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
                 }
               ]}
               className="mb-8"
@@ -571,7 +571,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Facilities for Travellers */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Everything Travellers Need"
@@ -579,8 +579,8 @@ export default function NearHeathrowPage() {
           />
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Entertainment & Games</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Entertainment & Games</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-3">
                   <span className="text-xl"></span>
@@ -620,25 +620,25 @@ export default function NearHeathrowPage() {
               </div>
             </div>
 
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Digital Nomad Friendly</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Digital Nomad Friendly</h3>
               <ul className="space-y-3">
                 <li className="flex gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div>
                     <strong className="text-anchor-cream-text">Free WiFi Throughout</strong>
                     <p className="text-sm text-anchor-cream-text/70">Fast, reliable, no passwords or time limits</p>
                   </div>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div>
                     <strong className="text-anchor-cream-text">Power Points at Tables</strong>
                     <p className="text-sm text-anchor-cream-text/70">Dining room equipped for laptop work</p>
                   </div>
                 </li>
                 <li className="flex gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div>
                     <strong className="text-anchor-cream-text">Quiet Work Environment</strong>
                     <p className="text-sm text-anchor-cream-text/70">Peaceful weekday atmosphere</p>
@@ -649,46 +649,46 @@ export default function NearHeathrowPage() {
           </div>
 
           {/* Traveler-Specific Amenities */}
-          <div className="mt-8 bg-anchor-bg-raised rounded-none border border-anchor-gold/15 p-8 max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6 text-center">Traveler Amenities</h3>
+          <div className="mt-8 bg-anchor-green-raised rounded-none border border-anchor-gold-dark/15 p-8 max-w-5xl mx-auto">
+            <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6 text-center">Traveler Amenities</h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">Luggage Storage</strong>
                   <p className="text-sm text-anchor-cream-text/70">Safe storage while you dine</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">Pet Friendly</strong>
                   <p className="text-sm text-anchor-cream-text/70">Water bowls for travelling pets</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">Free Parking</strong>
                   <p className="text-sm text-anchor-cream-text/70">For patrons - 20 spaces</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">All Cards Welcome</strong>
                   <p className="text-sm text-anchor-cream-text/70">Including American Express</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">Accessible Entry</strong>
                   <p className="text-sm text-anchor-cream-text/70">Ramp available at back door</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-anchor-gold text-xl mt-1"></span>
+                <span className="text-anchor-gold-dark text-xl mt-1"></span>
                 <div>
                   <strong className="text-anchor-cream-text">Bus Stop Outside</strong>
                   <p className="text-sm text-anchor-cream-text/70">Route 442 to/from Heathrow</p>
@@ -707,18 +707,18 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Accessibility */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-4">Accessibility</h2>
+            <h2 className="text-3xl font-bold text-anchor-gold-bright mb-4">Accessibility</h2>
             <p className="text-anchor-cream-text/70 mb-3">
               Step-free access to the bar, dining area and beer garden.
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <PhoneLink phone={CONTACT.phone} source="near-heathrow_accessibility" className="text-anchor-gold-vivid font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="near-heathrow_accessibility" className="text-anchor-gold-bright font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
             </p>
-            <Link href="/accessibility" className="text-anchor-gold-vivid font-semibold hover:underline">
+            <Link href="/accessibility" className="text-anchor-gold-bright font-semibold hover:underline">
               Full accessibility information &rarr;
             </Link>
           </div>
@@ -726,7 +726,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* The Heathrow Local Experience */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -741,7 +741,7 @@ export default function NearHeathrowPage() {
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">The Airport Alternative</h3>
+                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">The Airport Alternative</h3>
                   <p className="mb-4">
                     Heathrow Airport serves over 80 million passengers annually, making it one of the
                     world's busiest airports. But with that comes crowds, queues, and eye-watering
@@ -757,7 +757,7 @@ export default function NearHeathrowPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">A Hub for Everyone</h3>
+                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">A Hub for Everyone</h3>
                   <p className="mb-4">
                     Our unique location makes us a natural meeting point. Business travelers conducting
                     meetings over lunch. Families reuniting after months apart. Flight crews unwinding
@@ -773,8 +773,8 @@ export default function NearHeathrowPage() {
                 </div>
               </div>
 
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 mb-12">
-                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 mb-12">
+                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4 text-center">
                   Why Smart Travellers Choose The Anchor
                 </h3>
                 <p className="text-anchor-cream-text/70 mb-4">
@@ -818,7 +818,7 @@ export default function NearHeathrowPage() {
       />
 
       {/* FAQ Section */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto">
             <FAQAccordionWithSchema

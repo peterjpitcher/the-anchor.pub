@@ -127,7 +127,7 @@ export default async function FishAndChipsPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle className="text-anchor-cream-text mb-4">
@@ -140,7 +140,7 @@ export default async function FishAndChipsPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -152,10 +152,10 @@ export default async function FishAndChipsPage() {
               <div className="mt-12 mb-12">
                 <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
                   {fishItems.map((item) => (
-                    <div key={item.id} className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15 hover:border-anchor-gold transition-colors">
+                    <div key={item.id} className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15 hover:border-anchor-gold-dark transition-colors">
                       <div className="flex justify-between items-start mb-2 gap-4">
                         <h2 className="font-bold text-xl text-anchor-cream-text">{item.name}</h2>
-                        {item.priceLabel && <span className="font-bold text-anchor-gold bg-anchor-bg-card px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
+                        {item.priceLabel && <span className="font-bold text-anchor-gold-dark bg-anchor-green-card px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
                       </div>
                       {item.description && (
                         <p className="text-anchor-cream-text/55 text-sm mb-3">{item.description}</p>
@@ -163,7 +163,7 @@ export default async function FishAndChipsPage() {
                       <p className="text-xs text-anchor-cream-text/40 mb-3">{item.categoryTitle}</p>
 
                       {item.allergens && item.allergens.length > 0 && (
-                        <span className="inline-flex text-xs text-anchor-cream-text/60 border border-anchor-gold/15 px-2 py-1 rounded-full">
+                        <span className="inline-flex text-xs text-anchor-cream-text/60 border border-anchor-gold-dark/15 px-2 py-1 rounded-full">
                           Contains: {item.allergens.join(', ')}
                         </span>
                       )}
@@ -207,7 +207,7 @@ export default async function FishAndChipsPage() {
             answer: 'Yes. Call us to order from the current menu and collect from the pub.'
           }
         ]}
-        className="bg-anchor-bg-card"
+        className="bg-anchor-green-card"
       />
 
       <InternalLinkingSection

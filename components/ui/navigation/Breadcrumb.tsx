@@ -52,14 +52,14 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                 {item.href && !isCurrent ? (
                   <Link
                     href={item.href}
-                    className="text-anchor-cream-text/60 hover:text-anchor-gold transition-colors"
+                    className="text-anchor-cream-text/60 hover:text-anchor-gold-dark transition-colors"
                   >
                     {item.label}
                   </Link>
                 ) : (
                   <span
                     className={cn(
-                      isCurrent ? 'text-anchor-gold-vivid font-semibold' : 'text-anchor-cream-text/60'
+                      isCurrent ? 'text-anchor-gold-bright font-semibold' : 'text-anchor-cream-text/60'
                     )}
                     aria-current={isCurrent ? 'page' : undefined}
                   >
@@ -140,7 +140,7 @@ export const BreadcrumbLink = forwardRef<HTMLAnchorElement, BreadcrumbLinkProps>
         ref={ref}
         href={href}
         className={cn(
-          'text-anchor-cream-text/60 hover:text-anchor-gold transition-colours',
+          'text-anchor-cream-text/60 hover:text-anchor-gold-dark transition-colours',
           className
         )}
         {...props}
@@ -185,7 +185,7 @@ export const BreadcrumbPage = forwardRef<HTMLSpanElement, BreadcrumbPageProps>(
     return (
       <span
         ref={ref}
-        className={cn('text-anchor-gold-vivid font-semibold', className)}
+        className={cn('text-anchor-gold-bright font-semibold', className)}
         aria-current="page"
         {...props}
       >

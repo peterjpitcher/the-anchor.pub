@@ -75,7 +75,7 @@ export default function BookingConfirmation({
           </div>
         </Alert>
 
-        <div className="bg-anchor-bg-card rounded-lg border border-anchor-gold/20 p-4 space-y-3 mb-6">
+        <div className="bg-anchor-green-card rounded-lg border border-anchor-gold-dark/20 p-4 space-y-3 mb-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center text-anchor-cream-text/65">
               <Icon name="calendar" className="mr-2 h-4 w-4" />
@@ -103,7 +103,7 @@ export default function BookingConfirmation({
           </div>
           
           {(booking.confirmation_details?.special_requirements || booking.booking_details?.special_requirements) && (
-            <div className="pt-3 border-t border-anchor-gold/15">
+            <div className="pt-3 border-t border-anchor-gold-dark/15">
               <div className="flex items-start">
                 <Icon name="info" className="mr-2 h-4 w-4 text-anchor-cream-text/65 mt-0.5" />
                 <div>

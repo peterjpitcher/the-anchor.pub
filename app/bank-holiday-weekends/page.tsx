@@ -111,24 +111,24 @@ export default function BankHolidayWeekendsPage() {
                 (except Christmas Day). Opening hours may vary, check the website or call
                 ahead to confirm.
               </p>
-              <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised overflow-hidden">
+              <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised overflow-hidden">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-anchor-gold/15">
-                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-vivid">
+                    <tr className="border-b border-anchor-gold-dark/15">
+                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-bright">
                         Bank Holiday
                       </th>
-                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-vivid">
+                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-bright">
                         Date
                       </th>
-                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-vivid hidden sm:table-cell">
+                      <th scope="col" className="px-4 py-3 text-left font-semibold text-anchor-gold-bright hidden sm:table-cell">
                         Kitchen
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {BANK_HOLIDAYS_2026.map((holiday) => (
-                      <tr key={holiday.name} className="border-b border-anchor-gold/10 last:border-b-0">
+                      <tr key={holiday.name} className="border-b border-anchor-gold-dark/10 last:border-b-0">
                         <td className="px-4 py-3 font-medium text-anchor-cream-text">
                           {holiday.name}
                         </td>
@@ -194,7 +194,7 @@ export default function BankHolidayWeekendsPage() {
               </p>
               <Link
                 href="/beer-garden"
-                className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
               >
                 More about the beer garden
                 <span className="ml-1">&rarr;</span>
@@ -202,7 +202,7 @@ export default function BankHolidayWeekendsPage() {
             </div>
 
             {/* Bank Holiday Monday */}
-            <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <div className="flex flex-wrap items-center gap-3 mb-4">
                 <Badge variant="default" size="sm">
                   Monday kitchen closed
@@ -234,7 +234,7 @@ export default function BankHolidayWeekendsPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Free parking</h3>
+                    <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                     <p className="text-sm text-anchor-cream-text/70">
                       20 free spaces on site for pub guests. We&apos;re also just{' '}
                       {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.
@@ -244,7 +244,7 @@ export default function BankHolidayWeekendsPage() {
 
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Dog-friendly</h3>
+                    <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                     <p className="text-sm text-anchor-cream-text/70">
                       Dogs are welcome in the pub and beer garden. Bring them along for a bank
                       holiday stroll and a pint.
@@ -254,13 +254,13 @@ export default function BankHolidayWeekendsPage() {
 
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Getting here</h3>
+                    <h3 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h3>
                     <p className="text-sm text-anchor-cream-text/70">
                       {addressLine}. Easy to reach from Staines-upon-Thames, Ashford, and Windsor.
                     </p>
                     <Link
                       href="/find-us"
-                      className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light"
+                      className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold"
                     >
                       Get directions
                       <span className="ml-1">&rarr;</span>
@@ -270,7 +270,7 @@ export default function BankHolidayWeekendsPage() {
 
                 <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Opening hours</h3>
+                    <h3 className="text-lg font-semibold text-anchor-gold-bright">Opening hours</h3>
                     <p className="text-sm text-anchor-cream-text/70">
                       Opening hours may vary on bank holidays. Check the website or call us to
                       confirm before you visit.
@@ -335,7 +335,7 @@ export default function BankHolidayWeekendsPage() {
                 easy to reach from Staines-upon-Thames, Ashford, and Windsor. Free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">
-                Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -359,7 +359,7 @@ export default function BankHolidayWeekendsPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Bank Holiday Weekend FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Bank Holiday Weekend FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

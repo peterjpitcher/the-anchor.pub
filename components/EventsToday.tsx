@@ -167,9 +167,9 @@ export function EventsToday() {
     return (
       <>
         <div className="text-center py-8">
-          <div className="bg-anchor-bg-raised rounded-none p-8 max-w-md mx-auto">
+          <div className="bg-anchor-green-raised rounded-none p-8 max-w-md mx-auto">
             <p className="text-anchor-cream-text/70 text-lg mb-4">No special events today, but we&apos;re open as usual!</p>
-            <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold inline-flex items-center gap-2">
+            <Link href="/whats-on" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold inline-flex items-center gap-2">
               View all upcoming events
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -201,9 +201,9 @@ export function EventsToday() {
                 {event.category.name}
               </span>
             )}
-            <h3 className="font-bold text-2xl text-anchor-gold-vivid mb-2">{event.name}</h3>
+            <h3 className="font-bold text-2xl text-anchor-gold-bright mb-2">{event.name}</h3>
             <div className="space-y-1">
-              <p className="text-anchor-gold font-medium text-sm">{event.time}</p>
+              <p className="text-anchor-gold-dark font-medium text-sm">{event.time}</p>
               {event.doorTime && (
                 <p className="text-anchor-cream-text/70 text-sm">{event.doorTime}</p>
               )}
@@ -233,7 +233,7 @@ export function EventsToday() {
           </div>
           <Link 
             href={event.link}
-            className="inline-flex items-center text-anchor-gold font-semibold hover:text-anchor-gold-light transition-colors gap-2 mt-4"
+            className="inline-flex items-center text-anchor-gold-dark font-semibold hover:text-anchor-gold transition-colors gap-2 mt-4"
           >
             <span>View details for {event.name}</span>
             <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

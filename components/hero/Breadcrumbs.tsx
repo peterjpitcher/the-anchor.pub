@@ -33,8 +33,8 @@ export function Breadcrumbs({
   }
 
   const textColor = theme === 'dark' ? 'text-white/70' : 'text-anchor-cream-text/65'
-  const hoverColor = theme === 'dark' ? 'hover:text-white' : 'hover:text-anchor-gold'
-  const currentColor = theme === 'dark' ? 'text-white' : 'text-anchor-gold-vivid'
+  const hoverColor = theme === 'dark' ? 'hover:text-white' : 'hover:text-anchor-gold-dark'
+  const currentColor = theme === 'dark' ? 'text-white' : 'text-anchor-gold-bright'
   const iconColor = theme === 'dark' ? 'text-white/50' : 'text-anchor-cream-text/45'
 
   return (

@@ -100,7 +100,7 @@ export default function HortonPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -119,7 +119,7 @@ export default function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -135,7 +135,7 @@ export default function HortonPubPage() {
                                     title: "Walking Distance",
                                     description: "A pleasant 20-minute walk or 2-minute drive from Horton village",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -143,7 +143,7 @@ export default function HortonPubPage() {
                                     title: "Sunday Roasts",
                                     description: "The best roast in the area - worth the short hop over the motorway",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -151,7 +151,7 @@ export default function HortonPubPage() {
                                     title: "Draught Beers",
                                     description: "Properly kept ales and a great wine selection",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -161,7 +161,7 @@ export default function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -209,7 +209,7 @@ export default function HortonPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -233,7 +233,7 @@ export default function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -266,7 +266,7 @@ export default function HortonPubPage() {
                         answer: "Yes, we have a large free car park with 20 spaces, making it very easy to pop over from Horton for dinner without worrying about parking."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

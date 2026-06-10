@@ -41,10 +41,10 @@ export default function BoxingPage() {
               showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-vivid mb-4">
+                        <PageTitle className="text-anchor-gold-bright mb-4">
                             Ringside Seats
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
@@ -54,7 +54,7 @@ export default function BoxingPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -70,7 +70,7 @@ export default function BoxingPage() {
                                     title: "PPV Events",
                                     description: "We pay the Box Office fees so you don't have to. Watch the big Pay-Per-View fights here on the big screen.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -78,7 +78,7 @@ export default function BoxingPage() {
                                     title: "Loud & Live",
                                     description: "Experience the ring walks and the knockouts with full venue sound.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -86,7 +86,7 @@ export default function BoxingPage() {
                                     title: "No Dry Nights",
                                     description: "Our bar stays well-stocked with draught beers, spirits, and mixers all night.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -118,7 +118,7 @@ export default function BoxingPage() {
                         answer: "We are licensed until late on weekends, but for fights that go into the early hours (like Vegas fights), please check with us directly as it depends on our license extension for that specific night."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

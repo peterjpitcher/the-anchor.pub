@@ -135,12 +135,12 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                 {roundsToDisplay.map((round) => (
                     <div key={round} className="space-y-4">
                         <div className="flex items-center gap-4">
-                            <h3 className="text-2xl font-bold font-serif text-anchor-cream-text">
+                            <h3 className="text-2xl font-bold font-display text-anchor-cream-text">
                                 Round {round}
                             </h3>
-                            <div className="h-px bg-anchor-gold/15 flex-1" />
+                            <div className="h-px bg-anchor-gold-dark/15 flex-1" />
                             {round === 5 && (
-                                <span className="px-3 py-1 bg-anchor-gold text-white text-xs font-bold uppercase rounded-full">
+                                <span className="px-3 py-1 bg-anchor-gold-dark text-white text-xs font-bold uppercase rounded-full">
                                     Super Saturday
                                 </span>
                             )}
@@ -159,13 +159,13 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                                         key={`${fixture.date}-${fixture.home}-${fixture.away}`}
                                         className={cn(
                                             "p-0 overflow-hidden border transition-all duration-200 hover:shadow-md",
-                                            (isEngland || isSuperSaturday) ? "border-anchor-gold/30 ring-1 ring-anchor-gold/10" : "border-anchor-gold/15"
+                                            (isEngland || isSuperSaturday) ? "border-anchor-gold-dark/30 ring-1 ring-anchor-gold-dark/10" : "border-anchor-gold-dark/15"
                                         )}
                                     >
                                         {/* Header */}
                                         <div className={cn(
                                             "px-4 py-2 text-xs font-bold uppercase tracking-wider flex justify-between items-center",
-                                            (isEngland || isSuperSaturday) ? "bg-anchor-gold/10 text-anchor-gold-dark" : "bg-anchor-bg-raised text-anchor-cream-text/55"
+                                            (isEngland || isSuperSaturday) ? "bg-anchor-gold-dark/10 text-anchor-gold-dark" : "bg-anchor-green-raised text-anchor-cream-text/55"
                                         )}>
                                             <span>{DateTime.fromISO(fixture.date).toFormat("EEEE d MMM")}</span>
                                             <span>{fixture.kickoff}</span>
@@ -176,21 +176,21 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                                             <div className="flex items-center justify-between gap-2">
                                                 <span className={cn(
                                                     "flex-1 font-bold text-lg",
-                                                    fixture.home === 'England' ? "text-anchor-gold-vivid" : "text-anchor-cream-text"
+                                                    fixture.home === 'England' ? "text-anchor-gold-bright" : "text-anchor-cream-text"
                                                 )}>
                                                     {fixture.home}
                                                 </span>
                                                 <span className="text-anchor-cream-text/55 text-sm font-medium">vs</span>
                                                 <span className={cn(
                                                     "flex-1 font-bold text-lg",
-                                                    fixture.away === 'England' ? "text-anchor-gold-vivid" : "text-anchor-cream-text"
+                                                    fixture.away === 'England' ? "text-anchor-gold-bright" : "text-anchor-cream-text"
                                                 )}>
                                                     {fixture.away}
                                                 </span>
                                             </div>
 
                                             <div className="flex items-center justify-center gap-2 text-sm text-anchor-cream-text/55">
-                                                <span className="px-2 py-0.5 bg-anchor-bg-raised rounded text-xs font-medium">
+                                                <span className="px-2 py-0.5 bg-anchor-green-raised rounded text-xs font-medium">
                                                     {fixture.ukBroadcaster}
                                                 </span>
                                             </div>

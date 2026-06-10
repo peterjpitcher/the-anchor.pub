@@ -70,7 +70,7 @@ export default function LuggageStoragePage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
@@ -83,7 +83,7 @@ export default function LuggageStoragePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -99,7 +99,7 @@ export default function LuggageStoragePage() {
                                     title: "1. Book a Table",
                                     description: "Book a table for a meal, no need to mention luggage, just turn up with it.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -107,7 +107,7 @@ export default function LuggageStoragePage() {
                                     title: "2. Bring Your Bags",
                                     description: "Wheel your luggage right in, we have plenty of room and you can keep it beside you.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -115,7 +115,7 @@ export default function LuggageStoragePage() {
                                     title: "3. Eat & Relax",
                                     description: "Enjoy a Sunday Roast, Fish & Chips, or a cold pint in the garden.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -132,7 +132,7 @@ export default function LuggageStoragePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -140,7 +140,7 @@ export default function LuggageStoragePage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
+                            <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15">
                                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
                                     <li className="flex items-center">Luggage welcome, plenty of space</li>
@@ -178,7 +178,7 @@ export default function LuggageStoragePage() {
                         answer: "We are about 5-7 minutes drive. It is a very quick taxi ride to the drop-off point."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

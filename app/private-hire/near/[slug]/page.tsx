@@ -121,10 +121,10 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-6">
+                        <h2 className="text-3xl font-bold text-anchor-gold-bright mb-6">
                             Why Choose The Anchor?
                         </h2>
                         <p className="text-lg text-anchor-cream-text/70 mb-8">
@@ -151,7 +151,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
             </section>
 
             {/* Map Section */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title={`Technically Just ${landmark.distance} Away`}
@@ -170,7 +170,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Complete Packages"
@@ -212,9 +212,9 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <PrivateBookingSection eventType={eventType} />
 
-            <section className="section-spacing-lg bg-anchor-bg-raised text-center border-t border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-raised text-center border-t border-anchor-gold-dark/15">
                 <Container>
-                    <h2 className="text-3xl font-bold mb-4 text-anchor-gold-vivid">Book Your Event</h2>
+                    <h2 className="text-3xl font-bold mb-4 text-anchor-gold-bright">Book Your Event</h2>
                     <p className="text-xl mb-8 text-anchor-cream-text/70">Secure the date for your gathering near {landmark.name}</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <BookTableButton
@@ -222,7 +222,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                             variant="primary"
                             size="lg"
                             context={context}
-                            className="bg-anchor-gold text-anchor-bg hover:bg-anchor-gold-vivid"
+                            className="bg-anchor-gold-dark text-anchor-green-deep hover:bg-anchor-gold-bright"
                         >
                             Enquire Now
                         </BookTableButton>

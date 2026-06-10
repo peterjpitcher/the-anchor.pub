@@ -94,11 +94,12 @@
 }
 
 @layer components {
+  /* DEPRECATED — remove in redesign Phase 6 (replace with py-section-y) */
   /* Standard section spacing used throughout the site */
   .section-spacing {
     @apply py-10 md:py-12;
   }
-  
+
   /* Improved section spacing system */
   .section-spacing-sm {
     @apply py-8 md:py-10;
@@ -117,6 +118,7 @@
     @apply py-6 md:py-8;
   }
 
+  /* DEPRECATED — remove in redesign Phase 6 (replace with <Card variant="dark" accent>) */
   /* ── Dark theme card with gold corner bracket marks ── */
   .card-dark {
     position: relative;
@@ -136,6 +138,7 @@
   .card-dark::before { top: 9px; left: 9px; border-width: 1px 0 0 1px; }
   .card-dark::after  { bottom: 9px; right: 9px; border-width: 0 1px 1px 0; }
 
+  /* DEPRECATED — remove in redesign Phase 6 (currently 0 usages) */
   /* ── Inner frame for CTA blocks and hero images ── */
   .inner-frame {
     position: relative;
@@ -158,23 +161,157 @@
 }
 
 :root {
+  /* ---- Brand: Green (primary) ---- */
   --anchor-green: #005131;
-  --anchor-gold: #8b6914;
-  --anchor-cream: #faf8f3;
-  --anchor-charcoal: #1a1a1a;
-  --anchor-gold-light: #a57626;
   --anchor-green-dark: #003d25;
-  --anchor-warm-white: #ffffff;
-  --anchor-sage: #7a8b7f;
-  --anchor-sand: #f5e6d3;
-  --anchor-gold-dark: #6b5010;
+  --anchor-green-deep: #0c1d11;
+  --anchor-green-raised: #132318;
+  --anchor-green-card: #172d1e;
   --anchor-green-light: #006b45;
-  --anchor-text-on-green: #ffffff;
-  --anchor-text-on-gold: #1a1a1a;
-  --anchor-focus-ring-color: var(--anchor-gold);
-  --anchor-focus-ring-width: 3px;
+  --anchor-sage: #7a8b7f;
+
+  /* ---- Brand: Gold — exactly three, three jobs ----
+     fills → gold · text on light → gold-dark · accents on dark → gold-bright */
+  --anchor-gold: #a57626;
+  --anchor-gold-dark: #8b6914;
+  --anchor-gold-bright: #c9a020;
+
+  /* ---- Neutrals ---- */
+  --anchor-black: #000000;
+  --anchor-charcoal: #1a1a1a;
+  --anchor-white: #ffffff;
+  --anchor-cream: #faf8f3;
+  --anchor-cream-text: #f0e6c6;
+  --anchor-sand: #f5e6d3;
+  --anchor-grey-500: #6f6a61;
+
+  /* ---- Status ---- */
+  --anchor-success: #006b45;
+  --anchor-danger: #b1372f;
+
+  /* ---- Semantic aliases — LIGHT (default) ---- */
+  --bg: var(--anchor-cream);
+  --surface: var(--anchor-white);
+  --surface-raised: var(--anchor-cream);
+  --surface-sunk: #f2ede3;
+  --surface-inverse: var(--anchor-green);
+  --text: var(--anchor-charcoal);
+  --text-strong: var(--anchor-green);
+  --text-muted: var(--anchor-grey-500);
+  --text-on-green: var(--anchor-white);
+  --text-on-gold: var(--anchor-charcoal);
+  --text-inverse: var(--anchor-cream-text);
+  --accent: var(--anchor-green);
+  --accent-2: var(--anchor-gold);
+  --accent-text: var(--anchor-gold-dark);
+  --border: #e2dccf;
+  --border-strong: #d2c9b4;
+  --border-gold: rgba(165, 118, 38, 0.35);
+  --focus-ring: var(--anchor-gold-dark);
+  --link: var(--anchor-green);
+  --link-hover: var(--anchor-gold-dark);
+
+  /* ---- Typography ---- */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700; /* Outfit only; display/script stay 400 */
+  --text-display: clamp(3.5rem, 8vw, 7rem);
+  --text-h1: clamp(2.75rem, 5.5vw, 4.75rem);
+  --text-h2: clamp(2rem, 3.6vw, 3.25rem);
+  --text-h3: clamp(1.5rem, 2.4vw, 2.25rem);
+  --text-h4: clamp(1.25rem, 1.6vw, 1.5rem);
+  --text-xl: 1.375rem;
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-script: clamp(1.75rem, 3vw, 2.75rem);
+  --leading-tight: 1.05;
+  --leading-snug: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+  --tracking-kicker: 0.18em;
+
+  /* ---- Spacing (8px base) ---- */
+  --space-0: 0;
+  --space-1: 0.25rem;  --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;     --space-5: 1.5rem;  --space-6: 2rem;
+  --space-7: 3rem;     --space-8: 4rem;    --space-9: 6rem;
+  --section-y: clamp(2.5rem, 6vw, 4.5rem);
+  --container-max: 1280px;
+  --container-pad: clamp(1rem, 4vw, 2.5rem);
+
+  /* ---- Radii — four shapes only ---- */
+  --radius-xs: 3px;     /* dark cards */
+  --radius-sm: 6px;     /* inputs */
+  --radius-md: 12px;    /* light cards */
+  --radius-pill: 999px; /* buttons, badges, chips */
+
+  /* ---- Control sizing ---- */
+  --control-h-sm: 44px;
+  --control-h-md: 48px;
+  --control-h-lg: 56px;
+
+  /* ---- Border widths ---- */
+  --border-thin: 1px;
+  --border-thick: 2px;
+  --border-frame: 3px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.06);
+  --shadow-md: 0 8px 20px rgba(26, 26, 26, 0.08);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.10);
+  --shadow-gold: 0 6px 24px rgba(165, 118, 38, 0.28);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 0.15s;
+  --dur: 0.2s;
+  --dur-slow: 0.4s;
+
+  /* ---- Image scrims ---- */
+  --scrim-bottom: linear-gradient(180deg, rgba(12,29,17,0) 0%, rgba(12,29,17,0.0) 40%, rgba(12,29,17,0.85) 100%);
+  --scrim-green: linear-gradient(180deg, rgba(0,81,49,0) 0%, rgba(0,61,37,0.9) 100%);
+
+  /* ---- Film grain (dark surfaces only) ---- */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --header-height: 76px; /* was 80px */
+
+  /* ---- Focus ring (retained for @layer base + link/button focus rules) ---- */
+  --anchor-focus-ring-color: var(--focus-ring);
+  --anchor-focus-ring-width: var(--border-frame);
   --anchor-focus-ring-offset: 2px;
-  --header-height: 80px;
+}
+
+.theme-dark,
+[data-theme="dark"] {
+  --bg: var(--anchor-green-deep);
+  --surface: var(--anchor-green-card);
+  --surface-raised: var(--anchor-green-raised);
+  --surface-sunk: #081509;
+  --surface-inverse: var(--anchor-cream);
+  --text: var(--anchor-cream-text);
+  --text-strong: var(--anchor-cream-text);
+  --text-muted: var(--anchor-sage);
+  --text-on-green: var(--anchor-cream-text);
+  --text-on-gold: var(--anchor-charcoal);
+  --text-inverse: var(--anchor-charcoal);
+  --accent: var(--anchor-gold-bright);
+  --accent-2: var(--anchor-gold-bright);
+  --accent-text: var(--anchor-gold-bright);
+  --border: rgba(201, 160, 32, 0.22);
+  --border-strong: rgba(201, 160, 32, 0.45);
+  --border-gold: rgba(201, 160, 32, 0.55);
+  --focus-ring: var(--anchor-gold-bright);
+  --link: var(--anchor-gold-bright);
+  --link-hover: var(--anchor-cream-text);
 }
 
 * {
@@ -192,32 +329,36 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background: #0c1d11;
-}
-
-/* Fixed grain overlay, cinematic film texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 9999;
 }
 
 body {
-  color: #f0e6c6;
-  font-family: var(--font-outfit), sans-serif;
-  font-weight: 400;
-  line-height: 1.7;
+  background: var(--bg);            /* cream — was #0c1d11 */
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: var(--fw-regular);
+  line-height: var(--leading-relaxed);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-merriweather), serif;
-  font-weight: 700;
-  line-height: 1.3;
-  color: #f0e6c6;
+  font-family: var(--font-display), serif;
+  font-weight: var(--fw-regular);    /* NEVER bolder — single-weight face */
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  text-wrap: balance;
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: var(--border-frame) solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 a {
@@ -226,6 +367,7 @@ a {
   transition: all 0.2s ease;
 }
 
+/* DEPRECATED — remove in redesign Phase 6 (currently 0 usages) */
 /* Friendly button styles */
 .btn-friendly {
   transition: all 0.2s ease;
@@ -259,6 +401,7 @@ a {
   box-shadow: 0 0 0 4px rgba(139, 105, 20, 0.1);
 }
 
+/* DEPRECATED — remove in redesign Phase 6 (replace with <Card accent hover>) */
 /* Warm card styles */
 .card-warm {
   transition: all 0.2s ease;
@@ -271,6 +414,7 @@ a {
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
+/* DEPRECATED — remove in redesign Phase 6 (replace with <Badge variant="sand">) */
 /* Family-friendly tag styles */
 .tag {
   display: inline-flex;

@@ -125,19 +125,19 @@ export default function EasterPage() {
               No set sittings, book a time that suits you and enjoy your meal at a comfortable pace.
             </p>
 
-            <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">How Sunday works</h3>
+            <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">How Sunday works</h3>
               <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
-                  <span className="text-anchor-gold">&bull;</span>
+                  <span className="text-anchor-gold-dark">&bull;</span>
                   <span>Walk-ins are welcome between <span className="font-semibold">1pm and 6pm</span>, no pre-order needed.</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-anchor-gold">&bull;</span>
+                  <span className="text-anchor-gold-dark">&bull;</span>
                   <span>Booking is still recommended for groups, especially parties of six or more.</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-anchor-gold">&bull;</span>
+                  <span className="text-anchor-gold-dark">&bull;</span>
                   <span>Groups of 10 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
                 </li>
               </ul>
@@ -181,7 +181,7 @@ export default function EasterPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Good Friday &ndash; Easter Sunday</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Good Friday &ndash; Easter Sunday</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Open as normal with full kitchen service. Our regular evening menu is available Friday and Saturday,
                     and our Sunday roast menu on Easter Sunday.
@@ -195,7 +195,7 @@ export default function EasterPage() {
 
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Easter Monday</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Easter Monday</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Open for drinks only. Our kitchen is closed every Monday, including bank holidays.
                     Pop in for a pint, enjoy the beer garden, and wind down the long weekend.
@@ -295,7 +295,7 @@ export default function EasterPage() {
             </div>
             <p className="text-sm text-anchor-cream-text/70">
               Or browse{' '}
-              <Link href="/sunday-roast" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+              <Link href="/sunday-roast" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
                 our Sunday roast menu
               </Link>{' '}
               for the full lineup.
@@ -312,13 +312,13 @@ export default function EasterPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy to reach from{' '}
-                <Link href="/staines-pub" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+                <Link href="/staines-pub" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
                   Staines-upon-Thames
                 </Link>
                 , with free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">
-                Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -342,7 +342,7 @@ export default function EasterPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Easter FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Easter FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

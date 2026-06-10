@@ -13,8 +13,8 @@ export function AlertBox({
 }: AlertBoxProps) {
   const variantStyles = {
     info: {
-      container: 'bg-anchor-bg-card border-anchor-gold/25',
-      title: 'text-anchor-gold-vivid',
+      container: 'bg-anchor-green-card border-anchor-gold-dark/25',
+      title: 'text-anchor-gold-bright',
       content: 'text-anchor-cream-text/75'
     },
     warning: {
@@ -33,8 +33,8 @@ export function AlertBox({
       content: 'text-anchor-cream-text/75'
     },
     tip: {
-      container: 'bg-anchor-bg-card border-anchor-gold/25',
-      title: 'text-anchor-gold-vivid',
+      container: 'bg-anchor-green-card border-anchor-gold-dark/25',
+      title: 'text-anchor-gold-bright',
       content: 'text-anchor-cream-text/75'
     }
   }

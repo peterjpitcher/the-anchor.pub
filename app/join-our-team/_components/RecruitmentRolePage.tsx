@@ -61,16 +61,16 @@ export function buildJobPostingSchema(role: RecruitmentRolePageContent) {
 export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent }) {
   return (
     <>
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <RoleQuickFacts role={role.role} />
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold text-anchor-gold-vivid">{role.aboutTitle}</h2>
+            <h2 className="text-3xl font-bold text-anchor-gold-bright">{role.aboutTitle}</h2>
             <div className="mt-5 space-y-4 text-anchor-cream-text/75">
               {role.about.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -80,7 +80,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2">
             <BulletListSection
@@ -98,7 +98,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
       </section>
 
       {role.standards && role.standardsTitle && role.standardsIntro ? (
-        <section className="section-spacing-md bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <section className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
           <Container>
             <BulletListSection
               title={role.standardsTitle}
@@ -109,13 +109,13 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
         </section>
       ) : null}
 
-      <section className="section-spacing-md bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <StandardsPledge />
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2">
             <BulletListSection
@@ -132,10 +132,10 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <div className="mx-auto max-w-4xl rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-6 text-center">
-            <h2 className="text-3xl font-bold text-anchor-gold-vivid">What you can expect from us</h2>
+          <div className="mx-auto max-w-4xl rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-6 text-center">
+            <h2 className="text-3xl font-bold text-anchor-gold-bright">What you can expect from us</h2>
             <p className="mx-auto mt-4 max-w-3xl text-anchor-cream-text/75">{role.expectationIntro}</p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
@@ -155,7 +155,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <LocationTransportSection />
         </Container>

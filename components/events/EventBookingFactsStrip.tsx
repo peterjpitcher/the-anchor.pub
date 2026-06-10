@@ -63,13 +63,13 @@ export function EventBookingFactsStrip({
   ]
 
   return (
-    <div className="border-y border-anchor-gold/15 bg-anchor-bg-raised">
-      <div className="flex gap-px overflow-x-auto bg-anchor-gold/10 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-6">
+    <div className="border-y border-anchor-gold-dark/15 bg-anchor-green-raised">
+      <div className="flex gap-px overflow-x-auto bg-anchor-gold-dark/10 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-6">
         {facts.map(({ label, value, Icon }) => (
-          <div key={label} className="flex min-h-[64px] min-w-[126px] items-start gap-2.5 bg-anchor-bg-raised p-3 sm:min-h-[78px] sm:min-w-0 md:gap-3 md:p-4">
-            <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold md:h-5 md:w-5" aria-hidden />
+          <div key={label} className="flex min-h-[64px] min-w-[126px] items-start gap-2.5 bg-anchor-green-raised p-3 sm:min-h-[78px] sm:min-w-0 md:gap-3 md:p-4">
+            <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold-dark md:h-5 md:w-5" aria-hidden />
             <div className="min-w-0">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-wide text-anchor-gold-vivid md:text-xs">{label}</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-wide text-anchor-gold-bright md:text-xs">{label}</p>
               <p className="mt-1 text-sm font-medium leading-snug text-anchor-cream-text">{value}</p>
             </div>
           </div>

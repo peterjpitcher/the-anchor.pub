@@ -17,19 +17,19 @@ export function DirectionsCard({
 }: DirectionsCardProps) {
   return (
     <div className={`card-dark rounded-none p-6 ${className}`}>
-      <h3 className="text-xl font-bold mb-4 text-anchor-gold-vivid">
+      <h3 className="text-xl font-bold mb-4 text-anchor-gold-bright">
         {icon} From {from}
       </h3>
       <ol className="space-y-3">
         {steps.map((step, index) => (
           <li key={index} className="flex gap-3">
-            <span className="font-bold text-anchor-gold">{index + 1}.</span>
+            <span className="font-bold text-anchor-gold-dark">{index + 1}.</span>
             <span className="text-anchor-cream-text/70">{step}</span>
           </li>
         ))}
       </ol>
       {(time || distance) && (
-        <div className="mt-4 pt-4 border-t border-anchor-gold/15">
+        <div className="mt-4 pt-4 border-t border-anchor-gold-dark/15">
           {time && (
             <p className="text-sm text-anchor-cream-text/70">
               <strong>Journey time:</strong> {time}

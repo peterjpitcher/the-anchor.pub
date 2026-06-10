@@ -191,7 +191,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         }
       />
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mb-8 max-w-4xl space-y-4 text-anchor-cream-text/75">
             <p>
@@ -208,11 +208,11 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section id="current-roles" className="section-spacing-md bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section id="current-roles" className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="mb-8 max-w-3xl">
-              <h2 className="text-3xl font-bold text-anchor-gold-vivid">Current roles</h2>
+              <h2 className="text-3xl font-bold text-anchor-gold-bright">Current roles</h2>
               <p className="mt-3 text-anchor-cream-text/75">
                 We are recruiting for part-time pub jobs near Heathrow, including bar staff jobs in Stanwell
                 Moor and kitchen jobs in Stanwell Moor.
@@ -223,11 +223,11 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-start">
             <div>
-              <h2 className="text-3xl font-bold text-anchor-gold-vivid">Why work at The Anchor?</h2>
+              <h2 className="text-3xl font-bold text-anchor-gold-bright">Why work at The Anchor?</h2>
               <div className="mt-5 space-y-4 text-anchor-cream-text/75">
                 <p>
                   The Anchor is a village pub near Heathrow Terminal 5 with regular local customers, food
@@ -257,7 +257,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2">
             <BulletListSection
@@ -274,7 +274,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_0.85fr]">
             <BulletListSection
@@ -282,8 +282,8 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
               intro="This probably is not the right role if:"
               items={poorFitSignals}
             />
-            <div className="rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-6">
-              <h2 className="text-3xl font-bold text-anchor-gold-vivid">A note from the owner, Billy</h2>
+            <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-6">
+              <h2 className="text-3xl font-bold text-anchor-gold-bright">A note from the owner, Billy</h2>
               <div className="mt-5 space-y-4 text-anchor-cream-text/75">
                 <p>
                   At The Anchor, I want to build the kind of pub people are proud to work in and guests are
@@ -319,7 +319,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section id="apply" className="section-spacing-lg bg-anchor-bg-raised border-b border-anchor-gold/15 scroll-mt-28">
+      <section id="apply" className="section-spacing-lg bg-anchor-green-raised border-b border-anchor-gold-dark/15 scroll-mt-28">
         <Container>
           <div className="mx-auto max-w-4xl">
             <RecruitmentApplicationForm
@@ -334,7 +334,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <LocationTransportSection />
         </Container>
@@ -343,7 +343,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
       <FAQAccordionWithSchema
         title="Recruitment FAQs"
         faqs={recruitmentFaqs}
-        className="bg-anchor-bg-card"
+        className="bg-anchor-green-card"
       />
     </>
   )

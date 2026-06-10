@@ -29,7 +29,7 @@ export const HERO_STATUS_BAR_THEMES: Record<HeroStatusBarThemeKey, {
     background: 'bg-white/80 backdrop-blur-sm',
     border: 'border border-white/60',
     text: 'text-anchor-green',
-    accentText: 'text-anchor-gold'
+    accentText: 'text-anchor-gold-dark'
   },
   darkGlass: {
     background: 'bg-black/40 backdrop-blur-sm',
@@ -39,9 +39,9 @@ export const HERO_STATUS_BAR_THEMES: Record<HeroStatusBarThemeKey, {
   },
   brand: {
     background: 'bg-anchor-green',
-    border: 'border border-anchor-gold',
+    border: 'border border-anchor-gold-dark',
     text: 'text-white',
-    accentText: 'text-anchor-gold'
+    accentText: 'text-anchor-gold-dark'
   }
 }
 

@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
       
       <Section spacing="lg" container containerSize="md">
         <div className="max-w-4xl mx-auto">
-          <PageTitle className="text-center text-anchor-gold-vivid mb-8" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-bright mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
           <div className="prose prose-lg">
@@ -181,7 +181,7 @@ export default function PrivacyPolicyPage() {
             If you're not satisfied with our response to your privacy concerns, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):
           </p>
           <p>
-            <a href="https://ico.org.uk/concerns" target="_blank" rel="noopener noreferrer" className="text-anchor-gold hover:underline">
+            <a href="https://ico.org.uk/concerns" target="_blank" rel="noopener noreferrer" className="text-anchor-gold-dark hover:underline">
               ico.org.uk/concerns
             </a>
           </p>

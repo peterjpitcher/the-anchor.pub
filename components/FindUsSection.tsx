@@ -44,7 +44,7 @@ export function FindUsSection({
         <PhoneLink
           phone={CONTACT.phone}
           source="find-us_section"
-          className="text-anchor-gold hover:text-anchor-gold-light"
+          className="text-anchor-gold-dark hover:text-anchor-gold"
         />
       </div>
 

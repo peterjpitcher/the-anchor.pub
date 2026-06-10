@@ -163,7 +163,7 @@ export function ChristmasLightbox() {
                     />
                     <div className="absolute inset-0 bg-black/40" />
                     <div className="relative z-10 text-center px-6">
-                        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-2 text-white">Christmas 2026</h2>
+                        <h2 className="text-3xl sm:text-4xl font-display font-bold mb-2 text-white">Christmas 2026</h2>
                         <p className="text-red-100 font-medium uppercase tracking-widest text-sm">Bookings Now Open</p>
                     </div>
                 </div>

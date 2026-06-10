@@ -386,11 +386,11 @@ export function ManagementEventBookingForm({
       <CardBody className={compact ? 'space-y-3 p-3 lg:p-4' : 'space-y-5'}>
         <div className="space-y-1">
           {title ? (
-            <h2 className={compact ? 'text-xl font-bold leading-tight text-anchor-gold-vivid' : 'text-2xl font-bold text-anchor-gold-vivid'}>
+            <h2 className={compact ? 'text-xl font-bold leading-tight text-anchor-gold-bright' : 'text-2xl font-bold text-anchor-gold-bright'}>
               {title}
             </h2>
           ) : null}
-          <p className="text-sm font-semibold leading-snug text-anchor-gold-vivid">{bookingReassurance}</p>
+          <p className="text-sm font-semibold leading-snug text-anchor-gold-bright">{bookingReassurance}</p>
           {seatsRemaining ? (
             <p className="text-xs text-anchor-cream-text/65">{seatsRemaining} seats currently available.</p>
           ) : null}
@@ -466,13 +466,13 @@ export function ManagementEventBookingForm({
             helperText="For your confirmation text."
           />
 
-          <label className="flex cursor-pointer gap-2.5 border border-anchor-gold/15 bg-anchor-bg-raised p-2.5">
+          <label className="flex cursor-pointer gap-2.5 border border-anchor-gold-dark/15 bg-anchor-green-raised p-2.5">
             <input
               type="checkbox"
               name="food_intent"
               checked={foodIntent === 'planning_to_eat'}
               onChange={(event) => setFoodIntent(event.target.checked ? 'planning_to_eat' : 'event_only')}
-              className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold"
+              className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
             />
             <span>
               <span className="block text-sm font-semibold text-anchor-cream-text">Planning to eat before the event</span>

@@ -42,7 +42,7 @@ interface StatusBarProps {
 
 const defaultTheme = {
   background: 'bg-anchor-green',
-  border: 'border-2 border-anchor-gold',
+  border: 'border-2 border-anchor-gold-dark',
   text: 'text-white',
   accentText: 'text-white/60'
 }

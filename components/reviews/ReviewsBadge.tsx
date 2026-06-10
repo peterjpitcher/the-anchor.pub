@@ -24,9 +24,9 @@ export function ReviewsBadge({
   }
 
   return (
-    <div className={`bg-anchor-bg-card border border-anchor-gold/20 shadow-[0_16px_40px_rgba(0,0,0,0.35)] inline-flex items-center gap-4 ${sizeClasses[size]}`}>
+    <div className={`bg-anchor-green-card border border-anchor-gold-dark/20 shadow-[0_16px_40px_rgba(0,0,0,0.35)] inline-flex items-center gap-4 ${sizeClasses[size]}`}>
       <div className="text-center">
-        <div className={`font-bold text-3xl text-anchor-gold-vivid ${size === 'large' ? 'text-4xl' : ''}`}>
+        <div className={`font-bold text-3xl text-anchor-gold-bright ${size === 'large' ? 'text-4xl' : ''}`}>
           {rating}
         </div>
         <div className={`flex gap-0.5 ${starSize[size]}`}>
@@ -51,7 +51,7 @@ export function ReviewsBadge({
           href="https://g.page/theanchorpubsm?share"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-anchor-gold hover:text-anchor-gold-light transition-colors mt-1 inline-block"
+          className="text-sm text-anchor-gold-dark hover:text-anchor-gold transition-colors mt-1 inline-block"
         >
           View on Google →
         </a>

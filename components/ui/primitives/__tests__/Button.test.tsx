@@ -21,10 +21,10 @@ describe('Button', () => {
 
   it('applies variant classes correctly', () => {
     const { rerender } = render(<Button variant="primary">Primary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold')
+    expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold-dark')
 
     rerender(<Button variant="secondary">Secondary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-anchor-bg-card')
+    expect(screen.getByRole('button')).toHaveClass('bg-anchor-green-card')
   })
 
   it('applies size classes correctly', () => {
@@ -120,7 +120,7 @@ describe('Button', () => {
     )
 
     const link = screen.getByRole('link', { name: 'Link Button' })
-    expect(link).toHaveClass('bg-anchor-gold')
+    expect(link).toHaveClass('bg-anchor-gold-dark')
     expect(link).toHaveClass('inline-flex')
   })
 

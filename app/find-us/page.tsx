@@ -87,7 +87,7 @@ export default function FindUsPage() {
       />
 
       {/* Page Title for SEO */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -99,30 +99,30 @@ export default function FindUsPage() {
       </Section>
 
       {/* Quick Info */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
+            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Stanwell Moor</p>
               <p className="text-sm text-anchor-cream-text/70">Surrey TW19 6AQ</p>
             </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
+            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Bus Routes</p>
               <p className="text-sm text-anchor-cream-text/70">441, 442, 555</p>
             </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
+            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Pool & Darts</p>
               <p className="text-sm text-anchor-cream-text/70">Games available</p>
             </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
+            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Entertainment</p>
               <p className="text-sm text-anchor-cream-text/70">Jukebox & more</p>
             </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
+            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Payment</p>
               <p className="text-sm text-anchor-cream-text/70">Cash & all cards inc. Amex</p>
@@ -132,7 +132,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* Heathrow Terminal Directions */}
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -153,7 +153,7 @@ export default function FindUsPage() {
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
@@ -166,7 +166,7 @@ export default function FindUsPage() {
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
@@ -179,7 +179,7 @@ export default function FindUsPage() {
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
@@ -192,7 +192,7 @@ export default function FindUsPage() {
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 }
               ]}
             />
@@ -201,7 +201,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* Address & Contact */}
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12">
@@ -209,24 +209,24 @@ export default function FindUsPage() {
                 <SectionHeader
                   title="Our Address"
                 />
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
                   <SpeakableContent selector="contact-info" priority="high">
                     <FindUsSection variant="full" mapHeight="250px" />
 
-                    <div className="mt-6 pt-6 border-t border-anchor-gold/15">
-                      <p className="font-bold text-anchor-gold-vivid mb-3">Contact</p>
+                    <div className="mt-6 pt-6 border-t border-anchor-gold-dark/15">
+                      <p className="font-bold text-anchor-gold-bright mb-3">Contact</p>
                       <p className="mb-2">
                         <PhoneLink
                           phone="01753682707"
                           source="find_us_contact"
-                          className="text-anchor-gold hover:text-anchor-gold-light"
+                          className="text-anchor-gold-dark hover:text-anchor-gold"
                         />
                       </p>
                       <p className="mb-2">
                         <WhatsAppLink
                           phone="01753682707"
                           source="find_us_page"
-                          className="text-anchor-gold hover:text-anchor-gold-light"
+                          className="text-anchor-gold-dark hover:text-anchor-gold"
                           showIcon={false}
                         >
                           WhatsApp: 01753 682707
@@ -236,7 +236,7 @@ export default function FindUsPage() {
                         <EmailLink
                           email="manager@the-anchor.pub"
                           source="find_us_contact"
-                          className="text-anchor-gold hover:text-anchor-gold-light"
+                          className="text-anchor-gold-dark hover:text-anchor-gold"
                           showIcon={true}
                         />
                       </p>
@@ -249,30 +249,30 @@ export default function FindUsPage() {
                 <SectionHeader
                   title="Landmarks"
                 />
-                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-                  <p className="text-lg font-semibold text-anchor-gold-vivid mb-4">
+                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+                  <p className="text-lg font-semibold text-anchor-gold-bright mb-4">
                     Look out for these landmarks:
                   </p>
                   <ul className="space-y-3 text-anchor-cream-text/70">
                     <li className="flex gap-3">
-                      <span className="text-anchor-gold"></span>
+                      <span className="text-anchor-gold-dark"></span>
                       <span>Centre of Stanwell Moor village</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-anchor-gold"></span>
+                      <span className="text-anchor-gold-dark"></span>
                       <span>Under the Heathrow flight path</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-anchor-gold"></span>
+                      <span className="text-anchor-gold-dark"></span>
                       <span>Free parking for patrons (20 spaces)</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-anchor-gold"></span>
+                      <span className="text-anchor-gold-dark"></span>
                       <span>Traditional pub building with garden</span>
                     </li>
                   </ul>
 
-                  <div className="mt-6 p-4 bg-anchor-bg rounded-none border border-anchor-gold/15">
+                  <div className="mt-6 p-4 bg-anchor-green-deep rounded-none border border-anchor-gold-dark/15">
                     <p className="text-sm text-anchor-cream-text/55 italic">
                       "If you can hear the planes, you're close!"
                     </p>
@@ -297,7 +297,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* Directions */}
-      <Section background="gray" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="gray" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Directions from Popular Locations"
@@ -305,8 +305,8 @@ export default function FindUsPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* From M25 */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From M25</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From M25</h3>
               <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Exit Junction 14</li>
                 <li>Take A3113 towards Stanwell Moor</li>
@@ -318,8 +318,8 @@ export default function FindUsPage() {
             </div>
 
             {/* From Staines */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Staines</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Staines</h3>
               <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Head south on A30</li>
                 <li>Turn right onto A3044</li>
@@ -331,8 +331,8 @@ export default function FindUsPage() {
             </div>
 
             {/* From Windsor */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Windsor</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Windsor</h3>
               <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Take A308 towards Staines</li>
                 <li>Join M25 at Junction 13</li>
@@ -344,8 +344,8 @@ export default function FindUsPage() {
             </div>
 
             {/* From Ashford */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Ashford</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Ashford</h3>
               <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Head north on A30</li>
                 <li>Turn left onto A3044</li>
@@ -357,24 +357,24 @@ export default function FindUsPage() {
             </div>
 
             {/* From Heathrow */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Heathrow</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Heathrow</h3>
               <p className="text-anchor-cream-text/70 mb-3">See our detailed terminal guides:</p>
               <ul className="space-y-2">
-                <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 2</Link></li>
-                <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 3</Link></li>
-                <li><Link href="/near-heathrow/terminal-4" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 4</Link></li>
-                <li><Link href="/near-heathrow/terminal-5" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 5</Link></li>
+                <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 2</Link></li>
+                <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 3</Link></li>
+                <li><Link href="/near-heathrow/terminal-4" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 4</Link></li>
+                <li><Link href="/near-heathrow/terminal-5" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 5</Link></li>
               </ul>
             </div>
 
             {/* By Public Transport */}
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">By Bus</h3>
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">By Bus</h3>
               <div className="space-y-3 text-anchor-cream-text/70">
                 <p><strong className="text-anchor-cream-text">Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
                 <p className="text-sm">Ask driver for The Anchor stop</p>
-                <p className="text-sm text-anchor-gold-vivid font-semibold">ULEZ Free Route</p>
+                <p className="text-sm text-anchor-gold-bright font-semibold">ULEZ Free Route</p>
               </div>
               <p className="mt-4 text-sm text-anchor-cream-text/55">Regular service throughout the day</p>
             </div>
@@ -383,33 +383,33 @@ export default function FindUsPage() {
       </Section>
 
       {/* Parking Information */}
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
               title="FREE Parking for Patrons - 20 Spaces Available!"
               subtitle="Complimentary parking while you're enjoying our food and drinks"
             />
-            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/30 p-8">
+            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/30 p-8">
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
                   <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-vivid mb-2">ALWAYS FREE</h3>
+                  <h3 className="font-bold text-anchor-gold-bright mb-2">ALWAYS FREE</h3>
                   <p className="text-anchor-cream-text/70">Unlike Heathrow (£7.50/hour!)</p>
                 </div>
                 <div>
                   <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-vivid mb-2">NO TIME LIMITS</h3>
+                  <h3 className="font-bold text-anchor-gold-bright mb-2">NO TIME LIMITS</h3>
                   <p className="text-anchor-cream-text/70">Stay as long as you like!</p>
                 </div>
                 <div>
                   <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-vivid mb-2">20 SPACES</h3>
+                  <h3 className="font-bold text-anchor-gold-bright mb-2">20 SPACES</h3>
                   <p className="text-anchor-cream-text/70">Well-lit with CCTV coverage</p>
                 </div>
               </div>
-              <div className="mt-6 bg-anchor-bg rounded-none border border-anchor-gold/15 p-4">
-                <p className="text-anchor-gold-vivid font-bold text-lg">
+              <div className="mt-6 bg-anchor-green-deep rounded-none border border-anchor-gold-dark/15 p-4">
+                <p className="text-anchor-gold-bright font-bold text-lg">
                   Compare: Heathrow T5 Short Stay = £7.50/hour | The Anchor = FREE!
                 </p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">
@@ -442,7 +442,7 @@ export default function FindUsPage() {
                   <Button
                     variant="primary"
                     size="lg"
-                    className="!bg-anchor-gold !text-anchor-green hover:!bg-anchor-gold-light"
+                    className="!bg-anchor-gold-dark !text-anchor-green hover:!bg-anchor-gold"
                   >
                     Book a Table Online
                   </Button>
@@ -472,19 +472,19 @@ export default function FindUsPage() {
                 <div className="space-y-3">
                   <h4 className="text-lg font-semibold text-white mb-3">Good to Know</h4>
                   <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <p className="text-white/90 text-sm">Free parking for patrons</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <p className="text-white/90 text-sm">Kitchen closed Mondays</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <p className="text-white/90 text-sm">Children always welcome</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <p className="text-white/90 text-sm">Dogs welcome in bar & garden</p>
                   </div>
                 </div>
@@ -500,85 +500,85 @@ export default function FindUsPage() {
       </Section>
 
       {/* Facilities */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
               title="Our Facilities"
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Entertainment & Games</h3>
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Entertainment & Games</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Pool Table</strong> - Challenge your friends</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Darts Board</strong> - Professional setup with oche</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Jukebox</strong> - Wide selection of music</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Fruit Machine</strong> - Try your luck (18+)</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">4 TVs</strong> - Terrestrial channels for sports & news</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Work & Connectivity</h3>
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Work & Connectivity</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Free WiFi</strong> - Fast, reliable, no time limits</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Power Points</strong> - Tables with plugs in dining room</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Quiet Weekdays</strong> - Perfect for remote work</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Free Parking for Patrons</strong> - While you visit</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span><strong className="text-anchor-cream-text">Luggage Storage</strong> - Safe storage for travelers</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="mt-8 bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6 text-center">Guest Services</h3>
+            <div className="mt-8 bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6 text-center">Guest Services</h3>
               <div className="grid md:grid-cols-3 gap-6 text-anchor-cream-text/70">
                 <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold text-xl mt-1"></span>
+                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
                   <div>
                     <strong className="text-anchor-cream-text">Dog Friendly</strong>
                     <p className="text-sm">Water bowls available</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold text-xl mt-1"></span>
+                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
                   <div>
                     <strong className="text-anchor-cream-text">Accessible Entry</strong>
                     <p className="text-sm">Ramp available at back door</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold text-xl mt-1"></span>
+                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
                   <div>
                     <strong className="text-anchor-cream-text">All Cards Accepted</strong>
                     <p className="text-sm">Including American Express</p>
@@ -587,9 +587,9 @@ export default function FindUsPage() {
               </div>
             </div>
 
-            <div className="mt-8 text-center bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+            <div className="mt-8 text-center bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
               <p className="text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-vivid">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
+                <strong className="text-anchor-gold-bright">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
                 featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
                 and a quiet weekday atmosphere, it's an ideal workspace near Heathrow.
               </p>
@@ -641,7 +641,7 @@ export default function FindUsPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're enjoying a meal, drinks, or booking an event, we make payment convenient with multiple options available."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* Map CTA */}

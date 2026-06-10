@@ -144,32 +144,32 @@ export default function FunctionRoomHirePage() {
       <TrustBar variant="private-hire" />
 
       {/* Google Rating */}
-      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">What Makes Our Function Rooms Work</h2>
+          <div className="max-w-5xl mx-auto bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">What Makes Our Function Rooms Work</h2>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>Flexible spaces for 10-50 guests, with larger events by enquiry</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>Free parking outside the ULEZ zone, ideal for corporate events</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>In-house catering: buffets, two-course dinners or canapés</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>AV support, microphones and hybrid meeting options available</span>
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <PageTitle className="text-center text-anchor-cream-text mb-8" seo={{ structured: true, speakable: true }}>
             Function Room Hire &mdash; A Pub with Private Rooms Near Heathrow &amp; Staines
@@ -187,7 +187,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Spaces Overview */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Flexible Spaces for Every Event"
@@ -195,10 +195,10 @@ export default function FunctionRoomHirePage() {
           />
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-            <div className="bg-anchor-bg-raised rounded-xl p-8 border border-anchor-gold/15">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">The Dining Room</h3>
+            <div className="bg-anchor-green-raised rounded-xl p-8 border border-anchor-gold-dark/15">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">The Dining Room</h3>
               <div className="mb-4">
-                <span className="inline-block bg-anchor-gold text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-anchor-gold-dark text-white px-3 py-1 rounded-full text-sm font-semibold">
                   20-80 guests
                 </span>
               </div>
@@ -214,10 +214,10 @@ export default function FunctionRoomHirePage() {
               </ul>
             </div>
 
-            <div className="bg-anchor-bg-raised rounded-xl p-8 border border-anchor-gold/15">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Exclusive Venue Hire</h3>
+            <div className="bg-anchor-green-raised rounded-xl p-8 border border-anchor-gold-dark/15">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Exclusive Venue Hire</h3>
               <div className="mb-4">
-                <span className="inline-block bg-anchor-gold text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="inline-block bg-anchor-gold-dark text-white px-3 py-1 rounded-full text-sm font-semibold">
                   80-200 guests
                 </span>
               </div>
@@ -247,7 +247,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Layout Options */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Configure Your Space"
@@ -258,42 +258,42 @@ export default function FunctionRoomHirePage() {
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Banquet Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">80</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">80</p>
               <p className="text-anchor-cream-text/70">Round tables of 8-10 for dining and socializing</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Theatre Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">40</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">40</p>
               <p className="text-anchor-cream-text/70">Rows of chairs facing front for presentations</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Cocktail Reception</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">150</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">150</p>
               <p className="text-anchor-cream-text/70">Standing reception with high tables</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Classroom Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">60</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">60</p>
               <p className="text-anchor-cream-text/70">Tables and chairs for training/workshops</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Boardroom Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">30</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">30</p>
               <p className="text-anchor-cream-text/70">Single large table for meetings</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
               <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Cabaret Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold mb-2">70</p>
+              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">70</p>
               <p className="text-anchor-cream-text/70">Round tables with stage/presentation area</p>
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Suitable For */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -311,7 +311,7 @@ export default function FunctionRoomHirePage() {
 
             <div className="grid md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Business Events</h3>
@@ -319,7 +319,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Celebrations</h3>
@@ -327,7 +327,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Memorial Services</h3>
@@ -335,7 +335,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Seasonal Events</h3>
@@ -343,7 +343,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Entertainment</h3>
@@ -351,7 +351,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl">‍‍‍</span>
                 </div>
                 <h3 className="font-bold mb-2">Community Events</h3>
@@ -359,7 +359,7 @@ export default function FunctionRoomHirePage() {
               </div>
 
               <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Educational</h3>
@@ -371,7 +371,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Key Benefits */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Why Choose The Anchor for Your Function"
@@ -422,7 +422,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* What's Included */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -438,31 +438,31 @@ export default function FunctionRoomHirePage() {
                   content: (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Tables and chairs in your chosen layout</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>White table linens and napkins</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Background music system</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Microphone for speeches</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Basic lighting control</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Heating and air conditioning</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Cloakroom facilities</span>
                       </li>
                     </ul>
@@ -474,31 +474,31 @@ export default function FunctionRoomHirePage() {
                   content: (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Pre-event planning consultation</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Dedicated event coordinator</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Professional service team</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Setup and breakdown included</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Flexible access times</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Supplier coordination</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span>Post-event cleanup</span>
                       </li>
                     </ul>
@@ -512,7 +512,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Pricing Structure */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -521,9 +521,9 @@ export default function FunctionRoomHirePage() {
             />
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6 text-center">How Our Pricing Works</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6 text-center">How Our Pricing Works</h3>
               <div className="text-center">
-                <p className="text-3xl font-bold text-anchor-gold mb-2">Room Hire + What You Order</p>
+                <p className="text-3xl font-bold text-anchor-gold-dark mb-2">Room Hire + What You Order</p>
                 <p className="text-anchor-cream-text/70 mb-4">no minimum spend</p>
                 <p className="text-anchor-cream-text/70">
                   A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services &mdash; no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
@@ -541,7 +541,7 @@ export default function FunctionRoomHirePage() {
                     we'll put together a clear, no-obligation quote covering venue hire, catering and any extras.
                   </p>
                   <p className="font-semibold text-center">
-                    Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-anchor-gold underline">submit an enquiry online</a>.
+                    Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-anchor-gold-dark underline">submit an enquiry online</a>.
                   </p>
                 </div>
               }
@@ -551,7 +551,7 @@ export default function FunctionRoomHirePage() {
       </section>
 
       {/* Location */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -560,7 +560,7 @@ export default function FunctionRoomHirePage() {
             />
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="font-bold text-lg mb-4">By Car</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70 text-left">
                   <li> M25 Junction 14: 3 minutes</li>
@@ -572,7 +572,7 @@ export default function FunctionRoomHirePage() {
                 </ul>
               </div>
 
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="font-bold text-lg mb-4">Public Transport</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70 text-left">
                   <li> Local bus routes from Staines</li>
@@ -597,11 +597,11 @@ export default function FunctionRoomHirePage() {
         </div>
       </section>
 
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-5 mb-6">
-              <h3 className="font-semibold text-anchor-gold-vivid mb-3">Which space suits your event?</h3>
+            <div className="rounded-xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-5 mb-6">
+              <h3 className="font-semibold text-anchor-gold-bright mb-3">Which space suits your event?</h3>
               <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                 <li>• <strong>10-50 guests</strong>, our private dining room, ideal for dinners and celebrations</li>
                 <li>• <strong>50+ guests</strong>, larger room, garden or full venue hire by enquiry</li>
@@ -674,14 +674,14 @@ export default function FunctionRoomHirePage() {
             answer: "We recommend booking 4-8 weeks ahead for weekends and popular dates. Weekday events often have more flexibility. December books up particularly early. The sooner you enquire, the more likely we can accommodate your preferred date."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}
-      <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
+      <section className="section-spacing-lg bg-anchor-green-raised border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-bright mb-6">
               Check Availability for Your Function
             </h2>
             <p className="text-xl text-anchor-cream-text/70 mb-8">
@@ -710,7 +710,7 @@ export default function FunctionRoomHirePage() {
                 </Button>
               </Link>
             </div>
-            <div className="mt-8 bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 max-w-2xl mx-auto">
+            <div className="mt-8 bg-anchor-green-card border border-anchor-gold-dark/15 rounded-xl p-6 max-w-2xl mx-auto">
               <p className="text-anchor-cream-text/70 text-center">
                 <strong>Viewing Welcome</strong><br />
                 Pop in during opening hours or arrange a specific viewing time<br />

@@ -41,7 +41,7 @@ export default function PubNearHiltonHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -55,16 +55,16 @@ export default function PubNearHiltonHeathrowPage() {
       </section>
 
       {/* Key facts */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -73,7 +73,7 @@ export default function PubNearHiltonHeathrowPage() {
       </section>
 
       {/* Business traveller section */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -81,8 +81,8 @@ export default function PubNearHiltonHeathrowPage() {
               subtitle="Many Hilton guests are here on business. The Anchor is the local choice for client dinners, team meals, and unwinding after a long day of meetings."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Business-Friendly Features</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Business-Friendly Features</h3>
                 <ul className="space-y-3">
                   {[
                     'Full VAT receipts for all purchases',
@@ -93,14 +93,14 @@ export default function PubNearHiltonHeathrowPage() {
                     'Flexible timing for early or late dining',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Directions from Hilton Heathrow</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Hilton Heathrow</h3>
                 <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">From Hilton T4 (Terminal 4)</p>
@@ -110,7 +110,7 @@ export default function PubNearHiltonHeathrowPage() {
                     <p className="font-semibold">From Hilton Garden Inn T2/T3</p>
                     <p className="text-sm">Head west on Bath Road, right onto Stanwell Moor Road. 12–14 mins.</p>
                   </div>
-                  <div className="pt-2 border-t border-anchor-gold/15">
+                  <div className="pt-2 border-t border-anchor-gold-dark/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Uber and local taxis readily available from Hilton reception</p>
                   </div>
@@ -122,21 +122,21 @@ export default function PubNearHiltonHeathrowPage() {
       </section>
 
       {/* Food for business */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="Food & Drink at The Anchor" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
             <div className="card-dark rounded-none p-6">
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3 text-center">Client Dinner at The Anchor</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-3 text-center">Client Dinner at The Anchor</h3>
               <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-anchor-cream-text/70">
                 <div>
                   <p className="font-semibold mb-1">Atmosphere</p>
@@ -157,7 +157,7 @@ export default function PubNearHiltonHeathrowPage() {
       </section>
 
       {/* Opening hours */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -200,7 +200,7 @@ export default function PubNearHiltonHeathrowPage() {
             answer: 'Yes, we provide full itemised VAT receipts for all meals and drinks. The Anchor is an expense-friendly alternative for business travellers.'
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

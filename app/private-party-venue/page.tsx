@@ -98,7 +98,7 @@ export default function PrivatePartyVenuePage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container size="md">
           <div className="text-center">
             <PageTitle
@@ -115,7 +115,7 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* Perfect For Section */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Perfect for Every Celebration"
@@ -142,15 +142,15 @@ export default function PrivatePartyVenuePage() {
                   <>
                     <p className="mb-4">We understand what makes a great party venue:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible spaces</strong> - From intimate gatherings to large celebrations</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Your music, your way</strong> - Bring your playlist or DJ</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Decoration freedom</strong> - Make the space your own</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>All ages welcome</strong> - Family-friendly environment</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Flexible spaces</strong> - From intimate gatherings to large celebrations</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Your music, your way</strong> - Bring your playlist or DJ</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Decoration freedom</strong> - Make the space your own</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>All ages welcome</strong> - Family-friendly environment</span></li>
                     </ul>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               },
               {
                 title: "Stress-Free Planning",
@@ -158,15 +158,15 @@ export default function PrivatePartyVenuePage() {
                   <>
                     <p className="mb-4">Let us handle the details while you enjoy the party:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Dedicated coordinator</strong> - One point of contact throughout</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Custom menus</strong> - Catering to match your taste and budget</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Setup assistance</strong> - We help create your vision</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Clean-up included</strong> - Just enjoy your event</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Dedicated coordinator</strong> - One point of contact throughout</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Custom menus</strong> - Catering to match your taste and budget</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Setup assistance</strong> - We help create your vision</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Clean-up included</strong> - Just enjoy your event</span></li>
                     </ul>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-raised"
+                color: "bg-anchor-green-raised"
               }
             ]}
           />
@@ -174,56 +174,56 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* What's Included */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container size="md">
           <SectionHeader title="Everything You Need for a Perfect Party" />
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6">Venue Features</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6">Venue Features</h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Flexible Spaces</strong><p className="text-sm text-anchor-cream-text/70">Configure for your party size and style</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Music System</strong><p className="text-sm text-anchor-cream-text/70">Connect your playlist or bring a DJ</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Party Lighting</strong><p className="text-sm text-anchor-cream-text/70">Create the perfect atmosphere</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Free Parking for Guests</strong><p className="text-sm text-anchor-cream-text/70">20 spaces while attending your event</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Full Accessibility</strong><p className="text-sm text-anchor-cream-text/70">Everyone can join the celebration</p></div>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6">Food &amp; Drink Options</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6">Food &amp; Drink Options</h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Buffet Service</strong><p className="text-sm text-anchor-cream-text/70">Hot and cold options to suit all tastes</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Pizza Parties</strong><p className="text-sm text-anchor-cream-text/70">Perfect for casual celebrations</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Drinks Packages</strong><p className="text-sm text-anchor-cream-text/70">From welcome drinks to full bar tabs</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Cake Service</strong><p className="text-sm text-anchor-cream-text/70">We will serve your celebration cake</p></div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold"></span>
+                  <span className="text-anchor-gold-dark"></span>
                   <div><strong>Dietary Options</strong><p className="text-sm text-anchor-cream-text/70">Vegetarian, vegan, and allergy-friendly</p></div>
                 </li>
               </ul>
@@ -233,7 +233,7 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* Add-On Services */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader title="Make It Extra Special" subtitle="Additional services to enhance your celebration" />
           <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -262,47 +262,47 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* Party Planning Timeline */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container size="sm">
           <SectionHeader title="Simple Party Planning Process" subtitle="We make organising your celebration easy" />
           <div className="space-y-6">
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">1</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">1</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Initial Enquiry</h3>
                 <p className="text-anchor-cream-text/70">Call, WhatsApp, or email us with your party date and guest numbers</p>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">2</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">2</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Discuss Your Vision</h3>
                 <p className="text-anchor-cream-text/70">We will chat about your ideas, menu preferences, and any special requirements</p>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">3</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">3</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Receive Your Quote</h3>
                 <p className="text-anchor-cream-text/70">Clear pricing with no hidden extras - know exactly what you are paying</p>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">4</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">4</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Secure Your Date</h3>
                 <p className="text-anchor-cream-text/70">Small deposit holds your booking - fully refundable if plans change (14 days notice)</p>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">5</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">5</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Final Details</h3>
                 <p className="text-anchor-cream-text/70">Confirm numbers and any last-minute changes a week before</p>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold text-anchor-bg rounded-full flex items-center justify-center font-bold">6</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">6</div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Party Time!</h3>
                 <p className="text-anchor-cream-text/70">Arrive and enjoy - we will handle everything else</p>
@@ -313,7 +313,7 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* Location Benefits */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container size="md">
           <div className="text-center">
             <SectionHeader title="Easy to Reach from Everywhere" subtitle="Central location with free parking makes party planning simple" />
@@ -401,14 +401,14 @@ export default function PrivatePartyVenuePage() {
             answer: "Standard finish time is 11:30pm on Fridays and Saturdays, 11pm on other nights. Extended hours may be available for exclusive venue hire - just ask when booking."
           }
         ]}
-        className="bg-anchor-bg-card"
+        className="bg-anchor-green-card"
       />
 
       {/* CTA Section */}
-      <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
+      <section className="section-spacing-lg bg-anchor-green-raised border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-bright mb-6">
               Plan Your Perfect Party
             </h2>
             <p className="text-xl text-anchor-cream-text/70 mb-8">
@@ -444,7 +444,7 @@ export default function PrivatePartyVenuePage() {
                 </Button>
               </Link>
             </div>
-            <div className="mt-8 bg-anchor-bg-card rounded-xl p-6 max-w-2xl mx-auto border border-anchor-gold/15">
+            <div className="mt-8 bg-anchor-green-card rounded-xl p-6 max-w-2xl mx-auto border border-anchor-gold-dark/15">
               <p className="text-anchor-cream-text/70 text-center">
                 <strong>Quick Response Promise</strong><br />
                 We will get back to you within 2 hours during opening hours<br />

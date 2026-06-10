@@ -4,12 +4,12 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps, WithChildren } from '../types'
 
 const cardVariants = cva(
-  'bg-anchor-bg-card rounded-none overflow-hidden border border-anchor-gold/20',
+  'bg-anchor-green-card rounded-none overflow-hidden border border-anchor-gold-dark/20',
   {
     variants: {
       variant: {
         default: '',
-        outlined: 'border-2 border-anchor-gold/40',
+        outlined: 'border-2 border-anchor-gold-dark/40',
         elevated: 'shadow-[0_16px_40px_rgba(0,0,0,0.4)] border-0'
       },
       padding: {
@@ -59,7 +59,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-b border-anchor-gold/15', className)}
+        className={cn('px-6 py-4 border-b border-anchor-gold-dark/15', className)}
         {...props}
       >
         {children}
@@ -123,7 +123,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-t border-anchor-gold/15 bg-anchor-bg-raised', className)}
+        className={cn('px-6 py-4 border-t border-anchor-gold-dark/15 bg-anchor-green-raised', className)}
         {...props}
       >
         {children}

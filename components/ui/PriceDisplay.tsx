@@ -20,8 +20,8 @@ const sizeClasses = {
 const variantClasses = {
   default: 'text-anchor-cream-text',
   sale: 'text-red-400',
-  free: 'text-anchor-gold-vivid',
-  premium: 'text-anchor-gold'
+  free: 'text-anchor-gold-bright',
+  premium: 'text-anchor-gold-dark'
 }
 
 /**

@@ -16,7 +16,7 @@ const DEFAULTS: Record<PsychBadgeVariant, { label: string; className: string; ic
   },
   authority: {
     label: 'Award winning',
-    className: 'bg-anchor-gold/10 text-anchor-gold border-anchor-gold/30',
+    className: 'bg-anchor-gold-dark/10 text-anchor-gold-dark border-anchor-gold-dark/30',
     icon: '',
   },
   price: {

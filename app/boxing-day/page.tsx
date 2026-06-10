@@ -135,27 +135,27 @@ export default function BoxingDayPage() {
                 fresh, and exactly what you want after a day of picking at cold turkey and leftover
                 stuffing.
               </p>
-              <div className="mt-4 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse our menus</h3>
+              <div className="mt-4 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+                <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our menus</h3>
                 <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                   Planning your visit? Take a look at our{' '}
                   <Link
                     href="/food-menu"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     food menu
                   </Link>
                   ,{' '}
                   <Link
                     href="/pizza-menu"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     pizza menu
                   </Link>{' '}
                   and{' '}
                   <Link
                     href="/drinks"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     drinks menu
                   </Link>
@@ -182,7 +182,7 @@ export default function BoxingDayPage() {
             </div>
 
             {/* Booking */}
-            <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 space-y-4">
+            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 space-y-4">
               <h2 className="text-2xl font-bold text-anchor-cream-text">Book Your Table</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Boxing Day is one of our busiest days of the year. Walk-ins are welcome, but if you want
@@ -252,7 +252,7 @@ export default function BoxingDayPage() {
                   Ashford, and Windsor.
                 </p>
                 <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -277,14 +277,14 @@ export default function BoxingDayPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">The Boxing Day walk</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">The Boxing Day walk</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Stanwell Moor and the King George VI Reservoir make for a cracking 2&ndash;3 mile walk.
                     Flat, dog-friendly, and right on our doorstep.
                   </p>
                   <Link
                     href="/dog-friendly-pub-heathrow"
-                    className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light"
+                    className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold"
                   >
                     Dog-friendly info
                     <span className="ml-1">&rarr;</span>
@@ -294,7 +294,7 @@ export default function BoxingDayPage() {
 
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Booking for a big group or have a question? Give us a call and we&apos;ll help.
                   </p>
@@ -314,7 +314,7 @@ export default function BoxingDayPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Boxing Day FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Boxing Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

@@ -41,7 +41,7 @@ export default function PubNearRadissonBluHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -54,16 +54,16 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges at all', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Authentically Local', description: 'A real community pub since 1751', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges at all', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Authentically Local', description: 'A real community pub since 1751', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -71,7 +71,7 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -79,8 +79,8 @@ export default function PubNearRadissonBluHeathrowPage() {
               subtitle="The Radisson Blu is an outstanding hotel, but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What You Get at The Anchor</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What You Get at The Anchor</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food, from £8.99',
@@ -91,14 +91,14 @@ export default function PubNearRadissonBluHeathrowPage() {
                     'Regular events, quiz, music bingo, karaoke',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Directions from Radisson Blu</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Radisson Blu</h3>
                 <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
@@ -108,7 +108,7 @@ export default function PubNearRadissonBluHeathrowPage() {
                     <p className="font-semibold">By Car</p>
                     <p className="text-sm">Take the A3044 south toward Stanwell. Continue through the village and turn right onto Horton Road. Free parking on arrival.</p>
                   </div>
-                  <div className="pt-2 border-t border-anchor-gold/15">
+                  <div className="pt-2 border-t border-anchor-gold-dark/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
                   </div>
@@ -119,16 +119,16 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="Popular with Radisson Guests" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -141,7 +141,7 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -156,7 +156,7 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -204,7 +204,7 @@ export default function PubNearRadissonBluHeathrowPage() {
             answer: 'Yes, our staff are happy to help arrange a taxi, or you can use Uber from the pub. The return journey to Radisson Blu Heathrow takes approximately 12 minutes and costs around £15–18.'
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

@@ -162,10 +162,10 @@ const FAQS = [
 
 function PrizeCard({ title, reward, copy }: { title: string; reward: string; copy: string }) {
   return (
-    <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+    <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
       <CardBody>
         <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">{title}</h3>
-        <p className="text-2xl font-bold text-anchor-gold mb-3">{reward}</p>
+        <p className="text-2xl font-bold text-anchor-gold-dark mb-3">{reward}</p>
         <p className="text-sm text-anchor-cream-text/70">{copy}</p>
       </CardBody>
     </Card>
@@ -175,8 +175,8 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
 function QuizNightEvents({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
-        <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New quiz dates are loading soon</p>
+      <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
+        <p className="text-lg font-semibold text-anchor-gold-bright mb-2">New quiz dates are loading soon</p>
         <p className="text-anchor-cream-text/55">
           Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
         </p>
@@ -207,7 +207,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
                     </span>
                   )}
                 </div>
-                <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold transition">
+                <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold-dark transition">
                   {event.name}
                 </Link>
                 <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
@@ -240,7 +240,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
                   <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
 	                <div className="flex flex-wrap items-center gap-3 text-sm">
-	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-bg-raised text-anchor-gold-vivid font-semibold">
+	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-green-raised text-anchor-gold-bright font-semibold">
 	                    £25 bar tab for winners
 	                  </span>
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold">
@@ -289,7 +289,7 @@ export default async function QuizNightPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
+      <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
@@ -300,11 +300,11 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next quiz night</p>
+                <p className="text-sm uppercase tracking-wide text-anchor-gold-dark font-semibold">Next quiz night</p>
                 <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                <p className="text-anchor-gold-bright font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                 {nextEvent?.longDescription && (
                   <p className="text-anchor-cream-text/70 whitespace-pre-line">{nextEvent.longDescription}</p>
                 )}
@@ -322,7 +322,7 @@ export default async function QuizNightPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold text-anchor-cream-text">How the night runs</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
@@ -343,7 +343,7 @@ export default async function QuizNightPage() {
 
       <Section spacing="sm" background="white">
         <Container>
-          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-bright" seo={{ structured: true, speakable: true }}>
             Pub Quiz Night Near Heathrow &amp; Staines &mdash; Monthly at The Anchor
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
@@ -357,7 +357,7 @@ export default async function QuizNightPage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming quiz night dates</h2>
             <p className="text-anchor-cream-text/70 text-center mb-8">
-              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
             </p>
             <QuizNightEvents events={events} />
           </div>
@@ -367,9 +367,9 @@ export default async function QuizNightPage() {
       <Section spacing="sm" background="white">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Eat Before You Quiz</h3>
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Eat Before You Quiz</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Kitchen open until 9pm on quiz night. Arrive early and fuel up on pizzas, burgers, or pie and mash before the first round.
                 </p>
@@ -382,15 +382,15 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     See the food menu →
                   </Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizza Teams</h3>
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizza Teams</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Arrive early and fuel up on stone-baked pizzas before trivia kicks off.
                 </p>
@@ -404,15 +404,15 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     View pizza menu →
                   </Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Cocktails</h3>
+                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">All-Day Menu & Cocktails</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Order sharers, burgers or themed cocktails delivered to your table during breaks.
                 </p>
@@ -425,7 +425,7 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     Browse food & drinks →
                   </Link>
                 </div>
@@ -444,7 +444,7 @@ export default async function QuizNightPage() {
             <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
               {WHY_LOVE_IT.map(feature => (
                 <GridItem key={feature.title}>
-                  <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+                  <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                     <CardBody className="space-y-3">
                       <div className="text-4xl">{feature.icon}</div>
                       <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
@@ -474,7 +474,7 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <Card className="card-dark rounded-none border border-anchor-gold/15">
+            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
@@ -508,7 +508,7 @@ export default async function QuizNightPage() {
 	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
 	            </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Balance your brain power</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
@@ -516,7 +516,7 @@ export default async function QuizNightPage() {
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Pick a memorable team name</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
@@ -524,7 +524,7 @@ export default async function QuizNightPage() {
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Nominate a scribe & rules coach</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
@@ -532,7 +532,7 @@ export default async function QuizNightPage() {
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early, fuel up</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
@@ -550,7 +550,7 @@ export default async function QuizNightPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
             <p className="text-anchor-cream-text/70">
-              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">live music evenings</Link> featuring local bands and acoustic acts.
+              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">live music evenings</Link> featuring local bands and acoustic acts.
             </p>
           </div>
         </Container>
@@ -570,7 +570,7 @@ export default async function QuizNightPage() {
                 source="quiz_night_cta_bottom"
                 variant="secondary"
                 size="lg"
-                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 Book Your Team Table
               </BookTableButton>

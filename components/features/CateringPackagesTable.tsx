@@ -27,22 +27,22 @@ export function CateringPackagesTable({
     <div>
       {title && (
         <div className="mb-4">
-          <h3 className="text-xl font-bold text-anchor-gold-vivid">{title}</h3>
+          <h3 className="text-xl font-bold text-anchor-gold-bright">{title}</h3>
           {subtitle && <p className="text-sm text-anchor-cream-text/60 mt-1">{subtitle}</p>}
         </div>
       )}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-anchor-gold/30">
-              <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Package</th>
-              <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Price</th>
-              <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-vivid">
+            <tr className="border-b border-anchor-gold-dark/30">
+              <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Package</th>
+              <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Price</th>
+              <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-bright">
                 {showDescription ? 'Description' : 'Includes'}
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-anchor-gold/10">
+          <tbody className="divide-y divide-anchor-gold-dark/10">
             {filtered.map((pkg) => (
               <tr key={pkg.id}>
                 <td className="py-3 pr-4 text-anchor-cream-text font-medium">{pkg.name}</td>

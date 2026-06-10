@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const switchVariants = cva(
-  'relative inline-flex cursor-pointer items-center rounded-full transition-colours focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+  'relative inline-flex cursor-pointer items-center rounded-full transition-colours focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       size: {
@@ -134,7 +134,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             <span
               className={cn(
                 switchVariants({ size }),
-                isChecked ? 'bg-anchor-gold' : 'bg-anchor-bg-raised',
+                isChecked ? 'bg-anchor-gold-dark' : 'bg-anchor-green-raised',
                 className
               )}
             >

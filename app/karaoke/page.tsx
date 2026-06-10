@@ -158,8 +158,8 @@ const FAQS = [
 function KaraokeEventCards({ events }: { events: Event[] }) {
     if (!events.length) {
         return (
-            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
-                <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">Next karaoke dates coming soon</p>
+            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
+                <p className="text-lg font-semibold text-anchor-gold-bright mb-2">Next karaoke dates coming soon</p>
                 <p className="text-anchor-cream-text/70">
                     We're tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
                 </p>
@@ -188,7 +188,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
                                         </span>
                                     )}
                                 </div>
-                                <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold transition">
+                                <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold-dark transition">
                                     {event.name}
                                 </Link>
                                 <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
@@ -303,7 +303,7 @@ export default async function KaraokePage() {
                 showContextStrip={true}
             />
 
-            <section className="bg-anchor-bg section-spacing-tight">
+            <section className="bg-anchor-green-deep section-spacing-tight">
                 <Container>
                     <HeroBadge className="text-sm" />
                 </Container>
@@ -311,7 +311,7 @@ export default async function KaraokePage() {
 
             <Section spacing="sm" background="white">
                 <Container>
-                    <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
+                    <PageTitle className="text-center text-anchor-gold-bright" seo={{ structured: true, speakable: true }}>
                         Karaoke Pub Near Heathrow, Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
@@ -323,11 +323,11 @@ export default async function KaraokePage() {
             <Section spacing="md" background="gray">
                 <Container>
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-                        <Card className="card-dark rounded-none border border-anchor-gold/15">
+                        <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
                             <CardBody className="space-y-4">
-                                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next karaoke night</p>
+                                <p className="text-sm uppercase tracking-wide text-anchor-gold-dark font-semibold">Next karaoke night</p>
                                 <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                                <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                                <p className="text-anchor-gold-bright font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                                 <p className="text-anchor-cream-text/70 whitespace-pre-line">
                                     Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
                                 </p>
@@ -345,7 +345,7 @@ export default async function KaraokePage() {
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="card-dark rounded-none border border-anchor-gold/15">
+                        <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
                             <CardBody className="space-y-4">
                                 <h3 className="text-2xl font-bold text-anchor-cream-text">How it works</h3>
                                 <ul className="space-y-3 text-anchor-cream-text/70">
@@ -368,7 +368,7 @@ export default async function KaraokePage() {
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming Karaoke Nights</h2>
                         <p className="text-anchor-cream-text/70 text-center mb-8">
-                            Mic check, one two! Here's when you can next take the stage. For updates, check <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
+                            Mic check, one two! Here's when you can next take the stage. For updates, check <Link href="/whats-on" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">Facebook page</Link>.
                         </p>
                         <KaraokeEventCards events={events} />
                     </div>
@@ -378,9 +378,9 @@ export default async function KaraokePage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-                        <Card className="card-dark rounded-none border border-anchor-gold/15">
+                        <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Pre-Show Fuel</h3>
+                                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Pre-Show Fuel</h3>
                                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     Calm the nerves with a burger or pizza before you hit the stage. Kitchen open late.
                                 </p>
@@ -393,15 +393,15 @@ export default async function KaraokePage() {
                                     >
                                         Book a Table
                                     </BookTableButton>
-                                    <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                                    <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                                         View Food Menu →
                                     </Link>
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="card-dark rounded-none border border-anchor-gold/15">
+                        <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Group Bookings</h3>
+                                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Group Bookings</h3>
                                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     Planning a birthday or office party? Reserve a specialized area for your team.
                                 </p>
@@ -414,15 +414,15 @@ export default async function KaraokePage() {
                                     >
                                         Book for Groups
                                     </BookTableButton>
-                                    <Link href="/contact" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                                    <Link href="/contact" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                                         Contact Us →
                                     </Link>
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="card-dark rounded-none border border-anchor-gold/15">
+                        <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Cocktails & Shots</h3>
+                                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Cocktails & Shots</h3>
                                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     From courage-boosting shots to celebratory cocktails, the bar is stocked for the occasion.
                                 </p>
@@ -446,7 +446,7 @@ export default async function KaraokePage() {
                         <Grid cols={WHY_LOVE_IT.length > 3 ? 4 : 3} gap="md">
                             {WHY_LOVE_IT.map(feature => (
                                 <GridItem key={feature.title}>
-                                    <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
+                                    <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
                                         <CardBody className="space-y-3">
                                             <div className="text-4xl">{feature.icon}</div>
                                             <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
@@ -465,7 +465,7 @@ export default async function KaraokePage() {
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
                         <p className="text-anchor-cream-text/70">
-                            Looking for more entertainment near Heathrow? Catch a gig at our <Link href="/live-music" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">live music nights</Link> featuring local bands and acoustic sessions, or rally your team for our monthly <Link href="/quiz-night" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">pub quiz night</Link> with a £25 bar tab up for grabs.
+                            Looking for more entertainment near Heathrow? Catch a gig at our <Link href="/live-music" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">live music nights</Link> featuring local bands and acoustic sessions, or rally your team for our monthly <Link href="/quiz-night" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">pub quiz night</Link> with a £25 bar tab up for grabs.
                         </p>
                     </div>
                 </Container>
@@ -490,7 +490,7 @@ export default async function KaraokePage() {
                                 </Link>
                                 <Link
                                     href="https://wa.me/441753682707"
-                                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
+                                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold-dark px-4 py-2 text-anchor-gold-dark font-semibold hover:bg-anchor-gold-dark hover:text-anchor-green transition"
                                 >
                                     WhatsApp us
                                 </Link>
@@ -499,7 +499,7 @@ export default async function KaraokePage() {
                         <div className="h-full">
                             <GoogleMapEmbed
                                 query="The Anchor, Stanwell Moor"
-                                className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
+                                className="h-full min-h-[300px] border border-anchor-gold-dark/15 rounded-xl overflow-hidden shadow-sm"
                             />
                         </div>
                     </div>
@@ -518,7 +518,7 @@ export default async function KaraokePage() {
                                 source="karaoke_cta_bottom"
                                 variant="secondary"
                                 size="lg"
-                                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                                className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
                             >
                                 Book Your Table
                             </BookTableButton>

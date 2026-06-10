@@ -486,8 +486,8 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               />
             </div>
 
-            <div className="rounded-lg border border-anchor-gold/30 bg-anchor-bg-card p-4 text-sm text-anchor-cream-text">
-              <p className="font-semibold text-anchor-gold-vivid">Best rates for longer stays</p>
+            <div className="rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-card p-4 text-sm text-anchor-cream-text">
+              <p className="font-semibold text-anchor-gold-bright">Best rates for longer stays</p>
               {isLoadingRates && <p className="mt-1">Loading the latest rate card…</p>}
               {ratesError && <p className="mt-1 text-red-400">{ratesError}</p>}
 	              {rates && !ratesError && (
@@ -620,7 +620,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
             <div className="space-y-6">
               {/* Booking summary */}
-              <div className="rounded-xl border border-anchor-gold/20 bg-anchor-bg-card p-5 space-y-3 text-sm">
+              <div className="rounded-xl border border-anchor-gold-dark/20 bg-anchor-green-card p-5 space-y-3 text-sm">
                 <h3 className="font-semibold text-anchor-cream-text text-base">Booking summary</h3>
                 <div className="grid min-w-0 grid-cols-1 gap-y-1 text-anchor-cream-text sm:grid-cols-2 sm:gap-y-2">
                   <span className="text-anchor-sage">Arrival</span>
@@ -637,7 +637,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
                 {/* Pricing */}
                 {estimate && (
-                  <div className="border-t border-anchor-gold/20 pt-3 space-y-1">
+                  <div className="border-t border-anchor-gold-dark/20 pt-3 space-y-1">
                     {estimate.breakdown.map((item, i) => (
                       <div key={i} className="flex justify-between text-anchor-sage text-xs">
                         <span>{item.quantity} {item.unit}{item.quantity !== 1 ? 's' : ''} @ £{item.rate}</span>
@@ -646,7 +646,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                     ))}
                     <div className="flex justify-between font-bold text-anchor-cream-text pt-1">
                       <span>Total</span>
-                      <span className="text-anchor-gold">{formatPrice(estimate.amount, 'GBP')}</span>
+                      <span className="text-anchor-gold-dark">{formatPrice(estimate.amount, 'GBP')}</span>
                     </div>
                   </div>
                 )}
@@ -654,17 +654,17 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
               {/* State messages */}
               {captureState === 'cancelled' && (
-                <p className="text-sm text-anchor-gold bg-anchor-bg-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-anchor-gold-dark bg-anchor-green-raised rounded-lg px-4 py-3">
                   Payment cancelled, you can try again below.
                 </p>
               )}
               {captureState === 'error' && (
-                <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-red-400 bg-anchor-green-raised rounded-lg px-4 py-3">
                   Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
                 </p>
               )}
               {captureState === 'capturing' && (
-                <p className="text-sm text-anchor-cream-text bg-anchor-bg-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-anchor-cream-text bg-anchor-green-raised rounded-lg px-4 py-3">
                   Confirming your booking…
                 </p>
               )}
@@ -672,13 +672,13 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* PayPal button container */}
               {/* Error state, shown if SDK fails to load or client ID is missing */}
               {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
-                <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-red-400 bg-anchor-green-raised rounded-lg px-4 py-3">
                   Payment could not be loaded. Please call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_paypal_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> to complete your booking.
                 </p>
               )}
               {/* Skeleton shown while SDK loads, sibling to the container, not inside it */}
               {!paypalLoaded && !paypalLoadError && process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && captureState !== 'capturing' && (
-                <div className="h-12 rounded-lg bg-anchor-bg-raised animate-pulse" />
+                <div className="h-12 rounded-lg bg-anchor-green-raised animate-pulse" />
               )}
               {/* Container stays mounted so the SDK iframe is never destroyed */}
               <div
@@ -711,14 +711,14 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   }
 
   return (
-    <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 shadow-lg">
+    <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 shadow-lg">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-widest text-anchor-gold-vivid">Step {currentStep} of 4</p>
+          <p className="text-sm uppercase tracking-widest text-anchor-gold-bright">Step {currentStep} of 4</p>
           <h3 className="text-2xl font-bold text-anchor-cream-text">{stepTitles[currentStep - 1]}</h3>
         </div>
         <div className="flex items-center gap-2 text-sm text-anchor-cream-text/70">
-          <Icon name="shieldCheck" className="h-4 w-4 text-anchor-gold-vivid" />
+          <Icon name="shieldCheck" className="h-4 w-4 text-anchor-gold-bright" />
           Secure checkout powered by PayPal
         </div>
       </div>
@@ -727,7 +727,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         {renderStepContent()}
 
         {currentStep < 4 && (
-          <div className="flex flex-col gap-3 border-t border-anchor-gold/15 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 border-t border-anchor-gold-dark/15 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <Button
               variant="secondary"
               onClick={() => goToStep(currentStep - 1)}
@@ -762,7 +762,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
       </div>
 
       <noscript>
-        <div className="mt-6 rounded-md border border-anchor-gold/30 bg-anchor-bg-card p-4 text-sm text-anchor-cream-text">
+        <div className="mt-6 rounded-md border border-anchor-gold-dark/30 bg-anchor-green-card p-4 text-sm text-anchor-cream-text">
           <p className="font-semibold">Need to book without JavaScript?</p>
           <p className="mt-1">
             Call us on 01753 682707, WhatsApp us, or email parking@the-anchor.pub with your arrival time,

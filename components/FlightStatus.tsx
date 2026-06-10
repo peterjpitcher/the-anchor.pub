@@ -136,7 +136,7 @@ export function FlightStatus({
     const gate = isDeparture ? flight.departure.gate : flight.arrival.gate
 
     return (
-      <div className="py-3 border-b border-anchor-gold/15 last:border-0">
+      <div className="py-3 border-b border-anchor-gold-dark/15 last:border-0">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2">
@@ -199,7 +199,7 @@ export function FlightStatus({
 
       {(type === 'arrivals' || type === 'both') && arrivals.length > 0 && (
         <div className="card-dark rounded-none overflow-hidden">
-          <div className="bg-anchor-gold text-white px-6 py-4">
+          <div className="bg-anchor-gold-dark text-white px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               Arrivals to Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
@@ -290,11 +290,11 @@ export const FlightDelayWidget = memo(function FlightDelayWidget({ terminal }: {
     : 0
 
   return (
-    <div className="bg-anchor-gold/10 border border-anchor-gold/30 rounded-none p-4" role="status" aria-live="polite">
+    <div className="bg-anchor-gold-dark/10 border border-anchor-gold-dark/30 rounded-none p-4" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
         <div></div>
         <div className="flex-1">
-          <h4 className="font-semibold text-anchor-gold-vivid">
+          <h4 className="font-semibold text-anchor-gold-bright">
             Terminal {terminal} Flight Status
           </h4>
           {delayInfo.delayedFlights > 0 ? (

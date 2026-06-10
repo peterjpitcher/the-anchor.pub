@@ -26,7 +26,7 @@ function joinItemNames(items: MenuPageItem[]): string {
 
 function MenuItemCard({ item, badge }: { item: MenuPageItem; badge: string }) {
   return (
-    <div className="flex justify-between items-start gap-4 py-4 border-b border-anchor-gold/10 last:border-b-0">
+    <div className="flex justify-between items-start gap-4 py-4 border-b border-anchor-gold-dark/10 last:border-b-0">
       <div className="flex-1">
         <div className="flex items-center gap-2 flex-wrap">
           <h2 className="font-semibold text-anchor-cream-text">{item.name}</h2>
@@ -43,7 +43,7 @@ function MenuItemCard({ item, badge }: { item: MenuPageItem; badge: string }) {
         <p className="text-xs text-anchor-cream-text/40 mt-1">{item.categoryTitle}</p>
       </div>
       {item.priceLabel && (
-        <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">{item.priceLabel}</span>
+        <span className="text-anchor-gold-bright font-semibold whitespace-nowrap">{item.priceLabel}</span>
       )}
     </div>
   )
@@ -123,7 +123,7 @@ export default async function GlutenFreeMenuPage() {
         showContextStrip={true}
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -139,13 +139,13 @@ export default async function GlutenFreeMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep">
         <Container>
           <DietaryMenuNav />
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Gluten-Free (GF)"
@@ -168,7 +168,7 @@ export default async function GlutenFreeMenuPage() {
       </Section>
 
       {gfoItems.length > 0 && (
-        <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <Container>
             <SectionHeader
               title="Gluten-Free Options (GFO)"
@@ -187,7 +187,7 @@ export default async function GlutenFreeMenuPage() {
         </Section>
       )}
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none max-w-3xl mx-auto">
             <CardBody>
@@ -205,7 +205,7 @@ export default async function GlutenFreeMenuPage() {
         </Container>
       </Section>
 
-      <Section background="gray" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="gray" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <Alert
             variant="warning"
@@ -219,14 +219,14 @@ export default async function GlutenFreeMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none text-center">
             <CardBody>
               <h2 className="text-xl font-bold text-anchor-cream-text mb-2">Kitchen Hours</h2>
               <p className="text-anchor-cream-text/70">
                 Gluten-free options are available during regular kitchen hours. See the{' '}
-                <Link href="/food-menu" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+                <Link href="/food-menu" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
                   full food menu
                 </Link>{' '}
                 for live kitchen times.
@@ -238,25 +238,25 @@ export default async function GlutenFreeMenuPage() {
 
       <FAQAccordionWithSchema
         faqs={faqItems}
-        className="bg-anchor-bg-card"
+        className="bg-anchor-green-card"
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/food-menu" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+            <Link href="/food-menu" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
               Full Food Menu
             </Link>
             <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/food-menu/vegetarian" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+            <Link href="/food-menu/vegetarian" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
               Vegetarian Menu
             </Link>
             <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/food-menu/vegan" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+            <Link href="/food-menu/vegan" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
               Vegan Menu
             </Link>
             <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/book-table" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+            <Link href="/book-table" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
               Book a Table
             </Link>
           </div>

@@ -25,7 +25,7 @@ export default function SafetyAndRespectPage() {
       />
 
       {/* Intro */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
             <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
@@ -36,7 +36,7 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Everyone's welcome */}
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Everyone's welcome" />
@@ -56,7 +56,7 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our standards */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Our standards" />
@@ -76,7 +76,7 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* If something doesn't feel right */}
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="If something doesn't feel right" />
@@ -93,7 +93,7 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our events */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Our events" />
@@ -102,7 +102,7 @@ export default function SafetyAndRespectPage() {
                 We run a full events programme, quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
               </p>
               <p>
-                Check our <Link href="/whats-on" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">what's on page</Link> for upcoming events.
+                Check our <Link href="/whats-on" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">what's on page</Link> for upcoming events.
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function SafetyAndRespectPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -148,7 +148,7 @@ export default function SafetyAndRespectPage() {
               If you have any questions about accessibility, events, or anything else, we're happy to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <PhoneButton phone={CONTACT.phone} source="safety-and-respect_cta" size="lg" className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised">
+              <PhoneButton phone={CONTACT.phone} source="safety-and-respect_cta" size="lg" className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised">
                   Call {CONTACT.phone}
               </PhoneButton>
               <Link href="/book-table">

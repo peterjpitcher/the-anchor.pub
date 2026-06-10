@@ -164,7 +164,7 @@ export default async function FoodMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-anchor-bg">
+      <div className="min-h-screen flex items-center justify-center bg-anchor-green-deep">
         <p className="text-xl text-anchor-cream-text/70">{getMenuUnavailableMessage()}</p>
       </div>
     )
@@ -292,7 +292,7 @@ export default async function FoodMenuPage() {
               </span>
             )}
             {kitchenStatusData && kitchenStatusData.type === 'opens-later' && (
-              <span className="flex items-center gap-1.5 text-anchor-gold-vivid">
+              <span className="flex items-center gap-1.5 text-anchor-gold-bright">
                 Kitchen opens at {kitchenStatusData.opensAt}
               </span>
             )}
@@ -305,7 +305,7 @@ export default async function FoodMenuPage() {
         }
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -326,15 +326,15 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <div id="menu" className="section-spacing bg-anchor-bg">
+      <div id="menu" className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="mb-8 grid gap-4 md:grid-cols-2">
             <StaticHoursSummary />
-            <div className="rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-4">
-              <p className="text-sm font-semibold text-anchor-gold-vivid">Popular for</p>
+            <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-4">
+              <p className="text-sm font-semibold text-anchor-gold-bright">Popular for</p>
               <div className="mt-3 flex flex-wrap gap-2 text-sm text-anchor-cream-text/75">
                 {['Heathrow travellers', 'Plane spotters', 'Local family meals', 'Sunday roast', 'Small group meals'].map((item) => (
-                  <span key={item} className="rounded-full border border-anchor-gold/20 bg-anchor-bg-raised px-3 py-1">{item}</span>
+                  <span key={item} className="rounded-full border border-anchor-gold-dark/20 bg-anchor-green-raised px-3 py-1">{item}</span>
                 ))}
               </div>
             </div>
@@ -350,7 +350,7 @@ export default async function FoodMenuPage() {
         </Container>
       </div>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="What Guests Book Us For"
@@ -363,26 +363,26 @@ export default async function FoodMenuPage() {
                 {
                   title: 'Full Live Menu',
                   description: 'The full menu below follows the latest dish, description and price updates.',
-                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
+                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
                 },
                 {
                   title: 'Pizza Menu',
                   description: pizzaPreview.length > 0
                     ? `Current pizza choices include ${joinItemNames(pizzaPreview)}.`
                     : 'Please call us for the current pizza choices if the menu is temporarily unavailable online.',
-                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
+                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
                 },
                 {
                   title: 'Dietary Options',
                   description: dietaryPreview.length > 0
                     ? `Current dietary picks include ${joinItemNames(dietaryPreview)}.`
                     : 'Use the filters to see vegetarian, vegan and gluten-free options.',
-                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
+                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
                 },
                 {
                   title: 'Near Heathrow',
                   description: 'Free parking, easy access from Terminal 5 and a table booking flow that works well for pre-flight meals.',
-                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
+                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
                 }
               ]}
             />
@@ -390,9 +390,9 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="sunday-roast">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="sunday-roast">
         <Container>
-          <Card className="card-dark rounded-none border border-anchor-gold/20">
+          <Card className="card-dark rounded-none border border-anchor-gold-dark/20">
             <CardBody className="text-center py-8">
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
               <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
@@ -411,7 +411,7 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15" id="pizza">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="pizza">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
             <Card className="card-dark rounded-none">
@@ -452,7 +452,7 @@ export default async function FoodMenuPage() {
             </Card>
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Current Pizza Highlights</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-3">Current Pizza Highlights</h3>
                 {pizzaPreview.length > 0 ? (
                   <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                     {pizzaPreview.map((item) => (
@@ -470,7 +470,7 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="current-menu">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="current-menu">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
             <Card className="card-dark rounded-none">
@@ -503,12 +503,12 @@ export default async function FoodMenuPage() {
             </Card>
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Kitchen Today</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-3">Kitchen Today</h3>
                 <p className="text-sm text-anchor-cream-text/70">
                   {kitchenSchedule ? (
-                    <>Kitchen open: {kitchenSchedule}. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> for large parties.</>
+                    <>Kitchen open: {kitchenSchedule}. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> for large parties.</>
                   ) : (
-                    <>Kitchen hours are updated live on this page. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> for large parties.</>
+                    <>Kitchen hours are updated live on this page. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> for large parties.</>
                   )}
                 </p>
               </CardBody>
@@ -517,7 +517,7 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15" id="dietary">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="dietary">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -533,14 +533,14 @@ export default async function FoodMenuPage() {
                 <p>Gluten-free or gluten-free-option dishes: {menuData.glutenFreeItems.length + menuData.glutenFreeOptionItems.length}</p>
               </div>
               <p className="mt-4 text-anchor-cream-text/70">
-                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegetarian menu</Link> for detailed options.
+                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">vegetarian menu</Link> for detailed options.
               </p>
             </CardBody>
           </Card>
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="near-heathrow">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="near-heathrow">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -557,7 +557,7 @@ export default async function FoodMenuPage() {
                 <li>&bull; Book ahead for groups and busy weekend slots.</li>
                 <li>
                   &bull; Interested in part-time kitchen jobs near Heathrow?{' '}
-                  <Link href="/join-our-team" className="font-semibold text-anchor-gold-vivid hover:text-anchor-gold-bright">
+                  <Link href="/join-our-team" className="font-semibold text-anchor-gold-bright hover:text-anchor-gold-bright">
                     Join our team
                   </Link>
                   .
@@ -568,7 +568,7 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="gray" spacing="md" className="bg-anchor-bg">
+      <Section background="gray" spacing="md" className="bg-anchor-green-deep">
         <Container>
           <Alert
             variant="warning"
@@ -584,7 +584,7 @@ export default async function FoodMenuPage() {
 
       <FAQAccordionWithSchema
         faqs={faqItems}
-        className="bg-anchor-bg-card"
+        className="bg-anchor-green-card"
         renderSchema={false}
       />
 

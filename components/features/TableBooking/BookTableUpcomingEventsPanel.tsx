@@ -64,7 +64,7 @@ export async function BookTableUpcomingEventsPanel() {
                 <div className="mt-2">
                   <Link
                     href={getEventBookingHref(event)}
-                    className="text-sm font-medium text-anchor-gold underline hover:text-anchor-gold-vivid"
+                    className="text-sm font-medium text-anchor-gold-dark underline hover:text-anchor-gold-bright"
                   >
                     Book event
                   </Link>
@@ -76,7 +76,7 @@ export async function BookTableUpcomingEventsPanel() {
       )}
 
       <div className="mt-4">
-        <Link href="/whats-on" className="text-sm font-medium text-anchor-gold underline hover:text-anchor-gold-vivid">
+        <Link href="/whats-on" className="text-sm font-medium text-anchor-gold-dark underline hover:text-anchor-gold-bright">
           View all events
         </Link>
       </div>

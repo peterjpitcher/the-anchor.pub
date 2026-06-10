@@ -72,14 +72,14 @@ export function FloatingActions() {
           id={menuId}
           ref={menuRef}
         >
-          <div className="card-dark min-w-[200px] max-w-[calc(100vw-3rem)] rounded-none shadow-2xl p-3 space-y-2 border border-anchor-gold/20">
+          <div className="card-dark min-w-[200px] max-w-[calc(100vw-3rem)] rounded-none shadow-2xl p-3 space-y-2 border border-anchor-gold-dark/20">
             <a
               href="/book-table"
               onClick={() => {
                 trackTableBookingClick('floating_actions')
                 setIsOpen(false)
               }}
-              className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours w-full justify-start text-left"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-green-raised rounded-lg transition-colours w-full justify-start text-left"
               role="menuitem"
             >
               <span className="flex min-w-0 items-center gap-3">
@@ -90,7 +90,7 @@ export function FloatingActions() {
             <PhoneLink
               phone="01753682707"
               source="floating_actions"
-              className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-green-raised rounded-lg transition-colours"
               showIcon={false}
               onClick={() => setIsOpen(false)}
               role="menuitem"
@@ -101,7 +101,7 @@ export function FloatingActions() {
             <WhatsAppLink
               phone="01753682707"
               source="floating_actions"
-              className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colors w-full"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-green-raised rounded-lg transition-colors w-full"
               showIcon={false}
               onClick={() => setIsOpen(false)}
               role="menuitem"
@@ -111,7 +111,7 @@ export function FloatingActions() {
             <DirectionsLink
               href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
               source="floating_actions"
-              className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours w-full"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-green-raised rounded-lg transition-colours w-full"
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
@@ -120,7 +120,7 @@ export function FloatingActions() {
 
             <a
               href="/food-menu"
-              className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-green-raised rounded-lg transition-colours"
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
@@ -133,7 +133,7 @@ export function FloatingActions() {
         <button
           id="floating-action-button"
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-anchor-gold hover:bg-anchor-gold-light text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+          className="bg-anchor-gold-dark hover:bg-anchor-gold text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
           aria-label={isOpen ? 'Close contact options' : 'Contact options'}
           aria-expanded={isOpen}
           aria-haspopup="menu"

@@ -100,8 +100,8 @@ const tabListVariants = cva(
   {
     variants: {
       variant: {
-        line: 'border-b border-anchor-gold/15',
-        enclosed: 'bg-anchor-bg-card border border-anchor-gold/20 p-1 rounded-lg',
+        line: 'border-b border-anchor-gold-dark/15',
+        enclosed: 'bg-anchor-green-card border border-anchor-gold-dark/20 p-1 rounded-lg',
         pills: 'gap-2'
       },
       orientation: {
@@ -150,13 +150,13 @@ TabsList.displayName = 'TabsList'
 
 // Individual Tab trigger
 const tabTriggerVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap font-medium transition-all focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+  'inline-flex items-center justify-center whitespace-nowrap font-medium transition-all focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        line: 'border-b-2 border-transparent pb-2 px-1 hover:text-anchor-gold data-[state=active]:border-anchor-gold data-[state=active]:text-anchor-gold',
-        enclosed: 'rounded-md px-3 py-1.5 text-anchor-cream-text/70 hover:bg-anchor-bg-raised data-[state=active]:bg-anchor-bg-raised data-[state=active]:text-anchor-gold-vivid data-[state=active]:shadow-sm',
-        pills: 'rounded-full px-4 py-2 text-anchor-cream-text/70 hover:bg-anchor-bg-raised data-[state=active]:bg-anchor-gold data-[state=active]:text-anchor-green'
+        line: 'border-b-2 border-transparent pb-2 px-1 hover:text-anchor-gold-dark data-[state=active]:border-anchor-gold-dark data-[state=active]:text-anchor-gold-dark',
+        enclosed: 'rounded-md px-3 py-1.5 text-anchor-cream-text/70 hover:bg-anchor-green-raised data-[state=active]:bg-anchor-green-raised data-[state=active]:text-anchor-gold-bright data-[state=active]:shadow-sm',
+        pills: 'rounded-full px-4 py-2 text-anchor-cream-text/70 hover:bg-anchor-green-raised data-[state=active]:bg-anchor-gold-dark data-[state=active]:text-anchor-green'
       },
       size: {
         sm: 'text-sm',

@@ -53,7 +53,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
                 Call Now to Book
               </PhoneButton>
               <Link href="/sunday-roast">
-                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
                   View Sunday Menu
                 </Button>
               </Link>

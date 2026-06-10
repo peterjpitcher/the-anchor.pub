@@ -16,31 +16,31 @@ export default function NotFound() {
       <div className="flex flex-wrap justify-center gap-4">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-anchor-gold text-white rounded-lg hover:bg-anchor-gold/90 transition-colors"
+          className="inline-flex items-center px-6 py-3 bg-anchor-gold-dark text-white rounded-lg hover:bg-anchor-gold-dark/90 transition-colors"
         >
           Go Home
         </Link>
         <Link
           href="/food-menu"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold text-anchor-gold rounded-lg hover:bg-anchor-gold/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
         >
           Food Menu
         </Link>
         <Link
           href="/book-table"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold text-anchor-gold rounded-lg hover:bg-anchor-gold/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
         >
           Book a Table
         </Link>
         <Link
           href="/whats-on"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold text-anchor-gold rounded-lg hover:bg-anchor-gold/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
         >
           What's On
         </Link>
         <Link
           href="/find-us"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold text-anchor-gold rounded-lg hover:bg-anchor-gold/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
         >
           Find Us
         </Link>

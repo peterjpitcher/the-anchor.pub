@@ -74,7 +74,7 @@ export function PayPalDepositSection({
   return (
     <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!, currency: 'GBP' }}>
       <div className="space-y-4">
-        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm space-y-1">
+        <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm space-y-1">
           <p className="font-medium text-anchor-cream-text">{bookingSummary}</p>
           <p className="text-anchor-cream-text/70">
             Deposit: <span className="font-semibold text-anchor-cream-text">£{depositAmount}</span>{' '}

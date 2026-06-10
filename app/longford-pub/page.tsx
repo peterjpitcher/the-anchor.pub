@@ -99,7 +99,7 @@ export default function LongfordPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -118,7 +118,7 @@ export default function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -134,7 +134,7 @@ export default function LongfordPubPage() {
                                     title: "Better Value",
                                     description: "Significantly cheaper than hotel restaurants for better quality food",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -142,7 +142,7 @@ export default function LongfordPubPage() {
                                     title: "Real Atmosphere",
                                     description: "Experience a proper British pub with locals, not a sterile hotel bar",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -150,7 +150,7 @@ export default function LongfordPubPage() {
                                     title: "Beer Garden",
                                     description: "Relax outside with a drink - perfect for summer evenings",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -160,7 +160,7 @@ export default function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -168,13 +168,13 @@ export default function LongfordPubPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
                                 <h3 className="text-xl font-bold mb-4">Walking</h3>
                                 <p className="text-anchor-cream-text/70">
                                     For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
                                 </p>
                             </div>
-                            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
                                 <h3 className="text-xl font-bold mb-4">Taxi / Uber</h3>
                                 <p className="text-anchor-cream-text/70">
                                     A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
@@ -198,7 +198,7 @@ export default function LongfordPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -222,7 +222,7 @@ export default function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -255,7 +255,7 @@ export default function LongfordPubPage() {
                         answer: "Yes, if you're stopping by on your way to/from the airport, we can find a safe spot for your bags while you eat."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

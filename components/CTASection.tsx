@@ -122,8 +122,8 @@ export function CTASection({
                 
                 // Map "white" variant to appropriate styling
                 const emailClassName = button.variant === 'white' 
-                  ? `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-bg-card text-anchor-cream-text border-2 border-anchor-gold/30 hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid rounded-full font-semibold transition-colors ${button.className || ''}`
-                  : `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-gold text-white hover:bg-anchor-gold-light rounded-full font-semibold transition-colors ${button.className || ''}`
+                  ? `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-green-card text-anchor-cream-text border-2 border-anchor-gold-dark/30 hover:bg-anchor-green-raised hover:text-anchor-gold-bright rounded-full font-semibold transition-colors ${button.className || ''}`
+                  : `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-gold-dark text-white hover:bg-anchor-gold rounded-full font-semibold transition-colors ${button.className || ''}`
                 
                 return (
                   <EmailLink

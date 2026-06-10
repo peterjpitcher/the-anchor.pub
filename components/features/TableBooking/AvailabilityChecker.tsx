@@ -134,10 +134,10 @@ export default function AvailabilityChecker({
   }
 
   return (
-    <Card variant="elevated" className={`bg-anchor-bg-card border border-anchor-gold/20 ${className}`}>
+    <Card variant="elevated" className={`bg-anchor-green-card border border-anchor-gold-dark/20 ${className}`}>
       <CardBody>
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">
+          <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">
             Table Availability
           </h3>
           <div className="flex flex-wrap gap-2 text-sm text-anchor-cream-text/70">

@@ -47,7 +47,7 @@ export function ManagersSpecialSchedule({
 }: ManagersSpecialScheduleProps) {
   if (!promotions || promotions.length === 0) {
     return (
-      <Section className={`bg-anchor-bg ${className}`}>
+      <Section className={`bg-anchor-green-deep ${className}`}>
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold text-anchor-cream-text">Upcoming Manager&apos;s Specials</h2>
@@ -62,7 +62,7 @@ export function ManagersSpecialSchedule({
   const nextCountdownLabel = formatDaysUntil(daysUntilNext)
 
   return (
-    <Section className={`bg-anchor-bg ${className}`}>
+    <Section className={`bg-anchor-green-deep ${className}`}>
       <Container>
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold text-anchor-cream-text">Upcoming Manager&apos;s Specials</h2>
@@ -92,7 +92,7 @@ export function ManagersSpecialSchedule({
                 <Link href="#upcoming-schedule" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="w-full bg-anchor-gold text-anchor-charcoal hover:bg-anchor-gold-light sm:w-auto"
+                    className="w-full bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold sm:w-auto"
                   >
                     View the Schedule
                   </Button>
@@ -112,13 +112,13 @@ export function ManagersSpecialSchedule({
 
             if (isCurrent) {
               return (
-                <div key={promo.id} className="card-dark rounded-none border border-anchor-gold/30 p-6 md:p-8">
+                <div key={promo.id} className="card-dark rounded-none border border-anchor-gold-dark/30 p-6 md:p-8">
                   <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                     <div>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-anchor-gold/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-anchor-gold-vivid">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-anchor-gold-dark/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">
                         Current Offer
                       </div>
-                      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-anchor-gold">{monthLabel}</p>
+                      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-anchor-gold-dark">{monthLabel}</p>
                       <h3 className="mt-2 text-2xl font-bold text-anchor-cream-text md:text-3xl">{promo.spirit.name}</h3>
                       <p className="mt-3 text-anchor-cream-text/70">
                         {promo.promotion.offerText}
@@ -129,7 +129,7 @@ export function ManagersSpecialSchedule({
                         </p>
                       )}
                       <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-anchor-cream-text/70">
-                        <span className="rounded-full bg-anchor-gold/20 px-3 py-1 font-semibold text-anchor-gold-vivid">{promo.spirit.discount}</span>
+                        <span className="rounded-full bg-anchor-gold-dark/20 px-3 py-1 font-semibold text-anchor-gold-bright">{promo.spirit.discount}</span>
                         <span className="font-semibold text-anchor-cream-text">{priceLabel}</span>
                         <span className="text-anchor-cream-text/55">• 25ml single</span>
                       </div>
@@ -149,7 +149,7 @@ export function ManagersSpecialSchedule({
 
                     {imagePath && (
                       <div className="mx-auto hidden w-full max-w-xs md:mx-0 md:block md:max-w-[220px]">
-                        <div className="rounded-none bg-anchor-bg-raised p-3">
+                        <div className="rounded-none bg-anchor-green-raised p-3">
                           <Image
                             src={imagePath}
                             alt={promo.promotion.heroAlt || `${promo.spirit.name} - ${promo.promotion.headline}`}
@@ -169,14 +169,14 @@ export function ManagersSpecialSchedule({
             return (
               <details
                 key={promo.id}
-                className="group card-dark rounded-none border border-anchor-gold/15 transition-shadow open:border-anchor-gold/30"
+                className="group card-dark rounded-none border border-anchor-gold-dark/15 transition-shadow open:border-anchor-gold-dark/30"
               >
                 <summary className="flex cursor-pointer list-none flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between md:gap-8 md:p-8">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-anchor-cream-text/55">{monthLabel}</p>
                       {isNext && (
-                        <span className="rounded-full bg-anchor-gold text-anchor-charcoal px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                        <span className="rounded-full bg-anchor-gold-dark text-anchor-charcoal px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                           Next
                         </span>
                       )}
@@ -195,19 +195,19 @@ export function ManagersSpecialSchedule({
                   <div className="flex items-center gap-3 md:justify-end">
                     <div className="text-right">
                       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-anchor-cream-text/55">Preview</p>
-                      <p className="mt-2 text-lg font-bold text-anchor-gold-vivid">{promo.spirit.discount}</p>
+                      <p className="mt-2 text-lg font-bold text-anchor-gold-bright">{promo.spirit.discount}</p>
                       <p className="mt-1 text-sm text-anchor-cream-text/55">Tap for price &amp; tasting notes</p>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-anchor-bg-raised text-anchor-cream-text/70 transition-transform group-open:rotate-180">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-anchor-green-raised text-anchor-cream-text/70 transition-transform group-open:rotate-180">
                       <span aria-hidden="true">⌄</span>
                     </div>
                   </div>
                 </summary>
 
-                <div className="border-t border-anchor-gold/15 px-6 pb-8 pt-6 md:px-8">
+                <div className="border-t border-anchor-gold-dark/15 px-6 pb-8 pt-6 md:px-8">
                   <div className="grid gap-8 md:grid-cols-12 md:items-start">
                     <div className="md:col-span-4">
-                      <div className="rounded-none bg-anchor-bg-raised p-3">
+                      <div className="rounded-none bg-anchor-green-raised p-3">
                         <Image
                           src={imagePath || DEFAULT_DRINKS_IMAGE}
                           alt={promo.promotion.heroAlt || `${promo.spirit.name} - ${promo.promotion.headline}`}
@@ -221,7 +221,7 @@ export function ManagersSpecialSchedule({
 
                     <div className="md:col-span-8">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="rounded-full bg-anchor-gold/20 px-3 py-1 text-sm font-semibold text-anchor-gold-vivid">{promo.spirit.discount}</span>
+                        <span className="rounded-full bg-anchor-gold-dark/20 px-3 py-1 text-sm font-semibold text-anchor-gold-bright">{promo.spirit.discount}</span>
                         <span className="text-sm font-semibold text-anchor-cream-text">{priceLabel}</span>
                         <span className="text-sm text-anchor-cream-text/55">• 25ml single</span>
                       </div>
@@ -232,11 +232,11 @@ export function ManagersSpecialSchedule({
 
                       {promo.education && (
                         <div className="mt-6 grid gap-4 md:grid-cols-2">
-                          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+                          <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
                             <h4 className="font-bold text-anchor-cream-text">Why it is in the line-up</h4>
                             <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{promo.education.whyPicked}</p>
                           </div>
-                          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+                          <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
                             <h4 className="font-bold text-anchor-cream-text">Best first serve</h4>
                             <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{promo.education.perfectServe}</p>
                           </div>
@@ -282,7 +282,7 @@ export function ManagersSpecialSchedule({
                         </div>
                       )}
 
-                      <div className="mt-10 rounded-none bg-anchor-bg-raised p-5">
+                      <div className="mt-10 rounded-none bg-anchor-green-raised p-5">
                         <p className="text-sm text-anchor-cream-text/70">
                           Offer runs for the month shown (subject to availability, 18+ only, Challenge 25 applies). Ask at the bar for the current serve and full terms.
                         </p>

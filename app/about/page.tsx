@@ -118,7 +118,7 @@ export default function AboutPage() {
       />
 
       {/* Our Story */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -165,7 +165,7 @@ export default function AboutPage() {
       </Section>
 
       {/* What Makes Us Different */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="What Makes Us Different"
@@ -224,7 +224,7 @@ export default function AboutPage() {
       </Section>
 
       {/* What We Do */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -237,14 +237,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Traditional British Food
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
                       fair prices, with food served daily (check our opening hours for times).
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">View menu &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">View menu &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -253,14 +253,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Sunday Roasts from &pound;19
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Proper roasts with all the trimmings. Yorkshire puddings, roast
                       potatoes, and rich gravy. Walk-ins welcome 1pm-6pm.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Book Sunday roast &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">Book Sunday roast &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -269,14 +269,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Weekly Events
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Quiz nights, music bingo with Nikki, karaoke, live music, and more.
                       There&apos;s always something on.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">See what&apos;s on &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">See what&apos;s on &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -285,14 +285,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Private Hire
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Flexible room bookings for 10 to 50 guests, with larger events by enquiry. Birthdays, corporate events,
                       celebrations, we handle the lot.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Plan your event &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">Plan your event &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -301,14 +301,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Beer Garden &amp; Plane Spotting
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       64 seats under the flight path. Heated areas, dog-friendly, full food
                       and drink service outdoors.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Explore the garden &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">Explore the garden &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -317,14 +317,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       See Inside The Anchor
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Photos of the bar, dining room, garden, pool table and games area.
                       Have a look around before you visit.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">View photos &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">View photos &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -333,14 +333,14 @@ export default function AboutPage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
                       Drinks
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Draught lagers, bottled ales, wines, spirits, and cocktails. Something for every
                       taste, served with a smile.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">View drinks &rarr;</p>
+                    <p className="text-anchor-gold-bright font-semibold">View drinks &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -350,7 +350,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Awards & Recognition */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -358,9 +358,9 @@ export default function AboutPage() {
             />
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
                   4.6 / 5 on Google
                 </h3>
                 <p className="text-anchor-cream-text/70">
@@ -369,9 +369,9 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
                   5-Star Food Hygiene
                 </h3>
                 <p className="text-anchor-cream-text/70">
@@ -380,9 +380,9 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 text-center">
+              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
                   Est. 1751
                 </h3>
                 <p className="text-anchor-cream-text/70">
@@ -397,7 +397,7 @@ export default function AboutPage() {
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -434,7 +434,7 @@ export default function AboutPage() {
       />
 
       {/* Hiring Callout */}
-      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-anchor-cream-text/80 leading-relaxed">
@@ -442,7 +442,7 @@ export default function AboutPage() {
               team members.{' '}
               <Link
                 href="/join-our-team"
-                className="text-anchor-gold-vivid hover:text-anchor-gold font-semibold underline underline-offset-4"
+                className="text-anchor-gold-bright hover:text-anchor-gold-dark font-semibold underline underline-offset-4"
               >
                 Find out more
               </Link>

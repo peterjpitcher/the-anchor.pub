@@ -38,7 +38,7 @@ export function QuickInfoGrid({
           <div className={`${variant === 'compact' ? 'text-2xl mb-2' : 'text-3xl mb-3'}`}>
             {item.icon}
           </div>
-          <h3 className={`break-words font-bold text-anchor-gold-vivid ${variant === 'compact' ? 'text-sm' : ''}`}>
+          <h3 className={`break-words font-bold text-anchor-gold-bright ${variant === 'compact' ? 'text-sm' : ''}`}>
             {item.title}
           </h3>
           {item.subtitle && (

@@ -41,7 +41,7 @@ export default function FamilyFriendlyPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
@@ -54,7 +54,7 @@ export default function FamilyFriendlyPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -70,7 +70,7 @@ export default function FamilyFriendlyPage() {
                                     title: "Kids Menu",
                                     description: "Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -78,7 +78,7 @@ export default function FamilyFriendlyPage() {
                                     title: "Colouring Books & Crayons",
                                     description: "Communal colouring books and crayons available to keep boredom at bay while you wait for food.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -86,24 +86,24 @@ export default function FamilyFriendlyPage() {
                                     title: "High Chairs",
                                     description: "Sturdy high chairs available for our smallest guests. Just request one when booking.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
                             className="mb-8"
                         />
 
-                        <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15 max-w-2xl mx-auto text-left">
+                        <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15 max-w-2xl mx-auto text-left">
                             <h3 className="text-xl font-bold text-anchor-cream-text mb-4 text-center">Baby Facilities</h3>
                             <ul className="grid sm:grid-cols-2 gap-4">
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid"></span> Bottle warming on request
+                                    <span className="text-anchor-gold-bright"></span> Bottle warming on request
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid"></span> Space for buggies
+                                    <span className="text-anchor-gold-bright"></span> Space for buggies
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid"></span> Breastfeeding welcome
+                                    <span className="text-anchor-gold-bright"></span> Breastfeeding welcome
                                 </li>
                             </ul>
                         </div>
@@ -126,7 +126,7 @@ export default function FamilyFriendlyPage() {
                         answer: "We certainly do! A smaller portion of our famous roast with all the trimmings."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

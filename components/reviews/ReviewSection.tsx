@@ -22,10 +22,10 @@ export function ReviewSection({
   className = ""
 }: ReviewSectionProps) {
   const bgClasses = {
-    white: "bg-anchor-bg-card",
-    gray: "bg-anchor-bg",
-    cream: "bg-anchor-bg-card",
-    dark: "bg-anchor-bg"
+    white: "bg-anchor-green-card",
+    gray: "bg-anchor-green-deep",
+    cream: "bg-anchor-green-card",
+    dark: "bg-anchor-green-deep"
   }
 
   const titleClasses = {

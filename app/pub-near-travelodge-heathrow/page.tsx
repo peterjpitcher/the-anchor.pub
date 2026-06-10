@@ -44,7 +44,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -57,16 +57,16 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '', title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£12–15', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, drive and park for free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'From £8.99', description: 'Mains at proper pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£12–15', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, drive and park for free', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'From £8.99', description: 'Mains at proper pub prices', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -74,7 +74,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -82,8 +82,8 @@ export default function PubNearTravelodgeHeathrowPage() {
               subtitle="You saved on accommodation, The Anchor lets you eat brilliantly without blowing the budget. Independent, home-cooked, and genuinely welcoming."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What You Get</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What You Get</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked food from £8.99 a main',
@@ -94,14 +94,14 @@ export default function PubNearTravelodgeHeathrowPage() {
                     'No booking required for small groups',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold"></span>
+                      <span className="text-anchor-gold-dark font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Travelodge</h3>
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Getting Here from Travelodge</h3>
                 <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">From Travelodge Heathrow Central</p>
@@ -111,7 +111,7 @@ export default function PubNearTravelodgeHeathrowPage() {
                     <p className="font-semibold">From other Travelodge locations</p>
                     <p className="text-sm">Most Heathrow Travelodge properties are within 12–15 minutes. Use Uber or ask reception for a local taxi.</p>
                   </div>
-                  <div className="pt-2 border-t border-anchor-gold/15">
+                  <div className="pt-2 border-t border-anchor-gold-dark/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Free parking if you&apos;re driving a rental car</p>
                   </div>
@@ -122,7 +122,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Best Nights to Visit" />
@@ -130,7 +130,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-2xl font-bold text-anchor-gold mb-2">From £12</p>
+                <p className="text-2xl font-bold text-anchor-gold-dark mb-2">From £12</p>
                 <p className="text-anchor-cream-text/70">Authentic stone-baked pizzas, available Tuesday to Saturday</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Great value dining near Heathrow</p>
               </div>
@@ -146,7 +146,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -186,7 +186,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               : `Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
           },
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       <CTASection

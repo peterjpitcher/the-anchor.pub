@@ -42,10 +42,10 @@ export default function BabyGuinnessPage() {
       />
 
       {/* Main Content */}
-      <Section background="white" spacing="lg" container containerSize="md" className="bg-anchor-bg">
+      <Section background="white" spacing="lg" container containerSize="md" className="bg-anchor-green-deep">
         <article className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold text-anchor-gold-vivid mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-anchor-gold-bright mb-6">
                 Baby Guinness Shot at The Anchor - Heathrow Pub & Dining's Favourite Party Starter
               </h2>
               
@@ -58,7 +58,7 @@ export default function BabyGuinnessPage() {
 
               {/* What is a Baby Guinness */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">What is a Baby Guinness?</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">What is a Baby Guinness?</h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed mb-4">
                   The Baby Guinness is our most popular layered shot that looks exactly like a tiny pint
                   of Guinness - complete with the distinctive dark body and creamy white head. Despite its
@@ -76,7 +76,7 @@ export default function BabyGuinnessPage() {
               {/* Recipe Card */}
               <Card className="card-dark rounded-none mb-12">
                 <CardBody>
-                  <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">How We Make Our Baby Guinness</h3>
+                  <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">How We Make Our Baby Guinness</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold mb-2">Ingredients:</h4>
@@ -111,9 +111,9 @@ export default function BabyGuinnessPage() {
 
               {/* Perfect For Section */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Perfect for Celebrations at The Anchor</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">Perfect for Celebrations at The Anchor</h2>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
+                  <div className="bg-anchor-green-card rounded-none p-4 border border-anchor-gold-dark/15">
                     <h3 className="font-semibold mb-2 text-anchor-cream-text"> Party Occasions</h3>
                     <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• Hen parties and stag dos</li>
@@ -122,7 +122,7 @@ export default function BabyGuinnessPage() {
                       <li>• Pre-flight send-offs</li>
                     </ul>
                   </div>
-                  <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
+                  <div className="bg-anchor-green-card rounded-none p-4 border border-anchor-gold-dark/15">
                     <h3 className="font-semibold mb-2 text-anchor-cream-text"> Perfect Timing</h3>
                     <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• After your Sunday roast</li>
@@ -136,7 +136,7 @@ export default function BabyGuinnessPage() {
 
               {/* History Section */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">The History of the Baby Guinness</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">The History of the Baby Guinness</h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed mb-4">
                   The Baby Guinness shot was invented in the 1980s and has become a staple of British and Irish
                   pub culture. The genius behind this shot was its visual appeal - creating something that looked
@@ -152,41 +152,41 @@ export default function BabyGuinnessPage() {
 
               {/* Pricing */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Baby Guinness Pricing</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">Baby Guinness Pricing</h2>
                 <Card className="card-dark rounded-none">
                   <CardBody className="text-center">
                     <h3 className="font-semibold mb-2 text-anchor-cream-text">Classic Baby Guinness</h3>
                     <p className="text-sm text-anchor-cream-text/55">Kahlúa & Bailey's</p>
-                    <p className="text-anchor-gold font-bold text-2xl">£3.50</p>
+                    <p className="text-anchor-gold-dark font-bold text-2xl">£3.50</p>
                   </CardBody>
                 </Card>
               </section>
 
               {/* Why Choose The Anchor */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">
                   Why Order Baby Guinness at The Anchor?
                 </h2>
-                <div className="bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15">
+                <div className="bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15">
                   <ul className="space-y-3">
 	                    <li className="flex items-start">
-	                      <span className="text-anchor-gold mr-3"></span>
+	                      <span className="text-anchor-gold-dark mr-3"></span>
 	                      <span><strong>Better Value:</strong> £3.50 vs £8+ at Heathrow Airport bars</span>
 	                    </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3"></span>
+                      <span className="text-anchor-gold-dark mr-3"></span>
                       <span><strong>Perfect Location:</strong> Just 7 minutes from Terminal 5</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3"></span>
+                      <span className="text-anchor-gold-dark mr-3"></span>
                       <span><strong>Experienced Staff:</strong> We make hundreds every month</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3"></span>
+                      <span className="text-anchor-gold-dark mr-3"></span>
                       <span><strong>Great Atmosphere:</strong> Friendly local pub, not a chain</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3"></span>
+                      <span className="text-anchor-gold-dark mr-3"></span>
                       <span><strong>FREE Parking:</strong> No airport parking fees here!</span>
                     </li>
                   </ul>
@@ -195,7 +195,7 @@ export default function BabyGuinnessPage() {
 
               {/* FAQs */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Frequently Asked Questions</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">Frequently Asked Questions</h2>
                 <div className="space-y-4">
                   <div>
                     <h3 className="font-semibold mb-2 text-anchor-cream-text">Does a Baby Guinness contain actual Guinness?</h3>
@@ -234,10 +234,10 @@ export default function BabyGuinnessPage() {
                 source="baby_guinness_page"
                 variant="outline"
                 size="lg"
-                className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green"
+                className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green"
               />
               <Link href="/drinks">
-                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
                   View Full Drinks Menu
                 </Button>
               </Link>

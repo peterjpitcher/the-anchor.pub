@@ -131,7 +131,7 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
       />
       {/* Kitchen Hours */}
       {menuData.kitchenHours && (
-        <section className="section-spacing bg-anchor-gold/10" id="kitchen-hours">
+        <section className="section-spacing bg-anchor-gold-dark/10" id="kitchen-hours">
           <Container className="text-center">
             <p className="text-lg text-anchor-green font-semibold">
               Kitchen Hours: {Object.entries(menuData.kitchenHours).map(([day, hours], index) => (
@@ -162,14 +162,14 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
           <section
             key={category.id}
             id={category.id}
-            className={cn('scroll-mt-24 py-10 md:py-12', categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg')}
+            className={cn('scroll-mt-24 py-10 md:py-12', categoryIndex % 2 === 0 ? 'bg-anchor-green-raised' : 'bg-anchor-green-deep')}
             itemScope
             itemType="https://schema.org/MenuSection"
           >
           <Container>
             <div className="max-w-6xl mx-auto">
               <div className="mb-8 max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-bright">
                   {eyebrow}
                 </p>
                 <h2 className="mt-2 text-3xl md:text-4xl font-bold text-anchor-cream-text" itemProp="name">
@@ -208,9 +208,9 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
                     </div>
                   )}
 
-                  <div className="mb-4 border-l-2 border-anchor-gold/50 pl-4">
+                  <div className="mb-4 border-l-2 border-anchor-gold-dark/50 pl-4">
                     {section.title && (
-                      <h3 className="text-base font-semibold uppercase tracking-widest text-anchor-gold/70">
+                      <h3 className="text-base font-semibold uppercase tracking-widest text-anchor-gold-dark/70">
                         {section.title}
                       </h3>
                     )}
@@ -271,17 +271,17 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
                             >
                               <div className="flex items-start justify-between gap-4">
                                 <div className="flex-1">
-                                  <span className="font-bold text-anchor-gold-vivid" itemProp="name">{item.name}</span>
+                                  <span className="font-bold text-anchor-gold-bright" itemProp="name">{item.name}</span>
                                   {item.description && (
                                     <p className="text-sm text-anchor-cream-text/70 mt-1" itemProp="description">{item.description}</p>
                                   )}
-                                  <span className="mt-2 inline-flex text-sm font-semibold text-anchor-gold group-hover:text-anchor-gold-light items-center gap-1">
+                                  <span className="mt-2 inline-flex text-sm font-semibold text-anchor-gold-dark group-hover:text-anchor-gold items-center gap-1">
                                     View details →
                                   </span>
                                 </div>
                                 {displayPrice && (
                                   <span
-                                    className="font-bold text-anchor-gold text-sm whitespace-nowrap"
+                                    className="font-bold text-anchor-gold-dark text-sm whitespace-nowrap"
                                     itemProp="offers"
                                     itemScope
                                     itemType="https://schema.org/Offer"
@@ -341,7 +341,7 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
 
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
-        <section className="section-spacing bg-anchor-bg-raised">
+        <section className="section-spacing bg-anchor-green-raised">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
               <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">
@@ -374,8 +374,8 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
   return (
     <div
       className={cn(
-        'py-3 border-b border-anchor-gold/10 last:border-0',
-        isFocused && 'bg-anchor-gold/5'
+        'py-3 border-b border-anchor-gold-dark/10 last:border-0',
+        isFocused && 'bg-anchor-gold-dark/5'
       )}
       itemScope
       itemType="https://schema.org/MenuItem"
@@ -452,8 +452,8 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
   return (
     <div
       className={cn(
-        'h-full rounded-lg border border-anchor-gold/10 bg-anchor-bg-card p-4 transition hover:border-anchor-gold/30 hover:bg-anchor-bg-card/80',
-        isFocused && 'border-anchor-gold/40 bg-anchor-gold/5'
+        'h-full rounded-lg border border-anchor-gold-dark/10 bg-anchor-green-card p-4 transition hover:border-anchor-gold-dark/30 hover:bg-anchor-green-card/80',
+        isFocused && 'border-anchor-gold-dark/40 bg-anchor-gold-dark/5'
       )}
       itemScope
       itemType="https://schema.org/MenuItem"
@@ -470,7 +470,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
         </h4>
         {formattedPrice && (
           <span
-            className="text-sm font-semibold text-anchor-gold-vivid"
+            className="text-sm font-semibold text-anchor-gold-bright"
             itemProp="offers"
             itemScope
             itemType="https://schema.org/Offer"

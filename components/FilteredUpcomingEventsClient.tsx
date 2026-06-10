@@ -94,8 +94,8 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
         urgency = {
           label: 'Almost here',
           message: `Join us this ${eventStart.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TIME_ZONE })}.`,
-          badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
-          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-gold-vivid'
+          badgeClassName: 'bg-anchor-gold-dark text-anchor-charcoal',
+          panelClassName: 'bg-anchor-gold-dark/20 border border-anchor-gold-dark/40 text-anchor-gold-bright'
         }
       } else {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
@@ -103,7 +103,7 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
           message: 'Book early to get your preferred time.',
           badgeClassName: 'bg-anchor-green text-white',
-          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-gold-vivid'
+          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-gold-bright'
         }
       }
     }
@@ -244,7 +244,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     }
 
     return (
-      <div ref={cardRef} className="border-l-2 border-anchor-gold/40 bg-anchor-bg-raised/30 px-4 py-3">
+      <div ref={cardRef} className="border-l-2 border-anchor-gold-dark/40 bg-anchor-green-raised/30 px-4 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-base">
           <span className="font-semibold text-anchor-cream-text sm:whitespace-nowrap">{eventDate}</span>
           <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
@@ -252,7 +252,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           {timeChangeMessage && timeChangeMessage !== 'Opening hours have been adjusted for this date.' && (
             <>
               <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
-              <span className="text-anchor-gold-vivid text-sm font-medium">{timeChangeMessage}</span>
+              <span className="text-anchor-gold-bright text-sm font-medium">{timeChangeMessage}</span>
             </>
           )}
         </div>
@@ -267,7 +267,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           <div className="sm:hidden">
             {!isTimeChange && (
               <Link href={`/events/${event.slug || event.id}`} className="block">
-                <div className="relative aspect-square w-full overflow-hidden bg-anchor-bg">
+                <div className="relative aspect-square w-full overflow-hidden bg-anchor-green-deep">
                   <Image
                     src={eventImage}
                     alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
@@ -298,12 +298,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                   {endTime ? ` → ${endTime}` : ''}
                 </p>
                 {priceLabel && (
-                  <span className="text-sm font-semibold text-anchor-gold">{priceLabel}</span>
+                  <span className="text-sm font-semibold text-anchor-gold-dark">{priceLabel}</span>
                 )}
               </div>
 
               <Link href={`/events/${event.slug || event.id}`}>
-                <h3 className="text-lg font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
+                <h3 className="text-lg font-bold text-anchor-cream-text hover:text-anchor-gold-bright transition-colors leading-snug">
                   {event.name}
                 </h3>
               </Link>
@@ -322,12 +322,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               {!isTimeChange && (
                 <div className="mt-3 flex flex-wrap gap-2 text-xs">
                   {paymentSignal ? (
-                    <span className="rounded-full border border-anchor-gold/25 bg-anchor-gold/10 px-2.5 py-1 font-medium text-anchor-gold-vivid">
+                    <span className="rounded-full border border-anchor-gold-dark/25 bg-anchor-gold-dark/10 px-2.5 py-1 font-medium text-anchor-gold-bright">
                       {paymentSignal}
                     </span>
                   ) : null}
                   {seatAvailabilityLabel ? (
-                    <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-bg-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
+                    <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-green-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
                       {seatAvailabilityLabel}
                     </span>
                   ) : null}
@@ -362,7 +362,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           {/* Desktop Layout, large square image left, content right */}
           <div className="hidden sm:grid sm:grid-cols-[200px_1fr]">
             {!isTimeChange ? (
-              <Link href={`/events/${event.slug || event.id}`} className="relative aspect-square overflow-hidden bg-anchor-bg block">
+              <Link href={`/events/${event.slug || event.id}`} className="relative aspect-square overflow-hidden bg-anchor-green-deep block">
                 <Image
                   src={eventImage}
                   alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
@@ -384,7 +384,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 )}
               </Link>
             ) : (
-              <div className="bg-anchor-bg-raised" />
+              <div className="bg-anchor-green-raised" />
             )}
 
             <div className="p-5 flex flex-col justify-between">
@@ -396,12 +396,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     {!isTimeChange && formatDoorTime(event.doorTime) ? ` · Doors ${formatDoorTime(event.doorTime)}` : ''}
                   </p>
                   {priceLabel && (
-                    <span className="text-sm font-semibold text-anchor-gold">{priceLabel}</span>
+                    <span className="text-sm font-semibold text-anchor-gold-dark">{priceLabel}</span>
                   )}
                 </div>
 
                 <Link href={`/events/${event.slug || event.id}`}>
-                  <h3 className="text-xl font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
+                  <h3 className="text-xl font-bold text-anchor-cream-text hover:text-anchor-gold-bright transition-colors leading-snug">
                     {event.name}
                   </h3>
                 </Link>
@@ -420,12 +420,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 {!isTimeChange && (
                   <div className="mt-3 flex flex-wrap gap-2 text-xs">
                     {paymentSignal ? (
-                      <span className="rounded-full border border-anchor-gold/25 bg-anchor-gold/10 px-2.5 py-1 font-medium text-anchor-gold-vivid">
+                      <span className="rounded-full border border-anchor-gold-dark/25 bg-anchor-gold-dark/10 px-2.5 py-1 font-medium text-anchor-gold-bright">
                         {paymentSignal}
                       </span>
                     ) : null}
                     {seatAvailabilityLabel ? (
-                      <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-bg-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
+                      <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-green-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
                         {seatAvailabilityLabel}
                       </span>
                     ) : null}
@@ -570,7 +570,7 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
 
   if (hostedEvents.length === 0) {
     return (
-      <div className="text-center py-12 bg-anchor-bg-raised rounded-none">
+      <div className="text-center py-12 bg-anchor-green-raised rounded-none">
         <p className="text-anchor-cream-text/70 text-lg">
           No upcoming events scheduled at the moment.
         </p>
@@ -582,8 +582,8 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
   return (
     <div id="events-list" ref={containerRef} className="space-y-6" role="feed" aria-busy={isLoadingMore}>
       {venueNotices.length > 0 && (
-        <div className="space-y-3 rounded-none border border-anchor-gold/20 bg-anchor-bg-raised p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-vivid">Venue notices</h3>
+        <div className="space-y-3 rounded-none border border-anchor-gold-dark/20 bg-anchor-green-raised p-4">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-bright">Venue notices</h3>
           <div className="space-y-2">
             {venueNotices.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
@@ -602,8 +602,8 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
               onClick={() => handleFilterClick(filter.value)}
               className={`rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
                 isActive
-                  ? 'border-anchor-gold bg-anchor-gold text-anchor-charcoal'
-                  : 'border-anchor-gold/25 bg-anchor-bg-raised text-anchor-cream-text hover:border-anchor-gold/60'
+                  ? 'border-anchor-gold-dark bg-anchor-gold-dark text-anchor-charcoal'
+                  : 'border-anchor-gold-dark/25 bg-anchor-green-raised text-anchor-cream-text hover:border-anchor-gold-dark/60'
               }`}
               aria-pressed={isActive}
             >
@@ -618,7 +618,7 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
       </p>
 
       {filteredEvents.length === 0 && (
-        <div className="text-center py-10 bg-anchor-bg-raised rounded-none">
+        <div className="text-center py-10 bg-anchor-green-raised rounded-none">
           <p className="text-anchor-cream-text/70">No events match this filter yet.</p>
         </div>
       )}
@@ -649,14 +649,14 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
         <div ref={loadMoreRef} className="text-center py-8">
           {isLoadingMore ? (
             <div className="flex items-center justify-center gap-2">
-              <div className="w-4 h-4 bg-anchor-gold rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-              <div className="w-4 h-4 bg-anchor-gold rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-              <div className="w-4 h-4 bg-anchor-gold rounded-full animate-bounce"></div>
+              <div className="w-4 h-4 bg-anchor-gold-dark rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+              <div className="w-4 h-4 bg-anchor-gold-dark rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+              <div className="w-4 h-4 bg-anchor-gold-dark rounded-full animate-bounce"></div>
             </div>
           ) : (
             <button
               onClick={loadMore}
-              className="px-6 py-3 bg-anchor-gold text-white rounded-full font-semibold hover:bg-anchor-gold-light transition-colors"
+              className="px-6 py-3 bg-anchor-gold-dark text-white rounded-full font-semibold hover:bg-anchor-gold transition-colors"
               aria-label={`Load more events. ${filteredEvents.length - displayCount} remaining`}
             >
               Load More Events ({filteredEvents.length - displayCount} remaining)

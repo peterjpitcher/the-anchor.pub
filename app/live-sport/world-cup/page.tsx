@@ -157,11 +157,11 @@ export default async function WorldCupPage() {
         showContextStrip={true}
       />
 
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
-          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl bg-anchor-bg-card p-6 ring-1 ring-anchor-gold/15 sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl bg-anchor-green-card p-6 ring-1 ring-anchor-gold-dark/15 sm:p-8 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.22em] text-anchor-gold-vivid">World Cup Sweep</p>
+              <p className="text-sm font-bold uppercase tracking-[0.22em] text-anchor-gold-bright">World Cup Sweep</p>
               <h2 className="mt-2 text-2xl font-bold text-anchor-cream-text">Sweep Draw Results Are Live</h2>
               <p className="mt-2 max-w-2xl text-sm text-anchor-cream-text/70">
                 All 48 teams are drawn and assigned. Find your name, check the prize pot, and follow your team through the tournament.
@@ -176,7 +176,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg" id="fixtures">
+      <section className="section-spacing bg-anchor-green-deep" id="fixtures">
         <Container>
           <SectionHeader
             title="World Cup 2026 Fixtures and UK Kick-Off Times"
@@ -237,9 +237,9 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
+          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-green-raised p-8 ring-1 ring-anchor-gold-dark/15">
             <SectionHeader
               title="England World Cup Fixtures at The Anchor"
               subtitle="England fixtures, screenings and table bookings near Heathrow."
@@ -249,12 +249,12 @@ export default async function WorldCupPage() {
                 <p className="text-center text-sm text-anchor-cream-text/70">
                   England are in Group L alongside Croatia, Ghana and Panama.
                 </p>
-                <div className="divide-y divide-anchor-gold/15 rounded-xl bg-anchor-bg-card ring-1 ring-anchor-gold/15">
+                <div className="divide-y divide-anchor-gold-dark/15 rounded-xl bg-anchor-green-card ring-1 ring-anchor-gold-dark/15">
                   {englandMatches.map((match) => (
                     <Link
                       key={match.matchNumber}
                       href={`#match-${match.matchNumber}`}
-                      className="flex flex-col gap-1 px-5 py-4 hover:bg-anchor-bg-raised sm:flex-row sm:items-center sm:justify-between"
+                      className="flex flex-col gap-1 px-5 py-4 hover:bg-anchor-green-raised sm:flex-row sm:items-center sm:justify-between"
                     >
                       <span className="font-semibold text-anchor-cream-text">{getTeamsLabel(match)}</span>
                       <span className="text-sm text-anchor-cream-text/70">
@@ -274,12 +274,12 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg-raised section-spacing">
+      <section className="bg-anchor-green-raised section-spacing">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
-                <h2 className="text-lg font-bold text-anchor-gold-vivid">What We're Showing</h2>
+              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15">
+                <h2 className="text-lg font-bold text-anchor-gold-bright">What We're Showing</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Matches we show are on BBC and ITV (no subscription needed)</li>
                   <li>Matches marked Showing will be on our screens</li>
@@ -291,14 +291,14 @@ export default async function WorldCupPage() {
                   Core hours: Mon-Thu 4pm-10pm • Fri 4pm-10pm • Sat 12pm-10pm • Sun 12pm-10pm. Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
-                  <Link href="#fixtures" className="font-semibold text-anchor-gold hover:underline">
+                  <Link href="#fixtures" className="font-semibold text-anchor-gold-dark hover:underline">
                     See fixtures we're showing →
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15" id="booking-rules">
-                <h2 className="text-lg font-bold text-anchor-gold-vivid">Booking Rules</h2>
+              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15" id="booking-rules">
+                <h2 className="text-lg font-bold text-anchor-gold-bright">Booking Rules</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Book any showing match now</li>
                   <li>No deposits for groups under 10</li>
@@ -309,8 +309,8 @@ export default async function WorldCupPage() {
                 <p className="mt-4 text-xs text-anchor-cream-text/55">Booking takes you to our in-site table booking form.</p>
               </div>
 
-              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
-                <h2 className="text-lg font-bold text-anchor-gold-vivid">Matchday Setup</h2>
+              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15">
+                <h2 className="text-lg font-bold text-anchor-gold-bright">Matchday Setup</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>4 screens (no projector)</li>
                   <li>Sound on for all games we show (reviewed if another event clashes)</li>
@@ -368,7 +368,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
@@ -389,8 +389,8 @@ export default async function WorldCupPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-anchor-bg-card p-8 shadow-sm ring-1 ring-anchor-gold/15">
-              <h3 className="mb-4 text-xl font-bold text-anchor-gold-vivid">Getting Here</h3>
+            <div className="rounded-2xl bg-anchor-green-card p-8 shadow-sm ring-1 ring-anchor-gold-dark/15">
+              <h3 className="mb-4 text-xl font-bold text-anchor-gold-bright">Getting Here</h3>
               <ul className="mb-6 space-y-3 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
                   <span>
@@ -411,10 +411,10 @@ export default async function WorldCupPage() {
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
-                <Link href="/find-us" className="font-bold text-anchor-gold hover:underline">
+                <Link href="/find-us" className="font-bold text-anchor-gold-dark hover:underline">
                   Directions & travel info →
                 </Link>
-                <Link href="/near-heathrow/terminal-5" className="font-bold text-anchor-gold hover:underline">
+                <Link href="/near-heathrow/terminal-5" className="font-bold text-anchor-gold-dark hover:underline">
                   Terminal 5 guide →
                 </Link>
               </div>
@@ -423,13 +423,13 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <SectionHeader
             title="Watch Live Sport Near Heathrow"
             subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
           />
-          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
+          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-green-raised p-8 ring-1 ring-anchor-gold-dark/15">
             <p className="text-center text-sm text-anchor-cream-text/70">
               The Anchor is in Stanwell Moor, just off the M25 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking for {PARKING.capacity} cars makes us easy to reach from Staines, Ashford, Feltham, Egham, Colnbrook, and Windsor.
             </p>
@@ -438,7 +438,7 @@ export default async function WorldCupPage() {
                 <Link
                   key={area.href}
                   href={area.href}
-                  className="rounded-full bg-anchor-bg-card px-4 py-2 text-sm font-semibold text-anchor-gold ring-1 ring-anchor-gold/15 hover:bg-anchor-bg-raised"
+                  className="rounded-full bg-anchor-green-card px-4 py-2 text-sm font-semibold text-anchor-gold-dark ring-1 ring-anchor-gold-dark/15 hover:bg-anchor-green-raised"
                 >
                   {area.label}
                 </Link>
@@ -448,7 +448,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <SectionHeader title="Frequently Asked Questions" />
           <FAQAccordionWithSchema
@@ -526,7 +526,7 @@ export default async function WorldCupPage() {
                 answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
-            className="mx-auto max-w-3xl bg-anchor-bg-raised"
+            className="mx-auto max-w-3xl bg-anchor-green-raised"
           />
         </Container>
       </section>

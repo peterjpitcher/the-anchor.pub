@@ -96,7 +96,7 @@ export default async function PlaneSpottingHeathrowPage() {
         showContextStrip={true}
       />
 
-      <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <PlaneSpottingScheduleNote
             variant="panel"
@@ -136,7 +136,7 @@ export default async function PlaneSpottingHeathrowPage() {
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
             <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Before/After Spotting</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Sunday Roast Before/After Spotting</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and real gravy after a spotting morning.
                 </p>
@@ -148,7 +148,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     Sunday roast menu →
                   </Link>
                 </div>
@@ -156,7 +156,7 @@ export default async function PlaneSpottingHeathrowPage() {
             </Card>
             <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings, a favourite with aviation meet-ups and crew nights.
                 </p>
@@ -169,7 +169,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     View pizza menu →
                   </Link>
                 </div>
@@ -177,7 +177,7 @@ export default async function PlaneSpottingHeathrowPage() {
             </Card>
             <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Hot Food & Drinks All Day</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Hot Food & Drinks All Day</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, sharers and a full bar served to the beer garden. Free parking and WiFi keep you comfortable between arrivals.
                 </p>
@@ -189,7 +189,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     Browse food menu →
                   </Link>
                 </div>
@@ -221,28 +221,28 @@ export default async function PlaneSpottingHeathrowPage() {
                 title: 'Under the Flight Path',
                 description: 'On westerly operations with 27R arrivals, you are aligned with the landing path. Aircraft overhead is expected, not guaranteed.',
                 variant: 'default',
-                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
+                className: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15 text-left'
               },
               {
                 icon: '',
                 title: 'Photo-Friendly Garden',
                 description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome and heaters keep winter sessions comfortable.',
                 variant: 'default',
-                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
+                className: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15 text-left'
               },
               {
                 icon: '',
                 title: 'Proper Refreshments',
                 description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.',
                 variant: 'default',
-                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
+                className: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15 text-left'
               }
             ]}
           />
         </Container>
       </Section>
 
-      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-y border-anchor-gold/15">
+      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-y border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Plan Your Heathrow Plane Watching Trip"
@@ -262,7 +262,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
+                color: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15'
               },
               {
                 title: 'Getting Here',
@@ -274,7 +274,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
+                color: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15'
               },
               {
                 title: 'What to Bring',
@@ -286,7 +286,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
+                color: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15'
               }
             ]}
           />
@@ -307,14 +307,14 @@ export default async function PlaneSpottingHeathrowPage() {
                 title: 'Myrtle Avenue',
                 description: 'Legendary runway 27L arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and runway 27R coverage.',
                 variant: 'default',
-                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
+                className: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15 text-left'
               },
               {
                 icon: '',
                 title: 'Visitors Centre / Renaissance Hotel',
                 description: 'Great for departures on easterly operations. Wrap up the day with a pint at The Anchor before heading home.',
                 variant: 'default',
-                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
+                className: 'bg-anchor-green-raised rounded-2xl p-6 border border-anchor-gold-dark/15 text-left'
               }
             ]}
           />
@@ -322,7 +322,7 @@ export default async function PlaneSpottingHeathrowPage() {
       </Section>
 
       <FAQAccordionWithSchema
-        className="bg-anchor-bg-raised"
+        className="bg-anchor-green-raised"
         faqs={[
           {
             question: 'Do I need to book a table for plane spotting?',

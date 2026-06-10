@@ -177,7 +177,7 @@ export default async function WhatsOnPage() {
       />
 
       {/* Upcoming Events from API, first thing after the hero */}
-      <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Upcoming Events"
@@ -194,7 +194,7 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-[1.4fr,1fr,1fr]">
             <div>
@@ -203,19 +203,19 @@ export default async function WhatsOnPage() {
                 Arrive early for pub classics, stone-baked pizzas and sharers before quiz, bingo, karaoke or live music starts.
               </p>
             </div>
-            <Link href="/food-menu" className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-4 hover:border-anchor-gold/40">
-              <span className="block text-sm font-semibold text-anchor-gold-vivid">View Food Menu</span>
+            <Link href="/food-menu" className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-4 hover:border-anchor-gold-dark/40">
+              <span className="block text-sm font-semibold text-anchor-gold-bright">View Food Menu</span>
               <span className="mt-1 block text-sm text-anchor-cream-text/70">Current dishes, prices and dietary filters.</span>
             </Link>
-            <Link href="/book-table?source=whats_on_eat_before_event" className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-4 hover:border-anchor-gold/40">
-              <span className="block text-sm font-semibold text-anchor-gold-vivid">Book a Table</span>
+            <Link href="/book-table?source=whats_on_eat_before_event" className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-4 hover:border-anchor-gold-dark/40">
+              <span className="block text-sm font-semibold text-anchor-gold-bright">Book a Table</span>
               <span className="mt-1 block text-sm text-anchor-cream-text/70">Reserve food before your event table.</span>
             </Link>
           </div>
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <StaticHoursSummary compact />
@@ -223,14 +223,14 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
+      <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Pub Events &amp; Entertainment Near Heathrow &mdash; What&apos;s On at The Anchor
@@ -239,7 +239,7 @@ export default async function WhatsOnPage() {
       </Section>
 
       {/* Heathrow Positioning */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Seven Minutes from Heathrow Terminal 5"
@@ -257,7 +257,7 @@ export default async function WhatsOnPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               },
               {
                 title: "Weekly Headliners",
@@ -269,7 +269,7 @@ export default async function WhatsOnPage() {
                   </ul>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               },
               {
                 title: "Easy Transfers",
@@ -279,14 +279,14 @@ export default async function WhatsOnPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
               }
             ]}
           />
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Local Nights Out for Staines & Heathrow"
@@ -319,7 +319,7 @@ export default async function WhatsOnPage() {
       </Section>
 
       {/* Featured Events */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Monthly Highlights - Great Value Entertainment"
@@ -328,46 +328,46 @@ export default async function WhatsOnPage() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <Link href={nextMusicBingo ? `/events/${nextMusicBingo.slug || nextMusicBingo.id}` : '/music-bingo'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
+              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
+                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
                     Music Bingo with Nikki Manfadge
                   </h3>
                   <p className="text-anchor-cream-text/70 mb-4">
                     Song clips instead of numbers, singalong rounds, and prizes every game. Book a Music Bingo table.
                   </p>
-                  <p className="text-anchor-gold font-semibold">Learn more →</p>
+                  <p className="text-anchor-gold-dark font-semibold">Learn more →</p>
                 </CardBody>
               </Card>
             </Link>
 
             <Link href={nextQuizNight ? `/events/${nextQuizNight.slug || nextQuizNight.id}` : '/quiz-night'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
+              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
+                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
                     Quiz Night - Just £3 Entry!
                   </h3>
                   <p className="text-anchor-cream-text/70 mb-4">
                     Test your knowledge monthly. Only £3 entry with cash prizes for winners!
                   </p>
-                  <p className="text-sm font-bold text-anchor-gold-vivid">Learn more →</p>
+                  <p className="text-sm font-bold text-anchor-gold-bright">Learn more →</p>
                 </CardBody>
               </Card>
             </Link>
 
             <Link href={nextCashBingo ? `/events/${nextCashBingo.slug || nextCashBingo.id}` : '/cash-bingo'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
+              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
+                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
                     Cash Prize Bingo
                   </h3>
                   <p className="text-anchor-cream-text/70 mb-4">
                     £10 cash-only books, £160 snowball and jackpots that roll to £300+. Reserve your tickets early!
                   </p>
-                  <p className="text-sm font-bold text-anchor-gold-vivid">Play bingo for cash →</p>
+                  <p className="text-sm font-bold text-anchor-gold-bright">Play bingo for cash →</p>
                 </CardBody>
               </Card>
             </Link>
@@ -376,7 +376,7 @@ export default async function WhatsOnPage() {
       </Section>
 
       {/* Entertainment & Games */}
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="FREE Daily Entertainment & Games"
@@ -391,28 +391,28 @@ export default async function WhatsOnPage() {
                 title: "Pool Table - FREE",
                 description: "FREE to play all day! No coins needed. Cues and chalk provided.",
                 variant: "default",
-                className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
               },
               {
                 icon: "",
                 title: "Darts - FREE",
                 description: "FREE to play! Professional board with oche. Darts available at the bar.",
                 variant: "default",
-                className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
               },
               {
                 icon: "",
                 title: "Jukebox",
                 description: "Choose your favourite tunes. Wide selection of music genres.",
                 variant: "default",
-                className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
               },
               {
                 icon: "",
                 title: "Fruit Machine",
                 description: "Try your luck on our gaming machine. 18+ only.",
                 variant: "default",
-                className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
               }
             ]}
             className="max-w-5xl mx-auto"
@@ -420,7 +420,7 @@ export default async function WhatsOnPage() {
 
           <Card variant="default" className="mt-12 max-w-3xl mx-auto card-dark rounded-none">
             <CardBody className="text-center">
-              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">
+              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">
                 <span className="text-3xl"></span> Free WiFi Throughout
               </h3>
               <p className="text-anchor-cream-text/70">
@@ -434,7 +434,7 @@ export default async function WhatsOnPage() {
 
 
       {/* Special Events */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Special Events & Celebrations"
@@ -499,7 +499,7 @@ export default async function WhatsOnPage() {
                   </>
                 ),
                 variant: "default",
-                className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
               }
             ]}
             className="mt-12 max-w-3xl mx-auto"
@@ -507,7 +507,7 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Seasonal Events and Occasion Guides"
@@ -517,8 +517,8 @@ export default async function WhatsOnPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {seasonalOccasionLinks.map((link) => (
               <Link key={link.href} href={link.href} className="group block h-full">
-                <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
-                  <h3 className="text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                <div className="h-full border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors group-hover:border-anchor-gold-dark/45">
+                  <h3 className="text-lg font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark">
                     {link.label}
                   </h3>
                   <p className="mt-2 text-sm text-anchor-cream-text/70">
@@ -532,7 +532,7 @@ export default async function WhatsOnPage() {
       </Section>
 
       {recentEvents.length > 0 && (
-        <Section id="recent-events" background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Section id="recent-events" background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
           <Container>
             <SectionHeader
               title="Recent Event Archive"
@@ -545,11 +545,11 @@ export default async function WhatsOnPage() {
 
                 return (
                   <Link key={event.id || event.slug} href={eventPath} className="group block h-full">
-                    <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
+                    <div className="h-full border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors group-hover:border-anchor-gold-dark/45">
                       <p className="text-xs font-semibold uppercase tracking-wide text-anchor-cream-text/50">
                         {formatEventDate(event.startDate)}
                       </p>
-                      <h3 className="mt-2 text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                      <h3 className="mt-2 text-lg font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark">
                         {event.name}
                       </h3>
                       <p className="mt-2 text-sm text-anchor-cream-text/70">
@@ -565,7 +565,7 @@ export default async function WhatsOnPage() {
       )}
 
       {/* Private Events */}
-      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -580,21 +580,21 @@ export default async function WhatsOnPage() {
                   title: "Birthday Parties",
                   description: "Celebrate in style with custom menus",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
                   title: "Corporate Events",
                   description: "Team building, meetings, or celebrations",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 },
                 {
                   icon: "",
                   title: "Special Occasions",
                   description: "Engagements, anniversaries, and more",
                   variant: "default",
-                  className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
+                  className: "bg-anchor-green-card rounded-none p-6 text-center border border-anchor-gold-dark/15"
                 }
               ]}
               className="mb-8"
@@ -669,7 +669,7 @@ export default async function WhatsOnPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express, for event entry fees, drinks, and food. Whether it's quiz night entry, bingo books, or your bar tab, we make payment easy and convenient."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* Stay Updated */}
@@ -687,7 +687,7 @@ export default async function WhatsOnPage() {
                 asChild
                 size="lg"
                 variant="secondary"
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 <Link href="#upcoming-events">Reserve an Upcoming Event</Link>
               </Button>

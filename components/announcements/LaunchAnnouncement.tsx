@@ -16,9 +16,9 @@ const LAUNCH_DAY_COPY =
   'Walk-ins welcome today from 1pm, turn up between 1pm-6pm or book ahead'
 
 const VARIANT_CLASSES: Record<LaunchAnnouncementVariant, string> = {
-  hero: 'mt-4 rounded-lg bg-anchor-gold/15 px-6 py-3 text-base font-semibold text-anchor-gold-vivid text-center',
-  banner: 'rounded-md bg-anchor-gold/10 px-4 py-2 text-sm text-anchor-cream-text text-center',
-  slim: 'border-t border-anchor-gold/20 px-3 py-1.5 text-xs text-anchor-cream-text/80 text-center',
+  hero: 'mt-4 rounded-lg bg-anchor-gold-dark/15 px-6 py-3 text-base font-semibold text-anchor-gold-bright text-center',
+  banner: 'rounded-md bg-anchor-gold-dark/10 px-4 py-2 text-sm text-anchor-cream-text text-center',
+  slim: 'border-t border-anchor-gold-dark/20 px-3 py-1.5 text-xs text-anchor-cream-text/80 text-center',
 }
 
 /**

@@ -39,7 +39,7 @@ export function ProductDetails({
       <h3 className="text-2xl font-bold text-anchor-cream-text mb-6 text-center">{title}</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {details.map((detail, index) => (
-          <div key={index} className="bg-anchor-bg-raised rounded-none p-6 text-center">
+          <div key={index} className="bg-anchor-green-raised rounded-none p-6 text-center">
             <h4 className="text-sm text-anchor-cream-text/55 mb-2">{detail.label}</h4>
             <p className="text-lg font-semibold text-anchor-cream-text">{detail.value}</p>
           </div>

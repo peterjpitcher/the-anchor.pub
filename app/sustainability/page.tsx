@@ -57,13 +57,13 @@ export default function SustainabilityPage() {
       </Section>
 
       {/* BII Sustainability Champion */}
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="BII Sustainability Champion"
             />
-            <div className="bg-anchor-bg-card rounded-2xl p-8 shadow-sm border border-anchor-gold/15">
+            <div className="bg-anchor-green-card rounded-2xl p-8 shadow-sm border border-anchor-gold-dark/15">
               <p className="text-anchor-cream-text/70 mb-4">
                 The British Institute of Innkeeping (BII) is the UK&rsquo;s leading professional body for the licensed
                 hospitality industry. They recognised The Anchor as a Sustainability Champion, an award that
@@ -80,7 +80,7 @@ export default function SustainabilityPage() {
       </section>
 
       {/* What We Do */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -90,19 +90,19 @@ export default function SustainabilityPage() {
 
             <div className="space-y-6">
               {/* FlowMaster */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">FlowMaster</h3>
+              <div className="bg-anchor-green-raised rounded-2xl p-8">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">FlowMaster</h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   A system that reduces how often our beer lines need cleaning, and uses less water and fewer chemicals
                   when they are cleaned.
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For the environment</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For the environment</p>
                     <p className="text-sm text-anchor-cream-text/70">Less water waste, fewer chemicals going down the drain.</p>
                   </div>
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For you</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For you</p>
                     <p className="text-sm text-anchor-cream-text/70">
                       Fresher, consistently well-kept draught beer. Cleaner lines mean better pints.
                     </p>
@@ -111,37 +111,37 @@ export default function SustainabilityPage() {
               </div>
 
               {/* SmartCellar */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">SmartCellar</h3>
+              <div className="bg-anchor-green-raised rounded-2xl p-8">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">SmartCellar</h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   A smarter cellar cooling system that adjusts to what&rsquo;s actually needed, rather than running at
                   full power all the time.
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For the environment</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For the environment</p>
                     <p className="text-sm text-anchor-cream-text/70">Approximately 35% reduction in cellar cooling energy use.</p>
                   </div>
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For you</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For you</p>
                     <p className="text-sm text-anchor-cream-text/70">Consistently well-chilled beer, served at the right temperature.</p>
                   </div>
                 </div>
               </div>
 
               {/* SmartRemote */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">SmartRemote</h3>
+              <div className="bg-anchor-green-raised rounded-2xl p-8">
+                <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">SmartRemote</h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   Remote cooler technology for bar equipment that works more efficiently than conventional units.
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For the environment</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For the environment</p>
                     <p className="text-sm text-anchor-cream-text/70">Approximately 33% reduction in energy use for remote cooling units.</p>
                   </div>
-                  <div className="bg-anchor-bg-card rounded-xl p-4 border border-anchor-gold/15">
-                    <p className="text-sm font-semibold text-anchor-gold-vivid mb-1">For you</p>
+                  <div className="bg-anchor-green-card rounded-xl p-4 border border-anchor-gold-dark/15">
+                    <p className="text-sm font-semibold text-anchor-gold-bright mb-1">For you</p>
                     <p className="text-sm text-anchor-cream-text/70">Cold drinks served consistently, every time.</p>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ export default function SustainabilityPage() {
       </section>
 
       {/* In the Community */}
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -181,13 +181,13 @@ export default function SustainabilityPage() {
       </section>
 
       {/* What We're Not Claiming */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader
               title="What we're not claiming"
             />
-            <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+            <div className="bg-anchor-green-raised rounded-2xl p-8 border border-anchor-gold-dark/15">
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 We&rsquo;re not a zero-carbon pub. We&rsquo;re not done. We&rsquo;re a busy community pub and
                 we&rsquo;re taking the steps we can, while running a business that serves our local community.
@@ -199,7 +199,7 @@ export default function SustainabilityPage() {
       </section>
 
       {/* What You'll Notice */}
-      <section className="section-spacing bg-anchor-bg-raised">
+      <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -247,7 +247,7 @@ export default function SustainabilityPage() {
             answer: 'We\'ve invested in energy-efficient technology and won recognition for it. We also know we\'re not perfect and we\'re still learning. We\'re committed to making improvements where we can.'
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA */}
@@ -265,7 +265,7 @@ export default function SustainabilityPage() {
                 source="sustainability_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised"
+                className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised"
               />
               <Link href="/near-heathrow">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">

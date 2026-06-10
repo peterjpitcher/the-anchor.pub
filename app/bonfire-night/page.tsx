@@ -125,27 +125,27 @@ export default function BonfireNightPage() {
                 drinks. Nothing beats a proper pint after standing in the cold watching fireworks.
               </p>
 
-              <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse our menus</h3>
+              <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+                <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our menus</h3>
                 <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                   Planning your visit? Take a look at our{' '}
                   <Link
                     href="/food-menu"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     food menu
                   </Link>
                   ,{' '}
                   <Link
                     href="/pizza-menu"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     pizza menu
                   </Link>{' '}
                   and{' '}
                   <Link
                     href="/drinks"
-                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                    className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                   >
                     drinks menu
                   </Link>
@@ -155,7 +155,7 @@ export default function BonfireNightPage() {
             </div>
 
             {/* Dog Warning */}
-            <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <div className="flex flex-wrap items-center gap-3 mb-4">
                 <Badge variant="success" size="sm">
                   Dog-friendly pub
@@ -184,14 +184,14 @@ export default function BonfireNightPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Getting here</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     {addressLine}. Free parking available, around {HEATHROW_TIMES.terminal5} minutes
                     from Heathrow Terminal 5 by car.
                   </p>
                   <Link
                     href="/find-us"
-                    className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light"
+                    className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold"
                   >
                     Get directions
                     <span className="ml-1">&rarr;</span>
@@ -201,7 +201,7 @@ export default function BonfireNightPage() {
 
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Questions about Bonfire Night or want to book a table? Give us a call.
                   </p>
@@ -264,7 +264,7 @@ export default function BonfireNightPage() {
                 to reach from Staines-upon-Thames, Ashford, and Windsor. Free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">
-                Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -288,7 +288,7 @@ export default function BonfireNightPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Bonfire Night FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="Bonfire Night FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

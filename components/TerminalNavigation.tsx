@@ -22,7 +22,7 @@ export function TerminalNavigation({ currentTerminal, className }: TerminalNavig
           <Link
             key={terminal.number}
             href={terminal.href}
-            className="text-anchor-gold hover:text-anchor-gold-light font-semibold transition-colors"
+            className="text-anchor-gold-dark hover:text-anchor-gold font-semibold transition-colors"
           >
             Terminal {terminal.number}
           </Link>
@@ -30,7 +30,7 @@ export function TerminalNavigation({ currentTerminal, className }: TerminalNavig
       ))}
       <Link
         href="/near-heathrow"
-        className="text-anchor-gold-vivid hover:text-anchor-gold font-semibold transition-colours"
+        className="text-anchor-gold-bright hover:text-anchor-gold-dark font-semibold transition-colours"
       >
         All Terminals
       </Link>

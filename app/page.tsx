@@ -81,12 +81,12 @@ export const metadata: Metadata = {
 
 // Lazy load non-critical components
 const BusinessHours = dynamic(() => import('@/components/BusinessHours').then(mod => ({ default: mod.BusinessHours })), {
-  loading: () => <div className="h-64 bg-anchor-bg-raised animate-pulse rounded-lg" />,
+  loading: () => <div className="h-64 bg-anchor-green-raised animate-pulse rounded-lg" />,
   ssr: true
 })
 
 const GalleryImage = dynamic(() => import('@/components/GalleryImage').then(mod => ({ default: mod.GalleryImage })), {
-  loading: () => <div className="aspect-square bg-anchor-bg-raised animate-pulse rounded-lg" />,
+  loading: () => <div className="aspect-square bg-anchor-green-raised animate-pulse rounded-lg" />,
   ssr: true
 })
 
@@ -94,7 +94,7 @@ const GalleryImage = dynamic(() => import('@/components/GalleryImage').then(mod 
 function NextEventSkeleton() {
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="bg-anchor-bg-raised rounded-2xl shadow-xl overflow-hidden h-[300px] animate-pulse"></div>
+      <div className="bg-anchor-green-raised rounded-2xl shadow-xl overflow-hidden h-[300px] animate-pulse"></div>
     </div>
   )
 }
@@ -155,7 +155,7 @@ export default function HomePage() {
         }
         lead={
           <div className="flex flex-col items-center gap-4">
-            <p className="text-2xl sm:text-3xl text-white font-serif drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <p className="text-2xl sm:text-3xl text-white font-display drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               The Anchor, Stanwell Moor
             </p>
             <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
@@ -195,7 +195,7 @@ export default function HomePage() {
         }
         secondaryInfo={
           <div className="flex flex-col items-center gap-3">
-            <Link href={SUNDAY_ROAST.menuHref} className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:text-anchor-gold-vivid">
+            <Link href={SUNDAY_ROAST.menuHref} className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:text-anchor-gold-bright">
               Sunday Roast
             </Link>
             <div className="flex flex-wrap justify-center gap-2 text-xs font-medium text-white/90">
@@ -212,7 +212,7 @@ export default function HomePage() {
       />
 
       {/* Walk-in launch announcement (auto-hides at 18:00 BST on 17 May 2026) */}
-      <div className="bg-anchor-bg-raised">
+      <div className="bg-anchor-green-raised">
         <Container>
           <div className="py-3">
             <LaunchAnnouncement variant="hero" />
@@ -220,7 +220,7 @@ export default function HomePage() {
         </Container>
       </div>
 
-      <section className="bg-anchor-bg-card section-spacing-sm border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-card section-spacing-sm border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-2xl md:text-3xl font-bold text-anchor-cream-text">What are you here for?</h2>
@@ -251,10 +251,10 @@ export default function HomePage() {
                   cta: 'Get Event Quote'
                 }
               ].map((item) => (
-                <Link key={item.title} href={item.href} className="block rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-5 transition hover:border-anchor-gold/40">
+                <Link key={item.title} href={item.href} className="block rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 transition hover:border-anchor-gold-dark/40">
                   <h3 className="text-lg font-bold text-anchor-cream-text">{item.title}</h3>
                   <p className="mt-2 min-h-[44px] text-sm text-anchor-cream-text/70">{item.copy}</p>
-                  <p className="mt-4 text-sm font-semibold text-anchor-gold-vivid">{item.cta} →</p>
+                  <p className="mt-4 text-sm font-semibold text-anchor-gold-bright">{item.cta} →</p>
                 </Link>
               ))}
             </div>
@@ -263,7 +263,7 @@ export default function HomePage() {
       </section>
 
       {/* Main Page Title for SEO */}
-      <div className="bg-anchor-bg-raised pt-12 pb-8 border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-raised pt-12 pb-8 border-b border-anchor-gold-dark/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -290,19 +290,19 @@ export default function HomePage() {
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3 text-center">Quick Reasons Guests Visit The Anchor</h2>
               <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid"></span>
+                  <span className="font-semibold text-anchor-gold-bright"></span>
                   <span>7 minutes from Terminal 5, 11 minutes from Terminals 2 &amp; 3</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid"></span>
+                  <span className="font-semibold text-anchor-gold-bright"></span>
                   <span>Free parking and easy taxi pick-up points for travellers</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid"></span>
+                  <span className="font-semibold text-anchor-gold-bright"></span>
                   <span>Stone-baked pizzas, {sunday.isLive ? 'Sunday roasts' : 'Sunday roast from 17 May'} and daily pub classics</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid"></span>
+                  <span className="font-semibold text-anchor-gold-bright"></span>
                   <span>Hosted nights like Music Bingo with Nikki Manfadge, plus one-off events (see /whats-on)</span>
                 </div>
               </div>
@@ -312,7 +312,7 @@ export default function HomePage() {
       </div>
 
       {/* What's Coming Up */}
-      <div id="whats-coming-up" className="bg-anchor-bg section-spacing-md scroll-mt-24 border-b border-anchor-gold/15">
+      <div id="whats-coming-up" className="bg-anchor-green-deep section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="What&apos;s Coming Up at The Anchor"
@@ -331,15 +331,15 @@ export default function HomePage() {
 
           {/* Regular Events */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-            <Link href="/quiz-night" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+            <Link href="/quiz-night" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
               <span className="block text-lg font-bold text-anchor-cream-text">Quiz Night</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; Cash prizes</span>
             </Link>
-            <Link href="/music-bingo" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+            <Link href="/music-bingo" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
               <span className="block text-lg font-bold text-anchor-cream-text">Music Bingo</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; With Nikki</span>
             </Link>
-            <Link href="/karaoke" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+            <Link href="/karaoke" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
               <span className="block text-lg font-bold text-anchor-cream-text">Karaoke</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
             </Link>
@@ -353,7 +353,7 @@ export default function HomePage() {
 
 
       {/* What Makes Us Special */}
-      <div className="bg-anchor-bg-raised section-spacing-md border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="What Makes Us Special"
@@ -401,7 +401,7 @@ export default function HomePage() {
       </div>
 
       {/* Key Information */}
-      <div className="bg-anchor-bg-card section-spacing-md border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-card section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -418,7 +418,7 @@ export default function HomePage() {
                     <SpeakableContent selector="contact-info" priority="high">
                       Horton Road, Stanwell Moor<br />
                       Surrey TW19 6AQ<br />
-                      <span className="text-anchor-gold font-semibold">7 mins from Heathrow T5</span>
+                      <span className="text-anchor-gold-dark font-semibold">7 mins from Heathrow T5</span>
                     </SpeakableContent>
                   )
                 },
@@ -444,7 +444,7 @@ export default function HomePage() {
                     <>
                       Free Parking<br />
                       Dog Friendly<br />
-                      <span className="text-anchor-gold font-semibold">Great Events</span>
+                      <span className="text-anchor-gold-dark font-semibold">Great Events</span>
                     </>
                   )
                 }
@@ -453,7 +453,7 @@ export default function HomePage() {
 
             <div className="mt-8 p-6 card-dark">
               <p className="text-center text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-vivid">Sunday roast:</strong> {sunday.availabilityLong} Free parking for all guests.
+                <strong className="text-anchor-gold-bright">Sunday roast:</strong> {sunday.availabilityLong} Free parking for all guests.
               </p>
             </div>
           </div>
@@ -471,7 +471,7 @@ export default function HomePage() {
                 source="homepage_mid_cta"
                 variant="secondary"
                 size="lg"
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 Book a Table
               </BookTableButton>
@@ -486,7 +486,7 @@ export default function HomePage() {
       </div>
 
       {/* Heathrow Travellers Section */}
-      <div id="heathrow-travellers" className="bg-anchor-bg-raised section-spacing-md scroll-mt-24 border-b border-anchor-gold/15">
+      <div id="heathrow-travellers" className="bg-anchor-green-raised section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -511,11 +511,11 @@ export default function HomePage() {
                         <span className="text-2xl"></span>
                         <div>
                           <strong>Free Parking:</strong> No hourly charges, no stress. Stay as long as you like. Need longer term parking?{' '}
-                          <Link href="/heathrow-parking" className="text-anchor-gold hover:text-anchor-gold-light underline">
+                          <Link href="/heathrow-parking" className="text-anchor-gold-dark hover:text-anchor-gold underline">
                             Book our cheap Heathrow parking
                           </Link>{' '}
                           or{' '}
-                          <Link href="/blog/cheap-heathrow-parking-alternatives" className="text-anchor-gold hover:text-anchor-gold-light underline">
+                          <Link href="/blog/cheap-heathrow-parking-alternatives" className="text-anchor-gold-dark hover:text-anchor-gold underline">
                             read the savings guide
                           </Link>
                           .
@@ -536,7 +536,7 @@ export default function HomePage() {
                       <li className="flex gap-3">
                         <span className="text-2xl"></span>
                         <div>
-                          <strong>Plane Spotting:</strong> <Link href="/beer-garden" className="text-anchor-gold hover:text-anchor-gold-light underline">Beer garden</Link> with aircraft every 90 seconds.
+                          <strong>Plane Spotting:</strong> <Link href="/beer-garden" className="text-anchor-gold-dark hover:text-anchor-gold underline">Beer garden</Link> with aircraft every 90 seconds.
                         </div>
                       </li>
                     </ul>
@@ -548,17 +548,17 @@ export default function HomePage() {
                   content: (
                     <>
                       <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-anchor-bg rounded-lg border border-anchor-gold/15">
+                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
                           <span className="font-semibold">Terminal 2 & 3</span>
-                          <span className="text-anchor-gold font-bold">11 minutes</span>
+                          <span className="text-anchor-gold-dark font-bold">11 minutes</span>
                         </div>
-                        <div className="flex justify-between items-center p-3 bg-anchor-bg rounded-lg border border-anchor-gold/15">
+                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
                           <span className="font-semibold">Terminal 4</span>
-                          <span className="text-anchor-gold font-bold">12 minutes</span>
+                          <span className="text-anchor-gold-dark font-bold">12 minutes</span>
                         </div>
-                        <div className="flex justify-between items-center p-3 bg-anchor-bg rounded-lg border border-anchor-gold/15">
+                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
                           <span className="font-semibold">Terminal 5</span>
-                          <span className="text-anchor-gold font-bold">7 minutes</span>
+                          <span className="text-anchor-gold-dark font-bold">7 minutes</span>
                         </div>
                       </div>
                       <div className="mt-6 text-center">
@@ -581,7 +581,7 @@ export default function HomePage() {
       </div>
 
       {/* Photo Gallery */}
-      <div id="life-at-anchor" className="bg-anchor-bg section-spacing-md border-b border-anchor-gold/15">
+      <div id="life-at-anchor" className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Life at The Anchor"
@@ -659,7 +659,7 @@ export default function HomePage() {
       </div>
 
       {/* Private Events Section */}
-      <div className="bg-anchor-bg-raised section-spacing-md border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -672,12 +672,12 @@ export default function HomePage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Corporate Events</h2>
+                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Corporate Events</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Professional venue for meetings, team building, and conferences.
                       7 minutes from Heathrow with free parking.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Learn more →</p>
+                    <p className="text-anchor-gold-bright font-semibold">Learn more →</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -686,12 +686,12 @@ export default function HomePage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Christmas Parties</h2>
+                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Christmas Parties</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Book your festive celebration now! Traditional menus,
                       festive atmosphere, and memorable celebrations.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Check availability →</p>
+                    <p className="text-anchor-gold-bright font-semibold">Check availability →</p>
                   </CardBody>
                 </Card>
               </Link>
@@ -700,41 +700,41 @@ export default function HomePage() {
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Private Parties</h2>
+                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Private Parties</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Birthdays, anniversaries, and celebrations.
                       Flexible spaces, custom menus, your music.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Plan your party →</p>
+                    <p className="text-anchor-gold-bright font-semibold">Plan your party →</p>
                   </CardBody>
                 </Card>
               </Link>
             </Grid>
 
-            <Card variant="default" className="bg-anchor-bg-card">
+            <Card variant="default" className="bg-anchor-green-card">
               <CardBody>
                 <Grid cols={2} gap="lg" align="center">
                   <div>
                     <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Why Choose The Anchor?</h2>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible venue hire pricing</strong> - tailored to your event</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Free parking</strong> for all your guests</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> for {PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events by enquiry</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Custom catering</strong> to suit all budgets</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid"></span>
+                        <span className="text-anchor-gold-bright"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Experienced team</strong> to handle every detail</span>
                       </li>
                     </ul>
@@ -767,7 +767,7 @@ export default function HomePage() {
       </div>
 
       <FAQAccordionWithSchema
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -821,14 +821,14 @@ export default function HomePage() {
       />
 
       {/* Find Us Section */}
-      <div id="visit-us" className="bg-anchor-bg-card section-spacing-lg border-t border-anchor-gold/25">
+      <div id="visit-us" className="bg-anchor-green-card section-spacing-lg border-t border-anchor-gold-dark/25">
         <Container>
           <div className="max-w-6xl mx-auto flex flex-col justify-center">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-anchor-gold/55" aria-hidden="true" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-anchor-gold-vivid">Visit Us</span>
-                <span className="h-px w-12 bg-anchor-gold/55" aria-hidden="true" />
+                <span className="h-px w-12 bg-anchor-gold-dark/55" aria-hidden="true" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-anchor-gold-bright">Visit Us</span>
+                <span className="h-px w-12 bg-anchor-gold-dark/55" aria-hidden="true" />
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-cream-text mb-4">
                 Ready for a proper pub near Heathrow?
@@ -838,7 +838,7 @@ export default function HomePage() {
             <Grid cols={2} gap="lg" align="center">
               <div>
                 <div className="card-dark p-5 mb-4">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">Find Us Here</h3>
+                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-bright">Find Us Here</h3>
                   <address className="not-italic text-base leading-relaxed text-anchor-cream-text/70">
                     The Anchor<br />
                     Horton Road<br />
@@ -848,7 +848,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="card-dark p-5 mb-5">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">Getting Here</h3>
+                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-bright">Getting Here</h3>
                   <ul className="space-y-1.5 text-base text-anchor-cream-text/70">
                     <li>Just 7 minutes from Heathrow Terminal 5</li>
                     <li>Bus routes 441 &amp; 442 stop nearby</li>
@@ -869,7 +869,7 @@ export default function HomePage() {
               </div>
 
               <div className="card-dark p-4">
-                <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">Opening Hours</h3>
+                <h3 className="text-lg font-bold mb-3 text-anchor-gold-bright">Opening Hours</h3>
                 <BusinessHours />
               </div>
             </Grid>

@@ -197,7 +197,7 @@ export default async function SundayLunchPage() {
         showContextStrip={true}
       />
 
-      <div className="bg-anchor-bg-raised">
+      <div className="bg-anchor-green-raised">
         <Container>
           <div className="py-3">
             <LaunchAnnouncement variant="banner" />
@@ -205,7 +205,7 @@ export default async function SundayLunchPage() {
         </Container>
       </div>
 
-      <div className="bg-anchor-bg pt-12 pb-8 border-b border-anchor-gold/15">
+      <div className="bg-anchor-green-deep pt-12 pb-8 border-b border-anchor-gold-dark/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Sunday Roast Near Heathrow at The Anchor
@@ -228,7 +228,7 @@ export default async function SundayLunchPage() {
         </Container>
       </div>
 
-      <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Current Sunday Roast Menu"
@@ -261,7 +261,7 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg-raised section-spacing-lg border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-raised section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
@@ -291,14 +291,14 @@ export default async function SundayLunchPage() {
               height={900}
               loading="lazy"
               sizes="(min-width:1024px) 720px, 100vw"
-              className="mt-8 w-full h-auto rounded-lg border border-anchor-gold/15 object-cover"
+              className="mt-8 w-full h-auto rounded-lg border border-anchor-gold-dark/15 object-cover"
             />
           </div>
         </Container>
       </section>
 
       <SectionViewTracker sectionId="carvery_comparison">
-        <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
+        <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
           <Container>
             <div className="mx-auto max-w-4xl">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
@@ -307,9 +307,9 @@ export default async function SundayLunchPage() {
               <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
                 If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
               </p>
-              <div className="overflow-x-auto rounded-lg border border-anchor-gold/15">
+              <div className="overflow-x-auto rounded-lg border border-anchor-gold-dark/15">
                 <table className="w-full text-sm md:text-base text-left">
-                  <thead className="bg-anchor-bg-raised text-anchor-cream-text">
+                  <thead className="bg-anchor-green-raised text-anchor-cream-text">
                     <tr>
                       <th scope="col" className="px-4 py-3 font-semibold">Detail</th>
                       <th scope="col" className="px-4 py-3 font-semibold">Carvery</th>
@@ -317,17 +317,17 @@ export default async function SundayLunchPage() {
                     </tr>
                   </thead>
                   <tbody className="text-anchor-cream-text/80">
-                    <tr className="border-t border-anchor-gold/10">
+                    <tr className="border-t border-anchor-gold-dark/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Serving style</th>
                       <td className="px-4 py-3 align-top">Self-serve buffet line</td>
                       <td className="px-4 py-3 align-top">Cooked and plated by the kitchen</td>
                     </tr>
-                    <tr className="border-t border-anchor-gold/10">
+                    <tr className="border-t border-anchor-gold-dark/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Booking</th>
                       <td className="px-4 py-3 align-top">Varies by venue</td>
                       <td className="px-4 py-3 align-top">Walk in or book ahead</td>
                     </tr>
-                    <tr className="border-t border-anchor-gold/10">
+                    <tr className="border-t border-anchor-gold-dark/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Menu details</th>
                       <td className="px-4 py-3 align-top">Check with the venue</td>
                       <td className="px-4 py-3 align-top">Current dishes listed above, or confirmed by phone</td>
@@ -353,7 +353,7 @@ export default async function SundayLunchPage() {
         </section>
       </SectionViewTracker>
 
-      <section className="bg-anchor-bg-raised section-spacing-lg border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-raised section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
           <SectionHeader
             title="Why Locals Choose Sunday Roast Here"
@@ -366,7 +366,7 @@ export default async function SundayLunchPage() {
               ['Good for groups', 'Book online for standard tables or call us for larger parties.'],
               ['Dog friendly', 'Dogs are welcome inside and in the beer garden.']
             ].map(([title, body]) => (
-              <div key={title} className="rounded-lg border border-anchor-gold/15 bg-anchor-bg p-6">
+              <div key={title} className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-deep p-6">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{body}</p>
               </div>
@@ -375,7 +375,7 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
@@ -438,7 +438,7 @@ export default async function SundayLunchPage() {
                 context="sunday_roast"
                 variant="secondary"
                 size="lg"
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
+                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
                 customHref={SUNDAY_LUNCH_BOOKING_URL}
                 trackingLabel="Book a Sunday roast"
                 eventName="Sunday roast"

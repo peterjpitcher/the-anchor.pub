@@ -102,13 +102,13 @@ export default async function BeerGardenPage() {
         enableSmartCtas={true}
         showContextStrip={true}
       >
-        <div className="bg-anchor-bg-card/90 backdrop-blur-sm text-anchor-gold-vivid font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold/30">
+        <div className="bg-anchor-green-card/90 backdrop-blur-sm text-anchor-gold-bright font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold-dark/30">
            DIRECTLY UNDER THE FLIGHT PATH
         </div>
       </HeroWrapper>
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
+      <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s expected 27R arrivals path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
@@ -116,7 +116,7 @@ export default async function BeerGardenPage() {
         </Container>
       </section>
 
-      <Section background="dark" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+      <Section background="dark" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <PlaneSpottingScheduleNote
             variant="panel"
@@ -127,12 +127,12 @@ export default async function BeerGardenPage() {
       </Section>
 
       {/* Grab Food & Deals */}
-      <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast (Sundays 1–6pm)</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Sunday Roast (Sundays 1–6pm)</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and proper gravy after your plane-spotting session.
                 </p>
@@ -144,7 +144,7 @@ export default async function BeerGardenPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     View roast menu 
                   </Link>
                 </div>
@@ -152,7 +152,7 @@ export default async function BeerGardenPage() {
             </Card>
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings, ideal for aviation meet-ups or crew nights.
                 </p>
@@ -165,7 +165,7 @@ export default async function BeerGardenPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     View pizza menu 
                   </Link>
                 </div>
@@ -173,7 +173,7 @@ export default async function BeerGardenPage() {
             </Card>
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">All-Day Food & Drinks</h3>
+                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">All-Day Food & Drinks</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>
@@ -185,7 +185,7 @@ export default async function BeerGardenPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                     Browse full menu 
                   </Link>
                 </div>
@@ -196,14 +196,14 @@ export default async function BeerGardenPage() {
       </Section>
 
       {/* Google Rating */}
-      <section className="bg-anchor-bg section-spacing-tight border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-deep section-spacing-tight border-b border-anchor-gold-dark/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg-raised section-spacing-sm border-b border-anchor-gold/15">
+      <section className="bg-anchor-green-raised section-spacing-sm border-b border-anchor-gold-dark/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -218,7 +218,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Plane Spotting Paradise */}
-      <section className="section-spacing bg-anchor-bg">
+      <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -243,7 +243,7 @@ export default async function BeerGardenPage() {
                     />
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
+                  color: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
                 },
                 {
                   title: "What You'll See",
@@ -259,7 +259,7 @@ export default async function BeerGardenPage() {
                           <li>Various narrow-body aircraft</li>
                         </ul>
                       </div>
-                      <div className="bg-anchor-bg rounded-lg p-4 border border-anchor-gold/15">
+                      <div className="bg-anchor-green-deep rounded-lg p-4 border border-anchor-gold-dark/15">
                         <p className="text-sm text-anchor-cream-text/55">
                           <strong>Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br />
                           <strong>Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br />
@@ -269,7 +269,7 @@ export default async function BeerGardenPage() {
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-raised rounded-none p-8 border border-anchor-gold/15"
+                  color: "bg-anchor-green-raised rounded-none p-8 border border-anchor-gold-dark/15"
                 }
               ]}
               className="mb-12"
@@ -280,7 +280,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-8">
@@ -295,7 +295,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Beer Garden Features */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -342,7 +342,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Accessibility */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Accessibility</h2>
@@ -351,9 +351,9 @@ export default async function BeerGardenPage() {
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> and we&apos;ll help.
             </p>
-            <Link href="/accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
+            <Link href="/accessibility" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
               Full accessibility information &rarr;
             </Link>
           </div>
@@ -361,7 +361,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Plane Spotting Tips */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -381,7 +381,7 @@ export default async function BeerGardenPage() {
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 },
                 {
                   title: " Photography Tips",
@@ -394,7 +394,7 @@ export default async function BeerGardenPage() {
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-raised rounded-none p-6 border border-anchor-gold/15"
+                  color: "bg-anchor-green-raised rounded-none p-6 border border-anchor-gold-dark/15"
                 },
                 {
                   title: " Make a Day of It",
@@ -407,7 +407,7 @@ export default async function BeerGardenPage() {
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+                  color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
                 }
               ]}
             />
@@ -418,7 +418,7 @@ export default async function BeerGardenPage() {
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",

@@ -103,7 +103,7 @@ export default async function RetirementPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
@@ -116,7 +116,7 @@ export default async function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -131,7 +131,7 @@ export default async function RetirementPartiesPage() {
                                     title: "Speech Friendly",
                                     description: "Quiet areas available for speeches and presentations without shouting over music.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -139,7 +139,7 @@ export default async function RetirementPartiesPage() {
                                     title: "Accessible",
                                     description: "Ground floor access and easy parking make it suitable for guests of all ages.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -147,7 +147,7 @@ export default async function RetirementPartiesPage() {
                                     title: "Catering Options",
                                     description: "Classic buffet spread, tea & coffee stations, or full 3-course meals.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -157,7 +157,7 @@ export default async function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -165,14 +165,14 @@ export default async function RetirementPartiesPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-2">The Long Lunch</h3>
+                            <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15">
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-2">The Long Lunch</h3>
                                 <p className="text-anchor-cream-text/70">
                                     Popular for office leaving dos. Book a long table for Friday lunch, enjoy our classics (Fish & Chips, Pies), and let the afternoon drift by. We offer tab facilities for corporate cards.
                                 </p>
                             </div>
-                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
-                                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-2">The Evening Do</h3>
+                            <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15">
+                                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-2">The Evening Do</h3>
                                 <p className="text-anchor-cream-text/70">
                                     Invite partners and spouses for a proper celebration. Use our function area, enjoy a buffet, and perhaps a bit of music to see the retiree off in style.
                                 </p>
@@ -182,7 +182,7 @@ export default async function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable
@@ -195,7 +195,7 @@ export default async function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70">
@@ -226,7 +226,7 @@ export default async function RetirementPartiesPage() {
                         answer: "We can comfortably host up to 100 people for a buffet/drinks reception, or up to ~50 for a sit-down meal."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

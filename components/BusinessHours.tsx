@@ -23,8 +23,8 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   // --- Loading state ---
   if (loading) {
     return (
-      <div className={`bg-anchor-bg-raised border border-anchor-gold/15 rounded-lg p-4 ${className}`}>
-        <p className="text-sm font-semibold text-anchor-gold-vivid">Opening hours</p>
+      <div className={`bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-lg p-4 ${className}`}>
+        <p className="text-sm font-semibold text-anchor-gold-bright">Opening hours</p>
         <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_BAR_HOURS_SUMMARY}</p>
         <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_KITCHEN_HOURS_SUMMARY}</p>
         <p className="mt-1 text-xs text-anchor-cream-text/55">{STATIC_HOURS_REVIEW_NOTE}</p>
@@ -41,7 +41,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
         <div className="space-y-1 text-sm text-anchor-cream-text/70">
           <p>{STATIC_BAR_HOURS_SUMMARY}</p>
           <p>{STATIC_KITCHEN_HOURS_SUMMARY}</p>
-          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
+          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline">
             Call {CONTACT_INFO.phone}
           </a>{' '}
           for today&apos;s live status.

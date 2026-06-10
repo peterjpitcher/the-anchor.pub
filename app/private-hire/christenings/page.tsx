@@ -130,7 +130,7 @@ export default async function ChristeningsPage() {
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Christening & Naming Ceremony Venue Near Heathrow
@@ -139,8 +139,8 @@ export default async function ChristeningsPage() {
                         <p className="text-lg text-anchor-cream-text/70 mb-8">
                             After the service, gather everyone together for a relaxed celebration at The Anchor. We offer flexible spaces where the adults can relax and the children have room to be themselves.
                         </p>
-                        <div className="bg-anchor-bg-raised p-6 rounded-xl inline-block text-left w-full border border-anchor-gold/15">
-                            <h3 className="font-bold text-anchor-gold-vivid mb-3 text-center">Nearby Churches</h3>
+                        <div className="bg-anchor-green-raised p-6 rounded-xl inline-block text-left w-full border border-anchor-gold-dark/15">
+                            <h3 className="font-bold text-anchor-gold-bright mb-3 text-center">Nearby Churches</h3>
                             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
                                 {nearbyChurches.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
@@ -155,7 +155,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Menu Options"
@@ -179,7 +179,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15 border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15 border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Children's Facilities"
@@ -217,7 +217,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Why Families Love Us"
@@ -248,7 +248,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Planning Your Christening Reception"
@@ -257,28 +257,28 @@ export default async function ChristeningsPage() {
                     <div className="max-w-3xl mx-auto">
                         <ol className="space-y-6">
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Book the venue early</h3>
                                     <p className="text-anchor-cream-text/70">We recommend securing your date 2–4 weeks ahead of the ceremony, particularly for Sundays when our roast is popular. Call us on 01753 682707 or use the enquiry form below.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Choose your catering</h3>
                                     <p className="text-anchor-cream-text/70">Decide between a relaxed buffet, afternoon tea, or a Sunday Roast if your service is on a Sunday. We will walk you through the options and pricing when you enquire.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Decorations and cake</h3>
                                     <p className="text-anchor-cream-text/70">You are welcome to bring balloons, table decorations, and a celebration cake. We'll provide the knife and napkins. Please avoid loose confetti and glitter, which are difficult to clean up.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
-                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-bright text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
                                 <div>
                                     <h3 className="font-bold text-anchor-cream-text mb-1">Photo opportunities</h3>
                                     <p className="text-anchor-cream-text/70">Our enclosed beer garden and warm pub interior provide a lovely backdrop for family photographs. You are welcome to arrive a little early on the day to set up and capture those first moments.</p>
@@ -289,7 +289,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Also Planning a Baby Shower or Gender Reveal?</h2>
@@ -299,13 +299,13 @@ export default async function ChristeningsPage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/private-hire/baby-showers"
-                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
                             >
                                 Baby Shower Venue
                             </Link>
                             <Link
                                 href="/private-hire/gender-reveal"
-                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
                             >
                                 Gender Reveal Venue
                             </Link>
@@ -314,7 +314,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="After the Service"
@@ -337,7 +337,7 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable
@@ -352,9 +352,9 @@ export default async function ChristeningsPage() {
                             Sunday roasts are also available for Sunday christenings, priced &agrave; la carte from our menu.
                         </p>
 
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-6">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 text-center mt-6">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All christening party pub packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote tailored to your guest numbers.
+                                All christening party pub packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-bright">01753 682707</strong> for a quote tailored to your guest numbers.
                             </p>
                         </div>
                     </div>
@@ -363,7 +363,7 @@ export default async function ChristeningsPage() {
 
             <TestimonialSection
                 variant="compact"
-                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15 px-4"
+                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15 px-4"
                 reviews={[
                     { quote: "We held our daughter's christening reception here after the service at St Mary's. The buffet was generous, the staff were brilliant with all the children, and having free parking right outside made life so much easier with all the grandparents. Lovely afternoon.", author: "Rachel, Staines", source: "Google Review", rating: 5 },
                     { quote: "The enclosed garden was perfect for the children to run around while we enjoyed drinks and food inside. The team set up a beautiful table for gifts and our christening cake. Could not recommend this christening venue enough.", author: "David, Ashford", source: "Google Review", rating: 5 },

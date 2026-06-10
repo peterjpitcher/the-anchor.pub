@@ -74,28 +74,28 @@ export default function Terminal5Page() {
       />
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
+          <div className="max-w-4xl mx-auto bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Essential Details at a Glance</h2>
             <p className="text-anchor-cream-text/70 mb-4">
               Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
-	                <span className="font-semibold text-anchor-gold"></span>
+	                <span className="font-semibold text-anchor-gold-dark"></span>
 	                <span>7 minute taxi or Uber (£20-25 fixed fare) from BA arrivals</span>
 	              </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>Free on-site parking for pick-ups, drop-offs and diners</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>Kitchen open Tue-Sun with pizza, burgers and Sunday roasts</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold"></span>
+                <span className="font-semibold text-anchor-gold-dark"></span>
                 <span>Call 01753 682707 or book online to secure tables for peak flights</span>
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function Terminal5Page() {
         </div>
       </section>
 
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <CTASection
             title="Plan a 90-Minute Layover Meal"
@@ -127,7 +127,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Food Before You Fly */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Need Food Near Terminal 5?"
@@ -135,7 +135,7 @@ export default function Terminal5Page() {
           />
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast (Sun 1–6pm)</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Sunday Roast (Sun 1–6pm)</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
                 Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
               </p>
@@ -147,13 +147,13 @@ export default function Terminal5Page() {
                 >
                   Book Roast Table
                 </BookTableButton>
-                <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                   Sunday roast 7 minutes from Terminal 5 →
                 </Link>
               </div>
             </div>
             <div className="card-dark rounded-none p-6">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
                 Hand-stretched pizzas with bold toppings, perfect for crew nights, family send-offs or late layovers.
               </p>
@@ -166,13 +166,13 @@ export default function Terminal5Page() {
                 >
                   Book a Table
                 </BookTableButton>
-                <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                   View pizza menu →
                 </Link>
               </div>
             </div>
             <div className="card-dark rounded-none p-6">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">All-Day Menu</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">All-Day Menu</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
                 Burgers, fish & chips, veggie options and sharers served fast, great for BA crews and Sofitel/Hilton guests.
               </p>
@@ -184,7 +184,7 @@ export default function Terminal5Page() {
                 >
                   Book a Table
                 </BookTableButton>
-                <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
                   Browse full menu →
                 </Link>
               </div>
@@ -194,14 +194,14 @@ export default function Terminal5Page() {
       </section>
 
       {/* Google Rating Strip */}
-      <section className="section-spacing-tight bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Pubs Near Heathrow Terminal 5, The Anchor
@@ -210,7 +210,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Quick Info Cards */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <FeatureGrid
             columns={4}
@@ -242,14 +242,14 @@ export default function Terminal5Page() {
       </section>
 
       {/* Terminal Navigation */}
-      <section className="section-spacing-tight bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <TerminalNavigation currentTerminal="5" />
         </div>
       </section>
 
       {/* Detailed Directions */}
-      <section id="directions" className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section id="directions" className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -259,41 +259,41 @@ export default function Terminal5Page() {
             
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {/* By Car */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-2xl p-8 border border-anchor-gold-dark/15">
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Car (7 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">1.</span>
+                    <span className="font-bold text-anchor-gold-dark">1.</span>
                     Exit Terminal 5 following signs for M25/A30
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">2.</span>
+                    <span className="font-bold text-anchor-gold-dark">2.</span>
                     At roundabout, take A3044 towards Staines
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">3.</span>
+                    <span className="font-bold text-anchor-gold-dark">3.</span>
                     Continue straight for 1.5 miles
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">4.</span>
+                    <span className="font-bold text-anchor-gold-dark">4.</span>
                     Turn right onto Horton Road (at the church)
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold">5.</span>
+                    <span className="font-bold text-anchor-gold-dark">5.</span>
                     The Anchor is 200m on your right
                   </li>
                 </ol>
-                <div className="mt-6 p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
-                  <p className="font-semibold text-anchor-gold-vivid">Sat Nav:</p>
+                <div className="mt-6 p-4 bg-anchor-green-card rounded-lg border border-anchor-gold-dark/15">
+                  <p className="font-semibold text-anchor-gold-bright">Sat Nav:</p>
                   <p className="text-lg">TW19 6AQ</p>
                 </div>
               </div>
 
               {/* By Taxi */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-2xl p-8 border border-anchor-gold-dark/15">
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi/Uber</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
-	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
+	                  <div className="bg-anchor-green-card p-4 rounded-lg border border-anchor-gold-dark/15">
 	                    <p className="font-bold text-lg text-green-400 mb-1">£20-25 fixed fare</p>
 	                    <p className="text-sm text-anchor-cream-text/55">7 minutes • 2.8 miles</p>
 	                  </div>
@@ -317,20 +317,20 @@ export default function Terminal5Page() {
               </div>
 
               {/* By Bus */}
-              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-2xl p-8 border border-anchor-gold-dark/15">
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus (Budget Option)</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
-	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
+	                  <div className="bg-anchor-green-card p-4 rounded-lg border border-anchor-gold-dark/15">
 	                    <p className="font-bold text-lg text-green-400 mb-1">£2.50 single fare</p>
 	                    <p className="text-sm text-anchor-cream-text/55">15-20 minutes journey</p>
 	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Routes to The Anchor:</p>
                     <ul className="space-y-2 text-sm">
-                      <li className="bg-anchor-bg-card p-2 rounded border border-anchor-gold/15">
+                      <li className="bg-anchor-green-card p-2 rounded border border-anchor-gold-dark/15">
                         <strong>442:</strong> T5 → Stanwell Moor (every 20 mins)
                       </li>
-                      <li className="bg-anchor-bg-card p-2 rounded border border-anchor-gold/15">
+                      <li className="bg-anchor-green-card p-2 rounded border border-anchor-gold-dark/15">
                         <strong>441:</strong> T5 → Staines via Stanwell (hourly)
                       </li>
                     </ul>
@@ -350,7 +350,7 @@ export default function Terminal5Page() {
             </div>
 
             {/* Map Section */}
-            <div className="bg-anchor-bg-raised rounded-2xl p-8 text-center border border-anchor-gold/15">
+            <div className="bg-anchor-green-raised rounded-2xl p-8 text-center border border-anchor-gold-dark/15">
               <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Interactive Map</h3>
               <p className="text-anchor-cream-text/70 mb-6">
                 Click below for turn-by-turn directions from Terminal 5
@@ -370,7 +370,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Why Visit */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -409,7 +409,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Live Flight Information */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -423,7 +423,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Terminal 5 Specific Info */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -435,7 +435,7 @@ export default function Terminal5Page() {
               <FlightDelayWidget terminal="5" />
             </div>
 
-            <div className="bg-anchor-bg-raised rounded-2xl p-8 mb-8 border border-anchor-gold/30">
+            <div className="bg-anchor-green-raised rounded-2xl p-8 mb-8 border border-anchor-gold-dark/30">
               <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Terminal 5 Insider Tips</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -487,7 +487,7 @@ export default function Terminal5Page() {
       </section>
 
       {/* Hotel Guest Section */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -515,19 +515,19 @@ export default function Terminal5Page() {
                 </p>
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Half the price of hotel dining</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Authentic British atmosphere</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Meet real locals, not just travelers</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Traditional ales & home-cooked food</span>
                   </li>
                 </ul>
@@ -543,19 +543,19 @@ export default function Terminal5Page() {
                 </p>
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Bottled draught beers alongside ciders and ciders</span>
                   </li>
 	                  <li className="flex gap-2">
-	                    <span className="text-anchor-gold"></span>
+	                    <span className="text-anchor-gold-dark"></span>
 	                    <span>Stone-baked pizzas from £12</span>
 	                  </li>
 	                  <li className="flex gap-2">
-	                    <span className="text-anchor-gold"></span>
+	                    <span className="text-anchor-gold-dark"></span>
 		                    <span>Sunday roasts that locals queue for - walk in 1pm-6pm or book ahead (groups of 10+ pay a £10 per person deposit)</span>
 		                  </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold"></span>
+                    <span className="text-anchor-gold-dark"></span>
                     <span>Garden terrace for sunny days</span>
                   </li>
                 </ul>
@@ -572,26 +572,26 @@ export default function Terminal5Page() {
               <div className="grid md:grid-cols-3 gap-6">
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Taxi</p>
-	                  <p className="text-3xl font-bold text-anchor-gold mb-2">£12-15</p>
+	                  <p className="text-3xl font-bold text-anchor-gold-dark mb-2">£12-15</p>
 	                  <p className="text-sm text-anchor-cream-text/55">5-8 minutes</p>
 	                  <p className="text-sm text-anchor-cream-text/55 mt-2">Ask for "The Anchor, Stanwell Moor"</p>
 	                </div>
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Uber</p>
-	                  <p className="text-3xl font-bold text-anchor-gold mb-2">£10-13</p>
+	                  <p className="text-3xl font-bold text-anchor-gold-dark mb-2">£10-13</p>
 	                  <p className="text-sm text-anchor-cream-text/55">5-8 minutes</p>
 	                  <p className="text-sm text-anchor-cream-text/55 mt-2">Postcode: TW19 6AQ</p>
 	                </div>
                 <div className="text-center">
                   <p className="font-semibold mb-2">Walking</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">25-30 min</p>
+                  <p className="text-3xl font-bold text-anchor-gold-dark mb-2">25-30 min</p>
                   <p className="text-sm text-anchor-cream-text/55">Pleasant route</p>
                   <p className="text-sm text-anchor-cream-text/55 mt-2">Via Stanwell Moor Road</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-anchor-bg-raised border border-anchor-gold/30 rounded-2xl p-8 text-center">
+            <div className="bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-2xl p-8 text-center">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Experience Real British Pub Culture
               </h3>
@@ -679,7 +679,7 @@ export default function Terminal5Page() {
             answer: "Hotel restaurants serve the same international menu worldwide. At The Anchor, you'll experience genuine British hospitality, meet locals, enjoy traditional ales, and pay half what you'd spend at your hotel. This is the authentic Britain you came to see!"
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

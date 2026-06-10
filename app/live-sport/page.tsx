@@ -111,16 +111,16 @@ export default async function LiveSportPage() {
                 </PageTitle>
             </Container>
 
-            <section className="bg-anchor-bg section-spacing-tight">
+            <section className="bg-anchor-green-deep section-spacing-tight">
                 <Container>
                     <HeroBadge className="text-sm" />
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-vivid mb-4">
+                        <PageTitle className="text-anchor-gold-bright mb-4">
                             Never Miss a Moment
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
@@ -130,7 +130,7 @@ export default async function LiveSportPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised">
+            <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -146,7 +146,7 @@ export default async function LiveSportPage() {
                                     title: "Terrestrial Sport Only",
                                     description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we do NOT have Sky Sports or TNT Sports.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -154,7 +154,7 @@ export default async function LiveSportPage() {
                                     title: "Full Match Audio",
                                     description: "For big games, we turn the commentary up so you get the full stadium atmosphere.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -162,7 +162,7 @@ export default async function LiveSportPage() {
                                     title: "Great Atmosphere",
                                     description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -172,21 +172,21 @@ export default async function LiveSportPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg" id="schedule">
+            <section className="section-spacing bg-anchor-green-deep" id="schedule">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Football</h3>
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Football</h3>
                                 <ul className="space-y-2">
                                     <li>• International Tournaments (Euros / World Cup)</li>
                                     <li>• FA Cup (Select Games)</li>
                                     <li>• Women's Super League (BBC games)</li>
                                 </ul>
                             </div>
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Rugby</h3>
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Rugby</h3>
                                 <ul className="space-y-2">
                                     <li>• Six Nations</li>
                                     <li>• Autumn Internationals</li>
@@ -194,15 +194,15 @@ export default async function LiveSportPage() {
                                     <li>• World Cups</li>
                                 </ul>
                             </div>
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Formula 1</h3>
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Formula 1</h3>
                                 <ul className="space-y-2">
                                     <li>• Live Race Weekends</li>
                                     <li>• Qualifying Sessions</li>
                                 </ul>
                             </div>
-                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Other Sport</h3>
+                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Other Sport</h3>
                                 <ul className="space-y-2">
                                     <li>• Cricket (Terrestrial Only)</li>
                                     <li>• Golf Majors (Highlights/BBC)</li>
@@ -222,10 +222,10 @@ export default async function LiveSportPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg">
+            <section className="section-spacing bg-anchor-green-deep">
                 <Container>
-                    <div className="mx-auto max-w-2xl rounded-2xl bg-anchor-bg-card p-8 text-center shadow-sm ring-1 ring-anchor-gold/15">
-                        <h2 className="text-xl font-bold text-anchor-gold-vivid">World Cup 2026</h2>
+                    <div className="mx-auto max-w-2xl rounded-2xl bg-anchor-green-card p-8 text-center shadow-sm ring-1 ring-anchor-gold-dark/15">
+                        <h2 className="text-xl font-bold text-anchor-gold-bright">World Cup 2026</h2>
                         <p className="mt-3 text-sm text-anchor-cream-text/70">
                             Full fixtures with UK kick-off times, showing status, table bookings, and the pub sweep draw.
                         </p>
@@ -276,10 +276,10 @@ export default async function LiveSportPage() {
                         answer: "Yes, our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
-            <section className="section-spacing bg-anchor-bg">
+            <section className="section-spacing bg-anchor-green-deep">
                 <Container>
                     <SectionHeader title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
                     <div className="prose prose-invert max-w-3xl mx-auto">

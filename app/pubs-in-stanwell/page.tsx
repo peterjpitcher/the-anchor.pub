@@ -90,7 +90,7 @@ export default async function PubsInStanwellPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="section-spacing-sm bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-green-deep">
         <Container>
           <PageTitle 
             className="text-center text-anchor-cream-text"
@@ -102,7 +102,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Why We're Stanwell's Favourite Local */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -201,7 +201,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* What We Offer */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -267,7 +267,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Compare to Other Pubs */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -275,10 +275,10 @@ export default async function PubsInStanwellPage() {
               subtitle="Why locals choose The Anchor"
             />
             
-            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
+            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">The Anchor Advantages</h3>
+                  <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">The Anchor Advantages</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
                       <span className="text-green-600 mt-1"></span>
@@ -328,7 +328,7 @@ export default async function PubsInStanwellPage() {
                       <p className="font-semibold">Airport Pubs</p>
                       <p className="text-sm">Convenient but 3x the price</p>
                     </div>
-                    <div className="pt-3 border-t border-anchor-gold/15">
+                    <div className="pt-3 border-t border-anchor-gold-dark/15">
                       <p className="font-bold text-anchor-cream-text">
                         The Anchor offers the best combination of location, 
                         parking, food, and atmosphere
@@ -343,7 +343,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Weekly Schedule */}
-      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -352,7 +352,7 @@ export default async function PubsInStanwellPage() {
             />
             
             <div className="grid gap-4">
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Monday</h3>
@@ -368,7 +368,7 @@ export default async function PubsInStanwellPage() {
                 </div>
               </div>
               
-              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
+              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Wednesday-Thursday</h3>
@@ -405,7 +405,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -430,7 +430,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -476,7 +476,7 @@ export default async function PubsInStanwellPage() {
             answer: "Yes! We offer flexible function room hire for parties, celebrations, wakes, and corporate events. Our room bookings suit 10-50 people, with larger events by enquiry and various catering options. Contact us on 01753 682707 to discuss your requirements."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

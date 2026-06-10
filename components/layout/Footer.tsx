@@ -50,7 +50,7 @@ const defaultBusinessInfo: BusinessInfo = {
 const defaultSections: FooterSection[] = [
   {
     title: 'Book & Eat',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       { label: 'Book a Table', href: '/book-table' },
       { label: 'Food Menu', href: '/food-menu' },
@@ -63,7 +63,7 @@ const defaultSections: FooterSection[] = [
   },
   {
     title: 'Private Hire',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       { label: 'Check Availability', href: '/private-hire#enquiry' },
       { label: 'Private Hire Overview', href: '/private-hire' },
@@ -77,7 +77,7 @@ const defaultSections: FooterSection[] = [
   },
   {
     title: 'Hosted Events',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       { label: "What's On", href: '/whats-on' },
       { label: 'Quiz Night', href: '/quiz-night' },
@@ -90,7 +90,7 @@ const defaultSections: FooterSection[] = [
   },
   {
     title: 'Heathrow & Plane Spotting',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       { label: 'Near Heathrow', href: '/near-heathrow' },
       { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
@@ -104,7 +104,7 @@ const defaultSections: FooterSection[] = [
   },
   {
     title: 'More',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       { label: 'About The Anchor', href: '/about' },
       { label: 'The Anchor Facts', href: '/about/the-anchor-facts' },
@@ -117,7 +117,7 @@ const defaultSections: FooterSection[] = [
   },
   {
     title: 'Trust & Policies',
-    titleClass: 'text-anchor-gold',
+    titleClass: 'text-anchor-gold-dark',
     items: [
       ...trustLinks.map((link) => ({ label: link.label, href: link.href })),
       { label: 'Accessibility', href: '/accessibility' },
@@ -146,11 +146,11 @@ const defaultFeatures = [
 ]
 
 const defaultTheme = {
-  background: 'bg-anchor-bg',
+  background: 'bg-anchor-green-deep',
   text: 'text-anchor-cream-text/70',
-  headingText: 'text-anchor-gold-vivid',
+  headingText: 'text-anchor-gold-bright',
   linkHover: 'hover:text-anchor-cream-text',
-  borderColor: 'border-anchor-gold/20'
+  borderColor: 'border-anchor-gold-dark/20'
 }
 
 export function Footer({
@@ -308,7 +308,7 @@ export function Footer({
                             platform={social.platform as any}
                             href={social.href}
                             source="footer"
-                            className={cn(mergedTheme.linkHover, 'hover:text-anchor-gold')}
+                            className={cn(mergedTheme.linkHover, 'hover:text-anchor-gold-dark')}
                             ariaLabel={`Visit our ${social.label || social.platform} page`}
                           >
                             {social.label || social.platform}
@@ -336,7 +336,7 @@ export function Footer({
           <div className="mt-6">
             <Link
               href="/join-our-team"
-              className="block w-full rounded-lg border border-anchor-gold/40 bg-anchor-gold/10 px-4 py-3 text-center text-base font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/20 transition-colors"
+              className="block w-full rounded-lg border border-anchor-gold-dark/40 bg-anchor-gold-dark/10 px-4 py-3 text-center text-base font-semibold text-anchor-gold-bright hover:bg-anchor-gold-dark/20 transition-colors"
               onClick={() => trackNavigationClick({
                 label: 'Join Our Team',
                 url: '/join-our-team',
@@ -441,7 +441,7 @@ export function Footer({
                           platform={social.platform as any}
                           href={social.href}
                           source="footer"
-                          className={cn(mergedTheme.linkHover, 'hover:text-anchor-gold')}
+                          className={cn(mergedTheme.linkHover, 'hover:text-anchor-gold-dark')}
                           ariaLabel={`Visit our ${social.label || social.platform} page`}
                         >
                           {social.label || social.platform}
@@ -472,7 +472,7 @@ export function Footer({
           <div className="col-span-full mt-4">
             <Link
               href="/join-our-team"
-              className="inline-flex items-center gap-2 rounded-lg border border-anchor-gold/40 bg-anchor-gold/10 px-5 py-2.5 text-sm font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/20 transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg border border-anchor-gold-dark/40 bg-anchor-gold-dark/10 px-5 py-2.5 text-sm font-semibold text-anchor-gold-bright hover:bg-anchor-gold-dark/20 transition-colors"
               onClick={() => trackNavigationClick({
                 label: 'Join Our Team',
                 url: '/join-our-team',

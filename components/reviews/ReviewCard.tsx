@@ -31,7 +31,7 @@ export function ReviewCard({
 
   if (variant === 'horizontal') {
     return (
-      <div className="bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 flex gap-4">
+      <div className="bg-anchor-green-raised rounded-lg p-6 border border-anchor-gold-dark/15 flex gap-4">
         <div className="flex-shrink-0">
           {review.profile_photo_url ? (
             <Image
@@ -65,7 +65,7 @@ export function ReviewCard({
   }
 
   return (
-    <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15 h-full flex flex-col">
+    <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15 h-full flex flex-col">
       <div className="flex items-center gap-3 mb-3">
         {review.profile_photo_url ? (
           <Image
@@ -100,7 +100,7 @@ export function ReviewCard({
           href={review.author_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-anchor-gold hover:text-anchor-green mt-3 inline-block"
+          className="text-sm text-anchor-gold-dark hover:text-anchor-green mt-3 inline-block"
         >
           View on Google
         </a>

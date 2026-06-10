@@ -102,7 +102,7 @@ export default async function GenderRevealPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
@@ -115,7 +115,7 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -130,7 +130,7 @@ export default async function GenderRevealPage() {
                                     title: "Garden Space",
                                     description: "Our large beer garden is the safest and best place for smoke cannons and outdoor reveals.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -138,7 +138,7 @@ export default async function GenderRevealPage() {
                                     title: "Afternoon Tea",
                                     description: "Ask about our buffet or afternoon tea style packages for a classy touch.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -146,7 +146,7 @@ export default async function GenderRevealPage() {
                                     title: "Family Friendly",
                                     description: "Plenty of space for kids to run around while the adults celebrate.",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-raised",
+                                    color: "bg-anchor-green-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -156,11 +156,11 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader title="Venue Layout Options" />
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 mb-8">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
                             <h3 className="text-xl font-bold mb-3 text-anchor-cream-text">Garden Reveal</h3>
                             <p className="text-anchor-cream-text/70 mb-4">
                                 Our enclosed beer garden is the ideal setting for an outdoor reveal. There is ample open space for smoke cannons, confetti poppers, or balloon drops. Guests can gather in a semicircle, creating a natural amphitheatre for the big moment and your photos.
@@ -171,7 +171,7 @@ export default async function GenderRevealPage() {
                                 <li>Space for guests to form a viewing circle</li>
                             </ul>
                         </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
                             <h3 className="text-xl font-bold mb-3 text-anchor-cream-text">Indoor Reveal</h3>
                             <p className="text-anchor-cream-text/70 mb-4">
                                 Prefer to keep things inside? Our function area can be arranged for an indoor reveal. Balloon pops, cake cuts, or confetti cannons all work well indoors. We can clear space and arrange seating to give you a clear reveal zone.
@@ -184,7 +184,7 @@ export default async function GenderRevealPage() {
                         </div>
                     </div>
 
-                    <div className="max-w-4xl mx-auto bg-anchor-bg border border-anchor-gold/20 rounded-xl p-6">
+                    <div className="max-w-4xl mx-auto bg-anchor-green-deep border border-anchor-gold-dark/20 rounded-xl p-6">
                         <h3 className="font-bold text-anchor-cream-text mb-3">Weather Contingency</h3>
                         <p className="text-anchor-cream-text/70">
                             We always plan for the British weather. If you are hoping for a garden reveal but conditions are poor on the day, we will switch seamlessly to our indoor backup plan. We discuss your preferred reveal method and backup option at the time of booking so that nothing is left to chance.
@@ -193,7 +193,7 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader title="Photo and Video Setup" />
                     <div className="max-w-3xl mx-auto">
@@ -201,8 +201,8 @@ export default async function GenderRevealPage() {
                             The reveal moment deserves to be captured perfectly. Here is what we provide and what you should plan to bring.
                         </p>
                         <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                                <h4 className="font-semibold text-anchor-gold-vivid mb-3">What we provide</h4>
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
+                                <h4 className="font-semibold text-anchor-gold-bright mb-3">What we provide</h4>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
                                     <li>A reserved and cleared reveal space</li>
                                     <li>Help positioning guests for the best angle</li>
@@ -210,8 +210,8 @@ export default async function GenderRevealPage() {
                                     <li>A &quot;keeper of the gender&quot; if you want to be surprised too</li>
                                 </ul>
                             </div>
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                                <h4 className="font-semibold text-anchor-gold-vivid mb-3">What to bring</h4>
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
+                                <h4 className="font-semibold text-anchor-gold-bright mb-3">What to bring</h4>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
                                     <li>Your smoke cannons, confetti poppers, or reveal prop</li>
                                     <li>A photographer or nominated family member with a phone</li>
@@ -224,7 +224,7 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -237,7 +237,7 @@ export default async function GenderRevealPage() {
                         </div>
                     </div>
 
-                    <div className="mt-12 text-center bg-anchor-bg-raised p-8 rounded-xl border border-dashed border-anchor-gold/30">
+                    <div className="mt-12 text-center bg-anchor-green-raised p-8 rounded-xl border border-dashed border-anchor-gold-dark/30">
                         <h4 className="text-xl font-bold mb-2 text-anchor-cream-text">Need a "Keeper of the Gender"?</h4>
                         <p className="text-anchor-cream-text/70">
                             If you want to be surprised too, you can give the sealed results to our manager, and we will arrange the correct coloured looking cannons or cake cutting for you!
@@ -246,14 +246,14 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Gender Reveal Party Packages"
                         subtitle="Food, drinks, and the big moment, all taken care of"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 mb-8">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 mb-8">
                             <CateringPackagesTable
                                 packages={foodPackages}
                                 showDescription={true}
@@ -261,16 +261,16 @@ export default async function GenderRevealPage() {
                             />
                         </div>
 
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All gender reveal venue packages include use of a reserved area, free parking, and help from our team with setup and coordination. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote.
+                                All gender reveal venue packages include use of a reserved area, free parking, and help from our team with setup and coordination. Call us on <strong className="text-anchor-gold-bright">01753 682707</strong> for a quote.
                             </p>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <SectionHeader
                         title="Reveal Ideas & Inspiration"
@@ -278,28 +278,28 @@ export default async function GenderRevealPage() {
                     />
                     <div className="max-w-4xl mx-auto">
                         <div className="grid md:grid-cols-2 gap-6 mb-8">
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
                                 <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Outdoor Reveal Ideas</h3>
                                 <p className="text-anchor-cream-text/70 mb-3">Our beer garden is the perfect stage for dramatic outdoor reveals. Popular choices include:</p>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
-                                    <li><strong className="text-anchor-gold-vivid">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Confetti poppers</strong>, handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Balloon pop</strong>, fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Paint throw</strong>, wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
+                                    <li><strong className="text-anchor-gold-bright">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
+                                    <li><strong className="text-anchor-gold-bright">Confetti poppers</strong>, handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
+                                    <li><strong className="text-anchor-gold-bright">Balloon pop</strong>, fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
+                                    <li><strong className="text-anchor-gold-bright">Paint throw</strong>, wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
                                 </ul>
                             </div>
-                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
                                 <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Indoor Reveal Ideas</h3>
                                 <p className="text-anchor-cream-text/70 mb-3">If you prefer an indoor gender reveal party, or the weather is not cooperating, these options work brilliantly inside:</p>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
-                                    <li><strong className="text-anchor-gold-vivid">Cake cutting</strong>, a white-iced cake with pink or blue sponge inside. The classic reveal moment that everyone loves.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Box opening</strong>, a large box filled with pink or blue balloons that float out when the lid is lifted.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Scratch cards</strong>, hand out custom scratch cards to guests and let everyone reveal at the same time.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Piñata</strong>, fill a piñata with pink or blue sweets. The parents-to-be take turns until the big reveal spills out.</li>
+                                    <li><strong className="text-anchor-gold-bright">Cake cutting</strong>, a white-iced cake with pink or blue sponge inside. The classic reveal moment that everyone loves.</li>
+                                    <li><strong className="text-anchor-gold-bright">Box opening</strong>, a large box filled with pink or blue balloons that float out when the lid is lifted.</li>
+                                    <li><strong className="text-anchor-gold-bright">Scratch cards</strong>, hand out custom scratch cards to guests and let everyone reveal at the same time.</li>
+                                    <li><strong className="text-anchor-gold-bright">Piñata</strong>, fill a piñata with pink or blue sweets. The parents-to-be take turns until the big reveal spills out.</li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="bg-anchor-bg border border-anchor-gold/20 rounded-xl p-6 text-center">
+                        <div className="bg-anchor-green-deep border border-anchor-gold-dark/20 rounded-xl p-6 text-center">
                             <p className="text-anchor-cream-text/70">
                                 Not sure which reveal method to choose? Our team has seen them all and can help you decide what will work best for your group size, the time of year, and your photography plans. Just ask when you enquire.
                             </p>
@@ -310,14 +310,14 @@ export default async function GenderRevealPage() {
 
             <TestimonialSection
                 variant="compact"
-                className="section-spacing bg-anchor-bg border-b border-anchor-gold/15 px-4"
+                className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15 px-4"
                 reviews={[
                     { quote: "We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.", author: "Chloe & Dan, Staines", source: "Google Review", rating: 5 },
                     { quote: "We used the keeper of the gender service and it was brilliant, we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.", author: "Priya & Raj, Feltham", source: "Google Review", rating: 5 },
                 ]}
             />
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Also Considering a Baby Shower?</h2>
@@ -326,7 +326,7 @@ export default async function GenderRevealPage() {
                         </p>
                         <Link
                             href="/private-hire/baby-showers"
-                            className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                            className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
                         >
                             Baby Shower Venue
                         </Link>
@@ -367,7 +367,7 @@ export default async function GenderRevealPage() {
                         answer: "Absolutely. Many families host both on the same afternoon. We can structure the event so the shower activities and food come first, building up to the reveal moment at the right time."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

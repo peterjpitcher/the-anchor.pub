@@ -38,7 +38,7 @@ export function ErrorDisplay({
         {onRetry && (
           <button
             onClick={onRetry}
-            className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline ml-2"
+            className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline ml-2"
             aria-label="Try again"
           >
             Try again
@@ -57,7 +57,7 @@ export function ErrorDisplay({
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-6 py-2 bg-anchor-gold text-white rounded-full font-semibold hover:bg-anchor-gold-light transition-colors min-h-[44px] min-w-[44px]"
+              className="px-6 py-2 bg-anchor-gold-dark text-white rounded-full font-semibold hover:bg-anchor-gold transition-colors min-h-[44px] min-w-[44px]"
               aria-label="Try again"
             >
               Try Again
@@ -69,7 +69,7 @@ export function ErrorDisplay({
               Still having issues?{' '}
               <a
                 href={CONTACT_INFO.phoneLink}
-                className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline"
+                className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline"
               >
                 Call us at {CONTACT_INFO.phone}
               </a>
@@ -81,7 +81,7 @@ export function ErrorDisplay({
           <div className="mt-4 border-t border-red-500/20 pt-4">
             <button
               onClick={() => setDetailsExpanded(!detailsExpanded)}
-              className="text-sm text-anchor-cream-text/70 hover:text-anchor-cream-text underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold rounded"
+              className="text-sm text-anchor-cream-text/70 hover:text-anchor-cream-text underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark rounded"
               aria-expanded={detailsExpanded}
               aria-controls="error-details"
             >
@@ -91,7 +91,7 @@ export function ErrorDisplay({
             {detailsExpanded && (
               <pre
                 id="error-details"
-                className="mt-2 text-xs text-left bg-anchor-bg-card p-3 rounded border border-anchor-gold/15 overflow-x-auto text-anchor-cream-text/70"
+                className="mt-2 text-xs text-left bg-anchor-green-card p-3 rounded border border-anchor-gold-dark/15 overflow-x-auto text-anchor-cream-text/70"
               >
                 {technicalDetails}
               </pre>

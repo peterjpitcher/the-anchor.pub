@@ -124,7 +124,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
             <div className="grid gap-4 sm:grid-cols-2">
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Free parking</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     20 free spaces on site. Your designated driver parks for free, or grab an easy taxi home,
                     no surge pricing out here.
@@ -133,7 +133,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               </Card>
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Actually get a drink</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Actually get a drink</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Unlike packed city bars, you can actually get to our bar. Craft beer, cocktails, champagne for
                     the midnight toast, all without the 20-minute queue.
@@ -142,7 +142,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               </Card>
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Village pub atmosphere</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Village pub atmosphere</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     A proper local celebration where you can chat, dance, and count down to midnight with
                     people who actually want to be there.
@@ -151,7 +151,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               </Card>
               <Card variant="default">
                 <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Dog-friendly</h3>
+                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Well-behaved dogs are welcome in the early evening. If your dog isn&apos;t a fan of
                     fireworks, we&apos;re a calm spot before things get lively later on.
@@ -179,27 +179,27 @@ export default function NewYearsEvePage(): React.JSX.Element {
               At midnight, expect a champagne toast to see in the New Year. Throughout the evening we&apos;ll
               have our full range of craft beer, wines, spirits and cocktails.
             </p>
-            <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse our menus</h3>
+            <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
+              <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our menus</h3>
               <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                 Take a look at our{' '}
                 <Link
                   href="/food-menu"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   food menu
                 </Link>
                 ,{' '}
                 <Link
                   href="/pizza-menu"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   pizza menu
                 </Link>{' '}
                 and{' '}
                 <Link
                   href="/drinks"
-                  className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
                 >
                   drinks menu
                 </Link>
@@ -222,30 +222,30 @@ export default function NewYearsEvePage(): React.JSX.Element {
               can properly see in the New Year. Walk-ins are possible, but booking is strongly recommended,
               it gets busy, and a reserved table means you&apos;re guaranteed your spot.
             </p>
-            <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
-              <div className="mt-0 rounded-2xl bg-anchor-bg-card p-5 border border-anchor-gold/15">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">
+            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
+              <div className="mt-0 rounded-2xl bg-anchor-green-card p-5 border border-anchor-gold-dark/15">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">
                   At a glance
                 </h3>
                 <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">&bull;</span>
+                    <span className="text-anchor-gold-dark">&bull;</span>
                     <span>Late licence, typically open until at least 1am</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">&bull;</span>
+                    <span className="text-anchor-gold-dark">&bull;</span>
                     <span>Midnight countdown and champagne toast</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">&bull;</span>
+                    <span className="text-anchor-gold-dark">&bull;</span>
                     <span>Live entertainment (confirmed closer to the date)</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">&bull;</span>
+                    <span className="text-anchor-gold-dark">&bull;</span>
                     <span>20 free parking spaces on site</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">&bull;</span>
+                    <span className="text-anchor-gold-dark">&bull;</span>
                     <span>Booking recommended, walk-ins welcome if space allows</span>
                   </li>
                 </ul>
@@ -286,7 +286,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </p>
             <Link
               href="/near-heathrow/terminal-5"
-              className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
+              className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
             >
               More about The Anchor near Heathrow Terminal 5
               <span className="ml-1">&rarr;</span>
@@ -339,7 +339,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
                 <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
+                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -364,7 +364,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="New Year's Eve FAQs" faqs={faqs} className="bg-anchor-bg" />
+      <FAQAccordionWithSchema title="New Year's Eve FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

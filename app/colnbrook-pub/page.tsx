@@ -99,7 +99,7 @@ export default function ColnbrookPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -118,7 +118,7 @@ export default function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -134,7 +134,7 @@ export default function ColnbrookPubPage() {
                                     title: "After Work",
                                     description: "Cold beers, draught lagers, and a great wine list for the end of the day",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -142,7 +142,7 @@ export default function ColnbrookPubPage() {
                                     title: "Great Food",
                                     description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -150,7 +150,7 @@ export default function ColnbrookPubPage() {
                                     title: "Easy Parking",
                                     description: "Large free car park for vans and cars - no hassle",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -160,7 +160,7 @@ export default function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -168,7 +168,7 @@ export default function ColnbrookPubPage() {
                         />
 
                         <div className="card-dark rounded-none p-8 mb-8 text-center">
-                            <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Poyle Business Specials</h3>
+                            <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Poyle Business Specials</h3>
                             <p className="text-anchor-cream-text/70 mb-6">
                                 We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
                             </p>
@@ -196,7 +196,7 @@ export default function ColnbrookPubPage() {
             </section>
 
             {/* Colnbrook & Poyle Local Knowledge */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -234,7 +234,7 @@ export default function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -264,7 +264,7 @@ export default function ColnbrookPubPage() {
                         answer: "We don't offer delivery, but you are welcome to order food to eat in or call ahead for collection if time is tight."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

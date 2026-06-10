@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const datePickerVariants = cva(
-  'block w-full min-w-0 max-w-full rounded-lg border bg-anchor-bg-card px-4 py-2 text-left text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
+  'block w-full min-w-0 max-w-full rounded-lg border bg-anchor-green-card px-4 py-2 text-left text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        default: 'border-anchor-gold/30 hover:border-anchor-gold/50',
+        default: 'border-anchor-gold-dark/30 hover:border-anchor-gold-dark/50',
         error: 'border-red-500 hover:border-red-600',
         success: 'border-green-500 hover:border-green-600'
       },

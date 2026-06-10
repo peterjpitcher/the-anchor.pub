@@ -107,7 +107,7 @@ export default function WraysburyPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="section-spacing-sm bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -126,7 +126,7 @@ export default function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -142,7 +142,7 @@ export default function WraysburyPubPage() {
                                     title: "Stone-Baked Pizza",
                                     description: "Authentic stone-baked pizzas served Tuesday-Saturday from £12",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -150,7 +150,7 @@ export default function WraysburyPubPage() {
                                     title: "Live Entertainment",
                                     description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -158,7 +158,7 @@ export default function WraysburyPubPage() {
                                     title: "Sunday Roast",
                                     description: "A proper home-cooked roast with all the trimmings",
                                     variant: "colored",
-                                    color: "bg-anchor-bg-card",
+                                    color: "bg-anchor-green-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -168,7 +168,7 @@ export default function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -177,21 +177,21 @@ export default function WraysburyPubPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Celebrations</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Celebrations</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
                                 </p>
-                                <Link href="/private-hire" className="text-anchor-gold font-bold hover:text-anchor-gold-light hover:underline">
+                                <Link href="/private-hire" className="text-anchor-gold-dark font-bold hover:text-anchor-gold hover:underline">
                                     View Private Hire Options →
                                 </Link>
                             </div>
 
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What's On</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What's On</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
                                 </p>
-                                <Link href="/whats-on" className="text-anchor-gold font-bold hover:text-anchor-gold-light hover:underline">
+                                <Link href="/whats-on" className="text-anchor-gold-dark font-bold hover:text-anchor-gold hover:underline">
                                     Check Event Calendar →
                                 </Link>
                             </div>
@@ -213,7 +213,7 @@ export default function WraysburyPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -237,7 +237,7 @@ export default function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -274,7 +274,7 @@ export default function WraysburyPubPage() {
                         answer: "Our kitchen times vary slightly by day (generally open for dinner Tue-Fri and all day Sat-Sun). Please check our opening hours section for the latest service times."
                     }
                 ]}
-                className="bg-anchor-bg-card"
+                className="bg-anchor-green-card"
             />
 
             <CTASection

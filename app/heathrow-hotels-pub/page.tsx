@@ -120,7 +120,7 @@ export default function HeathrowHotelsPubPage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -140,7 +140,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -156,7 +156,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Great Value",
                   description: "Honest pub pricing with mains from £8.99",
                   variant: "colored",
-                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
+                  color: "bg-anchor-green-raised border border-anchor-gold-dark/15",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -164,7 +164,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Free Parking",
                   description: "20 spaces - no hourly charges like hotel car parks",
                   variant: "colored",
-                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
+                  color: "bg-anchor-green-raised border border-anchor-gold-dark/15",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -172,7 +172,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Real Experience",
                   description: "Authentic British pub, not a chain hotel restaurant",
                   variant: "colored",
-                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
+                  color: "bg-anchor-green-raised border border-anchor-gold-dark/15",
                   className: "rounded-xl p-6 text-center"
                 }
               ]}
@@ -183,7 +183,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Hotel Distances */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -191,24 +191,24 @@ export default function HeathrowHotelsPubPage() {
             />
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Terminal 5 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-sofitel-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Sofitel London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">7 mins</span>
+                    <Link href="/pub-near-sofitel-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Sofitel London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">7 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-premier-inn-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Premier Inn T5</Link>
-                    <span className="text-anchor-gold font-bold">8 mins</span>
+                    <Link href="/pub-near-premier-inn-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Premier Inn T5</Link>
+                    <span className="text-anchor-gold-dark font-bold">8 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-travelodge-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Travelodge Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">10 mins</span>
+                    <Link href="/pub-near-travelodge-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Travelodge Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">10 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-hilton-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Hilton London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">10 mins</span>
+                    <Link href="/pub-near-hilton-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Hilton London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">10 mins</span>
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-anchor-cream-text/55">
@@ -216,36 +216,36 @@ export default function HeathrowHotelsPubPage() {
 	                </p>
               </div>
 
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Bath Road & T4 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-marriott-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Marriott London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-marriott-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Marriott London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-crowne-plaza-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Crowne Plaza Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-crowne-plaza-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Crowne Plaza Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-radisson-blu-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Radisson Blu Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-radisson-blu-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Radisson Blu Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-holiday-inn-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Holiday Inn Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-holiday-inn-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Holiday Inn Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-ibis-heathrow" className="font-medium hover:text-anchor-gold transition-colors">ibis London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-ibis-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">ibis London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-novotel-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Novotel London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">15 mins</span>
+                    <Link href="/pub-near-novotel-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Novotel London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">15 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-renaissance-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Renaissance London Heathrow</Link>
-                    <span className="text-anchor-gold font-bold">12 mins</span>
+                    <Link href="/pub-near-renaissance-heathrow" className="font-medium hover:text-anchor-gold-dark transition-colors">Renaissance London Heathrow</Link>
+                    <span className="text-anchor-gold-dark font-bold">12 mins</span>
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-anchor-cream-text/55">
@@ -269,7 +269,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Why Hotel Guests Choose Us */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -281,25 +281,25 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Escape Hotel Life</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Real pub atmosphere</strong> - Not another sterile hotel bar
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Meet locals</strong> - Experience genuine British hospitality
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Proper portions</strong> - Not tiny hotel plates at huge prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, live atmosphere (see /whats-on)
                     </div>
@@ -311,25 +311,25 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect for Travellers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Layover dining</strong> - Better than airport or hotel food
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Pre-flight meals</strong> - Proper dinner before early flights
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>Luggage storage</strong> - We'll keep bags safe while you eat
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl"></span>
+                    <span className="text-anchor-gold-dark text-xl"></span>
                     <div>
                       <strong>All currencies</strong> - Cards welcome, including Amex
                     </div>
@@ -353,7 +353,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Hotel Guest Favourites */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -368,21 +368,21 @@ export default function HeathrowHotelsPubPage() {
 	                  title: "Draught Beers",
 	                  description: "Try proper British beer - not just hotel lagers. From £4.80/pint",
 	                  variant: "default",
-	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
+	                  className: "bg-anchor-green-raised rounded-lg p-6 border border-anchor-gold-dark/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Fish & Chips",
 	                  description: "Classic British meal hotel guests always request. £12.99 (half hotel price)",
 	                  variant: "default",
-	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
+	                  className: "bg-anchor-green-raised rounded-lg p-6 border border-anchor-gold-dark/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Sunday Roast",
 	                  description: "Must-try British tradition for Sunday visitors. From £16",
 	                  variant: "default",
-	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
+	                  className: "bg-anchor-green-raised rounded-lg p-6 border border-anchor-gold-dark/15 text-center"
 	                }
 	              ]}
 	              className="mb-8"
@@ -414,7 +414,7 @@ export default function HeathrowHotelsPubPage() {
                     </div>
                   ),
                   variant: "colored",
-                  color: "bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-8"
+                  color: "bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-8"
                 }
               ]}
             />
@@ -423,7 +423,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Transport Options */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -431,7 +431,7 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6">
-	              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+	              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
 	                <h3 className="text-xl font-bold mb-3"> By Taxi</h3>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• £10-15 from most hotels</li>
@@ -441,7 +441,7 @@ export default function HeathrowHotelsPubPage() {
 	                </ul>
 	              </div>
               
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold mb-3"> Rental Car</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Free parking at pub</li>
@@ -451,7 +451,7 @@ export default function HeathrowHotelsPubPage() {
                 </ul>
               </div>
               
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold mb-3"> Public Transport</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Bus 442 from some hotels</li>
@@ -478,7 +478,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Special Times */}
-      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -486,9 +486,9 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="max-w-md mx-auto mb-8">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-3">Early Evening Dining</h3>
-                <p className="text-2xl font-bold text-anchor-gold-vivid mb-2">Kitchen from 6pm</p>
+                <p className="text-2xl font-bold text-anchor-gold-bright mb-2">Kitchen from 6pm</p>
                 <p className="text-anchor-cream-text/70">Beat the hotel dinner rush</p>
                 <p className="text-sm mt-2">Quieter atmosphere for jet-lagged guests</p>
               </div>
@@ -502,7 +502,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Corporate Events for Airport Hotels */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -511,45 +511,45 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Ideal for Airport Companies</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid"></span>
+                    <span className="text-anchor-gold-bright"></span>
                     <span><strong>7 minutes from terminals</strong> - Quick access for international teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid"></span>
+                    <span className="text-anchor-gold-bright"></span>
                     <span><strong>Airline crew events</strong> - Regular venue for BA, Virgin, Emirates teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid"></span>
+                    <span className="text-anchor-gold-bright"></span>
                     <span><strong>No hotel markups</strong> - Corporate rates, not inflated airport prices</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid"></span>
+                    <span className="text-anchor-gold-bright"></span>
                     <span><strong>Free parking</strong> - Essential for staff without hotel shuttles</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Popular Airport Events</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1"> Crew Celebrations</h4>
+                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Crew Celebrations</h4>
                     <p className="text-sm text-anchor-cream-text/70">End of season parties, retirement send-offs</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1"> Airport Staff Events</h4>
+                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Airport Staff Events</h4>
                     <p className="text-sm text-anchor-cream-text/70">Team meetings, training days, Christmas parties</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1"> International Teams</h4>
+                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> International Teams</h4>
                     <p className="text-sm text-anchor-cream-text/70">Perfect when colleagues fly in for meetings</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1"> Hotel Overflow</h4>
+                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Hotel Overflow</h4>
                     <p className="text-sm text-anchor-cream-text/70">When hotel venues are fully booked</p>
                   </div>
                 </div>
@@ -593,7 +593,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
@@ -642,7 +642,7 @@ export default function HeathrowHotelsPubPage() {
             answer: "We open at 4pm Tuesday-Friday, noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), dinner, or evening drinks. Many guests visit us the night before early flights or after afternoon hotel check-in."
           }
         ]}
-        className="bg-anchor-bg"
+        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}

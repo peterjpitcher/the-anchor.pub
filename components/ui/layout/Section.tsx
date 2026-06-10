@@ -8,10 +8,10 @@ const sectionVariants = cva(
   {
     variants: {
       background: {
-        white: 'bg-anchor-bg-card',
-        gray: 'bg-anchor-bg',
-        dark: 'bg-anchor-bg text-anchor-cream-text',
-        cream: 'bg-anchor-bg-card',
+        white: 'bg-anchor-green-card',
+        gray: 'bg-anchor-green-deep',
+        dark: 'bg-anchor-green-deep text-anchor-cream-text',
+        cream: 'bg-anchor-green-card',
         transparent: 'bg-transparent'
       },
       spacing: {
