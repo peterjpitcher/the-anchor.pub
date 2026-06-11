@@ -1,18 +1,15 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { Button, SectionHeading, Card, CardBody, Container } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
-import { getCateringData } from '@/lib/api/catering-packages'
-import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow',
@@ -33,8 +30,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function EngagementPartiesPage() {
-    const { foodPackages } = await getCateringData()
+export default function EngagementPartiesPage() {
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -91,115 +87,99 @@ export default async function EngagementPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
+                        <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is an engagement party venue near Heathrow with free parking and space for 10 to 50 guests. Seven minutes from Terminal 5 in Stanwell Moor, we handle the catering, the drinks, and the space — you just turn up and celebrate.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Why Couples Choose Us"
-                            subtitle="We take the stress out of planning so you can focus on showing off the ring."
+                            lead="We take the stress out of planning so you can focus on showing off the ring."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Prosecco Packages",
-                                    description: "Pre-order welcome drinks for your guests to start the night right.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Flexible Buffets",
-                                    description: "From finger food to hearty spreads, we cater to all budgets.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Music & Atmosphere",
-                                    description: "Bring your own playlist or book our function area with space for a DJ.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            {[
+                                { title: "Prosecco Packages", description: "Pre-order welcome drinks for your guests to start the night right." },
+                                { title: "Flexible Buffets", description: "From finger food to hearty spreads, we cater to all budgets." },
+                                { title: "Music & Atmosphere", description: "Bring your own playlist or book our function area with space for a DJ." },
+                            ].map(feature => (
+                                <Card key={feature.title} accent className="h-full">
+                                    <CardBody className="flex h-full flex-col gap-2">
+                                        <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="What's Included"
-                            subtitle="Everything you need for your engagement party, nothing you don't."
+                            lead="Everything you need for your engagement party, nothing you don't."
                         />
-                        <div className="grid md:grid-cols-2 gap-6 mb-8">
-                            <div className="space-y-3">
-                                <h3 className="text-xl font-bold text-anchor-cream-text">The Venue</h3>
-                                <ul className="space-y-2 text-anchor-cream-text/70">
-                                    <li><strong>Room hire:</strong> a simple hire fee covers your space (varies by day and party size). No minimum spend on top — you only pay for what you order.</li>
-                                    <li><strong>Dining room:</strong> 26 seated with standing room for more. French doors open straight onto the beer garden in summer.</li>
-                                    <li><strong>Capacity:</strong> 10 to 50 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
-                                    <li><strong>Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs — go for it. We just ask for no confetti or glitter.</li>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <Card><CardBody className="space-y-3">
+                                <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
+                                <ul className="space-y-2 text-ink-muted">
+                                    <li><strong className="text-ink-strong">Room hire:</strong> a simple hire fee covers your space (varies by day and party size). No minimum spend on top — you only pay for what you order.</li>
+                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated with standing room for more. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong className="text-ink-strong">Capacity:</strong> 10 to 50 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
+                                    <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs — go for it. We just ask for no confetti or glitter.</li>
                                 </ul>
-                            </div>
-                            <div className="space-y-3">
-                                <h3 className="text-xl font-bold text-anchor-cream-text">The Practical Bits</h3>
-                                <ul className="space-y-2 text-anchor-cream-text/70">
-                                    <li><strong>Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
-                                    <li><strong>7 minutes from Heathrow T5</strong> — handy if guests are flying in for the celebration.</li>
-                                    <li><strong>AV equipment:</strong> Projector, screen, and sound system available for slideshows or speeches.</li>
-                                    <li><strong>Deposit:</strong> &pound;250 to secure your date, deducted from the final bill.</li>
-                                    <li><strong>Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
+                            </CardBody></Card>
+                            <Card><CardBody className="space-y-3">
+                                <h3 className="font-display text-h4 text-ink-strong">The Practical Bits</h3>
+                                <ul className="space-y-2 text-ink-muted">
+                                    <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
+                                    <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong> — handy if guests are flying in for the celebration.</li>
+                                    <li><strong className="text-ink-strong">AV equipment:</strong> Projector, screen, and sound system available for slideshows or speeches.</li>
+                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, deducted from the final bill.</li>
+                                    <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
-                            </div>
+                            </CardBody></Card>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Why a Pub Engagement Party?"
-                            subtitle="More atmosphere, less hassle, and you'll actually enjoy it."
+                            lead="More atmosphere, less hassle, and you'll actually enjoy it."
                         />
                         <div className="grid md:grid-cols-3 gap-6 mb-6">
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-bright">No min spend</p>
-                                <p className="text-sm text-anchor-cream-text/70">Pay for what you order</p>
+                                <p className="font-display text-h3 text-accent-text">No min spend</p>
+                                <p className="text-sm text-ink-muted">Pay for what you order</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-bright">From &pound;9.95pp</p>
-                                <p className="text-sm text-anchor-cream-text/70">Buffet catering</p>
+                                <p className="font-display text-h3 text-accent-text">From &pound;9.95pp</p>
+                                <p className="text-sm text-ink-muted">Buffet catering</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="text-3xl font-bold text-anchor-gold-bright">20 free</p>
-                                <p className="text-sm text-anchor-cream-text/70">Parking spaces</p>
+                                <p className="font-display text-h3 text-accent-text">20 free</p>
+                                <p className="text-sm text-ink-muted">Parking spaces</p>
                             </div>
                         </div>
-                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                        <div className="max-w-none text-ink-muted space-y-4">
                             <p>
                                 Hotel function rooms are expensive. Home parties mean you&apos;re cleaning up at midnight. A pub engagement party gives you the atmosphere, the catering, and the bar — without the aftermath.
                             </p>
@@ -214,60 +194,54 @@ export default async function EngagementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Tailored to You"
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="space-y-4">
-                                <h3 className="text-2xl font-bold text-anchor-cream-text">Intimate Gatherings</h3>
-                                <p className="text-anchor-cream-text/70">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <Card accent><CardBody className="space-y-4">
+                                <h3 className="font-display text-h4 text-ink-strong">Intimate Gatherings</h3>
+                                <p className="text-ink-muted">
                                     If you prefer something low-key, book a large table in our dining area. Enjoy our à la carte menu, great wines, and the cosy atmosphere of a traditional pub. Perfect for close family and best friends.
                                 </p>
-                                <ul className="list-disc pl-5 text-anchor-cream-text/70 space-y-2">
+                                <ul className="list-disc pl-5 text-ink-muted space-y-2">
                                     <li>Reserved area for your group</li>
                                     <li>Full table service</li>
                                     <li>Decorations allowed (balloons/banners)</li>
                                 </ul>
-                            </div>
-                            <div className="space-y-4">
-                                <h3 className="text-2xl font-bold text-anchor-cream-text">Full Party Mode</h3>
-                                <p className="text-anchor-cream-text/70">
+                            </CardBody></Card>
+                            <Card accent><CardBody className="space-y-4">
+                                <h3 className="font-display text-h4 text-ink-strong">Full Party Mode</h3>
+                                <p className="text-ink-muted">
                                     Want to invite everyone? Our function area can host up to 100 guests. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
                                 </p>
-                                <ul className="list-disc pl-5 text-anchor-cream-text/70 space-y-2">
+                                <ul className="list-disc pl-5 text-ink-muted space-y-2">
                                     <li>Capacity for 30-100 guests</li>
                                     <li>Buffet packages to suit all budgets</li>
                                     <li>Space for entertainment</li>
                                 </ul>
-                            </div>
+                            </CardBody></Card>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <CateringPackagesTable
-                            packages={foodPackages}
-                            title="Catering Packages"
-                            subtitle="Prices per person, minimum guest numbers may apply"
-                            showDescription={true}
-                            filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Burger Buffet', 'Afternoon Tea', 'Prosecco Afternoon Tea']}
-                        />
+                    <div className="max-w-2xl mx-auto">
+                        <CateringPackagesCard />
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <SectionHeading title="Ready to start planning?" />
-                        <p className="text-lg text-anchor-cream-text/70 mb-8">
+                        <p className="text-lg text-ink-muted mb-8">
                             Get in touch with our team to check availability and discuss your ideas. We recommend booking at least 4 weeks in advance for Friday/Saturday slots.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -278,16 +252,6 @@ export default async function EngagementPartiesPage() {
                                 <Button size="lg" variant="outline">Book Table (Small Groups)</Button>
                             </Link>
                         </div>
-                    </div>
-                </Container>
-            </section>
-
-            <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-3xl mx-auto text-center">
-                        <p className="text-lg text-anchor-cream-text/70">
-                            Use our calculator below for an instant estimate, or call us for a bespoke quote.
-                        </p>
                     </div>
                 </Container>
             </section>
@@ -337,7 +301,7 @@ export default async function EngagementPartiesPage() {
                         answer: "We're in Stanwell Moor, Surrey — 7 minutes from Heathrow Terminal 5 and about 8 minutes from Staines. Postcode for sat nav: TW19 6AQ. We're just off the M25 at Junction 14."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
         </>
     )

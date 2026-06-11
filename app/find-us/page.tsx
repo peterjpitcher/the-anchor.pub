@@ -1,20 +1,21 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, Grid, Alert, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
-import { StatusBar } from '@/components/layout/StatusBar'
+import { Button, Container, Card, CardBody, SectionHeading } from '@/components/ui'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
+import { CtaBand } from '@/components/CtaBand'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { WeekHours } from '@/components/WeekHours'
 import { InteriorHero } from '@/components/hero'
-import { FindUsSection } from '@/components/FindUsSection'
 import { Metadata } from 'next'
-import { BusinessHours } from '@/components/BusinessHours'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { findUsPlaceSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PhoneButton } from '@/components/PhoneButton'
+import { DirectionsLink, DirectionsButton } from '@/components/DirectionsButton'
+import { CONTACT } from '@/lib/constants'
 
 import { WhatsAppLink } from '@/components/WhatsAppLink'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
@@ -83,517 +84,428 @@ export default function FindUsPage() {
         lead="Easy to find, hard to leave!"
       />
 
+      <AmenityStrip />
+
       {/* Page Title for SEO */}
-      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <PageTitle
-            className="text-center text-anchor-cream-text"
-            seo={{ structured: true, speakable: true }}
-          >
+          <h2 className="text-center font-display text-h2 text-ink-strong">
             Find The Anchor - FREE Parking & Easy Directions from Heathrow
-          </PageTitle>
+          </h2>
         </Container>
-      </Section>
+      </section>
 
       {/* Quick Info */}
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Stanwell Moor</p>
-              <p className="text-sm text-anchor-cream-text/70">Surrey TW19 6AQ</p>
-            </div>
-            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Bus Routes</p>
-              <p className="text-sm text-anchor-cream-text/70">441, 442, 555</p>
-            </div>
-            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Pool & Darts</p>
-              <p className="text-sm text-anchor-cream-text/70">Games available</p>
-            </div>
-            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Entertainment</p>
-              <p className="text-sm text-anchor-cream-text/70">Jukebox & more</p>
-            </div>
-            <div className="bg-anchor-green-card p-4 rounded-none border border-anchor-gold-dark/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Payment</p>
-              <p className="text-sm text-anchor-cream-text/70">Cash & all cards inc. Amex</p>
-            </div>
+            {[
+              { title: 'Stanwell Moor', sub: 'Surrey TW19 6AQ' },
+              { title: 'Bus Routes', sub: '441, 442, 555' },
+              { title: 'Pool & Darts', sub: 'Games available' },
+              { title: 'Entertainment', sub: 'Jukebox & more' },
+              { title: 'Payment', sub: 'Cash & all cards inc. Amex' }
+            ].map(item => (
+              <Card key={item.title} accent className="text-center">
+                <CardBody className="p-4">
+                  <p className="font-semibold text-ink-strong">{item.title}</p>
+                  <p className="text-sm text-ink-muted">{item.sub}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Heathrow Terminal Directions */}
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Heathrow Terminal to Pub in Under 12 Minutes"
-              subtitle="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
+              lead="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
             />
-            <FeatureGrid
-              columns={2}
-              features={[
-                {
-                  icon: "",
-                  title: "Terminal 5  The Anchor (7 mins)",
-                  description: (
-                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
-                      <li>Turn left onto Horton Road; pub is 200 yards on right</li>
-                      <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
-                    </ul>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                },
-                {
-                  icon: "",
-                  title: "Terminals 2 & 3 (11 mins)",
-                  description: (
-                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>Head north on Tunnel Road W  M4 Spur  A4  A3044</li>
-                      <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
-                      <li>Ideal for pre-flight meals before security queues</li>
-                    </ul>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                },
-                {
-                  icon: "",
-                  title: "Terminal 4 (12 mins)",
-                  description: (
-                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>Take Southern Perimeter Rd  Stanwell Moor Rd</li>
-                      <li>Taxis and rideshares average £22 each way</li>
-                      <li>Plenty of time for a meal before evening departures</li>
-                    </ul>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                },
-                {
-                  icon: "",
-                  title: "442 Bus & Hotel Shuttles",
-                  description: (
-                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>442 stops outside the pub connecting Staines  Heathrow</li>
-                      <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
-                      <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
-                    </ul>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                }
-              ]}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminal 5 to The Anchor (7 mins)</h3>
+                  <ul className="list-disc list-inside text-ink-muted space-y-2">
+                    <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
+                    <li>Turn left onto Horton Road; pub is 200 yards on right</li>
+                    <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminals 2 & 3 (11 mins)</h3>
+                  <ul className="list-disc list-inside text-ink-muted space-y-2">
+                    <li>Head north on Tunnel Road W to M4 Spur to A4 to A3044</li>
+                    <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
+                    <li>Ideal for pre-flight meals before security queues</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminal 4 (12 mins)</h3>
+                  <ul className="list-disc list-inside text-ink-muted space-y-2">
+                    <li>Take Southern Perimeter Rd to Stanwell Moor Rd</li>
+                    <li>Taxis and rideshares average £22 each way</li>
+                    <li>Plenty of time for a meal before evening departures</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">442 Bus & Hotel Shuttles</h3>
+                  <ul className="list-disc list-inside text-ink-muted space-y-2">
+                    <li>442 stops outside the pub connecting Staines to Heathrow</li>
+                    <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
+                    <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
+                  </ul>
+                </CardBody>
+              </Card>
+            </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      {/* Address & Contact */}
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      {/* Find Us block (spec §7.1): address card + map + WeekHours */}
+      <section id="visit-us" className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <SectionHeading
-                  title="Our Address"
-                />
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              {/* Address card */}
+              <Card accent>
+                <CardBody>
                   <SpeakableContent selector="contact-info" priority="high">
-                    <FindUsSection variant="full" mapHeight="250px" />
+                  <h2 className="font-display text-h3 text-ink-strong mb-4">Our Address</h2>
+                  <address className="not-italic space-y-1 text-ink mb-4">
+                    <p className="font-semibold text-ink-strong">The Anchor</p>
+                    <p>Horton Road</p>
+                    <p>Stanwell Moor</p>
+                    <p className="font-semibold text-ink-strong">TW19 6AQ</p>
+                  </address>
 
-                    <div className="mt-6 pt-6 border-t border-anchor-gold-dark/15">
-                      <p className="font-bold text-anchor-gold-bright mb-3">Contact</p>
-                      <p className="mb-2">
-                        <PhoneLink
-                          phone="01753682707"
-                          source="find_us_contact"
-                          className="text-anchor-gold-dark hover:text-anchor-gold"
-                        />
-                      </p>
-                      <p className="mb-2">
-                        <WhatsAppLink
-                          phone="01753682707"
-                          source="find_us_page"
-                          className="text-anchor-gold-dark hover:text-anchor-gold"
-                          showIcon={false}
-                        >
-                          WhatsApp: 01753 682707
-                        </WhatsAppLink>
-                      </p>
-                      <p>
-                        <EmailLink
-                          email="manager@the-anchor.pub"
-                          source="find_us_contact"
-                          className="text-anchor-gold-dark hover:text-anchor-gold"
-                          showIcon={true}
-                        />
-                      </p>
-                    </div>
-                  </SpeakableContent>
-                </div>
-              </div>
+                  <div className="mt-4 pt-4 border-t border-line">
+                    <p className="font-semibold text-ink-strong mb-3">Contact</p>
+                    <p className="mb-2">
+                      <PhoneLink
+                        phone="01753682707"
+                        source="find_us_contact"
+                        className="text-accent-text hover:text-anchor-green"
+                      />
+                    </p>
+                    <p className="mb-2">
+                      <WhatsAppLink
+                        phone="01753682707"
+                        source="find_us_page"
+                        className="text-accent-text hover:text-anchor-green"
+                        showIcon={false}
+                      >
+                        WhatsApp: 01753 682707
+                      </WhatsAppLink>
+                    </p>
+                    <p className="mb-4">
+                      <EmailLink
+                        email="manager@the-anchor.pub"
+                        source="find_us_contact"
+                        className="text-accent-text hover:text-anchor-green"
+                        showIcon={true}
+                      />
+                    </p>
+                    <DirectionsLink
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`}
+                      source="find_us_section"
+                    >
+                      Get directions on Google Maps
+                    </DirectionsLink>
+                  </div>
 
-              <div>
-                <SectionHeading
-                  title="Landmarks"
-                />
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-                  <p className="text-lg font-semibold text-anchor-gold-bright mb-4">
-                    Look out for these landmarks:
-                  </p>
-                  <ul className="space-y-3 text-anchor-cream-text/70">
-                    <li className="flex gap-3">
-                      <span className="text-anchor-gold-dark"></span>
-                      <span>Centre of Stanwell Moor village</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-anchor-gold-dark"></span>
-                      <span>Under the Heathrow flight path</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-anchor-gold-dark"></span>
-                      <span>Free parking for patrons (20 spaces)</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-anchor-gold-dark"></span>
-                      <span>Traditional pub building with garden</span>
-                    </li>
-                  </ul>
-
-                  <div className="mt-6 p-4 bg-anchor-green-deep rounded-none border border-anchor-gold-dark/15">
-                    <p className="text-sm text-anchor-cream-text/55 italic">
-                      "If you can hear the planes, you're close!"
+                  <div className="mt-6 pt-4 border-t border-line">
+                    <p className="font-semibold text-ink-strong mb-3">Look out for these landmarks:</p>
+                    <ul className="space-y-2 text-ink-muted">
+                      <li>Centre of Stanwell Moor village</li>
+                      <li>Under the Heathrow flight path</li>
+                      <li>Free parking for patrons (20 spaces)</li>
+                      <li>Traditional pub building with garden</li>
+                    </ul>
+                    <p className="mt-4 text-sm text-ink-muted italic">
+                      &quot;If you can hear the planes, you&apos;re close!&quot;
                     </p>
                   </div>
-                </div>
+                  </SpeakableContent>
+                </CardBody>
+              </Card>
+
+              {/* Map */}
+              <div className="overflow-hidden rounded-md shadow-lg">
+                <GoogleMapEmbed query="The Anchor, Stanwell Moor" height="100%" className="min-h-[360px] h-full" />
               </div>
             </div>
 
-            {/* Business Hours */}
-            <div className="mt-12">
-              <SectionHeading
-                title="Opening Hours"
-              />
-              <SpeakableContent selector="opening-hours" priority="high">
-                <div className="bg-anchor-green/95 rounded-2xl shadow-lg p-6 max-w-2xl mx-auto">
-                  <BusinessHours />
-                </div>
-              </SpeakableContent>
-            </div>
+            {/* Opening hours & flight path */}
+            <Card accent className="mt-8">
+              <CardBody>
+                <h2 className="font-display text-h3 text-ink-strong mb-4">Opening hours &amp; flight path</h2>
+                <SpeakableContent selector="opening-hours" priority="high">
+                  <WeekHours />
+                </SpeakableContent>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Directions */}
-      <Section background="gray" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
             title="Directions from Popular Locations"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* From M25 */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From M25</h3>
-              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
-                <li>Exit Junction 14</li>
-                <li>Take A3113 towards Stanwell Moor</li>
-                <li>At roundabout, continue straight</li>
-                <li>Turn left at Horton Road</li>
-                <li>The Anchor is on your right</li>
-              </ol>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 5 minutes from M25</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From M25</h3>
+                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
+                  <li>Exit Junction 14</li>
+                  <li>Take A3113 towards Stanwell Moor</li>
+                  <li>At roundabout, continue straight</li>
+                  <li>Turn left at Horton Road</li>
+                  <li>The Anchor is on your right</li>
+                </ol>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: 5 minutes from M25</p>
+              </CardBody>
+            </Card>
 
-            {/* From Staines */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Staines</h3>
-              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
-                <li>Head south on A30</li>
-                <li>Turn right onto A3044</li>
-                <li>Continue to Stanwell Moor</li>
-                <li>Turn right onto Horton Road</li>
-                <li>The Anchor is on your right</li>
-              </ol>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 10 minutes</p>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From Staines</h3>
+                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
+                  <li>Head south on A30</li>
+                  <li>Turn right onto A3044</li>
+                  <li>Continue to Stanwell Moor</li>
+                  <li>Turn right onto Horton Road</li>
+                  <li>The Anchor is on your right</li>
+                </ol>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: 10 minutes</p>
+              </CardBody>
+            </Card>
 
-            {/* From Windsor */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Windsor</h3>
-              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
-                <li>Take A308 towards Staines</li>
-                <li>Join M25 at Junction 13</li>
-                <li>Exit at Junction 14</li>
-                <li>Follow signs to Stanwell Moor</li>
-                <li>Turn left at Horton Road</li>
-              </ol>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 20 minutes</p>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From Windsor</h3>
+                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
+                  <li>Take A308 towards Staines</li>
+                  <li>Join M25 at Junction 13</li>
+                  <li>Exit at Junction 14</li>
+                  <li>Follow signs to Stanwell Moor</li>
+                  <li>Turn left at Horton Road</li>
+                </ol>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: 20 minutes</p>
+              </CardBody>
+            </Card>
 
-            {/* From Ashford */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Ashford</h3>
-              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
-                <li>Head north on A30</li>
-                <li>Turn left onto A3044</li>
-                <li>Continue through Stanwell</li>
-                <li>Turn left onto Horton Road</li>
-                <li>The Anchor is on your right</li>
-              </ol>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 10 minutes</p>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From Ashford</h3>
+                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
+                  <li>Head north on A30</li>
+                  <li>Turn left onto A3044</li>
+                  <li>Continue through Stanwell</li>
+                  <li>Turn left onto Horton Road</li>
+                  <li>The Anchor is on your right</li>
+                </ol>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: 10 minutes</p>
+              </CardBody>
+            </Card>
 
-            {/* From Heathrow */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">From Heathrow</h3>
-              <p className="text-anchor-cream-text/70 mb-3">See our detailed terminal guides:</p>
-              <ul className="space-y-2">
-                <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 2</Link></li>
-                <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 3</Link></li>
-                <li><Link href="/near-heathrow/terminal-4" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 4</Link></li>
-                <li><Link href="/near-heathrow/terminal-5" className="text-anchor-gold-dark hover:text-anchor-gold"> From Terminal 5</Link></li>
-              </ul>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From Heathrow</h3>
+                <p className="text-ink-muted mb-3">See our detailed terminal guides:</p>
+                <ul className="space-y-2">
+                  <li><Link href="/near-heathrow/terminal-2" className="text-accent-text hover:text-anchor-green">From Terminal 2</Link></li>
+                  <li><Link href="/near-heathrow/terminal-3" className="text-accent-text hover:text-anchor-green">From Terminal 3</Link></li>
+                  <li><Link href="/near-heathrow/terminal-4" className="text-accent-text hover:text-anchor-green">From Terminal 4</Link></li>
+                  <li><Link href="/near-heathrow/terminal-5" className="text-accent-text hover:text-anchor-green">From Terminal 5</Link></li>
+                </ul>
+              </CardBody>
+            </Card>
 
-            {/* By Public Transport */}
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">By Bus</h3>
-              <div className="space-y-3 text-anchor-cream-text/70">
-                <p><strong className="text-anchor-cream-text">Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
-                <p className="text-sm">Ask driver for The Anchor stop</p>
-                <p className="text-sm text-anchor-gold-bright font-semibold">ULEZ Free Route</p>
-              </div>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">Regular service throughout the day</p>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">By Bus</h3>
+                <div className="space-y-3 text-ink-muted">
+                  <p><strong className="text-ink-strong">Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
+                  <p className="text-sm">Ask driver for The Anchor stop</p>
+                  <p className="text-sm text-accent-text font-semibold">ULEZ Free Route</p>
+                </div>
+                <p className="mt-4 text-sm text-ink-muted">Regular service throughout the day</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Parking Information */}
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="FREE Parking for Patrons - 20 Spaces Available!"
-              subtitle="Complimentary parking while you're enjoying our food and drinks"
+              lead="Complimentary parking while you're enjoying our food and drinks"
             />
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/30 p-8">
-              <div className="grid md:grid-cols-3 gap-6">
-                <div>
-                  <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-bright mb-2">ALWAYS FREE</h3>
-                  <p className="text-anchor-cream-text/70">Unlike Heathrow (£7.50/hour!)</p>
+            <Card accent>
+              <CardBody className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">ALWAYS FREE</h3>
+                    <p className="text-ink-muted">Unlike Heathrow (£7.50/hour!)</p>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">NO TIME LIMITS</h3>
+                    <p className="text-ink-muted">Stay as long as you like!</p>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">20 SPACES</h3>
+                    <p className="text-ink-muted">Well-lit with CCTV coverage</p>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-bright mb-2">NO TIME LIMITS</h3>
-                  <p className="text-anchor-cream-text/70">Stay as long as you like!</p>
+                <div className="mt-6 bg-surface-sunk rounded-sm border border-line p-4">
+                  <p className="text-ink-strong font-semibold text-lg">
+                    Compare: Heathrow T5 Short Stay = £7.50/hour | The Anchor = FREE!
+                  </p>
+                  <p className="text-sm text-ink-muted mt-2">
+                    Perfect for picking up/dropping off at Heathrow without the parking fees!
+                  </p>
                 </div>
-                <div>
-                  <div className="text-4xl mb-3"></div>
-                  <h3 className="font-bold text-anchor-gold-bright mb-2">20 SPACES</h3>
-                  <p className="text-anchor-cream-text/70">Well-lit with CCTV coverage</p>
-                </div>
-              </div>
-              <div className="mt-6 bg-anchor-green-deep rounded-none border border-anchor-gold-dark/15 p-4">
-                <p className="text-anchor-gold-bright font-bold text-lg">
-                  Compare: Heathrow T5 Short Stay = £7.50/hour | The Anchor = FREE!
-                </p>
-                <p className="text-sm text-anchor-cream-text/55 mt-2">
-                  Perfect for picking up/dropping off at Heathrow without the parking fees!
-                </p>
-              </div>
-            </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Book Your Visit Section */}
-      <Section className="bg-anchor-green" spacing="md">
+      <section className="theme-dark bg-anchor-green py-section-y">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeading
-              title="Found us? Book your visit"
-              subtitle="Reserve your table now and enjoy The Anchor experience"
-              className="text-white"
-            />
+            <h2 className="font-display text-h2 text-anchor-cream-text mb-2">Found us? Book your visit</h2>
+            <p className="text-anchor-cream-text/85 text-lg mb-8">Reserve your table now and enjoy The Anchor experience</p>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Ready to Book?</h3>
-              <p className="text-white/90 mb-8 text-lg">
-                Book your table online through our booking system or give us a call.
-              </p>
+            <Card variant="dark" accent>
+              <CardBody className="p-8">
+                <h3 className="font-display text-h3 text-anchor-cream-text mb-4">Ready to Book?</h3>
+                <p className="text-anchor-cream-text/85 mb-8 text-lg">
+                  Book your table online through our booking system or give us a call.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Link href="/book-table">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="!bg-anchor-gold-dark !text-anchor-green hover:!bg-anchor-gold"
-                  >
-                    Book a Table Online
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                  <Button asChild variant="primary" size="lg">
+                    <Link href="/book-table">Book a Table Online</Link>
                   </Button>
-                </Link>
-                <PhoneButton
-                  phone="01753682707"
-                  source="find_us_booking_alternative"
-                  variant="outline"
-                  size="lg"
-                  className="!bg-transparent !text-white !border-white hover:!bg-white/10"
-                >
-                  Call: 01753 682707
-                </PhoneButton>
-                <Link href="/join-our-team">
-                  <Button
+                  <PhoneButton
+                    phone="01753682707"
+                    source="find_us_booking_alternative"
                     variant="outline"
                     size="lg"
-                    className="!bg-transparent !text-white !border-white hover:!bg-white/10"
                   >
-                    Join Our Team
+                    Call: 01753 682707
+                  </PhoneButton>
+                  <Button asChild variant="outline" size="lg">
+                    <Link href="/join-our-team">Join Our Team</Link>
                   </Button>
-                </Link>
-              </div>
-
-              {/* Quick Info */}
-              <div className="grid md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-white/20">
-                <div className="space-y-3">
-                  <h4 className="text-lg font-semibold text-white mb-3">Good to Know</h4>
-                  <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <p className="text-white/90 text-sm">Free parking for patrons</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <p className="text-white/90 text-sm">Kitchen closed Mondays</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <p className="text-white/90 text-sm">Children always welcome</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <p className="text-white/90 text-sm">Dogs welcome in bar & garden</p>
-                  </div>
                 </div>
 
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-3">Opening Hours</h4>
-                  <BusinessHours showKitchen={false} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-line-gold text-left">
+                  <div className="space-y-3">
+                    <h4 className="text-lg font-semibold text-anchor-cream-text mb-3">Good to Know</h4>
+                    <p className="text-anchor-cream-text/85 text-sm">Free parking for patrons</p>
+                    <p className="text-anchor-cream-text/85 text-sm">Kitchen closed Mondays</p>
+                    <p className="text-anchor-cream-text/85 text-sm">Children always welcome</p>
+                    <p className="text-anchor-cream-text/85 text-sm">Dogs welcome in bar & garden</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-semibold text-anchor-cream-text mb-3">Opening Hours</h4>
+                    <WeekHours showKitchen={false} />
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Facilities */}
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Our Facilities"
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Entertainment & Games</h3>
-                <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Pool Table</strong> - Challenge your friends</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Darts Board</strong> - Professional setup with oche</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Jukebox</strong> - Wide selection of music</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Fruit Machine</strong> - Try your luck (18+)</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">4 TVs</strong> - Terrestrial channels for sports & news</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h3 text-ink-strong mb-6">Entertainment & Games</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li><strong className="text-ink-strong">Pool Table</strong> - Challenge your friends</li>
+                    <li><strong className="text-ink-strong">Darts Board</strong> - Professional setup with oche</li>
+                    <li><strong className="text-ink-strong">Jukebox</strong> - Wide selection of music</li>
+                    <li><strong className="text-ink-strong">Fruit Machine</strong> - Try your luck (18+)</li>
+                    <li><strong className="text-ink-strong">4 TVs</strong> - Terrestrial channels for sports & news</li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Work & Connectivity</h3>
-                <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Free WiFi</strong> - Fast, reliable, no time limits</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Power Points</strong> - Tables with plugs in dining room</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Quiet Weekdays</strong> - Perfect for remote work</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Free Parking for Patrons</strong> - While you visit</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-anchor-gold-dark"></span>
-                    <span><strong className="text-anchor-cream-text">Luggage Storage</strong> - Safe storage for travelers</span>
-                  </li>
-                </ul>
-              </div>
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h3 text-ink-strong mb-6">Work & Connectivity</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li><strong className="text-ink-strong">Free WiFi</strong> - Fast, reliable, no time limits</li>
+                    <li><strong className="text-ink-strong">Power Points</strong> - Tables with plugs in dining room</li>
+                    <li><strong className="text-ink-strong">Quiet Weekdays</strong> - Perfect for remote work</li>
+                    <li><strong className="text-ink-strong">Free Parking for Patrons</strong> - While you visit</li>
+                    <li><strong className="text-ink-strong">Luggage Storage</strong> - Safe storage for travelers</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
 
-            <div className="mt-8 bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6 text-center">Guest Services</h3>
-              <div className="grid md:grid-cols-3 gap-6 text-anchor-cream-text/70">
-                <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
+            <Card accent className="mt-8">
+              <CardBody className="p-8">
+                <h3 className="font-display text-h3 text-ink-strong mb-6 text-center">Guest Services</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-ink-muted">
                   <div>
-                    <strong className="text-anchor-cream-text">Dog Friendly</strong>
+                    <strong className="text-ink-strong">Dog Friendly</strong>
                     <p className="text-sm">Water bowls available</p>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
                   <div>
-                    <strong className="text-anchor-cream-text">Accessible Entry</strong>
+                    <strong className="text-ink-strong">Accessible Entry</strong>
                     <p className="text-sm">Ramp available at back door</p>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark text-xl mt-1"></span>
                   <div>
-                    <strong className="text-anchor-cream-text">All Cards Accepted</strong>
+                    <strong className="text-ink-strong">All Cards Accepted</strong>
                     <p className="text-sm">Including American Express</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardBody>
+            </Card>
 
-            <div className="mt-8 text-center bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-              <p className="text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-bright">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
-                featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
-                and a quiet weekday atmosphere, it's an ideal workspace near Heathrow.
-              </p>
-            </div>
+            <Card accent className="mt-8">
+              <CardBody className="text-center">
+                <p className="text-ink-muted">
+                  <strong className="text-accent-text">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
+                  featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
+                  and a quiet weekday atmosphere, it&apos;s an ideal workspace near Heathrow.
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <OrganicSearchClusterLinks
         cluster="workspace"
@@ -638,46 +550,26 @@ export default function FindUsPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're enjoying a meal, drinks, or booking an event, we make payment convenient with multiple options available."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
       {/* Map CTA */}
-      <CTASection
+      <CtaBand
         title="Get Directions"
-        description="Use your preferred map service to navigate directly to The Anchor"
-        buttons={[
-          {
-            text: "Google Maps",
-            href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-            variant: "white",
-            external: true,
-            isDirections: true,
-            directionsSource: "find_us_cta_google"
-          },
-          {
-            text: "Apple Maps",
-            href: "https://maps.apple.com/?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-            variant: "white",
-            external: true,
-            isDirections: true,
-            directionsSource: "find_us_cta_apple"
-          },
-          {
-            text: "Waze",
-            href: "https://www.waze.com/ul?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-            variant: "white",
-            external: true,
-            isDirections: true,
-            directionsSource: "find_us_cta_waze"
-          }
-        ]}
-        variant="green"
+        copy="Use your preferred map service to navigate directly to The Anchor"
       >
-        <div className="mt-12 bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
-          <p className="font-semibold mb-2">Sat Nav Postcode</p>
-          <p className="text-2xl font-bold">TW19 6AQ</p>
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ" source="find_us_cta_google" variant="primary" size="lg">Google Maps</DirectionsButton>
+            <DirectionsButton href="https://maps.apple.com/?q=The+Anchor+Stanwell+Moor+TW19+6AQ" source="find_us_cta_apple" variant="outline" size="lg">Apple Maps</DirectionsButton>
+            <DirectionsButton href="https://www.waze.com/ul?q=The+Anchor+Stanwell+Moor+TW19+6AQ" source="find_us_cta_waze" variant="outline" size="lg">Waze</DirectionsButton>
+          </div>
+          <div className="rounded-xs border border-line-gold bg-anchor-green-card p-6 max-w-md mx-auto">
+            <p className="font-semibold text-anchor-cream-text mb-2">Sat Nav Postcode</p>
+            <p className="font-display text-h3 text-anchor-cream-text">TW19 6AQ</p>
+          </div>
         </div>
-      </CTASection>
+      </CtaBand>
     </>
   )
 }

@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -39,95 +40,103 @@ export default function PubNearNovotelHeathrowPage() {
         lead="15 minutes away, independent British pub with proper food and draught beers"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Novotel London Heathrow
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at the Novotel Heathrow? The Anchor is just 15 minutes away, an independent British pub with home-cooked food from scratch, draught beers, and free parking. Among the best pubs near Heathrow Airport, we&apos;re a proper local experience with real character, well worth the short taxi ride from your hotel.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '15 Minutes', description: 'By taxi from Novotel Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–20', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, arrive by car and park free', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Genuinely Local', description: 'Independent pub, not a chain', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '15 Minutes', description: 'By taxi from Novotel Heathrow' },
+              { title: '~£15–20', description: 'Typical taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces, arrive by car and park free' },
+              { title: 'Genuinely Local', description: 'Independent pub, not a chain' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="An Independent Pub Alternative Near Novotel Heathrow"
-              subtitle="The Novotel is great for a comfortable stay near Heathrow, but for your evening meal, The Anchor offers something different: a genuine British community pub with food made from scratch every day."
+              lead="The Novotel is great for a comfortable stay near Heathrow, but for your evening meal, The Anchor offers something different: a genuine British community pub with food made from scratch every day."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What Makes The Anchor Different</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Independent pub, not a chain or hotel brand',
-                    'Food cooked from scratch daily',
-                    'Draught lagers, bottled ales and seasonal specials',
-                    'Dog-friendly beer garden',
-                    'Quiz nights, music bingo & live events',
-                    'Real community atmosphere',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Getting Here from Novotel Heathrow</h3>
-                <div className="space-y-3 text-anchor-cream-text/70">
-                  <div>
-                    <p className="font-semibold">By Taxi or Uber</p>
-                    <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey is approximately 15 minutes, costing around £15–20 each way.</p>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">What Makes The Anchor Different</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Independent pub, not a chain or hotel brand',
+                      'Food cooked from scratch daily',
+                      'Draught lagers, bottled ales and seasonal specials',
+                      'Dog-friendly beer garden',
+                      'Quiz nights, music bingo & live events',
+                      'Real community atmosphere',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Getting Here from Novotel Heathrow</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink">By Taxi or Uber</p>
+                      <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey is approximately 15 minutes, costing around £15–20 each way.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink">By Car</p>
+                      <p className="text-sm">Head south on the A3044 from the Heathrow area. Continue through Stanwell village and turn right onto Horton Road. The Anchor is on your left.</p>
+                    </div>
+                    <div className="pt-2 border-t border-line">
+                      <p className="text-sm font-medium text-ink">Postcode: <strong>TW19 6AQ</strong></p>
+                      <p className="text-sm text-ink-muted">Free parking, 20 spaces available</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">By Car</p>
-                    <p className="text-sm">Head south on the A3044 from the Heathrow area. Continue through Stanwell village and turn right onto Horton Road. The Anchor is on your left.</p>
-                  </div>
-                  <div className="pt-2 border-t border-anchor-gold-dark/15">
-                    <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-anchor-cream-text/70">Free parking, 20 spaces available</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading title="Great Value Deals Worth Knowing" />
             <div className="max-w-md mx-auto">
-              <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £16</p>
-                <p className="text-anchor-cream-text/70">Traditional British roast, pre-booking recommended</p>
-              </div>
+              <Card accent>
+                <CardBody className="p-6 text-center">
+                  <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
+                  <p className="font-display text-h3 text-accent-text mb-2">From £16</p>
+                  <p className="text-ink-muted">Traditional British roast, pre-booking recommended</p>
+                </CardBody>
+              </Card>
             </div>
             <div className="mt-6 text-center">
               <Link href="/food-menu">
@@ -138,29 +147,29 @@ export default function PubNearNovotelHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="info"
-              title="Early flight tomorrow?"
-              className="mt-6"
-              content={<p>Come for dinner the evening before. We open from 4pm on weekdays and noon at weekends.</p>}
-            />
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Early flight tomorrow?</h3>
+                <p className="text-ink-muted">Come for dinner the evening before. We open from 4pm on weekdays and noon at weekends.</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="A Proper Family Night Out Near Heathrow"
-              subtitle="Novotel is one of the most popular family hotels near Heathrow, and we completely understand why. But when the kids are bored of the hotel and everyone&rsquo;s hungry, The Anchor is exactly where you want to be."
+              lead="Novotel is one of the most popular family hotels near Heathrow, and we completely understand why. But when the kids are bored of the hotel and everyone&rsquo;s hungry, The Anchor is exactly where you want to be."
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 Getting here from Novotel on Cherry Lane is easy. A taxi takes about 12 minutes and costs approximately &pound;12&ndash;15. Pop the postcode TW19 6AQ into Uber or Bolt and you&rsquo;ll be door-to-door with no fuss.
               </p>
@@ -201,20 +210,23 @@ export default function PubNearNovotelHeathrowPage() {
             answer: 'Yes, use Uber or ask the Novotel reception to arrange a taxi. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 15 minutes and costs around £15–20.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
-      <CTASection
+      <CtaBand
         title="15 Minutes from Novotel Heathrow"
-        description="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'novotel_heathrow_cta', variant: 'white' },
-          { text: 'View Menu', href: '/food-menu', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 15 mins from Novotel Heathrow · Stanwell Moor, TW19 6AQ"
-      />
+        copy="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/food-menu">
+          <Button variant="outline" size="lg">View Menu</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
@@ -79,7 +80,7 @@ export default function BedfontPubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/bedfont-pub/find-us.jpg"
@@ -95,7 +96,7 @@ export default function BedfontPubPage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -103,11 +104,11 @@ export default function BedfontPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-cream-text mb-4"
+              className="mb-4"
             >
               Bedfont Pub - Traditional British Pub Near Bedfont
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Your local traditional pub just 5 minutes from Bedfont with free parking
             </p>
           </div>
@@ -115,187 +116,159 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="The Anchor - Bedfont's Best Kept Secret"
-              subtitle="Your nearest proper British pub - just 5 minutes from both East and West Bedfont"
+              lead="Your nearest proper British pub - just 5 minutes from both East and West Bedfont"
               className="text-center mb-12"
             />
 
             {/* Key Benefits Grid */}
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "5min",
-                  title: "Closest Pub",
-                  description: "Just 5 minutes from Bedfont - your nearest traditional pub",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Business Friendly",
-                  description: "Popular with Bedfont Lakes Business Park workers",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Community Hub",
-                  description: "Where East and West Bedfont residents meet",
-                  className: "text-center"
-                }
-              ]}
-              className="mb-12"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+              {[
+                { title: "Closest Pub", description: "Just 5 minutes from Bedfont - your nearest traditional pub" },
+                { title: "Business Friendly", description: "Popular with Bedfont Lakes Business Park workers" },
+                { title: "Community Hub", description: "Where East and West Bedfont residents meet" },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
 
             {/* Why Choose Us */}
-            <div className="card-dark rounded-none p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">
-                Why Bedfont Residents Love The Anchor
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="text-anchor-gold-dark mr-3"></span>
-                  <span>Your nearest traditional pub - no need to travel to Feltham or Staines</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-anchor-gold-dark mr-3"></span>
-                  <span>Perfect meeting point for East and West Bedfont friends</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-anchor-gold-dark mr-3"></span>
-                  <span>Free parking for all - essential for family gatherings</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-anchor-gold-dark mr-3"></span>
-                  <span>Dog-friendly throughout - perfect for Bedfont dog walkers</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-anchor-gold-dark mr-3"></span>
-                  <span>Regular quiz nights popular with Bedfont teams</span>
-                </li>
-              </ul>
-            </div>
+            <Card accent>
+              <CardBody className="p-8">
+                <h3 className="font-display text-h3 text-ink-strong mb-6">
+                  Why Bedfont Residents Love The Anchor
+                </h3>
+                <ul className="space-y-4 text-ink">
+                  {[
+                    'Your nearest traditional pub - no need to travel to Feltham or Staines',
+                    'Perfect meeting point for East and West Bedfont friends',
+                    'Free parking for all - essential for family gatherings',
+                    'Dog-friendly throughout - perfect for Bedfont dog walkers',
+                    'Regular quiz nights popular with Bedfont teams',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start">
+                      <span className="text-accent-text font-bold mr-3">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Easy to Find from Bedfont"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-bold text-xl mb-4">From East Bedfont</h3>
-                <ol className="space-y-3">
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
-                    Head west on Staines Road from Bedfont Green
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
-                    Continue for 0.8 miles past the cemetery
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
-                    Turn left onto Horton Road
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
-                    The Anchor is 0.5 miles on your left
-                  </li>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From East Bedfont</h3>
+                <ol className="space-y-3 text-ink">
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">1.</span>Head west on Staines Road from Bedfont Green</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">2.</span>Continue for 0.8 miles past the cemetery</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">3.</span>Turn left onto Horton Road</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">4.</span>The Anchor is 0.5 miles on your left</li>
                 </ol>
               </div>
-              
+
               <div>
-                <h3 className="font-bold text-xl mb-4">From West Bedfont</h3>
-                <ol className="space-y-3">
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">1.</span>
-                    Take Bedfont Road heading south
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">2.</span>
-                    Turn left onto Staines Road
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">3.</span>
-                    After 0.3 miles, turn left onto Horton Road
-                  </li>
-                  <li className="flex">
-                    <span className="text-anchor-gold-dark font-bold mr-3">4.</span>
-                    The Anchor is on your left with parking
-                  </li>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">From West Bedfont</h3>
+                <ol className="space-y-3 text-ink">
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">1.</span>Take Bedfont Road heading south</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">2.</span>Turn left onto Staines Road</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">3.</span>After 0.3 miles, turn left onto Horton Road</li>
+                  <li className="flex"><span className="text-accent-text font-bold mr-3">4.</span>The Anchor is on your left with parking</li>
                 </ol>
               </div>
             </div>
 
-            <div className="mt-8 p-6 card-dark rounded-none">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-3">From Bedfont Lakes Business Park</h3>
-              <p className="text-anchor-cream-text/70">
-                Just 7 minutes via Bedfont Road and Staines Road. Perfect for lunch meetings, after-work drinks, 
-                or team celebrations. We offer reserved areas for corporate groups.
-              </p>
-            </div>
+            <Card accent className="mt-8">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-3">From Bedfont Lakes Business Park</h3>
+                <p className="text-ink-muted">
+                  Just 7 minutes via Bedfont Road and Staines Road. Perfect for lunch meetings, after-work drinks,
+                  or team celebrations. We offer reserved areas for corporate groups.
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Local Features */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Perfect for Bedfont Locals"
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
-                <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Family Gatherings</h3>
-                <p className="text-anchor-cream-text/70 mb-4">
-                  The go-to venue for Bedfont family celebrations
-                </p>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Children's menu available</li>
-                  <li>• High chairs provided</li>
-                  <li>• Family-friendly - children always welcome</li>
-                  <li>• Birthday party packages</li>
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
-                <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Local Groups Welcome</h3>
-                <p className="text-anchor-cream-text/70 mb-4">
-                  Home to many Bedfont clubs and societies
-                </p>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Monthly quiz nights with local teams</li>
-                  <li>• Darts league participants</li>
-                  <li>• Book clubs meet here</li>
-                  <li>• Walking groups finish point</li>
-                </ul>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Family Gatherings</h3>
+                  <p className="text-ink-muted mb-4">
+                    The go-to venue for Bedfont family celebrations
+                  </p>
+                  <ul className="space-y-2 text-ink">
+                    <li>• Children's menu available</li>
+                    <li>• High chairs provided</li>
+                    <li>• Family-friendly - children always welcome</li>
+                    <li>• Birthday party packages</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Local Groups Welcome</h3>
+                  <p className="text-ink-muted mb-4">
+                    Home to many Bedfont clubs and societies
+                  </p>
+                  <ul className="space-y-2 text-ink">
+                    <li>• Monthly quiz nights with local teams</li>
+                    <li>• Darts league participants</li>
+                    <li>• Book clubs meet here</li>
+                    <li>• Walking groups finish point</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
 
             <div className="mt-8 text-center">
-              <h3 className="font-bold text-xl text-anchor-gold-bright mb-4">Weekly Highlights for Bedfont</h3>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Weekly Highlights for Bedfont</h3>
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="card-dark rounded-none p-4">
-                  <p className="font-bold">Tuesday</p>
-                  <p className="text-anchor-cream-text/70">Stone-Baked Pizza Night</p>
-                </div>
-                <div className="card-dark rounded-none p-4">
-                  <p className="font-bold">Wednesday</p>
-                  <p className="text-anchor-cream-text/70">Quiz Night</p>
-                </div>
-                <div className="card-dark rounded-none p-4">
-                  <p className="font-bold">Saturday</p>
-                  <p className="text-anchor-cream-text/70">Music Bingo with Nikki Manfadge (see /whats-on)</p>
-                </div>
+                <Card accent>
+                  <CardBody className="p-4">
+                    <p className="font-semibold text-ink">Tuesday</p>
+                    <p className="text-ink-muted">Stone-Baked Pizza Night</p>
+                  </CardBody>
+                </Card>
+                <Card accent>
+                  <CardBody className="p-4">
+                    <p className="font-semibold text-ink">Wednesday</p>
+                    <p className="text-ink-muted">Quiz Night</p>
+                  </CardBody>
+                </Card>
+                <Card accent>
+                  <CardBody className="p-4">
+                    <p className="font-semibold text-ink">Saturday</p>
+                    <p className="text-ink-muted">Music Bingo with Nikki Manfadge (see /whats-on)</p>
+                  </CardBody>
+                </Card>
               </div>
             </div>
           </div>
@@ -303,13 +276,13 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Bedfont&rsquo;s Proper Local, Just Round the Corner"
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 If you live in Bedfont, you already know the area&rsquo;s a bit short on proper pubs. The choices are mostly chains in Feltham or a trek into Staines. The Anchor changes that equation completely, we&rsquo;re about eight minutes away, and the drive couldn&rsquo;t be simpler. From Bedfont Lane, head down the A30 or cut through on Staines Road, turn onto Horton Road, and you&rsquo;re here. Close enough for a weekday evening pint without it feeling like a mission.
               </p>
@@ -328,7 +301,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -340,7 +313,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Bedfont?",
@@ -355,35 +328,24 @@ export default function BedfontPubPage() {
             answer: "Yes! We're very popular with workers from Bedfont Lakes Business Park. We offer versatile venue spaces for corporate events, team meetings, and celebrations. With comprehensive catering options and our preferred vendor network, we're perfect for business functions. Just 7 minutes away with free parking."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Your Nearest Traditional Pub"
-        description="Join your Bedfont neighbours at The Anchor - where everyone knows your name"
-        buttons={[
-          {
-            text: " Call: 01753 682707",
-            href: "tel:+441753682707",
-            isPhone: true,
-            phoneSource: "bedfont_pub_cta",
-            variant: "white"
-          },
-          {
-            text: " Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: " Get Directions",
-            href: "/find-us",
-            variant: "white"
-          }
-        ]}
-        variant="green"
-        footer="Horton Road, Stanwell Moor, Surrey TW19 6AQ"
-      />
+        copy="Join your Bedfont neighbours at The Anchor - where everyone knows your name"
+      >
+        <Link href="tel:+441753682707">
+          <Button variant="primary" size="lg">Call: 01753 682707</Button>
+        </Link>
+        <Link href="/private-hire#enquiry">
+          <Button variant="outline" size="lg">Book an Event</Button>
+        </Link>
+        <Link href="/find-us">
+          <Button variant="outline" size="lg">Get Directions</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

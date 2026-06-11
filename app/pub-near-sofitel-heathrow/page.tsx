@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -54,13 +55,13 @@ export default function PubNearSofitelHeathrowPage() {
         lead="Just 7 minutes from Terminal 5, authentic British pub at half the hotel price"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Sofitel London Heathrow Terminal 5
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at the Sofitel? The Anchor is just 7 minutes away, real British pub food, proper pints, and free parking at a fraction of hotel prices. We&apos;re one of the best pubs near Heathrow Airport for guests who want a proper local experience over hotel dining.
             </p>
           </div>
@@ -68,80 +69,92 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Key facts */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces if you\'re driving', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Half Price', description: 'vs Sofitel restaurant mains', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5' },
+              { title: '~£12–15', description: 'Taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces if you\'re driving' },
+              { title: 'Half Price', description: 'vs Sofitel restaurant mains' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Why The Anchor over Sofitel dining */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Real Pub Experience Near Sofitel Heathrow"
-              subtitle="The Sofitel is one of the finest airport hotels in the world, but for a proper British pub night, The Anchor is your answer."
+              lead="The Sofitel is one of the finest airport hotels in the world, but for a proper British pub night, The Anchor is your answer."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What You Get at The Anchor</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Home-cooked British food from £8.99',
-                    'Draught beers and lagers',
-                    'Warm, unpretentious pub atmosphere',
-                    'Dog-friendly beer garden',
-                    'No dress code, no pressure',
-                    'Full VAT receipts for business expenses',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Sofitel T5</h3>
-                <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
-                  <li>Exit Sofitel, head north on Northern Perimeter Rd</li>
-                  <li>Turn left at Stanwell Moor Road</li>
-                  <li>Continue to Horton Road</li>
-                  <li>The Anchor is on your right</li>
-                </ol>
-                <p className="mt-4 text-sm text-anchor-cream-text/70 font-medium">Postcode for sat-nav: TW19 6AQ</p>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">Or tell your taxi driver: "The Anchor pub, Stanwell Moor"</p>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">What You Get at The Anchor</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Home-cooked British food from £8.99',
+                      'Draught beers and lagers',
+                      'Warm, unpretentious pub atmosphere',
+                      'Dog-friendly beer garden',
+                      'No dress code, no pressure',
+                      'Full VAT receipts for business expenses',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Directions from Sofitel T5</h3>
+                  <ol className="space-y-2 text-ink-muted list-decimal list-inside">
+                    <li>Exit Sofitel, head north on Northern Perimeter Rd</li>
+                    <li>Turn left at Stanwell Moor Road</li>
+                    <li>Continue to Horton Road</li>
+                    <li>The Anchor is on your right</li>
+                  </ol>
+                  <p className="mt-4 text-sm text-ink font-medium">Postcode for sat-nav: TW19 6AQ</p>
+                  <p className="mt-2 text-sm text-ink-muted">Or tell your taxi driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
       {/* Food highlights */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading title="What Sofitel Guests Order at The Anchor" />
-            <FeatureGrid
-              columns={3}
-              features={[
-                { icon: '', title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, a British institution worth experiencing', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+              {[
+                { title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas' },
+                { title: 'Sunday Roast', description: 'Traditional roast from £16, a British institution worth experiencing' },
+                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing' },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
             <div className="text-center">
               <Link href="/food-menu">
                 <Button variant="outline" size="lg">View Full Menu</Button>
@@ -152,17 +165,17 @@ export default function PubNearSofitelHeathrowPage() {
       </section>
 
       {/* Opening hours */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="info"
-              title="Planning an early flight?"
-              className="mt-6"
-              content={<p>We open from noon on weekends and 4pm weekdays. Perfect for a pre-flight dinner the evening before.</p>}
-            />
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Planning an early flight?</h3>
+                <p className="text-ink-muted">We open from noon on weekends and 4pm weekdays. Perfect for a pre-flight dinner the evening before.</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
@@ -190,20 +203,23 @@ export default function PubNearSofitelHeathrowPage() {
             answer: 'Yes, our staff can help you call a taxi, or you can use Uber from the pub. The return journey to Sofitel Heathrow Terminal 5 typically takes 7–10 minutes and costs £12–15.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
-      <CTASection
+      <CtaBand
         title="7 Minutes from Sofitel, Worth Every Second"
-        description="Authentic British pub food and draught beers at honest prices. Book a table or just walk in."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'sofitel_heathrow_cta', variant: 'white' },
-          { text: 'View Menu', href: '/food-menu', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 7 mins from Sofitel Heathrow T5 · TW19 6AQ"
-      />
+        copy="Authentic British pub food and draught beers at honest prices. Book a table or just walk in."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/food-menu">
+          <Button variant="outline" size="lg">View Menu</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

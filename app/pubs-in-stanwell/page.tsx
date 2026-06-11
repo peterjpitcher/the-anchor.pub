@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -78,7 +79,7 @@ export default async function PubsInStanwellPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localPubSchema) }}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
@@ -88,10 +89,10 @@ export default async function PubsInStanwellPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <PageTitle 
-            className="text-center text-anchor-cream-text"
+          <PageTitle
+            className="text-center"
             seo={{ structured: true, speakable: true }}
           >
             Pubs in Stanwell Moor - The Anchor Village Pub &amp; Beer Garden
@@ -100,316 +101,224 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Why We're Stanwell's Favourite Local */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="Why The Anchor is Stanwell Moor's Favourite Village Pub"
-              subtitle="A proper local at the heart of Stanwell Moor"
+              lead="A proper local at the heart of Stanwell Moor"
             />
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <InfoBoxGrid
-                columns={1}
-                boxes={[
-                  {
-                    title: "A True Village Pub",
-                    content: (
-                      <div className="space-y-3">
-                        <p className="text-anchor-cream-text/70">
-                          Located on Horton Road in the heart of Stanwell Moor, we've been 
-                          the village's gathering place for nearly 30 years. Unlike chain pubs, 
-                          we're independently run with genuine local character.
-                        </p>
-                        <ul className="space-y-2 text-anchor-cream-text/70">
-                          <li>Family-owned and operated</li>
-                          <li>Know our regulars by name</li>
-                          <li>Support local events and causes</li>
-                          <li>Traditional pub atmosphere</li>
-                          <li>Community hub since 1995</li>
-                        </ul>
-                      </div>
-                    ),
-                    variant: "colored",
-                    color: "card-dark rounded-none p-6"
-                  }
-                ]}
-              />
-              
-              <InfoBoxGrid
-                columns={1}
-                boxes={[
-                  {
-                    title: "What Makes Us Special",
-                    content: (
-                      <div className="space-y-3">
-                        <p className="text-anchor-cream-text/70">
-                          We're not just another pub - we're your local. From our famous 
-                          Sunday roasts to stone-baked pizzas, we offer something for everyone 
-                          in a warm, welcoming environment.
-                        </p>
-                        <ul className="space-y-2 text-anchor-cream-text/70">
-                          <li>Home-cooked British food</li>
-                          <li>Draught beers and chilled lagers</li>
-                          <li>Large beer garden</li>
-                          <li>Live entertainment</li>
-                          <li>Free parking always</li>
-                        </ul>
-                      </div>
-                    ),
-                    variant: "colored",
-                    color: "card-dark rounded-none p-6"
-                  }
-                ]}
-              />
+
+            <div className="grid md:grid-cols-2 gap-5 mb-12">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">A True Village Pub</h3>
+                  <div className="space-y-3">
+                    <p className="text-ink-muted">
+                      Located on Horton Road in the heart of Stanwell Moor, we've been
+                      the village's gathering place for nearly 30 years. Unlike chain pubs,
+                      we're independently run with genuine local character.
+                    </p>
+                    <ul className="space-y-2 text-ink-muted">
+                      <li>Family-owned and operated</li>
+                      <li>Know our regulars by name</li>
+                      <li>Support local events and causes</li>
+                      <li>Traditional pub atmosphere</li>
+                      <li>Community hub since 1995</li>
+                    </ul>
+                  </div>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">What Makes Us Special</h3>
+                  <div className="space-y-3">
+                    <p className="text-ink-muted">
+                      We're not just another pub - we're your local. From our famous
+                      Sunday roasts to stone-baked pizzas, we offer something for everyone
+                      in a warm, welcoming environment.
+                    </p>
+                    <ul className="space-y-2 text-ink-muted">
+                      <li>Home-cooked British food</li>
+                      <li>Draught beers and chilled lagers</li>
+                      <li>Large beer garden</li>
+                      <li>Live entertainment</li>
+                      <li>Free parking always</li>
+                    </ul>
+                  </div>
+                </CardBody>
+              </Card>
             </div>
 
             {/* Location Benefits */}
-            <AlertBox
-              variant="info"
-              title="Perfectly Located in Stanwell Moor"
-              className="max-w-4xl mx-auto"
-              content={
-                <div className="mt-2">
-                  <p className="text-anchor-cream-text/70 mb-3">
-                    Easily accessible from all surrounding areas:
-                  </p>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <ul className="space-y-1 text-sm">
-                      <li>• Stanwell Village: 5 mins</li>
-                      <li>• Staines: 8 mins</li>
-                      <li>• Ashford: 10 mins</li>
-                    </ul>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Heathrow T5: 7 mins</li>
-                      <li>• Feltham: 10 mins</li>
-                      <li>• Sunbury: 12 mins</li>
-                    </ul>
-                    <ul className="space-y-1 text-sm">
-                      <li>• M25 Junction 14: 3 mins</li>
-                      <li>• Outside ULEZ zone</li>
-                      <li>• 20 free parking spaces</li>
-                    </ul>
-                  </div>
+            <Card accent className="max-w-4xl mx-auto">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Perfectly Located in Stanwell Moor</h3>
+                <p className="text-ink-muted mb-3">
+                  Easily accessible from all surrounding areas:
+                </p>
+                <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
+                  <ul className="space-y-1 text-sm">
+                    <li>• Stanwell Village: 5 mins</li>
+                    <li>• Staines: 8 mins</li>
+                    <li>• Ashford: 10 mins</li>
+                  </ul>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Heathrow T5: 7 mins</li>
+                    <li>• Feltham: 10 mins</li>
+                    <li>• Sunbury: 12 mins</li>
+                  </ul>
+                  <ul className="space-y-1 text-sm">
+                    <li>• M25 Junction 14: 3 mins</li>
+                    <li>• Outside ULEZ zone</li>
+                    <li>• 20 free parking spaces</li>
+                  </ul>
                 </div>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* What We Offer */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="Everything You Want from Your Local Pub"
-              subtitle="Great food, drinks, atmosphere and more"
+              lead="Great food, drinks, atmosphere and more"
             />
-            
-            <FeatureGrid
-              columns={4}
-              features={[
-                {
-                  icon: "",
-                  title: "Great Drinks Selection",
-                  description: "Draught lagers, bottled ales, wines, spirits and soft drinks",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Home-Cooked Food",
-                  description: "Traditional British pub food cooked fresh daily",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Beautiful Beer Garden",
-                  description: "Spacious outdoor area perfect for sunny days",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Live Entertainment",
-                  description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)",
-                  className: "text-center"
-                },
-                {
-                  icon: "‍‍‍",
-                  title: "Family Friendly",
-                  description: "Children welcome with kids menu available",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Sports Coverage",
-                  description: "Major sporting events on our screens",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Private Functions",
-                  description: "Host your special occasions with us",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Free Parking",
-                  description: "20 spaces - no parking stress",
-                  className: "text-center"
-                }
-              ]}
-            />
-          </div>
-        </Container>
-      </section>
 
-      {/* Compare to Other Pubs */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              title="How We Compare to Other Local Pubs"
-              subtitle="Why locals choose The Anchor"
-            />
-            
-            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">The Anchor Advantages</h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1"></span>
-                      <div>
-                        <strong>Free Parking:</strong> 20 spaces always available
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1"></span>
-                      <div>
-                        <strong>Kitchen Hours:</strong> Food served lunch & dinner most days
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1"></span>
-                      <div>
-                        <strong>Outdoor Space:</strong> Large beer garden with covered area
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1"></span>
-                      <div>
-                        <strong>Value:</strong> Proper pub prices, not tourist rates
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1"></span>
-                      <div>
-                        <strong>Entertainment:</strong> Regular events and live shows
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-bold text-anchor-cream-text/70 mb-4">Nearby Alternatives</h3>
-                  <div className="space-y-4 text-anchor-cream-text/70">
-                    <div>
-                      <p className="font-semibold">The George (Stanwell)</p>
-                      <p className="text-sm">Good pub but limited parking</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold">The Bells (Staines)</p>
-                      <p className="text-sm">Town center location, paid parking</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold">Airport Pubs</p>
-                      <p className="text-sm">Convenient but 3x the price</p>
-                    </div>
-                    <div className="pt-3 border-t border-anchor-gold-dark/15">
-                      <p className="font-bold text-anchor-cream-text">
-                        The Anchor offers the best combination of location, 
-                        parking, food, and atmosphere
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                { title: "Great Drinks Selection", description: "Draught lagers, bottled ales, wines, spirits and soft drinks" },
+                { title: "Home-Cooked Food", description: "Traditional British pub food cooked fresh daily" },
+                { title: "Beautiful Beer Garden", description: "Spacious outdoor area perfect for sunny days" },
+                { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)" },
+                { title: "Family Friendly", description: "Children welcome with kids menu available" },
+                { title: "Sports Coverage", description: "Major sporting events on our screens" },
+                { title: "Private Functions", description: "Host your special occasions with us" },
+                { title: "Free Parking", description: "20 spaces - no parking stress" },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
           </div>
         </Container>
       </section>
 
+      {/* Compare to Other Pubs */}
+      <section className="py-section-y bg-surface">
+        <Container>
+          <div className="max-w-5xl mx-auto">
+            <SectionHeading
+              title="How We Compare to Other Local Pubs"
+              lead="Why locals choose The Anchor"
+            />
+
+            <Card accent>
+              <CardBody className="p-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-4">The Anchor Advantages</h3>
+                    <ul className="space-y-3 text-ink">
+                      <li className="flex items-start gap-2">
+                        <span className="text-accent-text mt-1">✓</span>
+                        <div><strong>Free Parking:</strong> 20 spaces always available</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-accent-text mt-1">✓</span>
+                        <div><strong>Kitchen Hours:</strong> Food served lunch & dinner most days</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-accent-text mt-1">✓</span>
+                        <div><strong>Outdoor Space:</strong> Large beer garden with covered area</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-accent-text mt-1">✓</span>
+                        <div><strong>Value:</strong> Proper pub prices, not tourist rates</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-accent-text mt-1">✓</span>
+                        <div><strong>Entertainment:</strong> Regular events and live shows</div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-4">Nearby Alternatives</h3>
+                    <div className="space-y-4 text-ink-muted">
+                      <div>
+                        <p className="font-semibold text-ink">The George (Stanwell)</p>
+                        <p className="text-sm">Good pub but limited parking</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-ink">The Bells (Staines)</p>
+                        <p className="text-sm">Town center location, paid parking</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-ink">Airport Pubs</p>
+                        <p className="text-sm">Convenient but 3x the price</p>
+                      </div>
+                      <div className="pt-3 border-t border-line">
+                        <p className="font-bold text-ink">
+                          The Anchor offers the best combination of location,
+                          parking, food, and atmosphere
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </Container>
+      </section>
+
       {/* Weekly Schedule */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Something Special Every Day"
-              subtitle="Our weekly lineup of food and events"
+              lead="Our weekly lineup of food and events"
             />
-            
+
             <div className="grid gap-4">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Monday</h3>
-                  <p className="text-anchor-cream-text/70">Bar open all day • Kitchen closed • Perfect for drinks</p>
-                </div>
-              </div>
-              
-              <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Tuesday - Pizza Night</h3>
-                  <p className="text-anchor-cream-text/70">Stone-baked pizzas • Kitchen 6pm-9pm</p>
-                </div>
-              </div>
-              
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Wednesday-Thursday</h3>
-                  <p className="text-anchor-cream-text/70">Full menu available • Kitchen 6pm-9pm</p>
-                </div>
-              </div>
-              
-              <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Friday - Fish & Chips</h3>
-                  <p className="text-anchor-cream-text/70">Fish & chips served • Kitchen 6pm-9pm</p>
-                </div>
-              </div>
-              
-              <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Saturday - Entertainment Night</h3>
-                  <p className="text-anchor-cream-text/70">Hosted nights & one-off events • See /whats-on for details</p>
-                </div>
-              </div>
-              
-              <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl"></div>
-                <div className="flex-1">
-                  <h3 className="font-bold">Sunday - Roast Day</h3>
-                  <p className="text-anchor-cream-text/70">Traditional Sunday roast • Kitchen 1pm-6pm</p>
-                </div>
-              </div>
+              {[
+                { day: "Monday", text: "Bar open all day • Kitchen closed • Perfect for drinks" },
+                { day: "Tuesday - Pizza Night", text: "Stone-baked pizzas • Kitchen 6pm-9pm" },
+                { day: "Wednesday-Thursday", text: "Full menu available • Kitchen 6pm-9pm" },
+                { day: "Friday - Fish & Chips", text: "Fish & chips served • Kitchen 6pm-9pm" },
+                { day: "Saturday - Entertainment Night", text: "Hosted nights & one-off events • See /whats-on for details" },
+                { day: "Sunday - Roast Day", text: "Traditional Sunday roast • Kitchen 1pm-6pm" },
+              ].map((row) => (
+                <Card key={row.day} accent>
+                  <CardBody className="p-4">
+                    <h3 className="font-display text-h4 text-ink-strong">{row.day}</h3>
+                    <p className="text-ink-muted">{row.text}</p>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
           </div>
         </Container>
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="A Local&rsquo;s Guide to Stanwell Moor"
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west, and The Anchor sits right at the heart of it, the village&rsquo;s gathering place for nearly three decades.
               </p>
@@ -428,7 +337,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -443,16 +352,16 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "What makes The Anchor the best pub in Stanwell Moor?",
             answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1995. We offer free parking, a large beer garden, home-cooked food, regular entertainment, and a genuine local atmosphere. Our combination of location, facilities, and friendly service makes us the preferred choice for locals."
           },
-	          {
-	            question: "Do you have parking at the pub?",
-	            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
-	          },
+          {
+            question: "Do you have parking at the pub?",
+            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
+          },
           {
             question: "Are families welcome at The Anchor?",
             answer: "Absolutely! We're a family-friendly pub with a children's menu available. Kids are welcome throughout the pub and in our beer garden. We provide a relaxed atmosphere where families can enjoy meals together."
@@ -474,33 +383,24 @@ export default async function PubsInStanwellPage() {
             answer: "Yes! We offer flexible function room hire for parties, celebrations, wakes, and corporate events. Our room bookings suit 10-50 people, with larger events by enquiry and various catering options. Contact us on 01753 682707 to discuss your requirements."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Visit Your Local Pub Today"
-        description="Great food, free parking, and a warm welcome await"
-        buttons={[
-          {
-            text: "Book a Table",
-            href: "/book-table",
-            variant: "primary"
-          },
-          {
-            text: "Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: "Get Directions",
-            href: "https://maps.google.com/?q=The+Anchor+Stanwell+Moor",
-            variant: "outline"
-          }
-        ]}
-        variant="green"
-        footer="The Anchor • Horton Road, Stanwell Moor • Your Local Since 1995"
-      />
+        copy="Great food, free parking, and a warm welcome await"
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href="/private-hire#enquiry">
+          <Button variant="outline" size="lg">Book an Event</Button>
+        </Link>
+        <Link href="https://maps.google.com/?q=The+Anchor+Stanwell+Moor">
+          <Button variant="outline" size="lg">Get Directions</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

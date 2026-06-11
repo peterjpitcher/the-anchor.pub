@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Badge, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES } from '@/lib/constants'
@@ -111,44 +112,46 @@ export default function StainesPubPage() {
         }
       />
 
-      <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-none p-6">
-            <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Why We&apos;re One of the Best Pubs Near Staines-upon-Thames</h2>
-            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>8 minute drive from Staines High Street with free parking</span>
+          <Card accent className="max-w-5xl mx-auto">
+            <CardBody className="p-6">
+              <h2 className="font-display text-h3 text-ink-strong mb-3">Why We&apos;re One of the Best Pubs Near Staines-upon-Thames</h2>
+              <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
+                <div className="flex items-start gap-2">
+                  <span className="font-semibold text-accent-text">•</span>
+                  <span>8 minute drive from Staines High Street with free parking</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-semibold text-accent-text">•</span>
+                  <span>Sunday roasts, stone-baked pizzas and seasonal specials</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-semibold text-accent-text">•</span>
+                  <span>Hosted nights like Music Bingo with Nikki Manfadge, quiz nights and charity bingo</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="font-semibold text-accent-text">•</span>
+                  <span>Family-friendly seating with kids menu and space for buggies</span>
+                </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>Sunday roasts, stone-baked pizzas and seasonal specials</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>Hosted nights like Music Bingo with Nikki Manfadge, quiz nights and charity bingo</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark">‍‍‍</span>
-                <span>Family-friendly seating with kids menu and space for buggies</span>
-              </div>
-            </div>
-          </div>
+            </CardBody>
+          </Card>
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <PageTitle
-            className="text-center text-anchor-cream-text"
+            className="text-center"
             seo={{ structured: true, speakable: true }}
           >
             Pub Near Staines-upon-Thames, The Anchor
@@ -157,108 +160,73 @@ export default function StainesPubPage() {
       </section>
 
       {/* Why Choose The Anchor */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="Why Locals Choose Us Over Other Pubs in Staines"
-              subtitle="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
+              lead="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
               className="text-center mb-12"
             />
 
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "Easy Access from Staines",
-                  description: `8 minutes via A30\nFree parking for ${PARKING.capacity} cars\nRegular bus service`,
-                  className: "text-center"
-                },
-	                {
-	                  icon: "",
-	                  title: "Famous Sunday Roasts",
-	                  description: "Our renowned roasts\nServed 1pm-6pm\nWalk in or book ahead, no pre-order needed\nRegular menu also available",
-	                  className: "text-center"
-	                },
-                {
-                  icon: "",
-                  title: "Unique Entertainment",
-                  description: "Hosted nights like Music Bingo with Nikki Manfadge\nQuiz nights and bingo\nSee /whats-on for the latest",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Stone-Baked Pizzas",
-                  description: "Hand-stretched bases\nRich tomato sauce\nGenerous toppings",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Beer Garden Paradise",
-                  description: "Dog-friendly outdoor space\nHeathrow plane spotting",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Community Hub",
-                  description: "Private function room\nBirthday parties welcome\nCorporate events catered",
-                  className: "text-center"
-                }
-              ]}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { title: "Easy Access from Staines", description: `8 minutes via A30\nFree parking for ${PARKING.capacity} cars\nRegular bus service` },
+                { title: "Famous Sunday Roasts", description: "Our renowned roasts\nServed 1pm-6pm\nWalk in or book ahead, no pre-order needed\nRegular menu also available" },
+                { title: "Unique Entertainment", description: "Hosted nights like Music Bingo with Nikki Manfadge\nQuiz nights and bingo\nSee /whats-on for the latest" },
+                { title: "Stone-Baked Pizzas", description: "Hand-stretched bases\nRich tomato sauce\nGenerous toppings" },
+                { title: "Beer Garden Paradise", description: "Dog-friendly outdoor space\nHeathrow plane spotting" },
+                { title: "Community Hub", description: "Private function room\nBirthday parties welcome\nCorporate events catered" },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted whitespace-pre-line">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
             title="Private Rooms & Event Hire Near Staines"
-            subtitle="Flexible spaces for celebrations, parties and family gatherings."
+            lead="Flexible spaces for celebrations, parties and family gatherings."
           />
-          <InfoBoxGrid
-            columns={2}
-            boxes={[
-              {
-                title: "Private rooms near Staines",
-                content: (
-                  <>
-                    <p className="mb-4 text-anchor-cream-text/70">
-                      Planning a birthday, wake or team night? Our private dining room is a popular option for
-                      groups searching for pubs with private rooms in Staines, with free parking and tailored menus.
-                    </p>
-                    <Link href="/function-room-hire" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
-                      Explore function room hire →
-                    </Link>
-                  </>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-card"
-              },
-              {
-                title: "Event hire in the Staines area",
-                content: (
-                  <>
-                    <p className="mb-4 text-anchor-cream-text/70">
-                      We host private events near Staines with flexible layouts, buffet or three-course menus,
-                      and dedicated support for speeches and playlists.
-                    </p>
-                    <Link href="/private-party-venue" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
-                      View private party options →
-                    </Link>
-                  </>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-card"
-              }
-            ]}
-          />
+          <div className="grid md:grid-cols-2 gap-5">
+            <Card accent>
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-3">Private rooms near Staines</h3>
+                <p className="mb-4 text-ink-muted">
+                  Planning a birthday, wake or team night? Our private dining room is a popular option for
+                  groups searching for pubs with private rooms in Staines, with free parking and tailored menus.
+                </p>
+                <Link href="/function-room-hire" className="text-accent-text font-semibold hover:underline transition">
+                  Explore function room hire →
+                </Link>
+              </CardBody>
+            </Card>
+            <Card accent>
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-3">Event hire in the Staines area</h3>
+                <p className="mb-4 text-ink-muted">
+                  We host private events near Staines with flexible layouts, buffet or three-course menus,
+                  and dedicated support for speeches and playlists.
+                </p>
+                <Link href="/private-party-venue" className="text-accent-text font-semibold hover:underline transition">
+                  View private party options →
+                </Link>
+              </CardBody>
+            </Card>
+          </div>
         </Container>
       </section>
 
       {/* Journey from Staines */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -266,69 +234,48 @@ export default function StainesPubPage() {
               className="text-center mb-12"
             />
 
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "By Car (8 minutes)",
-                  content: (
-                    <ol className="space-y-2 list-decimal list-inside text-anchor-cream-text/70">
-                      <li>Head west on the A30 from Staines town centre</li>
-                      <li>Continue through Stanwell village</li>
-                      <li>Turn left onto Horton Road</li>
-                      <li>The Anchor is on your right with free parking</li>
-                    </ol>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-card"
-                },
-                {
-                  title: "By Public Transport",
-                  content: (
-                    <ul className="space-y-2 text-anchor-cream-text/70">
-                      <li className="flex items-start">
-                        <span className="text-anchor-gold-dark mr-2">•</span>
-                        Bus routes from Staines Bus Station
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-anchor-gold-dark mr-2">•</span>
-                        Regular services throughout the day
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-anchor-gold-dark mr-2">•</span>
-                        Stop: Horton Road/The Anchor
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-anchor-gold-dark mr-2">•</span>
-                        Journey time: 15-20 minutes
-                      </li>
-                    </ul>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-card"
-                }
-              ]}
-            />
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">By Car (8 minutes)</h3>
+                  <ol className="space-y-2 list-decimal list-inside text-ink-muted">
+                    <li>Head west on the A30 from Staines town centre</li>
+                    <li>Continue through Stanwell village</li>
+                    <li>Turn left onto Horton Road</li>
+                    <li>The Anchor is on your right with free parking</li>
+                  </ol>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">By Public Transport</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Bus routes from Staines Bus Station</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Regular services throughout the day</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Stop: Horton Road/The Anchor</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Journey time: 15-20 minutes</li>
+                  </ul>
+                </CardBody>
+              </Card>
+            </div>
 
-            <AlertBox
-              variant="success"
-              title="Also conveniently located near:"
-              className="mt-8 text-center"
-              content={
-                <div className="flex flex-wrap justify-center gap-4 text-anchor-cream-text/70">
+            <Card accent className="mt-8 text-center">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-3">Also conveniently located near:</h3>
+                <div className="flex flex-wrap justify-center gap-4 text-ink-muted">
                   <span>• Heathrow T5: {HEATHROW_TIMES.terminal5} mins</span>
                   <span>• Ashford: 10 mins</span>
                   <span>• Sunbury: 15 mins</span>
                   <span>• Feltham: 12 mins</span>
                 </div>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* What's On This Week */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -337,123 +284,135 @@ export default function StainesPubPage() {
             />
 
             <div className="space-y-6">
-              <div className="border-l-4 border-anchor-gold-dark bg-anchor-green-raised p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-cream-text">Thursday</h3>
-                  <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">QUIZ</span>
-                </div>
-                <p className="text-anchor-cream-text/70">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
-              </div>
+              <Card accent className="border-l-4 border-l-anchor-gold">
+                <CardBody className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-display text-h4 text-ink-strong">Thursday</h3>
+                    <Badge variant="gold">QUIZ</Badge>
+                  </div>
+                  <p className="text-ink-muted">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
+                </CardBody>
+              </Card>
 
-              <div className="border-l-4 border-anchor-gold-dark bg-anchor-green-raised p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-cream-text">Sunday</h3>
-                  <span className="bg-anchor-gold-dark text-anchor-green-deep px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
-                </div>
-		                <p className="text-anchor-cream-text/70">
-		                  {sunday.isLive ? 'Famous Sunday roasts served 1pm-6pm. Walk in or book ahead, no pre-order needed.' : `Famous Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}. Book ahead for launch Sundays.`}
-		                </p>
-              </div>
+              <Card accent className="border-l-4 border-l-anchor-gold">
+                <CardBody className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-display text-h4 text-ink-strong">Sunday</h3>
+                    <Badge variant="green">ROASTS</Badge>
+                  </div>
+                  <p className="text-ink-muted">
+                    {sunday.isLive ? 'Famous Sunday roasts served 1pm-6pm. Walk in or book ahead, no pre-order needed.' : `Famous Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}. Book ahead for launch Sundays.`}
+                  </p>
+                </CardBody>
+              </Card>
 
-              <div className="border-l-4 border-anchor-gold-dark bg-anchor-green-raised p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-cream-text">Monthly</h3>
-                  <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">HOSTED</span>
-                </div>
-                <p className="text-anchor-cream-text/70">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
-              </div>
+              <Card accent className="border-l-4 border-l-anchor-gold">
+                <CardBody className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-display text-h4 text-ink-strong">Monthly</h3>
+                    <Badge variant="sand">HOSTED</Badge>
+                  </div>
+                  <p className="text-ink-muted">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
       {/* Event Venue Section */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Popular Venue for Staines Events"
-              subtitle="Host your special occasion at The Anchor - just 8 minutes from Staines"
+              lead="Host your special occasion at The Anchor - just 8 minutes from Staines"
             />
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Perfect for Staines Residents</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Quick journey</strong> - Just 8 minutes from Staines town centre</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Free parking</strong> - No expensive town centre rates</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Competitive prices</strong> - Better value than Staines venues</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> - From intimate gatherings to large parties</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect for Staines Residents</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong className="text-ink">Quick journey</strong> - Just 8 minutes from Staines town centre</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong className="text-ink">Free parking</strong> - No expensive town centre rates</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong className="text-ink">Competitive prices</strong> - Better value than Staines venues</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong className="text-ink">Flexible spaces</strong> - From intimate gatherings to large parties</span>
+                    </li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Popular Events from Staines</h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1">Birthday Parties</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Celebrate milestones with custom packages</p>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Popular Events from Staines</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Birthday Parties</h4>
+                      <p className="text-sm text-ink-muted">Celebrate milestones with custom packages</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Corporate Events</h4>
+                      <p className="text-sm text-ink-muted">Team meetings and Christmas parties</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Engagement Parties</h4>
+                      <p className="text-sm text-ink-muted">Celebrate your milestone with friends and family</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Memorial Services</h4>
+                      <p className="text-sm text-ink-muted">Respectful space for celebrations of life</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1">Corporate Events</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Team meetings and Christmas parties</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1">Engagement Parties</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Celebrate your milestone with friends and family</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1">Memorial Services</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Respectful space for celebrations of life</p>
-                  </div>
+                </CardBody>
+              </Card>
+            </div>
+
+            <Card accent className="text-center">
+              <CardBody className="p-6">
+                <p className="text-lg text-ink mb-4">
+                  <strong>Flexible venue hire pricing!</strong> Tailored to your event.
+                  We're always willing to discuss your needs and budget.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link href="/private-hire">
+                    <Button variant="primary" size="md">
+                      View Event Options
+                    </Button>
+                  </Link>
+                  <PhoneButton
+                    phone="01753 682707"
+                    source="staines_pub_event_enquiry"
+                    variant="outline"
+                    size="md"
+                  >
+                    Quick Enquiry
+                  </PhoneButton>
+                  <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="md">
+                      WhatsApp
+                    </Button>
+                  </Link>
                 </div>
-              </div>
-            </div>
-
-            <div className="card-dark rounded-none p-6 text-center">
-              <p className="text-lg text-anchor-cream-text mb-4">
-                <strong>Flexible venue hire pricing!</strong> Tailored to your event.
-                We're always willing to discuss your needs and budget.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/private-hire">
-                  <Button variant="primary" size="md">
-                    View Event Options
-                  </Button>
-                </Link>
-                <PhoneButton
-                  phone="01753 682707"
-                  source="staines_pub_event_enquiry"
-                  variant="outline"
-                  size="md"
-                >
-                  Quick Enquiry
-                </PhoneButton>
-                <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="md">
-                    WhatsApp
-                  </Button>
-                </Link>
-              </div>
-            </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto">
             <SectionHeading
@@ -466,14 +425,14 @@ export default function StainesPubPage() {
       </section>
 
       {/* Why Staines Residents Choose The Anchor Over the High Street */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="A Different Night Out from the Pubs in Staines"
               className="text-center mb-8"
             />
-            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+            <div className="prose max-w-none text-ink-muted space-y-4">
               <p>
                 If you&apos;re searching for pubs in Staines, the high street has no shortage, The Swan, The Bells, the Wetherspoons on the corner, but
                 anyone who has tried to get a table on a Friday night knows the drill. Packed bars, queues at the door,
@@ -508,7 +467,7 @@ export default function StainesPubPage() {
           { href: '/private-hire', title: 'Book a Celebration', description: 'Host birthdays, wakes and anniversaries' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Perfect garden cocktail before strolling along the Thames' }
         ]}
-        className="section-spacing-md"
+        className="py-section-y"
       />
 
       <OrganicSearchClusterLinks
@@ -542,47 +501,27 @@ export default function StainesPubPage() {
             answer: "We host private events near Staines with buffet or seated menu options, a dedicated event team, and free on-site parking. Contact us to check dates."
           }
         ]}
-        className="bg-anchor-green-raised"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Visit Staines' Favourite Local Pub"
-        description="Just 8 minutes from Staines town centre with free parking"
-        buttons={[
-          {
-            text: "Book a Table",
-            href: "/book-table",
-            variant: "outline"
-          },
-          {
-            text: "Call Us",
-            href: CONTACT.phoneHref,
-            isPhone: true,
-            phoneSource: "staines_pub_cta",
-            variant: "white"
-          },
-          {
-            text: "Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: "Get Directions from Staines",
-            href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor",
-            variant: "outline",
-            className: "!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green"
-          }
-        ]}
-        variant="green"
+        copy="Just 8 minutes from Staines town centre with free parking"
       >
-        <div className="mt-6 text-white/90">
-          <p className="font-semibold mb-2">Find us at:</p>
-          <address className="not-italic">
-            {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.county} {CONTACT.address.postcode}
-          </address>
-        </div>
-      </CTASection>
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/private-hire#enquiry">
+          <Button variant="outline" size="lg">Book an Event</Button>
+        </Link>
+        <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor">
+          <Button variant="outline" size="lg">Get Directions from Staines</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -106,7 +107,7 @@ export default function WraysburyPubPage() {
         }
       />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -114,86 +115,74 @@ export default function WraysburyPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-cream-text mb-4"
+                            className="mb-4"
                         >
                             Wraysbury Pub & Dining - Worth the Short Drive
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Love Wraysbury living but fancy a change of scenery? The Anchor offers a vibrant atmosphere, unique entertainment, and fantastic food just minutes away.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
                             title="Why Wraysbury Residents Visit The Anchor"
-                            subtitle="We're a popular choice for Wraysbury locals looking for great value and something different."
+                            lead="We're a popular choice for Wraysbury locals looking for great value and something different."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Stone-Baked Pizza",
-                                    description: "Authentic stone-baked pizzas served Tuesday-Saturday from £12",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Live Entertainment",
-                                    description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Sunday Roast",
-                                    description: "A proper home-cooked roast with all the trimmings",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[
+                                { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas served Tuesday-Saturday from £12" },
+                                { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)" },
+                                { title: "Sunday Roast", description: "A proper home-cooked roast with all the trimmings" },
+                            ].map((item) => (
+                                <Card key={item.title} accent>
+                                    <CardBody className="p-6 text-center">
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                                        <p className="text-sm text-ink-muted">{item.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Events & Private Hire near Wraysbury"
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Celebrations</h3>
-                                <p className="text-anchor-cream-text/70 mb-4">
-                                    Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
-                                </p>
-                                <Link href="/private-hire" className="text-anchor-gold-dark font-bold hover:text-anchor-gold hover:underline">
-                                    View Private Hire Options →
-                                </Link>
-                            </div>
+                        <div className="grid md:grid-cols-2 gap-5 mb-8">
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Celebrations</h3>
+                                    <p className="text-ink-muted mb-4">
+                                        Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
+                                    </p>
+                                    <Link href="/private-hire" className="text-accent-text font-bold hover:underline">
+                                        View Private Hire Options →
+                                    </Link>
+                                </CardBody>
+                            </Card>
 
-                            <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What's On</h3>
-                                <p className="text-anchor-cream-text/70 mb-4">
-                                    Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
-                                </p>
-                                <Link href="/whats-on" className="text-anchor-gold-dark font-bold hover:text-anchor-gold hover:underline">
-                                    Check Event Calendar →
-                                </Link>
-                            </div>
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">What's On</h3>
+                                    <p className="text-ink-muted mb-4">
+                                        Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
+                                    </p>
+                                    <Link href="/whats-on" className="text-accent-text font-bold hover:underline">
+                                        Check Event Calendar →
+                                    </Link>
+                                </CardBody>
+                            </Card>
                         </div>
 
                         <div className="text-center">
@@ -212,13 +201,13 @@ export default function WraysburyPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Your Local Beyond the Village"
                         />
-                        <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+                        <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
                                 Wraysbury is a lovely village, but let&rsquo;s be honest, pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is right there. Head along the B376 through Hythe End, past the sailing club, and keep going on Horton Road. You&rsquo;ll cross the M25 bridge and we&rsquo;re immediately on your left. Five minutes, tops. If you&rsquo;re coming from the other end of the village near the station, you can also cut across via the M25 at Junction 13, it&rsquo;s just as quick.
                             </p>
@@ -236,7 +225,7 @@ export default function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeading
@@ -273,34 +262,23 @@ export default function WraysburyPubPage() {
                         answer: "Our kitchen times vary slightly by day (generally open for dinner Tue-Fri and all day Sat-Sun). Please check our opening hours section for the latest service times."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-surface"
             />
 
-            <CTASection
+            <CtaBand
                 title="Worth the 5 Minute Drive"
-                description="Experience the best hospitality in the area at The Anchor."
-                buttons={[
-                    {
-                        text: "Book a Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "wraysbury_pub_cta",
-                        variant: "outline"
-                    },
-                    {
-                        text: "Book an Event",
-                        href: "/private-hire#enquiry",
-                        variant: "white"
-                    },
-                    {
-                        text: "Get Directions",
-                        href: "https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-                footer="Free Parking • 5 Minutes from Wraysbury • Great Food"
-            />
+                copy="Experience the best hospitality in the area at The Anchor."
+            >
+                <Link href={CONTACT.phoneHref}>
+                    <Button variant="primary" size="lg">Book a Table</Button>
+                </Link>
+                <Link href="/private-hire#enquiry">
+                    <Button variant="outline" size="lg">Book an Event</Button>
+                </Link>
+                <Link href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">
+                    <Button variant="outline" size="lg">Get Directions</Button>
+                </Link>
+            </CtaBand>
         </>
     )
 }

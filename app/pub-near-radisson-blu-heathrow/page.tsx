@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -39,97 +40,109 @@ export default function PubNearRadissonBluHeathrowPage() {
         lead="12 minutes away, authentic British local for Radisson guests seeking a genuine experience"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Radisson Blu Edwardian Heathrow
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away, a genuine British community pub with home-cooked food, draught beers, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges at all', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Authentically Local', description: 'A real community pub since 1751', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow' },
+              { title: '~£15–18', description: 'Typical taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces, no charges at all' },
+              { title: 'Authentically Local', description: 'A real community pub since 1751' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Authentic British Pub Near Radisson Blu Heathrow"
-              subtitle="The Radisson Blu is an outstanding hotel, but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
+              lead="The Radisson Blu is an outstanding hotel, but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">What You Get at The Anchor</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Home-cooked British food, from £8.99',
-                    'Draught lagers, bottled ales and craft beers',
-                    'Warm, unpretentious community atmosphere',
-                    'Dog-friendly beer garden',
-                    'Full VAT receipts for business expenses',
-                    'Regular events, quiz, music bingo, karaoke',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Radisson Blu</h3>
-                <div className="space-y-3 text-anchor-cream-text/70">
-                  <div>
-                    <p className="font-semibold">By Taxi or Uber</p>
-                    <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Approximately 12 minutes, £15–18 each way. Ask the hotel concierge to arrange.</p>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">What You Get at The Anchor</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Home-cooked British food, from £8.99',
+                      'Draught lagers, bottled ales and craft beers',
+                      'Warm, unpretentious community atmosphere',
+                      'Dog-friendly beer garden',
+                      'Full VAT receipts for business expenses',
+                      'Regular events, quiz, music bingo, karaoke',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Directions from Radisson Blu</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink">By Taxi or Uber</p>
+                      <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Approximately 12 minutes, £15–18 each way. Ask the hotel concierge to arrange.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink">By Car</p>
+                      <p className="text-sm">Take the A3044 south toward Stanwell. Continue through the village and turn right onto Horton Road. Free parking on arrival.</p>
+                    </div>
+                    <div className="pt-2 border-t border-line">
+                      <p className="text-sm font-medium text-ink">Postcode: <strong>TW19 6AQ</strong></p>
+                      <p className="text-sm text-ink-muted">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">By Car</p>
-                    <p className="text-sm">Take the A3044 south toward Stanwell. Continue through the village and turn right onto Horton Road. Free parking on arrival.</p>
-                  </div>
-                  <div className="pt-2 border-t border-anchor-gold-dark/15">
-                    <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-anchor-cream-text/70">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading title="Popular with Radisson Guests" />
-            <FeatureGrid
-              columns={3}
-              features={[
-                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-              ]}
-              className="mb-6"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+              {[
+                { title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.' },
+                { title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.' },
+                { title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.' },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
             <div className="text-center">
               <Link href="/food-menu">
                 <Button variant="outline" size="lg">View Full Menu</Button>
@@ -139,29 +152,29 @@ export default function PubNearRadissonBluHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="info"
-              title="Planning ahead?"
-              className="mt-6"
-              content={<p>Book a table in advance for weekend visits, especially for Sunday roast. We open from 4pm weekdays and noon at weekends.</p>}
-            />
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Planning ahead?</h3>
+                <p className="text-ink-muted">Book a table in advance for weekend visits, especially for Sunday roast. We open from 4pm weekdays and noon at weekends.</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="The Business Traveller&rsquo;s Local"
-              subtitle="The Radisson Blu sits near Terminal 4, which puts you closer to us than most Heathrow hotels. A short taxi ride and you&rsquo;re in a completely different world."
+              lead="The Radisson Blu sits near Terminal 4, which puts you closer to us than most Heathrow hotels. A short taxi ride and you&rsquo;re in a completely different world."
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 From the Radisson Blu, a taxi takes about 15 minutes via the Southern Perimeter Road and costs approximately &pound;15&ndash;18. If you prefer public transport, the 490 bus runs toward Staines and you can get off on Stanwell Moor Road, it&rsquo;s a short walk from there. But honestly, for an evening out, Uber is the simplest option.
               </p>
@@ -202,20 +215,23 @@ export default function PubNearRadissonBluHeathrowPage() {
             answer: 'Yes, our staff are happy to help arrange a taxi, or you can use Uber from the pub. The return journey to Radisson Blu Heathrow takes approximately 12 minutes and costs around £15–18.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
-      <CTASection
+      <CtaBand
         title="12 Minutes from Radisson Blu Heathrow"
-        description="Authentic British pub with home-cooked food, draught beers and free parking. A genuine local experience."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'radisson_blu_heathrow_cta', variant: 'white' },
-          { text: 'View Menu', href: '/food-menu', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 12 mins from Radisson Blu Heathrow · Stanwell Moor, TW19 6AQ"
-      />
+        copy="Authentic British pub with home-cooked food, draught beers and free parking. A genuine local experience."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/food-menu">
+          <Button variant="outline" size="lg">View Menu</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

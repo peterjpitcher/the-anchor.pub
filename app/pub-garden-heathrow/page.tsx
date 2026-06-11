@@ -1,12 +1,15 @@
-import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { SectionHeading, Badge, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
+import { Button } from '@/components/ui/primitives/Button'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
@@ -39,64 +42,48 @@ export default function PubGardenPage() {
         lead="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
       />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <AmenityStrip />
+
+            <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Al Fresco Living
-                        </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
-                            We're lucky to have one of the largest pub gardens in the area. Far enough from the main road to be peaceful, but close enough to the bar for a quick refill. It's the perfect spot for a lazy Sunday afternoon or a post-work pint.
-                        </p>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeading
+                            title="Al Fresco Living"
+                            lead="We're lucky to have one of the largest pub gardens in the area. Far enough from the main road to be peaceful, but close enough to the bar for a quick refill. It's the perfect spot for a lazy Sunday afternoon or a post-work pint."
+                        />
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
+                            kicker="More than just a few benches"
                             title="Garden Features"
-                            subtitle="More than just a few benches."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Real Grass",
-                                    description: "A proper lawn, perfect for kids to play on or for sprawling out on a picnic blanket.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Outdoor Dining",
-                                    description: "We serve our full menu outside. Just grab a table number and order at the bar.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Smoking Area",
-                                    description: "Designated sheltered smoking areas for when the British weather does its thing.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { title: 'Real Grass', description: 'A proper lawn, perfect for kids to play on or for sprawling out on a picnic blanket.' },
+                                { title: 'Outdoor Dining', description: 'We serve our full menu outside. Just grab a table number and order at the bar.' },
+                                { title: 'Smoking Area', description: 'Designated sheltered smoking areas for when the British weather does its thing.' }
+                            ].map(feature => (
+                                <Card key={feature.title} accent hover>
+                                    <CardBody>
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
 
-                        <AlertBox
-                            variant="success"
-                            title="Dog Friendly"
-                            className="max-w-2xl mx-auto mt-8"
-                            content="Our garden is a paradise for pooches. Water bowls are always available."
-                        />
+                        <Card accent className="max-w-2xl mx-auto mt-8">
+                            <CardBody>
+                                <h3 className="font-display text-h4 text-ink-strong mb-2">Dog Friendly</h3>
+                                <p className="text-ink-muted">Our garden is a paradise for pooches. Water bowls are always available.</p>
+                            </CardBody>
+                        </Card>
                     </div>
                 </Container>
             </section>
@@ -116,27 +103,18 @@ export default function PubGardenPage() {
                         answer: "Yes, the garden is beautifully lit with festoon lighting in the evenings."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
 
-            <CTASection
+            <CtaBand
                 title="Save Me A Seat"
-                description="Book a spot in the sun."
-                buttons={[
-                    {
-                        text: "Book Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "garden_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Find Us",
-                        href: "/find-us",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
+                copy="Book a spot in the sun."
+                primary={<PhoneButton phone={CONTACT.phone} source="garden_cta" variant="primary" size="lg">Book a table</PhoneButton>}
+                secondary={
+                    <Button asChild variant="outline" size="lg">
+                        <Link href="/find-us">Find us</Link>
+                    </Button>
+                }
             />
         </>
     )

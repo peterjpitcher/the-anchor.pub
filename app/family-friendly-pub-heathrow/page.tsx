@@ -1,12 +1,13 @@
-import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
@@ -39,72 +40,58 @@ export default function FamilyFriendlyPage() {
         lead="Good food that kids actually eat. Relaxed atmosphere for parents. The perfect family pit stop."
       />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <AmenityStrip />
+
+            <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Family-Friendly Pub Near Heathrow
-                        </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
-                            We know eating out with kids can sometimes be stressful. At The Anchor, we aim to make it easy. We have plenty of space, staff who are great with little ones, and a menu that keeps everyone happy.
-                        </p>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeading
+                            title="Family-Friendly Pub Near Heathrow"
+                            lead="We know eating out with kids can sometimes be stressful. At The Anchor, we aim to make it easy. We have plenty of space, staff who are great with little ones, and a menu that keeps everyone happy."
+                        />
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
+                            kicker="Happy kids mean happy parents"
                             title="For The Little Ones"
-                            subtitle="Happy kids mean happy parents."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Kids Menu",
-                                    description: "Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Colouring Books & Crayons",
-                                    description: "Communal colouring books and crayons available to keep boredom at bay while you wait for food.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "High Chairs",
-                                    description: "Sturdy high chairs available for our smallest guests. Just request one when booking.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
-
-                        <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15 max-w-2xl mx-auto text-left">
-                            <h3 className="text-xl font-bold text-anchor-cream-text mb-4 text-center">Baby Facilities</h3>
-                            <ul className="grid sm:grid-cols-2 gap-4">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-bright"></span> Bottle warming on request
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-bright"></span> Space for buggies
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-bright"></span> Breastfeeding welcome
-                                </li>
-                            </ul>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { title: 'Kids Menu', description: 'Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.' },
+                                { title: 'Colouring Books & Crayons', description: 'Communal colouring books and crayons available to keep boredom at bay while you wait for food.' },
+                                { title: 'High Chairs', description: 'Sturdy high chairs available for our smallest guests. Just request one when booking.' }
+                            ].map(feature => (
+                                <Card key={feature.title} accent hover>
+                                    <CardBody>
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
                         </div>
+
+                        <Card accent className="max-w-2xl mx-auto mt-8">
+                            <CardBody>
+                                <h3 className="font-display text-h4 text-ink-strong mb-4 text-center">Baby Facilities</h3>
+                                <ul className="grid sm:grid-cols-2 gap-4 text-ink">
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-accent-text" aria-hidden>•</span> Bottle warming on request
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-accent-text" aria-hidden>•</span> Space for buggies
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="text-accent-text" aria-hidden>•</span> Breastfeeding welcome
+                                    </li>
+                                </ul>
+                            </CardBody>
+                        </Card>
                     </div>
                 </Container>
             </section>
@@ -124,29 +111,14 @@ export default function FamilyFriendlyPage() {
                         answer: "We certainly do! A smaller portion of our famous roast with all the trimmings."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
 
-            <CTASection
+            <CtaBand
                 title="Table for... Everyone?"
-                description="Book a family sized table today."
-                buttons={[
-                    {
-                        text: "‍‍‍ Book Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "family_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: " Call Us",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "family_call_cta",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
+                copy="Book a family sized table today."
+                primary={<PhoneButton phone={CONTACT.phone} source="family_cta" variant="primary" size="lg">Book a table</PhoneButton>}
+                secondary={<PhoneButton phone={CONTACT.phone} source="family_call_cta" variant="outline" size="lg">Call us</PhoneButton>}
             />
         </>
     )

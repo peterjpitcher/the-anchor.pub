@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
-import { Container, SectionHeading, FeatureGrid, Badge } from '@/components/ui'
+import { Container, SectionHeading, Card, CardBody, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -12,8 +12,7 @@ import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { getCateringData } from '@/lib/api/catering-packages'
-import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
 
 export const metadata: Metadata = {
@@ -36,8 +35,7 @@ export const metadata: Metadata = {
 
 const nearbyHospitals = landmarks.filter(l => l.type === 'hospital');
 
-export default async function BabyShowersPage() {
-    const { foodPackages } = await getCateringData()
+export default function BabyShowersPage() {
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -120,20 +118,20 @@ export default async function BabyShowersPage() {
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Baby Shower Venue Near Ashford Hospital & Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
-                        <p className="text-lg text-anchor-cream-text/70 mb-8">
+                        <p className="text-lg text-ink-muted mb-8">
                             Treat the mum-to-be to a relaxing afternoon of good food and laughter. Our bright and airy spaces are perfect for afternoon tea, games, and opening gifts.
                         </p>
                         {nearbyHospitals.length > 0 && (
-                            <div className="bg-anchor-green-raised p-4 rounded-xl inline-block text-center border border-anchor-gold-dark/15">
-                                <span className="font-bold text-anchor-gold-bright mr-2">Ideally located near:</span>
+                            <div className="inline-block rounded-md border border-line bg-surface p-4 text-center shadow-sm">
+                                <span className="mr-2 font-semibold text-accent-text">Ideally located near:</span>
                                 {nearbyHospitals.map(l => (
-                                    <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
+                                    <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="font-medium text-ink-muted hover:underline">
                                         {l.name} ({l.distance})
                                     </Link>
                                 ))}
@@ -143,185 +141,156 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading
                         title="Food & Drink"
-                        subtitle="Our most popular baby shower options"
+                        lead="Our most popular baby shower options"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <p className="text-anchor-cream-text/70 text-center mb-6">
+                        <p className="text-ink-muted text-center mb-6">
                             From classic afternoon tea to relaxed buffets, we have a range of catering packages to suit your baby shower. Our bar team can also prepare a selection of alcohol-free cocktails so the mum-to-be never feels left out.
                         </p>
-                        <p className="text-anchor-cream-text/70 text-center text-sm">
+                        <p className="text-ink-muted text-center text-sm">
                             See our full catering packages and pricing below, or ask us about seasonal mocktail options when you enquire.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading
                         title="Games & Activities"
-                        subtitle="Make the afternoon one to remember"
+                        lead="Make the afternoon one to remember"
                     />
                     <div className="max-w-3xl mx-auto">
-                        <p className="text-anchor-cream-text/70 text-center mb-6">
+                        <p className="text-ink-muted text-center mb-6">
                             We have plenty of space to accommodate all the baby shower classics. Bring your own game kits or improvise, our team will make sure you have room to set everything up.
                         </p>
                         <div className="grid sm:grid-cols-2 gap-4">
-                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-4">
-                                <h4 className="font-semibold text-anchor-cream-text mb-2">Popular games we host</h4>
-                                <ul className="text-sm text-anchor-cream-text/70 space-y-1">
+                            <Card><CardBody>
+                                <h4 className="font-display text-h4 text-ink-strong mb-2">Popular games we host</h4>
+                                <ul className="text-sm text-ink-muted space-y-1">
                                     <li>Guess the baby weight</li>
                                     <li>Baby bingo</li>
                                     <li>Nappy-changing relay</li>
                                     <li>Guess the baby food flavour</li>
                                     <li>Baby photo quiz</li>
                                 </ul>
-                            </div>
-                            <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-4">
-                                <h4 className="font-semibold text-anchor-cream-text mb-2">Photo area and backdrop</h4>
-                                <p className="text-sm text-anchor-cream-text/70">
+                            </CardBody></Card>
+                            <Card><CardBody>
+                                <h4 className="font-display text-h4 text-ink-strong mb-2">Photo area and backdrop</h4>
+                                <p className="text-sm text-ink-muted">
                                     We can help you set up a dedicated photo area or backdrop in your reserved space. Bring your props, banners, and balloon arrangements, we'll give you room to create something special.
                                 </p>
-                            </div>
+                            </CardBody></Card>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading
                         title="All The Little Extras"
                     />
-                    <FeatureGrid
-                        columns={3}
-                        features={[
-                            {
-                                icon: "",
-                                title: "Mocktail Menu",
-                                description: "Delicious alcohol-free cocktails so the mum-to-be doesn't feel left out.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Gift Area",
-                                description: "We'll set up a dedicated table for gifts and party favours.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Gender Reveals",
-                                description: "Planning a reveal alongside the shower? We can help coordinate the big surprise with balloons or cakes.",
-                                className: "text-center"
-                            }
-                        ]}
-                    />
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {[
+                            { title: "Mocktail Menu", description: "Delicious alcohol-free cocktails so the mum-to-be doesn't feel left out." },
+                            { title: "Gift Area", description: "We'll set up a dedicated table for gifts and party favours." },
+                            { title: "Gender Reveals", description: "Planning a reveal alongside the shower? We can help coordinate the big surprise with balloons or cakes." },
+                        ].map(feature => (
+                            <Card key={feature.title} accent className="h-full text-center">
+                                <CardBody className="flex h-full flex-col gap-2">
+                                    <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                    <p className="text-ink-muted">{feature.description}</p>
+                                </CardBody>
+                            </Card>
+                        ))}
+                    </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading
                         title="Baby Shower Catering Packages"
-                        subtitle="Treat the mum-to-be to something special"
+                        lead="Treat the mum-to-be to something special"
                     />
-                    <div className="max-w-4xl mx-auto">
-                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 mb-8">
-                            <CateringPackagesTable
-                                packages={foodPackages}
-                                showDescription={true}
-                                filterNames={['Afternoon Tea', 'Prosecco Afternoon Tea', 'Finger Buffet', 'Sandwich Buffet']}
-                            />
-                        </div>
+                    <div className="max-w-2xl mx-auto space-y-8">
+                        <CateringPackagesCard />
 
-                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
-                            <p className="text-anchor-cream-text/70 text-sm">
-                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-bright">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                        <Card><CardBody className="text-center">
+                            <p className="text-ink-muted text-sm">
+                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
                             </p>
-                        </div>
+                        </CardBody></Card>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading
                         title="Decorations & Styling"
-                        subtitle="Make the space your own"
+                        lead="Make the space your own"
                     />
-                    <div className="prose prose-invert max-w-3xl mx-auto mb-8">
-                        <p className="text-anchor-cream-text/70 mb-4">
+                    <div className="max-w-3xl mx-auto mb-8 space-y-4 text-ink-muted">
+                        <p>
                             Whether you are going for an Instagram-worthy baby shower venue or something more understated, we provide a blank canvas for you to decorate as you wish. Our reserved area has plenty of wall space for banners and backdrops, and we can arrange tables to create a dedicated gift area, game zone, and photo corner.
                         </p>
-                        <p className="text-anchor-cream-text/70 mb-4">
+                        <p>
                             Many of our baby shower guests bring balloon arches, flower arrangements, custom tablecloths, and themed tableware. You are welcome to arrive up to an hour early on the day to set everything up at your leisure. Our team will be on hand to help carry things in, rearrange furniture, and make sure the space looks exactly how you imagined it.
                         </p>
-                        <p className="text-anchor-cream-text/70">
+                        <p>
                             We only ask that you avoid loose confetti and glitter, which can be very difficult to remove from our upholstery. Biodegradable confetti, paper pom-poms, and fabric bunting are all great alternatives that look just as lovely in photos.
                         </p>
                     </div>
-                    <FeatureGrid
-                        columns={4}
-                        features={[
-                            {
-                                icon: "",
-                                title: "Balloon Arches",
-                                description: "Plenty of space for freestanding balloon arches, garlands, and helium arrangements.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Photo Backdrops",
-                                description: "Set up a dedicated photo area with your own backdrop, props, and lighting.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Gift Table",
-                                description: "We will set up a dedicated table for gifts, nappy cakes, and party favours.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Themed Tableware",
-                                description: "Bring your own tablecloths, plates, and napkins to match your colour scheme.",
-                                className: "text-center"
-                            }
-                        ]}
-                    />
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        {[
+                            { title: "Balloon Arches", description: "Plenty of space for freestanding balloon arches, garlands, and helium arrangements." },
+                            { title: "Photo Backdrops", description: "Set up a dedicated photo area with your own backdrop, props, and lighting." },
+                            { title: "Gift Table", description: "We will set up a dedicated table for gifts, nappy cakes, and party favours." },
+                            { title: "Themed Tableware", description: "Bring your own tablecloths, plates, and napkins to match your colour scheme." },
+                        ].map(feature => (
+                            <Card key={feature.title} accent className="h-full text-center">
+                                <CardBody className="flex h-full flex-col gap-2">
+                                    <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                    <p className="text-ink-muted">{feature.description}</p>
+                                </CardBody>
+                            </Card>
+                        ))}
+                    </div>
                 </Container>
             </section>
 
             <TestimonialSection
                 variant="compact"
-                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15 px-4"
+                className="py-section-y bg-surface-sunk px-4"
                 reviews={[
                     { quote: "We hosted my sister's baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.", author: "Emma, Staines", source: "Google Review", rating: 5 },
                     { quote: "The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.", author: "Jasmine, Ashford", source: "Google Review", rating: 5 },
                 ]}
             />
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
-                        <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Planning a Christening or Gender Reveal Too?</h2>
-                        <p className="text-anchor-cream-text/70 mb-6">
+                        <h2 className="font-display text-h3 text-ink-strong mb-4">Planning a Christening or Gender Reveal Too?</h2>
+                        <p className="text-ink-muted mb-6">
                             The Anchor hosts the full range of family celebrations. If you are also planning a christening reception or a gender reveal party, take a look at our dedicated pages.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/private-hire/christenings"
-                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
+                                className="inline-block rounded-md border border-line bg-surface px-6 py-3 font-semibold text-accent-text transition-colors hover:border-accent"
                             >
                                 Christening Venue
                             </Link>
                             <Link
                                 href="/private-hire/gender-reveal"
-                                className="inline-block bg-anchor-green-raised border border-anchor-gold-dark/30 rounded-lg px-6 py-3 text-anchor-gold-bright font-semibold hover:bg-anchor-gold-dark/10 transition-colors"
+                                className="inline-block rounded-md border border-line bg-surface px-6 py-3 font-semibold text-accent-text transition-colors hover:border-accent"
                             >
                                 Gender Reveal Venue
                             </Link>

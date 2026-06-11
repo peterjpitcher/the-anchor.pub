@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
-import { Container, Section, Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
+import { Container, Button, SectionHeading, Card, CardBody } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { BookTableButton } from '@/components/BookTableButton'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
@@ -72,19 +73,18 @@ export default function HeathrowLayoverDiningPage() {
         lead="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
       />
 
-      <Section background="dark" spacing="md">
+      <AmenityStrip />
+
+      <section className="py-section-y bg-canvas">
         <Container>
-          <PageTitle
-            className="text-center text-anchor-cream-text"
-            seo={{ structured: true, speakable: true }}
-          >
+          <h2 className="text-center font-display text-h2 text-ink-strong">
             Heathrow Layover Dining at The Anchor
-          </PageTitle>
-          <SpeakableContent className="mt-6 text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
+          </h2>
+          <SpeakableContent className="mt-6 text-lg text-ink-muted text-center max-w-3xl mx-auto">
             Plan a stress-free Heathrow layover meal. The Anchor serves Sunday roasts, stone-baked pizzas, and pub classics with free parking, fast service, and reliable travel times back to your terminal.
           </SpeakableContent>
         </Container>
-      </Section>
+      </section>
       <HeathrowFoodBestFor
         title="Best For Heathrow Layovers"
         items={[
@@ -96,276 +96,190 @@ export default function HeathrowLayoverDiningPage() {
         ]}
       />
 
-      <Section background="dark" spacing="md">
+      <section className="py-section-y bg-surface">
         <Container>
           <SectionHeading
             title="Terminal Food Alternatives for Layovers"
-            subtitle="If you are searching for food at Heathrow Terminal 5 or food in Terminal 3 Heathrow, we are a short ride away."
+            lead="If you are searching for food at Heathrow Terminal 5 or food in Terminal 3 Heathrow, we are a short ride away."
             align="center"
           />
-          <InfoBoxGrid
-            columns={2}
-            boxes={[
-              {
-                title: "Food at Terminal 5 Heathrow - a calmer option",
-                content: (
-                  <p>
-                    We are 7 minutes from Terminal 5 with quick table service and pre-booked meals.
-                    Skip terminal queues and enjoy proper dining before you return to security.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              },
-              {
-                title: "Food in Terminal 3 Heathrow - leave the airport",
-                content: (
-                  <p>
-                    Terminal 3 guests reach us in around 11 minutes. Let us know your flight time and we will pace your meal
-                    for a smooth return to departures.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              },
-              {
-                title: "Terminal 2 & 4 layovers",
-                content: (
-                  <p>
-                    Allow 12-14 minutes from Terminals 2 and 4. We will coordinate taxi timing so you can dine without stress
-                    and still make it back for boarding.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              },
-              {
-                title: "Book ahead for express service",
-                content: (
-                  <p>
-                    Share your terminal and boarding time when you book. We will have a table ready and time mains to land
-                    within minutes of your arrival.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              }
-            ]}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[
+              { title: 'Food at Terminal 5 Heathrow - a calmer option', body: 'We are 7 minutes from Terminal 5 with quick table service and pre-booked meals. Skip terminal queues and enjoy proper dining before you return to security.' },
+              { title: 'Food in Terminal 3 Heathrow - leave the airport', body: 'Terminal 3 guests reach us in around 11 minutes. Let us know your flight time and we will pace your meal for a smooth return to departures.' },
+              { title: 'Terminal 2 & 4 layovers', body: 'Allow 12-14 minutes from Terminals 2 and 4. We will coordinate taxi timing so you can dine without stress and still make it back for boarding.' },
+              { title: 'Book ahead for express service', body: 'Share your terminal and boarding time when you book. We will have a table ready and time mains to land within minutes of your arrival.' }
+            ].map(box => (
+              <Card key={box.title} accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-2">{box.title}</h3>
+                  <p className="text-ink-muted">{box.body}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
             title="Why Layover Guests Choose The Anchor"
-            subtitle="Proper food, friendly service, and timings that work around airport schedules."
+            lead="Proper food, friendly service, and timings that work around airport schedules."
             align="center"
           />
-          <FeatureGrid
-            columns={3}
-            features={[
-              {
-                icon: '',
-                title: 'In & Out in 90 Minutes',
-                description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.'
-              },
-              {
-                icon: '',
-                title: 'Full Menu, All Day',
-                description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.'
-              },
-              {
-                icon: '',
-                title: 'Free Parking & Easy Transfers',
-                description: 'Register your car for three hours free. Need a cab back? We’ll organise one with our trusted local partners.'
-              },
-              {
-                icon: '',
-                title: 'Luggage-Friendly Seating',
-                description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.'
-              },
-              {
-                icon: '',
-                title: 'Work-Friendly Amenities',
-                description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.'
-              },
-              {
-                icon: '',
-                title: 'Perfect for Crew & Families',
-                description: 'Airline staff, business travelers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.'
-              }
-            ]}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: 'In & Out in 90 Minutes', description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.' },
+              { title: 'Full Menu, All Day', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
+              { title: 'Free Parking & Easy Transfers', description: 'Register your car for three hours free. Need a cab back? We’ll organise one with our trusted local partners.' },
+              { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
+              { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
+              { title: 'Perfect for Crew & Families', description: 'Airline staff, business travelers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }
+            ].map(feature => (
+              <Card key={feature.title} accent hover>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                  <p className="text-ink-muted">{feature.description}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section id="itineraries" background="dark" spacing="lg">
+      <section id="itineraries" className="py-section-y bg-surface">
         <Container>
           <SectionHeading
             title="Layover Itineraries That Work"
-            subtitle="Pick the layover that matches your schedule and we’ll keep everything running smoothly."
+            lead="Pick the layover that matches your schedule and we’ll keep everything running smoothly."
           />
-          <div className="grid gap-8 md:grid-cols-3">
-            <AlertBox
-              title="90-Minute Express"
-              variant="success"
-              content={
-                <ul className="space-y-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-3">90-Minute Express</h3>
+                <ul className="space-y-2 text-ink-muted">
                   <li>Taxi from Terminal 5 – 7 minutes</li>
                   <li>Let the team know your timing so mains land within minutes of sitting down</li>
                   <li>Coffee &amp; dessert to-go for airport return</li>
                   <li>Taxi booked back 30 minutes before boarding gate closes</li>
                 </ul>
-              }
-            />
-            <AlertBox
-              title="3-Hour Leisure"
-              variant="info"
-              content={
-                <ul className="space-y-2">
+              </CardBody>
+            </Card>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-3">3-Hour Leisure</h3>
+                <ul className="space-y-2 text-ink-muted">
                   <li>Welcome drinks and sharers on arrival</li>
                   <li>Main course + dessert paced over 90 minutes</li>
                   <li>Short walk on Stanwell Moor village green</li>
                   <li>Use free WiFi to check-in before departure</li>
                 </ul>
-              }
-            />
-            <AlertBox
-              title="Overnight Stopover"
-              variant="warning"
-              content={
-                <ul className="space-y-2">
+              </CardBody>
+            </Card>
+            <Card accent>
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-3">Overnight Stopover</h3>
+                <ul className="space-y-2 text-ink-muted">
                   <li>Dinner at The Anchor followed by nightcap in the bar</li>
                   <li>Ask for nearby hotel recommendations that suit your schedule</li>
                   <li>Overnight parking arrangements available</li>
                   <li>Meal recommendations before you fly</li>
                 </ul>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
             title="Travel Times & Costs"
-            subtitle="Budget your layover with realistic timings and typical fares."
+            lead="Budget your layover with realistic timings and typical fares."
           />
-          <div className="overflow-x-auto rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card">
-            <table className="min-w-full divide-y divide-anchor-gold-dark/15">
+          <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm">
+            <table className="min-w-full divide-y divide-line">
               <thead className="bg-anchor-green text-white">
                 <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Terminal</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Taxi / Uber</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Public Transport</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Terminal</th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Taxi / Uber</th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Public Transport</th>
+                  <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-anchor-gold-dark/15 text-sm text-anchor-cream-text/70">
-	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 5</td>
-	                  <td className="px-6 py-4">7 minutes • £12–18</td>
-	                  <td className="px-6 py-4">Bus 442 • 20 minutes + 3 minute walk</td>
-	                  <td className="px-6 py-4">Fast crew dinners & short layovers</td>
-	                </tr>
-	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminals 2 & 3</td>
-	                  <td className="px-6 py-4">11 minutes • £16–22</td>
-	                  <td className="px-6 py-4">Elizabeth Line + bus transfer • 30 minutes</td>
-	                  <td className="px-6 py-4">Families meeting arrivals</td>
-	                </tr>
-	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 4</td>
-	                  <td className="px-6 py-4">14 minutes • £18–24</td>
-	                  <td className="px-6 py-4">Shuttle to T5 + bus • 35 minutes</td>
-	                  <td className="px-6 py-4">Overnight guests staying nearby</td>
-	                </tr>
+              <tbody className="divide-y divide-line text-sm text-ink-muted">
+                <tr>
+                  <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminal 5</th>
+                  <td className="px-6 py-4">7 minutes • £12–18</td>
+                  <td className="px-6 py-4">Bus 442 • 20 minutes + 3 minute walk</td>
+                  <td className="px-6 py-4">Fast crew dinners & short layovers</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminals 2 & 3</th>
+                  <td className="px-6 py-4">11 minutes • £16–22</td>
+                  <td className="px-6 py-4">Elizabeth Line + bus transfer • 30 minutes</td>
+                  <td className="px-6 py-4">Families meeting arrivals</td>
+                </tr>
+                <tr>
+                  <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminal 4</th>
+                  <td className="px-6 py-4">14 minutes • £18–24</td>
+                  <td className="px-6 py-4">Shuttle to T5 + bus • 35 minutes</td>
+                  <td className="px-6 py-4">Overnight guests staying nearby</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <SectionHeading
             title="Make the Most of Your Layover"
-            subtitle="Stretch your legs, stay connected, and head back to departures refreshed."
+            lead="Stretch your legs, stay connected, and head back to departures refreshed."
           />
-          <InfoBoxGrid
-            columns={3}
-            boxes={[
-              {
-                title: 'Plane-Spotting Patio',
-                content: (
-                  <p>Watch final approaches with a pint in hand. Great for aviation fans and families.</p>
-                )
-              },
-              {
-                title: 'Charging & WiFi',
-                content: (
-                  <p>Power up devices and download shows before you board. Ask staff for quiet seating.</p>
-                )
-              },
-              {
-                title: 'Local Walks',
-                content: (
-                  <p>Take a 15-minute stroll along the River Colne or Stanwell Moor village green between courses.</p>
-                )
-              },
-              {
-                title: 'Group-Friendly Menus',
-                content: (
-                  <p>Pre-set menus available for crew briefings or incentive trips. Email events@the-anchor.pub for options.</p>
-                )
-              },
-              {
-                title: 'Takeaway Ready',
-                content: <p>All-day menu items travel well, take leftovers or order takeaway pizzas for the onward journey.</p>
-              }
-            ]}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: 'Plane-Spotting Patio', body: 'Watch final approaches with a pint in hand. Great for aviation fans and families.' },
+              { title: 'Charging & WiFi', body: 'Power up devices and download shows before you board. Ask staff for quiet seating.' },
+              { title: 'Local Walks', body: 'Take a 15-minute stroll along the River Colne or Stanwell Moor village green between courses.' },
+              { title: 'Group-Friendly Menus', body: 'Pre-set menus available for crew briefings or incentive trips. Email events@the-anchor.pub for options.' },
+              { title: 'Takeaway Ready', body: 'All-day menu items travel well, take leftovers or order takeaway pizzas for the onward journey.' }
+            ].map(box => (
+              <Card key={box.title} accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-2">{box.title}</h3>
+                  <p className="text-ink-muted">{box.body}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema
         title="Heathrow Layover Dining FAQs"
         faqs={faqItems}
-        className="bg-anchor-green-raised border border-anchor-gold-dark/15"
+        className="bg-canvas"
       />
 
-      <Section background="dark" spacing="lg">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center bg-anchor-green-raised rounded-3xl p-10 border border-anchor-gold-dark/15">
-            <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Ready to Book Your Layover Meal?</h2>
-            <p className="text-lg text-anchor-cream-text/70 mb-6">
-              Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary, reserve parking, and keep a taxi on standby so you return to Heathrow relaxed.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <BookTableButton
-                source="layover_footer"
-                context="heathrow_layover"
-                variant="primary"
-                size="lg"
-              >
-                Reserve Layover Dining
-              </BookTableButton>
-              <Link href="https://wa.me/441753682707" className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  fullWidth
-                  className="sm:w-auto border-anchor-green text-anchor-green hover:bg-anchor-green hover:text-white"
-                >
-                  WhatsApp for Quick Plan
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Ready to Book Your Layover Meal?"
+        copy="Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary, reserve parking, and keep a taxi on standby so you return to Heathrow relaxed."
+      >
+        <BookTableButton
+          source="layover_footer"
+          context="heathrow_layover"
+          variant="primary"
+          size="lg"
+        >
+          Reserve Layover Dining
+        </BookTableButton>
+        <Button asChild variant="outline" size="lg">
+          <Link href="https://wa.me/441753682707">WhatsApp for Quick Plan</Link>
+        </Button>
+      </CtaBand>
 
     </>
   )

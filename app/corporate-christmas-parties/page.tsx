@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Badge, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -53,157 +55,114 @@ export default function ChristmasPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="section-spacing-sm bg-canvas py-section-y">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
+                        <PageTitle className="text-ink-strong mb-4">
                             Corporate Christmas Party &mdash; Make It the Works Do They Actually Talk About
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70 mb-4">
+                        <p className="text-lg text-ink-muted mb-4">
                             Every office has that one legendary Christmas do. The food was brilliant. Nobody had to argue about parking. Someone from accounts sang karaoke. Let&apos;s make yours the one people remember this year.
                         </p>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             At The Anchor, we handle the details so you can enjoy the night. A dedicated contact for your booking, a simple online pre-order system (no chasing colleagues on spreadsheets), and a kitchen that takes festive food seriously, herb-crusted triple-cooked roast potatoes, pigs in blankets, sage &amp; onion stuffing, the lot. Whether you&apos;re after a sit-down work christmas lunch on a Tuesday or a Friday-night party with a DJ and a late bar, we&apos;ll shape it around your team.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="bg-surface py-section-y">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
                             title="Why your office should book their corporate Christmas party here"
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "7 Minutes from Heathrow Terminal 5",
-                                    description: "The closest proper pub to Heathrow Airport. Two minutes from M25 Junction 14, fifteen minutes from Terminal 2. Colleagues flying in from other offices? They'll be at the bar before their taxi receipt loads. If you're searching for a christmas party near me, we're the easy answer for anyone west of London.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Free Parking, Outside the ULEZ",
-                                    description: "Around 20 free spaces on-site, no meters, no charges, no £12.50 ULEZ fee. Your team can leave cars overnight and collect them the next morning. That alone makes us one of the most affordable christmas party venues near Heathrow.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "A Proper Village Pub, Not a Hotel Function Room",
-                                    description: "No fluorescent lighting. No identikit conference suites. A genuine village local in Stanwell Moor, Surrey (TW19 6AQ) with warm hospitality, crackers on the table and food that actually tastes of Christmas. This is what your company christmas party venue should feel like.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
+                            {[
+                                { title: "7 Minutes from Heathrow Terminal 5", description: "The closest proper pub to Heathrow Airport. Two minutes from M25 Junction 14, fifteen minutes from Terminal 2. Colleagues flying in from other offices? They'll be at the bar before their taxi receipt loads. If you're searching for a christmas party near me, we're the easy answer for anyone west of London." },
+                                { title: "Free Parking, Outside the ULEZ", description: "Around 20 free spaces on-site, no meters, no charges, no £12.50 ULEZ fee. Your team can leave cars overnight and collect them the next morning. That alone makes us one of the most affordable christmas party venues near Heathrow." },
+                                { title: "A Proper Village Pub, Not a Hotel Function Room", description: "No fluorescent lighting. No identikit conference suites. A genuine village local in Stanwell Moor, Surrey (TW19 6AQ) with warm hospitality, crackers on the table and food that actually tastes of Christmas. This is what your company christmas party venue should feel like." },
+                            ].map(feature => (
+                                <Card key={feature.title} accent className="h-full">
+                                    <CardBody className="flex h-full flex-col gap-2">
+                                        <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
 
-                        <AlertBox
-                            variant="warning"
-                            title="Early bird offer"
-                            className="max-w-2xl mx-auto mt-8"
-                            content="Book by 1 October and take 20% off your food bill, for every adult in parties of six or more. That's a decent saving to report back to finance."
-                        />
+                        <Card accent className="max-w-2xl mx-auto mt-8"><CardBody>
+                            <h3 className="font-display text-h4 text-ink-strong mb-2">Early bird offer</h3>
+                            <p className="text-ink-muted">Book by 1 October and take 20% off your food bill, for every adult in parties of six or more. That's a decent saving to report back to finance.</p>
+                        </CardBody></Card>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="bg-surface-sunk py-section-y">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                         <div>
                             <SectionHeading
                                 title="For the organiser: we've thought of everything"
-                                className="text-left"
+                                align="left"
                             />
                             <ul className="space-y-4">
-                                <li className="flex items-start">
-                                    <span className="text-anchor-gold-bright mr-2 text-xl"></span>
-                                    <div>
-                                        <strong className="block text-anchor-cream-text">No Spreadsheet Required</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">We send you a pre-order form link. Share it with the team. Everyone picks their courses. Done. Dietary requirements, allergies and children&apos;s meals all captured in one place. VAT invoices are available for accounts, just ask.</span>
-                                    </div>
+                                <li>
+                                    <strong className="block text-ink-strong">No Spreadsheet Required</strong>
+                                    <span className="text-ink-muted text-sm">We send you a pre-order form link. Share it with the team. Everyone picks their courses. Done. Dietary requirements, allergies and children&apos;s meals all captured in one place. VAT invoices are available for accounts, just ask.</span>
                                 </li>
-                                <li className="flex items-start">
-                                    <span className="text-anchor-gold-bright mr-2 text-xl"></span>
-                                    <div>
-                                        <strong className="block text-anchor-cream-text">Invoices, Deposits &amp; Bar Tabs</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">A £10 per person deposit (non-refundable) secures your date. We can invoice the deposit separately, set up a pre-paid bar tab with your budget, and send a full VAT invoice after the event. Finance will thank you.</span>
-                                    </div>
+                                <li>
+                                    <strong className="block text-ink-strong">Invoices, Deposits &amp; Bar Tabs</strong>
+                                    <span className="text-ink-muted text-sm">A £10 per person deposit (non-refundable) secures your date. We can invoice the deposit separately, set up a pre-paid bar tab with your budget, and send a full VAT invoice after the event. Finance will thank you.</span>
                                 </li>
-                                <li className="flex items-start">
-                                    <span className="text-anchor-gold-bright mr-2 text-xl"></span>
-                                    <div>
-                                        <strong className="block text-anchor-cream-text">£40 Voucher for Groups of 20+</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">Book a staff christmas party for twenty or more guests and we&apos;ll send you a £40 voucher to spend at The Anchor in January. You organised the whole thing, you&apos;ve earned a quiet meal on us.</span>
-                                    </div>
+                                <li>
+                                    <strong className="block text-ink-strong">£40 Voucher for Groups of 20+</strong>
+                                    <span className="text-ink-muted text-sm">Book a staff christmas party for twenty or more guests and we&apos;ll send you a £40 voucher to spend at The Anchor in January. You organised the whole thing, you&apos;ve earned a quiet meal on us.</span>
                                 </li>
                             </ul>
                         </div>
-                        <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 p-8 rounded-xl text-center">
-                            <h3 className="text-2xl font-bold mb-4">Early Bird Offer</h3>
-                            <p className="mb-6">
-                                <strong>20% off your food bill</strong> when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course festive menu, the same crackers and candles, just a kinder number on the invoice.
+                        <Card accent className="text-center"><CardBody>
+                            <h3 className="font-display text-h4 text-ink-strong mb-4">Early Bird Offer</h3>
+                            <p className="mb-6 text-ink-muted">
+                                <strong className="text-ink-strong">20% off your food bill</strong> when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course festive menu, the same crackers and candles, just a kinder number on the invoice.
                             </p>
                             <Link href="/christmas-parties#christmas-enquiry">
                                 <Button variant="outline" size="lg">
                                     Claim Early Bird Offer
                                 </Button>
                             </Link>
-                        </div>
+                        </CardBody></Card>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="bg-surface py-section-y">
                 <Container>
                     <div className="max-w-5xl mx-auto text-center">
                         <SectionHeading
                             title="Christmas party packages & pricing for office groups"
-                            subtitle="Transparent per-person pricing and flexible formats to suit your team size. Pick a setup, send your enquiry, and we'll hold your date."
+                            lead="Transparent per-person pricing and flexible formats to suit your team size. Pick a setup, send your enquiry, and we'll hold your date."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Small Team Dinner (6–25)",
-                                    description: "Private dining room. Three-course festive menu. Tue–Thu: £36.95 per person. Fri–Sat: £39.95 per person. Cosy private dining with crackers, candles and direct table service. The room seats up to 25, perfect for a department work christmas lunch or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Department Celebration (26–60)",
-                                    description: "Main bar configured for your group. Sit-down or buffet. Sit-down from £36.95pp. Buffets from £10.95pp (26+ guests). The main bar reshaped for your party with flexible layouts for sit-down dinners or buffet service. Add a quiz, Music Bingo or karaoke and turn your works christmas do into something people actually look forward to.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Full Venue Hire (60–200)",
-                                    description: "Exclusive use of the entire pub. Pricing on enquiry. Private use of the bar, dining room and conservatory. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Up to 60 seated or 200 standing, ideal for airline crews, multi-site teams and larger corporate christmas parties.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
+                            {[
+                                { title: "Small Team Dinner (6–25)", description: "Private dining room. Three-course festive menu. Tue–Thu: £36.95 per person. Fri–Sat: £39.95 per person. Cosy private dining with crackers, candles and direct table service. The room seats up to 25, perfect for a department work christmas lunch or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams." },
+                                { title: "Department Celebration (26–60)", description: "Main bar configured for your group. Sit-down or buffet. Sit-down from £36.95pp. Buffets from £10.95pp (26+ guests). The main bar reshaped for your party with flexible layouts for sit-down dinners or buffet service. Add a quiz, Music Bingo or karaoke and turn your works christmas do into something people actually look forward to." },
+                                { title: "Full Venue Hire (60–200)", description: "Exclusive use of the entire pub. Pricing on enquiry. Private use of the bar, dining room and conservatory. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Up to 60 seated or 200 standing, ideal for airline crews, multi-site teams and larger corporate christmas parties." },
+                            ].map(pkg => (
+                                <Card key={pkg.title} accent className="h-full">
+                                    <CardBody className="flex h-full flex-col gap-2">
+                                        <h3 className="font-display text-h4 text-ink-strong">{pkg.title}</h3>
+                                        <p className="text-ink-muted">{pkg.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
 
-                        <p className="text-anchor-cream-text/70 text-sm mb-6">
+                        <p className="text-ink-muted text-sm mb-6 mt-6">
                             Children&apos;s pricing: Under 12, 2 courses £12.95 · 3 courses £15.95
                         </p>
 
@@ -223,26 +182,26 @@ export default function ChristmasPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="bg-surface-sunk py-section-y">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <span className="inline-flex items-center gap-1.5 bg-anchor-gold-dark/10 border border-anchor-gold-dark/25 rounded-full px-3 py-1 text-xs font-medium text-anchor-gold-dark mb-4">Three-course set menu</span>
+                        <div className="mb-4 flex justify-center">
+                            <Badge variant="sand">Three-course set menu</Badge>
+                        </div>
                         <SectionHeading
                             title="Our festive menu, the same at lunch and dinner"
                         />
-                        <p className="text-lg text-anchor-cream-text/70 mb-4">
+                        <p className="text-lg text-ink-muted mb-4">
                             Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether your team books a festive lunch on a Tuesday or a Friday-night dinner, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy.
                         </p>
-                        <p className="text-sm text-anchor-cream-text/50 mb-6">
+                        <p className="text-sm text-ink-muted mb-6">
                             Sample menu, 2026 selection confirmed in October. Available for parties of six or more.
                         </p>
 
-                        <AlertBox
-                            variant="warning"
-                            title="Christmas lunch near me?"
-                            className="max-w-2xl mx-auto mb-8"
-                            content="Our midweek lunches are the same full festive menu as the evening, no cut-down &quot;lunch version.&quot; Three courses, all the trimmings, proper coffee to finish."
-                        />
+                        <Card accent className="max-w-2xl mx-auto mb-8"><CardBody>
+                            <h3 className="font-display text-h4 text-ink-strong mb-2">Christmas lunch near me?</h3>
+                            <p className="text-ink-muted">Our midweek lunches are the same full festive menu as the evening, no cut-down &quot;lunch version.&quot; Three courses, all the trimmings, proper coffee to finish.</p>
+                        </CardBody></Card>
 
                         <Link href="/food-menu">
                             <Button variant="outline" size="lg">
@@ -289,34 +248,29 @@ export default function ChristmasPartiesPage() {
                         answer: "Book by 1 October for parties of six or more and take 20% off your food bill. That brings midweek office christmas party pricing down to around £29.56 per person for a full three-course festive meal with all the trimmings. Not a bad number to put in front of your manager."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
 
-            <CTASection
+            <CtaBand
                 title="Ready to Book Your Office Christmas Party?"
-                description="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Friday and Saturday nights sell out by October, so the sooner you get in touch, the better your date options."
-                buttons={[
-                    {
-                        text: "Enquire Now",
-                        href: "/christmas-parties#christmas-enquiry",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Call 01753 682707",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "corporate_christmas_cta",
-                        variant: "white"
-                    },
-                    {
-                        text: "Email Us",
-                        href: "mailto:manager@the-anchor.pub?subject=Corporate%20Christmas%20Party%20Enquiry",
-                        isEmail: true,
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Friday and Saturday nights sell out by October, so the sooner you get in touch, the better your date options."
+            >
+                <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                    <Link href="/christmas-parties#christmas-enquiry">
+                        <Button variant="primary" size="lg">
+                            Enquire Now
+                        </Button>
+                    </Link>
+                    <PhoneButton phone={CONTACT.phone} source="corporate_christmas_cta" variant="outline" size="lg">
+                        Call 01753 682707
+                    </PhoneButton>
+                    <Link href="mailto:manager@the-anchor.pub?subject=Corporate%20Christmas%20Party%20Enquiry">
+                        <Button variant="outline" size="lg">
+                            Email Us
+                        </Button>
+                    </Link>
+                </div>
+            </CtaBand>
         </>
     )
 }

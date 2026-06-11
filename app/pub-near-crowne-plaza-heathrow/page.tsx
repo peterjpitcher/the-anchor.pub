@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -39,117 +40,129 @@ export default function PubNearCrownePlazaHeathrowPage() {
         lead="12 minutes away, a proper British pub for corporate guests and team dinners"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Crowne Plaza London Heathrow
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away, a traditional British pub with home-cooked food, draught beers, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow' },
+              { title: '~£15–18', description: 'Typical taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces, no charges' },
+              { title: 'Group Bookings', description: 'Private dining for teams of any size' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Corporate Dining Near Crowne Plaza Heathrow"
-              subtitle="The Crowne Plaza is a favourite for international business travellers. When you need a proper dinner that isn't a hotel restaurant, The Anchor offers the perfect alternative, relaxed, professional, and genuinely British."
+              lead="The Crowne Plaza is a favourite for international business travellers. When you need a proper dinner that isn't a hotel restaurant, The Anchor offers the perfect alternative, relaxed, professional, and genuinely British."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Why Corporate Guests Choose Us</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Full VAT receipts for all purchases',
-                    'Private dining room for team events',
-                    'Free WiFi, work while you eat',
-                    'Group bookings taken in advance',
-                    'Quieter than the hotel bar',
-                    'Honest pub pricing with mains from £8.99',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Getting Here from Crowne Plaza</h3>
-                <div className="space-y-3 text-anchor-cream-text/70">
-                  <div>
-                    <p className="font-semibold">By Taxi or Uber</p>
-                    <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey takes approximately 12 minutes, £15–18 each way.</p>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Why Corporate Guests Choose Us</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Full VAT receipts for all purchases',
+                      'Private dining room for team events',
+                      'Free WiFi, work while you eat',
+                      'Group bookings taken in advance',
+                      'Quieter than the hotel bar',
+                      'Honest pub pricing with mains from £8.99',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Getting Here from Crowne Plaza</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink">By Taxi or Uber</p>
+                      <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey takes approximately 12 minutes, £15–18 each way.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink">By Car</p>
+                      <p className="text-sm">Join the A3044 heading south toward Stanwell. Continue through Stanwell village, turn right onto Horton Road. The Anchor is on your left.</p>
+                    </div>
+                    <div className="pt-2 border-t border-line">
+                      <p className="text-sm font-medium text-ink">Sat-nav postcode: <strong>TW19 6AQ</strong></p>
+                      <p className="text-sm text-ink-muted">Free parking for all pub guests</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">By Car</p>
-                    <p className="text-sm">Join the A3044 heading south toward Stanwell. Continue through Stanwell village, turn right onto Horton Road. The Anchor is on your left.</p>
-                  </div>
-                  <div className="pt-2 border-t border-anchor-gold-dark/15">
-                    <p className="text-sm font-medium">Sat-nav postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-anchor-cream-text/70">Free parking for all pub guests</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading title="Menu Highlights" />
-            <FeatureGrid
-              columns={3}
-              features={[
-                { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £16, walk in or book ahead', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-              ]}
-              className="mb-6"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+              {[
+                { title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99' },
+                { title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint' },
+                { title: 'Sunday Roast', description: 'Traditional British roast from £16, walk in or book ahead' },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
             <div className="text-center">
               <Link href="/food-menu">
-                <Button variant="outline" size="lg">View Full Menu & Prices</Button>
+                <Button variant="outline" size="lg">View Full Menu &amp; Prices</Button>
               </Link>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="info"
-              title="Planning a team dinner?"
-              className="mt-6"
-              content={<p>Call ahead for groups of 6 or more and we&apos;ll reserve the best table. Private room hire available for larger gatherings.</p>}
-            />
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Planning a team dinner?</h3>
+                <p className="text-ink-muted">Call ahead for groups of 6 or more and we&apos;ll reserve the best table. Private room hire available for larger gatherings.</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
@@ -177,20 +190,23 @@ export default function PubNearCrownePlazaHeathrowPage() {
             answer: 'Yes, we provide full itemised VAT receipts for all food and drink, making us a smart choice for business expense management.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
-      <CTASection
+      <CtaBand
         title="12 Minutes from Crowne Plaza Heathrow"
-        description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for corporate dining."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'crowne_plaza_heathrow_cta', variant: 'white' },
-          { text: 'Private Hire', href: '/private-hire', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 12 mins from Crowne Plaza Heathrow · Stanwell Moor, TW19 6AQ"
-      />
+        copy="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for corporate dining."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/private-hire">
+          <Button variant="outline" size="lg">Private Hire</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { StatusBar } from '@/components/layout/StatusBar'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -109,14 +108,14 @@ export default function AshfordPubPage() {
         }
       />
 
-      <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -124,11 +123,11 @@ export default function AshfordPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-cream-text mb-4"
+              className="mb-4"
             >
               Ashford Pub - Traditional British Pub Near Ashford
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Your local traditional pub just 10 minutes from Ashford with free parking
             </p>
           </div>
@@ -136,50 +135,34 @@ export default function AshfordPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="Ashford's Favourite Traditional Pub Experience"
-              subtitle="Just a 10-minute drive from Ashford, The Anchor offers the perfect escape from busy town life. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
+              lead="Just a 10-minute drive from Ashford, The Anchor offers the perfect escape from busy town life. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
 
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "Easy Access",
-                  description: "10 minutes via A30 with 20 free parking spaces",
-                  variant: "colored",
-                  color: "bg-anchor-green-card",
-                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
-                },
-                {
-                  icon: "",
-                  title: "Real Pub Feel",
-                  description: "Traditional atmosphere Ashford chain pubs can't match",
-                  variant: "colored",
-                  color: "bg-anchor-green-card",
-                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
-                },
-	                {
-	                  icon: "",
-	                  title: "ULEZ Free",
-	                  description: "Save £12.50 - we're outside the zone!",
-	                  variant: "colored",
-	                  color: "bg-anchor-green-card",
-	                  className: "rounded-none p-6 text-center border border-anchor-gold-dark/15"
-	                }
-              ]}
-              className="mb-8"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { title: "Easy Access", description: "10 minutes via A30 with 20 free parking spaces" },
+                { title: "Real Pub Feel", description: "Traditional atmosphere Ashford chain pubs can't match" },
+                { title: "ULEZ Free", description: "Save £12.50 - we're outside the zone!" },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Why Ashford Residents Choose Us */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
@@ -188,108 +171,96 @@ export default function AshfordPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Worth the Short Journey</h3>
-                <ul className="space-y-3">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Worth the Short Journey</h3>
+                <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Escape Ashford's busy high street</strong> - Peaceful village setting with countryside views
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Escape Ashford's busy high street</strong> - Peaceful village setting with countryside views</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Better value than Ashford pubs</strong> - Proper portions at village pub prices
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Better value than Ashford pubs</strong> - Proper portions at village pub prices</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Free parking always available</strong> - No metres, no stress, no charges
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Free parking always available</strong> - No metres, no stress, no charges</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Dog-friendly throughout</strong> - Perfect after Ashford Common walks
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Dog-friendly throughout</strong> - Perfect after Ashford Common walks</div>
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Special Events & Offers</h3>
-                <ul className="space-y-3">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Special Events & Offers</h3>
+                <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Stone-baked pizzas</strong> - Worth the trip from Ashford for hand-stretched pies
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Stone-baked pizzas</strong> - Worth the trip from Ashford for hand-stretched pies</div>
                   </li>
-	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold-dark text-xl"></span>
-	                    <div>
-	                      <strong>Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit. Ashford folks fill tables fast!
-	                    </div>
-	                  </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, pool & darts (see /whats-on)
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit. Ashford folks fill tables fast!</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, pool & darts (see /whats-on)</div>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <AlertBox
-              variant="info"
-              title="Plane Spotting Bonus"
-              className="mt-8 text-center"
-              content={
-                <p className="text-lg">
+            <Card accent className="mt-8 text-center">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Plane Spotting Bonus</h3>
+                <p className="text-lg text-ink-muted">
                   Watch aircraft overhead every 90 seconds - entertainment Ashford pubs can't offer!
                 </p>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Popular with Ashford Groups */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Popular with Ashford Groups"
             />
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Sports & Social</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Ashford football fans for big matches</li>
-                  <li>• Cricket club celebrations</li>
-                  <li>• Rugby supporters gatherings</li>
-                  <li>• Darts and pool leagues</li>
-                  <li>• Quiz teams from Ashford</li>
-                </ul>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Sports & Social</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Ashford football fans for big matches</li>
+                    <li>• Cricket club celebrations</li>
+                    <li>• Rugby supporters gatherings</li>
+                    <li>• Darts and pool leagues</li>
+                    <li>• Quiz teams from Ashford</li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Special Occasions</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Birthday parties</li>
-                  <li>• Anniversary dinners</li>
-                  <li>• Work leaving dos</li>
-                  <li>• Christmas parties</li>
-                  <li>• Family gatherings</li>
-                </ul>
-              </div>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Special Occasions</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Birthday parties</li>
+                    <li>• Anniversary dinners</li>
+                    <li>• Work leaving dos</li>
+                    <li>• Christmas parties</li>
+                    <li>• Family gatherings</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
 
             <div className="text-center">
-              <p className="text-lg text-anchor-cream-text/70 mb-6">
+              <p className="text-lg text-ink-muted mb-6">
                 Private areas available for Ashford groups - from intimate dinners to parties of 250!
               </p>
               <Link href="/private-hire#enquiry">
@@ -306,151 +277,146 @@ export default function AshfordPubPage() {
       </section>
 
       {/* Event Venue for Ashford */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Event Venue for Ashford Celebrations"
-              subtitle="Just 10 minutes from Ashford with free parking"
+              lead="Just 10 minutes from Ashford with free parking"
             />
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Why Ashford Chooses The Anchor</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span><strong>Avoid town traffic</strong> - Easy access, ample parking</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span><strong>Better value</strong> - No inflated town centre prices</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span><strong>Flexible spaces</strong> - Intimate gatherings to 200 guests</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-bright"></span>
-                    <span><strong>Tailored pricing for every event</strong> - Let's discuss your needs</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Why Ashford Chooses The Anchor</h3>
+                  <ul className="space-y-3 text-ink">
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong>Avoid town traffic</strong> - Easy access, ample parking</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong>Better value</strong> - No inflated town centre prices</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong>Flexible spaces</strong> - Intimate gatherings to 200 guests</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-accent-text font-bold">✓</span>
+                      <span><strong>Tailored pricing for every event</strong> - Let's discuss your needs</span>
+                    </li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Popular Ashford Events</h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Milestone Birthdays</h4>
-                    <p className="text-sm text-anchor-cream-text/70">18th, 21st, 40th, 50th celebrations</p>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Popular Ashford Events</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Milestone Birthdays</h4>
+                      <p className="text-sm text-ink-muted">18th, 21st, 40th, 50th celebrations</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Engagement Parties</h4>
+                      <p className="text-sm text-ink-muted">Celebrate your milestone in style</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Sports Club Events</h4>
+                      <p className="text-sm text-ink-muted">End of season parties, presentations</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-ink mb-1">Christmas Parties</h4>
+                      <p className="text-sm text-ink-muted">Festive celebrations for Ashford groups</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Engagement Parties</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Celebrate your milestone in style</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Sports Club Events</h4>
-                    <p className="text-sm text-anchor-cream-text/70">End of season parties, presentations</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-anchor-gold-dark mb-1"> Christmas Parties</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Festive celebrations for Ashford groups</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
 
-            <div className="card-dark rounded-none p-6 text-center">
-              <p className="text-lg text-anchor-cream-text mb-4">
-                <strong>Book your Ashford event today!</strong>
-                We love being part of the Ashford community.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/private-hire">
-                  <Button
-                    variant="primary"
-                    size="md"
-                  >
-                    View All Event Options
-                  </Button>
-                </Link>
-                <PhoneButton
-                  phone="01753 682707"
-                  source="ashford_pub_event_cta"
-                  variant="outline"
-                  size="md"
-                >
-                   Call: 01753 682707
-                </PhoneButton>
-                <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                  <Button
+            <Card accent className="text-center">
+              <CardBody className="p-6">
+                <p className="text-lg text-ink mb-4">
+                  <strong>Book your Ashford event today!</strong>
+                  We love being part of the Ashford community.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Link href="/private-hire">
+                    <Button
+                      variant="primary"
+                      size="md"
+                    >
+                      View All Event Options
+                    </Button>
+                  </Link>
+                  <PhoneButton
+                    phone="01753 682707"
+                    source="ashford_pub_event_cta"
                     variant="outline"
                     size="md"
                   >
-                     WhatsApp Us
-                  </Button>
-                </Link>
-              </div>
-            </div>
+                     Call: 01753 682707
+                  </PhoneButton>
+                  <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
+                    <Button
+                      variant="outline"
+                      size="md"
+                    >
+                       WhatsApp Us
+                    </Button>
+                  </Link>
+                </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Getting Here from Ashford */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Getting to The Anchor from Ashford"
             />
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4"> Driving Directions</h3>
-                <ol className="space-y-3">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">1.</span>
-                    <span>From Ashford centre, head west on Church Road</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">2.</span>
-                    <span>Continue onto Fordbridge Road</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">3.</span>
-                    <span>Join the A30 westbound (Staines Road)</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">4.</span>
-                    <span>After 2 miles, turn right onto Horton Road</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">5.</span>
-                    <span>The Anchor is on your right - look for our sign!</span>
-                  </li>
-                </ol>
-                <p className="mt-4 text-sm text-anchor-cream-text/70">
-                  <strong>Journey time:</strong> 10 minutes in normal traffic
-                </p>
-              </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Driving Directions</h3>
+                  <ol className="space-y-3 text-ink">
+                    <li className="flex gap-3"><span className="font-bold text-accent-text">1.</span><span>From Ashford centre, head west on Church Road</span></li>
+                    <li className="flex gap-3"><span className="font-bold text-accent-text">2.</span><span>Continue onto Fordbridge Road</span></li>
+                    <li className="flex gap-3"><span className="font-bold text-accent-text">3.</span><span>Join the A30 westbound (Staines Road)</span></li>
+                    <li className="flex gap-3"><span className="font-bold text-accent-text">4.</span><span>After 2 miles, turn right onto Horton Road</span></li>
+                    <li className="flex gap-3"><span className="font-bold text-accent-text">5.</span><span>The Anchor is on your right - look for our sign!</span></li>
+                  </ol>
+                  <p className="mt-4 text-sm text-ink-muted">
+                    <strong className="text-ink">Journey time:</strong> 10 minutes in normal traffic
+                  </p>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4"> Alternative Routes</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text mb-2">Via Ashford Common</p>
-                    <p className="text-anchor-cream-text/70">Through Ashford Common and Stanwell - scenic route past the reservoirs</p>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Alternative Routes</h3>
+                  <div className="space-y-4 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink mb-2">Via Ashford Common</p>
+                      <p>Through Ashford Common and Stanwell - scenic route past the reservoirs</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink mb-2">Via Staines</p>
+                      <p>A308 to Staines, then A30 to Stanwell Moor</p>
+                    </div>
+                    <div className="pt-4 border-t border-line">
+                      <p className="font-semibold text-accent-text">Quick Tip</p>
+                      <p>Avoid Heathrow traffic - use Stanwell Moor Road via Bedfont</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text mb-2">Via Staines</p>
-                    <p className="text-anchor-cream-text/70">A308 to Staines, then A30 to Stanwell Moor</p>
-                  </div>
-                  <div className="pt-4 border-t border-anchor-gold-dark/15">
-                    <p className="font-semibold text-anchor-gold-dark"> Quick Tip</p>
-                    <p className="text-anchor-cream-text/70">Avoid Heathrow traffic - use Stanwell Moor Road via Bedfont</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
 
             <div className="mt-8 text-center">
@@ -469,46 +435,52 @@ export default function AshfordPubPage() {
       </section>
 
       {/* Local Connections */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="Ashford to The Anchor - Local Connections"
             />
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="font-bold text-lg text-anchor-cream-text mb-3">Nearby Landmarks</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• 2 miles from Queen Mary Reservoir</li>
-                  <li>• 3 miles from Ashford Hospital</li>
-                  <li>• Next to St Mary's Church</li>
-                  <li>• 5 mins from M25 Junction 14</li>
-                </ul>
-              </div>
+            <div className="grid md:grid-cols-3 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Nearby Landmarks</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• 2 miles from Queen Mary Reservoir</li>
+                    <li>• 3 miles from Ashford Hospital</li>
+                    <li>• Next to St Mary's Church</li>
+                    <li>• 5 mins from M25 Junction 14</li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="font-bold text-lg text-anchor-cream-text mb-3">Local Areas Served</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• Ashford Common</li>
-                  <li>• Littleton</li>
-                  <li>• Charlton Village</li>
-                  <li>• Laleham</li>
-                </ul>
-              </div>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Local Areas Served</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• Ashford Common</li>
+                    <li>• Littleton</li>
+                    <li>• Charlton Village</li>
+                    <li>• Laleham</li>
+                  </ul>
+                </CardBody>
+              </Card>
 
-              <div className="card-dark rounded-none p-6">
-                <h3 className="font-bold text-lg text-anchor-cream-text mb-3">Journey Times</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• Ashford Station: 12 mins</li>
-                  <li>• Ashford Hospital: 8 mins</li>
-                  <li>• Spelthorne Leisure: 10 mins</li>
-                  <li>• Heathrow T5: 7 mins</li>
-                </ul>
-              </div>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Journey Times</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• Ashford Station: 12 mins</li>
+                    <li>• Ashford Hospital: 8 mins</li>
+                    <li>• Spelthorne Leisure: 10 mins</li>
+                    <li>• Heathrow T5: 7 mins</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
 
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Join the many Ashford residents who've discovered their new favourite pub!
             </p>
           </div>
@@ -516,14 +488,14 @@ export default function AshfordPubPage() {
       </section>
 
       {/* Ashford Local Knowledge */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Just Beyond the Dual Carriageway"
               className="text-center mb-8"
             />
-            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+            <div className="prose max-w-none text-ink-muted space-y-4">
               <p>
                 Ashford Middlesex is closer to The Anchor than most people realise. Head west on the A30 past Clockhouse
                 Roundabout, follow it for a couple of miles, and turn right onto Horton Road, eight to ten minutes
@@ -551,14 +523,14 @@ export default function AshfordPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading
               title="Opening Hours"
             />
             <BusinessHours />
-            <p className="mt-4 text-anchor-cream-text/70">
+            <p className="mt-4 text-ink-muted">
               Kitchen closes earlier - check times for food service
             </p>
           </div>
@@ -576,10 +548,10 @@ export default function AshfordPubPage() {
             question: "Is there parking at The Anchor for Ashford visitors?",
             answer: "Yes! We have 20 free parking spaces available for all our guests. Unlike Ashford town centre, you'll never have to worry about parking metres or charges here."
           },
-	          {
-	            question: "What makes The Anchor different from pubs in Ashford?",
-	            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
-	          },
+          {
+            question: "What makes The Anchor different from pubs in Ashford?",
+            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
+          },
           {
             question: "Do you get many customers from Ashford?",
             answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, stone-baked pizzas, and quiz nights. The 10-minute journey is worth it for the authentic pub atmosphere and better prices."
@@ -593,35 +565,24 @@ export default function AshfordPubPage() {
             answer: "Yes! We regularly host birthday parties, corporate events, and celebrations for Ashford residents. We have spaces for groups from 20 to 250 people. Contact us to discuss your requirements."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Worth the Trip from Ashford"
-        description="Join your Ashford neighbours who've discovered their new favourite pub"
-        buttons={[
-          {
-            text: " Book a Table",
-            href: "/book-table",
-            variant: "outline"
-          },
-          {
-            text: " Call Us",
-            href: `${CONTACT.phoneHref}`,
-            isPhone: true,
-            phoneSource: "ashford_pub_cta_section",
-            variant: "white"
-          },
-          {
-            text: " Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          }
-        ]}
-        variant="green"
-        footer="Just 10 minutes from Ashford • Free Parking • Outside ULEZ Zone"
-      />
+        copy="Join your Ashford neighbours who've discovered their new favourite pub"
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/private-hire#enquiry">
+          <Button variant="outline" size="lg">Book an Event</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

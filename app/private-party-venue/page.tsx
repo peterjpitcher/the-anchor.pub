@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container, Badge } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Container, Badge } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -71,16 +72,16 @@ export default function PrivatePartyVenuePage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container size="md">
           <div className="text-center">
             <PageTitle
               seo={{ structured: true, speakable: true }}
-              className="text-anchor-cream-text mb-4"
+              className="text-ink-strong mb-4"
             >
               Party Venue Near Heathrow &amp; Staines &mdash; Birthdays &amp; Celebrations at The Anchor
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               DJ space, late licence, decorations welcome, everything you need for birthdays and celebrations
             </p>
           </div>
@@ -88,250 +89,157 @@ export default function PrivatePartyVenuePage() {
       </section>
 
       {/* Perfect For Section */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <SectionHeading
             title="Perfect for Every Celebration"
-            subtitle="From milestone birthdays to surprise parties, we make your special day unforgettable"
+            lead="From milestone birthdays to surprise parties, we make your special day unforgettable"
           />
-          <FeatureGrid
-            columns={3}
-            features={[
-              { icon: "", title: "Birthday Parties", description: "18th, 21st, 30th, 40th, 50th and beyond - celebrate every milestone", className: "text-center" },
-              { icon: "", title: "Anniversaries", description: "Silver, gold, or any year worth celebrating with family and friends", className: "text-center" },
-              { icon: "", title: "Graduation Parties", description: "Mark academic achievements with a memorable celebration", className: "text-center" },
-              { icon: "", title: "Baby Showers", description: "Welcome new arrivals with a special gathering", className: "text-center" },
-              { icon: "", title: "Engagement Parties", description: "Toast the happy couple in style", className: "text-center" },
-              { icon: "", title: "Achievement Celebrations", description: "New job, retirement, or any personal milestone", className: "text-center" }
-            ]}
-            className="mb-16"
-          />
-          <InfoBoxGrid
-            columns={2}
-            boxes={[
-              {
-                title: "Why Families Choose The Anchor",
-                content: (
-                  <>
-                    <p className="mb-4">We understand what makes a great party venue:</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Flexible spaces</strong> - From intimate gatherings to large celebrations</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Your music, your way</strong> - Bring your playlist or DJ</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Decoration freedom</strong> - Make the space your own</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>All ages welcome</strong> - Family-friendly environment</span></li>
-                    </ul>
-                  </>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              },
-              {
-                title: "Stress-Free Planning",
-                content: (
-                  <>
-                    <p className="mb-4">Let us handle the details while you enjoy the party:</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Dedicated coordinator</strong> - One point of contact throughout</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Custom menus</strong> - Catering to match your taste and budget</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Setup assistance</strong> - We help create your vision</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-bright"></span><span><strong>Clean-up included</strong> - Just enjoy your event</span></li>
-                    </ul>
-                  </>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-raised"
-              }
-            ]}
-          />
+          <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Birthday Parties", description: "18th, 21st, 30th, 40th, 50th and beyond - celebrate every milestone" },
+              { title: "Anniversaries", description: "Silver, gold, or any year worth celebrating with family and friends" },
+              { title: "Graduation Parties", description: "Mark academic achievements with a memorable celebration" },
+              { title: "Baby Showers", description: "Welcome new arrivals with a special gathering" },
+              { title: "Engagement Parties", description: "Toast the happy couple in style" },
+              { title: "Achievement Celebrations", description: "New job, retirement, or any personal milestone" },
+            ].map(feature => (
+              <Card key={feature.title} accent className="h-full text-center">
+                <CardBody className="flex h-full flex-col gap-2">
+                  <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                  <p className="text-ink-muted">{feature.description}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Card accent><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Why Families Choose The Anchor</h3>
+              <p className="mb-4 text-ink-muted">We understand what makes a great party venue:</p>
+              <ul className="space-y-2 text-ink-muted">
+                <li><strong className="text-ink-strong">Flexible spaces</strong> - From intimate gatherings to large celebrations</li>
+                <li><strong className="text-ink-strong">Your music, your way</strong> - Bring your playlist or DJ</li>
+                <li><strong className="text-ink-strong">Decoration freedom</strong> - Make the space your own</li>
+                <li><strong className="text-ink-strong">All ages welcome</strong> - Family-friendly environment</li>
+              </ul>
+            </CardBody></Card>
+            <Card accent><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Stress-Free Planning</h3>
+              <p className="mb-4 text-ink-muted">Let us handle the details while you enjoy the party:</p>
+              <ul className="space-y-2 text-ink-muted">
+                <li><strong className="text-ink-strong">Dedicated coordinator</strong> - One point of contact throughout</li>
+                <li><strong className="text-ink-strong">Custom menus</strong> - Catering to match your taste and budget</li>
+                <li><strong className="text-ink-strong">Setup assistance</strong> - We help create your vision</li>
+                <li><strong className="text-ink-strong">Clean-up included</strong> - Just enjoy your event</li>
+              </ul>
+            </CardBody></Card>
+          </div>
         </Container>
       </section>
 
       {/* What's Included */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="md">
           <SectionHeading title="Everything You Need for a Perfect Party" />
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6">Venue Features</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Flexible Spaces</strong><p className="text-sm text-anchor-cream-text/70">Configure for your party size and style</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Music System</strong><p className="text-sm text-anchor-cream-text/70">Connect your playlist or bring a DJ</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Party Lighting</strong><p className="text-sm text-anchor-cream-text/70">Create the perfect atmosphere</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Free Parking for Guests</strong><p className="text-sm text-anchor-cream-text/70">20 spaces while attending your event</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Full Accessibility</strong><p className="text-sm text-anchor-cream-text/70">Everyone can join the celebration</p></div>
-                </li>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-6">Venue Features</h3>
+              <ul className="space-y-3 text-ink-muted">
+                <li><strong className="text-ink-strong">Flexible Spaces</strong><p className="text-sm">Configure for your party size and style</p></li>
+                <li><strong className="text-ink-strong">Music System</strong><p className="text-sm">Connect your playlist or bring a DJ</p></li>
+                <li><strong className="text-ink-strong">Party Lighting</strong><p className="text-sm">Create the perfect atmosphere</p></li>
+                <li><strong className="text-ink-strong">Free Parking for Guests</strong><p className="text-sm">20 spaces while attending your event</p></li>
+                <li><strong className="text-ink-strong">Full Accessibility</strong><p className="text-sm">Everyone can join the celebration</p></li>
               </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6">Food &amp; Drink Options</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Buffet Service</strong><p className="text-sm text-anchor-cream-text/70">Hot and cold options to suit all tastes</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Pizza Parties</strong><p className="text-sm text-anchor-cream-text/70">Perfect for casual celebrations</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Drinks Packages</strong><p className="text-sm text-anchor-cream-text/70">From welcome drinks to full bar tabs</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Cake Service</strong><p className="text-sm text-anchor-cream-text/70">We will serve your celebration cake</p></div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div><strong>Dietary Options</strong><p className="text-sm text-anchor-cream-text/70">Vegetarian, vegan, and allergy-friendly</p></div>
-                </li>
+            </CardBody></Card>
+            <Card><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-6">Food &amp; Drink Options</h3>
+              <ul className="space-y-3 text-ink-muted">
+                <li><strong className="text-ink-strong">Buffet Service</strong><p className="text-sm">Hot and cold options to suit all tastes</p></li>
+                <li><strong className="text-ink-strong">Pizza Parties</strong><p className="text-sm">Perfect for casual celebrations</p></li>
+                <li><strong className="text-ink-strong">Drinks Packages</strong><p className="text-sm">From welcome drinks to full bar tabs</p></li>
+                <li><strong className="text-ink-strong">Cake Service</strong><p className="text-sm">We will serve your celebration cake</p></li>
+                <li><strong className="text-ink-strong">Dietary Options</strong><p className="text-sm">Vegetarian, vegan, and allergy-friendly</p></li>
               </ul>
-            </div>
+            </CardBody></Card>
           </div>
         </Container>
       </section>
 
       {/* Add-On Services */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <SectionHeading title="Make It Extra Special" subtitle="Additional services to enhance your celebration" />
-          <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <div className="card-dark rounded-none p-6 text-center">
-              <div className="text-3xl mb-3"></div>
-              <h4 className="font-bold mb-2">Decorations</h4>
-              <p className="text-sm text-anchor-cream-text/70">Balloons, banners, table decorations</p>
-            </div>
-            <div className="card-dark rounded-none p-6 text-center">
-              <div className="text-3xl mb-3"></div>
-              <h4 className="font-bold mb-2">Photography</h4>
-              <p className="text-sm text-anchor-cream-text/70">Capture every special moment</p>
-            </div>
-            <div className="card-dark rounded-none p-6 text-center">
-              <div className="text-3xl mb-3"></div>
-              <h4 className="font-bold mb-2">Entertainment</h4>
-              <p className="text-sm text-anchor-cream-text/70">DJs, performers, sound system</p>
-            </div>
-            <div className="card-dark rounded-none p-6 text-center">
-              <div className="text-3xl mb-3"></div>
-              <h4 className="font-bold mb-2">Flowers</h4>
-              <p className="text-sm text-anchor-cream-text/70">Beautiful arrangements and centerpieces</p>
-            </div>
+          <SectionHeading title="Make It Extra Special" lead="Additional services to enhance your celebration" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+            {[
+              { title: "Decorations", desc: "Balloons, banners, table decorations" },
+              { title: "Photography", desc: "Capture every special moment" },
+              { title: "Entertainment", desc: "DJs, performers, sound system" },
+              { title: "Flowers", desc: "Beautiful arrangements and centerpieces" },
+            ].map(item => (
+              <Card key={item.title} accent className="h-full text-center">
+                <CardBody className="flex h-full flex-col gap-2">
+                  <h4 className="font-display text-h4 text-ink-strong">{item.title}</h4>
+                  <p className="text-sm text-ink-muted">{item.desc}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Party Planning Timeline */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="sm">
-          <SectionHeading title="Simple Party Planning Process" subtitle="We make organising your celebration easy" />
+          <SectionHeading title="Simple Party Planning Process" lead="We make organising your celebration easy" />
           <div className="space-y-6">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">1</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Initial Enquiry</h3>
-                <p className="text-anchor-cream-text/70">Call, WhatsApp, or email us with your party date and guest numbers</p>
+            {[
+              { n: "1", title: "Initial Enquiry", desc: "Call, WhatsApp, or email us with your party date and guest numbers" },
+              { n: "2", title: "Discuss Your Vision", desc: "We will chat about your ideas, menu preferences, and any special requirements" },
+              { n: "3", title: "Receive Your Quote", desc: "Clear pricing with no hidden extras - know exactly what you are paying" },
+              { n: "4", title: "Secure Your Date", desc: "Small deposit holds your booking - fully refundable if plans change (14 days notice)" },
+              { n: "5", title: "Final Details", desc: "Confirm numbers and any last-minute changes a week before" },
+              { n: "6", title: "Party Time!", desc: "Arrive and enjoy - we will handle everything else" },
+            ].map(step => (
+              <div key={step.n} className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-white rounded-full flex items-center justify-center font-semibold">{step.n}</div>
+                <div>
+                  <h3 className="font-semibold text-lg text-ink-strong mb-1">{step.title}</h3>
+                  <p className="text-ink-muted">{step.desc}</p>
+                </div>
               </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">2</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Discuss Your Vision</h3>
-                <p className="text-anchor-cream-text/70">We will chat about your ideas, menu preferences, and any special requirements</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">3</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Receive Your Quote</h3>
-                <p className="text-anchor-cream-text/70">Clear pricing with no hidden extras - know exactly what you are paying</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">4</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Secure Your Date</h3>
-                <p className="text-anchor-cream-text/70">Small deposit holds your booking - fully refundable if plans change (14 days notice)</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">5</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Final Details</h3>
-                <p className="text-anchor-cream-text/70">Confirm numbers and any last-minute changes a week before</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">6</div>
-              <div>
-                <h3 className="font-bold text-lg mb-1">Party Time!</h3>
-                <p className="text-anchor-cream-text/70">Arrive and enjoy - we will handle everything else</p>
-              </div>
-            </div>
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Location Benefits */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container size="md">
           <div className="text-center">
-            <SectionHeading title="Easy to Reach from Everywhere" subtitle="Central location with free parking makes party planning simple" />
-            <QuickInfoGrid
-              items={[
-                { icon: "", title: "Staines: 8 minutes" },
-                { icon: "", title: "Ashford: 10 minutes" },
-                { icon: "", title: "Feltham: 10 minutes" },
-                { icon: "", title: "Heathrow: 7 minutes" },
-                { icon: "", title: "Sunbury: 15 minutes" },
-                { icon: "", title: "Egham: 12 minutes" }
-              ]}
-              columns={3}
-              className="mb-8"
-            />
-            <InfoBoxGrid
-              columns={1}
-              boxes={[
-                {
-                  title: "Why Location Matters for Parties",
-                  content: (
-                    <div className="text-center">
-                      <div className="grid md:grid-cols-3 gap-6">
-                        <div>
-                          <div className="text-2xl mb-2"></div>
-                          <h4 className="font-semibold mb-1">Free Parking</h4>
-                          <p className="text-sm text-anchor-cream-text/70">No expensive taxis needed - everyone can drive</p>
-                        </div>
-                        <div>
-                          <div className="text-2xl mb-2"></div>
-                          <h4 className="font-semibold mb-1">Public Transport</h4>
-                          <p className="text-sm text-anchor-cream-text/70">Bus stops nearby for non-drivers</p>
-                        </div>
-                        <div>
-                          <div className="text-2xl mb-2"></div>
-                          <h4 className="font-semibold mb-1">Central Location</h4>
-                          <p className="text-sm text-anchor-cream-text/70">Easy for guests from multiple areas</p>
-                        </div>
-                      </div>
-                    </div>
-                  ),
-                  variant: "default"
-                }
-              ]}
-            />
+            <SectionHeading title="Easy to Reach from Everywhere" lead="Central location with free parking makes party planning simple" />
+            <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {["Staines: 8 minutes", "Ashford: 10 minutes", "Feltham: 10 minutes", "Heathrow: 7 minutes", "Sunbury: 15 minutes", "Egham: 12 minutes"].map(item => (
+                <Badge key={item} variant="sand">{item}</Badge>
+              ))}
+            </div>
+            <Card accent><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Why Location Matters for Parties</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="font-semibold text-ink-strong mb-1">Free Parking</h4>
+                  <p className="text-sm text-ink-muted">No expensive taxis needed - everyone can drive</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-ink-strong mb-1">Public Transport</h4>
+                  <p className="text-sm text-ink-muted">Bus stops nearby for non-drivers</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-ink-strong mb-1">Central Location</h4>
+                  <p className="text-sm text-ink-muted">Easy for guests from multiple areas</p>
+                </div>
+              </div>
+            </CardBody></Card>
           </div>
         </Container>
       </section>
@@ -374,59 +282,45 @@ export default function PrivatePartyVenuePage() {
             answer: "Standard finish time is 11:30pm on Fridays and Saturdays, 11pm on other nights. Extended hours may be available for exclusive venue hire - just ask when booking."
           }
         ]}
-        className="bg-anchor-green-card"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <section className="section-spacing-lg bg-anchor-green-raised border-t border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-bright mb-6">
-              Plan Your Perfect Party
-            </h2>
-            <p className="text-xl text-anchor-cream-text/70 mb-8">
-              Get in touch today to check availability and discuss your celebration
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="private_party_cta"
-                size="lg"
-                variant="primary"
-                context="private_party"
-                fullWidth
-                className="w-full sm:w-auto"
-              >
-                Book Your Party
-              </BookTableButton>
-              <PhoneButton phone={CONTACT.phone} source="private-party_cta" size="lg" className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call: {CONTACT.phone}
-              </PhoneButton>
-              <Link
-                href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20party%20venue%20hire"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto"
-              >
-                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  WhatsApp Us
-                </Button>
-              </Link>
-              <Link href="mailto:manager@the-anchor.pub?subject=Private Party Enquiry" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
-                  Email Enquiry
-                </Button>
-              </Link>
-            </div>
-            <div className="mt-8 bg-anchor-green-card rounded-xl p-6 max-w-2xl mx-auto border border-anchor-gold-dark/15">
-              <p className="text-anchor-cream-text/70 text-center">
-                <strong>Quick Response Promise</strong><br />
-                We will get back to you within 2 hours during opening hours<br />
-                <strong>WhatsApp:</strong> 01753 682707 for instant chat
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <CtaBand
+        title="Plan Your Perfect Party"
+        copy="Get in touch today to check availability and discuss your celebration"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+          <BookTableButton
+            source="private_party_cta"
+            size="lg"
+            variant="primary"
+            context="private_party"
+          >
+            Book Your Party
+          </BookTableButton>
+          <PhoneButton phone={CONTACT.phone} source="private-party_cta" size="lg" variant="outline">
+            Call: {CONTACT.phone}
+          </PhoneButton>
+          <Link
+            href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20party%20venue%20hire"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" variant="outline">
+              WhatsApp Us
+            </Button>
+          </Link>
+          <Link href="mailto:manager@the-anchor.pub?subject=Private Party Enquiry">
+            <Button size="lg" variant="outline">
+              Email Enquiry
+            </Button>
+          </Link>
+        </div>
+        <p className="mt-8 text-sm text-anchor-cream-text/85">
+          <strong>Quick Response Promise.</strong> We will get back to you within 2 hours during opening hours. <strong>WhatsApp:</strong> 01753 682707 for instant chat.
+        </p>
+      </CtaBand>
     </>
   )
 }

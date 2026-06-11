@@ -1,18 +1,16 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { Button, SectionHeading, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
-import { getCateringData } from '@/lib/api/catering-packages'
-import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 
 export const metadata: Metadata = {
     title: 'Retirement Party Venue Near Heathrow',
@@ -33,8 +31,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function RetirementPartiesPage() {
-    const { foodPackages } = await getCateringData()
+export default function RetirementPartiesPage() {
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -91,104 +88,77 @@ export default async function RetirementPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
+                        <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Retirement Party & Leaving Do Venue Near Heathrow
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Whether it's a quiet lunch with the immediate team or a big evening bash with the whole company, The Anchor provides a warm, respectful, and relaxed setting to say "Thank You" and "Good Luck".
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Stress-Free Planning for Organizers"
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Speech Friendly",
-                                    description: "Quiet areas available for speeches and presentations without shouting over music.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Accessible",
-                                    description: "Ground floor access and easy parking make it suitable for guests of all ages.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Catering Options",
-                                    description: "Classic buffet spread, tea & coffee stations, or full 3-course meals.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            {[
+                                { title: "Speech Friendly", description: "Quiet areas available for speeches and presentations without shouting over music." },
+                                { title: "Accessible", description: "Ground floor access and easy parking make it suitable for guests of all ages." },
+                                { title: "Catering Options", description: "Classic buffet spread, tea & coffee stations, or full 3-course meals." },
+                            ].map(feature => (
+                                <Card key={feature.title} accent className="h-full">
+                                    <CardBody className="flex h-full flex-col gap-2">
+                                        <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Daytime or Evening?"
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15">
-                                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-2">The Long Lunch</h3>
-                                <p className="text-anchor-cream-text/70">
-                                    Popular for office leaving dos. Book a long table for Friday lunch, enjoy our classics (Fish & Chips, Pies), and let the afternoon drift by. We offer tab facilities for corporate cards.
-                                </p>
-                            </div>
-                            <div className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15">
-                                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-2">The Evening Do</h3>
-                                <p className="text-anchor-cream-text/70">
-                                    Invite partners and spouses for a proper celebration. Use our function area, enjoy a buffet, and perhaps a bit of music to see the retiree off in style.
-                                </p>
-                            </div>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="font-display text-h4 text-ink-strong mb-2">The Long Lunch</h3>
+                                    <p className="text-ink-muted">
+                                        Popular for office leaving dos. Book a long table for Friday lunch, enjoy our classics (Fish & Chips, Pies), and let the afternoon drift by. We offer tab facilities for corporate cards.
+                                    </p>
+                                </CardBody>
+                            </Card>
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="font-display text-h4 text-ink-strong mb-2">The Evening Do</h3>
+                                    <p className="text-ink-muted">
+                                        Invite partners and spouses for a proper celebration. Use our function area, enjoy a buffet, and perhaps a bit of music to see the retiree off in style.
+                                    </p>
+                                </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <CateringPackagesTable
-                            packages={foodPackages}
-                            title="Catering Packages"
-                            subtitle="Prices per person, minimum guest numbers may apply"
-                            showDescription={true}
-                        />
-                    </div>
-                </Container>
-            </section>
-
-            <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-3xl mx-auto text-center">
-                        <p className="text-lg text-anchor-cream-text/70">
-                            Use our calculator below for an instant estimate, or call us for a bespoke quote.
-                        </p>
+                    <div className="max-w-2xl mx-auto">
+                        <CateringPackagesCard />
                     </div>
                 </Container>
             </section>
@@ -214,27 +184,24 @@ export default async function RetirementPartiesPage() {
                         answer: "We can comfortably host up to 100 people for a buffet/drinks reception, or up to ~50 for a sit-down meal."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
 
-            <CTASection
+            <CtaBand
                 title="Book a Proper Send-Off"
-                description="Contact us to check availability for your date."
-                buttons={[
-                    {
-                        text: "Enquire Now",
-                        href: "/private-hire#enquiry",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Call Us",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "retirement_cta",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
+                copy="Contact us to check availability for your date."
+                primary={
+                    <Link href="/private-hire#enquiry">
+                        <Button variant="primary" size="lg">
+                            Enquire Now
+                        </Button>
+                    </Link>
+                }
+                secondary={
+                    <PhoneButton phone={CONTACT.phone} source="retirement_cta" variant="outline" size="lg">
+                        Call Us
+                    </PhoneButton>
+                }
             />
         </>
     )

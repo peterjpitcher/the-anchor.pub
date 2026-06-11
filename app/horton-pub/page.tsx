@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -99,7 +100,7 @@ export default function HortonPubPage() {
         }
       />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -107,90 +108,78 @@ export default function HortonPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-cream-text mb-4"
+                            className="mb-4"
                         >
                             Pubs in Horton, Traditional British Pub Just 1 Mile Away
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             The Anchor in Stanwell Moor is practically in Horton! We are your closest traditional pub with food, offering a warm welcome to our neighbours.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
                             title="A Proper Village Pub for Horton Residents"
-                            subtitle="Whether you're walking over for a pint or driving over for Sunday roast, we are Horton's local choice for great food and entertainment."
+                            lead="Whether you're walking over for a pint or driving over for Sunday roast, we are Horton's local choice for great food and entertainment."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Walking Distance",
-                                    description: "A pleasant 20-minute walk or 2-minute drive from Horton village",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Sunday Roasts",
-                                    description: "The best roast in the area - worth the short hop over the motorway",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Draught Beers",
-                                    description: "Properly kept ales and a great wine selection",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[
+                                { title: "Walking Distance", description: "A pleasant 20-minute walk or 2-minute drive from Horton village" },
+                                { title: "Sunday Roasts", description: "The best roast in the area - worth the short hop over the motorway" },
+                                { title: "Draught Beers", description: "Properly kept ales and a great wine selection" },
+                            ].map((item) => (
+                                <Card key={item.title} accent>
+                                    <CardBody className="p-6 text-center">
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                                        <p className="text-sm text-ink-muted">{item.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Why Horton Locals Choose The Anchor"
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Community Connections</h3>
-                                <ul className="space-y-2 text-anchor-cream-text/70">
-                                    <li>• Many Horton residents are already regulars</li>
-                                    <li>• We support local events and charities</li>
-                                    <li>• A true village atmosphere, just like home</li>
-                                    <li>• Dog friendly - perfect for walkers</li>
-                                </ul>
-                            </div>
+                        <div className="grid md:grid-cols-2 gap-5 mb-8">
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Community Connections</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• Many Horton residents are already regulars</li>
+                                        <li>• We support local events and charities</li>
+                                        <li>• A true village atmosphere, just like home</li>
+                                        <li>• Dog friendly - perfect for walkers</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
 
-                            <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Entertainment Nearby</h3>
-                                <ul className="space-y-2 text-anchor-cream-text/70">
-                                    <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
-                                    <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>
-                                    <li>• Cash Bingo Nights</li>
-                                    <li>• Sky & TNT Sports on big screens</li>
-                                </ul>
-                            </div>
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Entertainment Nearby</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
+                                        <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>
+                                        <li>• Cash Bingo Nights</li>
+                                        <li>• Sky & TNT Sports on big screens</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
                         </div>
 
                         <div className="text-center">
-                            <p className="text-lg text-anchor-cream-text/70 mb-6">
+                            <p className="text-lg text-ink-muted mb-6">
                                 Looking for a change of scenery without the travel? We're right on your doorstep.
                             </p>
                             <DirectionsButton
@@ -208,13 +197,13 @@ export default function HortonPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Next Village Over, Practically Your Local"
                         />
-                        <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+                        <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
                                 Horton and Stanwell Moor are connected by the same road, Horton Road, and we&rsquo;re barely a mile apart. If you live in Horton, The Anchor is genuinely your closest pub. Head east out of the village, cross over the M25 bridge, and we&rsquo;re right there on your left. Two minutes in the car. On a nice evening, it&rsquo;s a pleasant twenty-minute walk along the pavement, and some of our Horton regulars do exactly that when the weather&rsquo;s good.
                             </p>
@@ -232,14 +221,14 @@ export default function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />
-                        <p className="mt-4 text-anchor-cream-text/70">
+                        <p className="mt-4 text-ink-muted">
                             Kitchen closes earlier - check times for food service
                         </p>
                     </div>
@@ -265,34 +254,23 @@ export default function HortonPubPage() {
                         answer: "Yes, we have a large free car park with 20 spaces, making it very easy to pop over from Horton for dinner without worrying about parking."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-surface"
             />
 
-            <CTASection
+            <CtaBand
                 title="Your Neighbouring Village Pub"
-                description="Great food, cold drinks, and good company - just 1 mile away."
-                buttons={[
-                    {
-                        text: "Book a Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "horton_pub_cta",
-                        variant: "outline"
-                    },
-                    {
-                        text: "Book an Event",
-                        href: "/private-hire#enquiry",
-                        variant: "white"
-                    },
-                    {
-                        text: "View Menu",
-                        href: "/food-menu",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-                footer="Free Parking • Dog Friendly • 2 Minutes from Horton"
-            />
+                copy="Great food, cold drinks, and good company - just 1 mile away."
+            >
+                <Link href={CONTACT.phoneHref}>
+                    <Button variant="primary" size="lg">Book a Table</Button>
+                </Link>
+                <Link href="/private-hire#enquiry">
+                    <Button variant="outline" size="lg">Book an Event</Button>
+                </Link>
+                <Link href="/food-menu">
+                    <Button variant="outline" size="lg">View Menu</Button>
+                </Link>
+            </CtaBand>
         </>
     )
 }

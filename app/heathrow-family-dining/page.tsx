@@ -1,13 +1,15 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
+import { Button } from '@/components/ui/primitives/Button'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
@@ -77,96 +79,70 @@ export default function FamilyDiningPage() {
         lead="Fresh air, good food, and plenty of space for the kids to run around"
       />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle as="h2" className="text-anchor-cream-text mb-4">
-                            Family-Friendly Pub &amp; Restaurant Near Heathrow Airport
-                        </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
-                            Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment.
-                        </p>
-                    </div>
-                </Container>
-            </section>
+            <AmenityStrip />
 
-            <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
-                            title="Why Families Love Us"
-                            subtitle="We've thought of everything to make your layover easier."
-                        />
-
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Large Beer Garden",
-                                    description: "A safe, enclosed grassy area where kids can play freely while you watch from your table.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Kids Menu",
-                                    description: "Proper portions of favourites like fish fingers and sausages - nothing too fancy!",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Plane Spotting",
-                                    description: "We are under the flight path! Kids love watching the giant planes land nearby.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
+                            title="Family-Friendly Pub & Restaurant Near Heathrow Airport"
+                            lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment."
                         />
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 p-8 rounded-xl max-w-3xl mx-auto">
-                        <h3 className="text-2xl font-bold text-center text-anchor-cream-text mb-6">Facilities for Little Ones</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="flex items-start gap-3">
-                                <span className="text-2xl"></span>
-                                <div>
-                                    <p className="font-bold">High Chairs</p>
-                                    <p className="text-sm text-anchor-cream-text/55">Plenty available, just ask when booking.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <span className="text-2xl"></span>
-                                <div>
-                                    <p className="font-bold">Changing Facilities</p>
-                                    <p className="text-sm text-anchor-cream-text/55">Please ask staff for assistance.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <span className="text-2xl"></span>
-                                <div>
-                                    <p className="font-bold">Kid-Friendly Drinks</p>
-                                    <p className="text-sm text-anchor-cream-text/55">Fruit shoots, juices, and milk available.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3">
-                                <span className="text-2xl"></span>
-                                <div>
-                                    <p className="font-bold">Activity Possible</p>
-                                    <p className="text-sm text-anchor-cream-text/55">Feel free (and encouraged!) to bring colouring pads.</p>
-                                </div>
-                            </div>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeading
+                            kicker="Everything for an easier layover"
+                            title="Why Families Love Us"
+                        />
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { title: 'Large Beer Garden', description: 'A safe, enclosed grassy area where kids can play freely while you watch from your table.' },
+                                { title: 'Kids Menu', description: 'Proper portions of favourites like fish fingers and sausages - nothing too fancy!' },
+                                { title: 'Plane Spotting', description: 'We are under the flight path! Kids love watching the giant planes land nearby.' }
+                            ].map(feature => (
+                                <Card key={feature.title} accent hover>
+                                    <CardBody>
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                                        <p className="text-ink-muted">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
                         </div>
                     </div>
+                </Container>
+            </section>
+
+            <section className="py-section-y bg-canvas">
+                <Container>
+                    <Card accent className="max-w-3xl mx-auto">
+                        <CardBody className="p-8">
+                            <h2 className="font-display text-h3 text-center text-ink-strong mb-6">Facilities for Little Ones</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <p className="font-semibold text-ink-strong">High Chairs</p>
+                                    <p className="text-sm text-ink-muted">Plenty available, just ask when booking.</p>
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-ink-strong">Changing Facilities</p>
+                                    <p className="text-sm text-ink-muted">Please ask staff for assistance.</p>
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-ink-strong">Kid-Friendly Drinks</p>
+                                    <p className="text-sm text-ink-muted">Fruit shoots, juices, and milk available.</p>
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-ink-strong">Activity Possible</p>
+                                    <p className="text-sm text-ink-muted">Feel free (and encouraged!) to bring colouring pads.</p>
+                                </div>
+                            </div>
+                        </CardBody>
+                    </Card>
                 </Container>
             </section>
 
@@ -185,27 +161,18 @@ export default function FamilyDiningPage() {
                         answer: "We cook to order, but if you are in a rush for a flight, let us know! Kids meals are usually very quick to prepare."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-surface"
             />
 
-            <CTASection
+            <CtaBand
                 title="Bring the Whole Family"
-                description="A warm welcome awaits you and your little travelers."
-                buttons={[
-                    {
-                        text: " Book a Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "family_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: " Get Directions",
-                        href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
+                copy="A warm welcome awaits you and your little travelers."
+                primary={<PhoneButton phone={CONTACT.phone} source="family_cta" variant="primary" size="lg">Book a table</PhoneButton>}
+                secondary={
+                    <Button asChild variant="outline" size="lg">
+                        <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get directions</Link>
+                    </Button>
+                }
             />
         </>
     )

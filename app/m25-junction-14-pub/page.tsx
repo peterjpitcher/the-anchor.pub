@@ -1,15 +1,17 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { Button, SectionHeading, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { WeekHours } from '@/components/WeekHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING } from '@/lib/constants'
+import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -114,15 +116,17 @@ export default function M25Junction14PubPage() {
         }
       />
 
+      <AmenityStrip />
+
       {/* Quick Summary */}
-      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Why Stop Off At The Anchor</h2>
-            <p className="text-anchor-cream-text/70 mb-4">
+          <div className="max-w-4xl mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
+            <h2 className="font-display text-h3 text-ink-strong mb-3">Why Stop Off At The Anchor</h2>
+            <p className="text-ink-muted mb-4">
               Swap service-station sandwiches for hearty pub food, draught beers and a breather before rejoining the M25 from Junction 14.
             </p>
-            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
+            <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
               <div className="flex items-start gap-2">
                 <span>5 minute diversion from Junction 14 via A3113 and Horton Road</span>
               </div>
@@ -141,19 +145,13 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle
-              seo={{
-                structured: true,
-                speakable: true
-              }}
-              className="text-anchor-cream-text mb-4"
-            >
+            <h2 className="font-display text-h2 text-ink-strong mb-4">
               Junction 14 M25 Pub - Traditional British Pub Near M25
-            </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            </h2>
+            <p className="text-lg text-ink-muted">
               The smart alternative to motorway services - just 5 minutes from Junction 14
             </p>
           </div>
@@ -161,7 +159,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
@@ -169,42 +167,26 @@ export default function M25Junction14PubPage() {
               subtitle="Why settle for overpriced motorway services when a proper British pub is just 5 minutes from Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
             />
             
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "5 Minutes",
-                  description: "Quick detour from M25 Junction 14",
-                  variant: "colored",
-                  color: "bg-anchor-green-raised",
-                  className: "rounded-xl p-6 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Half Price",
-                  description: "Compared to motorway services",
-                  variant: "colored",
-                  color: "bg-anchor-green-raised",
-                  className: "rounded-xl p-6 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Free Parking",
-                  description: "20 spaces, easy access",
-                  variant: "colored",
-                  color: "bg-anchor-green-raised",
-                  className: "rounded-xl p-6 text-center"
-                }
-              ]}
-              className="mb-8"
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {[
+                { title: '5 Minutes', description: 'Quick detour from M25 Junction 14' },
+                { title: 'Half Price', description: 'Compared to motorway services' },
+                { title: 'Free Parking', description: '20 spaces, easy access' }
+              ].map(feature => (
+                <Card key={feature.title} accent hover>
+                  <CardBody>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                    <p className="text-ink-muted">{feature.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Why Choose Us Over Services */}
-      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
@@ -212,8 +194,8 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Beat Service Station Blues</h3>
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Beat Service Station Blues</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-red-500 text-xl"></span>
@@ -254,35 +236,35 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect Journey Break</h3>
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Perfect Journey Break</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
+                    <span className="text-accent-text text-xl"></span>
                     <div>
                       <strong>Proper refreshment</strong> - Draught beers, wines, soft drinks
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
+                    <span className="text-accent-text text-xl"></span>
                     <div>
                       <strong>Beer garden break</strong> - Stretch legs in fresh air
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
+                    <span className="text-accent-text text-xl"></span>
                     <div>
                       <strong>Dog friendly</strong> - Perfect for traveling with pets
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
+                    <span className="text-accent-text text-xl"></span>
                     <div>
                       <strong>Clean facilities</strong> - Better than service stations
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
+                    <span className="text-accent-text text-xl"></span>
                     <div>
                       <strong>Free WiFi</strong> - Check routes, emails, or relax
                     </div>
@@ -291,22 +273,20 @@ export default function M25Junction14PubPage() {
               </div>
             </div>
             
-            <AlertBox
-              variant="info"
-              title="M25 Tip"
-              className="mt-8 text-center"
-              content={
-                <p className="text-lg">
-                  Avoid peak times (7-9am, 5-7pm) for the quickest detour. We're much quieter than services during rush hours!
+            <Card accent className="mt-8 text-center">
+              <CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">M25 Tip</h3>
+                <p className="text-lg text-ink-muted">
+                  Avoid peak times (7-9am, 5-7pm) for the quickest detour. We&apos;re much quieter than services during rush hours!
                 </p>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Quick Stops Menu */}
-      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -314,32 +294,32 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">20-Minute Lunch Stops</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-4">20-Minute Lunch Stops</h3>
+                <ul className="space-y-2 text-ink-muted">
                   <li>• Chicken Goujon Wrap with Chips - 9.99</li>
                   <li>• Beef Burger - 9.99</li>
                   <li>• Fish & Chips - 14.99</li>
                   <li>• Jumbo Sausage & Chips - 12.99</li>
                   <li>• Beef & Ale Pie - 14.99</li>
                 </ul>
-                <p className="mt-3 text-sm text-anchor-cream-text/70">All served quickly for motorway travelers</p>
+                <p className="mt-3 text-sm text-ink-muted">All served quickly for motorway travelers</p>
               </div>
               
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Take a Proper Break</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-4">Take a Proper Break</h3>
+                <ul className="space-y-2 text-ink-muted">
                   <li>• Beef & Ale Pie - 14.99</li>
                   <li>• Chicken Katsu Curry - 13.99</li>
                   <li>• Stone-baked pizzas</li>
                   <li>• Daily Specials Board</li>
                 </ul>
-                <p className="mt-3 text-sm text-anchor-cream-text/70">Relax and enjoy - you deserve it!</p>
+                <p className="mt-3 text-sm text-ink-muted">Relax and enjoy - you deserve it!</p>
               </div>
             </div>
             
             <div className="text-center">
-              <p className="text-lg text-anchor-cream-text/70 mb-4">
+              <p className="text-lg text-ink-muted mb-4">
                 Kitchen serves quick meals perfect for motorway breaks
               </p>
               <Link href="/food-menu">
@@ -353,7 +333,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Journey Planner */}
-      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
@@ -361,49 +341,49 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="text-xl font-bold mb-4">From M25 Clockwise</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">1.</span>
+                    <span className="font-bold text-accent-text">1.</span>
                     <span>Exit at Junction 14 (signed Heathrow T4, T5)</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">2.</span>
+                    <span className="font-bold text-accent-text">2.</span>
                     <span>At roundabout, take 3rd exit (A3113)</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">3.</span>
+                    <span className="font-bold text-accent-text">3.</span>
                     <span>After 1 mile, turn right onto Horton Road</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="font-bold text-anchor-gold-dark">4.</span>
+                    <span className="font-bold text-accent-text">4.</span>
                     <span>The Anchor is 0.5 miles on your left</span>
                   </li>
                 </ol>
-                <p className="mt-4 text-sm text-anchor-cream-text/55">
+                <p className="mt-4 text-sm text-ink-muted">
                   <strong>Total time:</strong> 5 minutes from motorway
                 </p>
               </div>
               
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="text-xl font-bold mb-4">Rejoining M25</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold mb-2">Back to M25 (any direction)</p>
-                    <p className="text-anchor-cream-text/70">Simply reverse the route - well signed back to Junction 14</p>
+                    <p className="text-ink-muted">Simply reverse the route - well signed back to Junction 14</p>
                   </div>
                   <div>
                     <p className="font-semibold mb-2">Alternative Routes</p>
-                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
+                    <ul className="space-y-1 text-ink-muted text-sm">
                       <li>• To Heathrow: Continue on local roads</li>
                       <li>• To M4: Via Stanwell and M25 J15</li>
                       <li>• To A30: Direct from Stanwell Moor</li>
                     </ul>
                   </div>
                   <div className="pt-4 border-t border-anchor-gold-dark/15">
-                    <p className="text-green-400 font-semibold">Time Saver</p>
-                    <p className="text-sm text-anchor-cream-text/70">Often quicker than service station queues!</p>
+                    <p className="text-anchor-success font-semibold">Time Saver</p>
+                    <p className="text-sm text-ink-muted">Often quicker than service station queues!</p>
                   </div>
                 </div>
               </div>
@@ -425,7 +405,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Regular M25 Users */}
-      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
@@ -433,9 +413,9 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg mb-3">Business Drivers</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
+                <ul className="space-y-2 text-ink-muted text-sm">
                   <li>• Quieter than services</li>
                   <li>• Proper meals</li>
                   <li>• VAT receipts</li>
@@ -443,9 +423,9 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg mb-3">Long Distance</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
+                <ul className="space-y-2 text-ink-muted text-sm">
                   <li>• Halfway point M25</li>
                   <li>• Dog walking area</li>
                   <li>• Proper break spot</li>
@@ -453,9 +433,9 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
+              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg mb-3">Local Traffic</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
+                <ul className="space-y-2 text-ink-muted text-sm">
                   <li>• Known by locals</li>
                   <li>• Traffic updates</li>
                   <li>• Alternative routes</li>
@@ -464,7 +444,7 @@ export default function M25Junction14PubPage() {
               </div>
             </div>
             
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Join the smart M25 drivers who've discovered the better alternative to services!
             </p>
           </div>
@@ -472,18 +452,18 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Additional Benefits */}
-      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="More Than Just a Motorway Stop"
             />
             
-            <div className="bg-anchor-green-raised rounded-xl border border-anchor-gold-dark/15 p-8">
+            <div className="bg-surface border border-line rounded-md shadow-sm p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
-                  <ul className="space-y-2 text-anchor-cream-text/70">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect For</h3>
+                  <ul className="space-y-2 text-ink-muted">
                     <li>Meeting point from different M25 directions</li>
                     <li>Break before Heathrow drop-offs</li>
                     <li>Avoiding accident delays with local knowledge</li>
@@ -493,8 +473,8 @@ export default function M25Junction14PubPage() {
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Remember</h3>
-                  <ul className="space-y-2 text-anchor-cream-text/70">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Remember</h3>
+                  <ul className="space-y-2 text-ink-muted">
                     <li>Postcode: TW19 6AQ</li>
                     <li>Free parking for all</li>
                     <li>Quick service available</li>
@@ -509,14 +489,18 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto">
             <SectionHeading
               title="Opening Hours for M25 Travellers"
             />
-            <BusinessHours />
-            <p className="mt-4 text-anchor-cream-text/55">
+            <Card accent>
+              <CardBody>
+                <WeekHours />
+              </CardBody>
+            </Card>
+            <p className="mt-4 text-ink-muted text-center">
               Kitchen times perfect for lunch and dinner breaks
             </p>
           </div>
@@ -531,7 +515,7 @@ export default function M25Junction14PubPage() {
           { href: '/private-party-venue', title: 'Private Hire', description: 'Book meeting space for team briefings or reunions' },
           { href: '/near-heathrow', title: 'Near Heathrow Hub', description: 'Travel tips for every airport terminal' }
         ]}
-        className="section-spacing-md"
+        className="py-section-y"
       />
 
       <OrganicSearchClusterLinks
@@ -569,33 +553,23 @@ export default function M25Junction14PubPage() {
             answer: "Yes! Our locals often share real-time traffic updates, and we have WiFi if you need to check routes. When there are major delays, we see lots of M25 drivers taking a break with us until traffic clears."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Make The Smart M25 Stop"
-        description="Real food, real prices, real break - just 5 minutes from Junction 14"
-        buttons={[
-          {
-            text: "Call Ahead",
-            href: `${CONTACT.phoneHref}`,
-            variant: "outline"
-          },
-          {
-            text: "Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: "Get Directions",
-            href: "/find-us",
-            variant: "white"
-          }
-        ]}
-        variant="green"
-        footer="Free Parking • Quick Service • Dog Friendly • Outside ULEZ"
-      />
+        copy="Real food, real prices, real break - just 5 minutes from Junction 14"
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <PhoneButton phone={CONTACT.phone} source="m25_junction_14_cta" variant="primary" size="lg">Call Ahead</PhoneButton>
+            <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
+            <Button asChild variant="outline" size="lg"><Link href="/find-us">Get Directions</Link></Button>
+          </div>
+          <p className="text-anchor-cream-text/80 text-sm">Free Parking • Quick Service • Dog Friendly • Outside ULEZ</p>
+        </div>
+      </CtaBand>
     </>
   )
 }

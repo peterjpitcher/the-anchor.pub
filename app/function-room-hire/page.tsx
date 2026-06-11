@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container, Badge } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Container, Badge } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -119,469 +119,310 @@ export default function FunctionRoomHirePage() {
       <TrustBar variant="private-hire" />
 
       {/* Google Rating */}
-      <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">What Makes Our Function Rooms Work</h2>
-            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>Flexible spaces for 10-50 guests, with larger events by enquiry</span>
+      <section className="py-section-y bg-surface">
+        <Container>
+          <Card accent className="max-w-5xl mx-auto">
+            <CardBody>
+              <h2 className="font-display text-h3 text-ink-strong mb-3">What Makes Our Function Rooms Work</h2>
+              <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
+                <div className="flex items-start gap-2">
+                  <span>Flexible spaces for 10-50 guests, with larger events by enquiry</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span>Free parking outside the ULEZ zone, ideal for corporate events</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span>In-house catering: buffets, two-course dinners or canapés</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span>AV support, microphones and hybrid meeting options available</span>
+                </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>Free parking outside the ULEZ zone, ideal for corporate events</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>In-house catering: buffets, two-course dinners or canapés</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold-dark"></span>
-                <span>AV support, microphones and hybrid meeting options available</span>
-              </div>
-            </div>
-          </div>
-        </div>
+            </CardBody>
+          </Card>
+        </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
-          <PageTitle className="text-center text-anchor-cream-text mb-8" seo={{ structured: true, speakable: true }}>
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
+          <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
             Function Room Hire &mdash; A Pub with Private Rooms Near Heathrow &amp; Staines
           </PageTitle>
-        </div>
+        </Container>
       </section>
 
       {/* Spaces Overview */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface">
+        <Container>
           <SectionHeading
             title="Flexible Spaces for Every Event"
-            subtitle="From intimate gatherings to large celebrations"
+            lead="From intimate gatherings to large celebrations"
           />
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-            <div className="bg-anchor-green-raised rounded-xl p-8 border border-anchor-gold-dark/15">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">The Dining Room</h3>
+            <Card accent><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">The Dining Room</h3>
               <div className="mb-4">
-                <span className="inline-block bg-anchor-gold-dark text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  20-80 guests
-                </span>
+                <Badge variant="gold">20-80 guests</Badge>
               </div>
-              <p className="text-anchor-cream-text/70 mb-4">
+              <p className="text-ink-muted mb-4">
                 Our main function space offers complete flexibility. Perfect for formal dinners,
                 presentations, parties, or meetings. Can be configured to your exact requirements.
               </p>
-              <ul className="space-y-2 text-anchor-cream-text/70">
-                <li> Natural daylight with dimming options</li>
-                <li> Climate controlled</li>
-                <li> Direct access to facilities</li>
-                <li> AV equipment available</li>
+              <ul className="space-y-2 text-ink-muted">
+                <li>Natural daylight with dimming options</li>
+                <li>Climate controlled</li>
+                <li>Direct access to facilities</li>
+                <li>AV equipment available</li>
               </ul>
-            </div>
+            </CardBody></Card>
 
-            <div className="bg-anchor-green-raised rounded-xl p-8 border border-anchor-gold-dark/15">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Exclusive Venue Hire</h3>
+            <Card accent><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Exclusive Venue Hire</h3>
               <div className="mb-4">
-                <span className="inline-block bg-anchor-gold-dark text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  80-200 guests
-                </span>
+                <Badge variant="gold">80-200 guests</Badge>
               </div>
-              <p className="text-anchor-cream-text/70 mb-4">
+              <p className="text-ink-muted mb-4">
                 Take over the entire venue for larger events. Includes all indoor spaces,
                 bar area, and outdoor terrace (weather permitting). Perfect for big celebrations.
               </p>
-              <ul className="space-y-2 text-anchor-cream-text/70">
-                <li> Complete privacy</li>
-                <li> Multiple spaces to utilize</li>
-                <li> Full bar service</li>
-                <li> Dedicated event team</li>
+              <ul className="space-y-2 text-ink-muted">
+                <li>Complete privacy</li>
+                <li>Multiple spaces to utilize</li>
+                <li>Full bar service</li>
+                <li>Dedicated event team</li>
               </ul>
-            </div>
+            </CardBody></Card>
           </div>
 
-          <AlertBox
-            variant="success"
-            title="Simple Room Hire"
-            content={
-              <p className="text-center">
-                Room hire fees vary by event type, day, and party size. No minimum spend &mdash; you only pay for what you order on top of the hire. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
-              </p>
-            }
-          />
-        </div>
+          <Card accent className="max-w-3xl mx-auto"><CardBody>
+            <h3 className="font-display text-h4 text-ink-strong mb-2 text-center">Simple Room Hire</h3>
+            <p className="text-center text-ink-muted">
+              Room hire fees vary by event type, day, and party size. No minimum spend &mdash; you only pay for what you order on top of the hire. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
+            </p>
+          </CardBody></Card>
+        </Container>
       </section>
 
       {/* Layout Options */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
           <SectionHeading
             title="Configure Your Space"
-            subtitle="Multiple layout options to suit your event style"
+            lead="Multiple layout options to suit your event style"
           />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Banquet Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">80</p>
-              <p className="text-anchor-cream-text/70">Round tables of 8-10 for dining and socializing</p>
-            </div>
-
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Theatre Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">40</p>
-              <p className="text-anchor-cream-text/70">Rows of chairs facing front for presentations</p>
-            </div>
-
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Cocktail Reception</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">150</p>
-              <p className="text-anchor-cream-text/70">Standing reception with high tables</p>
-            </div>
-
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Classroom Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">60</p>
-              <p className="text-anchor-cream-text/70">Tables and chairs for training/workshops</p>
-            </div>
-
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Boardroom Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">30</p>
-              <p className="text-anchor-cream-text/70">Single large table for meetings</p>
-            </div>
-
-            <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4"></div>
-              <h3 className="font-bold text-lg mb-2">Cabaret Style</h3>
-              <p className="text-3xl font-bold text-anchor-gold-dark mb-2">70</p>
-              <p className="text-anchor-cream-text/70">Round tables with stage/presentation area</p>
-            </div>
+            {[
+              { title: "Banquet Style", count: "80", desc: "Round tables of 8-10 for dining and socializing" },
+              { title: "Theatre Style", count: "40", desc: "Rows of chairs facing front for presentations" },
+              { title: "Cocktail Reception", count: "150", desc: "Standing reception with high tables" },
+              { title: "Classroom Style", count: "60", desc: "Tables and chairs for training/workshops" },
+              { title: "Boardroom Style", count: "30", desc: "Single large table for meetings" },
+              { title: "Cabaret Style", count: "70", desc: "Round tables with stage/presentation area" },
+            ].map(layout => (
+              <Card key={layout.title} accent className="h-full text-center">
+                <CardBody className="flex h-full flex-col gap-2">
+                  <h3 className="font-display text-h4 text-ink-strong">{layout.title}</h3>
+                  <p className="font-display text-h3 text-accent-text">{layout.count}</p>
+                  <p className="text-ink-muted">{layout.desc}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Suitable For */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface">
+        <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="One Venue, Endless Possibilities"
-              subtitle="Our function rooms adapt to any event type"
+              lead="Our function rooms adapt to any event type"
             />
 
             <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Business Events</h3>
-                <p className="text-sm text-anchor-cream-text/70">Meetings, training, conferences, AGMs</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Celebrations</h3>
-                <p className="text-sm text-anchor-cream-text/70">Birthdays, anniversaries, achievements</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Memorial Services</h3>
-                <p className="text-sm text-anchor-cream-text/70">Wakes, celebrations of life, gatherings</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Seasonal Events</h3>
-                <p className="text-sm text-anchor-cream-text/70">Christmas parties, New Year celebrations</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Entertainment</h3>
-                <p className="text-sm text-anchor-cream-text/70">Quiz nights, hosted events, themed nights (see /whats-on)</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">‍‍‍</span>
-                </div>
-                <h3 className="font-bold mb-2">Community Events</h3>
-                <p className="text-sm text-anchor-cream-text/70">Club meetings, fundraisers, social gatherings</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-green-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
-                <h3 className="font-bold mb-2">Educational</h3>
-                <p className="text-sm text-anchor-cream-text/70">Workshops, seminars, training days</p>
-              </div>
+              {[
+                { title: "Business Events", desc: "Meetings, training, conferences, AGMs" },
+                { title: "Celebrations", desc: "Birthdays, anniversaries, achievements" },
+                { title: "Memorial Services", desc: "Wakes, celebrations of life, gatherings" },
+                { title: "Seasonal Events", desc: "Christmas parties, New Year celebrations" },
+                { title: "Entertainment", desc: "Quiz nights, hosted events, themed nights (see /whats-on)" },
+                { title: "Community Events", desc: "Club meetings, fundraisers, social gatherings" },
+                { title: "Educational", desc: "Workshops, seminars, training days" },
+              ].map(item => (
+                <Card key={item.title} className="h-full text-center">
+                  <CardBody className="flex h-full flex-col gap-2">
+                    <h3 className="font-semibold text-ink-strong">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.desc}</p>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Key Benefits */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
           <SectionHeading
             title="Why Choose The Anchor for Your Function"
           />
 
-          <FeatureGrid
-            columns={3}
-            features={[
-              {
-                icon: "",
-                title: "No Hidden Costs",
-                description: "Flexible pricing, no hidden charges, great value. Let's discuss your needs.",
-                className: "text-center"
-              },
-              {
-                icon: "",
-                title: "Free Parking",
-                description: "20 spaces on-site saves your guests money and hassle",
-                className: "text-center"
-              },
-              {
-                icon: "",
-                title: "Prime Location",
-                description: "7 mins from Heathrow, 3 mins from M25, outside ULEZ zone",
-                className: "text-center"
-              },
-              {
-                icon: "",
-                title: "Flexible Catering",
-                description: "From tea & coffee to premium buffets and indoor BBQ",
-                className: "text-center"
-              },
-              {
-                icon: "",
-                title: "Full Support",
-                description: "Experienced team handles setup, service, and cleanup",
-                className: "text-center"
-              },
-              {
-                icon: "",
-                title: "Fully Accessible",
-                description: "Ground floor venue with wheelchair access throughout",
-                className: "text-center"
-              }
-            ]}
-          />
-        </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "No Hidden Costs", description: "Flexible pricing, no hidden charges, great value. Let's discuss your needs." },
+              { title: "Free Parking", description: "20 spaces on-site saves your guests money and hassle" },
+              { title: "Prime Location", description: "7 mins from Heathrow, 3 mins from M25, outside ULEZ zone" },
+              { title: "Flexible Catering", description: "From tea & coffee to premium buffets and indoor BBQ" },
+              { title: "Full Support", description: "Experienced team handles setup, service, and cleanup" },
+              { title: "Fully Accessible", description: "Ground floor venue with wheelchair access throughout" },
+            ].map(feature => (
+              <Card key={feature.title} accent className="h-full text-center">
+                <CardBody className="flex h-full flex-col gap-2">
+                  <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                  <p className="text-ink-muted">{feature.description}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* What's Included */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface">
+        <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Everything You Need Included"
-              subtitle="Professional facilities and attentive service as standard"
+              lead="Professional facilities and attentive service as standard"
             />
 
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "Facilities & Equipment",
-                  content: (
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Tables and chairs in your chosen layout</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>White table linens and napkins</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Background music system</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Microphone for speeches</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Basic lighting control</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Heating and air conditioning</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Cloakroom facilities</span>
-                      </li>
-                    </ul>
-                  ),
-                  variant: "default"
-                },
-                {
-                  title: "Service & Support",
-                  content: (
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Pre-event planning consultation</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Dedicated event coordinator</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Professional service team</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Setup and breakdown included</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Flexible access times</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Supplier coordination</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span>Post-event cleanup</span>
-                      </li>
-                    </ul>
-                  ),
-                  variant: "default"
-                }
-              ]}
-            />
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <Card><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">Facilities & Equipment</h3>
+                <ul className="space-y-3 text-ink-muted">
+                  <li>Tables and chairs in your chosen layout</li>
+                  <li>White table linens and napkins</li>
+                  <li>Background music system</li>
+                  <li>Microphone for speeches</li>
+                  <li>Basic lighting control</li>
+                  <li>Heating and air conditioning</li>
+                  <li>Cloakroom facilities</li>
+                </ul>
+              </CardBody></Card>
+              <Card><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">Service & Support</h3>
+                <ul className="space-y-3 text-ink-muted">
+                  <li>Pre-event planning consultation</li>
+                  <li>Dedicated event coordinator</li>
+                  <li>Professional service team</li>
+                  <li>Setup and breakdown included</li>
+                  <li>Flexible access times</li>
+                  <li>Supplier coordination</li>
+                  <li>Post-event cleanup</li>
+                </ul>
+              </CardBody></Card>
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Pricing Structure */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Simple, Transparent Pricing"
-              subtitle="Room hire, no minimum spend, £250 deposit"
+              lead="Room hire, no minimum spend, £250 deposit"
             />
 
-            <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-xl font-bold text-anchor-gold-bright mb-6 text-center">How Our Pricing Works</h3>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-anchor-gold-dark mb-2">Room Hire + What You Order</p>
-                <p className="text-anchor-cream-text/70 mb-4">no minimum spend</p>
-                <p className="text-anchor-cream-text/70">
-                  A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services &mdash; no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
-                </p>
-              </div>
-            </div>
+            <Card accent className="mb-8"><CardBody className="text-center">
+              <h3 className="font-display text-h4 text-ink-strong mb-6">How Our Pricing Works</h3>
+              <p className="font-display text-h3 text-accent-text mb-2">Room Hire + What You Order</p>
+              <p className="text-ink-muted mb-4">no minimum spend</p>
+              <p className="text-ink-muted">
+                A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services &mdash; no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
+              </p>
+            </CardBody></Card>
 
-            <AlertBox
-              variant="info"
-              title="Get a Personalised Quote"
-              content={
-                <div>
-                  <p className="mb-3">
-                    Every event is different, so we tailor pricing to your needs. Tell us about your event and
-                    we'll put together a clear, no-obligation quote covering venue hire, catering and any extras.
-                  </p>
-                  <p className="font-semibold text-center">
-                    Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-anchor-gold-dark underline">submit an enquiry online</a>.
-                  </p>
-                </div>
-              }
-            />
+            <Card><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-3">Get a Personalised Quote</h3>
+              <p className="mb-3 text-ink-muted">
+                Every event is different, so we tailor pricing to your needs. Tell us about your event and
+                we'll put together a clear, no-obligation quote covering venue hire, catering and any extras.
+              </p>
+              <p className="font-semibold text-center text-ink-strong">
+                Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-accent-text underline">submit an enquiry online</a>.
+              </p>
+            </CardBody></Card>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Location */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface">
+        <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="Perfectly Located for Your Guests"
-              subtitle="Easy access from all directions with free parking"
+              lead="Easy access from all directions with free parking"
             />
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="font-bold text-lg mb-4">By Car</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-left">
-                  <li> M25 Junction 14: 3 minutes</li>
-                  <li> Heathrow T5: 7 minutes</li>
-                  <li> Staines: 8 minutes</li>
-                  <li> Windsor: 15 minutes</li>
-                  <li> Central London: 45 minutes</li>
-                  <li className="pt-2 font-semibold"> 20 free parking spaces</li>
+              <Card><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">By Car</h3>
+                <ul className="space-y-2 text-ink-muted text-left">
+                  <li>M25 Junction 14: 3 minutes</li>
+                  <li>Heathrow T5: 7 minutes</li>
+                  <li>Staines: 8 minutes</li>
+                  <li>Windsor: 15 minutes</li>
+                  <li>Central London: 45 minutes</li>
+                  <li className="pt-2 font-semibold text-ink-strong">20 free parking spaces</li>
                 </ul>
-              </div>
+              </CardBody></Card>
 
-              <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
-                <h3 className="font-bold text-lg mb-4">Public Transport</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-left">
-                  <li> Local bus routes from Staines</li>
-                  <li> Staines station: 10 mins by taxi</li>
-                  <li> Heathrow shuttle options</li>
-                  <li> Uber/taxi readily available</li>
-                  <li className="pt-2 font-semibold"> We can help arrange transport</li>
+              <Card><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">Public Transport</h3>
+                <ul className="space-y-2 text-ink-muted text-left">
+                  <li>Local bus routes from Staines</li>
+                  <li>Staines station: 10 mins by taxi</li>
+                  <li>Heathrow shuttle options</li>
+                  <li>Uber/taxi readily available</li>
+                  <li className="pt-2 font-semibold text-ink-strong">We can help arrange transport</li>
                 </ul>
-              </div>
+              </CardBody></Card>
             </div>
 
-            <QuickInfoGrid
-              items={[
-                { icon: "", title: "Outside ULEZ zone - no charges" },
-                { icon: "", title: "Well-lit car park" },
-                { icon: "", title: "Level access from parking" },
-                { icon: "", title: "Safe residential area" }
-              ]}
-              columns={4}
-            />
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {["Outside ULEZ zone - no charges", "Well-lit car park", "Level access from parking", "Safe residential area"].map(item => (
+                <Badge key={item} variant="sand">{item}</Badge>
+              ))}
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
           <div className="max-w-3xl mx-auto">
-            <div className="rounded-xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-5 mb-6">
-              <h3 className="font-semibold text-anchor-gold-bright mb-3">Which space suits your event?</h3>
-              <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                <li>• <strong>10-50 guests</strong>, our private dining room, ideal for dinners and celebrations</li>
-                <li>• <strong>50+ guests</strong>, larger room, garden or full venue hire by enquiry</li>
+            <Card accent className="mb-6"><CardBody>
+              <h3 className="font-display text-h4 text-ink-strong mb-3">Which space suits your event?</h3>
+              <ul className="space-y-2 text-sm text-ink-muted">
+                <li>• <strong className="text-ink-strong">10-50 guests</strong>, our private dining room, ideal for dinners and celebrations</li>
+                <li>• <strong className="text-ink-strong">50+ guests</strong>, larger room, garden or full venue hire by enquiry</li>
               </ul>
-            </div>
+            </CardBody></Card>
             <div className="mb-6">
               <ValueProofStrip variant="private-hire" />
             </div>
@@ -589,7 +430,7 @@ export default function FunctionRoomHirePage() {
               <RegretReduction variant="enquiry" />
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       <PrivateBookingSection eventType="Other" />
@@ -603,7 +444,7 @@ export default function FunctionRoomHirePage() {
           { href: '/private-party-venue', title: 'Private Party Venue', description: 'Plan birthdays, wakes and anniversaries' },
           { href: '/food-menu', title: 'Menu Ideas', description: 'Select canapés, buffets or two-course meals' }
         ]}
-        className="section-spacing-md"
+        className="py-section-y"
       />
 
       <OrganicSearchClusterLinks
@@ -649,52 +490,41 @@ export default function FunctionRoomHirePage() {
             answer: "We recommend booking 4-8 weeks ahead for weekends and popular dates. Weekday events often have more flexibility. December books up particularly early. The sooner you enquire, the more likely we can accommodate your preferred date."
           }
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <section className="section-spacing-lg bg-anchor-green-raised border-t border-anchor-gold-dark/15">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-bright mb-6">
-              Check Availability for Your Function
-            </h2>
-            <p className="text-xl text-anchor-cream-text/70 mb-8">
-              Competitive rates • Free parking • Professional service
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="function_room_cta"
-                size="lg"
-                variant="primary"
-                context="function_room"
-              >
-                 Book Function Room
-              </BookTableButton>
-              <PhoneButton phone={CONTACT.phone} source="function-room_cta" size="lg">
-                   Call: {CONTACT.phone}
-              </PhoneButton>
-              <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline">
-                   WhatsApp Us
-                </Button>
-              </Link>
-              <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
-                <Button size="lg" variant="outline">
-                   Email Enquiry
-                </Button>
-              </Link>
-            </div>
-            <div className="mt-8 bg-anchor-green-card border border-anchor-gold-dark/15 rounded-xl p-6 max-w-2xl mx-auto">
-              <p className="text-anchor-cream-text/70 text-center">
-                <strong>Viewing Welcome</strong><br />
-                Pop in during opening hours or arrange a specific viewing time<br />
-                We'll respond to enquiries within 2 hours
-              </p>
-            </div>
-          </div>
+      <CtaBand
+        title="Check Availability for Your Function"
+        copy="Competitive rates • Free parking • Professional service"
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+          <BookTableButton
+            source="function_room_cta"
+            size="lg"
+            variant="primary"
+            context="function_room"
+          >
+            Book Function Room
+          </BookTableButton>
+          <PhoneButton phone={CONTACT.phone} source="function-room_cta" size="lg" variant="outline">
+            Call: {CONTACT.phone}
+          </PhoneButton>
+          <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" variant="outline">
+              WhatsApp Us
+            </Button>
+          </Link>
+          <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
+            <Button size="lg" variant="outline">
+              Email Enquiry
+            </Button>
+          </Link>
         </div>
-      </section>
+        <p className="mt-8 text-sm text-anchor-cream-text/85">
+          <strong>Viewing Welcome.</strong> Pop in during opening hours or arrange a specific viewing time. We&apos;ll respond to enquiries within 2 hours.
+        </p>
+      </CtaBand>
     </>
   )
 }

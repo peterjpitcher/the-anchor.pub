@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { getLandmarkBySlug, landmarks } from '@/lib/local-seo-data'
 import { InteriorHero } from '@/components/hero'
-import { Container, SectionHeading, FeatureGrid, Button, InfoBoxGrid, Badge } from '@/components/ui'
+import { Container, SectionHeading, Card, CardBody, Button, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -11,6 +11,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { CtaBand } from '@/components/CtaBand'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 // Generate static params for all landmarks at build time
@@ -114,43 +115,41 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 }
             />
 
-            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-anchor-gold-bright mb-6">
+                        <h2 className="font-display text-h2 text-ink-strong mb-6">
                             Why Choose The Anchor?
                         </h2>
-                        <p className="text-lg text-anchor-cream-text/70 mb-8">
+                        <p className="text-lg text-ink-muted mb-8">
                             {landmark.description} We are located just a short drive from <strong>{landmark.name}</strong>, offering a convenient and welcoming space for your guests to gather.
                         </p>
 
-                        <InfoBoxGrid
-                            columns={2}
-                            boxes={[
-                                {
-                                    title: "Stress-Free Logistics",
-                                    content: `After attending ${landmark.name}, the last thing you want is parking stress. We have a large private car park with 20 spaces, completely free for your guests.`,
-                                    variant: "default"
-                                },
-                                {
-                                    title: "Flexible Spaces",
-                                    content: "Whether it's a small family gathering or a larger group, we have private and semi-private areas to suit your needs.",
-                                    variant: "default"
-                                }
-                            ]}
-                        />
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 text-left">
+                            {[
+                                { title: "Stress-Free Logistics", content: `After attending ${landmark.name}, the last thing you want is parking stress. We have a large private car park with 20 spaces, completely free for your guests.` },
+                                { title: "Flexible Spaces", content: "Whether it's a small family gathering or a larger group, we have private and semi-private areas to suit your needs." },
+                            ].map(box => (
+                                <Card key={box.title} className="h-full">
+                                    <CardBody className="flex h-full flex-col gap-2">
+                                        <h3 className="font-display text-h4 text-ink-strong">{box.title}</h3>
+                                        <p className="text-ink-muted">{box.content}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
             {/* Map Section */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading
                         title={`Technically Just ${landmark.distance} Away`}
-                        subtitle="Easy to find, easy to park"
+                        script="Easy to find, easy to park"
                     />
-                    <div className="max-w-5xl mx-auto h-[400px] rounded-xl overflow-hidden shadow-md">
+                    <div className="max-w-5xl mx-auto h-[400px] rounded-md overflow-hidden shadow-md">
                         <GoogleMapEmbed query={`The Anchor Stanwell Moor near ${landmark.name}`} />
                     </div>
                     <div className="text-center mt-6">
@@ -163,34 +162,25 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading
                         title="Complete Packages"
                     />
-                    <FeatureGrid
-                        columns={3}
-                        features={[
-                            {
-                                icon: "",
-                                title: "Catering",
-                                description: "Buffets, afternoon teas, or sit-down meals tailored to your requirements.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Refreshments",
-                                description: "Unlimited tea & coffee stations, plus a full bar service.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Planning",
-                                description: "Our team will handle the setup and coordination so you don't have to.",
-                                className: "text-center"
-                            }
-                        ]}
-                    />
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {[
+                            { title: "Catering", description: "Buffets, afternoon teas, or sit-down meals tailored to your requirements." },
+                            { title: "Refreshments", description: "Unlimited tea & coffee stations, plus a full bar service." },
+                            { title: "Planning", description: "Our team will handle the setup and coordination so you don't have to." },
+                        ].map(feature => (
+                            <Card key={feature.title} accent className="h-full text-center">
+                                <CardBody className="flex h-full flex-col gap-2">
+                                    <h3 className="font-display text-h4 text-ink-strong">{feature.title}</h3>
+                                    <p className="text-ink-muted">{feature.description}</p>
+                                </CardBody>
+                            </Card>
+                        ))}
+                    </div>
                 </Container>
             </section>
 
@@ -205,32 +195,30 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <PrivateBookingSection eventType={eventType} />
 
-            <section className="section-spacing-lg bg-anchor-green-raised text-center border-t border-anchor-gold-dark/15">
-                <Container>
-                    <h2 className="text-3xl font-bold mb-4 text-anchor-gold-bright">Book Your Event</h2>
-                    <p className="text-xl mb-8 text-anchor-cream-text/70">Secure the date for your gathering near {landmark.name}</p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <BookTableButton
-                            source={`near_${landmark.slug}_cta`}
-                            variant="primary"
-                            size="lg"
-                            context={context}
-                            className="bg-anchor-gold-dark text-anchor-green-deep hover:bg-anchor-gold-bright"
-                        >
-                            Enquire Now
-                        </BookTableButton>
-                        <PhoneButton
-                            phone="01753 682707"
-                            source={`near_${landmark.slug}_cta`}
-                            variant="outline"
-                            size="lg"
-                            className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-                        >
-                            Call 01753 682707
-                        </PhoneButton>
-                    </div>
-                </Container>
-            </section>
+            <CtaBand
+                title="Book Your Event"
+                copy={`Secure the date for your gathering near ${landmark.name}`}
+                primary={
+                    <BookTableButton
+                        source={`near_${landmark.slug}_cta`}
+                        variant="primary"
+                        size="lg"
+                        context={context}
+                    >
+                        Enquire Now
+                    </BookTableButton>
+                }
+                secondary={
+                    <PhoneButton
+                        phone="01753 682707"
+                        source={`near_${landmark.slug}_cta`}
+                        variant="outline"
+                        size="lg"
+                    >
+                        Call 01753 682707
+                    </PhoneButton>
+                }
+            />
         </>
     )
 }

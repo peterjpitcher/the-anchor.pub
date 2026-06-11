@@ -1,11 +1,15 @@
-import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
+import Link from 'next/link'
+import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
+import { Button } from '@/components/ui/primitives/Button'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
@@ -38,70 +42,76 @@ export default function PoolAndDartsPage() {
         lead="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Open Tuesday to Sunday, seven minutes from Heathrow with free parking."
       />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <AmenityStrip />
+
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-bright mb-4">
+                        <h2 className="font-display text-h2 text-ink-strong mb-4">
                             A Pub with Pool Table, Darts & Great Beer
-                        </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70 mb-4">
+                        </h2>
+                        <p className="text-lg text-ink-muted mb-4">
                             Some pubs stick a wobbly table in a dark corner and call it a games area. Not here. The Anchor has a quality pool table kept level and re-covered regularly, a dartboard with a proper throw area, and enough space to actually play without elbowing the person behind you. We&apos;re also upgrading the darts setup in 2026 with a professional board, electronic scorer, and better lighting.
                         </p>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening — this is a pub where the games are taken seriously and the beer is cold. We&apos;re seven minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
+                            kicker="Kept level so the cloth plays true"
                             title="Play Pool at The Anchor"
-                            subtitle="Kept level and re-covered regularly so the cloth plays true."
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
-                                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Pool Table</h3>
-                                <p className="text-anchor-cream-text/70 mb-4">
-                                    A quality table with a level surface, re-covered regularly so the cloth plays true. No dead spots, no dodgy cushions. Just a clean game with yellow and red balls.
-                                </p>
-                                <ul className="text-left space-y-2 text-sm bg-anchor-green-raised p-4 rounded-lg">
-                                    <li className="flex items-center">Full set of yellows &amp; reds</li>
-                                    <li className="flex items-center">Quality cues provided</li>
-                                    <li className="flex items-center">£1 per game (coin-operated)</li>
-                                    <li className="flex items-center">Change available at the bar</li>
-                                </ul>
-                            </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <Card accent>
+                                <CardBody>
+                                    <h3 className="font-display text-h3 text-ink-strong mb-2">Pool Table</h3>
+                                    <p className="text-ink-muted mb-4">
+                                        A quality table with a level surface, re-covered regularly so the cloth plays true. No dead spots, no dodgy cushions. Just a clean game with yellow and red balls.
+                                    </p>
+                                    <ul className="space-y-2 text-sm text-ink bg-surface-sunk p-4 rounded-sm">
+                                        <li>Full set of yellows &amp; reds</li>
+                                        <li>Quality cues provided</li>
+                                        <li>£1 per game (coin-operated)</li>
+                                        <li>Change available at the bar</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
 
-                            <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
-                                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Darts</h3>
-                                <p className="text-anchor-cream-text/70 mb-4">
-                                    A dartboard with a proper throw area — not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
-                                </p>
-                                <ul className="text-left space-y-2 text-sm bg-anchor-green-raised p-4 rounded-lg">
-                                    <li className="flex items-center">Dartboard with clear throw area</li>
-                                    <li className="flex items-center">Darts provided (or bring your own)</li>
-                                    <li className="flex items-center">Upgrade coming 2026: pro board, electronic scorer &amp; lighting</li>
-                                    <li className="flex items-center">Completely free to play</li>
-                                </ul>
-                            </div>
+                            <Card accent>
+                                <CardBody>
+                                    <h3 className="font-display text-h3 text-ink-strong mb-2">Darts</h3>
+                                    <p className="text-ink-muted mb-4">
+                                        A dartboard with a proper throw area — not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
+                                    </p>
+                                    <ul className="space-y-2 text-sm text-ink bg-surface-sunk p-4 rounded-sm">
+                                        <li>Dartboard with clear throw area</li>
+                                        <li>Darts provided (or bring your own)</li>
+                                        <li>Upgrade coming 2026: pro board, electronic scorer &amp; lighting</li>
+                                        <li>Completely free to play</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
+                            kicker="A frame, a pint, somewhere to enjoy both"
                             title="More Than Just Pub Games"
-                            subtitle="A frame, a pint, and somewhere to actually enjoy both."
                         />
 
-                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70">
+                        <div className="max-w-none text-ink-muted space-y-4">
                             <p>
                                 The Anchor isn&apos;t a pool hall — it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (Tuesday to Sunday), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
                             </p>
@@ -109,47 +119,51 @@ export default function PoolAndDartsPage() {
                                 Most people who come to play pool or throw darts end up staying longer than they planned. That&apos;s not an accident — it&apos;s what happens when you combine decent equipment with a relaxed atmosphere and no pressure to rush.
                             </p>
 
-                            <div className="grid md:grid-cols-2 gap-6 my-8 not-prose">
-                                <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
-                                    <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Getting Here</h3>
-                                    <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                                        <li>7 minutes from Heathrow Terminal 5</li>
-                                        <li>20 free parking spaces on site</li>
-                                        <li>Stanwell Moor, TW19 6AQ</li>
-                                    </ul>
-                                </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                                <Card accent>
+                                    <CardBody>
+                                        <h3 className="font-display text-h4 text-ink-strong mb-3">Getting Here</h3>
+                                        <ul className="space-y-2 text-sm text-ink-muted">
+                                            <li>7 minutes from Heathrow Terminal 5</li>
+                                            <li>20 free parking spaces on site</li>
+                                            <li>Stanwell Moor, TW19 6AQ</li>
+                                        </ul>
+                                    </CardBody>
+                                </Card>
 
-                                <div className="bg-anchor-green-card p-6 rounded-xl shadow-sm border border-anchor-gold-dark/15">
-                                    <h3 className="text-lg font-bold text-anchor-cream-text mb-3">When to Visit</h3>
-                                    <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                                        <li>Tuesday – Thursday: 4pm – 11pm</li>
-                                        <li>Friday: 4pm – late</li>
-                                        <li>Saturday: 12pm – late</li>
-                                        <li>Sunday: 1pm – 6pm</li>
-                                    </ul>
-                                </div>
+                                <Card accent>
+                                    <CardBody>
+                                        <h3 className="font-display text-h4 text-ink-strong mb-3">When to Visit</h3>
+                                        <ul className="space-y-2 text-sm text-ink-muted">
+                                            <li>Tuesday – Thursday: 4pm – 11pm</li>
+                                            <li>Friday: 4pm – late</li>
+                                            <li>Saturday: 12pm – late</li>
+                                            <li>Sunday: 1pm – 6pm</li>
+                                        </ul>
+                                    </CardBody>
+                                </Card>
                             </div>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
+                            kicker="We'd love to put a team together"
                             title="Fancy Playing Competitively?"
-                            subtitle="We'd love to put a team together."
                         />
-                        <p className="text-anchor-cream-text/70 mb-4">
+                        <p className="text-ink-muted mb-4">
                             We don&apos;t have a pool or darts team yet, but we&apos;re always on the lookout for a great captain to pull one together and lead it to glory. If you&apos;re the kind of person who organises the WhatsApp group, picks the team name, and actually turns up on match night — we want to hear from you.
                         </p>
-                        <AlertBox
-                            variant="tip"
-                            title="Could You Captain a Team?"
-                            className="max-w-xl mx-auto"
-                            content="Know your way around a pool table or a dartboard? We're looking for someone to start a team. Pop in or call us on 01753 682707."
-                        />
+                        <Card accent className="max-w-xl mx-auto">
+                            <CardBody>
+                                <h3 className="font-display text-h4 text-ink-strong mb-2">Could You Captain a Team?</h3>
+                                <p className="text-ink-muted">Know your way around a pool table or a dartboard? We&apos;re looking for someone to start a team. Pop in or call us on 01753 682707.</p>
+                            </CardBody>
+                        </Card>
                     </div>
                 </Container>
             </section>
@@ -181,33 +195,21 @@ export default function PoolAndDartsPage() {
                         answer: "Not yet, but we'd love to start one. We're looking for a captain to pull a team together for either pool or darts. If that's you, ask at the bar or call us on 01753 682707."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-canvas"
             />
 
-            <CTASection
+            <CtaBand
                 title="Rack 'em Up"
-                description="A frame, a pint, and free parking. What more do you need?"
-                buttons={[
-                    {
-                        text: "Call Us",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "pool_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: "What's On This Week",
-                        href: "/whats-on",
-                        variant: "white"
-                    },
-                    {
-                        text: "Get Directions",
-                        href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="A frame, a pint, and free parking. What more do you need?"
+            >
+                <PhoneButton phone={CONTACT.phone} source="pool_cta" variant="primary" size="lg">Call us</PhoneButton>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/whats-on">What&apos;s on this week</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get directions</Link>
+                </Button>
+            </CtaBand>
         </>
     )
 }

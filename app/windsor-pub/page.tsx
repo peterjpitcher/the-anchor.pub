@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -102,7 +103,7 @@ export default function WindsorPubPage() {
           { name: 'Pub Near Windsor', url: '/windsor-pub' }
         ]}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/windsor-pub/find-us.jpg"
@@ -118,7 +119,7 @@ export default function WindsorPubPage() {
       />
 
       {/* Page Title */}
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -126,11 +127,11 @@ export default function WindsorPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-cream-text mb-4"
+              className="mb-4"
             >
               Pubs in Windsor, Traditional British Pub Near Windsor
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Searching for pubs in Windsor? Your local traditional pub is just 15 minutes from Windsor Castle with free parking
             </p>
           </div>
@@ -138,166 +139,136 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="Windsor's Favourite Traditional Pub Experience"
-              subtitle="Just a 15-minute drive from Windsor Castle, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
+              lead="Just a 15-minute drive from Windsor Castle, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
-            
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "Near Windsor",
-                  description: "15 minutes from Windsor Castle via M4 or B376",
-                  variant: "colored",
-                  color: "bg-anchor-green-card",
-                  className: "rounded-xl p-6 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Better Value",
-                  description: "Avoid Windsor tourist prices - proper pub rates",
-                  variant: "colored",
-                  color: "bg-anchor-green-card",
-                  className: "rounded-xl p-6 text-center"
-                },
-                {
-	                  icon: "",
-	                  title: "ULEZ Free",
-	                  description: "Save £12.50 - we're outside the zone!",
-	                  variant: "colored",
-	                  color: "bg-anchor-green-card",
-	                  className: "rounded-xl p-6 text-center"
-	                }
-              ]}
-              className="mb-8"
-            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { title: "Near Windsor", description: "15 minutes from Windsor Castle via M4 or B376" },
+                { title: "Better Value", description: "Avoid Windsor tourist prices - proper pub rates" },
+                { title: "ULEZ Free", description: "Save £12.50 - we're outside the zone!" },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Why Windsor Residents Choose Us */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Why Windsor Residents Love The Anchor"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Worth the Journey</h3>
-                <ul className="space-y-3">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Worth the Journey</h3>
+                <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Escape Windsor's tourist crowds</strong> - Peaceful village pub atmosphere
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Escape Windsor's tourist crowds</strong> - Peaceful village pub atmosphere</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Genuine local pricing</strong> - Honest village pub prices
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Genuine local pricing</strong> - Honest village pub prices</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Free parking always available</strong> - No expensive Windsor parking fees
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Free parking always available</strong> - No expensive Windsor parking fees</div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Real locals pub</strong> - Where Windsor residents go for a proper pint
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Real locals pub</strong> - Where Windsor residents go for a proper pint</div>
                   </li>
                 </ul>
               </div>
-              
+
               <div>
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Special Events & Offers</h3>
-                <ul className="space-y-3">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Special Events & Offers</h3>
+                <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Stone-baked pizzas</strong> - Hand-stretched bases with generous toppings
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Stone-baked pizzas</strong> - Hand-stretched bases with generous toppings</div>
                   </li>
-	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold-dark text-xl"></span>
-	                    <div>
-	                      <strong>Famous Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit.
-	                    </div>
-	                  </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-dark text-xl"></span>
-                    <div>
-                      <strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
-                    </div>
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Famous Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit.</div>
                   </li>
-	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold-dark text-xl"></span>
-	                    <div>
-	                      <strong>Quiz Nights</strong> - £3 entry, great prizes, monthly events
-	                    </div>
-	                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)</div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent-text text-xl">•</span>
+                    <div><strong>Quiz Nights</strong> - £3 entry, great prizes, monthly events</div>
+                  </li>
                 </ul>
               </div>
             </div>
-            
-            <AlertBox
-              variant="info"
-              title="Royal Connection"
-              className="mt-8 text-center"
-              content={
-                <p className="text-lg">
+
+            <Card accent className="mt-8 text-center">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Royal Connection</h3>
+                <p className="text-lg text-ink-muted">
                   Many castle staff and Windsor locals are regulars - discover where the real community meets!
                 </p>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Popular with Windsor Groups */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Popular with Windsor Groups"
             />
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Regular Visitors</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Windsor Rugby Club socials</li>
-                  <li>• Eton College staff gatherings</li>
-                  <li>• Windsor & Eton FC supporters</li>
-                  <li>• Local business networking</li>
-                  <li>• Theatre Royal Windsor groups</li>
-                </ul>
-              </div>
-              
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>• Pre-race meals (Windsor Racecourse)</li>
-                  <li>• Post-castle visit dinners</li>
-                  <li>• Birthday celebrations</li>
-                  <li>• Christmas parties</li>
-                  <li>• Retirement gatherings</li>
-                </ul>
-              </div>
+
+            <div className="grid md:grid-cols-2 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Regular Visitors</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Windsor Rugby Club socials</li>
+                    <li>• Eton College staff gatherings</li>
+                    <li>• Windsor & Eton FC supporters</li>
+                    <li>• Local business networking</li>
+                    <li>• Theatre Royal Windsor groups</li>
+                  </ul>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect For</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Pre-race meals (Windsor Racecourse)</li>
+                    <li>• Post-castle visit dinners</li>
+                    <li>• Birthday celebrations</li>
+                    <li>• Christmas parties</li>
+                    <li>• Retirement gatherings</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
-            
+
             <div className="text-center">
-              <p className="text-lg text-anchor-cream-text/70 mb-6">
+              <p className="text-lg text-ink-muted mb-6">
                 Private function room available for Windsor groups - from 20 to 250 guests
               </p>
               <Link href="/private-hire#enquiry">
@@ -311,60 +282,56 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Getting Here from Windsor */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading
               title="Getting to The Anchor from Windsor"
             />
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold mb-4">Driving Routes</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold mb-2">Via M4 (Fastest)</p>
-                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
-                      <li>• M4 westbound to Junction 5</li>
-                      <li>• A4 towards Slough</li>
-                      <li>• Follow signs to Stanwell Moor</li>
-                      <li>• 15 minutes in normal traffic</li>
-                    </ul>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Driving Routes</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="font-semibold text-ink mb-2">Via M4 (Fastest)</p>
+                      <ul className="space-y-1 text-ink-muted text-sm">
+                        <li>• M4 westbound to Junction 5</li>
+                        <li>• A4 towards Slough</li>
+                        <li>• Follow signs to Stanwell Moor</li>
+                        <li>• 15 minutes in normal traffic</li>
+                      </ul>
+                    </div>
+                    <div className="pt-4 border-t border-line">
+                      <p className="font-semibold text-ink mb-2">Via B376 (Scenic)</p>
+                      <ul className="space-y-1 text-ink-muted text-sm">
+                        <li>• Through Datchet and Wraysbury</li>
+                        <li>• Beautiful countryside route</li>
+                        <li>• 20 minutes, avoiding motorway</li>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="pt-4 border-t border-anchor-gold-dark/15">
-                    <p className="font-semibold mb-2">Via B376 (Scenic)</p>
-                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
-                      <li>• Through Datchet and Wraysbury</li>
-                      <li>• Beautiful countryside route</li>
-                      <li>• 20 minutes, avoiding motorway</li>
-                    </ul>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Local Landmarks</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <p><strong className="text-ink">From Windsor Castle:</strong> 6.5 miles (15 mins)</p>
+                    <p><strong className="text-ink">From Windsor Racecourse:</strong> 5.5 miles (12 mins)</p>
+                    <p><strong className="text-ink">From Legoland:</strong> 7 miles (16 mins)</p>
+                    <p><strong className="text-ink">Near M25 Junction 14:</strong> Perfect stopover</p>
+                    <div className="pt-4 border-t border-line">
+                      <p className="font-semibold text-accent-text">Parking</p>
+                      <p>20 free spaces - no time limits!</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-              
-              <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold mb-4">Local Landmarks</h3>
-                <div className="space-y-3">
-                  <p className="text-anchor-cream-text/70">
-                    <strong>From Windsor Castle:</strong> 6.5 miles (15 mins)
-                  </p>
-                  <p className="text-anchor-cream-text/70">
-                    <strong>From Windsor Racecourse:</strong> 5.5 miles (12 mins)
-                  </p>
-                  <p className="text-anchor-cream-text/70">
-                    <strong>From Legoland:</strong> 7 miles (16 mins)
-                  </p>
-                  <p className="text-anchor-cream-text/70">
-                    <strong>Near M25 Junction 14:</strong> Perfect stopover
-                  </p>
-                  <div className="pt-4 border-t border-anchor-gold-dark/15">
-                    <p className="font-semibold text-green-400">Parking</p>
-                    <p className="text-anchor-cream-text/70">20 free spaces - no time limits!</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
-            
+
             <div className="mt-8 text-center">
               <DirectionsButton
                 href="https://maps.google.com/maps?saddr=Windsor+Castle&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
@@ -381,47 +348,53 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Windsor Connection */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeading
               title="Windsor to The Anchor - Why We're Worth the Trip"
             />
-            
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="font-bold text-lg mb-3">Better Than Tourist Pubs</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• Authentic atmosphere</li>
-                  <li>• Local prices</li>
-                  <li>• Real community feel</li>
-                  <li>• No tourist crowds</li>
-                </ul>
-              </div>
-              
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="font-bold text-lg mb-3">Easy Access</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• 15 mins from Windsor</li>
-                  <li>• Free parking</li>
-                  <li>• Near M4 & M25</li>
-                  <li>• Avoid town traffic</li>
-                </ul>
-              </div>
-              
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="font-bold text-lg mb-3">Unique Features</h3>
-                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                  <li>• Plane spotting garden</li>
-                  <li>• Monthly entertainment</li>
-                  <li>• Dog friendly throughout</li>
-                  <li>• Traditional games</li>
-                </ul>
-              </div>
+
+            <div className="grid md:grid-cols-3 gap-5 mb-8">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Better Than Tourist Pubs</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• Authentic atmosphere</li>
+                    <li>• Local prices</li>
+                    <li>• Real community feel</li>
+                    <li>• No tourist crowds</li>
+                  </ul>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Easy Access</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• 15 mins from Windsor</li>
+                    <li>• Free parking</li>
+                    <li>• Near M4 & M25</li>
+                    <li>• Avoid town traffic</li>
+                  </ul>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Unique Features</h3>
+                  <ul className="space-y-2 text-ink-muted text-sm">
+                    <li>• Plane spotting garden</li>
+                    <li>• Monthly entertainment</li>
+                    <li>• Dog friendly throughout</li>
+                    <li>• Traditional games</li>
+                  </ul>
+                </CardBody>
+              </Card>
             </div>
-            
-            <p className="text-lg text-anchor-cream-text/70">
-              Join the many Windsor residents who've discovered their new favourite pub - 
+
+            <p className="text-lg text-ink-muted">
+              Join the many Windsor residents who've discovered their new favourite pub -
               where you're treated like a local, not a tourist!
             </p>
           </div>
@@ -429,13 +402,13 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Local Knowledge Section */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="A Local&rsquo;s Guide: Windsor to The Anchor"
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs, they serve their purpose, but sometimes you want somewhere that feels like <em>yours</em>.
               </p>
@@ -454,14 +427,14 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading
               title="Opening Hours"
             />
             <BusinessHours />
-            <p className="mt-4 text-anchor-cream-text/70">
+            <p className="mt-4 text-ink-muted">
               Kitchen closes earlier - check times for food service
             </p>
           </div>
@@ -476,7 +449,7 @@ export default function WindsorPubPage() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Windsor Castle?",
@@ -486,10 +459,10 @@ export default function WindsorPubPage() {
             question: "Why do Windsor residents come to The Anchor instead of Windsor pubs?",
             answer: "Many Windsor locals prefer The Anchor for the authentic village pub atmosphere, significantly lower prices than tourist-focused Windsor pubs, free parking, and the chance to enjoy a proper local without the crowds. Plus, we're outside the ULEZ zone!"
           },
-	          {
-	            question: "Is there parking at The Anchor for Windsor visitors?",
-	            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost £3-4 per hour. You can relax and enjoy your visit without watching the clock."
-	          },
+          {
+            question: "Is there parking at The Anchor for Windsor visitors?",
+            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost £3-4 per hour. You can relax and enjoy your visit without watching the clock."
+          },
           {
             question: "What's the best route from Windsor to avoid traffic?",
             answer: "The quickest route is via the M4 (Junction 5) which takes about 15 minutes. For a more scenic route avoiding motorways, take the B376 through Datchet and Wraysbury. Avoid rush hours (8-9am and 5-6pm) for the smoothest journey."
@@ -503,33 +476,24 @@ export default function WindsorPubPage() {
             answer: "Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate groups from 20 to 250 people. Many prefer us to Windsor venues for better value and a more relaxed atmosphere."
           }
         ]}
-        className="bg-anchor-green-card"
+        className="bg-canvas"
       />
 
       {/* CTA Section */}
-      <CTASection
+      <CtaBand
         title="Discover Windsor's Favourite Local"
-        description="Just 15 minutes from the castle - where Windsor locals escape the tourists"
-        buttons={[
-          {
-            text: "Book a Table",
-            href: `${CONTACT.phoneHref}`,
-            variant: "outline"
-          },
-          {
-            text: "Book an Event",
-            href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: "View Offers",
-            href: "/special-offers",
-            variant: "white"
-          }
-        ]}
-        variant="green"
-        footer="Just 15 minutes from Windsor • Free Parking • Outside ULEZ Zone"
-      />
+        copy="Just 15 minutes from the castle - where Windsor locals escape the tourists"
+      >
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href="/private-hire#enquiry">
+          <Button variant="outline" size="lg">Book an Event</Button>
+        </Link>
+        <Link href="/special-offers">
+          <Button variant="outline" size="lg">View Offers</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

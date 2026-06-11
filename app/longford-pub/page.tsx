@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -98,7 +99,7 @@ export default function LongfordPubPage() {
         }
       />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -106,79 +107,67 @@ export default function LongfordPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-cream-text mb-4"
+                            className="mb-4"
                         >
                             Pubs in Longford, Minutes from Hotels & Bath Road
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Don't settle for overpriced hotel food. The Anchor is your nearest traditional village pub, offering a genuine British experience just a stone's throw from Longford.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
                             title="Why Travellers Choose The Anchor"
-                            subtitle="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
+                            lead="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Better Value",
-                                    description: "Significantly cheaper than hotel restaurants for better quality food",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Real Atmosphere",
-                                    description: "Experience a proper British pub with locals, not a sterile hotel bar",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Beer Garden",
-                                    description: "Relax outside with a drink - perfect for summer evenings",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[
+                                { title: "Better Value", description: "Significantly cheaper than hotel restaurants for better quality food" },
+                                { title: "Real Atmosphere", description: "Experience a proper British pub with locals, not a sterile hotel bar" },
+                                { title: "Beer Garden", description: "Relax outside with a drink - perfect for summer evenings" },
+                            ].map((item) => (
+                                <Card key={item.title} accent>
+                                    <CardBody className="p-6 text-center">
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                                        <p className="text-sm text-ink-muted">{item.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Getting Here is Easy"
                         />
 
-                        <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                                <h3 className="text-xl font-bold mb-4">Walking</h3>
-                                <p className="text-anchor-cream-text/70">
-                                    For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
-                                </p>
-                            </div>
-                            <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                                <h3 className="text-xl font-bold mb-4">Taxi / Uber</h3>
-                                <p className="text-anchor-cream-text/70">
-                                    A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
-                                </p>
-                            </div>
+                        <div className="grid md:grid-cols-2 gap-5 mb-8">
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Walking</h3>
+                                    <p className="text-ink-muted">
+                                        For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
+                                    </p>
+                                </CardBody>
+                            </Card>
+                            <Card accent>
+                                <CardBody className="p-6">
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Taxi / Uber</h3>
+                                    <p className="text-ink-muted">
+                                        A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
+                                    </p>
+                                </CardBody>
+                            </Card>
                         </div>
 
                         <div className="text-center">
@@ -197,13 +186,13 @@ export default function LongfordPubPage() {
             </section>
 
             {/* Local Knowledge Section */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Longford Neighbours, You Know the Planes, Now Enjoy Them with a Pint"
                         />
-                        <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+                        <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
                                 If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden is one of the best plane-spotting spots in the area, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
                             </p>
@@ -221,14 +210,14 @@ export default function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />
-                        <p className="mt-4 text-anchor-cream-text/70">
+                        <p className="mt-4 text-ink-muted">
                             Kitchen closes earlier - check times for food service
                         </p>
                     </div>
@@ -254,34 +243,23 @@ export default function LongfordPubPage() {
                         answer: "Yes, if you're stopping by on your way to/from the airport, we can find a safe spot for your bags while you eat."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-surface"
             />
 
-            <CTASection
+            <CtaBand
                 title="Escape the Hotel Bubble"
-                description="Real food, draught beer, right next door."
-                buttons={[
-                    {
-                        text: "Book a Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "longford_pub_cta",
-                        variant: "white"
-                    },
-                    {
-                        text: "Book an Event",
-                        href: "/private-hire#enquiry",
-                        variant: "white"
-                    },
-                    {
-                        text: "View Menu",
-                        href: "/food-menu",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-                footer="Free WiFi • Luggage Friendly • Authentic Pub"
-            />
+                copy="Real food, draught beer, right next door."
+            >
+                <Link href={CONTACT.phoneHref}>
+                    <Button variant="primary" size="lg">Book a Table</Button>
+                </Link>
+                <Link href="/private-hire#enquiry">
+                    <Button variant="outline" size="lg">Book an Event</Button>
+                </Link>
+                <Link href="/food-menu">
+                    <Button variant="outline" size="lg">View Menu</Button>
+                </Link>
+            </CtaBand>
         </>
     )
 }

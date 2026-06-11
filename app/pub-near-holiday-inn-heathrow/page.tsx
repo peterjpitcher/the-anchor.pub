@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -39,124 +40,132 @@ export default function PubNearHolidayInnHeathrowPage() {
         lead="12 minutes away, family-friendly British pub with great food and free parking"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Holiday Inn Heathrow
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away, a family-friendly British pub with home-cooked food, draught beers, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '‍‍', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow' },
+              { title: '~£15–18', description: 'Typical taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces, no charges' },
+              { title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Family Dining Near Holiday Inn Heathrow"
-              subtitle="Whether you're travelling with children or looking for a relaxed group dinner, The Anchor is the family-friendly local that Holiday Inn guests return to time and time again."
+              lead="Whether you're travelling with children or looking for a relaxed group dinner, The Anchor is the family-friendly local that Holiday Inn guests return to time and time again."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Family-Friendly Features</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Large beer garden, great for kids to run around',
-                    'High chairs and children\'s menu options',
-                    'Dogs welcome in bar and garden',
-                    'Games and a relaxed atmosphere',
-                    'Plenty of space, no cramped hotel dining',
-                    'Free parking so you can come by car',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Getting Here from Holiday Inn</h3>
-                <div className="space-y-3 text-anchor-cream-text/70">
-                  <div>
-                    <p className="font-semibold">By Taxi or Uber</p>
-                    <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey approximately 12 minutes, £15–18 each way.</p>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Family-Friendly Features</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Large beer garden, great for kids to run around',
+                      'High chairs and children\'s menu options',
+                      'Dogs welcome in bar and garden',
+                      'Games and a relaxed atmosphere',
+                      'Plenty of space, no cramped hotel dining',
+                      'Free parking so you can come by car',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Getting Here from Holiday Inn</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink">By Taxi or Uber</p>
+                      <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey approximately 12 minutes, £15–18 each way.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink">By Car</p>
+                      <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell. Turn right onto Horton Road, free parking on arrival.</p>
+                    </div>
+                    <div className="pt-2 border-t border-line">
+                      <p className="text-sm font-medium text-ink">Postcode: <strong>TW19 6AQ</strong></p>
+                      <p className="text-sm text-ink-muted">Taxis easily arranged from Holiday Inn reception</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">By Car</p>
-                    <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell. Turn right onto Horton Road, free parking on arrival.</p>
-                  </div>
-                  <div className="pt-2 border-t border-anchor-gold-dark/15">
-                    <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-anchor-cream-text/70">Taxis easily arranged from Holiday Inn reception</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading title="Deals for Holiday Inn Guests" />
             <div className="max-w-md mx-auto">
-              <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £16</p>
-                <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
-                <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
-              </div>
+              <Card accent>
+                <CardBody className="p-6 text-center">
+                  <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
+                  <p className="font-display text-h3 text-accent-text mb-2">From £16</p>
+                  <p className="text-ink-muted">Traditional British roast with all the trimmings</p>
+                  <p className="text-sm text-ink-muted mt-2">Pre-booking recommended for Sundays</p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="success"
-              title="Travelling with family?"
-              className="mt-6"
-              content={<p>Our beer garden is perfect for families. Weekends from noon, weekdays from 4pm. Book ahead for Sunday roast.</p>}
-            />
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Travelling with family?</h3>
+                <p className="text-ink-muted">Our beer garden is perfect for families. Weekends from noon, weekdays from 4pm. Book ahead for Sunday roast.</p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Why Holiday Inn Guests Keep Coming Back"
-              subtitle="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight, but when it comes to dinner, you deserve better than room service."
+              lead="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight, but when it comes to dinner, you deserve better than room service."
             />
-            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+            <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
                 Getting here is straightforward. A taxi from Holiday Inn on Bath Road takes around 12&ndash;15 minutes and costs approximately &pound;12&ndash;15. The 423 bus runs along Bath Road but it&rsquo;s not practical for an evening out, Uber or Bolt are the easiest option. Just type in &ldquo;The Anchor, Stanwell Moor, TW19 6AQ&rdquo; and you&rsquo;re on your way.
               </p>
@@ -197,20 +206,23 @@ export default function PubNearHolidayInnHeathrowPage() {
             answer: 'The walking route between most Holiday Inn Heathrow locations and The Anchor is not pedestrian-friendly due to road layouts. A taxi (12 mins, £15–18) is the recommended option. Free parking is available if you prefer to drive.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
       />
 
-      <CTASection
+      <CtaBand
         title="12 Minutes from Holiday Inn Heathrow"
-        description="Family-friendly British pub with home-cooked food, draught beers, beer garden and free parking."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'holiday_inn_heathrow_cta', variant: 'white' },
-          { text: 'View Menu', href: '/food-menu', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 12 mins from Holiday Inn Heathrow · Stanwell Moor, TW19 6AQ"
-      />
+        copy="Family-friendly British pub with home-cooked food, draught beers, beer garden and free parking."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/food-menu">
+          <Button variant="outline" size="lg">View Menu</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

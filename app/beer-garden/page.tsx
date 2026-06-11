@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid, AmenityList } from '@/components/ui'
+import { Button, Container, Card, CardBody, SectionHeading } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { GoogleReviews } from '@/components/reviews'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { BookTableButton } from '@/components/BookTableButton'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getBusinessHours } from '@/lib/api'
@@ -100,16 +101,18 @@ export default async function BeerGardenPage() {
         lead="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
       />
 
+      <AmenityStrip />
+
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink max-w-4xl mx-auto leading-relaxed">
             The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s expected 27R arrivals path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
           </p>
         </Container>
       </section>
 
-      <Section background="dark" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <PlaneSpottingScheduleNote
             variant="panel"
@@ -117,166 +120,124 @@ export default async function BeerGardenPage() {
             ctaSource="beer_garden_today_panel"
           />
         </Container>
-      </Section>
+      </section>
 
       {/* Grab Food & Deals */}
-      <Section background="dark" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="card-dark rounded-none">
+            <Card accent hover>
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Sunday Roast (Sundays 1–6pm)</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast (Sundays 1–6pm)</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and proper gravy after your plane-spotting session.
                 </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="beer_garden_roast_cta"
-                    variant="primary"
-                    size="sm"
-                  >
-                    Book Sunday Roast
-                  </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
-                    View roast menu 
-                  </Link>
+                <div className="flex flex-col gap-2 items-start">
+                  <BookTableButton source="beer_garden_roast_cta" variant="primary" size="sm">Book Sunday Roast</BookTableButton>
+                  <Link href="/sunday-roast" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">View roast menu →</Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none">
+            <Card accent hover>
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Hand-stretched pizzas with bold toppings, ideal for aviation meet-ups or crew nights.
                 </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="beer_garden_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="sm"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
-                    View pizza menu 
-                  </Link>
+                <div className="flex flex-col gap-2 items-start">
+                  <BookTableButton source="beer_garden_pizza_cta" context="pizza_menu" variant="primary" size="sm">Book a Table</BookTableButton>
+                  <Link href="/food-menu#pizza" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">View pizza menu →</Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none">
+            <Card accent hover>
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">All-Day Food & Drinks</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">All-Day Food & Drinks</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="beer_garden_food_menu_cta"
-                    variant="primary"
-                    size="sm"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
-                    Browse full menu 
-                  </Link>
+                <div className="flex flex-col gap-2 items-start">
+                  <BookTableButton source="beer_garden_food_menu_cta" variant="primary" size="sm">Book a Table</BookTableButton>
+                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">Browse full menu →</Link>
                 </div>
               </CardBody>
             </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Google Rating */}
-      <section className="bg-anchor-green-deep section-spacing-tight border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-green-raised section-spacing-sm border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <PageTitle
-            className="text-center text-anchor-cream-text"
-            seo={{ structured: true, speakable: true }}
-          >
+          <h2 className="text-center font-display text-h2 text-ink-strong">
             Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
-          </PageTitle>
-          <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
+          </h2>
+          <p className="text-center text-lg text-ink-muted mt-4 max-w-4xl mx-auto">
             The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
           </p>
         </Container>
       </section>
 
       {/* Plane Spotting Paradise */}
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="Outdoor Pub Garden Near Heathrow Airport"
             />
 
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "Why Aviation Enthusiasts Love Us",
-                  content: (
-                    <AmenityList
-                      items={[
-                        { icon: "", title: "Perfect Position", description: "Under the expected Heathrow 27R approach path" },
-                        { icon: "", title: "Low & Loud", description: "When operating, aircraft pass at approximately 500-800 feet" },
-                        { icon: "", title: "Photo Friendly", description: "Unobstructed views perfect for photography" },
-                        { icon: "", title: "Refreshments", description: "Full bar service delivered to your table" },
-                        { icon: "", title: "Free WiFi", description: "Free high-speed guest WiFi throughout the venue" }
-                      ]}
-                      iconColor="text-2xl"
-                    />
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
-                },
-                {
-                  title: "What You'll See",
-                  content: (
-                    <>
-                      <div className="space-y-2 mb-6">
-                        <p className="font-semibold">Common Aircraft Types:</p>
-                        <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-1">
-                          <li>Airbus A380 "Superjumbo"</li>
-                          <li>Boeing 777 & 787 Dreamliner</li>
-                          <li>Airbus A350 & A330</li>
-                          <li>Boeing 747 (increasingly rare!)</li>
-                          <li>Various narrow-body aircraft</li>
-                        </ul>
-                      </div>
-                      <div className="bg-anchor-green-deep rounded-lg p-4 border border-anchor-gold-dark/15">
-                        <p className="text-sm text-anchor-cream-text/55">
-                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br />
-                          <strong>Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br />
-                          <strong>Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
-                        </p>
-                      </div>
-                    </>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-raised rounded-none p-8 border border-anchor-gold-dark/15"
-                }
-              ]}
-              className="mb-12"
-            />
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Why Aviation Enthusiasts Love Us</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li><strong className="text-ink-strong">Perfect Position</strong> — Under the expected Heathrow 27R approach path</li>
+                    <li><strong className="text-ink-strong">Low & Loud</strong> — When operating, aircraft pass at approximately 500-800 feet</li>
+                    <li><strong className="text-ink-strong">Photo Friendly</strong> — Unobstructed views perfect for photography</li>
+                    <li><strong className="text-ink-strong">Refreshments</strong> — Full bar service delivered to your table</li>
+                    <li><strong className="text-ink-strong">Free WiFi</strong> — Free high-speed guest WiFi throughout the venue</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-8">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">What You&apos;ll See</h3>
+                  <div className="space-y-2 mb-6 text-ink-muted">
+                    <p className="font-semibold text-ink-strong">Common Aircraft Types:</p>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>Airbus A380 &quot;Superjumbo&quot;</li>
+                      <li>Boeing 777 & 787 Dreamliner</li>
+                      <li>Airbus A350 & A330</li>
+                      <li>Boeing 747 (increasingly rare!)</li>
+                      <li>Various narrow-body aircraft</li>
+                    </ul>
+                  </div>
+                  <div className="bg-surface-sunk rounded-sm p-4 border border-line">
+                    <p className="text-sm text-ink-muted">
+                      <strong className="text-ink-strong">Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br />
+                      <strong className="text-ink-strong">Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br />
+                      <strong className="text-ink-strong">Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
+                    </p>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-8">
+            <h2 className="font-display text-h2 text-ink-strong text-center mb-8">
               What Visitors Say About Our Beer Garden
             </h2>
             <GoogleReviews
@@ -288,65 +249,46 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Beer Garden Features */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="Our Unique Beer Garden"
             />
 
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "Spacious Seating",
-                  description: "Multiple tables with umbrellas for sunny days",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Dog Friendly",
-                  description: "Water bowls provided, treats available at the bar",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Food Service",
-                  description: "Full menu available in the garden during kitchen hours",
-                  className: "text-center"
-                },
-                {
-                  icon: "",
-                  title: "Heated Areas",
-                  description: "Heaters for cooler evenings",
-                  className: "text-center"
-                },
-                {
-                  icon: "‍‍‍",
-                  title: "Family Friendly",
-                  description: "Safe enclosed space, children always welcome",
-                  className: "text-center"
-                },
-              ]}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { title: 'Spacious Seating', description: 'Multiple tables with umbrellas for sunny days' },
+                { title: 'Dog Friendly', description: 'Water bowls provided, treats available at the bar' },
+                { title: 'Food Service', description: 'Full menu available in the garden during kitchen hours' },
+                { title: 'Heated Areas', description: 'Heaters for cooler evenings' },
+                { title: 'Family Friendly', description: 'Safe enclosed space, children always welcome' }
+              ].map(feature => (
+                <Card key={feature.title} accent hover>
+                  <CardBody>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
+                    <p className="text-ink-muted">{feature.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Accessibility */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Accessibility</h2>
-            <p className="text-anchor-cream-text/70 mb-3">
+            <h2 className="font-display text-h2 text-ink-strong mb-4">Accessibility</h2>
+            <p className="text-ink-muted mb-3">
               Step-free access to the bar and dining area. The beer garden has steps, but a ramp is available on request.
             </p>
-            <p className="text-anchor-cream-text/70 mb-4">
+            <p className="text-ink-muted mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-accent-text font-semibold hover:text-anchor-green" showIcon={false} /> and we&apos;ll help.
             </p>
-            <Link href="/accessibility" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
+            <Link href="/accessibility" className="text-accent-text font-semibold hover:text-anchor-green hover:underline">
               Full accessibility information &rarr;
             </Link>
           </div>
@@ -354,56 +296,47 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Plane Spotting Tips */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Plane Spotting Tips for Visitors"
             />
 
-            <InfoBoxGrid
-              columns={1}
-              boxes={[
-                {
-                  title: " Essential Apps",
-                  content: (
-                    <ul className="space-y-2 text-anchor-cream-text/70">
-                      <li>• <strong>Flightradar24:</strong> Track incoming flights in real-time</li>
-                      <li>• <strong>Plane Finder:</strong> Identify aircraft types and airlines</li>
-                      <li>• <strong>LiveATC:</strong> Listen to air traffic control (bring headphones!)</li>
-                    </ul>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                },
-                {
-                  title: " Photography Tips",
-                  content: (
-                    <ul className="space-y-2 text-anchor-cream-text/70">
-                      <li>• Best light: Golden hour (1 hour before sunset)</li>
-                      <li>• Recommended lens: 70-300mm for close-ups</li>
-                      <li>• Fast shutter speed: 1/500s or faster</li>
-                      <li>• Look for special liveries and rare aircraft</li>
-                    </ul>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-raised rounded-none p-6 border border-anchor-gold-dark/15"
-                },
-                {
-                  title: " Make a Day of It",
-                  content: (
-                    <ul className="space-y-2 text-anchor-cream-text/70">
-                      <li>• Arrive early to secure the best spotting tables</li>
-                      <li>• Try our aviation-themed cocktails</li>
-                      <li>• Join other enthusiasts - great community feel</li>
-                      <li>• Food available during kitchen hours</li>
-                    </ul>
-                  ),
-                  variant: "colored",
-                  color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
-                }
-              ]}
-            />
+            <div className="grid grid-cols-1 gap-6">
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Essential Apps</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• <strong className="text-ink-strong">Flightradar24:</strong> Track incoming flights in real-time</li>
+                    <li>• <strong className="text-ink-strong">Plane Finder:</strong> Identify aircraft types and airlines</li>
+                    <li>• <strong className="text-ink-strong">LiveATC:</strong> Listen to air traffic control (bring headphones!)</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Photography Tips</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Best light: Golden hour (1 hour before sunset)</li>
+                    <li>• Recommended lens: 70-300mm for close-ups</li>
+                    <li>• Fast shutter speed: 1/500s or faster</li>
+                    <li>• Look for special liveries and rare aircraft</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Make a Day of It</h3>
+                  <ul className="space-y-2 text-ink-muted">
+                    <li>• Arrive early to secure the best spotting tables</li>
+                    <li>• Try our aviation-themed cocktails</li>
+                    <li>• Join other enthusiasts - great community feel</li>
+                    <li>• Food available during kitchen hours</li>
+                  </ul>
+                </CardBody>
+              </Card>
+            </div>
           </div>
         </Container>
       </section>
@@ -411,7 +344,7 @@ export default async function BeerGardenPage() {
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-deep"
+        className="bg-canvas"
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",
@@ -440,42 +373,28 @@ export default async function BeerGardenPage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Ready for Planes, Pints & Proper Food?
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Join fellow aviation enthusiasts, enjoy stone-baked pizzas or book ahead for Sunday roast before wheels-up.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="beer_garden_cta"
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-              />
-              <PhoneButton phone={CONTACT.phone} source="beer-garden_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                   Call {CONTACT.phone}
-              </PhoneButton>
-              <Link href="/our-pub">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                   See Inside The Pub
-                </Button>
-              </Link>
-              <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                   Get Directions
-                </Button>
-              </Link>
-            </div>
-            <p className="text-white/80 mt-8 text-sm">
-              Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
-            </p>
+      <CtaBand
+        title="Ready for Planes, Pints & Proper Food?"
+        copy="Join fellow aviation enthusiasts, enjoy stone-baked pizzas or book ahead for Sunday roast before wheels-up."
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <BookTableButton source="beer_garden_cta" size="lg" variant="primary" />
+            <PhoneButton phone={CONTACT.phone} source="beer-garden_cta" size="lg" variant="outline">
+              Call {CONTACT.phone}
+            </PhoneButton>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/our-pub">See Inside The Pub</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">Get Directions</Link>
+            </Button>
           </div>
-        </Container>
-      </section>
+          <p className="text-anchor-cream-text/80 text-sm">
+            Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
+          </p>
+        </div>
+      </CtaBand>
     </>
   )
 }

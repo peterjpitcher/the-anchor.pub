@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -98,7 +99,7 @@ export default function ColnbrookPubPage() {
         }
       />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -106,78 +107,64 @@ export default function ColnbrookPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-cream-text mb-4"
+                            className="mb-4"
                         >
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike, quality food and a great atmosphere guaranteed.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading
                             title="Perfect for After-Work Drinks & Team Lunches"
-                            subtitle="Avoid the airport traffic and unwind in a proper pub."
+                            lead="Avoid the airport traffic and unwind in a proper pub."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "After Work",
-                                    description: "Cold beers, draught lagers, and a great wine list for the end of the day",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Great Food",
-                                    description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Easy Parking",
-                                    description: "Large free car park for vans and cars - no hassle",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-card",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {[
+                                { title: "After Work", description: "Cold beers, draught lagers, and a great wine list for the end of the day" },
+                                { title: "Great Food", description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team" },
+                                { title: "Easy Parking", description: "Large free car park for vans and cars - no hassle" },
+                            ].map((item) => (
+                                <Card key={item.title} accent>
+                                    <CardBody className="p-6 text-center">
+                                        <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                                        <p className="text-sm text-ink-muted">{item.description}</p>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Corporate & Team Events"
                         />
 
-                        <div className="card-dark rounded-none p-8 mb-8 text-center">
-                            <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Poyle Business Specials</h3>
-                            <p className="text-anchor-cream-text/70 mb-6">
-                                We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
-                            </p>
-                            <div className="flex flex-wrap justify-center gap-4">
-                                <Link href="/corporate-events">
-                                    <Button variant="primary">Corporate Info</Button>
-                                </Link>
-                                <PhoneButton phone={CONTACT.phone} source="colnbrook_corporate" variant="outline">Call to Discuss</PhoneButton>
-                            </div>
-                        </div>
+                        <Card accent className="mb-8">
+                            <CardBody className="p-8 text-center">
+                                <h3 className="font-display text-h3 text-ink-strong mb-4">Poyle Business Specials</h3>
+                                <p className="text-ink-muted mb-6">
+                                    We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-4">
+                                    <Link href="/corporate-events">
+                                        <Button variant="primary">Corporate Info</Button>
+                                    </Link>
+                                    <PhoneButton phone={CONTACT.phone} source="colnbrook_corporate" variant="outline">Call to Discuss</PhoneButton>
+                                </div>
+                            </CardBody>
+                        </Card>
 
                         <div className="text-center">
                             <DirectionsButton
@@ -195,14 +182,14 @@ export default function ColnbrookPubPage() {
             </section>
 
             {/* Colnbrook & Poyle Local Knowledge */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="The Closest Proper Pub to Poyle & Colnbrook"
                             className="text-center mb-8"
                         />
-                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                        <div className="prose max-w-none text-ink-muted space-y-4">
                             <p>
                                 The Poyle and Colnbrook industrial estates employ thousands of people in logistics, air
                                 cargo, and aviation services, from DHL and FedEx warehouses to smaller freight
@@ -233,7 +220,7 @@ export default function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeading
@@ -263,34 +250,23 @@ export default function ColnbrookPubPage() {
                         answer: "We don't offer delivery, but you are welcome to order food to eat in or call ahead for collection if time is tight."
                     }
                 ]}
-                className="bg-anchor-green-card"
+                className="bg-surface"
             />
 
-            <CTASection
+            <CtaBand
                 title="Your Local After-Work Spot"
-                description="Great food and drink just minutes from the office."
-                buttons={[
-                    {
-                        text: " Book a Table",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "colnbrook_pub_cta",
-                        variant: "white"
-                    },
-                    {
-                        text: " Book an Event",
-                        href: "/private-hire#enquiry",
-                        variant: "white"
-                    },
-                    {
-                        text: " Get Directions",
-                        href: "https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-                footer="Free Parking • Near Poyle Industrial Estate • Great Value"
-            />
+                copy="Great food and drink just minutes from the office."
+            >
+                <Link href={CONTACT.phoneHref}>
+                    <Button variant="primary" size="lg">Book a Table</Button>
+                </Link>
+                <Link href="/private-hire#enquiry">
+                    <Button variant="outline" size="lg">Book an Event</Button>
+                </Link>
+                <Link href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">
+                    <Button variant="outline" size="lg">Get Directions</Button>
+                </Link>
+            </CtaBand>
         </>
     )
 }

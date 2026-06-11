@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, Badge, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -39,13 +40,13 @@ export default function PubNearHiltonHeathrowPage() {
         lead="10 minutes away, a proper British pub for business travellers and leisure guests alike"
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               Pub Near Hilton London Heathrow Airport
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Staying at the Hilton Heathrow? The Anchor is just 10 minutes away, a traditional British pub with home-cooked food, draught beers, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
             </p>
           </div>
@@ -53,124 +54,136 @@ export default function PubNearHiltonHeathrowPage() {
       </section>
 
       {/* Key facts */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
-            <FeatureGrid
-              columns={4}
-              features={[
-                { icon: '', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-green-card', className: 'rounded-xl p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { title: '10 Minutes', description: 'By taxi from Hilton Heathrow' },
+              { title: '~£12–15', description: 'Taxi fare each way' },
+              { title: 'Free Parking', description: '20 spaces, no charges' },
+              { title: 'VAT Receipts', description: 'Full receipts for expenses' },
+            ].map((fact) => (
+              <Card key={fact.title} accent>
+                <CardBody className="p-6 text-center">
+                  <p className="font-display text-h4 text-ink-strong">{fact.title}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{fact.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
 
       {/* Business traveller section */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="The Business Traveller's Favourite Near Hilton Heathrow"
-              subtitle="Many Hilton guests are here on business. The Anchor is the local choice for client dinners, team meals, and unwinding after a long day of meetings."
+              lead="Many Hilton guests are here on business. The Anchor is the local choice for client dinners, team meals, and unwinding after a long day of meetings."
             />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Business-Friendly Features</h3>
-                <ul className="space-y-3">
-                  {[
-                    'Full VAT receipts for all purchases',
-                    'Free WiFi throughout the pub',
-                    'Quieter dining room for business meals',
-                    'Group bookings for team dinners',
-                    'Private hire options available',
-                    'Flexible timing for early or late dining',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold-dark font-bold"></span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Directions from Hilton Heathrow</h3>
-                <div className="space-y-3 text-anchor-cream-text/70">
-                  <div>
-                    <p className="font-semibold">From Hilton T4 (Terminal 4)</p>
-                    <p className="text-sm">Head north on Stanwell Moor Road, continue to Horton Road. 10–12 mins.</p>
+            <div className="grid md:grid-cols-2 gap-5">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Business-Friendly Features</h3>
+                  <ul className="space-y-3 text-ink">
+                    {[
+                      'Full VAT receipts for all purchases',
+                      'Free WiFi throughout the pub',
+                      'Quieter dining room for business meals',
+                      'Group bookings for team dinners',
+                      'Private hire options available',
+                      'Flexible timing for early or late dining',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-accent-text font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="font-display text-h4 text-ink-strong mb-4">Directions from Hilton Heathrow</h3>
+                  <div className="space-y-3 text-ink-muted">
+                    <div>
+                      <p className="font-semibold text-ink">From Hilton T4 (Terminal 4)</p>
+                      <p className="text-sm">Head north on Stanwell Moor Road, continue to Horton Road. 10–12 mins.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-ink">From Hilton Garden Inn T2/T3</p>
+                      <p className="text-sm">Head west on Bath Road, right onto Stanwell Moor Road. 12–14 mins.</p>
+                    </div>
+                    <div className="pt-2 border-t border-line">
+                      <p className="text-sm font-medium text-ink">Postcode: <strong>TW19 6AQ</strong></p>
+                      <p className="text-sm text-ink-muted">Uber and local taxis readily available from Hilton reception</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">From Hilton Garden Inn T2/T3</p>
-                    <p className="text-sm">Head west on Bath Road, right onto Stanwell Moor Road. 12–14 mins.</p>
-                  </div>
-                  <div className="pt-2 border-t border-anchor-gold-dark/15">
-                    <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-anchor-cream-text/70">Uber and local taxis readily available from Hilton reception</p>
-                  </div>
-                </div>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
       </section>
 
       {/* Food for business */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading title="Food & Drink at The Anchor" />
-            <FeatureGrid
-              columns={3}
-              features={[
-                { icon: '', title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices', variant: 'default', className: 'bg-anchor-green-card border border-anchor-gold-dark/15 rounded-none p-6 text-center' },
-              ]}
-              className="mb-8"
-            />
-            <div className="card-dark rounded-none p-6">
-              <h3 className="text-xl font-bold text-anchor-gold-bright mb-3 text-center">Client Dinner at The Anchor</h3>
-              <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-anchor-cream-text/70">
-                <div>
-                  <p className="font-semibold mb-1">Atmosphere</p>
-                  <p>Relaxed but professional, great for building relationships</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-1">Cost</p>
-                  <p>Honest pub pricing with mains from £8.99</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-1">Booking</p>
-                  <p>Recommended for groups of 6+, call us to arrange</p>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+              {[
+                { title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily' },
+                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80' },
+                { title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices' },
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="p-6 text-center">
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.description}</p>
+                  </CardBody>
+                </Card>
+              ))}
             </div>
+            <Card variant="dark" accent className="theme-dark">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-anchor-gold-bright mb-3 text-center">Client Dinner at The Anchor</h3>
+                <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-anchor-cream-text/80">
+                  <div>
+                    <p className="font-semibold mb-1 text-anchor-cream-text">Atmosphere</p>
+                    <p>Relaxed but professional, great for building relationships</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1 text-anchor-cream-text">Cost</p>
+                    <p>Honest pub pricing with mains from £8.99</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1 text-anchor-cream-text">Booking</p>
+                    <p>Recommended for groups of 6+, call us to arrange</p>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
       {/* Opening hours */}
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading title="Opening Hours" />
             <BusinessHours />
-            <AlertBox
-              variant="success"
-              title="Group & private dining"
-              className="mt-6"
-              content={
-                <p>
+            <Card accent className="mt-6 text-left">
+              <CardBody className="p-6">
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Group &amp; private dining</h3>
+                <p className="text-ink-muted">
                   For groups of 6 or more, call us in advance so we can prepare a table.
                   Private room hire is also available for larger events.
                 </p>
-              }
-            />
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
@@ -198,20 +211,23 @@ export default function PubNearHiltonHeathrowPage() {
             answer: 'Yes, we provide full itemised VAT receipts for all meals and drinks. The Anchor is an expense-friendly alternative for business travellers.'
           },
         ]}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
-      <CTASection
+      <CtaBand
         title="10 Minutes from Hilton Heathrow"
-        description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for business or leisure."
-        buttons={[
-          { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'hilton_heathrow_cta', variant: 'white' },
-          { text: 'Private Hire', href: '/private-hire', variant: 'white' },
-        ]}
-        variant="green"
-        footer="Free Parking · 10 mins from Hilton Heathrow · Stanwell Moor, TW19 6AQ"
-      />
+        copy="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for business or leisure."
+      >
+        <Link href="/book-table">
+          <Button variant="primary" size="lg">Book a Table</Button>
+        </Link>
+        <Link href={CONTACT.phoneHref}>
+          <Button variant="outline" size="lg">Call Us</Button>
+        </Link>
+        <Link href="/private-hire">
+          <Button variant="outline" size="lg">Private Hire</Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }
