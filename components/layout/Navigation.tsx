@@ -311,44 +311,48 @@ export function Navigation({
           </svg>
         </Link>
 
+        {/* Panel starts flush at the trigger (top-full) and uses pt-2 padding for the
+            visual offset, so the hover region is continuous — there is no dead zone
+            between the trigger and the panel for the cursor to fall into. */}
         <div
           id={dropdownId}
           role="menu"
           aria-label={item.label}
           className={cn(
-            'absolute left-0 top-full z-[70] mt-2 min-w-[460px] rounded-md border border-line bg-surface p-3 shadow-lg transition-all duration-150',
-            'grid grid-cols-2 gap-1',
+            'absolute right-0 top-full z-[70] pt-2 transition-all duration-150',
             openDropdown === item.label
               ? 'visible translate-y-0 opacity-100'
               : 'pointer-events-none invisible -translate-y-2 opacity-0'
           )}
         >
-          {item.items!.map((subItem) => (
-            <Link
-              key={`${subItem.href}-${subItem.label}`}
-              href={subItem.href}
-              role="menuitem"
-              className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
-              onClick={() => {
-                trackNavigationClick({
-                  label: subItem.label,
-                  url: subItem.href,
-                  level: 'dropdown',
-                  deviceType: 'desktop',
-                  isExternal: false,
-                  location: 'header'
-                })
-                setOpenDropdown(null)
-              }}
-            >
-              <span className="block font-sans text-sm font-semibold text-ink-strong">{subItem.label}</span>
-              {subItem.description && (
-                <span className="mt-0.5 block font-sans text-xs leading-snug text-ink-muted">
-                  {subItem.description}
-                </span>
-              )}
-            </Link>
-          ))}
+          <div className="grid min-w-[460px] grid-cols-2 gap-1 rounded-md border border-line bg-surface p-3 shadow-lg">
+            {item.items!.map((subItem) => (
+              <Link
+                key={`${subItem.href}-${subItem.label}`}
+                href={subItem.href}
+                role="menuitem"
+                className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                onClick={() => {
+                  trackNavigationClick({
+                    label: subItem.label,
+                    url: subItem.href,
+                    level: 'dropdown',
+                    deviceType: 'desktop',
+                    isExternal: false,
+                    location: 'header'
+                  })
+                  setOpenDropdown(null)
+                }}
+              >
+                <span className="block font-sans text-sm font-semibold text-ink-strong">{subItem.label}</span>
+                {subItem.description && (
+                  <span className="mt-0.5 block font-sans text-xs leading-snug text-ink-muted">
+                    {subItem.description}
+                  </span>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     )
@@ -492,7 +496,7 @@ export function Navigation({
           </Link>
 
           {/* Primary nav (desktop) */}
-          <div className="hidden flex-1 items-center justify-center gap-6 lg:flex">
+          <div className="hidden flex-1 items-center justify-end gap-6 lg:flex">
             {navItems.map((item) => renderDesktopItem(item))}
           </div>
 
