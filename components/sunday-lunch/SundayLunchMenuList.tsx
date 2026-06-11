@@ -34,25 +34,25 @@ export interface SundayLunchMenuListProps {
 export function SundayLunchMenuList({ items }: SundayLunchMenuListProps): ReactNode {
   return (
     <ul
-      className="mt-8 mx-auto max-w-3xl divide-y divide-anchor-gold-dark/15 rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/40 px-4"
+      className="mt-8 mx-auto max-w-3xl divide-y divide-line rounded-lg border border-line bg-surface-sunk px-4"
       aria-label="Sunday roast menu"
     >
       {items.map((item) => (
         <li key={item.name} className="py-5">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 min-w-0">
-              <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
+              <h3 className="font-semibold text-ink">{item.name}</h3>
               {item.badge ? (
-                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full border border-anchor-gold-dark/30 px-2 py-0.5 text-anchor-gold-bright">
+                <span className="text-[11px] font-semibold uppercase tracking-wider rounded-full border border-anchor-gold-dark/30 px-2 py-0.5 text-accent-text">
                   {item.badge}
                 </span>
               ) : null}
             </div>
-            <span className="font-semibold text-anchor-gold-bright whitespace-nowrap">
+            <span className="font-semibold text-accent-text whitespace-nowrap">
               {item.priceLabel}
             </span>
           </div>
-          <p className="text-sm text-anchor-cream-text/70 mt-1.5 leading-relaxed">
+          <p className="text-sm text-ink-muted mt-1.5 leading-relaxed">
             {item.description}
           </p>
         </li>

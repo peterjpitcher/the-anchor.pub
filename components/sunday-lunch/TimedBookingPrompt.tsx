@@ -111,12 +111,12 @@ export function TimedBookingPrompt({
         <ModalTitle id="modal-title">Save your Sunday roast table</ModalTitle>
       </ModalHeader>
       <ModalBody>
-        <p className="text-base text-anchor-cream-text/85 leading-relaxed">
+        <p className="text-base text-ink leading-relaxed">
           {sunday.isLive
             ? 'Sundays book up fast at The Anchor. We are 7 minutes from Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick booking guarantees your table.'
             : `${sunday.availabilityLong} We are 7 minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
         </p>
-        <p className="mt-3 text-sm text-anchor-cream-text/65 leading-relaxed">
+        <p className="mt-3 text-sm text-ink-muted leading-relaxed">
           Larger group? Parties of ten or more take a £10-per-person deposit
           on booking, fully deducted from the bill on the day.
         </p>

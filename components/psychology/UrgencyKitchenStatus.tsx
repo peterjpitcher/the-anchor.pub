@@ -27,27 +27,27 @@ function getConfig(status: NonNullable<KitchenStatusData>): StatusConfig {
         icon: '',
         message: "Kitchen's having a rest today",
         linkText: 'book for another day',
-        colorClass: 'text-anchor-cream-text/70 bg-anchor-green-raised border-anchor-gold-dark/15',
+        colorClass: 'text-ink-muted bg-surface-sunk border-line',
       }
     case 'opens-later':
       return {
         icon: '',
         message: `Kitchen opens at ${status.opensAt}`,
         linkText: 'reserve your table now',
-        colorClass: 'text-anchor-gold-bright bg-anchor-green/10 border-anchor-green/30',
+        colorClass: 'text-accent-text bg-accent/10 border-accent/30',
       }
     case 'open':
       return {
         icon: '',
         message: `Kitchen open until ${status.closesAt}`,
-        colorClass: 'text-anchor-gold-bright bg-anchor-green/10 border-anchor-green/30',
+        colorClass: 'text-accent-text bg-accent/10 border-accent/30',
       }
     case 'closing-soon':
       return {
         icon: '',
         message: `Kitchen closes at ${status.closesAt}`,
         linkText: "don't leave it too late",
-        colorClass: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+        colorClass: 'text-amber-700 bg-amber-50 border-amber-300',
       }
   }
 }
@@ -69,7 +69,7 @@ export function UrgencyKitchenStatus({ status, className }: UrgencyKitchenStatus
       <span className="font-medium">{config.message}</span>
       {config.linkText && (
         <>
-          <span className="text-anchor-cream-text/55" aria-hidden="true">, </span>
+          <span className="text-ink-muted" aria-hidden="true">, </span>
           <Link
             href="/book-table"
             className="underline underline-offset-2 hover:no-underline font-medium"

@@ -29,7 +29,7 @@ export function SundayLunchHowItWorks() {
   }, [])
 
   return (
-    <p className="text-anchor-cream-text/80 text-lg leading-relaxed">
+    <p className="text-ink-muted text-lg leading-relaxed">
       {body}
     </p>
   )

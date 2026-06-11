@@ -35,7 +35,7 @@ export function ValueProofStrip({ variant = 'food', className }: ValueProofStrip
       {items.map(({ icon, text }, index) => (
         <li
           key={index}
-          className="flex items-center gap-1.5 text-sm text-anchor-cream-text/70"
+          className="flex items-center gap-1.5 text-sm text-ink-muted"
         >
           <span aria-hidden="true">{icon}</span>
           {text}

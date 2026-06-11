@@ -34,14 +34,14 @@ export function TrustBar({ variant = 'food', className }: TrustBarProps) {
       aria-label="Trust signals"
       className={cn(
         'flex flex-wrap justify-center gap-x-6 gap-y-2 py-3 px-4',
-        'bg-anchor-green-raised border-y border-anchor-gold-dark/15',
+        'bg-surface-sunk border-y border-line',
         className
       )}
     >
       {signals.map(({ icon, text }, index) => (
         <span
           key={index}
-          className="flex items-center gap-1.5 text-sm font-medium text-anchor-gold-bright"
+          className="flex items-center gap-1.5 text-sm font-medium text-accent-text"
         >
           <span aria-hidden="true">{icon}</span>
           {text}
