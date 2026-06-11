@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { ChevronDown } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, ChevronDown } from 'lucide-react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
+import { Badge } from '@/components/ui/primitives/Badge'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
@@ -460,29 +461,66 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
   })
 }
 
+// Numbered step indicator (spec §9): 28px circles — pending sunk/muted, active
+// gold/white, done green/white check — joined by 2px hairline bars. Labels
+// Outfit 600 text-sm; pending-step labels hide ≤640px (numbers always show).
 function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
-  const pct = Math.round((currentStep / totalSteps) * 100)
-  const isAlmostDone = currentStep >= totalSteps - 1
+  const steps = STEP_ORDER.map((stepKey, index) => ({
+    key: stepKey,
+    label: STEP_LABELS[stepKey],
+    number: index + 1
+  }))
 
   return (
-    <div className="mb-4" aria-live="polite">
-      <div className="flex justify-between text-xs text-anchor-cream-text/50 mb-1">
-        <span>Step {currentStep} of {totalSteps}</span>
-        {isAlmostDone && (
-          <span className="text-anchor-gold-bright font-medium">Almost there!</span>
-        )}
-      </div>
-      <div className="h-1.5 w-full rounded-full bg-anchor-green-raised">
-        <div
-          className="h-1.5 rounded-full bg-anchor-green transition-all duration-300"
-          style={{ width: `${pct}%` }}
-          role="progressbar"
-          aria-valuenow={currentStep}
-          aria-valuemin={0}
-          aria-valuemax={totalSteps}
-          aria-label={`Booking step ${currentStep} of ${totalSteps}`}
-        />
-      </div>
+    <div
+      className="mb-2"
+      aria-label={`Booking step ${currentStep} of ${totalSteps}`}
+    >
+      <ol className="flex items-center" role="list">
+        {steps.map((step, index) => {
+          const isComplete = step.number < currentStep
+          const isCurrent = step.number === currentStep
+          const isPending = step.number > currentStep
+
+          return (
+            <li
+              key={step.key}
+              className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}
+            >
+              <div className="flex min-w-0 flex-col items-center gap-1.5">
+                <span
+                  aria-hidden="true"
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-pill text-sm font-semibold font-sans ${
+                    isCurrent
+                      ? 'bg-anchor-gold-dark text-white'
+                      : isComplete
+                      ? 'bg-anchor-green text-white'
+                      : 'bg-surface-sunk text-ink-muted'
+                  }`}
+                >
+                  {isComplete ? <Check aria-hidden="true" className="h-4 w-4" /> : step.number}
+                </span>
+                <span
+                  className={`text-sm font-semibold font-sans leading-tight ${
+                    isCurrent ? 'text-ink-strong' : 'text-ink-muted'
+                  } ${isPending ? 'hidden sm:block' : ''}`}
+                >
+                  {step.label}
+                  {isCurrent ? (
+                    <span className="sr-only"> (current step, {currentStep} of {totalSteps})</span>
+                  ) : null}
+                </span>
+              </div>
+              {index < steps.length - 1 ? (
+                <span
+                  aria-hidden="true"
+                  className={`mx-2 h-0.5 flex-1 ${isComplete ? 'bg-anchor-green' : 'bg-line-strong'}`}
+                />
+              ) : null}
+            </li>
+          )
+        })}
+      </ol>
     </div>
   )
 }
@@ -1152,7 +1190,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (selectedDateEventsLoading) {
       return (
-        <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm text-anchor-cream-text/70">
+        <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink-muted">
           Checking events on {formatDateForDisplay(date)}...
         </div>
       )
@@ -1167,22 +1205,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     return (
       <div
-        className={`rounded-xl border p-4 ${
+        className={`rounded-md border p-4 ${
           options.highlight
-            ? 'border-anchor-gold-dark/30 bg-anchor-gold-dark/10'
-            : 'border-anchor-gold-dark/15 bg-anchor-green-raised'
+            ? 'border-anchor-gold bg-surface-raised'
+            : 'border-line bg-surface-sunk'
         }`}
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <p className="text-sm font-semibold text-anchor-gold-bright">{options.title}</p>
-            <p className="mt-1 text-sm text-anchor-cream-text/70">{options.description}</p>
-            <p className="mt-1 text-xs text-anchor-cream-text/60">Tap an event below to book it without leaving this page.</p>
+            <p className="text-sm font-semibold text-ink-strong">{options.title}</p>
+            <p className="mt-1 text-sm text-ink-muted">{options.description}</p>
+            <p className="mt-1 text-xs text-ink-muted">Tap an event below to book it without leaving this page.</p>
           </div>
           <button
             type="button"
             onClick={dismissEventSuggestionsForDate}
-            className="text-xs font-medium text-anchor-cream-text/60 underline hover:text-anchor-cream-text/80"
+            className="text-xs font-medium text-ink-muted underline hover:text-ink"
           >
             Hide
           </button>
@@ -1193,11 +1231,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             return (
               <div
                 key={event.id}
-                className="flex flex-wrap items-start justify-between gap-3 rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card px-3 py-3"
+                className="flex flex-wrap items-start justify-between gap-3 rounded-sm border border-line bg-surface px-3 py-3"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-anchor-cream-text">{event.name}</p>
-                  <p className="mt-1 text-xs text-anchor-cream-text/70">
+                  <p className="text-sm font-semibold text-ink-strong">{event.name}</p>
+                  <p className="mt-1 text-xs text-ink-muted">
                     {formatEventTimeLabel(event.startDate)}
                     {event.priceLabel ? ` • ${event.priceLabel}` : ' • Free entry'}
                     {typeof event.seatsRemaining === 'number'
@@ -1205,7 +1243,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       : ''}
                   </p>
                   {event.shortDescription ? (
-                    <p className="mt-1 text-xs text-anchor-cream-text/60 line-clamp-2">{event.shortDescription}</p>
+                    <p className="mt-1 text-xs text-ink-muted line-clamp-2">{event.shortDescription}</p>
                   ) : null}
                 </div>
                 <Button
@@ -1635,15 +1673,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const selectedEventTimeLabel = formatEventTimeLabel(selectedSuggestedEvent.startDate)
 
     return (
-      <div className="space-y-4">
-        <Card>
-          <CardBody className="space-y-3 p-4">
-            <h3 className="text-lg font-semibold text-anchor-gold-bright">Event booking</h3>
-            <p className="text-sm text-anchor-cream-text/70">
-              You're booking <strong>{selectedSuggestedEvent.name}</strong> on{' '}
-              <strong>{selectedEventDateLabel}</strong> at <strong>{selectedEventTimeLabel}</strong>.
+      <div className="mx-auto max-w-[640px] space-y-4">
+        <Card accent>
+          <CardBody className="space-y-3 p-6">
+            <h3 className="font-display text-h4 text-ink-strong">Event booking</h3>
+            <p className="text-sm text-ink-muted">
+              You're booking <strong className="text-ink-strong">{selectedSuggestedEvent.name}</strong> on{' '}
+              <strong className="text-ink-strong">{selectedEventDateLabel}</strong> at <strong className="text-ink-strong">{selectedEventTimeLabel}</strong>.
             </p>
-            <p className="text-sm text-anchor-cream-text/70">
+            <p className="text-sm text-ink-muted">
               Complete your event booking below without leaving this page.
             </p>
             <Button
@@ -1673,18 +1711,45 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   if (result?.state === 'confirmed') {
     return (
-      <Card>
-        <CardBody className="space-y-4">
-          <Alert variant="success" title={"You're all booked in, see you soon!"}>
-            <p>
-              Reference: <strong>{result.booking_reference || 'Provided by SMS shortly'}</strong>
-            </p>
-            {result.table_name ? <p className="mt-1">Allocated table: {result.table_name}</p> : null}
-            <p className="mt-2">We&apos;ve sent confirmation details by SMS.</p>
-          </Alert>
+      <div className="mx-auto max-w-[640px]">
+      <Card accent>
+        <CardBody className="space-y-6 text-center">
+          <div className="flex flex-col items-center gap-4">
+            <span
+              aria-hidden="true"
+              className="flex h-[72px] w-[72px] items-center justify-center rounded-pill bg-anchor-green text-white"
+            >
+              <Check className="h-9 w-9" />
+            </span>
+            <div>
+              <h3 className="font-display text-h3 text-ink-strong">You&apos;re all booked in, see you soon!</h3>
+              <p className="mt-2 text-sm text-ink-muted">
+                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided by SMS shortly'}</strong>. We&apos;ve sent confirmation details by SMS.
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-4 rounded-xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-4 text-sm text-anchor-cream-text/70 space-y-1">
-            <p className="font-semibold text-anchor-gold-bright">When you arrive:</p>
+          <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm">
+            <dl className="space-y-2 text-ink">
+              <div className="flex justify-between gap-3">
+                <dt className="font-medium text-ink-muted">Party</dt>
+                <dd className="text-ink-strong">{partySize} {partySize === 1 ? 'guest' : 'guests'}</dd>
+              </div>
+              <div className="flex justify-between gap-3">
+                <dt className="font-medium text-ink-muted">When</dt>
+                <dd className="text-ink-strong">{formatDateForDisplay(date)}, {formatTimeForDisplay(selectedTime || requestedTime)}</dd>
+              </div>
+              {result.table_name ? (
+                <div className="flex justify-between gap-3">
+                  <dt className="font-medium text-ink-muted">Table</dt>
+                  <dd className="text-ink-strong">{result.table_name}</dd>
+                </div>
+              ) : null}
+            </dl>
+          </div>
+
+          <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm text-ink space-y-1">
+            <p className="font-semibold text-ink-strong">When you arrive:</p>
             <p>&#x2022; Free parking right outside, no ticket needed</p>
             <p>&#x2022; No need to check in, just head to the bar and we&apos;ll find your table</p>
             <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
@@ -1695,37 +1760,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           </Button>
         </CardBody>
       </Card>
+      </div>
     )
   }
 
 
   return (
-    <div ref={wizardRef}>
-    <Card>
+    <div ref={wizardRef} className="mx-auto max-w-[640px]">
+    <Card accent>
       <CardBody className="space-y-6">
         <BookingProgressBar currentStep={currentStepIndex + 1} totalSteps={STEP_ORDER.length} />
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {STEP_ORDER.map((stepKey, index) => {
-            const isComplete = index < currentStepIndex
-            const isCurrent = index === currentStepIndex
-
-            return (
-              <div
-                key={stepKey}
-                className={`rounded-xl border px-3 py-2 text-center text-sm ${
-                  isCurrent
-                    ? 'border-anchor-gold-dark bg-anchor-gold-dark/15 font-semibold text-anchor-gold-bright'
-                    : isComplete
-                    ? 'border-anchor-green/40 bg-anchor-green/10 text-anchor-cream-text'
-                    : 'border-anchor-gold-dark/15 bg-anchor-green-raised text-anchor-cream-text/50'
-                }`}
-              >
-                <div className="text-xs uppercase tracking-wide">Step {index + 1}</div>
-                <div>{STEP_LABELS[stepKey]}</div>
-              </div>
-            )
-          })}
-        </div>
 
         {error && (
           <Alert variant="error" title="Booking not completed">
@@ -1745,20 +1789,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             }}
           >
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright">Find a table</h3>
-              <p className="mt-1 text-sm text-anchor-cream-text/70">
+              <h3 className="font-display text-h4 text-ink-strong">Find a table</h3>
+              <p className="mt-1 text-sm text-ink-muted">
                 {`Start with party size, date, and time. We'll ask for contact details after you pick a slot.`}
               </p>
             </div>
 
             {hoursNote ? (
-              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/50 p-3 text-sm text-anchor-cream-text/80">
-                <p className="font-semibold text-anchor-cream-text">
+              <div className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink">
+                <p className="font-semibold text-ink-strong">
                   {formatDateForDisplay(date)}
                 </p>
                 <p className="mt-1">{hoursNote.summary}</p>
                 {hoursNote.footer ? (
-                  <p className="mt-2 text-xs text-anchor-cream-text/60">{hoursNote.footer}</p>
+                  <p className="mt-2 text-xs text-ink-muted">{hoursNote.footer}</p>
                 ) : null}
               </div>
             ) : null}
@@ -1797,32 +1841,40 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               }}
             />
 
-            <Input
-              label="Date"
-              type="date"
-              size="lg"
-              min={today}
-              required
-              value={date}
-              onChange={(event) => handleDateChange(event.target.value)}
-              error={dateError || undefined}
-            />
+            {requiresGroupDeposit ? (
+              <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
+                Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
+              </Badge>
+            ) : null}
 
-            <Input
-              label="Preferred Time"
-              type="time"
-              size="lg"
-              required
-              value={requestedTime}
-              onChange={(event) => handleRequestedTimeChange(event.target.value)}
-            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Input
+                label="Date"
+                type="date"
+                size="lg"
+                min={today}
+                required
+                value={date}
+                onChange={(event) => handleDateChange(event.target.value)}
+                error={dateError || undefined}
+              />
+
+              <Input
+                label="Preferred Time"
+                type="time"
+                size="lg"
+                required
+                value={requestedTime}
+                onChange={(event) => handleRequestedTimeChange(event.target.value)}
+              />
+            </div>
 
             <div
-              className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised/50 p-3 text-sm text-anchor-cream-text/80"
+              className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink"
               aria-live="polite"
             >
-              <p className="font-medium text-anchor-cream-text">{aircraftOverheadNote.message}</p>
-              <p className="mt-1 text-xs text-anchor-cream-text/65">{aircraftOverheadNote.caveat}</p>
+              <p className="font-medium text-ink-strong">{aircraftOverheadNote.message}</p>
+              <p className="mt-1 text-xs text-ink-muted">{aircraftOverheadNote.caveat}</p>
             </div>
 
             {(showDateEventSuggestions || selectedDateEventsLoading) &&
@@ -1834,7 +1886,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               })}
 
             {selectedDateEventError && !showDateEventSuggestions && !selectedDateEventsLoading ? (
-              <p className="text-xs text-anchor-cream-text/50">{selectedDateEventError}</p>
+              <p className="text-xs text-ink-muted">{selectedDateEventError}</p>
             ) : null}
 
             {availabilityError && (
@@ -1843,7 +1895,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </Alert>
             )}
 
-            <Button type="submit" fullWidth size="lg" loading={availabilityLoading}>
+            <Button
+              type="submit"
+              fullWidth
+              size="lg"
+              loading={availabilityLoading}
+              icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
+              iconPosition="right"
+            >
               Find a table
             </Button>
           </form>
@@ -1852,14 +1911,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'choose' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright">Choose your time</h3>
-              <p className="mt-1 text-sm text-anchor-cream-text/70">
+              <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
+              <p className="mt-1 text-sm text-ink-muted">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
             </div>
 
             {availabilityLoading ? (
-              <p className="text-sm text-anchor-cream-text/70">Checking available times...</p>
+              <p className="text-sm text-ink-muted">Checking available times...</p>
             ) : null}
 
             {availableSlots.length > 0 ? (
@@ -1877,18 +1936,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         key={slot.time}
                         type="button"
                         aria-label={`${formatTimeForDisplay(slot.time)}, ${serviceCaption}`}
+                        aria-pressed={isSelected}
                         onClick={() => handleSlotSelect(slot)}
-                        className={`min-h-14 rounded-xl border px-3 py-3 text-center transition-colors ${
+                        className={`min-h-14 rounded-pill border-[1.5px] px-3 py-3 text-center transition-colors ${
                           isSelected
-                            ? 'border-anchor-gold-dark bg-anchor-gold-dark/15 text-anchor-gold-bright'
-                            : 'border-anchor-gold-dark/25 bg-anchor-green-card text-anchor-cream-text hover:border-anchor-gold-dark'
+                            ? 'border-anchor-green bg-anchor-green text-white'
+                            : 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
                         }`}
                       >
                         <span className="block text-base font-semibold">
                           {formatTimeForDisplay(slot.time)}
                         </span>
                         {typeof slot.kitchen_open === 'boolean' ? (
-                          <span className="mt-1 block text-xs font-normal text-anchor-cream-text/60">
+                          <span className={`mt-1 block text-xs font-normal ${isSelected ? 'text-white/80' : 'text-ink-muted'}`}>
                             {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
                           </span>
                         ) : null}
@@ -1901,7 +1961,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <button
                     type="button"
                     onClick={() => setShowAllTimes(true)}
-                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-anchor-gold-dark/30 px-4 py-3 text-base font-medium text-anchor-gold-bright transition-colors hover:border-anchor-gold-dark hover:bg-anchor-gold-dark/5 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 sm:w-auto sm:px-6"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-pill border-[1.5px] border-line-strong px-4 py-3 text-base font-medium text-ink transition-colors hover:border-anchor-gold focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 sm:w-auto sm:px-6"
                   >
                     See more times
                     <ChevronDown aria-hidden="true" className="h-4 w-4" />
@@ -1934,11 +1994,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               })}
 
             {availableSlots.length === 0 && (
-              <div className="space-y-3 rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
-                <p className="text-sm font-semibold text-anchor-cream-text/80">Nearest alternatives</p>
+              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
+                <p className="text-sm font-semibold text-ink-strong">Nearest alternatives</p>
 
                 {alternativesLoading ? (
-                  <p className="text-sm text-anchor-cream-text/70">Finding nearby options...</p>
+                  <p className="text-sm text-ink-muted">Finding nearby options...</p>
                 ) : alternativeSlots.length > 0 ? (
                   <div className="space-y-2">
                     {alternativeSlots.map((option) => (
@@ -1946,19 +2006,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         key={`${option.date}-${option.time}`}
                         type="button"
                         onClick={() => handleChooseAlternative(option)}
-                        className="flex min-h-12 w-full items-center justify-between rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-card px-3 py-3 text-left text-base hover:border-anchor-gold-dark"
+                        className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
                       >
-                        <span className="font-medium text-anchor-cream-text/80">{formatDateForDisplay(option.date)}</span>
-                        <span className="text-anchor-gold-bright font-semibold">{formatTimeForDisplay(option.time)}</span>
+                        <span className="font-medium text-ink">{formatDateForDisplay(option.date)}</span>
+                        <span className="text-accent-text font-semibold">{formatTimeForDisplay(option.time)}</span>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-anchor-cream-text/70">No nearby online alternatives were found.</p>
+                  <p className="text-sm text-ink-muted">No nearby online alternatives were found.</p>
                 )}
 
-                <div className="rounded-lg border border-anchor-gold-dark/25 bg-anchor-gold-dark/10 p-3 text-sm text-anchor-cream-text">
-                  <p className="font-semibold">Join waitlist</p>
+                <div className="rounded-sm border border-line bg-surface-raised p-3 text-sm text-ink">
+                  <p className="font-semibold text-ink-strong">Join waitlist</p>
                   <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
                     <PhoneButton phone={CONTACT.phone} source="table_booking_waitlist" size="sm" variant="outline" className="min-h-12">
@@ -1969,8 +2029,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             )}
 
-            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-              <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={handleBackToFind}>
+            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full sm:w-auto min-h-12"
+                icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
+                iconPosition="left"
+                onClick={handleBackToFind}
+              >
                 Back
               </Button>
 
@@ -1980,6 +2047,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   variant="primary"
                   size="lg"
                   className="w-full sm:w-auto"
+                  icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
+                  iconPosition="right"
                   onClick={() => {
                     setStep('details')
                     setError(null)
@@ -1994,14 +2063,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         {step === 'details' && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm text-anchor-cream-text/70">
+            <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
               <p>
-                <strong>{partySize}</strong> guests on <strong>{formatDateForDisplay(date)}</strong> at{' '}
-                <strong>{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
+                <strong className="text-ink-strong">{partySize}</strong> guests on <strong className="text-ink-strong">{formatDateForDisplay(date)}</strong> at{' '}
+                <strong className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
               </p>
             </div>
 
-            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4">
+            <div className="rounded-md border border-line bg-surface-sunk p-4">
               <Input
                 label="Mobile Number"
                 type="tel"
@@ -2043,16 +2112,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 )}
               </div>
 
-              {lookupError ? <p className="mt-3 text-sm text-red-400">{lookupError}</p> : null}
+              {lookupError ? <p className="mt-3 text-sm text-anchor-danger">{lookupError}</p> : null}
 
               {isKnownCustomer ? (
-                <p className="mt-3 text-sm font-medium text-anchor-gold-bright">
+                <p className="mt-3 text-sm font-medium text-accent-text">
                   Welcome back{knownCustomer?.full_name ? `, ${knownCustomer.full_name}` : ''}. We've skipped your personal details.
                 </p>
               ) : null}
 
               {lookupState === 'unknown' ? (
-                <p className="mt-3 text-sm font-medium text-anchor-cream-text/80">
+                <p className="mt-3 text-sm font-medium text-ink">
                   {lookupDegraded
                     ? 'We could not verify this number right now. Please continue by entering your details below.'
                     : 'New customer detected. Please complete your details below.'}
@@ -2107,13 +2176,28 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               />
             ) : null}
 
-            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-              <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={handleBackToChoose}>
+            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full sm:w-auto min-h-12"
+                icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
+                iconPosition="left"
+                onClick={handleBackToChoose}
+              >
                 Back
               </Button>
 
               {detailsUnlocked ? (
-                <Button type="button" variant="primary" size="lg" className="w-full sm:w-auto" onClick={handleContinueToReview}>
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                  icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
+                  iconPosition="right"
+                  onClick={handleContinueToReview}
+                >
                   Continue to review
                 </Button>
               ) : null}
@@ -2124,51 +2208,51 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'review' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright">Review your booking</h3>
-              <p className="mt-1 text-sm text-anchor-cream-text/70">Check details, then confirm your booking.</p>
+              <h3 className="font-display text-h4 text-ink-strong">Review your booking</h3>
+              <p className="mt-1 text-sm text-ink-muted">Check details, then confirm your booking.</p>
             </div>
 
-            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm">
-              <dl className="space-y-2 text-anchor-cream-text/80">
+            <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm">
+              <dl className="space-y-2 text-ink">
                 <div className="flex justify-between gap-3">
-                  <dt className="font-medium">Party size</dt>
-                  <dd>{partySize}</dd>
+                  <dt className="font-medium text-ink-muted">Party size</dt>
+                  <dd className="text-ink-strong">{partySize}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="font-medium">Date</dt>
-                  <dd>{formatDateForDisplay(date)}</dd>
+                  <dt className="font-medium text-ink-muted">Date</dt>
+                  <dd className="text-ink-strong">{formatDateForDisplay(date)}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="font-medium">Time</dt>
-                  <dd>{formatTimeForDisplay(selectedTime || requestedTime)}</dd>
+                  <dt className="font-medium text-ink-muted">Time</dt>
+                  <dd className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
-                  <dt className="font-medium">Mobile</dt>
-                  <dd>{phone}</dd>
+                  <dt className="font-medium text-ink-muted">Mobile</dt>
+                  <dd className="text-ink-strong">{phone}</dd>
                 </div>
                 {!isKnownCustomer ? (
                   <div className="flex justify-between gap-3">
-                    <dt className="font-medium">Guest</dt>
-                    <dd>
+                    <dt className="font-medium text-ink-muted">Guest</dt>
+                    <dd className="text-ink-strong">
                       {[firstName.trim(), lastName.trim()].filter(Boolean).join(' ') || 'Not provided'}
                     </dd>
                   </div>
                 ) : null}
                 {requiresGroupDeposit ? (
                   <div className="flex justify-between gap-3">
-                    <dt className="font-medium">Deposit due now</dt>
-                    <dd>{formatGbpCurrency(groupDepositAmount)}</dd>
+                    <dt className="font-medium text-ink-muted">Deposit due now</dt>
+                    <dd className="text-ink-strong">{formatGbpCurrency(groupDepositAmount)}</dd>
                   </div>
                 ) : null}
               </dl>
               {requiresGroupDeposit ? (
-                <p className="mt-3 text-xs text-anchor-cream-text/70">
+                <p className="mt-3 text-xs text-ink-muted">
                   {LARGE_GROUP_DEPOSIT_POLICY_COPY}
                 </p>
               ) : null}
             </div>
 
-            <p className="text-sm text-anchor-cream-text/70">
+            <p className="text-sm text-ink-muted">
               Plans changed?{' '}
               <PhoneLink phone={CONTACT.phone} source="table_booking_change" showIcon={false} className="font-semibold underline">
                 A quick call to 01753 682707
@@ -2216,9 +2300,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <p className="mt-2 text-xs">Your table is held while you complete payment.</p>
                   </Alert>
                 ) : paypalOrderId && bookingIdForPayment ? (
-                  <>
+                  <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
                     {holdExpiry && (
-                      <p className="text-sm text-amber-700 font-medium">
+                      <p className="text-sm text-ink font-medium">
                         Your table is held until {holdExpiry}. Complete payment to confirm your booking.
                       </p>
                     )}
@@ -2276,9 +2360,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 	                        setPaymentState('error')
                       }}
                     />
-                  </>
+                  </div>
                 ) : (
-                  <p className="text-sm text-anchor-cream-text/50">Setting up payment…</p>
+                  <p className="text-sm text-ink-muted">Setting up payment…</p>
                 )}
 
                 {paymentState !== 'confirmed' && (
@@ -2311,23 +2395,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   />
                 )}
 
-                <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-anchor-cream-text/70">
+                <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
                   <input
                     type="checkbox"
                     checked={policyAccepted}
                     onChange={(event) => setPolicyAccepted(event.target.checked)}
-                    className="mt-1"
+                    className="mt-1 accent-anchor-green"
                   />
                   <span>
                     I understand The Anchor's booking and no-show policy, and I agree to continue.
                   </span>
                 </label>
 
-                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
+                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
                   <Button
                     type="button"
-                    variant="outline"
+                    variant="ghost"
                     className="w-full sm:w-auto min-h-12"
+                    icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
+                    iconPosition="left"
                     onClick={() => setStep('details')}
                     disabled={loading}
                   >
@@ -2340,6 +2426,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     className="w-full sm:w-auto"
                     loading={loading}
                     disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+                    icon={<Check aria-hidden="true" className="h-4 w-4" />}
+                    iconPosition="right"
                     onClick={handleConfirmBooking}
                   >
                     {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}

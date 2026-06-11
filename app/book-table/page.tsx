@@ -161,9 +161,9 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         lead="Reserve for pub classics, stone-baked pizzas, Sunday roast, drinks or a relaxed meal seven minutes from Heathrow T5."
         badges={
           <>
-            <Badge variant="sand">Direct booking</Badge>
-            <Badge variant="sand">Fast confirmation</Badge>
-            <Badge variant="sand">Need help? Call us</Badge>
+            <Badge variant="sand">Free parking</Badge>
+            <Badge variant="sand">Dog friendly</Badge>
+            <Badge variant="sand">Quick confirmation</Badge>
           </>
         }
       />
@@ -185,6 +185,18 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <RegretReduction variant="booking" />
             </div>
             <ManagementTableBookingForm prefill={prefill} />
+            <p className="mx-auto mt-4 max-w-[640px] text-center text-sm text-anchor-cream-text/70">
+              Prefer to talk to us? Call{' '}
+              <PhoneLink
+                phone={CONTACT.phone}
+                source="book_table_below_form"
+                showIcon={false}
+                className="font-semibold text-anchor-gold-bright hover:underline"
+              >
+                01753 682707
+              </PhoneLink>
+              . Walk-ins are always welcome.
+            </p>
           </div>
 
           <aside className="order-2 space-y-4 lg:space-y-6">

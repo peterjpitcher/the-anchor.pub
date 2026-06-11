@@ -1,65 +1,44 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { Metadata } from 'next'
-import { StatusBar } from '@/components/layout/StatusBar'
-import { NextEventServer } from '@/components/NextEventServer'
-import { Suspense, type CSSProperties } from 'react'
-import { parkingFacilitySchema } from '@/lib/schemas/parking'
-import { LazySection } from '@/components/LazySection'
-import { HeroWrapper } from '@/components/hero'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
+import { Suspense } from 'react'
+import { Utensils, Beef, Users, PartyPopper, PiggyBank, Plane, Heart, MapPin, Bus, SquareParking } from 'lucide-react'
 
-import { PhoneLinksSection, QuickEnquiryLinks } from '@/components/homepage/PhoneLinksSection'
-import { PhoneLink } from '@/components/PhoneLink'
+import { Button, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { CtaBand } from '@/components/CtaBand'
+import { WeekHours } from '@/components/WeekHours'
+import { UpcomingEvents } from '@/components/events/UpcomingEvents'
+import { EventSchema } from '@/components/seo/EventSchema'
+import { getUpcomingEvents } from '@/lib/api'
+
+import { HomeHero } from './_components/HomeHero'
+import { HomeFaq } from './_components/HomeFaq'
+
 import { BookTableButton } from '@/components/BookTableButton'
-import { HeroBadge } from '@/components/HeroBadge'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
-import { SpeakableContent } from '@/components/voice/SpeakableContent'
-import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { getSeasonalHomepageImage, getSeasonalGreeting, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
-import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { JsonLd } from '@/components/JsonLd'
+import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
-import { getSundayRoastContent, SUNDAY_ROAST } from '@/lib/sunday-roast'
-import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
-import { getCurrentPromotion as getCurrentManagersSpecial, getPromotionImage } from '@/lib/managers-special'
-import {
-  Button,
-  Card,
-  CardBody,
-  Container,
-  Grid,
-  GridItem,
-  Alert,
-  CTASection,
-  SectionHeading,
-  FeatureGrid,
-  QuickInfoGrid,
-  InfoBoxGrid,
-  Section,
-  Badge
-} from '@/components/ui'
+import { getSeasonalHomepageImage, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 
-// Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
-// so the LaunchAnnouncement banner flips reliably at the cutover even on
-// cached pages. See spec §8.5.
-// TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026.
-export const revalidate = 60 * 60 // 1 hour during launch fortnight
+// Revalidate every hour so live status, hours and events stay fresh.
+export const revalidate = 60 * 60
 
 export const metadata: Metadata = {
   title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
-  description: 'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Book a table for pub classics, pizzas, Sunday roasts and free customer parking.',
+  description:
+    'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Book a table for pub classics, pizzas, Sunday roasts and free customer parking.',
   alternates: {
     canonical: '/'
   },
   openGraph: {
     title: 'The Anchor Stanwell Moor | Pub Food Near Heathrow T5',
-    description: 'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5 with free parking, Sunday roast, events and private hire.',
+    description:
+      'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5 with free parking, Sunday roast, events and private hire.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -75,812 +54,358 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
-    description: 'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us, with paid parking available for longer stays.',
+    description:
+      'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us.',
     images: [DEFAULT_OG_IMAGE]
   })
 }
 
-// Lazy load non-critical components
-const BusinessHours = dynamic(() => import('@/components/BusinessHours').then(mod => ({ default: mod.BusinessHours })), {
-  loading: () => <div className="h-64 bg-anchor-green-raised animate-pulse rounded-lg" />,
-  ssr: true
-})
+const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
-const GalleryImage = dynamic(() => import('@/components/GalleryImage').then(mod => ({ default: mod.GalleryImage })), {
-  loading: () => <div className="aspect-square bg-anchor-green-raised animate-pulse rounded-lg" />,
-  ssr: true
-})
+const PATH_CARDS = [
+  {
+    icon: Utensils,
+    title: 'Eat with us',
+    copy: 'Pub classics, stone-baked pizzas and fresh plates, minutes from Heathrow.',
+    cta: 'Book a table',
+    href: '/book-table'
+  },
+  {
+    icon: Beef,
+    title: 'Sunday roast',
+    copy: 'Roasts served every Sunday, 1pm to 6pm. Walk in or book ahead.',
+    cta: 'See the roast',
+    href: '/sunday-roast'
+  },
+  {
+    icon: Users,
+    title: 'Private hire',
+    copy: 'Parties, wakes, christenings and work events in our flexible spaces.',
+    cta: 'Plan your event',
+    href: '/private-hire'
+  },
+  {
+    icon: PartyPopper,
+    title: "What's on",
+    copy: 'Quiz nights, music bingo, karaoke and one-off events through the year.',
+    cta: 'See the diary',
+    href: '/whats-on'
+  }
+] as const
 
-// Loading skeleton for NextEvent
-function NextEventSkeleton() {
+const SPECIAL_CARDS = [
+  {
+    icon: PiggyBank,
+    title: 'Eat well, spend less',
+    copy: 'Airport food costs twice as much. Enjoy a proper pub meal at fair village prices, 7 minutes from the terminals.'
+  },
+  {
+    icon: Plane,
+    title: 'Made for Heathrow trips',
+    copy: 'A pre-flight meal, meeting arrivals or filling a layover. Free parking, luggage welcome, just 7 minutes from Terminal 5.'
+  },
+  {
+    icon: Heart,
+    title: 'Everyone is welcome',
+    copy: 'A dog-friendly beer garden under the flight path, a children’s menu and a relaxed local welcome for the whole family.'
+  }
+] as const
+
+const GALLERY = [
+  {
+    href: '/sunday-roast',
+    src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
+    alt: 'Traditional Sunday roast at The Anchor',
+    caption: 'Famous Sunday roasts'
+  },
+  {
+    href: '/near-heathrow',
+    src: '/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg',
+    alt: 'Beer garden at The Anchor under the Heathrow flight path',
+    caption: 'Beer garden and plane spotting'
+  },
+  {
+    href: '/private-hire',
+    src: '/images/page-headers/private-hire/private-hire.jpg',
+    alt: 'Private hire event space at The Anchor',
+    caption: 'Private hire and celebrations'
+  }
+] as const
+
+// Server component: fetches the next three events, emits per-event schema (the
+// presentational UpcomingEvents component does not), and renders the DS layout.
+async function HomeUpcomingEvents() {
+  let events: Awaited<ReturnType<typeof getUpcomingEvents>> = []
+  try {
+    events = (await getUpcomingEvents(3)) || []
+  } catch {
+    events = []
+  }
+
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="bg-anchor-green-raised rounded-2xl shadow-xl overflow-hidden h-[300px] animate-pulse"></div>
-    </div>
+    <>
+      {events.map((event) => (
+        <EventSchema key={event.id} event={event} />
+      ))}
+      <UpcomingEvents
+        events={events}
+        emptyState={
+          <Card accent className="mx-auto max-w-[720px]">
+            <CardBody className="text-center">
+              <h3 className="font-display text-h4 text-ink-strong">More events coming soon</h3>
+              <p className="mt-2 text-ink-muted">
+                Check back shortly, or see the full diary for everything we have planned.
+              </p>
+            </CardBody>
+          </Card>
+        }
+      />
+    </>
   )
 }
 
+function UpcomingEventsSkeleton() {
+  return (
+    <div className="mx-auto h-[280px] max-w-[920px] animate-pulse rounded-md border border-line bg-surface-sunk" />
+  )
+}
 
 export default function HomePage() {
-  // Get seasonal image configuration
   const seasonalImage = getSeasonalHomepageImage()
-  const seasonalGreeting = getSeasonalGreeting(seasonalImage.season)
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
-  const sunday = getSundayRoastContent()
-  const managersSpecial = getCurrentManagersSpecial()
-  const managersSpecialImage = managersSpecial ? getPromotionImage(managersSpecial.imageFolder) : null
-
-
 
   return (
     <>
       <DeferredHomepageTrackers />
       <SpeakableSchema />
       <JsonLd data={[parkingFacilitySchema]} />
-      {/* Custom Hero Section with Seasonal Image */}
-      <HeroWrapper
-        route="/"
-        variant="dark"
-        titleClassName="text-5xl sm:text-5xl md:text-6xl lg:text-7xl"
-        title={
-          <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]">
-            Proper Pub Food in Stanwell Moor, 7 Minutes from Heathrow T5
-          </span>
-        }
-        className="hero-focal"
-        style={{
-          '--hero-ox': `${focal.x}%`,
-          '--hero-oy-mobile': `${focal.yMobile}%`,
-          '--hero-oy-desktop': `${focal.yDesktop}%`
-        } as CSSProperties}
-        image={{
-          src: seasonalImage.src,
-          alt: seasonalAltText,
-          priority: true,
-          fallbackSrc: seasonalImage.fallback,
-          blurDataURL: "data:image/jpeg;base64,/9j/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAGhAAAgMBAQAAAAAAAAAAAAAAAQIAAwQRIf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAZEQACAwEAAAAAAAAAAAAAAAACAwABMQT/2gAMAwEAAhEDEQA/ANOxLaMjPcVcr70CTruylQTmPeREIvZWFCfOotGp/9k="
-        }}
-        eyebrow={
-          <Image
-            src="/images/branding/the-anchor-pub-logo-white-transparent.png"
-            alt="The Anchor logo - elegant anchor symbol with traditional British pub typography in white"
-            width={320}
-            height={320}
-            sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 320px"
-            className="mx-auto w-48 sm:w-64 lg:w-80 h-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
-            quality={85}
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwNTEzMSIvPjwvc3ZnPg=="
+
+      {/* 1 — Home hero (the only special hero, spec §7.1) */}
+      <HomeHero
+        image={seasonalImage.src}
+        imageAlt={seasonalAltText}
+        focal={`${focal.x}% ${focal.yDesktop}%`}
+      />
+
+      {/* 2 — Amenity strip */}
+      <AmenityStrip />
+
+      {/* 3 — Path cards */}
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <SectionHeading
+            kicker="Stanwell Moor Village"
+            title="What are you here for?"
+            lead="Whatever brings you in, we will make you feel at home. Pick a starting point."
           />
-        }
-        lead={
-          <div className="flex flex-col items-center gap-4">
-            <p className="text-2xl sm:text-3xl text-white font-display drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              The Anchor, Stanwell Moor
-            </p>
-            <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
-              Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us, with paid parking available for longer stays.
-            </p>
-
-            <div className="flex justify-center px-2 sm:px-0 w-full">
-              <StatusBar
-                variant="pill"
-                className="self-center"
-              />
-            </div>
-
-            <HeroBadge
-              className="mt-1"
-              badgeClassName="border border-white/30 bg-black/55 px-3 py-1 text-sm font-semibold text-white shadow-lg backdrop-blur-sm sm:text-sm"
-            />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {PATH_CARDS.map(({ icon: Icon, title, copy, cta, href }) => (
+              <Link key={title} href={href} className="group block h-full">
+                <Card accent hover className="flex h-full flex-col">
+                  <CardBody className="flex flex-1 flex-col">
+                    <span
+                      aria-hidden
+                      className="flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-anchor-sand text-anchor-green"
+                    >
+                      <Icon size={26} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="mt-4 font-display text-h4 text-ink-strong">{title}</h3>
+                    <p className="mt-2 flex-1 text-ink-muted">{copy}</p>
+                    <span className="mt-4 font-semibold text-accent group-hover:underline">
+                      {cta} →
+                    </span>
+                  </CardBody>
+                </Card>
+              </Link>
+            ))}
           </div>
-        }
-        showContextStrip={true}
-        ctaContainerClassName="px-2 sm:px-0 max-w-md mx-auto"
-        primaryCta={
-          <BookTableButton
-            source="homepage_hero"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full"
+        </div>
+      </section>
+
+      {/* 4 — Coming up */}
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <SectionHeading
+            kicker="What's on"
+            script="Always something happening"
+            title="Coming up at The Anchor"
+            lead="Live from our events calendar, here is what is next at the pub."
           />
-        }
-        secondaryCta={
-          <Link href="/food-menu" className="w-full">
-            <Button variant="outline" size="lg" fullWidth>
-              View Food Menu
+          <Suspense fallback={<UpcomingEventsSkeleton />}>
+            <HomeUpcomingEvents />
+          </Suspense>
+          <div className="mt-10 flex justify-center">
+            <Link href="/whats-on">
+              <Button variant="primary" size="lg">
+                View all events
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — What makes us special */}
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <SectionHeading
+            kicker="More than a pub"
+            title="What makes us special"
+            lead="A proper local with a few things you will not find at the airport."
+          />
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {SPECIAL_CARDS.map(({ icon: Icon, title, copy }) => (
+              <Card key={title} accent hover className="h-full">
+                <CardBody className="flex h-full flex-col text-center">
+                  <span
+                    aria-hidden
+                    className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-anchor-sand text-anchor-green"
+                  >
+                    <Icon size={26} strokeWidth={1.75} />
+                  </span>
+                  <h3 className="mt-4 font-display text-h4 text-ink-strong">{title}</h3>
+                  <p className="mt-2 text-ink-muted">{copy}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — CTA band */}
+      <CtaBand
+        title="Ready to visit?"
+        copy="Walk-ins are always welcome, but booking guarantees your spot."
+        primary={<BookTableButton source="homepage_cta_band" variant="primary" size="lg">Book a table</BookTableButton>}
+        secondary={
+          <Link href="/food-menu">
+            <Button variant="outline" size="lg">
+              See the menu
             </Button>
           </Link>
         }
-        secondaryInfo={
-          <div className="flex flex-col items-center gap-3">
-            <Link href={SUNDAY_ROAST.menuHref} className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:text-anchor-gold-bright">
-              Sunday Roast
-            </Link>
-            <div className="flex flex-wrap justify-center gap-2">
-              <Badge variant="sand">Free parking</Badge>
-              <Badge variant="sand">Dog friendly</Badge>
-              <Badge variant="sand">Beer garden under the flight path</Badge>
-              <Badge variant="sand">4.6/5 Google rating</Badge>
-              <Badge variant="sand">7 mins from T5</Badge>
-            </div>
-          </div>
-        }
-        showStatusBar={false}
-        showBreadcrumbs={false}
       />
 
-      {/* Walk-in launch announcement (auto-hides at 18:00 BST on 17 May 2026) */}
-      <div className="bg-anchor-green-raised">
-        <Container>
-          <div className="py-3">
-            <LaunchAnnouncement variant="hero" />
+      {/* 7 — Gallery */}
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <SectionHeading
+            kicker="Life at The Anchor"
+            title="Take a look around"
+          />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {GALLERY.map(({ href, src, alt, caption }) => (
+              <Link key={href} href={href} className="group block">
+                <Card hover className="h-full">
+                  <div className="relative h-[240px] w-full overflow-hidden">
+                    <Image
+                      src={src}
+                      alt={alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardBody className="py-4">
+                    <p className="font-display text-h4 text-ink-strong group-hover:text-accent">
+                      {caption}
+                    </p>
+                  </CardBody>
+                </Card>
+              </Link>
+            ))}
           </div>
-        </Container>
-      </div>
-
-      <section className="bg-anchor-green-card section-spacing-sm border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-center text-2xl md:text-3xl font-bold text-anchor-cream-text">What are you here for?</h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  title: 'Pub food today',
-                  copy: 'Pub classics, fish and chips, burgers and drinks minutes from Heathrow.',
-                  href: '/book-table?source=homepage_path_food&bookingType=food',
-                  cta: 'Book a Table'
-                },
-                {
-                  title: 'Sunday roast',
-                  copy: sunday.isLive ? 'Served Sundays, 1pm to 6pm.' : 'Starts Sunday 17 May 2026.',
-                  href: SUNDAY_ROAST.bookingHref,
-                  cta: 'Book Sunday Roast'
-                },
-                {
-                  title: 'What’s On',
-                  copy: 'Quiz nights, music bingo, cash bingo and more.',
-                  href: '/whats-on?source=homepage_path_events',
-                  cta: 'Reserve Event Table'
-                },
-                {
-                  title: 'Private hire',
-                  copy: 'Parties, wakes, christenings and work events near Heathrow.',
-                  href: '/private-hire?source=homepage_path_private_hire',
-                  cta: 'Get Event Quote'
-                }
-              ].map((item) => (
-                <Link key={item.title} href={item.href} className="block rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 transition hover:border-anchor-gold-dark/40">
-                  <h3 className="text-lg font-bold text-anchor-cream-text">{item.title}</h3>
-                  <p className="mt-2 min-h-[44px] text-sm text-anchor-cream-text/70">{item.copy}</p>
-                  <p className="mt-4 text-sm font-semibold text-anchor-gold-bright">{item.cta} →</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </Container>
+        </div>
       </section>
 
-      {/* Main Page Title for SEO */}
-      <div className="bg-anchor-green-raised pt-12 pb-8 border-b border-anchor-gold-dark/15">
-        <Container>
-          <PageTitle
-            className="text-center text-anchor-cream-text"
-            seo={{ structured: true, speakable: true }}
-          >
-            The Anchor -- Your Local Pub Near Heathrow in Stanwell Moor
-          </PageTitle>
-          <p className="text-center text-lg text-anchor-cream-text/70 mt-4">
-            The Anchor is the closest traditional British pub to Heathrow Airport, located 7 minutes from Terminal 5 at Horton Road, Stanwell Moor, Surrey TW19 6AQ. With 20 free parking spaces, a dog-friendly beer garden under the flight path, and freshly prepared pub food, it is the highest-rated independent pub near Heathrow.
-          </p>
-
-          {/* Trust Signals */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-anchor-cream-text/55">
-            <span className="flex items-center gap-1">Top-rated non-airport pub near Heathrow (Google Reviews)</span>
-            <span className="flex items-center gap-1">Free on-site parking (20 spaces)</span>
-            <span className="flex items-center gap-1">Pub classics £10–£20 – fair village prices near Heathrow</span>
-            <span className="flex items-center gap-1">Independent village pub minutes from Heathrow – no terminal access needed</span>
-            <span className="flex items-center gap-1">Horton Road plane-spotting area – fuel up before or after your flight</span>
-            <span className="flex items-center gap-1">Outside ULEZ Zone - save £12.50 daily</span>
-          </div>
-
-          <div className="mt-8">
-            <div className="card-dark rounded-none p-6 max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3 text-center">Quick Reasons Guests Visit The Anchor</h2>
-              <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
-                <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-bright"></span>
-                  <span>7 minutes from Terminal 5, 11 minutes from Terminals 2 &amp; 3</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-bright"></span>
-                  <span>Free parking and easy taxi pick-up points for travellers</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-bright"></span>
-                  <span>Stone-baked pizzas, {sunday.isLive ? 'Sunday roasts' : 'Sunday roast from 17 May'} and daily pub classics</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-bright"></span>
-                  <span>Hosted nights like Music Bingo with Nikki Manfadge, plus one-off events (see /whats-on)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      {/* What's Coming Up */}
-      <div id="whats-coming-up" className="bg-anchor-green-deep section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
-        <Container>
+      {/* 8 — FAQ */}
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <SectionHeading
-            title="What&apos;s Coming Up at The Anchor"
-            subtitle="Live updates from our events calendar"
+            kicker="Good to know"
+            title="Frequently asked questions"
           />
-          <Suspense fallback={<NextEventSkeleton />}>
-            <NextEventServer />
-          </Suspense>
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <Link href="/whats-on">
-              <Button variant="primary" size="lg">
-                View All Events
-              </Button>
-            </Link>
-          </div>
+          <HomeFaq />
+        </div>
+      </section>
 
-          {/* Regular Events */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-            <Link href="/quiz-night" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
-              <span className="block text-lg font-bold text-anchor-cream-text">Quiz Night</span>
-              <span className="text-sm text-anchor-body-text">Monthly &middot; Cash prizes</span>
-            </Link>
-            <Link href="/music-bingo" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
-              <span className="block text-lg font-bold text-anchor-cream-text">Music Bingo</span>
-              <span className="text-sm text-anchor-body-text">Monthly &middot; With Nikki</span>
-            </Link>
-            <Link href="/karaoke" className="block p-4 bg-anchor-green-raised rounded-lg text-center hover:bg-anchor-green-raised/80 transition-colors">
-              <span className="block text-lg font-bold text-anchor-cream-text">Karaoke</span>
-              <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
-            </Link>
-            <Link href="/sunday-roast" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
-              <span className="block text-lg font-bold text-white">Sunday Roast</span>
-              <span className="text-sm text-white/80">{sunday.isLive ? 'From £16 · Walk in or book ahead' : 'Starts 17 May · Book ahead'}</span>
-            </Link>
-          </div>
-        </Container>
-      </div>
-
-
-      {/* What Makes Us Special */}
-      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
-        <Container>
+      {/* 9 — Find us */}
+      <section id="visit-us" className="scroll-mt-24 bg-surface-sunk py-section-y">
+        <div className="container">
           <SectionHeading
-            title="What Makes Us Special"
-            subtitle="More than just a pub - we're the heart of the community"
+            kicker="Visit Us"
+            script="Pop in and say hello"
+            title="Ready for a proper pub near Heathrow?"
           />
 
-          <FeatureGrid
-            columns={3}
-            features={[
-              {
-                icon: "",
-                title: "Eat Well, Spend Less",
-                description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10, 7 minutes from the terminals, no terminal markup.",
-                variant: "colored",
-                color: "bg-anchor-sand/30",
-                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
-              },
-              {
-                icon: "",
-                title: "Perfect for Heathrow Trips",
-                description: "Pre-flight meal, meeting arrivals, or killing layover time. Free parking, luggage welcome, and just 7 minutes from Terminal 5.",
-                variant: "colored",
-                color: "bg-anchor-sand/30",
-                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
-              },
-              {
-                icon: "",
-                title: "Bring the Whole Family",
-                description: "Dog-friendly beer garden under the Heathrow flight path. Watch planes every 90 seconds. Kids and dogs both welcome.",
-                variant: "colored",
-                color: "bg-anchor-sand/30",
-                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
-              }
-            ]}
-            className="max-w-6xl mx-auto"
-          />
-          <div className="mt-10 text-center">
-            <BookTableButton
-              source="homepage_features_cta"
-              variant="primary"
-              size="lg"
-            />
-          </div>
-        </Container>
-      </div>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch">
+            {/* Address + getting here */}
+            <Card accent className="h-full">
+              <CardBody className="flex h-full flex-col">
+                <h3 className="font-display text-h4 text-ink-strong">Find us here</h3>
+                <address className="mt-3 not-italic leading-relaxed text-ink-muted">
+                  The Anchor<br />
+                  Horton Road<br />
+                  Stanwell Moor<br />
+                  Surrey TW19 6AQ
+                </address>
 
-      {/* Key Information */}
-      <div className="bg-anchor-green-card section-spacing-md border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              title="Everything You Need to Know"
-            />
+                <ul className="mt-6 space-y-3 text-ink-muted">
+                  <li className="flex items-start gap-3">
+                    <Plane size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
+                    <span>7 minutes from Heathrow Terminal 5</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Bus size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
+                    <span>Bus routes 441, 442 &amp; 555 stop nearby</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <SquareParking size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
+                    <span>20 free customer parking spaces</span>
+                  </li>
+                </ul>
 
-            <QuickInfoGrid
-              columns={4}
-              items={[
-                {
-                  icon: "",
-                  title: "Location",
-                  subtitle: (
-                    <SpeakableContent selector="contact-info" priority="high">
-                      Horton Road, Stanwell Moor<br />
-                      Surrey TW19 6AQ<br />
-                      <span className="text-anchor-gold-dark font-semibold">7 mins from Heathrow T5</span>
-                    </SpeakableContent>
-                  )
-                },
-                {
-                  icon: "",
-                  title: "Opening Hours",
-                  subtitle: (
-                    <SpeakableContent selector="opening-hours" priority="high">
-                      Bar and kitchen hours are shown on this page<br />
-                      <span className="text-sm sm:text-xs">May vary on holidays</span>
-                    </SpeakableContent>
-                  )
-                },
-                {
-                  icon: "",
-                  title: "Get in Touch",
-                  subtitle: <PhoneLinksSection source="homepage_quickinfo" />
-                },
-                {
-                  icon: "",
-                  title: "Key Features",
-                  subtitle: (
-                    <>
-                      Free Parking<br />
-                      Dog Friendly<br />
-                      <span className="text-anchor-gold-dark font-semibold">Great Events</span>
-                    </>
-                  )
-                }
-              ]}
-            />
-
-            <div className="mt-8 p-6 card-dark">
-              <p className="text-center text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-bright">Sunday roast:</strong> {sunday.availabilityLong} Free parking for all guests.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      {/* Mid-page booking CTA */}
-      <div className="bg-anchor-green py-8 text-center border-b border-anchor-green-dark">
-        <Container>
-          <div className="max-w-2xl mx-auto">
-            <p className="text-white text-lg font-semibold mb-2">Ready to visit?</p>
-            <p className="text-white/80 text-sm mb-5">Book your table online or call us, walk-ins welcome but booking guarantees your spot.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <BookTableButton
-                source="homepage_mid_cta"
-                variant="outline"
-                size="lg"
-                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              >
-                Book a Table
-              </BookTableButton>
-              <Link href="/sunday-roast">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
-                  {sunday.isLive ? 'Sunday Roast, from £16' : 'Sunday Roast, starts 17 May'}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      {/* Heathrow Travellers Section */}
-      <div id="heathrow-travellers" className="bg-anchor-green-raised section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            <SectionHeading
-              title="Perfect for Heathrow Travellers"
-              subtitle="Just 7-12 minutes from all terminals • Free parking • Real British experience"
-            />
-
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "Why Stop at The Anchor?",
-                  content: (
-                    <ul className="space-y-4">
-                      <li className="flex gap-3">
-                        <span className="text-2xl"></span>
-                        <div>
-                          <strong>Save Money:</strong> Airport food costs 2x more. Enjoy a proper meal for less.
-                        </div>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-2xl"></span>
-                        <div>
-                          <strong>Free Parking:</strong> No hourly charges, no stress. Stay as long as you like. Need longer term parking?{' '}
-                          <Link href="/heathrow-parking" className="text-anchor-gold-dark hover:text-anchor-gold underline">
-                            Book our cheap Heathrow parking
-                          </Link>{' '}
-                          or{' '}
-                          <Link href="/blog/cheap-heathrow-parking-alternatives" className="text-anchor-gold-dark hover:text-anchor-gold underline">
-                            read the savings guide
-                          </Link>
-                          .
-                        </div>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-2xl"></span>
-                        <div>
-                          <strong>Real Experience:</strong> Authentic British pub, not an airport chain.
-                        </div>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-2xl"></span>
-                        <div>
-                          <strong>Kill Time Comfortably:</strong> Much nicer than terminal seating.
-                        </div>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-2xl"></span>
-                        <div>
-                          <strong>Plane Spotting:</strong> <Link href="/beer-garden" className="text-anchor-gold-dark hover:text-anchor-gold underline">Beer garden</Link> with aircraft every 90 seconds.
-                        </div>
-                      </li>
-                    </ul>
-                  ),
-                  variant: "default"
-                },
-                {
-                  title: "Journey Times by Car",
-                  content: (
-                    <>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
-                          <span className="font-semibold">Terminal 2 & 3</span>
-                          <span className="text-anchor-gold-dark font-bold">11 minutes</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
-                          <span className="font-semibold">Terminal 4</span>
-                          <span className="text-anchor-gold-dark font-bold">12 minutes</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-anchor-green-deep rounded-lg border border-anchor-gold-dark/15">
-                          <span className="font-semibold">Terminal 5</span>
-                          <span className="text-anchor-gold-dark font-bold">7 minutes</span>
-                        </div>
-                      </div>
-                      <div className="mt-6 text-center">
-                        <Link href="/near-heathrow" className="block">
-                          <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            <span className="hidden sm:inline">Get Directions From Your Terminal</span>
-                            <span className="sm:hidden">Get Directions</span>
-                          </Button>
-                        </Link>
-                      </div>
-                    </>
-                  ),
-                  variant: "default"
-                }
-              ]}
-              className="mb-12"
-            />
-          </div>
-        </Container>
-      </div>
-
-      {/* Photo Gallery */}
-      <div id="life-at-anchor" className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Life at The Anchor"
-          />
-
-          <div className={`grid grid-cols-1 md:grid-cols-2 ${managersSpecialImage ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 max-w-6xl mx-auto`}>
-            {/* Food Photo - Now First */}
-            <Link href="/sunday-roast">
-              <GalleryImage
-                src="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
-                alt="Traditional Sunday roast at The Anchor"
-                caption={sunday.isLive ? 'Famous Sunday Roasts, served 1pm–6pm, walk in or book ahead' : 'Sunday Roast, starts Sunday 17 May 2026'}
-                width={600}
-                height={600}
-              />
-            </Link>
-
-            {managersSpecialImage && managersSpecial && (
-              <Link href="/drinks/managers-special">
-                <GalleryImage
-                  src={managersSpecialImage}
-                  alt={managersSpecial.promotion.heroAlt || `${managersSpecial.spirit.name} Manager's Special at The Anchor`}
-                  caption={`${managersSpecial.promotion.headline}, ${managersSpecial.spirit.discount} ${managersSpecial.spirit.name}`}
-                  width={600}
-                  height={600}
-                  priority={false}
-                />
-              </Link>
-            )}
-
-            {/* Event Photo - Now Second */}
-            <Link href="/private-hire">
-              <GalleryImage
-                src="/images/page-headers/private-hire/private-hire.jpg"
-                alt="Private hire event at The Anchor"
-                caption="Private Hire - Birthdays, Celebrations & Corporate"
-                width={600}
-                height={600}
-                priority={false}
-              />
-            </Link>
-
-            {/* Garden Photo */}
-            <Link href="/beer-garden">
-              <GalleryImage
-                src="/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg"
-                alt="Beer garden at The Anchor - plane spotting paradise"
-                caption="Beer Garden & Plane Spotting"
-                width={600}
-                height={600}
-                priority={false}
-              />
-            </Link>
-          </div>
-
-          {/* Food & Drink CTAs */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/our-pub">
-              <Button variant="outline" size="lg">
-                Take a Look Around
-              </Button>
-            </Link>
-            <Link href="/sunday-roast">
-              <Button variant="outline" size="lg">
-                {sunday.isLive ? 'Book Sunday Roast, from £16' : 'Book Sunday Roast, starts 17 May'}
-              </Button>
-            </Link>
-            <Link href="/drinks">
-              <Button variant="outline" size="lg">
-                View Drinks Menu
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </div>
-
-      {/* Private Events Section */}
-      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            <SectionHeading
-              title="Host Your Event at The Anchor"
-              subtitle="From intimate gatherings to grand celebrations"
-            />
-
-            <Grid cols={3} gap="lg" className="mb-12">
-              <Link href="/corporate-events" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
-                  <CardBody className="text-center">
-                    <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Corporate Events</h2>
-                    <p className="text-anchor-cream-text/70 mb-4">
-                      Professional venue for meetings, team building, and conferences.
-                      7 minutes from Heathrow with free parking.
-                    </p>
-                    <p className="text-anchor-gold-bright font-semibold">Learn more →</p>
-                  </CardBody>
-                </Card>
-              </Link>
-
-              <Link href="/christmas-parties" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
-                  <CardBody className="text-center">
-                    <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Christmas Parties</h2>
-                    <p className="text-anchor-cream-text/70 mb-4">
-                      Book your festive celebration now! Traditional menus,
-                      festive atmosphere, and memorable celebrations.
-                    </p>
-                    <p className="text-anchor-gold-bright font-semibold">Check availability →</p>
-                  </CardBody>
-                </Card>
-              </Link>
-
-              <Link href="/private-party-venue" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
-                  <CardBody className="text-center">
-                    <div className="text-4xl mb-4"></div>
-                    <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Private Parties</h2>
-                    <p className="text-anchor-cream-text/70 mb-4">
-                      Birthdays, anniversaries, and celebrations.
-                      Flexible spaces, custom menus, your music.
-                    </p>
-                    <p className="text-anchor-gold-bright font-semibold">Plan your party →</p>
-                  </CardBody>
-                </Card>
-              </Link>
-            </Grid>
-
-            <Card className="bg-anchor-green-card">
-              <CardBody>
-                <Grid cols={2} gap="lg" align="center">
-                  <div>
-                    <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Why Choose The Anchor?</h2>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible venue hire pricing</strong> - tailored to your event</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Free parking</strong> for all your guests</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> for {PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events by enquiry</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Custom catering</strong> to suit all budgets</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-bright"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Experienced team</strong> to handle every detail</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-lg text-anchor-cream-text/70 mb-6">
-                      From business meetings to birthday parties,
-                      we make your event special.
-                    </p>
-                    <Link href="/private-hire">
-                      <Button
-                        variant="primary"
-                        size="lg"
-                      >
-                        Explore All Event Options
-                      </Button>
-                    </Link>
-                    <div className="mt-4 space-y-2">
-                      <p className="text-sm text-anchor-cream-text/55">
-                        <strong>Quick enquiry?</strong>
-                      </p>
-                      <QuickEnquiryLinks />
-                    </div>
-                  </div>
-                </Grid>
+                <div className="mt-auto pt-6">
+                  <DirectionsButton
+                    href={GOOGLE_MAPS_URL}
+                    source="home_find_us"
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                  >
+                    <span className="inline-flex items-center gap-2">
+                      <MapPin size={18} strokeWidth={1.75} aria-hidden />
+                      Get directions on Google Maps
+                    </span>
+                  </DirectionsButton>
+                </div>
               </CardBody>
             </Card>
-          </div>
-        </Container>
-      </div>
 
-      <FAQAccordionWithSchema
-        className="bg-anchor-green-deep"
-        title="Frequently Asked Questions"
-        faqs={[
-          {
-            question: 'How far is The Anchor from Heathrow Airport?',
-            answer: 'The Anchor is 7 minutes from Terminal 5 and approximately 11 minutes from Terminals 2, 3, and 4 by car or taxi. We are the closest traditional British pub to all Heathrow terminals. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ.'
-          },
-          {
-            question: 'Is there free parking at The Anchor?',
-            answer: 'Yes, we have 20 free parking spaces for patrons with no time limit while you are dining or drinking with us. This saves you the high cost of airport parking. For longer-stay parking, we also offer pre-bookable Heathrow parking from £15/day.'
-          },
-          {
-            question: 'Is The Anchor dog friendly?',
-            answer: 'Absolutely. Dogs are welcome throughout The Anchor including our bar area and beer garden. We provide water bowls and your four-legged companions are always welcome.'
-          },
-          {
-            question: 'What food does The Anchor serve?',
-            answer: `We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roast. ${sunday.availabilityShort} Prices range from approximately £10–£20 for mains; Sunday roast from £16.`
-          },
-          {
-            question: 'When is the kitchen open?',
-            answer: 'Kitchen hours are updated live on our website. We serve food Tuesday to Friday evenings, Saturday, and Sundays for roast service. Please check the opening hours section or call 01753 682707 for today\'s kitchen times. Note: the kitchen is closed on Mondays.'
-          },
-          {
-            question: 'Can I watch planes from The Anchor?',
-            answer: 'Yes, our beer garden sits directly under the Heathrow flight path. You can watch aircraft passing overhead every 90 seconds during peak times. It\'s a unique experience for aviation enthusiasts and families alike.'
-          },
-          {
-            question: 'Is The Anchor family friendly?',
-            answer: 'Yes, The Anchor is family friendly with a children\'s menu, spacious beer garden, and a welcoming atmosphere for families with young children. We have space for buggies and a relaxed daytime environment.'
-          },
-          {
-            question: 'Can I book a table at The Anchor?',
-            answer: `Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is recommended for groups of 6 or more and on Sunday afternoons. ${sunday.availabilityLong}`
-          },
-          {
-            question: 'Does The Anchor have any special offers?',
-            answer: `We host regular events including Music Bingo, quiz nights, and karaoke. We also serve stone-baked pizzas, classic pub dishes, and Sunday roast. ${sunday.availabilityShort} See the What's On page for the latest details.`
-          },
-          {
-            question: 'How do I get from Heathrow Terminal 5 to The Anchor?',
-            answer: 'From Terminal 5, take a taxi (approximately £20-25, around 7 minutes) or drive via the A3044 towards Staines/Stanwell Moor and turn onto Horton Road. The 442 bus also runs from Heathrow Central Bus Station to Stanwell Moor.'
-          }
-        ]}
-      />
-
-      {/* Internal Links for SEO */}
-      <InternalLinkingSection
-        title="Explore More"
-        links={commonLinkGroups.mainPages}
-        className="section-spacing-md"
-      />
-
-      {/* Find Us Section */}
-      <div id="visit-us" className="bg-anchor-green-card section-spacing-lg border-t border-anchor-gold-dark/25">
-        <Container>
-          <div className="max-w-6xl mx-auto flex flex-col justify-center">
-            <div className="text-center mb-12">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="h-px w-12 bg-anchor-gold-dark/55" aria-hidden="true" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-anchor-gold-bright">Visit Us</span>
-                <span className="h-px w-12 bg-anchor-gold-dark/55" aria-hidden="true" />
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-cream-text mb-4">
-                Ready for a proper pub near Heathrow?
-              </h2>
+            {/* Map panel */}
+            <div className="overflow-hidden rounded-md border border-line shadow-sm" style={{ minHeight: '360px' }}>
+              <iframe
+                title="Map showing The Anchor, Horton Road, Stanwell Moor, Surrey TW19 6AQ"
+                src="https://www.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ&output=embed"
+                className="h-full min-h-[360px] w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
-
-            <Grid cols={2} gap="lg" align="center">
-              <div>
-                <div className="card-dark p-5 mb-4">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-bright">Find Us Here</h3>
-                  <address className="not-italic text-base leading-relaxed text-anchor-cream-text/70">
-                    The Anchor<br />
-                    Horton Road<br />
-                    Stanwell Moor<br />
-                    Surrey TW19 6AQ
-                  </address>
-                </div>
-
-                <div className="card-dark p-5 mb-5">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-bright">Getting Here</h3>
-                  <ul className="space-y-1.5 text-base text-anchor-cream-text/70">
-                    <li>Just 7 minutes from Heathrow Terminal 5</li>
-                    <li>Bus routes 441 &amp; 442 stop nearby</li>
-                    <li>Free parking for all guests</li>
-                    <li>Step-free access to most areas</li>
-                  </ul>
-                </div>
-
-                <DirectionsButton
-                  href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-                  source="home_footer_cta"
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                >
-                  Get Directions on Google Maps
-                </DirectionsButton>
-              </div>
-
-              <div className="card-dark p-4">
-                <h3 className="text-lg font-bold mb-3 text-anchor-gold-bright">Opening Hours</h3>
-                <BusinessHours />
-              </div>
-            </Grid>
           </div>
-        </Container>
-      </div>
 
-      {/* LocalBusiness Schema for SEO */}
-
-
+          {/* Opening hours + flight path */}
+          <Card accent className="mt-6">
+            <CardBody>
+              <h3 className="font-display text-h4 text-ink-strong">Opening hours &amp; flight path</h3>
+              <div className="mt-4">
+                <WeekHours />
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
     </>
   )
 }

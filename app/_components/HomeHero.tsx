@@ -1,0 +1,148 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import { Star } from 'lucide-react'
+import { Button, Badge } from '@/components/ui'
+import { StatusBar } from '@/components/layout/StatusBar'
+import { BookTableButton } from '@/components/BookTableButton'
+import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
+
+// HomeHero — the homepage's special hero (redesign spec §7.1). This is the ONLY
+// non-InteriorHero hero on the site. A full-bleed photographic hero with a green
+// scrim + 6% grain, centred content (max-width 880px), the white wordmark, the
+// brand H1/script lines, the live StatusBar pill, a Google rating row sourced from
+// review-utils, and four sand amenity chips.
+//
+// All facts are SSOT-confirmed: rating 4.6/238 + "Highest-rated independent pub
+// near Heathrow" (SSOT §12), 7 mins from T5, free parking, dog friendly, beer
+// garden (SSOT §2/§3/§4).
+
+interface HomeHeroProps {
+  /** Full-bleed background image src. */
+  image: string
+  /** Alt text — decorative scrim sits over it, but a meaningful alt aids SEO. */
+  imageAlt: string
+  /** CSS object-position for the background image (e.g. '50% 40%'). */
+  focal?: string
+  /** Optional low-quality blur placeholder. */
+  blurDataURL?: string
+}
+
+export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: HomeHeroProps) {
+  const { rating, totalReviews } = DEFAULT_REVIEW_STATS
+
+  return (
+    <section
+      className="theme-dark relative flex items-center justify-center overflow-hidden bg-anchor-green-deep"
+      style={{ minHeight: 'clamp(560px, 84vh, 760px)' }}
+    >
+      {/* Full-bleed background image (decorative scrim over it) */}
+      <Image
+        src={image}
+        alt={imageAlt}
+        fill
+        priority
+        quality={85}
+        sizes="100vw"
+        className="object-cover"
+        style={{ objectPosition: focal }}
+        {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
+      />
+
+      {/* Scrim (radial + linear) per spec §7.1 */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            'radial-gradient(120% 90% at 50% 30%, rgba(12,29,17,0.55) 0%, rgba(12,29,17,0.82) 100%), linear-gradient(0deg, rgba(12,29,17,0.7) 0%, rgba(12,29,17,0) 55%)'
+        }}
+      />
+
+      {/* Film grain (6%) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-[1]"
+        style={{ backgroundImage: 'var(--grain)', opacity: 0.06 }}
+      />
+
+      {/* Content */}
+      <div className="container relative z-[2]">
+        <div className="mx-auto flex max-w-[880px] flex-col items-center gap-5 py-16 text-center">
+          {/* White wordmark */}
+          <Image
+            src="/images/branding/the-anchor-pub-logo-white-transparent.png"
+            alt="The Anchor"
+            width={300}
+            height={300}
+            priority
+            quality={85}
+            sizes="(max-width: 640px) 180px, 300px"
+            className="h-auto w-[clamp(180px,26vw,300px)] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+          />
+
+          {/* H1 */}
+          <h1
+            className="font-display text-display text-anchor-cream-text drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]"
+            style={{ lineHeight: 0.95 }}
+          >
+            Eat, Drink, Enjoy.
+          </h1>
+
+          {/* Script line */}
+          <p
+            className="font-script leading-none text-anchor-gold-bright"
+            style={{ fontSize: 'calc(clamp(1.75rem, 3vw, 2.75rem) * 1.2)' }}
+          >
+            Where everyone&apos;s welcome
+          </p>
+
+          {/* Lead */}
+          <p className="max-w-[54ch] text-lg text-anchor-cream-text/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
+            A proper village pub in Stanwell Moor, 7 minutes from Heathrow Terminal 5.
+            Pub classics, stone-baked pizzas, a beer garden under the flight path and
+            free customer parking.
+          </p>
+
+          {/* Actions */}
+          <div className="flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center">
+            <BookTableButton
+              source="homepage_hero"
+              variant="primary"
+              size="lg"
+              fullWidth
+              className="sm:w-auto"
+            />
+            <Link href="/food-menu" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
+                View food menu
+              </Button>
+            </Link>
+          </div>
+
+          {/* Live status pill */}
+          <StatusBar variant="pill" />
+
+          {/* Google rating row (numbers sourced from review-utils) */}
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-anchor-cream-text/90">
+            <span aria-hidden className="flex items-center gap-0.5 text-anchor-gold-bright">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={16} fill="currentColor" strokeWidth={0} />
+              ))}
+            </span>
+            <span>
+              {rating} from {totalReviews} Google reviews · Highest-rated independent pub near Heathrow
+            </span>
+          </p>
+
+          {/* Amenity chips */}
+          <div className="flex flex-wrap justify-center gap-2">
+            <Badge variant="sand">Free parking</Badge>
+            <Badge variant="sand">Dog friendly</Badge>
+            <Badge variant="sand">Beer garden</Badge>
+            <Badge variant="sand">7 mins from T5</Badge>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
