@@ -7,7 +7,7 @@ import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
-import { FloatingActions } from '@/components/layout/FloatingActions'
+import { StickyCtas } from '@/components/layout/StickyCtas'
 import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { MetaPixelProvider } from '@/components/tracking/MetaPixelProvider'
@@ -279,7 +279,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   <Footer />
                 </footer>
               </ErrorBoundary>
-              <FloatingActions />
+              <StickyCtas />
               <CookieBanner />
               <Suspense fallback={null}>
                 <DeferredRender>

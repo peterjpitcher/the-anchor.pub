@@ -9,7 +9,6 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
@@ -368,10 +367,6 @@ export default function HeathrowLayoverDiningPage() {
         </Container>
       </Section>
 
-      <FoodStickyCtaBar
-        ctaContext="heathrow_layover"
-        label="Book a Table for Food"
-      />
     </>
   )
 }

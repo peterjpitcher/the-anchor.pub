@@ -12,7 +12,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
@@ -80,10 +79,6 @@ export default async function PlaneSpottingHeathrowPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(planeSpottingSchema) }}
-      />
-      <FoodStickyCtaBar
-        ctaContext="heathrow_layover"
-        label="Book a Table for Food"
       />
       <PlaneSpottingBookingPrompt source="plane_spotting_page_prompt" />
 

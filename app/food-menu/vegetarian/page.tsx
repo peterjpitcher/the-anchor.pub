@@ -8,7 +8,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import {
   getMenuUnavailableMessage,
   getVegetarianMenuPageData,
@@ -241,10 +240,6 @@ export default async function VegetarianMenuPage() {
         </Container>
       </Section>
 
-      <FoodStickyCtaBar
-        ctaContext="food"
-        label="Book a Table"
-      />
     </>
   )
 }

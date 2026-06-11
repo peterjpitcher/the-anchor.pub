@@ -16,7 +16,6 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 2 | Food & Free Parking',
@@ -45,10 +44,6 @@ export default function Terminal2Page() {
           { name: 'Near Heathrow', url: '/near-heathrow' },
           { name: 'Terminal 2', url: '/near-heathrow/terminal-2' }
         ]}
-      />
-      <FoodStickyCtaBar
-        ctaContext="heathrow_layover"
-        label="Book a Table for Food"
       />
       
       {/* Hero Section */}

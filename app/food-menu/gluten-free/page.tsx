@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
@@ -283,10 +282,6 @@ export default async function GlutenFreeMenuPage() {
         />
       </div>
 
-      <FoodStickyCtaBar
-        ctaContext="food"
-        label="Book a Table"
-      />
 
       <script
         type="application/ld+json"

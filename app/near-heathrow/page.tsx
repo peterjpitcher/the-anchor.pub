@@ -10,7 +10,6 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -55,10 +54,6 @@ export default function NearHeathrowPage() {
           { name: 'Home', url: '/' },
           { name: 'Near Heathrow', url: '/near-heathrow' }
         ]}
-      />
-      <FoodStickyCtaBar
-        ctaContext="heathrow_layover"
-        label="Book a Table for Food"
       />
       <SpeakableSchema />
       <script

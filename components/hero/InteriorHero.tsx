@@ -45,6 +45,7 @@ export function InteriorHero({
 }: InteriorHeroProps) {
   return (
     <section
+      data-hero
       className="theme-dark relative flex min-h-[clamp(380px,50vh,540px)] items-end overflow-hidden bg-anchor-green-deep"
     >
       {/* Full-bleed decorative background image. */}

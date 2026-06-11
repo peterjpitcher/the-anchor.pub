@@ -15,7 +15,6 @@ import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -561,10 +560,6 @@ export default async function FoodMenuPage() {
         />
       </div>
 
-      <FoodStickyCtaBar
-        ctaContext="food"
-        label="Book a Table"
-      />
 
       <script
         type="application/ld+json"

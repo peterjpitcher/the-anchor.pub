@@ -13,7 +13,6 @@ import { getBusinessHours } from '@/lib/api'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
@@ -119,10 +118,6 @@ export default async function RestaurantsNearHeathrowPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
-      />
-      <FoodStickyCtaBar
-        ctaContext="heathrow_layover"
-        label="Book a Table for Food"
       />
       
       {/* Hero Section */}

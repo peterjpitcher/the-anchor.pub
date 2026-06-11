@@ -13,7 +13,6 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
-import { EventStickyBookingCTA } from '@/components/events/EventStickyBookingCTA'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import {
@@ -760,15 +759,6 @@ export default async function EventPage({ params }: Props) {
           </div>
         </Container>
       </Section>
-
-      {!bookingBlockReason ? (
-        <EventStickyBookingCTA
-          event={event}
-          source={`event_page_sticky_${params.id}`}
-          label={mothersDayBookingFlow ? MOTHERS_DAY_BOOKING_CTA_LABEL : 'Reserve table'}
-        />
-      ) : null}
-      
     </>
   )
 }
