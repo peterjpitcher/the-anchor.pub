@@ -67,8 +67,8 @@ const PATH_CARDS = [
     icon: Utensils,
     title: 'Eat with us',
     copy: 'Pub classics, stone-baked pizzas and fresh plates, minutes from Heathrow.',
-    cta: 'Book a table',
-    href: '/book-table'
+    cta: 'View the menu',
+    href: '/food-menu'
   },
   {
     icon: Beef,
