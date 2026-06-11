@@ -298,7 +298,7 @@ export default async function ValentinesDayPage() {
       <Section spacing="md" background="white">
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-            <Card variant="elevated" className="overflow-hidden">
+            <Card className="overflow-hidden">
               <div className="relative aspect-[3/4] bg-anchor-green-raised">
                 <Image
                   src={heroImage}
@@ -372,17 +372,17 @@ export default async function ValentinesDayPage() {
               {event ? (
                 <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
                   <div className="flex flex-wrap items-center gap-3">
-                    <Badge variant="success" size="sm">
+                    <Badge variant="success">
                       {isFreeEntry ? 'Free entry' : 'Booking recommended'}
                     </Badge>
-                    <Badge variant="default" size="sm">
+                    <Badge variant="green">
                       {performerName ? `Live music: ${performerName}` : 'Live music'}
                     </Badge>
-                    <Badge variant="default" size="sm">
+                    <Badge variant="green">
                       Dinner bookings recommended
                     </Badge>
                     {proseccoOffer ? (
-                      <Badge variant="primary" size="sm">
+                      <Badge variant="green">
                         {proseccoOffer}
                       </Badge>
                     ) : null}
@@ -453,7 +453,7 @@ export default async function ValentinesDayPage() {
               )}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h2 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h2>
                     <p className="text-sm text-anchor-cream-text/70">
@@ -466,7 +466,7 @@ export default async function ValentinesDayPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h2 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h2>
                     <p className="text-sm text-anchor-cream-text/70">

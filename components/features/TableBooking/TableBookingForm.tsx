@@ -230,7 +230,7 @@ export default function TableBookingForm({
   // Render error state
   if (error && bookingState.step !== 'date-selection') {
     return (
-      <Card variant="elevated" className={className}>
+      <Card className={className}>
         <CardBody>
           <Alert variant="error" title="Booking Error">
             <p>{error}</p>

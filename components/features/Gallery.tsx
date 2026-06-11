@@ -207,9 +207,7 @@ export function Gallery({
         <Grid cols={columns} gap={gap}>
           {filteredImages.map((image, index) => (
             <GridItem key={index}>
-              <Card 
-                variant="elevated" 
-                padding="none"
+              <Card
                 className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:outline-none"
                 onClick={() => handleImageClick(image, index)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleImageClick(image, index) } }}
@@ -239,7 +237,7 @@ export function Gallery({
                   {/* Category Badge */}
                   {image.category && (
                     <div className="absolute top-2 left-2">
-                      <Badge variant="default" size="sm" className="bg-white/90 backdrop-blur-sm">
+                      <Badge variant="green" className="bg-white/90 backdrop-blur-sm">
                         {image.category}
                       </Badge>
                     </div>

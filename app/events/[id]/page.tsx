@@ -143,8 +143,6 @@ function EventHighlights({
 
   return (
     <Card
-      variant="default"
-      padding={compact ? 'none' : undefined}
       className={`border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none ${className}`.trim()}
     >
       <CardBody className={compact ? 'p-3' : 'p-4 md:p-6'}>
@@ -520,7 +518,7 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 </details>
 
-                <Card variant="default" padding="none" className="mb-6 mt-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
+                <Card className="mb-6 mt-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-bold text-anchor-gold-bright md:text-xl">Event information</h2>
                     <div className="mt-4">
@@ -529,7 +527,7 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
-                <Card variant="default" padding="none" className="mb-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
+                <Card className="mb-6 hidden border border-anchor-gold-dark/15 bg-anchor-green-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-bold text-anchor-gold-bright md:text-xl">Booking and payment</h2>
                     <div className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
@@ -587,7 +585,7 @@ export default async function EventPage({ params }: Props) {
 
                   <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
                     {mothersDayBookingFlow ? (
-                      <Card variant="elevated" padding="none" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
+                      <Card className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                         <CardBody className="space-y-3 p-4">
                           <h2 className="text-xl font-bold text-anchor-gold-bright">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
                           <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
@@ -627,7 +625,7 @@ export default async function EventPage({ params }: Props) {
             {/* Full Width Sections */}
             <div className="mt-6 space-y-5 md:mt-8 md:space-y-8">
               {/* Location */}
-              <Card variant="elevated" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
+              <Card className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                 <CardBody className="p-4 md:p-8">
                   <div className="grid gap-4 md:gap-6 lg:grid-cols-[minmax(0,320px),minmax(0,1fr)] lg:items-start">
                     <div>
@@ -681,7 +679,7 @@ export default async function EventPage({ params }: Props) {
                   <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-bright mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
                     {(event.faq || event.faqPage?.mainEntity || []).map((faq, index) => (
-                      <Card key={index} variant="default" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
+                      <Card key={index} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15">
                         <CardBody className="p-4 md:p-6">
                           <h3 className="font-semibold text-base md:text-lg text-anchor-gold-bright mb-2">{faq.name}</h3>
                           <p className="text-anchor-cream-text/70 text-sm md:text-base">{faq.acceptedAnswer.text}</p>

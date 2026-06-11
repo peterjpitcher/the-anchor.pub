@@ -254,7 +254,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
   // --- Success state ---
   if (success) {
     return (
-      <Card variant="elevated" className="bg-anchor-green-card border border-anchor-gold-dark/20">
+      <Card className="bg-anchor-green-card border border-anchor-gold-dark/20">
         <CardBody>
           <div className="text-center py-8 space-y-4">
             <h3 className="text-xl font-semibold text-anchor-gold-bright">
@@ -283,7 +283,7 @@ export function CareersForm({ defaultRole }: CareersFormProps) {
 
   // --- Form state ---
   return (
-    <Card variant="elevated" className="bg-anchor-green-card border border-anchor-gold-dark/20">
+    <Card className="bg-anchor-green-card border border-anchor-gold-dark/20">
       <CardBody>
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
           {/* Name, email, phone */}

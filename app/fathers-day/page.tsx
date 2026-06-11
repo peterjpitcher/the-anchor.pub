@@ -242,11 +242,11 @@ export default function FathersDayPage() {
               from Heathrow T5, it&apos;s easy to get to from anywhere nearby.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="default" size="sm">Father&apos;s Day Sunday roast</Badge>
-              <Badge variant="default" size="sm">Walk-ins welcome</Badge>
-              <Badge variant="default" size="sm">Planes every 90 seconds</Badge>
-              <Badge variant="success" size="sm">Free parking</Badge>
-              <Badge variant="default" size="sm">Dog-friendly</Badge>
+              <Badge variant="green">Father&apos;s Day Sunday roast</Badge>
+              <Badge variant="green">Walk-ins welcome</Badge>
+              <Badge variant="green">Planes every 90 seconds</Badge>
+              <Badge variant="success">Free parking</Badge>
+              <Badge variant="green">Dog-friendly</Badge>
             </div>
           </div>
         </Container>
@@ -270,10 +270,10 @@ export default function FathersDayPage() {
               where nobody checks the time.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="success" size="sm">Dog-friendly</Badge>
-              <Badge variant="default" size="sm">Kids welcome</Badge>
-              <Badge variant="default" size="sm">Plane spotting</Badge>
-              <Badge variant="default" size="sm">Summer beer garden</Badge>
+              <Badge variant="success">Dog-friendly</Badge>
+              <Badge variant="green">Kids welcome</Badge>
+              <Badge variant="green">Plane spotting</Badge>
+              <Badge variant="green">Summer beer garden</Badge>
             </div>
           </div>
         </Container>

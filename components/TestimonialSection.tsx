@@ -59,7 +59,7 @@ function TestimonialCard({
   const rating = review.rating ?? 5
 
   return (
-    <Card padding={compact ? 'sm' : 'md'}>
+    <Card className={compact ? 'p-4' : 'p-6'}>
       <StarRating rating={rating} className="mb-3" />
       <p className={cn(
         'text-base italic text-anchor-cream-text/80 mb-3',

@@ -1636,7 +1636,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     return (
       <div className="space-y-4">
-        <Card variant="elevated">
+        <Card>
           <CardBody className="space-y-3 p-4">
             <h3 className="text-lg font-semibold text-anchor-gold-bright">Event booking</h3>
             <p className="text-sm text-anchor-cream-text/70">
@@ -1673,7 +1673,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   if (result?.state === 'confirmed') {
     return (
-      <Card variant="elevated">
+      <Card>
         <CardBody className="space-y-4">
           <Alert variant="success" title={"You're all booked in, see you soon!"}>
             <p>
@@ -1701,7 +1701,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   return (
     <div ref={wizardRef}>
-    <Card variant="elevated">
+    <Card>
       <CardBody className="space-y-6">
         <BookingProgressBar currentStep={currentStepIndex + 1} totalSteps={STEP_ORDER.length} />
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">

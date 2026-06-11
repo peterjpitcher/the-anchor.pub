@@ -263,7 +263,7 @@ export default function MothersDayPage() {
       <Section background="white" spacing="md">
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-            <Card variant="elevated" className="overflow-hidden">
+            <Card className="overflow-hidden">
               <div className="relative aspect-[3/4] bg-anchor-green-raised">
                 <Image
                   src={eventImage}
@@ -401,16 +401,16 @@ export default function MothersDayPage() {
 
               <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Badge variant="success" size="sm">
+                  <Badge variant="success">
                     Walk-ins welcome
                   </Badge>
-                  <Badge variant="default" size="sm">
+                  <Badge variant="green">
                     Cooked-from-scratch lunch
                   </Badge>
-                  <Badge variant="default" size="sm">
+                  <Badge variant="green">
                     Vegan & vegetarian options
                   </Badge>
-                  <Badge variant="default" size="sm">
+                  <Badge variant="green">
                     No set sittings
                   </Badge>
                 </div>
@@ -466,7 +466,7 @@ export default function MothersDayPage() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h3>
                     <p className="text-sm text-anchor-cream-text/70">
@@ -490,7 +490,7 @@ export default function MothersDayPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h3>
                     <p className="text-sm text-anchor-cream-text/70">

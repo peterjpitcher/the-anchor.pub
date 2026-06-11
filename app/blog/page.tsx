@@ -159,7 +159,7 @@ export default async function BlogPage({
           <Container>
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">Featured Story</h2>
-              <Card variant="elevated" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
+              <Card className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
                 <div className="grid md:grid-cols-2 gap-0 overflow-hidden">
                   <Link
                     href={`/blog/${featuredPost.slug}`}
@@ -180,8 +180,7 @@ export default async function BlogPage({
                       {featuredPost.tags.map(tag => (
                         <Link key={tag} href={`/blog/tag/${tag}`}>
                           <Badge
-                            variant="default"
-                            size="sm"
+                            variant="green"
                             className="bg-anchor-gold-dark/20 text-anchor-gold-bright hover:bg-anchor-gold-dark hover:text-white transition-colours"
                           >
                             {tag}
@@ -231,7 +230,7 @@ export default async function BlogPage({
               <>
                 <Grid cols={3} gap="lg" className="mb-12">
                   {otherPosts.map(post => (
-                    <Card key={post.slug} variant="default" className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
+                    <Card key={post.slug} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
                       <div className="relative h-48">
                         <Link
                           href={`/blog/${post.slug}`}
@@ -253,8 +252,7 @@ export default async function BlogPage({
                           {post.tags.map(tag => (
                             <Link key={tag} href={`/blog/tag/${tag}`}>
                               <Badge
-                                variant="default"
-                                size="sm"
+                                variant="green"
                                 className="bg-anchor-green-deep text-anchor-cream-text/55 hover:bg-anchor-gold-dark hover:text-white transition-colours"
                               >
                                 {tag}

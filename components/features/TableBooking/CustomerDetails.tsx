@@ -164,22 +164,22 @@ export default function CustomerDetails({
   }, [formData, onSubmit])
 
   return (
-    <Card variant="elevated" className={`bg-anchor-green-card border border-anchor-gold-dark/20 ${className}`}>
+    <Card className={`bg-anchor-green-card border border-anchor-gold-dark/20 ${className}`}>
       <CardBody>
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">
             Complete Your Booking
           </h3>
           <div className="flex flex-wrap gap-2 text-sm">
-            <Badge variant="default">
+            <Badge variant="green">
               <Icon name="calendar" className="mr-1" />
               {formatDate(date)}
             </Badge>
-            <Badge variant="default">
+            <Badge variant="green">
               <Icon name="clock" className="mr-1" />
               {formatTime(time)}
             </Badge>
-            <Badge variant="default">
+            <Badge variant="green">
               <Icon name="users" className="mr-1" />
               {partySize} {partySize === 1 ? 'person' : 'people'}
             </Badge>

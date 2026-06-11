@@ -43,7 +43,7 @@ export function GalleryImage({
   return (
     <div
       className={cn(
-        "relative aspect-square rounded-lg overflow-hidden group cursor-pointer card-warm",
+        "relative aspect-square rounded-md overflow-hidden group cursor-pointer transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg",
         className
       )}
       role="img"

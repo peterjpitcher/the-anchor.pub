@@ -112,10 +112,10 @@ export default function HalloweenPage() {
                 Saturdays), so you can come for dinner before the Halloween festivities really get going.
               </p>
               <div className="flex flex-wrap items-center gap-3">
-                <Badge variant="default" size="sm">Themed cocktails &amp; shots</Badge>
-                <Badge variant="default" size="sm">Music</Badge>
-                <Badge variant="success" size="sm">Best costume prizes</Badge>
-                <Badge variant="default" size="sm">Food menu (until 7pm)</Badge>
+                <Badge variant="green">Themed cocktails &amp; shots</Badge>
+                <Badge variant="green">Music</Badge>
+                <Badge variant="success">Best costume prizes</Badge>
+                <Badge variant="green">Food menu (until 7pm)</Badge>
               </div>
             </div>
 

@@ -99,10 +99,10 @@ export default function StPatricksDayPage(): React.JSX.Element {
               you&apos;re welcome. We&apos;ve been doing this for years, and it always turns into a brilliant night.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="success" size="sm">Guinness on tap</Badge>
-              <Badge variant="default" size="sm">Irish whiskey selection</Badge>
-              <Badge variant="default" size="sm">Themed cocktails</Badge>
-              <Badge variant="default" size="sm">Live music & entertainment</Badge>
+              <Badge variant="success">Guinness on tap</Badge>
+              <Badge variant="green">Irish whiskey selection</Badge>
+              <Badge variant="green">Themed cocktails</Badge>
+              <Badge variant="green">Live music & entertainment</Badge>
             </div>
           </div>
         </Container>
@@ -173,7 +173,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
               to leave the car.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -181,7 +181,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
                   </p>
                 </CardBody>
               </Card>
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                   <p className="text-sm text-anchor-cream-text/70">

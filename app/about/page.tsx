@@ -234,7 +234,7 @@ export default function AboutPage() {
 
             <Grid cols={3} gap="lg">
               <Link href="/food-menu" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -250,7 +250,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/sunday-roast" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -266,7 +266,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/whats-on" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -282,7 +282,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/private-hire" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -298,7 +298,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/beer-garden" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -314,7 +314,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/our-pub" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
@@ -330,7 +330,7 @@ export default function AboutPage() {
               </Link>
 
               <Link href="/drinks" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">

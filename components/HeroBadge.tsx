@@ -20,10 +20,10 @@ interface HeroBadgeProps {
 export function HeroBadge({ className, badgeClassName, reviewBadgeClassName }: HeroBadgeProps) {
   return (
     <div className={cn('flex flex-wrap items-center justify-center gap-2', className)}>
-      <Badge variant="primary" size="sm" className={badgeClassName}>
+      <Badge variant="green" className={badgeClassName}>
         {GOOGLE_RATING}/5 on Google
       </Badge>
-      <Badge variant="outline" size="sm" className={reviewBadgeClassName || badgeClassName}>
+      <Badge variant="outline" className={reviewBadgeClassName || badgeClassName}>
         {GOOGLE_REVIEW_COUNT} reviews
       </Badge>
     </div>
@@ -34,11 +34,11 @@ export function HeroBadge({ className, badgeClassName, reviewBadgeClassName }: H
 // Used by ManagersSpecial.tsx and MenuRenderer.tsx for menu item badges (NEW, Featured, etc.)
 // Routes through the Badge primitive instead of inline styles.
 
-const itemBadgeVariantMap: Record<string, 'error' | 'warning' | 'success' | 'primary'> = {
-  new: 'error',
-  featured: 'warning',
+const itemBadgeVariantMap: Record<string, 'danger' | 'gold' | 'success' | 'green'> = {
+  new: 'danger',
+  featured: 'gold',
   special: 'success',
-  limited: 'primary'
+  limited: 'green'
 }
 
 interface ItemBadgeProps {
@@ -61,8 +61,7 @@ export function ItemBadge({
   if (position === 'absolute') {
     return (
       <Badge
-        variant={itemBadgeVariantMap[variant] || 'error'}
-        size="sm"
+        variant={itemBadgeVariantMap[variant] || 'danger'}
         className={cn(
           'absolute -top-2 -left-2 z-10 transform -rotate-12 shadow-md uppercase hidden md:inline-flex',
           className
@@ -76,8 +75,7 @@ export function ItemBadge({
   // Inline version for mobile
   return (
     <Badge
-      variant={itemBadgeVariantMap[variant] || 'error'}
-      size="sm"
+      variant={itemBadgeVariantMap[variant] || 'danger'}
       className={cn('ml-3 uppercase md:hidden', className)}
     >
       {text}

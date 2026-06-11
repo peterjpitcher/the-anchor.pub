@@ -41,7 +41,8 @@ import {
   FeatureGrid,
   QuickInfoGrid,
   InfoBoxGrid,
-  Section
+  Section,
+  Badge
 } from '@/components/ui'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
@@ -188,7 +189,7 @@ export default function HomePage() {
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full">
-            <Button variant="secondary" size="lg" fullWidth>
+            <Button variant="outline" size="lg" fullWidth>
               View Food Menu
             </Button>
           </Link>
@@ -198,12 +199,12 @@ export default function HomePage() {
             <Link href={SUNDAY_ROAST.menuHref} className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:text-anchor-gold-bright">
               Sunday Roast
             </Link>
-            <div className="flex flex-wrap justify-center gap-2 text-xs font-medium text-white/90">
-              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Free parking</span>
-              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Dog friendly</span>
-              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Beer garden under the flight path</span>
-              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">4.6/5 Google rating</span>
-              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">7 mins from T5</span>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Badge variant="sand">Free parking</Badge>
+              <Badge variant="sand">Dog friendly</Badge>
+              <Badge variant="sand">Beer garden under the flight path</Badge>
+              <Badge variant="sand">4.6/5 Google rating</Badge>
+              <Badge variant="sand">7 mins from T5</Badge>
             </div>
           </div>
         }
@@ -369,7 +370,7 @@ export default function HomePage() {
                 description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10, 7 minutes from the terminals, no terminal markup.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
-                className: "card-warm p-8 text-center"
+                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
               },
               {
                 icon: "",
@@ -377,7 +378,7 @@ export default function HomePage() {
                 description: "Pre-flight meal, meeting arrivals, or killing layover time. Free parking, luggage welcome, and just 7 minutes from Terminal 5.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
-                className: "card-warm p-8 text-center"
+                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
               },
               {
                 icon: "",
@@ -385,7 +386,7 @@ export default function HomePage() {
                 description: "Dog-friendly beer garden under the Heathrow flight path. Watch planes every 90 seconds. Kids and dogs both welcome.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
-                className: "card-warm p-8 text-center"
+                className: "rounded-md overflow-hidden border-t-[3px] border-t-anchor-gold transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg p-8 text-center"
               }
             ]}
             className="max-w-6xl mx-auto"
@@ -469,14 +470,14 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
                 source="homepage_mid_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 Book a Table
               </BookTableButton>
               <Link href="/sunday-roast">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
                   {sunday.isLive ? 'Sunday Roast, from £16' : 'Sunday Roast, starts 17 May'}
                 </Button>
               </Link>
@@ -640,17 +641,17 @@ export default function HomePage() {
           {/* Food & Drink CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/our-pub">
-              <Button variant="secondary" size="lg">
+              <Button variant="outline" size="lg">
                 Take a Look Around
               </Button>
             </Link>
             <Link href="/sunday-roast">
-              <Button variant="secondary" size="lg">
+              <Button variant="outline" size="lg">
                 {sunday.isLive ? 'Book Sunday Roast, from £16' : 'Book Sunday Roast, starts 17 May'}
               </Button>
             </Link>
             <Link href="/drinks">
-              <Button variant="secondary" size="lg">
+              <Button variant="outline" size="lg">
                 View Drinks Menu
               </Button>
             </Link>
@@ -669,7 +670,7 @@ export default function HomePage() {
 
             <Grid cols={3} gap="lg" className="mb-12">
               <Link href="/corporate-events" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Corporate Events</h2>
@@ -683,7 +684,7 @@ export default function HomePage() {
               </Link>
 
               <Link href="/christmas-parties" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Christmas Parties</h2>
@@ -697,7 +698,7 @@ export default function HomePage() {
               </Link>
 
               <Link href="/private-party-venue" className="group">
-                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">Private Parties</h2>
@@ -711,7 +712,7 @@ export default function HomePage() {
               </Link>
             </Grid>
 
-            <Card variant="default" className="bg-anchor-green-card">
+            <Card className="bg-anchor-green-card">
               <CardBody>
                 <Grid cols={2} gap="lg" align="center">
                   <div>

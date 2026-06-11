@@ -382,7 +382,7 @@ export function ManagementEventBookingForm({
   }
 
   return (
-    <Card variant="elevated" padding={compact ? 'none' : undefined}>
+    <Card>
       <CardBody className={compact ? 'space-y-3 p-3 lg:p-4' : 'space-y-5'}>
         <div className="space-y-1">
           {title ? (

@@ -179,7 +179,7 @@ export default function EasterPage() {
             </p>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Good Friday &ndash; Easter Sunday</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -187,13 +187,13 @@ export default function EasterPage() {
                     and our Sunday roast menu on Easter Sunday.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="success" size="sm">Kitchen open</Badge>
-                    <Badge variant="default" size="sm">Full menu</Badge>
+                    <Badge variant="success">Kitchen open</Badge>
+                    <Badge variant="green">Full menu</Badge>
                   </div>
                 </CardBody>
               </Card>
 
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Easter Monday</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -201,8 +201,8 @@ export default function EasterPage() {
                     Pop in for a pint, enjoy the beer garden, and wind down the long weekend.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="default" size="sm">Drinks only</Badge>
-                    <Badge variant="default" size="sm">Kitchen closed</Badge>
+                    <Badge variant="green">Drinks only</Badge>
+                    <Badge variant="green">Kitchen closed</Badge>
                   </div>
                 </CardBody>
               </Card>
@@ -228,10 +228,10 @@ export default function EasterPage() {
               (or your second pint). It&apos;s the kind of easy Easter afternoon that doesn&apos;t need a plan.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="success" size="sm">Dog-friendly</Badge>
-              <Badge variant="default" size="sm">Kids welcome</Badge>
-              <Badge variant="default" size="sm">Free parking &bull; 20 spaces</Badge>
-              <Badge variant="default" size="sm">Plane spotting</Badge>
+              <Badge variant="success">Dog-friendly</Badge>
+              <Badge variant="green">Kids welcome</Badge>
+              <Badge variant="green">Free parking &bull; 20 spaces</Badge>
+              <Badge variant="green">Plane spotting</Badge>
             </div>
           </div>
         </Container>

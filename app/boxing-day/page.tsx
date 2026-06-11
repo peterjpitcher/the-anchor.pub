@@ -113,10 +113,10 @@ export default function BoxingDayPage() {
                 that you only really appreciate when you&apos;re there.
               </p>
               <div className="flex flex-wrap items-center gap-3">
-                <Badge variant="default" size="sm">2&ndash;3 mile walk</Badge>
-                <Badge variant="default" size="sm">Flat &amp; easy-going</Badge>
-                <Badge variant="success" size="sm">Dog-friendly</Badge>
-                <Badge variant="default" size="sm">Reservoir views</Badge>
+                <Badge variant="green">2&ndash;3 mile walk</Badge>
+                <Badge variant="green">Flat &amp; easy-going</Badge>
+                <Badge variant="success">Dog-friendly</Badge>
+                <Badge variant="green">Reservoir views</Badge>
               </div>
             </div>
 
@@ -275,7 +275,7 @@ export default function BoxingDayPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">The Boxing Day walk</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -292,7 +292,7 @@ export default function BoxingDayPage() {
                 </CardBody>
               </Card>
 
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h3>
                   <p className="text-sm text-anchor-cream-text/70">

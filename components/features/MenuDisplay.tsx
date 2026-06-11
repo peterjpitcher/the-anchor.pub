@@ -187,7 +187,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
 
                   {/* List Style */}
                   {section.style === 'list' && (
-                    <Card variant="elevated" className="max-w-4xl mx-auto">
+                    <Card className="max-w-4xl mx-auto">
                       <CardBody>
                         <Grid cols={2} gap="sm" role="list" className="max-w-2xl mx-auto">
                           {section.items.map((item, itemIndex) => (
@@ -240,8 +240,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
   const schemaPrice = normalizeMenuPrice(item.price)
 
   return (
-    <Card 
-      variant={isFocused ? 'outlined' : 'elevated'}
+    <Card
       className={isFocused ? 'ring-2 ring-anchor-gold-dark' : ''}
       itemScope 
       itemType="https://schema.org/MenuItem"
@@ -256,7 +255,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
           <h3 className="min-w-0 break-words font-bold text-xl text-anchor-gold-bright flex items-center gap-2" itemProp="name">
             {item.name}
             {item.vegetarian && (
-              <Badge variant="success" size="sm">(V)</Badge>
+              <Badge variant="success">(V)</Badge>
             )}
           </h3>
           <span className="shrink-0 text-xl font-bold text-anchor-gold-dark whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
@@ -296,7 +295,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
     >
       <span className="flex items-center gap-2" itemProp="name">
         {item.name}
-        {item.vegetarian && <Badge variant="success" size="sm" dot>(V)</Badge>}
+        {item.vegetarian && <Badge variant="success" dot>(V)</Badge>}
       </span>
       <span className="text-anchor-gold-dark font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
         <span itemProp="price" content={schemaPrice}>

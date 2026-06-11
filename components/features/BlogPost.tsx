@@ -54,7 +54,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
               {post.tags.map(tag => (
                 <Badge 
                   key={tag} 
-                  variant="default"
+                  variant="green"
                   className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                 >
                   <Link href={`/blog/tag/${tag}`}>
@@ -198,7 +198,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
           <Grid cols={2} gap="md">
             {prevPost && (
               <Link href={`/blog/${prevPost.slug}`} className="group">
-                <Card variant="default" className="hover:shadow-md transition-shadow">
+                <Card className="hover:shadow-md transition-shadow">
                   <CardBody>
                     <p className="text-sm text-anchor-cream-text/70 mb-2">← Previous Post</p>
                     <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold-dark transition-colours">
@@ -210,7 +210,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
             )}
             {nextPost && (
               <Link href={`/blog/${nextPost.slug}`} className="group md:text-right">
-                <Card variant="default" className="hover:shadow-md transition-shadow">
+                <Card className="hover:shadow-md transition-shadow">
                   <CardBody>
                     <p className="text-sm text-anchor-cream-text/70 mb-2">Next Post →</p>
                     <h3 className="text-lg font-bold text-anchor-cream-text group-hover:text-anchor-gold-dark transition-colours">

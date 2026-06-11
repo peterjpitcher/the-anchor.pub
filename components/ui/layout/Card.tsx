@@ -3,41 +3,49 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import type { BaseComponentProps, WithChildren } from '../types'
 
-const cardVariants = cva(
-  'bg-anchor-green-card rounded-none overflow-hidden border border-anchor-gold-dark/20',
-  {
-    variants: {
-      variant: {
-        default: '',
-        outlined: 'border-2 border-anchor-gold-dark/40',
-        elevated: 'shadow-[0_16px_40px_rgba(0,0,0,0.4)] border-0'
-      },
-      padding: {
-        none: '',
-        sm: 'p-4',
-        md: 'p-6',
-        lg: 'p-8'
-      }
+// One card (spec §4.3):
+//  - light (default): white surface, 1px border-line, radius-md (12px), shadow-sm
+//  - dark: anchor-green-card bg, 1px border-line-gold, radius-xs (3px), no shadow
+//  - accent: gold top rule (gold on light, gold-bright on dark)
+//  - hover: lift -3px + shadow-lg
+const cardVariants = cva('overflow-hidden border', {
+  variants: {
+    variant: {
+      light: 'bg-surface border-line rounded-md shadow-sm',
+      dark: 'bg-anchor-green-card border-line-gold rounded-xs'
     },
-    defaultVariants: {
-      variant: 'default',
-      padding: 'md'
+    accent: {
+      true: 'border-t-[3px]',
+      false: ''
+    },
+    hover: {
+      true: 'transition-transform transition-shadow duration-200 hover:-translate-y-[3px] hover:shadow-lg',
+      false: ''
     }
+  },
+  compoundVariants: [
+    { variant: 'light', accent: true, class: 'border-t-anchor-gold' },
+    { variant: 'dark', accent: true, class: 'border-t-anchor-gold-bright' }
+  ],
+  defaultVariants: {
+    variant: 'light',
+    accent: false,
+    hover: false
   }
-)
+})
 
-export interface CardProps 
+export interface CardProps
   extends BaseComponentProps,
     WithChildren,
     Omit<HTMLAttributes<HTMLDivElement>, 'className'>,
     VariantProps<typeof cardVariants> {}
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant, padding, children, testId, ...props }, ref) => {
+  ({ className, variant, accent, hover, children, testId, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={cn(cardVariants({ variant, padding }), className)}
+        className={cn(cardVariants({ variant, accent, hover }), className)}
         data-testid={testId}
         {...props}
       >
@@ -59,7 +67,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-b border-anchor-gold-dark/15', className)}
+        className={cn('px-6 py-4 border-b border-line', className)}
         {...props}
       >
         {children}
@@ -81,7 +89,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     return (
       <Component
         ref={ref}
-        className={cn('text-lg font-semibold text-anchor-cream-text', className)}
+        className={cn('text-xl text-ink-strong', className)}
         {...props}
       >
         {children}
@@ -92,7 +100,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
 
 CardTitle.displayName = 'CardTitle'
 
-// Card Body component
+// Card Body component — padding = --space-6 (p-6 / 32px) per spec §4.3
 export interface CardBodyProps extends BaseComponentProps, WithChildren {
   className?: string
 }
@@ -100,11 +108,7 @@ export interface CardBodyProps extends BaseComponentProps, WithChildren {
 export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn('px-6 py-4', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('p-6', className)} {...props}>
         {children}
       </div>
     )
@@ -123,7 +127,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-t border-anchor-gold-dark/15 bg-anchor-green-raised', className)}
+        className={cn('px-6 py-4 border-t border-line', className)}
         {...props}
       >
         {children}

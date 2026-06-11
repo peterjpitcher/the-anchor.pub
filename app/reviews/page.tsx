@@ -191,7 +191,6 @@ export default function ReviewsPage() {
             {reviewHighlights.map((review, index) => (
               <Card
                 key={index}
-                variant="default"
                 className="h-full"
               >
                 <CardBody className="flex flex-col h-full">

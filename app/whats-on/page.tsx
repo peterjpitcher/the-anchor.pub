@@ -328,7 +328,7 @@ export default async function WhatsOnPage() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <Link href={nextMusicBingo ? `/events/${nextMusicBingo.slug || nextMusicBingo.id}` : '/music-bingo'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
+              <Card className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
@@ -343,7 +343,7 @@ export default async function WhatsOnPage() {
             </Link>
 
             <Link href={nextQuizNight ? `/events/${nextQuizNight.slug || nextQuizNight.id}` : '/quiz-night'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
+              <Card className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
@@ -358,7 +358,7 @@ export default async function WhatsOnPage() {
             </Link>
 
             <Link href={nextCashBingo ? `/events/${nextCashBingo.slug || nextCashBingo.id}` : '/cash-bingo'} className="group">
-              <Card variant="default" className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
+              <Card className="h-full transition-all hover:border-anchor-gold-dark/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-bright mb-3">
@@ -418,7 +418,7 @@ export default async function WhatsOnPage() {
             className="max-w-5xl mx-auto"
           />
 
-          <Card variant="default" className="mt-12 max-w-3xl mx-auto card-dark rounded-none">
+          <Card className="mt-12 max-w-3xl mx-auto card-dark rounded-none">
             <CardBody className="text-center">
               <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">
                 <span className="text-3xl"></span> Free WiFi Throughout

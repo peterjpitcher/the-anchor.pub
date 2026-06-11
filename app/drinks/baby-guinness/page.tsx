@@ -51,7 +51,7 @@ export default function BabyGuinnessPage() {
               
               {/* Price Badge */}
 	              <div className="flex gap-4 mb-8">
-	                <Badge variant="primary" className="text-lg px-4 py-2">
+	                <Badge variant="green" className="text-lg px-4 py-2">
 	                  £3.50 each
 	                </Badge>
 	              </div>

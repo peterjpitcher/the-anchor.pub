@@ -100,10 +100,10 @@ export default function NewYearsEvePage(): React.JSX.Element {
               real party, small enough that you&apos;re not queuing for everything.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="success" size="sm">Midnight countdown</Badge>
-              <Badge variant="default" size="sm">Live entertainment</Badge>
-              <Badge variant="default" size="sm">Late licence</Badge>
-              <Badge variant="default" size="sm">Party atmosphere</Badge>
+              <Badge variant="success">Midnight countdown</Badge>
+              <Badge variant="green">Live entertainment</Badge>
+              <Badge variant="green">Late licence</Badge>
+              <Badge variant="green">Party atmosphere</Badge>
             </div>
           </div>
         </Container>
@@ -122,7 +122,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               driving.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -131,7 +131,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </p>
                 </CardBody>
               </Card>
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Actually get a drink</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -140,7 +140,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </p>
                 </CardBody>
               </Card>
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Village pub atmosphere</h3>
                   <p className="text-sm text-anchor-cream-text/70">
@@ -149,7 +149,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </p>
                 </CardBody>
               </Card>
-              <Card variant="default">
+              <Card>
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                   <p className="text-sm text-anchor-cream-text/70">

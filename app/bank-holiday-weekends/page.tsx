@@ -204,10 +204,10 @@ export default function BankHolidayWeekendsPage() {
             {/* Bank Holiday Monday */}
             <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <Badge variant="default" size="sm">
+                <Badge variant="green">
                   Monday kitchen closed
                 </Badge>
-                <Badge variant="success" size="sm">
+                <Badge variant="success">
                   Pub open for drinks
                 </Badge>
               </div>
@@ -232,7 +232,7 @@ export default function BankHolidayWeekendsPage() {
                 Practical info
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
                     <p className="text-sm text-anchor-cream-text/70">
@@ -242,7 +242,7 @@ export default function BankHolidayWeekendsPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
                     <p className="text-sm text-anchor-cream-text/70">
@@ -252,7 +252,7 @@ export default function BankHolidayWeekendsPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h3>
                     <p className="text-sm text-anchor-cream-text/70">
@@ -268,7 +268,7 @@ export default function BankHolidayWeekendsPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default">
+                <Card>
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-bright">Opening hours</h3>
                     <p className="text-sm text-anchor-cream-text/70">
