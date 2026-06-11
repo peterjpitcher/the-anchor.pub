@@ -128,7 +128,7 @@ export default function CookieBanner() {
               {/* Reject button - Equal prominence as per ICO guidelines */}
               <Button
                 onClick={handleRejectAll}
-                variant="secondary"
+                variant="outline"
                 size="sm"
                 aria-label="Reject all cookies"
               >
@@ -138,7 +138,7 @@ export default function CookieBanner() {
               {/* Preferences button */}
               <Button
                 onClick={() => setShowPreferences(true)}
-                variant="secondary"
+                variant="outline"
                 size="sm"
                 aria-label="Cookie preferences"
               >
@@ -250,7 +250,7 @@ export default function CookieBanner() {
               <div className="flex justify-end gap-3 mt-6">
                 <Button
                   onClick={() => setShowPreferences(false)}
-                  variant="secondary"
+                  variant="outline"
                   size="sm"
                 >
                   Cancel

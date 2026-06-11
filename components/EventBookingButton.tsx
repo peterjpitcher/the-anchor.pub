@@ -19,8 +19,8 @@ type EventBookingButtonProps = {
   event: Event
   className?: string
   fullWidth?: boolean
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'warning'
+  size?: 'sm' | 'md' | 'lg'
+  variant?: 'primary' | 'outline' | 'ghost'
   label?: string
   unavailableLabel?: string
   customHref?: string
@@ -137,7 +137,7 @@ export function EventBookingButton({
         disabled
         fullWidth={fullWidth}
         size={size}
-        variant="secondary"
+        variant="outline"
       >
         No booking required
       </Button>
@@ -155,7 +155,7 @@ export function EventBookingButton({
         disabled
         fullWidth={fullWidth}
         size={size}
-        variant="secondary"
+        variant="outline"
       >
         {unavailableLabel}
       </Button>

@@ -124,7 +124,7 @@ export default function RootLayout({
       label: "Valentine's Day",
       href: '/valentines-day',
       external: false,
-      variant: 'secondary' as const,
+      variant: 'outline' as const,
       startsOn: '2026-02-14',
       endsOn: '2026-02-14'
     },
@@ -132,7 +132,7 @@ export default function RootLayout({
       label: "Mother's Day",
       href: '/mothers-day',
       external: false,
-      variant: 'secondary' as const,
+      variant: 'outline' as const,
       startsOn: '2026-03-15',
       endsOn: '2026-03-15'
     },
@@ -140,7 +140,7 @@ export default function RootLayout({
       label: 'World Cup 2026',
       href: '/live-sport/world-cup',
       external: false,
-      variant: 'secondary' as const,
+      variant: 'outline' as const,
       startsOn: '2026-06-11',
       endsOn: '2026-07-19'
     }
@@ -153,7 +153,7 @@ export default function RootLayout({
         label: 'Six Nations 2026',
         href: '/live-sport/six-nations',
         external: false,
-        variant: 'secondary' as const
+        variant: 'outline' as const
       }
     }
     // Show Christmas from August 1st 2026
@@ -162,7 +162,7 @@ export default function RootLayout({
         label: 'Christmas 2026',
         href: '/christmas-parties',
         external: false,
-        variant: 'secondary' as const
+        variant: 'outline' as const
       }
     }
     return null

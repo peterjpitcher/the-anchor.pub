@@ -209,7 +209,7 @@ export async function NextEventServer() {
                   />
                 </div>
                 <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="min-w-0 w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[160px]">
+                  <Button variant="outline" size="lg" fullWidth className="sm:min-w-[160px]">
                     View Details
                   </Button>
                 </Link>
@@ -217,7 +217,7 @@ export async function NextEventServer() {
                   title={nextEvent.name}
                   url={getEventWebsiteUrl(nextEvent, { absolute: true })}
                   source="homepage_next_event"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 />
@@ -276,7 +276,7 @@ export async function NextEventServer() {
                           />
                         </div>
                         <Link href={`/events/${event.slug || event.id}`} className="min-w-0 w-full sm:w-auto">
-                          <Button variant="secondary" size="sm" fullWidth className="sm:min-w-[100px]">
+                          <Button variant="outline" size="sm" fullWidth className="sm:min-w-[100px]">
                             Details
                           </Button>
                         </Link>
@@ -284,7 +284,7 @@ export async function NextEventServer() {
                           title={event.name}
                           url={getEventWebsiteUrl(event, { absolute: true })}
                           source="homepage_next_event_list"
-                          variant="secondary"
+                          variant="outline"
                           size="sm"
                         />
                       </div>

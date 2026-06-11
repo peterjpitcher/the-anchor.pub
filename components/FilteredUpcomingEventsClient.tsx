@@ -337,7 +337,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               {!isTimeChange && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {reserveDisabledLabel ? (
-                    <Button disabled size="sm" variant="secondary">
+                    <Button disabled size="sm" variant="outline">
                       {reserveDisabledLabel}
                     </Button>
                   ) : (
@@ -436,7 +436,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               {!isTimeChange && (
                 <div className="flex flex-wrap items-center gap-3 mt-4">
                   {reserveDisabledLabel ? (
-                    <Button disabled size="md" variant="secondary" className="sm:min-w-[180px]">
+                    <Button disabled size="md" variant="outline" className="sm:min-w-[180px]">
                       {reserveDisabledLabel}
                     </Button>
                   ) : (

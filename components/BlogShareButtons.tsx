@@ -38,14 +38,14 @@ export function BlogShareButtons({ postTitle, postSlug }: BlogShareButtonsProps)
   return (
     <div className="flex gap-4">
       <Button 
-        variant="secondary" 
+        variant="outline" 
         size="sm"
         onClick={handleTwitterShare}
       >
         Share on Twitter
       </Button>
       <Button 
-        variant="secondary" 
+        variant="outline" 
         size="sm"
         onClick={handleFacebookShare}
       >

@@ -7,16 +7,16 @@ import { trackPhoneCallClick } from '@/lib/gtm-events'
 interface PhoneButtonProps {
   phone: string
   source: string
-  variant?: 'primary' | 'secondary' | 'outline'
+  variant?: 'primary' | 'outline' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   className?: string
   children?: React.ReactNode
 }
 
-export function PhoneButton({ 
-  phone, 
-  source, 
-  variant = 'secondary',
+export function PhoneButton({
+  phone,
+  source,
+  variant = 'outline',
   size = 'lg',
   className = '',
   children

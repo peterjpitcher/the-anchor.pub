@@ -10,7 +10,7 @@ interface DirectionsButtonProps {
   source: string
   children: React.ReactNode
   className?: string
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link'
+  variant?: 'primary' | 'outline' | 'ghost' | 'link'
   size?: 'sm' | 'md' | 'lg'
   destination?: string
   mapPlatform?: 'google_maps' | 'apple_maps' | 'waze'

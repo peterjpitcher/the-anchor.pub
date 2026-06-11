@@ -11,12 +11,12 @@ import { trackCtaClick } from '@/lib/gtm-events'
 interface CTAButton {
   text: string
   href: string
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'warning' | 'white'
+  variant?: 'primary' | 'outline' | 'ghost' | 'white'
   className?: string
   target?: string
   rel?: string
   external?: boolean
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
   bookingContext?: string // For booking buttons
   eventName?: string // For event-specific bookings
   isPhone?: boolean // For phone links
@@ -87,12 +87,9 @@ export function CTASection({
               const formattedPhone = phone.length === 11 ? 
                 `${phone.slice(0, 5)} ${phone.slice(5)}` : phone
               
-              // Map "white" variant to appropriate button variant
-              const phoneVariant = button.variant === 'white' ? 'secondary' : 
-                                   button.variant === 'ghost' ? 'outline' :
-                                   button.variant === 'danger' ? 'primary' :
-                                   button.variant === 'warning' ? 'primary' :
-                                   (button.variant as 'primary' | 'secondary' | 'outline' || 'primary')
+              // Map the "white" CTA variant onto the outline button variant.
+              const phoneVariant = button.variant === 'white' ? 'outline' :
+                                   (button.variant ?? 'primary')
               const phoneClassName = button.variant === 'white' 
                 ? `flex-1 ${button.className || ''}`
                 : `flex-1 ${button.className || ''}`
@@ -103,7 +100,7 @@ export function CTASection({
                   phone={formattedPhone}
                   source={button.phoneSource || 'cta_section'}
                   variant={phoneVariant}
-                  size={button.size === 'xs' ? 'sm' : (button.size as 'sm' | 'md' | 'lg' || 'lg')}
+                  size={button.size ?? 'lg'}
                   className={phoneClassName}
                 >
                   {button.text}
@@ -148,11 +145,9 @@ export function CTASection({
               button.href.includes('waze.com')
             
             if (isDirectionsLink) {
-              // Map "white" variant to appropriate button variant
-              const directionsVariant = button.variant === 'white' ? 'secondary' : 
-                                       button.variant === 'danger' ? 'primary' :
-                                       button.variant === 'warning' ? 'primary' :
-                                       (button.variant as 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' || 'primary')
+              // Map the "white" CTA variant onto the outline button variant.
+              const directionsVariant = button.variant === 'white' ? 'outline' :
+                                       (button.variant ?? 'primary')
               const directionsClassName = button.variant === 'white' 
                 ? `flex-1 ${button.className || ''}`
                 : `flex-1 ${button.className || ''}`
@@ -163,7 +158,7 @@ export function CTASection({
                   href={button.href}
                   source={button.directionsSource || 'cta_section'}
                   variant={directionsVariant}
-                  size={button.size === 'xs' ? 'sm' : (button.size as 'sm' | 'md' | 'lg' || 'lg')}
+                  size={button.size ?? 'lg'}
                   className={directionsClassName}
                 >
                   {button.text}
@@ -175,8 +170,8 @@ export function CTASection({
             const isBookingLink = button.href.includes('ordertab.menu/theanchor/bookings')
             
             if (isBookingLink) {
-              // Map "white" variant to appropriate button variant
-              const bookingVariant = button.variant === 'white' ? 'secondary' : (button.variant || 'primary')
+              // Map the "white" CTA variant onto the outline button variant.
+              const bookingVariant = button.variant === 'white' ? 'outline' : (button.variant ?? 'primary')
               
               return (
                 <BookTableButton
@@ -185,7 +180,7 @@ export function CTASection({
                   context={button.bookingContext || 'regular'}
                   eventName={button.eventName}
                   variant={bookingVariant}
-                  size={button.size === 'xs' ? 'sm' : (button.size as 'sm' | 'md' | 'lg' || 'lg')}
+                  size={button.size ?? 'lg'}
                   className="flex-1"
                   trackingLabel={button.text}
                 >
@@ -195,8 +190,8 @@ export function CTASection({
             }
             
             const isExternal = button.target === '_blank' || button.href.startsWith('http')
-            // Map "white" variant to outline with custom styling
-            const buttonVariant = button.variant === 'white' ? 'outline' : (button.variant || 'secondary')
+            // Map the "white" CTA variant to outline; default low-emphasis CTAs to outline.
+            const buttonVariant = button.variant === 'white' ? 'outline' : (button.variant ?? 'outline')
             const buttonClassName = button.variant === 'white' 
               ? `flex-1 ${button.className || ''}`
               : `flex-1 ${button.className || ''}`
