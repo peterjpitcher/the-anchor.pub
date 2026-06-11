@@ -1,4 +1,4 @@
-import { CTASection, SectionHeader, AlertBox, Container } from '@/components/ui'
+import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -143,7 +143,7 @@ export default async function FishAndChipsPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Current Fish and Chip Options"
               subtitle="From the current food menu."
             />

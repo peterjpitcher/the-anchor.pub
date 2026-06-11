@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -119,7 +119,7 @@ export default async function EngagementPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Couples Choose Us"
                             subtitle="We take the stress out of planning so you can focus on showing off the ring."
                         />
@@ -161,7 +161,7 @@ export default async function EngagementPartiesPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="What's Included"
                             subtitle="Everything you need for your engagement party, nothing you don't."
                         />
@@ -193,7 +193,7 @@ export default async function EngagementPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why a Pub Engagement Party?"
                             subtitle="More atmosphere, less hassle, and you'll actually enjoy it."
                         />
@@ -229,7 +229,7 @@ export default async function EngagementPartiesPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Tailored to You"
                         />
 
@@ -278,7 +278,7 @@ export default async function EngagementPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
-                        <SectionHeader title="Ready to start planning?" />
+                        <SectionHeading title="Ready to start planning?" />
                         <p className="text-lg text-anchor-cream-text/70 mb-8">
                             Get in touch with our team to check availability and discuss your ideas. We recommend booking at least 4 weeks in advance for Friday/Saturday slots.
                         </p>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, Container, SectionHeader } from '@/components/ui'
+import { Button, Container, SectionHeading } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { HeroWrapper } from '@/components/hero'
@@ -39,7 +39,7 @@ export default function SafetyAndRespectPage() {
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Everyone's welcome" />
+            <SectionHeading title="Everyone's welcome" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday roast, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
@@ -59,7 +59,7 @@ export default function SafetyAndRespectPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Our standards" />
+            <SectionHeading title="Our standards" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 We have zero tolerance for harassment, discrimination, or behaviour that makes anyone feel unwelcome. That applies to guests and to staff, no exceptions.
@@ -79,7 +79,7 @@ export default function SafetyAndRespectPage() {
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="If something doesn't feel right" />
+            <SectionHeading title="If something doesn't feel right" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 Tell any member of our team. You don't need a reason or an explanation. We'll deal with it.
@@ -96,7 +96,7 @@ export default function SafetyAndRespectPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Our events" />
+            <SectionHeading title="Our events" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 We run a full events programme, quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.

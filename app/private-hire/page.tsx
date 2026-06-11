@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid, Button } from '@/components/ui'
+import { Container, SectionHeading, FeatureGrid, Button } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { HeroBadge } from '@/components/HeroBadge'
@@ -318,7 +318,7 @@ export default async function PrivateHirePage() {
 
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Private Hire Near Local Venues and Landmarks"
                         subtitle="Find the most relevant private-hire page for your ceremony, workplace, sports club or family gathering."
                     />
@@ -363,7 +363,7 @@ export default async function PrivateHirePage() {
             <section id="pricing" className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Our Packages"
                             subtitle="Catering, drinks and venue hire to suit every occasion"
                         />
@@ -424,7 +424,7 @@ export default async function PrivateHirePage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Our Function Rooms"
                             subtitle="Flexible party venue spaces for 10 to 50 guests"
                         />
@@ -462,7 +462,7 @@ export default async function PrivateHirePage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="How We Compare"
                             subtitle="The Anchor vs a typical hotel venue"
                         />
@@ -523,7 +523,7 @@ export default async function PrivateHirePage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Small Parties Welcome"
                             subtitle="No minimum of 50 guests here, we love intimate gatherings"
                         />
@@ -609,7 +609,7 @@ export default async function PrivateHirePage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Why Choose The Anchor?"
                         subtitle="We make event planning simple and stress-free"
                     />

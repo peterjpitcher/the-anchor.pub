@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -57,7 +57,7 @@ export default function F1Page() {
             <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Race Day Essentials"
                             subtitle="We've got the setup to match the speed."
                         />

@@ -1,9 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { StickyDrawer, StickyDrawerTrigger } from '@/components/ui'
+import { StickyDrawer, StickyDrawerTrigger, Button } from '@/components/ui'
 import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
-import { Button } from '@/components/ui'
 import { trackCtaClick, trackQuoteToolStarted } from '@/lib/gtm-events'
 
 const OPEN_EVENT = 'open-estimator-drawer'

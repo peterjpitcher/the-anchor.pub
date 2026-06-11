@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -59,7 +59,7 @@ export default function SummerGardenPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Summer Party Packages"
                             subtitle="More than just a few sausages on the grill."
                         />
@@ -108,7 +108,7 @@ export default function SummerGardenPartiesPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader title="Perfect for..." />
+                        <SectionHeading title="Perfect for..." />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="p-4 border border-anchor-gold-dark/15 rounded-xl bg-anchor-green-raised">
                                 <span className="text-3xl block mb-2"></span>

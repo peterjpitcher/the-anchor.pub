@@ -58,10 +58,13 @@ export { LoadingState, CardSkeleton, EventCardSkeleton, TableRowSkeleton } from 
 // Re-export component types
 export type * from './types'
 
+// Section heading (redesign spec §4.5)
+export { SectionHeading } from './SectionHeading'
+export type { SectionHeadingProps } from './SectionHeading'
+
 // Legacy exports for backward compatibility
 // Section Components
 export { CTASection } from '../CTASection'
-export { SectionHeader } from '../SectionHeader'
 
 // Card Components
 export { FeatureCard, FeatureGrid } from '../FeatureCard'

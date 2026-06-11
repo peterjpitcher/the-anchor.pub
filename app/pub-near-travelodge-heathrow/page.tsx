@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -77,7 +77,7 @@ export default function PubNearTravelodgeHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Smart Traveller's Dinner Near Travelodge Heathrow"
               subtitle="You saved on accommodation, The Anchor lets you eat brilliantly without blowing the budget. Independent, home-cooked, and genuinely welcoming."
             />
@@ -125,7 +125,7 @@ export default function PubNearTravelodgeHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader title="Best Nights to Visit" />
+            <SectionHeading title="Best Nights to Visit" />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
@@ -149,7 +149,7 @@ export default function PubNearTravelodgeHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader title="Opening Hours" />
+            <SectionHeading title="Opening Hours" />
             <BusinessHours />
             <AlertBox
               variant="success"

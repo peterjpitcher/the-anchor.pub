@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -91,7 +91,7 @@ export default function PubNearSofitelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Real Pub Experience Near Sofitel Heathrow"
               subtitle="The Sofitel is one of the finest airport hotels in the world, but for a proper British pub night, The Anchor is your answer."
             />
@@ -134,7 +134,7 @@ export default function PubNearSofitelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader title="What Sofitel Guests Order at The Anchor" />
+            <SectionHeading title="What Sofitel Guests Order at The Anchor" />
             <FeatureGrid
               columns={3}
               features={[
@@ -157,7 +157,7 @@ export default function PubNearSofitelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader title="Opening Hours" />
+            <SectionHeading title="Opening Hours" />
             <BusinessHours />
             <AlertBox
               variant="info"

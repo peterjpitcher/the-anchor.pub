@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
-import { CTASection, SectionHeader } from '@/components/ui'
+import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
@@ -149,7 +148,7 @@ export default async function VeganMenuPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Fully Vegan (VE)"
             subtitle="These dishes are vegan as standard according to the live menu."
             align="center"
@@ -172,7 +171,7 @@ export default async function VeganMenuPage() {
       {veganOption.length > 0 && (
         <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <Container>
-            <SectionHeader
+            <SectionHeading
               title="Can Be Made Vegan (VEO)"
               subtitle="These dishes can be made vegan on request."
               align="center"

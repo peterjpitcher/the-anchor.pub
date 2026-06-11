@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -122,7 +122,7 @@ export default function HortonPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="A Proper Village Pub for Horton Residents"
                             subtitle="Whether you're walking over for a pint or driving over for Sunday roast, we are Horton's local choice for great food and entertainment."
                         />
@@ -164,7 +164,7 @@ export default function HortonPubPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Horton Locals Choose The Anchor"
                         />
 
@@ -212,7 +212,7 @@ export default function HortonPubPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Next Village Over, Practically Your Local"
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -236,7 +236,7 @@ export default function HortonPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />

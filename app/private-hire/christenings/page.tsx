@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
+import { Container, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -157,7 +157,7 @@ export default async function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Menu Options"
                         subtitle="From Sunday Roasts to Finger Buffets"
                     />
@@ -181,7 +181,7 @@ export default async function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15 border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Children's Facilities"
                         subtitle="We make every child feel welcome"
                     />
@@ -219,7 +219,7 @@ export default async function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Why Families Love Us"
                     />
                     <FeatureGrid
@@ -250,7 +250,7 @@ export default async function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Planning Your Christening Reception"
                         subtitle="A simple step-by-step guide"
                     />
@@ -316,7 +316,7 @@ export default async function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="After the Service"
                         subtitle="From church to celebration in minutes"
                     />

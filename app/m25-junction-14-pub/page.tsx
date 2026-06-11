@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -165,7 +165,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="The Smart Alternative to Service Stations"
               subtitle="Why settle for overpriced motorway services when a proper British pub is just 5 minutes from Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
             />
@@ -208,7 +208,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why M25 Drivers Choose The Anchor"
             />
             
@@ -310,7 +310,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Quick Stops & Hearty Meals"
             />
             
@@ -357,7 +357,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Easy Access from M25 Junction 14"
             />
             
@@ -429,7 +429,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Popular with M25 Regulars"
             />
             
@@ -476,7 +476,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="More Than Just a Motorway Stop"
             />
             
@@ -513,7 +513,7 @@ export default function M25Junction14PubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Opening Hours for M25 Travellers"
             />
             <BusinessHours />

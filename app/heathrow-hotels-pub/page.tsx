@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -143,7 +143,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="The Perfect Escape from Hotel Dining"
               subtitle="Tired of overpriced hotel restaurants and room service? The Anchor offers authentic British pub atmosphere, honest prices, and proper portions - just a short taxi or drive from any Heathrow hotel."
             />
@@ -186,7 +186,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Minutes from Major Heathrow Hotels"
             />
 
@@ -272,7 +272,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Heathrow Hotel Guests Love The Anchor"
             />
             
@@ -356,7 +356,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Hotel Guest Favourites"
             />
             
@@ -426,7 +426,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Getting Here from Your Hotel"
             />
             
@@ -481,7 +481,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Special Times at The Anchor"
             />
             
@@ -505,7 +505,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Corporate Venue for Heathrow Business"
               subtitle="Perfect for airline crews, airport staff events, and international teams"
             />
@@ -596,7 +596,7 @@ export default function HeathrowHotelsPubPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Opening Hours"
             />
             <BusinessHours />

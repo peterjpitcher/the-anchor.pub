@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, DirectionsCard, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, DirectionsCard, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -149,7 +149,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Welcome to Your Local Stanwell Pub"
               subtitle="Located in the heart of Stanwell Moor, The Anchor has been serving the Stanwell community for generations. We're more than just a pub - we're where neighbours become friends and visitors become regulars."
             />
@@ -192,7 +192,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Stanwell Residents Choose The Anchor"
             />
 
@@ -272,7 +272,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Stanwell's Favourite Pub Food"
             />
 
@@ -320,7 +320,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Getting to The Anchor from Stanwell"
             />
 
@@ -391,7 +391,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Part of the Stanwell Community"
             />
 
@@ -431,7 +431,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Stanwell Heritage & the Village Local"
               className="text-center mb-8"
             />
@@ -467,7 +467,7 @@ export default function StanwellPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Stanwell Pub Opening Hours"
             />
             <BusinessHours />

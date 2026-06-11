@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -74,7 +74,7 @@ export default function PubNearHolidayInnHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Family Dining Near Holiday Inn Heathrow"
               subtitle="Whether you're travelling with children or looking for a relaxed group dinner, The Anchor is the family-friendly local that Holiday Inn guests return to time and time again."
             />
@@ -122,7 +122,7 @@ export default function PubNearHolidayInnHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader title="Deals for Holiday Inn Guests" />
+            <SectionHeading title="Deals for Holiday Inn Guests" />
             <div className="max-w-md mx-auto">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
@@ -139,7 +139,7 @@ export default function PubNearHolidayInnHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader title="Opening Hours" />
+            <SectionHeading title="Opening Hours" />
             <BusinessHours />
             <AlertBox
               variant="success"
@@ -154,7 +154,7 @@ export default function PubNearHolidayInnHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Holiday Inn Guests Keep Coming Back"
               subtitle="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight, but when it comes to dinner, you deserve better than room service."
             />

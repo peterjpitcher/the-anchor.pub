@@ -8,7 +8,7 @@ import {
   CardBody,
   Grid,
   GridItem,
-  SectionHeader
+  SectionHeading
 } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'

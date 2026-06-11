@@ -11,7 +11,7 @@ import {
   Button,
   Container,
   Section,
-  SectionHeader,
+  SectionHeading,
   FeatureGrid,
   Card,
   CardBody,
@@ -121,7 +121,7 @@ export default function AboutPage() {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Our Story"
               subtitle="Nearly three centuries of pouring pints and welcoming strangers"
             />
@@ -167,7 +167,7 @@ export default function AboutPage() {
       {/* What Makes Us Different */}
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="What Makes Us Different"
             subtitle="A few reasons people keep coming back"
           />
@@ -227,7 +227,7 @@ export default function AboutPage() {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What We Do"
               subtitle="Good food, good drink, good company"
             />
@@ -353,7 +353,7 @@ export default function AboutPage() {
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Awards &amp; Recognition"
             />
 

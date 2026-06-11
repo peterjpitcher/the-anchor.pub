@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, CTASection, Button, Card, CardBody } from '@/components/ui'
+import { Container, Section, SectionHeading, FeatureGrid, InfoBoxGrid, CTASection, Button, Card, CardBody } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -209,7 +209,7 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <Section background="dark" spacing="md">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Best Heathrow Plane Spotting Locations"
             subtitle="Front-row views, hot food and shelter when the weather turns – everything you need for an aviation day out."
           />
@@ -244,7 +244,7 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-y border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Plan Your Heathrow Plane Watching Trip"
             subtitle="Make the most of every arrival with timings, transport and kit tips."
           />
@@ -295,7 +295,7 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <Section background="dark" spacing="md">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Other Heathrow Viewing Areas & Spotting Spots"
             subtitle="Make a full day of it by pairing The Anchor with these classic viewing spots."
           />

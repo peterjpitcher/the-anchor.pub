@@ -1,14 +1,12 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroWrapper, Breadcrumbs } from '@/components/hero'
 import { Metadata } from 'next'
 import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
-import { SectionHeader } from '@/components/SectionHeader'
 import { FeatureGrid } from '@/components/FeatureCard'
 import { InfoBoxGrid } from '@/components/InfoBox'
 import { AlertBox } from '@/components/AlertBox'
-import { CTASection, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -120,7 +118,7 @@ export default function Terminal2Page() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Eat & Drink Before or After Terminal 2"
               subtitle="Pre-book so your table, roast or pizza order is ready when you arrive."
             />
@@ -223,7 +221,7 @@ export default function Terminal2Page() {
       {/* Detailed Directions */}
       <section id="directions" className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="How to Get Here from Terminal 2"
               align="center"
             />
@@ -333,7 +331,7 @@ export default function Terminal2Page() {
       {/* Why Visit */}
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="Why Terminal 2 Travellers Choose The Anchor"
               align="center"
             />
@@ -379,7 +377,7 @@ export default function Terminal2Page() {
       {/* Live Flight Information */}
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="Live Terminal 2 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
               align="center"
@@ -391,7 +389,7 @@ export default function Terminal2Page() {
       {/* Terminal 2 Specific Info */}
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="Terminal 2 Travel Tips"
               align="center"
             />
@@ -455,7 +453,7 @@ export default function Terminal2Page() {
       {/* Perfect for Terminal 2 Travellers */}
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="Your Perfect Stop Near Terminal 2"
               align="center"
             />
@@ -520,7 +518,7 @@ export default function Terminal2Page() {
       {/* Hotel Guest Section */}
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container size="md">
-            <SectionHeader
+            <SectionHeading
               title="Staying Near Terminal 2?"
               subtitle="Escape your hotel for a genuine British pub experience"
               align="center"

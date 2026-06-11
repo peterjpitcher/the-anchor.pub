@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -86,7 +86,7 @@ export default function LuggageStoragePage() {
             <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="How It Works"
                             subtitle="Simple, just bring your bags along."
                         />
@@ -135,7 +135,7 @@ export default function LuggageStoragePage() {
             <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Wait at the Airport?"
                         />
 

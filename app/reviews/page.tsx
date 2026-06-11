@@ -6,7 +6,7 @@ import {
   Section,
   Card,
   CardBody,
-  SectionHeader,
+  SectionHeading,
   CTASection,
 } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -183,7 +183,7 @@ export default function ReviewsPage() {
       {/* Review Highlights */}
       <div className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Guest Reviews"
             subtitle="What people are saying about The Anchor"
           />
@@ -217,7 +217,7 @@ export default function ReviewsPage() {
       <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Enjoyed Your Visit?"
               subtitle="We'd love to hear from you. Leaving a Google review helps other guests find us."
             />

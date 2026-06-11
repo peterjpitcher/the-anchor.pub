@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
+import { Container, Section, SectionHeading, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -177,7 +177,7 @@ export default async function WakesPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Private Spaces"
                         subtitle="Choose the right space for your gathering"
                     />
@@ -197,7 +197,7 @@ export default async function WakesPage() {
 
             <Section className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Wake Reception Packages"
                         subtitle="Flexible catering for any gathering size"
                     />
@@ -211,7 +211,7 @@ export default async function WakesPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Facilities & Accessibility"
                         subtitle="A comfortable and accessible venue for all your guests"
                     />
@@ -255,7 +255,7 @@ export default async function WakesPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="What to Expect on the Day"
                         subtitle="We take care of the details so you can focus on being together"
                     />
@@ -284,7 +284,7 @@ export default async function WakesPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Celebration of Life"
                         subtitle="A modern, uplifting alternative to the traditional wake"
                     />
@@ -342,7 +342,7 @@ export default async function WakesPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Planning a Wake, Step by Step"
                         subtitle="A simple guide to arranging a funeral reception at The Anchor"
                     />

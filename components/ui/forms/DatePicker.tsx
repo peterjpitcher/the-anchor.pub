@@ -1,36 +1,18 @@
 'use client'
 
 import { forwardRef, InputHTMLAttributes, useState, useRef, useEffect, useCallback } from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
+import { fieldControlClass, fieldInvalidClass } from '../primitives/Input'
 
-const datePickerVariants = cva(
-  'block w-full min-w-0 max-w-full rounded-lg border bg-anchor-green-card px-4 py-2 text-left text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
-  {
-    variants: {
-      variant: {
-        default: 'border-anchor-gold-dark/30 hover:border-anchor-gold-dark/50',
-        error: 'border-red-500 hover:border-red-600',
-        success: 'border-green-500 hover:border-green-600'
-      },
-      size: {
-        sm: 'px-3 py-1.5 text-sm',
-        md: 'px-4 py-2 text-base',
-        lg: 'px-5 py-3 text-lg'
-      }
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'md'
-    }
-  }
-)
+// Shared field label / hint styling (matches the canonical Input, spec §4.4).
+const fieldLabelClass = 'block text-sm font-semibold font-sans text-ink-strong mb-2'
+const fieldHintClass = 'mt-1.5 text-xs text-ink-muted'
+const fieldHintInvalidClass = 'mt-1.5 text-xs text-anchor-danger'
 
-export interface DatePickerProps 
+export interface DatePickerProps
   extends BaseComponentProps,
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'size'>,
-    VariantProps<typeof datePickerVariants> {
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'size'> {
   label?: string
   error?: string
   helperText?: string
@@ -40,10 +22,8 @@ export interface DatePickerProps
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ 
+  ({
     className,
-    variant,
-    size,
     label,
     error,
     helperText,
@@ -52,10 +32,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     showTime = false,
     id,
     testId,
-    ...props 
+    ...props
   }, ref) => {
     const datePickerId = id || label?.toLowerCase().replace(/\s+/g, '-')
-    const errorVariant = error ? 'error' : variant
     const inputType = showTime ? 'datetime-local' : 'date'
     const [isMobile, setIsMobile] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -95,15 +74,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     return (
       <div className="w-full min-w-0">
         {label && (
-          <label 
-            htmlFor={datePickerId}
-            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
-          >
+          <label htmlFor={datePickerId} className={fieldLabelClass}>
             {label}
           </label>
         )}
-        
-        <div className="relative w-full min-w-0 overflow-hidden rounded-lg">
+
+        <div className="relative w-full min-w-0 overflow-hidden rounded-sm">
           <input
             ref={ref || inputRef}
             id={datePickerId}
@@ -111,8 +87,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             min={minDate}
             max={maxDate}
             className={cn(
-              datePickerVariants({ variant: errorVariant, size }),
-              'appearance-none',
+              fieldControlClass,
+              'text-left appearance-none',
+              error && fieldInvalidClass,
               className
             )}
             data-native-date-time="true"
@@ -133,13 +110,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         </div>
         
         {error && (
-          <p id={`${datePickerId}-error`} className="mt-1 text-sm text-red-600">
+          <p id={`${datePickerId}-error`} className={fieldHintInvalidClass}>
             {error}
           </p>
         )}
-        
+
         {helperText && !error && (
-          <p id={`${datePickerId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
+          <p id={`${datePickerId}-helper`} className={fieldHintClass}>
             {helperText}
           </p>
         )}
@@ -161,6 +138,7 @@ export interface DateRangePickerProps extends BaseComponentProps {
   maxDate?: string
   error?: string
   helperText?: string
+  /** @deprecated single canonical control size — no longer affects rendering */
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
 }
@@ -176,10 +154,10 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
     maxDate,
     error,
     helperText,
-    size = 'md',
+    size: _size,
     disabled,
     testId,
-    ...props 
+    ...props
   }, ref) => {
     const [localStartDate, setLocalStartDate] = useState(startDate || '')
     const [localEndDate, setLocalEndDate] = useState(endDate || '')
@@ -213,11 +191,7 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
 
     return (
       <div ref={ref} className="space-y-4" data-testid={testId} {...props}>
-        {label && (
-          <label className="block text-sm font-medium text-anchor-cream-text/70">
-            {label}
-          </label>
-        )}
+        {label && <label className={fieldLabelClass}>{label}</label>}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <DatePicker
@@ -226,7 +200,6 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
             onChange={handleStartDateChange}
             minDate={minDate}
             maxDate={maxDate}
-            size={size}
             disabled={disabled}
             error={error ? 'Invalid date range' : undefined}
           />
@@ -237,23 +210,18 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
             onChange={handleEndDateChange}
             minDate={endDateMin}
             maxDate={maxDate}
-            size={size}
             disabled={disabled || !localStartDate}
             error={error ? 'Invalid date range' : undefined}
           />
         </div>
         
         {error && (
-          <p className="text-sm text-red-600" role="alert">
+          <p className={fieldHintInvalidClass} role="alert">
             {error}
           </p>
         )}
-        
-        {helperText && !error && (
-          <p className="text-sm text-anchor-cream-text/70">
-            {helperText}
-          </p>
-        )}
+
+        {helperText && !error && <p className={fieldHintClass}>{helperText}</p>}
       </div>
     )
   }
@@ -262,10 +230,9 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
 DateRangePicker.displayName = 'DateRangePicker'
 
 // Time Picker
-export interface TimePickerProps 
+export interface TimePickerProps
   extends BaseComponentProps,
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'size'>,
-    VariantProps<typeof datePickerVariants> {
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'size'> {
   label?: string
   error?: string
   helperText?: string
@@ -275,10 +242,8 @@ export interface TimePickerProps
 }
 
 export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
-  ({ 
+  ({
     className,
-    variant,
-    size,
     label,
     error,
     helperText,
@@ -287,23 +252,19 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
     step = 60, // Default to 1 minute intervals
     id,
     testId,
-    ...props 
+    ...props
   }, ref) => {
     const timePickerId = id || label?.toLowerCase().replace(/\s+/g, '-')
-    const errorVariant = error ? 'error' : variant
 
     return (
       <div className="w-full min-w-0">
         {label && (
-          <label 
-            htmlFor={timePickerId}
-            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
-          >
+          <label htmlFor={timePickerId} className={fieldLabelClass}>
             {label}
           </label>
         )}
-        
-        <div className="relative w-full min-w-0 overflow-hidden rounded-lg">
+
+        <div className="relative w-full min-w-0 overflow-hidden rounded-sm">
           <input
             ref={ref}
             id={timePickerId}
@@ -312,8 +273,9 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
             max={max}
             step={step}
             className={cn(
-              datePickerVariants({ variant: errorVariant, size }),
+              fieldControlClass,
               'appearance-none',
+              error && fieldInvalidClass,
               className
             )}
             data-native-date-time="true"
@@ -324,21 +286,21 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
           />
           
           {/* Clock icon */}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-anchor-cream-text/70">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-muted">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
-        
+
         {error && (
-          <p id={`${timePickerId}-error`} className="mt-1 text-sm text-red-600">
+          <p id={`${timePickerId}-error`} className={fieldHintInvalidClass}>
             {error}
           </p>
         )}
-        
+
         {helperText && !error && (
-          <p id={`${timePickerId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
+          <p id={`${timePickerId}-helper`} className={fieldHintClass}>
             {helperText}
           </p>
         )}

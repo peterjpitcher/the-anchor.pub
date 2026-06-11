@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid, AmenityList } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { SectionHeader, FeatureGrid, InfoBoxGrid, AmenityList } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { GoogleReviews } from '@/components/reviews'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -221,7 +220,7 @@ export default async function BeerGardenPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Outdoor Pub Garden Near Heathrow Airport"
             />
 
@@ -298,7 +297,7 @@ export default async function BeerGardenPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Our Unique Beer Garden"
             />
 
@@ -364,7 +363,7 @@ export default async function BeerGardenPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Plane Spotting Tips for Visitors"
             />
 

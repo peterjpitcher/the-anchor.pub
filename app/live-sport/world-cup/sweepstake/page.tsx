@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Button, Container, CTASection, SectionHeader } from '@/components/ui'
+import { Button, Container, CTASection, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -204,7 +204,7 @@ export default function WorldCupSweepstakePage() {
 
       <section className="section-spacing bg-anchor-green-raised" id="draw-results">
         <Container>
-          <SectionHeader
+          <SectionHeading
             eyebrow="Draw Results"
             title="Find Your Team"
             subtitle="All 48 World Cup 2026 teams have been drawn and assigned."
@@ -257,7 +257,7 @@ export default function WorldCupSweepstakePage() {
 
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
-          <SectionHeader eyebrow="Prize Pot" title="What You Can Win" subtitle="Prize values from the official sweep poster." />
+          <SectionHeading eyebrow="Prize Pot" title="What You Can Win" subtitle="Prize values from the official sweep poster." />
           <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PRIZES.map((prize) => (
               <div key={prize.label} className="rounded-xl bg-anchor-green-card p-6 ring-1 ring-anchor-gold-dark/15">
@@ -273,7 +273,7 @@ export default function WorldCupSweepstakePage() {
 
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
-          <SectionHeader eyebrow="How It Works" title="Follow the Sweep" subtitle="The entry draw is complete, so the sweep now follows the tournament results." />
+          <SectionHeading eyebrow="How It Works" title="Follow the Sweep" subtitle="The entry draw is complete, so the sweep now follows the tournament results." />
           <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-4">
             {HOW_IT_WORKS.map((item) => (
               <div key={item.step} className="rounded-xl bg-anchor-green-card p-6 text-center ring-1 ring-anchor-gold-dark/15">
@@ -292,7 +292,7 @@ export default function WorldCupSweepstakePage() {
         <Container>
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <div>
-              <SectionHeader eyebrow="Rules" title="Sweep Rules" align="left" className="mb-6" />
+              <SectionHeading eyebrow="Rules" title="Sweep Rules" align="left" className="mb-6" />
               <ul className="space-y-3">
                 {RULES.map((rule) => (
                   <li key={rule} className="rounded-lg bg-anchor-green-card px-5 py-4 text-sm text-anchor-cream-text/75 ring-1 ring-anchor-gold-dark/15">

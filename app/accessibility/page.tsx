@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, Container, Section, SectionHeader } from '@/components/ui'
+import { Button, Container, Section, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -46,7 +46,7 @@ export default function AccessibilityPage() {
       <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="What's step-free" />
+            <SectionHeading title="What's step-free" />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 { area: 'Bar area', icon: '' },
@@ -75,7 +75,7 @@ export default function AccessibilityPage() {
       <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Accessible toilet" />
+            <SectionHeading title="Accessible toilet" />
             <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to
@@ -92,7 +92,7 @@ export default function AccessibilityPage() {
       <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Getting here" />
+            <SectionHeading title="Getting here" />
             <div className="space-y-4">
               <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card p-6">
                 <ul className="space-y-3 text-anchor-cream-text/70">
@@ -123,7 +123,7 @@ export default function AccessibilityPage() {
       <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader title="Call ahead" />
+            <SectionHeading title="Call ahead" />
             <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
               If you&apos;d like to talk through your visit before you come, what to expect, where
               to park, what might work best for you, give us a call. We&apos;re happy to have

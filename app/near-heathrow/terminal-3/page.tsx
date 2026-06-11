@@ -1,14 +1,12 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroWrapper } from '@/components/hero'
 import { Metadata } from 'next'
 import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
-import { SectionHeader } from '@/components/SectionHeader'
 import { FeatureGrid } from '@/components/FeatureCard'
 import { InfoBoxGrid } from '@/components/InfoBox'
 import { AlertBox } from '@/components/AlertBox'
-import { CTASection, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -147,7 +145,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Eat & Drink Before Your Terminal 3 Flight"
               subtitle="Pre-book to enjoy Sunday roast, stone-baked pizzas or a quick meal before departures."
             />
@@ -251,7 +249,7 @@ export default function Terminal3Page() {
       <section id="directions" className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How to Get Here from Terminal 3"
               align="center"
             />
@@ -363,7 +361,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Terminal 3 Travellers Choose The Anchor"
               align="center"
             />
@@ -401,7 +399,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Live Terminal 3 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
               align="center"
@@ -415,7 +413,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Terminal 3 Travel Tips"
               align="center"
             />
@@ -481,7 +479,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Staying Near Terminal 3?"
               subtitle="Escape your hotel for a genuine British pub experience"
               align="center"

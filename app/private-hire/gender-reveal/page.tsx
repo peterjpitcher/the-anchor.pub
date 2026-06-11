@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -118,7 +118,7 @@ export default async function GenderRevealPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="A Venue Designed for Celebrations"
                         />
 
@@ -158,7 +158,7 @@ export default async function GenderRevealPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader title="Venue Layout Options" />
+                    <SectionHeading title="Venue Layout Options" />
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 mb-8">
                         <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-xl p-6">
                             <h3 className="text-xl font-bold mb-3 text-anchor-cream-text">Garden Reveal</h3>
@@ -195,7 +195,7 @@ export default async function GenderRevealPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader title="Photo and Video Setup" />
+                    <SectionHeading title="Photo and Video Setup" />
                     <div className="max-w-3xl mx-auto">
                         <p className="text-anchor-cream-text/70 text-center mb-6">
                             The reveal moment deserves to be captured perfectly. Here is what we provide and what you should plan to bring.
@@ -248,7 +248,7 @@ export default async function GenderRevealPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Gender Reveal Party Packages"
                         subtitle="Food, drinks, and the big moment, all taken care of"
                     />
@@ -272,7 +272,7 @@ export default async function GenderRevealPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Reveal Ideas & Inspiration"
                         subtitle="Creative ways to share the big news"
                     />

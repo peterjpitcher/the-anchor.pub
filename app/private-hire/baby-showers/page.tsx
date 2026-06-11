@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid } from '@/components/ui'
+import { Container, SectionHeading, FeatureGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -153,7 +153,7 @@ export default async function BabyShowersPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Food & Drink"
                         subtitle="Our most popular baby shower options"
                     />
@@ -170,7 +170,7 @@ export default async function BabyShowersPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Games & Activities"
                         subtitle="Make the afternoon one to remember"
                     />
@@ -202,7 +202,7 @@ export default async function BabyShowersPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="All The Little Extras"
                     />
                     <FeatureGrid
@@ -233,7 +233,7 @@ export default async function BabyShowersPage() {
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Baby Shower Catering Packages"
                         subtitle="Treat the mum-to-be to something special"
                     />
@@ -257,7 +257,7 @@ export default async function BabyShowersPage() {
 
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Decorations & Styling"
                         subtitle="Make the space your own"
                     />

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -172,7 +172,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How Dining Options Near Heathrow Compare"
               subtitle="Typical prices, parking costs and travel times at a glance"
             />
@@ -237,7 +237,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Should You Stay Inside the Airport or Leave?"
               subtitle="A quick guide to help you decide"
             />
@@ -278,7 +278,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How to Get to The Anchor from Each Terminal"
               subtitle="Quick directions and estimated taxi fares"
             />
@@ -319,7 +319,7 @@ export default async function RestaurantsNearHeathrowPage() {
 
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Restaurants at Heathrow Terminal 2, 3, 4 & 5 - Try a Local Alternative"
             subtitle="If you are searching for terminal restaurants, we are a short ride away with free parking and better prices."
           />
@@ -379,7 +379,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Smart Travellers Choose The Anchor Over Airport Restaurants"
               subtitle="Better food, better prices, better atmosphere - just minutes from all terminals"
             />
@@ -470,7 +470,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Traditional British Restaurant Menu"
               subtitle="Proper pub food cooked fresh to order - no heat lamps, no microwaves"
             />
@@ -532,7 +532,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Perfect Restaurant for Every Occasion"
             />
             
@@ -601,7 +601,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Restaurant Opening Hours"
               subtitle="Kitchen hours for fresh-cooked meals"
             />
@@ -671,7 +671,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What Diners Say About Our Restaurant"
               subtitle="Real reviews from Google"
             />

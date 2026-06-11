@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -74,7 +74,7 @@ export default function PubNearNovotelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="An Independent Pub Alternative Near Novotel Heathrow"
               subtitle="The Novotel is great for a comfortable stay near Heathrow, but for your evening meal, The Anchor offers something different: a genuine British community pub with food made from scratch every day."
             />
@@ -122,7 +122,7 @@ export default function PubNearNovotelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader title="Great Value Deals Worth Knowing" />
+            <SectionHeading title="Great Value Deals Worth Knowing" />
             <div className="max-w-md mx-auto">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
@@ -143,7 +143,7 @@ export default function PubNearNovotelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader title="Opening Hours" />
+            <SectionHeading title="Opening Hours" />
             <BusinessHours />
             <AlertBox
               variant="info"
@@ -158,7 +158,7 @@ export default function PubNearNovotelHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="A Proper Family Night Out Near Heathrow"
               subtitle="Novotel is one of the most popular family hotels near Heathrow, and we completely understand why. But when the kids are bored of the hotel and everyone&rsquo;s hungry, The Anchor is exactly where you want to be."
             />

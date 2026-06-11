@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CTASection, SectionHeader, FeatureGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -120,7 +119,7 @@ export default function BedfontPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Anchor - Bedfont's Best Kept Secret"
               subtitle="Your nearest proper British pub - just 5 minutes from both East and West Bedfont"
               className="text-center mb-12"
@@ -188,7 +187,7 @@ export default function BedfontPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Easy to Find from Bedfont"
             />
             
@@ -253,7 +252,7 @@ export default function BedfontPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Perfect for Bedfont Locals"
             />
             <div className="grid md:grid-cols-2 gap-8">
@@ -308,7 +307,7 @@ export default function BedfontPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Bedfont&rsquo;s Proper Local, Just Round the Corner"
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -333,7 +332,7 @@ export default function BedfontPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Opening Hours"
             />
             <BusinessHours />

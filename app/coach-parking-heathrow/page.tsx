@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -59,7 +59,7 @@ export default function CoachParkingPage() {
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                         <div className="order-2 md:order-1">
-                            <SectionHeader
+                            <SectionHeading
                                 title="Driver Perks"
                                 subtitle="We know the driver works the hardest."
                                 className="text-left"
@@ -75,7 +75,7 @@ export default function CoachParkingPage() {
                             </div>
                         </div>
                         <div className="order-1 md:order-2">
-                            <SectionHeader
+                            <SectionHeading
                                 title="Logistics"
                                 subtitle="Easy access just off the M25."
                                 className="text-left"
@@ -106,7 +106,7 @@ export default function CoachParkingPage() {
             <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader title="Group Dining Options" />
+                        <SectionHeading title="Group Dining Options" />
                         <p className="text-anchor-cream-text/70 mb-8">
                             We can tailor a menu to suit your budget and time constraints.
                         </p>

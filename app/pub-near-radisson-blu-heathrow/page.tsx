@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -74,7 +74,7 @@ export default function PubNearRadissonBluHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Authentic British Pub Near Radisson Blu Heathrow"
               subtitle="The Radisson Blu is an outstanding hotel, but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
             />
@@ -122,7 +122,7 @@ export default function PubNearRadissonBluHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader title="Popular with Radisson Guests" />
+            <SectionHeading title="Popular with Radisson Guests" />
             <FeatureGrid
               columns={3}
               features={[
@@ -144,7 +144,7 @@ export default function PubNearRadissonBluHeathrowPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
-            <SectionHeader title="Opening Hours" />
+            <SectionHeading title="Opening Hours" />
             <BusinessHours />
             <AlertBox
               variant="info"
@@ -159,7 +159,7 @@ export default function PubNearRadissonBluHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Business Traveller&rsquo;s Local"
               subtitle="The Radisson Blu sits near Terminal 4, which puts you closer to us than most Heathrow hotels. A short taxi ride and you&rsquo;re in a completely different world."
             />

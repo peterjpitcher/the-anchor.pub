@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, Container, Section, SectionHeader, FeatureGrid } from '@/components/ui'
+import { Button, Container, Section, SectionHeading, FeatureGrid } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -60,7 +60,7 @@ export default function SustainabilityPage() {
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="BII Sustainability Champion"
             />
             <div className="bg-anchor-green-card rounded-2xl p-8 shadow-sm border border-anchor-gold-dark/15">
@@ -83,7 +83,7 @@ export default function SustainabilityPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What we do"
               subtitle="Three technologies that make a practical difference"
             />
@@ -155,7 +155,7 @@ export default function SustainabilityPage() {
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="In the community"
             />
 
@@ -184,7 +184,7 @@ export default function SustainabilityPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What we're not claiming"
             />
             <div className="bg-anchor-green-raised rounded-2xl p-8 border border-anchor-gold-dark/15">
@@ -202,7 +202,7 @@ export default function SustainabilityPage() {
       <section className="section-spacing bg-anchor-green-raised">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What you'll notice as a guest"
             />
 

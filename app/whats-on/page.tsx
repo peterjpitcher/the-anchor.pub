@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, Grid } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, Grid, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { FilteredUpcomingEvents } from '@/components/FilteredUpcomingEvents'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SocialLink } from '@/components/SocialLink'
@@ -179,7 +178,7 @@ export default async function WhatsOnPage() {
       {/* Upcoming Events from API, first thing after the hero */}
       <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Upcoming Events"
             subtitle="Choose a hosted night, check the date and reserve your table."
           />
@@ -241,7 +240,7 @@ export default async function WhatsOnPage() {
       {/* Heathrow Positioning */}
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Seven Minutes from Heathrow Terminal 5"
             subtitle="Looking for things to do near Heathrow? Ideal for cabin crew socials, airport shift drinks and travellers looking for nightlife outside the terminal."
           />
@@ -288,7 +287,7 @@ export default async function WhatsOnPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Local Nights Out for Staines & Heathrow"
             subtitle="Join your neighbours for a proper night out. Regular events for Staines-upon-Thames, Ashford, Feltham and the Heathrow villages."
           />
@@ -321,7 +320,7 @@ export default async function WhatsOnPage() {
       {/* Featured Events */}
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Monthly Highlights - Great Value Entertainment"
             subtitle="FREE entry to most events • Small entry fees support charity & prizes"
           />
@@ -378,7 +377,7 @@ export default async function WhatsOnPage() {
       {/* Entertainment & Games */}
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="FREE Daily Entertainment & Games"
             subtitle="Pool table, darts, and more - all FREE to play! No coins or booking needed"
           />
@@ -436,7 +435,7 @@ export default async function WhatsOnPage() {
       {/* Special Events */}
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Special Events & Celebrations"
             subtitle="Throughout the year, we host special themed events and celebrations"
           />
@@ -509,7 +508,7 @@ export default async function WhatsOnPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Seasonal Events and Occasion Guides"
             subtitle="Plan ahead for the pub dates people search for throughout the year."
           />
@@ -534,7 +533,7 @@ export default async function WhatsOnPage() {
       {recentEvents.length > 0 && (
         <Section id="recent-events" background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
           <Container>
-            <SectionHeader
+            <SectionHeading
               title="Recent Event Archive"
               subtitle="Recently finished event pages stay linked while Google recrawls and the next dates are promoted."
             />
@@ -568,7 +567,7 @@ export default async function WhatsOnPage() {
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Host Your Event at The Anchor"
               subtitle={`Transform your special occasion into an unforgettable experience. Room bookings for ${PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events and full-venue hire available by enquiry.`}
             />

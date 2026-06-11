@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -129,7 +129,7 @@ export default function WraysburyPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Wraysbury Residents Visit The Anchor"
                             subtitle="We're a popular choice for Wraysbury locals looking for great value and something different."
                         />
@@ -171,7 +171,7 @@ export default function WraysburyPubPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Events & Private Hire near Wraysbury"
                         />
 
@@ -216,7 +216,7 @@ export default function WraysburyPubPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Your Local Beyond the Village"
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -240,7 +240,7 @@ export default function WraysburyPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />

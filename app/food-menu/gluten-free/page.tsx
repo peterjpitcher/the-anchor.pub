@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
-import { CTASection, SectionHeader } from '@/components/ui'
+import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
@@ -127,7 +126,7 @@ export default async function GlutenFreeMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="Gluten-Free Pub Food at The Anchor"
                 subtitle="Current gluten-free and gluten-free-option dishes."
               />
@@ -147,7 +146,7 @@ export default async function GlutenFreeMenuPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Gluten-Free (GF)"
             subtitle="These dishes are gluten-free as standard according to the live menu."
             align="center"
@@ -170,7 +169,7 @@ export default async function GlutenFreeMenuPage() {
       {gfoItems.length > 0 && (
         <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <Container>
-            <SectionHeader
+            <SectionHeading
               title="Gluten-Free Options (GFO)"
               subtitle="These dishes can be made gluten-free on request."
               align="center"
@@ -191,7 +190,7 @@ export default async function GlutenFreeMenuPage() {
         <Container>
           <Card className="card-dark rounded-none max-w-3xl mx-auto">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="What to Tell Us When Ordering"
                 subtitle="A quick word at the bar is all it takes."
                 align="left"

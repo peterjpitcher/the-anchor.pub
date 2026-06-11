@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, Section, Button } from '@/components/ui'
-import { SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
+import { Container, Section, Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -106,7 +105,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <Section background="dark" spacing="md">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Terminal Food Alternatives for Layovers"
             subtitle="If you are searching for food at Heathrow Terminal 5 or food in Terminal 3 Heathrow, we are a short ride away."
             align="center"
@@ -165,7 +164,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <Section background="dark" spacing="lg">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Why Layover Guests Choose The Anchor"
             subtitle="Proper food, friendly service, and timings that work around airport schedules."
             align="center"
@@ -210,7 +209,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <Section id="itineraries" background="dark" spacing="lg">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Layover Itineraries That Work"
             subtitle="Pick the layover that matches your schedule and we’ll keep everything running smoothly."
           />
@@ -257,7 +256,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <Section background="dark" spacing="lg">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Travel Times & Costs"
             subtitle="Budget your layover with realistic timings and typical fares."
           />
@@ -298,7 +297,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <Section background="dark" spacing="lg">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Make the Most of Your Layover"
             subtitle="Stretch your legs, stay connected, and head back to departures refreshed."
           />

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -167,7 +167,7 @@ export default function SixNationsPage() {
 
             <section className="section-spacing bg-anchor-green-raised" id="fixtures">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Six Nations 2026 Fixtures"
                         subtitle="All times GMT. Matches shown live on BBC or ITV."
                     />
@@ -193,7 +193,7 @@ export default function SixNationsPage() {
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
-                            <SectionHeader
+                            <SectionHeading
                                 title="Food & Drink"
                                 subtitle="Fuel for the match"
                                 className="text-left mb-6"
@@ -233,7 +233,7 @@ export default function SixNationsPage() {
 
             <section className="section-spacing bg-anchor-green-raised">
                 <Container>
-                    <SectionHeader title="Frequently Asked Questions" />
+                    <SectionHeading title="Frequently Asked Questions" />
                     <FAQAccordionWithSchema
                         faqs={[
                             {

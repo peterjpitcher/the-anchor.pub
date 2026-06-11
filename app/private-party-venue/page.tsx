@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -117,7 +116,7 @@ export default function PrivatePartyVenuePage() {
       {/* Perfect For Section */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Perfect for Every Celebration"
             subtitle="From milestone birthdays to surprise parties, we make your special day unforgettable"
           />
@@ -176,7 +175,7 @@ export default function PrivatePartyVenuePage() {
       {/* What's Included */}
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container size="md">
-          <SectionHeader title="Everything You Need for a Perfect Party" />
+          <SectionHeading title="Everything You Need for a Perfect Party" />
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h3 className="text-xl font-bold text-anchor-gold-bright mb-6">Venue Features</h3>
@@ -235,7 +234,7 @@ export default function PrivatePartyVenuePage() {
       {/* Add-On Services */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader title="Make It Extra Special" subtitle="Additional services to enhance your celebration" />
+          <SectionHeading title="Make It Extra Special" subtitle="Additional services to enhance your celebration" />
           <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6 text-center">
               <div className="text-3xl mb-3"></div>
@@ -264,7 +263,7 @@ export default function PrivatePartyVenuePage() {
       {/* Party Planning Timeline */}
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container size="sm">
-          <SectionHeader title="Simple Party Planning Process" subtitle="We make organising your celebration easy" />
+          <SectionHeading title="Simple Party Planning Process" subtitle="We make organising your celebration easy" />
           <div className="space-y-6">
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-12 h-12 bg-anchor-gold-dark text-anchor-green-deep rounded-full flex items-center justify-center font-bold">1</div>
@@ -316,7 +315,7 @@ export default function PrivatePartyVenuePage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container size="md">
           <div className="text-center">
-            <SectionHeader title="Easy to Reach from Everywhere" subtitle="Central location with free parking makes party planning simple" />
+            <SectionHeading title="Easy to Reach from Everywhere" subtitle="Central location with free parking makes party planning simple" />
             <QuickInfoGrid
               items={[
                 { icon: "", title: "Staines: 8 minutes" },

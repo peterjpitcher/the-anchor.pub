@@ -13,7 +13,7 @@ import { CTASection } from '@/components/CTASection'
 import {
   Container,
   Section,
-  SectionHeader,
+  SectionHeading,
 } from '@/components/ui'
 
 export const metadata: Metadata = {
@@ -136,7 +136,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="A Pub on the Moor Since at Least 1751"
               subtitle="Nearly three centuries of pouring pints and welcoming strangers"
             />
@@ -173,7 +173,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Auctions, Blacksmiths and Working Village Life"
               subtitle="Long before anyone dreamed of building an airport next door"
             />
@@ -206,7 +206,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Publicans of The Anchor"
               subtitle="The families who called this pub home"
             />
@@ -303,7 +303,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Sarah Cooper, Family Memory and the Loss of Harry Cooper"
               subtitle="A family address, a wartime loss and memories passed down"
             />
@@ -364,7 +364,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Eeles Family and Village Memories"
               subtitle="Football, families and the village local"
             />
@@ -432,7 +432,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Lal&apos;s Prayer"
               subtitle="Written by Lal Eeles, landlady of The Anchor"
             />
@@ -504,7 +504,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Buses, Heathrow and a Changing Village"
               subtitle="From a horse-powered moor to the world's busiest flight path"
             />
@@ -540,7 +540,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Anchor Today"
               subtitle="A village pub in the shadow of the world's busiest airport"
             />
@@ -627,7 +627,7 @@ export default function HistoryPage(): React.JSX.Element {
       <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Share Your Memories of The Anchor"
               subtitle="Help us tell the full story"
             />

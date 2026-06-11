@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, Grid, Alert } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, Grid, Alert, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FindUsSection } from '@/components/FindUsSection'
@@ -8,7 +8,6 @@ import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { findUsPlaceSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
-import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
@@ -135,7 +134,7 @@ export default function FindUsPage() {
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Heathrow Terminal to Pub in Under 12 Minutes"
               subtitle="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
             />
@@ -206,7 +205,7 @@ export default function FindUsPage() {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <SectionHeader
+                <SectionHeading
                   title="Our Address"
                 />
                 <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
@@ -246,7 +245,7 @@ export default function FindUsPage() {
               </div>
 
               <div>
-                <SectionHeader
+                <SectionHeading
                   title="Landmarks"
                 />
                 <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
@@ -283,7 +282,7 @@ export default function FindUsPage() {
 
             {/* Business Hours */}
             <div className="mt-12">
-              <SectionHeader
+              <SectionHeading
                 title="Opening Hours"
               />
               <SpeakableContent selector="opening-hours" priority="high">
@@ -299,7 +298,7 @@ export default function FindUsPage() {
       {/* Directions */}
       <Section background="gray" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Directions from Popular Locations"
           />
 
@@ -386,7 +385,7 @@ export default function FindUsPage() {
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="FREE Parking for Patrons - 20 Spaces Available!"
               subtitle="Complimentary parking while you're enjoying our food and drinks"
             />
@@ -425,7 +424,7 @@ export default function FindUsPage() {
       <Section className="bg-anchor-green" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Found us? Book your visit"
               subtitle="Reserve your table now and enjoy The Anchor experience"
               className="text-white"
@@ -503,7 +502,7 @@ export default function FindUsPage() {
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Our Facilities"
             />
             <div className="grid md:grid-cols-2 gap-8">

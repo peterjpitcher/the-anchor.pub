@@ -9,7 +9,7 @@ import {
     CardBody,
     Grid,
     GridItem,
-    SectionHeader,
+    SectionHeading,
 } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -277,7 +277,7 @@ export default async function LiveMusicPage() {
 
             <Section spacing="md" background="gray">
                 <Container>
-                    <SectionHeader title="Live at The Anchor" subtitle="New bands, singer-songwriters and tribute acts" />
+                    <SectionHeading title="Live at The Anchor" subtitle="New bands, singer-songwriters and tribute acts" />
                     <div className="prose prose-invert max-w-3xl mx-auto">
                         <p><strong>Live at The Anchor</strong> is our monthly live music programme showcasing local and touring musicians in an intimate pub setting. From acoustic singer-songwriters to full bands, every gig is free entry with a brilliant atmosphere. We have been building this programme to give Stanwell Moor, Staines and the wider Heathrow area a proper live music pub where the sound is great, the beer is cold, and you are close enough to the stage to make eye contact with the guitarist.</p>
                         <p>Expect a rotating mix of acoustic sets, cover bands, tribute acts and local performers. The programme changes through the year, so check the gig list below for the latest confirmed dates.</p>

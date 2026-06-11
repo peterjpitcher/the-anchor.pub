@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
-import { CTASection, SectionHeader, FeatureGrid } from '@/components/ui'
+import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading, FeatureGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroWrapper } from '@/components/hero'
 import { MenuSectionCta } from '@/components/food/MenuSectionCta'
@@ -309,7 +308,7 @@ export default async function FoodMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="Live Food Menu at The Anchor"
                 subtitle="Current dishes, descriptions, prices and booking links in one place."
               />
@@ -339,7 +338,7 @@ export default async function FoodMenuPage() {
               </div>
             </div>
           </div>
-          <SectionHeader
+          <SectionHeading
             title="Full Food Menu & Pub Menu"
             subtitle="Use the dietary filters to tailor the menu to your table."
             align="center"
@@ -352,7 +351,7 @@ export default async function FoodMenuPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="What Guests Book Us For"
             subtitle="Choose the section that matches your plans and pre-book to guarantee your table."
           />
@@ -416,7 +415,7 @@ export default async function FoodMenuPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
             <Card className="card-dark rounded-none">
               <CardBody>
-                <SectionHeader
+                <SectionHeading
                   title="Pizza Menu"
                   subtitle="Current pizza items from the live food menu."
                   align="left"
@@ -475,7 +474,7 @@ export default async function FoodMenuPage() {
           <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
             <Card className="card-dark rounded-none">
               <CardBody>
-                <SectionHeader
+                <SectionHeading
                   title="Current Menu Picks"
                   subtitle="A live sample from the current food menu."
                   align="left"
@@ -521,7 +520,7 @@ export default async function FoodMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="Vegetarian, Vegan & Gluten-Free Picks"
                 subtitle="Dietary pages follow the same current kitchen menu."
                 align="left"
@@ -544,7 +543,7 @@ export default async function FoodMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="Near Heathrow"
                 subtitle="Ideal for crews, airport teams, and anyone passing through."
                 align="left"

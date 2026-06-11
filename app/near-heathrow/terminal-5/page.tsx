@@ -1,16 +1,14 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
 import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { TerminalNavigation } from '@/components/TerminalNavigation'
-import { SectionHeader } from '@/components/SectionHeader'
 import { FeatureGrid } from '@/components/FeatureCard'
 import { InfoBoxGrid } from '@/components/InfoBox'
 import { AlertBox } from '@/components/AlertBox'
-import { CTASection, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroBadge } from '@/components/HeroBadge'
@@ -129,7 +127,7 @@ export default function Terminal5Page() {
       {/* Food Before You Fly */}
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
             title="Need Food Near Terminal 5?"
             subtitle="Book ahead so your meal is ready when you arrive, proper pub food, no queues."
           />
@@ -252,7 +250,7 @@ export default function Terminal5Page() {
       <section id="directions" className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How to Get Here from Terminal 5"
               align="center"
             />
@@ -373,7 +371,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Terminal 5 Travellers Choose The Anchor"
               subtitle="British Airways crews and Sofitel/Hilton guests love our authentic pub"
               align="center"
@@ -412,7 +410,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Live Terminal 5 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
               align="center"
@@ -426,7 +424,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Terminal 5 Travel Tips"
               align="center"
             />
@@ -490,7 +488,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Staying at a Terminal 5 Hotel?"
               subtitle="Escape the hotel restaurant for an authentic British pub experience"
               align="center"

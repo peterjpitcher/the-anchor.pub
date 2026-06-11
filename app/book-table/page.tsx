@@ -9,7 +9,7 @@ import { ManagementTableBookingForm } from '@/components/features/TableBooking/M
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
-import { Section, Button, Grid, Card, CardBody, SectionHeader } from '@/components/ui'
+import { Section, Button, Grid, Card, CardBody, SectionHeading } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -315,7 +315,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
 
       {/* What to Expect section */}
       <Section spacing="lg" container containerSize="lg" className="bg-anchor-green-raised">
-        <SectionHeader
+        <SectionHeading
           title="What to Expect When You Dine With Us"
           subtitle="Good food, a warm welcome, and no fuss."
           align="center"
@@ -361,7 +361,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
 
       {/* Signature Dishes Preview */}
       <Section spacing="md" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <SectionHeader
+        <SectionHeading
           title="A Taste of What&rsquo;s on the Menu"
           subtitle="A live sample from the current food menu."
           align="center"
@@ -395,7 +395,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       </Section>
 
       <Section spacing="md" container containerSize="lg" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <SectionHeader
+        <SectionHeading
           title="Events are a bonus, food booking comes first"
           subtitle="If you are booking around quiz, bingo or live music, reserve food early and then choose your event."
           align="center"
@@ -426,7 +426,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
 
       {/* Getting Here */}
       <Section spacing="md" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <SectionHeader
+        <SectionHeading
           title="Getting Here"
           subtitle="Easy to find, plenty of parking, and closer than you think."
           align="center"

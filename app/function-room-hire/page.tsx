@@ -1,12 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
-import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -189,7 +188,7 @@ export default function FunctionRoomHirePage() {
       {/* Spaces Overview */}
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
             title="Flexible Spaces for Every Event"
             subtitle="From intimate gatherings to large celebrations"
           />
@@ -249,7 +248,7 @@ export default function FunctionRoomHirePage() {
       {/* Layout Options */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
             title="Configure Your Space"
             subtitle="Multiple layout options to suit your event style"
           />
@@ -304,7 +303,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="One Venue, Endless Possibilities"
               subtitle="Our function rooms adapt to any event type"
             />
@@ -373,7 +372,7 @@ export default function FunctionRoomHirePage() {
       {/* Key Benefits */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
             title="Why Choose The Anchor for Your Function"
           />
 
@@ -425,7 +424,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Everything You Need Included"
               subtitle="Professional facilities and attentive service as standard"
             />
@@ -515,7 +514,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Simple, Transparent Pricing"
               subtitle="Room hire, no minimum spend, £250 deposit"
             />
@@ -554,7 +553,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Perfectly Located for Your Guests"
               subtitle="Easy access from all directions with free parking"
             />

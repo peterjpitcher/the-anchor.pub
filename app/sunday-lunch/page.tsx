@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Container, SectionHeader, Alert } from '@/components/ui'
+import { Container, SectionHeading, Alert } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero'
 import { Metadata } from 'next'
@@ -230,7 +230,7 @@ export default async function SundayLunchPage() {
 
       <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Current Sunday Roast Menu"
             subtitle={sundayMenu.menuData ? 'Choose from our current Sunday roast menu.' : 'Call us for the current Sunday roast dish list.'}
             align="center"
@@ -355,7 +355,7 @@ export default async function SundayLunchPage() {
 
       <section className="bg-anchor-green-raised section-spacing-lg border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Why Locals Choose Sunday Roast Here"
             subtitle="Free parking, easy booking and a village pub setting minutes from Heathrow."
             align="center"

@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/layout/Card'
-import { SectionHeader } from '@/components/SectionHeader'
+import { SectionHeading } from '@/components/ui'
 
 export interface Testimonial {
   quote: string      // Raw text, no surrounding quotes — component adds them
@@ -133,7 +133,7 @@ export function TestimonialSection({
   return (
     <section className={cn(testimonialSectionVariants({ variant }), className)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader title={title} subtitle={subtitle} />
+        <SectionHeading title={title} subtitle={subtitle} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review, index) => (
             <TestimonialCard key={index} review={review} />

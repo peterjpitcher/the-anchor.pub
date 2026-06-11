@@ -1,4 +1,4 @@
-import { CTASection, SectionHeader, Container, AlertBox } from '@/components/ui'
+import { CTASection, SectionHeading, Container, AlertBox } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -152,7 +152,7 @@ export default async function PizzaMenuPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Current Pizza Menu"
               subtitle="From the current food menu."
             />

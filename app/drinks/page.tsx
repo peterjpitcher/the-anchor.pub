@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
 import { MenuRenderer } from '@/components/MenuRenderer'
@@ -7,7 +7,6 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { drinksMenuSchema } from '@/lib/enhanced-schemas'
-import { SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
@@ -308,7 +307,7 @@ export default async function DrinksMenuPage() {
       {/* Popular Draught & Spirits */}
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="featured-offers">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Bar Team Favourites"
             subtitle="A few easy places to start if you are not sure what to order first."
           />
@@ -355,7 +354,7 @@ export default async function DrinksMenuPage() {
       <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Your Local After Landing - Just 5 Minutes from Heathrow"
             />
             <FeatureGrid
@@ -389,7 +388,7 @@ export default async function DrinksMenuPage() {
       <Section background="gray" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Stanwell Moor's Premier Drinks Destination"
             />
             <InfoBoxGrid
@@ -450,7 +449,7 @@ export default async function DrinksMenuPage() {
       <Section background="white" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Drinks for Every Season"
             />
             <FeatureGrid
@@ -492,7 +491,7 @@ export default async function DrinksMenuPage() {
 
       <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Popular Shots & Cocktails Near Heathrow"
             subtitle="Ask the bar team for favourites alongside the full drinks menu."
           />

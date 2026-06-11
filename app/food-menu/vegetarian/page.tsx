@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
-import { CTASection, SectionHeader } from '@/components/ui'
+import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -131,7 +130,7 @@ export default async function VegetarianMenuPage() {
 
       <div id="menu" className="section-spacing bg-anchor-green-deep">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Current Vegetarian Menu"
             subtitle={data ? `${totalVegetarianItems} vegetarian and vegan dishes from the live food menu.` : getMenuUnavailableMessage()}
             align="center"
@@ -154,7 +153,7 @@ export default async function VegetarianMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
+              <SectionHeading
                 title="Vegetarian Dining Near Heathrow Airport"
                 subtitle="A proper meal before, after, or instead of a flight."
                 align="left"

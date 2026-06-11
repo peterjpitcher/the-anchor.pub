@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { DateTime } from 'luxon'
-import { AlertBox, Button, Container, CTASection, SectionHeader } from '@/components/ui'
+import { AlertBox, Button, Container, CTASection, SectionHeading } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
@@ -178,7 +178,7 @@ export default async function WorldCupPage() {
 
       <section className="section-spacing bg-anchor-green-deep" id="fixtures">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="World Cup 2026 Fixtures and UK Kick-Off Times"
             subtitle="World Cup 2026 screenings, showing status, and table booking links."
           />
@@ -240,7 +240,7 @@ export default async function WorldCupPage() {
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
           <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-green-raised p-8 ring-1 ring-anchor-gold-dark/15">
-            <SectionHeader
+            <SectionHeading
               title="England World Cup Fixtures at The Anchor"
               subtitle="England fixtures, screenings and table bookings near Heathrow."
             />
@@ -372,7 +372,7 @@ export default async function WorldCupPage() {
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
-              <SectionHeader title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
+              <SectionHeading title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
               <div className="prose text-anchor-cream-text/70">
                 <p>
                   Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
@@ -425,7 +425,7 @@ export default async function WorldCupPage() {
 
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Watch Live Sport Near Heathrow"
             subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
           />
@@ -450,7 +450,7 @@ export default async function WorldCupPage() {
 
       <section className="section-spacing bg-anchor-green-deep">
         <Container>
-          <SectionHeader title="Frequently Asked Questions" />
+          <SectionHeading title="Frequently Asked Questions" />
           <FAQAccordionWithSchema
             faqs={[
               {

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -122,7 +122,7 @@ export default function SunburyPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Worth the Trip from Sunbury-on-Thames"
                             subtitle="Discover why we are a favourite destination for Sunbury families and foodies."
                         />
@@ -164,7 +164,7 @@ export default function SunburyPubPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="A Great Venue for Sunbury Celebrations"
                         />
 
@@ -200,7 +200,7 @@ export default function SunburyPubPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Sunbury Residents Make the Trip"
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -224,7 +224,7 @@ export default function SunburyPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />

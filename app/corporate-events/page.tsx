@@ -3,7 +3,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
-import { Button, Container, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
+import { Button, Container, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -105,7 +105,7 @@ export default function CorporateEventsPage() {
       {/* Why Choose The Anchor for Business */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Why Leading Companies Choose The Anchor"
             subtitle="The smart choice for business events near Heathrow"
           />
@@ -162,7 +162,7 @@ export default function CorporateEventsPage() {
       {/* Event Types */}
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader title="Corporate Event Solutions" subtitle="From board meetings to company celebrations" />
+          <SectionHeading title="Corporate Event Solutions" subtitle="From board meetings to company celebrations" />
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6">
               <div className="text-4xl mb-4"></div>
@@ -235,7 +235,7 @@ export default function CorporateEventsPage() {
       {/* Corporate Solutions */}
       <section id="solutions" className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Tailored Corporate Event Solutions"
             subtitle="Flexible venue hire pricing designed around your specific needs"
           />
@@ -323,7 +323,7 @@ export default function CorporateEventsPage() {
       {/* Facilities & Amenities */}
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader title="Professional Facilities" subtitle="Everything you need for productive business events" />
+          <SectionHeading title="Professional Facilities" subtitle="Everything you need for productive business events" />
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
@@ -398,7 +398,7 @@ export default function CorporateEventsPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader title="Strategic Location for Business" />
+            <SectionHeading title="Strategic Location for Business" />
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15">
                 <h3 className="font-bold text-lg mb-4">Quick Access From</h3>

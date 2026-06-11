@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -82,7 +82,7 @@ export default function ChristmasPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why your office should book their corporate Christmas party here"
                         />
 
@@ -131,7 +131,7 @@ export default function ChristmasPartiesPage() {
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                         <div>
-                            <SectionHeader
+                            <SectionHeading
                                 title="For the organiser: we've thought of everything"
                                 className="text-left"
                             />
@@ -177,7 +177,7 @@ export default function ChristmasPartiesPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-5xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Christmas party packages & pricing for office groups"
                             subtitle="Transparent per-person pricing and flexible formats to suit your team size. Pick a setup, send your enquiry, and we'll hold your date."
                         />
@@ -237,7 +237,7 @@ export default function ChristmasPartiesPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <span className="inline-flex items-center gap-1.5 bg-anchor-gold-dark/10 border border-anchor-gold-dark/25 rounded-full px-3 py-1 text-xs font-medium text-anchor-gold-dark mb-4">Three-course set menu</span>
-                        <SectionHeader
+                        <SectionHeading
                             title="Our festive menu, the same at lunch and dinner"
                         />
                         <p className="text-lg text-anchor-cream-text/70 mb-4">

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -133,7 +133,7 @@ export default async function LiveSportPage() {
             <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="The Viewing Experience"
                             subtitle="We take sport seriously."
                         />
@@ -175,7 +175,7 @@ export default async function LiveSportPage() {
             <section className="section-spacing bg-anchor-green-deep" id="schedule">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader title="What We Show" />
+                        <SectionHeading title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
                                 <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Football</h3>
@@ -281,7 +281,7 @@ export default async function LiveSportPage() {
 
             <section className="section-spacing bg-anchor-green-deep">
                 <Container>
-                    <SectionHeader title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
+                    <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
                     <div className="prose prose-invert max-w-3xl mx-auto">
                         <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>

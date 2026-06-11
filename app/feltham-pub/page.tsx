@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -139,7 +139,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Feltham's Favourite Village Escape"
               subtitle="Escape the hustle of Feltham High Street for a proper traditional pub experience"
               className="text-center mb-12"
@@ -207,7 +207,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How to Find Us from Feltham"
             />
             
@@ -268,7 +268,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Perfect for Feltham Groups"
             />
             <InfoBoxGrid
@@ -332,7 +332,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Private Events for Feltham Residents"
               subtitle="The perfect venue just 10 minutes from Feltham"
             />
@@ -423,7 +423,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="The Feltham Workers' Local"
               className="text-center mb-8"
             />
@@ -459,7 +459,7 @@ export default function FelthamPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Opening Hours"
             />
             <BusinessHours />

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -161,7 +161,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why Locals Choose Us Over Other Pubs in Staines"
               subtitle="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
               className="text-center mb-12"
@@ -214,7 +214,7 @@ export default function StainesPubPage() {
 
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Private Rooms & Event Hire Near Staines"
             subtitle="Flexible spaces for celebrations, parties and family gatherings."
           />
@@ -262,7 +262,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Getting Here from Staines"
               className="text-center mb-12"
             />
@@ -332,7 +332,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What's On at Your Staines Local"
               className="text-center mb-12"
             />
@@ -372,7 +372,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Popular Venue for Staines Events"
               subtitle="Host your special occasion at The Anchor - just 8 minutes from Staines"
             />
@@ -457,7 +457,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-2xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Opening Hours"
               className="text-center mb-8"
             />
@@ -470,7 +470,7 @@ export default function StainesPubPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="A Different Night Out from the Pubs in Staines"
               className="text-center mb-8"
             />

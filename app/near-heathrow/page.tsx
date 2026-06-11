@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { Button, Container } from '@/components/ui'
+import { Button, Container, CTASection, SectionHeading, FeatureGrid } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { Metadata } from 'next'
-import { CTASection, SectionHeader, FeatureGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -108,7 +107,7 @@ export default function NearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Eat Before You Fly"
               subtitle="Swap airport fast food for proper pub dining minutes from your terminal."
             />
@@ -179,7 +178,7 @@ export default function NearHeathrowPage() {
       {/* Why Choose The Anchor */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Why Travellers Love The Anchor"
             subtitle="Whether you're killing time before a flight, meeting arriving passengers, or just landed and need a proper British welcome"
           />
@@ -253,7 +252,7 @@ export default function NearHeathrowPage() {
 
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Workspace Near Heathrow Airport"
             subtitle="A useful base for travellers, cabin crew, contractors and remote workers who need WiFi, food and a table close to the terminals."
           />
@@ -304,7 +303,7 @@ export default function NearHeathrowPage() {
       {/* Plan Your Visit */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Plan Your Visit, The Best Pub Near Heathrow"
             subtitle="Make the most of your time near the airport with these quick resources"
           />
@@ -355,7 +354,7 @@ export default function NearHeathrowPage() {
       {/* Terminal-Specific Directions */}
       <section id="terminals" className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Directions from Each Terminal"
             subtitle="We're the closest traditional pub to all Heathrow terminals"
           />
@@ -525,7 +524,7 @@ export default function NearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
+            <SectionHeading
               title="Unique Plane Spotting Experience"
               subtitle="Our beer garden sits directly under the Heathrow flight path - watch aircraft pass overhead every 90 seconds while enjoying your meal or drink."
             />
@@ -573,7 +572,7 @@ export default function NearHeathrowPage() {
       {/* Facilities for Travellers */}
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Everything Travellers Need"
             subtitle="From entertainment to remote work facilities - we've got you covered"
           />
@@ -729,7 +728,7 @@ export default function NearHeathrowPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="More Than Just a Pub Near the Airport"
             />
 

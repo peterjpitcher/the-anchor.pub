@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Container, SectionHeader } from '@/components/ui'
+import { Container, SectionHeading } from '@/components/ui'
 import { StickyEstimatorDrawer } from '@/components/StickyEstimatorDrawer'
 
 interface PrivateBookingSectionProps {
@@ -19,7 +19,7 @@ export function PrivateBookingSection({
     <>
       <section id={id} className="border-y py-12 bg-anchor-green-raised border-anchor-gold-dark/15" data-sticky-cta-guard="true">
         <Container size="md">
-          <SectionHeader title={title} subtitle={subtitle} />
+          <SectionHeading title={title} subtitle={subtitle} />
           <p className="text-center text-sm text-anchor-cream-text/60 -mt-4 mb-6">
             Want to see the space first?{' '}
             <Link href="/our-pub" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">

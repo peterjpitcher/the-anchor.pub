@@ -13,34 +13,43 @@ describe('Input', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
   })
 
-  it('applies variant classes correctly', () => {
-    const { rerender } = render(<Input variant="default" />)
-    expect(screen.getByRole('textbox')).toHaveClass('border-anchor-gold-dark/30')
-
-    rerender(<Input variant="error" />)
-    expect(screen.getByRole('textbox')).toHaveClass('border-red-500')
-
-    rerender(<Input variant="success" />)
-    expect(screen.getByRole('textbox')).toHaveClass('border-green-500')
+  it('renders the canonical control styling', () => {
+    render(<Input />)
+    const input = screen.getByRole('textbox')
+    expect(input).toHaveClass('border-line-strong')
+    expect(input).toHaveClass('bg-surface')
+    expect(input).toHaveClass('rounded-sm')
   })
 
-  it('applies size classes correctly', () => {
-    const { rerender } = render(<Input size="sm" />)
-    expect(screen.getByRole('textbox')).toHaveClass('text-sm')
-
-    rerender(<Input size="lg" />)
-    expect(screen.getByRole('textbox')).toHaveClass('text-lg')
-  })
-
-  it('shows error message', () => {
-    render(<Input label="Username" error="Username is required" />)
-    expect(screen.getByText('Username is required')).toBeInTheDocument()
+  it('applies the invalid border when invalid', () => {
+    render(<Input invalid />)
+    expect(screen.getByRole('textbox')).toHaveClass('border-anchor-danger')
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
   })
 
-  it('shows helper text', () => {
-    render(<Input label="Password" helperText="Must be 8 characters" />)
+  it('treats the legacy variant and size props as no-ops', () => {
+    const { rerender } = render(<Input variant="error" size="sm" />)
+    // Deprecated visual props no longer change the rendered style.
+    expect(screen.getByRole('textbox')).toHaveClass('border-line-strong')
+    expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-invalid')
+
+    rerender(<Input size="lg" />)
+    expect(screen.getByRole('textbox')).toHaveClass('border-line-strong')
+  })
+
+  it('shows error message via the legacy error string alias', () => {
+    render(<Input label="Username" error="Username is required" />)
+    expect(screen.getByText('Username is required')).toBeInTheDocument()
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+    expect(screen.getByText('Username is required')).toHaveClass('text-anchor-danger')
+  })
+
+  it('shows hint text (and supports the helperText alias)', () => {
+    const { rerender } = render(<Input label="Password" hint="Must be 8 characters" />)
     expect(screen.getByText('Must be 8 characters')).toBeInTheDocument()
+
+    rerender(<Input label="Password" helperText="Legacy helper" />)
+    expect(screen.getByText('Legacy helper')).toBeInTheDocument()
   })
 
   it('renders with left icon', () => {
@@ -86,10 +95,10 @@ describe('Input', () => {
     expect(input).toHaveAttribute('id', 'custom-email')
   })
 
-  it('links error message with aria-describedby', () => {
+  it('links the hint with aria-describedby', () => {
     render(<Input label="Email" error="Invalid email" />)
     const input = screen.getByLabelText('Email')
-    expect(input).toHaveAttribute('aria-describedby', 'email-error')
+    expect(input).toHaveAttribute('aria-describedby', 'email-hint')
   })
 
   it('disables input when disabled prop is true', () => {

@@ -1,4 +1,4 @@
-import { CTASection, SectionHeader, AlertBox, Container } from '@/components/ui'
+import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -59,7 +59,7 @@ export default function PoolAndDartsPage() {
             <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Play Pool at The Anchor"
                             subtitle="Kept level and re-covered regularly so the cloth plays true."
                         />
@@ -98,7 +98,7 @@ export default function PoolAndDartsPage() {
             <section className="section-spacing bg-anchor-green-deep">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="More Than Just Pub Games"
                             subtitle="A frame, a pint, and somewhere to actually enjoy both."
                         />
@@ -139,7 +139,7 @@ export default function PoolAndDartsPage() {
             <section className="section-spacing bg-anchor-green-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Fancy Playing Competitively?"
                             subtitle="We'd love to put a team together."
                         />

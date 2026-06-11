@@ -37,7 +37,7 @@ import {
   GridItem,
   Alert,
   CTASection,
-  SectionHeader,
+  SectionHeading,
   FeatureGrid,
   QuickInfoGrid,
   InfoBoxGrid,
@@ -315,7 +315,7 @@ export default function HomePage() {
       {/* What's Coming Up */}
       <div id="whats-coming-up" className="bg-anchor-green-deep section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="What&apos;s Coming Up at The Anchor"
             subtitle="Live updates from our events calendar"
           />
@@ -356,7 +356,7 @@ export default function HomePage() {
       {/* What Makes Us Special */}
       <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="What Makes Us Special"
             subtitle="More than just a pub - we're the heart of the community"
           />
@@ -405,7 +405,7 @@ export default function HomePage() {
       <div className="bg-anchor-green-card section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Everything You Need to Know"
             />
 
@@ -490,7 +490,7 @@ export default function HomePage() {
       <div id="heathrow-travellers" className="bg-anchor-green-raised section-spacing-md scroll-mt-24 border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Perfect for Heathrow Travellers"
               subtitle="Just 7-12 minutes from all terminals • Free parking • Real British experience"
             />
@@ -584,7 +584,7 @@ export default function HomePage() {
       {/* Photo Gallery */}
       <div id="life-at-anchor" className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
-          <SectionHeader
+          <SectionHeading
             title="Life at The Anchor"
           />
 
@@ -663,7 +663,7 @@ export default function HomePage() {
       <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Host Your Event at The Anchor"
               subtitle="From intimate gatherings to grand celebrations"
             />

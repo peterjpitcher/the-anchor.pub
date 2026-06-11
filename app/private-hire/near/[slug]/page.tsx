@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { getLandmarkBySlug, landmarks } from '@/lib/local-seo-data'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid, Button, InfoBoxGrid } from '@/components/ui'
+import { Container, SectionHeading, FeatureGrid, Button, InfoBoxGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -153,7 +153,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
             {/* Map Section */}
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title={`Technically Just ${landmark.distance} Away`}
                         subtitle="Easy to find, easy to park"
                     />
@@ -172,7 +172,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
-                    <SectionHeader
+                    <SectionHeading
                         title="Complete Packages"
                     />
                     <FeatureGrid

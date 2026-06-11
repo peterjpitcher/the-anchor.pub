@@ -1,5 +1,22 @@
 import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { extendTailwindMerge } from 'tailwind-merge'
+
+// Register the custom font-size utilities defined in tailwind.config.ts
+// (`text-display`, `text-h1`…`text-h4`, `text-script`). Without this, the
+// default tailwind-merge font-size class group only knows the built-in
+// `text-*` sizes, so e.g. `cn('text-h2', 'text-ink-strong')` would treat
+// `text-h2` as a conflicting size and silently drop it. Registering them in
+// the `font-size` group keeps custom sizes alive when combined with colour or
+// other `text-*` utilities.
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [
+        { text: ['display', 'h1', 'h2', 'h3', 'h4', 'script'] },
+      ],
+    },
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

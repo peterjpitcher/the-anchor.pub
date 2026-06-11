@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -121,7 +121,7 @@ export default function LongfordPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Why Travellers Choose The Anchor"
                             subtitle="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
                         />
@@ -163,7 +163,7 @@ export default function LongfordPubPage() {
             <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Getting Here is Easy"
                         />
 
@@ -201,7 +201,7 @@ export default function LongfordPubPage() {
             <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <SectionHeader
+                        <SectionHeading
                             title="Longford Neighbours, You Know the Planes, Now Enjoy Them with a Pint"
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -225,7 +225,7 @@ export default function LongfordPubPage() {
             <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
-                        <SectionHeader
+                        <SectionHeading
                             title="Opening Hours"
                         />
                         <BusinessHours />

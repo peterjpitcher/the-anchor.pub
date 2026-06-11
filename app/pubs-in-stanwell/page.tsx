@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -105,7 +105,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Why The Anchor is Stanwell Moor's Favourite Village Pub"
               subtitle="A proper local at the heart of Stanwell Moor"
             />
@@ -204,7 +204,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Everything You Want from Your Local Pub"
               subtitle="Great food, drinks, atmosphere and more"
             />
@@ -270,7 +270,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="How We Compare to Other Local Pubs"
               subtitle="Why locals choose The Anchor"
             />
@@ -346,7 +346,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="Something Special Every Day"
               subtitle="Our weekly lineup of food and events"
             />
@@ -408,7 +408,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="A Local&rsquo;s Guide to Stanwell Moor"
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
@@ -433,7 +433,7 @@ export default async function PubsInStanwellPage() {
       <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
+            <SectionHeading
               title="What Stanwell Locals Say About Us"
             />
             <GoogleReviews
