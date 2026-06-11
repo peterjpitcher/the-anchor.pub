@@ -258,7 +258,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </a>
                 </Button>
                 <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     Find Us
                   </Button>
                 </Link>
@@ -315,7 +315,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="nye_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -343,14 +343,14 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                       Directions & parking
                     </Button>
                   </Link>
                   <PhoneButton
                     phone={CONTACT.phone}
                     source="nye_location"
-                    variant="secondary"
+                    variant="outline"
                     size="lg"
                     className="w-full sm:w-auto"
                   >

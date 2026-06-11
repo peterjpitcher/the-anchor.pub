@@ -284,7 +284,7 @@ export default function NearHeathrowPage() {
               </Button>
             </Link>
             <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
+              <Button variant="outline" size="lg">
                 View food menu
               </Button>
             </Link>

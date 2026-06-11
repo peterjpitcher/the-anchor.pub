@@ -129,7 +129,7 @@ export default async function WakesPage() {
                 }
                 secondaryCta={
                     <Link href="#enquiry" className="w-full sm:w-auto">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
                             Enquire Online
                         </Button>
                     </Link>
@@ -470,7 +470,7 @@ export default async function WakesPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <PhoneButton phone="01753 682707" size="lg" variant="primary" source="wakes_cta_bottom">Call 01753 682707</PhoneButton>
                         <Link href="mailto:manager@the-anchor.pub?subject=Wake Enquiry" className="inline-block">
-                            <Button variant="secondary" size="lg" className="w-full sm:w-auto">Email Us</Button>
+                            <Button variant="outline" size="lg" className="w-full sm:w-auto">Email Us</Button>
                         </Link>
                     </div>
                 </Container>

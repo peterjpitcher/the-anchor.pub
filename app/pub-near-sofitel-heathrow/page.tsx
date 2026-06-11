@@ -146,7 +146,7 @@ export default function PubNearSofitelHeathrowPage() {
             />
             <div className="text-center">
               <Link href="/food-menu">
-                <Button variant="secondary" size="lg">View Full Menu</Button>
+                <Button variant="outline" size="lg">View Full Menu</Button>
               </Link>
             </div>
           </div>

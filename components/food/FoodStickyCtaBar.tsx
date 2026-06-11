@@ -20,7 +20,7 @@ interface FoodStickyCtaBarProps {
     id?: string
   }
   label?: string
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'outline'
   bookingUrl?: string
 }
 

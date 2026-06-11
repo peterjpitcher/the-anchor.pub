@@ -7,7 +7,7 @@ type EventSecondaryActionsProps = {
   event: Event
   source: string
   className?: string
-  size?: 'xs' | 'sm' | 'md'
+  size?: 'sm' | 'md'
 }
 
 export function EventSecondaryActions({

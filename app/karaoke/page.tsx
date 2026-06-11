@@ -428,7 +428,7 @@ export default async function KaraokePage() {
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <Link href="/food-menu#drinks" className="w-full">
-                                        <Button variant="secondary" size="sm" fullWidth>View Drinks List</Button>
+                                        <Button variant="outline" size="sm" fullWidth>View Drinks List</Button>
                                     </Link>
                                 </div>
                             </CardBody>
@@ -516,7 +516,7 @@ export default async function KaraokePage() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <BookTableButton
                                 source="karaoke_cta_bottom"
-                                variant="secondary"
+                                variant="outline"
                                 size="lg"
                                 className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
                             >
@@ -525,7 +525,7 @@ export default async function KaraokePage() {
                             <PhoneButton
                                 phone="01753 682707"
                                 source="karaoke_cta_bottom"
-                                variant="secondary"
+                                variant="outline"
                                 size="lg"
                                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
                             >

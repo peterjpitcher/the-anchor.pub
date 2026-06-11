@@ -377,7 +377,7 @@ export default function StanwellPubPage() {
               <DirectionsButton
                 href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
                 source="stanwell_directions"
-                variant="secondary"
+                variant="outline"
                 size="md"
               >
                 Get Directions

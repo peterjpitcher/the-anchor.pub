@@ -104,7 +104,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     <PhoneButton
                         phone="01753 682707"
                         source={`near_${landmark.slug}_hero`}
-                        variant="secondary"
+                        variant="outline"
                         size="lg"
                     >
                         Call 01753 682707
@@ -229,7 +229,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                         <PhoneButton
                             phone="01753 682707"
                             source={`near_${landmark.slug}_cta`}
-                            variant="secondary"
+                            variant="outline"
                             size="lg"
                             className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
                         >

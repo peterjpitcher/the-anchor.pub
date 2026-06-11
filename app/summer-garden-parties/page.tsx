@@ -163,7 +163,7 @@ export default function SummerGardenPartiesPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "summer_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

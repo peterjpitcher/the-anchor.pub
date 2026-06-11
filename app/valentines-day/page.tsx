@@ -403,7 +403,7 @@ export default async function ValentinesDayPage() {
                       </Button>
                     </div>
                     <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
-                      <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[200px]">
+                      <Button variant="outline" size="lg" fullWidth className="sm:min-w-[200px]">
                         View full event details
                       </Button>
                     </Link>
@@ -505,7 +505,7 @@ export default async function ValentinesDayPage() {
               <PhoneButton
                 phone="01753 682707"
                 source="valentines_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -533,14 +533,14 @@ export default async function ValentinesDayPage() {
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                       Directions & parking
                     </Button>
                   </Link>
                   <PhoneButton
                     phone="01753 682707"
                     source="valentines_location"
-                    variant="secondary"
+                    variant="outline"
                     size="lg"
                     className="w-full sm:w-auto"
                   >

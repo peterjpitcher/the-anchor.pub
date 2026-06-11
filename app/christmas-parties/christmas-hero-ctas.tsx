@@ -30,7 +30,7 @@ export function ChristmasHeroPrimaryCta() {
   return (
     <div className="flex w-full flex-col gap-3 md:flex-row md:justify-center">
       <Button
-        variant="danger"
+        variant="outline"
         size="lg"
         className="w-full md:w-auto"
         onClick={() => {
@@ -47,7 +47,7 @@ export function ChristmasHeroPrimaryCta() {
         Request a Christmas Booking (up to 25)
       </Button>
       <Button
-        variant="danger"
+        variant="outline"
         size="lg"
         className="w-full md:w-auto"
         onClick={() => {

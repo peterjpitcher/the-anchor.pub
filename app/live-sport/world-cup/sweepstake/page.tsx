@@ -171,7 +171,7 @@ export default function WorldCupSweepstakePage() {
         }
         secondaryCta={
           <Link href={RESULT_SHEET_PDF}>
-            <Button variant="secondary" size="lg" className="w-full sm:min-w-[200px]">
+            <Button variant="outline" size="lg" className="w-full sm:min-w-[200px]">
               View Result Sheet
             </Button>
           </Link>
@@ -363,7 +363,7 @@ export default function WorldCupSweepstakePage() {
           {
             text: 'World Cup Fixtures',
             href: '/live-sport/world-cup',
-            variant: 'secondary',
+            variant: 'outline',
           },
           {
             text: 'Book a Table',

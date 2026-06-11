@@ -185,16 +185,16 @@ export default function AccessibilityPage() {
               <BookTableButton
                 source="accessibility_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised"
               />
               <Link href="/near-heathrow">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
                   Near Heathrow Info
                 </Button>
               </Link>
               <Link href="/beer-garden">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
                   Beer Garden
                 </Button>
               </Link>

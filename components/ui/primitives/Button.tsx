@@ -18,24 +18,29 @@ import type {
 } from '../types'
 
 const buttonVariants = cva(
-  // Base styles
-  'inline-flex min-w-0 max-w-full items-center justify-center break-words text-center font-semibold whitespace-normal rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+  // Base styles — pill shape, Outfit 600, centred inline-flex with a 2px transparent
+  // border so variants that add a border do not shift layout. Lift on hover, settle on
+  // active, and never transform whilst disabled (design system spec §4.1).
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border-2 border-transparent font-sans font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0',
   {
     variants: {
       variant: {
-        primary: 'bg-anchor-gold-dark text-white hover:bg-anchor-gold',
-        secondary: 'bg-anchor-green-card text-anchor-cream-text border-2 border-anchor-gold-dark/30 hover:bg-anchor-green-raised hover:text-anchor-gold-bright',
-        ghost: 'text-anchor-cream-text hover:bg-anchor-green-raised',
-        outline: 'border-2 border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-white',
-        danger: 'bg-red-600 text-white hover:bg-red-700',
-        warning: 'bg-yellow-500 text-white hover:bg-yellow-600'
+        // AA-safe primary: #8b6914 on white is 5.08:1, passing AA for normal text.
+        // The prototype's lighter #a57626 fill only reaches 4.02:1, so it is not used.
+        primary: 'bg-anchor-gold-dark text-white hover:bg-anchor-green hover:shadow-gold',
+        // Theme-aware accent outline: green on light, gold-bright inside .theme-dark.
+        outline: 'border-accent text-accent hover:bg-accent hover:text-canvas',
+        // Low-emphasis: inherits ink colour. Hover wash is a near-black tint on light
+        // surfaces; inside the class-based dark theme it flips to a white tint. (The
+        // semantic tokens are hex, not RGB channels, so an opacity modifier on `ink`
+        // would not compile — black/white are real palette colours and do work.)
+        ghost: 'text-ink hover:bg-black/5 [.theme-dark_&]:hover:bg-white/10'
       },
       size: {
-        xs: 'px-3 py-2 text-sm sm:text-xs min-h-[44px]',
-        sm: 'px-4 py-2 text-sm min-h-[44px]',
-        md: 'px-6 py-3 text-base min-h-[44px]',
-        lg: 'px-6 py-4 text-lg min-h-[48px] sm:px-8',
-        xl: 'px-6 py-4 text-xl min-h-[52px] sm:px-10'
+        // Heights follow the control-size tokens; padding-x uses the spacing scale.
+        sm: 'min-h-[44px] px-6 text-sm',
+        md: 'min-h-[48px] px-8 text-base',
+        lg: 'min-h-[56px] px-12 text-lg'
       },
       fullWidth: {
         true: 'w-full'

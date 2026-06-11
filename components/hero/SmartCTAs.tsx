@@ -16,7 +16,7 @@ interface SmartCTAsProps {
   heroEvents?: Event[]
 }
 
-function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
+function renderAction(action: HeroCtaAction, variant: 'primary' | 'outline') {
   const size = 'lg' as const
 
   switch (action.kind) {
@@ -37,7 +37,7 @@ function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
         <PhoneButton
           phone={action.phone}
           source={action.source}
-          variant={variant === 'primary' ? 'primary' : 'secondary'}
+          variant={variant === 'primary' ? 'primary' : 'outline'}
           size={size}
           className="w-full sm:min-w-[180px]"
         >
@@ -105,7 +105,7 @@ export function SmartCTAs({ route, heroEvents }: SmartCTAsProps) {
         {renderAction(primary, 'primary')}
       </div>
       <div className="min-w-0 w-full sm:w-auto">
-        {renderAction(secondary, 'secondary')}
+        {renderAction(secondary, 'outline')}
       </div>
     </div>
   )

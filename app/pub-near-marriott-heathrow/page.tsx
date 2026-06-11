@@ -136,7 +136,7 @@ export default function PubNearMarriottHeathrowPage() {
               <h3 className="text-xl font-bold text-anchor-gold-bright mb-3">Client Dinner? We&apos;ve Got You Covered</h3>
               <p className="text-anchor-cream-text/70 mb-4">Relaxed but professional atmosphere ideal for building relationships over a proper meal. Book in advance for groups of 6 or more.</p>
               <Link href="/food-menu">
-                <Button variant="secondary" size="lg">View Full Menu</Button>
+                <Button variant="outline" size="lg">View Full Menu</Button>
               </Link>
             </div>
           </div>

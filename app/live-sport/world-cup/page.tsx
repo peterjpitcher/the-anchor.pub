@@ -149,7 +149,7 @@ export default async function WorldCupPage() {
         }
         secondaryCta={
           <Link href="/menus">
-            <Button variant="secondary" size="lg" className="w-full sm:min-w-[200px]">
+            <Button variant="outline" size="lg" className="w-full sm:min-w-[200px]">
               View Menu
             </Button>
           </Link>
@@ -331,7 +331,7 @@ export default async function WorldCupPage() {
                 Book a Table
               </BookTableButton>
               <Link href="#fixtures" className="w-full sm:w-auto">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
                   See Fixtures
                 </Button>
               </Link>
@@ -543,7 +543,7 @@ export default async function WorldCupPage() {
           {
             text: 'Get Directions',
             href: '/find-us',
-            variant: 'secondary',
+            variant: 'outline',
           },
         ]}
         variant="green"

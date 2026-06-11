@@ -378,7 +378,7 @@ export default async function HeathrowParkingPage() {
             </div>
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
               <Link href="#price-comparison">
-                <Button variant="secondary" size="lg">
+                <Button variant="outline" size="lg">
                    View the Heathrow price comparison
                 </Button>
               </Link>
@@ -647,7 +647,7 @@ export default async function HeathrowParkingPage() {
             text: 'Call 01753 682707',
             href: 'tel:+441753682707',
             isPhone: true,
-            variant: 'secondary',
+            variant: 'outline',
             phoneSource: 'heathrow_parking_cta'
           }
         ]}

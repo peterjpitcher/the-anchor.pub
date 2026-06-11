@@ -418,7 +418,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         }
         secondaryCta={
           <Link href="/drinks" className="w-full sm:w-auto">
-            <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+            <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
               View Drinks Menu
             </Button>
           </Link>
@@ -640,18 +640,18 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               <BookTableButton
                 source="managers_special_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               />
               <Link href="/find-us">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20">
                   Get Directions
                 </Button>
               </Link>
               <PhoneButton
                 phone="01753 682707"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-white/10 text-white hover:bg-white/20"
                 source="managers_special_cta"
               />

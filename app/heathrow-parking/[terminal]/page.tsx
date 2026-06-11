@@ -204,7 +204,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                 </Button>
               </Link>
               <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20Terminal%20parking%20help.">
-                <Button variant="secondary" size="lg">
+                <Button variant="outline" size="lg">
                   WhatsApp the team
                 </Button>
               </Link>
@@ -265,7 +265,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
             text: 'Call 01753 682707',
             href: 'tel:+441753682707',
             isPhone: true,
-            variant: 'secondary',
+            variant: 'outline',
             phoneSource: `heathrow_terminal_${terminalNumber}_cta`
           }
         ]}

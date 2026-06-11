@@ -414,7 +414,7 @@ export default function M25Junction14PubPage() {
               <DirectionsButton
                 href="https://maps.google.com/maps?saddr=M25+Junction+14&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
                 source="m25_junction_14_directions"
-                variant="secondary"
+                variant="outline"
                 size="md"
                 fromLocation="M25 Junction 14"
               >
@@ -581,7 +581,7 @@ export default function M25Junction14PubPage() {
           {
             text: "Call Ahead",
             href: `${CONTACT.phoneHref}`,
-            variant: "secondary"
+            variant: "outline"
           },
           {
             text: "Book an Event",

@@ -380,7 +380,7 @@ export default async function BlogPage({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/whats-on" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
@@ -390,7 +390,7 @@ export default async function BlogPage({
             </Link>
             <Link href="/find-us" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"

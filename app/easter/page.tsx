@@ -158,7 +158,7 @@ export default function EasterPage() {
                 Book Easter Sunday Roast
               </BookTableButton>
               <Link href="/sunday-roast" className="w-full sm:w-auto">
-                <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                   View Sunday roast menu
                 </Button>
               </Link>
@@ -286,7 +286,7 @@ export default function EasterPage() {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="easter_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -322,14 +322,14 @@ export default function EasterPage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     Directions &amp; parking
                   </Button>
                 </Link>
                 <PhoneButton
                   phone={CONTACT.phone}
                   source="easter_location"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 >

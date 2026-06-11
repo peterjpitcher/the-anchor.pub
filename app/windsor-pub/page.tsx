@@ -370,7 +370,7 @@ export default function WindsorPubPage() {
               <DirectionsButton
                 href="https://maps.google.com/maps?saddr=Windsor+Castle&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
                 source="windsor_directions"
-                variant="secondary"
+                variant="outline"
                 size="md"
                 fromLocation="Windsor Castle"
               >
@@ -515,7 +515,7 @@ export default function WindsorPubPage() {
           {
             text: "Book a Table",
             href: `${CONTACT.phoneHref}`,
-            variant: "secondary"
+            variant: "outline"
           },
           {
             text: "Book an Event",

@@ -1961,7 +1961,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <p className="font-semibold">Join waitlist</p>
                   <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
-                    <PhoneButton phone={CONTACT.phone} source="table_booking_waitlist" size="sm" variant="secondary" className="min-h-12">
+                    <PhoneButton phone={CONTACT.phone} source="table_booking_waitlist" size="sm" variant="outline" className="min-h-12">
                       Join waitlist by phone
                     </PhoneButton>
                   </div>

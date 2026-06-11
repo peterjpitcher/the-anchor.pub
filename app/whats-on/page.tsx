@@ -686,7 +686,7 @@ export default async function WhatsOnPage() {
               <Button
                 asChild
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
                 <Link href="#upcoming-events">Reserve an Upcoming Event</Link>

@@ -242,7 +242,7 @@ export default function BonfireNightPage() {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="bonfire_night_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -268,14 +268,14 @@ export default function BonfireNightPage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     Directions &amp; parking
                   </Button>
                 </Link>
                 <PhoneButton
                   phone={CONTACT.phone}
                   source="bonfire_night_location"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 >

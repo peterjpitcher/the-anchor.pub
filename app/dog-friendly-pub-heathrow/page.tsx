@@ -147,7 +147,7 @@ export default async function DogFriendlyPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "dog_call_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

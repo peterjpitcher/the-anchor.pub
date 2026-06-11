@@ -225,7 +225,7 @@ export default async function PizzaMenuPage() {
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: 'pizza_takeaway_cta',
-            variant: 'secondary'
+            variant: 'outline'
           }
         ]}
         variant="green"

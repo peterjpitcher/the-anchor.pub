@@ -395,7 +395,7 @@ export default async function EventPage({ params }: Props) {
       <PhoneButton
         phone="01753682707"
         source={`event_page_hero_${params.id}`}
-        variant="secondary"
+        variant="outline"
         size="lg"
         className="w-full sm:w-auto"
       >
@@ -741,7 +741,7 @@ export default async function EventPage({ params }: Props) {
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
             {mothersDayBookingFlow ? (
               <div className="w-full sm:w-auto">
-                <Button asChild size="xl" className="w-full sm:w-auto">
+                <Button asChild size="lg" className="w-full sm:w-auto">
                   <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
                 </Button>
               </div>
@@ -751,7 +751,7 @@ export default async function EventPage({ params }: Props) {
                   event={event}
                   className="w-full sm:w-auto"
                   fullWidth={false}
-                  size="xl"
+                  size="lg"
                   label="Reserve table"
                   customHref="#event-booking"
                   source={`event_page_cta_${params.id}`}
@@ -762,7 +762,7 @@ export default async function EventPage({ params }: Props) {
               <PhoneButton 
                 phone="01753682707" 
                 source={`event_page_${params.id}`}
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold w-full sm:w-auto"
               >

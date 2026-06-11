@@ -176,7 +176,7 @@ export default function ColnbrookPubPage() {
                                 <Link href="/corporate-events">
                                     <Button variant="primary">Corporate Info</Button>
                                 </Link>
-                                <PhoneButton phone={CONTACT.phone} source="colnbrook_corporate" variant="secondary">Call to Discuss</PhoneButton>
+                                <PhoneButton phone={CONTACT.phone} source="colnbrook_corporate" variant="outline">Call to Discuss</PhoneButton>
                             </div>
                         </div>
 

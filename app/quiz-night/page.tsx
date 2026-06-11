@@ -568,7 +568,7 @@ export default async function QuizNightPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <BookTableButton
                 source="quiz_night_cta_bottom"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
@@ -577,7 +577,7 @@ export default async function QuizNightPage() {
               <PhoneButton
                 phone="01753 682707"
                 source="quiz_night_cta_bottom"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
               >

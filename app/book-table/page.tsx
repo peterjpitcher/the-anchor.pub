@@ -239,7 +239,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                 <PhoneButton
                   phone="01753 682707"
                   source="book_table_mobile_help"
-                  variant="secondary"
+                  variant="outline"
                   className="w-full"
                 >
                   Call 01753 682707
@@ -278,7 +278,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                 <PhoneButton
                   phone="01753 682707"
                   source="book_table_sidebar"
-                  variant="secondary"
+                  variant="outline"
                   className="w-full"
                 >
                   Call 01753 682707

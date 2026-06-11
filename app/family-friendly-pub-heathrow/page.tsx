@@ -145,7 +145,7 @@ export default function FamilyFriendlyPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "family_call_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

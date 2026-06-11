@@ -88,7 +88,7 @@ export default async function RetirementPartiesPage() {
                     </Link>
                 }
                 secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="retirement_hero" variant="secondary">
+                    <PhoneButton phone={CONTACT.phone} source="retirement_hero" variant="outline">
                         Call {CONTACT.phone}
                     </PhoneButton>
                 }
@@ -243,7 +243,7 @@ export default async function RetirementPartiesPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "retirement_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

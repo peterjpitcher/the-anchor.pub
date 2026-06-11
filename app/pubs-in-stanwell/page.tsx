@@ -497,7 +497,7 @@ export default async function PubsInStanwellPage() {
           {
             text: "Get Directions",
             href: "https://maps.google.com/?q=The+Anchor+Stanwell+Moor",
-            variant: "secondary"
+            variant: "outline"
           }
         ]}
         variant="green"

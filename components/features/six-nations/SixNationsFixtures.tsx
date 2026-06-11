@@ -109,8 +109,8 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                 {/* Team Filter */}
                 <div className="flex flex-wrap gap-2 justify-center">
                     <Button
-                        variant={selectedTeam === null ? 'secondary' : 'outline'}
-                        size="xs"
+                        variant={selectedTeam === null ? 'primary' : 'outline'}
+                        size="sm"
                         onClick={() => setSelectedTeam(null)}
                         className="text-xs"
                     >
@@ -119,8 +119,8 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                     {teams.map(team => (
                         <Button
                             key={team}
-                            variant={selectedTeam === team ? 'secondary' : 'outline'}
-                            size="xs"
+                            variant={selectedTeam === team ? 'primary' : 'outline'}
+                            size="sm"
                             onClick={() => setSelectedTeam(team)}
                             className="text-xs"
                         >

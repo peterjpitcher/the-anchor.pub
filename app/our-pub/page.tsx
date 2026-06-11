@@ -438,7 +438,7 @@ export default function OurPubPage() {
               <BookTableButton
                 source="our_pub_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
               <PhoneButton phone={CONTACT.phone} source="our-pub_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
@@ -451,7 +451,7 @@ export default function OurPubPage() {
               >
                 <Button
                   size="lg"
-                  variant="secondary"
+                  variant="outline"
                   className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
                 >
                   Get Directions

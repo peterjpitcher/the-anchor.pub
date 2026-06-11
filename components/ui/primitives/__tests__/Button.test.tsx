@@ -8,31 +8,44 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Click me')
   })
 
-  it('allows long labels to wrap on narrow screens', () => {
-    render(<Button>Reserve a table, pay quiz entry on arrival</Button>)
+  it('renders as a pill with a transparent border', () => {
+    render(<Button>Reserve a table</Button>)
 
     expect(screen.getByRole('button')).toHaveClass(
-      'min-w-0',
-      'max-w-full',
-      'whitespace-normal',
-      'break-words'
+      'rounded-pill',
+      'border-2',
+      'border-transparent',
+      'whitespace-nowrap'
     )
   })
 
-  it('applies variant classes correctly', () => {
+  it('applies the three variant styles correctly', () => {
+    // Primary is the AA-safe gold-dark fill (#8b6914 on white = 5.08:1).
     const { rerender } = render(<Button variant="primary">Primary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold-dark')
+    expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold-dark', 'text-white')
+    expect(screen.getByRole('button')).toHaveClass('hover:bg-anchor-green', 'hover:shadow-gold')
 
-    rerender(<Button variant="secondary">Secondary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-anchor-green-card')
+    rerender(<Button variant="outline">Outline</Button>)
+    expect(screen.getByRole('button')).toHaveClass('border-accent', 'text-accent')
+
+    rerender(<Button variant="ghost">Ghost</Button>)
+    expect(screen.getByRole('button')).toHaveClass('text-ink')
   })
 
-  it('applies size classes correctly', () => {
+  it('applies the three size styles correctly', () => {
     const { rerender } = render(<Button size="sm">Small</Button>)
-    expect(screen.getByRole('button')).toHaveClass('text-sm')
+    expect(screen.getByRole('button')).toHaveClass('min-h-[44px]', 'px-6', 'text-sm')
+
+    rerender(<Button size="md">Medium</Button>)
+    expect(screen.getByRole('button')).toHaveClass('min-h-[48px]', 'px-8', 'text-base')
 
     rerender(<Button size="lg">Large</Button>)
-    expect(screen.getByRole('button')).toHaveClass('text-lg')
+    expect(screen.getByRole('button')).toHaveClass('min-h-[56px]', 'px-12', 'text-lg')
+  })
+
+  it('defaults to the primary variant at medium size', () => {
+    render(<Button>Default</Button>)
+    expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold-dark', 'min-h-[48px]')
   })
 
   it('handles click events', async () => {

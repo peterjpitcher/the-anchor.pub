@@ -581,7 +581,7 @@ export default function Terminal3Page() {
               <BookTableButton
                 source="terminal_3_hotel_cta"
                 context="heathrow_terminal_3_hotels"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >

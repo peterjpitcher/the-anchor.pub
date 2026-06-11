@@ -171,7 +171,7 @@ export default function BankHolidayWeekendsPage() {
                   </a>
                 </Button>
                 <Link href="/sunday-roast" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     View Sunday roast menu
                   </Button>
                 </Link>
@@ -313,7 +313,7 @@ export default function BankHolidayWeekendsPage() {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="bank_holiday_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -339,14 +339,14 @@ export default function BankHolidayWeekendsPage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     Directions &amp; parking
                   </Button>
                 </Link>
                 <PhoneButton
                   phone={CONTACT.phone}
                   source="bank_holiday_location"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 >

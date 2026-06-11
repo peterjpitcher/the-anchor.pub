@@ -88,7 +88,7 @@ export default async function EngagementPartiesPage() {
                     </Link>
                 }
                 secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="engagement_hero" variant="secondary">
+                    <PhoneButton phone={CONTACT.phone} source="engagement_hero" variant="outline">
                         Call {CONTACT.phone}
                     </PhoneButton>
                 }
@@ -287,7 +287,7 @@ export default async function EngagementPartiesPage() {
                                 <Button size="lg" variant="primary">Enquire for Party</Button>
                             </Link>
                             <Link href="/book-table">
-                                <Button size="lg" variant="secondary">Book Table (Small Groups)</Button>
+                                <Button size="lg" variant="outline">Book Table (Small Groups)</Button>
                             </Link>
                         </div>
                     </div>

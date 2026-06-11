@@ -17,7 +17,7 @@ interface HeaderCtaButton {
   href: string
   icon?: string
   external?: boolean
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'outline'
   className?: string
 }
 
@@ -352,7 +352,7 @@ export function Navigation({
     label: 'Book Parking',
     href: '/heathrow-parking#book-parking',
     external: false,
-    variant: 'secondary'
+    variant: 'outline'
   },
   tertiaryCtaButton = null,
   promoCtaButtons = [],
@@ -787,7 +787,7 @@ export function Navigation({
     }
 
     const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
-    const variantClasses = button.variant === 'secondary'
+    const variantClasses = button.variant === 'outline'
       ? 'bg-anchor-green-card text-anchor-cream-text hover:bg-anchor-green-raised hover:text-anchor-gold-bright border border-anchor-gold-dark/30'
       : cn(mergedTheme.ctaBackground, mergedTheme.ctaText, mergedTheme.ctaHoverBackground)
 

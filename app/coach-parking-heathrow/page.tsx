@@ -156,7 +156,7 @@ export default function CoachParkingPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "coach_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     },
                     {
                         text: " Email Us",

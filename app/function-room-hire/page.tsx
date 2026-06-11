@@ -113,7 +113,7 @@ export default function FunctionRoomHirePage() {
           <>
             <Link href="#enquiry" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -122,7 +122,7 @@ export default function FunctionRoomHirePage() {
             </Link>
             <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -700,12 +700,12 @@ export default function FunctionRoomHirePage() {
                    Call: {CONTACT.phone}
               </PhoneButton>
               <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="secondary">
+                <Button size="lg" variant="outline">
                    WhatsApp Us
                 </Button>
               </Link>
               <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
-                <Button size="lg" variant="secondary">
+                <Button size="lg" variant="outline">
                    Email Enquiry
                 </Button>
               </Link>

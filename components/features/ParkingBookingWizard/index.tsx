@@ -729,7 +729,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         {currentStep < 4 && (
           <div className="flex flex-col gap-3 border-t border-anchor-gold-dark/15 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <Button
-              variant="secondary"
+              variant="outline"
               onClick={() => goToStep(currentStep - 1)}
               disabled={currentStep === 1}
             >

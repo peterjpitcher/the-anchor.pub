@@ -111,7 +111,7 @@ export default async function BabyShowersPage() {
                     <PhoneButton
                         phone="01753 682707"
                         source="baby_shower_hero"
-                        variant="secondary"
+                        variant="outline"
                         size="lg"
                     >
                         Call 01753 682707

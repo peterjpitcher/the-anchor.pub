@@ -129,7 +129,7 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Link href="/heathrow-parking">
-                <Button variant="secondary">Back to Heathrow parking page</Button>
+                <Button variant="outline">Back to Heathrow parking page</Button>
               </Link>
               {booking.status !== 'confirmed' && booking.status !== 'completed' && (
                 <Link href={`/parking/bookings/${booking.id}`} prefetch={false}>

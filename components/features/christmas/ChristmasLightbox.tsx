@@ -184,7 +184,7 @@ export function ChristmasLightbox() {
                             requestClose('cta')
                         }}>
                             <Button
-                                variant="danger"
+                                variant="outline"
                                 size="lg"
                                 className="w-full justify-center"
                                 asChild={false}

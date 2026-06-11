@@ -264,16 +264,16 @@ export default function SustainabilityPage() {
               <BookTableButton
                 source="sustainability_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised"
               />
               <Link href="/near-heathrow">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   How to Find Us
                 </Button>
               </Link>
               <Link href="/beer-garden">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Our Beer Garden
                 </Button>
               </Link>

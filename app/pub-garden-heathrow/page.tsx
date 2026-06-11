@@ -135,7 +135,7 @@ export default function PubGardenPage() {
                     {
                         text: "Find Us",
                         href: "/find-us",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

@@ -113,7 +113,7 @@ export default async function ChristeningsPage() {
                     <PhoneButton
                         phone="01753 682707"
                         source="christening_hero"
-                        variant="secondary"
+                        variant="outline"
                         size="lg"
                     >
                         Call 01753 682707

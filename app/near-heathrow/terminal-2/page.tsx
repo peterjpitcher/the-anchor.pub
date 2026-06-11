@@ -620,7 +620,7 @@ export default function Terminal2Page() {
               <BookTableButton
                 source="terminal_2_hotel_cta"
                 context="heathrow_terminal_2_hotels"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >

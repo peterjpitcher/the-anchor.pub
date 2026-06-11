@@ -400,14 +400,14 @@ export default function FelthamPubPage() {
                 <PhoneButton
                   phone="01753 682707"
                   source="feltham_pub_event_quote"
-                  variant="secondary"
+                  variant="outline"
                   size="md"
                 >
                    Quick Quote
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                   <Button 
-                    variant="secondary"
+                    variant="outline"
                     size="md"
                   >
                      WhatsApp

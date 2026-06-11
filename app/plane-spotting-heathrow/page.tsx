@@ -113,7 +113,7 @@ export default async function PlaneSpottingHeathrowPage() {
           </p>
           <div className="mt-4 flex justify-center">
             <Link href="/blog/heathrow-plane-spotting-locations">
-              <Button variant="secondary" size="md">
+              <Button variant="outline" size="md">
                 Compare all Heathrow viewing areas
               </Button>
             </Link>

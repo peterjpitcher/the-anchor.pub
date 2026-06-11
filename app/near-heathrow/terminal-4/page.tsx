@@ -582,7 +582,7 @@ export default function Terminal4Page() {
               <BookTableButton
                 source="terminal_4_hotel_cta"
                 context="heathrow_terminal_4_hotels"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className=""
               >

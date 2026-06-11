@@ -587,7 +587,7 @@ export default async function MusicBingoPage() {
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <BookTableButton
                 source="music_bingo_cta_bottom"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold sm:w-auto"
               >

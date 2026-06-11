@@ -437,13 +437,13 @@ export default function StainesPubPage() {
                 <PhoneButton
                   phone="01753 682707"
                   source="staines_pub_event_enquiry"
-                  variant="secondary"
+                  variant="outline"
                   size="md"
                 >
                   Quick Enquiry
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                  <Button variant="secondary" size="md">
+                  <Button variant="outline" size="md">
                     WhatsApp
                   </Button>
                 </Link>
@@ -554,7 +554,7 @@ export default function StainesPubPage() {
           {
             text: "Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "outline"
           },
           {
             text: "Call Us",

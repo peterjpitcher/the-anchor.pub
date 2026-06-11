@@ -303,7 +303,7 @@ export default async function LiveSportPage() {
                     {
                         text: "Book a Table",
                         href: "/book-table",
-                        variant: "secondary"
+                        variant: "outline"
                     },
                     {
                         text: "Call: 01753 682707",

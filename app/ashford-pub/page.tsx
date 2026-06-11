@@ -379,14 +379,14 @@ export default function AshfordPubPage() {
                 <PhoneButton
                   phone="01753 682707"
                   source="ashford_pub_event_cta"
-                  variant="secondary"
+                  variant="outline"
                   size="md"
                 >
                    Call: 01753 682707
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                   <Button
-                    variant="secondary"
+                    variant="outline"
                     size="md"
                   >
                      WhatsApp Us
@@ -459,7 +459,7 @@ export default function AshfordPubPage() {
               <DirectionsButton
                 href="https://maps.google.com/maps?saddr=Ashford+Surrey&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
                 source="ashford_directions"
-                variant="secondary"
+                variant="outline"
                 size="md"
                 fromLocation="Ashford Surrey"
               >
@@ -606,7 +606,7 @@ export default function AshfordPubPage() {
           {
             text: " Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "outline"
           },
           {
             text: " Call Us",

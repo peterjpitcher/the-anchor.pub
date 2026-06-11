@@ -275,7 +275,7 @@ export default async function FoodMenuPage() {
             scrollToId="menu"
             analyticsLabel="view_full_menu"
             location="food_menu_hero"
-            variant="secondary"
+            variant="outline"
             fullWidth
             className="sm:w-auto sm:min-w-0"
           />

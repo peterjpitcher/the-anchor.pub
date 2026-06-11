@@ -581,7 +581,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               Request shared or private dinner
             </Button>
             <Button
-              variant="secondary"
+              variant="outline"
               size="md"
               onClick={() => {
                 trackCtaClick({
@@ -1966,7 +1966,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               <Button type="submit" variant="primary" size="md" className="w-full">Send my request</Button>
               <Button
                 type="button"
-                variant="secondary"
+                variant="outline"
                 size="md"
                 className="w-full"
                 onClick={() => {

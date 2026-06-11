@@ -108,7 +108,7 @@ export default function AboutPage() {
           <DirectionsButton
             href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
             source="about_hero"
-            variant="secondary"
+            variant="outline"
             size="lg"
             className="w-full sm:w-auto"
           >
@@ -467,13 +467,13 @@ export default function AboutPage() {
               <BookTableButton
                 source="about_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
               <DirectionsButton
                 href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
                 source="about_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               >

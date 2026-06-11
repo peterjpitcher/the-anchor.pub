@@ -137,7 +137,7 @@ export default function AnchorFactsPage() {
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">View Food Menu</Button>
+            <Button variant="outline" size="lg" className="w-full sm:w-auto">View Food Menu</Button>
           </Link>
         }
         showContextStrip={true}
@@ -162,7 +162,7 @@ export default function AnchorFactsPage() {
               <Button asChild size="lg">
                 <Link href="/book-table">Book a Table</Link>
               </Button>
-              <Button asChild variant="secondary" size="lg">
+              <Button asChild variant="outline" size="lg">
                 <Link href="/food-menu">View Food Menu</Link>
               </Button>
             </div>

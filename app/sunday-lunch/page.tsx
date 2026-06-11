@@ -436,7 +436,7 @@ export default async function SundayLunchPage() {
               <BookTableButton
                 source="sunday_roast_final_cta"
                 context="sunday_roast"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
                 customHref={SUNDAY_LUNCH_BOOKING_URL}

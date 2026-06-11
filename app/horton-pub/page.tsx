@@ -278,7 +278,7 @@ export default function HortonPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "horton_pub_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     },
                     {
                         text: "Book an Event",

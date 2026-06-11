@@ -197,7 +197,7 @@ export default async function DrinksMenuPage() {
         primaryCta={
           <BookTableButton
             source="drinks_hero"
-            variant="secondary"
+            variant="outline"
             size="lg"
             fullWidth
             className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
@@ -209,7 +209,7 @@ export default async function DrinksMenuPage() {
           <>
             <Link href="#menu" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
@@ -219,7 +219,7 @@ export default async function DrinksMenuPage() {
             </Link>
             <Link href="/food-menu#pizza" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
@@ -229,7 +229,7 @@ export default async function DrinksMenuPage() {
             </Link>
             <Link href="/sunday-roast" className="w-full sm:w-auto">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
@@ -584,7 +584,7 @@ export default async function DrinksMenuPage() {
               <BookTableButton
                 source="drinks_page_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 fullWidth
                 className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
               >
@@ -594,12 +594,12 @@ export default async function DrinksMenuPage() {
                   Call Us
               </PhoneButton>
               <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Pizza Menu
                 </Button>
               </Link>
               <Link href="/sunday-roast" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Sunday Roast Info
                 </Button>
               </Link>

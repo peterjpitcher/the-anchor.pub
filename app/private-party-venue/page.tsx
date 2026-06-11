@@ -63,7 +63,7 @@ export default function PrivatePartyVenuePage() {
             <PhoneButton
               phone="01753 682707"
               source="private_party_hero"
-              variant="secondary"
+              variant="outline"
               size="lg"
               className="w-full sm:w-auto"
             >
@@ -76,7 +76,7 @@ export default function PrivatePartyVenuePage() {
               className="w-full sm:w-auto"
             >
               <Button
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
@@ -434,12 +434,12 @@ export default function PrivatePartyVenuePage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
               >
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   WhatsApp Us
                 </Button>
               </Link>
               <Link href="mailto:manager@the-anchor.pub?subject=Private Party Enquiry" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
                   Email Enquiry
                 </Button>
               </Link>

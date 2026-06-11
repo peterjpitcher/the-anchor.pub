@@ -62,12 +62,12 @@ export default function CorporateEventsPage() {
         secondaryCta={
           <>
             <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
                 Discuss Your Event
               </Button>
             </Link>
             <Link href="#solutions" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
                 Explore Our Solutions
               </Button>
             </Link>
@@ -298,7 +298,7 @@ export default function CorporateEventsPage() {
                       rel="noopener noreferrer"
                       className="w-full sm:w-auto"
                     >
-                      <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+                      <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
                         WhatsApp Us
                       </Button>
                     </Link>
@@ -311,7 +311,7 @@ export default function CorporateEventsPage() {
                 Want to see our full catering options? From working lunches to celebration dinners.
               </p>
               <Link href="/food-menu" className="inline-block">
-                <Button variant="secondary" size="lg">
+                <Button variant="outline" size="lg">
                   View Catering Menu
                 </Button>
               </Link>
@@ -541,12 +541,12 @@ export default function CorporateEventsPage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
               >
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   WhatsApp Us
                 </Button>
               </Link>
               <Link href="mailto:manager@the-anchor.pub?subject=Corporate Event Enquiry" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
+                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
                   Email Enquiry
                 </Button>
               </Link>

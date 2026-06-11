@@ -88,7 +88,7 @@ export default async function MilestoneBirthdaysPage() {
                     </Link>
                 }
                 secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="birthday_hero" variant="secondary">
+                    <PhoneButton phone={CONTACT.phone} source="birthday_hero" variant="outline">
                         Call {CONTACT.phone}
                     </PhoneButton>
                 }

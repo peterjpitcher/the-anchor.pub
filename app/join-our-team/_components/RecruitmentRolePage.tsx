@@ -144,7 +144,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
                   Apply Now
                 </Link>
               </Button>
-              <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <Link href="/join-our-team#current-roles">
                   <Icon name="arrowLeft" className="h-4 w-4" aria-hidden="true" />
                   Compare Roles

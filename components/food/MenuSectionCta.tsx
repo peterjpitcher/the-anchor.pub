@@ -12,7 +12,7 @@ interface MenuSectionCtaProps {
   scrollToId?: string
   analyticsLabel: 'preorder_roast' | 'pizza_menu' | 'view_roast_menu' | 'book_dinner' | 'dietary_picks' | 'near_heathrow' | 'view_full_menu'
   location: string
-  variant?: 'primary' | 'secondary' | 'outline'
+  variant?: 'primary' | 'outline' | 'ghost'
   fullWidth?: boolean
   className?: string
 }
@@ -23,7 +23,7 @@ export function MenuSectionCta({
   scrollToId,
   analyticsLabel,
   location,
-  variant = 'secondary',
+  variant = 'outline',
   fullWidth = false,
   className
 }: MenuSectionCtaProps) {

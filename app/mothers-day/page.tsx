@@ -458,7 +458,7 @@ export default function MothersDayPage() {
                     {MOTHERS_DAY_BOOKING_CTA_LABEL}
                   </BookTableButton>
                   <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                       Find Us
                     </Button>
                   </Link>
@@ -542,7 +542,7 @@ export default function MothersDayPage() {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="mothers_day_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -596,14 +596,14 @@ export default function MothersDayPage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                     Directions & parking
                   </Button>
                 </Link>
                 <PhoneButton
                   phone={CONTACT.phone}
                   source="mothers_day_location"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 >

@@ -155,7 +155,7 @@ export function LocationTransportSection() {
           shifts, including later finishes when public transport may be limited.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button asChild variant="secondary">
+          <Button asChild variant="outline">
             <a href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ">
               <Icon name="mapPin" className="h-4 w-4" aria-hidden="true" />
               Get Directions

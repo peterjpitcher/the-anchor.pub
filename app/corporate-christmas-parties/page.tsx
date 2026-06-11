@@ -47,7 +47,7 @@ export default function ChristmasPartiesPage() {
                 }
                 secondaryCta={
                     <Link href={`${CONTACT.phoneHref}`}>
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
                              Call 01753 682707
                         </Button>
                     </Link>
@@ -165,7 +165,7 @@ export default function ChristmasPartiesPage() {
                                 <strong>20% off your food bill</strong> when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course festive menu, the same crackers and candles, just a kinder number on the invoice.
                             </p>
                             <Link href="/christmas-parties#christmas-enquiry">
-                                <Button variant="secondary" size="lg">
+                                <Button variant="outline" size="lg">
                                     Claim Early Bird Offer
                                 </Button>
                             </Link>
@@ -224,7 +224,7 @@ export default function ChristmasPartiesPage() {
                                 </Button>
                             </Link>
                             <Link href={`${CONTACT.phoneHref}`}>
-                                <Button variant="secondary" size="lg">
+                                <Button variant="outline" size="lg">
                                     Call 01753 682707
                                 </Button>
                             </Link>
@@ -255,7 +255,7 @@ export default function ChristmasPartiesPage() {
                         />
 
                         <Link href="/food-menu">
-                            <Button variant="secondary" size="lg">
+                            <Button variant="outline" size="lg">
                                 View the full festive menu
                             </Button>
                         </Link>

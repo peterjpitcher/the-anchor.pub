@@ -87,7 +87,7 @@ export default async function GenderRevealPage() {
                     </Link>
                 }
                 secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="reveal_hero" variant="secondary">
+                    <PhoneButton phone={CONTACT.phone} source="reveal_hero" variant="outline">
                         Call {CONTACT.phone}
                     </PhoneButton>
                 }
@@ -384,7 +384,7 @@ export default async function GenderRevealPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "reveal_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

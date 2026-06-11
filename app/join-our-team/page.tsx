@@ -174,7 +174,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
                   View Current Roles
                 </Link>
               </Button>
-              <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <Link href="#apply">
                   <Icon name="send" className="h-4 w-4" aria-hidden="true" />
                   Apply Now

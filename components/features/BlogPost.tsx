@@ -235,7 +235,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              variant="secondary"
+              variant="outline"
               size="lg"
               className="bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold"
               onClick={() => window.location.href = '/find-us'}
@@ -243,7 +243,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
               Get Directions
             </Button>
             <Button 
-              variant="secondary"
+              variant="outline"
               size="lg"
               className="bg-anchor-gold-dark text-anchor-charcoal hover:bg-anchor-gold"
               onClick={() => window.location.href = '/blog'}

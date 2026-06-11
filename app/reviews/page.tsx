@@ -232,7 +232,7 @@ export default function ReviewsPage() {
                   Leave a Google Review
                 </a>
               </Button>
-              <Button asChild variant="secondary" size="lg">
+              <Button asChild variant="outline" size="lg">
                 <a
                   href="https://g.page/theanchorpubsm?share"
                   target="_blank"

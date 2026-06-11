@@ -158,7 +158,7 @@ export default async function PrivateHirePage() {
                 }
                 secondaryCta={
                     <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
                             Get a Quote
                         </Button>
                     </Link>
@@ -584,7 +584,7 @@ export default async function PrivateHirePage() {
                                 rel="noopener noreferrer"
                                 className="w-full sm:w-auto"
                             >
-                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold border-anchor-gold-dark">
+                                <Button variant="outline" size="lg" className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold border-anchor-gold-dark">
                                     WhatsApp Us
                                 </Button>
                             </Link>

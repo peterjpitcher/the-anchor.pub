@@ -453,7 +453,7 @@ export default async function LiveMusicPage() {
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <Link href="/food-menu#drinks" className="w-full">
-                                        <Button variant="secondary" size="sm" fullWidth>View Drinks List</Button>
+                                        <Button variant="outline" size="sm" fullWidth>View Drinks List</Button>
                                     </Link>
                                 </div>
                             </CardBody>

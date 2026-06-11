@@ -539,7 +539,7 @@ export function ManagementEventBookingForm({
             <p>Your seats are confirmed for {event.name}.</p>
             {result.manage_booking_url ? (
               <div className="mt-3">
-                <Button asChild size="sm" variant="secondary">
+                <Button asChild size="sm" variant="outline">
                   <a href={result.manage_booking_url} target="_blank" rel="noopener noreferrer">
                     Manage Booking
                   </a>
@@ -563,7 +563,7 @@ export function ManagementEventBookingForm({
             ) : null}
             {result.manage_booking_url ? (
               <div className="mt-3">
-                <Button asChild size="sm" variant="secondary">
+                <Button asChild size="sm" variant="outline">
                   <a href={result.manage_booking_url} target="_blank" rel="noopener noreferrer">
                     Manage Booking
                   </a>

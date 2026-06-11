@@ -282,7 +282,7 @@ export default function SixNationsPage() {
                     {
                         text: "Get Directions",
                         href: "/find-us",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

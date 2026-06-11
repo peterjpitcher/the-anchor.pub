@@ -150,7 +150,7 @@ export default function HalloweenPage() {
                 <PhoneButton
                   phone={CONTACT.phone}
                   source="halloween_booking"
-                  variant="secondary"
+                  variant="outline"
                   size="lg"
                   className="w-full sm:w-auto"
                 >
@@ -182,7 +182,7 @@ export default function HalloweenPage() {
               <PhoneButton
                 phone={CONTACT.phone}
                 source="halloween_cta"
-                variant="secondary"
+                variant="outline"
                 size="lg"
                 className="w-full sm:w-auto"
               >
@@ -210,14 +210,14 @@ export default function HalloweenPage() {
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
                       Directions &amp; parking
                     </Button>
                   </Link>
                   <PhoneButton
                     phone={CONTACT.phone}
                     source="halloween_location"
-                    variant="secondary"
+                    variant="outline"
                     size="lg"
                     className="w-full sm:w-auto"
                   >

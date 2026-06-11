@@ -460,19 +460,19 @@ export default async function BeerGardenPage() {
               <BookTableButton
                 source="beer_garden_cta"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
               <PhoneButton phone={CONTACT.phone} source="beer-garden_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    Call {CONTACT.phone}
               </PhoneButton>
               <Link href="/our-pub">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    See Inside The Pub
                 </Button>
               </Link>
               <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    Get Directions
                 </Button>
               </Link>

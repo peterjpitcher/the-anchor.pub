@@ -468,7 +468,7 @@ export default function HeathrowHotelsPubPage() {
                 experience and massive savings compared to hotel dining!
               </p>
               <Link href="/find-us">
-                <Button variant="secondary" size="lg">
+                <Button variant="outline" size="lg">
                   Get Detailed Directions
                 </Button>
               </Link>
@@ -574,13 +574,13 @@ export default function HeathrowHotelsPubPage() {
                     <PhoneButton
                       phone="01753 682707"
                       source="heathrow_hotels_corporate_quote"
-                      variant="secondary"
+                      variant="outline"
                       size="md"
                     >
                        Quick Quote
                     </PhoneButton>
                     <Link href="https://wa.me/441753682707?text=Hi,%20we" target="_blank" rel="noopener noreferrer">
-                      <Button variant="secondary" size="md">
+                      <Button variant="outline" size="md">
                          WhatsApp
                       </Button>
                     </Link>
@@ -655,7 +655,7 @@ export default function HeathrowHotelsPubPage() {
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: "heathrow_hotels_pub_cta",
-            variant: "secondary"
+            variant: "outline"
           },
           {
             text: " Book an Event",

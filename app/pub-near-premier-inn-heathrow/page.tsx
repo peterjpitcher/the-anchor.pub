@@ -137,7 +137,7 @@ export default function PubNearPremierInnHeathrowPage() {
             </div>
             <div className="mt-6 text-center">
               <Link href="/food-menu">
-                <Button variant="secondary" size="lg">View Full Menu & Prices</Button>
+                <Button variant="outline" size="lg">View Full Menu & Prices</Button>
               </Link>
             </div>
           </div>

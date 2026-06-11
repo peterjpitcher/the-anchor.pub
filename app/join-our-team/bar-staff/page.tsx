@@ -79,7 +79,7 @@ export default function BarStaffRecruitmentPage() {
                   Apply for Bar Staff Role
                 </Link>
               </Button>
-              <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <Link href="/join-our-team">
                   <Icon name="briefcase" className="h-4 w-4" aria-hidden="true" />
                   View All Roles

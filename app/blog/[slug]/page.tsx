@@ -443,7 +443,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 Book a Table
               </BookTableButton>
               <Link href="/food-menu">
-                <Button variant="secondary" size="md">
+                <Button variant="outline" size="md">
                   View Food Menu
                 </Button>
               </Link>

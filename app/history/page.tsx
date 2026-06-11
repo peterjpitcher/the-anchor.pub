@@ -123,7 +123,7 @@ export default function HistoryPage(): React.JSX.Element {
           <DirectionsButton
             href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
             source="history_hero"
-            variant="secondary"
+            variant="outline"
             size="lg"
             className="w-full sm:w-auto"
           >

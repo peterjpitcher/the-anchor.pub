@@ -286,7 +286,7 @@ export default function WraysburyPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "wraysbury_pub_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     },
                     {
                         text: "Book an Event",

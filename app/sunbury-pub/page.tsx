@@ -177,7 +177,7 @@ export default function SunburyPubPage() {
                                 <Link href="/private-hire">
                                     <Button variant="primary">Use Our Venue Finder</Button>
                                 </Link>
-                                <PhoneButton phone={CONTACT.phone} source="sunbury_events" variant="secondary">Call for a Quote</PhoneButton>
+                                <PhoneButton phone={CONTACT.phone} source="sunbury_events" variant="outline">Call for a Quote</PhoneButton>
                             </div>
                         </div>
 
@@ -259,7 +259,7 @@ export default function SunburyPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "sunbury_pub_cta",
-                        variant: "secondary"
+                        variant: "outline"
                     },
                     {
                         text: "Book an Event",

@@ -135,7 +135,7 @@ export default function F1Page() {
                     {
                         text: "Directions",
                         href: "/find-us",
-                        variant: "secondary"
+                        variant: "outline"
                     }
                 ]}
                 variant="green"

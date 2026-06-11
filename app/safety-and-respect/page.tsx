@@ -152,12 +152,12 @@ export default function SafetyAndRespectPage() {
                   Call {CONTACT.phone}
               </PhoneButton>
               <Link href="/book-table">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Book a Table
                 </Button>
               </Link>
               <Link href="/whats-on">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   What's On
                 </Button>
               </Link>

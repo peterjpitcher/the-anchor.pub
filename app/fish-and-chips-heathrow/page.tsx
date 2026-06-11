@@ -245,7 +245,7 @@ export default async function FishAndChipsPage() {
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: 'fish_takeaway_cta',
-            variant: 'secondary'
+            variant: 'outline'
           }
         ]}
         variant="green"
