@@ -6,7 +6,8 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
+import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -90,45 +91,47 @@ export default function EasterPage() {
       />
 
       {/* Easter Sunday Roast */}
-      <Section background="white" spacing="md">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
             <LaunchAnnouncement variant="banner" />
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Easter Sunday Roast
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Easter Sunday is one of those meals that deserves a proper table. Join us at The Anchor for a traditional roast
               cooked from scratch, the kind of lunch that marks the start of spring and brings the whole family together.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               Choose from roast turkey, roast pork, roast beef, pies or a vegan wellington, all served with golden roast potatoes,
               seasonal vegetables and gravy. Yorkshire puddings come with the sliced roasts. Mains start from{' '}
-              <span className="font-semibold">&pound;{String(EASTER_ROAST_PRICE_FROM)}</span>.
+              <span className="font-semibold text-ink">&pound;{String(EASTER_ROAST_PRICE_FROM)}</span>.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
-              We serve from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>,
-              with the last table booking at <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>.
+            <p className="text-ink-muted leading-relaxed">
+              We serve from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>,
+              with the last table booking at <span className="font-semibold text-ink">{EASTER_SUNDAY_LAST_BOOKING}</span>.
               No set sittings, book a time that suits you and enjoy your meal at a comfortable pace.
             </p>
 
-            <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">How Sunday works</h3>
-              <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
-                <li className="flex gap-2">
-                  <span className="text-anchor-gold-dark">&bull;</span>
-                  <span>Walk-ins are welcome between <span className="font-semibold">1pm and 6pm</span>, no pre-order needed.</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-anchor-gold-dark">&bull;</span>
-                  <span>Booking is still recommended for groups, especially parties of six or more.</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-anchor-gold-dark">&bull;</span>
-                  <span>Groups of 10 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
-                </li>
-              </ul>
-            </div>
+            <Card accent>
+              <CardBody>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">How Sunday works</h3>
+                <ul className="mt-3 space-y-2 text-sm text-ink-muted">
+                  <li className="flex gap-2">
+                    <span className="text-accent-text">&bull;</span>
+                    <span>Walk-ins are welcome between <span className="font-semibold text-ink">1pm and 6pm</span>, no pre-order needed.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-accent-text">&bull;</span>
+                    <span>Booking is still recommended for groups, especially parties of six or more.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-accent-text">&bull;</span>
+                    <span>Groups of 10 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
+                  </li>
+                </ul>
+              </CardBody>
+            </Card>
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <BookTableButton
@@ -152,24 +155,24 @@ export default function EasterPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Easter Weekend Opening */}
-      <Section background="gray" spacing="md">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Easter Weekend Opening
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               We&apos;re open throughout the Easter bank holiday weekend. Here&apos;s what to expect.
             </p>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Good Friday &ndash; Easter Sunday</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Good Friday &ndash; Easter Sunday</h3>
+                  <p className="text-sm text-ink-muted">
                     Open as normal with full kitchen service. Our regular evening menu is available Friday and Saturday,
                     and our Sunday roast menu on Easter Sunday.
                   </p>
@@ -181,9 +184,9 @@ export default function EasterPage() {
               </Card>
 
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Easter Monday</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Easter Monday</h3>
+                  <p className="text-sm text-ink-muted">
                     Open for drinks only. Our kitchen is closed every Monday, including bank holidays.
                     Pop in for a pint, enjoy the beer garden, and wind down the long weekend.
                   </p>
@@ -196,21 +199,21 @@ export default function EasterPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Beer Garden in Spring */}
-      <Section background="white" spacing="md">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               The Beer Garden in Spring
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               April is when our beer garden really comes alive. The sun&apos;s out, the first spring flowers are up,
               and a plane passes overhead every 90 seconds or so, which, as it turns out, is surprisingly entertaining
               with a drink in hand.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               Dogs are welcome in the garden and inside the pub. Kids have space to run around while you finish your roast
               (or your second pint). It&apos;s the kind of easy Easter afternoon that doesn&apos;t need a plan.
             </p>
@@ -222,90 +225,73 @@ export default function EasterPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Family Easter */}
-      <Section background="gray" spacing="md">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               A Family Easter
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Easter at The Anchor is about good food and family time. A proper roast that someone else cooks
               and clears up, a garden the kids can explore, and the novelty of watching planes come in low
               over your table, something that never quite gets old, even for the grown-ups.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               With free parking on site and just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5,
               it&apos;s easy to get to and easy to leave when the little ones have had enough.
               No rush, no fuss, just a relaxed Easter Sunday with the people who matter.
             </p>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Booking CTA */}
-      <Section background="white" spacing="lg">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Easter table</h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Easter Sunday roast is on <span className="font-semibold">{EASTER_SUNDAY_LABEL}</span>. Serving{' '}
-              <span className="font-semibold">{EASTER_SUNDAY_SERVICE_WINDOW}</span> (last booking{' '}
-              <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>).
-              Walk in or book ahead, deposits only apply to groups of 10 or more.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <BookTableButton
-                source="easter_cta"
-                context="easter_sunday"
-                variant="primary"
-                size="lg"
-                fullWidth
-                className="w-full sm:w-auto sm:min-w-[240px]"
-                trackingLabel="Book Easter Sunday Roast"
-                eventName="Easter Sunday Roast"
-                customHref={EASTER_BOOKING_URL}
-              >
-                Book Easter Sunday Roast
-              </BookTableButton>
-              <PhoneButton
-                phone={CONTACT.phone}
-                source="easter_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Call {CONTACT.phone}
-              </PhoneButton>
-            </div>
-            <p className="text-sm text-anchor-cream-text/70">
-              Or browse{' '}
-              <Link href="/sunday-roast" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
-                our Sunday roast menu
-              </Link>{' '}
-              for the full lineup.
-            </p>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Book your Easter table"
+        copy={`Easter Sunday roast is on ${EASTER_SUNDAY_LABEL}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW} (last booking ${EASTER_SUNDAY_LAST_BOOKING}). Walk in or book ahead, deposits only apply to groups of 10 or more.`}
+        primary={
+          <BookTableButton
+            source="easter_cta"
+            context="easter_sunday"
+            variant="primary"
+            size="lg"
+            trackingLabel="Book Easter Sunday Roast"
+            eventName="Easter Sunday Roast"
+            customHref={EASTER_BOOKING_URL}
+          >
+            Book Easter Sunday Roast
+          </BookTableButton>
+        }
+        secondary={
+          <PhoneButton
+            phone={CONTACT.phone}
+            source="easter_cta"
+            variant="outline"
+            size="lg"
+          >
+            Call {CONTACT.phone}
+          </PhoneButton>
+        }
+      />
 
       {/* Where we are */}
-      <Section background="gray" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-start">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
-              <p className="text-anchor-cream-text/70 leading-relaxed">
+              <h2 className="text-h3 text-ink-strong">Where we are</h2>
+              <p className="text-ink-muted leading-relaxed">
                 The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy to reach from{' '}
-                <Link href="/staines-pub" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
+                <Link href="/staines-pub" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                   Staines-upon-Thames
                 </Link>
                 , with free parking on site.
               </p>
-              <p className="text-anchor-cream-text/70">
-                Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
+              <p className="text-ink-muted">
+                Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -327,7 +313,7 @@ export default function EasterPage() {
             <GoogleMapEmbed query={mapQuery} height={360} />
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema title="Easter FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 

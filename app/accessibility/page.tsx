@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { Button, Container, Section, SectionHeading } from '@/components/ui'
+import { Button, Card, CardBody, Container, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -28,23 +29,23 @@ export default function AccessibilityPage() {
       />
 
       {/* Intro */}
-      <Section background="white" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-lg text-ink-muted leading-relaxed">
               We want everyone to enjoy visiting The Anchor. This page gives you honest, practical
               information about our facilities so you can plan your visit with confidence. If you
               have questions not covered here, call us, we&apos;re happy to help.
             </p>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* What's Step-Free */}
-      <Section background="white" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="What's step-free" />
+            <SectionHeading title="What's step-free" align="left" />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 { area: 'Bar area', icon: '' },
@@ -52,48 +53,50 @@ export default function AccessibilityPage() {
                 { area: 'Beer garden', icon: '', note: 'There are steps from the bar to the garden, but a ramp is available on request' },
                 { area: 'Car park', icon: '', note: 'Level surface, close to the entrance' },
               ].map(({ area, icon, note }) => (
-                <div
-                  key={area}
-                  className="flex items-start gap-4 rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card p-5"
-                >
+                <Card key={area}>
+                  <CardBody className="flex items-start gap-4 p-5">
                   <span className="text-2xl" aria-hidden="true">{icon}</span>
                   <div>
-                    <p className="font-semibold text-anchor-gold-bright">{area}</p>
-                    {area !== 'Beer garden' && <p className="text-sm text-anchor-gold-bright font-medium">Step-free</p>}
-                    {note && <p className="text-sm text-anchor-cream-text/55 mt-1">{note}</p>}
+                    <p className="font-semibold text-ink-strong">{area}</p>
+                    {area !== 'Beer garden' && <p className="text-sm text-accent-text font-medium">Step-free</p>}
+                    {note && <p className="text-sm text-ink-muted mt-1">{note}</p>}
                   </div>
-                </div>
+                  </CardBody>
+                </Card>
               ))}
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Accessible Toilet */}
-      <Section background="white" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Accessible toilet" />
-            <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <p className="text-anchor-cream-text/70 leading-relaxed">
+            <SectionHeading title="Accessible toilet" align="left" />
+            <Card>
+              <CardBody>
+              <p className="text-ink-muted leading-relaxed">
                 We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to
                 check what will work best for you, give us a call on{' '}
-                <PhoneLink phone={CONTACT.phone} source="accessibility_toilet" className="font-semibold text-anchor-gold-dark hover:underline" showIcon={false} />{' '}
+                <PhoneLink phone={CONTACT.phone} source="accessibility_toilet" className="font-semibold text-accent-text hover:underline" showIcon={false} />{' '}
                 and we&apos;ll help you plan your visit.
               </p>
-            </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Getting Here */}
-      <Section background="white" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Getting here" />
+            <SectionHeading title="Getting here" align="left" />
             <div className="space-y-4">
-              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-card p-6">
-                <ul className="space-y-3 text-anchor-cream-text/70">
+              <Card>
+                <CardBody>
+                <ul className="space-y-3 text-ink-muted">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
                     <span>Free on-site parking for approximately 20 cars, level surface</span>
@@ -111,18 +114,19 @@ export default function AccessibilityPage() {
                     <span>7 minutes from Heathrow Terminal 5 / 11 minutes from Terminals 2 &amp; 3</span>
                   </li>
                 </ul>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Call Ahead */}
-      <Section background="white" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Call ahead" />
-            <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
+            <SectionHeading title="Call ahead" align="left" />
+            <p className="text-ink-muted leading-relaxed mb-6">
               If you&apos;d like to talk through your visit before you come, what to expect, where
               to park, what might work best for you, give us a call. We&apos;re happy to have
               that conversation.
@@ -134,12 +138,11 @@ export default function AccessibilityPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* FAQ */}
       <FAQAccordionWithSchema
         title="Accessibility FAQ"
-        className="bg-anchor-green-deep"
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
@@ -169,37 +172,18 @@ export default function AccessibilityPage() {
       />
 
       {/* Internal Links / CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Plan Your Visit
-            </h2>
-            <p className="text-lg text-white/90 mb-8">
-              We&apos;re 7 minutes from Heathrow with free parking, step-free access and a warm
-              welcome waiting for you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="accessibility_cta"
-                size="lg"
-                variant="outline"
-                className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised"
-              />
-              <Link href="/near-heathrow">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
-                  Near Heathrow Info
-                </Button>
-              </Link>
-              <Link href="/beer-garden">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">
-                  Beer Garden
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <CtaBand
+        title="Plan Your Visit"
+        copy="We're 7 minutes from Heathrow with free parking, step-free access and a warm welcome waiting for you."
+      >
+        <BookTableButton source="accessibility_cta" size="lg" variant="primary" />
+        <Button asChild size="lg" variant="outline">
+          <Link href="/near-heathrow">Near Heathrow Info</Link>
+        </Button>
+        <Button asChild size="lg" variant="outline">
+          <Link href="/beer-garden">Beer Garden</Link>
+        </Button>
+      </CtaBand>
     </>
   )
 }

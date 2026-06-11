@@ -18,15 +18,15 @@ type LinkCard = {
 
 export function QuickFactsBox({ facts, title = 'Quick facts' }: { facts: Fact[]; title?: string }) {
   return (
-    <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-5 sm:p-6">
-      <h2 className="text-2xl font-bold text-anchor-gold-bright">{title}</h2>
+    <div className="rounded-md border border-line bg-surface p-5 sm:p-6 shadow-sm">
+      <h2 className="text-2xl text-ink-strong">{title}</h2>
       <dl className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {facts.map((fact) => (
-          <div key={fact.label} className="rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-3">
-            <dt className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">
+          <div key={fact.label} className="rounded-md border border-line bg-surface-sunk px-4 py-3">
+            <dt className="text-xs font-semibold uppercase tracking-wide text-accent-text">
               {fact.label}
             </dt>
-            <dd className="mt-1 text-sm leading-relaxed text-anchor-cream-text/80">
+            <dd className="mt-1 text-sm leading-relaxed text-ink-muted">
               {fact.value}
             </dd>
           </div>
@@ -38,9 +38,9 @@ export function QuickFactsBox({ facts, title = 'Quick facts' }: { facts: Fact[];
 
 export function PayNotice() {
   return (
-    <div className="rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-card p-5">
-      <p className="text-lg font-semibold text-anchor-cream-text">Pay: £12.71 per hour base rate</p>
-      <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">
+    <div className="rounded-md border border-line bg-surface p-5 shadow-sm">
+      <p className="text-lg font-semibold text-ink-strong">Pay: £12.71 per hour base rate</p>
+      <p className="mt-2 text-sm leading-relaxed text-ink-muted">
         Holiday pay is handled in line with current UK holiday pay rules and will be clearly shown in your
         contract and payslip.
       </p>
@@ -55,15 +55,15 @@ export function RoleCards({ roles }: { roles: LinkCard[] }) {
         <Link
           key={role.href}
           href={role.href}
-          className="group block h-full rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-6 transition hover:-translate-y-1 hover:border-anchor-gold-dark/50 hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)]"
+          className="group block h-full rounded-md border border-line border-t-[3px] border-t-anchor-gold bg-surface p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
         >
           <div className="flex h-full flex-col">
-            <h3 className="text-2xl font-bold text-anchor-cream-text group-hover:text-anchor-gold-bright">
+            <h3 className="text-2xl text-ink-strong group-hover:text-accent-text">
               {role.title}
             </h3>
-            <p className="mt-4 text-anchor-cream-text/75">{role.description}</p>
-            <p className="mt-4 text-anchor-cream-text/75">{role.outcome}</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-anchor-gold-bright">
+            <p className="mt-4 text-ink-muted">{role.description}</p>
+            <p className="mt-4 text-ink-muted">{role.outcome}</p>
+            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-accent-text">
               {role.cta}
               <Icon name="arrowRight" className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
             </span>
@@ -87,13 +87,13 @@ export function BulletListSection({
 }) {
   return (
     <div className={className}>
-      <h2 className="text-3xl font-bold text-anchor-gold-bright">{title}</h2>
-      {intro ? <p className="mt-4 max-w-3xl text-anchor-cream-text/75">{intro}</p> : null}
+      <h2 className="text-3xl text-ink-strong">{title}</h2>
+      {intro ? <p className="mt-4 max-w-3xl text-ink-muted">{intro}</p> : null}
       <ul className="mt-6 grid gap-3 md:grid-cols-2">
         {items.map((item) => (
-          <li key={item} className="flex gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-card p-4">
-            <Icon name="check" className="mt-0.5 h-5 w-5 flex-none text-anchor-gold-bright" aria-hidden="true" />
-            <span className="text-anchor-cream-text/80">{item}</span>
+          <li key={item} className="flex gap-3 rounded-md border border-line bg-surface p-4 shadow-sm">
+            <Icon name="check" className="mt-0.5 h-5 w-5 flex-none text-accent-text" aria-hidden="true" />
+            <span className="text-ink">{item}</span>
           </li>
         ))}
       </ul>
@@ -120,8 +120,8 @@ export function RoleQuickFacts({ role }: { role?: RecruitmentRoleValue }) {
 
 export function StandardsPledge() {
   return (
-    <div className="rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-raised p-6">
-      <p className="text-lg leading-relaxed text-anchor-cream-text/85">
+    <div className="rounded-md border border-line bg-surface-sunk p-6">
+      <p className="text-lg leading-relaxed text-ink">
         We are proud of the standards we set, whether guests are joining us for a quiet drink, a Sunday
         roast, a busy event night or a private celebration. Every member of the team plays a part in making
         that experience feel warm, well-run and worth coming back for.
@@ -134,12 +134,12 @@ export function LocationTransportSection() {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
       <div>
-        <h2 className="text-3xl font-bold text-anchor-gold-bright">Location and transport</h2>
-        <p className="mt-4 text-anchor-cream-text/75">
+        <h2 className="text-3xl text-ink-strong">Location and transport</h2>
+        <p className="mt-4 text-ink-muted">
           The Anchor is in Stanwell Moor Village, close to Heathrow Terminal 5.
         </p>
-        <address className="mt-5 not-italic text-anchor-cream-text/85">
-          <strong className="text-anchor-cream-text">The Anchor</strong>
+        <address className="mt-5 not-italic text-ink">
+          <strong className="text-ink-strong">The Anchor</strong>
           <br />
           Horton Road
           <br />
@@ -147,10 +147,10 @@ export function LocationTransportSection() {
           <br />
           TW19 6AQ
         </address>
-        <p className="mt-5 text-anchor-cream-text/75">
+        <p className="mt-5 text-ink-muted">
           There is free on-site parking for staff.
         </p>
-        <p className="mt-3 text-anchor-cream-text/75">
+        <p className="mt-3 text-ink-muted">
           Before applying, please make sure you can reliably get to and from the pub for evening and weekend
           shifts, including later finishes when public transport may be limited.
         </p>
@@ -169,7 +169,7 @@ export function LocationTransportSection() {
           </Button>
         </div>
       </div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-anchor-gold-dark/20">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line">
         <Image
           src="/images/page-headers/private-hire/private-hire.jpg"
           alt="Private hire space at The Anchor in Stanwell Moor"
@@ -201,7 +201,7 @@ export function RecruitmentImageStrip() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {images.map((image) => (
-        <div key={image.src} className="relative aspect-[4/3] overflow-hidden rounded-lg border border-anchor-gold-dark/20">
+        <div key={image.src} className="relative aspect-[4/3] overflow-hidden rounded-md border border-line">
           <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
         </div>
       ))}

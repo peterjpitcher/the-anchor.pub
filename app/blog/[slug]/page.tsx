@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getAllBlogPosts, getIndexableBlogPosts, distributeImages } from '@/lib/markdown'
-import { Badge, Button, Section } from '@/components/ui'
+import { Badge, Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { BlogShareButtons } from '@/components/BlogShareButtons'
@@ -360,109 +360,119 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       />
 
       {/* Breadcrumb */}
-      <Section background="gray" spacing="xs" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <nav className="flex flex-wrap items-center gap-2 text-sm text-anchor-cream-text/55">
-          <Link href="/" className="hover:text-anchor-gold-dark">Home</Link>
-          <span>/</span>
-          <Link href="/blog" className="hover:text-anchor-gold-dark">Blog</Link>
-          <span>/</span>
-          <span className="text-anchor-cream-text font-semibold">{post.title}</span>
-        </nav>
-      </Section>
+      <section className="py-3 bg-surface-sunk border-b border-line">
+        <Container>
+          <nav className="flex flex-wrap items-center gap-2 text-sm text-ink-muted">
+            <Link href="/" className="hover:text-accent-text">Home</Link>
+            <span>/</span>
+            <Link href="/blog" className="hover:text-accent-text">Blog</Link>
+            <span>/</span>
+            <span className="text-ink-strong font-semibold">{post.title}</span>
+          </nav>
+        </Container>
+      </section>
 
       {/* Content */}
-      <Section as="article" spacing="lg" container containerSize="md" className="bg-anchor-green-deep">
-        <div className="prose prose-lg lg:prose-xl max-w-none
-                prose-headings:font-display prose-headings:text-anchor-gold-bright
-                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
+      <article className="py-section-y bg-canvas">
+        <Container size="md">
+          <div className="prose prose-lg lg:prose-xl max-w-[70ch] mx-auto
+                prose-headings:font-display prose-headings:font-normal prose-headings:text-ink-strong
+                prose-h2:text-h3 prose-h2:mt-12 prose-h2:mb-6
+                prose-h3:text-h4 prose-h3:mt-10 prose-h3:mb-4
                 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3
-                prose-p:text-anchor-cream-text/70 prose-p:leading-relaxed prose-p:mb-6
-                prose-a:text-anchor-gold-dark prose-a:font-semibold prose-a:no-underline
-                hover:prose-a:underline prose-a:transition-colours hover:prose-a:text-anchor-gold
-                prose-strong:text-anchor-cream-text prose-strong:font-bold
+                prose-p:text-ink prose-p:leading-relaxed prose-p:mb-6
+                prose-a:text-accent-text prose-a:font-semibold prose-a:no-underline
+                hover:prose-a:underline prose-a:transition-colors hover:prose-a:text-link-hover
+                prose-strong:text-ink-strong prose-strong:font-semibold
                 prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
                 prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
-                prose-li:text-anchor-cream-text/70 prose-li:mb-2
-                prose-img:rounded-none prose-img:shadow-sm prose-img:ring-1 prose-img:ring-anchor-gold-dark/15
+                prose-li:text-ink prose-li:mb-2
+                prose-img:rounded-md prose-img:shadow-sm prose-img:ring-1 prose-img:ring-line
                 prose-img:my-8 prose-img:w-full prose-img:max-w-full prose-img:mx-auto
                 sm:prose-img:max-w-xl lg:prose-img:max-w-[420px] xl:prose-img:max-w-[460px]
                 prose-figure:my-8 prose-figure:mx-auto prose-figure:max-w-full
                 sm:prose-figure:max-w-xl lg:prose-figure:max-w-[420px] xl:prose-figure:max-w-[460px]
-                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold-dark prose-blockquote:pl-6
-                prose-blockquote:italic prose-blockquote:text-anchor-cream-text/55 prose-blockquote:my-8
-                prose-code:bg-anchor-green-raised prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-anchor-green-card prose-pre:text-anchor-cream-text
-                prose-table:my-8 prose-th:bg-anchor-green-card prose-th:text-anchor-gold-bright
+                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold prose-blockquote:pl-6
+                prose-blockquote:italic prose-blockquote:text-ink-muted prose-blockquote:my-8
+                prose-code:bg-surface-sunk prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                prose-pre:bg-surface-sunk prose-pre:text-ink
+                prose-table:my-8 prose-th:bg-surface-sunk prose-th:text-ink-strong
                 prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-anchor-gold-dark/15 prose-td:px-6 prose-td:py-3 prose-td:text-anchor-cream-text
-                prose-hr:border-anchor-gold-dark/15 prose-hr:my-12">
-          <div dangerouslySetInnerHTML={{ __html: contentWithImages }} />
-        </div>
-      </Section>
+                prose-td:border prose-td:border-line prose-td:px-6 prose-td:py-3 prose-td:text-ink
+                prose-hr:border-line prose-hr:my-12">
+            <div dangerouslySetInnerHTML={{ __html: contentWithImages }} />
+          </div>
+        </Container>
+      </article>
 
       {/* Heathrow / Plane-Spotting Booking CTA, only shown for relevant posts */}
       {showHeathrowCta && (
-        <Section spacing="md" container containerSize="md" className="bg-anchor-green-card border-y border-anchor-gold-dark/20">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <div className="flex-1">
-              <h2 className="text-xl font-bold text-anchor-gold-bright mb-2">
-                Visiting Heathrow? The Anchor is 5 minutes away
-              </h2>
-              <p className="text-anchor-cream-text/70">
-                Book a table for lunch in our beer garden, great food, cold drinks, and a proper base for a day of spotting.
-              </p>
-              {organicSearchCluster === 'planeSpotting' ? (
-                <PlaneSpottingScheduleNote variant="compact" className="mt-3" />
-              ) : null}
+        <section className="py-section-y bg-surface border-y border-line">
+          <Container size="md">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <div className="flex-1">
+                <h2 className="font-display text-h4 text-ink-strong mb-2">
+                  Visiting Heathrow? The Anchor is 5 minutes away
+                </h2>
+                <p className="text-ink-muted">
+                  Book a table for lunch in our beer garden, great food, cold drinks, and a proper base for a day of spotting.
+                </p>
+                {organicSearchCluster === 'planeSpotting' ? (
+                  <PlaneSpottingScheduleNote variant="compact" className="mt-3" />
+                ) : null}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                <BookTableButton source="blog_heathrow_cta" context="heathrow_visitor" size="md">
+                  Book a Table
+                </BookTableButton>
+                <Link href="/food-menu">
+                  <Button variant="outline" size="md">
+                    View Food Menu
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <BookTableButton source="blog_heathrow_cta" context="heathrow_visitor" size="md">
-                Book a Table
-              </BookTableButton>
-              <Link href="/food-menu">
-                <Button variant="outline" size="md">
-                  View Food Menu
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Section>
+          </Container>
+        </section>
       )}
 
       {/* Share Section */}
-      <Section background="gray" spacing="sm" container containerSize="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <div className="text-center">
-          <p className="text-anchor-cream-text/70 mb-4">Enjoyed this article? Share it with your friends!</p>
-          <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
-        </div>
-      </Section>
+      <section className="py-section-y bg-surface-sunk border-b border-line">
+        <Container size="md">
+          <div className="text-center">
+            <p className="text-ink-muted mb-4">Enjoyed this article? Share it with your friends!</p>
+            <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
+          </div>
+        </Container>
+      </section>
 
       {/* Navigation */}
-      <Section spacing="md" container containerSize="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="grid md:grid-cols-2 gap-6">
-          {prevPost && (
-            <Link href={`/blog/${prevPost.slug}`} className="group">
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 hover:border-anchor-gold-dark/40 transition-shadow">
-                <p className="text-sm text-anchor-cream-text/55 mb-2">← Previous Post</p>
-                <h3 className="text-lg font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark transition-colours">
-                  {prevPost.title}
-                </h3>
-              </div>
-            </Link>
-          )}
-          {nextPost && (
-            <Link href={`/blog/${nextPost.slug}`} className="group md:text-right">
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 hover:border-anchor-gold-dark/40 transition-shadow">
-                <p className="text-sm text-anchor-cream-text/55 mb-2">Next Post →</p>
-                <h3 className="text-lg font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark transition-colours">
-                  {nextPost.title}
-                </h3>
-              </div>
-            </Link>
-          )}
-        </div>
-      </Section>
+      <section className="py-section-y bg-canvas border-b border-line">
+        <Container>
+          <div className="grid md:grid-cols-2 gap-6">
+            {prevPost && (
+              <Link href={`/blog/${prevPost.slug}`} className="group">
+                <Card hover className="h-full p-6">
+                  <p className="text-sm text-ink-muted mb-2">← Previous Post</p>
+                  <h3 className="font-display text-h4 text-ink-strong group-hover:text-accent-text transition-colors">
+                    {prevPost.title}
+                  </h3>
+                </Card>
+              </Link>
+            )}
+            {nextPost && (
+              <Link href={`/blog/${nextPost.slug}`} className="group md:text-right">
+                <Card hover className="h-full p-6">
+                  <p className="text-sm text-ink-muted mb-2">Next Post →</p>
+                  <h3 className="font-display text-h4 text-ink-strong group-hover:text-accent-text transition-colors">
+                    {nextPost.title}
+                  </h3>
+                </Card>
+              </Link>
+            )}
+          </div>
+        </Container>
+      </section>
 
       {/* Internal Linking for Better SEO */}
       {organicSearchCluster && (
@@ -473,57 +483,58 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           intro="Use these related pages to move from research to booking, directions, menu choices or parking."
         />
       )}
-      <InternalLinkingSection 
+      <InternalLinkingSection
         links={commonLinkGroups.events}
-        className="section-spacing-md"
+        className="py-section-y"
       />
 
       {/* CTA Section */}
-      <Section background="dark" spacing="md" container containerSize="md" className="text-center">
-        <h2 className="text-3xl font-bold mb-8">
-          Visit The Anchor Today
-        </h2>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          {showHeathrowCta ? (
-            <>
-              <BookTableButton
-                source="blog_footer_cta"
-                context="heathrow_visitor"
-                size="lg"
-                className="!bg-anchor-gold-dark !text-anchor-dark hover:!bg-anchor-gold"
-              >
-                Book a Table
-              </BookTableButton>
-              <Link href="/food-menu">
-                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-                  View Food Menu
-                </Button>
-              </Link>
-              <Link href="/find-us">
-                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-                  Get Directions
-                </Button>
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link href="/find-us">
-                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-                  Get Directions
-                </Button>
-              </Link>
-              <Link href="/blog">
-                <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-                  More Stories
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
-      </Section>
+      <section className="theme-dark bg-anchor-green py-section-y">
+        <Container size="md" className="text-center text-anchor-cream-text">
+          <h2 className="text-h2 text-anchor-cream-text mb-8">
+            Visit The Anchor Today
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+            Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {showHeathrowCta ? (
+              <>
+                <BookTableButton
+                  source="blog_footer_cta"
+                  context="heathrow_visitor"
+                  size="lg"
+                >
+                  Book a Table
+                </BookTableButton>
+                <Link href="/food-menu">
+                  <Button variant="outline" size="lg">
+                    View Food Menu
+                  </Button>
+                </Link>
+                <Link href="/find-us">
+                  <Button variant="outline" size="lg">
+                    Get Directions
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/find-us">
+                  <Button variant="outline" size="lg">
+                    Get Directions
+                  </Button>
+                </Link>
+                <Link href="/blog">
+                  <Button variant="outline" size="lg">
+                    More Stories
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
+        </Container>
+      </section>
     </>
   )
 }

@@ -12,8 +12,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { CTASection } from '@/components/CTASection'
 import {
   Badge,
+  Button,
   Container,
-  Section,
   SectionHeading,
 } from '@/components/ui'
 
@@ -130,7 +130,7 @@ export default function HistoryPage(): React.JSX.Element {
       />
 
       {/* Intro */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -138,7 +138,7 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="Nearly three centuries of pouring pints and welcoming strangers"
             />
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 The Anchor is more than a pub near Heathrow. It is one of Stanwell
                 Moor&apos;s oldest landmarks, a village local with roots reaching back
@@ -164,10 +164,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Auctions, Blacksmiths and Working Village Life */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -175,7 +175,7 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="Long before anyone dreamed of building an airport next door"
             />
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 Long before the sound of aircraft overhead, Stanwell Moor was a working
                 village of farms, mills, cottages, horses and carts. The Anchor stood at
@@ -197,10 +197,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* The Publicans of The Anchor */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -209,7 +209,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-2xl mx-auto mb-10">
-              <div className="relative w-full overflow-hidden border border-anchor-gold-dark/20">
+              <div className="relative w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/the-anchor-c1910.png"
                   alt="The Anchor, Stanwell Moor, around 1910 — the brick pub with Isleworth Brewery 'Ales and Stout' signage and a group of villagers gathered outside the entrance"
@@ -219,12 +219,12 @@ export default function HistoryPage(): React.JSX.Element {
                   sizes="(max-width: 768px) 100vw, 672px"
                 />
               </div>
-              <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+              <p className="text-sm text-ink-muted mt-3 text-center">
                 The Anchor around 1910, in its Isleworth Brewery days
               </p>
             </div>
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 Victorian records bring some of The Anchor&apos;s early publicans into
                 view. <strong>J Lintill</strong> is recorded at the pub in{' '}
@@ -255,7 +255,7 @@ export default function HistoryPage(): React.JSX.Element {
 
             {/* Timeline */}
             <div className="mt-12 max-w-3xl mx-auto">
-              <h3 className="text-xl font-bold text-anchor-cream-text mb-8 text-center">
+              <h3 className="text-xl text-ink-strong mb-8 text-center">
                 Known Publicans and Key Dates
               </h3>
               <div className="space-y-4">
@@ -282,10 +282,10 @@ export default function HistoryPage(): React.JSX.Element {
                   { year: '2019–', event: 'Billy and Peter take over The Anchor' },
                 ].map((item) => (
                   <div key={item.year} className="flex gap-4 items-baseline">
-                    <span className="text-anchor-gold-bright font-bold text-sm whitespace-nowrap min-w-[100px] text-right">
+                    <span className="text-accent-text font-bold text-sm whitespace-nowrap min-w-[100px] text-right">
                       {item.year}
                     </span>
-                    <span className="text-anchor-cream-text/80">
+                    <span className="text-ink">
                       {item.event}
                     </span>
                   </div>
@@ -294,10 +294,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Sarah Cooper and Family Memory */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -305,7 +305,7 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="A family address, a wartime loss and memories passed down"
             />
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 <strong>Sarah Cooper</strong>, nee Austin, is one of the most important
                 names in The Anchor&apos;s story. She is recorded as landlady from at least{' '}
@@ -355,10 +355,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* The Eeles Family */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -367,7 +367,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="md:flex md:gap-10 md:items-start">
-              <div className="md:flex-1 space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+              <div className="md:flex-1 space-y-6 text-lg text-ink leading-relaxed">
                 <p>
                   The Eeles family is another important part of The Anchor&apos;s story. A{' '}
                   <strong>1922</strong> London Gazette notice places{' '}
@@ -399,7 +399,7 @@ export default function HistoryPage(): React.JSX.Element {
                   wider family after Sarah&apos;s time as landlady.
                 </p>
 
-                <p className="text-anchor-cream-text/60 italic">
+                <p className="text-ink-muted italic">
                   We are still gathering dates and memories from the Eeles period. If you
                   have photographs, stories or family connections, we would love to hear
                   from you.
@@ -407,7 +407,7 @@ export default function HistoryPage(): React.JSX.Element {
               </div>
 
               <div className="mt-8 md:mt-0 md:w-[420px] flex-shrink-0">
-                <div className="relative aspect-[4/3] w-full overflow-hidden border border-anchor-gold-dark/20">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-line">
                   <Image
                     src="/images/history/lal-and-charlie-eeles.jpg"
                     alt="Lal and Charlie Eeles behind the bar at The Anchor, Stanwell Moor, with Watney's Special Mild, Carlsberg and Ben Truman visible on the pumps"
@@ -416,17 +416,17 @@ export default function HistoryPage(): React.JSX.Element {
                     sizes="(max-width: 768px) 100vw, 420px"
                   />
                 </div>
-                <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+                <p className="text-sm text-ink-muted mt-3 text-center">
                   Lal and Charlie Eeles behind the bar at The Anchor
                 </p>
               </div>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Lal's Prayer */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeading
@@ -435,7 +435,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-xl mx-auto">
-              <div className="relative w-full overflow-hidden border border-anchor-gold-dark/20">
+              <div className="relative w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/lals-prayer-handwritten.png"
                   alt="The original handwritten manuscript of Lal's Prayer by Lal Eeles, landlady of The Anchor"
@@ -445,16 +445,16 @@ export default function HistoryPage(): React.JSX.Element {
                   sizes="(max-width: 768px) 100vw, 576px"
                 />
               </div>
-              <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+              <p className="text-sm text-ink-muted mt-3 text-center">
                 The original handwritten manuscript
               </p>
             </div>
 
             <details className="mt-8 max-w-xl mx-auto">
-              <summary className="text-sm text-anchor-cream-text/60 cursor-pointer hover:text-anchor-cream-text/80 transition-colors text-center list-none">
+              <summary className="text-sm text-ink-muted cursor-pointer hover:text-ink transition-colors text-center list-none">
                 <span className="underline underline-offset-4">Read transcript</span>
               </summary>
-              <div className="mt-6 space-y-5 text-anchor-cream-text/70 leading-relaxed italic text-center text-sm">
+              <div className="mt-6 space-y-5 text-ink-muted leading-relaxed italic text-center text-sm">
                 <div className="space-y-0.5">
                   <p>Oh Lord! Your help I beg of thee</p>
                   <p>To treat my flock as family</p>
@@ -495,10 +495,10 @@ export default function HistoryPage(): React.JSX.Element {
             </details>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* The Anchor in the 1950s and Changing Village */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -506,7 +506,7 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="From a horse-powered moor to the world's busiest flight path"
             />
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 By the 1950s, The Anchor was still very much part of village life.
                 A Francis Frith photograph from around <strong>1955</strong> shows the pub
@@ -531,10 +531,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* The Anchor Today */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -543,7 +543,7 @@ export default function HistoryPage(): React.JSX.Element {
             />
 
             <div className="max-w-xs mx-auto mb-10">
-              <div className="relative aspect-square w-full overflow-hidden border border-anchor-gold-dark/20">
+              <div className="relative aspect-square w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/handover-day-2019.jpg"
                   alt="Handover day at The Anchor, 5 March 2019 — Martine and Ronnie's last drink and Billy and Peter's first"
@@ -552,25 +552,25 @@ export default function HistoryPage(): React.JSX.Element {
                   sizes="(max-width: 768px) 100vw, 320px"
                 />
               </div>
-              <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+              <p className="text-sm text-ink-muted mt-3 text-center">
                 Handover day, 5 March 2019 — Martine and Ronnie&apos;s last drink
                 and Billy and Peter&apos;s first
               </p>
             </div>
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 Today, The Anchor has a new identity as a traditional village pub beside
                 Heathrow. It is just{' '}
-                <Link href="/near-heathrow/terminal-5" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/near-heathrow/terminal-5" className="text-accent-text hover:text-accent underline underline-offset-4">
                   seven minutes from Terminal 5
                 </Link>
                 , with a{' '}
-                <Link href="/beer-garden" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/beer-garden" className="text-accent-text hover:text-accent underline underline-offset-4">
                   beer garden under the flight path
                 </Link>
                 ,{' '}
-                <Link href="/find-us" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/find-us" className="text-accent-text hover:text-accent underline underline-offset-4">
                   free parking
                 </Link>
                 {' '}and a warm welcome for locals, travellers, families, dogs and plane
@@ -593,23 +593,23 @@ export default function HistoryPage(): React.JSX.Element {
 
               <p>
                 We have our{' '}
-                <Link href="/quiz-night" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/quiz-night" className="text-accent-text hover:text-accent underline underline-offset-4">
                   quiz nights
                 </Link>
                 ,{' '}
-                <Link href="/music-bingo" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/music-bingo" className="text-accent-text hover:text-accent underline underline-offset-4">
                   music bingo
                 </Link>
                 {' '}and{' '}
-                <Link href="/karaoke" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/karaoke" className="text-accent-text hover:text-accent underline underline-offset-4">
                   karaoke
                 </Link>
                 . The kids play in the garden while the dogs snooze under the tables. The{' '}
-                <Link href="/food-menu" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/food-menu" className="text-accent-text hover:text-accent underline underline-offset-4">
                   kitchen turns out honest British food
                 </Link>
                 , and on Sundays we serve{' '}
-                <Link href="/sunday-roast" className="text-anchor-gold-bright hover:text-anchor-gold-dark underline underline-offset-4">
+                <Link href="/sunday-roast" className="text-accent-text hover:text-accent underline underline-offset-4">
                   proper roasts with all the trimmings
                 </Link>
                 . That&apos;s what we&apos;ve been doing since George II was on the
@@ -618,10 +618,10 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Share Your Memories */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <SectionHeading
@@ -629,7 +629,7 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="Help us tell the full story"
             />
 
-            <p className="text-lg text-anchor-cream-text/80 leading-relaxed mb-8">
+            <p className="text-lg text-ink leading-relaxed mb-8">
               We know there are gaps in this story, particularly around the Eeles years
               and the mid-twentieth century. If you have photographs, dates, family
               connections or memories of The Anchor, we would love to hear from you.
@@ -645,20 +645,18 @@ export default function HistoryPage(): React.JSX.Element {
               >
                 Call Us
               </PhoneButton>
-              <a
-                href={`mailto:${CONTACT.email}?subject=Memories%20of%20The%20Anchor`}
-                className="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold border border-anchor-gold-dark/30 text-anchor-cream-text hover:bg-anchor-gold-dark/10 transition-colors"
-              >
-                Email Your Stories
-              </a>
+              <Button asChild variant="outline" size="lg">
+                <a href={`mailto:${CONTACT.email}?subject=Memories%20of%20The%20Anchor`}>
+                  Email Your Stories
+                </a>
+              </Button>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-raised"
         title="History of The Anchor: Questions & Answers"
         faqs={[
           {

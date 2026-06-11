@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getIndexableBlogPosts } from '@/lib/markdown'
-import { Button, Section } from '@/components/ui'
+import { Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
@@ -59,56 +59,58 @@ export default async function AllTagsPage() {
       />
 
       {/* Tags Grid */}
-      <Section spacing="lg" container containerSize="lg" className="bg-anchor-green-deep">
-        <h2 className="text-2xl font-bold text-anchor-gold-bright mb-6">
-          Browse by Topic
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {sortedTags.map(([tag, count]) => {
-            const seoContent = getTagSEOContent(tag)
+      <section className="py-section-y bg-canvas">
+        <Container>
+          <h2 className="text-h3 text-ink-strong mb-6">
+            Browse by Topic
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {sortedTags.map(([tag, count]) => {
+              const seoContent = getTagSEOContent(tag)
 
-            return (
-              <Link
-                key={tag}
-                href={`/blog/tag/${tag}`}
-                className="group bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-4 hover:border-anchor-gold-dark/40 transition-all"
-              >
-                <h3 className="font-semibold text-anchor-gold-bright group-hover:text-anchor-gold-dark transition-colours mb-1">
-                  {seoContent.name}
-                </h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-2 line-clamp-2">
-                  {seoContent.description}
-                </p>
-                <span className="text-sm sm:text-xs bg-anchor-green-deep px-2 py-1 rounded-full text-anchor-cream-text/55">
-                  {count} {count === 1 ? 'post' : 'posts'}
-                </span>
-              </Link>
-            )
-          })}
-        </div>
-      </Section>
+              return (
+                <Link key={tag} href={`/blog/tag/${tag}`} className="group">
+                  <Card hover accent className="h-full p-4">
+                    <h3 className="font-display text-h4 text-ink-strong group-hover:text-accent-text transition-colors mb-1">
+                      {seoContent.name}
+                    </h3>
+                    <p className="text-sm text-ink-muted mb-2 line-clamp-2">
+                      {seoContent.description}
+                    </p>
+                    <span className="text-xs bg-surface-sunk px-2 py-1 rounded-full text-ink-muted">
+                      {count} {count === 1 ? 'post' : 'posts'}
+                    </span>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </Container>
+      </section>
 
       {/* CTA Section */}
-      <Section background="dark" spacing="md" container containerSize="md" className="text-center">
-        <h2 className="text-3xl font-bold mb-8">
-          Stay Updated
-        </h2>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Don't miss our latest stories, events, and special offers
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/blog">
-            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-              Back to Blog
-            </Button>
-          </Link>
-          <Link href="/whats-on">
-            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-              Upcoming Events
-            </Button>
-          </Link>
-        </div>
-      </Section>
+      <section className="theme-dark bg-anchor-green py-section-y">
+        <Container size="md" className="text-center text-anchor-cream-text">
+          <h2 className="text-h2 text-anchor-cream-text mb-8">
+            Stay Updated
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+            Don&apos;t miss our latest stories, events, and special offers
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/blog">
+              <Button variant="primary" size="lg">
+                Back to Blog
+              </Button>
+            </Link>
+            <Link href="/whats-on">
+              <Button variant="outline" size="lg">
+                Upcoming Events
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
     </>
   )
 }

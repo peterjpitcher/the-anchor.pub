@@ -4,7 +4,8 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
+import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_DRINKS_IMAGE, DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
@@ -77,18 +78,18 @@ export default function StPatricksDayPage(): React.JSX.Element {
       />
 
       {/* The Craic at The Anchor */}
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               The craic at The Anchor
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Every St Patrick&apos;s Day, The Anchor goes green. Guinness flowing, Irish whiskey on the shelf, themed
               cocktails at the bar, and live music and entertainment to set the mood. It&apos;s a proper celebration
               in a proper pub, none of the overpriced, overcrowded city centre nonsense.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               Whether you&apos;re Irish, half-Irish, or just fancy a pint of the black stuff with good company,
               you&apos;re welcome. We&apos;ve been doing this for years, and it always turns into a brilliant night.
             </p>
@@ -100,85 +101,87 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Irish-Themed Menu */}
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Irish-themed menu
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               We put together a special Irish-themed menu for St Patrick&apos;s Day alongside our regular menu.
               Previous years have featured hearty Irish stew, colcannon, soda bread, and other comfort food
               done properly, the kind of dishes that go perfectly with a pint of Guinness.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               If you&apos;re planning to eat, we&apos;d recommend booking a table in advance. Walk-ins are
               always welcome for drinks, but the kitchen gets busy on St Patrick&apos;s Day.
             </p>
-            <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-              <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our regular menus</h3>
-              <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
-                Take a look at our{' '}
-                <Link
-                  href="/food-menu"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  food menu
-                </Link>
-                ,{' '}
-                <Link
-                  href="/pizza-menu"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  pizza menu
-                </Link>{' '}
-                and{' '}
-                <Link
-                  href="/drinks"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  drinks menu
-                </Link>
-                . The St Patrick&apos;s Day specials will be available alongside these on the day.
-              </p>
-            </div>
+            <Card accent className="mt-6">
+              <CardBody>
+                <h3 className="text-lg font-semibold text-ink-strong">Browse our regular menus</h3>
+                <p className="mt-3 text-sm text-ink-muted leading-relaxed">
+                  Take a look at our{' '}
+                  <Link
+                    href="/food-menu"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    food menu
+                  </Link>
+                  ,{' '}
+                  <Link
+                    href="/pizza-menu"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    pizza menu
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    href="/drinks"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    drinks menu
+                  </Link>
+                  . The St Patrick&apos;s Day specials will be available alongside these on the day.
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Atmosphere */}
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               A proper celebration, minus the chaos
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               We deck the place out, put the Irish music on, and create a St Patrick&apos;s Day atmosphere
               that actually feels like a celebration, not a queue. No fighting for space at the bar,
               no surge pricing, and no scrambling for a taxi home.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               We&apos;re dog-friendly too, so the four-legged member of the family is welcome to join in.
               And with 20 free parking spaces on site, you can drive here without worrying about where
               to leave the car.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Free parking</h3>
+                  <p className="text-sm text-ink-muted">
                     20 free spaces on site. No meters, no charges. Designated drivers and taxi-home plans both welcome.
                   </p>
                 </CardBody>
               </Card>
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Dog-friendly</h3>
+                  <p className="text-sm text-ink-muted">
                     Well-behaved dogs are welcome inside the pub. Bring them along for the craic.
                   </p>
                 </CardBody>
@@ -186,80 +189,69 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Heathrow Connection */}
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Just {HEATHROW_TIMES.terminal5} minutes from Heathrow T5
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Staying near Heathrow? Passing through on business? Irish expat flying home and want a proper
               pint before your flight? We&apos;re just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, far
               better than the hotel bar, and with a real St Patrick&apos;s Day atmosphere.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               Airport hotel guests regularly make the short trip over for the evening. It&apos;s an easy taxi
               ride back, or if you&apos;re driving, the free parking makes it simple.
             </p>
             <Link
               href="/near-heathrow/terminal-5"
-              className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
+              className="inline-flex items-center text-sm font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
             >
               More about The Anchor near Heathrow Terminal 5
               <span className="ml-1">&rarr;</span>
             </Link>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Booking CTA */}
-      <Section background="white" spacing="lg">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              Book your St Patrick&apos;s Day table
-            </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              If you&apos;re planning to eat, we&apos;d recommend booking in advance, the kitchen gets busy.
-              Walk-ins are always welcome for drinks. Large groups (8+), give us a call so we can sort the right space.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-                <a href={ST_PATRICKS_DAY_BOOKING_URL}>
-                  Book a Table Online
-                </a>
-              </Button>
-              <PhoneButton
-                phone={CONTACT.phone}
-                source="st_patricks_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Call {CONTACT.phone}
-              </PhoneButton>
-            </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Book your St Patrick's Day table"
+        copy="If you're planning to eat, we'd recommend booking in advance, the kitchen gets busy. Walk-ins are always welcome for drinks. Large groups (8+), give us a call so we can sort the right space."
+        primary={
+          <Button asChild variant="primary" size="lg">
+            <a href={ST_PATRICKS_DAY_BOOKING_URL}>Book a Table Online</a>
+          </Button>
+        }
+        secondary={
+          <PhoneButton
+            phone={CONTACT.phone}
+            source="st_patricks_cta"
+            variant="outline"
+            size="lg"
+          >
+            Call {CONTACT.phone}
+          </PhoneButton>
+        }
+      />
 
       {/* Where we are */}
-      <Section spacing="lg" background="gray">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-6xl space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
-                <p className="text-anchor-cream-text/70 leading-relaxed">
+                <h2 className="text-h3 text-ink-strong">Where we are</h2>
+                <p className="text-ink-muted leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
-                <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
+                <p className="text-ink-muted">
+                  Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -282,7 +274,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema title="St Patrick's Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 

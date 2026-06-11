@@ -1,12 +1,10 @@
-import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { SectionHeading, AlertBox, Container, Card, CardBody, Button } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -41,89 +39,83 @@ export default function SummerGardenPartiesPage() {
               lead="Exclusive areas, BBQ packages, and festival vibes."
             />
 
-            <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
+                        <PageTitle className="text-ink-strong mb-4">
                             The Best Beer Garden Around
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             When the British summer finally arrives, there's no better place to be than The Anchor's garden. With a large grassy area, plenty of picnic benches, and dedicated space for private events, it's the ultimate spot for soaking up the sun.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Summer Party Packages"
-                            subtitle="More than just a few sausages on the grill."
+                            lead="More than just a few sausages on the grill."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
-                                {
-                                    icon: "",
-                                    title: "Chef's BBQ",
-                                    description: "We man the grill so you don't have to. Gourmet burgers, marinated chicken, and fresh salads.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Outdoor Service",
-                                    description: "For large events, we can set up an outdoor bottle bar so drinks are never far away.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                },
-                                {
-                                    icon: "",
-                                    title: "Live Music",
-                                    description: "Subject to license conditions, acoustic music can be the perfect backdrop to your afternoon.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
-                                }
-                            ]}
-                            className="mb-8"
-                        />
+                        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+                            <Card accent hover>
+                                <CardBody>
+                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Chef&apos;s BBQ</h3>
+                                    <p className="text-ink-muted">We man the grill so you don&apos;t have to. Gourmet burgers, marinated chicken, and fresh salads.</p>
+                                </CardBody>
+                            </Card>
+                            <Card accent hover>
+                                <CardBody>
+                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Outdoor Service</h3>
+                                    <p className="text-ink-muted">For large events, we can set up an outdoor bottle bar so drinks are never far away.</p>
+                                </CardBody>
+                            </Card>
+                            <Card accent hover>
+                                <CardBody>
+                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Live Music</h3>
+                                    <p className="text-ink-muted">Subject to license conditions, acoustic music can be the perfect backdrop to your afternoon.</p>
+                                </CardBody>
+                            </Card>
+                        </div>
 
-                        <AlertBox
-                            variant="info"
-                            title="Weather Policy"
-                            className="max-w-2xl mx-auto mt-8"
-                            content="We can't control the British weather! If it rains, we will do our absolute best to move your party indoors or under our covered patio areas."
-                        />
+                        <Card accent className="max-w-2xl mx-auto mt-8">
+                            <CardBody>
+                                <h3 className="text-lg font-semibold text-ink-strong mb-2">Weather Policy</h3>
+                                <p className="text-ink-muted">We can&apos;t control the British weather! If it rains, we will do our absolute best to move your party indoors or under our covered patio areas.</p>
+                            </CardBody>
+                        </Card>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeading title="Perfect for..." />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="p-4 border border-anchor-gold-dark/15 rounded-xl bg-anchor-green-raised">
-                                <span className="text-3xl block mb-2"></span>
-                                <span className="font-bold">Birthdays</span>
-                            </div>
-                            <div className="p-4 border border-anchor-gold-dark/15 rounded-xl bg-anchor-green-raised">
-                                <span className="text-3xl block mb-2"></span>
-                                <span className="font-bold">Team Socials</span>
-                            </div>
-                            <div className="p-4 border border-anchor-gold-dark/15 rounded-xl bg-anchor-green-raised">
-                                <span className="text-3xl block mb-2"></span>
-                                <span className="font-bold">Christenings</span>
-                            </div>
-                            <div className="p-4 border border-anchor-gold-dark/15 rounded-xl bg-anchor-green-raised">
-                                <span className="text-3xl block mb-2"></span>
-                                <span className="font-bold">Receptions</span>
-                            </div>
+                            <Card>
+                                <CardBody className="p-4 text-center">
+                                    <span className="font-semibold text-ink-strong">Birthdays</span>
+                                </CardBody>
+                            </Card>
+                            <Card>
+                                <CardBody className="p-4 text-center">
+                                    <span className="font-semibold text-ink-strong">Team Socials</span>
+                                </CardBody>
+                            </Card>
+                            <Card>
+                                <CardBody className="p-4 text-center">
+                                    <span className="font-semibold text-ink-strong">Christenings</span>
+                                </CardBody>
+                            </Card>
+                            <Card>
+                                <CardBody className="p-4 text-center">
+                                    <span className="font-semibold text-ink-strong">Receptions</span>
+                                </CardBody>
+                            </Card>
                         </div>
                     </div>
                 </Container>
@@ -147,24 +139,24 @@ export default function SummerGardenPartiesPage() {
                 className="bg-anchor-green-card"
             />
 
-            <CTASection
+            <CtaBand
                 title="Book Your Spot in the Sun"
-                description="Dates fill up fast when the forecast is good."
-                buttons={[
-                    {
-                        text: "Enquire Now",
-                        href: "mailto:info@the-anchor.pub?subject=Summer%20Party%20Enquiry",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Call Us",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "summer_cta",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
+                copy="Dates fill up fast when the forecast is good."
+                primary={
+                    <Button asChild variant="primary" size="lg">
+                        <a href="mailto:info@the-anchor.pub?subject=Summer%20Party%20Enquiry">Enquire Now</a>
+                    </Button>
+                }
+                secondary={
+                    <PhoneButton
+                        phone={CONTACT.phone}
+                        source="summer_cta"
+                        variant="outline"
+                        size="lg"
+                    >
+                        Call Us
+                    </PhoneButton>
+                }
             />
         </>
     )

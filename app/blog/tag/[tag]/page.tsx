@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getIndexableBlogPosts } from '@/lib/markdown'
-import { Button, Section } from '@/components/ui'
+import { Badge, Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
@@ -95,112 +95,111 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       />
 
       {/* SEO Content Section */}
-      <Section spacing="md" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="prose prose-lg max-w-none">
-          <p className="text-lg text-anchor-cream-text/70 leading-relaxed mb-6">
+      <section className="py-section-y bg-canvas border-b border-line">
+        <Container size="md">
+          <p className="text-lg text-ink leading-relaxed mb-6">
             {seoContent.introContent}
           </p>
-          <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 my-8">
-            <p className="text-anchor-cream-text font-medium">
+          <Card accent className="p-6">
+            <p className="text-ink-strong font-medium">
               {seoContent.valueProposition}
             </p>
-          </div>
-        </div>
-      </Section>
+          </Card>
+        </Container>
+      </section>
 
       {/* Posts Grid */}
-      <Section background="gray" spacing="md" container containerSize="lg" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {taggedPosts.map(post => (
-            <article key={post.slug} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 overflow-hidden hover:border-anchor-gold-dark/40 transition-shadow">
-              <Link href={`/blog/${post.slug}`}>
-                <div className="relative h-48">
-                  <Image
-                    src={getBlogHeroUrl(post.slug, post.hero)}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {post.tags.map((t) => {
-                      const normalizedTag = normalizeTagSlug(t)
-                      return (
-                      <span
-                        key={t}
-                        className={`text-sm sm:text-xs px-2 py-1 rounded ${
-                          normalizedTag === tag
-                            ? 'bg-anchor-gold-dark text-white'
-                            : 'bg-anchor-green-deep text-anchor-cream-text/55'
-                        }`}
-                      >
-                        {t}
-                      </span>
-                      )
-                    })}
+      <section className="py-section-y bg-surface border-b border-line">
+        <Container>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {taggedPosts.map(post => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
+                <Card hover accent className="h-full flex flex-col">
+                  <div className="relative h-48">
+                    <Image
+                      src={getBlogHeroUrl(post.slug, post.hero)}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      loading="lazy"
+                    />
                   </div>
-                  <h3 className="text-lg font-bold text-anchor-gold-bright mb-2 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-anchor-cream-text/70 text-sm mb-4 line-clamp-2">
-                    {post.description}
-                  </p>
-                  <div className="text-sm text-anchor-cream-text/55">
-                    <time>{new Date(post.date).toLocaleDateString('en-GB')}</time>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {post.tags.map((t) => {
+                        const normalizedTag = normalizeTagSlug(t)
+                        return (
+                          <Badge key={t} variant={normalizedTag === tag ? 'gold' : 'sand'}>
+                            {t}
+                          </Badge>
+                        )
+                      })}
+                    </div>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2 line-clamp-2 group-hover:text-accent-text transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-ink-muted text-sm mb-4 line-clamp-2 flex-1">
+                      {post.description}
+                    </p>
+                    <div className="text-sm text-ink-muted">
+                      <time>{new Date(post.date).toLocaleDateString('en-GB')}</time>
+                    </div>
                   </div>
-                </div>
+                </Card>
               </Link>
-            </article>
-          ))}
-        </div>
-      </Section>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* Tag Cloud */}
-      <Section spacing="md" container containerSize="md" className="text-center bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">
-          Explore More Topics
-        </h2>
-        <div className="flex flex-wrap gap-3 justify-center">
-          {Array.from(allTags).filter(t => !redirectSourceTags.has(t)).sort().map(t => (
-            <Link
-              key={t}
-              href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}
-              className={`px-4 py-2 rounded-none border text-sm font-medium transition-all ${
-                normalizeTagSlug(t) === tag
-                  ? 'bg-anchor-gold-dark border-anchor-gold-dark text-white'
-                  : 'bg-anchor-green-card border-anchor-gold-dark/15 text-anchor-cream-text/70 hover:bg-anchor-gold-dark hover:border-anchor-gold-dark hover:text-white'
-              }`}
-            >
-              {getTagSEOContent(normalizeTagSlug(t)).name}
-            </Link>
-          ))}
-        </div>
-      </Section>
+      <section className="py-section-y bg-canvas border-b border-line">
+        <Container size="md" className="text-center">
+          <h2 className="text-h2 text-ink-strong mb-8">
+            Explore More Topics
+          </h2>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {Array.from(allTags).filter(t => !redirectSourceTags.has(t)).sort().map(t => (
+              <Link
+                key={t}
+                href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}
+                className={`inline-flex items-center px-4 py-2 rounded-pill border text-sm font-medium transition-all ${
+                  normalizeTagSlug(t) === tag
+                    ? 'bg-anchor-gold border-anchor-gold text-white'
+                    : 'bg-surface border-line text-ink hover:border-line-strong hover:text-accent-text'
+                }`}
+              >
+                {getTagSEOContent(normalizeTagSlug(t)).name}
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* CTA Section */}
-      <Section background="dark" spacing="md" container containerSize="md" className="text-center">
-        <h2 className="text-3xl font-bold mb-8">
-          Visit The Anchor Today
-        </h2>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
-          Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/find-us">
-            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-              Get Directions
-            </Button>
-          </Link>
-          <Link href="/whats-on">
-            <Button variant="outline" size="lg" className="!text-anchor-gold-dark !border-anchor-gold-dark hover:!bg-anchor-gold-dark hover:!text-anchor-green">
-              See What's On
-            </Button>
-          </Link>
-        </div>
-      </Section>
+      <section className="theme-dark bg-anchor-green py-section-y">
+        <Container size="md" className="text-center text-anchor-cream-text">
+          <h2 className="text-h2 text-anchor-cream-text mb-8">
+            Visit The Anchor Today
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+            Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/find-us">
+              <Button variant="primary" size="lg">
+                Get Directions
+              </Button>
+            </Link>
+            <Link href="/whats-on">
+              <Button variant="outline" size="lg">
+                See What&apos;s On
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
 
       {/* Schema Markup */}
       <script

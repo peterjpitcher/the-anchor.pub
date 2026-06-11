@@ -3,7 +3,7 @@ import { InteriorHero } from '@/components/hero'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { Section } from '@/components/ui'
+import { Container } from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy & Cookie Policy',
@@ -35,9 +35,10 @@ export default function PrivacyPolicyPage() {
         lead="Your privacy matters to us"
       />
       
-      <Section spacing="lg" container containerSize="md">
+      <section className="py-section-y bg-canvas">
+        <Container size="md">
         <div className="max-w-4xl mx-auto">
-          <PageTitle className="text-center text-anchor-gold-bright mb-8" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
           <div className="prose prose-lg">
@@ -181,13 +182,14 @@ export default function PrivacyPolicyPage() {
             If you're not satisfied with our response to your privacy concerns, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):
           </p>
           <p>
-            <a href="https://ico.org.uk/concerns" target="_blank" rel="noopener noreferrer" className="text-anchor-gold-dark hover:underline">
+            <a href="https://ico.org.uk/concerns" target="_blank" rel="noopener noreferrer" className="text-accent-text hover:underline">
               ico.org.uk/concerns
             </a>
           </p>
           </div>
         </div>
-      </Section>
+        </Container>
+      </section>
     </>
   )
 }

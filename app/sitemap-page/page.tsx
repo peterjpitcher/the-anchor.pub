@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
-import { Section } from '@/components/ui'
+import { Card, CardBody, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
@@ -225,31 +225,35 @@ export default async function SitemapPage() {
       />
 
       {/* Page Title */}
-      <Section spacing="md" container className="bg-anchor-green-deep">
-        <PageTitle className="text-center text-anchor-gold-bright mb-8" seo={{ structured: true, speakable: true }}>
-          Sitemap - The Anchor
-        </PageTitle>
-      </Section>
+      <section className="py-section-y bg-canvas">
+        <Container>
+          <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
+            Sitemap - The Anchor
+          </PageTitle>
+        </Container>
+      </section>
 
       {/* Sitemap Links */}
-      <Section background="gray" spacing="lg" container containerSize="lg">
+      <section className="py-section-y bg-surface">
+        <Container size="lg">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sections.map((section) => (
-            <div key={section.title} className="bg-anchor-green-card rounded-xl p-6 border border-anchor-gold-dark/15">
-              <h2 className="text-xl font-bold text-anchor-gold-bright mb-4">
+            <Card key={section.title} accent>
+              <CardBody>
+              <h2 className="text-xl text-ink-strong mb-4">
                 {section.title}
               </h2>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
                     {link.note ? (
-                      <span className="text-anchor-cream-text/70">
+                      <span className="text-ink-muted">
                         {link.label} <span className="text-sm">({link.note})</span>
                       </span>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-anchor-gold-dark hover:text-anchor-gold transition-colors"
+                        className="text-accent-text hover:text-accent transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -257,37 +261,41 @@ export default async function SitemapPage() {
                   </li>
                 ))}
               </ul>
-            </div>
+              </CardBody>
+            </Card>
           ))}
         </div>
 
         {/* Contact Information */}
-        <div className="mt-12 bg-anchor-green-raised rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">
+        <Card accent className="mt-12">
+          <CardBody className="p-8 text-center">
+          <h2 className="text-2xl text-ink-strong mb-4">
             Can't Find What You're Looking For?
           </h2>
-          <p className="text-anchor-cream-text/70 mb-6">
+          <p className="text-ink-muted mb-6">
             Give us a call and we'll be happy to help
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <PhoneLink
               phone="01753 682707"
               source="sitemap_contact"
-              className="text-lg font-semibold text-anchor-gold-dark hover:text-anchor-gold"
+              className="text-lg font-semibold text-accent-text hover:text-accent"
               showIcon={false}
             >
               01753 682707
             </PhoneLink>
-            <span className="text-anchor-cream-text/55">|</span>
+            <span className="text-ink-muted">|</span>
             <EmailLink
               email="manager@the-anchor.pub"
               source="sitemap_contact"
-              className="text-lg font-semibold text-anchor-gold-dark hover:text-anchor-gold"
+              className="text-lg font-semibold text-accent-text hover:text-accent"
               showIcon={true}
             />
           </div>
-        </div>
-      </Section>
+          </CardBody>
+        </Card>
+        </Container>
+      </section>
     </>
   )
 }

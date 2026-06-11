@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getIndexableBlogPosts } from '@/lib/markdown'
-import { Button, Container, Section, Card, CardBody, Badge, Grid, GridItem } from '@/components/ui'
-import { StatusBar } from '@/components/layout/StatusBar'
+import { Button, Container, Card, Badge } from '@/components/ui'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -84,7 +83,7 @@ export default async function BlogPage({
       />
 
       {/* Page Title */}
-      <Section className="py-8 bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -92,23 +91,23 @@ export default async function BlogPage({
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-cream-text mb-4"
+              className="mb-4"
             >
               The Anchor Blog - News & Updates
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Stay connected with the latest news, events, and stories from your favourite local pub
             </p>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Tag Cloud - Only on first page */}
       {currentPage === 1 && (
-        <Section background="gray" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+        <section className="py-section-y bg-surface-sunk">
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8 text-center">
+              <h2 className="text-h3 text-ink-strong mb-8 text-center">
                 Browse by Topic
               </h2>
               <div className="flex flex-wrap gap-3 justify-center mb-6">
@@ -116,12 +115,12 @@ export default async function BlogPage({
                   <Link
                     key={tag}
                     href={`/blog/tag/${tag}`}
-                    className="group relative px-4 py-2 bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-all"
+                    className="group inline-flex items-center gap-2 px-4 py-2 bg-surface rounded-pill border border-line hover:border-line-strong transition-all"
                   >
-                    <span className="text-sm font-medium text-anchor-cream-text/70 group-hover:text-anchor-cream-text transition-colors">
+                    <span className="text-sm font-medium text-ink group-hover:text-accent-text transition-colors">
                       {tagNames[tag] || tag.replace(/-/g, ' ')}
                     </span>
-                    <span className="ml-2 text-sm sm:text-xs text-anchor-cream-text/55 bg-anchor-green-deep px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-ink-muted bg-surface-sunk px-2 py-0.5 rounded-full">
                       {count}
                     </span>
                   </Link>
@@ -131,7 +130,7 @@ export default async function BlogPage({
                 <div className="text-center">
                   <Link
                     href="/blog/tags"
-                    className="inline-flex items-center text-anchor-gold-dark hover:text-anchor-gold font-semibold transition-colours"
+                    className="inline-flex items-center text-accent-text hover:text-link-hover font-semibold transition-colors"
                   >
                     View all {sortedTags.length} topics
                     <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -142,20 +141,20 @@ export default async function BlogPage({
               )}
             </div>
           </Container>
-        </Section>
+        </section>
       )}
 
       {/* Featured Post (only on first page) */}
       {featuredPost && currentPage === 1 && (
-        <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+        <section className="py-section-y bg-surface">
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">Featured Story</h2>
-              <Card className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
+              <h2 className="text-h3 text-ink-strong mb-8">Featured Story</h2>
+              <Card hover accent>
                 <div className="grid md:grid-cols-2 gap-0 overflow-hidden">
                   <Link
                     href={`/blog/${featuredPost.slug}`}
-                    className="relative block h-64 md:h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                    className="relative block h-64 md:h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                   >
                     <Image
                       src={getBlogHeroUrl(featuredPost.slug, featuredPost.hero)}
@@ -171,10 +170,7 @@ export default async function BlogPage({
                     <div className="flex flex-wrap gap-2 mb-4">
                       {featuredPost.tags.map(tag => (
                         <Link key={tag} href={`/blog/tag/${tag}`}>
-                          <Badge
-                            variant="green"
-                            className="bg-anchor-gold-dark/20 text-anchor-gold-bright hover:bg-anchor-gold-dark hover:text-white transition-colours"
-                          >
+                          <Badge variant="sand">
                             {tag}
                           </Badge>
                         </Link>
@@ -182,22 +178,22 @@ export default async function BlogPage({
                     </div>
                     <Link
                       href={`/blog/${featuredPost.slug}`}
-                      className="text-2xl font-bold text-anchor-gold-bright mb-4 hover:text-anchor-gold-dark transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                      className="font-display text-h3 text-ink-strong mb-4 hover:text-accent-text transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                     >
                       {featuredPost.title}
                     </Link>
-                    <p className="text-anchor-cream-text/70 mb-4 line-clamp-3">
+                    <p className="text-ink-muted mb-4 line-clamp-3">
                       {featuredPost.description}
                     </p>
                     <div className="mt-auto flex items-center justify-between">
-                      <div className="text-sm text-anchor-cream-text/55">
+                      <div className="text-sm text-ink-muted">
                         <span>{featuredPost.author}</span>
                         <span className="mx-2">•</span>
                         <time>{new Date(featuredPost.date).toLocaleDateString('en-GB')}</time>
                       </div>
                       <Link
                         href={`/blog/${featuredPost.slug}`}
-                        className="text-anchor-gold-dark font-semibold hover:text-anchor-gold transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                        className="text-accent-text font-semibold hover:text-link-hover transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                       >
                         Read more →
                       </Link>
@@ -207,26 +203,26 @@ export default async function BlogPage({
               </Card>
             </div>
           </Container>
-        </Section>
+        </section>
       )}
 
       {/* Other Posts */}
-      <Section background="gray" spacing="md" className="bg-anchor-green-raised">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-bright mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               {currentPage === 1 ? 'Latest Stories' : 'All Stories'}
             </h2>
 
             {otherPosts.length > 0 ? (
               <>
-                <Grid cols={3} gap="lg" className="mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
                   {otherPosts.map(post => (
-                    <Card key={post.slug} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 hover:border-anchor-gold-dark/40 transition-shadow">
+                    <Card key={post.slug} hover accent className="flex flex-col">
                       <div className="relative h-48">
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                          className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                         >
                           <Image
                             src={getBlogHeroUrl(post.slug, post.hero)}
@@ -239,14 +235,11 @@ export default async function BlogPage({
                           <span className="sr-only">Read {post.title}</span>
                         </Link>
                       </div>
-                      <div className="p-6 flex flex-col h-full">
+                      <div className="p-6 flex flex-col flex-1">
                         <div className="flex flex-wrap gap-2 mb-3">
                           {post.tags.map(tag => (
                             <Link key={tag} href={`/blog/tag/${tag}`}>
-                              <Badge
-                                variant="green"
-                                className="bg-anchor-green-deep text-anchor-cream-text/55 hover:bg-anchor-gold-dark hover:text-white transition-colours"
-                              >
+                              <Badge variant="sand">
                                 {tag}
                               </Badge>
                             </Link>
@@ -254,20 +247,20 @@ export default async function BlogPage({
                         </div>
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="text-lg font-bold text-anchor-gold-bright mb-2 line-clamp-2 hover:text-anchor-gold-dark transition-colours focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                          className="font-display text-h4 text-ink-strong mb-2 line-clamp-2 hover:text-accent-text transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                         >
                           {post.title}
                         </Link>
-                        <p className="text-anchor-cream-text/70 text-sm mb-4 line-clamp-2 flex-1">
+                        <p className="text-ink-muted text-sm mb-4 line-clamp-2 flex-1">
                           {post.description}
                         </p>
-                        <div className="text-sm text-anchor-cream-text/55">
+                        <div className="text-sm text-ink-muted">
                           <time>{new Date(post.date).toLocaleDateString('en-GB')}</time>
                         </div>
                       </div>
                     </Card>
                   ))}
-                </Grid>
+                </div>
 
                 {/* Pagination */}
                 {totalPages > 1 && (
@@ -291,7 +284,7 @@ export default async function BlogPage({
                               1
                             </Button>
                           </Link>
-                          {currentPage > 4 && <span className="px-2 py-2 text-anchor-cream-text/55">...</span>}
+                          {currentPage > 4 && <span className="px-2 py-2 text-ink-muted">...</span>}
                         </>
                       )}
 
@@ -318,7 +311,7 @@ export default async function BlogPage({
                       {/* Last page */}
                       {currentPage < totalPages - 2 && (
                         <>
-                          {currentPage < totalPages - 3 && <span className="px-2 py-2 text-anchor-cream-text/55">...</span>}
+                          {currentPage < totalPages - 3 && <span className="px-2 py-2 text-ink-muted">...</span>}
                           <Link href={`/blog?page=${totalPages}`}>
                             <Button variant="outline" size="sm">
                               {totalPages}
@@ -340,13 +333,13 @@ export default async function BlogPage({
                 )}
 
                 {/* Results info */}
-                <p className="text-center text-sm text-anchor-cream-text/55 mt-6">
+                <p className="text-center text-sm text-ink-muted mt-6">
                   Showing {startIndex + 1}-{Math.min(endIndex, totalPosts)} of {totalPosts} posts
                 </p>
               </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-anchor-cream-text/70 mb-4">No blog posts yet. Check back soon!</p>
+                <p className="text-ink-muted mb-4">No blog posts yet. Check back soon!</p>
                 <Link href="/">
                   <Button variant="primary">
                     Back to Home
@@ -356,41 +349,31 @@ export default async function BlogPage({
             )}
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* CTA Section */}
-      <Section className="bg-anchor-green" spacing="md">
-        <Container className="text-center text-white">
-          <h2 className="text-3xl font-bold mb-8">
+      <section className="theme-dark bg-anchor-green py-section-y">
+        <Container className="text-center text-anchor-cream-text">
+          <h2 className="text-h2 text-anchor-cream-text mb-8">
             Stay Connected
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't miss out on our latest news and events. Visit us for the full experience!
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+            Don&apos;t miss out on our latest news and events. Visit us for the full experience!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              >
+              <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
                 View Upcoming Events
               </Button>
             </Link>
             <Link href="/find-us" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              >
+              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
                 Visit Us Today
               </Button>
             </Link>
           </div>
         </Container>
-      </Section>
+      </section>
     </>
   )
 }

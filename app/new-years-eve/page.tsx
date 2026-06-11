@@ -4,7 +4,8 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
+import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -77,18 +78,18 @@ export default function NewYearsEvePage(): React.JSX.Element {
       />
 
       {/* See in the New Year */}
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               See in the New Year
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Forget the overpriced city centre bars and the nightmare of getting home afterwards. New Year&apos;s Eve
               at The Anchor is a proper celebration in a proper village pub, midnight countdown, party atmosphere,
               and you can actually get served at the bar.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               We put on live entertainment every New Year&apos;s Eve, keep the drinks flowing, and make sure
               everyone has a brilliant night. The atmosphere is always spot on, lively enough to feel like a
               real party, small enough that you&apos;re not queuing for everything.
@@ -101,52 +102,52 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Why The Anchor for NYE */}
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Why The Anchor for New Year&apos;s Eve
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               No &pound;80 taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
               that knows how to throw a party, with 20 free parking spaces right outside for whoever&apos;s
               driving.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Free parking</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Free parking</h3>
+                  <p className="text-sm text-ink-muted">
                     20 free spaces on site. Your designated driver parks for free, or grab an easy taxi home,
                     no surge pricing out here.
                   </p>
                 </CardBody>
               </Card>
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Actually get a drink</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Actually get a drink</h3>
+                  <p className="text-sm text-ink-muted">
                     Unlike packed city bars, you can actually get to our bar. Craft beer, cocktails, champagne for
                     the midnight toast, all without the 20-minute queue.
                   </p>
                 </CardBody>
               </Card>
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Village pub atmosphere</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Village pub atmosphere</h3>
+                  <p className="text-sm text-ink-muted">
                     A proper local celebration where you can chat, dance, and count down to midnight with
                     people who actually want to be there.
                   </p>
                 </CardBody>
               </Card>
               <Card>
-                <CardBody className="space-y-2 p-6">
-                  <h3 className="text-lg font-semibold text-anchor-gold-bright">Dog-friendly</h3>
-                  <p className="text-sm text-anchor-cream-text/70">
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Dog-friendly</h3>
+                  <p className="text-sm text-ink-muted">
                     Well-behaved dogs are welcome in the early evening. If your dog isn&apos;t a fan of
                     fireworks, we&apos;re a calm spot before things get lively later on.
                   </p>
@@ -155,185 +156,176 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Food & Drink */}
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Food &amp; drink
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               We typically serve food earlier in the evening on New Year&apos;s Eve, a chance to eat well
               before the party gets going. Whether it&apos;s from our regular menu or a special NYE menu,
               you&apos;ll want to book your table if you&apos;re planning to dine.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               At midnight, expect a champagne toast to see in the New Year. Throughout the evening we&apos;ll
               have our full range of craft beer, wines, spirits and cocktails.
             </p>
-            <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-              <h3 className="text-lg font-semibold text-anchor-gold-bright">Browse our menus</h3>
-              <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
-                Take a look at our{' '}
-                <Link
-                  href="/food-menu"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  food menu
-                </Link>
-                ,{' '}
-                <Link
-                  href="/pizza-menu"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  pizza menu
-                </Link>{' '}
-                and{' '}
-                <Link
-                  href="/drinks"
-                  className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
-                >
-                  drinks menu
-                </Link>
-                . New Year&apos;s Eve food details will be confirmed closer to the date.
-              </p>
-            </div>
+            <Card accent className="mt-6">
+              <CardBody>
+                <h3 className="text-lg font-semibold text-ink-strong">Browse our menus</h3>
+                <p className="mt-3 text-sm text-ink-muted leading-relaxed">
+                  Take a look at our{' '}
+                  <Link
+                    href="/food-menu"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    food menu
+                  </Link>
+                  ,{' '}
+                  <Link
+                    href="/pizza-menu"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    pizza menu
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    href="/drinks"
+                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                  >
+                    drinks menu
+                  </Link>
+                  . New Year&apos;s Eve food details will be confirmed closer to the date.
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Practical Details */}
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Practical details
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               We typically have a late licence on New Year&apos;s Eve, staying open until at least 1am so you
               can properly see in the New Year. Walk-ins are possible, but booking is strongly recommended,
               it gets busy, and a reserved table means you&apos;re guaranteed your spot.
             </p>
-            <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <div className="mt-0 rounded-2xl bg-anchor-green-card p-5 border border-anchor-gold-dark/15">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">
+            <Card accent>
+              <CardBody>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">
                   At a glance
                 </h3>
-                <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
+                <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold-dark">&bull;</span>
+                    <span className="text-accent-text">&bull;</span>
                     <span>Late licence, typically open until at least 1am</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold-dark">&bull;</span>
+                    <span className="text-accent-text">&bull;</span>
                     <span>Midnight countdown and champagne toast</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold-dark">&bull;</span>
+                    <span className="text-accent-text">&bull;</span>
                     <span>Live entertainment (confirmed closer to the date)</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold-dark">&bull;</span>
+                    <span className="text-accent-text">&bull;</span>
                     <span>20 free parking spaces on site</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold-dark">&bull;</span>
+                    <span className="text-accent-text">&bull;</span>
                     <span>Booking recommended, walk-ins welcome if space allows</span>
                   </li>
                 </ul>
-              </div>
 
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
-                  <a href={NYE_BOOKING_URL}>
-                    Book Your Spot
-                  </a>
-                </Button>
-                <Link href="/find-us" className="w-full sm:w-auto">
-                  <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
-                    Find Us
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
+                    <a href={NYE_BOOKING_URL}>
+                      Book Your Spot
+                    </a>
                   </Button>
-                </Link>
-              </div>
-            </div>
+                  <Link href="/find-us" className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                      Find Us
+                    </Button>
+                  </Link>
+                </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Near Heathrow */}
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+            <h2 className="text-h3 text-ink-strong">
               Better than the hotel bar
             </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
+            <p className="text-ink-muted text-lg leading-relaxed">
               Staying at a Heathrow hotel over New Year&apos;s? Don&apos;t settle for the hotel bar. We&apos;re
               just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, an easy taxi ride for a proper New Year&apos;s
               Eve celebration with real atmosphere.
             </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-ink-muted leading-relaxed">
               Airport hotel guests regularly come over for the evening. The taxi back is quick and
               affordable, a fraction of what you&apos;d pay in central London.
             </p>
             <Link
               href="/near-heathrow/terminal-5"
-              className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted"
+              className="inline-flex items-center text-sm font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
             >
               More about The Anchor near Heathrow Terminal 5
               <span className="ml-1">&rarr;</span>
             </Link>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Booking CTA */}
-      <Section background="gray" spacing="lg">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              Book your New Year&apos;s Eve
-            </h2>
-            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              New Year&apos;s Eve always fills up. Book your table now to guarantee your spot for the
-              countdown. Large groups (8+), give us a call so we can sort the right space.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-                <a href={NYE_BOOKING_URL}>
-                  Book Your Spot Online
-                </a>
-              </Button>
-              <PhoneButton
-                phone={CONTACT.phone}
-                source="nye_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Call {CONTACT.phone}
-              </PhoneButton>
-            </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Book your New Year's Eve"
+        copy="New Year's Eve always fills up. Book your table now to guarantee your spot for the countdown. Large groups (8+), give us a call so we can sort the right space."
+        primary={
+          <Button asChild variant="primary" size="lg">
+            <a href={NYE_BOOKING_URL}>Book Your Spot Online</a>
+          </Button>
+        }
+        secondary={
+          <PhoneButton
+            phone={CONTACT.phone}
+            source="nye_cta"
+            variant="outline"
+            size="lg"
+          >
+            Call {CONTACT.phone}
+          </PhoneButton>
+        }
+      />
 
       {/* Where we are */}
-      <Section spacing="lg" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-6xl space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
-                <p className="text-anchor-cream-text/70 leading-relaxed">
+                <h2 className="text-h3 text-ink-strong">Where we are</h2>
+                <p className="text-ink-muted leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
-                <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
+                <p className="text-ink-muted">
+                  Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -356,7 +348,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema title="New Year's Eve FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 

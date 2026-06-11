@@ -11,13 +11,12 @@ import {
   Badge,
   Button,
   Container,
-  Section,
   SectionHeading,
-  FeatureGrid,
   Card,
   CardBody,
   Grid,
 } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
@@ -115,15 +114,16 @@ export default function AboutPage() {
       />
 
       {/* Our Story */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Our Story"
-              subtitle="Nearly three centuries of pouring pints and welcoming strangers"
+              lead="Nearly three centuries of pouring pints and welcoming strangers"
+              align="left"
             />
 
-            <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
+            <div className="space-y-6 text-lg text-ink leading-relaxed">
               <p>
                 The Anchor has stood on Horton Road in Stanwell Moor since 1751. Back then,
                 Stanwell Moor was a quiet farming village on the edge of Hounslow Heath, and
@@ -159,195 +159,188 @@ export default function AboutPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* What Makes Us Different */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <SectionHeading
             title="What Makes Us Different"
-            subtitle="A few reasons people keep coming back"
+            lead="A few reasons people keep coming back"
           />
 
-          <FeatureGrid
-            columns={3}
-            features={[
+          <div className="grid gap-6 lg:grid-cols-3 sm:grid-cols-2 max-w-6xl mx-auto">
+            {[
               {
-                icon: '',
                 title: 'Under the Flight Path',
                 description:
                   'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times, a view you won\u2019t find at any other pub.',
-                className: 'text-center',
               },
               {
-                icon: '',
                 title: '20 Free Parking Spaces',
                 description:
                   'No meters, no apps, no charges. Free on-site parking for every guest, a rare thing this close to Heathrow.',
-                className: 'text-center',
               },
               {
-                icon: '',
                 title: 'Dog-Friendly Throughout',
                 description:
                   'Your four-legged friends are welcome inside and in the beer garden. Water bowls provided, treats available at the bar.',
-                className: 'text-center',
               },
               {
-                icon: '',
                 title: '5-Star Food Hygiene',
                 description:
                   'The highest possible rating from the Food Standards Agency. We take food safety as seriously as we take the food itself.',
-                className: 'text-center',
               },
               {
-                icon: '',
                 title: '4.6/5 on Google',
                 description:
                   'Over 238 reviews and counting. The highest-rated independent, non-airport pub near Heathrow.',
-                className: 'text-center',
               },
               {
-                icon: '',
                 title: 'Outside the ULEZ Zone',
                 description:
                   'Drive here without paying the \u00a312.50 daily ULEZ charge. One less thing to worry about.',
-                className: 'text-center',
               },
-            ]}
-            className="max-w-6xl mx-auto"
-          />
+            ].map(({ title, description }) => (
+              <Card key={title} accent hover className="h-full">
+                <CardBody className="text-center">
+                  <h3 className="text-lg text-ink-strong mb-2">{title}</h3>
+                  <p className="text-ink-muted">{description}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
         </Container>
-      </Section>
+      </section>
 
       {/* What We Do */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeading
               title="What We Do"
-              subtitle="Good food, good drink, good company"
+              lead="Good food, good drink, good company"
             />
 
             <Grid cols={3} gap="lg">
               <Link href="/food-menu" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Traditional British Food
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
                       fair prices, with food served daily (check our opening hours for times).
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">View menu &rarr;</p>
+                    <p className="text-accent-text font-semibold">View menu &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/sunday-roast" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Sunday Roasts from &pound;19
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Proper roasts with all the trimmings. Yorkshire puddings, roast
                       potatoes, and rich gravy. Walk-ins welcome 1pm-6pm.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">Book Sunday roast &rarr;</p>
+                    <p className="text-accent-text font-semibold">Book Sunday roast &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/whats-on" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Weekly Events
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Quiz nights, music bingo with Nikki, karaoke, live music, and more.
                       There&apos;s always something on.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">See what&apos;s on &rarr;</p>
+                    <p className="text-accent-text font-semibold">See what&apos;s on &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/private-hire" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Private Hire
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Flexible room bookings for 10 to 50 guests, with larger events by enquiry. Birthdays, corporate events,
                       celebrations, we handle the lot.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">Plan your event &rarr;</p>
+                    <p className="text-accent-text font-semibold">Plan your event &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/beer-garden" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Beer Garden &amp; Plane Spotting
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       64 seats under the flight path. Heated areas, dog-friendly, full food
                       and drink service outdoors.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">Explore the garden &rarr;</p>
+                    <p className="text-accent-text font-semibold">Explore the garden &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/our-pub" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       See Inside The Anchor
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Photos of the bar, dining room, garden, pool table and games area.
                       Have a look around before you visit.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">View photos &rarr;</p>
+                    <p className="text-accent-text font-semibold">View photos &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href="/drinks" className="group">
-                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                <Card accent hover className="h-full">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
-                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-bright">
+                    <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
                       Drinks
                     </h3>
-                    <p className="text-anchor-cream-text/70 mb-4">
+                    <p className="text-ink-muted mb-4">
                       Draught lagers, bottled ales, wines, spirits, and cocktails. Something for every
                       taste, served with a smile.
                     </p>
-                    <p className="text-anchor-gold-bright font-semibold">View drinks &rarr;</p>
+                    <p className="text-accent-text font-semibold">View drinks &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>
             </Grid>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* Awards & Recognition */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -355,46 +348,51 @@ export default function AboutPage() {
             />
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
+              <Card accent>
+                <CardBody className="p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
+                <h3 className="text-xl text-ink-strong mb-2">
                   4.6 / 5 on Google
                 </h3>
-                <p className="text-anchor-cream-text/70">
+                <p className="text-ink-muted">
                   Over 238 verified reviews. Consistently rated the top independent pub
                   near Heathrow.
                 </p>
-              </div>
+                </CardBody>
+              </Card>
 
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
+              <Card accent>
+                <CardBody className="p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
+                <h3 className="text-xl text-ink-strong mb-2">
                   5-Star Food Hygiene
                 </h3>
-                <p className="text-anchor-cream-text/70">
+                <p className="text-ink-muted">
                   Awarded the top rating by the Food Standards Agency, the highest
                   standard of food safety and cleanliness.
                 </p>
-              </div>
+                </CardBody>
+              </Card>
 
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
+              <Card accent>
+                <CardBody className="p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
-                <h3 className="text-xl font-bold text-anchor-gold-bright mb-2">
+                <h3 className="text-xl text-ink-strong mb-2">
                   Est. 1751
                 </h3>
-                <p className="text-anchor-cream-text/70">
+                <p className="text-ink-muted">
                   Serving the Stanwell Moor community and welcoming visitors from
                   around the world since 1751.
                 </p>
-              </div>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-deep"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -431,15 +429,15 @@ export default function AboutPage() {
       />
 
       {/* Hiring Callout */}
-      <Section background="dark" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg text-anchor-cream-text/80 leading-relaxed">
+            <p className="text-lg text-ink leading-relaxed">
               Interested in joining our team? We are looking for experienced bar staff and kitchen
               team members.{' '}
               <Link
                 href="/join-our-team"
-                className="text-anchor-gold-bright hover:text-anchor-gold-dark font-semibold underline underline-offset-4"
+                className="text-accent-text hover:text-accent font-semibold underline underline-offset-4"
               >
                 Find out more
               </Link>
@@ -447,45 +445,33 @@ export default function AboutPage() {
             </p>
           </div>
         </Container>
-      </Section>
+      </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Come and See for Yourself
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Book a table, grab a pint, or just pop in and say hello. We&apos;ve been here
-              since 1751, we&apos;re not going anywhere.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="about_cta"
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-              />
-              <DirectionsButton
-                href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-                source="about_cta"
-                variant="outline"
-                size="lg"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-              >
-                Get Directions
-              </DirectionsButton>
-              <PhoneButton phone={CONTACT.phone} source="about_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call {CONTACT.phone}
-              </PhoneButton>
-            </div>
-            <p className="text-white/80 mt-8 text-sm">
-              Horton Road, Stanwell Moor, Surrey TW19 6AQ &middot; 7 mins from Heathrow T5 &middot; Free parking
-            </p>
+      <CtaBand
+        title="Come and See for Yourself"
+        copy="Book a table, grab a pint, or just pop in and say hello. We've been here since 1751, we're not going anywhere."
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <BookTableButton source="about_cta" size="lg" variant="primary" />
+            <DirectionsButton
+              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+              source="about_cta"
+              variant="outline"
+              size="lg"
+            >
+              Get Directions
+            </DirectionsButton>
+            <PhoneButton phone={CONTACT.phone} source="about_cta" variant="outline" size="lg">
+              Call {CONTACT.phone}
+            </PhoneButton>
           </div>
-        </Container>
-      </section>
+          <p className="text-sm text-anchor-cream-text/70">
+            Horton Road, Stanwell Moor, Surrey TW19 6AQ &middot; 7 mins from Heathrow T5 &middot; Free parking
+          </p>
+        </div>
+      </CtaBand>
     </>
   )
 }

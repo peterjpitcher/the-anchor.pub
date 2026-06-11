@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import {
   Button,
   Container,
-  Section,
   Card,
   CardBody,
   SectionHeading,
@@ -121,7 +120,7 @@ function StarRating({ rating }: { rating: number }) {
         <span
           key={i}
           className={
-            i < rating ? 'text-yellow-400' : 'text-anchor-cream-text/30'
+            i < rating ? 'text-anchor-gold' : 'text-ink-muted/40'
           }
         >
           &#9733;
@@ -164,45 +163,46 @@ export default function ReviewsPage() {
       />
 
       {/* Rating Summary */}
-      <div className="bg-anchor-green-raised py-8 border-b border-anchor-gold-dark/15">
+      <div className="bg-canvas py-8 border-b border-line">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex flex-col items-center gap-3 bg-anchor-green-card rounded-xl p-6 border border-anchor-gold-dark/20">
-              <div className="text-5xl font-bold text-anchor-gold-bright">
+            <Card accent className="inline-flex flex-col items-center gap-3 p-6">
+              <div className="text-5xl text-ink-strong">
                 {rating}
               </div>
               <StarRating rating={Math.round(rating)} />
-              <p className="text-anchor-cream-text/70 text-lg">
+              <p className="text-ink-muted text-lg">
                 Based on {totalReviews}+ Google reviews
               </p>
-            </div>
+            </Card>
           </div>
         </Container>
       </div>
 
       {/* Review Highlights */}
-      <div className="bg-anchor-green-deep section-spacing-md border-b border-anchor-gold-dark/15">
+      <div className="bg-surface py-section-y border-b border-line">
         <Container>
           <SectionHeading
             title="Guest Reviews"
-            subtitle="What people are saying about The Anchor"
+            lead="What people are saying about The Anchor"
           />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {reviewHighlights.map((review, index) => (
               <Card
                 key={index}
+                hover
                 className="h-full"
               >
                 <CardBody className="flex flex-col h-full">
                   <StarRating rating={review.rating} />
-                  <blockquote className="text-anchor-cream-text/80 mt-3 flex-1 italic">
+                  <blockquote className="text-ink mt-3 flex-1 italic">
                     &ldquo;{review.quote}&rdquo;
                   </blockquote>
-                  <div className="mt-4 pt-3 border-t border-anchor-gold-dark/10">
-                    <p className="font-semibold text-anchor-cream-text">
+                  <div className="mt-4 pt-3 border-t border-line">
+                    <p className="font-semibold text-ink-strong">
                       {review.name}
                     </p>
-                    <p className="text-sm text-anchor-cream-text/50">
+                    <p className="text-sm text-ink-muted">
                       {review.context}
                     </p>
                   </div>
@@ -214,12 +214,12 @@ export default function ReviewsPage() {
       </div>
 
       {/* Leave a Review CTA */}
-      <div className="bg-anchor-green-raised section-spacing-md border-b border-anchor-gold-dark/15">
+      <div className="bg-canvas py-section-y border-b border-line">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading
               title="Enjoyed Your Visit?"
-              subtitle="We'd love to hear from you. Leaving a Google review helps other guests find us."
+              lead="We'd love to hear from you. Leaving a Google review helps other guests find us."
             />
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild variant="primary" size="lg">
@@ -247,7 +247,6 @@ export default function ReviewsPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-deep"
         title="Reviews FAQ"
         faqs={[
           {

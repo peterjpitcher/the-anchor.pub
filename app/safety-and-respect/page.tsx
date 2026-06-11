@@ -3,6 +3,7 @@ import { Button, Container, SectionHeading } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 export const metadata: Metadata = {
@@ -25,10 +26,10 @@ export default function SafetyAndRespectPage() {
       />
 
       {/* Intro */}
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
+            <p className="text-lg text-ink-muted leading-relaxed">
               We're the kind of pub where you can walk in on your own or with a group, whatever your background, and feel at ease. That's not accidental, it's how we run things.
             </p>
           </div>
@@ -36,11 +37,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Everyone's welcome */}
-      <section className="section-spacing bg-anchor-green-raised">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Everyone's welcome" />
-            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
+            <SectionHeading title="Everyone's welcome" align="left" />
+            <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
                 The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday roast, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
               </p>
@@ -56,11 +57,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our standards */}
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Our standards" />
-            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
+            <SectionHeading title="Our standards" align="left" />
+            <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
                 We have zero tolerance for harassment, discrimination, or behaviour that makes anyone feel unwelcome. That applies to guests and to staff, no exceptions.
               </p>
@@ -76,11 +77,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* If something doesn't feel right */}
-      <section className="section-spacing bg-anchor-green-raised">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="If something doesn't feel right" />
-            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
+            <SectionHeading title="If something doesn't feel right" align="left" />
+            <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
                 Tell any member of our team. You don't need a reason or an explanation. We'll deal with it.
               </p>
@@ -93,16 +94,16 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our events */}
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Our events" />
-            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
+            <SectionHeading title="Our events" align="left" />
+            <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
                 We run a full events programme, quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
               </p>
               <p>
-                Check our <Link href="/whats-on" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">what's on page</Link> for upcoming events.
+                Check our <Link href="/whats-on" className="text-accent-text font-semibold hover:text-accent transition">what's on page</Link> for upcoming events.
               </p>
             </div>
           </div>
@@ -111,7 +112,6 @@ export default function SafetyAndRespectPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-deep"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -138,36 +138,27 @@ export default function SafetyAndRespectPage() {
       />
 
       {/* Contact / CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Questions? Get in touch.
-            </h2>
-            <p className="text-lg text-white/90 mb-8">
-              If you have any questions about accessibility, events, or anything else, we're happy to help.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <PhoneButton phone={CONTACT.phone} source="safety-and-respect_cta" size="lg" className="bg-anchor-green-card text-anchor-gold-bright hover:bg-anchor-green-raised">
-                  Call {CONTACT.phone}
-              </PhoneButton>
-              <Link href="/book-table">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Book a Table
-                </Button>
-              </Link>
-              <Link href="/whats-on">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  What's On
-                </Button>
-              </Link>
-            </div>
-            <p className="text-white/70 mt-8 text-sm">
-              <Link href="/near-heathrow" className="text-white/70 hover:text-white transition underline">7 minutes from Heathrow</Link> · Free parking · Dogs welcome
-            </p>
+      <CtaBand
+        title="Questions? Get in touch."
+        copy="If you have any questions about accessibility, events, or anything else, we're happy to help."
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <PhoneButton phone={CONTACT.phone} source="safety-and-respect_cta" variant="primary" size="lg">
+              Call {CONTACT.phone}
+            </PhoneButton>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/book-table">Book a Table</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/whats-on">What's On</Link>
+            </Button>
           </div>
-        </Container>
-      </section>
+          <p className="text-sm text-anchor-cream-text/70">
+            <Link href="/near-heathrow" className="underline hover:text-anchor-cream-text transition">7 minutes from Heathrow</Link> · Free parking · Dogs welcome
+          </p>
+        </div>
+      </CtaBand>
     </>
   )
 }

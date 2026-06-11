@@ -10,7 +10,8 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { anchorAPI, formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import { DEFAULT_EVENT_IMAGE, DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
+import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 
 export const dynamic = 'force-dynamic'
@@ -288,11 +289,11 @@ export default async function ValentinesDayPage() {
         lead={`${event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : 'Live music, great food and a brilliant atmosphere. '}Free parking • Seven minutes from Heathrow Terminal 5`}
       />
 
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-            <Card className="overflow-hidden">
-              <div className="relative aspect-[3/4] bg-anchor-green-raised">
+            <Card accent className="overflow-hidden">
+              <div className="relative aspect-[3/4] bg-surface-sunk">
                 <Image
                   src={heroImage}
                   alt={event ? `${event.name} promotional poster` : "Valentine's Day event poster"}
@@ -302,22 +303,22 @@ export default async function ValentinesDayPage() {
                   priority
                 />
               </div>
-              <CardBody className="space-y-4 p-6">
+              <CardBody className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Date</p>
-                  <p className="text-lg font-bold text-anchor-gold-bright">{eventDate}</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Date</p>
+                  <p className="text-lg font-bold text-accent-text">{eventDate}</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Time</p>
-                  <p className="text-lg font-bold text-anchor-gold-bright">{eventTime}</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Time</p>
+                  <p className="text-lg font-bold text-accent-text">{eventTime}</p>
                 </div>
                 {event?.highlights?.length ? (
                   <div className="space-y-2">
-                    <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Highlights</p>
-                    <ul className="space-y-2 text-sm text-anchor-cream-text/70">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Highlights</p>
+                    <ul className="space-y-2 text-sm text-ink-muted">
                       {event.highlights.map((highlight) => (
                         <li key={highlight} className="flex gap-2">
-                          <span className="text-anchor-gold-dark">•</span>
+                          <span className="text-accent-text">•</span>
                           <span>{highlight}</span>
                         </li>
                       ))}
@@ -329,130 +330,136 @@ export default async function ValentinesDayPage() {
 
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+                <h2 className="text-h3 text-ink-strong">
                   Valentine's Day dinner near Heathrow
                 </h2>
-                <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
+                <p className="mt-4 text-ink-muted text-lg leading-relaxed">
                   Celebrate Valentine's Day in Stanwell Moor at The Anchor, a cosy village pub with free parking,
                   seven minutes from{' '}
-                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-gold-dark hover:text-anchor-gold underline decoration-dotted">
+                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                     Heathrow Terminal 5
                   </Link>
                   .
                 </p>
-                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
+                <p className="mt-3 text-ink-muted leading-relaxed">
                   {event
                     ? `This year's Valentine's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free, book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
                     : "We'll publish this year's Valentine's details here as soon as they're confirmed. In the meantime, you can still book a regular table below."}
                 </p>
 
                 {event?.about && (
-                  <div className="mt-6 rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-                    <h3 className="text-lg font-semibold text-anchor-gold-bright">What to expect</h3>
-                    <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
-                      {getTextExcerpt(event.about, 520)}
-                    </p>
-                    <Link
-                      href={eventPageUrl}
-                      className="mt-3 inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold"
-                    >
-                      Read the full event details<span className="ml-1">→</span>
-                    </Link>
-                  </div>
+                  <Card accent className="mt-6">
+                    <CardBody>
+                      <h3 className="text-lg font-semibold text-ink-strong">What to expect</h3>
+                      <p className="mt-3 text-sm text-ink-muted leading-relaxed">
+                        {getTextExcerpt(event.about, 520)}
+                      </p>
+                      <Link
+                        href={eventPageUrl}
+                        className="mt-3 inline-flex items-center text-sm font-semibold text-accent-text hover:text-anchor-gold"
+                      >
+                        Read the full event details<span className="ml-1">→</span>
+                      </Link>
+                    </CardBody>
+                  </Card>
                 )}
               </div>
 
               {event ? (
-                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Badge variant="success">
-                      {isFreeEntry ? 'Free entry' : 'Booking recommended'}
-                    </Badge>
-                    <Badge variant="green">
-                      {performerName ? `Live music: ${performerName}` : 'Live music'}
-                    </Badge>
-                    <Badge variant="green">
-                      Dinner bookings recommended
-                    </Badge>
-                    {proseccoOffer ? (
-                      <Badge variant="green">
-                        {proseccoOffer}
+                <Card accent>
+                  <CardBody>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Badge variant="success">
+                        {isFreeEntry ? 'Free entry' : 'Booking recommended'}
                       </Badge>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                    <div className="w-full sm:w-auto">
-                      <Button
-                        asChild
-                        variant="primary"
-                        size="lg"
-                        fullWidth
-                        className="w-full sm:w-auto sm:min-w-[220px]"
-                      >
-                        <a href={VALENTINES_DAY_BOOKING_URL}>
-                          Book a Table
-                        </a>
-                      </Button>
+                      <Badge variant="green">
+                        {performerName ? `Live music: ${performerName}` : 'Live music'}
+                      </Badge>
+                      <Badge variant="green">
+                        Dinner bookings recommended
+                      </Badge>
+                      {proseccoOffer ? (
+                        <Badge variant="green">
+                          {proseccoOffer}
+                        </Badge>
+                      ) : null}
                     </div>
-                    <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
-                      <Button variant="outline" size="lg" fullWidth className="sm:min-w-[200px]">
-                        View full event details
-                      </Button>
-                    </Link>
-                  </div>
 
-                  {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
-                    <div className="mt-6 rounded-2xl bg-anchor-green-card p-5 border border-anchor-gold-dark/15">
-                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-bright">
-                        Timings at a glance
-                      </h3>
-                      <dl className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
-                        {dinnerRange && (
-                          <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-bright">Full menu</dt>
-                            <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
-                          </div>
-                        )}
-                        {musicRange && (
-                          <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-bright">Live music</dt>
-                            <dd className="text-right">{formatTimeRange(musicRange)}</dd>
-                          </div>
-                        )}
-                        {lateMenuRange && (
-                          <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-bright">Late menu</dt>
-                            <dd className="text-right">{formatTimeRange(lateMenuRange)}</dd>
-                          </div>
-                        )}
-                        {partyUntilMidnight && (
-                          <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-gold-bright">Party tunes</dt>
-                            <dd className="text-right">until midnight</dd>
-                          </div>
-                        )}
-                      </dl>
+                    <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                      <div className="w-full sm:w-auto">
+                        <Button
+                          asChild
+                          variant="primary"
+                          size="lg"
+                          fullWidth
+                          className="w-full sm:w-auto sm:min-w-[220px]"
+                        >
+                          <a href={VALENTINES_DAY_BOOKING_URL}>
+                            Book a Table
+                          </a>
+                        </Button>
+                      </div>
+                      <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
+                        <Button variant="outline" size="lg" fullWidth className="sm:min-w-[200px]">
+                          View full event details
+                        </Button>
+                      </Link>
                     </div>
-                  )}
-                </div>
+
+                    {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
+                      <div className="mt-6 rounded-md bg-surface-sunk p-5 border border-line">
+                        <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">
+                          Timings at a glance
+                        </h3>
+                        <dl className="mt-3 space-y-2 text-sm text-ink-muted">
+                          {dinnerRange && (
+                            <div className="flex items-start justify-between gap-6">
+                              <dt className="font-semibold text-ink-strong">Full menu</dt>
+                              <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
+                            </div>
+                          )}
+                          {musicRange && (
+                            <div className="flex items-start justify-between gap-6">
+                              <dt className="font-semibold text-ink-strong">Live music</dt>
+                              <dd className="text-right">{formatTimeRange(musicRange)}</dd>
+                            </div>
+                          )}
+                          {lateMenuRange && (
+                            <div className="flex items-start justify-between gap-6">
+                              <dt className="font-semibold text-ink-strong">Late menu</dt>
+                              <dd className="text-right">{formatTimeRange(lateMenuRange)}</dd>
+                            </div>
+                          )}
+                          {partyUntilMidnight && (
+                            <div className="flex items-start justify-between gap-6">
+                              <dt className="font-semibold text-ink-strong">Party tunes</dt>
+                              <dd className="text-right">until midnight</dd>
+                            </div>
+                          )}
+                        </dl>
+                      </div>
+                    )}
+                  </CardBody>
+                </Card>
               ) : (
-                <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 text-anchor-cream-text/70">
-                  <p className="font-semibold text-anchor-cream-text">We're updating our Valentine's listings.</p>
-                  <p className="mt-2 text-sm">
-                    In the meantime, book online via our table booking page or call us to reserve your table.
-                  </p>
-                </div>
+                <Card accent>
+                  <CardBody>
+                    <p className="font-semibold text-ink-strong">We're updating our Valentine's listings.</p>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      In the meantime, book online via our table booking page or call us to reserve your table.
+                    </p>
+                  </CardBody>
+                </Card>
               )}
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card>
-                  <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-gold-bright">Getting here</h2>
-                    <p className="text-sm text-anchor-cream-text/70">
+                  <CardBody className="space-y-2">
+                    <h2 className="text-lg font-semibold text-ink-strong">Getting here</h2>
+                    <p className="text-sm text-ink-muted">
                       {addressLine}. Free parking on site, seven minutes from Heathrow Terminal 5, and outside the ULEZ.
                     </p>
-                    <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-anchor-gold-dark hover:text-anchor-gold">
+                    <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-accent-text hover:text-anchor-gold">
                       Get directions
                       <span className="ml-1">→</span>
                     </Link>
@@ -460,9 +467,9 @@ export default async function ValentinesDayPage() {
                 </Card>
 
                 <Card>
-                  <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-gold-bright">Prefer to talk?</h2>
-                    <p className="text-sm text-anchor-cream-text/70">
+                  <CardBody className="space-y-2">
+                    <h2 className="text-lg font-semibold text-ink-strong">Prefer to talk?</h2>
+                    <p className="text-sm text-ink-muted">
                       Booking for 8+ or need a special request? Give us a call and we'll sort it.
                     </p>
                     <PhoneButton
@@ -480,49 +487,41 @@ export default async function ValentinesDayPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="gray" spacing="lg">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Valentine's table</h2>
-            <p className="text-anchor-cream-text/70 text-lg">
-              We take online bookings on our table booking page. Choose your date, time, and party size, and book early to get your preferred slot.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-                <a href={VALENTINES_DAY_BOOKING_URL}>
-                  Book a Table Online
-                </a>
-              </Button>
-              <PhoneButton
-                phone="01753 682707"
-                source="valentines_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Call 01753 682707
-              </PhoneButton>
-            </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Book your Valentine's table"
+        copy="We take online bookings on our table booking page. Choose your date, time, and party size, and book early to get your preferred slot."
+        primary={
+          <Button asChild variant="primary" size="lg">
+            <a href={VALENTINES_DAY_BOOKING_URL}>Book a Table Online</a>
+          </Button>
+        }
+        secondary={
+          <PhoneButton
+            phone="01753 682707"
+            source="valentines_cta"
+            variant="outline"
+            size="lg"
+          >
+            Call 01753 682707
+          </PhoneButton>
+        }
+      />
 
-      <Section spacing="lg" background="white">
+      <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-6xl space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
-                <p className="text-anchor-cream-text/70 leading-relaxed">
+                <h2 className="text-h3 text-ink-strong">Where we are</h2>
+                <p className="text-ink-muted leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy to reach
                   from Staines-upon-Thames, Ashford and Windsor. If you're searching for a Valentine's Day restaurant
                   near Heathrow, this is the easy, stress-free option with free parking.
                 </p>
-                <p className="text-anchor-cream-text/70">
-                  Address: <span className="font-semibold text-anchor-gold-bright">{addressLine}</span>
+                <p className="text-ink-muted">
+                  Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -545,7 +544,7 @@ export default async function ValentinesDayPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
 

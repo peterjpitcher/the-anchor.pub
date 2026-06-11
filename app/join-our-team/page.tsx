@@ -184,9 +184,9 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="mb-8 max-w-4xl space-y-4 text-anchor-cream-text/75">
+          <div className="mb-8 max-w-4xl space-y-4 text-ink-muted">
             <p>
               You will be working in a proper local pub with regular customers, busy event nights, Sunday
               roasts, private bookings and a small team that expects people to turn up, work properly and take
@@ -201,12 +201,12 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section id="current-roles" className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section id="current-roles" className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="mb-8 max-w-3xl">
-              <h2 className="text-3xl font-bold text-anchor-gold-bright">Current roles</h2>
-              <p className="mt-3 text-anchor-cream-text/75">
+              <h2 className="text-3xl text-ink-strong">Current roles</h2>
+              <p className="mt-3 text-ink-muted">
                 We are recruiting for part-time pub jobs near Heathrow, including bar staff jobs in Stanwell
                 Moor and kitchen jobs in Stanwell Moor.
               </p>
@@ -216,12 +216,12 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-start">
             <div>
-              <h2 className="text-3xl font-bold text-anchor-gold-bright">Why work at The Anchor?</h2>
-              <div className="mt-5 space-y-4 text-anchor-cream-text/75">
+              <h2 className="text-3xl text-ink-strong">Why work at The Anchor?</h2>
+              <div className="mt-5 space-y-4 text-ink-muted">
                 <p>
                   The Anchor is a village pub near Heathrow Terminal 5 with regular local customers, food
                   service, events, private bookings and a growing reputation.
@@ -250,7 +250,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2">
             <BulletListSection
@@ -267,7 +267,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_0.85fr]">
             <BulletListSection
@@ -275,34 +275,34 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
               intro="This probably is not the right role if:"
               items={poorFitSignals}
             />
-            <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-6">
-              <h2 className="text-3xl font-bold text-anchor-gold-bright">A note from the owner, Billy</h2>
-              <div className="mt-5 space-y-4 text-anchor-cream-text/75">
+            <div className="rounded-md border border-line border-t-[3px] border-t-anchor-gold bg-surface p-6 shadow-sm">
+              <h2 className="text-3xl text-ink-strong">A note from the owner, Billy</h2>
+              <div className="mt-5 space-y-4 text-ink-muted">
                 <p>
                   At The Anchor, I want to build the kind of pub people are proud to work in and guests are
                   pleased to come back to. That starts with the basics:{' '}
-                  <strong className="text-anchor-cream-text">
+                  <strong className="text-ink-strong">
                     a clean pub, warm welcomes, well-kept drinks, good food and reliable service
                   </strong>
                   .
                 </p>
                 <p>
                   I can set the direction, but{' '}
-                  <strong className="text-anchor-cream-text">the team is what makes it happen</strong> on every
+                  <strong className="text-ink-strong">the team is what makes it happen</strong> on every
                   shift. The bar team, kitchen team and floor team all shape how guests experience The Anchor,
                   from a well-poured pint and a clean table to a properly prepared plate of food and a calm,
                   helpful attitude.
                 </p>
                 <p>
                   I am looking for reliable, experienced people who{' '}
-                  <strong className="text-anchor-cream-text">care about standards</strong>. Being on time,
+                  <strong className="text-ink-strong">care about standards</strong>. Being on time,
                   keeping working areas clean, speaking to guests well, following food safety and hygiene
                   standards, and helping the rest of the team all matter here.
                 </p>
                 <p>
                   My aim is for The Anchor to keep growing in the right way: better food, better service,
                   better events and{' '}
-                  <strong className="text-anchor-cream-text">a stronger place in the local community</strong>.
+                  <strong className="text-ink-strong">a stronger place in the local community</strong>.
                   If you are friendly, reliable, experienced and proud of good service, I would be very happy
                   to hear from you.
                 </p>
@@ -312,7 +312,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section id="apply" className="section-spacing-lg bg-anchor-green-raised border-b border-anchor-gold-dark/15 scroll-mt-28">
+      <section id="apply" className="py-section-y bg-surface border-b border-line scroll-mt-28">
         <Container>
           <div className="mx-auto max-w-4xl">
             <RecruitmentApplicationForm
@@ -327,7 +327,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         </Container>
       </section>
 
-      <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <LocationTransportSection />
         </Container>
@@ -336,7 +336,6 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
       <FAQAccordionWithSchema
         title="Recruitment FAQs"
         faqs={recruitmentFaqs}
-        className="bg-anchor-green-card"
       />
     </>
   )

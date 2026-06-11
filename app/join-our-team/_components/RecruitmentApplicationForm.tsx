@@ -197,10 +197,10 @@ export function RecruitmentApplicationForm({
   }
 
   return (
-    <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-5 sm:p-6 lg:p-8">
+    <div className="rounded-md border border-line border-t-[3px] border-t-anchor-gold bg-surface p-5 shadow-sm sm:p-6 lg:p-8">
       <div className="mb-6">
-        <h2 className="text-3xl font-bold text-anchor-gold-bright">Apply now</h2>
-        <p className="mt-3 text-anchor-cream-text/75">
+        <h2 className="text-3xl text-ink-strong">Apply now</h2>
+        <p className="mt-3 text-ink-muted">
           The form is intentionally short. Tell us enough to understand your experience, availability and whether
           the location will work for you.
         </p>
@@ -239,7 +239,7 @@ export function RecruitmentApplicationForm({
               type="text"
               autoComplete="name"
               required
-              className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             />
           </FormField>
           <FormField label="Email address" htmlFor="email" required>
@@ -249,7 +249,7 @@ export function RecruitmentApplicationForm({
               type="email"
               autoComplete="email"
               required
-              className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             />
           </FormField>
           <FormField label="Phone number" htmlFor="phone" required>
@@ -260,7 +260,7 @@ export function RecruitmentApplicationForm({
               autoComplete="tel"
               inputMode="tel"
               required
-              className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             />
           </FormField>
         </div>
@@ -271,7 +271,7 @@ export function RecruitmentApplicationForm({
             name="role"
             value={role}
             onChange={(event) => setRole(event.target.value)}
-            className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
           >
             {roleOptions.map((option) => (
               <option key={option} value={option}>
@@ -286,16 +286,16 @@ export function RecruitmentApplicationForm({
           htmlFor="cv"
           helperText="You do not need a CV to apply. If you do not have one, use the questions below to tell us about your experience."
         >
-          <div className="rounded-md border border-dashed border-anchor-gold-dark/30 bg-anchor-green-deep px-4 py-4">
+          <div className="rounded-md border border-dashed border-line-strong bg-surface-sunk px-4 py-4">
             <input
               id="cv"
               name="cv"
               type="file"
               accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               onChange={handleCvChange}
-              className="w-full text-sm text-anchor-cream-text/80 file:mr-4 file:rounded-full file:border-0 file:bg-anchor-gold-dark file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-anchor-gold"
+              className="w-full text-sm text-ink file:mr-4 file:rounded-full file:border-0 file:bg-anchor-gold-dark file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-anchor-gold"
             />
-            <p className="mt-2 text-xs text-anchor-cream-text/55">
+            <p className="mt-2 text-xs text-ink-muted">
               PDF, DOC or DOCX up to 5MB. {cvName ? `Selected: ${cvName}` : null}
             </p>
           </div>
@@ -312,7 +312,7 @@ export function RecruitmentApplicationForm({
             name="experience"
             rows={4}
             required
-            className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
           />
         </FormField>
 
@@ -327,25 +327,25 @@ export function RecruitmentApplicationForm({
             name="fit"
             rows={4}
             required
-            className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
           />
         </FormField>
 
         <fieldset>
-          <legend className="text-sm font-semibold text-anchor-cream-text">
-            When are you usually available? <span className="text-red-400">*</span>
+          <legend className="text-sm font-semibold text-ink-strong">
+            When are you usually available? <span className="text-anchor-danger">*</span>
           </legend>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {availabilityOptions.map((option) => (
               <label
                 key={option}
-                className="flex items-start gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-3 py-3 text-sm text-anchor-cream-text/80"
+                className="flex items-start gap-3 rounded-md border border-line bg-surface px-3 py-3 text-sm text-ink"
               >
                 <input
                   type="checkbox"
                   name="availability"
                   value={option}
-                  className="mt-1 h-4 w-4 rounded border-anchor-gold-dark/40 bg-anchor-green-card text-anchor-gold-dark focus:ring-anchor-gold-dark"
+                  className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
                 />
                 <span>{option}</span>
               </label>
@@ -365,7 +365,7 @@ export function RecruitmentApplicationForm({
               name="travel"
               rows={3}
               required
-              className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text placeholder:text-anchor-cream-text/45 focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             />
           </FormField>
 
@@ -376,7 +376,7 @@ export function RecruitmentApplicationForm({
                 name="relevantExperience"
                 required
                 defaultValue=""
-                className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               >
                 <option value="" disabled>
                   Choose one
@@ -395,7 +395,7 @@ export function RecruitmentApplicationForm({
                 name="startDate"
                 required
                 defaultValue=""
-                className="w-full rounded-md border border-anchor-gold-dark/30 bg-anchor-green-deep px-3 py-3 text-anchor-cream-text focus:border-anchor-gold-dark focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark/30"
+                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               >
                 <option value="" disabled>
                   Choose one
@@ -410,14 +410,14 @@ export function RecruitmentApplicationForm({
           </div>
         </div>
 
-        <label className="flex items-start gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-4 text-sm text-anchor-cream-text/80">
+        <label className="flex items-start gap-3 rounded-md border border-line bg-surface px-4 py-4 text-sm text-ink">
           <input
             type="checkbox"
             name="consent"
             checked={consent}
             onChange={(event) => setConsent(event.target.checked)}
             required
-            className="mt-1 h-4 w-4 rounded border-anchor-gold-dark/40 bg-anchor-green-card text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
           />
           <span>
             I agree for The Anchor to contact me about my application and understand my details will only be used
@@ -425,31 +425,31 @@ export function RecruitmentApplicationForm({
           </span>
         </label>
 
-        <label className="flex items-start gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-4 text-sm text-anchor-cream-text/80">
+        <label className="flex items-start gap-3 rounded-md border border-line bg-surface px-4 py-4 text-sm text-ink">
           <input
             type="checkbox"
             name="sms_consent"
             checked={smsConsent}
             onChange={(event) => setSmsConsent(event.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-anchor-gold-dark/40 bg-anchor-green-card text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
           />
           <span>I agree to receive recruitment SMS messages about this application.</span>
         </label>
 
-        <label className="flex items-start gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-4 text-sm text-anchor-cream-text/80">
+        <label className="flex items-start gap-3 rounded-md border border-line bg-surface px-4 py-4 text-sm text-ink">
           <input
             type="checkbox"
             name="future_recruitment_consent"
             checked={futureRecruitmentConsent}
             onChange={(event) => setFutureRecruitmentConsent(event.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-anchor-gold-dark/40 bg-anchor-green-card text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
           />
           <span>I agree for The Anchor to keep my details for future suitable roles.</span>
         </label>
 
         {TURNSTILE_SITE_KEY ? (
-          <div className="rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-4">
-            <p className="mb-3 text-sm font-semibold text-anchor-cream-text">Security check</p>
+          <div className="rounded-md border border-line bg-surface-sunk px-4 py-4">
+            <p className="mb-3 text-sm font-semibold text-ink-strong">Security check</p>
             <TurnstileField
               id="recruitment-application-turnstile"
               turnstileRef={turnstileRef}
@@ -477,7 +477,7 @@ export function RecruitmentApplicationForm({
               </>
             )}
           </Button>
-          <p className="text-sm text-anchor-cream-text/60">
+          <p className="text-sm text-ink-muted">
             Prefer to speak first? Call 01753 682707.
           </p>
         </div>
@@ -501,12 +501,12 @@ function FormField({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="block text-sm font-semibold text-anchor-cream-text">
+      <label htmlFor={htmlFor} className="block text-sm font-semibold text-ink-strong">
         {label}
-        {required ? <span className="ml-1 text-red-400">*</span> : null}
+        {required ? <span className="ml-1 text-anchor-danger">*</span> : null}
       </label>
       <div className="mt-2">{children}</div>
-      {helperText ? <p className="mt-2 text-sm text-anchor-cream-text/60">{helperText}</p> : null}
+      {helperText ? <p className="mt-2 text-sm text-ink-muted">{helperText}</p> : null}
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { Button, Container } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -97,9 +98,9 @@ export default function OurPubPage() {
       />
 
       {/* Intro */}
-      <section className="section-spacing-sm bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink max-w-3xl mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
             the plane-spotting garden, the 18&nbsp;gins behind the bar. But honestly?
             It&apos;s better to just show you. Here&apos;s a look around our pub in
@@ -109,14 +110,14 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Bar ── */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               Our Bar
             </h2>
 
-            <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-8">
+            <div className="relative w-full aspect-[16/10] rounded-md overflow-hidden mb-8">
               <Image
                 src={PHOTOS.bar.src}
                 alt={PHOTOS.bar.alt}
@@ -128,14 +129,14 @@ export default function OurPubPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Whether you&apos;re after a cold pint of Guinness, a Tanqueray and
                 tonic, or something from our collection of 17&nbsp;whiskeys, the bar
                 has you covered. We pour seven draught lines, Birra Moretti,
                 Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and
                 Inch&apos;s, with pints starting from &pound;4.95.
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Behind the bar, things get interesting. Our gin shelf runs
                 18&nbsp;deep, from Hendrick&apos;s and Bombay Sapphire to Tanqueray
                 Flor de Sevilla, Warner&apos;s Honeybee and Whitley Neill Rhubarb.
@@ -144,12 +145,12 @@ export default function OurPubPage() {
                 more besides.{' '}
                 <Link
                   href="/drinks"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   Browse the full drinks menu&nbsp;&rarr;
                 </Link>
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 We accept all major credit cards (yes, including American Express)
                 and cash. If you&apos;re a regular or bringing the team, we can set
                 up business accounts for monthly invoicing too.
@@ -160,15 +161,15 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Dining Room ── */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               The Dining Room
             </h2>
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden">
                 <Image
                   src={PHOTOS.diningIn.src}
                   alt={PHOTOS.diningIn.alt}
@@ -177,7 +178,7 @@ export default function OurPubPage() {
                   sizes="(max-width: 768px) 100vw, 550px"
                 />
               </div>
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden">
                 <Image
                   src={PHOTOS.diningOut.src}
                   alt={PHOTOS.diningOut.alt}
@@ -189,7 +190,7 @@ export default function OurPubPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Our dining room is one of those spaces that changes with the
                 seasons, and somehow gets better each time. In summer,
                 sunshine floods through the french doors, which open straight out
@@ -197,7 +198,7 @@ export default function OurPubPage() {
                 keeps things properly cosy. It seats 26 and it&apos;s always a
                 lovely spot for a meal.
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Here&apos;s the bit people don&apos;t expect: you can watch planes
                 landing and taking off from Heathrow right from your table. The
                 south runway is close enough that you can spot airline liveries
@@ -206,24 +207,24 @@ export default function OurPubPage() {
                 into{' '}
                 <Link
                   href="/plane-spotting-heathrow"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   plane spotting
                 </Link>
                 ).
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 The dining room doubles as our{' '}
                 <Link
                   href="/function-room-hire"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   private hire space
                 </Link>{' '}
                 too. Book it for{' '}
                 <Link
                   href="/private-party-venue"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   birthday parties
                 </Link>
@@ -238,14 +239,14 @@ export default function OurPubPage() {
       </section>
 
       {/* ── The Garden ── */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               The Garden
             </h2>
 
-            <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-8">
+            <div className="relative w-full aspect-[16/10] rounded-md overflow-hidden mb-8">
               <Image
                 src={PHOTOS.garden.src}
                 alt={PHOTOS.garden.alt}
@@ -256,11 +257,11 @@ export default function OurPubPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 This is the one we&apos;re properly proud of. Our{' '}
                 <Link
                   href="/beer-garden"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   beer garden
                 </Link>{' '}
@@ -269,14 +270,14 @@ export default function OurPubPage() {
                 800&nbsp;feet. It&apos;s mesmerising. Grab a drink, stretch out on
                 the grass, and just look up. There&apos;s nothing quite like it.
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 With 64&nbsp;seats across tables and open lawn, there&apos;s plenty
                 of room whether you&apos;re here for a quiet pint, a family lunch
                 or a bigger group. It&apos;s dog-friendly too, so bring the whole
                 pack. On a warm afternoon, this{' '}
                 <Link
                   href="/beer-garden"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   pub garden near Heathrow
                 </Link>{' '}
@@ -290,14 +291,14 @@ export default function OurPubPage() {
       </section>
 
       {/* ── Where the Action Happens ── */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               Where the Action Happens
             </h2>
 
-            <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden mb-8">
+            <div className="relative w-full aspect-[16/10] rounded-md overflow-hidden mb-8">
               <Image
                 src={PHOTOS.mainBar.src}
                 alt={PHOTOS.mainBar.alt}
@@ -308,19 +309,19 @@ export default function OurPubPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 The main bar area is the heart of The Anchor. This is where
                 you&apos;ll find the dartboard, the jukebox and, more often
                 than not, a good conversation with whoever&apos;s sitting
                 next to you.
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 The jukebox deserves a mention on its own. It plays throughout the
                 pub, inside and out in the garden, so the music
                 follows you wherever you go. And the{' '}
                 <Link
                   href="/pool-darts-pub"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   dartboard
                 </Link>
@@ -333,15 +334,15 @@ export default function OurPubPage() {
       </section>
 
       {/* ── Pool, Games & a Quiet Corner ── */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8">
+            <h2 className="text-h3 text-ink-strong mb-8">
               Pool, Games &amp; a Quiet Corner
             </h2>
 
             <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden">
                 <Image
                   src={PHOTOS.pool.src}
                   alt={PHOTOS.pool.alt}
@@ -350,7 +351,7 @@ export default function OurPubPage() {
                   sizes="(max-width: 768px) 100vw, 550px"
                 />
               </div>
-              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden">
                 <Image
                   src={PHOTOS.poolBay.src}
                   alt={PHOTOS.poolBay.alt}
@@ -362,11 +363,11 @@ export default function OurPubPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Our{' '}
                 <Link
                   href="/pool-darts-pub"
-                  className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline"
+                  className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   pool table
                 </Link>{' '}
@@ -376,7 +377,7 @@ export default function OurPubPage() {
                 the go. Mates, dates, work colleagues, everyone ends up round
                 the pool table eventually.
               </p>
-              <p className="text-anchor-cream-text/80 leading-relaxed">
+              <p className="text-ink leading-relaxed">
                 Just past the pool table, there&apos;s a table in our second bay
                 window. It&apos;s a little more removed from the buzz of the main
                 bar, perfect if you want a quieter bite to eat or a catch-up
@@ -390,7 +391,6 @@ export default function OurPubPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-green-raised"
         faqs={[
           {
             question: 'What drinks do you have on draught?',
@@ -421,48 +421,31 @@ export default function OurPubPage() {
       />
 
       {/* CTA */}
-      <section className="section-spacing-lg bg-gradient-to-br from-anchor-green to-anchor-green/90">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              That&apos;s The Anchor
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              A proper village pub since 1751, seven minutes from Heathrow, with
-              20&nbsp;free parking spaces and room for everyone. Come and see it
-              for yourself.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="our_pub_cta"
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-              />
-              <PhoneButton phone={CONTACT.phone} source="our-pub_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call {CONTACT.phone}
-              </PhoneButton>
+      <CtaBand
+        title="That's The Anchor"
+        copy="A proper village pub since 1751, seven minutes from Heathrow, with 20 free parking spaces and room for everyone. Come and see it for yourself."
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <BookTableButton source="our_pub_cta" size="lg" variant="primary" />
+            <PhoneButton phone={CONTACT.phone} source="our-pub_cta" variant="outline" size="lg">
+              Call {CONTACT.phone}
+            </PhoneButton>
+            <Button asChild size="lg" variant="outline">
               <Link
                 href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-                >
-                  Get Directions
-                </Button>
+                Get Directions
               </Link>
-            </div>
-            <p className="text-white/80 mt-8 text-sm">
-              Just 7 minutes from Heathrow Terminal 5 &middot; Free parking
-              &middot; Dogs welcome
-            </p>
+            </Button>
           </div>
-        </Container>
-      </section>
+          <p className="text-sm text-anchor-cream-text/70">
+            Just 7 minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome
+          </p>
+        </div>
+      </CtaBand>
     </>
   )
 }

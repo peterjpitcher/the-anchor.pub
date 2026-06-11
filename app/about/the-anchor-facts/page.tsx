@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Button } from '@/components/ui'
+import { Container, Button } from '@/components/ui'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { InteriorHero } from '@/components/hero'
@@ -143,19 +143,19 @@ export default function AnchorFactsPage() {
         }
       />
 
-      <Section background="dark" spacing="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-bright">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent-text">
               Source of truth
             </p>
-            <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
+            <h2 className="mt-3 text-h3 text-ink-strong">
               The Anchor Facts
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-anchor-cream-text/75">
+            <p className="mt-5 text-lg leading-relaxed text-ink-muted">
               Current factual details for The Anchor in Stanwell Moor, including food, booking links, opening hours, private hire, hosted events, parking and Heathrow distance.
             </p>
-            <p className="mt-3 text-sm text-anchor-cream-text/60">
+            <p className="mt-3 text-sm text-ink-muted">
               {STATIC_HOURS_REVIEW_NOTE} Page last reviewed {LAST_REVIEWED}.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -168,34 +168,34 @@ export default function AnchorFactsPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-surface border-b border-line">
         <Container>
           <dl className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
             {primaryFacts.map(([label, value]) => (
-              <div key={label} className="rounded-md border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
-                <dt className="text-sm font-semibold uppercase tracking-[0.16em] text-anchor-gold-bright">
+              <div key={label} className="rounded-md border border-line bg-surface-sunk p-5">
+                <dt className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-text">
                   {label}
                 </dt>
-                <dd className="mt-2 text-base leading-relaxed text-anchor-cream-text/75">
+                <dd className="mt-2 text-base leading-relaxed text-ink-muted">
                   {value}
                 </dd>
               </div>
             ))}
           </dl>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <section className="py-section-y bg-canvas border-b border-line">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-bold text-anchor-cream-text">Primary Links</h2>
+              <h2 className="text-2xl text-ink-strong">Primary Links</h2>
               <ul className="mt-5 space-y-3">
                 {keyLinks.map(([label, href]) => (
                   <li key={href}>
-                    <Link href={href} className="font-semibold text-anchor-gold-bright underline underline-offset-4 hover:text-anchor-gold-dark">
+                    <Link href={href} className="font-semibold text-accent-text underline underline-offset-4 hover:text-accent">
                       {label}
                     </Link>
                   </li>
@@ -203,23 +203,23 @@ export default function AnchorFactsPage() {
               </ul>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-anchor-cream-text">Social Links</h2>
+              <h2 className="text-2xl text-ink-strong">Social Links</h2>
               <ul className="mt-5 space-y-3">
                 {socialLinks.map(([label, href]) => (
                   <li key={href}>
-                    <a href={href} className="font-semibold text-anchor-gold-bright underline underline-offset-4 hover:text-anchor-gold-dark">
+                    <a href={href} className="font-semibold text-accent-text underline underline-offset-4 hover:text-accent">
                       {label}
                     </a>
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm leading-relaxed text-anchor-cream-text/60">
+              <p className="mt-6 text-sm leading-relaxed text-ink-muted">
                 Facts on this page should match visible site copy, schema, Google Business Profile and booking pages.
               </p>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
     </>
   )
 }
