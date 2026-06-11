@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Badge, Button, Container, SectionHeading } from '@/components/ui'
+import { Badge, Button, Card, Container, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
@@ -13,7 +13,8 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
-import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
+import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
+import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -91,9 +92,10 @@ const REGULAR_NIGHTS: ReadonlyArray<{
 ]
 
 export default async function WhatsOnPage() {
-  const [openingHoursSpecification, upcomingEvents] = await Promise.all([
+  const [openingHoursSpecification, upcomingEvents, recentEvents] = await Promise.all([
     getOpeningHoursSpecification(),
     getUpcomingEvents(24).catch(() => [] as Event[]),
+    getRecentEvents(12).catch(() => [] as Event[]),
   ])
 
   return (
@@ -261,6 +263,77 @@ export default async function WhatsOnPage() {
           </div>
         </Container>
       </section>
+
+      {/* Seasonal occasions (orphan-repair internal links; SEO). Keeps the
+          seasonal occasion pages crawlable from this hub. */}
+      <section className="bg-canvas py-section-y">
+        <Container>
+          <SectionHeading
+            kicker="Seasonal occasions"
+            title="Plan ahead for the dates people search for"
+            lead="Guides for the seasonal pub dates near Heathrow, from bank holiday weekends to New Year's Eve."
+          />
+
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {seasonalOccasionLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="group block h-full">
+                <Card hover accent className="h-full p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong transition-colors group-hover:text-anchor-gold">
+                    {link.label}
+                  </h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    {link.description}
+                  </p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Recent events archive (orphan-repair internal links; SEO). Keeps
+          recently finished event pages linked while Google recrawls. */}
+      {recentEvents.length > 0 && (
+        <section id="recent-events" className="bg-surface py-section-y">
+          <Container>
+            <SectionHeading
+              kicker="Recent events"
+              title="From the recent event archive"
+              lead="Recently finished event pages stay linked here while the next dates are promoted."
+            />
+
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {recentEvents.map((event) => (
+                <Link
+                  key={event.id || event.slug}
+                  href={`/events/${event.slug || event.id}`}
+                  className="group block h-full"
+                >
+                  <Card hover accent className="h-full p-6">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
+                      {formatEventDate(event.startDate)}
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold text-ink-strong transition-colors group-hover:text-anchor-gold">
+                      {event.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      {event.brief || event.shortDescription || event.description || 'See details from this recent event at The Anchor.'}
+                    </p>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link href="/whats-on#upcoming-events">
+                <Button variant="outline" size="md">
+                  See this month&apos;s events
+                </Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* Internal links (preserved for SEO; A4). */}
       <section className="bg-canvas py-section-y">
