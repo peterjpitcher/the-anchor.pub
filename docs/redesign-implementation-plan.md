@@ -336,11 +336,12 @@ rg -l "FloatingActions|StickyMobileBookingCTA|FoodStickyCtaBar|EventStickyBookin
 ## O. Tracking checklist (tick as PRs merge)
 
 - [x] Pre-flight B1 (defaults recorded; O2=#8b6914) · B4 (docs committed) · B5 (jest+lint confirmed) — B2 logos present at `public/images/branding/`; **B3 visual baseline still outstanding (needed before Phase 5)**
-- [x] PR 0.1 Foundations — committed `032618cc`; audit 0, tsc clean, build 322pp, 0 test regression vs main, tokens byte-exact, 0 AA-risk gold-text
-- [ ] PR 1.1 Button · [ ] 1.2 Badge+Card · [ ] 1.3 Input+SectionHeading
-- [ ] PR 2.1a InteriorHero foundation · [ ] 2.1b Hero low/medium families · [ ] 2.1c Hero conversion families · [ ] 2.2 Header · [ ] 2.3 Footer · [ ] 2.4 StickyCtas+strips
-- [ ] PR 3.1 WeekHours · [ ] 3.2 Events
-- [ ] PR 4.1 Home · [ ] 4.2 Food · [ ] 4.3 What's On · [ ] 4.4 Private Hire · [ ] 4.5 Book · [ ] 4.6 Near Heathrow
-- [ ] PR 5.1 Blog · [ ] 5.2 About/legal · [ ] 5.3 Seasonal · [ ] 5.4 Town/Hotel · [ ] 5.5 Find Us · [ ] 5.6 Private hire family · [ ] 5.7 Events family · [ ] 5.8 Food family · [ ] 5.9 Parking
-- [ ] PR 6.1 Delete retired code · [ ] 6.2 Copy/voice + final QA
-- [ ] Open questions O1–O5 resolved
+- [x] PR 0.1 Foundations — `032618cc`
+- [x] PR 1.1 Button (`c57cf3b4`+follow-up) · [x] 1.2 Badge+Card (`6d5e8308`) · [x] 1.3 Input+SectionHeading (`f40c1019`)
+- [x] PR 2.1 InteriorHero + all 107 pages migrated (`6427b2da`/`f5907233`/`7de2e3e4`) · [x] 2.2 Header+StatusBar (`9da024e8`) · [x] 2.3 Footer (`95d45a01`) · [x] 2.4 StickyCtas+strips (`3039639d`)
+- [x] PR 3.1 WeekHours · [x] 3.2 Events (`b60a4b9c`)
+- [x] PR 4.1 Home · 4.2 Food · 4.3 What's On · 4.4 Private Hire · 4.5 Book · 4.6 Near Heathrow (`f3aca1ed`/`53edd839`)
+- [x] PR 5.1 Blog · 5.2 About/legal · 5.3 Seasonal (`c9d6f658`) · 5.4 Town/Hotel · 5.5 Find Us · 5.6 Private hire family (`dea42e3b`) · 5.7 Events · 5.8 Food · 5.9 Parking (`92bf7b1e`) · **5.10 shared-component re-theme (`f894ac8e`)**
+- [x] PR 6.1 Delete retired code (`ccc6bb95`, 36 files) · [x] 6.2 Copy/voice + test-debt suites (`8c502f05`) · [x] audit-script updates (`b…`) · [x] SEO orphan-link fix (`9ab161b7`) · [x] Codex adversarial-review fixes (`31a61e78`)
+- [ ] **Open questions O1–O5 — owner decisions still pending** (O1 flight-path kept per SSOT; O2 #8b6914 shipped; O3 hrefs validated; O4 regulars verified-only; O5 logos confirmed present)
+- [ ] **Not done by automation (needs human):** visual diff at 1280/390 vs `Page Layouts.html`; booking smoke through PayPal in staging; the pre-existing copy cleanup + 3 em-dash H1s in `.redesign-workspace/verification/phase6-followups.md`
