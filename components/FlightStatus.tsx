@@ -104,7 +104,7 @@ export function FlightStatus({
 
   if (loading) {
     return (
-      <div className="card-dark rounded-none p-6">
+      <div className="bg-surface border border-line rounded-md p-6">
         <LoadingState variant="skeleton" className="h-32 w-full" />
       </div>
     )
@@ -112,7 +112,7 @@ export function FlightStatus({
 
   if (error) {
     return (
-      <div className="card-dark rounded-none p-6">
+      <div className="bg-surface border border-line rounded-md p-6">
         <FlightErrorDisplay onRetry={retry} />
       </div>
     )
@@ -136,11 +136,11 @@ export function FlightStatus({
     const gate = isDeparture ? flight.departure.gate : flight.arrival.gate
 
     return (
-      <div className="py-3 border-b border-anchor-gold-dark/15 last:border-0">
+      <div className="py-3 border-b border-line last:border-0">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-anchor-green">
+              <span className="font-semibold text-ink-strong">
                 {flight.airline.iata} {flight.flight.number}
               </span>
               <span className={`text-sm font-medium ${status.color}`}>
@@ -152,13 +152,13 @@ export function FlightStatus({
                 </span>
               )}
             </div>
-            <div className="text-sm text-anchor-cream-text/55 mt-1">
+            <div className="text-sm text-ink-muted mt-1">
               {isDeparture ? 'To' : 'From'} {destination}
               {gate && <span className="ml-2">• Gate {gate}</span>}
             </div>
           </div>
           <div className="text-right">
-            <div className="font-medium text-anchor-green">{scheduledTime}</div>
+            <div className="font-medium text-ink-strong">{scheduledTime}</div>
             {actualTime !== scheduledTime && (
               <div className="text-sm text-orange-600">{actualTime}</div>
             )}
@@ -178,8 +178,8 @@ export function FlightStatus({
       </div>
 
       {(type === 'departures' || type === 'both') && departures.length > 0 && (
-        <div className="card-dark rounded-none overflow-hidden">
-          <div className="bg-anchor-green text-white px-6 py-4">
+        <div className="bg-surface border border-line rounded-md overflow-hidden">
+          <div className="bg-anchor-green text-ink-inverse px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               Departures from Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
@@ -198,8 +198,8 @@ export function FlightStatus({
       )}
 
       {(type === 'arrivals' || type === 'both') && arrivals.length > 0 && (
-        <div className="card-dark rounded-none overflow-hidden">
-          <div className="bg-anchor-gold-dark text-white px-6 py-4">
+        <div className="bg-surface border border-line rounded-md overflow-hidden">
+          <div className="bg-anchor-gold-dark text-ink-inverse px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               Arrivals to Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
@@ -218,11 +218,11 @@ export function FlightStatus({
       )}
 
       {departures.length === 0 && arrivals.length === 0 && (
-        <div className="card-dark rounded-none p-6">
-          <p className="text-anchor-cream-text/70 text-center">
+        <div className="bg-surface border border-line rounded-md p-6">
+          <p className="text-ink text-center">
             No flight information available for Terminal {terminal} at this time.
           </p>
-          <p className="text-sm sm:text-xs text-anchor-cream-text/55 text-center mt-2">
+          <p className="text-sm sm:text-xs text-ink-muted text-center mt-2">
             Flight data may be limited. Check the Heathrow Airport website for live updates.
           </p>
         </div>
@@ -290,19 +290,19 @@ export const FlightDelayWidget = memo(function FlightDelayWidget({ terminal }: {
     : 0
 
   return (
-    <div className="bg-anchor-gold-dark/10 border border-anchor-gold-dark/30 rounded-none p-4" role="status" aria-live="polite">
+    <div className="bg-surface-sunk border border-line-gold rounded-md p-4" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
         <div></div>
         <div className="flex-1">
-          <h4 className="font-semibold text-anchor-gold-bright">
+          <h4 className="font-semibold text-accent-text">
             Terminal {terminal} Flight Status
           </h4>
           {delayInfo.delayedFlights > 0 ? (
-            <p className="text-sm text-amber-400 mt-1">
+            <p className="text-sm text-amber-700 mt-1">
               {delayPercentage}% of flights delayed • Average delay: {delayInfo.avgDelay} minutes
             </p>
           ) : (
-            <p className="text-sm text-green-400 mt-1">
+            <p className="text-sm text-green-700 mt-1">
               All flights running on schedule
             </p>
           )}

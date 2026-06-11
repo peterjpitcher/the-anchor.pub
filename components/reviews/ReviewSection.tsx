@@ -22,39 +22,25 @@ export function ReviewSection({
   className = ""
 }: ReviewSectionProps) {
   const bgClasses = {
-    white: "bg-anchor-green-card",
-    gray: "bg-anchor-green-deep",
-    cream: "bg-anchor-green-card",
-    dark: "bg-anchor-green-deep"
-  }
-
-  const titleClasses = {
-    white: "text-anchor-cream-text",
-    gray: "text-anchor-cream-text",
-    cream: "text-anchor-cream-text",
-    dark: "text-anchor-cream-text"
-  }
-
-  const subtitleClasses = {
-    white: "text-anchor-cream-text/70",
-    gray: "text-anchor-cream-text/70",
-    cream: "text-anchor-cream-text/70",
-    dark: "text-anchor-cream-text/70"
+    white: "bg-surface",
+    gray: "bg-surface-sunk",
+    cream: "bg-canvas",
+    dark: "bg-surface-sunk"
   }
 
   return (
-    <section className={`section-spacing ${bgClasses[background]} ${className}`}>
+    <section className={`py-section-y ${bgClasses[background]} ${className}`}>
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {(title || subtitle) && (
             <div className="text-center mb-12">
               {title && (
-                <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${titleClasses[background]}`}>
+                <h2 className="text-h2 text-ink-strong mb-4">
                   {title}
                 </h2>
               )}
               {subtitle && (
-                <p className={`text-lg max-w-3xl mx-auto ${subtitleClasses[background]}`}>
+                <p className="text-lg max-w-3xl mx-auto text-ink-muted">
                   {subtitle}
                 </p>
               )}

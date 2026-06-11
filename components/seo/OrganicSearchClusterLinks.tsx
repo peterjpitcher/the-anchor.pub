@@ -37,18 +37,18 @@ export function OrganicSearchClusterLinks({
   if (links.length === 0) return null
 
   return (
-    <Section className={`bg-anchor-green-raised border-y border-anchor-gold-dark/15 ${className}`}>
+    <Section className={`bg-surface-sunk border-y border-line ${className}`}>
       <Container>
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-dark">
+            <p className="text-sm font-semibold uppercase tracking-wide text-accent-text">
               {seoCluster.label}
             </p>
-            <h2 className="mt-2 text-2xl font-bold text-anchor-cream-text">
+            <h2 className="mt-2 text-h3 text-ink-strong">
               {title || 'Related Heathrow guides'}
             </h2>
             {intro && (
-              <p className="mt-3 text-anchor-cream-text/70">
+              <p className="mt-3 text-ink-muted">
                 {intro}
               </p>
             )}
@@ -59,12 +59,12 @@ export function OrganicSearchClusterLinks({
               <Link
                 key={link.href}
                 href={link.href}
-                className="block border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors hover:border-anchor-gold-dark/45"
+                className="block rounded-md border border-line bg-surface p-5 shadow-sm transition-colors hover:border-line-strong"
               >
-                <h3 className="text-lg font-semibold text-anchor-gold-bright">
+                <h3 className="text-lg font-semibold text-accent-text">
                   {link.label}
                 </h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
+                <p className="mt-2 text-sm text-ink-muted">
                   {link.description}
                 </p>
               </Link>

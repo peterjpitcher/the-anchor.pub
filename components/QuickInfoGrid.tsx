@@ -33,16 +33,16 @@ export function QuickInfoGrid({
       {items.map((item, index) => (
         <div
           key={index}
-          className={`card-dark min-w-0 rounded-none text-center ${sizeClasses[variant]}`}
+          className={`bg-surface border border-line shadow-sm min-w-0 rounded-md text-center ${sizeClasses[variant]}`}
         >
           <div className={`${variant === 'compact' ? 'text-2xl mb-2' : 'text-3xl mb-3'}`}>
             {item.icon}
           </div>
-          <h3 className={`break-words font-bold text-anchor-gold-bright ${variant === 'compact' ? 'text-sm' : ''}`}>
+          <h3 className={`break-words font-bold text-accent-text ${variant === 'compact' ? 'text-sm' : ''}`}>
             {item.title}
           </h3>
           {item.subtitle && (
-            <div className={`break-words text-anchor-cream-text/70 ${variant === 'compact' ? 'text-sm sm:text-xs mt-1' : 'text-base sm:text-sm mt-2'}`}>
+            <div className={`break-words text-ink ${variant === 'compact' ? 'text-sm sm:text-xs mt-1' : 'text-base sm:text-sm mt-2'}`}>
               {item.subtitle}
             </div>
           )}

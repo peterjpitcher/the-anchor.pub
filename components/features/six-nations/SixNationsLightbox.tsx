@@ -132,7 +132,7 @@ export function SixNationsLightbox() {
             {/* Modal */}
             <div
                 className={cn(
-                    "relative w-full max-w-lg card-dark rounded-none shadow-2xl overflow-hidden transform transition-all duration-300",
+                    "relative w-full max-w-lg bg-surface border border-line rounded-md shadow-lg overflow-hidden transform transition-all duration-300",
                     isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
                 )}
             >
@@ -155,15 +155,15 @@ export function SixNationsLightbox() {
                     <div className="absolute inset-0 bg-black/60" /> {/* Darker overlay for text contrast */}
                     <div className="relative z-10 text-center px-6">
                         <h2 className="text-3xl sm:text-4xl font-display font-bold mb-2 text-white">Six Nations 2026</h2>
-                        <p className="text-anchor-gold-dark font-medium uppercase tracking-widest text-sm">Live at The Anchor</p>
+                        <p className="text-anchor-gold-bright font-medium uppercase tracking-widest text-sm">Live at The Anchor</p>
                     </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 sm:p-8 text-center space-y-6">
                     <div className="space-y-2">
-                        <h3 className="text-2xl font-bold text-anchor-cream-text">Don't Miss Kick Off!</h3>
-                        <p className="text-anchor-cream-text/70">
+                        <h3 className="text-2xl font-bold text-ink-strong">Don't Miss Kick Off!</h3>
+                        <p className="text-ink">
                             Book your table now for the best seats in the house. Every match live with sound on, 4 screens, and proper pub food.
                         </p>
                     </div>
@@ -197,7 +197,7 @@ export function SixNationsLightbox() {
                         </Link>
                     </div>
 
-                    <p className="text-xs text-center text-anchor-cream-text/55">
+                    <p className="text-xs text-center text-ink-muted">
                         Near Heathrow • Free Parking • Kitchen Open
                     </p>
                 </div>

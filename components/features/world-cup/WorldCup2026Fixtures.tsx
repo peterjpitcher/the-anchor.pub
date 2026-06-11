@@ -151,11 +151,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               ? []
               : matches.filter(({ match }) => !match.showing)
           return (
-            <Card key={dateKey} className="overflow-hidden border border-anchor-gold-dark/15">
-              <div className="flex flex-col gap-3 bg-anchor-green-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <Card key={dateKey} className="overflow-hidden border border-line">
+              <div className="flex flex-col gap-3 bg-surface-sunk px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-anchor-cream-text">{displayDate}</p>
-                  <p className="text-xs text-anchor-cream-text/70">
+                  <p className="text-sm font-semibold text-ink-strong">{displayDate}</p>
+                  <p className="text-xs text-ink-muted">
                     {matches.length} match{matches.length === 1 ? '' : 'es'}
                     {' • '}
                     {showingCount} showing
@@ -169,7 +169,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                 </div>
               </div>
 
-              <div className="divide-y divide-anchor-gold-dark/15">
+              <div className="divide-y divide-line">
                 {visibleMatches.map(({ match, londonDateTime }) => {
                   const timeLabel = londonDateTime.toFormat('HH:mm')
                   const stageText = stageLabel[match.stage]
@@ -185,37 +185,37 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                       id={`match-${match.matchNumber}`}
                       className={cn(
                         'flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between',
-                        !match.showing && 'bg-anchor-green-raised'
+                        !match.showing && 'bg-surface-sunk'
                       )}
                     >
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-bright">
+                          <span className="inline-flex rounded-pill bg-surface-sunk px-2.5 py-1 text-xs font-bold text-accent-text">
                             {timeLabel}
                           </span>
                           <span className={cn(
-                            'inline-flex rounded-full px-2.5 py-1 text-xs font-semibold',
+                            'inline-flex rounded-pill px-2.5 py-1 text-xs font-semibold',
                             match.showing
-                              ? 'bg-anchor-green/20 text-anchor-gold-bright'
-                              : 'bg-anchor-green-raised text-anchor-cream-text/55'
+                              ? 'bg-surface-sunk text-accent-text'
+                              : 'bg-surface-sunk text-ink-muted'
                           )}>
                             {match.showing ? 'Showing' : 'Not showing'}
                           </span>
                           {isEnglandMatch && (
-                            <span className="inline-flex rounded-full bg-anchor-gold-dark/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-bright">
+                            <span className="inline-flex rounded-pill bg-surface-sunk px-2.5 py-1 text-xs font-semibold text-accent-text">
                               England
                             </span>
                           )}
-                          <p className="text-sm font-semibold text-anchor-cream-text">{teamsLabel}</p>
-                          <span className="text-xs text-anchor-cream-text/55">Match {match.matchNumber}</span>
+                          <p className="text-sm font-semibold text-ink-strong">{teamsLabel}</p>
+                          <span className="text-xs text-ink-muted">Match {match.matchNumber}</span>
                         </div>
-                        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
+                        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-muted">
                           {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                           {locationParts && <span>{locationParts}</span>}
-                          {match.showingNote && <span className="text-amber-400">{match.showingNote}</span>}
+                          {match.showingNote && <span className="text-amber-700">{match.showingNote}</span>}
                         </div>
                         {!match.showing && (
-                          <p className="mt-2 text-xs text-anchor-cream-text/70">
+                          <p className="mt-2 text-xs text-ink-muted">
                             Kick-off is outside our opening hours.
                           </p>
                         )}
@@ -242,11 +242,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               </div>
 
               {fixtureVisibility === 'showing' && hiddenMatches.length > 0 && (
-                <details className="border-t border-anchor-gold-dark/15 bg-anchor-green-card">
-                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-anchor-cream-text/70 hover:bg-anchor-green-raised">
+                <details className="border-t border-line bg-surface-sunk">
+                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-ink-muted hover:bg-surface-sunk">
                     {hiddenMatches.length} match{hiddenMatches.length === 1 ? '' : 'es'} not showing (outside opening hours)
                   </summary>
-                  <div className="divide-y divide-anchor-gold-dark/15">
+                  <div className="divide-y divide-line">
                     {hiddenMatches.map(({ match, londonDateTime }) => {
                       const timeLabel = londonDateTime.toFormat('HH:mm')
                       const stageText = stageLabel[match.stage]
@@ -263,29 +263,29 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                         <div
                           key={match.matchNumber}
                           id={`match-${match.matchNumber}`}
-                          className="flex flex-col gap-3 bg-anchor-green-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                          className="flex flex-col gap-3 bg-surface-sunk px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
                         >
                           <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                              <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-bright">
+                              <span className="inline-flex rounded-pill bg-surface px-2.5 py-1 text-xs font-bold text-accent-text">
                                 {timeLabel}
                               </span>
-                              <span className="inline-flex rounded-full bg-anchor-green-card px-2.5 py-1 text-xs font-semibold text-anchor-cream-text/55">
+                              <span className="inline-flex rounded-pill bg-surface px-2.5 py-1 text-xs font-semibold text-ink-muted">
                                 Not showing
                               </span>
                               {isEnglandMatch && (
-                                <span className="inline-flex rounded-full bg-anchor-gold-dark/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-bright">
+                                <span className="inline-flex rounded-pill bg-surface px-2.5 py-1 text-xs font-semibold text-accent-text">
                                   England
                                 </span>
                               )}
-                              <p className="text-sm font-semibold text-anchor-cream-text">{teamsLabel}</p>
-                              <span className="text-xs text-anchor-cream-text/55">Match {match.matchNumber}</span>
+                              <p className="text-sm font-semibold text-ink-strong">{teamsLabel}</p>
+                              <span className="text-xs text-ink-muted">Match {match.matchNumber}</span>
                             </div>
-                            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
+                            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink-muted">
                               {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                               {locationParts && <span>{locationParts}</span>}
                             </div>
-                            <p className="mt-2 text-xs text-anchor-cream-text/70">Kick-off is outside our opening hours.</p>
+                            <p className="mt-2 text-xs text-ink-muted">Kick-off is outside our opening hours.</p>
                           </div>
                         </div>
                       )
@@ -298,11 +298,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
         })}
 
         {fixturesByDate.length === 0 && (
-          <div className="py-12 text-center text-anchor-cream-text/55">No matches found for your selection.</div>
+          <div className="py-12 text-center text-ink-muted">No matches found for your selection.</div>
         )}
       </div>
 
-      <div className="text-center text-xs text-anchor-cream-text/55 italic">
+      <div className="text-center text-xs text-ink-muted italic">
         * Times shown in UK time (BST). Fixtures subject to change.
       </div>
     </div>

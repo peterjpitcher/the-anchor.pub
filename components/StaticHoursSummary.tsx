@@ -12,14 +12,14 @@ interface StaticHoursSummaryProps {
 
 export function StaticHoursSummary({ className, compact = false }: StaticHoursSummaryProps) {
   return (
-    <div className={cn('rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-4 text-left', className)}>
-      <p className="text-sm font-semibold text-anchor-gold-bright">
+    <div className={cn('rounded-md border border-line bg-surface shadow-sm p-4 text-left', className)}>
+      <p className="text-sm font-semibold text-accent-text">
         Opening hours
       </p>
-      <div className={cn('mt-2 space-y-1 text-anchor-cream-text/75', compact ? 'text-xs' : 'text-sm')}>
+      <div className={cn('mt-2 space-y-1 text-ink', compact ? 'text-xs' : 'text-sm')}>
         <p>{STATIC_BAR_HOURS_SUMMARY}</p>
         <p>{STATIC_KITCHEN_HOURS_SUMMARY}</p>
-        <p className="text-anchor-cream-text/55">{STATIC_HOURS_REVIEW_NOTE}</p>
+        <p className="text-ink-muted">{STATIC_HOURS_REVIEW_NOTE}</p>
       </div>
     </div>
   )

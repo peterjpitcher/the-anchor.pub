@@ -60,32 +60,32 @@ export function FAQAccordionWithSchema({
         />
       )}
       
-      <section className={cn('section-spacing bg-anchor-green-card', className)}>
+      <section className={cn('py-section-y bg-canvas', className)}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
+            <h2 className="text-h2 text-ink-strong mb-8 text-center">
               {title}
             </h2>
 
             {/* Removed microdata markup to prevent duplicate schemas */}
-            <div className="space-y-3">
+            <div className="divide-y divide-line border-y border-line">
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className="card-dark overflow-hidden"
+                  className="overflow-hidden"
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-anchor-green-raised transition-colors focus:outline-none focus:bg-anchor-green-raised focus:ring-2 focus:ring-anchor-gold-dark focus:ring-inset"
+                    className="w-full px-2 py-5 text-left flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-inset"
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
-                    <h3 className="font-bold text-lg text-anchor-cream-text pr-4">
+                    <h3 className="font-display text-h4 text-ink-strong pr-4">
                       {faq.question}
                     </h3>
-                    <svg 
-                      className={`w-5 h-5 text-anchor-gold-bright flex-shrink-0 transition-transform duration-200 ${
-                        openIndex === index ? 'transform rotate-180' : ''
+                    <svg
+                      className={`w-5 h-5 text-anchor-gold-dark flex-shrink-0 transition-transform duration-200 ${
+                        openIndex === index ? 'rotate-45' : ''
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -93,26 +93,26 @@ export function FAQAccordionWithSchema({
                       xmlns="http://www.w3.org/2000/svg"
                       aria-hidden="true"
                     >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M19 9l-7 7-7-7" 
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 5v14M5 12h14"
                       />
                     </svg>
                   </button>
-                  
+
                   <div
                     id={`faq-answer-${index}`}
-                    className={`px-6 overflow-hidden transition-all duration-200 ${
-                      openIndex === index ? 'pb-4' : ''
+                    className={`px-2 overflow-hidden transition-all duration-200 ${
+                      openIndex === index ? 'pb-5' : ''
                     }`}
                     style={{
                       maxHeight: openIndex === index ? '500px' : '0',
                     }}
                     aria-hidden={openIndex !== index}
                   >
-                    <p className="text-anchor-cream-text/70">
+                    <p className="text-lg text-ink-muted">
                       {faq.answer}
                     </p>
                   </div>

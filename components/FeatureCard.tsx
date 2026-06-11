@@ -15,12 +15,12 @@ export function FeatureCard({
   color,
   className = ''
 }: FeatureCardProps) {
-  const baseClasses = 'card-dark rounded-none p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]'
+  const baseClasses = 'bg-surface border border-line rounded-md shadow-sm p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg'
 
   const variantClasses = {
     default: '',
-    cream: 'bg-anchor-green-raised',
-    colored: color || 'bg-anchor-green-deep'
+    cream: 'bg-canvas',
+    colored: color || 'bg-surface-sunk'
   }
 
   const renderIcon = () => {
@@ -34,8 +34,8 @@ export function FeatureCard({
   return (
     <div className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
       {renderIcon()}
-      <h3 className="font-bold text-lg mb-2 text-anchor-gold-bright">{title}</h3>
-      <div className="text-anchor-cream-text/70">{description}</div>
+      <h3 className="font-bold text-lg mb-2 text-accent-text">{title}</h3>
+      <div className="text-ink">{description}</div>
     </div>
   )
 }

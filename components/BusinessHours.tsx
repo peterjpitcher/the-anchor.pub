@@ -23,11 +23,11 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   // --- Loading state ---
   if (loading) {
     return (
-      <div className={`bg-anchor-green-raised border border-anchor-gold-dark/15 rounded-lg p-4 ${className}`}>
-        <p className="text-sm font-semibold text-anchor-gold-bright">Opening hours</p>
-        <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_BAR_HOURS_SUMMARY}</p>
-        <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_KITCHEN_HOURS_SUMMARY}</p>
-        <p className="mt-1 text-xs text-anchor-cream-text/55">{STATIC_HOURS_REVIEW_NOTE}</p>
+      <div className={`bg-surface border border-line rounded-md shadow-sm p-4 ${className}`}>
+        <p className="text-sm font-semibold text-accent-text">Opening hours</p>
+        <p className="mt-1 text-sm text-ink">{STATIC_BAR_HOURS_SUMMARY}</p>
+        <p className="mt-1 text-sm text-ink">{STATIC_KITCHEN_HOURS_SUMMARY}</p>
+        <p className="mt-1 text-xs text-ink-muted">{STATIC_HOURS_REVIEW_NOTE}</p>
       </div>
     )
   }
@@ -36,12 +36,12 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   if (error || !hours) {
     const errorMessage = error?.message || `We couldn't load our opening hours right now.`
     return (
-      <div className={`bg-red-900/20 border border-red-500/30 rounded-lg p-4 ${className}`}>
-        <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
-        <div className="space-y-1 text-sm text-anchor-cream-text/70">
+      <div className={`bg-surface border border-anchor-danger/30 rounded-md shadow-sm p-4 ${className}`}>
+        <p className="text-anchor-danger text-sm mb-2">{errorMessage}</p>
+        <div className="space-y-1 text-sm text-ink">
           <p>{STATIC_BAR_HOURS_SUMMARY}</p>
           <p>{STATIC_KITCHEN_HOURS_SUMMARY}</p>
-          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline">
+          <a href={CONTACT_INFO.phoneLink} className="text-accent-text hover:text-anchor-green font-semibold underline">
             Call {CONTACT_INFO.phone}
           </a>{' '}
           for today&apos;s live status.
@@ -197,19 +197,19 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
 
   const renderKitchen = (kitchen: any, kitchenClosed: boolean, hasSpecialHours: boolean) => {
     if (kitchenClosed) {
-      return <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white/70'}>Closed</span>
+      return <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink-muted'}>Closed</span>
     }
     if (!kitchen || kitchen === null) {
-      return <span className="text-white/50">No service</span>
+      return <span className="text-ink-muted">No service</span>
     }
     if ('opens' in kitchen && 'closes' in kitchen) {
       return (
-        <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white/80'}>
+        <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink'}>
           {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
         </span>
       )
     }
-    return <span className="text-white/50">No service</span>
+    return <span className="text-ink-muted">No service</span>
   }
 
   return (
@@ -228,13 +228,13 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           return (
             <div
               key={isoDate || day}
-              className={`rounded px-3 py-2 ${
-                isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
-              } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
+              className={`rounded-sm px-3 py-2 ${
+                isToday ? 'bg-surface-sunk ring-1 ring-line-strong' : 'hover:bg-surface-sunk'
+              } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-line-gold' : ''}`}
             >
               <div className="flex items-center justify-between">
                 {/* Left: Day */}
-                <span className="text-base font-medium capitalize text-white">
+                <span className="text-base font-medium capitalize text-ink-strong">
                   {day.slice(0, 3).charAt(0).toUpperCase() + day.slice(1, 3)}
                   {isToday && <span className="text-sm"> &bull;</span>}
                 </span>
@@ -242,19 +242,19 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
                 {/* Right: Hours */}
                 <div className="text-right space-y-0.5">
                   {displayHours.is_closed ? (
-                    <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>Closed</span>
+                    <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink-strong'}>Closed</span>
                   ) : (
                     <>
                       <div>
-                        <span className="text-sm text-white/60 mr-1">Bar:</span>
-                        <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
+                        <span className="text-sm text-ink-muted mr-1">Bar:</span>
+                        <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink-strong'}>
                           {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
                         </span>
                       </div>
 
                       {showKitchen && (
                         <div className="text-sm">
-                          <span className="text-white/60 mr-1">Kitchen:</span>
+                          <span className="text-ink-muted mr-1">Kitchen:</span>
                           {renderKitchen(kitchen, kitchenClosed, hasSpecialHours)}
                         </div>
                       )}
@@ -264,12 +264,12 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
               </div>
               {/* Full-width note inside the box */}
               {hasSpecialHours && noteText && (
-                <div className="text-xs text-amber-300 font-semibold mt-1">
+                <div className="text-xs text-accent-text font-semibold mt-1">
                   {noteText}
                 </div>
               )}
               {sundayLunchMessage && (
-                <div className="text-xs text-amber-200 mt-1">
+                <div className="text-xs text-accent-text mt-1">
                   {sundayLunchMessage}
                 </div>
               )}
@@ -284,7 +284,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           <button
             type="button"
             onClick={() => setShowUpcoming(prev => !prev)}
-            className="text-sm text-white/80 underline hover:text-white"
+            className="text-sm text-ink underline hover:text-ink-strong"
           >
             {showUpcoming ? 'Hide' : 'See'} upcoming changes ({upcomingChanges.length})
           </button>
@@ -294,25 +294,25 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
               {upcomingChanges.map((entry) => (
                 <div
                   key={entry.date}
-                  className="px-3 py-2 rounded ring-1 ring-yellow-400/50"
+                  className="px-3 py-2 rounded-sm ring-1 ring-line-gold"
                 >
                   {/* Top row: date + hours */}
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-medium text-white">{entry.dateLabel}</span>
+                    <span className="text-base font-medium text-ink-strong">{entry.dateLabel}</span>
                     <div className="text-right space-y-0.5">
                       {entry.is_closed ? (
-                        <span className="text-yellow-400">Closed</span>
+                        <span className="text-accent-text font-semibold">Closed</span>
                       ) : (
                         <>
                           <div>
-                            <span className="text-sm text-white/60 mr-1">Bar:</span>
-                            <span className="text-yellow-400">
+                            <span className="text-sm text-ink-muted mr-1">Bar:</span>
+                            <span className="text-accent-text font-semibold">
                               {formatTime(entry.opens)} - {formatTime(entry.closes)}
                             </span>
                           </div>
                           {showKitchen && (
                             <div className="text-sm">
-                              <span className="text-white/60 mr-1">Kitchen:</span>
+                              <span className="text-ink-muted mr-1">Kitchen:</span>
                               {renderKitchen(entry.kitchen, entry.kitchenClosed, true)}
                             </div>
                           )}
@@ -321,7 +321,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
                     </div>
                   </div>
                   {/* Full-width note below */}
-                  <div className="text-xs text-amber-300 font-semibold mt-1">
+                  <div className="text-xs text-accent-text font-semibold mt-1">
                     {entry.note}
                   </div>
                 </div>

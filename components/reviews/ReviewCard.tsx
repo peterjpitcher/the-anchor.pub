@@ -21,7 +21,7 @@ export function ReviewCard({
         {[...Array(5)].map((_, i) => (
           <span
             key={i}
-            className={i < rating ? "text-yellow-400" : "text-anchor-cream-text/30"}
+            className={i < rating ? "text-anchor-gold" : "text-ink-muted/30"}
           >
           </span>
         ))}
@@ -31,7 +31,7 @@ export function ReviewCard({
 
   if (variant === 'horizontal') {
     return (
-      <div className="bg-anchor-green-raised rounded-lg p-6 border border-anchor-gold-dark/15 flex gap-4">
+      <div className="bg-surface rounded-md p-6 border border-line shadow-sm flex gap-4">
         <div className="flex-shrink-0">
           {review.profile_photo_url ? (
             <Image
@@ -43,20 +43,20 @@ export function ReviewCard({
               unoptimized
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-anchor-green text-white flex items-center justify-center font-bold">
+            <div className="w-12 h-12 rounded-full bg-anchor-green text-white flex items-center justify-center font-semibold">
               {review.author_name.charAt(0).toUpperCase()}
             </div>
           )}
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="font-semibold text-anchor-cream-text">{review.author_name}</h3>
-            <span className="text-sm text-anchor-cream-text/60">
+            <h3 className="font-semibold text-ink-strong">{review.author_name}</h3>
+            <span className="text-sm text-ink-muted">
               {formatReviewDate(review.time)}
             </span>
           </div>
           {renderStars(review.rating)}
-          <p className="text-anchor-cream-text/80 mt-2">
+          <p className="text-ink mt-2">
             {showFullText ? review.text : getReviewExcerpt(review.text)}
           </p>
         </div>
@@ -65,7 +65,7 @@ export function ReviewCard({
   }
 
   return (
-    <div className="bg-anchor-green-raised rounded-xl p-6 border border-anchor-gold-dark/15 h-full flex flex-col">
+    <div className="bg-surface rounded-md p-6 border border-line shadow-sm h-full flex flex-col">
       <div className="flex items-center gap-3 mb-3">
         {review.profile_photo_url ? (
           <Image
@@ -77,13 +77,13 @@ export function ReviewCard({
             unoptimized
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-anchor-green text-white flex items-center justify-center font-bold">
+          <div className="w-10 h-10 rounded-full bg-anchor-green text-white flex items-center justify-center font-semibold">
             {review.author_name.charAt(0).toUpperCase()}
           </div>
         )}
         <div className="flex-1">
-          <h3 className="font-semibold text-anchor-cream-text">{review.author_name}</h3>
-          <span className="text-sm text-anchor-cream-text/60">
+          <h3 className="font-semibold text-ink-strong">{review.author_name}</h3>
+          <span className="text-sm text-ink-muted">
             {formatReviewDate(review.time)}
           </span>
         </div>
@@ -91,16 +91,16 @@ export function ReviewCard({
 
       {renderStars(review.rating)}
 
-      <p className="text-anchor-cream-text/80 mt-3 flex-1">
+      <p className="text-ink mt-3 flex-1">
         {showFullText ? review.text : getReviewExcerpt(review.text)}
       </p>
-      
+
       {review.author_url && (
-        <a 
+        <a
           href={review.author_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-anchor-gold-dark hover:text-anchor-green mt-3 inline-block"
+          className="text-sm text-accent-text hover:text-anchor-green mt-3 inline-block"
         >
           View on Google
         </a>

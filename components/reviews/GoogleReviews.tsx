@@ -73,10 +73,10 @@ export function GoogleReviews({
     return (
       <div className={`google-reviews-wrapper ${className}`}>
         {showTitle && (
-          <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-8">{title}</h2>
+          <h2 className="text-h3 text-ink-strong text-center mb-8">{title}</h2>
         )}
         <div className="animate-pulse">
-          <div className="bg-anchor-green-raised border border-anchor-gold-dark/15 h-48"></div>
+          <div className="bg-surface-sunk border border-line rounded-md h-48"></div>
         </div>
       </div>
     )
@@ -89,9 +89,9 @@ export function GoogleReviews({
   return (
     <div className={`google-reviews-wrapper ${className}`}>
       {showTitle && (
-        <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-8">{title}</h2>
+        <h2 className="text-h3 text-ink-strong text-center mb-8">{title}</h2>
       )}
-      
+
       {layout === 'badge' && (
         <ReviewsBadge rating={rating} totalReviews={totalReviews} />
       )}
@@ -121,7 +121,7 @@ export function GoogleReviews({
           href="https://g.page/theanchorpubsm?share"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-anchor-gold-dark hover:text-anchor-gold transition-colors"
+          className="inline-flex items-center gap-2 text-accent-text hover:text-anchor-gold transition-colors"
         >
           <span>Read all {totalReviews} reviews on Google</span>
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

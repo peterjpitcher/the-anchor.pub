@@ -56,9 +56,9 @@ export function CTASection({
 
   const sectionId = slugify(title)
   const bgClasses = {
-    green: 'bg-anchor-green text-white',
-    red: 'bg-red-600 text-white',
-    dark: 'bg-anchor-charcoal text-white'
+    green: 'theme-dark bg-anchor-green text-white',
+    red: 'theme-dark bg-anchor-danger text-white',
+    dark: 'theme-dark bg-anchor-charcoal text-white'
   }
 
   // Stays a column on mobile; on larger screens the row widens with the button
@@ -69,7 +69,7 @@ export function CTASection({
     'max-w-md'
 
   return (
-    <section className={`section-spacing ${bgClasses[variant]} ${className}`}>
+    <section className={`py-section-y ${bgClasses[variant]} ${className}`}>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           {title}

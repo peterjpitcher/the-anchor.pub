@@ -17,7 +17,7 @@ export function InfoBox({
   icon,
   className = ''
 }: InfoBoxProps) {
-  const baseClasses = 'card-dark rounded-none p-6'
+  const baseClasses = 'bg-surface border border-line rounded-md shadow-sm p-6'
 
   const variantClasses = {
     default: '',
@@ -26,15 +26,15 @@ export function InfoBox({
 
   return (
     <div className={`${baseClasses} ${variantClasses[variant]} overflow-hidden ${className}`}>
-      <h3 className="text-xl font-bold mb-4 text-anchor-cream-text">
+      <h3 className="text-xl font-bold mb-4 text-ink-strong">
         {icon && <span className="mr-2">{icon}</span>}
         {title}
       </h3>
-      <div className="text-anchor-cream-text/70">
+      <div className="text-ink">
         {content}
       </div>
       {footnote && (
-        <p className="mt-3 text-sm text-anchor-cream-text/55">
+        <p className="mt-3 text-sm text-ink-muted">
           {footnote}
         </p>
       )}

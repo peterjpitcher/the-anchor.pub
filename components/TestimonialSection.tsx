@@ -39,7 +39,7 @@ function StarRating({ rating, className }: { rating: number; className?: string 
         <span
           key={i}
           aria-hidden="true"
-          className={i < rating ? 'text-yellow-400' : 'text-anchor-cream-text/30'}
+          className={i < rating ? 'text-anchor-gold' : 'text-ink-muted/30'}
         >
           &#9733;
         </span>
@@ -62,12 +62,12 @@ function TestimonialCard({
     <Card className={compact ? 'p-4' : 'p-6'}>
       <StarRating rating={rating} className="mb-3" />
       <p className={cn(
-        'text-base italic text-anchor-cream-text/80 mb-3',
+        'text-base italic text-ink mb-3',
         compact && 'line-clamp-3'
       )}>
         &ldquo;{review.quote}&rdquo;
       </p>
-      <p className="text-sm text-anchor-cream-text/50">
+      <p className="text-sm text-ink-muted">
         {review.author}
         {review.source && <> &mdash; {review.source}</>}
       </p>
@@ -103,10 +103,10 @@ export function TestimonialSection({
     return (
       <section className={cn('py-10 md:py-12', className)}>
         <div className="max-w-2xl mx-auto text-center px-4">
-          <blockquote className="text-2xl text-anchor-cream-text/80 italic leading-relaxed">
+          <blockquote className="text-2xl text-ink italic leading-relaxed">
             &ldquo;{review.quote}&rdquo;
           </blockquote>
-          <p className="mt-4 text-sm text-anchor-cream-text/50">
+          <p className="mt-4 text-sm text-ink-muted">
             {review.author}
             {review.source && <>, {review.source}</>}
             , rated {rating}/5
