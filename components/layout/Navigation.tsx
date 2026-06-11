@@ -490,8 +490,8 @@ export function Navigation({
               width={logo.width ?? 168}
               height={logo.height ?? 42}
               priority
-              className="h-[42px] w-auto"
-              sizes="168px"
+              className="h-[52px] w-auto"
+              sizes="208px"
             />
           </Link>
 
