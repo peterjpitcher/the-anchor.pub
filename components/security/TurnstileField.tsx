@@ -55,7 +55,7 @@ export function TurnstileField({
         onTimeout={clearTokenWithError}
         onUnsupported={clearTokenWithError}
         options={{
-          theme: 'dark',
+          theme: 'light',
           size: 'flexible',
           retry: 'auto',
           refreshExpired: 'auto',
@@ -66,7 +66,7 @@ export function TurnstileField({
       {error ? (
         <div
           role="alert"
-          className="space-y-3 border border-red-500/30 bg-red-950/30 p-3 text-sm text-red-100"
+          className="space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger"
         >
           <p>{error}</p>
           <Button type="button" size="sm" variant="outline" onClick={handleRetry}>
