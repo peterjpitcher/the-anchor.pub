@@ -22,7 +22,7 @@ export default function LeaveReviewPage() {
         <PageTitle as="h1" className="text-2xl font-bold mb-4" seo={{ structured: true, speakable: true }}>
           Leave a Review - The Anchor
         </PageTitle>
-        <p className="text-anchor-cream-text/70">
+        <p className="text-ink-muted">
           You're being redirected to leave a review for The Anchor on Google.
         </p>
       </div>
