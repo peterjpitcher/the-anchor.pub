@@ -19,26 +19,26 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm–6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
-const EASTER_ROAST_PRICE_FROM = 16
+const EASTER_ROAST_PRICE_FROM = 19
 
 const EASTER_BOOKING_URL = '/book-table'
 
 export const metadata: Metadata = {
   title: 'Easter Sunday Roast & Beer Garden',
   description:
-    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
   alternates: { canonical: '/easter' },
   openGraph: {
     title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -70,7 +70,7 @@ export default function EasterPage() {
       question: 'What’s on the Easter menu?',
       answer:
         'Our Easter Sunday menu is the same as our regular Sunday roast, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. ' +
-        'Mains start from £16. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts.'
+        'Mains start from £19. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts.'
     },
     {
       question: 'Is there parking?',

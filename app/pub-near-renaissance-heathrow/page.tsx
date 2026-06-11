@@ -131,7 +131,7 @@ export default function PubNearRenaissanceHeathrowPage() {
             <SectionHeading title="What Renaissance Guests Enjoy Most" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
-                { title: 'Sunday Roast', description: 'Traditional British roast from £16, the definitive Sunday roast experience.' },
+                { title: 'Sunday Roast', description: 'Traditional British roast from £19, the definitive Sunday roast experience.' },
                 { title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.' },
                 { title: 'Fish & Chips', description: 'Fresh battered cod with chips, the British classic every visitor should try.' },
               ].map((item) => (

@@ -60,7 +60,7 @@ export default function FamilyDiningPage() {
                     "amenityFeature": [
                         { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Children's Menu", "value": true },
-                        { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },
                         { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },

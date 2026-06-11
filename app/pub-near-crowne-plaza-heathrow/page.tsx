@@ -133,7 +133,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               {[
                 { title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99' },
                 { title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint' },
-                { title: 'Sunday Roast', description: 'Traditional British roast from £16, walk in or book ahead' },
+                { title: 'Sunday Roast', description: 'Traditional British roast from £19, walk in or book ahead' },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">

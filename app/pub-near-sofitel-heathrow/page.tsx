@@ -144,7 +144,7 @@ export default function PubNearSofitelHeathrowPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
               {[
                 { title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas' },
-                { title: 'Sunday Roast', description: 'Traditional roast from £16, a British institution worth experiencing' },
+                { title: 'Sunday Roast', description: 'Traditional roast from £19, a British institution worth experiencing' },
                 { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing' },
               ].map((item) => (
                 <Card key={item.title} accent>

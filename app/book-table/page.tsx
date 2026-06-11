@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const sundayPhrase = sundayMenu.menuData
     ? ' Sunday roast menu details are loaded live.'
     : ' Sunday roast details are available on request.'
-  const description = `Reserve your table at The Anchor, Stanwell Moor, instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
+  const description = `Reserve your table at The Anchor, Stanwell Moor, quick confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
     title: 'Book a Table for Pub Food | The Anchor Stanwell Moor',
@@ -106,7 +106,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               '@context': 'https://schema.org',
               '@type': 'WebPage',
               'name': 'Book a Table at The Anchor',
-              'description': 'Reserve your table at The Anchor, Stanwell Moor. Instant confirmation. Free parking, 7 mins from Heathrow T5.',
+              'description': 'Reserve your table at The Anchor, Stanwell Moor. Quick confirmation. Free parking, 7 mins from Heathrow T5.',
               'url': 'https://www.the-anchor.pub/book-table',
               'potentialAction': {
                 '@type': 'ReserveAction',

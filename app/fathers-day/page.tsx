@@ -22,7 +22,7 @@ const FATHERS_DAY_DATE = '2026-06-21'
 const FATHERS_DAY_LABEL = 'Sunday 21 June 2026'
 const FATHERS_DAY_SERVICE_WINDOW = '1pm–6pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
-const FATHERS_DAY_ROAST_PRICE_FROM = 16
+const FATHERS_DAY_ROAST_PRICE_FROM = 19
 
 const FATHERS_DAY_BOOKING_URL = '/book-table'
 
@@ -31,19 +31,19 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 export const metadata: Metadata = {
   title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
   description:
-    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
+    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -57,7 +57,7 @@ export default function FathersDayPage() {
       question: "What's on the Father's Day menu?",
       answer:
         "Father's Day falls on a Sunday, so the full Sunday roast menu is on, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. " +
-        "Mains start from £16. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts."
+        "Mains start from £19. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts."
     },
     {
       question: "Do I need to book for Father's Day?",
@@ -69,13 +69,13 @@ export default function FathersDayPage() {
       question: "Where to take dad for Sunday roast near Heathrow?",
       answer:
         "The Anchor in Stanwell Moor, 7 minutes from Heathrow Terminal 5 by car, with 20 free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. " +
-        "It's a proper local pub, not a chain, Sunday roasts cooked from scratch, mains from £16."
+        "It's a proper local pub, not a chain, Sunday roasts cooked from scratch, mains from £19."
     },
     {
       question: 'Is there a set menu or special pricing?',
       answer:
         "There's no separate set menu, it's our regular Sunday roast menu, which is what makes it special. " +
-        "Proper food, cooked from scratch. Mains from £16."
+        "Proper food, cooked from scratch. Mains from £19."
     },
     {
       question: "What time is Father's Day lunch served?",

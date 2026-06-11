@@ -352,7 +352,7 @@ export default function HeathrowHotelsPubPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
-                  <p className="text-ink-muted">Must-try British tradition for Sunday visitors. From £16</p>
+                  <p className="text-ink-muted">Must-try British tradition for Sunday visitors. From £19</p>
                 </CardBody>
               </Card>
             </div>

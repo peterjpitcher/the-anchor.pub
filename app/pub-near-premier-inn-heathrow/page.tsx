@@ -136,7 +136,7 @@ export default function PubNearPremierInnHeathrowPage() {
               <Card accent>
                 <CardBody className="p-6 text-center">
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
-                  <p className="font-display text-h3 text-accent-text mb-2">From £16</p>
+                  <p className="font-display text-h3 text-accent-text mb-2">From £19</p>
                   <p className="text-ink-muted">Traditional British roast with all the trimmings</p>
                   <p className="text-sm text-ink-muted mt-2">Pre-booking recommended for Sundays</p>
                 </CardBody>

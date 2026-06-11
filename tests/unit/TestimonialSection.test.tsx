@@ -10,9 +10,13 @@ jest.mock('@/components/ui/layout/Card', () => ({
   ),
 }))
 
-jest.mock('@/components/SectionHeader', () => ({
-  SectionHeader: ({ title, subtitle, className }: any) => (
-    <div data-testid="section-header" data-title={title} data-subtitle={subtitle} className={className}>
+// TestimonialSection now renders the redesigned SectionHeading (Phase 1.3),
+// imported via the `@/components/ui` barrel which re-exports this module.
+// The full variant maps the legacy `subtitle` prop onto SectionHeading's
+// `subtitle` alias (which folds into the lead line).
+jest.mock('@/components/ui/SectionHeading', () => ({
+  SectionHeading: ({ title, subtitle, className }: any) => (
+    <div data-testid="section-heading" data-title={title} data-subtitle={subtitle} className={className}>
       <h2>{title}</h2>
       {subtitle && <p>{subtitle}</p>}
     </div>
@@ -36,13 +40,13 @@ describe('TestimonialSection', () => {
   describe('full variant', () => {
     it('should render heading "What Our Guests Say" when no title prop provided', () => {
       render(<TestimonialSection reviews={sampleReviews} />)
-      const header = screen.getByTestId('section-header')
+      const header = screen.getByTestId('section-heading')
       expect(header).toHaveAttribute('data-title', 'What Our Guests Say')
     })
 
     it('should render subtitle "From Google Reviews" when no subtitle prop provided', () => {
       render(<TestimonialSection reviews={sampleReviews} />)
-      const header = screen.getByTestId('section-header')
+      const header = screen.getByTestId('section-heading')
       expect(header).toHaveAttribute('data-subtitle', 'From Google Reviews')
     })
 
@@ -85,7 +89,7 @@ describe('TestimonialSection', () => {
 
     it('should NOT render heading or subtitle', () => {
       render(<TestimonialSection variant="compact" reviews={sampleReviews} />)
-      expect(screen.queryByTestId('section-header')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('section-heading')).not.toBeInTheDocument()
     })
 
     it('should truncate quote text with line-clamp-3', () => {

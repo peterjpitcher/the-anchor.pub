@@ -132,7 +132,7 @@ export default function PubNearRadissonBluHeathrowPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
                 { title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.' },
-                { title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.' },
+                { title: 'Sunday Roast', description: 'Traditional roast from £19, walk in or book ahead.' },
                 { title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.' },
               ].map((item) => (
                 <Card key={item.title} accent>

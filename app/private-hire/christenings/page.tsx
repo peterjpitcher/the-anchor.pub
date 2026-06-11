@@ -61,7 +61,7 @@ export default function ChristeningsPage() {
             { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },
             { "@type": "LocationFeatureSpecification", "name": "Enclosed Beer Garden", "value": true }
         ],
         "potentialAction": {
@@ -180,7 +180,7 @@ export default function ChristeningsPage() {
                             { title: "High Chairs", description: "High chairs are available for babies and toddlers, just let us know when you book how many you need." },
                             { title: "Children's Menu", description: "A dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast." },
                             { title: "Safe Enclosed Garden", description: "Our beer garden is enclosed and safe for little ones to explore while the adults relax." },
-                            { title: "Baby Changing", description: "Baby changing facilities are available on site for your convenience." },
+                            { title: "Step-Free Access", description: "The bar and dining area are step-free, with free parking right by the entrance to make arrivals easy with a pushchair." },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
                                 <CardBody className="flex h-full flex-col gap-2">

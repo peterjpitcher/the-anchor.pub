@@ -270,7 +270,7 @@ export default function StanwellPubPage() {
                     The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
                   </p>
                   <ul className="space-y-2 text-ink-muted">
-                    <li>• Roast Turkey with Stuffing Ball - £16</li>
+                    <li>• Roast Turkey with Stuffing Ball - £19</li>
                     <li>• Roast Pork Leg - £20</li>
                     <li>• Roast Beef Topside - £22</li>
                     <li>• Beetroot &amp; Butternut Squash Wellington (VG) - £20</li>

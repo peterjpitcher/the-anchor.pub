@@ -172,7 +172,7 @@ export default function HortonPubPage() {
                                         <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
                                         <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>
                                         <li>• Cash Bingo Nights</li>
-                                        <li>• Sky & TNT Sports on big screens</li>
+                                        <li>• Free-to-air sport on the big screens</li>
                                     </ul>
                                 </CardBody>
                             </Card>

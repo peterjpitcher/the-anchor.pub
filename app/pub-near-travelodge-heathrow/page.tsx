@@ -190,7 +190,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
             answer: sunday.isLive
-              ? 'Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £16 at weekends. Check our menu for other specials and seasonal deals.'
+              ? 'Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
               : `Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
           },
         ]}

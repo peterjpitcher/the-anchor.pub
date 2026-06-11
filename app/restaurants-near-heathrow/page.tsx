@@ -436,7 +436,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Famous Sunday Roasts</h3>
-                  <p className="text-ink-muted">Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. From £16, served Sundays 1pm-6pm.</p>
+                  <p className="text-ink-muted">Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. From £19, served Sundays 1pm-6pm.</p>
                 </CardBody>
               </Card>
               <Card accent hover>
@@ -651,7 +651,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	          },
           {
             question: "What type of food does your restaurant serve?",
-            answer: "We serve traditional British pub food including famous Sunday roasts from £16, fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
+            answer: "We serve traditional British pub food including famous Sunday roasts from £19, fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
