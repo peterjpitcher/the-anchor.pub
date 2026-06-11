@@ -52,14 +52,14 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                 {item.href && !isCurrent ? (
                   <Link
                     href={item.href}
-                    className="text-anchor-cream-text/60 hover:text-anchor-gold-dark transition-colors"
+                    className="text-ink-muted hover:text-accent-text transition-colors"
                   >
                     {item.label}
                   </Link>
                 ) : (
                   <span
                     className={cn(
-                      isCurrent ? 'text-anchor-gold-bright font-semibold' : 'text-anchor-cream-text/60'
+                      isCurrent ? "text-ink-strong font-semibold" : "text-ink-muted"
                     )}
                     aria-current={isCurrent ? 'page' : undefined}
                   >
@@ -68,7 +68,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                 )}
 
                 {!isLast && (
-                  <span className="text-anchor-cream-text/45" aria-hidden="true">
+                  <span className="text-ink-muted/70" aria-hidden="true">
                     {separator}
                   </span>
                 )}
@@ -140,7 +140,7 @@ export const BreadcrumbLink = forwardRef<HTMLAnchorElement, BreadcrumbLinkProps>
         ref={ref}
         href={href}
         className={cn(
-          'text-anchor-cream-text/60 hover:text-anchor-gold-dark transition-colours',
+          'text-ink-muted hover:text-accent-text transition-colours',
           className
         )}
         {...props}
@@ -163,7 +163,7 @@ export const BreadcrumbSeparator = forwardRef<HTMLSpanElement, BreadcrumbSeparat
     return (
       <span
         ref={ref}
-        className={cn('text-anchor-cream-text/45', className)}
+        className={cn('text-ink-muted/70', className)}
         aria-hidden="true"
         {...props}
       >
@@ -185,7 +185,7 @@ export const BreadcrumbPage = forwardRef<HTMLSpanElement, BreadcrumbPageProps>(
     return (
       <span
         ref={ref}
-        className={cn('text-anchor-gold-bright font-semibold', className)}
+        className={cn('text-ink-strong font-semibold', className)}
         aria-current="page"
         {...props}
       >

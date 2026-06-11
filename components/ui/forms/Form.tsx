@@ -140,23 +140,23 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         {label && (
           <label 
             htmlFor={name}
-            className="block text-sm font-medium text-anchor-cream-text/70"
+            className="block text-sm font-medium text-ink"
           >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span className="text-anchor-danger ml-1">*</span>}
           </label>
         )}
         
         {children}
         
         {error && (
-          <p id={`${name}-error`} className="text-sm text-red-600" role="alert">
+          <p id={`${name}-error`} className="text-sm text-anchor-danger" role="alert">
             {error}
           </p>
         )}
         
         {helperText && !error && (
-          <p id={`${name}-helper`} className="text-sm text-anchor-cream-text/70">
+          <p id={`${name}-helper`} className="text-sm text-ink-muted">
             {helperText}
           </p>
         )}
@@ -193,12 +193,12 @@ export const FormSection = forwardRef<HTMLFieldSetElement, FormSectionProps>(
         {(title || description) && (
           <div className="mb-4">
             {title && (
-              <legend className="text-lg font-semibold text-anchor-cream-text">
+              <legend className="text-lg font-semibold text-ink-strong">
                 {title}
               </legend>
             )}
             {description && (
-              <p className="mt-1 text-sm text-anchor-cream-text/70">
+              <p className="mt-1 text-sm text-ink-muted">
                 {description}
               </p>
             )}

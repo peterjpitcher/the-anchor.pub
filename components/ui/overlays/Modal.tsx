@@ -8,7 +8,7 @@ import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReaso
 import type { BaseComponentProps } from '../types'
 
 const modalVariants = cva(
-  'relative bg-anchor-green-card rounded-none mx-auto border border-anchor-gold-dark/15',
+  'relative bg-surface text-ink rounded-md mx-auto border border-line shadow-lg',
   {
     variants: {
       size: {
@@ -264,7 +264,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           {showCloseButton && (
             <button
               type="button"
-              className="absolute right-4 top-4 rounded-sm opacity-70 text-anchor-cream-text ring-offset-anchor-green-card transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+              className="absolute right-4 top-4 rounded-sm opacity-70 text-ink-muted ring-offset-surface transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2"
               onClick={() => requestClose('close_button')}
               aria-label="Close modal"
               data-modal-close="true"
@@ -312,7 +312,7 @@ export const ModalTitle = forwardRef<HTMLHeadingElement, ModalTitleProps>(
     <h2
       ref={ref}
       id={id}
-      className={cn('text-lg font-semibold text-anchor-cream-text', className)}
+      className={cn('text-lg font-semibold text-ink-strong', className)}
       {...props}
     >
       {children}
@@ -331,7 +331,7 @@ export const ModalDescription = forwardRef<HTMLParagraphElement, ModalDescriptio
     <p
       ref={ref}
       id={id}
-      className={cn('mt-1 text-sm text-anchor-cream-text/70', className)}
+      className={cn('mt-1 text-sm text-ink-muted', className)}
       {...props}
     >
       {children}
@@ -368,7 +368,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
     <div
       ref={ref}
       className={cn(
-        'flex items-center justify-end gap-2 border-t border-anchor-gold-dark/15 px-6 py-4',
+        'flex items-center justify-end gap-2 border-t border-line px-6 py-4',
         className
       )}
       {...props}

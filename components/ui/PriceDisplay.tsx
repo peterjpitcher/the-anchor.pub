@@ -18,10 +18,10 @@ const sizeClasses = {
 }
 
 const variantClasses = {
-  default: 'text-anchor-cream-text',
-  sale: 'text-red-400',
-  free: 'text-anchor-gold-bright',
-  premium: 'text-anchor-gold-dark'
+  default: 'text-ink-strong',
+  sale: 'text-anchor-danger',
+  free: 'text-accent-text',
+  premium: 'text-accent-text'
 }
 
 /**
@@ -68,7 +68,7 @@ export function PriceDisplay({
     <span className={cn('font-semibold', sizeClasses[size], className)}>
       {originalPrice && !isFree && (
         <>
-          <span className="line-through text-anchor-cream-text/55 mr-2">
+          <span className="line-through text-ink-muted mr-2">
             {formatPrice(originalPrice)}
           </span>
           <span className={variantClasses.sale}>

@@ -90,7 +90,7 @@ describe('Toast', () => {
     fireEvent.click(screen.getByText('Show Toast'))
     
     const toast = await screen.findByRole('alert')
-    expect(toast).toHaveClass('bg-anchor-green-card', 'text-anchor-gold-bright')
+    expect(toast).toHaveClass('bg-surface', 'text-anchor-success')
   })
 
   it('shows action button when provided', () => {

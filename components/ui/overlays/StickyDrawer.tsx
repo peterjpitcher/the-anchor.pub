@@ -8,7 +8,7 @@ import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReaso
 import type { BaseComponentProps } from '../types'
 
 const drawerVariants = cva(
-  'fixed z-50 bg-anchor-green-card border-anchor-gold-dark/15 shadow-xl flex flex-col overflow-hidden',
+  'fixed z-50 bg-surface text-ink border-line shadow-xl flex flex-col overflow-hidden',
   {
     variants: {
       side: {
@@ -197,22 +197,22 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
           {...props}
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-anchor-gold-dark/15 px-4 py-2.5">
+          <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
             <div className="min-w-0 flex-1">
               {title && (
-                <h2 id={titleId} className="text-sm font-semibold text-anchor-cream-text truncate">
+                <h2 id={titleId} className="text-sm font-semibold text-ink-strong truncate">
                   {title}
                 </h2>
               )}
               {description && (
-                <p id={descriptionId} className="text-xs text-anchor-cream-text/50 truncate">
+                <p id={descriptionId} className="text-xs text-ink-muted truncate">
                   {description}
                 </p>
               )}
             </div>
             <button
               type="button"
-              className="ml-3 flex-shrink-0 rounded-full p-1.5 text-anchor-cream-text/50 transition-colors hover:bg-anchor-green-raised hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+              className="ml-3 flex-shrink-0 rounded-full p-1.5 text-ink-muted transition-colors hover:bg-surface-sunk hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text"
               onClick={() => requestClose('close_button')}
               aria-label="Close"
               data-drawer-close="true"
@@ -264,10 +264,10 @@ export function StickyDrawerTrigger({
       type="button"
       onClick={onClick}
       className={cn(
-        'fixed z-40 shadow-lg transition-all duration-300 text-sm',
-        'bg-anchor-gold-dark text-anchor-green-deep font-semibold',
-        'hover:bg-anchor-gold-bright',
-        'focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 focus:ring-offset-anchor-green-deep',
+        'fixed z-40 shadow-gold transition-all duration-300 text-sm',
+        'bg-anchor-gold text-ink-on-gold font-semibold',
+        'hover:bg-anchor-gold-dark hover:text-white',
+        'focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 focus:ring-offset-canvas',
         position === 'bottom-right' && 'bottom-5 right-5 rounded-full px-4 py-2.5',
         position === 'bottom-center' && 'bottom-5 left-1/2 -translate-x-1/2 rounded-full px-5 py-2.5',
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',

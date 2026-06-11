@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const switchVariants = cva(
-  'relative inline-flex cursor-pointer items-center rounded-full transition-colours focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+  'relative inline-flex cursor-pointer items-center rounded-full transition-colours focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       size: {
@@ -134,7 +134,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             <span
               className={cn(
                 switchVariants({ size }),
-                isChecked ? 'bg-anchor-gold-dark' : 'bg-anchor-green-raised',
+                isChecked ? "bg-accent-text" : "bg-surface-sunk border border-line",
                 className
               )}
             >
@@ -150,7 +150,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {(onLabel || offLabel) && (
               <span className={cn(
                 'ml-3 text-sm font-medium',
-                disabled ? 'text-anchor-cream-text/40' : 'text-anchor-cream-text/70'
+                disabled ? "text-ink-muted/60" : "text-ink"
               )}>
                 {isChecked ? (onLabel || 'On') : (offLabel || 'Off')}
               </span>
@@ -161,7 +161,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
           {label && !onLabel && !offLabel && (
             <span className={cn(
               'text-sm font-medium',
-              disabled ? 'text-anchor-cream-text/40' : 'text-anchor-cream-text/70',
+              disabled ? "text-ink-muted/60" : "text-ink",
               labelPosition === 'left' ? 'mr-3' : 'ml-3'
             )}>
               {label}
@@ -171,14 +171,14 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         
         {/* Helper text */}
         {helperText && !error && (
-          <p id={`${switchId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70 ml-11">
+          <p id={`${switchId}-helper`} className="mt-1 text-sm text-ink-muted ml-11">
             {helperText}
           </p>
         )}
         
         {/* Error message */}
         {error && (
-          <p id={`${switchId}-error`} className="mt-1 text-sm text-red-600 ml-11">
+          <p id={`${switchId}-error`} className="mt-1 text-sm text-anchor-danger ml-11">
             {error}
           </p>
         )}
@@ -241,13 +241,13 @@ export const SwitchGroup = forwardRef<HTMLFieldSetElement, SwitchGroupProps>(
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
+          <legend className="text-sm font-medium text-ink mb-2">
             {label}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${testId}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
+          <p id={`${testId}-helper`} className="text-sm text-ink-muted mb-2">
             {helperText}
           </p>
         )}
@@ -269,7 +269,7 @@ export const SwitchGroup = forwardRef<HTMLFieldSetElement, SwitchGroupProps>(
         </div>
         
         {error && (
-          <p id={`${testId}-error`} className="mt-2 text-sm text-red-600">
+          <p id={`${testId}-error`} className="mt-2 text-sm text-anchor-danger">
             {error}
           </p>
         )}

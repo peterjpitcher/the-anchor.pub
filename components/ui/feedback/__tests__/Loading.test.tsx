@@ -29,7 +29,7 @@ describe('Spinner', () => {
 
   it('renders with different colours', () => {
     const { rerender } = render(<Spinner color="secondary" />)
-    expect(screen.getByRole('status')).toHaveClass('text-anchor-cream-text')
+    expect(screen.getByRole('status')).toHaveClass('text-ink')
     
     rerender(<Spinner color="white" />)
     expect(screen.getByRole('status')).toHaveClass('text-white')
@@ -55,7 +55,7 @@ describe('Skeleton', () => {
     
     const skeleton = screen.getByRole('status')
     expect(skeleton).toBeInTheDocument()
-    expect(skeleton).toHaveClass('animate-pulse', 'bg-anchor-green-raised', 'rounded')
+    expect(skeleton).toHaveClass('animate-pulse', 'bg-surface-sunk', 'rounded')
     expect(skeleton).toHaveClass('w-full') // Default width
   })
 
@@ -172,7 +172,7 @@ describe('Skeleton Presets', () => {
   it('renders SkeletonCard with proper structure', () => {
     const { container } = render(<SkeletonCard />)
     
-    expect(container.querySelector('.rounded-none.border')).toBeInTheDocument()
+    expect(container.querySelector('.rounded-md.border')).toBeInTheDocument()
     expect(screen.getAllByRole('status')).toHaveLength(5) // Header + 2 text lines + 2 buttons
   })
 

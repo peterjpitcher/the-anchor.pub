@@ -26,9 +26,9 @@ export function ErrorDisplay({
   const [detailsExpanded, setDetailsExpanded] = useState(false)
 
   const baseClasses = {
-    inline: 'text-red-300 text-sm',
-    card: 'bg-red-500/10 border border-red-500/30 rounded-lg p-6 text-center',
-    banner: 'bg-red-500/10 border-t border-b border-red-500/30 py-4 px-6'
+    inline: "text-anchor-danger text-sm",
+    card: "bg-anchor-danger/10 border border-anchor-danger/30 rounded-md p-6 text-center",
+    banner: "bg-anchor-danger/10 border-t border-b border-anchor-danger/30 py-4 px-6"
   }
 
   if (variant === 'inline') {
@@ -38,7 +38,7 @@ export function ErrorDisplay({
         {onRetry && (
           <button
             onClick={onRetry}
-            className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline ml-2"
+            className="text-accent-text hover:text-anchor-gold font-semibold underline ml-2"
             aria-label="Try again"
           >
             Try again
@@ -51,13 +51,13 @@ export function ErrorDisplay({
   return (
     <div className={cn(baseClasses[variant], className)} role="alert">
       <div className="max-w-2xl mx-auto">
-        <p className="text-red-300 mb-4 text-base font-medium">{message}</p>
+        <p className="text-anchor-danger mb-4 text-base font-medium">{message}</p>
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-6 py-2 bg-anchor-gold-dark text-white rounded-full font-semibold hover:bg-anchor-gold transition-colors min-h-[44px] min-w-[44px]"
+              className="px-6 py-2 bg-anchor-gold text-ink-on-gold rounded-full font-semibold hover:bg-anchor-gold-dark hover:text-white transition-colors min-h-[44px] min-w-[44px]"
               aria-label="Try again"
             >
               Try Again
@@ -65,11 +65,11 @@ export function ErrorDisplay({
           )}
           
           {showContactInfo && (
-            <p className="text-anchor-cream-text/70 text-sm">
+            <p className="text-ink-muted text-sm">
               Still having issues?{' '}
               <a
                 href={CONTACT_INFO.phoneLink}
-                className="text-anchor-gold-dark hover:text-anchor-gold font-semibold underline"
+                className="text-accent-text hover:text-anchor-gold font-semibold underline"
               >
                 Call us at {CONTACT_INFO.phone}
               </a>
@@ -78,10 +78,10 @@ export function ErrorDisplay({
         </div>
 
         {showDetails && technicalDetails && (
-          <div className="mt-4 border-t border-red-500/20 pt-4">
+          <div className="mt-4 border-t border-anchor-danger/20 pt-4">
             <button
               onClick={() => setDetailsExpanded(!detailsExpanded)}
-              className="text-sm text-anchor-cream-text/70 hover:text-anchor-cream-text underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark rounded"
+              className="text-sm text-ink-muted hover:text-ink underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-text rounded"
               aria-expanded={detailsExpanded}
               aria-controls="error-details"
             >
@@ -91,7 +91,7 @@ export function ErrorDisplay({
             {detailsExpanded && (
               <pre
                 id="error-details"
-                className="mt-2 text-xs text-left bg-anchor-green-card p-3 rounded border border-anchor-gold-dark/15 overflow-x-auto text-anchor-cream-text/70"
+                className="mt-2 text-xs text-left bg-surface-sunk p-3 rounded border border-line overflow-x-auto text-ink-muted"
               >
                 {technicalDetails}
               </pre>

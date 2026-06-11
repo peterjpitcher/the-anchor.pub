@@ -112,7 +112,7 @@ describe('Tabs', () => {
       </Tabs>
     )
 
-    expect(screen.getByRole('tablist')).toHaveClass('bg-anchor-green-card')
+    expect(screen.getByRole('tablist')).toHaveClass('bg-surface-sunk')
 
     rerender(
       <Tabs variant="pills">

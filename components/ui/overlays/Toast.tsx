@@ -11,11 +11,11 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-anchor-green-card text-anchor-cream-text border border-anchor-gold-dark/15',
-        success: 'bg-anchor-green-card text-anchor-gold-bright border border-anchor-gold-dark/15',
-        error: 'bg-anchor-green-card text-red-400 border border-red-500/20',
-        warning: 'bg-anchor-green-card text-yellow-300 border border-yellow-500/20',
-        info: 'bg-anchor-green-card text-anchor-cream-text border border-anchor-gold-dark/15'
+        default: 'bg-surface text-ink border border-line',
+        success: 'bg-surface text-anchor-success border border-line',
+        error: 'bg-surface text-anchor-danger border border-line',
+        warning: 'bg-surface text-accent-text border border-line',
+        info: 'bg-surface text-ink border border-line'
       }
     },
     defaultVariants: {
@@ -139,7 +139,7 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
           <div className="ml-4 flex flex-shrink-0">
             <button
               type="button"
-              className="inline-flex rounded-md text-anchor-cream-text/55 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+              className="inline-flex rounded-md text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2"
               onClick={handleClose}
               aria-label="Close notification"
             >
@@ -242,7 +242,7 @@ export const createToastHelpers = (toastFn: (props: Omit<ToastItem, 'id'>) => vo
       title,
       description,
       icon: (
-        <svg className="h-5 w-5 text-anchor-gold-bright" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-5 w-5 text-anchor-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
@@ -254,7 +254,7 @@ export const createToastHelpers = (toastFn: (props: Omit<ToastItem, 'id'>) => vo
       title,
       description,
       icon: (
-        <svg className="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-5 w-5 text-anchor-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )

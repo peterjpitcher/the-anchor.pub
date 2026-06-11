@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const radioVariants = cva(
-  'rounded-full border-gray-300 text-anchor-gold-dark focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors',
+  'rounded-full border-line text-accent-text focus:ring-2 focus:ring-accent-text focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors',
   {
     variants: {
       size: {
@@ -68,14 +68,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
               <label 
                 htmlFor={radioId}
                 className={cn(
-                  'text-sm font-medium text-anchor-cream-text/70 cursor-pointer',
+                  'text-sm font-medium text-ink cursor-pointer',
                   disabled && 'cursor-not-allowed opacity-50'
                 )}
               >
                 {label}
               </label>
               {helperText && !error && (
-                <p id={`${radioId}-helper`} className="text-sm text-anchor-cream-text/70">
+                <p id={`${radioId}-helper`} className="text-sm text-ink-muted">
                   {helperText}
                 </p>
               )}
@@ -83,7 +83,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           )}
         </div>
         {error && (
-          <p id={`${radioId}-error`} className="mt-1 text-sm text-red-600 ml-8">
+          <p id={`${radioId}-error`} className="mt-1 text-sm text-anchor-danger ml-8">
             {error}
           </p>
         )}
@@ -154,14 +154,14 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
+          <legend className="text-sm font-medium text-ink mb-2">
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span className="text-anchor-danger ml-1">*</span>}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${name}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
+          <p id={`${name}-helper`} className="text-sm text-ink-muted mb-2">
             {helperText}
           </p>
         )}
@@ -186,7 +186,7 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
         </div>
         
         {error && (
-          <p id={`${name}-error`} className="mt-2 text-sm text-red-600" role="alert">
+          <p id={`${name}-error`} className="mt-2 text-sm text-anchor-danger" role="alert">
             {error}
           </p>
         )}
@@ -226,8 +226,8 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
         htmlFor={radioId}
         className={cn(
           'relative flex cursor-pointer rounded-lg border p-4 transition-all',
-          checked ? 'border-anchor-gold-dark bg-anchor-gold-dark/10' : 'border-anchor-gold-dark/15',
-          !disabled && 'hover:border-anchor-gold-dark/40',
+          checked ? "border-accent-text bg-accent-text/10" : "border-line",
+          !disabled && 'hover:border-line-strong',
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >
@@ -254,14 +254,14 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
             <div className="flex items-center">
               <h3 className={cn(
                 'text-sm font-medium',
-                checked ? 'text-anchor-gold-dark' : 'text-anchor-cream-text'
+                checked ? "text-accent-text" : "text-ink-strong"
               )}>
                 {label}
               </h3>
               {checked && (
-                <svg 
-                  className="ml-2 h-5 w-5 text-anchor-gold-dark" 
-                  fill="currentColor" 
+                <svg
+                  className="ml-2 h-5 w-5 text-accent-text"
+                  fill="currentColor"
                   viewBox="0 0 20 20"
                 >
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -270,13 +270,13 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
             </div>
             
             {description && (
-              <p className="mt-1 text-sm text-anchor-cream-text/70">
+              <p className="mt-1 text-sm text-ink-muted">
                 {description}
               </p>
             )}
             
             {helperText && (
-              <p className="mt-1 text-sm sm:text-xs text-anchor-cream-text/70">
+              <p className="mt-1 text-sm sm:text-xs text-ink-muted">
                 {helperText}
               </p>
             )}
@@ -285,7 +285,7 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
         
         <div className={cn(
           'absolute -inset-px rounded-lg pointer-events-none',
-          checked && 'border-2 border-anchor-gold-dark'
+          checked && "border-2 border-accent-text"
         )} />
       </label>
     )

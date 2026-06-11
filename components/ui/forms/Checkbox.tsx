@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const checkboxVariants = cva(
-  'rounded border-gray-300 text-anchor-gold-dark focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colours',
+  'rounded border-line text-accent-text focus:ring-2 focus:ring-accent-text focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colours',
   {
     variants: {
       size: {
@@ -78,14 +78,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               <label 
                 htmlFor={checkboxId}
                 className={cn(
-                  'text-sm font-medium text-anchor-cream-text/70 cursor-pointer',
+                  'text-sm font-medium text-ink cursor-pointer',
                   disabled && 'cursor-not-allowed opacity-50'
                 )}
               >
                 {label}
               </label>
               {helperText && !error && (
-                <p id={`${checkboxId}-helper`} className="text-sm text-anchor-cream-text/70">
+                <p id={`${checkboxId}-helper`} className="text-sm text-ink-muted">
                   {helperText}
                 </p>
               )}
@@ -93,7 +93,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           )}
         </div>
         {error && (
-          <p id={`${checkboxId}-error`} className="mt-1 text-sm text-red-600 ml-8">
+          <p id={`${checkboxId}-error`} className="mt-1 text-sm text-anchor-danger ml-8">
             {error}
           </p>
         )}
@@ -162,14 +162,14 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
+          <legend className="text-sm font-medium text-ink mb-2">
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span className="text-anchor-danger ml-1">*</span>}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${testId}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
+          <p id={`${testId}-helper`} className="text-sm text-ink-muted mb-2">
             {helperText}
           </p>
         )}
@@ -194,7 +194,7 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
         </div>
         
         {error && (
-          <p id={`${testId}-error`} className="mt-2 text-sm text-red-600">
+          <p id={`${testId}-error`} className="mt-2 text-sm text-anchor-danger">
             {error}
           </p>
         )}

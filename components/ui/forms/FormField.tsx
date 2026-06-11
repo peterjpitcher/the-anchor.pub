@@ -23,7 +23,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         {children}
         {error && (
           <p 
-            className="flex items-center gap-1 text-sm text-red-600"
+            className="flex items-center gap-1 text-sm text-anchor-danger"
             role="alert"
             aria-live="polite"
             id={`${testId || 'field'}-error`}
@@ -51,14 +51,14 @@ export const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
       <label
         ref={ref}
         className={cn(
-          'block text-sm font-medium text-anchor-cream-text/70',
+          'block text-sm font-medium text-ink',
           className
         )}
         data-testid={testId}
         {...props}
       >
         {children}
-        {required && <span className="ml-1 text-red-500">*</span>}
+        {required && <span className="ml-1 text-anchor-danger">*</span>}
       </label>
     )
   }
@@ -75,7 +75,7 @@ export const FormHelpText = forwardRef<HTMLParagraphElement, FormHelpTextProps>(
     return (
       <p
         ref={ref}
-        className={cn('text-sm text-anchor-cream-text/55', className)}
+        className={cn('text-sm text-ink-muted', className)}
         data-testid={testId}
         {...props}
       >
@@ -127,12 +127,12 @@ export const FormSection = forwardRef<HTMLFieldSetElement, FormSectionProps>(
         {(title || description) && (
           <div>
             {title && (
-              <legend className="text-lg font-medium text-anchor-cream-text">
+              <legend className="text-lg font-medium text-ink-strong">
                 {title}
               </legend>
             )}
             {description && (
-              <p className="mt-1 text-sm text-anchor-cream-text/55">{description}</p>
+              <p className="mt-1 text-sm text-ink-muted">{description}</p>
             )}
           </div>
         )}

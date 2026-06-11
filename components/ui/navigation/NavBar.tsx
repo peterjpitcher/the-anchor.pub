@@ -25,7 +25,7 @@ const navBarVariants = cva(
     variants: {
       variant: {
         default: 'bg-anchor-green text-white',
-        light: 'bg-anchor-green-card text-anchor-cream-text',
+        light: 'bg-surface text-ink border-b border-line',
         transparent: 'bg-transparent'
       },
       size: {
@@ -204,8 +204,8 @@ interface NavItemProps {
 const NavItem = ({ item, variant = 'default', onClick, isMobile = false }: NavItemProps) => {
   const linkClasses = cn(
     'font-medium transition-colours flex items-center gap-2',
-    variant === 'default' && 'text-white hover:text-anchor-gold-dark',
-    variant === 'light' && 'text-anchor-cream-text/70 hover:text-anchor-gold-dark',
+    variant === 'default' && 'text-white hover:text-anchor-gold-bright',
+    variant === 'light' && 'text-ink hover:text-accent-text',
     variant === 'transparent' && 'text-current hover:opacity-80'
   )
 
@@ -285,8 +285,8 @@ const MobileMenu = ({ isOpen, items, actions, variant = 'default', onClose }: Mo
   const menuClasses = cn(
     'absolute top-full left-0 right-0 shadow-lg',
     variant === 'default' && 'bg-anchor-green-dark',
-    variant === 'light' && 'bg-anchor-green-card',
-    variant === 'transparent' && 'bg-anchor-green-card/95 backdrop-blur'
+    variant === 'light' && 'bg-surface border-t border-line',
+    variant === 'transparent' && 'bg-surface/95 backdrop-blur border-t border-line'
   )
 
   return (
@@ -309,7 +309,7 @@ const MobileMenu = ({ isOpen, items, actions, variant = 'default', onClose }: Mo
           ))}
         </ul>
         {actions && (
-          <div className="mt-6 pt-6 border-t border-white/20">
+          <div className={cn('mt-6 pt-6 border-t', variant === 'default' ? 'border-white/20' : 'border-line')}>
             {actions}
           </div>
         )}
