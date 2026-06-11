@@ -44,7 +44,7 @@ export default async function RelatedEvents({
       <section aria-labelledby="related-events-heading">
         <h2
           id="related-events-heading"
-          className="text-2xl font-bold text-anchor-gold-dark mb-6"
+          className="font-display text-h3 text-ink-strong mb-6"
         >
           More Events
         </h2>
@@ -64,7 +64,7 @@ export default async function RelatedEvents({
               <Link
                 key={event.id}
                 href={href}
-                className="group block rounded-lg overflow-hidden bg-anchor-green-dark hover:bg-anchor-green transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
+                className="group block overflow-hidden rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
               >
                 {/* Thumbnail with category badge overlay */}
                 <div className="relative aspect-square w-full overflow-hidden">
@@ -90,16 +90,16 @@ export default async function RelatedEvents({
 
                 {/* Card body */}
                 <div className="p-4">
-                  <p className="text-anchor-gold-dark text-sm font-medium mb-1">
+                  <p className="text-accent-text text-sm font-medium mb-1">
                     {formatEventDate(event.startDate)} · {formatEventTime(event.startDate)}
                   </p>
-                  <h3 className="text-white font-bold text-base leading-snug mb-2 group-hover:text-anchor-gold-dark transition-colors line-clamp-2">
+                  <h3 className="text-ink-strong font-semibold text-base leading-snug mb-2 group-hover:text-accent-text transition-colors line-clamp-2">
                     {event.name}
                   </h3>
 
                   {/* Price */}
                   {event.offers && (
-                    <p className="text-anchor-gold-bright text-sm font-semibold">
+                    <p className="text-accent-text text-sm font-semibold">
                       {event.offers.price === '0' || event.offers.price === '0.00'
                         ? 'Free entry'
                         : formatPrice(event.offers.price, event.offers.priceCurrency)}

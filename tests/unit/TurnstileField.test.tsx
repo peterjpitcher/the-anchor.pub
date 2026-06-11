@@ -68,7 +68,7 @@ describe('TurnstileField', () => {
 
     expect(widget).toHaveAttribute('data-id', 'test-turnstile')
     expect(options).toMatchObject({
-      theme: 'dark',
+      theme: 'light',
       size: 'flexible',
       retry: 'auto',
       refreshExpired: 'auto',

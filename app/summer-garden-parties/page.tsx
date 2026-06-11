@@ -136,7 +136,6 @@ export default function SummerGardenPartiesPage() {
                         answer: "Yes! Our garden is completely dog friendly. We have water bowls and treats available."
                     }
                 ]}
-                className="bg-anchor-green-card"
             />
 
             <CtaBand
