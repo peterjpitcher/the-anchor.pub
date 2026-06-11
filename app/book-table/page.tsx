@@ -168,16 +168,16 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         }
       />
 
-      <Section spacing="xs" container containerSize="md" className="text-center bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <PageTitle className="text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
+      <Section background="white" spacing="xs" container containerSize="md" className="text-center border-b border-line">
+        <PageTitle className="text-ink-strong" seo={{ structured: true, speakable: true }}>
           Reserve Your Table Online
         </PageTitle>
-        <p className="mt-3 text-base text-anchor-cream-text/70 md:text-lg">
+        <p className="mt-3 text-base text-ink-muted md:text-lg">
           Choose your date, time, and party size to reserve your table. Loved by locals and Heathrow travellers every week.
         </p>
       </Section>
 
-      <Section id="booking-form" background="gray" spacing="sm" container containerSize="lg" className="bg-anchor-green-raised">
+      <Section id="booking-form" background="gray" spacing="sm" container containerSize="lg">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">
@@ -185,13 +185,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <RegretReduction variant="booking" />
             </div>
             <ManagementTableBookingForm prefill={prefill} />
-            <p className="mx-auto mt-4 max-w-[640px] text-center text-sm text-anchor-cream-text/70">
+            <p className="mx-auto mt-4 max-w-[640px] text-center text-sm text-ink-muted">
               Prefer to talk to us? Call{' '}
               <PhoneLink
                 phone={CONTACT.phone}
                 source="book_table_below_form"
                 showIcon={false}
-                className="font-semibold text-anchor-gold-bright hover:underline"
+                className="font-semibold text-accent-text hover:underline"
               >
                 01753 682707
               </PhoneLink>
@@ -200,9 +200,9 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           </div>
 
           <aside className="order-2 space-y-4 lg:space-y-6">
-            <div className="card-dark p-4 lg:hidden">
-              <h2 className="text-lg font-semibold text-anchor-gold-bright">Need help with your food booking?</h2>
-              <p className="mt-2 text-sm text-anchor-cream-text/70">
+            <Card className="p-4 lg:hidden">
+              <h2 className="text-lg font-semibold text-accent-text">Need help with your food booking?</h2>
+              <p className="mt-2 text-sm text-ink-muted">
                 If you need a larger table, can't find your preferred time, or want a quick answer, call us directly.
               </p>
               <div className="mt-4 space-y-2">
@@ -220,28 +220,28 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                   </Button>
                 </Link>
               </div>
-            </div>
+            </Card>
 
             <StaticHoursSummary compact />
 
-            <div className="hidden card-dark p-5 lg:block">
-              <h3 className="text-base font-semibold text-anchor-gold-bright mb-3">Why The Anchor?</h3>
+            <Card className="hidden p-5 lg:block">
+              <h3 className="text-base font-semibold text-accent-text mb-3">Why The Anchor?</h3>
               <ValueProofStrip variant="food" />
-            </div>
+            </Card>
 
-            <div className="hidden card-dark p-6 lg:block">
-              <h2 className="text-xl font-semibold text-anchor-gold-bright">Quick tips</h2>
-              <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
+            <Card className="hidden p-6 lg:block">
+              <h2 className="text-xl font-semibold text-accent-text">Quick tips</h2>
+              <ul className="mt-3 space-y-2 text-left text-sm text-ink-muted">
                 <li>• For groups of 20+, please call us.</li>
                 <li>• {LARGE_GROUP_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can't see the time you want? Give us a ring.</li>
               </ul>
-            </div>
+            </Card>
 
-            <div className="hidden card-dark p-6 lg:block">
-              <h3 className="text-xl font-semibold text-anchor-gold-bright">Prefer to talk?</h3>
-              <p className="mt-2 text-sm text-anchor-cream-text/70">
+            <Card className="hidden p-6 lg:block">
+              <h3 className="text-xl font-semibold text-accent-text">Prefer to talk?</h3>
+              <p className="mt-2 text-sm text-ink-muted">
                 Our team can help with tables of 20+, special celebrations, or last-minute changes.
               </p>
               <div className="mt-4">
@@ -254,74 +254,74 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                   Call 01753 682707
                 </PhoneButton>
               </div>
-            </div>
+            </Card>
 
-            <div className="hidden card-dark p-6 lg:block">
-              <h3 className="text-xl font-semibold text-anchor-gold-bright">Useful to know</h3>
-              <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
+            <Card className="hidden p-6 lg:block">
+              <h3 className="text-xl font-semibold text-accent-text">Useful to know</h3>
+              <ul className="mt-3 space-y-2 text-left text-sm text-ink-muted">
                 <li>• 20 free parking spaces on site.</li>
                 <li>• Dog friendly inside and out.</li>
                 <li>• Step-free access from the car park.</li>
               </ul>
-            </div>
+            </Card>
 
           </aside>
         </div>
       </Section>
 
-      <Section background="white" spacing="sm" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <h2 className="text-2xl font-bold text-anchor-gold-bright mb-4">Accessibility</h2>
-        <p className="text-anchor-cream-text/70 mb-3">
+      <Section background="white" spacing="sm" container containerSize="md" className="border-b border-line">
+        <h2 className="text-2xl font-bold text-accent-text mb-4">Accessibility</h2>
+        <p className="text-ink-muted mb-3">
           Step-free access to the bar, dining area and beer garden.
         </p>
-        <p className="text-anchor-cream-text/70 mb-4">
+        <p className="text-ink-muted mb-4">
           We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-anchor-gold-bright font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
+          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-accent-text font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
         </p>
-        <Link href="/accessibility" className="text-anchor-gold-bright font-semibold hover:underline">
+        <Link href="/accessibility" className="text-accent-text font-semibold hover:underline">
           Full accessibility information &rarr;
         </Link>
       </Section>
 
       {/* What to Expect section */}
-      <Section spacing="lg" container containerSize="lg" className="bg-anchor-green-raised">
+      <Section background="gray" spacing="lg" container containerSize="lg">
         <SectionHeading
           title="What to Expect When You Dine With Us"
           subtitle="Good food, a warm welcome, and no fuss."
           align="center"
         />
         <Grid cols={3} gap="md">
-          <Card>
+          <Card accent>
             <CardBody>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Current Food Menu</h3>
-              <p className="text-anchor-cream-text/70 text-sm mb-4">
+              <h3 className="text-lg font-semibold text-accent-text mb-2">Current Food Menu</h3>
+              <p className="text-ink-muted text-sm mb-4">
                 Dish names, descriptions and prices follow the latest kitchen menu.
               </p>
-              <Link href="/food-menu" className="text-anchor-gold-bright font-semibold text-sm hover:underline">
+              <Link href="/food-menu" className="text-accent-text font-semibold text-sm hover:underline">
                 View food menu &rarr;
               </Link>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card accent>
             <CardBody>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Sunday Roast</h3>
-              <p className="text-anchor-cream-text/70 text-sm mb-4">
+              <h3 className="text-lg font-semibold text-accent-text mb-2">Sunday Roast</h3>
+              <p className="text-ink-muted text-sm mb-4">
                 Sunday roast has a dedicated page. {sundayMenu.menuData ? 'Current Sunday dishes are listed there.' : 'Call us for the current Sunday menu while the online dish list is unavailable.'}
               </p>
-              <Link href="/sunday-roast" className="text-anchor-gold-bright font-semibold text-sm hover:underline">
+              <Link href="/sunday-roast" className="text-accent-text font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
               </Link>
             </CardBody>
           </Card>
 
-          <Card>
+          <Card accent>
             <CardBody>
-              <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Free Parking &amp; Easy Access</h3>
-              <p className="text-anchor-cream-text/70 text-sm mb-4">
+              <h3 className="text-lg font-semibold text-accent-text mb-2">Free Parking &amp; Easy Access</h3>
+              <p className="text-ink-muted text-sm mb-4">
                 We have 20 free on-site parking spaces and are just 7 minutes from Heathrow Terminal 5. Step-free access from the car park. Dogs welcome inside and out.
               </p>
-              <Link href="/find-us" className="text-anchor-gold-bright font-semibold text-sm hover:underline">
+              <Link href="/find-us" className="text-accent-text font-semibold text-sm hover:underline">
                 Get directions &rarr;
               </Link>
             </CardBody>
@@ -330,7 +330,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       </Section>
 
       {/* Signature Dishes Preview */}
-      <Section spacing="md" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <Section background="white" spacing="md" container containerSize="md" className="border-b border-line">
         <SectionHeading
           title="A Taste of What&rsquo;s on the Menu"
           subtitle="A live sample from the current food menu."
@@ -339,32 +339,32 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         <div className="space-y-4 max-w-2xl mx-auto">
           {previewItems.length > 0 ? (
             previewItems.map((item) => (
-              <div key={item.id} className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold-dark/10 last:border-b-0">
+              <div key={item.id} className="flex justify-between items-start gap-4 py-3 border-b border-line last:border-b-0">
                 <div>
-                  <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
+                  <h3 className="font-semibold text-ink-strong">{item.name}</h3>
                   {item.description && (
-                    <p className="text-sm text-anchor-cream-text/60 mt-1">{item.description}</p>
+                    <p className="text-sm text-ink-muted mt-1">{item.description}</p>
                   )}
                 </div>
                 {item.priceLabel && (
-                  <span className="text-anchor-gold-bright font-semibold whitespace-nowrap">{item.priceLabel}</span>
+                  <span className="text-accent-text font-semibold whitespace-nowrap">{item.priceLabel}</span>
                 )}
               </div>
             ))
           ) : (
-            <p className="text-center text-anchor-cream-text/70">
+            <p className="text-center text-ink-muted">
               Menu preview temporarily unavailable. Call us for the current dish list.
             </p>
           )}
         </div>
         <p className="text-center mt-6">
-          <Link href="/food-menu" className="text-anchor-gold-bright font-semibold hover:underline">
+          <Link href="/food-menu" className="text-accent-text font-semibold hover:underline">
             See the full food menu &rarr;
           </Link>
         </p>
       </Section>
 
-      <Section spacing="md" container containerSize="lg" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+      <Section background="gray" spacing="md" container containerSize="lg" className="border-b border-line">
         <SectionHeading
           title="Events are a bonus, food booking comes first"
           subtitle="If you are booking around quiz, bingo or live music, reserve food early and then choose your event."
@@ -385,7 +385,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       {/* Customer Review */}
       <TestimonialSection
         variant="pull-quote"
-        className="bg-anchor-green-raised border-b border-anchor-gold-dark/15"
+        className="bg-surface-sunk border-b border-line"
         reviews={[{
           quote: "Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we'd found it sooner. Will definitely be back.",
           author: "Anonymous",
@@ -395,14 +395,14 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       />
 
       {/* Getting Here */}
-      <Section spacing="md" container containerSize="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
+      <Section background="white" spacing="md" container containerSize="md" className="border-b border-line">
         <SectionHeading
           title="Getting Here"
           subtitle="Easy to find, plenty of parking, and closer than you think."
           align="center"
         />
         <div className="max-w-2xl mx-auto">
-          <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+          <div className="prose max-w-none text-ink-muted space-y-4">
             <p>
               The Anchor Pub is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
             </p>
@@ -414,7 +414,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             </p>
           </div>
           <p className="mt-6 text-center">
-            <Link href="/find-us" className="text-anchor-gold-bright font-semibold hover:underline">
+            <Link href="/find-us" className="text-accent-text font-semibold hover:underline">
               View map and full directions &rarr;
             </Link>
           </p>

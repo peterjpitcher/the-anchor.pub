@@ -192,7 +192,7 @@ export default async function FoodMenuPage() {
         crumb="Food"
         kicker="Eat, Drink, Enjoy"
         title="Proper pub food, minutes from Heathrow"
-        lead="Pub classics, stone-baked pizzas, fish and chips and a famous Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
+        lead="Pub classics, stone-baked pizzas, fish and chips and a proper Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
         badges={
           <>
             <Badge variant="sand">Mains £11 to £16</Badge>

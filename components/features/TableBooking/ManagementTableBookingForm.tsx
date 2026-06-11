@@ -474,7 +474,12 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
   return (
     <div
       className="mb-2"
-      aria-label={`Booking step ${currentStep} of ${totalSteps}`}
+      role="progressbar"
+      aria-label="Booking progress"
+      aria-valuemin={1}
+      aria-valuemax={totalSteps}
+      aria-valuenow={currentStep}
+      aria-valuetext={`Step ${currentStep} of ${totalSteps}: ${STEP_LABELS[STEP_ORDER[currentStep - 1]]}`}
     >
       <ol className="flex items-center" role="list">
         {steps.map((step, index) => {
@@ -485,6 +490,7 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
           return (
             <li
               key={step.key}
+              aria-current={isCurrent ? 'step' : undefined}
               className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}
             >
               <div className="flex min-w-0 flex-col items-center gap-1.5">

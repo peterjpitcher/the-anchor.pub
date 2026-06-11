@@ -116,7 +116,7 @@ const GALLERY = [
     href: '/sunday-roast',
     src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
     alt: 'Traditional Sunday roast at The Anchor',
-    caption: 'Famous Sunday roasts'
+    caption: 'Proper Sunday roasts'
   },
   {
     href: '/near-heathrow',
