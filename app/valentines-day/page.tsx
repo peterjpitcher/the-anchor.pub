@@ -546,7 +546,7 @@ export default async function ValentinesDayPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

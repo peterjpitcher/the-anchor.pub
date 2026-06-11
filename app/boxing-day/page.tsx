@@ -305,7 +305,7 @@ export default function BoxingDayPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Boxing Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Boxing Day FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

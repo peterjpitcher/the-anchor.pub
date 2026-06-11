@@ -315,7 +315,7 @@ export default function EasterPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Easter FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Easter FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

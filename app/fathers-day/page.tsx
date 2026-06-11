@@ -379,7 +379,7 @@ export default function FathersDayPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Father&rsquo;s Day FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Father&rsquo;s Day FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

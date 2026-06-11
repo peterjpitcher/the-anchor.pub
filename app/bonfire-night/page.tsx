@@ -272,7 +272,7 @@ export default function BonfireNightPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Bonfire Night FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Bonfire Night FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

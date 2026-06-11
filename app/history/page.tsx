@@ -9,7 +9,7 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { CTASection } from '@/components/CTASection'
+import { CtaBand } from '@/components/CtaBand'
 import {
   Badge,
   Button,
@@ -693,34 +693,43 @@ export default function HistoryPage(): React.JSX.Element {
       />
 
       {/* CTA */}
-      <CTASection
+      <CtaBand
         title="Come and See for Yourself"
-        description="Book a table, grab a pint, or just pop in and say hello. We've been here since 1751, we're not going anywhere."
-        variant="green"
-        footer="Horton Road, Stanwell Moor, Surrey TW19 6AQ · 7 mins from Heathrow T5 · Free parking"
-        buttons={[
-          {
-            text: 'Book a Table',
-            href: '/book-table',
-            variant: 'white',
-            bookingContext: 'history_cta',
-          },
-          {
-            text: 'Get Directions',
-            href: 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ',
-            variant: 'white',
-            isDirections: true,
-            directionsSource: 'history_cta',
-          },
-          {
-            text: `Call ${CONTACT.phone}`,
-            href: `tel:${CONTACT.phone}`,
-            variant: 'white',
-            isPhone: true,
-            phoneSource: 'history_cta',
-          },
-        ]}
-      />
+        copy="Book a table, grab a pint, or just pop in and say hello. We've been here since 1751, we're not going anywhere."
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <BookTableButton
+              source="history_cta"
+              context="history_cta"
+              variant="primary"
+              size="lg"
+              trackingLabel="Book a Table"
+            >
+              Book a Table
+            </BookTableButton>
+            <DirectionsButton
+              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+              source="history_cta"
+              variant="outline"
+              size="lg"
+            >
+              Get Directions
+            </DirectionsButton>
+            <PhoneButton
+              phone={CONTACT.phone}
+              source="history_cta"
+              variant="outline"
+              size="lg"
+            >
+              {`Call ${CONTACT.phone}`}
+            </PhoneButton>
+          </div>
+          <p className="text-sm text-anchor-cream-text/80">
+            Horton Road, Stanwell Moor, Surrey TW19 6AQ · 7 mins from Heathrow T5 · Free parking
+          </p>
+        </div>
+      </CtaBand>
     </>
   )
 }

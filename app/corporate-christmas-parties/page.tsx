@@ -55,7 +55,7 @@ export default function ChristmasPartiesPage() {
                 }
             />
 
-            <section className="section-spacing-sm bg-canvas py-section-y">
+            <section className="bg-canvas py-section-y">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4">

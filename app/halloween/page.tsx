@@ -220,7 +220,7 @@ export default function HalloweenPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Halloween FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Halloween FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

@@ -343,7 +343,7 @@ export default function BankHolidayWeekendsPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Bank Holiday Weekend FAQs" faqs={faqs} className="bg-anchor-green-deep" />
+      <FAQAccordionWithSchema title="Bank Holiday Weekend FAQs" faqs={faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

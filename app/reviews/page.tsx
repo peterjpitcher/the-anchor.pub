@@ -6,8 +6,10 @@ import {
   Card,
   CardBody,
   SectionHeading,
-  CTASection,
 } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
@@ -261,24 +263,30 @@ export default function ReviewsPage() {
         ]}
       />
 
-      <CTASection
+      <CtaBand
         title="Ready to Visit?"
-        description="See what the fuss is about. Book a table or give us a call."
-        variant="green"
-        buttons={[
-          {
-            text: 'Book a Table',
-            href: 'https://ordertab.menu/theanchor/bookings',
-            bookingContext: 'reviews',
-          },
-          {
-            text: 'Call Us',
-            href: 'tel:+441753682707',
-            variant: 'white',
-            isPhone: true,
-            phoneSource: 'reviews_cta',
-          },
-        ]}
+        copy="See what the fuss is about. Book a table or give us a call."
+        primary={
+          <BookTableButton
+            source="cta_section"
+            context="reviews"
+            variant="primary"
+            size="lg"
+            trackingLabel="Book a Table"
+          >
+            Book a Table
+          </BookTableButton>
+        }
+        secondary={
+          <PhoneButton
+            phone="01753 682707"
+            source="reviews_cta"
+            variant="outline"
+            size="lg"
+          >
+            Call Us
+          </PhoneButton>
+        }
       />
     </>
   )

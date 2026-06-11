@@ -62,10 +62,6 @@ export type * from './types'
 export { SectionHeading } from './SectionHeading'
 export type { SectionHeadingProps } from './SectionHeading'
 
-// Legacy exports for backward compatibility
-// Section Components
-export { CTASection } from '../CTASection'
-
 // Card Components
 export { FeatureCard, FeatureGrid } from '../FeatureCard'
 export { InfoBox, InfoBoxGrid } from '../InfoBox'
