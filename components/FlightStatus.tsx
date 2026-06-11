@@ -179,7 +179,7 @@ export function FlightStatus({
 
       {(type === 'departures' || type === 'both') && departures.length > 0 && (
         <div className="bg-surface border border-line rounded-md overflow-hidden">
-          <div className="bg-anchor-green text-ink-inverse px-6 py-4">
+          <div className="bg-surface-sunk text-ink-strong px-6 py-4 border-b border-line">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               Departures from Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
@@ -199,7 +199,7 @@ export function FlightStatus({
 
       {(type === 'arrivals' || type === 'both') && arrivals.length > 0 && (
         <div className="bg-surface border border-line rounded-md overflow-hidden">
-          <div className="bg-anchor-gold-dark text-ink-inverse px-6 py-4">
+          <div className="bg-surface-sunk text-ink-strong px-6 py-4 border-b border-line">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               Arrivals to Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
