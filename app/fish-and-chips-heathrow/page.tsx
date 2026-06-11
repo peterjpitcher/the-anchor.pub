@@ -1,10 +1,12 @@
-import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
+import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
@@ -125,67 +127,64 @@ export default async function FishAndChipsPage() {
         lead={signatureFish?.description || 'Current fish and chip options from our latest kitchen menu.'}
       />
 
-      <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <PageTitle className="text-anchor-cream-text mb-4">
-              Fish and Chips Near Heathrow
-            </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
-              Current dish names, descriptions and prices are shown here when available online.
-            </p>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-4xl text-center">
+            <SectionHeading
+              title="Fish and Chips Near Heathrow"
+              lead="Current dish names, descriptions and prices are shown here when available online."
+            />
           </div>
-        </Container>
+        </div>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep border-t border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <SectionHeading
-              title="Current Fish and Chip Options"
-              subtitle="From the current food menu."
-            />
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <SectionHeading
+            title="Current Fish and Chip Options"
+            lead="From the current food menu."
+          />
 
-            {fishItems.length > 0 ? (
-              <div className="mt-12 mb-12">
-                <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
-                  {fishItems.map((item) => (
-                    <div key={item.id} className="bg-anchor-green-raised p-6 rounded-xl border border-anchor-gold-dark/15 hover:border-anchor-gold-dark transition-colors">
-                      <div className="flex justify-between items-start mb-2 gap-4">
-                        <h2 className="font-bold text-xl text-anchor-cream-text">{item.name}</h2>
-                        {item.priceLabel && <span className="font-bold text-anchor-gold-dark bg-anchor-green-card px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
-                      </div>
-                      {item.description && (
-                        <p className="text-anchor-cream-text/55 text-sm mb-3">{item.description}</p>
-                      )}
-                      <p className="text-xs text-anchor-cream-text/40 mb-3">{item.categoryTitle}</p>
-
-                      {item.allergens && item.allergens.length > 0 && (
-                        <span className="inline-flex text-xs text-anchor-cream-text/60 border border-anchor-gold-dark/15 px-2 py-1 rounded-full">
-                          Contains: {item.allergens.join(', ')}
+          {fishItems.length > 0 ? (
+            <div className="mx-auto grid max-w-3xl gap-6 text-left md:grid-cols-2">
+              {fishItems.map((item) => (
+                <Card key={item.id} accent hover>
+                  <CardBody>
+                    <div className="mb-2 flex items-start justify-between gap-4">
+                      <h2 className="text-h4 text-ink-strong">{item.name}</h2>
+                      {item.priceLabel && (
+                        <span className="whitespace-nowrap font-display text-xl text-accent-text">
+                          {item.priceLabel}
                         </span>
                       )}
                     </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <AlertBox
-                variant="info"
-                title="Menu temporarily unavailable"
-                className="max-w-2xl mx-auto mt-8"
-                content={getMenuUnavailableMessage()}
-              />
-            )}
+                    {item.description && (
+                      <p className="mb-3 text-sm text-ink-muted">{item.description}</p>
+                    )}
+                    <p className="mb-3 text-xs text-ink-muted">{item.categoryTitle}</p>
+                    {item.allergens && item.allergens.length > 0 && (
+                      <Badge variant="outline">Contains: {item.allergens.join(', ')}</Badge>
+                    )}
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card accent className="mx-auto max-w-2xl">
+              <CardBody>
+                <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
+                <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>
+              </CardBody>
+            </Card>
+          )}
 
-            <AlertBox
-              variant="info"
-              title="Gluten-Free Fish and Chips"
-              className="max-w-2xl mx-auto mt-8"
-              content={getGlutenFreeFishAndChipsNotice()}
-            />
-          </div>
-        </Container>
+          <Card accent className="mx-auto mt-8 max-w-2xl">
+            <CardBody>
+              <h2 className="mb-2 text-h4 text-ink-strong">Gluten-Free Fish and Chips</h2>
+              <p className="text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>
+            </CardBody>
+          </Card>
+        </div>
       </section>
 
       <FAQAccordionWithSchema
@@ -205,7 +204,6 @@ export default async function FishAndChipsPage() {
             answer: 'Yes. Call us to order from the current menu and collect from the pub.'
           }
         ]}
-        className="bg-anchor-green-card"
       />
 
       <InternalLinkingSection
@@ -229,25 +227,28 @@ export default async function FishAndChipsPage() {
         ]}
       />
 
-      <CTASection
-        title="Ready to Eat?"
-        description="Book a table or call for collection from the live menu."
-        buttons={[
-          {
-            text: 'Book a Table',
-            href: '/book-table',
-            variant: 'primary'
-          },
-          {
-            text: 'Order for Collection',
-            href: `${CONTACT.phoneHref}`,
-            isPhone: true,
-            phoneSource: 'fish_takeaway_cta',
-            variant: 'outline'
-          }
-        ]}
-        variant="green"
-      />
+      <CtaBand
+        title="Ready to eat?"
+        copy="Book a table or call for collection from the live menu."
+      >
+        <BookTableButton
+          source="fish_chips_cta"
+          context="food"
+          variant="primary"
+          size="lg"
+          trackingLabel="Fish and Chips Book a Table"
+        >
+          Book a table
+        </BookTableButton>
+        <PhoneButton
+          phone={CONTACT.phone}
+          source="fish_takeaway_cta"
+          variant="outline"
+          size="lg"
+        >
+          Order for collection
+        </PhoneButton>
+      </CtaBand>
     </>
   )
 }

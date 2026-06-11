@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
+import { Card, CardBody, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { FoodMenuSection } from '../_components/FoodMenuSection'
 import {
   getMenuUnavailableMessage,
   getVegetarianMenuPageData,
@@ -94,114 +96,107 @@ export default async function VegetarianMenuPage() {
         lead="Current vegetarian dishes, descriptions and prices from the latest kitchen menu."
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <PageTitle as="h2" className="text-anchor-cream-text mb-2">
-                Vegetarian Pub Food Near Heathrow
-              </PageTitle>
-              <p className="text-anchor-cream-text/55 mb-4">Current vegetarian and vegan options.</p>
-              <p className="text-anchor-cream-text/70">
-                If the kitchen updates a dish, description or price, this page follows that update.
-              </p>
-              <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
-                <li>&bull; Vegetarian and vegan dishes are grouped by their live menu section.</li>
-                <li>&bull; Prices and descriptions are shown from the current menu.</li>
-                <li>&bull; Ask at the bar for allergen guidance before ordering.</li>
-              </ul>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <SectionHeading
+              align="left"
+              title="Vegetarian Pub Food Near Heathrow"
+              lead="Current vegetarian and vegan options."
+            />
+            <p className="text-ink-muted">
+              If the kitchen updates a dish, description or price, this page follows that update.
+            </p>
+            <ul className="mt-4 space-y-2 text-ink-muted">
+              <li>&bull; Vegetarian and vegan dishes are grouped by their live menu section.</li>
+              <li>&bull; Prices and descriptions are shown from the current menu.</li>
+              <li>&bull; Ask at the bar for allergen guidance before ordering.</li>
+            </ul>
+          </div>
+          <div className="mt-8">
+            <DietaryMenuNav />
+          </div>
+        </div>
+      </section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-deep">
-        <Container>
-          <DietaryMenuNav />
-        </Container>
-      </Section>
-
-      <div id="menu" className="section-spacing bg-anchor-green-deep">
-        <Container>
+      <section id="menu" className="bg-surface py-section-y">
+        <div className="container">
           <SectionHeading
             title="Current Vegetarian Menu"
-            subtitle={data ? `${totalVegetarianItems} vegetarian and vegan dishes from the live food menu.` : getMenuUnavailableMessage()}
-            align="center"
-            className="mb-10"
+            lead={data ? `${totalVegetarianItems} vegetarian and vegan dishes from the live food menu.` : getMenuUnavailableMessage()}
           />
-        </Container>
+          {data ? (
+            <FoodMenuSection menuData={data.menuData} showFilters={false} />
+          ) : (
+            <Card accent className="mx-auto max-w-4xl">
+              <CardBody>
+                <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
+                <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>
+              </CardBody>
+            </Card>
+          )}
+        </div>
+      </section>
 
-        {data ? (
-          <MenuRenderer menuData={data.menuData} eyebrow="Vegetarian menu" />
-        ) : (
-          <Container>
-            <Alert variant="info" title="Menu temporarily unavailable" className="max-w-4xl mx-auto">
-              <p className="text-anchor-cream-text/70">{getMenuUnavailableMessage()}</p>
-            </Alert>
-          </Container>
-        )}
-      </div>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <SectionHeading
-                title="Vegetarian Dining Near Heathrow Airport"
-                subtitle="A proper meal before, after, or instead of a flight."
-                align="left"
-                className="mb-6"
-              />
-              <div className="text-anchor-cream-text/70 space-y-4">
-                <p>
-                  The Anchor is 7 minutes from Heathrow Terminal 5, with free parking and a current menu that stays in sync with the kitchen.
-                </p>
-                <p>
-                  If you have specific allergen needs, speak to the team at the bar and we will walk you through the current options.
-                </p>
-              </div>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <SectionHeading
+              align="left"
+              title="Vegetarian Dining Near Heathrow Airport"
+              lead="A proper meal before, after, or instead of a flight."
+            />
+            <div className="space-y-4 text-ink-muted">
+              <p>
+                The Anchor is 7 minutes from Heathrow Terminal 5, with free parking and a current menu that stays in sync with the kitchen.
+              </p>
+              <p>
+                If you have specific allergen needs, speak to the team at the bar and we will walk you through the current options.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div data-sticky-cta-guard="true">
-        <CTASection
-          title="Hungry? Book Your Table Now"
-          description="Reserve online or call ahead and we will have your table ready."
-          buttons={[
-            {
-              text: 'Call: 01753 682707',
-              href: 'tel:+441753682707',
-              variant: 'white',
-              isPhone: true,
-              phoneSource: 'vegetarian_menu_footer',
-            },
-            {
-              text: 'View Full Menu',
-              href: '/food-menu',
-              variant: 'white',
-            },
-          ]}
-          variant="green"
-        />
+        <CtaBand
+          title="Hungry? Book your table now."
+          copy="Reserve online or call ahead and we will have your table ready."
+        >
+          <BookTableButton
+            source="vegetarian_menu_footer"
+            context="food"
+            variant="primary"
+            size="lg"
+            trackingLabel="Vegetarian Footer Book a Table"
+          >
+            Book a table
+          </BookTableButton>
+          <PhoneButton
+            phone="01753 682707"
+            source="vegetarian_menu_footer"
+            variant="outline"
+            size="lg"
+          >
+            01753 682707
+          </PhoneButton>
+        </CtaBand>
       </div>
 
-      <Section background="gray" spacing="md" className="bg-anchor-green-deep">
-        <Container>
-          <Alert
-            variant="warning"
-            title="Allergen Information"
-            className="max-w-4xl mx-auto"
-          >
-            <p className="text-anchor-cream-text/70">
-              All dishes are prepared in a single kitchen where allergens are present. Speak to us about your needs before ordering.
-            </p>
-          </Alert>
-        </Container>
-      </Section>
+      <section className="bg-surface-sunk py-section-y">
+        <div className="container">
+          <Card accent className="mx-auto max-w-4xl">
+            <CardBody>
+              <h2 className="mb-2 text-h4 text-ink-strong">Allergen Information</h2>
+              <p className="text-ink-muted">
+                All dishes are prepared in a single kitchen where allergens are present. Speak to us about your needs before ordering.
+              </p>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
 
-      <FAQAccordionWithSchema faqs={faqItems} className="bg-anchor-green-card" />
+      <FAQAccordionWithSchema faqs={faqItems} />
 
       <script
         type="application/ld+json"
@@ -218,28 +213,27 @@ export default async function VegetarianMenuPage() {
         }}
       />
 
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-anchor-cream-text mb-6">Explore More</h2>
+            <h2 className="mb-6 text-h3 text-ink-strong">Explore More</h2>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/food-menu" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu" className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark">
                 Full Food Menu
               </Link>
-              <Link href="/food-menu/vegan" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu/vegan" className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark">
                 Vegan Menu
               </Link>
-              <Link href="/food-menu/gluten-free" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/food-menu/gluten-free" className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark">
                 Gluten-Free Menu
               </Link>
-              <Link href="/book-table" className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold-dark/30 text-anchor-cream-text/80 hover:bg-anchor-gold-dark/10 hover:text-anchor-cream-text transition text-sm font-medium">
+              <Link href="/book-table" className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark">
                 Book a Table
               </Link>
             </div>
           </div>
-        </Container>
-      </Section>
-
+        </div>
+      </section>
     </>
   )
 }

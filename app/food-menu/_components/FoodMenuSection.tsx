@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Card, CardBody, SectionHeading } from '@/components/ui'
+import { Card, CardBody } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
 
@@ -39,15 +39,21 @@ function dietaryFlag(item: MenuItem): string | null {
 
 export interface FoodMenuSectionProps {
   menuData: MenuData
+  /**
+   * Show the dietary filter chips. Defaults to true (the full food menu).
+   * Single-purpose menus (drinks, pizza, a pre-filtered dietary list) pass
+   * `false` to render the accent-card rows without the filter row.
+   */
+  showFilters?: boolean
 }
 
 /**
- * Live food menu, rendered to the redesign §7.2.3 layout: dietary filter chips,
- * then each menu group as a DM Serif heading + accent Card of menu rows
- * (name left, gold price right, never stacked on mobile). Data is the live
+ * Live food/drink menu, rendered to the redesign §7.2.3 layout: optional dietary
+ * filter chips, then each menu group as a DM Serif heading + accent Card of menu
+ * rows (name left, gold price right, never stacked on mobile). Data is the live
  * menu the page already loads; nothing is hardcoded here.
  */
-export function FoodMenuSection({ menuData }: FoodMenuSectionProps) {
+export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectionProps) {
   const [filter, setFilter] = useState<DietaryFilter>('all')
 
   const groups = useMemo(() => {
@@ -64,27 +70,29 @@ export function FoodMenuSection({ menuData }: FoodMenuSectionProps) {
   return (
     <div className="mx-auto w-full max-w-[920px]">
       {/* Dietary filter chips: 44px pills, green-on-select, gold hover border. */}
-      <div className="mb-10 flex flex-wrap justify-center gap-3" role="group" aria-label="Dietary filters">
-        {FILTERS.map(({ value, label }) => {
-          const isActive = filter === value
-          return (
-            <button
-              key={value}
-              type="button"
-              onClick={() => setFilter(value)}
-              aria-pressed={isActive}
-              className={cn(
-                'inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] px-5 font-sans text-sm font-semibold transition-colors',
-                isActive
-                  ? 'border-anchor-green bg-anchor-green text-white'
-                  : 'border-line-strong bg-surface text-ink hover:border-anchor-gold-dark'
-              )}
-            >
-              {label}
-            </button>
-          )
-        })}
-      </div>
+      {showFilters && (
+        <div className="mb-10 flex flex-wrap justify-center gap-3" role="group" aria-label="Dietary filters">
+          {FILTERS.map(({ value, label }) => {
+            const isActive = filter === value
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setFilter(value)}
+                aria-pressed={isActive}
+                className={cn(
+                  'inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] px-5 font-sans text-sm font-semibold transition-colors',
+                  isActive
+                    ? 'border-anchor-green bg-anchor-green text-white'
+                    : 'border-line-strong bg-surface text-ink hover:border-anchor-gold-dark'
+                )}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </div>
+      )}
 
       {groups.length === 0 ? (
         <p className="text-center text-ink-muted">

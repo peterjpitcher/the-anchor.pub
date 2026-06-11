@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { Button, Section, FullWidthSection, Badge } from '@/components/ui'
+import { Button, Card, CardBody, Badge, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import Link from 'next/link'
-import { PricingCard } from '@/components/PricingCard'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -103,7 +103,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
   const { promotion: currentPromotion, mode } = resolvePromotion(searchParams)
   const canonical = '/drinks/managers-special'
   const shouldNoIndex = mode !== 'live'
-  
+
   if (!currentPromotion) {
     const title = "Manager's Special"
     const description = "Enjoy 25% off a different featured spirit each month at The Anchor near Heathrow. Ask at the bar for today's special price and tasting notes."
@@ -140,7 +140,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
   const { promotion } = currentPromotion
   const description = promotion.metaDescription || currentPromotion.spirit.description || promotion.offerText
   const openGraphImage = getPromotionImage(currentPromotion.imageFolder) || DEFAULT_DRINKS_IMAGE
-  
+
   return {
     title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name}`,
     description,
@@ -173,7 +173,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
 export default function ManagersSpecialPage({ searchParams }: { searchParams: PageSearchParams }) {
   const { promotion: currentPromotion } = resolvePromotion(searchParams)
   const drinksHeroImage = getDrinksHeroImage()
-  
+
   if (!currentPromotion) {
     const fallbackFaqs = [
       {
@@ -204,92 +204,89 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           title="Manager's Special"
           lead="25% off a featured spirit each month, our way of giving back, and a great excuse to try something new."
         />
-        <Section spacing="md" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-          <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-            <PageTitle className="text-anchor-gold-bright" seo={{ structured: true }}>
-              Manager&apos;s Special at The Anchor
-            </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
-              Each month we hand-pick one premium spirit and take 25% off every serve. It&apos;s a simple way to share
-              the best of our back bar with the people who support us, and to help everyone discover something new.
-            </p>
-            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              <Link href="/drinks">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Explore Drinks
-                </Button>
-              </Link>
-              <Link href="/whats-on">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  See What&apos;s On
-                </Button>
-              </Link>
+        <section className="bg-canvas py-section-y">
+          <div className="container">
+            <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+              <PageTitle className="text-ink-strong" seo={{ structured: true }}>
+                Manager&apos;s Special at The Anchor
+              </PageTitle>
+              <p className="text-lg text-ink-muted">
+                Each month we hand-pick one premium spirit and take 25% off every serve. It&apos;s a simple way to share
+                the best of our back bar with the people who support us, and to help everyone discover something new.
+              </p>
+              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+                <Link href="/drinks" className="w-full sm:w-auto">
+                  <Button variant="primary" size="lg" fullWidth>
+                    Explore Drinks
+                  </Button>
+                </Link>
+                <Link href="/whats-on" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth>
+                    See What&apos;s On
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </Section>
+        </section>
 
-        <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="why">
-          <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
-            <div>
-              <h2 className="text-3xl font-bold text-anchor-cream-text">Why we do it</h2>
-              <p className="mt-4 text-lg text-anchor-cream-text/70">
-                The Anchor has always been about good value, good company and doing right by our locals. The Manager&apos;s Special is a monthly thank-you: a way to give back, keep things interesting, and make premium spirits feel accessible.
-              </p>
-              <ul className="mt-6 space-y-3 text-anchor-cream-text/70">
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                  <span>Give back to our community with a proper discount on a standout bottle.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                  <span>Help everyone explore new flavours without committing to a full bottle.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                  <span>Showcase what we love from the top shelf, with simple, great serves at the bar.</span>
-                </li>
-              </ul>
-            </div>
-            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-6 shadow-sm md:p-8">
-              <h3 className="text-xl font-bold text-anchor-cream-text">How it works</h3>
-              <ol className="mt-5 space-y-4 text-anchor-cream-text/70">
-                <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                    1
-                  </span>
-                  <span>We pick one premium spirit for the month.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                    2
-                  </span>
-                  <span>Every serve of that bottle is 25% off for the whole month.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                    3
-                  </span>
-                  <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
-                </li>
-              </ol>
-              <p className="mt-6 text-sm text-anchor-cream-text/55">
-                Subject to availability. Challenge 25 applies. Doubles available at standard bar pricing.
-              </p>
+        <section className="bg-surface py-section-y" id="why">
+          <div className="container">
+            <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
+              <div>
+                <h2 className="text-h3 text-ink-strong">Why we do it</h2>
+                <p className="mt-4 text-lg text-ink-muted">
+                  The Anchor has always been about good value, good company and doing right by our locals. The Manager&apos;s Special is a monthly thank-you: a way to give back, keep things interesting, and make premium spirits feel accessible.
+                </p>
+                <ul className="mt-6 space-y-3 text-ink-muted">
+                  <li className="flex gap-3">
+                    <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span>Give back to our community with a proper discount on a standout bottle.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span>Help everyone explore new flavours without committing to a full bottle.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span>Showcase what we love from the top shelf, with simple, great serves at the bar.</span>
+                  </li>
+                </ul>
+              </div>
+              <Card accent>
+                <CardBody className="md:p-8">
+                  <h3 className="text-h4 text-ink-strong">How it works</h3>
+                  <ol className="mt-5 space-y-4 text-ink-muted">
+                    <li className="flex gap-3">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">1</span>
+                      <span>We pick one premium spirit for the month.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">2</span>
+                      <span>Every serve of that bottle is 25% off for the whole month.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">3</span>
+                      <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
+                    </li>
+                  </ol>
+                  <p className="mt-6 text-sm text-ink-muted">
+                    Subject to availability. Challenge 25 applies. Doubles available at standard bar pricing.
+                  </p>
+                </CardBody>
+              </Card>
             </div>
           </div>
-        </Section>
+        </section>
 
-        <Section spacing="lg" container className="bg-anchor-green-deep">
-          <FAQAccordionWithSchema
-            title="Manager's Special FAQs"
-            faqs={fallbackFaqs}
-            className="bg-anchor-green-deep"
-          />
-        </Section>
+        <FAQAccordionWithSchema
+          title="Manager's Special FAQs"
+          faqs={fallbackFaqs}
+        />
       </>
     )
   }
-  
+
   const { spirit, promotion } = currentPromotion
   const dynamicImagePath = getPromotionImage(currentPromotion.imageFolder)
   const education = getEducation(currentPromotion)
@@ -313,13 +310,13 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       "name": spirit.distillery
     },
     "image": `https://www.the-anchor.pub${dynamicImagePath || DEFAULT_DRINKS_IMAGE}`,
-	    "offers": {
-	      "@type": "Offer",
-	      "url": "https://www.the-anchor.pub/drinks/managers-special",
-	      "priceCurrency": "GBP",
-	      "price": spirit.specialPrice.replace(/[\u00A3\s]/g, ''),
-	      "priceValidUntil": currentPromotion.endDate,
-	      "availability": "https://schema.org/InStock",
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.the-anchor.pub/drinks/managers-special",
+      "priceCurrency": "GBP",
+      "price": spirit.specialPrice.replace(/[£\s]/g, ''),
+      "priceValidUntil": currentPromotion.endDate,
+      "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "BarOrPub",
         "name": "The Anchor",
@@ -359,7 +356,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
   return (
     <>
-      <MenuPageTracker 
+      <MenuPageTracker
         menuType="managers_special"
         specialOffers={[
           `${spirit.discount} ${spirit.name} - Valid until ${offerEndsLabel}`
@@ -369,7 +366,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema]) }}
       />
-      
+
       <InteriorHero
         image={drinksHeroImage.src}
         focal="center center"
@@ -392,7 +389,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               size="lg"
               fullWidth
             />
-            <Link href="/drinks">
+            <Link href="/drinks" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" fullWidth>
                 View Drinks Menu
               </Button>
@@ -401,242 +398,249 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         }
       />
 
-      <Section spacing="sm" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <PageTitle
-          className="text-center text-anchor-gold-bright"
-          seo={{ structured: true }}
-        >
-          {promotionMonthName}&apos;s Product of the Month: {spirit.name}
-        </PageTitle>
-        <p className="mx-auto mt-4 max-w-3xl text-center text-lg text-anchor-cream-text/70">
-          The Manager&apos;s Special is not just a discount sticker on a bottle. Each month we pick one spirit, explain what makes it interesting, and give you a simple way to try it properly at the bar.
-        </p>
-      </Section>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <PageTitle
+            className="text-center text-ink-strong"
+            seo={{ structured: true }}
+          >
+            {promotionMonthName}&apos;s Product of the Month: {spirit.name}
+          </PageTitle>
+          <p className="mx-auto mt-4 max-w-3xl text-center text-lg text-ink-muted">
+            The Manager&apos;s Special is not just a discount sticker on a bottle. Each month we pick one spirit, explain what makes it interesting, and give you a simple way to try it properly at the bar.
+          </p>
+        </div>
+      </section>
 
-      <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <div id="details" className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
-          <div className="space-y-6">
-            <div className="overflow-hidden rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-3 shadow-xl">
-              <div className="relative aspect-square overflow-hidden rounded-md bg-anchor-green-deep">
-                <Image
-                  src={dynamicImagePath || DEFAULT_DRINKS_IMAGE}
-                  alt={promotion.heroAlt || `${spirit.name} Manager's Special at The Anchor`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="object-cover object-center"
-                  priority={false}
-                />
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div id="details" className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
+            <div className="space-y-6">
+              <div className="overflow-hidden rounded-md border border-line bg-surface p-3 shadow-lg">
+                <div className="relative aspect-square overflow-hidden rounded-sm bg-surface-sunk">
+                  <Image
+                    src={dynamicImagePath || DEFAULT_DRINKS_IMAGE}
+                    alt={promotion.heroAlt || `${spirit.name} Manager's Special at The Anchor`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    className="object-cover object-center"
+                    priority={false}
+                  />
+                </div>
               </div>
-            </div>
 
-            <PricingCard
-              title="Single Measure"
-              volume="25ml"
-              currentPrice={specialPriceLabel}
-              originalPrice={originalPriceLabel}
-              savings={savingsLabel}
-              featured={true}
-              className="rounded-lg"
-            />
-            <p className="text-center text-sm text-anchor-cream-text/55">
-              Doubles available at standard bar pricing. Subject to availability. Challenge 25 applies.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-bright">
-              Learn the bottle
-            </p>
-            <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
-              What makes {spirit.name} worth trying?
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-anchor-cream-text/75">
-              {education.story}
-            </p>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
-                <h3 className="text-lg font-bold text-anchor-cream-text">Why we picked it</h3>
-                <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.whyPicked}</p>
-              </div>
-              <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-card p-5">
-                <h3 className="text-lg font-bold text-anchor-cream-text">What to taste for</h3>
-                <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.flavourProfile}</p>
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-deep p-6">
-              <h3 className="text-xl font-bold text-anchor-cream-text">Best first serve</h3>
-              <p className="mt-3 text-anchor-cream-text/70">{education.perfectServe}</p>
-              <p className="mt-5 border-l-4 border-anchor-gold-dark/60 pl-4 text-sm italic text-anchor-cream-text/65">
-                Bar team tip: {education.barTeamTip}
+              {/* Light pricing card (replaces dark PricingCard) */}
+              <Card accent>
+                <CardBody className="text-center">
+                  <h3 className="text-h4 text-ink-strong">Single Measure</h3>
+                  <p className="mt-1 text-sm text-ink-muted">25ml</p>
+                  <div className="mt-4">
+                    <div className="font-display text-4xl text-accent-text">{specialPriceLabel}</div>
+                    <div className="text-lg text-ink-muted line-through">{originalPriceLabel}</div>
+                  </div>
+                  <div className="mt-3">
+                    <Badge variant="gold">{savingsLabel} off</Badge>
+                  </div>
+                </CardBody>
+              </Card>
+              <p className="text-center text-sm text-ink-muted">
+                Doubles available at standard bar pricing. Subject to availability. Challenge 25 applies.
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <BookTableButton
-                source="managers_special_details"
-                size="lg"
-                className="w-full sm:w-auto"
+            <div>
+              <SectionHeading
+                align="left"
+                kicker="Learn the bottle"
+                title={`What makes ${spirit.name} worth trying?`}
               />
-              <Link href="/drinks" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  See the Full Bar
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </Section>
+              <p className="text-lg leading-relaxed text-ink-muted">
+                {education.story}
+              </p>
 
-      <Section spacing="lg" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-bright">
-              Tasting guide
-            </p>
-            <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
-              How to get more from the glass
-            </h2>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              You do not need to be a spirits expert. Use these notes to decide whether this month&apos;s bottle suits your taste.
-            </p>
-          </div>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <Card accent>
+                  <CardBody>
+                    <h3 className="text-h4 text-ink-strong">Why we picked it</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-muted">{education.whyPicked}</p>
+                  </CardBody>
+                </Card>
+                <Card accent>
+                  <CardBody>
+                    <h3 className="text-h4 text-ink-strong">What to taste for</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-muted">{education.flavourProfile}</p>
+                  </CardBody>
+                </Card>
+              </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h3 className="text-xl font-bold text-anchor-cream-text">Pairs well with</h3>
-              <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
-                {education.foodPairings.map((pairing) => (
-                  <li key={pairing} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                    <span>{pairing}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <Card accent className="mt-8">
+                <CardBody>
+                  <h3 className="text-h4 text-ink-strong">Best first serve</h3>
+                  <p className="mt-3 text-ink-muted">{education.perfectServe}</p>
+                  <p className="mt-5 border-l-4 border-line-gold pl-4 text-sm italic text-ink-muted">
+                    Bar team tip: {education.barTeamTip}
+                  </p>
+                </CardBody>
+              </Card>
 
-            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h3 className="text-xl font-bold text-anchor-cream-text">Try it if you like</h3>
-              <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
-                {education.tryIfYouLike.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h3 className="text-xl font-bold text-anchor-cream-text">Useful words</h3>
-              <div className="mt-5 space-y-4">
-                {education.glossary.map((item) => (
-                  <div key={item.term}>
-                    <p className="font-semibold text-anchor-gold-bright">{item.term}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-anchor-cream-text/70">{item.definition}</p>
-                  </div>
-                ))}
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <BookTableButton
+                  source="managers_special_details"
+                  variant="primary"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                />
+                <Link href="/drinks" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidth>
+                    See the Full Bar
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section spacing="lg" container className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="why">
-        <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
-          <div>
-            <h2 className="text-3xl font-bold text-anchor-cream-text">Why we do it</h2>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              The Anchor is a community pub at heart. The Manager&apos;s Special is our monthly thank-you, a way to share premium spirits at a price that feels fair, and to keep the back bar fun for everyone.
-            </p>
-            <ul className="mt-6 space-y-3 text-anchor-cream-text/70">
-              <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                <span>Give back to our locals with a proper discount on a standout bottle.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                <span>Make it easy to try something premium without committing to a full bottle.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold-dark" aria-hidden="true" />
-                <span>Showcase the best of our spirits range at genuine pub prices.</span>
-              </li>
-            </ul>
-          </div>
-          <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-6 shadow-sm md:p-8">
-            <h3 className="text-xl font-bold text-anchor-cream-text">How it works</h3>
-            <ol className="mt-5 space-y-4 text-anchor-cream-text/70">
-              <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                  1
-                </span>
-                <span>We pick one premium spirit for the month.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                  2
-                </span>
-                <span>Every serve of that bottle is 25% off for the whole month.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green-deep text-anchor-gold-bright font-bold">
-                  3
-                </span>
-                <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
-              </li>
-            </ol>
-            <p className="mt-6 text-sm text-anchor-cream-text/55">
-              No memberships, no vouchers, no happy-hour window, just one great bottle, all month.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              align="left"
+              kicker="Tasting guide"
+              title="How to get more from the glass"
+              lead="You do not need to be a spirits expert. Use these notes to decide whether this month's bottle suits your taste."
+            />
 
-      <Section spacing="lg" container className="bg-anchor-green-deep">
-        <FAQAccordionWithSchema
-          title="Manager's Special FAQs"
-          faqs={faqs}
-          className="bg-anchor-green-deep"
-        />
-      </Section>
+            <div className="mt-2 grid gap-6 lg:grid-cols-3">
+              <Card accent>
+                <CardBody>
+                  <h3 className="text-h4 text-ink-strong">Pairs well with</h3>
+                  <ul className="mt-5 space-y-3 text-ink-muted">
+                    {education.foodPairings.map((pairing) => (
+                      <li key={pairing} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                        <span>{pairing}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
 
-      <FullWidthSection className="bg-anchor-green py-16 md:py-24">
-        <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold text-white md:text-5xl">
-              Try it while it is the bottle of the month
-            </h2>
-            <p className="mt-6 text-xl text-white/85">
-              {spirit.discount} off {spirit.name} all {promotionMonthName}. Ask the bar team for the serve above, or tell us what you normally drink and we&apos;ll steer you.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <BookTableButton
-                source="managers_special_cta"
-                size="lg"
-                variant="outline"
-                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              />
-              <Link href="/find-us">
-                <Button size="lg" variant="outline" className="bg-white/10 text-white hover:bg-white/20">
-                  Get Directions
-                </Button>
-              </Link>
-              <PhoneButton
-                phone="01753 682707"
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white hover:bg-white/20"
-                source="managers_special_cta"
-              />
+              <Card accent>
+                <CardBody>
+                  <h3 className="text-h4 text-ink-strong">Try it if you like</h3>
+                  <ul className="mt-5 space-y-3 text-ink-muted">
+                    {education.tryIfYouLike.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+
+              <Card accent>
+                <CardBody>
+                  <h3 className="text-h4 text-ink-strong">Useful words</h3>
+                  <div className="mt-5 space-y-4">
+                    {education.glossary.map((item) => (
+                      <div key={item.term}>
+                        <p className="font-semibold text-accent-text">{item.term}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-ink-muted">{item.definition}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardBody>
+              </Card>
             </div>
-            <p className="mt-6 text-white/70">
-              Offer valid until {offerEndsLabel}
-            </p>
           </div>
         </div>
-      </FullWidthSection>
+      </section>
+
+      <section className="bg-surface py-section-y" id="why">
+        <div className="container">
+          <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
+            <div>
+              <h2 className="text-h3 text-ink-strong">Why we do it</h2>
+              <p className="mt-4 text-lg text-ink-muted">
+                The Anchor is a community pub at heart. The Manager&apos;s Special is our monthly thank-you, a way to share premium spirits at a price that feels fair, and to keep the back bar fun for everyone.
+              </p>
+              <ul className="mt-6 space-y-3 text-ink-muted">
+                <li className="flex gap-3">
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span>Give back to our locals with a proper discount on a standout bottle.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span>Make it easy to try something premium without committing to a full bottle.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                  <span>Showcase the best of our spirits range at genuine pub prices.</span>
+                </li>
+              </ul>
+            </div>
+            <Card accent>
+              <CardBody className="md:p-8">
+                <h3 className="text-h4 text-ink-strong">How it works</h3>
+                <ol className="mt-5 space-y-4 text-ink-muted">
+                  <li className="flex gap-3">
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">1</span>
+                    <span>We pick one premium spirit for the month.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">2</span>
+                    <span>Every serve of that bottle is 25% off for the whole month.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-anchor-green text-white font-bold">3</span>
+                    <span>Ask the bar team for the best serve, tasting notes and garnish.</span>
+                  </li>
+                </ol>
+                <p className="mt-6 text-sm text-ink-muted">
+                  No memberships, no vouchers, no happy-hour window, just one great bottle, all month.
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <FAQAccordionWithSchema
+        title="Manager's Special FAQs"
+        faqs={faqs}
+      />
+
+      <CtaBand
+        title="Try it while it is the bottle of the month"
+        copy={`${spirit.discount} off ${spirit.name} all ${promotionMonthName}. Ask the bar team for the serve above, or tell us what you normally drink and we'll steer you.`}
+      >
+        <BookTableButton
+          source="managers_special_cta"
+          variant="primary"
+          size="lg"
+        />
+        <PhoneButton
+          phone="01753 682707"
+          source="managers_special_cta"
+          variant="outline"
+          size="lg"
+        >
+          01753 682707
+        </PhoneButton>
+        <Link href="/find-us">
+          <Button variant="outline" size="lg">
+            Get Directions
+          </Button>
+        </Link>
+      </CtaBand>
+
+      <section className="bg-canvas py-6">
+        <div className="container">
+          <p className="text-center text-sm text-ink-muted">Offer valid until {offerEndsLabel}</p>
+        </div>
+      </section>
     </>
   )
 }

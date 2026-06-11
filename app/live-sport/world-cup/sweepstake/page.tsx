@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Button, Container, CTASection, SectionHeading } from '@/components/ui'
+import { Button, Container, SectionHeading } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -178,7 +181,7 @@ export default function WorldCupSweepstakePage() {
         }
       />
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-4">
             {[
@@ -187,9 +190,9 @@ export default function WorldCupSweepstakePage() {
               { label: 'Number price', value: '£5' },
               { label: 'Names in the draw', value: CUSTOMER_COUNT.toString() },
             ].map((item) => (
-              <div key={item.label} className="rounded-xl bg-anchor-green-card p-6 text-center ring-1 ring-anchor-gold-dark/15">
-                <p className="text-3xl font-bold text-anchor-gold-bright">{item.value}</p>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/60">
+              <div key={item.label} className="rounded-xl border border-line bg-surface p-6 text-center shadow-sm">
+                <p className="text-h3 text-accent-text">{item.value}</p>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-ink-muted">
                   {item.label}
                 </p>
               </div>
@@ -198,7 +201,7 @@ export default function WorldCupSweepstakePage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised" id="draw-results">
+      <section className="py-section-y bg-surface" id="draw-results">
         <Container>
           <SectionHeading
             eyebrow="Draw Results"
@@ -207,13 +210,13 @@ export default function WorldCupSweepstakePage() {
           />
 
           <div className="mx-auto max-w-6xl space-y-6">
-            <div className="rounded-xl bg-anchor-green-card p-4 ring-1 ring-anchor-gold-dark/15 sm:p-6">
+            <div className="rounded-xl border border-line bg-surface p-4 shadow-sm sm:p-6">
               <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-anchor-gold-bright">Team Draw</h2>
-                  <p className="text-sm text-anchor-cream-text/60">Sorted by team, matching the draw sheet.</p>
+                  <h2 className="text-xl text-accent-text">Team Draw</h2>
+                  <p className="text-sm text-ink-muted">Sorted by team, matching the draw sheet.</p>
                 </div>
-                <Link href={RESULT_SHEET_PDF} className="text-sm font-semibold text-anchor-gold-dark hover:underline">
+                <Link href={RESULT_SHEET_PDF} className="text-sm font-semibold text-accent-text hover:underline">
                   Open PDF
                 </Link>
               </div>
@@ -221,12 +224,12 @@ export default function WorldCupSweepstakePage() {
                 {DRAW_RESULTS.map((result) => (
                   <div
                     key={result.team}
-                    className="flex min-h-[52px] items-center justify-between gap-4 rounded-lg bg-anchor-green-raised px-4 py-3 ring-1 ring-anchor-gold-dark/10"
+                    className="flex min-h-[52px] items-center justify-between gap-4 rounded-lg border border-line bg-surface-sunk px-4 py-3"
                   >
-                    <span className="min-w-0 text-sm font-bold uppercase tracking-[0.08em] text-anchor-cream-text">
+                    <span className="min-w-0 text-sm font-semibold uppercase tracking-[0.08em] text-ink-strong">
                       {result.team}
                     </span>
-                    <span className="shrink-0 text-right text-sm font-semibold text-anchor-gold-bright">
+                    <span className="shrink-0 text-right text-sm font-semibold text-accent-text">
                       {result.customer}
                     </span>
                   </div>
@@ -234,9 +237,9 @@ export default function WorldCupSweepstakePage() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-anchor-green p-6 text-white ring-1 ring-anchor-gold-dark/25 sm:flex sm:items-center sm:justify-between sm:gap-8">
+            <div className="theme-dark rounded-xl bg-anchor-green p-6 text-white ring-1 ring-anchor-gold-bright/25 sm:flex sm:items-center sm:justify-between sm:gap-8">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-anchor-gold-bright">Payout note</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-anchor-gold-bright">Payout note</p>
                 <p className="mt-3 text-lg font-semibold">
                   All winnings are paid out on final day. No early payouts.
                 </p>
@@ -251,47 +254,47 @@ export default function WorldCupSweepstakePage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading eyebrow="Prize Pot" title="What You Can Win" subtitle="Prize values from the official sweep poster." />
           <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PRIZES.map((prize) => (
-              <div key={prize.label} className="rounded-xl bg-anchor-green-card p-6 ring-1 ring-anchor-gold-dark/15">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-anchor-cream-text/55">
+              <div key={prize.label} className="rounded-xl border border-line bg-surface p-6 shadow-sm">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
                   {prize.label}
                 </p>
-                <p className="mt-3 text-3xl font-bold text-anchor-gold-bright">{prize.amount}</p>
+                <p className="mt-3 text-h3 text-accent-text">{prize.amount}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised">
+      <section className="py-section-y bg-surface">
         <Container>
           <SectionHeading eyebrow="How It Works" title="Follow the Sweep" subtitle="The entry draw is complete, so the sweep now follows the tournament results." />
           <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-4">
             {HOW_IT_WORKS.map((item) => (
-              <div key={item.step} className="rounded-xl bg-anchor-green-card p-6 text-center ring-1 ring-anchor-gold-dark/15">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-anchor-green text-lg font-bold text-anchor-gold-bright">
+              <div key={item.step} className="rounded-xl border border-line bg-surface p-6 text-center shadow-sm">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-anchor-green text-lg font-semibold text-anchor-cream-text">
                   {item.step}
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-anchor-cream-text">{item.title}</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/65">{item.description}</p>
+                <h3 className="mt-4 text-lg font-semibold text-ink-strong">{item.title}</h3>
+                <p className="mt-2 text-sm text-ink-strong/65">{item.description}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <div>
               <SectionHeading eyebrow="Rules" title="Sweep Rules" align="left" className="mb-6" />
               <ul className="space-y-3">
                 {RULES.map((rule) => (
-                  <li key={rule} className="rounded-lg bg-anchor-green-card px-5 py-4 text-sm text-anchor-cream-text/75 ring-1 ring-anchor-gold-dark/15">
+                  <li key={rule} className="rounded-lg border border-line bg-surface px-5 py-4 text-sm text-ink-muted shadow-sm">
                     {rule}
                   </li>
                 ))}
@@ -310,7 +313,7 @@ export default function WorldCupSweepstakePage() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-anchor-green-card p-3 ring-1 ring-anchor-gold-dark/15 sm:p-4">
+            <div className="rounded-xl border border-line bg-surface p-3 shadow-sm sm:p-4">
               <Image
                 src={RESULT_SHEET_IMAGE}
                 alt="The Anchor World Cup 2026 sweep draw results showing teams paired with customers"
@@ -349,33 +352,22 @@ export default function WorldCupSweepstakePage() {
             answer: 'Use the World Cup fixtures page to see UK kick-off times, showing status, and table booking links at The Anchor.',
           },
         ]}
-        className="bg-anchor-green-raised"
       />
 
-      <CTASection
+      <CtaBand
         title="Follow Your Team at The Anchor"
-        description="Check World Cup fixtures, book for matches we are showing, and keep an eye on the sweep prizes."
-        buttons={[
-          {
-            text: 'World Cup Fixtures',
-            href: '/live-sport/world-cup',
-            variant: 'outline',
-          },
-          {
-            text: 'Book a Table',
-            href: '/book-table',
-            variant: 'primary',
-          },
-          {
-            text: `Call: ${CONTACT.phone}`,
-            href: CONTACT.phoneHref,
-            isPhone: true,
-            phoneSource: 'world_cup_sweep_cta',
-            variant: 'white',
-          },
-        ]}
-        variant="green"
-      />
+        copy="Check World Cup fixtures, book for matches we are showing, and keep an eye on the sweep prizes."
+      >
+        <BookTableButton source="world_cup_sweep_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+          Book a Table
+        </BookTableButton>
+        <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+          <Link href="/live-sport/world-cup">World Cup Fixtures</Link>
+        </Button>
+        <PhoneButton phone={CONTACT.phone} source="world_cup_sweep_cta" variant="outline" size="lg" className="w-full sm:w-auto">
+          Call: {CONTACT.phone}
+        </PhoneButton>
+      </CtaBand>
     </>
   )
 }

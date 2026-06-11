@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -102,13 +103,13 @@ export default function SixNationsPage() {
               lead="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
             />
 
-            <section className="section-spacing-lg bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
-                        <PageTitle className="text-anchor-gold-bright mb-4">
+                        <PageTitle className="text-accent-text mb-4">
                             Six Nations Pub Near Me, Live Rugby in Stanwell Moor
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             We're just 7 minutes from Heathrow Terminal 5 and miles away from the generic sports bar vibe.
                             Settle in for a proper pub atmosphere with fresh Guinness, hearty food, and every tackle on our 4 HD screens.
                         </p>
@@ -122,48 +123,31 @@ export default function SixNationsPage() {
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                            <h3 className="text-white text-2xl font-bold font-display">Live Every Match. Loud & Proud.</h3>
+                            <h3 className="text-white text-2xl font-display">Live Every Match. Loud & Proud.</h3>
                         </div>
                     </div>
 
-                    <FeatureGrid
-                        columns={4}
-                        features={[
-                            {
-                                icon: "",
-                                title: "Sound On",
-                                description: "Commentary on for every match.",
-                                variant: "default",
-                                className: "text-center border border-anchor-gold-dark/15"
-                            },
-                            {
-                                icon: "",
-                                title: "4 Screens",
-                                description: "Visible from the bar and dining areas.",
-                                variant: "default",
-                                className: "text-center border border-anchor-gold-dark/15"
-                            },
-                            {
-                                icon: "",
-                                title: "Kitchen Open",
-                                description: "Food served during all games.",
-                                variant: "default",
-                                className: "text-center border border-anchor-gold-dark/15"
-                            },
-                            {
-                                icon: "",
-                                title: "Free Parking",
-                                description: "20 spaces + easy M25 access.",
-                                variant: "default",
-                                className: "text-center border border-anchor-gold-dark/15"
-                            }
-                        ]}
-                        className="mb-8"
-                    />
+                    <Grid cols={4} gap="md" className="mb-8">
+                        {[
+                            { title: "Sound On", description: "Commentary on for every match." },
+                            { title: "4 Screens", description: "Visible from the bar and dining areas." },
+                            { title: "Kitchen Open", description: "Food served during all games." },
+                            { title: "Free Parking", description: "20 spaces + easy M25 access." }
+                        ].map((feature) => (
+                            <GridItem key={feature.title}>
+                                <Card accent className="h-full">
+                                    <CardBody className="text-center space-y-2">
+                                        <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                                        <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
+                                    </CardBody>
+                                </Card>
+                            </GridItem>
+                        ))}
+                    </Grid>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised" id="fixtures">
+            <section className="py-section-y bg-surface" id="fixtures">
                 <Container>
                     <SectionHeading
                         title="Six Nations 2026 Fixtures"
@@ -174,20 +158,15 @@ export default function SixNationsPage() {
                         <SixNationsFixtures />
                     </div>
 
-                    <div className="mt-12 text-center">
-                        <AlertBox
-                            variant="warning"
-                            title="Book Early for Big Games"
-                            className="max-w-2xl mx-auto"
-                            content={
-                                <p>England matches and 'Super Saturday' (14th March) fill up fast. We strongly recommend booking your table at least a week in advance to guarantee a spot.</p>
-                            }
-                        />
+                    <div className="mt-12">
+                        <Alert variant="warning" title="Book Early for Big Games" className="max-w-2xl mx-auto">
+                            <p>England matches and 'Super Saturday' (14th March) fill up fast. We strongly recommend booking your table at least a week in advance to guarantee a spot.</p>
+                        </Alert>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -196,7 +175,7 @@ export default function SixNationsPage() {
                                 subtitle="Fuel for the match"
                                 className="text-left mb-6"
                             />
-                            <div className="prose text-anchor-cream-text/70 mb-6">
+                            <div className="prose text-ink-muted mb-6">
                                 <p>
                                     Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
                                 </p>
@@ -204,7 +183,7 @@ export default function SixNationsPage() {
                                     <strong>Match Day Promise:</strong> Kitchen remains open for all live Six Nations fixtures, even outside normal hours.
                                 </p>
                                 <div className="mt-4">
-                                    <strong className="text-anchor-cream-text">Current Opening Hours:</strong>
+                                    <strong className="text-ink-strong">Current Opening Hours:</strong>
                                     <BusinessHours />
                                 </div>
                             </div>
@@ -213,23 +192,25 @@ export default function SixNationsPage() {
                                 <Link href="/drinks"><Button variant="outline">Drinks List</Button></Link>
                             </div>
                         </div>
-                        <div className="bg-anchor-green-raised rounded-2xl p-8">
-                            <h3 className="text-xl font-bold text-anchor-gold-bright mb-4">Find Us Near Heathrow</h3>
-                            <ul className="space-y-3 text-sm text-anchor-cream-text/70 mb-6">
+                        <Card accent>
+                          <CardBody className="p-8">
+                            <h3 className="text-xl text-accent-text mb-4">Find Us Near Heathrow</h3>
+                            <ul className="space-y-3 text-sm text-ink-muted mb-6">
                                 <li className="flex gap-2"><span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
                                 <li className="flex gap-2"><span>7 mins from Terminal 5</span></li>
                                 <li className="flex gap-2"><span>Free parking ({PARKING.capacity} spaces)</span></li>
                                 <li className="flex gap-2"><span>Bus routes from Staines & Heathrow</span></li>
                             </ul>
-                            <Link href="/find-us" className="text-anchor-gold-dark font-bold hover:underline">
+                            <Link href="/find-us" className="text-accent-text font-semibold hover:underline">
                                 Get Directions →
                             </Link>
-                        </div>
+                          </CardBody>
+                        </Card>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading title="Frequently Asked Questions" />
                     <FAQAccordionWithSchema
@@ -263,28 +244,22 @@ export default function SixNationsPage() {
                                 answer: "We are located in Stanwell Moor, just a 7-minute drive from Terminal 5, making us the perfect stopover for rugby fans travelling through the airport."
                             }
                         ]}
-                        className="bg-anchor-green-card max-w-3xl mx-auto"
+                        className="max-w-3xl mx-auto"
                     />
                 </Container>
             </section>
 
-            <CTASection
+            <CtaBand
                 title="Secure Your Spot for the Rugby"
-                description="Tables fill up fast for the big games. Don't leave it to chance."
-                buttons={[
-                    {
-                        text: "Book a Table",
-                        href: "/book-table",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Get Directions",
-                        href: "/find-us",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="Tables fill up fast for the big games. Don't leave it to chance."
+            >
+                <BookTableButton source="six_nations_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+                    Book a Table
+                </BookTableButton>
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                    <Link href="/find-us">Get Directions</Link>
+                </Button>
+            </CtaBand>
         </>
     )
 }

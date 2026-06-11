@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { anchorAPI } from '@/lib/api'
+import { Button, Card, CardBody, Container } from '@/components/ui'
+import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 
@@ -37,16 +39,18 @@ export default async function ParkingConfirmationPage({ params }: Props) {
 
   if (!booking) {
     return (
-      <main className="min-h-screen bg-anchor-green-deep flex items-center justify-center px-4">
+      <main className="min-h-screen bg-canvas flex items-center justify-center px-4 py-section-y">
         <div className="text-center space-y-4 max-w-sm">
-          <div className="text-5xl">✓</div>
-          <h1 className="text-2xl font-bold text-anchor-cream-text">Thank you for your booking</h1>
-          <p className="text-anchor-sage text-sm">
+          <div className="w-[72px] h-[72px] bg-anchor-green rounded-full flex items-center justify-center mx-auto">
+            <Icon name="check" className="w-9 h-9 text-white" />
+          </div>
+          <h1 className="font-display text-h3 text-ink-strong">Thank you for your booking</h1>
+          <p className="text-ink-muted text-sm">
             Your booking is being processed. You should receive a confirmation text shortly.
             If you have any questions, call us on{' '}
-            <PhoneLink phone={CONTACT.phone} source="parking-confirmation_fallback" className="text-anchor-gold-dark underline" showIcon={false} />.
+            <PhoneLink phone={CONTACT.phone} source="parking-confirmation_fallback" className="text-accent-text underline" showIcon={false} />.
           </p>
-          <Link href="/" className="inline-block mt-4 text-anchor-gold-dark underline text-sm">
+          <Link href="/" className="inline-block mt-4 text-accent-text underline text-sm">
             Return to The Anchor
           </Link>
         </div>
@@ -56,91 +60,94 @@ export default async function ParkingConfirmationPage({ params }: Props) {
 
   const amount = booking.override_price ?? booking.calculated_price ?? 0
 
+  const gettingHere = [
+    { icon: 'mapPin' as const, text: 'Horton Road, Stanwell Moor, TW19 6AQ' },
+    { icon: 'car' as const, text: '7 minutes to Terminal 5 by taxi or rideshare' },
+    { icon: 'parking' as const, text: 'Bus 442 from outside, direct to T2, T3, T4 & T5' },
+    { icon: 'lock' as const, text: 'Keep your keys with you at all times' },
+  ]
+
   return (
-    <main className="min-h-screen bg-anchor-green-deep">
-      {/* Hero */}
-      <section className="bg-anchor-green px-4 pt-12 pb-8 text-center">
-        <div className="w-14 h-14 bg-anchor-green-light rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-        <h1 className="text-2xl font-bold text-white mb-1">Parking confirmed</h1>
-        <p className="text-anchor-cream-text text-sm">
-          Booking reference: <span className="text-anchor-gold-dark font-bold">{booking.reference}</span>
-        </p>
-      </section>
-
-      {/* SMS notice */}
-      <div className="bg-anchor-green-raised border-t-2 border-anchor-gold-bright px-4 py-3 flex items-center gap-3">
-        <span className="text-xl">📱</span>
-        <p className="text-anchor-gold-bright text-sm font-medium">Confirmation text sent to your mobile</p>
-      </div>
-
-      <div className="max-w-lg mx-auto px-4 py-6 space-y-4">
-        {/* Booking details */}
-        <div className="bg-anchor-green-card rounded-xl overflow-hidden">
-          <div className="bg-anchor-green-raised px-4 py-2.5">
-            <h2 className="text-anchor-green-light text-xs font-bold uppercase tracking-wider">Your booking</h2>
+    <main className="min-h-screen bg-canvas py-section-y">
+      <Container>
+        <div className="max-w-lg mx-auto space-y-6">
+          {/* Confirmation header */}
+          <div className="text-center space-y-3">
+            <div className="w-[72px] h-[72px] bg-anchor-green rounded-full flex items-center justify-center mx-auto">
+              <Icon name="check" className="w-9 h-9 text-white" />
+            </div>
+            <h1 className="font-display text-h2 text-ink-strong">Parking confirmed</h1>
+            <p className="text-ink-muted text-sm">
+              Booking reference: <span className="text-accent-text font-bold">{booking.reference}</span>
+            </p>
+            <p className="inline-flex items-center gap-2 text-accent-text text-sm font-medium">
+              <Icon name="message" className="w-4 h-4" />
+              Confirmation text sent to your mobile
+            </p>
           </div>
-          <div className="divide-y divide-anchor-green-raised px-4">
-            <div className="flex justify-between items-start py-3">
-              <span className="text-anchor-sage text-sm">Drop off</span>
-              <span className="text-anchor-cream-text text-sm font-semibold text-right">
-                {formatDateTime(booking.start_at)}
-              </span>
+
+          {/* Booking details */}
+          <Card accent>
+            <div className="bg-surface-sunk px-6 py-3">
+              <h2 className="text-ink-muted text-xs font-bold uppercase tracking-wider">Your booking</h2>
             </div>
-            <div className="flex justify-between items-start py-3">
-              <span className="text-anchor-sage text-sm">Pick up</span>
-              <span className="text-anchor-cream-text text-sm font-semibold text-right">
-                {formatDateTime(booking.end_at)}
-              </span>
-            </div>
-            <div className="flex justify-between items-start py-3">
-              <span className="text-anchor-sage text-sm">Vehicle</span>
-              <div className="text-right">
-                <p className="text-anchor-cream-text text-sm font-semibold">{booking.vehicle_registration}</p>
-                {booking.vehicle_make && (
-                  <p className="text-anchor-sage text-xs">{booking.vehicle_make}{booking.vehicle_model ? ` ${booking.vehicle_model}` : ''}</p>
-                )}
+            <CardBody className="px-6 py-0">
+              <div className="divide-y divide-line">
+                <div className="flex justify-between items-start py-3">
+                  <span className="text-ink-muted text-sm">Drop off</span>
+                  <span className="text-ink-strong text-sm font-semibold text-right">
+                    {formatDateTime(booking.start_at)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-start py-3">
+                  <span className="text-ink-muted text-sm">Pick up</span>
+                  <span className="text-ink-strong text-sm font-semibold text-right">
+                    {formatDateTime(booking.end_at)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-start py-3">
+                  <span className="text-ink-muted text-sm">Vehicle</span>
+                  <div className="text-right">
+                    <p className="text-ink-strong text-sm font-semibold">{booking.vehicle_registration}</p>
+                    {booking.vehicle_make && (
+                      <p className="text-ink-muted text-xs">{booking.vehicle_make}{booking.vehicle_model ? ` ${booking.vehicle_model}` : ''}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-ink-muted text-sm">Amount paid</span>
+                  <span className="text-anchor-green text-lg font-bold">£{amount.toFixed(2)}</span>
+                </div>
               </div>
-            </div>
-            <div className="flex justify-between items-center py-3">
-              <span className="text-anchor-sage text-sm">Amount paid</span>
-              <span className="text-anchor-green-light text-lg font-bold">£{amount.toFixed(2)}</span>
-            </div>
-          </div>
-        </div>
+            </CardBody>
+          </Card>
 
-        {/* Getting here */}
-        <div className="bg-anchor-green-card rounded-xl overflow-hidden">
-          <div className="bg-anchor-green-raised px-4 py-2.5">
-            <h2 className="text-anchor-green-light text-xs font-bold uppercase tracking-wider">Getting here</h2>
-          </div>
-          <div className="divide-y divide-anchor-green-raised px-4">
-            {[
-              { icon: '📍', text: 'Horton Road, Stanwell Moor, TW19 6AQ' },
-              { icon: '🚕', text: '7 minutes to Terminal 5 by taxi or rideshare' },
-              { icon: '🚌', text: 'Bus 442 from outside, direct to T2, T3, T4 & T5' },
-              { icon: '🔑', text: 'Keep your keys with you at all times' },
-            ].map(({ icon, text }) => (
-              <div key={text} className="flex items-start gap-3 py-3">
-                <span className="text-base mt-0.5">{icon}</span>
-                <p className="text-anchor-sage text-sm">{text}</p>
+          {/* Getting here */}
+          <Card accent>
+            <div className="bg-surface-sunk px-6 py-3">
+              <h2 className="text-ink-muted text-xs font-bold uppercase tracking-wider">Getting here</h2>
+            </div>
+            <CardBody className="px-6 py-0">
+              <div className="divide-y divide-line">
+                {gettingHere.map(({ icon, text }) => (
+                  <div key={text} className="flex items-start gap-3 py-3">
+                    <Icon name={icon} className="w-4 h-4 mt-0.5 text-accent-text flex-shrink-0" />
+                    <p className="text-ink-muted text-sm">{text}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </CardBody>
+          </Card>
 
-        {/* CTA */}
-        <Link
-          href="/"
-          className="block w-full text-center bg-anchor-green text-white font-semibold py-3.5 rounded-xl hover:bg-anchor-green-dark transition-colors"
-        >
-          While you&apos;re here, visit the pub
-        </Link>
-        <p className="text-anchor-sage text-xs text-center">Full menu · Draught beers · Family friendly</p>
-      </div>
+          {/* CTA */}
+          <Link href="/" className="block">
+            <Button variant="primary" size="lg" fullWidth>
+              While you&apos;re here, visit the pub
+            </Button>
+          </Link>
+          <p className="text-ink-muted text-xs text-center">Full menu · Draught beers · Family friendly</p>
+        </div>
+      </Container>
     </main>
   )
 }

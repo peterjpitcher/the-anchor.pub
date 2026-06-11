@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -39,64 +40,56 @@ export default function F1Page() {
               lead="From lights out to the chequered flag. We show every Qualifying session and Race live."
             />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-bright mb-4">
+                        <PageTitle className="text-accent-text mb-4">
                             The Fast Lane
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Formula 1 is better with a crowd. Feel the tension of the start, cheer every overtake, and debate the strategy with fellow fans. We're the closest pub to Heathrow for a pre-flight race watch!
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Race Day Essentials"
                             subtitle="We've got the setup to match the speed."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
+                        <Grid cols={3} gap="md" className="mb-8">
+                            {[
                                 {
-                                    icon: "",
                                     title: "Commentary On",
-                                    description: "For the race itself, we turn the music off and the commentary up so you don't miss a beat.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "For the race itself, we turn the music off and the commentary up so you don't miss a beat."
                                 },
                                 {
-                                    icon: "",
                                     title: "Live F1 Coverage",
-                                    description: "We show F1 on free-to-air channels (Channel 4), including build-up, race highlights, and podium analysis.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "We show F1 on free-to-air channels (Channel 4), including build-up, race highlights, and podium analysis."
                                 },
                                 {
-                                    icon: "",
                                     title: "Sunday Roast",
-                                    description: "Most races happen on Sundays. Combine the Grand Prix with our legendary Sunday Roast.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "Most races happen on Sundays. Combine the Grand Prix with our legendary Sunday Roast."
                                 }
-                            ]}
-                            className="mb-8"
-                        />
+                            ].map((feature) => (
+                                <GridItem key={feature.title}>
+                                    <Card accent className="h-full">
+                                        <CardBody className="text-center space-y-2">
+                                            <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                                            <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
+                                        </CardBody>
+                                    </Card>
+                                </GridItem>
+                            ))}
+                        </Grid>
 
-                        <AlertBox
-                            variant="info"
-                            title="Global Timings"
-                            className="max-w-2xl mx-auto mt-8"
-                            content="We show all races that fall within our opening hours. For early morning races (Australia/Japan), please check our social media to see if we're opening early."
-                        />
+                        <Alert variant="info" title="Global Timings" className="max-w-2xl mx-auto mt-8">
+                            <p>We show all races that fall within our opening hours. For early morning races (Australia/Japan), please check our social media to see if we're opening early.</p>
+                        </Alert>
                     </div>
                 </Container>
             </section>
@@ -116,28 +109,19 @@ export default function F1Page() {
                         answer: "Absolutely. Our full food menu is available, or grab a Sunday Roast during European race times."
                     }
                 ]}
-                className="bg-anchor-green-card"
             />
 
-            <CTASection
+            <CtaBand
                 title="Book Your Pole Position"
-                description="Reserve a table with a screen view."
-                buttons={[
-                    {
-                        text: "Book Now",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "f1_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Directions",
-                        href: "/find-us",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="Reserve a table with a screen view."
+            >
+                <PhoneButton phone={CONTACT.phone} source="f1_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+                    Book Now
+                </PhoneButton>
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                    <Link href="/find-us">Directions</Link>
+                </Button>
+            </CtaBand>
         </>
     )
 }

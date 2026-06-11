@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
+import { PhoneButton } from '@/components/PhoneButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -39,64 +40,56 @@ export default function BoxingPage() {
               lead="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
             />
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-bright mb-4">
+                        <PageTitle className="text-accent-text mb-4">
                             Ringside Seats
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Boxing needs an atmosphere. Sitting at home doesn't cut it. Join us for the build-up, the undercard, and the main event on our HD screens with full commentary.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="Fight Night Ready"
                             subtitle="No need to pay the PPV fee yourself."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
+                        <Grid cols={3} gap="md" className="mb-8">
+                            {[
                                 {
-                                    icon: "",
                                     title: "PPV Events",
-                                    description: "We pay the Box Office fees so you don't have to. Watch the big Pay-Per-View fights here on the big screen.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "We pay the Box Office fees so you don't have to. Watch the big Pay-Per-View fights here on the big screen."
                                 },
                                 {
-                                    icon: "",
                                     title: "Loud & Live",
-                                    description: "Experience the ring walks and the knockouts with full venue sound.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "Experience the ring walks and the knockouts with full venue sound."
                                 },
                                 {
-                                    icon: "",
                                     title: "No Dry Nights",
-                                    description: "Our bar stays well-stocked with draught beers, spirits, and mixers all night.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "Our bar stays well-stocked with draught beers, spirits, and mixers all night."
                                 }
-                            ]}
-                            className="mb-8"
-                        />
+                            ].map((feature) => (
+                                <GridItem key={feature.title}>
+                                    <Card accent className="h-full">
+                                        <CardBody className="text-center space-y-2">
+                                            <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                                            <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
+                                        </CardBody>
+                                    </Card>
+                                </GridItem>
+                            ))}
+                        </Grid>
 
-                        <AlertBox
-                            variant="warning"
-                            title="Ticketed Events"
-                            className="max-w-2xl mx-auto mt-8"
-                            content="For massive world title fights, we sometimes operate a ticket-only policy to control numbers and ensure everyone gets served. Check our social media for specific event details."
-                        />
+                        <Alert variant="warning" title="Ticketed Events" className="max-w-2xl mx-auto mt-8">
+                            <p>For massive world title fights, we sometimes operate a ticket-only policy to control numbers and ensure everyone gets served. Check our social media for specific event details.</p>
+                        </Alert>
                     </div>
                 </Container>
             </section>
@@ -116,28 +109,19 @@ export default function BoxingPage() {
                         answer: "We are licensed until late on weekends, but for fights that go into the early hours (like Vegas fights), please check with us directly as it depends on our license extension for that specific night."
                     }
                 ]}
-                className="bg-anchor-green-card"
             />
 
-            <CTASection
+            <CtaBand
                 title="Don't Miss The Knockout"
-                description="These nights are popular. Booking guarantees entry."
-                buttons={[
-                    {
-                        text: "Book Now",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "boxing_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Find Us",
-                        href: "/find-us",
-                        variant: "outline"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="These nights are popular. Booking guarantees entry."
+            >
+                <PhoneButton phone={CONTACT.phone} source="boxing_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+                    Book Now
+                </PhoneButton>
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                    <Link href="/find-us">Find Us</Link>
+                </Button>
+            </CtaBand>
         </>
     )
 }

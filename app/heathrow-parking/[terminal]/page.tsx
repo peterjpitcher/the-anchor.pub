@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { InteriorHero } from '@/components/hero'
-import { Badge, Button, Container, Section, CTASection } from '@/components/ui'
+import { Badge, Button, Container, Card, CardBody, SectionHeading } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -156,81 +157,86 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         }
       />
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-3xl font-bold text-anchor-cream-text">
-              Terminal {terminalNumber} parking quick facts
-            </h2>
-            <p className="mt-4 text-center text-lg text-anchor-cream-text/70">
-              Travellers searching for {terminal.airportIntent} often see high on-airport prices.
-              The Anchor gives you a lower-cost alternative while keeping transfer times predictable.
-            </p>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Typical transfer</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.transferTime} by taxi or rideshare.</p>
-              </div>
-              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Typical taxi fare</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.taxiRange} depending on traffic and time of day.</p>
-              </div>
-              <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Anchor postcode</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">TW19 6AQ (Stanwell Moor, Horton Road).</p>
-              </div>
+            <SectionHeading
+              title={`Terminal ${terminalNumber} parking quick facts`}
+              lead={`Travellers searching for ${terminal.airportIntent} often see high on-airport prices. The Anchor gives you a lower-cost alternative while keeping transfer times predictable.`}
+            />
+            <div className="grid gap-6 md:grid-cols-3">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Typical transfer</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{terminal.transferTime} by taxi or rideshare.</p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Typical taxi fare</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{terminal.taxiRange} depending on traffic and time of day.</p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Anchor postcode</h3>
+                  <p className="mt-2 text-sm text-ink-muted">TW19 6AQ (Stanwell Moor, Horton Road).</p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
-        <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-anchor-cream-text">
-              Looking for Heathrow Terminal {terminalNumber} parking postcode details?
-            </h2>
-            <p className="mt-3 text-anchor-cream-text/70">
-              If you are comparing official Heathrow short-stay and long-stay options, always use Heathrow Airport&apos;s
-              live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
-              The Anchor postcode is <strong>TW19 6AQ</strong> with online booking from <strong>£15/day</strong>.
-            </p>
-            <p className="mt-3 text-sm text-anchor-cream-text/55">
-              Heathrow now describes Short Stay as Terminal Parking and Long Stay as Park &amp; Ride on its official parking pages.
-            </p>
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <Link href="/heathrow-parking#book-parking">
-                <Button variant="primary" size="lg">
-                  Check live availability
-                </Button>
-              </Link>
-              <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20Terminal%20parking%20help.">
-                <Button variant="outline" size="lg">
-                  WhatsApp the team
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-3xl font-bold text-anchor-cream-text">
-              Compare other Heathrow terminal parking guides
-            </h2>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <Card accent>
+              <CardBody className="p-6 md:p-8">
+                <h2 className="font-display text-h2 text-ink-strong">
+                  Looking for Heathrow Terminal {terminalNumber} parking postcode details?
+                </h2>
+                <p className="mt-3 text-ink-muted">
+                  If you are comparing official Heathrow short-stay and long-stay options, always use Heathrow Airport&apos;s
+                  live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
+                  The Anchor postcode is <strong>TW19 6AQ</strong> with online booking from <strong>£15/day</strong>.
+                </p>
+                <p className="mt-3 text-sm text-ink-muted">
+                  Heathrow now describes Short Stay as Terminal Parking and Long Stay as Park &amp; Ride on its official parking pages.
+                </p>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <Link href="/heathrow-parking#book-parking">
+                    <Button variant="primary" size="lg">
+                      Check live availability
+                    </Button>
+                  </Link>
+                  <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20Terminal%20parking%20help.">
+                    <Button variant="outline" size="lg">
+                      WhatsApp the team
+                    </Button>
+                  </Link>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-section-y bg-canvas">
+        <Container>
+          <div className="mx-auto max-w-5xl">
+            <SectionHeading title="Compare other Heathrow terminal parking guides" />
+            <div className="grid gap-6 md:grid-cols-3">
               {relatedGuides.map(([slug, item]) => (
                 <Link
                   key={slug}
                   href={`/heathrow-parking/${slug}`}
-                  className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 transition-colors hover:border-anchor-gold-dark"
+                  className="rounded-md border border-line bg-surface p-5 shadow-sm transition-colors hover:border-anchor-gold"
                 >
-                  <h3 className="text-lg font-semibold text-anchor-cream-text">
+                  <h3 className="text-lg font-semibold text-ink-strong">
                     Terminal {item.number} parking guide
                   </h3>
-                  <p className="mt-2 text-sm text-anchor-cream-text/70">
+                  <p className="mt-2 text-sm text-ink-muted">
                     Transfer {item.transferTime} from The Anchor parking site.
                   </p>
                 </Link>
@@ -238,12 +244,12 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema
         title={`Terminal ${terminalNumber} parking FAQs`}
         faqs={buildFaqs(terminalNumber)}
-        className="bg-anchor-green-deep"
+        className="bg-surface"
       />
 
       <OrganicSearchClusterLinks
@@ -253,24 +259,17 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         intro="Compare the main parking page, the savings guide and directions before you book."
       />
 
-      <CTASection
+      <CtaBand
         title={`Need cheap Heathrow Terminal ${terminalNumber} parking?`}
-        description="Book online in minutes and lock your space before prices rise. You keep your keys and arrange your own transfer."
-        buttons={[
-          {
-            text: 'Book Heathrow parking',
-            href: '/heathrow-parking#book-parking',
-            variant: 'white'
-          },
-          {
-            text: 'Call 01753 682707',
-            href: 'tel:+441753682707',
-            isPhone: true,
-            variant: 'outline',
-            phoneSource: `heathrow_terminal_${terminalNumber}_cta`
-          }
-        ]}
-      />
+        copy="Book online in minutes and lock your space before prices rise. You keep your keys and arrange your own transfer."
+      >
+        <Link href="/heathrow-parking#book-parking">
+          <Button variant="primary" size="lg">Book Heathrow parking</Button>
+        </Link>
+        <PhoneButton phone={CONTACT.phone} source={`heathrow_terminal_${terminalNumber}_cta`} variant="outline" size="lg">
+          Call {CONTACT.phone}
+        </PhoneButton>
+      </CtaBand>
     </>
   )
 }

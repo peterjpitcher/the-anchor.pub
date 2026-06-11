@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { InteriorHero } from '@/components/hero'
-import { Badge, Button, Container, Section, FeatureGrid, CTASection } from '@/components/ui'
+import { Badge, Button, Container, Card, CardBody, SectionHeading } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { ParkingBookingWizard } from '@/components/features/ParkingBookingWizard'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -324,48 +325,51 @@ export default async function HeathrowParkingPage() {
         }
       />
 
-      <Section background="dark" spacing="lg" id="book-parking">
+      <section className="py-section-y bg-canvas" id="book-parking">
         <Container>
-          <div className="mx-auto max-w-5xl space-y-6">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center">
-              Reserve & Pay for Heathrow Parking in Four Steps
-            </h2>
-            <p className="text-center text-anchor-cream-text/70">
-              Check live availability, lock in the best long stay parking price and pay securely with PayPal – perfect for airport drop-offs, contractors and extended holidays.
-            </p>
+          <div className="mx-auto max-w-3xl space-y-6">
+            <SectionHeading
+              kicker="Book online"
+              title="Reserve & Pay for Heathrow Parking in Four Steps"
+              lead="Check live availability, lock in the best long stay parking price and pay securely with PayPal – perfect for airport drop-offs, contractors and extended holidays."
+            />
             <ParkingBookingWizard initialRates={rateCard} />
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center">
-              Cheap Heathrow Parking Without Hidden Fees
-            </h2>
-            <p className="mt-4 text-center text-lg text-anchor-cream-text/70">
-              Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all point to the same problem: official car parks keep getting pricier. Our Stanwell Moor car park keeps costs simple, publishes prices upfront and still delivers CCTV, lighting and 24/7 access.
-            </p>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-	                <h3 className="text-lg font-semibold text-anchor-cream-text">Daily price promise</h3>
-	                <p className="mt-2 text-sm text-anchor-cream-text/70">
-	                  Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
-	                </p>
-              </div>
-              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal-specific savings</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  Beat “cheap parking near Heathrow Terminal 5/3/4/2” searches by parking once and taxiing to any terminal in 7–12 minutes.
-                </p>
-              </div>
-              <div className="rounded-2xl bg-anchor-green-raised p-6 border border-anchor-gold-dark/15">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Keep your keys, skip the upsell</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  No valet upsells or key drops. Park it yourself, keep your keys and enjoy the pub while you wait for your ride.
-                </p>
-              </div>
+            <SectionHeading
+              title="Cheap Heathrow Parking Without Hidden Fees"
+              lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all point to the same problem: official car parks keep getting pricier. Our Stanwell Moor car park keeps costs simple, publishes prices upfront and still delivers CCTV, lighting and 24/7 access.</>}
+            />
+            <div className="grid gap-6 md:grid-cols-3">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
+                  </p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Terminal-specific savings</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    Beat “cheap parking near Heathrow Terminal 5/3/4/2” searches by parking once and taxiing to any terminal in 7–12 minutes.
+                  </p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Keep your keys, skip the upsell</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    No valet upsells or key drops. Park it yourself, keep your keys and enjoy the pub while you wait for your ride.
+                  </p>
+                </CardBody>
+              </Card>
             </div>
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
               <Link href="#price-comparison">
@@ -381,234 +385,249 @@ export default async function HeathrowParkingPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="md">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
             Cheap Heathrow Parking, Long Stay &amp; Short Stay from £15/day
           </PageTitle>
-          <p className="mx-auto mt-4 max-w-4xl text-center text-lg text-anchor-cream-text/70">
+          <p className="mx-auto mt-4 max-w-4xl text-center text-lg text-ink-muted">
             Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi or the 442 bus for a five to ten minute ride to any Heathrow terminal.
           </p>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="md">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-green-raised border border-anchor-gold-dark/15">
-            <h2 className="text-2xl font-bold text-anchor-cream-text text-center">
-              Heathrow Airport Car Parking for Every Terminal
-            </h2>
-            <p className="mt-4 text-center text-anchor-cream-text/70">
-              If you are searching for parking Heathrow airport, Heathrow airport car parking, or parking near Heathrow,
-              The Anchor keeps you close to Terminals 2, 3, 4 and 5 without the on-airport queues.
-            </p>
-            <div className="grid md:grid-cols-2 mt-4 gap-4">
-              <div className="rounded-xl p-4 bg-anchor-green-raised border border-anchor-gold-dark/15">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal 5 car parking alternative</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  We are 7 minutes from T5, making us a smart option for Terminal 5 car parking without premium prices.
-                </p>
-              </div>
-              <div className="rounded-xl p-4 bg-anchor-green-raised border border-anchor-gold-dark/15">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Terminal 2, 3 & 4 parking</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  Park once and reach Terminals 2, 3 or 4 in 10-12 minutes. Ideal for long stay, overnight or crew parking.
-                </p>
-              </div>
+          <div className="mx-auto max-w-5xl">
+            <SectionHeading
+              title="Heathrow Airport Car Parking for Every Terminal"
+              lead="If you are searching for parking Heathrow airport, Heathrow airport car parking, or parking near Heathrow, The Anchor keeps you close to Terminals 2, 3, 4 and 5 without the on-airport queues."
+            />
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Terminal 5 car parking alternative</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    We are 7 minutes from T5, making us a smart option for Terminal 5 car parking without premium prices.
+                  </p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">Terminal 2, 3 & 4 parking</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    Park once and reach Terminals 2, 3 or 4 in 10-12 minutes. Ideal for long stay, overnight or crew parking.
+                  </p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-4xl rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-            <h2 className="text-2xl font-bold text-anchor-cream-text text-center">How you get from The Anchor to Heathrow</h2>
-            <div className="mt-4 grid gap-6 md:grid-cols-2">
-              <div>
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Taxi or rideshare (recommended)</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  Local taxi firms reach all Heathrow terminals in around 7–12 minutes. Book in advance or ask our team on arrival. Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
+          <div className="mx-auto max-w-4xl">
+            <SectionHeading title="How you get from The Anchor to Heathrow" />
+            <Card accent>
+              <CardBody className="p-6">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div>
+                    <h3 className="text-lg font-semibold text-ink-strong">Taxi or rideshare (recommended)</h3>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      Local taxi firms reach all Heathrow terminals in around 7–12 minutes. Book in advance or ask our team on arrival. Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-ink-strong">442 bus (daytime service)</h3>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      The 442 bus stops directly outside the pub and runs to Heathrow Central Bus Station via Terminal 4 during the day. Always check the latest timetable before travelling to ensure the service fits your flight time.
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-6 text-center text-sm text-ink-muted">
+                  Allow extra time for your transfer and note that parking remains at The Anchor in Stanwell Moor, not within the airport boundary.
                 </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-anchor-cream-text">442 bus (daytime service)</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">
-                  The 442 bus stops directly outside the pub and runs to Heathrow Central Bus Station via Terminal 4 during the day. Always check the latest timetable before travelling to ensure the service fits your flight time.
-                </p>
-              </div>
-            </div>
-            <p className="mt-6 text-center text-sm text-anchor-cream-text/55">
-              Allow extra time for your transfer and note that parking remains at The Anchor in Stanwell Moor, not within the airport boundary.
-            </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl text-center">
-            <h2 className="text-3xl font-bold text-anchor-cream-text">
-              Why switch from Heathrow long stay car parks to The Anchor?
-            </h2>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              Airport long term parking should not mean eye-watering prices or stressful shuttles. Our Stanwell Moor site offers straightforward Heathrow parking with hospitality perks you will not find inside the terminal.
-            </p>
-          </div>
-          <div className="mt-10">
-            <FeatureGrid features={featureHighlights} columns={4} />
+          <SectionHeading
+            title="Why switch from Heathrow long stay car parks to The Anchor?"
+            lead="Airport long term parking should not mean eye-watering prices or stressful shuttles. Our Stanwell Moor site offers straightforward Heathrow parking with hospitality perks you will not find inside the terminal."
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featureHighlights.map((feature) => (
+              <Card key={feature.title} accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{feature.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg" id="price-comparison">
+      <section className="py-section-y bg-canvas" id="price-comparison">
         <Container>
-          <div className="overflow-hidden rounded-2xl border border-anchor-gold-dark/15">
+          <Card className="overflow-hidden">
             {/* Title + column headers */}
-            <div className="bg-anchor-green-raised border-b border-anchor-gold-dark/30 px-6 py-4">
-              <p className="text-anchor-gold-bright text-xl font-semibold">Heathrow Parking Price Comparison</p>
-              <div className="mt-3 hidden md:grid md:grid-cols-3 gap-4 text-xs font-semibold uppercase tracking-wider text-anchor-cream-text/50">
+            <div className="bg-surface-sunk border-b border-line px-6 py-4">
+              <p className="text-accent-text text-xl font-semibold">Heathrow Parking Price Comparison</p>
+              <div className="mt-3 hidden md:grid md:grid-cols-3 gap-4 text-xs font-semibold uppercase tracking-wider text-ink-muted">
                 <span></span>
                 <span>The Anchor</span>
                 <span>Official Heathrow</span>
               </div>
             </div>
-            <div className="divide-y divide-anchor-gold-dark/15 bg-anchor-green-card">
+            <div className="divide-y divide-line">
               {comparisonRows.map(row => (
                 <div key={row.label} className="grid gap-2 px-6 py-4 md:grid-cols-3 md:gap-4 md:items-center">
-                  <div className="font-semibold text-anchor-cream-text">{row.label}</div>
-                  <div className="text-sm text-anchor-cream-text/80">
-                    <span className="md:hidden text-anchor-gold-bright font-semibold">The Anchor: </span>
+                  <div className="font-semibold text-ink-strong">{row.label}</div>
+                  <div className="text-sm text-ink">
+                    <span className="md:hidden text-accent-text font-semibold">The Anchor: </span>
                     {row.anchor}
                   </div>
-                  <div className="text-sm text-anchor-cream-text/80">
-                    <span className="md:hidden text-anchor-gold-bright font-semibold">Official Heathrow: </span>
+                  <div className="text-sm text-ink">
+                    <span className="md:hidden text-accent-text font-semibold">Official Heathrow: </span>
                     {row.heathrow}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-          <p className="mt-4 text-center text-xs text-anchor-cream-text/55">
+          </Card>
+          <p className="mt-4 text-center text-xs text-ink-muted">
             Official Heathrow examples checked May 2026 from Heathrow&apos;s Terminal 5 parking pages. Always confirm live airport pricing before travel.
           </p>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl text-center">
-            <h2 className="text-3xl font-bold text-anchor-cream-text">Directions for each Heathrow terminal</h2>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              Whether you are flying from Terminal 2, Terminal 3, Terminal 4 or Terminal 5, The Anchor is an easy base for Heathrow car parking. Park, book a taxi and be at departures faster than most official long stay shuttles.
-            </p>
-          </div>
-          <div className="mt-10">
-            <FeatureGrid features={terminalGuides} columns={4} />
+          <SectionHeading
+            title="Directions for each Heathrow terminal"
+            lead="Whether you are flying from Terminal 2, Terminal 3, Terminal 4 or Terminal 5, The Anchor is an easy base for Heathrow car parking. Park, book a taxi and be at departures faster than most official long stay shuttles."
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {terminalGuides.map((guide) => (
+              <Card key={guide.title} accent>
+                <CardBody className="p-6">
+                  <h3 className="text-lg font-semibold text-ink-strong">{guide.title}</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{guide.description}</p>
+                </CardBody>
+              </Card>
+            ))}
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {terminalLandingPages.map((page) => (
               <Link
                 key={page.href}
                 href={page.href}
-                className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-5 text-left transition-colors hover:border-anchor-gold-dark"
+                className="rounded-md border border-line bg-surface p-5 text-left shadow-sm transition-colors hover:border-anchor-gold"
               >
-                <h3 className="text-lg font-semibold text-anchor-cream-text">{page.title}</h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/70">{page.description}</p>
-                <p className="mt-3 text-sm font-semibold text-anchor-gold-dark">Open terminal guide</p>
+                <h3 className="text-lg font-semibold text-ink-strong">{page.title}</h3>
+                <p className="mt-2 text-sm text-ink-muted">{page.description}</p>
+                <p className="mt-3 text-sm font-semibold text-accent-text">Open terminal guide</p>
               </Link>
             ))}
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section background="dark" spacing="lg">
+      <section className="py-section-y bg-canvas">
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <h2 className="text-3xl font-bold text-anchor-cream-text">Airport long term parking with pub-level perks</h2>
-              <p className="mt-4 text-anchor-cream-text/70">
+              <h2 className="font-display text-h2 text-ink-strong">Airport long term parking with pub-level perks</h2>
+              <p className="mt-4 text-ink-muted">
                 Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. Travellers Googling "cheap long term parking", "long term parking near me" or "airport long term parking rates" land here because we keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow – all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi or use the 442 bus once you've parked.
               </p>
-              <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
+              <ul className="mt-4 space-y-2 text-ink-muted">
                 <li>• Flexible booking windows – from four hours to 30 days</li>
                 <li>• PayPal receipts for expenses and insurance</li>
                 <li>• Easy access from M25 Junction 14 and the A3044</li>
                 <li>• Optional overnight pub stays for early flights</li>
               </ul>
             </div>
-            <div className="rounded-2xl bg-anchor-green-raised border border-anchor-gold-dark/15 p-6">
-              <h3 className="text-2xl font-semibold text-anchor-cream-text">Quick Heathrow parking checklist</h3>
-              <ol className="mt-4 space-y-3 text-anchor-cream-text/70">
-                <li><strong>1.</strong> Book online and pay with PayPal or card.</li>
-                <li><strong>2.</strong> Receive confirmation by SMS and email.</li>
-                <li><strong>3.</strong> Park at The Anchor and pop in for refreshments.</li>
-                <li><strong>4.</strong> Taxi or rideshare to your terminal in 7–12 minutes.</li>
-              </ol>
-              <p className="mt-4 text-sm text-anchor-cream-text/55">
-                Tip: add 20 minutes cushion before your Heathrow check-in time to enjoy a relaxed meal or coffee with us, plus another 15 minutes for your taxi or bus transfer.
-              </p>
-            </div>
+            <Card accent>
+              <CardBody className="p-6">
+                <h3 className="font-display text-h3 text-ink-strong">Quick Heathrow parking checklist</h3>
+                <ol className="mt-4 space-y-3 text-ink-muted">
+                  <li><strong>1.</strong> Book online and pay with PayPal or card.</li>
+                  <li><strong>2.</strong> Receive confirmation by SMS and email.</li>
+                  <li><strong>3.</strong> Park at The Anchor and pop in for refreshments.</li>
+                  <li><strong>4.</strong> Taxi or rideshare to your terminal in 7–12 minutes.</li>
+                </ol>
+                <p className="mt-4 text-sm text-ink-muted">
+                  Tip: add 20 minutes cushion before your Heathrow check-in time to enjoy a relaxed meal or coffee with us, plus another 15 minutes for your taxi or bus transfer.
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema title="Heathrow parking FAQs" faqs={faqs(rateCard)} />
 
-      <Section background="dark" spacing="lg" id="parking-terms">
+      <section className="py-section-y bg-surface" id="parking-terms">
         <Container>
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl font-bold text-anchor-cream-text text-center">Parking Terms &amp; Conditions</h2>
-            <p className="mt-2 text-sm text-anchor-cream-text/55 text-center">Last updated March 2026</p>
-            <div className="mt-8 space-y-6 text-sm text-anchor-cream-text/70">
+            <h2 className="font-display text-h2 text-ink-strong text-center">Parking Terms &amp; Conditions</h2>
+            <p className="mt-2 text-sm text-ink-muted text-center">Last updated March 2026</p>
+            <div className="mt-8 space-y-6 text-sm text-ink-muted">
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">1. Owner&apos;s risk</h3>
+                <h3 className="font-semibold text-ink-strong">1. Owner&apos;s risk</h3>
                 <p className="mt-1">All vehicles are parked entirely at the owner&apos;s risk. The Anchor accepts no liability for loss of or damage to any vehicle or its contents whilst on the premises, except where such loss or damage results from our proven negligence.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">2. Booking required</h3>
+                <h3 className="font-semibold text-ink-strong">2. Booking required</h3>
                 <p className="mt-1">The car park is reserved exclusively for customers who hold a confirmed, paid booking. Vehicles parked without a valid booking may be removed at the owner&apos;s expense.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">3. Arrival, access &amp; departure</h3>
+                <h3 className="font-semibold text-ink-strong">3. Arrival, access &amp; departure</h3>
                 <p className="mt-1">You must arrive and depart within the times stated in your booking. If your plans change, please contact us as soon as possible on <PhoneLink phone={CONTACT.phone} source="heathrow-parking_terms" className="underline" showIcon={false} /> or at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a>. Overstaying your booked period may incur additional charges at the prevailing hourly rate.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">4. Vehicle condition</h3>
+                <h3 className="font-semibold text-ink-strong">4. Vehicle condition</h3>
                 <p className="mt-1">We reserve the right to refuse entry to any vehicle that is leaking fluids or is in a condition likely to cause damage to the car park or other vehicles. All vehicles must comply with current road-legal requirements.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">5. Refunds &amp; cancellations</h3>
+                <h3 className="font-semibold text-ink-strong">5. Refunds &amp; cancellations</h3>
                 <p className="mt-1">You may cancel or amend your booking up to 24 hours before your booked arrival time. Cancellations made with at least 24 hours&apos; notice will receive a full refund of the amount paid, minus any card processing fees charged by PayPal or our payment provider at the time of your original transaction.</p>
                 <p className="mt-2">Cancellations made within 24 hours of your booked arrival time are non-refundable, except at our discretion in cases of documented emergency. To request a refund, email <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> with your booking reference.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">6. CCTV &amp; data protection</h3>
+                <h3 className="font-semibold text-ink-strong">6. CCTV &amp; data protection</h3>
                 <p className="mt-1">The car park is monitored by closed-circuit television (CCTV) for security purposes. CCTV footage is stored securely and is not routinely monitored or shared. In accordance with the UK GDPR, footage will only be made available to the police upon receipt of a formal written request as part of a lawful investigation. We do not provide footage to individuals or private parties.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">7. Compliance</h3>
+                <h3 className="font-semibold text-ink-strong">7. Compliance</h3>
                 <p className="mt-1">By using our car park you agree to follow any reasonable instructions given by The Anchor team, to park considerately and not to obstruct other vehicles or emergency access routes.</p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-anchor-cream-text">8. Contact</h3>
+                <h3 className="font-semibold text-ink-strong">8. Contact</h3>
                 <p className="mt-1">For any queries relating to your booking or these terms, please contact us at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> or call <PhoneLink phone={CONTACT.phone} source="heathrow-parking_contact" className="underline" showIcon={false} />.</p>
               </div>
 
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <ReviewSection
         title="Trusted by Heathrow travellers"
@@ -625,24 +644,17 @@ export default async function HeathrowParkingPage() {
         intro="Use the comparison guide and terminal pages to choose the best parking route before you book."
       />
 
-      <CTASection
+      <CtaBand
         title="Ready to lock in Heathrow airport parking?"
-        description="Tap the button to reserve and pay now, or call our Stanwell Moor team if you need a bespoke long stay parking package. Remember you will need to organise your own transfer (taxi or 442 bus), keep your keys and understand parking is left at the owner's risk."
-        buttons={[
-          {
-            text: 'Book Heathrow parking',
-            href: '#book-parking',
-            variant: 'white'
-          },
-          {
-            text: 'Call 01753 682707',
-            href: 'tel:+441753682707',
-            isPhone: true,
-            variant: 'outline',
-            phoneSource: 'heathrow_parking_cta'
-          }
-        ]}
-      />
+        copy="Tap the button to reserve and pay now, or call our Stanwell Moor team if you need a bespoke long stay parking package. Remember you will need to organise your own transfer (taxi or 442 bus), keep your keys and understand parking is left at the owner's risk."
+      >
+        <Link href="#book-parking">
+          <Button variant="primary" size="lg">Book Heathrow parking</Button>
+        </Link>
+        <PhoneButton phone={CONTACT.phone} source="heathrow_parking_cta" variant="outline" size="lg">
+          Call {CONTACT.phone}
+        </PhoneButton>
+      </CtaBand>
     </>
   )
 }

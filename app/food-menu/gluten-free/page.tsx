@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
+import { Button, Card, CardBody, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
+import { DietaryItemList } from '../_components/DietaryItemList'
 import {
   getGlutenFreeFishAndChipsNotice,
   getGlutenFreeMenuPageData,
@@ -20,31 +24,6 @@ function joinItemNames(items: MenuPageItem[]): string {
   if (names.length === 0) return 'the current gluten-free options'
   if (names.length === 1) return names[0]
   return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
-}
-
-function MenuItemCard({ item, badge }: { item: MenuPageItem; badge: string }) {
-  return (
-    <div className="flex justify-between items-start gap-4 py-4 border-b border-anchor-gold-dark/10 last:border-b-0">
-      <div className="flex-1">
-        <div className="flex items-center gap-2 flex-wrap">
-          <h2 className="font-semibold text-anchor-cream-text">{item.name}</h2>
-          <span className="inline-flex items-center rounded-full bg-blue-900/40 border border-blue-500/30 px-2 py-0.5 text-xs font-medium text-blue-300">
-            {badge}
-          </span>
-        </div>
-        {item.description && (
-          <p className="text-sm text-anchor-cream-text/60 mt-1">{item.description}</p>
-        )}
-        {item.glutenFreeAvailable && (
-          <p className="text-sm text-amber-400/80 mt-1 italic">Ask at the bar for gluten-free preparation.</p>
-        )}
-        <p className="text-xs text-anchor-cream-text/40 mt-1">{item.categoryTitle}</p>
-      </div>
-      {item.priceLabel && (
-        <span className="text-anchor-gold-bright font-semibold whitespace-nowrap">{item.priceLabel}</span>
-      )}
-    </div>
-  )
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -115,173 +94,145 @@ export default async function GlutenFreeMenuPage() {
         lead="Current gluten-free and gluten-free-option dishes from the latest kitchen menu."
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <SectionHeading
-                title="Gluten-Free Pub Food at The Anchor"
-                subtitle="Current gluten-free and gluten-free-option dishes."
-              />
-              <p className="text-anchor-cream-text/70">
-                We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.
-              </p>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <SectionHeading
+              title="Gluten-Free Pub Food at The Anchor"
+              lead="Current gluten-free and gluten-free-option dishes."
+            />
+            <p className="text-ink-muted">
+              We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.
+            </p>
+          </div>
+          <div className="mt-8">
+            <DietaryMenuNav />
+          </div>
+        </div>
+      </section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-deep">
-        <Container>
-          <DietaryMenuNav />
-        </Container>
-      </Section>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-surface py-section-y">
+        <div className="container">
           <SectionHeading
             title="Gluten-Free (GF)"
-            subtitle="These dishes are gluten-free as standard according to the live menu."
-            align="center"
-            className="mb-8"
+            lead="These dishes are gluten-free as standard according to the live menu."
           />
-          <Card className="card-dark rounded-none max-w-3xl mx-auto">
-            <CardBody>
-              {naturallyGf.length > 0 ? (
-                naturallyGf.map((item) => (
-                  <MenuItemCard key={item.id} item={item} badge="GF" />
-                ))
-              ) : (
-                <p className="text-anchor-cream-text/70">{getMenuUnavailableMessage()}</p>
-              )}
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
+          {naturallyGf.length > 0 ? (
+            <DietaryItemList items={naturallyGf} badge="GF" />
+          ) : (
+            <p className="text-center text-ink-muted">{getMenuUnavailableMessage()}</p>
+          )}
+        </div>
+      </section>
 
       {gfoItems.length > 0 && (
-        <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-          <Container>
+        <section className="bg-canvas py-section-y">
+          <div className="container">
             <SectionHeading
               title="Gluten-Free Options (GFO)"
-              subtitle="These dishes can be made gluten-free on request."
-              align="center"
-              className="mb-8"
+              lead="These dishes can be made gluten-free on request."
             />
-            <Card className="card-dark rounded-none max-w-3xl mx-auto">
-              <CardBody>
-                {gfoItems.map((item) => (
-                  <MenuItemCard key={item.id} item={item} badge="GFO" />
-                ))}
-              </CardBody>
-            </Card>
-          </Container>
-        </Section>
+            <DietaryItemList items={gfoItems} badge="GFO" />
+          </div>
+        </section>
       )}
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none max-w-3xl mx-auto">
-            <CardBody>
-              <SectionHeading
-                title="What to Tell Us When Ordering"
-                subtitle="A quick word at the bar is all it takes."
-                align="left"
-                className="mb-4"
-              />
-              <p className="text-anchor-cream-text/70">
-                Let the bar staff know you need gluten-free options before ordering. Our dishes are prepared in one kitchen, so we cannot guarantee zero cross-contamination.
-              </p>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      <Section background="gray" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <Alert
-            variant="warning"
-            title="Allergen Information"
-            className="max-w-4xl mx-auto"
-          >
-            <p className="text-anchor-cream-text/70">
-              Our dishes are prepared in one kitchen, so we cannot guarantee no cross-contamination. Please ask at the bar for full allergen information.
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <SectionHeading
+              align="left"
+              title="What to Tell Us When Ordering"
+              lead="A quick word at the bar is all it takes."
+            />
+            <p className="text-ink-muted">
+              Let the bar staff know you need gluten-free options before ordering. Our dishes are prepared in one kitchen, so we cannot guarantee zero cross-contamination.
             </p>
-          </Alert>
-        </Container>
-      </Section>
+          </div>
+        </div>
+      </section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none text-center">
+      <section className="bg-surface-sunk py-section-y">
+        <div className="container">
+          <Card accent className="mx-auto max-w-4xl">
             <CardBody>
-              <h2 className="text-xl font-bold text-anchor-cream-text mb-2">Kitchen Hours</h2>
-              <p className="text-anchor-cream-text/70">
-                Gluten-free options are available during regular kitchen hours. See the{' '}
-                <Link href="/food-menu" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
-                  full food menu
-                </Link>{' '}
-                for live kitchen times.
+              <h2 className="mb-2 text-h4 text-ink-strong">Allergen Information</h2>
+              <p className="text-ink-muted">
+                Our dishes are prepared in one kitchen, so we cannot guarantee no cross-contamination. Please ask at the bar for full allergen information.
               </p>
             </CardBody>
           </Card>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
-      <FAQAccordionWithSchema
-        faqs={faqItems}
-        className="bg-anchor-green-card"
-      />
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-2 text-h3 text-ink-strong">Kitchen Hours</h2>
+            <p className="text-ink-muted">
+              Gluten-free options are available during regular kitchen hours. See the{' '}
+              <Link href="/food-menu" className="font-semibold text-accent-text hover:underline">
+                full food menu
+              </Link>{' '}
+              for live kitchen times.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
+      <FAQAccordionWithSchema faqs={faqItems} />
+
+      <section className="bg-surface py-section-y">
+        <div className="container">
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/food-menu" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
+            <Link href="/food-menu" className="font-semibold text-accent-text hover:underline">
               Full Food Menu
             </Link>
-            <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/food-menu/vegetarian" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
+            <span className="text-ink-muted">|</span>
+            <Link href="/food-menu/vegetarian" className="font-semibold text-accent-text hover:underline">
               Vegetarian Menu
             </Link>
-            <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/food-menu/vegan" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
+            <span className="text-ink-muted">|</span>
+            <Link href="/food-menu/vegan" className="font-semibold text-accent-text hover:underline">
               Vegan Menu
             </Link>
-            <span className="text-anchor-cream-text/30">|</span>
-            <Link href="/book-table" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">
+            <span className="text-ink-muted">|</span>
+            <Link href="/book-table" className="font-semibold text-accent-text hover:underline">
               Book a Table
             </Link>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       <div data-sticky-cta-guard="true">
-        <CTASection
-          title="Hungry? Book Your Table Now"
-          description="Reserve online or call ahead and we will have your table ready."
-          buttons={[
-            {
-              text: 'Book a Table',
-              href: '/book-table',
-              variant: 'white',
-            },
-            {
-              text: 'Call: 01753 682707',
-              href: 'tel:+441753682707',
-              variant: 'white',
-              isPhone: true,
-              phoneSource: 'gluten_free_menu_footer',
-            },
-            {
-              text: 'View Full Menu',
-              href: '/food-menu',
-              variant: 'white',
-            },
-          ]}
-          variant="green"
-        />
+        <CtaBand
+          title="Hungry? Book your table now."
+          copy="Reserve online or call ahead and we will have your table ready."
+        >
+          <BookTableButton
+            source="gluten_free_menu_footer"
+            context="food"
+            variant="primary"
+            size="lg"
+            trackingLabel="GF Footer Book a Table"
+          >
+            Book a table
+          </BookTableButton>
+          <PhoneButton
+            phone="01753 682707"
+            source="gluten_free_menu_footer"
+            variant="outline"
+            size="lg"
+          >
+            01753 682707
+          </PhoneButton>
+          <Link href="/food-menu">
+            <Button variant="outline" size="lg">
+              View full menu
+            </Button>
+          </Link>
+        </CtaBand>
       </div>
-
 
       <script
         type="application/ld+json"

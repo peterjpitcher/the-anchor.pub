@@ -1,12 +1,16 @@
-import { CTASection, SectionHeading, Container, AlertBox } from '@/components/ui'
-import { InteriorHero } from '@/components/hero'
-import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import Link from 'next/link'
+import Image from 'next/image'
 import { Metadata } from 'next'
+import { Badge, Button, Card, CardBody, SectionHeading } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
-import Image from 'next/image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
 import {
   getMenuUnavailableMessage,
   getPizzaMenuPageData,
@@ -109,78 +113,57 @@ export default async function PizzaMenuPage() {
         crumb="Pizza"
         title="Pizza at The Anchor"
         lead="Current pizza dishes, descriptions and prices from the latest kitchen menu."
+        badges={<Badge variant="sand">Pizzas from £12</Badge>}
       />
 
-      <section className="section-spacing-lg bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <PageTitle className="text-anchor-cream-text mb-6">
-              Pizza Near Heathrow
-            </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
-              If a pizza name, description or price changes, this page follows that update.
-            </p>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-4xl text-center">
+            <SectionHeading
+              title="Pizza Near Heathrow"
+              lead="If a pizza name, description or price changes, this page follows that update."
+            />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div className="relative h-[400px] w-full rounded-none overflow-hidden">
+          <div className="mt-4 grid items-center gap-10 md:grid-cols-2">
+            <div className="relative h-[400px] w-full overflow-hidden rounded-md shadow-lg">
               <Image
                 src="/images/page-headers/pizza-tuesday/pizza-tuesday.jpg"
                 alt="Fresh pizza at The Anchor"
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             <div className="space-y-6 text-left">
-              <h2 className="text-3xl font-bold text-anchor-gold-bright">Dietary Notes</h2>
-              <ul className="space-y-4 text-anchor-cream-text/70">
+              <h2 className="text-h3 text-ink-strong">Dietary Notes</h2>
+              <ul className="space-y-4 text-ink-muted">
                 <li>Gluten-free availability is shown on each live menu item when available.</li>
                 <li>Vegan-option dishes are labelled from the menu data and should be requested at the bar.</li>
                 <li>Allergen guidance is available before you order.</li>
               </ul>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <SectionHeading
-              title="Current Pizza Menu"
-              subtitle="From the current food menu."
-            />
-
-            {pizzaItems.length > 0 ? (
-              <div className="grid md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
-                {pizzaItems.map((item) => (
-                  <div key={item.id} className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 hover:border-anchor-gold-dark/40 transition-shadow">
-                    <div className="flex justify-between items-start mb-2 gap-4">
-                      <h2 className="font-bold text-xl text-anchor-gold-bright">{item.name}</h2>
-                      {item.priceLabel && <span className="font-semibold text-anchor-gold-dark bg-anchor-green-deep px-2 py-1 rounded text-sm whitespace-nowrap">{item.priceLabel}</span>}
-                    </div>
-                    {item.description && (
-                      <p className="text-anchor-cream-text/70 mb-3 text-sm leading-relaxed">{item.description}</p>
-                    )}
-                    <div className="flex gap-2 text-xs flex-wrap">
-                      {item.vegetarian && <span className="bg-green-900/30 text-anchor-gold-bright px-2 py-0.5 rounded-full font-medium">Vegetarian</span>}
-                      {item.vegan && <span className="bg-green-900/30 text-green-300 px-2 py-0.5 rounded-full font-medium">Vegan</span>}
-                      {item.veganOptionAvailable && <span className="bg-green-900/30 text-green-300 px-2 py-0.5 rounded-full font-medium">Vegan option</span>}
-                      {item.glutenFreeAvailable && <span className="bg-amber-900/20 text-amber-400 px-2 py-0.5 rounded-full font-medium">GF option</span>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <AlertBox
-                variant="info"
-                title="Menu temporarily unavailable"
-                className="max-w-2xl mx-auto"
-                content={getMenuUnavailableMessage()}
-              />
-            )}
-          </div>
-        </Container>
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <SectionHeading
+            title="Current Pizza Menu"
+            lead="From the current food menu."
+          />
+          {data && pizzaItems.length > 0 ? (
+            <FoodMenuSection menuData={data.menuData} showFilters={false} />
+          ) : (
+            <Card accent className="mx-auto max-w-2xl">
+              <CardBody>
+                <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
+                <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>
+              </CardBody>
+            </Card>
+          )}
+        </div>
       </section>
 
       <FAQAccordionWithSchema
@@ -202,28 +185,35 @@ export default async function PizzaMenuPage() {
             answer: 'Yes. Call us on 01753 682707 to order from the current menu for collection.'
           }
         ]}
-        className="bg-anchor-green-deep"
       />
 
-      <CTASection
-        title="Ready for Pizza?"
-        description="Book a table or call to order from the live menu."
-        buttons={[
-          {
-            text: 'Book Table',
-            href: '/book-table',
-            variant: 'primary'
-          },
-          {
-            text: 'Order for Collection',
-            href: `${CONTACT.phoneHref}`,
-            isPhone: true,
-            phoneSource: 'pizza_takeaway_cta',
-            variant: 'outline'
-          }
-        ]}
-        variant="green"
-      />
+      <CtaBand
+        title="Ready for pizza?"
+        copy="Book a table or call to order from the live menu."
+      >
+        <BookTableButton
+          source="pizza_page_cta"
+          context="food"
+          variant="primary"
+          size="lg"
+          trackingLabel="Pizza Book a Table"
+        >
+          Book a table
+        </BookTableButton>
+        <PhoneButton
+          phone={CONTACT.phone}
+          source="pizza_takeaway_cta"
+          variant="outline"
+          size="lg"
+        >
+          Order for collection
+        </PhoneButton>
+        <Link href="/food-menu">
+          <Button variant="outline" size="lg">
+            Full food menu
+          </Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

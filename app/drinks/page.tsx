@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid, Badge } from '@/components/ui'
-import { StatusBar } from '@/components/layout/StatusBar'
+import { Button, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
-import { MenuRenderer } from '@/components/MenuRenderer'
 import { InteriorHero } from '@/components/hero'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { drinksMenuSchema } from '@/lib/enhanced-schemas'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
@@ -20,6 +19,7 @@ import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
 import { getDrinksHeroImage } from '@/lib/drinks-hero-image'
+import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
 
 export const dynamic = 'force-dynamic'
 
@@ -49,8 +49,8 @@ export default async function DrinksMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-anchor-green-deep">
-        <p className="text-xl text-anchor-cream-text/70">Menu temporarily unavailable. Please call us on 01753 682707.</p>
+      <div className="flex min-h-screen items-center justify-center bg-canvas">
+        <p className="text-xl text-ink-muted">Menu temporarily unavailable. Please call us on 01753 682707.</p>
       </div>
     )
   }
@@ -76,14 +76,14 @@ export default async function DrinksMenuPage() {
       "@type": "MenuSection",
       "name": category.title,
       "description": `${category.title} selection at The Anchor`,
-      "hasMenuItem": category.sections.flatMap(section => 
+      "hasMenuItem": category.sections.flatMap(section =>
         section.items.map(item => ({
           "@type": "MenuItem",
           "name": item.name,
           "description": item.description || item.name,
           "offers": {
             "@type": "Offer",
-            "price": item.price.replace(/[\u00A3$]/, '').split(' / ')[0],
+            "price": item.price.replace(/[£$]/, '').split(' / ')[0],
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock"
           },
@@ -133,37 +133,17 @@ export default async function DrinksMenuPage() {
     "servesCuisine": "British",
     ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
     "amenityFeature": [
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "Draught Beers",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "Craft Beers",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "Premium Spirits",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "Wine Selection",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "Cocktail Menu",
-        "value": true
-      }
+      { "@type": "LocationFeatureSpecification", "name": "Draught Beers", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Craft Beers", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Premium Spirits", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Wine Selection", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Cocktail Menu", "value": true }
     ]
   }
 
   return (
     <>
-      <MenuPageTracker 
+      <MenuPageTracker
         menuType="drinks"
         specialOffers={[]}
       />
@@ -175,7 +155,7 @@ export default async function DrinksMenuPage() {
           barSchema
         ]) }}
       />
-      {/* Hero Section */}
+
       <InteriorHero
         image={drinksHeroImage.src}
         focal="center center"
@@ -200,7 +180,7 @@ export default async function DrinksMenuPage() {
             >
               Reserve a Table
             </BookTableButton>
-            <Link href="#menu">
+            <Link href="#menu" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" fullWidth>
                 Jump to Menu
               </Button>
@@ -209,293 +189,243 @@ export default async function DrinksMenuPage() {
         }
       />
 
+      <AmenityStrip />
+
       {/* Page Title */}
-      <Section className="py-8 bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="menu">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
+      <section className="bg-canvas py-section-y" id="menu">
+        <div className="container">
+          <div className="mx-auto max-w-4xl text-center">
             <PageTitle
-              seo={{
-                structured: true,
-                speakable: true
-              }}
-              className="text-anchor-cream-text mb-4"
+              seo={{ structured: true, speakable: true }}
+              className="mb-4 text-ink-strong"
             >
               The Drinks List
             </PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
+            <p className="text-lg text-ink-muted">
               Browse the bar before you arrive: draught pints first, then bottles, cocktails, spirits, wine and soft drinks.
             </p>
           </div>
-        </Container>
-      </Section>
 
-      {/* Quick Links */}
-      <Section background="gray" spacing="sm" className="border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="mb-5 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-anchor-gold-bright">Jump straight to</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {menuData.categories.map((category) => (
+          {/* Quick links */}
+          <div className="mt-8">
+            <p className="mb-5 text-center text-sm font-semibold uppercase tracking-[0.18em] text-accent-text">Jump straight to</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {menuData.categories.map((category) => (
+                <Link
+                  key={category.id}
+                  href={`#${category.id}`}
+                  className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-5 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark"
+                >
+                  {category.title}
+                </Link>
+              ))}
               <Link
-                key={category.id}
-                href={`#${category.id}`}
-                className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
+                href="/food-menu#pizza"
+                className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-5 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark"
               >
-                {category.title}
+                Pizza Menu
               </Link>
-            ))}
-            <Link
-              href="/food-menu#pizza"
-              className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
-            >
-              Pizza Menu
-            </Link>
-            <Link
-              href="/sunday-roast"
-              className="rounded-full bg-anchor-green-card px-5 py-3 border border-anchor-gold-dark/15 transition-colors hover:border-anchor-gold-dark/30 text-anchor-cream-text"
-            >
-              Sunday Roast Booking
-            </Link>
+              <Link
+                href="/sunday-roast"
+                className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-5 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark"
+              >
+                Sunday Roast Booking
+              </Link>
+            </div>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Menu Content */}
-      <MenuRenderer menuData={menuDataWithoutManagersSpecial} eyebrow="Drinks list" />
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <FoodMenuSection menuData={menuDataWithoutManagersSpecial} showFilters={false} />
+        </div>
+      </section>
 
       {/* Popular Draught & Spirits */}
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="featured-offers">
-        <Container>
+      <section className="bg-canvas py-section-y" id="featured-offers">
+        <div className="container">
           <SectionHeading
             title="Bar Team Favourites"
-            subtitle="A few easy places to start if you are not sure what to order first."
+            lead="A few easy places to start if you are not sure what to order first."
           />
-          <InfoBoxGrid
-            columns={3}
-            className="max-w-5xl mx-auto"
-            boxes={[
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+            {[
               {
-                title: "Birra Moretti & Stella Artois",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    Familiar, cold and quick to choose. These are the pints people ask for when they want a reliable lager before food, after work or while waiting for a flight to land.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
+                title: 'Birra Moretti & Stella Artois',
+                body: 'Familiar, cold and quick to choose. These are the pints people ask for when they want a reliable lager before food, after work or while waiting for a flight to land.'
               },
               {
                 title: "Guinness & Inch's Cider",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    Guinness for a slower, creamier pint; Inch&apos;s for a brighter cider in the garden. Both work well when you are settling in rather than rushing through a round.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
+                body: "Guinness for a slower, creamier pint; Inch's for a brighter cider in the garden. Both work well when you are settling in rather than rushing through a round."
               },
               {
-                title: "Premium Spirits & Chambord",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    If you want something longer, sweeter or more cocktail-led, start with the spirits shelves. Chambord, Disaronno, rum, gin and tequila give the bar team plenty to build from.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15"
+                title: 'Premium Spirits & Chambord',
+                body: 'If you want something longer, sweeter or more cocktail-led, start with the spirits shelves. Chambord, Disaronno, rum, gin and tequila give the bar team plenty to build from.'
               }
-            ]}
-          />
-        </Container>
-      </Section>
+            ].map((item) => (
+              <Card key={item.title} accent>
+                <CardBody>
+                  <h3 className="mb-2 text-h4 text-ink-strong">{item.title}</h3>
+                  <p className="text-ink-muted">{item.body}</p>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Your Local After Landing */}
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto">
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-4xl">
             <SectionHeading
               title="Your Local After Landing - Just 5 Minutes from Heathrow"
             />
-            <FeatureGrid
-              columns={3}
-              features={[
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
                 {
-                  icon: "",
-                  title: "Airport Staff Haven",
-                  description: "Perfect spot for crews and airport workers to unwind after long shifts. Join your colleagues for a well-deserved pint.",
-                  className: "text-center"
+                  title: 'Airport Staff Haven',
+                  body: 'Perfect spot for crews and airport workers to unwind after long shifts. Join your colleagues for a well-deserved pint.'
                 },
                 {
-                  icon: "",
-                  title: "Meeting Point",
-                  description: "Picking someone up? Skip expensive airport parking. Meet here for a relaxed drink while they clear customs.",
-                  className: "text-center"
+                  title: 'Meeting Point',
+                  body: 'Picking someone up? Skip expensive airport parking. Meet here for a relaxed drink while they clear customs.'
                 },
                 {
-                  icon: "",
                   title: "Traveller's Rest",
-                  description: "Just landed or about to fly? We're your local. Quick taxi from all terminals, open late, proper British welcome.",
-                  className: "text-center"
+                  body: "Just landed or about to fly? We're your local. Quick taxi from all terminals, open late, proper British welcome."
                 }
-              ]}
-            />
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="text-center">
+                    <h3 className="mb-2 text-h4 text-ink-strong">{item.title}</h3>
+                    <p className="text-ink-muted">{item.body}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Why The Anchor for Drinks */}
-      <Section background="gray" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto">
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-4xl">
             <SectionHeading
               title="Stanwell Moor's Premier Drinks Destination"
             />
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
                 {
-                  title: "The Beer Garden Experience",
-                  content: (
-                    <>
-                      <p className="text-anchor-cream-text/70 mb-4">Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.</p>
-                      <p className="text-sm text-anchor-cream-text/70">Dog-friendly outdoor areas - bring your four-legged friends!</p>
-                    </>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
+                  title: 'The Beer Garden Experience',
+                  body: "Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.",
+                  note: 'Dog-friendly outdoor areas - bring your four-legged friends!'
                 },
                 {
-                  title: "Sports & Atmosphere",
-                  content: (
-                    <>
-                      <p className="text-anchor-cream-text/70 mb-4">Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.</p>
-                      <p className="text-sm text-anchor-cream-text/70">Big matches get busy - arrive early for the best seats!</p>
-                    </>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
+                  title: 'Sports & Atmosphere',
+                  body: 'Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.',
+                  note: 'Big matches get busy - arrive early for the best seats!'
                 },
                 {
-                  title: "Local Institution",
-                  content: (
-                    <>
-                      <p className="text-anchor-cream-text/70 mb-4">Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.</p>
-                      <p className="text-sm text-anchor-cream-text/70">Ask about our locals' card for exclusive offers!</p>
-                    </>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
+                  title: 'Local Institution',
+                  body: 'Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.',
+                  note: "Ask about our locals' card for exclusive offers!"
                 },
                 {
-                  title: "Quality & Choice",
-                  content: (
-                    <>
-                      <p className="text-anchor-cream-text/70 mb-4">From draught beers to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
-                      <p className="text-sm text-anchor-cream-text/70">Can't see your favourite? Just ask - we might have it!</p>
-                    </>
-                  ),
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-8 border border-anchor-gold-dark/15"
+                  title: 'Quality & Choice',
+                  body: 'From draught beers to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.',
+                  note: "Can't see your favourite? Just ask - we might have it!"
                 }
-              ]}
-            />
-            
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody>
+                    <h3 className="mb-2 text-h4 text-ink-strong">{item.title}</h3>
+                    <p className="mb-4 text-ink-muted">{item.body}</p>
+                    <p className="text-sm text-ink-muted">{item.note}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Seasonal Highlights */}
-      <Section background="white" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" spacing="md">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-4xl text-center">
             <SectionHeading
               title="Drinks for Every Season"
             />
-            <FeatureGrid
-              columns={4}
-              features={[
-                {
-                  icon: "",
-                  title: "Summer",
-                  description: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Autumn",
-                  description: "Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Winter",
-                  description: "Mulled wine, Bailey's hot chocolate, and hearty stouts by the cosy fire",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Spring",
-                  description: "Fresh G&Ts, crisp rosé, and the return of beer garden season",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15 text-center"
-                }
-              ]}
-            />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: 'Summer', body: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden" },
+                { title: 'Autumn', body: 'Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in' },
+                { title: 'Winter', body: "Mulled wine, Bailey's hot chocolate, and hearty stouts by the cosy fire" },
+                { title: 'Spring', body: 'Fresh G&Ts, crisp rosé, and the return of beer garden season' }
+              ].map((item) => (
+                <Card key={item.title} accent>
+                  <CardBody className="text-center">
+                    <h3 className="mb-2 text-h4 text-ink-strong">{item.title}</h3>
+                    <p className="text-sm text-ink-muted">{item.body}</p>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <SectionHeading
             title="Popular Shots & Cocktails Near Heathrow"
-            subtitle="Ask the bar team for favourites alongside the full drinks menu."
+            lead="Ask the bar team for favourites alongside the full drinks menu."
           />
           <div className="grid gap-6 md:grid-cols-2">
-            <Card className="card-dark rounded-none shadow-none">
+            <Card accent>
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Popular shots at the bar</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-3">
+                <h3 className="mb-2 text-h4 text-ink-strong">Popular shots at the bar</h3>
+                <p className="mb-3 text-sm text-ink-muted">
                   Guests regularly order popular shots like Baby Guinness at our Heathrow bar, alongside creamy
                   liqueurs and seasonal specials. Tell us what you like and we will recommend a pour.
                 </p>
                 <Link
                   href="/drinks/baby-guinness"
-                  className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition"
+                  className="text-sm font-semibold text-accent-text hover:underline"
                 >
                   Baby Guinness guide →
                 </Link>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none shadow-none">
+            <Card accent>
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">Cocktails, mixers and long drinks</h3>
-                <p className="text-sm text-anchor-cream-text/70">
+                <h3 className="mb-2 text-h4 text-ink-strong">Cocktails, mixers and long drinks</h3>
+                <p className="text-sm text-ink-muted">
                   Espresso martinis, mojitos and classic G&Ts share the menu with premium spirits and
                   alcohol-free options, perfect for pre-flight meetups or Staines nights out near Heathrow.
                 </p>
               </CardBody>
             </Card>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Internal Links for SEO */}
-      <Section background="white" spacing="md">
-        <Container>
-          <InternalLinkingSection 
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <InternalLinkingSection
             links={commonLinkGroups.dining}
             className="mx-auto max-w-5xl"
           />
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "What beers are on tap at The Anchor?",
@@ -526,46 +456,29 @@ export default async function DrinksMenuPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're settling a tab, buying rounds, or paying for events, we make it easy with multiple payment options."
           }
         ]}
-        className="bg-anchor-green-deep"
       />
 
       {/* CTA Section */}
-      <Section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Join Us for a Drink
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Book ahead for stone-baked pizzas, Sunday roast or a post-flight celebration with pints and cocktails.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="drinks_page_cta"
-                size="lg"
-                variant="outline"
-                fullWidth
-                className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              >
-                Reserve a Table
-              </BookTableButton>
-              <PhoneButton phone={CONTACT.phone} source="drinks_cta" size="lg" className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call Us
-              </PhoneButton>
-              <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Pizza Menu
-                </Button>
-              </Link>
-              <Link href="/sunday-roast" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Sunday Roast Info
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Join us for a drink"
+        copy="Book ahead for stone-baked pizzas, Sunday roast or a post-flight celebration with pints and cocktails."
+      >
+        <BookTableButton
+          source="drinks_page_cta"
+          size="lg"
+          variant="primary"
+        >
+          Reserve a Table
+        </BookTableButton>
+        <PhoneButton phone={CONTACT.phone} source="drinks_cta" size="lg" variant="outline">
+          Call Us
+        </PhoneButton>
+        <Link href="/food-menu#pizza">
+          <Button size="lg" variant="outline">
+            Pizza Menu
+          </Button>
+        </Link>
+      </CtaBand>
     </>
   )
 }

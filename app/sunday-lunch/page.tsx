@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Container, SectionHeading, Alert } from '@/components/ui'
+import { Card, CardBody, SectionHeading } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { InteriorHero } from '@/components/hero'
+import { CtaBand } from '@/components/CtaBand'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -20,7 +21,8 @@ import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getSundayRoastContent, SUNDAY_ROAST, type SundayRoastContent } from '@/lib/sunday-roast'
 import { getSundayLunchMenuPageData, type MenuPageItem } from '@/lib/menu-page-data'
-import { MenuRenderer } from '@/components/MenuRenderer'
+import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
+import { SundayRoastFeature } from '../food-menu/_components/SundayRoastFeature'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
@@ -184,78 +186,83 @@ export default async function SundayLunchPage() {
         }
       />
 
-      <div className="bg-anchor-green-raised">
-        <Container>
+      <div className="bg-surface">
+        <div className="container">
           <div className="py-3">
             <LaunchAnnouncement variant="banner" />
           </div>
-        </Container>
+        </div>
       </div>
 
-      <div className="bg-anchor-green-deep pt-12 pb-8 border-b border-anchor-gold-dark/15">
-        <Container>
-          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
-          <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
+          <p className="mt-4 text-center text-lg text-ink-muted max-w-3xl mx-auto">
             Sunday roast is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and the current dishes are listed below.
           </p>
           <ul
             aria-label="At a glance"
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-anchor-cream-text/75"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-ink-muted"
           >
             <li>Dog friendly</li>
-            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li aria-hidden="true" className="text-line-strong">&middot;</li>
             <li>Free parking</li>
-            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li aria-hidden="true" className="text-line-strong">&middot;</li>
             <li>Walk-ins welcome</li>
-            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li aria-hidden="true" className="text-line-strong">&middot;</li>
             <li>4.6/5 on Google</li>
           </ul>
-        </Container>
-      </div>
+        </div>
+      </section>
 
-      <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
-        <Container>
+      {/* Roast feature split (redesign §7.2.4): SSOT §4 line-up, Wellington vegan. */}
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <SundayRoastFeature />
+        </div>
+      </section>
+
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <SectionHeading
             title="Current Sunday Roast Menu"
-            subtitle={sundayMenu.menuData ? 'Choose from our current Sunday roast menu.' : 'Call us for the current Sunday roast dish list.'}
-            align="center"
+            lead={sundayMenu.menuData ? 'Choose from our current Sunday roast menu.' : 'Call us for the current Sunday roast dish list.'}
           />
 
           {sundayMenu.menuData ? (
-            <MenuRenderer menuData={sundayMenu.menuData} eyebrow="Sunday roast menu" />
+            <FoodMenuSection menuData={sundayMenu.menuData} showFilters={false} />
           ) : (
-            <Alert
-              variant="warning"
-              title="Sunday menu temporarily unavailable"
-              className="mx-auto max-w-3xl"
-            >
-              <p className="text-anchor-cream-text/70">
-                The current Sunday roast menu is temporarily unavailable. Please call{' '}
-                <PhoneLink
-                  phone="01753 682707"
-                  source="sunday_roast_menu_unavailable"
-                  className="font-semibold underline"
-                  showIcon={false}
-                >
-                  01753 682707
-                </PhoneLink>{' '}
-                for the current dish list before travelling.
-              </p>
-            </Alert>
+            <Card accent className="mx-auto max-w-3xl">
+              <CardBody>
+                <h2 className="mb-2 text-h4 text-ink-strong">Sunday menu temporarily unavailable</h2>
+                <p className="text-ink-muted">
+                  The current Sunday roast menu is temporarily unavailable. Please call{' '}
+                  <PhoneLink
+                    phone="01753 682707"
+                    source="sunday_roast_menu_unavailable"
+                    className="font-semibold text-accent-text underline"
+                    showIcon={false}
+                  >
+                    01753 682707
+                  </PhoneLink>{' '}
+                  for the current dish list before travelling.
+                </p>
+              </CardBody>
+            </Card>
           )}
-        </Container>
+        </div>
       </section>
 
-      <section className="bg-anchor-green-raised section-spacing-lg border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-surface py-section-y">
+        <div className="container">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
+            <h2 className="mb-4 text-h3 text-ink-strong">
               How Sundays Work at The Anchor
             </h2>
             <SundayLunchHowItWorks />
-            <ul className="mt-6 space-y-2 text-anchor-cream-text/70 text-base">
+            <ul className="mt-6 space-y-2 text-base text-ink-muted">
               <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm.</li>
               <li>&bull; Walk-ins are welcome. Booking guarantees your spot, especially for larger parties.</li>
               <li>&bull; No Sunday-specific pre-order is required.</li>
@@ -264,7 +271,7 @@ export default async function SundayLunchPage() {
                 <PhoneLink
                   phone="01753 682707"
                   source="sunday_roast_inline"
-                  className="font-semibold underline"
+                  className="font-semibold text-accent-text underline"
                   showIcon={false}
                 >
                   01753 682707
@@ -278,44 +285,44 @@ export default async function SundayLunchPage() {
               height={900}
               loading="lazy"
               sizes="(min-width:1024px) 720px, 100vw"
-              className="mt-8 w-full h-auto rounded-lg border border-anchor-gold-dark/15 object-cover"
+              className="mt-8 h-auto w-full rounded-md object-cover shadow-lg"
             />
           </div>
-        </Container>
+        </div>
       </section>
 
       <SectionViewTracker sectionId="carvery_comparison">
-        <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
-          <Container>
+        <section className="bg-canvas py-section-y">
+          <div className="container">
             <div className="mx-auto max-w-4xl">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
+              <h2 className="mb-4 text-h3 text-ink-strong">
                 Sunday Roast or Carvery? What to Expect Near Heathrow
               </h2>
-              <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
+              <p className="mb-6 leading-relaxed text-ink-muted">
                 If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
               </p>
-              <div className="overflow-x-auto rounded-lg border border-anchor-gold-dark/15">
-                <table className="w-full text-sm md:text-base text-left">
-                  <thead className="bg-anchor-green-raised text-anchor-cream-text">
+              <div className="overflow-x-auto rounded-md border border-line">
+                <table className="w-full text-left text-sm md:text-base">
+                  <thead className="bg-surface-sunk text-ink-strong">
                     <tr>
                       <th scope="col" className="px-4 py-3 font-semibold">Detail</th>
                       <th scope="col" className="px-4 py-3 font-semibold">Carvery</th>
                       <th scope="col" className="px-4 py-3 font-semibold">The Anchor</th>
                     </tr>
                   </thead>
-                  <tbody className="text-anchor-cream-text/80">
-                    <tr className="border-t border-anchor-gold-dark/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Serving style</th>
+                  <tbody className="text-ink">
+                    <tr className="border-t border-line">
+                      <th scope="row" className="px-4 py-3 align-top font-semibold text-ink-strong">Serving style</th>
                       <td className="px-4 py-3 align-top">Self-serve buffet line</td>
                       <td className="px-4 py-3 align-top">Cooked and plated by the kitchen</td>
                     </tr>
-                    <tr className="border-t border-anchor-gold-dark/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Booking</th>
+                    <tr className="border-t border-line">
+                      <th scope="row" className="px-4 py-3 align-top font-semibold text-ink-strong">Booking</th>
                       <td className="px-4 py-3 align-top">Varies by venue</td>
                       <td className="px-4 py-3 align-top">Walk in or book ahead</td>
                     </tr>
-                    <tr className="border-t border-anchor-gold-dark/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Menu details</th>
+                    <tr className="border-t border-line">
+                      <th scope="row" className="px-4 py-3 align-top font-semibold text-ink-strong">Menu details</th>
                       <td className="px-4 py-3 align-top">Check with the venue</td>
                       <td className="px-4 py-3 align-top">Current dishes listed above, or confirmed by phone</td>
                     </tr>
@@ -336,16 +343,15 @@ export default async function SundayLunchPage() {
                 </BookTableButton>
               </div>
             </div>
-          </Container>
+          </div>
         </section>
       </SectionViewTracker>
 
-      <section className="bg-anchor-green-raised section-spacing-lg border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-surface py-section-y">
+        <div className="container">
           <SectionHeading
             title="Why Locals Choose Sunday Roast Here"
-            subtitle="Free parking, easy booking and a village pub setting minutes from Heathrow."
-            align="center"
+            lead="Free parking, easy booking and a village pub setting minutes from Heathrow."
           />
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
@@ -353,49 +359,51 @@ export default async function SundayLunchPage() {
               ['Good for groups', 'Book online for standard tables or call us for larger parties.'],
               ['Dog friendly', 'Dogs are welcome inside and in the beer garden.']
             ].map(([title, body]) => (
-              <div key={title} className="rounded-lg border border-anchor-gold-dark/15 bg-anchor-green-deep p-6">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{body}</p>
-              </div>
+              <Card key={title} accent>
+                <CardBody>
+                  <h3 className="text-h4 text-ink-strong">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{body}</p>
+                </CardBody>
+              </Card>
             ))}
           </div>
-        </Container>
+        </div>
       </section>
 
-      <section className="bg-anchor-green-deep section-spacing-lg border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
+            <h2 className="mb-3 text-h3 text-ink-strong">
               Sunday Roast Between Flights
             </h2>
-            <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
+            <p className="mb-6 leading-relaxed text-ink-muted">
               Best for layovers with enough time to leave the airport, post-arrival meals before checking into a Heathrow hotel, or a proper pub lunch before an evening flight.
             </p>
-            <ol className="space-y-4 text-anchor-cream-text/80 leading-relaxed">
+            <ol className="space-y-4 leading-relaxed text-ink">
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">1</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">1</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Land at T5</p>
-                  <p className="text-sm text-anchor-cream-text/70">7-minute drive with free parking at the pub.</p>
+                  <p className="font-semibold text-ink-strong">Land at T5</p>
+                  <p className="text-sm text-ink-muted">7-minute drive with free parking at the pub.</p>
                 </div>
               </li>
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">2</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">2</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Sunday roast</p>
-                  <p className="text-sm text-anchor-cream-text/70">Walk in during service or book ahead for a guaranteed table.</p>
+                  <p className="font-semibold text-ink-strong">Sunday roast</p>
+                  <p className="text-sm text-ink-muted">Walk in during service or book ahead for a guaranteed table.</p>
                 </div>
               </li>
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">3</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">3</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Easy return</p>
-                  <p className="text-sm text-anchor-cream-text/70">Head back to T5 when you are ready.</p>
+                  <p className="font-semibold text-ink-strong">Easy return</p>
+                  <p className="text-sm text-ink-muted">Head back to T5 when you are ready.</p>
                 </div>
               </li>
             </ol>
           </div>
-        </Container>
+        </div>
       </section>
 
       <OrganicSearchClusterLinks
@@ -410,45 +418,39 @@ export default async function SundayLunchPage() {
         faqs={faqs.map((faq) => ({ question: faq.question, answer: faq.answer }))}
       />
 
-      <section className="bg-anchor-green section-spacing-lg text-center">
-        <Container>
-          <div className="max-w-2xl mx-auto space-y-5">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Book your Sunday roast at The Anchor
-            </h2>
-            <p className="text-white/85 text-base">
-              Sunday service runs 1pm to 6pm. 7 minutes from Heathrow Terminal 5.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <BookTableButton
-                source="sunday_roast_final_cta"
-                context="sunday_roast"
-                variant="outline"
-                size="lg"
-                className="bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-                customHref={SUNDAY_LUNCH_BOOKING_URL}
-                trackingLabel="Book a Sunday roast"
-                eventName="Sunday roast"
-              >
-                Book a Table
-              </BookTableButton>
-              <PhoneButton
-                phone="01753 682707"
-                source="sunday_roast_final_cta"
-                variant="outline"
-                size="lg"
-                className="!bg-transparent !text-white !border-white/40 hover:!bg-white/10"
-              >
-                01753 682707
-              </PhoneButton>
-            </div>
-            <p className="text-sm text-white/70">
-              <Link href="/find-us" className="underline hover:text-white">Directions and parking</Link>
-              {' '}&bull;{' '}
-              <Link href="/book-table" className="underline hover:text-white">All booking options</Link>
-            </p>
-          </div>
-        </Container>
+      <CtaBand
+        title="Book your Sunday roast at The Anchor"
+        copy="Sunday service runs 1pm to 6pm. 7 minutes from Heathrow Terminal 5."
+      >
+        <BookTableButton
+          source="sunday_roast_final_cta"
+          context="sunday_roast"
+          variant="primary"
+          size="lg"
+          customHref={SUNDAY_LUNCH_BOOKING_URL}
+          trackingLabel="Book a Sunday roast"
+          eventName="Sunday roast"
+        >
+          Book a Table
+        </BookTableButton>
+        <PhoneButton
+          phone="01753 682707"
+          source="sunday_roast_final_cta"
+          variant="outline"
+          size="lg"
+        >
+          01753 682707
+        </PhoneButton>
+      </CtaBand>
+
+      <section className="bg-canvas py-8">
+        <div className="container">
+          <p className="text-center text-sm text-ink-muted">
+            <Link href="/find-us" className="text-accent-text underline">Directions and parking</Link>
+            {' '}&bull;{' '}
+            <Link href="/book-table" className="text-accent-text underline">All booking options</Link>
+          </p>
+        </div>
       </section>
 
       <ScrollProgressBookingTooltip />

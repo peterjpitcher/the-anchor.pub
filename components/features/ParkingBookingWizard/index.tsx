@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Script from 'next/script'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
+import { Card } from '@/components/ui/layout/Card'
 import { Icon } from '@/components/ui/Icon'
 import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
@@ -486,12 +487,12 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               />
             </div>
 
-            <div className="rounded-lg border border-anchor-gold-dark/30 bg-anchor-green-card p-4 text-sm text-anchor-cream-text">
-              <p className="font-semibold text-anchor-gold-bright">Best rates for longer stays</p>
-              {isLoadingRates && <p className="mt-1">Loading the latest rate card…</p>}
-              {ratesError && <p className="mt-1 text-red-400">{ratesError}</p>}
+            <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
+              <p className="font-semibold text-accent-text">Best rates for longer stays</p>
+              {isLoadingRates && <p className="mt-1 text-ink-muted">Loading the latest rate card…</p>}
+              {ratesError && <p className="mt-1 text-anchor-danger">{ratesError}</p>}
 	              {rates && !ratesError && (
-	                <ul className="mt-2 space-y-1 text-anchor-cream-text/80">
+	                <ul className="mt-2 space-y-1 text-ink-muted">
 	                  <li>• Hourly: {formatPrice(rates.hourly_rate, 'GBP')}</li>
 	                  <li>• Daily: {formatPrice(rates.daily_rate, 'GBP')}</li>
 	                  <li>• Weekly: {formatPrice(rates.weekly_rate, 'GBP')}</li>
@@ -499,7 +500,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 	                </ul>
 	              )}
 	              {estimate && (
-	                <p className="mt-2 text-sm text-anchor-cream-text">
+	                <p className="mt-2 text-sm text-ink">
 	                  Estimated cost for this stay: <strong>{formatPrice(estimate.amount, 'GBP')}</strong> (final price confirmed at checkout)
 	                </p>
 	              )}
@@ -507,19 +508,19 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               {availabilityState.status === 'available' && (
-                <div className="flex items-center text-sm text-green-400">
+                <div className="flex items-center text-sm text-anchor-success">
                   <Icon name="check" className="mr-2 h-4 w-4" />
                   {availabilityState.message || 'Spaces available'}
                 </div>
               )}
               {availabilityState.status === 'unavailable' && (
-                <div className="flex items-center text-sm text-red-400">
+                <div className="flex items-center text-sm text-anchor-danger">
                   <Icon name="alert" className="mr-2 h-4 w-4" />
                   {availabilityState.message || 'No spaces available for that window'}
                 </div>
               )}
               {availabilityError && (
-                <div className="text-sm text-red-400">{availabilityError}</div>
+                <div className="text-sm text-anchor-danger">{availabilityError}</div>
               )}
               <div className="sm:ml-auto">
                 <Button
@@ -562,7 +563,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                 onChange={event => setCustomer(prev => ({ ...prev, phone: event.target.value }))}
               />
             </div>
-            <p className="text-sm text-anchor-cream-text/70">
+            <p className="text-sm text-ink-muted">
               We use your mobile number to send booking confirmation and updates. Your details are never shared.
             </p>
           </div>
@@ -620,33 +621,33 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
             <div className="space-y-6">
               {/* Booking summary */}
-              <div className="rounded-xl border border-anchor-gold-dark/20 bg-anchor-green-card p-5 space-y-3 text-sm">
-                <h3 className="font-semibold text-anchor-cream-text text-base">Booking summary</h3>
-                <div className="grid min-w-0 grid-cols-1 gap-y-1 text-anchor-cream-text sm:grid-cols-2 sm:gap-y-2">
-                  <span className="text-anchor-sage">Arrival</span>
+              <div className="rounded-md border border-line bg-surface-sunk p-5 space-y-3 text-sm">
+                <h3 className="font-semibold text-ink-strong text-base">Booking summary</h3>
+                <div className="grid min-w-0 grid-cols-1 gap-y-1 text-ink sm:grid-cols-2 sm:gap-y-2">
+                  <span className="text-ink-muted">Arrival</span>
                   <span className="break-words font-medium">{new Date(start).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
-                  <span className="text-anchor-sage">Departure</span>
+                  <span className="text-ink-muted">Departure</span>
                   <span className="break-words font-medium">{new Date(end).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
-                  <span className="text-anchor-sage">Name</span>
+                  <span className="text-ink-muted">Name</span>
                   <span className="break-words font-medium">{customer.firstName} {customer.lastName}</span>
-                  <span className="text-anchor-sage">Mobile</span>
+                  <span className="text-ink-muted">Mobile</span>
                   <span className="break-words font-medium">{customer.phone}</span>
-                  <span className="text-anchor-sage">Vehicle</span>
+                  <span className="text-ink-muted">Vehicle</span>
                   <span className="break-words font-medium">{vehicle.registration.toUpperCase()}{vehicle.make ? ` · ${vehicle.make}` : ''}</span>
                 </div>
 
                 {/* Pricing */}
                 {estimate && (
-                  <div className="border-t border-anchor-gold-dark/20 pt-3 space-y-1">
+                  <div className="border-t border-line pt-3 space-y-1">
                     {estimate.breakdown.map((item, i) => (
-                      <div key={i} className="flex justify-between text-anchor-sage text-xs">
+                      <div key={i} className="flex justify-between text-ink-muted text-xs">
                         <span>{item.quantity} {item.unit}{item.quantity !== 1 ? 's' : ''} @ £{item.rate}</span>
                         <span>£{item.subtotal.toFixed(2)}</span>
                       </div>
                     ))}
-                    <div className="flex justify-between font-bold text-anchor-cream-text pt-1">
+                    <div className="flex justify-between font-bold text-ink-strong pt-1">
                       <span>Total</span>
-                      <span className="text-anchor-gold-dark">{formatPrice(estimate.amount, 'GBP')}</span>
+                      <span className="text-accent-text">{formatPrice(estimate.amount, 'GBP')}</span>
                     </div>
                   </div>
                 )}
@@ -654,17 +655,17 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
               {/* State messages */}
               {captureState === 'cancelled' && (
-                <p className="text-sm text-anchor-gold-dark bg-anchor-green-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-accent-text bg-surface-sunk rounded-md px-4 py-3">
                   Payment cancelled, you can try again below.
                 </p>
               )}
               {captureState === 'error' && (
-                <p className="text-sm text-red-400 bg-anchor-green-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
                   Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
                 </p>
               )}
               {captureState === 'capturing' && (
-                <p className="text-sm text-anchor-cream-text bg-anchor-green-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-ink bg-surface-sunk rounded-md px-4 py-3">
                   Confirming your booking…
                 </p>
               )}
@@ -672,13 +673,13 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* PayPal button container */}
               {/* Error state, shown if SDK fails to load or client ID is missing */}
               {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
-                <p className="text-sm text-red-400 bg-anchor-green-raised rounded-lg px-4 py-3">
+                <p className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
                   Payment could not be loaded. Please call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_paypal_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> to complete your booking.
                 </p>
               )}
               {/* Skeleton shown while SDK loads, sibling to the container, not inside it */}
               {!paypalLoaded && !paypalLoadError && process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && captureState !== 'capturing' && (
-                <div className="h-12 rounded-lg bg-anchor-green-raised animate-pulse" />
+                <div className="h-12 rounded-md bg-surface-sunk animate-pulse" />
               )}
               {/* Container stays mounted so the SDK iframe is never destroyed */}
               <div
@@ -687,9 +688,9 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                 className={`min-h-[50px] max-w-sm mx-auto ${captureState === 'capturing' ? 'hidden' : ''}`}
               />
 
-              <p className="text-xs text-anchor-sage text-center">
+              <p className="text-xs text-ink-muted text-center">
                 Vehicles parked at owner&apos;s risk. By paying you agree to our{' '}
-                <a href="/heathrow-parking#parking-terms" className="underline hover:text-anchor-cream-text">
+                <a href="/heathrow-parking#parking-terms" className="underline hover:text-ink">
                   parking terms
                 </a>.
               </p>
@@ -698,7 +699,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               <button
                 type="button"
                 onClick={() => { setCurrentStep(3); setPaypalRendered(false); setCaptureState('idle') }}
-                className="w-full text-sm text-anchor-sage hover:text-anchor-cream-text underline"
+                className="w-full text-sm text-ink-muted hover:text-ink underline"
               >
                 ← Back to vehicle details
               </button>
@@ -711,14 +712,42 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   }
 
   return (
-    <div className="rounded-2xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-6 shadow-lg">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <Card accent className="p-6 shadow-md">
+      {/* Step indicator: numbered circles joined by hairline bars (spec §9) */}
+      <ol className="flex items-center gap-2" aria-label={`Step ${currentStep} of 4`}>
+        {stepTitles.map((title, index) => {
+          const stepNumber = index + 1
+          const isDone = stepNumber < currentStep
+          const isActive = stepNumber === currentStep
+          return (
+            <li key={title} className="flex flex-1 items-center gap-2 last:flex-none">
+              <span
+                aria-current={isActive ? 'step' : undefined}
+                className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
+                  isDone
+                    ? 'bg-anchor-green text-white'
+                    : isActive
+                      ? 'bg-anchor-gold text-white'
+                      : 'bg-surface-sunk text-ink-muted'
+                }`}
+              >
+                {isDone ? <Icon name="check" className="h-4 w-4" /> : stepNumber}
+              </span>
+              {stepNumber < stepTitles.length && (
+                <span className="h-px flex-1 bg-line" aria-hidden="true" />
+              )}
+            </li>
+          )
+        })}
+      </ol>
+
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-widest text-anchor-gold-bright">Step {currentStep} of 4</p>
-          <h3 className="text-2xl font-bold text-anchor-cream-text">{stepTitles[currentStep - 1]}</h3>
+          <p className="text-xs uppercase tracking-widest text-accent-text">Step {currentStep} of 4</p>
+          <h3 className="font-display text-h3 text-ink-strong">{stepTitles[currentStep - 1]}</h3>
         </div>
-        <div className="flex items-center gap-2 text-sm text-anchor-cream-text/70">
-          <Icon name="shieldCheck" className="h-4 w-4 text-anchor-gold-bright" />
+        <div className="flex items-center gap-2 text-sm text-ink-muted">
+          <Icon name="shieldCheck" className="h-4 w-4 text-accent-text" />
           Secure checkout powered by PayPal
         </div>
       </div>
@@ -727,7 +756,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         {renderStepContent()}
 
         {currentStep < 4 && (
-          <div className="flex flex-col gap-3 border-t border-anchor-gold-dark/15 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
             <Button
               variant="outline"
               onClick={() => goToStep(currentStep - 1)}
@@ -737,13 +766,13 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             </Button>
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
               {currentStep === 1 && availabilityState.status !== 'available' && (
-                <span className="text-xs text-anchor-cream-text/60">Check availability to continue</span>
+                <span className="text-xs text-ink-muted">Check availability to continue</span>
               )}
               {currentStep === 2 && !canProceedFromStep2 && (
-                <span className="text-xs text-anchor-cream-text/60">Fill in name and mobile number to continue</span>
+                <span className="text-xs text-ink-muted">Fill in name and mobile number to continue</span>
               )}
               {currentStep === 3 && !canProceedFromStep3 && (
-                <span className="text-xs text-anchor-cream-text/60">Enter your vehicle registration</span>
+                <span className="text-xs text-ink-muted">Enter your vehicle registration</span>
               )}
               <Button
                 variant="primary"
@@ -762,7 +791,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
       </div>
 
       <noscript>
-        <div className="mt-6 rounded-md border border-anchor-gold-dark/30 bg-anchor-green-card p-4 text-sm text-anchor-cream-text">
+        <div className="mt-6 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
           <p className="font-semibold">Need to book without JavaScript?</p>
           <p className="mt-1">
             Call us on 01753 682707, WhatsApp us, or email parking@the-anchor.pub with your arrival time,
@@ -787,6 +816,6 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
           </div>
         </div>
       </noscript>
-    </div>
+    </Card>
   )
 }

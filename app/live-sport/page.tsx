@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { BusinessHours } from '@/components/BusinessHours'
+import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -109,133 +109,135 @@ export default async function LiveSportPage() {
                 </PageTitle>
             </Container>
 
-            <section className="bg-anchor-green-deep section-spacing-tight">
+            <section className="bg-surface-sunk py-section-y">
                 <Container>
                     <HeroBadge className="text-sm" />
                 </Container>
             </section>
 
-            <section className="section-spacing-sm bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-gold-bright mb-4">
+                        <PageTitle className="text-accent-text mb-4">
                             Never Miss a Moment
                         </PageTitle>
-                        <p className="text-lg text-anchor-cream-text/70">
+                        <p className="text-lg text-ink-muted">
                             Whether it's the Six Nations crunch match, the F1 season finale, or major tournaments, we show it all. With multiple HD screens positioned throughout the pub, you won't have to crane your neck to see the action.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-raised">
+            <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="max-w-4xl mx-auto">
                         <SectionHeading
                             title="The Viewing Experience"
                             subtitle="We take sport seriously."
                         />
 
-                        <FeatureGrid
-                            columns={3}
-                            features={[
+                        <Grid cols={3} gap="md" className="mb-8">
+                            {[
                                 {
-                                    icon: "",
                                     title: "Terrestrial Sport Only",
-                                    description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we do NOT have Sky Sports or TNT Sports.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we do NOT have Sky Sports or TNT Sports."
                                 },
                                 {
-                                    icon: "",
                                     title: "Full Match Audio",
-                                    description: "For big games, we turn the commentary up so you get the full stadium atmosphere.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "For big games, we turn the commentary up so you get the full stadium atmosphere."
                                 },
                                 {
-                                    icon: "",
                                     title: "Great Atmosphere",
-                                    description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy.",
-                                    variant: "colored",
-                                    color: "bg-anchor-green-raised",
-                                    className: "rounded-xl p-6 text-center"
+                                    description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy."
                                 }
-                            ]}
-                            className="mb-8"
-                        />
+                            ].map((feature) => (
+                                <GridItem key={feature.title}>
+                                    <Card accent className="h-full">
+                                        <CardBody className="text-center space-y-2">
+                                            <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                                            <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
+                                        </CardBody>
+                                    </Card>
+                                </GridItem>
+                            ))}
+                        </Grid>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep" id="schedule">
+            <section className="py-section-y bg-surface-sunk" id="schedule">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeading title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
-                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Football</h3>
-                                <ul className="space-y-2">
-                                    <li>• International Tournaments (Euros / World Cup)</li>
-                                    <li>• FA Cup (Select Games)</li>
-                                    <li>• Women's Super League (BBC games)</li>
-                                </ul>
-                            </div>
-                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Rugby</h3>
-                                <ul className="space-y-2">
-                                    <li>• Six Nations</li>
-                                    <li>• Autumn Internationals</li>
-                                    <li>• Premiership Rugby</li>
-                                    <li>• World Cups</li>
-                                </ul>
-                            </div>
-                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Formula 1</h3>
-                                <ul className="space-y-2">
-                                    <li>• Live Race Weekends</li>
-                                    <li>• Qualifying Sessions</li>
-                                </ul>
-                            </div>
-                            <div className="border border-anchor-gold-dark/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-green-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-bright mb-4 border-b pb-2 border-anchor-gold-dark/15">Other Sport</h3>
-                                <ul className="space-y-2">
-                                    <li>• Cricket (Terrestrial Only)</li>
-                                    <li>• Golf Majors (Highlights/BBC)</li>
-                                    <li>• Horse Racing (ITV Racing)</li>
-                                    <li>• Athletics & Olympics</li>
-                                </ul>
-                            </div>
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Football</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• International Tournaments (Euros / World Cup)</li>
+                                        <li>• FA Cup (Select Games)</li>
+                                        <li>• Women's Super League (BBC games)</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Rugby</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• Six Nations</li>
+                                        <li>• Autumn Internationals</li>
+                                        <li>• Premiership Rugby</li>
+                                        <li>• World Cups</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Formula 1</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• Live Race Weekends</li>
+                                        <li>• Qualifying Sessions</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
+                            <Card accent className="h-full">
+                                <CardBody>
+                                    <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Other Sport</h3>
+                                    <ul className="space-y-2 text-ink-muted">
+                                        <li>• Cricket (Terrestrial Only)</li>
+                                        <li>• Golf Majors (Highlights/BBC)</li>
+                                        <li>• Horse Racing (ITV Racing)</li>
+                                        <li>• Athletics & Olympics</li>
+                                    </ul>
+                                </CardBody>
+                            </Card>
                         </div>
 
-                        <AlertBox
-                            variant="info"
-                            title="Specific Requests?"
-                            className="max-w-2xl mx-auto mt-8"
-                            content={`Want to watch a specific game shown on BBC, ITV, or Channel 4? Just ask the bar staff! If we have a screen free, we'll happily put it on for you. Please remember we cannot show games exclusive to Sky or TNT.`}
-                        />
+                        <Alert variant="info" title="Specific Requests?" className="max-w-2xl mx-auto mt-8">
+                            <p>Want to watch a specific game shown on BBC, ITV, or Channel 4? Just ask the bar staff! If we have a screen free, we'll happily put it on for you. Please remember we cannot show games exclusive to Sky or TNT.</p>
+                        </Alert>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-green-deep">
+            <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="mx-auto max-w-2xl rounded-2xl bg-anchor-green-card p-8 text-center shadow-sm ring-1 ring-anchor-gold-dark/15">
-                        <h2 className="text-xl font-bold text-anchor-gold-bright">World Cup 2026</h2>
-                        <p className="mt-3 text-sm text-anchor-cream-text/70">
-                            Full fixtures with UK kick-off times, showing status, table bookings, and the pub sweep draw.
-                        </p>
-                        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                            <Link href="/live-sport/world-cup">
-                                <Button variant="primary">World Cup 2026 Fixtures &amp; Bookings →</Button>
-                            </Link>
-                            <Link href="/live-sport/world-cup/sweepstake">
-                                <Button variant="outline">Sweep Draw Results</Button>
-                            </Link>
-                        </div>
-                    </div>
+                    <Card accent className="mx-auto max-w-2xl">
+                        <CardBody className="p-8 text-center">
+                            <h2 className="text-xl text-accent-text">World Cup 2026</h2>
+                            <p className="mt-3 text-sm text-ink-muted">
+                                Full fixtures with UK kick-off times, showing status, table bookings, and the pub sweep draw.
+                            </p>
+                            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                                <Button asChild variant="primary">
+                                    <Link href="/live-sport/world-cup">World Cup 2026 Fixtures &amp; Bookings →</Link>
+                                </Button>
+                                <Button asChild variant="outline">
+                                    <Link href="/live-sport/world-cup/sweepstake">Sweep Draw Results</Link>
+                                </Button>
+                            </div>
+                        </CardBody>
+                    </Card>
                 </Container>
             </section>
 
@@ -274,13 +276,12 @@ export default async function LiveSportPage() {
                         answer: "Yes, our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
                     }
                 ]}
-                className="bg-anchor-green-card"
             />
 
-            <section className="section-spacing bg-anchor-green-deep">
+            <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
-                    <div className="prose prose-invert max-w-3xl mx-auto">
+                    <div className="prose max-w-3xl mx-auto">
                         <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>
@@ -294,30 +295,20 @@ export default async function LiveSportPage() {
                 intro="Check the full events calendar, quiz night and Music Bingo pages before you book."
             />
 
-            <CTASection
+            <CtaBand
                 title="Secure Your Spot for the Big Game"
-                description="Don't leave it to chance. Book a table with a view of the screen."
-                buttons={[
-                    {
-                        text: "Book a Table",
-                        href: "/book-table",
-                        variant: "outline"
-                    },
-                    {
-                        text: "Call: 01753 682707",
-                        href: `${CONTACT.phoneHref}`,
-                        isPhone: true,
-                        phoneSource: "sport_cta",
-                        variant: "primary"
-                    },
-                    {
-                        text: "Get Directions",
-                        href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
-                        variant: "white"
-                    }
-                ]}
-                variant="green"
-            />
+                copy="Don't leave it to chance. Book a table with a view of the screen."
+            >
+                <BookTableButton source="sport_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+                    Book a Table
+                </BookTableButton>
+                <PhoneButton phone={CONTACT.phone} source="sport_cta" variant="outline" size="lg" className="w-full sm:w-auto">
+                    Call: 01753 682707
+                </PhoneButton>
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                    <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get Directions</Link>
+                </Button>
+            </CtaBand>
         </>
     )
 }

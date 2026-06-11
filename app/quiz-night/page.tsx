@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { Metadata } from 'next'
 import {
+  Badge,
   Button,
-  Section,
   Container,
   Card,
   CardBody,
@@ -10,6 +10,7 @@ import {
   GridItem,
   SectionHeading
 } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -162,11 +163,11 @@ const FAQS = [
 
 function PrizeCard({ title, reward, copy }: { title: string; reward: string; copy: string }) {
   return (
-    <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+    <Card accent className="h-full">
       <CardBody>
-        <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">{title}</h3>
-        <p className="text-2xl font-bold text-anchor-gold-dark mb-3">{reward}</p>
-        <p className="text-sm text-anchor-cream-text/70">{copy}</p>
+        <h3 className="text-lg font-semibold text-ink-strong mb-2">{title}</h3>
+        <p className="text-2xl text-accent-text mb-3">{reward}</p>
+        <p className="text-sm text-ink-muted">{copy}</p>
       </CardBody>
     </Card>
   )
@@ -175,12 +176,14 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
 function QuizNightEvents({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="bg-anchor-green-card border border-anchor-gold-dark/15 rounded-xl p-6 text-center">
-        <p className="text-lg font-semibold text-anchor-gold-bright mb-2">New quiz dates are loading soon</p>
-        <p className="text-anchor-cream-text/55">
-          Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
-        </p>
-      </div>
+      <Card accent>
+        <CardBody className="text-center">
+          <p className="text-lg font-semibold text-accent-text mb-2">New quiz dates are loading soon</p>
+          <p className="text-ink-muted">
+            Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
+          </p>
+        </CardBody>
+      </Card>
     )
   }
 
@@ -196,18 +199,16 @@ function QuizNightEvents({ events }: { events: Event[] }) {
         const imageSrc = event.heroImageUrl || event.image?.[0] || null
 
         return (
-          <Card key={event.id} className="overflow-hidden border border-anchor-sand shadow-lg">
-            <div className="bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+          <Card key={event.id} hover accent className="overflow-hidden">
+            <div className="theme-dark bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-xs uppercase tracking-wide text-white/70">Monthly quiz night</p>
                   {isTentative && (
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500 text-white border border-blue-400">
-                      TENTATIVE
-                    </span>
+                    <Badge variant="outline">Tentative</Badge>
                   )}
                 </div>
-                <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold-dark transition">
+                <Link href={eventUrl} className="block text-xl font-semibold text-white hover:text-accent-text transition">
                   {event.name}
                 </Link>
                 <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
@@ -237,17 +238,13 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 
               <div className="flex-1 space-y-4">
                 {event.description && (
-                  <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
+                  <p className="text-ink-muted leading-relaxed">{event.description}</p>
                 )}
 	                <div className="flex flex-wrap items-center gap-3 text-sm">
-	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-green-raised text-anchor-gold-bright font-semibold">
-	                    £25 bar tab for winners
-	                  </span>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold">
-                    Bottle of wine for second-from-last
-                  </span>
+	                  <Badge variant="success">£25 bar tab for winners</Badge>
+                  <Badge variant="sand">Bottle of wine for second-from-last</Badge>
                 </div>
-	                <p className="text-sm text-anchor-cream-text/55">
+	                <p className="text-sm text-ink-muted">
 	                  £3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
 	                </p>
               </div>
@@ -288,24 +285,24 @@ export default async function QuizNightPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">
+      <section className="bg-surface-sunk border-b border-line py-section-y">
         <Container>
-          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink-muted max-w-4xl mx-auto leading-relaxed">
             The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
           </p>
         </Container>
       </section>
 
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-anchor-gold-dark font-semibold">Next quiz night</p>
-                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                <p className="text-anchor-gold-bright font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next quiz night</p>
+                <h2 className="text-h3 text-ink-strong">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
+                <p className="text-accent-text font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                 {nextEvent?.longDescription && (
-                  <p className="text-anchor-cream-text/70 whitespace-pre-line">{nextEvent.longDescription}</p>
+                  <p className="text-ink-muted whitespace-pre-line">{nextEvent.longDescription}</p>
                 )}
                 <div className="space-y-3">
                   {nextEvent && (
@@ -321,55 +318,55 @@ export default async function QuizNightPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-cream-text">How the night runs</h3>
-                <ul className="space-y-3 text-anchor-cream-text/70">
+                <h3 className="text-h4 text-ink-strong">How the night runs</h3>
+                <ul className="space-y-3 text-ink-muted">
                   <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
                   <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
                   <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
                   <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders (kitchen closes 9pm).</li>
                   <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
                 </ul>
-                <p className="text-sm text-anchor-cream-text/55">
+                <p className="text-sm text-ink-muted">
                   Teams up to six. House rule: phones away during rounds or it’s a cheeky –5 points. We keep things welcoming, witty and PG-13.
                 </p>
               </CardBody>
             </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="sm" background="white">
+      <section className="py-section-y bg-surface">
         <Container>
-          <PageTitle className="text-center text-anchor-gold-bright" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
             Pub Quiz Night Near Heathrow &amp; Staines &mdash; Monthly at The Anchor
           </PageTitle>
-          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
+          <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
             Looking for a pub quiz in Staines, Stanwell Moor or near Heathrow? Once a month we turn The Anchor into a trivia night for locals, airport crews and anyone who fancies a proper pub quiz in Surrey. {heroDescription}
           </p>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="md" background="white" id="quiz-dates">
+      <section id="quiz-dates" className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming quiz night dates</h2>
-            <p className="text-anchor-cream-text/70 text-center mb-8">
-              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-anchor-gold-dark hover:text-anchor-gold font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+            <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming quiz night dates</h2>
+            <p className="text-ink-muted text-center mb-8">
+              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
             </p>
             <QuizNightEvents events={events} />
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="sm" background="white">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Eat Before You Quiz</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="text-xl font-semibold text-accent-text mb-2">Eat Before You Quiz</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Kitchen open until 9pm on quiz night. Arrive early and fuel up on pizzas, burgers, or pie and mash before the first round.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -381,16 +378,16 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
                     See the food menu →
                   </Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizza Teams</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="text-xl font-semibold text-accent-text mb-2">Stone-Baked Pizza Teams</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Arrive early and fuel up on stone-baked pizzas before trivia kicks off.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -403,16 +400,16 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu#pizza" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
                     View pizza menu →
                   </Link>
                 </div>
               </CardBody>
             </Card>
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">All-Day Menu & Cocktails</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
+                <h3 className="text-xl font-semibold text-accent-text mb-2">All-Day Menu & Cocktails</h3>
+                <p className="text-sm text-ink-muted mb-4">
                   Order sharers, burgers or themed cocktails delivered to your table during breaks.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -424,7 +421,7 @@ export default async function QuizNightPage() {
                   >
                     Book a Table
                   </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-green transition">
+                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
                     Browse food & drinks →
                   </Link>
                 </div>
@@ -432,22 +429,22 @@ export default async function QuizNightPage() {
             </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
+            <h2 className="text-h2 text-ink-strong mb-8 text-center">
               Why everyone loves The Anchor quiz night
             </h2>
             <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
               {WHY_LOVE_IT.map(feature => (
                 <GridItem key={feature.title}>
-                  <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+                  <Card accent className="h-full">
                     <CardBody className="space-y-3">
                       <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
-                      <p className="text-anchor-cream-text/70 text-sm leading-relaxed">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-ink-strong">{feature.title}</h3>
+                      <p className="text-ink-muted text-sm leading-relaxed">{feature.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -455,12 +452,12 @@ export default async function QuizNightPage() {
             </Grid>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="max-w-5xl mx-auto">
-	            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Prizes & bragging rights</h2>
+	            <h2 className="text-h3 text-ink-strong text-center mb-6">Prizes & bragging rights</h2>
 	            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 	              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
 	              <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
@@ -468,15 +465,15 @@ export default async function QuizNightPage() {
 	            </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="md" background="gray">
+      <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <Card className="card-dark rounded-none border border-anchor-gold-dark/15">
+            <Card accent>
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
-                <ul className="space-y-3 text-anchor-cream-text/70">
+                <h3 className="text-h4 text-ink-strong">Make a night of it</h3>
+                <ul className="space-y-3 text-ink-muted">
                   <li><strong>Food served until 9pm:</strong> pizzas, burger stacks, pies and seasonal specials.</li>
                   <li><strong>Drinks menu:</strong> draught lagers, bottled ales, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
                   <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
@@ -484,10 +481,10 @@ export default async function QuizNightPage() {
                 </ul>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-green text-white border border-anchor-green-dark shadow-sm">
+            <Card variant="dark" accent className="theme-dark">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold">Quiz Night House Rules</h3>
-                <ul className="space-y-3 text-white/90 text-sm">
+                <h3 className="text-h4 text-anchor-cream-text">Quiz Night House Rules</h3>
+                <ul className="space-y-3 text-anchor-cream-text/90 text-sm">
                   <li>Phones away during questions (–5 points if we catch a scroll).</li>
                   <li>Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
                   <li>Dogs welcome, water bowls and treats ready behind the bar.</li>
@@ -497,44 +494,44 @@ export default async function QuizNightPage() {
             </Card>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="md" background="white">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Quiz team tips for the win</h2>
-	            <p className="text-anchor-cream-text/70 text-center max-w-3xl mx-auto mb-6">
+            <h2 className="text-h3 text-ink-strong text-center mb-6">Quiz team tips for the win</h2>
+	            <p className="text-ink-muted text-center max-w-3xl mx-auto mb-6">
 	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
 	            </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+              <Card accent className="h-full">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-cream-text">Balance your brain power</h3>
-                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-ink-strong">Balance your brain power</h3>
+                  <p className="text-ink-muted text-sm leading-relaxed">
                     Mix general knowledge legends with niche specialists, think music, sport, film buffs and a wildcard who reads the news. Diverse teams smash the picture and music rounds every time.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+              <Card accent className="h-full">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-cream-text">Pick a memorable team name</h3>
-                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-ink-strong">Pick a memorable team name</h3>
+                  <p className="text-ink-muted text-sm leading-relaxed">
                     Punny trivia team names earn bonus applause (and we award a seasonal prop for the best one). Keep a shortlist ready so you can rotate it for every monthly quiz night.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+              <Card accent className="h-full">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-cream-text">Nominate a scribe & rules coach</h3>
-                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-ink-strong">Nominate a scribe & rules coach</h3>
+                  <p className="text-ink-muted text-sm leading-relaxed">
                     Agree who writes the answers and who double-checks spelling before you hand the sheet in. It keeps debates quick and protects those half-point bonuses.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full card-dark rounded-none border border-anchor-gold-dark/15">
+              <Card accent className="h-full">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early, fuel up</h3>
-                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-ink-strong">Arrive early, fuel up</h3>
+                  <p className="text-ink-muted text-sm leading-relaxed">
                     We open the doors at 6:30 pm, grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
                   </p>
                 </CardBody>
@@ -542,50 +539,35 @@ export default async function QuizNightPage() {
             </div>
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section spacing="sm" background="white">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
-            <p className="text-anchor-cream-text/70">
-              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">live music evenings</Link> featuring local bands and acoustic acts.
+            <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
+            <p className="text-ink-muted">
+              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-accent-text font-semibold hover:text-accent-text transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-accent-text font-semibold hover:text-accent-text transition">live music evenings</Link> featuring local bands and acoustic acts.
             </p>
           </div>
         </Container>
-      </Section>
+      </section>
 
       <FAQAccordionWithSchema faqs={FAQS} />
 
-      <Section spacing="md" background="white">
-        <Container>
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-anchor-green to-anchor-green/80 rounded-2xl p-8 text-white text-center shadow-lg">
-            <h2 className="text-3xl font-bold mb-4 text-white">Ready to play for the tab?</h2>
-            <p className="text-lg mb-6">
-              Reserve your spot or call the bar team and we’ll make sure your table’s ready.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <BookTableButton
-                source="quiz_night_cta_bottom"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-              >
-                Book Your Team Table
-              </BookTableButton>
-              <PhoneButton
-                phone="01753 682707"
-                source="quiz_night_cta_bottom"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
-              >
-                Call to reserve: 01753 682707
-              </PhoneButton>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <CtaBand
+        title="Ready to play for the tab?"
+        copy="Reserve your spot or call the bar team and we’ll make sure your table’s ready."
+        primary={
+          <BookTableButton source="quiz_night_cta_bottom" variant="primary" size="lg" className="w-full sm:w-auto">
+            Book Your Team Table
+          </BookTableButton>
+        }
+        secondary={
+          <PhoneButton phone="01753 682707" source="quiz_night_cta_bottom" variant="outline" size="lg" className="w-full sm:w-auto">
+            Call to reserve: 01753 682707
+          </PhoneButton>
+        }
+      />
 
       <InternalLinkingSection
         title="Plan your night out"

@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { DateTime } from 'luxon'
-import { AlertBox, Button, Container, CTASection, SectionHeading } from '@/components/ui'
+import { Alert, Button, Container, SectionHeading } from '@/components/ui'
+import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
@@ -156,13 +157,13 @@ export default async function WorldCupPage() {
         }
       />
 
-      <section className="section-spacing-sm bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl bg-anchor-green-card p-6 ring-1 ring-anchor-gold-dark/15 sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl border border-line bg-surface p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.22em] text-anchor-gold-bright">World Cup Sweep</p>
-              <h2 className="mt-2 text-2xl font-bold text-anchor-cream-text">Sweep Draw Results Are Live</h2>
-              <p className="mt-2 max-w-2xl text-sm text-anchor-cream-text/70">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent-text">World Cup Sweep</p>
+              <h2 className="mt-2 text-h4 text-ink-strong">Sweep Draw Results Are Live</h2>
+              <p className="mt-2 max-w-2xl text-sm text-ink-muted">
                 All 48 teams are drawn and assigned. Find your name, check the prize pot, and follow your team through the tournament.
               </p>
             </div>
@@ -175,88 +176,77 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep" id="fixtures">
+      <section className="py-section-y bg-canvas" id="fixtures">
         <Container>
           <SectionHeading
             title="World Cup 2026 Fixtures and UK Kick-Off Times"
             subtitle="World Cup 2026 screenings, showing status, and table booking links."
           />
 
-          <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-anchor-cream-text/70">
+          <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-ink-muted">
             Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links.
           </p>
 
-          <AlertBox
-            variant="info"
-            className="mx-auto mb-10 max-w-5xl"
-            title="How this fixtures list works"
-            content={
-              <div className="space-y-3 text-sm">
-                <p>
-                  By default you'll see <strong>Showing Only</strong> matches.
-                  Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
-                </p>
-                <p>
-                  <strong>Showing</strong> = we're screening this match. <strong>Not showing</strong> = kick-off is outside
-                  our opening hours.
-                </p>
-                <p>
-                  Book Table buttons are live for matches marked <strong>Showing</strong>. We
-                  don't show booking buttons for matches marked <strong>Not showing</strong>.
-                </p>
-                <p>
-                  If a match runs past our normal closing time we'll stay open while it's on{' '}
-                  <strong>if the pub is busy</strong>. If the pub is empty at closing time, we'll close as normal.
-                </p>
-              </div>
-            }
-          />
+          <Alert variant="info" className="mx-auto mb-10 max-w-5xl" title="How this fixtures list works">
+            <div className="space-y-3 text-sm">
+              <p>
+                By default you'll see <strong>Showing Only</strong> matches.
+                Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
+              </p>
+              <p>
+                <strong>Showing</strong> = we're screening this match. <strong>Not showing</strong> = kick-off is outside
+                our opening hours.
+              </p>
+              <p>
+                Book Table buttons are live for matches marked <strong>Showing</strong>. We
+                don't show booking buttons for matches marked <strong>Not showing</strong>.
+              </p>
+              <p>
+                If a match runs past our normal closing time we'll stay open while it's on{' '}
+                <strong>if the pub is busy</strong>. If the pub is empty at closing time, we'll close as normal.
+              </p>
+            </div>
+          </Alert>
 
           <div className="mx-auto max-w-5xl">
             {matches.length > 0 ? (
               <WorldCup2026Fixtures matches={matches} />
             ) : (
-              <AlertBox
-                variant="warning"
-                title="Fixtures temporarily unavailable"
-                className="mx-auto max-w-2xl"
-                content="We're having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date."
-              />
+              <Alert variant="warning" title="Fixtures temporarily unavailable" className="mx-auto max-w-2xl">
+                <p>We're having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date.</p>
+              </Alert>
             )}
           </div>
 
-          <div className="mt-12 text-center">
-            <AlertBox
-              variant="warning"
-              title="Book Early for Knockouts"
-              className="mx-auto max-w-2xl"
-              content="The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view."
-            />
+          <div className="mt-12">
+            <Alert variant="warning" title="Book Early for Knockouts" className="mx-auto max-w-2xl">
+              <p>The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view.</p>
+            </Alert>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-green-raised p-8 ring-1 ring-anchor-gold-dark/15">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-line bg-surface-sunk p-8">
             <SectionHeading
               title="England World Cup Fixtures at The Anchor"
               subtitle="England fixtures, screenings and table bookings near Heathrow."
             />
             {englandMatches.length > 0 ? (
               <div className="mx-auto mt-8 max-w-3xl space-y-3">
-                <p className="text-center text-sm text-anchor-cream-text/70">
+                <p className="text-center text-sm text-ink-muted">
                   England are in Group L alongside Croatia, Ghana and Panama.
                 </p>
-                <div className="divide-y divide-anchor-gold-dark/15 rounded-xl bg-anchor-green-card ring-1 ring-anchor-gold-dark/15">
+                <div className="divide-y divide-line rounded-xl border border-line bg-surface">
                   {englandMatches.map((match) => (
                     <Link
                       key={match.matchNumber}
                       href={`#match-${match.matchNumber}`}
-                      className="flex flex-col gap-1 px-5 py-4 hover:bg-anchor-green-raised sm:flex-row sm:items-center sm:justify-between"
+                      className="flex flex-col gap-1 px-5 py-4 hover:bg-surface-sunk sm:flex-row sm:items-center sm:justify-between"
                     >
-                      <span className="font-semibold text-anchor-cream-text">{getTeamsLabel(match)}</span>
-                      <span className="text-sm text-anchor-cream-text/70">
+                      <span className="font-semibold text-ink-strong">{getTeamsLabel(match)}</span>
+                      <span className="text-sm text-ink-muted">
                         {formatUkFixtureTime(match.utcDateTime)} UK
                       </span>
                     </Link>
@@ -264,7 +254,7 @@ export default async function WorldCupPage() {
                 </div>
               </div>
             ) : (
-              <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-anchor-cream-text/70">
+              <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-ink-muted">
                 England's World Cup 2026 fixtures will be highlighted here once confirmed. For now, use the full World
                 Cup 2026 schedule below for UK kick-off times, showing status, and table booking links.
               </p>
@@ -273,44 +263,44 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-green-raised section-spacing">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15">
-                <h2 className="text-lg font-bold text-anchor-gold-bright">What We're Showing</h2>
-                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
+              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-accent-text">What We're Showing</h2>
+                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                   <li>Matches we show are on BBC and ITV (no subscription needed)</li>
                   <li>Matches marked Showing will be on our screens</li>
                   <li>Matches outside our opening hours aren't shown</li>
                   <li>If it's busy at close, we'll stay open while it's on</li>
                   <li>If we're empty at close, we'll close as normal</li>
                 </ul>
-                <p className="mt-4 text-xs text-anchor-cream-text/55">
+                <p className="mt-4 text-xs text-ink-muted">
                   Core hours: Mon-Thu 4pm-10pm • Fri 4pm-10pm • Sat 12pm-10pm • Sun 12pm-10pm. Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
-                  <Link href="#fixtures" className="font-semibold text-anchor-gold-dark hover:underline">
+                  <Link href="#fixtures" className="font-semibold text-accent-text hover:underline">
                     See fixtures we're showing →
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15" id="booking-rules">
-                <h2 className="text-lg font-bold text-anchor-gold-bright">Booking Rules</h2>
-                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
+              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm" id="booking-rules">
+                <h2 className="text-lg font-semibold text-accent-text">Booking Rules</h2>
+                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                   <li>Book any showing match now</li>
                   <li>No deposits for groups under 10</li>
                   <li>Groups of 10+: £10 per person deposit, deducted from your bill</li>
                   <li>Large groups: book early for the best tables</li>
                   <li>Tables are held until kick-off, then released</li>
                 </ul>
-                <p className="mt-4 text-xs text-anchor-cream-text/55">Booking takes you to our in-site table booking form.</p>
+                <p className="mt-4 text-xs text-ink-muted">Booking takes you to our in-site table booking form.</p>
               </div>
 
-              <div className="rounded-2xl bg-anchor-green-card p-6 shadow-sm ring-1 ring-anchor-gold-dark/15">
-                <h2 className="text-lg font-bold text-anchor-gold-bright">Matchday Setup</h2>
-                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
+              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-accent-text">Matchday Setup</h2>
+                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                   <li>4 screens (no projector)</li>
                   <li>Sound on for all games we show (reviewed if another event clashes)</li>
                   <li>Kitchen open during our opening hours</li>
@@ -367,12 +357,12 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-raised">
+      <section className="py-section-y bg-surface">
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
               <SectionHeading title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
-              <div className="prose text-anchor-cream-text/70">
+              <div className="prose text-ink-muted">
                 <p>
                   Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
                 </p>
@@ -388,9 +378,9 @@ export default async function WorldCupPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-anchor-green-card p-8 shadow-sm ring-1 ring-anchor-gold-dark/15">
-              <h3 className="mb-4 text-xl font-bold text-anchor-gold-bright">Getting Here</h3>
-              <ul className="mb-6 space-y-3 text-sm text-anchor-cream-text/70">
+            <div className="rounded-2xl border border-line bg-surface p-8 shadow-sm">
+              <h3 className="mb-4 text-xl text-accent-text">Getting Here</h3>
+              <ul className="mb-6 space-y-3 text-sm text-ink-muted">
                 <li className="flex gap-2">
                   <span>
                     {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}
@@ -410,10 +400,10 @@ export default async function WorldCupPage() {
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
-                <Link href="/find-us" className="font-bold text-anchor-gold-dark hover:underline">
+                <Link href="/find-us" className="font-semibold text-accent-text hover:underline">
                   Directions & travel info →
                 </Link>
-                <Link href="/near-heathrow/terminal-5" className="font-bold text-anchor-gold-dark hover:underline">
+                <Link href="/near-heathrow/terminal-5" className="font-semibold text-accent-text hover:underline">
                   Terminal 5 guide →
                 </Link>
               </div>
@@ -422,14 +412,14 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
             title="Watch Live Sport Near Heathrow"
             subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
           />
-          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-green-raised p-8 ring-1 ring-anchor-gold-dark/15">
-            <p className="text-center text-sm text-anchor-cream-text/70">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-line bg-surface-sunk p-8">
+            <p className="text-center text-sm text-ink-muted">
               The Anchor is in Stanwell Moor, just off the M25 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking for {PARKING.capacity} cars makes us easy to reach from Staines, Ashford, Feltham, Egham, Colnbrook, and Windsor.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -437,7 +427,7 @@ export default async function WorldCupPage() {
                 <Link
                   key={area.href}
                   href={area.href}
-                  className="rounded-full bg-anchor-green-card px-4 py-2 text-sm font-semibold text-anchor-gold-dark ring-1 ring-anchor-gold-dark/15 hover:bg-anchor-green-raised"
+                  className="rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold text-accent-text hover:bg-surface-sunk"
                 >
                   {area.label}
                 </Link>
@@ -447,7 +437,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-anchor-green-deep">
+      <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading title="Frequently Asked Questions" />
           <FAQAccordionWithSchema
@@ -525,28 +515,22 @@ export default async function WorldCupPage() {
                 answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
-            className="mx-auto max-w-3xl bg-anchor-green-raised"
+            className="mx-auto max-w-3xl"
           />
         </Container>
       </section>
 
-      <CTASection
+      <CtaBand
         title="Book Your World Cup Table"
-        description="Choose a match we're showing, then book your table now."
-        buttons={[
-          {
-            text: 'Book a Table',
-            href: '/book-table',
-            variant: 'primary',
-          },
-          {
-            text: 'Get Directions',
-            href: '/find-us',
-            variant: 'outline',
-          },
-        ]}
-        variant="green"
-      />
+        copy="Choose a match we're showing, then book your table now."
+      >
+        <BookTableButton source="world_cup_cta" variant="primary" size="lg" className="w-full sm:w-auto">
+          Book a Table
+        </BookTableButton>
+        <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+          <Link href="/find-us">Get Directions</Link>
+        </Button>
+      </CtaBand>
     </>
   )
 }
