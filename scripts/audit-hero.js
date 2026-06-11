@@ -205,6 +205,22 @@ function parsePage(pageFile) {
         })
       }
 
+      // InteriorHero (Phase 2 redesign) is the successor to HeroWrapper. It counts
+      // as a hero for presence and single-H1 purposes. It takes a required inline
+      // `image` string and a human-readable `crumb` rather than a `route`, so it is
+      // self-describing: there is no route to resolve to an image, and the route-keyed
+      // variant/CTA rules below do not apply (they skip heroes without a routeLiteral).
+      if (tagName === 'InteriorHero') {
+        heroWrappers.push({
+          line: getSourceLocation(node, sourceFile),
+          routeLiteral: null,
+          routeExpr: '',
+          variantLiteral: null,
+          primaryExpr: '',
+          hasImageProp: Boolean(getAttribute(node, 'image')),
+        })
+      }
+
       if (tagName === 'HeroSection') {
         heroSectionCount += 1
       }

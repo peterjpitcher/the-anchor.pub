@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { FilteredUpcomingEvents } from '@/components/FilteredUpcomingEvents'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
@@ -156,19 +156,14 @@ export default async function WhatsOnPage() {
         }}
       />
       {/* Hero Section */}
-      <HeroWrapper
-        route="/whats-on"
+      <InteriorHero
+        image="/images/page-headers/whats-on/whats-on.jpg"
+        crumb="What's On"
         title="Pub Events Near Heathrow at The Anchor"
-        description="Choose an upcoming event, check the date, price and seats, then reserve through the event-specific booking form."
-        showContextStrip={true}
-        primaryCta={
-          <Link href="#upcoming-events" className="w-full sm:w-auto">
-            <Button
-              variant="primary"
-              size="lg"
-              fullWidth
-              className="w-full sm:w-auto"
-            >
+        lead="Choose an upcoming event, check the date, price and seats, then reserve through the event-specific booking form."
+        actions={
+          <Link href="#upcoming-events">
+            <Button variant="primary" size="lg" fullWidth>
               Choose an Event to Reserve
             </Button>
           </Link>

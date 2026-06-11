@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeading, FeatureGrid, Button } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Container, SectionHeading, FeatureGrid, Button, Badge } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { HeroBadge } from '@/components/HeroBadge'
@@ -137,40 +137,32 @@ export default async function PrivateHirePage() {
                     { name: 'Private Hire', url: 'https://www.the-anchor.pub/private-hire' }
                 ]}
             />
-            <HeroWrapper
-                showContextStrip={true}
-                route="/private-hire"
+            <InteriorHero
+                image="/images/page-headers/private-hire/private-hire.jpg"
+                crumb="Private Hire"
                 title="Private Hire and Function Room in Stanwell Moor, Near Staines and Heathrow"
-                description={`Room bookings for 10 to 50 guests. Larger events by enquiry. Free parking, buffet packages from ${fromPrice}pp, function room, garden and full venue options.`}
-
-                tags={[
-                    { label: "7 Mins from Heathrow", variant: "success" },
-                    { label: "Free Parking", variant: "default" },
-                    { label: "10-50 Room Bookings", variant: "default" },
-                    { label: `From ${fromPrice}pp`, variant: "success" }
-                ]}
-                primaryCta={
-                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            Check Availability
-                        </Button>
-                    </Link>
+                lead={`Room bookings for 10 to 50 guests. Larger events by enquiry. Free parking, buffet packages from ${fromPrice}pp, function room, garden and full venue options.`}
+                badges={
+                    <>
+                        <Badge variant="sand">7 Mins from Heathrow</Badge>
+                        <Badge variant="sand">Free Parking</Badge>
+                        <Badge variant="sand">10-50 Room Bookings</Badge>
+                        <Badge variant="sand">From {fromPrice}pp</Badge>
+                    </>
                 }
-                secondaryCta={
-                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                            Get a Quote
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–50 room bookings</span>
-                    </div>
+                actions={
+                    <>
+                        <Link href="/private-hire#enquiry">
+                            <Button variant="primary" size="lg" fullWidth>
+                                Check Availability
+                            </Button>
+                        </Link>
+                        <Link href="/private-hire#enquiry">
+                            <Button variant="outline" size="lg" fullWidth>
+                                Get a Quote
+                            </Button>
+                        </Link>
+                    </>
                 }
             />
 

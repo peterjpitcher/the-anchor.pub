@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading, FeatureGrid } from '@/components/ui'
+import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading, FeatureGrid, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { MenuSectionCta } from '@/components/food/MenuSectionCta'
 import { FilteredMenuRenderer } from '@/components/FilteredMenuRenderer'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
@@ -21,9 +21,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
-import { HeroBadge } from '@/components/HeroBadge'
 import { StaticHoursSummary } from '@/components/StaticHoursSummary'
-import type { KitchenStatusData } from '@/components/psychology'
 import {
   getFishAndChipsMenuPageData,
   getFoodMenuPageData,
@@ -83,37 +81,6 @@ function buildKitchenSchedule(hours: BusinessHours): string {
     .join(', ')
 }
 
-function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData {
-  if (!hours) return null
-
-  const londonNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' }))
-  const day = londonNow.getDay()
-
-  if (day === 1) return { type: 'closed-today' }
-
-  const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const
-  const dayKey = dayKeys[day] as keyof typeof hours.regularHours
-  const dayHours = hours.regularHours[dayKey]
-  if (!dayHours || (dayHours as any).is_closed) return { type: 'closed-today' }
-
-  const kitchen = (dayHours as any).kitchen
-  if (!kitchen || (kitchen as any).is_closed) return { type: 'closed-today' }
-  if (!kitchen.opens || !kitchen.closes) return null
-
-  const nowMinutes = londonNow.getHours() * 60 + londonNow.getMinutes()
-  const [openH, openM] = kitchen.opens.split(':').map(Number)
-  const [closeH, closeM] = kitchen.closes.split(':').map(Number)
-  const openMinutes = openH * 60 + openM
-  const closeMinutes = closeH * 60 + closeM
-  const closesAtFormatted = formatTime12Hour(kitchen.closes)
-  const opensAtFormatted = formatTime12Hour(kitchen.opens)
-
-  if (nowMinutes < openMinutes) return { type: 'opens-later', opensAt: opensAtFormatted }
-  if (nowMinutes >= closeMinutes) return { type: 'closed-today' }
-  if (closeMinutes - nowMinutes <= 120) return { type: 'closing-soon', closesAt: closesAtFormatted }
-  return { type: 'open', closesAt: closesAtFormatted }
-}
-
 function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
   return items.slice(0, limit)
 }
@@ -171,7 +138,6 @@ export default async function FoodMenuPage() {
 
   const kitchenHoursMap = businessHours ? buildKitchenHoursMap(businessHours) : null
   const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : null
-  const kitchenStatusData = deriveKitchenStatusData(businessHours)
   const menuDataWithKitchenHours = {
     ...menuData.menuData,
     ...(kitchenHoursMap ? { kitchenHours: kitchenHoursMap } : {})
@@ -241,66 +207,40 @@ export default async function FoodMenuPage() {
       />
       <ScrollDepthTracker />
 
-      <HeroWrapper
-        route="/food-menu"
+      <InteriorHero
+        image="/images/page-headers/food-menu/food-menu.jpg"
+        crumb="Food"
         title="Pub Food Menu in Stanwell Moor, Near Heathrow T5"
-        description="Book a table for pub classics, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor."
-        variant="default"
-        enableSmartCtas={true}
-        breadcrumbs={[{ name: 'Food & Drink' }]}
-        tags={[
-          { label: 'Live menu', variant: 'default' },
-          { label: 'Dietary filters', variant: 'default' },
-          { label: 'Book a table', variant: 'default' },
-          { label: 'Free parking', variant: 'default' }
-        ]}
-        ctaContainerClassName="gap-4 sm:items-center"
-        ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
-        primaryCta={
-          <BookTableButton
-            source="food_menu_hero"
-            context="food"
-            variant="primary"
-            size="lg"
-            className="sm:w-auto"
-            trackingLabel="Hero Book a Table"
-          >
-            Reserve Your Table
-          </BookTableButton>
+        lead="Book a table for pub classics, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor."
+        badges={
+          <>
+            <Badge variant="sand">Live menu</Badge>
+            <Badge variant="sand">Dietary filters</Badge>
+            <Badge variant="sand">Book a table</Badge>
+            <Badge variant="sand">Free parking</Badge>
+          </>
         }
-        secondaryCta={
-          <MenuSectionCta
-            label="View Full Menu"
-            scrollToId="menu"
-            analyticsLabel="view_full_menu"
-            location="food_menu_hero"
-            variant="outline"
-            fullWidth
-            className="sm:w-auto sm:min-w-0"
-          />
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <HeroBadge />
-            {kitchenStatusData && kitchenStatusData.type === 'closing-soon' && (
-              <span className="flex items-center gap-1.5 text-amber-300 font-medium">
-                Kitchen closes at {kitchenStatusData.closesAt}, book now
-              </span>
-            )}
-            {kitchenStatusData && kitchenStatusData.type === 'opens-later' && (
-              <span className="flex items-center gap-1.5 text-anchor-gold-bright">
-                Kitchen opens at {kitchenStatusData.opensAt}
-              </span>
-            )}
-            {kitchenStatusData && kitchenStatusData.type === 'open' && (
-              <span className="flex items-center gap-1.5 text-green-300">
-                Kitchen open until {kitchenStatusData.closesAt}
-              </span>
-            )}
-          </div>
+        actions={
+          <>
+            <BookTableButton
+              source="food_menu_hero"
+              context="food"
+              variant="primary"
+              size="lg"
+              fullWidth
+              trackingLabel="Hero Book a Table"
+            >
+              Reserve Your Table
+            </BookTableButton>
+            <MenuSectionCta
+              label="View Full Menu"
+              scrollToId="menu"
+              analyticsLabel="view_full_menu"
+              location="food_menu_hero"
+              variant="outline"
+              fullWidth
+            />
+          </>
         }
       />
 

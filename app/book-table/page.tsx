@@ -1,15 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
-import { HeroBadge } from '@/components/HeroBadge'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
-import { Section, Button, Grid, Card, CardBody, SectionHeading } from '@/components/ui'
+import { Section, Button, Grid, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -155,58 +154,17 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         ]}
       />
 
-      <HeroWrapper
-        showContextStrip={true}
-        route="/book-table"
+      <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Book a Table"
         title="Book a Table for Pub Food at The Anchor, Stanwell Moor"
-        description="Reserve for pub classics, stone-baked pizzas, Sunday roast, drinks or a relaxed meal seven minutes from Heathrow T5."
-        variant="default"
-        enableSmartCtas={true}
-        statusBarPosition="above"
-        primaryCta={
-          <Link href="#booking-form">
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Book Online
-            </Button>
-          </Link>
-        }
-        secondaryCta={
-          <PhoneButton
-            phone="01753 682707"
-            source="book_table_hero"
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
-          >
-            Prefer to call? 01753 682707
-          </PhoneButton>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'The Anchor pub - book a table',
-          priority: true
-        }}
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Book a Table' }
-        ]}
-        tags={[
-          { label: 'Direct booking', icon: '', size: 'small' },
-          { label: 'Fast confirmation', icon: '', size: 'small' },
-          { label: 'Need help? Call us', icon: '', size: 'small' }
-        ]}
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <HeroBadge />
-          </div>
+        lead="Reserve for pub classics, stone-baked pizzas, Sunday roast, drinks or a relaxed meal seven minutes from Heathrow T5."
+        badges={
+          <>
+            <Badge variant="sand">Direct booking</Badge>
+            <Badge variant="sand">Fast confirmation</Badge>
+            <Badge variant="sand">Need help? Call us</Badge>
+          </>
         }
       />
 

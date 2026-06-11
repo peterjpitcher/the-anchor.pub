@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, Container, CTASection, SectionHeading, FeatureGrid } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -66,16 +66,11 @@ export default function NearHeathrowPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
       />
       {/* Hero Section */}
-      <HeroWrapper
-        route="/near-heathrow"
+      <InteriorHero
+        image="/images/page-headers/near-heathrow/heathrow-airport-view.jpg"
+        crumb="Near Heathrow"
         title="Pubs Near Heathrow Airport, The Anchor"
-        description="The best pub near Heathrow Airport, just 7 minutes from Terminal 5 with free parking, proper food and a beer garden under the flight path."
-        variant="default"
-        breadcrumbs={[
-          { name: 'Near Heathrow' }
-        ]}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="The best pub near Heathrow Airport, just 7 minutes from Terminal 5 with free parking, proper food and a beer garden under the flight path."
       />
 
       {/* Definitive answer for featured snippets */}
