@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -81,18 +81,17 @@ export default function BedfontPubPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/bedfont-pub"
+      <InteriorHero
+        image="/images/page-headers/bedfont-pub/find-us.jpg"
+        crumb="Bedfont"
         title="Bedfont's Closest Traditional Pub"
-        description="Just 5 minutes away with free parking"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="bedfont_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Just 5 minutes away with free parking"
+        actions={
+          <BookTableButton source="bedfont_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Page Title */}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -54,22 +54,12 @@ export default function BonfireNightPage() {
   return (
     <>
 
-            <HeroWrapper
-        route="/bonfire-night"
+            <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Bonfire Night"
+        kicker={`${BONFIRE_NIGHT_DAY} ${BONFIRE_NIGHT_DATE}`}
         title="Bonfire Night at The Anchor"
-        description={`Warm up on Guy Fawkes Night at The Anchor in Stanwell Moor. Hot food, cold pints, and a beer garden with a view, ${BONFIRE_NIGHT_DATE}.`}
-        eyebrow={`${BONFIRE_NIGHT_DAY} ${BONFIRE_NIGHT_DATE}`}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Kitchen open {KITCHEN_HOURS} \u00b7 Free parking \u00b7 {HEATHROW_TIMES.terminal5} mins from Heathrow T5
-          </p>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'Bonfire Night at The Anchor near Heathrow',
-        }}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={`Warm up on Guy Fawkes Night at The Anchor in Stanwell Moor. Hot food, cold pints, and a beer garden with a view, ${BONFIRE_NIGHT_DATE}. Kitchen open ${KITCHEN_HOURS} \u00b7 Free parking \u00b7 ${HEATHROW_TIMES.terminal5} mins from Heathrow T5`}
       />
 
       <Section background="white" spacing="md">

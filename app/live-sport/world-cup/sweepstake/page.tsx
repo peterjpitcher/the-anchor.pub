@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { Button, Container, CTASection, SectionHeading } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BRAND, CONTACT } from '@/lib/constants'
@@ -157,29 +157,25 @@ export default function WorldCupSweepstakePage() {
         ]}
       />
 
-      <HeroWrapper
-        route="/live-sport/world-cup/sweepstake"
+      <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="World Cup Sweepstake"
         title="World Cup 2026 Sweepstake"
-        description="The draw is done. Find your team, check the prize pot, and follow the sweep through the tournament."
-        variant="default"
-        primaryCta={
-          <Link href="#draw-results">
-            <Button variant="primary" size="lg" className="w-full sm:min-w-[200px]">
-              Find Your Team
-            </Button>
-          </Link>
+        lead="The draw is done. Find your team, check the prize pot, and follow the sweep through the tournament."
+        actions={
+          <>
+            <Link href="#draw-results">
+              <Button variant="primary" size="lg" fullWidth>
+                Find Your Team
+              </Button>
+            </Link>
+            <Link href={RESULT_SHEET_PDF}>
+              <Button variant="outline" size="lg" fullWidth>
+                View Result Sheet
+              </Button>
+            </Link>
+          </>
         }
-        secondaryCta={
-          <Link href={RESULT_SHEET_PDF}>
-            <Button variant="outline" size="lg" className="w-full sm:min-w-[200px]">
-              View Result Sheet
-            </Button>
-          </Link>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'The Anchor pub in Stanwell Moor near Heathrow',
-        }}
       />
 
       <section className="section-spacing bg-anchor-green-deep">

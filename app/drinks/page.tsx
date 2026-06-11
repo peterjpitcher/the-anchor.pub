@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid, Badge } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
 import { MenuRenderer } from '@/components/MenuRenderer'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { drinksMenuSchema } from '@/lib/enhanced-schemas'
@@ -16,7 +16,6 @@ import { generateNutritionInfo, generateOpeningHoursSpecification } from '@/lib/
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
-import { HeroBadge } from '@/components/HeroBadge'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
@@ -177,75 +176,36 @@ export default async function DrinksMenuPage() {
         ]) }}
       />
       {/* Hero Section */}
-      <HeroWrapper
-        route="/drinks"
+      <InteriorHero
+        image={drinksHeroImage.src}
+        focal="center center"
+        crumb="Drinks"
         title="Drinks at The Anchor"
-        description="Start with the taps, browse the bottles, or ask the bar team for a proper serve"
-        variant="default"
-        image={{
-          ...drinksHeroImage,
-          objectPosition: 'center center',
-          priority: true
-        }}
-        tags={[
-          { label: 'Draught Beers', variant: 'default' },
-          { label: 'Premium Spirits', variant: 'default' },
-          { label: 'Wine Selection', variant: 'default' },
-          { label: 'Cocktails', variant: 'primary' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="drinks_hero"
-            variant="outline"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold"
-          >
-            Reserve a Table
-          </BookTableButton>
-        }
-        secondaryCta={
+        lead="Start with the taps, browse the bottles, or ask the bar team for a proper serve"
+        badges={
           <>
-            <Link href="#menu" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-              >
+            <Badge variant="sand">Draught Beers</Badge>
+            <Badge variant="sand">Premium Spirits</Badge>
+            <Badge variant="sand">Wine Selection</Badge>
+            <Badge variant="sand">Cocktails</Badge>
+          </>
+        }
+        actions={
+          <>
+            <BookTableButton
+              source="drinks_hero"
+              variant="primary"
+              size="lg"
+              fullWidth
+            >
+              Reserve a Table
+            </BookTableButton>
+            <Link href="#menu">
+              <Button variant="outline" size="lg" fullWidth>
                 Jump to Menu
               </Button>
             </Link>
-            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Pizza Menu
-              </Button>
-            </Link>
-            <Link href="/sunday-roast" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Sunday Roast Info
-              </Button>
-            </Link>
           </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <HeroBadge />
-          </div>
         }
       />
 

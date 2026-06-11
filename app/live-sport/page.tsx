@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -96,13 +96,11 @@ export default async function LiveSportPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, screeningEventSchema]) }}
             />
 
-                        <HeroWrapper
-              route="/live-sport"
+                        <InteriorHero
+              image="/images/page-headers/home/page-headers-homepage.jpg"
+              crumb="Live Sport"
               title="Live Sport at The Anchor"
-              description="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
-              variant="default"
-              enableSmartCtas={true}
-              showContextStrip={true}
+              lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
             />
 
             <Container className="py-8">

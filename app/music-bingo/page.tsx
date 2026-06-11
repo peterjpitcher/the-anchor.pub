@@ -9,7 +9,7 @@ import {
   Grid,
   GridItem
 } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -319,12 +319,11 @@ export default async function MusicBingoPage() {
           }
         }) }}
       />
-      <HeroWrapper
-        route="/music-bingo"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Music Bingo"
         title="Music Bingo Nights at The Anchor"
-        description="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
       />
 
       <Section spacing="sm" background="white">

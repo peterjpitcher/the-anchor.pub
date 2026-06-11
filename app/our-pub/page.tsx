@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Button, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -89,13 +89,11 @@ export default function OurPubPage() {
       <JsonLd data={imageGallerySchema} />
 
       {/* Hero */}
-      <HeroWrapper
-        route="/our-pub"
+      <InteriorHero
+        image="/images/page-headers/our-pub/the-anchor-our-pub.jpg"
+        crumb="Our Pub"
         title="Take a Look Around"
-        description="A proper village pub since 1751, here's what's waiting for you"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="A proper village pub since 1751, here's what's waiting for you"
       />
 
       {/* Intro */}

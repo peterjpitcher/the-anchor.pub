@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { HeroWrapper } from '@/components/hero'
-import { Button, Container, Section, FeatureGrid, CTASection } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Badge, Button, Container, Section, FeatureGrid, CTASection } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { ParkingBookingWizard } from '@/components/features/ParkingBookingWizard'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -14,7 +14,6 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
-import { HeroBadge } from '@/components/HeroBadge'
 
 const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
@@ -298,38 +297,30 @@ export default async function HeathrowParkingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-	      <HeroWrapper
-	        showContextStrip={true}
-	        route="/heathrow-parking"
-	        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
-	        description="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
-	        variant="default"
-        tags={[
-          { label: ' PayPal checkout', variant: 'primary' },
-          { label: ' 24/7 access', variant: 'success' },
-          { label: ' CCTV monitored', variant: 'default' },
-          { label: ' Stanwell Moor', variant: 'warning' }
-        ]}
-        primaryCta={
-          <Link href="#book-parking" className="w-full sm:w-auto">
-            <Button size="lg" variant="primary" fullWidth className="sm:w-auto">
-               Book Heathrow parking now
-            </Button>
-          </Link>
+	      <InteriorHero
+        image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
+        crumb="Heathrow Parking"
+        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
+        lead="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
+        badges={
+          <>
+            <Badge variant="sand">PayPal checkout</Badge>
+            <Badge variant="sand">24/7 access</Badge>
+            <Badge variant="sand">CCTV monitored</Badge>
+            <Badge variant="sand">Stanwell Moor</Badge>
+          </>
         }
-        secondaryCta={
-          <PhoneButton phone={CONTACT.phone} source="heathrow-parking_cta" size="lg" className="sm:w-auto">
-               Speak to the team {CONTACT.phone}
-          </PhoneButton>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <HeroBadge />
-          </div>
+        actions={
+          <>
+            <Link href="#book-parking">
+              <Button size="lg" variant="primary" fullWidth>
+                Book Heathrow parking now
+              </Button>
+            </Link>
+            <PhoneButton phone={CONTACT.phone} source="heathrow-parking_cta" variant="outline" size="lg">
+              Speak to the team {CONTACT.phone}
+            </PhoneButton>
+          </>
         }
       />
 

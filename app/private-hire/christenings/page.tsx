@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Container, SectionHeading, FeatureGrid, InfoBoxGrid, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -86,47 +86,39 @@ export default async function ChristeningsPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
             />
 
-            <HeroWrapper
-                showContextStrip={true}
-                route="/private-hire/christenings"
-                variant="feature"
+            <InteriorHero
+                image="/images/page-headers/private-hire/private-hire.jpg"
+                crumb="Christenings"
                 title="Christenings & Naming Ceremonies"
-                description="Celebrate with family and friends in a relaxed, child-friendly setting"
-
-                tags={[
-                    { label: "Family Friendly", variant: "success" },
-                    { label: "Buffet & Roast Options", variant: "default" },
-                    { label: "Near Local Churches", variant: "success" },
-                    { label: "Easy Parking", variant: "default" }
-                ]}
-                primaryCta={
-                    <BookTableButton
-                        source="christening_hero"
-                        variant="primary"
-                        size="lg"
-                        context="christening"
-                    >
-                        Check Availability
-                    </BookTableButton>
+                lead="Celebrate with family and friends in a relaxed, child-friendly setting"
+                badges={
+                    <>
+                        <Badge variant="sand">Family Friendly</Badge>
+                        <Badge variant="sand">Buffet & Roast Options</Badge>
+                        <Badge variant="sand">Near Local Churches</Badge>
+                        <Badge variant="sand">Easy Parking</Badge>
+                    </>
                 }
-                secondaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source="christening_hero"
-                        variant="outline"
-                        size="lg"
-                    >
-                        Call 01753 682707
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-                    </div>
+                actions={
+                    <>
+                        <BookTableButton
+                            source="christening_hero"
+                            variant="primary"
+                            size="lg"
+                            context="christening"
+                            fullWidth
+                        >
+                            Check Availability
+                        </BookTableButton>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source="christening_hero"
+                            variant="outline"
+                            size="lg"
+                        >
+                            Call 01753 682707
+                        </PhoneButton>
+                    </>
                 }
             />
 

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid, Alert, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FindUsSection } from '@/components/FindUsSection'
 import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'
@@ -76,13 +76,11 @@ export default function FindUsPage() {
         }]) }}
       />
       {/* Hero Section */}
-      <HeroWrapper
-        route="/find-us"
+      <InteriorHero
+        image="/images/page-headers/find-us/find-us.jpg"
+        crumb="Find Us"
         title="Find The Anchor"
-        description="Easy to find, hard to leave!"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Easy to find, hard to leave!"
       />
 
       {/* Page Title for SEO */}

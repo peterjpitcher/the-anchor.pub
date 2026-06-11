@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -104,18 +104,17 @@ export default function WindsorPubPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/windsor-pub"
+      <InteriorHero
+        image="/images/page-headers/windsor-pub/find-us.jpg"
+        crumb="Windsor"
         title="Traditional British Pub Near Windsor"
-        description="Just 15 minutes from Windsor Castle with free parking"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="windsor_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Just 15 minutes from Windsor Castle with free parking"
+        actions={
+          <BookTableButton source="windsor_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Page Title */}

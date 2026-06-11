@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -68,18 +68,12 @@ export default function NewYearsEvePage(): React.JSX.Element {
   return (
     <>
 
-            <HeroWrapper
-        route="/new-years-eve"
+            <InteriorHero
+        image="/images/page-headers/whats-on/whats-on.jpg"
+        crumb="New Year's Eve"
+        kicker="31 December"
         title="New Year's Eve Pub in Stanwell Moor"
-        description="See in the New Year at a proper village pub. Midnight countdown, live entertainment, and none of the London prices or transport chaos."
-        eyebrow="31 December"
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Midnight countdown &middot; Live entertainment &middot; Free parking &middot; No surge pricing
-          </p>
-        }
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="See in the New Year at a proper village pub. Midnight countdown, live entertainment, and none of the London prices or transport chaos. Midnight countdown · Live entertainment · Free parking · No surge pricing"
       />
 
       {/* See in the New Year */}

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, Container, Section, SectionHeading } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -20,13 +20,11 @@ export default function AccessibilityPage() {
   return (
     <>
 
-      <HeroWrapper
-        route="/accessibility"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Accessibility"
         title="Accessibility at The Anchor"
-        description="Practical information to help you plan your visit"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Practical information to help you plan your visit"
       />
 
       {/* Intro */}

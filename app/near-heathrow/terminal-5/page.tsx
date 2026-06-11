@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
@@ -52,23 +52,16 @@ export default function Terminal5Page() {
         label="Book a Table for Food"
       />
       {/* Hero Section */}
-      <HeroWrapper
-        route="/near-heathrow/terminal-5"
+      <InteriorHero
+        image="/images/page-headers/near-heathrow-terminal-5/heathrow-airport-view.jpg"
+        crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 5 for Food and Free Parking"
-        description="Perfect for British Airways travelers • Free parking • Traditional British pub"
-        variant="default"
-        primaryCta={
-          <BookTableButton
-            source="terminal_5_hero"
-            context="terminal_5"
-            variant="primary"
-            size="lg"
-          >
+        lead="Perfect for British Airways travelers • Free parking • Traditional British pub"
+        actions={
+          <BookTableButton source="terminal_5_hero" context="terminal_5" variant="primary" size="lg" fullWidth>
             Book a Table
           </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Quick Summary */}

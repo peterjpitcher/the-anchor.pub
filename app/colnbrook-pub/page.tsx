@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -85,19 +85,18 @@ export default function ColnbrookPubPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
             />
 
-            <HeroWrapper
-                route="/colnbrook-pub"
-                title="Pub & Dining Near Colnbrook & Poyle"
-                description="The ideal local for Poyle Industrial Estate and Colnbrook residents"
-                variant="default"
-                primaryCta={
-                    <BookTableButton source="colnbrook_pub_hero" context="local_pub" variant="primary" size="lg">
-                        Book a Table
-                    </BookTableButton>
-                }
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Colnbrook"
+        title="Pub & Dining Near Colnbrook & Poyle"
+        lead="The ideal local for Poyle Industrial Estate and Colnbrook residents"
+        actions={
+          <BookTableButton source="colnbrook_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
+        }
+      />
 
             <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>

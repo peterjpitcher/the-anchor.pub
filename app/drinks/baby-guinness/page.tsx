@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { Section, Card, CardBody, Button, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 
@@ -29,16 +29,11 @@ export const metadata: Metadata = {
 export default function BabyGuinnessPage() {
   return (
     <>
-      <HeroWrapper
-        route="/drinks/baby-guinness"
+      <InteriorHero
+        image="/images/page-headers/drinks/drinks-summery.png"
+        crumb="Baby Guinness"
         title="Baby Guinness Shot"
-        description="Stanwell Moor's Favourite Party Starter"
-        breadcrumbs={[
-          { name: 'Drinks', href: '/drinks' },
-          { name: 'Baby Guinness' }
-        ]}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Stanwell Moor's Favourite Party Starter"
       />
 
       {/* Main Content */}

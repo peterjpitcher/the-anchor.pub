@@ -1,5 +1,5 @@
 import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -118,13 +118,11 @@ export default async function FishAndChipsPage() {
         />
       )}
 
-      <HeroWrapper
-        route="/fish-and-chips-heathrow"
+      <InteriorHero
+        image="/images/page-headers/food-menu/food-menu.jpg"
+        crumb="Fish and Chips"
         title="Fish and Chips Near Heathrow"
-        description={signatureFish?.description || 'Current fish and chip options from our latest kitchen menu.'}
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={signatureFish?.description || 'Current fish and chip options from our latest kitchen menu.'}
       />
 
       <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">

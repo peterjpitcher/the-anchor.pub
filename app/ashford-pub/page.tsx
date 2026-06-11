@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -96,18 +96,17 @@ export default function AshfordPubPage() {
       />
 
       {/* Hero Section */}
-      <HeroWrapper
-        route="/ashford-pub"
+      <InteriorHero
+        image="/images/page-headers/ashford-pub/find-us.jpg"
+        crumb="Ashford"
         title="Traditional British Pub Near Ashford"
-        description="Just 10 minutes from Ashford with free parking"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="ashford_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Just 10 minutes from Ashford with free parking"
+        actions={
+          <BookTableButton source="ashford_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">

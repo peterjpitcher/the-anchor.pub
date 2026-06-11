@@ -11,7 +11,7 @@ import {
     GridItem,
     SectionHeading,
 } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -256,12 +256,11 @@ export default async function LiveMusicPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(liveMusicEventSeries) }}
             />
-            <HeroWrapper
-                route="/live-music"
+            <InteriorHero
+                image="/images/page-headers/home/page-headers-homepage.jpg"
+                crumb="Live Music"
                 title="Live Music at The Anchor"
-                description="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
-                enableSmartCtas={true}
-                showContextStrip={true}
+                lead="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
             />
 
             <Section spacing="sm" background="white">

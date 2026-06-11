@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { Section } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -217,13 +217,11 @@ export default async function SitemapPage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        route="/sitemap-page"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Sitemap"
         title="Sitemap"
-        description="Find your way around The Anchor website"
-        variant="feature"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Find your way around The Anchor website"
       />
 
       {/* Page Title */}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -67,22 +67,12 @@ export default function BankHolidayWeekendsPage() {
   return (
     <>
 
-            <HeroWrapper
-        route="/bank-holiday-weekends"
+            <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Bank Holiday Weekends"
+        kicker="Every bank holiday weekend"
         title="Bank Holiday Weekends at The Anchor"
-        description="Make the most of every bank holiday at your local. Beer garden, pub grub, Sunday roasts, and no rush to get home."
-        eyebrow="Every bank holiday weekend"
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Free parking &middot; Dog-friendly &middot; {HEATHROW_TIMES.terminal5} mins from Heathrow T5
-          </p>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'Bank holiday weekends at The Anchor near Heathrow',
-        }}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={`Make the most of every bank holiday at your local. Beer garden, pub grub, Sunday roasts, and no rush to get home. Free parking · Dog-friendly · ${HEATHROW_TIMES.terminal5} mins from Heathrow T5`}
       />
 
       <Section background="white" spacing="md">

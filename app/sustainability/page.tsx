@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, Container, Section, SectionHeading, FeatureGrid } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -34,13 +34,11 @@ export default function SustainabilityPage() {
   return (
     <>
 
-      <HeroWrapper
-        route="/sustainability"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Sustainability"
         title="Sustainability"
-        description="What we do, why it matters, and what we're still working on"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="What we do, why it matters, and what we're still working on"
       />
 
       {/* Intro */}

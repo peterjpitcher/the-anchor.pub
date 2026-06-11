@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -62,18 +62,12 @@ export default function HalloweenPage() {
   return (
     <>
 
-            <HeroWrapper
-        route="/halloween"
+            <InteriorHero
+        image="/images/page-headers/whats-on/whats-on.jpg"
+        crumb="Halloween"
+        kicker="Saturday 31 October 2026"
         title="Halloween Pub Night at The Anchor"
-        description="Fancy dress, themed cocktails, spooky decorations and a brilliant atmosphere. Join us on 31 October for our annual Halloween celebration in Stanwell Moor."
-        eyebrow="Saturday 31 October 2026"
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Fancy dress encouraged &middot; Themed cocktails &middot; Prizes for best costume
-          </p>
-        }
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Fancy dress, themed cocktails, spooky decorations and a brilliant atmosphere. Join us on 31 October for our annual Halloween celebration in Stanwell Moor. Fancy dress encouraged · Themed cocktails · Prizes for best costume"
       />
 
       <Section spacing="md" background="white">

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -33,14 +33,12 @@ export default function CoachParkingPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/coach-parking-heathrow"
-                title="Coach Parties Welcome"
-                description="Ample parking, great group food, and the driver eats on us."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Coach Parking"
+        title="Coach Parties Welcome"
+        lead="Ample parking, great group food, and the driver eats on us."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

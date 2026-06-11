@@ -2,10 +2,11 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
-import { Button, Container, Section, Card, CardBody, Alert } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, Alert, Badge } from '@/components/ui'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -36,7 +37,6 @@ import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_RE
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
-import { HeroBadge } from '@/components/HeroBadge'
 
 type Props = {
   params: { id: string }
@@ -438,36 +438,26 @@ export default async function EventPage({ params }: Props) {
           </Container>
         </Section>
       ) : null}
-      <HeroWrapper
-        showContextStrip={true}
-        route={heroRoute}
-        image={eventImageSrc ? {
-          src: eventImageSrc,
-          alt: imageAlt,
-          priority: true,
-          objectPosition: 'center',
-          blurDataURL
-        } : undefined}
-        size="medium"
-        seasonalFallback="always"
+      <InteriorHero
+        image={eventImageSrc || DEFAULT_PAGE_HEADER_IMAGE}
+        focal="center"
+        crumb={event.category?.name ?? "What's On"}
         title={event.name}
-        description={heroDescription}
-        breadcrumbs={[
-          { name: "What's On", href: '/whats-on' },
-          ...(event.category ? [{ name: event.category.name, href: getCategoryPageUrl(event.category.slug) }] : []),
-          { name: event.name }
-        ]}
-        tags={heroTags}
-        primaryCta={heroPrimaryCta}
-        secondaryCta={heroSecondaryCta}
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <HeroBadge />
-          </div>
+        lead={heroDescription}
+        badges={
+          <>
+            {heroTags.map((tag) => (
+              <Badge key={tag.label} variant="sand">
+                {tag.label}
+              </Badge>
+            ))}
+          </>
+        }
+        actions={
+          <>
+            {heroPrimaryCta}
+            {heroSecondaryCta}
+          </>
         }
       />
 

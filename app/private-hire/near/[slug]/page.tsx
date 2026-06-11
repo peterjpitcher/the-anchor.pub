@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { getLandmarkBySlug, landmarks } from '@/lib/local-seo-data'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeading, FeatureGrid, Button, InfoBoxGrid } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Container, SectionHeading, FeatureGrid, Button, InfoBoxGrid, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -78,46 +78,39 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
     return (
         <>
-            <HeroWrapper
-                showContextStrip={true}
-                route={`/private-hire/near/${landmark.slug}`}
+            <InteriorHero
+                image="/images/page-headers/private-hire/private-hire.jpg"
+                crumb={`Near ${landmark.name}`}
                 title={`${title} Near ${landmark.name}`}
-                description={`The perfect venue just ${landmark.distance} away`}
-               
-                tags={[
-                    { label: landmark.distance, variant: "success" },
-                    { label: "Free Parking", variant: "default" },
-                    { label: "Private Catering", variant: "default" },
-                    { label: "Experienced Team", variant: "success" }
-                ]}
-                primaryCta={
-                    <BookTableButton
-                        source={`near_${landmark.slug}_hero`}
-                        variant="primary"
-                        size="lg"
-                        context={context}
-                    >
-                        Check Availability
-                    </BookTableButton>
+                lead={`The perfect venue just ${landmark.distance} away`}
+                badges={
+                    <>
+                        <Badge variant="sand">{landmark.distance}</Badge>
+                        <Badge variant="sand">Free Parking</Badge>
+                        <Badge variant="sand">Private Catering</Badge>
+                        <Badge variant="sand">Experienced Team</Badge>
+                    </>
                 }
-                secondaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source={`near_${landmark.slug}_hero`}
-                        variant="outline"
-                        size="lg"
-                    >
-                        Call 01753 682707
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-                    </div>
+                actions={
+                    <>
+                        <BookTableButton
+                            source={`near_${landmark.slug}_hero`}
+                            variant="primary"
+                            size="lg"
+                            context={context}
+                            fullWidth
+                        >
+                            Check Availability
+                        </BookTableButton>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source={`near_${landmark.slug}_hero`}
+                            variant="outline"
+                            size="lg"
+                        >
+                            Call 01753 682707
+                        </PhoneButton>
+                    </>
                 }
             />
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -34,14 +34,12 @@ export default function PreFlightDiningPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/pre-flight-meal"
-                title="Your Last Proper Meal Before Flying"
-                description="Authentic British food. Draught Beer. 5 Minutes from Terminal 5."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Pre-Flight Meal"
+        title="Your Last Proper Meal Before Flying"
+        lead="Authentic British food. Draught Beer. 5 Minutes from Terminal 5."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

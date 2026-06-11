@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -68,18 +68,12 @@ export default function StPatricksDayPage(): React.JSX.Element {
   return (
     <>
 
-            <HeroWrapper
-        route="/st-patricks-day"
+            <InteriorHero
+        image="/images/page-headers/drinks/drinks-summery.png"
+        crumb="St Patrick's Day"
+        kicker="17 March"
         title="St Patrick's Day Pub at The Anchor"
-        description="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere, without the city centre crowds. Join us every 17 March."
-        eyebrow="17 March"
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Live music &middot; Guinness &middot; Irish whiskey &middot; Themed food &middot; Free parking
-          </p>
-        }
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere, without the city centre crowds. Join us every 17 March. Live music · Guinness · Irish whiskey · Themed food · Free parking"
       />
 
       {/* The Craic at The Anchor */}

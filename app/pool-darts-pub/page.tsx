@@ -1,5 +1,5 @@
 import { CTASection, SectionHeading, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -31,14 +31,12 @@ export default function PoolAndDartsPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/pool-darts-pub"
-                title="Pool & Darts at The Anchor"
-                description="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Open Tuesday to Sunday, seven minutes from Heathrow with free parking."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Pool & Darts"
+        title="Pool & Darts at The Anchor"
+        lead="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Open Tuesday to Sunday, seven minutes from Heathrow with free parking."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING } from '@/lib/constants'
@@ -95,13 +95,11 @@ export default function SixNationsPage() {
 
             <SixNationsLightbox />
 
-                        <HeroWrapper
-              route="/live-sport/six-nations"
+                        <InteriorHero
+              image="/images/page-headers/home/page-headers-homepage.jpg"
+              crumb="Six Nations"
               title="Watch Six Nations 2026 Live"
-              description="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
-              variant="default"
-              enableSmartCtas={true}
-              showContextStrip={true}
+              lead="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
             />
 
             <section className="section-spacing-lg bg-anchor-green-deep">

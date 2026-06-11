@@ -10,7 +10,7 @@ import {
   GridItem,
   SectionHeading
 } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -280,12 +280,11 @@ export default async function QuizNightPage() {
 
   return (
     <>
-      <HeroWrapper
-        route="/quiz-night"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Quiz Night"
         title="Pub Quiz Night at The Anchor Near Heathrow"
-        description="Monthly pub quiz near Heathrow and Staines. Trivia rounds, seasonal themes, £25 bar tab for the winners and a proper pub quiz atmosphere."
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Monthly pub quiz near Heathrow and Staines. Trivia rounds, seasonal themes, £25 bar tab for the winners and a proper pub quiz atmosphere."
       />
 
       {/* Definitive answer for featured snippets */}

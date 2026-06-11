@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, Section, SectionHeading, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Container, Section, SectionHeading, FeatureGrid, InfoBoxGrid, Button, AlertBox, Badge } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -103,45 +103,35 @@ export default async function WakesPage() {
                 ]}
             />
 
-            <HeroWrapper
-                showContextStrip={true}
-                route="/private-hire/wakes"
-                variant="feature"
+            <InteriorHero
+                image="/images/page-headers/private-hire/private-hire.jpg"
+                crumb="Wakes"
                 title="Wakes, Funeral Receptions & Celebrations of Life"
-                description="A peaceful, respectful venue for gathering with family and friends"
-
-                tags={[
-                    { label: "Near SW Middlesex Crematorium", variant: "default" },
-                    { label: "Compassionate Team", variant: "success" },
-                    { label: `Funeral Tea from ${fromPrice}pp`, variant: "default" },
-                    { label: "Free Parking", variant: "success" }
-                ]}
-                primaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source="wakes_hero_primary"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Call to Discuss Arrangements
-                    </PhoneButton>
+                lead="A peaceful, respectful venue for gathering with family and friends"
+                badges={
+                    <>
+                        <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
+                        <Badge variant="sand">Compassionate Team</Badge>
+                        <Badge variant="sand">Funeral Tea from {fromPrice}pp</Badge>
+                        <Badge variant="sand">Free Parking</Badge>
+                    </>
                 }
-                secondaryCta={
-                    <Link href="#enquiry" className="w-full sm:w-auto">
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                            Enquire Online
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Up to 50 guests</span>
-                    </div>
+                actions={
+                    <>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source="wakes_hero_primary"
+                            variant="primary"
+                            size="lg"
+                        >
+                            Call to Discuss Arrangements
+                        </PhoneButton>
+                        <Link href="#enquiry">
+                            <Button variant="outline" size="lg" fullWidth>
+                                Enquire Online
+                            </Button>
+                        </Link>
+                    </>
                 }
             />
 

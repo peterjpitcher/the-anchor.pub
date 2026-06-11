@@ -5,7 +5,7 @@ import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -87,21 +87,11 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route={`/blog/tag/${tag}`}
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Blog"
         title={displayName}
-        description={seoContent.heroContent}
-        variant="feature"
-        breadcrumbs={[
-          { name: 'Blog', href: '/blog' },
-          { name: displayName }
-        ]}
-        secondaryInfo={
-          <p className="text-white/80">
-            {taggedPosts.length} {taggedPosts.length === 1 ? 'post' : 'posts'}
-          </p>
-        }
+        lead={seoContent.heroContent}
       />
 
       {/* SEO Content Section */}

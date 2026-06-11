@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -62,18 +62,12 @@ export default function BoxingDayPage() {
   return (
     <>
 
-            <HeroWrapper
-        route="/boxing-day"
+            <InteriorHero
+        image="/images/page-headers/christmas-parties/christmas-parties.jpg"
+        crumb="Boxing Day"
+        kicker="Saturday 26 December 2026"
         title="Boxing Day Pub at The Anchor"
-        description="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination, close enough to not be a mission, far enough from the sofa to feel like an outing."
-        eyebrow="Saturday 26 December 2026"
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Proper pub food &middot; Craft beer &middot; Dog-friendly walks &middot; Free parking
-          </p>
-        }
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination, close enough to not be a mission, far enough from the sofa to feel like an outing. Proper pub food · Craft beer · Dog-friendly walks · Free parking"
       />
 
       <Section spacing="md" background="white">

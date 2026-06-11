@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { DateTime } from 'luxon'
 import { AlertBox, Button, Container, CTASection, SectionHeading } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -137,24 +137,23 @@ export default async function WorldCupPage() {
         { name: 'World Cup 2026', url: '/live-sport/world-cup' },
       ]} />
 
-      <HeroWrapper
-        route="/live-sport/world-cup"
+      <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="World Cup"
         title="Watch FIFA World Cup 2026 Near Heathrow"
-        description="World Cup 2026 fixtures • UK kick-off times • 4 screens • Sound on • Free parking near Terminal 5."
-        variant="default"
-        primaryCta={
-          <BookTableButton source="world_cup_hero" variant="primary" size="lg" className="w-full sm:min-w-[200px]">
-            Book a Table
-          </BookTableButton>
+        lead="World Cup 2026 fixtures • UK kick-off times • 4 screens • Sound on • Free parking near Terminal 5."
+        actions={
+          <>
+            <BookTableButton source="world_cup_hero" variant="primary" size="lg" fullWidth>
+              Book a Table
+            </BookTableButton>
+            <Link href="/menus">
+              <Button variant="outline" size="lg" fullWidth>
+                View Menu
+              </Button>
+            </Link>
+          </>
         }
-        secondaryCta={
-          <Link href="/menus">
-            <Button variant="outline" size="lg" className="w-full sm:min-w-[200px]">
-              View Menu
-            </Button>
-          </Link>
-        }
-        showContextStrip={true}
       />
 
       <section className="section-spacing-sm bg-anchor-green-deep">

@@ -6,7 +6,7 @@ import { StatusBar } from '@/components/layout/StatusBar'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 export const metadata: Metadata = {
   title: 'Blog | Heathrow Travel Tips, Pub Events & Local Guides',
@@ -76,19 +76,11 @@ export default async function BlogPage({
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route="/blog"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Blog"
         title="The Anchor Blog"
-        description="News, events, and stories from your local pub"
-        variant="feature"
-        secondaryInfo={
-          currentPage > 1 ? (
-            <p className="text-lg text-white/80">
-              Page {currentPage} of {totalPages}
-            </p>
-          ) : undefined
-        }
+        lead="News, events, and stories from your local pub"
       />
 
       {/* Page Title */}

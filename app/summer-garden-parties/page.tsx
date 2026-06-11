@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, FeatureCard, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -34,13 +34,11 @@ export default function SummerGardenPartiesPage() {
     return (
         <>
 
-                        <HeroWrapper
-              route="/summer-garden-parties"
+                        <InteriorHero
+              image="/images/page-headers/home/page-headers-homepage.jpg"
+              crumb="Summer Garden Parties"
               title="Summer Garden Party Venue"
-              description="Exclusive areas, BBQ packages, and festival vibes."
-              variant="default"
-              enableSmartCtas={true}
-              showContextStrip={true}
+              lead="Exclusive areas, BBQ packages, and festival vibes."
             />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">

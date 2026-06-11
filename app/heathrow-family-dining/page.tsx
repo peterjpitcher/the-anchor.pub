@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -70,14 +70,12 @@ export default function FamilyDiningPage() {
                 }) }}
             />
 
-            <HeroWrapper
-                route="/heathrow-family-dining"
-                title="Family Friendly Dining Near Heathrow"
-                description="Fresh air, good food, and plenty of space for the kids to run around"
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Family Dining"
+        title="Family Friendly Dining Near Heathrow"
+        lead="Fresh air, good food, and plenty of space for the kids to run around"
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

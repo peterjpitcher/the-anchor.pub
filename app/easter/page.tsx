@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -81,25 +81,12 @@ export default function EasterPage() {
 
   return (
     <>
-            <HeroWrapper
-        route="/easter"
+            <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Easter"
+        kicker={EASTER_SUNDAY_LABEL}
         title="Easter at The Anchor"
-        description={
-          `Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor, ` +
-          `cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden.`
-        }
-        eyebrow={EASTER_SUNDAY_LABEL}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from &pound;{String(EASTER_ROAST_PRICE_FROM)} &bull; Walk in or book ahead &bull; Served {EASTER_SUNDAY_SERVICE_WINDOW}
-          </p>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'Easter Sunday roast at The Anchor near Heathrow'
-        }}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={`Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor, cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden. Sunday roast from £${String(EASTER_ROAST_PRICE_FROM)} • Walk in or book ahead • Served ${EASTER_SUNDAY_SERVICE_WINDOW}`}
       />
 
       {/* Easter Sunday Roast */}

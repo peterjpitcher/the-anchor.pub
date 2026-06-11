@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -86,19 +86,18 @@ export default function SunburyPubPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
             />
 
-            <HeroWrapper
-                route="/sunbury-pub"
-                title="Destination Dining Near Sunbury"
-                description="Escape the town centre for a traditional village experience"
-                variant="default"
-                primaryCta={
-                    <BookTableButton source="sunbury_pub_hero" context="local_pub" variant="primary" size="lg">
-                        Book a Table
-                    </BookTableButton>
-                }
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/sunbury-pub/find-us.jpg"
+        crumb="Sunbury"
+        title="Destination Dining Near Sunbury"
+        lead="Escape the town centre for a traditional village experience"
+        actions={
+          <BookTableButton source="sunbury_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
+        }
+      />
 
             <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>

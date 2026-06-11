@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <HeroWrapper
-        route="/privacy-policy"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Privacy Policy"
         title="Privacy & Cookie Policy"
-        description="Your privacy matters to us"
-        size="small"
+        lead="Your privacy matters to us"
       />
       
       <Section spacing="lg" container containerSize="md">

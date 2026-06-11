@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeading, FeatureGrid } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Container, SectionHeading, FeatureGrid, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -84,47 +84,39 @@ export default async function BabyShowersPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
             />
 
-            <HeroWrapper
-                showContextStrip={true}
-                route="/private-hire/baby-showers"
-                variant="feature"
+            <InteriorHero
+                image="/images/page-headers/private-hire/private-hire.jpg"
+                crumb="Baby Showers"
                 title="Baby Showers"
-                description="Welcoming new arrivals in style"
-
-                tags={[
-                    { label: "Afternoon Tea", variant: "success" },
-                    { label: "Mocktails", variant: "default" },
-                    { label: "Space for Games", variant: "default" },
-                    { label: "Easy Parking", variant: "success" }
-                ]}
-                primaryCta={
-                    <BookTableButton
-                        source="baby_shower_hero"
-                        variant="primary"
-                        size="lg"
-                        context="baby_shower"
-                    >
-                        Enquire Now
-                    </BookTableButton>
+                lead="Welcoming new arrivals in style"
+                badges={
+                    <>
+                        <Badge variant="sand">Afternoon Tea</Badge>
+                        <Badge variant="sand">Mocktails</Badge>
+                        <Badge variant="sand">Space for Games</Badge>
+                        <Badge variant="sand">Easy Parking</Badge>
+                    </>
                 }
-                secondaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source="baby_shower_hero"
-                        variant="outline"
-                        size="lg"
-                    >
-                        Call 01753 682707
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-                    </div>
+                actions={
+                    <>
+                        <BookTableButton
+                            source="baby_shower_hero"
+                            variant="primary"
+                            size="lg"
+                            context="baby_shower"
+                            fullWidth
+                        >
+                            Enquire Now
+                        </BookTableButton>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source="baby_shower_hero"
+                            variant="outline"
+                            size="lg"
+                        >
+                            Call 01753 682707
+                        </PhoneButton>
+                    </>
                 }
             />
 

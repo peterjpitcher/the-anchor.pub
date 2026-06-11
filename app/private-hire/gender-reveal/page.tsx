@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -71,34 +71,22 @@ export default async function GenderRevealPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema]) }}
             />
 
-            <HeroWrapper
-                showContextStrip={true}
-                route="/private-hire/gender-reveal"
-                variant="feature"
+            <InteriorHero
+                image={DEFAULT_CORPORATE_IMAGE}
+                crumb="Gender Reveal"
                 title="Gender Reveal Parties"
-                description="The perfect setting to share your exciting news"
-
-                image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Gender reveal party" }}
-                primaryCta={
-                    <Link href="/private-hire#enquiry">
-                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            Enquire Now
-                        </Button>
-                    </Link>
-                }
-                secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="reveal_hero" variant="outline">
-                        Call {CONTACT.phone}
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-                    </div>
+                lead="The perfect setting to share your exciting news"
+                actions={
+                    <>
+                        <Link href="/private-hire#enquiry">
+                            <Button variant="primary" size="lg" fullWidth>
+                                Enquire Now
+                            </Button>
+                        </Link>
+                        <PhoneButton phone={CONTACT.phone} source="reveal_hero" variant="outline" size="lg">
+                            Call {CONTACT.phone}
+                        </PhoneButton>
+                    </>
                 }
             />
 

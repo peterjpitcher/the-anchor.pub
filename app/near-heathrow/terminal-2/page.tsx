@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
-import { HeroWrapper, Breadcrumbs } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { FeatureGrid } from '@/components/FeatureCard'
@@ -52,27 +52,16 @@ export default function Terminal2Page() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/near-heathrow/terminal-2"
+      <InteriorHero
+        image="/images/page-headers/near-heathrow-terminal-2/heathrow-airport-view.jpg"
+        crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 2 for Food and Free Parking"
-        description="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
-        variant="default"
-        breadcrumbs={[
-          { name: 'Near Heathrow', href: '/near-heathrow' },
-          { name: 'Terminal 2' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="terminal_2_hero"
-            context="terminal_2"
-            variant="primary"
-            size="lg"
-          >
+        lead="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
+        actions={
+          <BookTableButton source="terminal_2_hero" context="terminal_2" variant="primary" size="lg" fullWidth>
             Book a Table
           </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Google Rating Strip */}

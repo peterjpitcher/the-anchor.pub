@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -32,13 +32,11 @@ export default function PubNearHolidayInnHeathrowPage() {
   return (
     <>
 
-      <HeroWrapper
-        route="/pub-near-holiday-inn-heathrow"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Holiday Inn"
         title="Pub Near Holiday Inn Heathrow"
-        description="12 minutes away, family-friendly British pub with great food and free parking"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="12 minutes away, family-friendly British pub with great food and free parking"
       />
 
       <section className="section-spacing-sm bg-anchor-green-deep">

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -109,17 +109,11 @@ export default async function GlutenFreeMenuPage() {
 
   return (
     <>
-      <HeroWrapper
-        route="/food-menu/gluten-free"
+      <InteriorHero
+        image="/images/page-headers/food-menu/food-menu.jpg"
+        crumb="Gluten-Free"
         title="Gluten-Free Pub Food"
-        description="Current gluten-free and gluten-free-option dishes from the latest kitchen menu."
-        variant="default"
-        breadcrumbs={[
-          { name: 'Food & Drink', href: '/food-menu' },
-          { name: 'Gluten-Free' },
-        ]}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Current gluten-free and gluten-free-option dishes from the latest kitchen menu."
       />
 
       <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">

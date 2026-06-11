@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -98,18 +98,17 @@ export default function StainesPubPage() {
       />
 
       {/* Hero Section */}
-      <HeroWrapper
-        route="/staines-pub"
+      <InteriorHero
+        image="/images/page-headers/staines-pub/find-us.jpg"
+        crumb="Staines"
         title="Your Pub Near Staines-upon-Thames"
-        description="Traditional British pub serving the Staines community with great food, entertainment, and a warm welcome"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="staines_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Traditional British pub serving the Staines community with great food, entertainment, and a warm welcome"
+        actions={
+          <BookTableButton source="staines_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">

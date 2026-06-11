@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, SectionHeading, CTASection, Container } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { FeatureGrid } from '@/components/FeatureCard'
@@ -53,23 +53,16 @@ export default function Terminal3Page() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/near-heathrow/terminal-3"
+      <InteriorHero
+        image="/images/page-headers/near-heathrow-terminal-3/heathrow-airport-view.jpg"
+        crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 3 for Food and Free Parking"
-        description="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
-        variant="default"
-        primaryCta={
-          <BookTableButton
-            source="terminal_3_hero"
-            context="terminal_3"
-            variant="primary"
-            size="lg"
-          >
+        lead="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
+        actions={
+          <BookTableButton source="terminal_3_hero" context="terminal_3" variant="primary" size="lg" fullWidth>
             Book a Table
           </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Quick Summary */}

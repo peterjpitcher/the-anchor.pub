@@ -10,7 +10,7 @@ import {
   GridItem,
   SectionHeading
 } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -249,12 +249,11 @@ export default async function CashBingoPage() {
 
   return (
     <>
-	      <HeroWrapper
-	        route="/cash-bingo"
+	      <InteriorHero
+	        image="/images/page-headers/home/page-headers-homepage.jpg"
+	        crumb="Cash Bingo"
 	        title="Cash Bingo Nights & Bingo Games at The Anchor"
-	        description="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
-	        enableSmartCtas={true}
-	        showContextStrip={true}
+	        lead="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
       />
 
       <Section spacing="sm" background="white">

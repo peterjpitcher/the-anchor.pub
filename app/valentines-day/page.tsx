@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cache } from 'react'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
@@ -280,19 +280,12 @@ export default async function ValentinesDayPage() {
 
       {event && <EventSchema event={event} />}
 
-            <HeroWrapper
-        route="/valentines-day"
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Valentine's Day"
+        kicker={eventDate}
         title="Valentine's Day Dinner at The Anchor"
-        description={event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."}
-        eyebrow={eventDate}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            {performerName ? `Live music from ${performerName}. ` : 'Live music, great food and a brilliant atmosphere. '}
-            Free parking • Seven minutes from Heathrow Terminal 5
-          </p>
-        }
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={`${event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : 'Live music, great food and a brilliant atmosphere. '}Free parking • Seven minutes from Heathrow Terminal 5`}
       />
 
       <Section spacing="md" background="white">

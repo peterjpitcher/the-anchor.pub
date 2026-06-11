@@ -10,7 +10,7 @@ import {
     Grid,
     GridItem,
 } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -295,12 +295,11 @@ export default async function KaraokePage() {
                     }
                 }) }}
             />
-            <HeroWrapper
-                route="/karaoke"
+            <InteriorHero
+                image="/images/page-headers/home/page-headers-homepage.jpg"
+                crumb="Karaoke"
                 title="Karaoke Nights at The Anchor"
-                description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry."
-                enableSmartCtas={true}
-                showContextStrip={true}
+                lead="The stage is yours! Join us near Heathrow for the ultimate karaoke night. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry."
             />
 
             <section className="bg-anchor-green-deep section-spacing-tight">

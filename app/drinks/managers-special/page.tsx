@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { Button, Section, FullWidthSection } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { Button, Section, FullWidthSection, Badge } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import Link from 'next/link'
 import { PricingCard } from '@/components/PricingCard'
@@ -197,23 +197,12 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     return (
       <>
         <MenuPageTracker menuType="managers_special" />
-        <HeroWrapper
-          route="/drinks/managers-special"
+        <InteriorHero
+          image={drinksHeroImage.src}
+          focal="center center"
+          crumb="Manager's Special"
           title="Manager's Special"
-          description="25% off a featured spirit each month, our way of giving back, and a great excuse to try something new."
-          image={{
-            ...drinksHeroImage,
-            objectPosition: 'center center',
-            priority: true
-          }}
-          showStatusBar
-          statusBarPosition="below"
-          breadcrumbs={[
-            { name: 'Drinks', href: '/drinks' },
-            { name: "Manager's Special" }
-          ]}
-          enableSmartCtas={true}
-          showContextStrip={true}
+          lead="25% off a featured spirit each month, our way of giving back, and a great excuse to try something new."
         />
         <Section spacing="md" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
@@ -381,49 +370,35 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema]) }}
       />
       
-      <HeroWrapper
-        route="/drinks/managers-special"
+      <InteriorHero
+        image={drinksHeroImage.src}
+        focal="center center"
+        crumb="Manager's Special"
+        kicker={`Manager's Special · ${promotionMonthYearLabel}`}
         title={`${spirit.discount} ${spirit.name}`}
-        description={promotion.subheadline || education.flavourProfile}
-        lead={
-          <p className="max-w-2xl text-base text-white/90 sm:text-lg">
-            {promotion.offerText}. Single measures are {specialPriceLabel} throughout {promotionMonthName}, subject to availability.
-          </p>
+        lead={`${promotion.subheadline || education.flavourProfile} ${promotion.offerText}. Single measures are ${specialPriceLabel} throughout ${promotionMonthName}, subject to availability.`}
+        badges={
+          <>
+            <Badge variant="sand">{spirit.category}</Badge>
+            <Badge variant="sand">{specialPriceLabel} single</Badge>
+            <Badge variant="sand">Was {originalPriceLabel}</Badge>
+          </>
         }
-        image={{
-          ...drinksHeroImage,
-          objectPosition: 'center center',
-          priority: true
-        }}
-        showStatusBar
-        statusBarPosition="below"
-        eyebrow={`Manager's Special · ${promotionMonthYearLabel}`}
-        breadcrumbs={[
-          { name: 'Drinks', href: '/drinks' },
-          { name: "Manager's Special" }
-        ]}
-        tags={[
-          { label: spirit.category, variant: 'default' },
-          { label: `${specialPriceLabel} single`, variant: 'primary' },
-          { label: `Was ${originalPriceLabel}`, variant: 'default' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="managers_special_hero"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto"
-          />
+        actions={
+          <>
+            <BookTableButton
+              source="managers_special_hero"
+              variant="primary"
+              size="lg"
+              fullWidth
+            />
+            <Link href="/drinks">
+              <Button variant="outline" size="lg" fullWidth>
+                View Drinks Menu
+              </Button>
+            </Link>
+          </>
         }
-        secondaryCta={
-          <Link href="/drinks" className="w-full sm:w-auto">
-            <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
-              View Drinks Menu
-            </Button>
-          </Link>
-        }
-        showContextStrip={true}
       />
 
       <Section spacing="sm" container className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">

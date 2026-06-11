@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -47,13 +47,11 @@ export default function PubNearSofitelHeathrowPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([nearbyHotelSchema]) }}
       />
 
-      <HeroWrapper
-        route="/pub-near-sofitel-heathrow"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Sofitel"
         title="Pub Near Sofitel Heathrow"
-        description="Just 7 minutes from Terminal 5, authentic British pub at half the hotel price"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Just 7 minutes from Terminal 5, authentic British pub at half the hotel price"
       />
 
       <section className="section-spacing-sm bg-anchor-green-deep">

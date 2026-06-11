@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Button, Container, SectionHeading } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 export const metadata: Metadata = {
@@ -17,11 +17,11 @@ export default function SafetyAndRespectPage() {
   return (
     <>
 
-      <HeroWrapper
-        route="/safety-and-respect"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Safety & Respect"
         title="Safety and Respect"
-        description="A pub where you can walk in and feel at ease, whoever you are"
-        variant="default"
+        lead="A pub where you can walk in and feel at ease, whoever you are"
       />
 
       {/* Intro */}

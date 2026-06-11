@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getAllBlogPosts, getIndexableBlogPosts, distributeImages } from '@/lib/markdown'
-import { Button, Section } from '@/components/ui'
+import { Badge, Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { BlogShareButtons } from '@/components/BlogShareButtons'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { getBlogHeroUrl } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -345,39 +345,17 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         <PlaneSpottingBookingPrompt source="blog_plane_spotting_prompt" />
       ) : null}
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route={`/blog/${params.slug}`}
+      <InteriorHero
+        image={heroUrl}
+        crumb="Blog"
         title={post.title}
-        description={
-          <div className="text-left sm:text-center">
-            <p className="text-white/90 mb-2">
-              By {post.author} • {new Date(post.date).toLocaleDateString('en-GB', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </p>
-            <p className="text-lg text-white/80">
-              {post.description}
-            </p>
-          </div>
-        }
-        variant="feature"
-        image={{
-          src: heroUrl,
-          alt: heroAlt
-        }}
-        tags={post.tags.map(tag => ({
-          label: tag,
-          variant: 'default' as const,
-          href: `/blog/tag/${tag}`
-        }))}
-        secondaryCta={
-          <BlogShareButtons 
-            postSlug={post.slug}
-            postTitle={post.title}
-          />
+        lead={post.description}
+        badges={
+          <>
+            {post.tags.map((tag) => (
+              <Badge key={tag} variant="sand">{tag}</Badge>
+            ))}
+          </>
         }
       />
 

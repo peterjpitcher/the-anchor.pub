@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -95,18 +95,17 @@ export default function FelthamPubPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/feltham-pub"
+      <InteriorHero
+        image="/images/page-headers/feltham-pub/find-us.jpg"
+        crumb="Feltham"
         title="Your Local Pub Near Feltham"
-        description="Just 10 minutes away with free parking"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="feltham_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Just 10 minutes away with free parking"
+        actions={
+          <BookTableButton source="feltham_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       <section className="section-spacing-tight bg-anchor-green-deep">

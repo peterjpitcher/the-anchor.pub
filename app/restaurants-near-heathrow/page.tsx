@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -126,13 +126,11 @@ export default async function RestaurantsNearHeathrowPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/restaurants-near-heathrow"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Restaurants Near Heathrow"
         title="Restaurants Near Heathrow Airport"
-        description="Proper pub food, free parking, and a 7-minute drive from Terminal 5. A better meal than anything inside the airport."
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Proper pub food, free parking, and a 7-minute drive from Terminal 5. A better meal than anything inside the airport."
       />
 
       {/* Page Title for SEO */}

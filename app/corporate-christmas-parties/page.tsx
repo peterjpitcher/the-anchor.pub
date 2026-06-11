@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -31,35 +31,25 @@ export default function ChristmasPartiesPage() {
     return (
         <>
 
-            <HeroWrapper
-                showContextStrip={true}
-                route="/corporate-christmas-parties"
-                eyebrow="Corporate Christmas 2026"
+            <InteriorHero
+                image="/images/page-headers/home/page-headers-homepage.jpg"
+                crumb="Corporate Christmas Parties"
+                kicker="Corporate Christmas 2026"
                 title="Corporate Christmas party near Heathrow — for offices, airport teams & Surrey businesses"
-                description="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
-                variant="default"
-                primaryCta={
-                    <Link href="/christmas-parties#christmas-enquiry">
-                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                             Enquire about your Christmas party booking
-                        </Button>
-                    </Link>
-                }
-                secondaryCta={
-                    <Link href={`${CONTACT.phoneHref}`}>
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                             Call 01753 682707
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · ~20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">2 min from M25 J14</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Outside ULEZ zone</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-                    </div>
+                lead="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
+                actions={
+                    <>
+                        <Link href="/christmas-parties#christmas-enquiry">
+                            <Button variant="primary" size="lg" fullWidth>
+                                 Enquire about your Christmas party booking
+                            </Button>
+                        </Link>
+                        <Link href={`${CONTACT.phoneHref}`}>
+                            <Button variant="outline" size="lg" fullWidth>
+                                 Call 01753 682707
+                            </Button>
+                        </Link>
+                    </>
                 }
             />
 

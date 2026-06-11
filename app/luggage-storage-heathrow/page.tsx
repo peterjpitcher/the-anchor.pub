@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -61,14 +61,12 @@ export default function LuggageStoragePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([howToSchema]) }}
             />
 
-            <HeroWrapper
-                route="/luggage-storage-heathrow"
-                title="Luggage Friendly Pub Near Heathrow"
-                description="Visiting before or after a flight? Bring your luggage with you, we have plenty of space."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Luggage Storage"
+        title="Luggage Friendly Pub Near Heathrow"
+        lead="Visiting before or after a flight? Bring your luggage with you, we have plenty of space."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

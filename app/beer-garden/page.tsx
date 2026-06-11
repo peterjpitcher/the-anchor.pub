@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, SectionHeading, FeatureGrid, InfoBoxGrid, AmenityList } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -93,18 +93,12 @@ export default async function BeerGardenPage() {
       <PlaneSpottingBookingPrompt source="beer_garden_plane_spotting_prompt" />
 
       {/* Hero Section */}
-      <HeroWrapper
-        route="/beer-garden"
+      <InteriorHero
+        image="/images/page-headers/beer-garden/beer-garden.jpg"
+        crumb="Beer Garden"
         title="Beer Garden Near Heathrow"
-        description="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
-      >
-        <div className="bg-anchor-green-card/90 backdrop-blur-sm text-anchor-gold-bright font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold-dark/30">
-           DIRECTLY UNDER THE FLIGHT PATH
-        </div>
-      </HeroWrapper>
+        lead="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
+      />
 
       {/* Definitive answer for featured snippets */}
       <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -32,13 +32,11 @@ export default function BoxingPage() {
     return (
         <>
 
-                        <HeroWrapper
-              route="/live-sport/boxing"
+                        <InteriorHero
+              image="/images/page-headers/home/page-headers-homepage.jpg"
+              crumb="Boxing"
               title="Big Fight Nights"
-              description="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
-              variant="default"
-              enableSmartCtas={true}
-              showContextStrip={true}
+              lead="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
             />
 
             <section className="section-spacing-sm bg-anchor-green-deep">

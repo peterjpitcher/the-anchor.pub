@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container, Badge } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -34,65 +34,39 @@ export default function PrivatePartyVenuePage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route="/private-party-venue"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Private Party Venue"
         title="Party Venue Near Heathrow & Staines"
-        description="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
-        tags={[
-          { label: "10-50 Room Bookings", variant: "success" },
-          { label: "All Occasions", variant: "default" },
-          { label: "Free Parking", variant: "default" },
-          { label: "Custom Menus", variant: "success" }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="private_party_hero"
-            variant="primary"
-            size="lg"
-            context="private_party"
-            fullWidth
-            className="w-full sm:w-auto"
-          >
-            Book Your Party
-          </BookTableButton>
-        }
-        secondaryCta={
+        lead="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
+        badges={
           <>
+            <Badge variant="sand">10-50 Room Bookings</Badge>
+            <Badge variant="sand">All Occasions</Badge>
+            <Badge variant="sand">Free Parking</Badge>
+            <Badge variant="sand">Custom Menus</Badge>
+          </>
+        }
+        actions={
+          <>
+            <BookTableButton
+              source="private_party_hero"
+              variant="primary"
+              size="lg"
+              context="private_party"
+              fullWidth
+            >
+              Book Your Party
+            </BookTableButton>
             <PhoneButton
               phone="01753 682707"
               source="private_party_hero"
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto"
             >
               Call: 01753 682707
             </PhoneButton>
-            <Link
-              href="https://wa.me/441753682707?text=Hi,%20I"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto"
-            >
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                WhatsApp Us
-              </Button>
-            </Link>
           </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-          </div>
         }
       />
 

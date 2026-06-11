@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container, Badge } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -85,59 +85,35 @@ export default function FunctionRoomHirePage() {
       />
 
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route="/function-room-hire"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Function Room Hire"
         title="Function Room Hire Near Heathrow"
-        description="A pub with private rooms for 10 to 50 guests. Room hire, free parking, flexible layouts, and in-house catering. No minimum spend."
-
-        tags={[
-          { label: " Multiple Spaces", variant: "default" },
-          { label: " Flexible Pricing", variant: "success" },
-          { label: " Free Parking", variant: "default" },
-          { label: " Near Heathrow", variant: "success" }
-        ]}
-        primaryCta={
-          <PhoneButton
-            phone="01753 682707"
-            source="function_room_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-             Call to Check Availability
-          </PhoneButton>
-        }
-        secondaryCta={
+        lead="A pub with private rooms for 10 to 50 guests. Room hire, free parking, flexible layouts, and in-house catering. No minimum spend."
+        badges={
           <>
-            <Link href="#enquiry" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
+            <Badge variant="sand">Multiple Spaces</Badge>
+            <Badge variant="sand">Flexible Pricing</Badge>
+            <Badge variant="sand">Free Parking</Badge>
+            <Badge variant="sand">Near Heathrow</Badge>
+          </>
+        }
+        actions={
+          <>
+            <PhoneButton
+              phone="01753 682707"
+              source="function_room_hero"
+              variant="primary"
+              size="lg"
+            >
+               Call to Check Availability
+            </PhoneButton>
+            <Link href="#enquiry">
+              <Button variant="outline" size="lg" fullWidth>
                 Enquire Online
               </Button>
             </Link>
-            <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                 WhatsApp Enquiry
-              </Button>
-            </Link>
           </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-          </div>
         }
       />
       <TrustBar variant="private-hire" />

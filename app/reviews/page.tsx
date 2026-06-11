@@ -11,7 +11,7 @@ import {
 } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
 
 export const metadata: Metadata = {
@@ -156,11 +156,11 @@ export default function ReviewsPage() {
         }}
       />
 
-      <HeroWrapper
-        route="/reviews"
+      <InteriorHero
+        image="/images/page-headers/our-pub/the-anchor-our-pub.jpg"
+        crumb="Reviews"
         title="What Our Guests Say"
-        description={`Rated ${rating}/5 on Google with ${totalReviews}+ reviews. Real feedback about food, beer garden, events and private hire near Heathrow.`}
-        variant="feature"
+        lead={`Rated ${rating}/5 on Google with ${totalReviews}+ reviews. Real feedback about food, beer garden, events and private hire near Heathrow.`}
       />
 
       {/* Rating Summary */}

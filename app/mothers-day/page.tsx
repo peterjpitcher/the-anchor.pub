@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -242,22 +242,12 @@ export default function MothersDayPage() {
         }}
       />
 
-            <HeroWrapper
-        route="/mothers-day"
+            <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Mother's Day"
+        kicker={eventDateLabelStatic}
         title="Mother’s Day Sunday Roast Near Staines"
-        description={heroDescription}
-        eyebrow={eventDateLabelStatic}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            {heroLeadText}
-          </p>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: "Mother's Day pub lunch near Staines at The Anchor in Stanwell Moor"
-        }}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead={`${heroDescription} ${heroLeadText}`}
       />
 
       <Section background="white" spacing="md">

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -32,14 +32,12 @@ export default function PubGardenPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/pub-garden-heathrow"
-                title="The Best Garden Around"
-                description="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Pub Garden"
+        title="The Best Garden Around"
+        lead="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

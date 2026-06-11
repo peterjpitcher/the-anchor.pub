@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { Container, Section, Button, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -66,17 +66,11 @@ export default function HeathrowLayoverDiningPage() {
     <>
       <SpeakableSchema />
 
-      <HeroWrapper
-        route="/heathrow-layover-dining"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Near Heathrow"
         title="Heathrow Layover Dining in 90 Minutes"
-        description="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
-        variant="default"
-        breadcrumbs={[
-          { name: 'Near Heathrow', href: '/near-heathrow' },
-          { name: 'Layover Dining' }
-        ]}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
       />
 
       <Section background="dark" spacing="md">

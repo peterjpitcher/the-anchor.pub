@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -11,6 +11,7 @@ import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { CTASection } from '@/components/CTASection'
 import {
+  Badge,
   Container,
   Section,
   SectionHeading,
@@ -101,34 +102,30 @@ export default function HistoryPage(): React.JSX.Element {
       <JsonLd data={[historyPageSchema, breadcrumbSchema]} />
 
       {/* Hero */}
-      <HeroWrapper
-        route="/history"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="History"
         title="The History of The Anchor"
-        description="A village pub in Stanwell Moor since at least 1751"
-        variant="default"
-        tags={[
-          { label: 'Est. 1751', variant: 'default', size: 'medium' },
-          { label: 'Locally Listed', variant: 'success', size: 'medium' },
-          { label: 'Stanwell Moor', variant: 'primary', size: 'medium' },
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="history_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          />
+        lead="A village pub in Stanwell Moor since at least 1751"
+        badges={
+          <>
+            <Badge variant="sand">Est. 1751</Badge>
+            <Badge variant="sand">Locally Listed</Badge>
+            <Badge variant="sand">Stanwell Moor</Badge>
+          </>
         }
-        secondaryCta={
-          <DirectionsButton
-            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-            source="history_hero"
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Get Directions
-          </DirectionsButton>
+        actions={
+          <>
+            <BookTableButton source="history_hero" variant="primary" size="lg" fullWidth />
+            <DirectionsButton
+              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+              source="history_hero"
+              variant="outline"
+              size="lg"
+            >
+              Get Directions
+            </DirectionsButton>
+          </>
         }
       />
 

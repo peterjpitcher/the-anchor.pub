@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -152,25 +152,12 @@ export default function FathersDayPage() {
         }}
       />
 
-            <HeroWrapper
-        route="/fathers-day"
-        title="Father&rsquo;s Day at The Anchor"
-        description={
-          "A proper Sunday roast, a cold pint, planes coming in low overhead, and the family all in one place. " +
-          "That's Father's Day sorted."
-        }
-        eyebrow={FATHERS_DAY_LABEL}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from &pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)} &bull; Walk in or book ahead &bull; Served {FATHERS_DAY_SERVICE_WINDOW}
-          </p>
-        }
-        image={{
-          src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: "Father's Day pub lunch at The Anchor near Heathrow"
-        }}
-        enableSmartCtas={true}
-        showContextStrip={true}
+            <InteriorHero
+        image={DEFAULT_PAGE_HEADER_IMAGE}
+        crumb="Father's Day"
+        kicker={FATHERS_DAY_LABEL}
+        title="Father’s Day at The Anchor"
+        lead={`A proper Sunday roast, a cold pint, planes coming in low overhead, and the family all in one place. That's Father's Day sorted. Sunday roast from £${String(FATHERS_DAY_ROAST_PRICE_FROM)} • Walk in or book ahead • Served ${FATHERS_DAY_SERVICE_WINDOW}`}
       />
 
       {/* Treat Dad, Father's Day pub lunch */}

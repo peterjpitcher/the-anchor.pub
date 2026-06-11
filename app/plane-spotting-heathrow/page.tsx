@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { Container, Section, SectionHeading, FeatureGrid, InfoBoxGrid, CTASection, Button, Card, CardBody } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -87,13 +87,11 @@ export default async function PlaneSpottingHeathrowPage() {
       />
       <PlaneSpottingBookingPrompt source="plane_spotting_page_prompt" />
 
-      <HeroWrapper
-        route="/plane-spotting-heathrow"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Plane Spotting"
         title="Heathrow Plane Spotting Pub and Beer Garden"
-        description="Plan a spotting visit from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Plan a spotting visit from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
       />
 
       <Section background="dark" spacing="sm" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">

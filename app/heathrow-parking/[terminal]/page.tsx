@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { HeroWrapper } from '@/components/hero'
-import { Button, Container, Section, CTASection } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
+import { Badge, Button, Container, Section, CTASection } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -129,29 +129,30 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         ]}
       />
 
-      <HeroWrapper
-        showContextStrip={true}
-        route={currentPath}
+      <InteriorHero
+        image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
+        crumb="Heathrow Parking"
         title={`Cheap Heathrow Terminal ${terminalNumber} Parking from £15/day`}
-        description={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime} (${terminal.routeHint}).`}
-        variant="default"
-        tags={[
-          { label: `Terminal ${terminalNumber}`, variant: 'primary' },
-          { label: `Transfer ${terminal.transferTime}`, variant: 'success' },
-          { label: 'Keep your keys', variant: 'warning' },
-          { label: 'CCTV monitored', variant: 'default' }
-        ]}
-        primaryCta={
-          <Link href="/heathrow-parking#book-parking" className="w-full sm:w-auto">
-            <Button size="lg" variant="primary" fullWidth className="sm:w-auto">
-              Book parking now
-            </Button>
-          </Link>
+        lead={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime} (${terminal.routeHint}).`}
+        badges={
+          <>
+            <Badge variant="sand">{`Terminal ${terminalNumber}`}</Badge>
+            <Badge variant="sand">{`Transfer ${terminal.transferTime}`}</Badge>
+            <Badge variant="sand">Keep your keys</Badge>
+            <Badge variant="sand">CCTV monitored</Badge>
+          </>
         }
-        secondaryCta={
-          <PhoneButton phone={CONTACT.phone} source="heathrow-parking-terminal_cta" size="lg" className="sm:w-auto">
+        actions={
+          <>
+            <Link href="/heathrow-parking#book-parking">
+              <Button size="lg" variant="primary" fullWidth>
+                Book parking now
+              </Button>
+            </Link>
+            <PhoneButton phone={CONTACT.phone} source="heathrow-parking-terminal_cta" variant="outline" size="lg">
               Call {CONTACT.phone}
-          </PhoneButton>
+            </PhoneButton>
+          </>
         }
       />
 

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -32,13 +32,11 @@ export default function F1Page() {
     return (
         <>
 
-                        <HeroWrapper
-              route="/live-sport/f1"
+                        <InteriorHero
+              image="/images/page-headers/home/page-headers-homepage.jpg"
+              crumb="F1"
               title="Watch F1™ Live Here"
-              description="From lights out to the chequered flag. We show every Qualifying session and Race live."
-              variant="default"
-              enableSmartCtas={true}
-              showContextStrip={true}
+              lead="From lights out to the chequered flag. We show every Qualifying session and Race live."
             />
 
             <section className="section-spacing-sm bg-anchor-green-deep">

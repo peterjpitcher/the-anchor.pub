@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -85,19 +85,18 @@ export default function LongfordPubPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
             />
 
-            <HeroWrapper
-                route="/longford-pub"
-                title="Authentic British Pub Near Longford"
-                description="Escape the hotel strip for real food, draught beer, and real prices"
-                variant="default"
-                primaryCta={
-                    <BookTableButton source="longford_pub_hero" context="local_pub" variant="primary" size="lg">
-                        Book a Table
-                    </BookTableButton>
-                }
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/longford-pub/find-us.jpg"
+        crumb="Longford"
+        title="Authentic British Pub Near Longford"
+        lead="Escape the hotel strip for real food, draught beer, and real prices"
+        actions={
+          <BookTableButton source="longford_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
+        }
+      />
 
             <section className="section-spacing-sm bg-anchor-green-deep">
                 <Container>

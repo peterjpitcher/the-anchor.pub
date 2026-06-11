@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, DirectionsCard, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -105,18 +105,17 @@ export default function StanwellPubPage() {
       />
 
       {/* Hero Section */}
-      <HeroWrapper
-        route="/stanwell-pub"
+      <InteriorHero
+        image="/images/page-headers/stanwell-pub/find-us.jpg"
+        crumb="Stanwell"
         title="Stanwell's Traditional Village Pub"
-        description="The heart of the Stanwell community since generations"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="stanwell_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="The heart of the Stanwell community since generations"
+        actions={
+          <BookTableButton source="stanwell_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       <section className="section-spacing-tight bg-anchor-green-card border-b border-anchor-gold-dark/15">

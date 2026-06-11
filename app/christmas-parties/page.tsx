@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { ChristmasPartiesPageClient } from './client-components'
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { TrustBar } from '@/components/psychology'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -180,30 +180,17 @@ export default function ChristmasPartiesPage() {
           { name: 'Christmas Parties', url: '/christmas-parties' }
         ]}
       />
-      <HeroWrapper
-        showContextStrip={true}
-        id="christmas-hero"
-        route="/christmas-parties"
-       
+      <InteriorHero
+        image="/images/page-headers/christmas-parties/2026/hero-table.jpg"
+        crumb="Christmas Parties"
+        kicker="Christmas 2026"
         title="Christmas party near Heathrow — pub dinners, party nights & festive lunch 2026"
-        description="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted, whether it's a works night out or a family Christmas meal."
-        eyebrow={<span className="text-red-100">Christmas 2026</span>}
-        image={{
-          src: '/images/page-headers/christmas-parties/2026/hero-table.jpg',
-          alt: 'Festive Christmas dinner table setting at The Anchor near Heathrow',
-          priority: true
-        }}
-        ctaContainerClassName="w-full max-w-4xl"
-        primaryCta={<ChristmasHeroPrimaryCta />}
-        secondaryCta={<ChristmasHeroSecondaryCta />}
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-          </div>
+        lead="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted, whether it's a works night out or a family Christmas meal."
+        actions={
+          <>
+            <ChristmasHeroPrimaryCta />
+            <ChristmasHeroSecondaryCta />
+          </>
         }
       />
       <TrustBar variant="private-hire" />

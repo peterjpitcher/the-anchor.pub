@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -88,17 +88,11 @@ export default async function VegetarianMenuPage() {
 
   return (
     <>
-      <HeroWrapper
-        route="/food-menu/vegetarian"
+      <InteriorHero
+        image="/images/page-headers/food-menu/food-menu.jpg"
+        crumb="Vegetarian"
         title="Vegetarian Menu"
-        description="Current vegetarian dishes, descriptions and prices from the latest kitchen menu."
-        variant="default"
-        breadcrumbs={[
-          { name: 'Food & Drink', href: '/food-menu' },
-          { name: 'Vegetarian' },
-        ]}
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Current vegetarian dishes, descriptions and prices from the latest kitchen menu."
       />
 
       <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">

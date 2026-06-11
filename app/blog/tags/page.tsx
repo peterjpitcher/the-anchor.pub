@@ -4,7 +4,7 @@ import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
 
@@ -51,24 +51,11 @@ export default async function AllTagsPage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route="/blog/tags"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Blog"
         title="All Blog Topics"
-        description={`Explore all ${tagCounts.size} topics from our blog`}
-        variant="feature"
-        breadcrumbs={[
-          { name: 'Blog', href: '/blog' },
-          { name: 'All Topics' }
-        ]}
-        secondaryCta={
-          <Link
-            href="/blog"
-            className="inline-flex items-center text-white/90 hover:text-white transition-colours"
-          >
-            ← Back to Blog
-          </Link>
-        }
+        lead={`Explore all ${tagCounts.size} topics from our blog`}
       />
 
       {/* Tags Grid */}

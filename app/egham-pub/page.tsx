@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -78,18 +78,17 @@ export default function EghamPubPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/egham-pub"
+      <InteriorHero
+        image="/images/page-headers/egham-pub/find-us.jpg"
+        crumb="Egham"
         title="Your Local Pub Near Egham"
-        description="Just 12 minutes away with free parking"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="egham_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Just 12 minutes away with free parking"
+        actions={
+          <BookTableButton source="egham_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Page Title */}

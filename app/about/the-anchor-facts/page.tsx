@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { Container, Section, Button } from '@/components/ui'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import {
@@ -126,21 +126,21 @@ export default function AnchorFactsPage() {
           { name: 'The Anchor Facts', url: '/about/the-anchor-facts' },
         ]}
       />
-      <HeroWrapper
-        route="/about/the-anchor-facts"
+      <InteriorHero
+        image="/images/page-headers/our-pub/the-anchor-our-pub.jpg"
+        crumb="The Anchor Facts"
         title="The Anchor Facts"
-        description="Current factual details for food, booking links, opening hours, private hire, hosted events, parking and Heathrow distance."
-        primaryCta={
-          <Link href="/book-table" className="w-full sm:w-auto">
-            <Button size="lg" className="w-full sm:w-auto">Book a Table</Button>
-          </Link>
+        lead="Current factual details for food, booking links, opening hours, private hire, hosted events, parking and Heathrow distance."
+        actions={
+          <>
+            <Link href="/book-table">
+              <Button size="lg" fullWidth>Book a Table</Button>
+            </Link>
+            <Link href="/food-menu">
+              <Button variant="outline" size="lg" fullWidth>View Food Menu</Button>
+            </Link>
+          </>
         }
-        secondaryCta={
-          <Link href="/food-menu" className="w-full sm:w-auto">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">View Food Menu</Button>
-          </Link>
-        }
-        showContextStrip={true}
       />
 
       <Section background="dark" spacing="lg" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15">

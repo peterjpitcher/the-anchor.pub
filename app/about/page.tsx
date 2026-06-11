@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -8,6 +8,7 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import {
+  Badge,
   Button,
   Container,
   Section,
@@ -86,34 +87,30 @@ export default function AboutPage() {
       <JsonLd data={[aboutPageSchema]} />
 
       {/* Hero */}
-      <HeroWrapper
-        route="/about"
+      <InteriorHero
+        image="/images/page-headers/our-pub/the-anchor-our-pub.jpg"
+        crumb="About"
         title="About The Anchor"
-        description="A village pub since 1751"
-        variant="default"
-        tags={[
-          { label: 'Est. 1751', variant: 'default', size: 'medium' },
-          { label: '4.6/5 on Google', variant: 'success', size: 'medium' },
-          { label: '5-Star Food Hygiene', variant: 'primary', size: 'medium' },
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="about_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          />
+        lead="A village pub since 1751"
+        badges={
+          <>
+            <Badge variant="sand">Est. 1751</Badge>
+            <Badge variant="sand">4.6/5 on Google</Badge>
+            <Badge variant="sand">5-Star Food Hygiene</Badge>
+          </>
         }
-        secondaryCta={
-          <DirectionsButton
-            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-            source="about_hero"
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Get Directions
-          </DirectionsButton>
+        actions={
+          <>
+            <BookTableButton source="about_hero" variant="primary" size="lg" fullWidth />
+            <DirectionsButton
+              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+              source="about_hero"
+              variant="outline"
+              size="lg"
+            >
+              Get Directions
+            </DirectionsButton>
+          </>
         }
       />
 

@@ -1,5 +1,5 @@
 import { CTASection, SectionHeading, Container, AlertBox } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -104,17 +104,11 @@ export default async function PizzaMenuPage() {
         />
       )}
 
-      <HeroWrapper
-        route="/pizza-menu"
+      <InteriorHero
+        image="/images/page-headers/pizza-tuesday/pizza-tuesday.jpg"
+        crumb="Pizza"
         title="Pizza at The Anchor"
-        description="Current pizza dishes, descriptions and prices from the latest kitchen menu."
-        image={{
-          src: '/images/page-headers/pizza-tuesday/pizza-tuesday.jpg',
-          alt: 'Stone-baked pizza at The Anchor'
-        }}
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="Current pizza dishes, descriptions and prices from the latest kitchen menu."
       />
 
       <section className="section-spacing-lg bg-anchor-green-deep border-b border-anchor-gold-dark/15">

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -80,13 +80,11 @@ export default async function PubsInStanwellPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/pubs-in-stanwell"
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Pubs in Stanwell"
         title="Stanwell Moor's Village Pub & Beer Garden"
-        description="The heart of Stanwell Moor village, traditional British pub since 1995"
-        variant="default"
-        enableSmartCtas={true}
-        showContextStrip={true}
+        lead="The heart of Stanwell Moor village, traditional British pub since 1995"
       />
 
       {/* Page Title for SEO */}

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
@@ -33,14 +33,12 @@ export default async function DogFriendlyPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/dog-friendly-pub-heathrow"
-                title="Paws Welcome Here"
-                description="We're not just dog tolerant, we're dog friendly. Bring your best friend along for a pint."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Dog Friendly"
+        title="Paws Welcome Here"
+        lead="We're not just dog tolerant, we're dog friendly. Bring your best friend along for a pint."
+      />
 
             {/* Definitive answer for featured snippets */}
             <section className="bg-anchor-green-raised border-b border-anchor-gold-dark/15 section-spacing-tight">

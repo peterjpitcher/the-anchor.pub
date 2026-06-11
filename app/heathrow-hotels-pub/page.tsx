@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -105,18 +105,17 @@ export default function HeathrowHotelsPubPage() {
       />
       
       {/* Hero Section */}
-      <HeroWrapper
-        route="/heathrow-hotels-pub"
+      <InteriorHero
+        image="/images/page-headers/hotel-near-heathrow/find-us.jpg"
+        crumb="Hotels"
         title="Escape Heathrow Hotel Prices"
-        description="Traditional British pub just minutes from your hotel"
-        variant="default"
-        primaryCta={
-          <BookTableButton source="heathrow_hotels_pub_hero" context="local_pub" variant="primary" size="lg">
-            Book a Table
-          </BookTableButton>
+        lead="Traditional British pub just minutes from your hotel"
+        actions={
+          <BookTableButton source="heathrow_hotels_pub_hero"
+          context="local_pub" variant="primary" size="lg" fullWidth>
+          Book a Table
+        </BookTableButton>
         }
-        enableSmartCtas={true}
-        showContextStrip={true}
       />
 
       {/* Page Title */}

@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
-import { Button, Container, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
+import { Button, Container, SectionHeading, FeatureGrid, InfoBoxGrid, AlertBox, Badge } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -36,51 +36,36 @@ export default function CorporateEventsPage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroWrapper
-        showContextStrip={true}
-        route="/corporate-events"
+      <InteriorHero
+        image="/images/page-headers/corporate-events/corporate-events.jpg"
+        crumb="Corporate Events"
         title="Corporate Event Venue Near Heathrow"
-        description="Room bookings for 10-50 guests, with larger corporate events by enquiry. 7 minutes from Terminal 5 with free parking."
-        tags={[
-          { label: "7 mins from Heathrow", variant: "success" },
-          { label: "Free Parking", variant: "default" },
-          { label: "AV Equipment", variant: "default" },
-          { label: "Outside ULEZ", variant: "success" }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="corporate_events_hero"
-            variant="primary"
-            size="lg"
-            context="corporate_event"
-            fullWidth
-            className="w-full sm:w-auto"
-          >
-            Book Your Event
-          </BookTableButton>
-        }
-        secondaryCta={
+        lead="Room bookings for 10-50 guests, with larger corporate events by enquiry. 7 minutes from Terminal 5 with free parking."
+        badges={
           <>
-            <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
+            <Badge variant="sand">7 mins from Heathrow</Badge>
+            <Badge variant="sand">Free Parking</Badge>
+            <Badge variant="sand">AV Equipment</Badge>
+            <Badge variant="sand">Outside ULEZ</Badge>
+          </>
+        }
+        actions={
+          <>
+            <BookTableButton
+              source="corporate_events_hero"
+              variant="primary"
+              size="lg"
+              context="corporate_event"
+              fullWidth
+            >
+              Book Your Event
+            </BookTableButton>
+            <Link href={CONTACT.phoneHref}>
+              <Button variant="outline" size="lg" fullWidth>
                 Discuss Your Event
               </Button>
             </Link>
-            <Link href="#solutions" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
-                Explore Our Solutions
-              </Button>
-            </Link>
           </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
-          </div>
         }
       />
       <TrustBar variant="private-hire" />

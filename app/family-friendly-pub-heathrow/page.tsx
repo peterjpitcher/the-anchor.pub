@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, CTASection, SectionHeading, FeatureGrid, AlertBox, Container } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
@@ -32,14 +32,12 @@ export default function FamilyFriendlyPage() {
     return (
         <>
 
-            <HeroWrapper
-                route="/family-friendly-pub-heathrow"
-                title="Family Friendly Dining"
-                description="Good food that kids actually eat. Relaxed atmosphere for parents. The perfect family pit stop."
-                variant="default"
-                enableSmartCtas={true}
-                showContextStrip={true}
-            />
+            <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Family Friendly"
+        title="Family Friendly Dining"
+        lead="Good food that kids actually eat. Relaxed atmosphere for parents. The perfect family pit stop."
+      />
 
             <section className="section-spacing-sm bg-anchor-green-card border-b border-anchor-gold-dark/15">
                 <Container>

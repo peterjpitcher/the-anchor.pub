@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Container, SectionHeading, Alert } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { HeroWrapper } from '@/components/hero'
+import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -153,48 +153,36 @@ export default async function SundayLunchPage() {
         ]}
       />
 
-      <HeroWrapper
-        route="/sunday-roast"
+      <InteriorHero
+        image="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
+        crumb="Sunday Roast"
+        kicker="The Anchor, Stanwell Moor"
         title="Sunday Roast Near Heathrow"
-        description="Sunday roast is served 1pm-6pm. Current dishes and prices are listed below."
-        eyebrow="The Anchor, Stanwell Moor"
-        enableSmartCtas={true}
-        lead={
-          <p className="text-white/90 text-base sm:text-lg">
-            Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5.
-          </p>
+        lead="Sunday roast is served 1pm-6pm. Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5."
+        actions={
+          <>
+            <BookTableButton
+              source="sunday_roast_hero"
+              context="sunday_roast"
+              variant="primary"
+              size="lg"
+              fullWidth
+              customHref={SUNDAY_LUNCH_BOOKING_URL}
+              trackingLabel="Book a Sunday roast"
+              eventName="Sunday roast"
+            >
+              Book a Table
+            </BookTableButton>
+            <PhoneButton
+              phone="01753 682707"
+              source="sunday_roast_hero"
+              variant="outline"
+              size="lg"
+            >
+              01753 682707
+            </PhoneButton>
+          </>
         }
-        image={{
-          src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
-          alt: 'Sunday roast plate at The Anchor pub near Heathrow'
-        }}
-        primaryCta={
-          <BookTableButton
-            source="sunday_roast_hero"
-            context="sunday_roast"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full"
-            customHref={SUNDAY_LUNCH_BOOKING_URL}
-            trackingLabel="Book a Sunday roast"
-            eventName="Sunday roast"
-          >
-            Book a Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <PhoneButton
-            phone="01753 682707"
-            source="sunday_roast_hero"
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
-          >
-            01753 682707
-          </PhoneButton>
-        }
-        showContextStrip={true}
       />
 
       <div className="bg-anchor-green-raised">
