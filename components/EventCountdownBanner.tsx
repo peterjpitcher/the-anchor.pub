@@ -288,24 +288,24 @@ export function EventCountdownBanner() {
 
   return (
     <div className="fixed bottom-4 left-0 right-0 z-[45] px-4 pointer-events-none sm:left-6 sm:right-auto sm:px-0">
-      <div className="pointer-events-auto relative mx-auto w-full max-w-4xl rounded-2xl bg-anchor-green text-white px-4 py-4 shadow-xl backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
+      <div className="pointer-events-auto relative mx-auto w-full max-w-4xl rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/30 flex-shrink-0">
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-line flex-shrink-0">
             {imageSrc ? (
               <Image src={imageSrc} alt={`${event.name} poster`} fill className="object-cover" sizes="40px" />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/10 text-lg"></div>
+              <div className="flex h-full w-full items-center justify-center bg-surface-sunk text-lg"></div>
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-white">Next Event</p>
-            <p className="truncate text-sm sm:text-base font-semibold">{event.name}</p>
-            <p className="text-[12px] text-white/80">{weekday} · {timeString}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-accent-text">Next Event</p>
+            <p className="truncate text-sm sm:text-base font-semibold text-ink-strong">{event.name}</p>
+            <p className="text-[12px] text-ink-muted">{weekday} · {timeString}</p>
           </div>
         </div>
-        <p className="mt-2 text-xs text-white/80 leading-snug">{content.message}</p>
-        <div className="mt-3 flex items-center gap-2 text-sm text-white/80">
-          <span className="rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold">{countdown}</span>
+        <p className="mt-2 text-xs text-ink-muted leading-snug">{content.message}</p>
+        <div className="mt-3 flex items-center gap-2 text-sm text-ink-muted">
+          <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-semibold text-accent-text">{countdown}</span>
           <span>{weekday} · {timeString}</span>
         </div>
         <div className="mt-3">
@@ -321,7 +321,7 @@ export function EventCountdownBanner() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white/80 transition hover:text-white"
+          className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface-sunk text-ink-muted transition hover:text-ink"
           aria-label="Dismiss event reminder"
         >
           <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

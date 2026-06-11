@@ -22,28 +22,28 @@ const CATERING_PACKAGES: CateringPackage[] = [
 ]
 
 /**
- * Dark "Catering packages" card for the Private Hire why-us split (spec §7.4).
- * Cream package names, gold-bright prices, gold separators between rows.
+ * Light "Catering packages" card for the Private Hire why-us split (spec §7.4).
+ * Ink package names, gold (accent-text) prices, hairline separators between rows.
  */
 export function CateringPackagesCard() {
   return (
-    <Card variant="dark" accent>
+    <Card accent>
       <CardBody>
-        <h3 className="font-display text-h4 text-anchor-cream-text">Catering packages</h3>
-        <ul className="mt-6 divide-y divide-line-gold/40">
+        <h3 className="font-display text-h4 text-ink-strong">Catering packages</h3>
+        <ul className="mt-6 divide-y divide-line">
           {CATERING_PACKAGES.map(pkg => (
             <li key={pkg.name} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
-              <span className="text-base text-anchor-cream-text">
+              <span className="text-base text-ink">
                 {pkg.name}
                 {pkg.note ? (
-                  <span className="mt-0.5 block text-sm text-anchor-sage">{pkg.note}</span>
+                  <span className="mt-0.5 block text-sm text-ink-muted">{pkg.note}</span>
                 ) : null}
               </span>
-              <span className="font-display text-lg text-anchor-gold-bright">{pkg.price}</span>
+              <span className="font-display text-lg text-accent-text">{pkg.price}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-sm text-anchor-sage">
+        <p className="mt-6 text-sm text-ink-muted">
           Minimum 30 guests on buffet packages unless stated. Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
         </p>
       </CardBody>
