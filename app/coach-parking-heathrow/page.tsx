@@ -63,10 +63,10 @@ export default function CoachParkingPage() {
                                 lead="We know the driver works the hardest."
                                 align="left"
                             />
-                            <Card variant="dark" className="theme-dark p-6 shadow-lg">
-                                <h3 className="text-2xl font-bold mb-2 text-anchor-cream-text"> The Driver Deal</h3>
-                                <p className="mb-4 text-anchor-cream-text/85">Bring a group of 15+ passengers for a main meal, and the driver gets:</p>
-                                <ul className="space-y-2 font-medium text-anchor-cream-text/85">
+                            <Card className="p-6 shadow-lg">
+                                <h3 className="text-2xl font-bold mb-2 text-ink-strong"> The Driver Deal</h3>
+                                <p className="mb-4 text-ink">Bring a group of 15+ passengers for a main meal, and the driver gets:</p>
+                                <ul className="space-y-2 font-medium text-ink">
                                     <li> A Free Main Meal</li>
                                     <li> Free Soft Drinks / Coffee</li>
                                     <li> A quiet spot to rest if needed</li>

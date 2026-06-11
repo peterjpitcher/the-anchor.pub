@@ -146,20 +146,20 @@ export default function PubNearHiltonHeathrowPage() {
                 </Card>
               ))}
             </div>
-            <Card variant="dark" accent className="theme-dark">
+            <Card accent>
               <CardBody className="p-6">
-                <h3 className="font-display text-h4 text-anchor-gold-bright mb-3 text-center">Client Dinner at The Anchor</h3>
-                <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-anchor-cream-text/80">
+                <h3 className="font-display text-h4 text-accent-text mb-3 text-center">Client Dinner at The Anchor</h3>
+                <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-ink-muted">
                   <div>
-                    <p className="font-semibold mb-1 text-anchor-cream-text">Atmosphere</p>
+                    <p className="font-semibold mb-1 text-ink-strong">Atmosphere</p>
                     <p>Relaxed but professional, great for building relationships</p>
                   </div>
                   <div>
-                    <p className="font-semibold mb-1 text-anchor-cream-text">Cost</p>
+                    <p className="font-semibold mb-1 text-ink-strong">Cost</p>
                     <p>Honest pub pricing with mains from £8.99</p>
                   </div>
                   <div>
-                    <p className="font-semibold mb-1 text-anchor-cream-text">Booking</p>
+                    <p className="font-semibold mb-1 text-ink-strong">Booking</p>
                     <p>Recommended for groups of 6+, call us to arrange</p>
                   </div>
                 </div>

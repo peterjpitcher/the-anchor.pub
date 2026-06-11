@@ -389,16 +389,16 @@ export default function FindUsPage() {
       </section>
 
       {/* Book Your Visit Section */}
-      <section className="theme-dark bg-anchor-green py-section-y">
+      <section className="bg-canvas py-section-y">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-display text-h2 text-anchor-cream-text mb-2">Found us? Book your visit</h2>
-            <p className="text-anchor-cream-text/85 text-lg mb-8">Reserve your table now and enjoy The Anchor experience</p>
+            <h2 className="font-display text-h2 text-ink-strong mb-2">Found us? Book your visit</h2>
+            <p className="text-ink-muted text-lg mb-8">Reserve your table now and enjoy The Anchor experience</p>
 
-            <Card variant="dark" accent>
+            <Card accent>
               <CardBody className="p-8">
-                <h3 className="font-display text-h3 text-anchor-cream-text mb-4">Ready to Book?</h3>
-                <p className="text-anchor-cream-text/85 mb-8 text-lg">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Ready to Book?</h3>
+                <p className="text-ink mb-8 text-lg">
                   Book your table online through our booking system or give us a call.
                 </p>
 
@@ -419,17 +419,17 @@ export default function FindUsPage() {
                   </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-line-gold text-left">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-line text-left">
                   <div className="space-y-3">
-                    <h4 className="text-lg font-semibold text-anchor-cream-text mb-3">Good to Know</h4>
-                    <p className="text-anchor-cream-text/85 text-sm">Free parking for patrons</p>
-                    <p className="text-anchor-cream-text/85 text-sm">Kitchen closed Mondays</p>
-                    <p className="text-anchor-cream-text/85 text-sm">Children always welcome</p>
-                    <p className="text-anchor-cream-text/85 text-sm">Dogs welcome in bar & garden</p>
+                    <h4 className="text-lg font-semibold text-ink-strong mb-3">Good to Know</h4>
+                    <p className="text-ink text-sm">Free parking for patrons</p>
+                    <p className="text-ink text-sm">Kitchen closed Mondays</p>
+                    <p className="text-ink text-sm">Children always welcome</p>
+                    <p className="text-ink text-sm">Dogs welcome in bar & garden</p>
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-semibold text-anchor-cream-text mb-3">Opening Hours</h4>
+                    <h4 className="text-lg font-semibold text-ink-strong mb-3">Opening Hours</h4>
                     <WeekHours showKitchen={false} />
                   </div>
                 </div>

@@ -101,10 +101,10 @@ export default function PreFlightDiningPage() {
                                 </CardBody>
                             </Card>
                         </div>
-                        <Card variant="dark" accent>
+                        <Card accent>
                             <CardBody className="text-center">
-                                <h2 className="font-display text-h3 mb-4 text-anchor-cream-text">Taxi Service</h2>
-                                <p className="mb-6 text-anchor-cream-text/85">
+                                <h2 className="font-display text-h3 mb-4 text-ink-strong">Taxi Service</h2>
+                                <p className="mb-6 text-ink">
                                     Need a ride to the terminal? We have direct numbers for reliable local taxi firms who know exactly where we are and which drop-off zone you need.
                                 </p>
                                 <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="outline">

@@ -203,22 +203,22 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 
         return (
           <Card key={event.id} hover accent className="overflow-hidden">
-            <div className="theme-dark flex flex-wrap items-center justify-between gap-3 bg-anchor-green px-5 py-4 text-white">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-surface-sunk px-5 py-4">
               <div className="min-w-0">
                 <div className="mb-1 flex items-center gap-2">
-                  <p className="text-xs uppercase tracking-wide text-white/70">Music bingo night</p>
+                  <p className="text-xs uppercase tracking-wide text-ink-muted">Music bingo night</p>
                   {isTentative && (
                     <Badge variant="outline">Tentative</Badge>
                   )}
                 </div>
-                <Link href={eventUrl} className="block text-xl font-semibold text-white transition hover:text-accent-text">
+                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong transition hover:text-accent-text">
                   {event.name}
                 </Link>
-                <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
+                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-white">{startTime}</p>
-                <p className="text-xs text-white/70">Doors {doorTime ?? '6:30pm'} - {entryLabel}</p>
+                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
+                <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'} - {entryLabel}</p>
               </div>
             </div>
 
@@ -515,10 +515,10 @@ export default async function MusicBingoPage() {
                 </ol>
               </CardBody>
             </Card>
-            <Card variant="dark" accent className="theme-dark">
+            <Card accent>
               <CardBody className="space-y-4">
-                <h3 className="text-h4 text-anchor-cream-text">Music Bingo house rules</h3>
-                <ul className="space-y-3 text-sm text-anchor-cream-text/90">
+                <h3 className="text-h4 text-ink-strong">Music Bingo house rules</h3>
+                <ul className="space-y-3 text-sm text-ink">
                   <li>Phones away during rounds so everyone gets a fair listen.</li>
                   <li>Singing along is encouraged, but keep shouting to a cheer.</li>
                   <li>Caller's decision is final on line and full house wins.</li>

@@ -537,11 +537,11 @@ export default function Terminal5Page() {
               </div>
             </div>
 
-            <div className="theme-dark bg-anchor-green-card border border-line-gold rounded-xs p-8 text-center">
-              <h3 className="font-display text-h3 text-anchor-cream-text mb-4">
+            <div className="bg-surface border border-line rounded-xs p-8 text-center">
+              <h3 className="font-display text-h3 text-ink-strong mb-4">
                 Experience Real British Pub Culture
               </h3>
-              <p className="text-lg text-anchor-cream-text/85 mb-6 max-w-2xl mx-auto">
+              <p className="text-lg text-ink mb-6 max-w-2xl mx-auto">
                 The Anchor has been serving locals and travelers for over 250 years.
                 Step away from the international hotel scene and discover authentic
                 British hospitality, traditional ales, and home-cooked food in a

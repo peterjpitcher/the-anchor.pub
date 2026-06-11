@@ -78,9 +78,9 @@ export default function BarStaffRecruitmentPage() {
         }
       />
 
-      <section className="theme-dark bg-anchor-green-deep border-b border-anchor-gold-dark/15 py-8">
+      <section className="bg-surface-sunk border-b border-line py-8">
         <Container>
-          <Card variant="dark" accent className="max-w-4xl p-6">
+          <Card accent className="max-w-4xl p-6">
             <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <RoleFact label="Pay" value="£12.71 per hour base rate" />
               <RoleFact label="Hours" value="Part-time, mainly evenings and weekends" />
@@ -99,8 +99,8 @@ export default function BarStaffRecruitmentPage() {
 function RoleFact({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">{label}</dt>
-      <dd className="mt-1 font-medium text-anchor-cream-text">{value}</dd>
+      <dt className="text-xs font-semibold uppercase tracking-wide text-accent-text">{label}</dt>
+      <dd className="mt-1 font-medium text-ink-strong">{value}</dd>
     </div>
   )
 }

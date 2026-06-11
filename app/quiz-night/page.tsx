@@ -200,23 +200,23 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 
         return (
           <Card key={event.id} hover accent className="overflow-hidden">
-            <div className="theme-dark bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="border-b border-line bg-surface-sunk px-5 py-4 flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xs uppercase tracking-wide text-white/70">Monthly quiz night</p>
+                  <p className="text-xs uppercase tracking-wide text-ink-muted">Monthly quiz night</p>
                   {isTentative && (
                     <Badge variant="outline">Tentative</Badge>
                   )}
                 </div>
-                <Link href={eventUrl} className="block text-xl font-semibold text-white hover:text-accent-text transition">
+                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong hover:text-accent-text transition">
                   {event.name}
                 </Link>
-                <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
+                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
               </div>
 	              <div className="text-right">
-	                <p className="text-lg font-semibold text-white">{startTime}</p>
-	                <p className="text-xs text-white/70">Doors {doorTime ?? '6:30pm'}</p>
-	                <p className="text-xs text-white/70">£3 per player</p>
+	                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
+	                <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'}</p>
+	                <p className="text-xs text-ink-muted">£3 per player</p>
 	              </div>
             </div>
 
@@ -481,10 +481,10 @@ export default async function QuizNightPage() {
                 </ul>
               </CardBody>
             </Card>
-            <Card variant="dark" accent className="theme-dark">
+            <Card accent>
               <CardBody className="space-y-4">
-                <h3 className="text-h4 text-anchor-cream-text">Quiz Night House Rules</h3>
-                <ul className="space-y-3 text-anchor-cream-text/90 text-sm">
+                <h3 className="text-h4 text-ink-strong">Quiz Night House Rules</h3>
+                <ul className="space-y-3 text-ink text-sm">
                   <li>Phones away during questions (–5 points if we catch a scroll).</li>
                   <li>Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
                   <li>Dogs welcome, water bowls and treats ready behind the bar.</li>

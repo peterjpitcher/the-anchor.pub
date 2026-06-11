@@ -179,22 +179,22 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 
                 return (
                     <Card key={event.id} hover accent className="overflow-hidden">
-                        <div className="theme-dark bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+                        <div className="border-b border-line bg-surface-sunk px-5 py-4 flex flex-wrap items-center justify-between gap-3">
                             <div className="min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <p className="text-xs uppercase tracking-wide text-white/70">Karaoke Night</p>
+                                    <p className="text-xs uppercase tracking-wide text-ink-muted">Karaoke Night</p>
                                     {isTentative && (
                                         <Badge variant="outline">Tentative</Badge>
                                     )}
                                 </div>
-                                <Link href={eventUrl} className="block text-xl font-semibold text-white hover:text-accent-text transition">
+                                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong hover:text-accent-text transition">
                                     {event.name}
                                 </Link>
-                                <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
+                                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
                             </div>
                             <div className="text-right">
-                                <p className="text-lg font-semibold text-white">{startTime}</p>
-                                <p className="text-xs text-white/70">Free Entry</p>
+                                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
+                                <p className="text-xs text-ink-muted">Free Entry</p>
                             </div>
                         </div>
 
@@ -497,7 +497,7 @@ export default async function KaraokePage() {
                         <div className="h-full">
                             <GoogleMapEmbed
                                 query="The Anchor, Stanwell Moor"
-                                className="h-full min-h-[300px] border border-anchor-gold-dark/15 rounded-xl overflow-hidden shadow-sm"
+                                className="h-full min-h-[300px] border border-line rounded-xl overflow-hidden shadow-sm"
                             />
                         </div>
                     </div>
