@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Button, Icon } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { Button, Card, Container, Icon } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { buildJobPostingSchema, RecruitmentRoleBody, RoleHeroFact } from '../_components/RecruitmentRolePage'
+import { buildJobPostingSchema, RecruitmentRoleBody } from '../_components/RecruitmentRolePage'
 import { recruitmentRolePages } from '../recruitmentContent'
 
 const role = recruitmentRolePages['kitchen-team']
@@ -55,48 +55,52 @@ export default function KitchenTeamRecruitmentPage() {
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(buildJobPostingSchema(role)) }}
       />
 
-      <HeroWrapper
-        route={`/join-our-team/${role.slug}`}
+      <InteriorHero
+        image={role.image.src}
+        crumb={role.title}
         title={role.heroTitle}
-        titleClassName="text-4xl sm:text-5xl md:text-5xl lg:text-5xl"
-        variant="feature"
-        size="large"
-        alignment="left"
-        overlay="dark"
-        contentClassName="!max-w-6xl pb-28 lg:pb-32"
-        image={{
-          src: role.image.src,
-          alt: role.image.alt,
-          objectPosition: '50% 50%'
-        }}
-        lead={
-          <div className="max-w-3xl space-y-4 text-base text-white/90 sm:text-lg">
-            <p>{role.heroIntro[0]}</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href={applyHref}>
-                  <Icon name="send" className="h-4 w-4" aria-hidden="true" />
-                  Apply for Kitchen Team Role
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <Link href="/join-our-team">
-                  <Icon name="briefcase" className="h-4 w-4" aria-hidden="true" />
-                  View All Roles
-                </Link>
-              </Button>
-            </div>
-            <div className="grid gap-3 pt-2 text-sm sm:grid-cols-2">
-              <RoleHeroFact label="Pay" value="£12.71 per hour base rate" />
-              <RoleHeroFact label="Hours" value="Part-time, mainly evenings and weekends" />
-              <RoleHeroFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
-              <RoleHeroFact label="Parking" value="Free on-site parking" />
-            </div>
-          </div>
+        lead={role.heroIntro[0]}
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link href={applyHref}>
+                <Icon name="send" className="h-4 w-4" aria-hidden="true" />
+                Apply for Kitchen Team Role
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/join-our-team">
+                <Icon name="briefcase" className="h-4 w-4" aria-hidden="true" />
+                View All Roles
+              </Link>
+            </Button>
+          </>
         }
       />
 
+      <section className="theme-dark bg-anchor-green-deep border-b border-anchor-gold-dark/15 py-8">
+        <Container>
+          <Card variant="dark" accent className="max-w-4xl p-6">
+            <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <RoleFact label="Pay" value="£12.71 per hour base rate" />
+              <RoleFact label="Hours" value="Part-time, mainly evenings and weekends" />
+              <RoleFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
+              <RoleFact label="Parking" value="Free on-site parking" />
+            </dl>
+          </Card>
+        </Container>
+      </section>
+
       <RecruitmentRoleBody role={role} />
     </>
+  )
+}
+
+function RoleFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">{label}</dt>
+      <dd className="mt-1 font-medium text-anchor-cream-text">{value}</dd>
+    </div>
   )
 }

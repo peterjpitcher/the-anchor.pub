@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Button, Container, Icon } from '@/components/ui'
-import { HeroWrapper } from '@/components/hero'
+import { Button, Card, Container, Icon } from '@/components/ui'
+import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -147,49 +147,42 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
         ]}
       />
 
-      <HeroWrapper
-        route="/join-our-team"
+      <InteriorHero
+        image="/images/our-pub/the-anchor-bar.jpg"
+        focal="50% 45%"
+        crumb="Join Our Team"
         title="Join a small, friendly pub team near Staines"
-        titleClassName="max-w-4xl text-4xl sm:text-5xl md:text-5xl lg:text-5xl"
-        variant="feature"
-        size="large"
-        alignment="left"
-        overlay="dark"
-        contentClassName="!max-w-6xl pb-28 lg:pb-32"
-        image={{
-          src: '/images/our-pub/the-anchor-bar.jpg',
-          alt: 'The Anchor bar in Stanwell Moor near Heathrow',
-          objectPosition: '50% 45%'
-        }}
-        lead={
-          <div className="max-w-3xl space-y-4 text-base text-white/90 sm:text-lg">
-            <p>
-              We are looking for experienced bar and kitchen team members who want regular part-time shifts,
-              a well-run rota, free parking, and a friendly village pub environment.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href="#current-roles">
-                  <Icon name="briefcase" className="h-4 w-4" aria-hidden="true" />
-                  View Current Roles
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <Link href="#apply">
-                  <Icon name="send" className="h-4 w-4" aria-hidden="true" />
-                  Apply Now
-                </Link>
-              </Button>
-            </div>
-            <div className="grid gap-3 pt-2 text-sm sm:grid-cols-2">
-              <HeroFact label="Current roles" value="Bar Staff and Kitchen Team" />
-              <HeroFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
-              <HeroFact label="Pay" value="£12.71 per hour base rate" />
-              <HeroFact label="Hours" value="Part-time, mainly evenings and weekends" />
-            </div>
-          </div>
+        lead="We are looking for experienced bar and kitchen team members who want regular part-time shifts, a well-run rota, free parking, and a friendly village pub environment."
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link href="#current-roles">
+                <Icon name="briefcase" className="h-4 w-4" aria-hidden="true" />
+                View Current Roles
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="#apply">
+                <Icon name="send" className="h-4 w-4" aria-hidden="true" />
+                Apply Now
+              </Link>
+            </Button>
+          </>
         }
       />
+
+      <section className="theme-dark bg-anchor-green-deep border-b border-anchor-gold-dark/15 py-8">
+        <Container>
+          <Card variant="dark" accent className="max-w-4xl p-6">
+            <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <RecruitmentFact label="Current roles" value="Bar Staff and Kitchen Team" />
+              <RecruitmentFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
+              <RecruitmentFact label="Pay" value="£12.71 per hour base rate" />
+              <RecruitmentFact label="Hours" value="Part-time, mainly evenings and weekends" />
+            </dl>
+          </Card>
+        </Container>
+      </section>
 
       <section className="section-spacing-md bg-anchor-green-deep border-b border-anchor-gold-dark/15">
         <Container>
@@ -349,11 +342,11 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
   )
 }
 
-function HeroFact({ label, value }: { label: string; value: string }) {
+function RecruitmentFact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-white/20 bg-black/25 px-4 py-3 backdrop-blur-sm">
-      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">{label}</p>
-      <p className="mt-1 text-white">{value}</p>
+    <div>
+      <dt className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright">{label}</dt>
+      <dd className="mt-1 font-medium text-anchor-cream-text">{value}</dd>
     </div>
   )
 }
