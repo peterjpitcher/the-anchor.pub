@@ -1,38 +1,35 @@
-import Link from 'next/link'
 import { Metadata } from 'next'
-import { Container, Section, Card, CardBody, Alert, CTASection, SectionHeading, FeatureGrid, Badge } from '@/components/ui'
+import { Badge, Button } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { InteriorHero } from '@/components/hero'
-import { MenuSectionCta } from '@/components/food/MenuSectionCta'
-import { FilteredMenuRenderer } from '@/components/FilteredMenuRenderer'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { CtaBand } from '@/components/CtaBand'
+import { SectionHeading } from '@/components/ui'
+import Link from 'next/link'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
-import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
-import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import {
   getFishAndChipsMenuPageData,
   getFoodMenuPageData,
   getMenuUnavailableMessage,
-  getPizzaMenuPageData,
   getSundayLunchMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+import { FoodMenuSection } from './_components/FoodMenuSection'
+import { SundayRoastFeature } from './_components/SundayRoastFeature'
 
 export const revalidate = 3600
 
-function buildKitchenHoursMap(hours: BusinessHours): Record<string, string> | null {
+function buildKitchenSchedule(hours: BusinessHours): string {
   const schedule: Record<string, string> = {}
 
   const weekdays: Array<keyof BusinessHours['regularHours']> = ['tuesday', 'wednesday', 'thursday', 'friday']
@@ -69,12 +66,6 @@ function buildKitchenHoursMap(hours: BusinessHours): Record<string, string> | nu
     schedule.Sunday = `${formatTime12Hour(sundayHours.opens)}-${formatTime12Hour(sundayHours.closes)}`
   }
 
-  return Object.keys(schedule).length ? schedule : null
-}
-
-function buildKitchenSchedule(hours: BusinessHours): string {
-  const schedule = buildKitchenHoursMap(hours)
-  if (!schedule) return ''
   return Object.entries(schedule)
     .map(([day, time]) => `${day} ${time}`)
     .join(', ')
@@ -98,7 +89,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
-      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
+    title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
     description,
     openGraph: {
       title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
@@ -111,16 +102,15 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
     alternates: {
-      canonical: '/food-menu'
+      canonical: './'
     }
   }
 }
 
 export default async function FoodMenuPage() {
-  const [menuData, businessHours, pizzaData, fishData, sundayData] = await Promise.all([
+  const [menuData, businessHours, fishData, sundayData] = await Promise.all([
     getFoodMenuPageData(),
     getBusinessHours().catch(() => null),
-    getPizzaMenuPageData(),
     getFishAndChipsMenuPageData(),
     getSundayLunchMenuPageData()
   ])
@@ -129,26 +119,19 @@ export default async function FoodMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-anchor-green-deep">
-        <p className="text-xl text-anchor-cream-text/70">{getMenuUnavailableMessage()}</p>
+      <div className="flex min-h-screen items-center justify-center bg-canvas">
+        <p className="text-xl text-ink-muted">{getMenuUnavailableMessage()}</p>
       </div>
     )
   }
 
-  const kitchenHoursMap = businessHours ? buildKitchenHoursMap(businessHours) : null
-  const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : null
-  const menuDataWithKitchenHours = {
-    ...menuData.menuData,
-    ...(kitchenHoursMap ? { kitchenHours: kitchenHoursMap } : {})
-  }
+  const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : ''
   const menuSections = menuData.menuData.categories.map((category, index) => ({
     position: index + 1,
     name: category.title,
     url: `https://www.the-anchor.pub/food-menu#${category.id}`
   }))
-  const pizzaPreview = itemPreview(pizzaData?.pizzaItems ?? [])
   const fishPreview = itemPreview(fishData?.fishItems ?? [])
-  const dietaryPreview = itemPreview([...menuData.vegetarianItems, ...menuData.veganItems, ...menuData.glutenFreeItems])
 
   const faqItems = [
     {
@@ -164,8 +147,8 @@ export default async function FoodMenuPage() {
     {
       question: 'Do you serve Sunday roast at The Anchor?',
       answer: sundayData.menuData
-        ? `Yes. The Sunday roast page lists the current Sunday menu. ${sundayData.priceFromLabel ? `Mains ${sundayData.priceFromLabel}.` : ''}`
-        : 'Yes. Sunday roast details are handled on the Sunday roast page. Please call us for the current dish list.'
+        ? `Yes. Walk in any time from 1pm to 6pm on Sundays. There is no pre-order and no Saturday cut-off. ${sundayData.priceFromLabel ? `Mains ${sundayData.priceFromLabel}.` : ''}`
+        : 'Yes. Walk in any time from 1pm to 6pm on Sundays. There is no pre-order and no Saturday cut-off.'
     },
     {
       question: "Is there a children's menu?",
@@ -200,23 +183,21 @@ export default async function FoodMenuPage() {
         ]}
       />
       <SpeakableSchema />
-      <MenuPageTracker
-        menuType="food"
-        specialOffers={[]}
-      />
+      <MenuPageTracker menuType="food" specialOffers={[]} />
       <ScrollDepthTracker />
 
+      {/* 1. Hero (§7.2.1): kitchen-closed days are never hardcoded; hours are API-only. */}
       <InteriorHero
         image="/images/page-headers/food-menu/food-menu.jpg"
         crumb="Food"
-        title="Pub Food Menu in Stanwell Moor, Near Heathrow T5"
-        lead="Book a table for pub classics, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor."
+        kicker="Eat, Drink, Enjoy"
+        title="Proper pub food, minutes from Heathrow"
+        lead="Pub classics, stone-baked pizzas, fish and chips and a famous Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
         badges={
           <>
-            <Badge variant="sand">Live menu</Badge>
-            <Badge variant="sand">Dietary filters</Badge>
-            <Badge variant="sand">Book a table</Badge>
-            <Badge variant="sand">Free parking</Badge>
+            <Badge variant="sand">Mains £11 to £16</Badge>
+            <Badge variant="sand">Pizzas from £12</Badge>
+            <Badge variant="sand">Dog friendly</Badge>
           </>
         }
         actions={
@@ -229,302 +210,41 @@ export default async function FoodMenuPage() {
               fullWidth
               trackingLabel="Hero Book a Table"
             >
-              Reserve Your Table
+              Book a table
             </BookTableButton>
-            <MenuSectionCta
-              label="View Full Menu"
-              scrollToId="menu"
-              analyticsLabel="view_full_menu"
-              location="food_menu_hero"
-              variant="outline"
-              fullWidth
-            />
+            <Link href="/whats-on" className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" fullWidth>
+                What&apos;s on
+              </Button>
+            </Link>
           </>
         }
       />
 
-      <Section background="white" spacing="sm" className="bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <SectionHeading
-                title="Live Food Menu at The Anchor"
-                subtitle="Current dishes, descriptions, prices and booking links in one place."
-              />
-              <p className="text-anchor-cream-text/70">
-                The Anchor serves pub food, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free customer parking.
-              </p>
-              <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
-                <li>&bull; {menuData.items.length} current food items listed.</li>
-                <li>&bull; Dietary labels are shown from the latest menu guidance.</li>
-                <li>&bull; Free parking, 7 minutes from Heathrow Terminal 5.</li>
-              </ul>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
+      {/* 2. AmenityStrip (§7.2.2) */}
+      <AmenityStrip />
 
-      <div id="menu" className="section-spacing bg-anchor-green-deep">
-        <Container>
-          <div className="mb-8 grid gap-4 md:grid-cols-2">
-            <StaticHoursSummary />
-            <div className="rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-4">
-              <p className="text-sm font-semibold text-anchor-gold-bright">Popular for</p>
-              <div className="mt-3 flex flex-wrap gap-2 text-sm text-anchor-cream-text/75">
-                {['Heathrow travellers', 'Plane spotters', 'Local family meals', 'Sunday roast', 'Small group meals'].map((item) => (
-                  <span key={item} className="rounded-full border border-anchor-gold-dark/20 bg-anchor-green-raised px-3 py-1">{item}</span>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* 3. Menu (§7.2.3): cream, live menu data, dietary filter chips. */}
+      <section id="menu" className="bg-canvas py-section-y">
+        <div className="container">
           <SectionHeading
-            title="Full Food Menu & Pub Menu"
-            subtitle="Use the dietary filters to tailor the menu to your table."
-            align="center"
-            className="mb-10"
+            kicker="The menu"
+            script="Carved, baked, poured"
+            title="Today at The Anchor"
+            lead="Everything below is the kitchen's current menu. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
           />
-          <DietaryMenuNav />
-          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} showBookingCtas />
-        </Container>
-      </div>
+          <FoodMenuSection menuData={menuData.menuData} />
+        </div>
+      </section>
 
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="What Guests Book Us For"
-            subtitle="Choose the section that matches your plans and pre-book to guarantee your table."
-          />
-          <SpeakableContent selector="menu-highlights" priority="high">
-            <FeatureGrid
-              columns={4}
-              features={[
-                {
-                  title: 'Full Live Menu',
-                  description: 'The full menu below follows the latest dish, description and price updates.',
-                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
-                },
-                {
-                  title: 'Pizza Menu',
-                  description: pizzaPreview.length > 0
-                    ? `Current pizza choices include ${joinItemNames(pizzaPreview)}.`
-                    : 'Please call us for the current pizza choices if the menu is temporarily unavailable online.',
-                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
-                },
-                {
-                  title: 'Dietary Options',
-                  description: dietaryPreview.length > 0
-                    ? `Current dietary picks include ${joinItemNames(dietaryPreview)}.`
-                    : 'Use the filters to see vegetarian, vegan and gluten-free options.',
-                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
-                },
-                {
-                  title: 'Near Heathrow',
-                  description: 'Free parking, easy access from Terminal 5 and a table booking flow that works well for pre-flight meals.',
-                  className: 'text-left bg-anchor-green-card rounded-none p-6 border border-anchor-gold-dark/15'
-                }
-              ]}
-            />
-          </SpeakableContent>
-        </Container>
-      </Section>
+      {/* 4. Sunday roast feature (§7.2.4): white, SSOT §4 line-up. */}
+      <section id="sunday-roast" className="bg-surface py-section-y">
+        <div className="container">
+          <SundayRoastFeature />
+        </div>
+      </section>
 
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="sunday-roast">
-        <Container>
-          <Card className="card-dark rounded-none border border-anchor-gold-dark/20">
-            <CardBody className="text-center py-8">
-              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
-              <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
-                Sunday roast has a dedicated page. Current Sunday dishes and prices are shown there when available online.
-              </p>
-              <MenuSectionCta
-                label="View Sunday Roast Menu & Book"
-                href="/sunday-roast"
-                analyticsLabel="view_roast_menu"
-                location="food_menu_roast_summary"
-                variant="primary"
-                className="sm:w-auto sm:min-w-0 inline-flex"
-              />
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="pizza">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <SectionHeading
-                  title="Pizza Menu"
-                  subtitle="Current pizza items from the live food menu."
-                  align="left"
-                  className="mb-6"
-                />
-                <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li>&bull; Dine in or call for collection.</li>
-                  <li>&bull; Dietary labels update with the menu data.</li>
-                  <li>&bull; Ask at the bar for allergen guidance before ordering.</li>
-                </ul>
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <BookTableButton
-                    source="food_menu_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="lg"
-                    className="sm:w-auto"
-                    trackingLabel="Book Pizza Table"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <MenuSectionCta
-                    label="View Pizza Page"
-                    href="/pizza-menu"
-                    analyticsLabel="pizza_menu"
-                    location="food_menu_pizza_section"
-                    variant="outline"
-                    fullWidth
-                    className="sm:w-auto sm:min-w-0"
-                  />
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-3">Current Pizza Highlights</h3>
-                {pizzaPreview.length > 0 ? (
-                  <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                    {pizzaPreview.map((item) => (
-                      <li key={item.id}>
-                        <strong>{item.name}:</strong> {item.description} {item.priceLabel && <span>{item.priceLabel}</span>}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-sm text-anchor-cream-text/70">Please call us for the current pizza choices if the menu is temporarily unavailable online.</p>
-                )}
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="current-menu">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <SectionHeading
-                  title="Current Menu Picks"
-                  subtitle="A live sample from the current food menu."
-                  align="left"
-                  className="mb-6"
-                />
-                <ul className="space-y-3 text-anchor-cream-text/70">
-                  {itemPreview(menuData.items, 5).map((item) => (
-                    <li key={item.id}>
-                      &bull; <strong>{item.name}</strong>{item.description ? `, ${item.description}` : ''} {item.priceLabel && <span>{item.priceLabel}</span>}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6 max-w-xs">
-                  <BookTableButton
-                    source="food_menu_classics_cta"
-                    context="food"
-                    variant="primary"
-                    size="lg"
-                    trackingLabel="Book Dinner Table"
-                  >
-                    Book a Table for Dinner
-                  </BookTableButton>
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-bright mb-3">Kitchen Today</h3>
-                <p className="text-sm text-anchor-cream-text/70">
-                  {kitchenSchedule ? (
-                    <>Kitchen open: {kitchenSchedule}. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> for large parties.</>
-                  ) : (
-                    <>Kitchen hours are updated live on this page. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright" showIcon={false} /> for large parties.</>
-                  )}
-                </p>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-deep border-b border-anchor-gold-dark/15" id="dietary">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <SectionHeading
-                title="Vegetarian, Vegan & Gluten-Free Picks"
-                subtitle="Dietary pages follow the same current kitchen menu."
-                align="left"
-                className="mb-6"
-              />
-              <div className="grid gap-6 md:grid-cols-3 text-anchor-cream-text/70">
-                <p>Vegetarian dishes: {menuData.vegetarianItems.length}</p>
-                <p>Vegan or vegan-option dishes: {menuData.veganItems.length + menuData.veganOptionItems.length}</p>
-                <p>Gluten-free or gluten-free-option dishes: {menuData.glutenFreeItems.length + menuData.glutenFreeOptionItems.length}</p>
-              </div>
-              <p className="mt-4 text-anchor-cream-text/70">
-                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright transition">vegetarian menu</Link> for detailed options.
-              </p>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      <Section background="white" spacing="md" className="bg-anchor-green-raised border-b border-anchor-gold-dark/15" id="near-heathrow">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <SectionHeading
-                title="Near Heathrow"
-                subtitle="Ideal for crews, airport teams, and anyone passing through."
-                align="left"
-                className="mb-6"
-              />
-              <ul className="space-y-3 text-anchor-cream-text/70">
-                <li>&bull; 7 minutes to Terminal 5 by taxi.</li>
-                <li>&bull; 11 minutes to Terminals 2 and 3 avoiding car-park queues.</li>
-                <li>&bull; Free on-site parking with downloadable receipts.</li>
-                <li>&bull; Book ahead for groups and busy weekend slots.</li>
-                <li>
-                  &bull; Interested in part-time kitchen jobs near Heathrow?{' '}
-                  <Link href="/join-our-team" className="font-semibold text-anchor-gold-bright hover:text-anchor-gold-bright">
-                    Join our team
-                  </Link>
-                  .
-                </li>
-              </ul>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      <Section background="gray" spacing="md" className="bg-anchor-green-deep">
-        <Container>
-          <Alert
-            variant="warning"
-            title="Allergen Information"
-            className="max-w-4xl mx-auto"
-          >
-            <p className="text-anchor-cream-text/70">
-              All dishes are prepared in a single kitchen where allergens are present. Speak to us about your needs before ordering.
-            </p>
-          </Alert>
-        </Container>
-      </Section>
-
-      <FAQAccordionWithSchema
-        faqs={faqItems}
-        className="bg-anchor-green-card"
-        renderSchema={false}
-      />
+      <FAQAccordionWithSchema faqs={faqItems} renderSchema={false} />
 
       <OrganicSearchClusterLinks
         cluster="heathrowDining"
@@ -533,33 +253,31 @@ export default async function FoodMenuPage() {
         intro="The menu page owns live dishes and prices. Use these related pages for restaurant comparisons and Heathrow timing."
       />
 
+      {/* 5. CtaBand (§7.2.5) */}
       <div data-sticky-cta-guard="true">
-        <CTASection
-          title="Hungry? Book Your Table Now"
-          description="Weekends and busy services fill quickly. Book today and we will have your table ready."
-          buttons={[
-            {
-              text: 'Book a Table',
-              href: '/book-table',
-              variant: 'white'
-            },
-            {
-              text: 'Call: 01753 682707',
-              href: 'tel:+441753682707',
-              variant: 'white',
-              isPhone: true,
-              phoneSource: 'food_menu_footer'
-            },
-            {
-              text: 'View Drinks Menu',
-              href: '/drinks',
-              variant: 'white'
-            }
-          ]}
-          variant="green"
+        <CtaBand
+          title="Hungry? Grab a table."
+          copy="Weekends and busy services fill quickly. Book ahead and we will have your table ready."
+          primary={
+            <BookTableButton
+              source="food_menu_footer"
+              context="food"
+              variant="primary"
+              size="lg"
+              trackingLabel="Footer Book a Table"
+            >
+              Book a table
+            </BookTableButton>
+          }
+          secondary={
+            <Link href="/find-us">
+              <Button variant="outline" size="lg">
+                Find us
+              </Button>
+            </Link>
+          }
         />
       </div>
-
 
       <script
         type="application/ld+json"

@@ -1,27 +1,26 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Metadata } from 'next'
+import { Briefcase, PartyPopper, Cake, Flower, Check, Phone } from 'lucide-react'
 import { InteriorHero } from '@/components/hero'
-import { Container, SectionHeading, FeatureGrid, Button, Badge } from '@/components/ui'
+import { Container, SectionHeading, Button, Badge } from '@/components/ui'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { CtaBand } from '@/components/CtaBand'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
-import { HeroBadge } from '@/components/HeroBadge'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
-import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
-import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
-import { StaticHoursSummary } from '@/components/StaticHoursSummary'
+import { OccasionCard } from './_components/OccasionCard'
+import { CateringPackagesCard } from './_components/CateringPackagesCard'
 
 type LandmarkGroup = {
     title: string
@@ -44,6 +43,56 @@ const landmarkGroups: LandmarkGroup[] = [
         title: 'Work, travel and team gatherings',
         description: 'Business parks, Heathrow and local venues for meetings, team meals and private celebrations.',
         types: ['hospital', 'business_park', 'sports_venue', 'other'],
+    },
+]
+
+const occasions = [
+    {
+        href: '/corporate-events',
+        icon: Briefcase,
+        title: 'Corporate events',
+        description: 'Meetings, training days and team lunches with AV equipment and free WiFi.',
+    },
+    {
+        href: '/christmas-parties',
+        icon: PartyPopper,
+        title: 'Christmas parties',
+        description: 'Festive get-togethers for work teams, friends and family, with buffet packages to match.',
+    },
+    {
+        href: '/private-party-venue',
+        icon: Cake,
+        title: 'Private parties',
+        description: 'Milestone birthdays, anniversaries and reunions with food, drinks and space to celebrate.',
+    },
+    {
+        href: '/private-hire/wakes',
+        icon: Flower,
+        title: 'Wakes and memorials',
+        description: 'A quiet, private room near local crematoriums, with respectful service and full catering.',
+    },
+]
+
+const whyPoints = [
+    {
+        lead: 'Small groups welcome.',
+        text: 'We host room bookings from just 10 guests, with no minimum-numbers headache. Larger events and full-venue hire are available by enquiry.',
+    },
+    {
+        lead: 'Free parking for everyone.',
+        text: 'A large on-site car park with around 20 spaces, free for you and your guests, with no fees while you visit.',
+    },
+    {
+        lead: 'Catering to suit your budget.',
+        text: 'From sandwich and finger buffets to an indoor BBQ, or à la carte from our menu for sit-down meals.',
+    },
+    {
+        lead: 'A personal touch.',
+        text: 'You plan your event directly with the team, not a faceless events desk, and bring your own decorations.',
+    },
+    {
+        lead: 'Easy to reach.',
+        text: 'Stanwell Moor, 7 minutes from Heathrow Terminal 5 and a short drive from Staines, just off the M25.',
     },
 ]
 
@@ -72,9 +121,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PrivateHirePage() {
-    const { foodPackages, drinkPackages, addonPackages, spaces } = await getCateringData()
-    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
-
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -137,207 +183,175 @@ export default async function PrivateHirePage() {
                     { name: 'Private Hire', url: 'https://www.the-anchor.pub/private-hire' }
                 ]}
             />
+
             <InteriorHero
                 image="/images/page-headers/private-hire/private-hire.jpg"
                 crumb="Private Hire"
-                title="Private Hire and Function Room in Stanwell Moor, Near Staines and Heathrow"
-                lead={`Room bookings for 10 to 50 guests. Larger events by enquiry. Free parking, buffet packages from ${fromPrice}pp, function room, garden and full venue options.`}
+                kicker="Private hire"
+                title="Host your event at The Anchor"
+                lead="Room bookings for 10 to 50 guests in Stanwell Moor, near Staines and Heathrow. Free parking, custom catering, and a team that plans it with you."
                 badges={
                     <>
-                        <Badge variant="sand">7 Mins from Heathrow</Badge>
-                        <Badge variant="sand">Free Parking</Badge>
-                        <Badge variant="sand">10-50 Room Bookings</Badge>
-                        <Badge variant="sand">From {fromPrice}pp</Badge>
+                        <Badge variant="sand">10 to 50 guests</Badge>
+                        <Badge variant="sand">Free parking</Badge>
+                        <Badge variant="sand">Custom catering</Badge>
                     </>
                 }
                 actions={
                     <>
                         <Link href="/private-hire#enquiry">
                             <Button variant="primary" size="lg" fullWidth>
-                                Check Availability
+                                Get an event quote
                             </Button>
                         </Link>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="outline" size="lg" fullWidth>
-                                Get a Quote
-                            </Button>
-                        </Link>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source="private_hire_hero"
+                            variant="outline"
+                            size="lg"
+                        >
+                            <Phone className="h-5 w-5" aria-hidden />
+                            01753 682707
+                        </PhoneButton>
                     </>
                 }
             />
 
+            <AmenityStrip />
+
+            {/* Occasions */}
+            <section className="bg-canvas py-section-y">
+                <Container>
+                    <SectionHeading
+                        kicker="Occasions"
+                        script="However you celebrate"
+                        title="Every kind of get-together"
+                    />
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                        {occasions.map(occasion => (
+                            <OccasionCard
+                                key={occasion.href}
+                                href={occasion.href}
+                                icon={occasion.icon}
+                                title={occasion.title}
+                                description={occasion.description}
+                            />
+                        ))}
+                    </div>
+                </Container>
+            </section>
+
+            {/* Why choose us */}
+            <section className="bg-surface py-section-y">
+                <Container>
+                    <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
+                        <div>
+                            <SectionHeading
+                                align="left"
+                                kicker="Why choose us"
+                                title="A pub that feels like yours for the day"
+                            />
+                            <ul className="flex flex-col gap-5">
+                                {whyPoints.map(point => (
+                                    <li key={point.lead} className="flex items-start gap-3">
+                                        <Check className="mt-1 h-5 w-5 shrink-0 text-accent-text" strokeWidth={2.5} aria-hidden />
+                                        <p className="text-base text-ink-muted">
+                                            <span className="font-semibold text-ink-strong">{point.lead}</span>{' '}
+                                            {point.text}
+                                        </p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="mt-8">
+                                <Link href="/private-hire#enquiry">
+                                    <Button variant="primary" size="lg">
+                                        Start your enquiry
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+
+                        <CateringPackagesCard />
+                    </div>
+                </Container>
+            </section>
+
+            <CtaBand
+                title="Let's plan your event"
+                copy="Tell us your date, guest count and the kind of day you have in mind, and we'll build a quote for you."
+                primary={
+                    <Link href="/private-hire#enquiry">
+                        <Button variant="primary" size="lg">
+                            Get a quote
+                        </Button>
+                    </Link>
+                }
+                secondary={
+                    <PhoneButton
+                        phone="01753 682707"
+                        source="private_hire_ctaband"
+                        variant="outline"
+                        size="lg"
+                    >
+                        <Phone className="h-5 w-5" aria-hidden />
+                        01753 682707
+                    </PhoneButton>
+                }
+            />
+
+            {/* Existing enquiry form (logic preserved) */}
             <PrivateBookingSection
                 id="enquiry"
                 eventType="Other"
-                title="Check Availability and Build a Quote"
+                title="Check availability and build a quote"
                 subtitle="Choose your event type, preferred date, guest count, timing and food options."
             />
 
-            <section className="bg-anchor-green-deep border-b border-anchor-gold-dark/15 py-8">
-                <Container size="md">
-                    <StaticHoursSummary compact />
-                </Container>
-            </section>
+            {/* Testimonials */}
+            <TestimonialSection
+                variant="full"
+                title="What our guests say"
+                subtitle="From Google Reviews"
+                className="bg-canvas py-section-y"
+                reviews={[
+                    { quote: "We had our baby's Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.", author: "Rachel", source: "TripAdvisor", rating: 5 },
+                    { quote: "Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.", author: "Dave", source: "Google Review", rating: 5 },
+                    { quote: "Had our daughter's christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.", author: "Priya", source: "Google Review", rating: 5 },
+                    { quote: "Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.", author: "Google Review", source: "Google Review", rating: 5 },
+                ]}
+            />
 
-            <section className="section-spacing-lg bg-anchor-green-card border-b border-anchor-gold-dark/15">
-                <Container>
-                    <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
-                        Private Rooms Near Staines and Heathrow, Function Room and Party Venue
-                    </PageTitle>
-
-                    <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host room bookings for 10 to 50 guests with {`buffet packages from ${fromPrice} per person`}, free parking for all, and a personal touch you won&apos;t get from a hotel. Larger events and full-venue hire are available by enquiry. Looking for venue hire near Staines? We&apos;re just a short drive away.
-                    </p>
-
-                    <div className="flex justify-center mb-10">
-                        <HeroBadge className="text-sm" />
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                        {/* Wakes */}
-                        <Link href="/private-hire/wakes" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/wakes.jpg"
-                                        alt="Wake venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Wakes & Memorials</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">Respectful, private reception spaces near local crematoriums. Fully catered with compassionate service.</p>
-                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
-                                        View Wake Packages <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
-
-                        {/* Christenings */}
-                        <Link href="/private-hire/christenings" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/christenings.jpg"
-                                        alt="Christening venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Christenings</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">Celebrate your little one's special day with family. Relaxed buffet options and space for the kids.</p>
-                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
-                                        View Christening Details <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
-
-
-                        {/* Parties */}
-                        <Link href="/private-party-venue" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/parties.jpg"
-                                        alt="Private party venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Private Parties</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">Milestone birthdays, anniversaries, and family reunions. Dance floors, DJs, and great food.</p>
-                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
-                                        View Party Venue <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
-
-                        {/* Baby Showers */}
-                        <Link href="/private-hire/baby-showers" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/baby-showers.jpg"
-                                        alt="Baby shower venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Baby Showers</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">Afternoon tea, mocktails, and plenty of space for games. The perfect daytime celebration.</p>
-                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
-                                        View Baby Showers <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
-
-                        {/* Corporate (Linking to existing) */}
-                        <Link href="/corporate-events" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/corporate.jpg"
-                                        alt="Corporate event venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition-colors">Corporate Events</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">Meetings, training days, and team lunches. AV equipment and fast WiFi included.</p>
-                                    <span className="text-anchor-gold-dark font-semibold text-sm flex items-center gap-1">
-                                        View Corporate <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                </Container>
-            </section>
-
-            <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
+            {/* Private hire near local venues */}
+            <section className="bg-surface py-section-y">
                 <Container>
                     <SectionHeading
-                        title="Private Hire Near Local Venues and Landmarks"
-                        subtitle="Find the most relevant private-hire page for your ceremony, workplace, sports club or family gathering."
+                        title="Private hire near local venues and landmarks"
+                        lead="Find the most relevant private-hire page for your ceremony, workplace, sports club or family gathering."
                     />
 
-                    <div className="space-y-10 max-w-6xl mx-auto">
+                    <div className="mx-auto max-w-6xl space-y-10">
                         {landmarkGroups.map((group) => {
                             const groupLandmarks = landmarks.filter((landmark) => group.types.includes(landmark.type))
 
                             return (
                                 <div key={group.title}>
                                     <div className="mb-4">
-                                        <h3 className="text-2xl font-bold text-anchor-gold-bright">{group.title}</h3>
-                                        <p className="mt-2 text-anchor-cream-text/70">{group.description}</p>
+                                        <h3 className="font-display text-h4 text-ink-strong">{group.title}</h3>
+                                        <p className="mt-2 text-ink-muted">{group.description}</p>
                                     </div>
 
-                                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                         {groupLandmarks.map((landmark) => (
                                             <Link
                                                 key={landmark.slug}
                                                 href={`/private-hire/near/${landmark.slug}`}
                                                 className="group block h-full"
                                             >
-                                                <div className="h-full border border-anchor-gold-dark/15 bg-anchor-green-card p-5 transition-colors group-hover:border-anchor-gold-dark/45">
-                                                    <h4 className="font-bold text-anchor-gold-bright group-hover:text-anchor-gold-dark">
+                                                <div className="h-full rounded-md border border-line bg-surface p-5 transition-colors group-hover:border-accent">
+                                                    <h4 className="font-semibold text-ink-strong">
                                                         {landmark.name}
                                                     </h4>
-                                                    <p className="mt-2 text-sm text-anchor-cream-text/70">
+                                                    <p className="mt-2 text-sm text-ink-muted">
                                                         {landmark.distance} from The Anchor. {landmark.description}
                                                     </p>
                                                 </div>
@@ -351,313 +365,15 @@ export default async function PrivateHirePage() {
                 </Container>
             </section>
 
-            {/* Pricing Bands */}
-            <section id="pricing" className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <SectionHeading
-                            title="Our Packages"
-                            subtitle="Catering, drinks and venue hire to suit every occasion"
-                        />
-
-                        <div className="space-y-10">
-                            <CateringPackagesTable
-                                packages={foodPackages}
-                                title="Food Packages"
-                                subtitle="All prices per person unless stated"
-                            />
-
-                            <CateringPackagesTable
-                                packages={drinkPackages}
-                                title="Drink Packages"
-                            />
-
-                            <CateringPackagesTable
-                                packages={addonPackages}
-                                title="Extras"
-                            />
-
-                            {spaces.length > 0 && (
-                                <div>
-                                    <div className="mb-4">
-                                        <h3 className="text-xl font-bold text-anchor-gold-bright">Venue Hire</h3>
-                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Room hire rates vary by day and group size</p>
-                                    </div>
-                                    <VenueSpacesTable spaces={spaces} />
-                                </div>
-                            )}
-                        </div>
-
-                        <p className="mt-8 text-sm text-anchor-cream-text/60 italic">
-                            Sit-down meals and Sunday roasts are priced à la carte from our menu. Bespoke packages available, get in touch to discuss your requirements.
-                        </p>
-
-                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                                <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                                    Get a Personalised Quote
-                                </Button>
-                            </Link>
-                            <PhoneButton
-                                phone="01753 682707"
-                                source="private_hire_pricing_cta"
-                                variant="outline"
-                                size="lg"
-                                className="w-full sm:w-auto border-anchor-gold-dark/30 text-anchor-cream-text hover:bg-anchor-green-raised"
-                            >
-                                Call: 01753 682707
-                            </PhoneButton>
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            {/* Our Spaces */}
-            <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <SectionHeading
-                            title="Our Function Rooms"
-                            subtitle="Flexible party venue spaces for 10 to 50 guests"
-                        />
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-none">
-                                <Image
-                                    src="/images/dining-room/conservatory.jpg"
-                                    alt="The Anchor private dining room set up for a function with views over the beer garden"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                />
-                            </div>
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-none">
-                                <Image
-                                    src="/images/dining-room/dining-room.jpg"
-                                    alt="The Anchor private dining room from the bar end, showing the full space set for a function"
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                />
-                            </div>
-                        </div>
-                        <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
-                            Our main function room, seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden.{' '}
-                            <Link href="/our-pub" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
-                                View all venue photos &rarr;
-                            </Link>
-                        </p>
-                    </div>
-                </Container>
-            </section>
-
-            {/* How We Compare */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <SectionHeading
-                            title="How We Compare"
-                            subtitle="The Anchor vs a typical hotel venue"
-                        />
-
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="border-b border-anchor-gold-dark/30">
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">Feature</th>
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-bright">The Anchor</th>
-                                        <th scope="col" className="py-3 text-sm font-semibold text-anchor-cream-text/50">Hotel Venue (typical)</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-anchor-gold-dark/10">
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Room hire</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;25/hr</td>
-                                        <td className="py-3 text-anchor-cream-text/50">&pound;500–&pound;2,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Catering per head</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">From {fromPrice}pp</td>
-                                        <td className="py-3 text-anchor-cream-text/50">From &pound;35–&pound;55pp</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Parking</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">Free (20+ spaces)</td>
-                                        <td className="py-3 text-anchor-cream-text/50">&pound;15–&pound;25/car</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Minimum guests</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">10</td>
-                                        <td className="py-3 text-anchor-cream-text/50">50–80</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Late bar</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">Available</td>
-                                        <td className="py-3 text-anchor-cream-text/50">Usually 11pm cutoff</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Bring your own decorations</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">Yes</td>
-                                        <td className="py-3 text-anchor-cream-text/50">Restrictions apply</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Personalised service</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">Direct with manager</td>
-                                        <td className="py-3 text-anchor-cream-text/50">Via events team</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            {/* Small Parties Welcome */}
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto text-center">
-                        <SectionHeading
-                            title="Small Parties Welcome"
-                            subtitle="No minimum of 50 guests here, we love intimate gatherings"
-                        />
-
-                        <p className="text-lg text-anchor-cream-text/70 mb-8 max-w-3xl mx-auto">
-                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering, we&apos;ll give your event the same care and attention as a larger celebration.
-                        </p>
-
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">10+</p>
-                                <p className="text-sm text-anchor-cream-text/70">Birthday dinners</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">15+</p>
-                                <p className="text-sm text-anchor-cream-text/70">Retirement lunches</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">20+</p>
-                                <p className="text-sm text-anchor-cream-text/70">Christening teas</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold-dark/15 bg-anchor-green-card p-5 text-center">
-                                <p className="text-2xl font-bold text-anchor-gold-bright mb-1">10+</p>
-                                <p className="text-sm text-anchor-cream-text/70">Work gatherings</p>
-                            </div>
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            {/* Testimonials */}
-            <TestimonialSection
-                variant="full"
-                title="What Our Guests Say"
-                subtitle="From Google Reviews"
-                className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15"
-                reviews={[
-                    { quote: "We had our baby's Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.", author: "Rachel", source: "TripAdvisor", rating: 5 },
-                    { quote: "Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.", author: "Dave", source: "Google Review", rating: 5 },
-                    { quote: "Had our daughter's christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.", author: "Priya", source: "Google Review", rating: 5 },
-                    { quote: "Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.", author: "Google Review", source: "Google Review", rating: 5 },
-                ]}
-            />
-
-            {/* WhatsApp & Contact CTA */}
-            <section className="section-spacing bg-anchor-green text-white border-b border-anchor-gold-dark/15">
-                <Container>
-                    <div className="text-center max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Plan Your Event?</h2>
-                        <p className="text-lg mb-8">
-                            Get in touch to discuss your requirements. We&apos;ll put together a bespoke package that works for you.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link
-                                href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20hire%20at%20The%20Anchor"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full sm:w-auto"
-                            >
-                                <Button variant="outline" size="lg" className="w-full sm:w-auto bg-anchor-gold-dark text-anchor-green hover:bg-anchor-gold border-anchor-gold-dark">
-                                    WhatsApp Us
-                                </Button>
-                            </Link>
-                            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-anchor-green">
-                                    Enquire Online
-                                </Button>
-                            </Link>
-                            <PhoneButton
-                                phone="01753 682707"
-                                source="private_hire_green_cta"
-                                variant="outline"
-                                size="lg"
-                                className="w-full sm:w-auto border-anchor-gold-dark text-anchor-gold-dark hover:bg-anchor-gold-dark hover:text-anchor-green"
-                            >
-                                Call: 01753 682707
-                            </PhoneButton>
-                        </div>
-                    </div>
-                </Container>
-            </section>
-
-            <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-                <Container>
-                    <SectionHeading
-                        title="Why Choose The Anchor?"
-                        subtitle="We make event planning simple and stress-free"
-                    />
-                    <FeatureGrid
-                        columns={3}
-                        features={[
-                            {
-                                icon: "",
-                                title: "Prime Location",
-                                description: "Just minutes from the M25 and Heathrow, making it easy for all your guests to reach us.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Free Parking",
-                                description: "Large on-site car park (20 spaces) completely free for your guests.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Accessible",
-                                description: "Step-free access to the bar, dining area and beer garden.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Flexible Catering",
-                                description: "From finger buffets to 3-course sit-down meals, tailored to your budget.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Private Bar",
-                                description: "Exclusive bar options available with your function room hire.",
-                                className: "text-center"
-                            },
-                            {
-                                icon: "",
-                                title: "Dedicated Team",
-                                description: "Our event coordinators will handle every detail from start to finish.",
-                                className: "text-center"
-                            }
-                        ]}
-                    />
-                </Container>
-            </section>
-
             <InternalLinkingSection
-                title="Also Explore"
+                title="Also explore"
                 links={[
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
                     { href: '/function-room-hire', title: 'Function Room Hire', description: 'Room bookings for 10-50 guests; larger events by enquiry' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                     { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },
                 ]}
-                className="section-spacing-md"
+                className="py-section-y"
             />
 
             <OrganicSearchClusterLinks
@@ -667,18 +383,19 @@ export default async function PrivateHirePage() {
                 intro="Compare room sizes, catering, meeting options and routes from Staines, Stanwell Moor and Heathrow before you enquire."
             />
 
-            <section className="section-spacing bg-anchor-green-card border-t border-anchor-gold-dark/15">
+            {/* Accessibility */}
+            <section className="bg-canvas py-section-y">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-anchor-gold-bright mb-4">Accessibility</h2>
-                        <p className="text-anchor-cream-text/70 mb-3">
+                    <div className="mx-auto max-w-4xl">
+                        <h2 className="mb-4 font-display text-h3 text-ink-strong">Accessibility</h2>
+                        <p className="mb-3 text-ink-muted">
                             Step-free access to the bar, dining area and beer garden.
                         </p>
-                        <p className="text-anchor-cream-text/70 mb-4">
+                        <p className="mb-4 text-ink-muted">
                             We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-                            <PhoneLink phone={CONTACT.phone} source="private-hire_accessibility" className="text-anchor-gold-dark font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
+                            <PhoneLink phone={CONTACT.phone} source="private-hire_accessibility" className="font-semibold text-accent-text hover:underline" showIcon={false} /> and we&apos;ll help.
                         </p>
-                        <Link href="/accessibility" className="text-anchor-gold-dark font-semibold hover:underline">
+                        <Link href="/accessibility" className="font-semibold text-accent-text hover:underline">
                             Full accessibility information &rarr;
                         </Link>
                     </div>

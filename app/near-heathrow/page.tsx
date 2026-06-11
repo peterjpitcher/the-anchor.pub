@@ -1,23 +1,25 @@
 import Link from 'next/link'
-import { Button, Container, CTASection, SectionHeading, FeatureGrid } from '@/components/ui'
+import Image from 'next/image'
+import { MapPin } from 'lucide-react'
+import { Button, Badge, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
+import { AmenityStrip } from '@/components/AmenityStrip'
+import { CtaBand } from '@/components/CtaBand'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
-import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
-import { HeroBadge } from '@/components/HeroBadge'
-import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { JourneyTimesCard } from './_components/JourneyTimesCard'
+import { WhyStopList } from './_components/WhyStopList'
+
+const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -60,743 +62,92 @@ export default function NearHeathrowPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
       />
-      {/* Hero Section */}
+
+      {/* Hero — keyword-focused H1 retained (stronger for SEO than the prototype title). */}
       <InteriorHero
         image="/images/page-headers/near-heathrow/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
+        kicker="Stanwell Moor Village"
         title="Pubs Near Heathrow Airport, The Anchor"
-        lead="The best pub near Heathrow Airport, just 7 minutes from Terminal 5 with free parking, proper food and a beer garden under the flight path."
+        lead="The closest proper pub to Heathrow, just 7 minutes from Terminal 5 with free parking, freshly made food and a beer garden under the flight path."
+        badges={
+          <>
+            <Badge variant="sand">7 mins from T5</Badge>
+            <Badge variant="sand">20 free spaces</Badge>
+            <Badge variant="sand">Outside ULEZ</Badge>
+          </>
+        }
+        actions={
+          <>
+            <BookTableButton source="near_heathrow_hero" variant="primary" size="lg">
+              Book a table
+            </BookTableButton>
+            <Link href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="lg" icon={<MapPin className="h-5 w-5" strokeWidth={2} />}>
+                Get directions
+              </Button>
+            </Link>
+          </>
+        }
       />
 
-      {/* Definitive answer for featured snippets */}
-      <section className="section-spacing-tight bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
-            Searching for pubs near Heathrow Airport or restaurants near Heathrow Airport? The Anchor is one of the best places to eat near Heathrow, a proper country pub in Stanwell Moor, just 7 minutes from Terminal 5. We serve freshly prepared British pub food with free parking, a dog-friendly beer garden under the flight path, and a warm welcome for travellers and locals alike.
-          </p>
-        </Container>
+      <AmenityStrip />
+
+      {/* Why stop — feature split: reasons list (left) + dark journey-times card (right). */}
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="grid items-center gap-x-[clamp(2rem,5vw,4rem)] gap-y-10 lg:grid-cols-2">
+            <div className="flex flex-col gap-6">
+              <SectionHeading
+                align="left"
+                kicker="Why stop with us"
+                title="A better stop than the terminal"
+                lead="Skip the airport queues and prices. We are minutes from every terminal, with room to relax before you fly or while you wait for arrivals."
+                className="mb-0"
+              />
+              <WhyStopList />
+            </div>
+            <JourneyTimesCard />
+          </div>
+        </div>
       </section>
 
-      {/* Page Title for SEO */}
-      <section className="section-spacing-sm bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-            <PageTitle
-            className="text-center text-anchor-cream-text"
-            seo={{ structured: true, speakable: true }}
-          >
-            Pub Near Heathrow Airport for Food, Parking and WiFi
-          </PageTitle>
-          <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
-            The Anchor is the closest traditional pub to Heathrow Airport, just 7 minutes by car from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Free parking for 20 cars is available with no time limit while dining.
-          </p>
-        </Container>
-      </section>
-      <HeathrowFoodBestFor />
-
-      {/* Food CTA for Travellers */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              title="Eat Before You Fly"
-              subtitle="Swap airport fast food for proper pub dining minutes from your terminal."
-            />
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Sunday Roast</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="near_heathrow_roast_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book Roast Table
-                  </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
-                    View roast menu →
-                  </Link>
-                </div>
+      {/* Beer garden feature — flipped split: text left, image right. Mobile: image first. */}
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="grid items-center gap-x-[clamp(2rem,5vw,4rem)] gap-y-10 lg:grid-cols-2">
+            <div className="order-2 lg:order-1 flex flex-col gap-6">
+              <SectionHeading
+                align="left"
+                kicker="The beer garden"
+                title="Planes overhead every 90 seconds"
+                lead="Our beer garden sits directly under Heathrow's flight path. Aircraft pass roughly every 90 seconds at peak times, from 500 to 800 feet up. Full food and drink service runs during kitchen hours."
+                className="mb-0"
+              />
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="sand">64 seats</Badge>
+                <Badge variant="sand">Heated areas</Badge>
+                <Badge variant="sand">Plane spotting</Badge>
               </div>
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Hand-stretched bases and generous toppings, ideal for crew nights or family send-offs.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="near_heathrow_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
-                    View pizza menu →
-                  </Link>
-                </div>
+              <div>
+                <BookTableButton source="near_heathrow_garden" variant="primary" size="lg">
+                  Book a table
+                </BookTableButton>
               </div>
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-                <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2">All-Day Menu</h3>
-                <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Burgers, fish & chips, veggie options and sharers served fast, great for pre-flight meals or meeting arrivals.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="near_heathrow_food_menu_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-anchor-gold-dark font-semibold hover:text-anchor-gold transition">
-                    Browse full menu →
-                  </Link>
-                </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="relative h-[clamp(320px,42vw,480px)] w-full overflow-hidden rounded-md shadow-lg">
+                <Image
+                  src="/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg"
+                  alt="The Anchor's beer garden under the Heathrow flight path, with an aircraft passing overhead"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
-        </Container>
-      </section>
-
-      {/* Why Choose The Anchor */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Why Travellers Love The Anchor"
-            subtitle="Whether you're killing time before a flight, meeting arriving passengers, or just landed and need a proper British welcome"
-          />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Free Parking for Patrons</h2>
-              <p className="text-anchor-cream-text/70">
-                20 free parking spaces while you're visiting us. No stress, no fees.
-                Perfect for meeting arriving passengers over a meal or drink. Staying longer?{' '}
-                <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">
-                  Pre-book our cheap Heathrow parking
-                </Link>{' '}
-                or share the{' '}
-                <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold-dark transition-colors">
-                  savings guide
-                </Link>{' '}
-                with your travel group.
-              </p>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Proper British Pub</h2>
-              <p className="text-anchor-cream-text/70">
-                Traditional pub atmosphere with draught beers, hearty food, and genuine
-                British hospitality. A taste of local life.
-              </p>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Flexible Hours</h2>
-              <p className="text-anchor-cream-text/70">
-                Open late Fridays & Saturdays. Kitchen hours designed around flight
-                times. Call ahead for early/late arrangements.
-              </p>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Business Friendly</h2>
-              <p className="text-anchor-cream-text/70">
-                Free WiFi throughout, dining room with power points at tables,
-                quiet corners for meetings, and proper coffee. Popular with flight
-                crews, business travelers, and digital nomads.
-              </p>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">Luggage Welcome</h2>
-              <p className="text-anchor-cream-text/70">
-                Plenty of space for bags and cases. Safe luggage storage available.
-                No cramped city pub experience here - we&apos;ve got room for travelers.
-              </p>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 text-center">
-              <div className="text-5xl mb-4"></div>
-              <h2 className="text-2xl font-bold text-anchor-gold-bright mb-3">All Welcome</h2>
-              <p className="text-anchor-cream-text/70">
-                International menu options alongside British classics.
-                Dietary requirements catered for. Everyone&apos;s local.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-spacing bg-anchor-green-card border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Workspace Near Heathrow Airport"
-            subtitle="A useful base for travellers, cabin crew, contractors and remote workers who need WiFi, food and a table close to the terminals."
-          />
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-bright">Free guest WiFi</h2>
-              <p className="mt-3 text-anchor-cream-text/70">
-                Check emails, track flights, join a quick call or plan the next leg of your journey from the dining room.
-              </p>
-            </div>
-            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-bright">Food and coffee</h2>
-              <p className="mt-3 text-anchor-cream-text/70">
-                Order from the live menu during kitchen hours, with hot drinks, soft drinks and pub classics available.
-              </p>
-            </div>
-            <div className="border border-anchor-gold-dark/15 bg-anchor-green-raised p-6">
-              <h2 className="text-xl font-bold text-anchor-gold-bright">Close to T5</h2>
-              <p className="mt-3 text-anchor-cream-text/70">
-                We are 7 minutes from Terminal 5 and outside the airport bubble, with free customer parking while you visit.
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/book-table?source=workspace_near_heathrow">
-              <Button variant="primary" size="lg">
-                Book a work table
-              </Button>
-            </Link>
-            <Link href="/food-menu">
-              <Button variant="outline" size="lg">
-                View food menu
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      {/* Google Rating Badge */}
-      <section className="section-spacing-sm bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="text-center">
-            <HeroBadge className="text-sm" />
-          </div>
-        </Container>
-      </section>
-
-      {/* Plan Your Visit */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Plan Your Visit, The Best Pub Near Heathrow"
-            subtitle="Make the most of your time near the airport with these quick resources"
-          />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto">
-            {[
-              {
-                href: '/heathrow-parking',
-                title: 'Cheapest Heathrow parking',
-                description: 'Reserve secure parking from £15 per day, seven minutes from Terminal 5.'
-              },
-              {
-                href: '/heathrow-layover-dining',
-                title: 'Layover dining itineraries',
-                description: 'Follow 90-minute and 3-hour plans for proper meals between flights, with taxis timed for departures.'
-              },
-              {
-                href: '/blog/cheap-heathrow-parking-alternatives',
-                title: 'Parking comparison guide',
-                description: 'Compare official car parks, meet-and-greet operators and independent deals.'
-              },
-              {
-                href: '/plane-spotting-heathrow',
-                title: 'Plane spotting beer garden',
-                description: 'Watch arrivals every 90 seconds from our garden under the flight path.'
-              },
-              {
-                href: '/christmas-parties',
-                title: 'Christmas party packages',
-                description: 'Shared party nights, private hire and buffets for Heathrow teams & families.'
-              }
-            ].map(card => (
-              <Link key={card.href} href={card.href} className="block h-full group">
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 h-full p-6 transition group-hover:border-anchor-gold-dark/40">
-                  <h3 className="text-xl font-semibold text-anchor-gold-bright mb-2 group-hover:text-anchor-gold-dark transition">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-anchor-cream-text/70">{card.description}</p>
-                  <span className="mt-4 inline-flex items-center text-sm font-semibold text-anchor-gold-dark group-hover:underline">
-                    Learn more →
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Terminal-Specific Directions */}
-      <section id="terminals" className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Directions from Each Terminal"
-            subtitle="We're the closest traditional pub to all Heathrow terminals"
-          />
-
-          <SpeakableContent selector="travel-times" priority="high">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {/* Terminal 2 */}
-              <Link href="/near-heathrow/terminal-2" className="block group">
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 2</h2>
-                    <span className="text-anchor-gold-dark font-semibold">11 mins</span>
-                  </div>
-                  <p className="text-anchor-cream-text/70 mb-4">The Queen&apos;s Terminal</p>
-                  <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                    <li>• Via A3044 and A3113</li>
-                    <li>• Follow signs to Staines/Stanwell</li>
-                    <li>• Free parking available</li>
-                  </ul>
-                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
-                    Get full directions →
-                  </p>
-                </div>
-              </Link>
-
-              {/* Terminal 3 */}
-              <Link href="/near-heathrow/terminal-3" className="block group">
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 3</h2>
-                    <span className="text-anchor-gold-dark font-semibold">11 mins</span>
-                  </div>
-                  <p className="text-anchor-cream-text/70 mb-4">Virgin Atlantic & Emirates</p>
-                  <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                    <li>• Via Tunnel Road</li>
-                    <li>• Exit at Stanwell Moor</li>
-                    <li>• Straight down Horton Road</li>
-                  </ul>
-                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
-                    Get full directions →
-                  </p>
-                </div>
-              </Link>
-
-              {/* Terminal 4 */}
-              <Link href="/near-heathrow/terminal-4" className="block group">
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 4</h2>
-                    <span className="text-anchor-gold-dark font-semibold">12 mins</span>
-                  </div>
-                  <p className="text-anchor-cream-text/70 mb-4">Alliance Hub</p>
-                  <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                    <li>• Via Southern Perimeter Rd</li>
-                    <li>• Through Cargo tunnel</li>
-                    <li>• Exit Stanwell Moor</li>
-                  </ul>
-                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
-                    Get full directions →
-                  </p>
-                </div>
-              </Link>
-
-              {/* Terminal 5 */}
-              <Link href="/near-heathrow/terminal-5" className="block group">
-                <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 h-full group-hover:border-anchor-gold-dark/40 transition-all">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-anchor-gold-bright">Terminal 5</h2>
-                    <span className="text-anchor-gold-dark font-semibold">7 mins</span>
-                  </div>
-                  <p className="text-anchor-cream-text/70 mb-4">British Airways Home</p>
-                  <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
-                    <li>• Shortest route!</li>
-                    <li>• Via A3044 direct</li>
-                    <li>• We&apos;re the closest pub</li>
-                  </ul>
-                  <p className="text-anchor-gold-dark font-semibold mt-4 group-hover:underline">
-                    Get full directions →
-                  </p>
-                </div>
-              </Link>
-
-              {/* General/Taxi */}
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-anchor-gold-bright">By Taxi</h2>
-                  <span className="text-anchor-gold-dark font-semibold">£25</span>
-                </div>
-                <p className="text-anchor-cream-text/70 mb-4">All terminals</p>
-                <p className="text-anchor-cream-text/70 text-sm mb-4">
-                  Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;
-                </p>
-                <p className="text-sm text-anchor-cream-text/70">
-                  Postcode: <strong className="text-anchor-cream-text">TW19 6AQ</strong>
-                </p>
-              </div>
-
-              {/* Bus */}
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-anchor-gold-bright">By Bus</h2>
-                  <span className="text-anchor-gold-dark font-semibold">442</span>
-                </div>
-                <p className="text-anchor-cream-text/70 mb-4">From Central Bus Station</p>
-                <p className="text-anchor-cream-text/70 text-sm">
-                  Regular service to Stanwell Moor. Ask driver for The Anchor stop.
-                </p>
-              </div>
-            </div>
-          </SpeakableContent>
-        </Container>
-      </section>
-
-      {/* Popular with Travellers */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-gold-bright mb-4">
-              Popular with Heathrow Travellers
-            </h2>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Pre-Flight Dining</h3>
-              <p className="text-anchor-cream-text/70 mb-4">
-                Enjoy a proper meal with us before your flight.
-                We&apos;re just minutes away with free parking for patrons, a much more relaxing start to your journey.
-              </p>
-              <ul className="space-y-2 text-anchor-cream-text/70">
-                <li>• Quick lunch options for tight schedules</li>
-                <li>• Relax in our <Link href="/beer-garden" className="text-anchor-gold-dark hover:text-anchor-gold underline">beer garden</Link> before long flights</li>
-                <li>• Watch planes overhead while you dine</li>
-              </ul>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Meeting Point for Arrivals</h3>
-              <p className="text-anchor-cream-text/70 mb-4">
-                Perfect meeting spot when picking up friends and family. Free parking for patrons means
-                no airport fees, and you can track flights while enjoying a drink.
-              </p>
-              <ul className="space-y-2 text-anchor-cream-text/70">
-                <li>• Monitor arrivals on our free WiFi</li>
-                <li>• Comfortable seating to wait</li>
-                <li>• Just minutes away when they land</li>
-              </ul>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">Layovers & Crew Stops</h3>
-              <p className="text-anchor-cream-text/70 mb-4">
-                Regular stop for flight crews and travelers with long layovers.
-                Get out of the airport and experience a real British pub.
-              </p>
-              <ul className="space-y-2 text-anchor-cream-text/70">
-                <li>• Quiet areas for rest and relaxation</li>
-                <li>• Hearty meals to combat jet lag</li>
-                <li>• Local beers and proper pub atmosphere</li>
-              </ul>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Plane Spotting Section */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <SectionHeading
-              title="Unique Plane Spotting Experience"
-              subtitle="Our beer garden sits directly under the Heathrow flight path - watch aircraft pass overhead every 90 seconds while enjoying your meal or drink."
-            />
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "",
-                  title: "Every 90 Seconds",
-                  description: "Constant stream of aircraft during peak times",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Photo Opportunities",
-                  description: "Perfect for aviation photographers",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
-                },
-                {
-                  icon: "",
-                  title: "Comfort & Service",
-                  description: "Full bar and food service to your table",
-                  variant: "default",
-                  className: "bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-6 text-center"
-                }
-              ]}
-              className="mb-8"
-            />
-            <Link href="/beer-garden" className="w-full sm:w-auto inline-block">
-              <Button
-                variant="primary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Discover Our Plane Spotting Beer Garden
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      {/* Facilities for Travellers */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <SectionHeading
-            title="Everything Travellers Need"
-            subtitle="From entertainment to remote work facilities - we've got you covered"
-          />
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Entertainment & Games</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-xl"></span>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text">Pool Table</p>
-                    <p className="text-sm sm:text-xs text-anchor-cream-text/70">Kill time with a game</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl"></span>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text">Darts Board</p>
-                    <p className="text-sm sm:text-xs text-anchor-cream-text/70">Professional setup</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl"></span>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text">Jukebox</p>
-                    <p className="text-sm sm:text-xs text-anchor-cream-text/70">Your music choice</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl"></span>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text">Fruit Machine</p>
-                    <p className="text-sm sm:text-xs text-anchor-cream-text/70">Try your luck</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xl"></span>
-                  <div>
-                    <p className="font-semibold text-anchor-cream-text">4 TVs</p>
-                    <p className="text-sm sm:text-xs text-anchor-cream-text/70">Terrestrial channels</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8">
-              <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6">Digital Nomad Friendly</h3>
-              <ul className="space-y-3">
-                <li className="flex gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div>
-                    <strong className="text-anchor-cream-text">Free WiFi Throughout</strong>
-                    <p className="text-sm text-anchor-cream-text/70">Fast, reliable, no passwords or time limits</p>
-                  </div>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div>
-                    <strong className="text-anchor-cream-text">Power Points at Tables</strong>
-                    <p className="text-sm text-anchor-cream-text/70">Dining room equipped for laptop work</p>
-                  </div>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-anchor-gold-dark"></span>
-                  <div>
-                    <strong className="text-anchor-cream-text">Quiet Work Environment</strong>
-                    <p className="text-sm text-anchor-cream-text/70">Peaceful weekday atmosphere</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Traveler-Specific Amenities */}
-          <div className="mt-8 bg-anchor-green-raised rounded-none border border-anchor-gold-dark/15 p-8 max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold text-anchor-gold-bright mb-6 text-center">Traveler Amenities</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">Luggage Storage</strong>
-                  <p className="text-sm text-anchor-cream-text/70">Safe storage while you dine</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">Pet Friendly</strong>
-                  <p className="text-sm text-anchor-cream-text/70">Water bowls for travelling pets</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">Free Parking</strong>
-                  <p className="text-sm text-anchor-cream-text/70">For patrons - 20 spaces</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">All Cards Welcome</strong>
-                  <p className="text-sm text-anchor-cream-text/70">Including American Express</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">Accessible Entry</strong>
-                  <p className="text-sm text-anchor-cream-text/70">Ramp available at back door</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-anchor-gold-dark text-xl mt-1"></span>
-                <div>
-                  <strong className="text-anchor-cream-text">Bus Stop Outside</strong>
-                  <p className="text-sm text-anchor-cream-text/70">Route 442 to/from Heathrow</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <p className="text-anchor-cream-text/70 max-w-3xl mx-auto">
-              Whether you're waiting for a flight, killing time during a layover, or working remotely while travelling,
-              The Anchor provides everything you need for a comfortable start or end to your Heathrow journey.
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* Accessibility */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-gold-bright mb-4">Accessibility</h2>
-            <p className="text-anchor-cream-text/70 mb-3">
-              Step-free access to the bar, dining area and beer garden.
-            </p>
-            <p className="text-anchor-cream-text/70 mb-4">
-              We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <PhoneLink phone={CONTACT.phone} source="near-heathrow_accessibility" className="text-anchor-gold-bright font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
-            </p>
-            <Link href="/accessibility" className="text-anchor-gold-bright font-semibold hover:underline">
-              Full accessibility information &rarr;
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      {/* The Heathrow Local Experience */}
-      <section className="section-spacing bg-anchor-green-deep border-b border-anchor-gold-dark/15">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <SectionHeading
-              title="More Than Just a Pub Near the Airport"
-            />
-
-            <div className="prose prose-lg max-w-none text-anchor-cream-text/70">
-              <p className="text-xl text-center mb-8">
-                While millions pass through Heathrow's terminals each year, The Anchor offers
-                something the airport can't - authentic British hospitality at local prices.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">The Airport Alternative</h3>
-                  <p className="mb-4">
-                    Heathrow Airport serves over 80 million passengers annually, making it one of the
-                    world's busiest airports. But with that comes crowds, queues, and eye-watering
-                    prices. Just 7 minutes from Terminal 5, The Anchor provides a refreshing alternative.
-                    Here, a pint costs what a pint should cost. A meal is freshly prepared, not
-                    pre-packaged. And you can actually hear yourself think.
-                  </p>
-                  <p>
-                    Whether you're starting your journey, ending it, or somewhere in between, we offer
-                    what every traveler needs: good food, fair prices, and a warm welcome. No boarding
-                    passes required.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4">A Hub for Everyone</h3>
-                  <p className="mb-4">
-                    Our unique location makes us a natural meeting point. Business travelers conducting
-                    meetings over lunch. Families reuniting after months apart. Flight crews unwinding
-                    after long-haul flights. Tour groups getting their first taste of British pub culture.
-                    Each brings their own story, but all find the same thing: a proper local pub that
-                    happens to be perfectly placed for airport access.
-                  </p>
-                  <p>
-                    We've become part of countless travel stories. Marriage proposals after arrivals.
-                    Tearful goodbyes before departures. Celebrations and commiserations. The Anchor
-                    isn't just near Heathrow - we're part of the journey.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-anchor-green-card rounded-none border border-anchor-gold-dark/15 p-8 mb-12">
-                <h3 className="text-2xl font-bold text-anchor-gold-bright mb-4 text-center">
-                  Why Smart Travellers Choose The Anchor
-                </h3>
-                <p className="text-anchor-cream-text/70 mb-4">
-                  It&apos;s not just about convenience, it&apos;s about the experience. Draught beers on tap,
-                  not just commercial lagers. Food cooked to order, not reheated. Staff who remember
-                  your name, not just your order number.
-                </p>
-                <p className="text-anchor-cream-text/70 mb-4">
-                  Free parking for patrons means one less thing to worry about before your flight.
-                </p>
-                <p className="text-anchor-cream-text/70">
-                  From Terminal 5, we're closer than most of the airport hotels. From Terminal 2
-                  and 3, we're a straight shot down the A3044. Even Terminal 4, the furthest away,
-                  is only 12 minutes by car. Close enough to be convenient, far enough to escape
-                  the airport bubble.
-                </p>
-              </div>
-
-              <div className="text-center">
-                <p className="text-lg text-anchor-cream-text/70 mb-4">
-                  The Anchor has been Stanwell Moor's village pub for generations. Long before
-                  Heathrow grew into the giant it is today, we were here serving the local
-                  community. Now we serve a global community too, but our values remain the same:
-                  good food, proper drinks, and a warm welcome for all.
-                </p>
-                <p className="text-lg text-anchor-cream-text/70 italic">
-                  "Your local near Heathrow" isn't just a tagline - it's a promise. However far
-                  you've traveled, you'll always find a home at The Anchor.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
+        </div>
       </section>
 
       <OrganicSearchClusterLinks
@@ -807,8 +158,8 @@ export default function NearHeathrowPage() {
       />
 
       {/* FAQ Section */}
-      <section className="section-spacing bg-anchor-green-raised border-b border-anchor-gold-dark/15">
-        <Container>
+      <section className="bg-canvas py-section-y">
+        <div className="container">
           <div className="max-w-3xl mx-auto">
             <FAQAccordionWithSchema
               title="Frequently Asked Questions, Pub Near Heathrow"
@@ -858,35 +209,25 @@ export default function NearHeathrowPage() {
               ]}
             />
           </div>
-        </Container>
+        </div>
       </section>
 
-      {/* CTA Section */}
-      <CTASection
-        title="Visit The Anchor - Heathrow's Local"
-        description="Just minutes from all terminals. Free parking. Great food. Genuine British pub experience."
-        buttons={[
-          {
-            text: "Book a Table",
-            href: "/book-table",
-            variant: "white"
-          },
-          {
-            text: "Call: 01753 682707",
-            href: "tel:+441753682707",
-            variant: "white",
-            isPhone: true,
-            phoneSource: "near_heathrow_cta"
-          },
-          {
-            text: "Get Directions",
-            href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-            variant: "white",
-            external: true
-          }
-        ]}
-        variant="green"
-        footer="The Anchor, Horton Road, Stanwell Moor, Surrey TW19 6AQ\nFree Parking • Family Friendly • Dog Friendly • Garden • Late Opening"
+      {/* Closing CTA band */}
+      <CtaBand
+        title="Flying soon? Pull in first."
+        copy="Free parking, freshly made food and a beer garden minutes from every terminal. Book a table or take a look at the menu."
+        primary={
+          <BookTableButton source="near_heathrow_cta" variant="primary" size="lg">
+            Book a table
+          </BookTableButton>
+        }
+        secondary={
+          <Link href="/food-menu">
+            <Button variant="outline" size="lg">
+              See the menu
+            </Button>
+          </Link>
+        }
       />
 
       <InternalLinkingSection
