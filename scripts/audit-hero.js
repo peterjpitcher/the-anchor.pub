@@ -221,6 +221,22 @@ function parsePage(pageFile) {
         })
       }
 
+      // HomeHero (Phase 4 redesign) is the homepage's bespoke hero — the one
+      // documented exception to the single InteriorHero (spec §7.1). It counts
+      // as a hero for presence and single-H1 purposes; like InteriorHero it is
+      // self-describing (inline image, no route), so the route-keyed rules below
+      // skip it (no routeLiteral).
+      if (tagName === 'HomeHero') {
+        heroWrappers.push({
+          line: getSourceLocation(node, sourceFile),
+          routeLiteral: null,
+          routeExpr: '',
+          variantLiteral: null,
+          primaryExpr: '',
+          hasImageProp: true,
+        })
+      }
+
       if (tagName === 'HeroSection') {
         heroSectionCount += 1
       }

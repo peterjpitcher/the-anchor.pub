@@ -63,7 +63,14 @@ function escapeRegex(value) {
 }
 
 function isAllowedPriceLine(relativePath, line) {
-  return relativePath === 'app/book-table/page.tsx' && /deposit/i.test(line)
+  if (relativePath === 'app/book-table/page.tsx' && /deposit/i.test(line)) return true
+  // Hero trust badges show SSOT §5 marketing price RANGES (e.g. "Mains £11 to £16",
+  // "Pizzas from £12"), not per-item menu prices. Per-item prices still come from the
+  // menu data layer; hardcoded item names + direct data reads remain audited below.
+  if (/Badge/.test(line) && /(from\s*(?:&pound;|£)\s*\d|(?:&pound;|£)\s*\d+\s*to\s*(?:&pound;|£)\s*\d)/i.test(line)) {
+    return true
+  }
+  return false
 }
 
 const knownMenuNames = Array.from(new Set([
