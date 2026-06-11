@@ -138,19 +138,6 @@
   .card-dark::before { top: 9px; left: 9px; border-width: 1px 0 0 1px; }
   .card-dark::after  { bottom: 9px; right: 9px; border-width: 0 1px 1px 0; }
 
-  /* DEPRECATED — remove in redesign Phase 6 (currently 0 usages) */
-  /* ── Inner frame for CTA blocks and hero images ── */
-  .inner-frame {
-    position: relative;
-  }
-  .inner-frame::after {
-    content: '';
-    position: absolute;
-    inset: 12px;
-    border: 1px solid rgba(201, 160, 32, 0.25);
-    pointer-events: none;
-  }
-
   /* ── Pull quote ── */
   .pull-quote {
     padding: 1.5rem 2rem;
@@ -367,64 +354,11 @@ a {
   transition: all 0.2s ease;
 }
 
-/* DEPRECATED — remove in redesign Phase 6 (currently 0 usages) */
-/* Friendly button styles */
-.btn-friendly {
-  transition: all 0.2s ease;
-  transform: translateY(0);
-}
-
-.btn-friendly:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.btn-friendly:active {
-  transform: translateY(0);
-}
-
 /* Interactive elements focus enhancement */
 .interactive-card:focus-within {
   outline: 2px solid var(--anchor-gold);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px rgba(139, 105, 20, 0.1);
-}
-
-/* Ensure interactive elements inside cards are accessible */
-.card-link:focus {
-  outline: none;
-}
-
-.card-link:focus-visible .card-warm {
-  outline: 2px solid var(--anchor-gold);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(139, 105, 20, 0.1);
-}
-
-/* DEPRECATED — remove in redesign Phase 6 (replace with <Card accent hover>) */
-/* Warm card styles */
-.card-warm {
-  transition: all 0.2s ease;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.card-warm:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-/* DEPRECATED — remove in redesign Phase 6 (replace with <Badge variant="sand">) */
-/* Family-friendly tag styles */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  background: var(--anchor-sand);
-  color: var(--anchor-green);
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
 }
 
 /* Welcome message animation */
@@ -489,12 +423,6 @@ img {
   }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .btn-friendly {
-    border: 2px solid currentColor;
-  }
-}
 
 /* Subtle pulse animation for special offers */
 @keyframes pulse-subtle {
