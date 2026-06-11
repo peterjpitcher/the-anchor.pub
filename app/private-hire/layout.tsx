@@ -13,7 +13,7 @@ export default function PrivateHireLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="bg-anchor-green-deep min-h-screen">
+        <div className="bg-canvas min-h-screen">
             {children}
         </div>
     )

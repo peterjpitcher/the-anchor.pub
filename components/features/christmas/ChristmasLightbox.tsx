@@ -141,7 +141,7 @@ export function ChristmasLightbox() {
             {/* Modal */}
             <div
                 className={cn(
-                    "relative w-full max-w-lg card-dark rounded-none shadow-2xl overflow-hidden transform transition-all duration-300",
+                    "relative w-full max-w-lg bg-surface border border-line rounded-md shadow-2xl overflow-hidden transform transition-all duration-300",
                     isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
                 )}
             >
@@ -171,9 +171,9 @@ export function ChristmasLightbox() {
                 {/* Content */}
                 <div className="p-6 sm:p-8 text-center space-y-6">
                     <div className="space-y-2">
-                        <h3 className="text-2xl font-bold text-anchor-cream-text">Get 20% Off Your Food Bill</h3>
-                        <p className="text-anchor-cream-text/70">
-                            Book your Christmas party early to secure the best dates. Pay your deposit by <strong>October 1st</strong> to claim your discount.
+                        <h3 className="text-2xl text-ink-strong">Get 20% Off Your Food Bill</h3>
+                        <p className="text-ink-muted">
+                            Book your Christmas party early to secure the best dates. Pay your deposit by <strong className="text-ink-strong">October 1st</strong> to claim your discount.
                         </p>
                     </div>
 
@@ -193,7 +193,7 @@ export function ChristmasLightbox() {
                             </Button>
                         </Link>
 
-                        <button onClick={() => requestClose('close_button')} className="text-sm text-anchor-cream-text/55 hover:text-anchor-cream-text underline">
+                        <button onClick={() => requestClose('close_button')} className="text-sm text-ink-muted hover:text-ink underline">
                             No thanks, I&apos;ll book later
                         </button>
                     </div>

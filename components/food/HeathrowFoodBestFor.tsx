@@ -18,19 +18,19 @@ export function HeathrowFoodBestFor({
   items = DEFAULT_ITEMS,
 }: HeathrowFoodBestForProps) {
   return (
-    <section className="bg-anchor-green-raised py-10 border-y border-anchor-gold-dark/15">
+    <section className="bg-surface-sunk py-10 border-y border-line">
       <Container>
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-2xl font-bold text-anchor-cream-text">
+          <h2 className="text-center text-2xl text-ink-strong">
             {title}
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {items.map(([itemTitle, body]) => (
-              <div key={itemTitle} className="rounded-md border border-anchor-gold-dark/15 bg-anchor-green-card p-4">
-                <h3 className="text-base font-semibold text-anchor-gold-bright">
+              <div key={itemTitle} className="rounded-md border border-line bg-surface p-4 shadow-sm">
+                <h3 className="text-base font-semibold text-ink-strong">
                   {itemTitle}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
                   {body}
                 </p>
               </div>

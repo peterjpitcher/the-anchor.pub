@@ -23,7 +23,7 @@ export function FindUsSection({
 
   return (
     <section className={cn('py-8', className)}>
-      <h2 className="text-2xl font-bold text-anchor-cream-text mb-6">Find Us</h2>
+      <h2 className="text-2xl text-ink-strong mb-6">Find Us</h2>
 
       {shouldShowMap && (
         <GoogleMapEmbed
@@ -33,22 +33,22 @@ export function FindUsSection({
         />
       )}
 
-      <address className="not-italic space-y-1 text-anchor-cream-text/70 mb-4">
-        <p className="font-bold text-anchor-cream-text">The Anchor</p>
+      <address className="not-italic space-y-1 text-ink-muted mb-4">
+        <p className="font-bold text-ink-strong">The Anchor</p>
         <p>Horton Road</p>
         <p>Stanwell Moor</p>
-        <p className="font-bold text-anchor-cream-text">TW19 6AQ</p>
+        <p className="font-bold text-ink-strong">TW19 6AQ</p>
       </address>
 
       <div className="mb-4">
         <PhoneLink
           phone={CONTACT.phone}
           source="find-us_section"
-          className="text-anchor-gold-dark hover:text-anchor-gold"
+          className="text-accent-text hover:text-anchor-gold"
         />
       </div>
 
-      <p className="text-anchor-cream-text/70 mb-4">
+      <p className="text-ink-muted mb-4">
         {PARKING.description} — {PARKING.capacity} spaces
       </p>
 

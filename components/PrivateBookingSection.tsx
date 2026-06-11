@@ -17,17 +17,17 @@ export function PrivateBookingSection({
 }: PrivateBookingSectionProps) {
   return (
     <>
-      <section id={id} className="border-y py-12 bg-anchor-green-raised border-anchor-gold-dark/15" data-sticky-cta-guard="true">
+      <section id={id} className="border-y py-12 bg-surface-sunk border-line" data-sticky-cta-guard="true">
         <Container size="md">
           <SectionHeading title={title} subtitle={subtitle} />
-          <p className="text-center text-sm text-anchor-cream-text/60 -mt-4 mb-6">
+          <p className="text-center text-sm text-ink-muted -mt-4 mb-6">
             Want to see the space first?{' '}
-            <Link href="/our-pub" className="text-anchor-gold-dark font-semibold hover:text-anchor-gold-bright hover:underline">
+            <Link href="/our-pub" className="text-accent-text font-semibold hover:text-accent hover:underline">
               View photos of our pub &rarr;
             </Link>
           </p>
           <div className="max-w-md mx-auto text-center">
-            <p className="text-anchor-cream-text/70 mb-6">
+            <p className="text-ink-muted mb-6">
               Use our cost estimator to build a bespoke quote for your event. Choose your space, guest count, catering, and extras to see a live price breakdown.
             </p>
             <StickyEstimatorDrawer

@@ -134,13 +134,13 @@ export default function AvailabilityChecker({
   }
 
   return (
-    <Card className={`bg-anchor-green-card border border-anchor-gold-dark/20 ${className}`}>
+    <Card accent className={className}>
       <CardBody>
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">
+          <h3 className="text-lg text-ink-strong mb-2">
             Table Availability
           </h3>
-          <div className="flex flex-wrap gap-2 text-sm text-anchor-cream-text/70">
+          <div className="flex flex-wrap gap-2 text-sm text-ink-muted">
             <Badge variant="green">
               <Icon name="calendar" className="mr-1" />
               {formatDate(date)}
@@ -161,7 +161,7 @@ export default function AvailabilityChecker({
         {availability && (
           <div className="space-y-4">
             <div>
-              <p className="text-sm font-medium text-anchor-cream-text/70 mb-3">
+              <p className="text-sm font-semibold text-ink mb-3">
                 Available times near {formatTime(time)}:
               </p>
               
@@ -180,7 +180,7 @@ export default function AvailabilityChecker({
                       disabled={!isAvailable}
                       className={`
                         ${!isAvailable ? 'opacity-50 cursor-not-allowed' : ''}
-                        ${isRequested && isAvailable ? 'ring-2 ring-amber-500' : ''}
+                        ${isRequested && isAvailable ? 'ring-2 ring-anchor-gold' : ''}
                       `}
                     >
                       {formatTime(slot.time)}
@@ -203,7 +203,7 @@ export default function AvailabilityChecker({
               )}
             </div>
 
-            <div className="flex gap-3 pt-4 border-t border-amber-200">
+            <div className="flex gap-3 pt-4 border-t border-line">
               <Button
                 variant="outline"
                 onClick={onBack}

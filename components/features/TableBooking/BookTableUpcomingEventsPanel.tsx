@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getUpcomingEvents, type Event } from '@/lib/api'
+import { Card, CardBody } from '@/components/ui/layout/Card'
 import { isMothersDayEvent } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
@@ -28,58 +29,60 @@ export async function BookTableUpcomingEventsPanel() {
     .slice(0, 6)
 
   return (
-    <div className="card-dark p-4 sm:p-6">
-      <h3 className="text-lg font-semibold text-anchor-cream-text sm:text-xl">Upcoming events</h3>
-      <p className="mt-2 text-sm text-anchor-cream-text/70">
-        If your date matches one of these, you can switch to event booking straight away.
-      </p>
+    <Card accent>
+      <CardBody className="p-4 sm:p-6">
+        <h3 className="text-lg text-ink-strong sm:text-xl">Upcoming events</h3>
+        <p className="mt-2 text-sm text-ink-muted">
+          If your date matches one of these, you can switch to event booking straight away.
+        </p>
 
-      {upcomingEvents.length === 0 ? (
-        <p className="mt-4 text-sm text-anchor-cream-text/60">No upcoming events are listed right now.</p>
-      ) : (
-        <div className="mt-4 space-y-3">
-          {upcomingEvents.map((event, index) => {
-            const priceLabel = getEventPriceLabel(event)
-            const seatsRemaining =
-              typeof event.remainingAttendeeCapacity === 'number'
-                ? event.remainingAttendeeCapacity
-                : null
+        {upcomingEvents.length === 0 ? (
+          <p className="mt-4 text-sm text-ink-muted">No upcoming events are listed right now.</p>
+        ) : (
+          <div className="mt-4 space-y-3">
+            {upcomingEvents.map((event, index) => {
+              const priceLabel = getEventPriceLabel(event)
+              const seatsRemaining =
+                typeof event.remainingAttendeeCapacity === 'number'
+                  ? event.remainingAttendeeCapacity
+                  : null
 
-            return (
-              <div
-                key={event.id}
-                className={`card-dark p-3 ${
-                  index >= 3 ? 'hidden sm:block' : ''
-                }`}
-              >
-                <p className="text-sm font-semibold text-anchor-cream-text">{event.name}</p>
-                <p className="mt-1 text-xs text-anchor-cream-text/70">
-                  {formatEventDateShort(event.startDate)} at {formatEventTimeShort(event.startDate)}
-                  {priceLabel ? ` • ${priceLabel}` : ' • Free entry'}
-                  {typeof seatsRemaining === 'number'
-                    ? ` • ${seatsRemaining} seat${seatsRemaining === 1 ? '' : 's'} left`
-                    : ''}
-                </p>
+              return (
+                <div
+                  key={event.id}
+                  className={`rounded-md border border-line bg-surface-sunk p-3 ${
+                    index >= 3 ? 'hidden sm:block' : ''
+                  }`}
+                >
+                  <p className="text-sm font-semibold text-ink">{event.name}</p>
+                  <p className="mt-1 text-xs text-ink-muted">
+                    {formatEventDateShort(event.startDate)} at {formatEventTimeShort(event.startDate)}
+                    {priceLabel ? ` • ${priceLabel}` : ' • Free entry'}
+                    {typeof seatsRemaining === 'number'
+                      ? ` • ${seatsRemaining} seat${seatsRemaining === 1 ? '' : 's'} left`
+                      : ''}
+                  </p>
 
-                <div className="mt-2">
-                  <Link
-                    href={getEventBookingHref(event)}
-                    className="text-sm font-medium text-anchor-gold-dark underline hover:text-anchor-gold-bright"
-                  >
-                    Book event
-                  </Link>
+                  <div className="mt-2">
+                    <Link
+                      href={getEventBookingHref(event)}
+                      className="text-sm font-medium text-accent-text underline hover:text-anchor-gold"
+                    >
+                      Book event
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
-      )}
+              )
+            })}
+          </div>
+        )}
 
-      <div className="mt-4">
-        <Link href="/whats-on" className="text-sm font-medium text-anchor-gold-dark underline hover:text-anchor-gold-bright">
-          View all events
-        </Link>
-      </div>
-    </div>
+        <div className="mt-4">
+          <Link href="/whats-on" className="text-sm font-medium text-accent-text underline hover:text-anchor-gold">
+            View all events
+          </Link>
+        </div>
+      </CardBody>
+    </Card>
   )
 }

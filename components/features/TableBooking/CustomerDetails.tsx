@@ -164,10 +164,10 @@ export default function CustomerDetails({
   }, [formData, onSubmit])
 
   return (
-    <Card className={`bg-anchor-green-card border border-anchor-gold-dark/20 ${className}`}>
+    <Card accent className={className}>
       <CardBody>
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-anchor-gold-bright mb-2">
+          <h3 className="text-lg text-ink-strong mb-2">
             Complete Your Booking
           </h3>
           <div className="flex flex-wrap gap-2 text-sm">
@@ -246,7 +246,7 @@ export default function CustomerDetails({
           </div>
 
           <div>
-            <label htmlFor="booking-occasion" className="block text-sm font-medium text-anchor-cream-text/70 mb-1">
+            <label htmlFor="booking-occasion" className="block text-sm font-semibold text-ink mb-1">
               Occasion (optional)
             </label>
             <Select

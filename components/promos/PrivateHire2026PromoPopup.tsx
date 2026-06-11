@@ -190,28 +190,28 @@ export function PrivateHire2026PromoPopup() {
           <h2 id="private-hire-2026-promo-title" className="text-2xl font-bold leading-tight text-white drop-shadow-sm sm:text-3xl">
             Book your 2026 party early
           </h2>
-          <p className="mt-1 text-lg font-medium text-anchor-gold-dark drop-shadow-sm">
+          <p className="mt-1 text-lg font-medium text-anchor-gold-bright drop-shadow-sm">
             and the bubbles are on us
           </p>
         </div>
       </div>
 
-      <ModalBody className="flex-1 space-y-6 overflow-y-auto bg-anchor-green-card px-6 py-6 sm:px-8">
-        <div className="rounded-2xl bg-anchor-green/10 p-4 ring-1 ring-inset ring-anchor-green/20">
+      <ModalBody className="flex-1 space-y-6 overflow-y-auto bg-surface px-6 py-6 sm:px-8">
+        <div className="rounded-2xl bg-anchor-green/5 p-4 ring-1 ring-inset ring-anchor-green/20">
           <div className="flex items-center justify-between gap-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-anchor-gold-bright">
+            <p className="text-xs font-bold uppercase tracking-widest text-accent-text">
               Offer ends in
             </p>
             <div className="flex gap-2">
               {segments.map((segment) => (
                 <div
                   key={segment.label}
-                  className="flex flex-col items-center rounded-lg bg-anchor-green-raised px-2.5 py-1.5 text-center shadow-sm ring-1 ring-anchor-gold-dark/15"
+                  className="flex flex-col items-center rounded-lg bg-surface-sunk px-2.5 py-1.5 text-center shadow-sm ring-1 ring-line"
                 >
-                  <span className="font-mono text-lg font-bold leading-none text-anchor-cream-text">
+                  <span className="font-mono text-lg font-bold leading-none text-ink-strong">
                     {segment.value}
                   </span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-anchor-cream-text/55">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-ink-muted">
                     {segment.label}
                   </span>
                 </div>
@@ -221,16 +221,16 @@ export function PrivateHire2026PromoPopup() {
         </div>
 
         <div className="space-y-4">
-          <p id="private-hire-2026-promo-description" className="text-base leading-relaxed text-anchor-cream-text/70">
+          <p id="private-hire-2026-promo-description" className="text-base leading-relaxed text-ink-muted">
             Secure your 2026 celebration now and pay your deposit by{' '}
-            <strong className="font-semibold text-anchor-cream-text">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</strong> to receive{' '}
-            <strong className="font-semibold text-anchor-gold-bright">4 FREE bottles of prosecco</strong> to get the party started.
+            <strong className="font-semibold text-ink-strong">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</strong> to receive{' '}
+            <strong className="font-semibold text-accent-text">4 FREE bottles of prosecco</strong> to get the party started.
           </p>
 
-          <div className="rounded-xl bg-anchor-green-raised p-4">
-            <ul className="space-y-2 text-sm font-medium text-anchor-cream-text/70">
+          <div className="rounded-xl bg-surface-sunk p-4">
+            <ul className="space-y-2 text-sm font-medium text-ink-muted">
               <li className="flex gap-2.5">
-                <span className="shrink-0 text-anchor-gold-dark">
+                <span className="shrink-0 text-accent-text">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
                   </svg>
@@ -238,7 +238,7 @@ export function PrivateHire2026PromoPopup() {
                 <span>Minimum 30 guests required</span>
               </li>
               <li className="flex gap-2.5">
-                <span className="shrink-0 text-anchor-gold-dark">
+                <span className="shrink-0 text-accent-text">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
                   </svg>
@@ -253,7 +253,7 @@ export function PrivateHire2026PromoPopup() {
           <Button asChild variant="primary" size="lg" className="w-full rounded-full shadow-lg shadow-anchor-green/20 hover:shadow-xl hover:shadow-anchor-green/30" onClick={handleCtaClick}>
             <Link href={PRIVATE_HIRE_2026_PROMO_CTA_HREF}>Check availability / Get a quote</Link>
           </Button>
-          <Button asChild variant="ghost" size="sm" className="w-full text-anchor-cream-text/55 hover:text-anchor-cream-text" onClick={handlePhoneClick}>
+          <Button asChild variant="ghost" size="sm" className="w-full text-ink-muted hover:text-ink" onClick={handlePhoneClick}>
             <a href={PRIVATE_HIRE_2026_PROMO_PHONE_HREF}>Or call us on {PRIVATE_HIRE_2026_PROMO_PHONE}</a>
           </Button>
         </div>

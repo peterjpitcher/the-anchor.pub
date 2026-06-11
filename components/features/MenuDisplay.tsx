@@ -131,22 +131,22 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
         aria-label="Restaurant menu"
       >
         {menuData.categories.map((category, categoryIndex) => (
-          <Section 
-            key={category.id} 
-            id={category.id} 
-            className={categoryIndex % 2 === 0 ? 'bg-anchor-green-raised' : 'bg-anchor-green-deep'}
-            itemScope 
+          <Section
+            key={category.id}
+            id={category.id}
+            className={categoryIndex % 2 === 0 ? 'bg-surface-sunk' : 'bg-canvas'}
+            itemScope
             itemType="https://schema.org/MenuSection"
           >
             <Container size="lg">
               <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-4" itemProp="name">
+                <h2 className="text-3xl md:text-4xl text-ink-strong mb-4" itemProp="name">
                   {category.emoji && <span className="mr-2">{category.emoji}</span>}
                   {category.title}
                 </h2>
-                
+
                 {category.description && (
-                  <p className="text-lg text-anchor-cream-text/70" itemProp="description">
+                  <p className="text-lg text-ink-muted" itemProp="description">
                     {category.description}
                   </p>
                 )}
@@ -158,13 +158,13 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
               {category.sections.map((section, sectionIndex) => (
                 <div key={sectionIndex} className="mb-12 last:mb-0">
                   {section.title && (
-                    <h3 className="text-2xl font-bold text-anchor-cream-text mb-6 text-center">
+                    <h3 className="text-2xl text-ink-strong mb-6 text-center">
                       {section.title}
                     </h3>
                   )}
-                  
+
                   {section.description && (
-                    <p className="text-center text-anchor-cream-text/70 mb-6">
+                    <p className="text-center text-ink-muted mb-6">
                       {section.description}
                     </p>
                   )}
@@ -213,7 +213,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
 
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
-        <Section className="bg-anchor-green-raised">
+        <Section className="bg-surface-sunk">
           <Container size="md">
             <Alert variant="warning" className="text-center">
               <h3 className="text-xl font-bold mb-2">
@@ -241,8 +241,8 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
 
   return (
     <Card
-      className={isFocused ? 'ring-2 ring-anchor-gold-dark' : ''}
-      itemScope 
+      className={isFocused ? 'ring-2 ring-accent-text' : ''}
+      itemScope
       itemType="https://schema.org/MenuItem"
       role="listitem"
       // Removed tabIndex to improve keyboard navigation
@@ -252,13 +252,13 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
     >
       <CardBody>
         <div className="flex min-w-0 justify-between gap-3 items-start mb-2">
-          <h3 className="min-w-0 break-words font-bold text-xl text-anchor-gold-bright flex items-center gap-2" itemProp="name">
+          <h3 className="min-w-0 break-words text-xl text-ink-strong flex items-center gap-2" itemProp="name">
             {item.name}
             {item.vegetarian && (
               <Badge variant="success">(V)</Badge>
             )}
           </h3>
-          <span className="shrink-0 text-xl font-bold text-anchor-gold-dark whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <span className="shrink-0 text-xl font-semibold text-accent-text whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
             <span itemProp="price" content={schemaPrice}>
               {displayPrice}
             </span>
@@ -266,7 +266,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
           </span>
         </div>
         {item.description && (
-          <p className="text-anchor-cream-text/70" itemProp="description">{item.description}</p>
+          <p className="text-ink-muted" itemProp="description">{item.description}</p>
         )}
         {item.vegetarian && (
           <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
@@ -281,9 +281,9 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
   const schemaPrice = normalizeMenuPrice(item.price)
 
   return (
-    <div 
+    <div
       className={`flex justify-between items-center p-2 rounded-lg transition-colours ${
-        isFocused ? 'bg-amber-500/10' : 'hover:bg-anchor-green-raised'
+        isFocused ? 'bg-accent/10' : 'hover:bg-surface-sunk'
       }`}
       itemScope 
       itemType="https://schema.org/MenuItem"
@@ -297,7 +297,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
         {item.name}
         {item.vegetarian && <Badge variant="success" dot>(V)</Badge>}
       </span>
-      <span className="text-anchor-gold-dark font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+      <span className="text-accent-text font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
         <span itemProp="price" content={schemaPrice}>
           {displayPrice}
         </span>

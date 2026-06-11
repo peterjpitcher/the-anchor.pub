@@ -74,13 +74,13 @@ export function PayPalDepositSection({
   return (
     <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!, currency: 'GBP' }}>
       <div className="space-y-4">
-        <div className="rounded-xl border border-anchor-gold-dark/15 bg-anchor-green-raised p-4 text-sm space-y-1">
-          <p className="font-medium text-anchor-cream-text">{bookingSummary}</p>
-          <p className="text-anchor-cream-text/70">
-            Deposit: <span className="font-semibold text-anchor-cream-text">£{depositAmount}</span>{' '}
-            <span className="text-anchor-cream-text/50">(£10 per person)</span>
+        <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm space-y-1">
+          <p className="font-medium text-ink">{bookingSummary}</p>
+          <p className="text-ink-muted">
+            Deposit: <span className="font-semibold text-ink">£{depositAmount}</span>{' '}
+            <span className="text-ink-muted">(£10 per person)</span>
           </p>
-          <p className="text-anchor-cream-text/50 text-xs">This deposit is deducted from your final bill.</p>
+          <p className="text-ink-muted text-xs">This deposit is deducted from your final bill.</p>
         </div>
 
         <PayPalButtons
@@ -93,7 +93,7 @@ export function PayPalDepositSection({
           }}
         />
 
-        <p className="text-xs text-anchor-cream-text/50 text-center">
+        <p className="text-xs text-ink-muted text-center">
           Your card details are never shared with us. Powered by PayPal.
         </p>
       </div>

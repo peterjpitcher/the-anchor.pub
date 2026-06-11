@@ -17,12 +17,17 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type FoodIntent = 'planning_to_eat' | 'event_only'
+type EventSeatingPreference = 'seated' | 'standing'
 
 type EventBookingResult = {
   state: EventBookingState
   booking_id: string | null
   reason: string | null
   seats_remaining: number | null
+  seated_remaining?: number | null
+  standing_remaining?: number | null
+  total_remaining?: number | null
+  event_seating_type?: EventSeatingPreference | null
   next_step_url: string | null
   manage_booking_url: string | null
 }
@@ -37,7 +42,7 @@ type WaitlistResult = {
 
 interface ManagementEventBookingFormProps {
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'price_per_seat' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'price_per_seat' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining'>>
   title?: string
   compact?: boolean
   foodPrompt?: string
@@ -115,6 +120,62 @@ function getCompactFoodPrompt(value: string): string {
   return 'Not a food pre-order.'
 }
 
+function normalizeRemaining(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : null
+}
+
+function pluralizeTicket(count: number): string {
+  return count === 1 ? 'ticket' : 'tickets'
+}
+
+function pluralizePlace(count: number): string {
+  return count === 1 ? 'place' : 'places'
+}
+
+function getCommunalAvailabilityText(
+  seatedRemaining: number | null,
+  standingRemaining: number | null,
+  totalRemaining: number | null
+): string | null {
+  if (seatedRemaining === 0 && standingRemaining && standingRemaining > 0) {
+    return `Seated places are full. ${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
+  }
+
+  if (seatedRemaining && seatedRemaining > 0 && standingRemaining === 0) {
+    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} available. Standing tickets are full.`
+  }
+
+  if (seatedRemaining !== null && standingRemaining !== null) {
+    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} and ${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
+  }
+
+  if (seatedRemaining !== null) {
+    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} available.`
+  }
+
+  if (standingRemaining !== null) {
+    return `${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
+  }
+
+  if (totalRemaining !== null) {
+    return `${totalRemaining} ${pluralizeTicket(totalRemaining)} currently available.`
+  }
+
+  return null
+}
+
+function getBookingTicketLabel(
+  result: EventBookingResult | null,
+  submittedSeatingPreference: EventSeatingPreference | null
+): string {
+  const seatingType = result?.event_seating_type || submittedSeatingPreference
+  return seatingType === 'standing' ? 'standing tickets' : 'seats'
+}
+
+function isCommunalBookingMode(mode: string | null | undefined): boolean {
+  return typeof mode === 'string' && mode.trim().toLowerCase() === 'communal'
+}
+
 export function ManagementEventBookingForm({
   event,
   title,
@@ -127,6 +188,8 @@ export function ManagementEventBookingForm({
   const [seats, setSeats] = useState(2)
   const [seatsDisplay, setSeatsDisplay] = useState('2')
   const [foodIntent, setFoodIntent] = useState<FoodIntent>('planning_to_eat')
+  const [seatingPreference, setSeatingPreference] = useState<EventSeatingPreference>('seated')
+  const [submittedSeatingPreference, setSubmittedSeatingPreference] = useState<EventSeatingPreference | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EventBookingResult | null>(null)
@@ -141,10 +204,39 @@ export function ManagementEventBookingForm({
 
   const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
   const bookingReassurance = getEventBookingReassurance(event)
-  const seatsRemaining = typeof event.seats_remaining === 'number' && event.seats_remaining > 0
-    ? event.seats_remaining
+  const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
+  const seatedRemaining = normalizeRemaining(event.seated_remaining)
+  const standingRemaining = normalizeRemaining(event.standing_remaining)
+  const totalRemaining = normalizeRemaining(event.total_remaining) ?? normalizeRemaining(event.seats_remaining)
+  const seatsRemaining = normalizeRemaining(event.seats_remaining)
+  const seatedDisabled = isCommunalEvent && seatedRemaining !== null && seatedRemaining <= 0
+  const standingDisabled = isCommunalEvent && (standingRemaining === null || standingRemaining <= 0)
+  const availabilityText = isCommunalEvent
+    ? getCommunalAvailabilityText(seatedRemaining, standingRemaining, totalRemaining)
+    : seatsRemaining && seatsRemaining > 0
+    ? `${seatsRemaining} seats currently available.`
     : null
+  const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
+  const fellBackToStanding = isCommunalEvent &&
+    submittedSeatingPreference === 'seated' &&
+    result?.event_seating_type === 'standing'
+  const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
   const compactFoodPrompt = getCompactFoodPrompt(foodPrompt)
+
+  useEffect(() => {
+    if (!isCommunalEvent) {
+      setSeatingPreference('seated')
+      return
+    }
+
+    if (seatingPreference === 'seated' && seatedDisabled && !standingDisabled) {
+      setSeatingPreference('standing')
+    }
+
+    if (seatingPreference === 'standing' && standingDisabled && !seatedDisabled) {
+      setSeatingPreference('seated')
+    }
+  }, [isCommunalEvent, seatedDisabled, seatingPreference, standingDisabled])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -166,6 +258,7 @@ export function ManagementEventBookingForm({
     formEvent.preventDefault()
     setError(null)
     setResult(null)
+    setSubmittedSeatingPreference(null)
     setWaitlistResult(null)
 
     // Sync seatsDisplay → seats in case blur hasn't fired
@@ -218,6 +311,8 @@ export function ManagementEventBookingForm({
     const notes = buildFoodNotes()
     const attribution = collectBookingAttribution()
     const totalValue = calculateBookingValue(event, clampedSeats)
+    const bookingSeatingPreference = isCommunalEvent ? seatingPreference : null
+    setSubmittedSeatingPreference(bookingSeatingPreference)
 
     try {
       const response = await fetch('/api/event-bookings', {
@@ -232,6 +327,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
+          ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           notes,
           food_intent: foodIntent,
           event_slug: event.slug,
@@ -386,13 +482,13 @@ export function ManagementEventBookingForm({
       <CardBody className={compact ? 'space-y-3 p-3 lg:p-4' : 'space-y-5'}>
         <div className="space-y-1">
           {title ? (
-            <h2 className={compact ? 'text-xl font-bold leading-tight text-anchor-gold-bright' : 'text-2xl font-bold text-anchor-gold-bright'}>
+            <h2 className={compact ? 'text-xl leading-tight text-ink-strong' : 'text-2xl text-ink-strong'}>
               {title}
             </h2>
           ) : null}
-          <p className="text-sm font-semibold leading-snug text-anchor-gold-bright">{bookingReassurance}</p>
-          {seatsRemaining ? (
-            <p className="text-xs text-anchor-cream-text/65">{seatsRemaining} seats currently available.</p>
+          <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
+          {availabilityText ? (
+            <p className="text-xs text-ink-muted">{availabilityText}</p>
           ) : null}
         </div>
 
@@ -420,6 +516,48 @@ export function ManagementEventBookingForm({
               setSeatsDisplay(String(clamped))
             }}
           />
+
+          {isCommunalEvent ? (
+            <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
+              <legend className="px-1 text-sm font-semibold text-ink">Ticket type</legend>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-55">
+                  <input
+                    type="radio"
+                    name="seating_preference"
+                    value="seated"
+                    checked={seatingPreference === 'seated'}
+                    disabled={seatedDisabled}
+                    onChange={() => setSeatingPreference('seated')}
+                    className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
+                  />
+                  <span>
+                    <span className="block text-sm font-semibold text-ink">Seated</span>
+                    <span className="block text-xs leading-relaxed text-ink-muted">
+                      {seatedDisabled ? 'Seated places are full.' : 'Communal table seating.'}
+                    </span>
+                  </span>
+                </label>
+                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-55">
+                  <input
+                    type="radio"
+                    name="seating_preference"
+                    value="standing"
+                    checked={seatingPreference === 'standing'}
+                    disabled={standingDisabled}
+                    onChange={() => setSeatingPreference('standing')}
+                    className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
+                  />
+                  <span>
+                    <span className="block text-sm font-semibold text-ink">Standing</span>
+                    <span className="block text-xs leading-relaxed text-ink-muted">
+                      {standingDisabled ? 'Standing tickets are not available.' : 'Same event price. No table seat included.'}
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+          ) : null}
 
           <div className="grid grid-cols-2 gap-2">
             <Input
@@ -466,7 +604,7 @@ export function ManagementEventBookingForm({
             helperText="For your confirmation text."
           />
 
-          <label className="flex cursor-pointer gap-2.5 border border-anchor-gold-dark/15 bg-anchor-green-raised p-2.5">
+          <label className="flex cursor-pointer gap-2.5 rounded-sm border border-line bg-surface-sunk p-2.5">
             <input
               type="checkbox"
               name="food_intent"
@@ -475,8 +613,8 @@ export function ManagementEventBookingForm({
               className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
             />
             <span>
-              <span className="block text-sm font-semibold text-anchor-cream-text">Planning to eat before the event</span>
-              <span className="block text-xs leading-relaxed text-anchor-cream-text/65">{compactFoodPrompt}</span>
+              <span className="block text-sm font-semibold text-ink">Planning to eat before the event</span>
+              <span className="block text-xs leading-relaxed text-ink-muted">{compactFoodPrompt}</span>
             </span>
           </label>
 
@@ -521,7 +659,7 @@ export function ManagementEventBookingForm({
               })
             }}
           >
-            Reserve my seats
+            {isCommunalEvent && seatingPreference === 'standing' ? 'Book standing tickets' : 'Reserve my seats'}
           </Button>
         </form>
 
@@ -536,7 +674,10 @@ export function ManagementEventBookingForm({
 
         {result?.state === 'confirmed' && (
           <Alert variant="success" title="Event booking confirmed">
-            <p>Your seats are confirmed for {event.name}.</p>
+            <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
+            {fellBackToStanding ? (
+              <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
+            ) : null}
             {result.manage_booking_url ? (
               <div className="mt-3">
                 <Button asChild size="sm" variant="outline">
@@ -550,8 +691,11 @@ export function ManagementEventBookingForm({
         )}
 
         {result?.state === 'pending_payment' && (
-          <Alert variant="warning" title="Payment needed to secure your seats">
-            <p>Your seats are currently on hold.</p>
+          <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
+            <p>Your {submittedTicketLabel} are currently on hold.</p>
+            {fellBackToStanding ? (
+              <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
+            ) : null}
             {result.next_step_url ? (
               <div className="mt-3">
                 <Button asChild size="sm" variant="primary">
@@ -575,14 +719,14 @@ export function ManagementEventBookingForm({
 
         {result?.state === 'full_with_waitlist_option' && (
           <Alert variant="info" title="This event is currently full">
-            <p>You can join the waitlist and we will contact you if seats become available.</p>
+            <p>You can join the waitlist and we will contact you if {waitlistPlaceLabel} become available.</p>
             <div className="mt-3">
               <Button type="button" size="sm" loading={waitlistLoading} onClick={handleJoinWaitlist}>
                 Join Waitlist
               </Button>
             </div>
             {waitlistResult?.state === 'queued' && (
-              <p className="mt-3 font-semibold text-green-400">You’re on the waitlist. We’ll text you if seats open up.</p>
+              <p className="mt-3 font-semibold text-anchor-success">You’re on the waitlist. We’ll text you if {waitlistPlaceLabel} open up.</p>
             )}
             {waitlistResult && waitlistResult.state !== 'queued' && (
               <p className="mt-3">{waitlistResult.reason || 'We could not join the waitlist for this event.'}</p>

@@ -116,17 +116,17 @@ export function ScrollProgressBookingTooltip() {
       role="status"
       aria-live="polite"
       data-testid="scroll-progress-booking-tooltip"
-      className="fixed right-4 bottom-20 z-30 max-w-xs rounded-md border border-anchor-gold-dark/30 bg-anchor-green-card text-anchor-cream-text shadow-lg lg:bottom-4 transition-opacity motion-reduce:transition-none"
+      className="fixed right-4 bottom-20 z-30 max-w-xs rounded-md border border-line bg-surface text-ink shadow-lg lg:bottom-4 transition-opacity motion-reduce:transition-none"
     >
       <div className="flex items-start gap-3 p-4">
         <div className="flex-1 text-sm">
-          <p className="font-semibold text-anchor-cream-text">Ready to book?</p>
-          <p className="mt-1 text-anchor-cream-text/80">
+          <p className="font-semibold text-ink-strong">Ready to book?</p>
+          <p className="mt-1 text-ink-muted">
             Sunday roast books up fast.
           </p>
           <Link
             href="/book-table?source=sunday_lunch_scroll_tooltip"
-            className="mt-2 inline-flex items-center text-anchor-gold-bright underline hover:text-anchor-gold-bright focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark rounded-sm"
+            className="mt-2 inline-flex items-center text-accent-text underline hover:text-accent focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark rounded-sm"
             onClick={() => dismiss()}
           >
             Book a table
@@ -136,7 +136,7 @@ export function ScrollProgressBookingTooltip() {
           type="button"
           onClick={dismiss}
           aria-label="Dismiss booking tooltip"
-          className="rounded-sm p-1 text-anchor-cream-text/70 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

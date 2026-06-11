@@ -50,7 +50,9 @@ export function EventBookingFactsStrip({
   })
   const unitPrice = getEventUnitPrice(event)
   const priceLabel = unitPrice ? formatEventBookingMoney(unitPrice) : getEventPriceLabel(event) || 'Check booking step'
-  const seatLabel = getEventSeatAvailabilityLabel(event) || 'Book early for best tables'
+  const isCommunalEvent = typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
+  const seatsFactLabel = isCommunalEvent ? 'Tickets' : 'Seats'
+  const seatLabel = getEventSeatAvailabilityLabel(event) || (isCommunalEvent ? 'Book early for seated places' : 'Book early for best tables')
   const arrivalLabel = condenseArrivalLabel(getEventFoodArrivalLabel(event, foodPrompt))
 
   const facts: Fact[] = [
@@ -58,19 +60,19 @@ export function EventBookingFactsStrip({
     { label: 'Price', value: priceLabel, Icon: PoundSterling },
     { label: 'Start', value: eventTime, Icon: Clock },
     { label: 'Arrival', value: arrivalLabel, Icon: Utensils },
-    { label: 'Seats', value: seatLabel, Icon: Users },
+    { label: seatsFactLabel, value: seatLabel, Icon: Users },
     { label: 'Parking', value: 'Free parking, 20 spaces', Icon: Car }
   ]
 
   return (
-    <div className="border-y border-anchor-gold-dark/15 bg-anchor-green-raised">
-      <div className="flex gap-px overflow-x-auto bg-anchor-gold-dark/10 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-6">
+    <div className="border-y border-line bg-surface">
+      <div className="flex gap-px overflow-x-auto bg-line sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-6">
         {facts.map(({ label, value, Icon }) => (
-          <div key={label} className="flex min-h-[64px] min-w-[126px] items-start gap-2.5 bg-anchor-green-raised p-3 sm:min-h-[78px] sm:min-w-0 md:gap-3 md:p-4">
-            <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold-dark md:h-5 md:w-5" aria-hidden />
+          <div key={label} className="flex min-h-[64px] min-w-[126px] items-start gap-2.5 bg-surface p-3 sm:min-h-[78px] sm:min-w-0 md:gap-3 md:p-4">
+            <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-text md:h-5 md:w-5" aria-hidden />
             <div className="min-w-0">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-wide text-anchor-gold-bright md:text-xs">{label}</p>
-              <p className="mt-1 text-sm font-medium leading-snug text-anchor-cream-text">{value}</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-wide text-accent-text md:text-xs">{label}</p>
+              <p className="mt-1 text-sm font-medium leading-snug text-ink">{value}</p>
             </div>
           </div>
         ))}

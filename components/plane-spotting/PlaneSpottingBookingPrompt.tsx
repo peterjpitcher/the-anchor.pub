@@ -120,20 +120,20 @@ export function PlaneSpottingBookingPrompt({
       role="status"
       aria-live="polite"
       data-testid="plane-spotting-booking-prompt"
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-card text-anchor-cream-text shadow-lg"
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-md border border-line bg-surface text-ink shadow-lg"
     >
       <div className="flex items-start gap-3 p-4">
-        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-anchor-gold-dark/10 text-anchor-gold-bright">
+        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-anchor-gold/10 text-accent-text">
           <Plane className="h-5 w-5" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1 text-sm">
-          <p className="font-semibold text-anchor-gold-bright">Planning a spotting visit?</p>
-          <p className="mt-1 text-anchor-cream-text/80">
+          <p className="font-semibold text-ink-strong">Planning a spotting visit?</p>
+          <p className="mt-1 text-ink-muted">
             Overhead arrivals {schedule.label}. {schedule.caveat}
           </p>
           <Link
             href={href}
-            className="mt-3 inline-flex rounded-full bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-gold focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+            className="mt-3 inline-flex rounded-full bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
             onClick={() => {
               pushToDataLayer({
                 event: 'plane_spotting_prompt_cta_clicked',
@@ -150,7 +150,7 @@ export function PlaneSpottingBookingPrompt({
           type="button"
           onClick={dismiss}
           aria-label="Dismiss plane spotting booking prompt"
-          className="rounded-sm p-1 text-anchor-cream-text/70 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

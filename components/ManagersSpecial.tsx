@@ -40,15 +40,15 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
 
   if (variant === 'compact') {
     return (
-      <div className={`card-dark rounded-none border-2 border-amber-500/40 p-6 ${className}`}>
+      <div className={`theme-dark bg-anchor-green-card border-2 border-line-gold rounded-xs p-6 ${className}`}>
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold text-anchor-cream-text mb-1">
+            <h3 className="text-xl text-anchor-cream-text mb-1">
               {promotion.headline} - {spirit.name}
             </h3>
             <p className="text-anchor-cream-text/70">{spirit.discount} • Was {spirit.originalPrice}, now {spirit.specialPrice}</p>
           </div>
-          <div className="text-3xl font-bold text-amber-600">
+          <div className="text-3xl font-bold text-anchor-gold-bright">
             {spirit.discount}
           </div>
         </div>
@@ -73,7 +73,7 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
           </div>
 
           {/* Main Content */}
-          <div className="card-dark rounded-none overflow-hidden">
+          <div className="theme-dark bg-anchor-green-card border border-line-gold rounded-xs overflow-hidden">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left Column - Product Info */}
               <div className="p-8 md:p-12">

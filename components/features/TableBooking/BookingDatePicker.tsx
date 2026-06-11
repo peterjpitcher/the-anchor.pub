@@ -216,7 +216,7 @@ export default function BookingDatePicker({
         </div>
 
         <div>
-          <label htmlFor="booking-time" className="block text-sm font-medium text-anchor-cream-text/70 mb-1">
+          <label htmlFor="booking-time" className="block text-sm font-semibold text-ink mb-1">
             Select Time
           </label>
           <Select
@@ -246,12 +246,12 @@ export default function BookingDatePicker({
       
       {/* Show prominent message when no times available */}
       {selectedDate && !loadingSlots && availableTimeSlots.length === 0 && kitchenMessage && (
-        <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-          <p className="text-sm text-amber-300 font-medium">
+        <div className="bg-surface-sunk border border-line rounded-md p-4">
+          <p className="text-sm text-accent-text font-semibold">
             {kitchenMessage}
           </p>
           {kitchenMessage.toLowerCase().includes('monday') && (
-            <p className="text-sm text-anchor-cream-text/70 mt-1">
+            <p className="text-sm text-ink-muted mt-1">
               The bar is open for drinks. Call us at <PhoneLink phone={CONTACT.phone} source="booking_kitchen_closed" showIcon={false} className="font-medium underline">01753 682707</PhoneLink> for drinks-only reservations.
             </p>
           )}
@@ -260,7 +260,7 @@ export default function BookingDatePicker({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="party-size" className="block text-sm font-medium text-anchor-cream-text/70 mb-1">
+          <label htmlFor="party-size" className="block text-sm font-semibold text-ink mb-1">
             Party Size
           </label>
           <Select
@@ -279,7 +279,7 @@ export default function BookingDatePicker({
             ))}
           </Select>
           {partySize === '7+' && (
-            <p className="mt-1 text-sm text-anchor-cream-text/70">
+            <p className="mt-1 text-sm text-ink-muted">
               Please call us at 01753 682707 for larger parties
             </p>
           )}

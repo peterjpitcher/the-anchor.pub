@@ -198,20 +198,20 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
     if (success) {
         return (
-            <div className="card-dark rounded-none p-8 text-center animate-in fade-in zoom-in duration-300 border border-anchor-gold-dark/20">
-                <div className="w-16 h-16 bg-anchor-green/20 text-anchor-gold-bright rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-surface rounded-md p-8 text-center animate-in fade-in zoom-in duration-300 border border-line shadow-sm">
+                <div className="w-16 h-16 bg-anchor-green/10 text-accent rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Inquiry Received!</h3>
-                <p className="text-anchor-cream-text/70 mb-6">
+                <h3 className="text-2xl font-semibold text-ink-strong mb-2">Inquiry Received!</h3>
+                <p className="text-ink-muted mb-6">
                     We have received your details. Since this is a private booking, we need to confirm availability manually.
                     Expect a text message or call from us shortly!
                 </p>
                 <button
                     onClick={() => window.location.href = '/'}
-                    className="text-anchor-gold-bright font-medium hover:text-anchor-gold-dark"
+                    className="text-accent-text font-medium hover:text-accent"
                 >
                     Return to Home
                 </button>
@@ -220,11 +220,11 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     }
 
     return (
-        <div className="card-dark rounded-none overflow-hidden">
-            <div className="p-6 border-b border-anchor-gold-dark/15 flex justify-between items-center bg-anchor-green-raised">
-                <h3 className="text-xl font-semibold text-anchor-cream-text">Complete Your Inquiry</h3>
+        <div className="bg-surface rounded-md overflow-hidden border border-line shadow-sm">
+            <div className="p-6 border-b border-line flex justify-between items-center bg-surface-sunk">
+                <h3 className="text-xl font-semibold text-ink-strong">Complete Your Inquiry</h3>
                 {onCancel && (
-                    <button onClick={onCancel} className="text-anchor-cream-text/55 hover:text-anchor-cream-text">
+                    <button onClick={onCancel} className="text-ink-muted hover:text-ink">
                         Cancel
                     </button>
                 )}
@@ -232,16 +232,16 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
                 {error && (
-                    <div className="p-4 bg-red-900/20 text-red-400 rounded-lg text-sm border border-red-500/30">
+                    <div className="p-4 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
                         {error}
                     </div>
                 )}
 
                 <div className="space-y-4">
-                    <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold-dark/15 pb-2">Contact Details</h4>
+                    <h4 className="font-medium text-ink-strong border-b border-line pb-2">Contact Details</h4>
                     <div>
-                        <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Mobile Number *</label>
-                        <p className="text-xs text-anchor-cream-text/55 mb-1">Enter your mobile so we can confirm your enquiry and check whether you are already in our system.</p>
+                        <label className="block text-sm font-medium text-ink mb-1">Mobile Number *</label>
+                        <p className="text-xs text-ink-muted mb-1">Enter your mobile so we can confirm your enquiry and check whether you are already in our system.</p>
                         <input
                             required
                             type="tel"
@@ -251,7 +251,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                 trackEnquiryStartedOnce()
                                 setPhone(e.target.value)
                             }}
-                            className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark disabled:opacity-60"
+                            className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10 disabled:opacity-60"
                         />
                     </div>
 
@@ -261,7 +261,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                 type="button"
                                 onClick={handlePhoneLookup}
                                 disabled={lookupState === 'loading'}
-                                className="px-4 py-2 bg-anchor-gold-dark hover:bg-anchor-gold-bright text-anchor-charcoal font-semibold rounded-lg disabled:opacity-50"
+                                className="px-4 py-2 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill disabled:opacity-50"
                             >
                                 {lookupState === 'loading' ? 'Checking...' : 'Continue'}
                             </button>
@@ -269,7 +269,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                             <button
                                 type="button"
                                 onClick={resetPhoneLookup}
-                                className="px-4 py-2 border border-anchor-gold-dark/30 rounded-lg text-anchor-cream-text/70 hover:bg-anchor-green-raised"
+                                className="px-4 py-2 border border-line-strong rounded-pill text-ink hover:bg-surface-sunk"
                             >
                                 Use Different Number
                             </button>
@@ -277,19 +277,19 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     </div>
 
                     {lookupError && (
-                        <div className="p-3 bg-red-900/20 text-red-400 rounded-lg text-sm border border-red-500/30">
+                        <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
                             {lookupError}
                         </div>
                     )}
 
                     {isKnownCustomer && (
-                        <div className="p-3 bg-anchor-green/10 text-anchor-gold-bright rounded-lg text-sm border border-anchor-green/30">
+                        <div className="p-3 bg-anchor-green/5 text-accent rounded-lg text-sm border border-anchor-green/20">
                             Recognized customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with event details.
                         </div>
                     )}
 
                     {lookupState === 'unknown' && (
-                        <div className="p-3 bg-anchor-gold-dark/10 text-anchor-gold-dark rounded-lg text-sm border border-anchor-gold-dark/30">
+                        <div className="p-3 bg-anchor-gold-dark/10 text-accent-text rounded-lg text-sm border border-anchor-gold-dark/30">
                             {lookupDegraded
                                 ? 'We could not verify this number right now. Please continue by entering your details below.'
                                 : 'New customer detected. Please enter your personal details below.'}
@@ -301,10 +301,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 gap-6">
                         {!isKnownCustomer && (
                             <div className="space-y-4">
-                                <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold-dark/15 pb-2">Personal Details</h4>
+                                <h4 className="font-medium text-ink-strong border-b border-line pb-2">Personal Details</h4>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">First Name *</label>
+                                    <label className="block text-sm font-semibold text-ink mb-1">First Name *</label>
                                     <input
                                         required
                                         type="text"
@@ -313,12 +313,12 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_first_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Last Name *</label>
+                                    <label className="block text-sm font-semibold text-ink mb-1">Last Name *</label>
                                     <input
                                         required
                                         type="text"
@@ -327,12 +327,12 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_last_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Email (Optional)</label>
+                                    <label className="block text-sm font-semibold text-ink mb-1">Email (Optional)</label>
                                     <input
                                         type="email"
                                         value={formData.contact_email || ''}
@@ -340,54 +340,54 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, contact_email: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
                             </div>
                         )}
 
                         <div className="space-y-4">
-                            <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold-dark/15 pb-2">Event Details</h4>
+                            <h4 className="font-medium text-ink-strong border-b border-line pb-2">Event Details</h4>
 
                             <div>
-                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Preferred Date</label>
+                                <label className="block text-sm font-semibold text-ink mb-1">Preferred Date</label>
                                 <input
                                     type="date"
                                     value={formData.event_date || ''}
                                     onChange={e => setFormData({ ...formData, event_date: e.target.value })}
                                     data-native-date-time="true"
-                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Start Time</label>
+                                    <label className="block text-sm font-semibold text-ink mb-1">Start Time</label>
                                     <input
                                         type="time"
                                         value={formData.start_time || ''}
                                         onChange={e => setFormData({ ...formData, start_time: e.target.value })}
                                         data-native-date-time="true"
-                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Approx Guests</label>
+                                    <label className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
                                     <input
                                         type="number"
                                         value={formData.guest_count || 0}
                                         onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
-                                        className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Event Type</label>
+                                <label className="block text-sm font-semibold text-ink mb-1">Event Type</label>
                                 <select
                                     value={formData.event_type}
                                     onChange={e => setFormData({ ...formData, event_type: e.target.value })}
-                                    className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                 >
                                     <option>Birthday Party</option>
                                     <option>Corporate Event</option>
@@ -398,12 +398,12 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Notes / Special Requests</label>
+                                <label className="block text-sm font-semibold text-ink mb-1">Notes / Special Requests</label>
                                 <textarea
                                     rows={3}
                                     value={formData.internal_notes || ''}
                                     onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
-                                    className="w-full px-4 py-2 bg-anchor-green-card border border-anchor-gold-dark/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold-dark focus:border-anchor-gold-dark"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     placeholder="Any dietary requirements or special requests?"
                                 />
                             </div>
@@ -412,7 +412,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 )}
 
                 {detailsUnlocked && (
-                    <div className="pt-4 border-t border-anchor-gold-dark/15 space-y-4">
+                    <div className="pt-4 border-t border-line space-y-4">
                         {/* Honeypot, hidden from real users, filled by bots */}
                         <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                             <label htmlFor="prv-website">Website</label>
@@ -438,7 +438,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                         <button
                             type="submit"
                             disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
-                            className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold-dark hover:bg-anchor-gold-bright text-anchor-charcoal font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
+                            className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
                         >
                             {loading ? 'Submitting...' : 'Send Inquiry'}
                         </button>

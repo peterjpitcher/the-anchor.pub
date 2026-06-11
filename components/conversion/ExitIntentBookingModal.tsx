@@ -91,7 +91,7 @@ export function ExitIntentBookingModal() {
         </ModalTitle>
       </ModalHeader>
       <ModalBody>
-        <p className="text-base text-anchor-cream-text/90 leading-relaxed">
+        <p className="text-base text-ink leading-relaxed">
           Sunday roast books up fast, want to grab a table while you&apos;re here?
         </p>
       </ModalBody>
@@ -99,14 +99,14 @@ export function ExitIntentBookingModal() {
         <button
           type="button"
           onClick={() => close('dismissed')}
-          className="rounded-md border border-anchor-gold-dark/40 bg-transparent px-4 py-2 text-sm text-anchor-cream-text hover:bg-anchor-green-raised focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-md border border-line-strong bg-transparent px-4 py-2 text-sm text-ink hover:bg-surface-sunk focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
         >
           No thanks
         </button>
         <Link
           href="/book-table?source=sunday_lunch_exit_intent"
           onClick={() => close('cta_clicked')}
-          className="inline-flex items-center justify-center rounded-md bg-anchor-gold-bright px-4 py-2 text-sm font-semibold text-anchor-charcoal hover:bg-anchor-gold-bright focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+          className="inline-flex items-center justify-center rounded-md bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
         >
           Book a table
         </Link>

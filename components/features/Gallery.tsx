@@ -246,8 +246,8 @@ export function Gallery({
                 
                 {/* Caption */}
                 {showCaptions && image.caption && (
-                  <div className="p-4 bg-anchor-green-raised">
-                    <p className="text-sm text-anchor-cream-text/70">{image.caption}</p>
+                  <div className="p-4 bg-surface">
+                    <p className="text-sm text-ink-muted">{image.caption}</p>
                   </div>
                 )}
               </Card>

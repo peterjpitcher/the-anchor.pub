@@ -37,8 +37,8 @@ export function RegretReduction({ variant = 'booking', className }: RegretReduct
       )}
     >
       {signals.map(({ text }, index) => (
-        <li key={index} className="flex items-center gap-1 text-sm text-anchor-cream-text/70">
-          <span className="font-semibold text-anchor-gold-bright" aria-hidden="true">&#10003;</span>
+        <li key={index} className="flex items-center gap-1 text-sm text-ink-muted">
+          <span className="font-semibold text-accent-text" aria-hidden="true">&#10003;</span>
           {text}
         </li>
       ))}
