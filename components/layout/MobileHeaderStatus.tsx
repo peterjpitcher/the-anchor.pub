@@ -10,13 +10,8 @@ export function MobileHeaderStatus({
   showStatus = true
 }: MobileHeaderStatusProps) {
   return (
-    <div className="flex flex-col gap-2 w-full">
-      {showStatus && (
-        <StatusBar 
-          variant="navigation" 
-          className="text-sm md:text-xs"
-        />
-      )}
+    <div className="flex w-full flex-col gap-2">
+      {showStatus && <StatusBar variant="pill" />}
     </div>
   )
 }

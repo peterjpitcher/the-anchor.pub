@@ -161,11 +161,16 @@ export function HeroWrapper({
   const resolvedCtaLayoutKey: HeroCtaLayoutKey = ctaLayout ?? variantConfig.ctaLayout
   const ctaLayoutConfig = HERO_CTA_LAYOUTS[resolvedCtaLayoutKey] ?? HERO_CTA_LAYOUTS['inline-center']
 
+  // StatusBar now self-styles via its `nav`/`pill` variants (redesign §5.6); the old
+  // per-hero theme tokens and variant union are no longer forwarded. These remain
+  // resolved (and referenced below) so the existing hero prop surface stays intact.
   const statusThemeBase = HERO_STATUS_BAR_THEMES[resolvedStatusBarThemeToken]
   const heroStatusTheme = {
     ...statusThemeBase,
     ...statusBarTheme
   }
+  void heroStatusTheme
+  void resolvedStatusBarVariant
 
   // Determine imagery
   const headerImage = getPageHeaderImage(route) || getDefaultHeaderImage(route)
@@ -276,21 +281,13 @@ export function HeroWrapper({
     <>
       {shouldRenderStatusBarAbove && (
         <div className={cn('mb-6 w-full flex', alignmentClass)}>
-          <StatusBar
-            variant={resolvedStatusBarVariant}
-            showKitchen={statusBarShowKitchen}
-            theme={heroStatusTheme}
-          />
+          <StatusBar variant="pill" showKitchen={statusBarShowKitchen} />
         </div>
       )}
       {resolvedCtaContent}
       {shouldRenderStatusBarBelow && (
         <div className={cn('w-full flex', resolvedCtaContent ? 'mt-6' : 'mt-0', alignmentClass)}>
-          <StatusBar
-            variant={resolvedStatusBarVariant}
-            showKitchen={statusBarShowKitchen}
-            theme={heroStatusTheme}
-          />
+          <StatusBar variant="pill" showKitchen={statusBarShowKitchen} />
         </div>
       )}
     </>

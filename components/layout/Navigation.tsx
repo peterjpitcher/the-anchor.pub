@@ -6,11 +6,16 @@ import { useState, useEffect, useMemo, useCallback, useRef, ReactNode } from 're
 import { cn } from '@/lib/utils'
 import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
-import { BookTableButton } from '@/components/BookTableButton'
+import { Button } from '@/components/ui/primitives/Button'
 import { Icon, type IconName } from '@/components/ui/Icon'
-import { trackModalClose, trackModalEngage, trackModalOpen, trackNavigationClick, type ModalCloseReason } from '@/lib/gtm-events'
+import {
+  trackModalClose,
+  trackModalEngage,
+  trackModalOpen,
+  trackNavigationClick,
+  type ModalCloseReason
+} from '@/lib/gtm-events'
 import { nowInLondon, parseLondonDate } from '@/lib/time-london'
-
 
 interface HeaderCtaButton {
   label: string
@@ -28,6 +33,7 @@ interface ScheduledCtaButton extends HeaderCtaButton {
 }
 
 interface NavigationProps {
+  /** Black wordmark logo (defaults to the redesign black-on-transparent mark). */
   logo?: {
     src: string
     alt: string
@@ -35,305 +41,94 @@ interface NavigationProps {
     height?: number
   }
   items?: NavigationItem[]
+  /** Scheduled promo CTAs — mechanism unchanged, rendering restyled to gold pills (§6.3). */
+  promoCtaButtons?: ScheduledCtaButton[]
+  /** Live business-hours status, rendered into the desktop utility strip (StatusBar nav variant). */
+  statusComponent?: ReactNode
+  className?: string
+  /**
+   * Legacy props retained for call-site compatibility. They are intentionally ignored
+   * by the redesigned header (theme, sticky, breakpoint and the old CTA slots are now
+   * fixed by the design system) — kept only so existing usages keep type-checking.
+   */
   ctaButton?: HeaderCtaButton
   secondaryCtaButton?: HeaderCtaButton | null
   tertiaryCtaButton?: HeaderCtaButton | null
-  promoCtaButtons?: ScheduledCtaButton[]
-  theme?: {
-    background?: string
-    text?: string
-    hoverText?: string
-    ctaBackground?: string
-    ctaText?: string
-    ctaHoverBackground?: string
-  }
+  theme?: unknown
   sticky?: boolean
-  className?: string
   showStatus?: boolean
-  statusComponent?: ReactNode
   mobileBreakpoint?: 'sm' | 'md' | 'lg'
 }
 
-const defaultTheme = {
-  background: 'bg-anchor-green',
-  text: 'text-white',
-  hoverText: 'hover:text-anchor-gold-dark',
-  ctaBackground: 'bg-anchor-gold-dark',
-  ctaText: 'text-white',
-  ctaHoverBackground: 'hover:bg-anchor-gold'
-}
+const PHONE_DISPLAY = '01753 682707'
+const PHONE_TEL = 'tel:01753682707'
+const PARKING_HREF = '/heathrow-parking'
+const BOOK_TABLE_HREF = '/book-table'
 
+/**
+ * Primary navigation — the exact 4-item model from redesign spec §5.2.
+ * Order is priority order: Food · Private Hire · What's On · Find Us.
+ * Sub-item descriptions are copied verbatim from the spec / shell.jsx NAV.
+ */
 const defaultItems: NavigationItem[] = [
   {
-    label: 'Food Menu',
+    label: 'Food',
     href: '/food-menu',
-    description: 'Pub classics, pizzas, Sunday roast and table bookings.',
     items: [
-      {
-        label: 'Full Food Menu',
-        href: '/food-menu',
-        description: 'Current dishes, prices, dietary filters and menu details.'
-      },
-      {
-        label: 'Sunday Roast',
-        href: '/sunday-roast',
-        description: 'Sunday roast details, timings and table bookings.'
-      },
-      {
-        label: 'Stone-Baked Pizza',
-        href: '/pizza-menu',
-        description: 'Current pizza dishes from the live menu.'
-      },
-      {
-        label: 'Fish & Chips',
-        href: '/fish-and-chips-heathrow',
-        description: 'Current fish and chip options near Heathrow.'
-      },
-      {
-        label: 'Vegetarian Menu',
-        href: '/food-menu/vegetarian',
-        description: 'Vegetarian dishes from the live menu.'
-      },
-      {
-        label: 'Vegan Options',
-        href: '/food-menu/vegan',
-        description: 'Vegan and vegan-option dishes from the live menu.'
-      },
-      {
-        label: 'Gluten-Free Options',
-        href: '/food-menu/gluten-free',
-        description: 'Gluten-free options and allergen guidance.'
-      }
+      { label: 'Full Food Menu', href: '/food-menu', description: 'Pub classics, prices and dietary filters' },
+      { label: 'Sunday Roast', href: '/sunday-roast', description: 'Carved fresh to order, every Sunday' },
+      { label: 'Stone-Baked Pizza', href: '/pizza-menu', description: 'Hand-stretched pizzas from the live menu' },
+      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow', description: 'A proper chippy tea near Heathrow' },
+      { label: 'Vegetarian & Vegan', href: '/food-menu/vegan', description: 'Plant-based dishes and vegan options' },
+      { label: 'Gluten-free options', href: '/food-menu/gluten-free', description: 'Gluten-free choices and allergen guidance' },
+      { label: 'Drinks Menu', href: '/drinks', description: 'Draught pints, cocktails, wine and soft drinks' }
     ]
-  },
-  {
-    label: 'Sunday Roast',
-    href: '/sunday-roast',
-    description: 'Book Sunday roast in Stanwell Moor near Heathrow.'
   },
   {
     label: 'Private Hire',
     href: '/private-hire',
-    description: 'Parties, wakes, work events and venue hire.',
     items: [
-      {
-        label: 'Check Availability',
-        href: '/private-hire#enquiry',
-        description: 'Tell us your date, guest count and event plans.'
-      },
-      {
-        label: 'Private Hire Overview',
-        href: '/private-hire',
-        description: 'Capacity, food packages, prices and room options.'
-      },
-      {
-        label: 'Function Room Hire',
-        href: '/function-room-hire',
-        description: 'Room hire details, layouts and practical info.'
-      },
-      {
-        label: 'Private Parties',
-        href: '/private-party-venue',
-        description: 'Birthdays, family parties and relaxed celebrations.'
-      },
-      {
-        label: 'Wakes & Memorials',
-        href: '/private-hire/wakes',
-        description: 'Respectful gatherings with simple catering.'
-      },
-      {
-        label: 'Christenings',
-        href: '/private-hire/christenings',
-        description: 'Post-service meals and family receptions.'
-      },
-      {
-        label: 'Corporate Events',
-        href: '/corporate-events',
-        description: 'Team meals, away days and work socials.'
-      },
-      {
-        label: 'Christmas Parties',
-        href: '/christmas-parties',
-        description: 'Festive private hire, menus and group bookings.'
-      }
+      { label: 'Check Availability', href: '/private-hire#enquiry', description: 'Tell us your date, guest count and plans' },
+      { label: 'Function Room Hire', href: '/function-room-hire', description: 'Room hire details, layouts and capacity' },
+      { label: 'Private Parties', href: '/private-party-venue', description: 'Birthdays and relaxed celebrations' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes', description: 'Respectful gatherings with simple catering' },
+      { label: 'Christenings', href: '/private-hire/christenings', description: 'Post-service meals and family receptions' },
+      { label: 'Corporate Events', href: '/corporate-events', description: 'Team meals, away days and work socials' },
+      { label: 'Christmas Parties', href: '/christmas-parties', description: 'Festive private hire and group bookings' }
     ]
   },
   {
     label: "What's On",
     href: '/whats-on',
-    description: 'Quiz nights, bingo, live music and hosted events.',
     items: [
-      {
-        label: 'Upcoming Events',
-        href: '/whats-on#upcoming-events',
-        description: 'See the next hosted events and weekly nights.'
-      },
-      {
-        label: 'Quiz Night',
-        href: '/quiz-night',
-        description: 'Pub quiz nights, teams, timings and prizes.'
-      },
-      {
-        label: 'Music Bingo',
-        href: '/music-bingo',
-        description: 'Hosted music bingo with food, drinks and prizes.'
-      },
-      {
-        label: 'Cash Bingo',
-        href: '/cash-bingo',
-        description: 'Classic bingo sessions with cash prizes.'
-      },
-      {
-        label: 'Karaoke',
-        href: '/karaoke',
-        description: 'Singalong nights, party groups and bar tables.'
-      },
-      {
-        label: 'Live Music',
-        href: '/live-music',
-        description: 'Bands, acoustic sessions and live pub nights.'
-      }
+      { label: 'Upcoming Events', href: '/whats-on#upcoming-events', description: 'The next hosted events and weekly nights' },
+      { label: 'Quiz Night', href: '/quiz-night', description: 'Pub quiz nights, teams and prizes' },
+      { label: 'Music Bingo', href: '/music-bingo', description: 'Hosted music bingo with food and prizes' },
+      { label: 'Cash Bingo', href: '/cash-bingo', description: 'Classic bingo sessions with cash prizes' },
+      { label: 'Karaoke', href: '/karaoke', description: 'Singalong nights and party groups' },
+      { label: 'Live Music', href: '/live-music', description: 'Bands, acoustic sessions and pub nights' }
     ]
   },
   {
     label: 'Find Us',
     href: '/find-us',
-    description: 'Address, directions and customer parking.',
     items: [
-      {
-        label: 'Find Us',
-        href: '/find-us',
-        description: 'Address, map, phone number and travel info.'
-      },
-      {
-        label: 'Near Heathrow',
-        href: '/near-heathrow',
-        description: 'Why we work well for airport stops.'
-      },
-      {
-        label: 'Terminal 5',
-        href: '/near-heathrow/terminal-5',
-        description: 'Seven minutes from Terminal 5.'
-      },
-      {
-        label: 'Restaurants Near Heathrow',
-        href: '/restaurants-near-heathrow',
-        description: 'Compare nearby dining and pub food.'
-      }
-    ]
-  },
-  {
-    label: 'More',
-    href: '/near-heathrow',
-    description: 'Heathrow guides, plane spotting, drinks and local info.',
-    items: [
-      {
-        label: 'Heathrow Guide',
-        href: '/near-heathrow',
-        description: 'Airport dining, directions and terminal pages.'
-      },
-      {
-        label: 'Plane Spotting',
-        href: '/plane-spotting-heathrow',
-        description: 'Watch aircraft from the beer garden.'
-      },
-      {
-        label: 'Parking',
-        href: '/heathrow-parking',
-        description: 'Parking details for pub guests and airport stays.'
-      },
-      {
-        label: 'Drinks',
-        href: '/drinks',
-        description: 'Draught pints, cocktails, spirits, wine and soft drinks.'
-      },
-      {
-        label: 'Dog Friendly',
-        href: '/dog-friendly-pub-heathrow',
-        description: 'Dogs welcome in the bar and beer garden.'
-      },
-      {
-        label: 'Our Pub',
-        href: '/our-pub',
-        description: 'Photos of the bar, dining room, garden and games area.'
-      },
-      {
-        label: 'Blog',
-        href: '/blog',
-        description: 'Guides, food posts and local recommendations.'
-      },
-      {
-        label: 'Jobs',
-        href: '/join-our-team',
-        description: 'Bar and kitchen jobs near Heathrow.'
-      },
-      {
-        label: 'History',
-        href: '/history',
-        description: 'A village pub since 1751.'
-      }
+      { label: 'Find Us', href: '/find-us', description: 'Address, map, phone number and travel info' },
+      { label: 'Near Heathrow', href: '/near-heathrow', description: 'Why we work well for airport stops' },
+      { label: 'From Terminal 5', href: '/near-heathrow/terminal-5', description: 'Seven minutes from Terminal 5' },
+      { label: 'Plane Spotting', href: '/plane-spotting-heathrow', description: 'Watch aircraft from the beer garden' },
+      // /free-parking 301-redirects to /heathrow-parking; link straight there to avoid the hop.
+      { label: 'Free Customer Parking', href: '/heathrow-parking', description: 'Free on-site parking for our guests' },
+      { label: 'Book Heathrow Parking', href: '/heathrow-parking', description: 'Reserve airport parking with us' }
     ]
   }
 ]
 
 const defaultLogo = {
-  src: '/images/branding/the-anchor-pub-logo-white-transparent.png',
-  alt: 'The Anchor logo - traditional anchor symbol with elegant typography',
-  width: 150,
-  height: 60
-}
-
-const mobilePriorityTasks: Array<{
-  label: string
-  href: string
-  description: string
-  icon: IconName
-  featured?: boolean
-}> = [
-  {
-    label: 'Book a Table',
-    href: '/book-table',
-    description: 'Food bookings',
-    icon: 'utensils',
-    featured: true
-  },
-  {
-    label: 'Sunday Roast',
-    href: '/sunday-roast',
-    description: 'Sunday roast tables',
-    icon: 'calendar'
-  },
-  {
-    label: 'Private Hire',
-    href: '/private-hire',
-    description: 'Parties and events',
-    icon: 'party'
-  },
-  {
-    label: "What's On",
-    href: '/whats-on#upcoming-events',
-    description: 'Hosted event bookings',
-    icon: 'music'
-  },
-  {
-    label: 'Book Parking',
-    href: '/heathrow-parking#book-parking',
-    description: 'Reserve airport parking',
-    icon: 'parking'
-  }
-]
-
-const mobileSectionPriority = [
-  'Food Menu',
-  'Sunday Roast',
-  'Private Hire',
-  "What's On",
-  'Find Us',
-  'More'
-]
-
-const mobileLabelOverrides: Record<string, string> = {
-  'Food Menu': 'Food Menu',
+  src: '/images/branding/the-anchor-pub-logo-black-transparent.png',
+  alt: 'The Anchor logo',
+  width: 168,
+  height: 42
 }
 
 const toMenuId = (label: string) =>
@@ -342,73 +137,49 @@ const toMenuId = (label: string) =>
 export function Navigation({
   logo = defaultLogo,
   items = defaultItems,
-  ctaButton = {
-    label: 'Book a Table',
-    href: '/book-table',
-    external: false,
-    variant: 'primary'
-  },
-  secondaryCtaButton = {
-    label: 'Book Parking',
-    href: '/heathrow-parking#book-parking',
-    external: false,
-    variant: 'outline'
-  },
-  tertiaryCtaButton = null,
   promoCtaButtons = [],
-  theme = defaultTheme,
-  sticky = true,
-  className,
-  showStatus = true,
   statusComponent,
-  mobileBreakpoint = 'md'
+  className
 }: NavigationProps) {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>([])
+
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
   const mobileMenuPreviouslyOpen = useRef(false)
   const mobileMenuEngaged = useRef(false)
   const mobileMenuCloseReason = useRef<ModalCloseReason | null>(null)
   const mobileMenuId = 'mobile_nav_menu'
 
+  // --- Promo CTA scheduling — mechanism preserved verbatim from the previous header. ---
+  useEffect(() => {
+    if (promoCtaButtons.length === 0) {
+      setActivePromoCtaButtons([])
+      return
+    }
 
+    const now = nowInLondon()
+    const MS_IN_DAY = 24 * 60 * 60 * 1000
+    const DEFAULT_LEAD_DAYS = 56 // 8 weeks
 
-  const mergedTheme = { ...defaultTheme, ...theme }
-  const desktopFlexClass = {
-    sm: 'hidden sm:flex',
-    md: 'hidden md:flex',
-    lg: 'hidden lg:flex'
-  }[mobileBreakpoint]
-  const mobileBlockClass = {
-    sm: 'block sm:hidden',
-    md: 'block md:hidden',
-    lg: 'block lg:hidden'
-  }[mobileBreakpoint]
-  const mobileHiddenClass = {
-    sm: 'sm:hidden',
-    md: 'md:hidden',
-    lg: 'lg:hidden'
-  }[mobileBreakpoint]
-  const showUtilityRow = Boolean(
-    ctaButton ||
-    secondaryCtaButton ||
-    tertiaryCtaButton ||
-    promoCtaButtons.length > 0
-  )
-  const mobileItems = useMemo(() => {
-    const priority = new Map(mobileSectionPriority.map((label, index) => [label, index]))
+    const activeButtons = promoCtaButtons
+      .filter((promo) => {
+        const leadDays = promo.leadDays ?? DEFAULT_LEAD_DAYS
+        const start = parseLondonDate(promo.startsOn)
+        const showFrom = new Date(start.getTime() - leadDays * MS_IN_DAY)
 
-    return [...items].sort((a, b) => {
-      const aIndex = priority.get(a.label) ?? Number.MAX_SAFE_INTEGER
-      const bIndex = priority.get(b.label) ?? Number.MAX_SAFE_INTEGER
+        const end = parseLondonDate(promo.endsOn)
+        const endExclusive = new Date(end.getTime() + MS_IN_DAY)
 
-      if (aIndex !== bIndex) return aIndex - bIndex
-      return items.indexOf(a) - items.indexOf(b)
-    })
-  }, [items])
+        return now >= showFrom && now < endExclusive
+      })
+      .map(({ startsOn, endsOn, leadDays, ...button }) => button)
 
+    setActivePromoCtaButtons(activeButtons)
+  }, [promoCtaButtons])
+
+  // --- Mobile menu open/close GTM lifecycle (unchanged behaviour). ---
   const recordMobileMenuEngagement = useCallback((element: string) => {
     if (mobileMenuEngaged.current) return
     mobileMenuEngaged.current = true
@@ -445,56 +216,18 @@ export function Navigation({
     }
   }, [isMobileMenuOpen, mobileMenuId])
 
-  useEffect(() => {
-    if (!sticky) return
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [sticky])
-
-  useEffect(() => {
-    if (promoCtaButtons.length === 0) {
-      setActivePromoCtaButtons([])
-      return
-    }
-
-    const now = nowInLondon()
-    const MS_IN_DAY = 24 * 60 * 60 * 1000
-    const DEFAULT_LEAD_DAYS = 56 // 8 weeks
-
-    const activeButtons = promoCtaButtons
-      .filter((promo) => {
-        const leadDays = promo.leadDays ?? DEFAULT_LEAD_DAYS
-        const start = parseLondonDate(promo.startsOn)
-        const showFrom = new Date(start.getTime() - leadDays * MS_IN_DAY)
-
-        const end = parseLondonDate(promo.endsOn)
-        const endExclusive = new Date(end.getTime() + MS_IN_DAY)
-
-        return now >= showFrom && now < endExclusive
-      })
-      .map(({ startsOn, endsOn, leadDays, ...button }) => button)
-
-    setActivePromoCtaButtons(activeButtons)
-  }, [promoCtaButtons])
-
-  // Close mobile menu on Escape key
+  // Close mobile menu on Escape.
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
         closeMobileMenu('escape_key')
       }
     }
-
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
   }, [closeMobileMenu, isMobileMenuOpen])
 
-  // Prevent body scroll when mobile menu is open
+  // Lock body scroll whilst the drawer is open; reset accordions on close.
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -502,192 +235,428 @@ export function Navigation({
       document.body.style.overflow = ''
       setOpenMobileSections({})
     }
-
     return () => {
       document.body.style.overflow = ''
     }
   }, [isMobileMenuOpen])
 
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const toggleMobileSection = useCallback((label: string) => {
-    setOpenMobileSections((prev) => ({
-      ...prev,
-      [label]: !prev[label]
-    }))
+    setOpenMobileSections((prev) => ({ ...prev, [label]: !prev[label] }))
   }, [])
 
+  const navItems = useMemo(() => items, [items])
 
+  // ----------------------------------------------------------------------------------
+  // Desktop primary nav — dropdown per top-level item.
+  // ----------------------------------------------------------------------------------
+  const renderDesktopItem = (item: NavigationItem) => {
+    const hasChildren = Boolean(item.items && item.items.length > 0)
+    const dropdownId = toMenuId(item.label)
 
-  const renderLink = (item: NavigationItem, isMobile = false) => {
-    const displayLabel = isMobile ? (mobileLabelOverrides[item.label] || item.label) : item.label
-    const linkClass = cn(
-      'font-medium transition-colours',
-      mergedTheme.text,
-      mergedTheme.hoverText,
-      isMobile
-        ? 'block text-lg py-3 min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50'
-        : 'text-xs xl:text-sm uppercase tracking-wide'
+    const triggerClass = cn(
+      'inline-flex items-center gap-1 py-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2 rounded'
     )
 
-    // Handle dropdown items for desktop
-    if (!isMobile && item.items && item.items.length > 0) {
-      const dropdownId = toMenuId(item.label)
-      const hasItemDescriptions = item.items.some((subItem) => Boolean(subItem.description))
-      const hasManyDropdownItems = hasItemDescriptions && item.items.length > 6
-      const alignDropdownRight = item.label === 'Private Hire' || item.label === 'Find Us' || item.label === 'More'
+    const trackTopLevel = () =>
+      trackNavigationClick({
+        label: item.label,
+        url: item.href,
+        level: 'main',
+        deviceType: 'desktop',
+        isExternal: false,
+        location: 'header'
+      })
 
+    if (!hasChildren) {
       return (
-        <div
-          key={item.href}
-          className="relative group"
-          onMouseEnter={() => setOpenDropdown(item.label)}
-          onMouseLeave={() => setOpenDropdown(null)}
-          onFocus={() => setOpenDropdown(item.label)}
-          onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-              setOpenDropdown(null)
-            }
-          }}
-          onKeyDown={(event) => {
-            if (event.key === 'Escape') {
-              setOpenDropdown(null)
-            }
-          }}
-        >
-          <Link
-            href={item.href}
-            className={cn(linkClass, 'flex items-center gap-1')}
-            aria-haspopup="menu"
-            aria-expanded={openDropdown === item.label}
-            aria-controls={dropdownId}
-            onClick={() => trackNavigationClick({
-              label: item.label,
-              url: item.href,
-              level: 'main',
-              deviceType: 'desktop',
-              isExternal: false,
-              location: 'header'
-            })}
-          >
-            {item.label}
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </Link>
-          <div className={cn(
-            'absolute mt-2 w-[90vw] rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0',
-            alignDropdownRight ? 'right-0' : 'left-0',
-            hasItemDescriptions
-              ? hasManyDropdownItems
-                ? 'sm:w-[42rem] max-w-[42rem]'
-                : 'sm:w-[26rem] max-w-[26rem]'
-              : 'sm:w-56 max-w-xs',
-            openDropdown === item.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-          )} id={dropdownId} role="menu">
-            <div className={cn('py-1', hasManyDropdownItems && 'sm:grid sm:grid-cols-2 sm:gap-x-1')}>
-              {item.items.map((subItem) => (
-                <Link
-                  key={subItem.href}
-                  href={subItem.href}
-                  className={cn(
-                    'block px-4 py-2.5 text-sm text-white hover:bg-anchor-gold-dark hover:text-white transition-colors',
-                    subItem.description && 'border-b border-white/10 last:border-b-0'
-                  )}
-                  role="menuitem"
-                  onClick={() => trackNavigationClick({
-                    label: subItem.label,
-                    url: subItem.href,
-                    level: 'dropdown',
-                    deviceType: 'desktop',
-                    isExternal: false,
-                    location: 'header'
-                  })}
-                >
-                  <span className="block font-semibold">{subItem.label}</span>
-                  {subItem.description && (
-                    <span className="mt-0.5 block text-xs leading-snug text-white/70">
-                      {subItem.description}
-                    </span>
-                  )}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Link key={item.href} href={item.href} className={triggerClass} onClick={trackTopLevel}>
+          {item.label}
+        </Link>
       )
     }
 
-    // Handle mobile dropdown items
-    if (isMobile && item.items && item.items.length > 0) {
-      const sectionId = `${toMenuId(item.label)}-mobile`
-      const isOpen = openMobileSections[item.label]
-
-      return (
-        <div key={item.href} className="border-b border-anchor-green-light/30 pb-2">
-          <button
-            type="button"
-            className={cn(
-              'flex w-full items-center justify-between rounded-md py-3 text-left text-lg font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
-              mergedTheme.text,
-              mergedTheme.hoverText
-            )}
-            aria-expanded={isOpen}
-            aria-controls={sectionId}
-            onClick={() => toggleMobileSection(item.label)}
+    return (
+      <div
+        key={item.href}
+        className="relative"
+        onMouseEnter={() => setOpenDropdown(item.label)}
+        onMouseLeave={() => setOpenDropdown(null)}
+        onFocus={() => setOpenDropdown(item.label)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            setOpenDropdown(null)
+          }
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') setOpenDropdown(null)
+        }}
+      >
+        <Link
+          href={item.href}
+          className={triggerClass}
+          aria-haspopup="menu"
+          aria-expanded={openDropdown === item.label}
+          aria-controls={dropdownId}
+          onClick={trackTopLevel}
+        >
+          {item.label}
+          <svg
+            className={cn('h-4 w-4 transition-transform', openDropdown === item.label && 'rotate-180')}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
           >
-            <span>{displayLabel}</span>
-            <svg
-              className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div id={sectionId} className={cn('mt-1 space-y-2 pl-4', isOpen ? 'block' : 'hidden')}>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </Link>
+
+        <div
+          id={dropdownId}
+          role="menu"
+          aria-label={item.label}
+          className={cn(
+            'absolute left-0 top-full z-[70] mt-2 min-w-[460px] rounded-md border border-line bg-surface p-3 shadow-lg transition-all duration-150',
+            'grid grid-cols-2 gap-1',
+            openDropdown === item.label
+              ? 'visible translate-y-0 opacity-100'
+              : 'pointer-events-none invisible -translate-y-2 opacity-0'
+          )}
+        >
+          {item.items!.map((subItem) => (
             <Link
-              href={item.href}
-              className={cn(
-                linkClass,
-                'text-base py-2',
-                item.description && 'flex-col items-start'
-              )}
+              key={`${subItem.href}-${subItem.label}`}
+              href={subItem.href}
+              role="menuitem"
+              className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
               onClick={() => {
                 trackNavigationClick({
-                  label: item.label,
-                  url: item.href,
-                  level: 'main',
-                  deviceType: 'mobile',
+                  label: subItem.label,
+                  url: subItem.href,
+                  level: 'dropdown',
+                  deviceType: 'desktop',
                   isExternal: false,
-                  location: 'mobile_menu'
+                  location: 'header'
                 })
-                recordMobileMenuEngagement('nav_link')
-                closeMobileMenu('cta')
+                setOpenDropdown(null)
               }}
             >
-              <span className="block">All {displayLabel}</span>
-              {item.description && (
-                <span className="mt-0.5 block text-sm leading-snug text-white/60">
-                  {item.description}
+              <span className="block font-sans text-sm font-semibold text-ink-strong">{subItem.label}</span>
+              {subItem.description && (
+                <span className="mt-0.5 block font-sans text-xs leading-snug text-ink-muted">
+                  {subItem.description}
                 </span>
               )}
             </Link>
-            {item.items.map((subItem) => (
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Promo CTAs — gold pill style (§6.3). `block` variant fills width in the drawer.
+  // ----------------------------------------------------------------------------------
+  const renderPromoCta = (button: HeaderCtaButton, context: 'strip' | 'drawer') => {
+    const isDrawer = context === 'drawer'
+    const className = cn(
+      'inline-flex items-center justify-center gap-1.5 rounded-pill bg-anchor-gold px-4 py-1.5 font-sans text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-anchor-gold-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2',
+      isDrawer && 'w-full min-h-[44px] py-2.5'
+    )
+
+    const onClick = () => {
+      trackNavigationClick({
+        label: button.label,
+        url: button.href,
+        level: 'main',
+        deviceType: isDrawer ? 'mobile' : 'desktop',
+        isExternal: Boolean(button.external),
+        location: isDrawer ? 'mobile_menu' : 'header'
+      })
+      if (isDrawer) {
+        recordMobileMenuEngagement('promo_cta')
+        closeMobileMenu('cta')
+      }
+    }
+
+    const content = (
+      <>
+        {button.icon && <Icon name={button.icon as IconName} className="h-[15px] w-[15px]" />}
+        <span>{button.label}</span>
+      </>
+    )
+
+    if (button.external) {
+      return (
+        <a
+          key={`${button.href}-${button.label}-${context}`}
+          href={button.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+          onClick={onClick}
+        >
+          {content}
+        </a>
+      )
+    }
+
+    return (
+      <Link
+        key={`${button.href}-${button.label}-${context}`}
+        href={button.href}
+        className={className}
+        onClick={onClick}
+      >
+        {content}
+      </Link>
+    )
+  }
+
+  // Quick-link (utility strip) — Book parking + phone.
+  const quickLinkClass =
+    'inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark rounded'
+
+  return (
+    <>
+      {/* ============================ Utility strip (desktop) ============================ */}
+      <div className="hidden border-b border-line bg-surface lg:block">
+        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-2">
+          <div className="min-w-0">{statusComponent}</div>
+
+          <div className="flex items-center gap-4">
+            {activePromoCtaButtons.map((button) => renderPromoCta(button, 'strip'))}
+
+            <Link
+              href={PARKING_HREF}
+              className={quickLinkClass}
+              onClick={() =>
+                trackNavigationClick({
+                  label: 'Book parking',
+                  url: PARKING_HREF,
+                  level: 'main',
+                  deviceType: 'desktop',
+                  isExternal: false,
+                  location: 'header'
+                })
+              }
+            >
+              <Icon name="parking" className="h-[15px] w-[15px] text-accent-text" />
+              Book parking
+            </Link>
+
+            <a
+              href={PHONE_TEL}
+              className={quickLinkClass}
+              onClick={() =>
+                trackNavigationClick({
+                  label: PHONE_DISPLAY,
+                  url: PHONE_TEL,
+                  level: 'main',
+                  deviceType: 'desktop',
+                  isExternal: true,
+                  location: 'header'
+                })
+              }
+            >
+              <Icon name="phone" className="h-[15px] w-[15px] text-accent-text" />
+              {PHONE_DISPLAY}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ================================ Main header bar ================================ */}
+      <nav
+        className={cn(
+          'sticky top-0 z-[60] border-b border-line bg-[rgba(250,248,243,0.9)] backdrop-blur-md',
+          className
+        )}
+        role="navigation"
+        aria-label="Main navigation"
+        itemScope
+        itemType="https://schema.org/SiteNavigationElement"
+      >
+        <div className="container mx-auto flex h-[76px] items-center justify-between gap-6 px-4">
+          {/* Logo */}
+          <Link href="/" aria-label="The Anchor, home" className="flex flex-shrink-0 items-center">
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={logo.width ?? 168}
+              height={logo.height ?? 42}
+              priority
+              className="h-[42px] w-auto"
+              sizes="168px"
+            />
+          </Link>
+
+          {/* Primary nav (desktop) */}
+          <div className="hidden flex-1 items-center justify-center gap-6 lg:flex">
+            {navItems.map((item) => renderDesktopItem(item))}
+          </div>
+
+          {/* Right cluster */}
+          <div className="flex flex-shrink-0 items-center gap-3">
+            <Button asChild variant="primary" size="sm" className="hidden lg:inline-flex">
               <Link
-                key={subItem.href}
-                href={subItem.href}
-                className={cn(
-                  linkClass,
-                  'text-base py-2',
-                  subItem.description && 'flex-col items-start'
-                )}
+                href={BOOK_TABLE_HREF}
+                onClick={() =>
+                  trackNavigationClick({
+                    label: 'Book a table',
+                    url: BOOK_TABLE_HREF,
+                    level: 'main',
+                    deviceType: 'desktop',
+                    isExternal: false,
+                    location: 'header'
+                  })
+                }
+              >
+                Book a table
+              </Link>
+            </Button>
+
+            {/* Burger */}
+            <button
+              type="button"
+              className="flex h-11 w-11 items-center justify-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark lg:hidden"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-nav-drawer"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => {
+                if (isMobileMenuOpen) {
+                  closeMobileMenu('close_button')
+                } else {
+                  setIsMobileMenuOpen(true)
+                }
+              }}
+            >
+              {isMobileMenuOpen ? (
+                <svg className="h-6 w-6 text-ink-strong" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <span className="flex flex-col items-center justify-center gap-[5px]" aria-hidden="true">
+                  <span className="block h-0.5 w-6 bg-ink-strong" />
+                  <span className="block h-0.5 w-6 bg-ink-strong" />
+                  <span className="block h-0.5 w-6 bg-ink-strong" />
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* ================================ Mobile drawer ================================ */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 z-[55] bg-black/40 lg:hidden"
+            onClick={() => closeMobileMenu('backdrop_click')}
+          />
+
+          <div
+            id="mobile-nav-drawer"
+            ref={focusTrapRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
+            className="fixed inset-x-0 bottom-0 top-[76px] z-[60] overflow-y-auto overscroll-contain border-t border-line bg-surface lg:hidden"
+          >
+            <div className="container mx-auto space-y-1 px-4 py-4">
+              {navItems.map((item) => {
+                const hasChildren = Boolean(item.items && item.items.length > 0)
+                const sectionId = `${toMenuId(item.label)}-mobile`
+                const isOpen = openMobileSections[item.label]
+
+                if (!hasChildren) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block min-h-[44px] py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                      onClick={() => {
+                        trackNavigationClick({
+                          label: item.label,
+                          url: item.href,
+                          level: 'main',
+                          deviceType: 'mobile',
+                          isExternal: false,
+                          location: 'mobile_menu'
+                        })
+                        recordMobileMenuEngagement('nav_link')
+                        closeMobileMenu('cta')
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                }
+
+                return (
+                  <div key={item.href} className="border-b border-line">
+                    <button
+                      type="button"
+                      className="flex min-h-[44px] w-full items-center justify-between py-3 text-left font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                      aria-expanded={Boolean(isOpen)}
+                      aria-controls={sectionId}
+                      onClick={() => toggleMobileSection(item.label)}
+                    >
+                      <span>{item.label}</span>
+                      <svg
+                        className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div id={sectionId} className={cn('space-y-1 pb-2 pl-3', isOpen ? 'block' : 'hidden')}>
+                      {item.items!.map((subItem) => (
+                        <Link
+                          key={`${subItem.href}-${subItem.label}`}
+                          href={subItem.href}
+                          className="block min-h-[44px] py-2.5 font-sans text-sm font-medium text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                          onClick={() => {
+                            trackNavigationClick({
+                              label: subItem.label,
+                              url: subItem.href,
+                              level: 'dropdown',
+                              deviceType: 'mobile',
+                              isExternal: false,
+                              location: 'mobile_menu'
+                            })
+                            recordMobileMenuEngagement('nav_link')
+                            closeMobileMenu('cta')
+                          }}
+                        >
+                          <span className="block">{subItem.label}</span>
+                          {subItem.description && (
+                            <span className="mt-0.5 block text-xs leading-snug text-ink-muted">
+                              {subItem.description}
+                            </span>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+
+              {/* Book parking link */}
+              <Link
+                href={PARKING_HREF}
+                className="flex min-h-[44px] items-center gap-1.5 border-b border-line py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                 onClick={() => {
                   trackNavigationClick({
-                    label: subItem.label,
-                    url: subItem.href,
-                    level: 'dropdown',
+                    label: 'Book parking',
+                    url: PARKING_HREF,
+                    level: 'main',
                     deviceType: 'mobile',
                     isExternal: false,
                     location: 'mobile_menu'
@@ -696,409 +665,37 @@ export function Navigation({
                   closeMobileMenu('cta')
                 }}
               >
-                <span className="block">{subItem.label}</span>
-                {subItem.description && (
-                  <span className="mt-0.5 block text-sm leading-snug text-white/60">
-                    {subItem.description}
-                  </span>
-                )}
+                <Icon name="parking" className="h-[18px] w-[18px] text-accent-text" />
+                Book parking
               </Link>
-            ))}
-          </div>
-        </div>
-      )
-    }
 
-    // Regular link (no dropdown)
-    if (item.external) {
-      return (
-        <a
-          key={item.href}
-          href={item.href}
-          className={linkClass}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => {
-            trackNavigationClick({
-              label: item.label,
-              url: item.href,
-              level: 'main',
-              deviceType: isMobile ? 'mobile' : 'desktop',
-              isExternal: true,
-              location: isMobile ? 'mobile_menu' : 'header'
-            })
-            if (isMobile) {
-              recordMobileMenuEngagement('nav_link')
-              closeMobileMenu('cta')
-            }
-          }}
-        >
-          {displayLabel}
-        </a>
-      )
-    }
-
-    return (
-      <Link
-        key={item.href}
-        href={item.href}
-        className={linkClass}
-        onClick={() => {
-          trackNavigationClick({
-            label: item.label,
-            url: item.href,
-            level: 'main',
-            deviceType: isMobile ? 'mobile' : 'desktop',
-            isExternal: false,
-            location: isMobile ? 'mobile_menu' : 'header'
-          })
-          if (isMobile) {
-            recordMobileMenuEngagement('nav_link')
-            closeMobileMenu('cta')
-          }
-        }}
-      >
-        {displayLabel}
-      </Link>
-    )
-  }
-
-  const renderSingleCTA = (button: HeaderCtaButton, isMobile: boolean, key: string) => {
-    if (!button) return null
-
-    if (button.href.includes('ordertab.menu/theanchor/bookings')) {
-      return (
-        <BookTableButton
-          key={key}
-          source={isMobile ? 'header_mobile' : 'header_desktop'}
-          variant="primary"
-          size={isMobile ? 'md' : 'sm'}
-          className={cn(isMobile && 'block w-full')}
-          onClickAfterTracking={() => {
-            if (isMobile) {
-              recordMobileMenuEngagement('book_table')
-              closeMobileMenu('cta')
-            }
-          }}
-        >
-          <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
-        </BookTableButton>
-      )
-    }
-
-    const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
-    const variantClasses = button.variant === 'outline'
-      ? 'bg-anchor-green-card text-anchor-cream-text hover:bg-anchor-green-raised hover:text-anchor-gold-bright border border-anchor-gold-dark/30'
-      : cn(mergedTheme.ctaBackground, mergedTheme.ctaText, mergedTheme.ctaHoverBackground)
-
-    const ctaClass = cn(
-      baseClasses,
-      variantClasses,
-      button.className,
-      isMobile && 'block w-full text-center py-3 text-base px-6'
-    )
-
-    if (button.external) {
-      return (
-        <a
-          key={key}
-          href={button.href}
-          className={ctaClass}
-          target="_blank"
-          rel="noopener noreferrer"
-	          onClick={() => {
-	            trackNavigationClick({
-	              label: button.label,
-	              url: button.href,
-	              level: 'main',
-	              deviceType: isMobile ? 'mobile' : 'desktop',
-	              isExternal: true,
-	              location: isMobile ? 'mobile_menu' : 'header'
-	            })
-	            if (isMobile) {
-	              recordMobileMenuEngagement('header_cta')
-	              closeMobileMenu('cta')
-	            }
-	          }}
-	        >
-	          <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
-	        </a>
-      )
-    }
-
-    return (
-      <Link
-        key={key}
-        href={button.href}
-        className={ctaClass}
-	        onClick={() => {
-	          trackNavigationClick({
-	            label: button.label,
-	            url: button.href,
-	            level: 'main',
-	            deviceType: isMobile ? 'mobile' : 'desktop',
-	            isExternal: false,
-	            location: isMobile ? 'mobile_menu' : 'header'
-	          })
-	          if (isMobile) {
-	            recordMobileMenuEngagement('header_cta')
-	            closeMobileMenu('cta')
-	          }
-	        }}
-	      >
-	        <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
-	      </Link>
-    )
-  }
-
-  const renderLogo = (size: 'sm' | 'lg' = 'lg') => (
-    <Link href="/" className="flex items-center flex-shrink-0">
-      <Image
-        src={logo.src}
-        alt={logo.alt}
-        width={logo.width}
-        height={logo.height}
-        className={cn(size === 'sm' ? 'h-12 w-auto' : 'h-16 w-auto')}
-        sizes={size === 'sm' ? '120px' : '150px'}
-      />
-    </Link>
-  )
-
-  const renderPrimaryCTA = (isMobile = false, extraClass?: string) => {
-    if (!ctaButton) return null
-    const button = extraClass
-      ? { ...ctaButton, className: cn(ctaButton.className, extraClass) }
-      : ctaButton
-    return renderSingleCTA(button, isMobile, `${ctaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
-  }
-
-  const renderSecondaryCTA = (isMobile = false, extraClass?: string) => {
-    if (!secondaryCtaButton) return null
-    const button = extraClass
-      ? { ...secondaryCtaButton, className: cn(secondaryCtaButton.className, extraClass) }
-      : secondaryCtaButton
-    return renderSingleCTA(button, isMobile, `${secondaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
-  }
-
-  const renderTertiaryCTA = (isMobile = false, extraClass?: string) => {
-    if (!tertiaryCtaButton) return null
-    const button = extraClass
-      ? { ...tertiaryCtaButton, className: cn(tertiaryCtaButton.className, extraClass) }
-      : tertiaryCtaButton
-    return renderSingleCTA(button, isMobile, `${tertiaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
-  }
-
-  const renderPromoCTAs = (isMobile = false, extraClass?: string) => {
-    if (activePromoCtaButtons.length === 0) return null
-
-    return activePromoCtaButtons.map((button) => {
-      const mergedButton = extraClass
-        ? { ...button, className: cn(button.className, extraClass) }
-        : button
-
-      return renderSingleCTA(
-        mergedButton,
-        isMobile,
-        `${button.href}-${button.label}-${isMobile ? 'mobile' : 'desktop'}`
-      )
-    })
-  }
-
-  const renderMobilePriorityTask = (task: typeof mobilePriorityTasks[number]) => (
-    <Link
-      key={task.href}
-      href={task.href}
-      className={cn(
-        'group flex items-start gap-3 rounded-lg border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
-        task.featured
-          ? 'border-anchor-gold-dark bg-anchor-gold-dark px-4 py-4 text-white hover:bg-anchor-gold'
-          : 'border-white/10 bg-white/10 px-4 py-3 text-white hover:bg-white/20'
-      )}
-      onClick={() => {
-        trackNavigationClick({
-          label: task.label,
-          url: task.href,
-          level: 'main',
-          deviceType: 'mobile',
-          isExternal: false,
-          location: 'mobile_menu'
-        })
-        recordMobileMenuEngagement('priority_task')
-        closeMobileMenu('cta')
-      }}
-    >
-      <span
-        className={cn(
-          'mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full',
-          task.featured ? 'bg-white/15' : 'bg-white/10'
-        )}
-        aria-hidden="true"
-      >
-        <Icon name={task.icon} className="h-5 w-5" />
-      </span>
-      <span className="min-w-0">
-        <span className="block text-base font-bold leading-tight">{task.label}</span>
-        <span
-          className={cn(
-            'mt-1 block text-sm leading-snug',
-            task.featured ? 'text-white/80' : 'text-white/75'
-          )}
-        >
-          {task.description}
-        </span>
-      </span>
-    </Link>
-  )
-
-
-
-  return (
-    <nav
-      className={cn(
-        'transition-all duration-300 shadow-md',
-        sticky && 'sticky top-0 z-50',
-        mergedTheme.background,
-        className
-      )}
-      role="navigation"
-      aria-label="Main navigation"
-      itemScope
-      itemType="https://schema.org/SiteNavigationElement"
-    >
-      <div className="container mx-auto px-4">
-        {/* Desktop utility row */}
-        {showUtilityRow && (
-          <div
-            className={cn(
-              desktopFlexClass,
-              'flex-wrap items-center justify-between gap-4 border-b border-white/10 py-2 text-sm',
-              mergedTheme.text
-            )}
-          >
-            {renderLogo('sm')}
-            <div className="flex flex-wrap items-center justify-end gap-3">
-              {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
-              {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
-              {renderPromoCTAs(false, 'px-4 py-1 text-sm')}
-              {renderTertiaryCTA(false, 'px-4 py-1 text-sm')}
-            </div>
-          </div>
-        )}
-
-        {/* Desktop primary row */}
-        <div
-          className={cn(
-            desktopFlexClass,
-            'items-center justify-between gap-6 py-2'
-          )}
-        >
-          <div className="flex items-center gap-4 flex-shrink-0">
-            {!showUtilityRow && renderLogo('lg')}
-            {showStatus && statusComponent && (
-              <div className={cn(!showUtilityRow && "pl-6 border-l border-white/10")}>
-                {statusComponent}
-              </div>
-            )}
-          </div>
-
-          <div className="relative z-40 ml-auto flex flex-1 flex-wrap items-center justify-end gap-4 text-right xl:gap-6">
-            {items.map(item => renderLink(item))}
-          </div>
-
-          {(!showUtilityRow && (ctaButton || secondaryCtaButton || tertiaryCtaButton)) && (
-            <div className="flex items-center gap-3 flex-shrink-0">
-              {renderPrimaryCTA()}
-              {renderSecondaryCTA(false)}
-              {renderPromoCTAs(false)}
-              {renderTertiaryCTA(false)}
-            </div>
-          )}
-        </div>
-
-        {/* Mobile Layout */}
-        <div className={cn(mobileBlockClass, 'pt-[8px]')}>
-          <div className="relative flex items-center h-12">
-            <Link href="/" className="mx-auto flex-shrink-0">
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={logo.width}
-                height={logo.height}
-                className="h-12 w-auto"
-                sizes="150px"
-              />
-            </Link>
-
-            <button
-              onClick={() => {
-                if (isMobileMenuOpen) {
-                  closeMobileMenu('close_button')
-                  return
-                }
-                setIsMobileMenuOpen(true)
-              }}
-              className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center', mergedTheme.text)}
-              aria-expanded={isMobileMenuOpen}
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-
-          {showStatus && (
-            <div className="mt-1 w-full space-y-2 pb-2">
-              {statusComponent}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div
-          ref={focusTrapRef}
-          className={cn(
-            mobileHiddenClass,
-            'max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
-          )}
-          role="dialog"
-          aria-label="Mobile navigation menu"
-          aria-modal="true"
-        >
-          <div className="container mx-auto px-4 py-6 space-y-6">
-            <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                Plan your visit
-              </p>
-              <div className="mt-3 space-y-3">
-                {mobilePriorityTasks.map((task) => renderMobilePriorityTask(task))}
+              {/* CTA block */}
+              <div className="space-y-3 pt-4">
+                {activePromoCtaButtons.map((button) => renderPromoCta(button, 'drawer'))}
+                <Button asChild variant="primary" size="md" fullWidth>
+                  <Link
+                    href={BOOK_TABLE_HREF}
+                    onClick={() => {
+                      trackNavigationClick({
+                        label: 'Book a table',
+                        url: BOOK_TABLE_HREF,
+                        level: 'main',
+                        deviceType: 'mobile',
+                        isExternal: false,
+                        location: 'mobile_menu'
+                      })
+                      recordMobileMenuEngagement('book_table')
+                      closeMobileMenu('cta')
+                    }}
+                  >
+                    Book a table
+                  </Link>
+                </Button>
               </div>
             </div>
-
-            {(activePromoCtaButtons.length > 0 || tertiaryCtaButton) && (
-              <div className="space-y-3 rounded-xl border border-white/10 bg-white/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  Seasonal highlights
-                </p>
-                <div className="space-y-3">
-                  {renderPromoCTAs(true)}
-                  {renderTertiaryCTA(true)}
-                </div>
-              </div>
-            )}
-
-            <div className="space-y-1">
-              {mobileItems.map(item => renderLink(item, true))}
-            </div>
           </div>
-        </div>
+        </>
       )}
-    </nav>
+    </>
   )
 }

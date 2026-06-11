@@ -1,33 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { StatusBar } from '@/components/layout/StatusBar'
 
+/**
+ * Live status for the desktop utility strip (redesign §5.2 / §5.6).
+ * Renders the `nav` StatusBar variant — inline rows in ink on the cream strip.
+ */
 export function HeaderStatusSectionDirect() {
-  const [dateLabel, setDateLabel] = useState<string>('')
-
-  useEffect(() => {
-    const now = new Date()
-    setDateLabel(now.toLocaleDateString('en-GB', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      timeZone: 'Europe/London'
-    }))
-  }, [])
-
-  return (
-    <div className="flex w-full flex-wrap flex-col items-start justify-start lg:w-auto">
-      {dateLabel && (
-        <p className="mb-1 text-left text-[11px] font-semibold uppercase leading-none tracking-widest text-white/60">
-          {dateLabel}
-        </p>
-      )}
-      <StatusBar
-        variant="navigation"
-        className="w-full px-0 text-left text-white lg:w-auto lg:px-0"
-        showKitchen
-      />
-    </div>
-  )
+  return <StatusBar variant="nav" showKitchen />
 }

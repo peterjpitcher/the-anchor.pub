@@ -165,7 +165,7 @@ export default function HomePage() {
 
             <div className="flex justify-center px-2 sm:px-0 w-full">
               <StatusBar
-                variant="hero"
+                variant="pill"
                 className="self-center"
               />
             </div>

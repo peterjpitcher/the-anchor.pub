@@ -255,8 +255,8 @@ describe('StatusBar Boundary Tests', () => {
 
     render(
       <>
-        <StatusBar variant="hero" />
-        <StatusBar variant="navigation" />
+        <StatusBar variant="pill" />
+        <StatusBar variant="nav" />
       </>
     )
 
