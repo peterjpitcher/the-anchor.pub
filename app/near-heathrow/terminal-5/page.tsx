@@ -641,7 +641,7 @@ export default function Terminal5Page() {
               <Link href="/near-heathrow">← Back to All Terminals</Link>
             </Button>
           </div>
-          <div className="rounded-xs border border-line-gold bg-anchor-green-card p-6 max-w-md mx-auto text-anchor-cream-text">
+          <div className="rounded-md border border-line bg-surface p-6 max-w-md mx-auto text-ink shadow-sm">
             <p className="font-semibold mb-2">The Anchor</p>
             <p>Horton Road, Stanwell Moor</p>
             <p>Surrey TW19 6AQ</p>

@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 
-// CtaBand (spec §5.7): the closing green band on nearly every page. A dark-green,
-// centred column — H2 + optional copy + an actions row.
+// CtaBand (spec §5.7, lightened per owner direction): the closing CTA band on
+// nearly every page. A light (warm sunk) centred column — H2 + optional copy +
+// an actions row. Footer stays dark; this band is light.
 //
 // API: pass the heading via `title` and optional supporting `copy`. Provide the
 // actions in ONE of two ways:
@@ -34,12 +35,12 @@ export function CtaBand({ title, copy, primary, secondary, children, className }
   )
 
   return (
-    <section className={`theme-dark bg-anchor-green py-section-y${className ? ` ${className}` : ''}`}>
+    <section className={`bg-surface-sunk border-t border-line py-section-y${className ? ` ${className}` : ''}`}>
       <div className="container">
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">
-          <h2 className="text-h2 text-anchor-cream-text">{title}</h2>
+          <h2 className="font-display text-h2 text-ink-strong">{title}</h2>
           {copy ? (
-            <p className="max-w-[50ch] text-lg text-anchor-cream-text/85">{copy}</p>
+            <p className="max-w-[50ch] text-lg text-ink-muted">{copy}</p>
           ) : null}
           {actions ? (
             <div className="flex flex-wrap items-center justify-center gap-3">{actions}</div>
