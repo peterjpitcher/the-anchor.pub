@@ -73,13 +73,16 @@ const failures = []
 
 for (const route of ROUTES) {
   try {
-    const resp = await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle', timeout: 45000 })
+    // Live-data pages (flight/events/hours) never reach networkidle, so wait for
+    // DOM + a fixed settle window for client components to paint.
+    const resp = await page.goto(`${BASE}${route}`, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    await page.waitForTimeout(2000)
     // dismiss cookie banner if present
     await page.evaluate(() => {
       const b = [...document.querySelectorAll('button')].find((x) => x.textContent.trim().toLowerCase() === 'reject all')
       if (b) b.click()
     })
-    await page.waitForTimeout(400)
+    await page.waitForTimeout(300)
     const offenders = await page.evaluate(AUDIT_FN)
     const status = resp ? resp.status() : '???'
     if (offenders.length) {
