@@ -287,7 +287,7 @@ export function EventCountdownBanner() {
   const timeString = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 
   return (
-    <div className="fixed bottom-4 left-0 right-0 z-[45] px-4 pointer-events-none sm:left-6 sm:right-auto sm:px-0">
+    <div className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none sm:left-6 sm:right-auto sm:px-0">
       <div className="pointer-events-auto relative mx-auto w-full max-w-4xl rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
         <div className="flex items-center gap-3 min-w-0">
           <div className="relative h-10 w-10 overflow-hidden rounded-full border border-line flex-shrink-0">

@@ -150,14 +150,14 @@ export default async function FishAndChipsPage() {
               {fishItems.map((item) => (
                 <Card key={item.id} accent hover>
                   <CardBody>
-                    <div className="mb-2 flex items-start justify-between gap-4">
-                      <h2 className="text-h4 text-ink-strong">{item.name}</h2>
+                    <h2 className="mb-2 text-h4 text-ink-strong">
+                      {item.name}
                       {item.priceLabel && (
-                        <span className="whitespace-nowrap font-display text-xl text-accent-text">
+                        <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
                           {item.priceLabel}
                         </span>
                       )}
-                    </div>
+                    </h2>
                     {item.description && (
                       <p className="mb-3 text-sm text-ink-muted">{item.description}</p>
                     )}

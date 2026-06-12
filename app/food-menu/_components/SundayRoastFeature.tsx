@@ -56,9 +56,12 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
                 {roasts.map(roast => {
                   const flag = dietaryFlag(roast)
                   return (
-                    <li key={roast.id || roast.name} className="flex items-baseline justify-between gap-4 py-3">
+                    <li key={roast.id || roast.name} className="py-3">
                       <p className="font-sans font-medium text-ink-strong">
                         {roast.name}
+                        <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
+                          {formatDisplayPrice(roast.price)}
+                        </span>
                         {flag && (
                           <span className="font-sans text-sm font-semibold text-accent-text">
                             {' '}
@@ -66,9 +69,6 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
                           </span>
                         )}
                       </p>
-                      <span className="whitespace-nowrap font-display text-xl text-accent-text">
-                        {formatDisplayPrice(roast.price)}
-                      </span>
                     </li>
                   )
                 })}

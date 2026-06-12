@@ -12,8 +12,8 @@ export interface DietaryItemListProps {
 
 /**
  * Light accent-card list of dietary menu items (redesign §8 food row): one
- * accent Card containing rows of name + gold price, with a sand dietary Badge
- * and the live category label. Used by the gluten-free and vegan pages, which
+ * accent Card containing rows of name + inline gold price, with a sand dietary
+ * Badge and the live category label. Used by the gluten-free and vegan pages, which
  * present a single pre-filtered list rather than the grouped full menu.
  */
 export function DietaryItemList({ items, badge, optionFlag, optionNote }: DietaryItemListProps) {
@@ -22,10 +22,15 @@ export function DietaryItemList({ items, badge, optionFlag, optionNote }: Dietar
       <CardBody className="py-2">
         <ul className="divide-y divide-line">
           {items.map(item => (
-            <li key={item.id} className="flex items-baseline justify-between gap-4 py-3">
+            <li key={item.id} className="py-3">
               <div className="min-w-0">
                 <p className="flex flex-wrap items-center gap-2 font-sans font-medium text-ink-strong">
                   {item.name}
+                  {item.priceLabel && (
+                    <span className="whitespace-nowrap font-display text-xl text-accent-text">
+                      {item.priceLabel}
+                    </span>
+                  )}
                   <Badge variant="sand">{badge}</Badge>
                 </p>
                 {item.description && (
@@ -36,11 +41,6 @@ export function DietaryItemList({ items, badge, optionFlag, optionNote }: Dietar
                 )}
                 <p className="mt-1 text-xs text-ink-muted">{item.categoryTitle}</p>
               </div>
-              {item.priceLabel && (
-                <span className="whitespace-nowrap font-display text-xl text-accent-text">
-                  {item.priceLabel}
-                </span>
-              )}
             </li>
           ))}
         </ul>

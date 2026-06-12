@@ -251,19 +251,19 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       aria-label={`${item.name}, ${schemaPrice}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <CardBody>
-        <div className="flex min-w-0 justify-between gap-3 items-start mb-2">
-          <h3 className="min-w-0 break-words text-xl text-ink-strong flex items-center gap-2" itemProp="name">
-            {item.name}
+        <div className="mb-2">
+          <h3 className="min-w-0 break-words text-xl text-ink-strong flex flex-wrap items-baseline gap-2">
+            <span itemProp="name">{item.name}</span>
+            <span className="shrink-0 text-xl font-semibold text-accent-text whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+              <span itemProp="price" content={schemaPrice}>
+                {displayPrice}
+              </span>
+              <meta itemProp="priceCurrency" content="GBP" />
+            </span>
             {item.vegetarian && (
               <Badge variant="success">(V)</Badge>
             )}
           </h3>
-          <span className="shrink-0 text-xl font-semibold text-accent-text whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <span itemProp="price" content={schemaPrice}>
-              {displayPrice}
-            </span>
-            <meta itemProp="priceCurrency" content="GBP" />
-          </span>
         </div>
         {item.description && (
           <p className="text-ink-muted" itemProp="description">{item.description}</p>
@@ -282,7 +282,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
 
   return (
     <div
-      className={`flex justify-between items-center p-2 rounded-lg transition-colours ${
+      className={`p-2 rounded-lg transition-colours ${
         isFocused ? 'bg-accent/10' : 'hover:bg-surface-sunk'
       }`}
       itemScope 
@@ -293,15 +293,15 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
       data-item-id={itemId}
       aria-label={`${item.name}, ${schemaPrice}${item.vegetarian ? ', vegetarian' : ''}`}
     >
-      <span className="flex items-center gap-2" itemProp="name">
-        {item.name}
-        {item.vegetarian && <Badge variant="success" dot>(V)</Badge>}
-      </span>
-      <span className="text-accent-text font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-        <span itemProp="price" content={schemaPrice}>
-          {displayPrice}
+      <span className="flex flex-wrap items-baseline gap-2">
+        <span itemProp="name">{item.name}</span>
+        <span className="text-accent-text font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <span itemProp="price" content={schemaPrice}>
+            {displayPrice}
+          </span>
+          <meta itemProp="priceCurrency" content="GBP" />
         </span>
-        <meta itemProp="priceCurrency" content="GBP" />
+        {item.vegetarian && <Badge variant="success" dot>(V)</Badge>}
       </span>
       {item.vegetarian && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />

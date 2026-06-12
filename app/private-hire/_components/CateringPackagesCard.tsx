@@ -3,7 +3,7 @@ import { formatPackagePrice, getCateringData } from '@/lib/api/catering-packages
 
 /**
  * Light "Catering packages" card for the Private Hire why-us split (spec §7.4).
- * Ink package names, gold (accent-text) prices, hairline separators between rows.
+ * Ink package names, inline gold prices, hairline separators between rows.
  */
 export async function CateringPackagesCard() {
   const { foodPackages } = await getCateringData()
@@ -19,14 +19,14 @@ export async function CateringPackagesCard() {
         {packages.length > 0 ? (
           <ul className="mt-6 divide-y divide-line">
             {packages.map(pkg => (
-              <li key={pkg.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
+              <li key={pkg.id} className="py-3">
                 <span className="text-base text-ink">
                   {pkg.name}
+                  <span className="ml-2 font-display text-lg text-accent-text">{formatPackagePrice(pkg)}</span>
                   {pkg.minimumGuests > 0 ? (
                     <span className="mt-0.5 block text-sm text-ink-muted">Minimum {pkg.minimumGuests} guests</span>
                   ) : null}
                 </span>
-                <span className="font-display text-lg text-accent-text">{formatPackagePrice(pkg)}</span>
               </li>
             ))}
           </ul>

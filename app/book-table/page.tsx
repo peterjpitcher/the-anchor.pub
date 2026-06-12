@@ -339,16 +339,18 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         <div className="space-y-4 max-w-2xl mx-auto">
           {previewItems.length > 0 ? (
             previewItems.map((item) => (
-              <div key={item.id} className="flex justify-between items-start gap-4 py-3 border-b border-line last:border-b-0">
+              <div key={item.id} className="py-3 border-b border-line last:border-b-0">
                 <div>
-                  <h3 className="font-semibold text-ink-strong">{item.name}</h3>
+                  <h3 className="font-semibold text-ink-strong">
+                    {item.name}
+                    {item.priceLabel && (
+                      <span className="ml-2 text-accent-text font-semibold whitespace-nowrap">{item.priceLabel}</span>
+                    )}
+                  </h3>
                   {item.description && (
                     <p className="text-sm text-ink-muted mt-1">{item.description}</p>
                   )}
                 </div>
-                {item.priceLabel && (
-                  <span className="text-accent-text font-semibold whitespace-nowrap">{item.priceLabel}</span>
-                )}
               </div>
             ))
           ) : (

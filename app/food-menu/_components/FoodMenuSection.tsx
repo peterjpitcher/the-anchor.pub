@@ -50,8 +50,7 @@ export interface FoodMenuSectionProps {
 /**
  * Live food/drink menu, rendered to the redesign §7.2.3 layout: optional dietary
  * filter chips, then each menu group as a DM Serif heading + accent Card of menu
- * rows (name left, gold price right, never stacked on mobile). Data is the live
- * menu the page already loads; nothing is hardcoded here.
+ * rows. Data is the live menu the page already loads; nothing is hardcoded here.
  */
 export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectionProps) {
   const [filter, setFilter] = useState<DietaryFilter>('all')
@@ -109,13 +108,15 @@ export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectio
                     {group.items.map((item, index) => {
                       const flag = dietaryFlag(item)
                       return (
-                        <li
-                          key={`${group.id}-${item.name}-${index}`}
-                          className="flex items-baseline justify-between gap-4 py-3"
-                        >
+                        <li key={`${group.id}-${item.name}-${index}`} className="py-3">
                           <div className="min-w-0">
                             <p className="font-sans font-medium text-ink-strong">
                               {item.name}
+                              {item.price && (
+                                <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
+                                  {item.price}
+                                </span>
+                              )}
                               {flag && (
                                 <span className="font-sans text-sm font-semibold text-accent-text">
                                   {' '}
@@ -127,11 +128,6 @@ export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectio
                               <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
                             )}
                           </div>
-                          {item.price && (
-                            <span className="whitespace-nowrap font-display text-xl text-accent-text">
-                              {item.price}
-                            </span>
-                          )}
                         </li>
                       )
                     })}
