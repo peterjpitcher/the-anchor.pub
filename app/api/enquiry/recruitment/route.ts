@@ -5,12 +5,21 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { checkSpamProtection } from '@/lib/spam-protection'
 
 export const runtime = 'nodejs'
+// Budget: up to two management API attempts (25s + 20s) plus the email fallback.
+export const maxDuration = 90
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
 const GRAPH_TOKEN_HOST = 'https://login.microsoftonline.com'
 const MAX_CV_BYTES = 5 * 1024 * 1024
 const ALLOWED_CV_EXTENSIONS = new Set(['.pdf', '.doc', '.docx'])
+
+// Two attempts with the SAME idempotency key: if the first attempt actually landed
+// server-side after we gave up waiting, the retry replays the stored response instead of
+// creating a duplicate. Email fallback only happens after both attempts fail.
+const MANAGEMENT_ATTEMPT_TIMEOUTS_MS = [25_000, 20_000]
+const DEFAULT_RETRY_DELAY_MS = 2_500
+const IN_PROGRESS_RETRY_DELAY_MS = 4_000
 
 type RecruitmentPayload = {
   name: string
@@ -151,6 +160,100 @@ function appendIfPresent(formData: FormData, key: string, value: string | undefi
   if (value) formData.set(key, value)
 }
 
+function retryDelayMs(inProgress: boolean): number {
+  const override = Number(process.env.RECRUITMENT_PROXY_RETRY_DELAY_MS)
+  if (Number.isFinite(override) && override >= 0) {
+    return override
+  }
+  return inProgress ? IN_PROGRESS_RETRY_DELAY_MS : DEFAULT_RETRY_DELAY_MS
+}
+
+function sleep(ms: number): Promise<void> {
+  if (ms <= 0) return Promise.resolve()
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+type ManagementAttemptResult =
+  | { state: 'success'; response: unknown }
+  | { state: 'validation_error'; status: number; error: string }
+  | { state: 'retryable'; reason: string; possibleDuplicate: boolean; inProgress?: boolean }
+
+async function attemptManagementApi(
+  url: string,
+  apiKey: string,
+  idempotencyKey: string,
+  body: FormData,
+  timeoutMs: number
+): Promise<ManagementAttemptResult> {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'Idempotency-Key': idempotencyKey,
+      },
+      body,
+      signal: controller.signal,
+    })
+
+    const responsePayload = await response.json().catch(() => null)
+    if (response.ok) {
+      return { state: 'success', response: responsePayload }
+    }
+
+    const upstreamMessage = responsePayload?.error?.message
+
+    if (response.status === 409) {
+      // A previous attempt's idempotency claim is still registered server-side, so the
+      // application may already be saved — retry; a replay returns the stored response.
+      return {
+        state: 'retryable',
+        reason: upstreamMessage || 'Management API reported the application as already in progress',
+        possibleDuplicate: true,
+        inProgress: responsePayload?.error?.code === 'IDEMPOTENCY_KEY_IN_PROGRESS',
+      }
+    }
+
+    if (response.status === 429) {
+      // Never bounce a real applicant because of rate limiting — let the email fallback
+      // catch the application instead.
+      return {
+        state: 'retryable',
+        reason: upstreamMessage || 'Management API rate limited the request',
+        possibleDuplicate: false,
+      }
+    }
+
+    if (response.status >= 500 || response.status === 408) {
+      return {
+        state: 'retryable',
+        reason: upstreamMessage || `Management API returned ${response.status}`,
+        possibleDuplicate: response.status === 408,
+      }
+    }
+
+    return {
+      state: 'validation_error',
+      status: response.status,
+      error: upstreamMessage || responsePayload?.error || 'Application was rejected by recruitment validation.',
+    }
+  } catch (error) {
+    const aborted = error instanceof Error && error.name === 'AbortError'
+    return {
+      state: 'retryable',
+      reason: aborted
+        ? 'Management API request timed out'
+        : error instanceof Error ? error.message : 'Management API request failed',
+      possibleDuplicate: aborted,
+    }
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
 async function proxyToManagementApi(
   payload: RecruitmentPayload,
   cvFile: File | null,
@@ -201,48 +304,32 @@ async function proxyToManagementApi(
     upstreamForm.set('cv', cvFile)
   }
 
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 15_000)
+  let lastFailure: Extract<ManagementAttemptResult, { state: 'retryable' }> | null = null
 
-  try {
-    const response = await fetch(`${baseUrl}/recruitment/applications`, {
-      method: 'POST',
-      headers: {
-        'x-api-key': apiKey,
-        'Idempotency-Key': payload.idempotencyKey,
-      },
-      body: upstreamForm,
-      signal: controller.signal,
-    })
-
-    const responsePayload = await response.json().catch(() => null)
-    if (response.ok) {
-      return { state: 'success', response: responsePayload }
+  for (const timeoutMs of MANAGEMENT_ATTEMPT_TIMEOUTS_MS) {
+    if (lastFailure) {
+      await sleep(retryDelayMs(Boolean(lastFailure.inProgress)))
     }
 
-    if (response.status >= 500 || response.status === 408) {
-      return {
-        state: 'infrastructure_error',
-        reason: responsePayload?.error?.message || `Management API returned ${response.status}`,
-        possibleDuplicate: response.status === 408,
-      }
+    const result = await attemptManagementApi(
+      `${baseUrl}/recruitment/applications`,
+      apiKey,
+      payload.idempotencyKey,
+      upstreamForm,
+      timeoutMs
+    )
+
+    if (result.state !== 'retryable') {
+      return result
     }
 
-    return {
-      state: 'validation_error',
-      status: response.status,
-      error: responsePayload?.error?.message || responsePayload?.error || 'Application was rejected by recruitment validation.',
-    }
-  } catch (error) {
-    return {
-      state: 'infrastructure_error',
-      reason: error instanceof Error && error.name === 'AbortError'
-        ? 'Management API request timed out'
-        : error instanceof Error ? error.message : 'Management API request failed',
-      possibleDuplicate: error instanceof Error && error.name === 'AbortError',
-    }
-  } finally {
-    clearTimeout(timeout)
+    lastFailure = result
+  }
+
+  return {
+    state: 'infrastructure_error',
+    reason: `${lastFailure?.reason ?? 'Management API request failed'} (after ${MANAGEMENT_ATTEMPT_TIMEOUTS_MS.length} attempts)`,
+    possibleDuplicate: lastFailure?.possibleDuplicate ?? false,
   }
 }
 
