@@ -146,7 +146,7 @@ export default function HeathrowHotelsPubPage() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Great Value', description: 'Honest pub pricing with mains from £8.99' },
+                { title: 'Great Value', description: 'Honest pub pricing with current menu prices' },
                 { title: 'Free Parking', description: '20 spaces - no hourly charges like hotel car parks' },
                 { title: 'Real Experience', description: 'Authentic British pub, not a chain hotel restaurant' }
               ].map(feature => (
@@ -340,19 +340,19 @@ export default function HeathrowHotelsPubPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Draught Beers</h3>
-                  <p className="text-ink-muted">Try proper British beer - not just hotel lagers. From £4.80/pint</p>
+                  <p className="text-ink-muted">Try proper British beer - not just hotel lagers. From the drinks menu</p>
                 </CardBody>
               </Card>
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Fish & Chips</h3>
-                  <p className="text-ink-muted">Classic British meal hotel guests always request. £12.99 (half hotel price)</p>
+                  <p className="text-ink-muted">Classic British meal hotel guests always request, a proper pub classic</p>
                 </CardBody>
               </Card>
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
-                  <p className="text-ink-muted">Must-try British tradition for Sunday visitors. From £19</p>
+                  <p className="text-ink-muted">Must-try British tradition for Sunday visitors, from the current menu</p>
                 </CardBody>
               </Card>
             </div>
@@ -365,7 +365,7 @@ export default function HeathrowHotelsPubPage() {
                     <p className="font-semibold text-ink-strong mb-2">Expense-Friendly</p>
                     <ul className="space-y-1 text-ink-muted text-sm">
                       <li>• Full VAT receipts provided</li>
-                      <li>• Honest pub pricing, mains from £8.99</li>
+                      <li>• Honest pub pricing, current menu prices</li>
                       <li>• Proper business atmosphere</li>
                     </ul>
                   </div>

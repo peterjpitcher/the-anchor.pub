@@ -217,10 +217,10 @@ export default async function SundayLunchPage() {
         </div>
       </section>
 
-      {/* Roast feature split (redesign §7.2.4): SSOT §4 line-up, Wellington vegan. */}
+      {/* Roast feature split (redesign §7.2.4): live Sunday roast line-up. */}
       <section className="bg-surface py-section-y">
         <div className="container">
-          <SundayRoastFeature />
+          <SundayRoastFeature items={sundayMenu.mains} />
         </div>
       </section>
 

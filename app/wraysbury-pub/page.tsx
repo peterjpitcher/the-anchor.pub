@@ -136,7 +136,7 @@ export default function WraysburyPubPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
-                                { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas served Tuesday-Saturday from £12" },
+                                { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas served Tuesday-Saturday from the live menu" },
                                 { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)" },
                                 { title: "Sunday Roast", description: "A proper home-cooked roast with all the trimmings" },
                             ].map((item) => (

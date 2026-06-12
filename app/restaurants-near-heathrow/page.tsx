@@ -19,7 +19,7 @@ import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
   title: 'Restaurants Near Heathrow Airport | The Anchor, Stanwell Moor',
-  description: 'Looking for restaurants near Heathrow Airport? The Anchor serves pub food from £8.99, 7 mins from T5 with free parking. Book a table or walk in.',
+  description: 'Looking for restaurants near Heathrow Airport? The Anchor serves pub food with current menu prices, 7 mins from T5 with free parking. Book a table or walk in.',
   openGraph: {
     title: 'Best Restaurants Near Heathrow Airport | The Anchor',
     description: 'Proper pub food 7 minutes from Heathrow Terminal 5. Free parking, honest prices, and a calmer meal than anything inside the airport.',
@@ -436,7 +436,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Famous Sunday Roasts</h3>
-                  <p className="text-ink-muted">Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. From £19, served Sundays 1pm-6pm.</p>
+                  <p className="text-ink-muted">Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. Current menu, served Sundays 1pm-6pm.</p>
                 </CardBody>
               </Card>
               <Card accent hover>
@@ -651,11 +651,11 @@ export default async function RestaurantsNearHeathrowPage() {
 	          },
           {
             question: "What type of food does your restaurant serve?",
-            answer: "We serve traditional British pub food including famous Sunday roasts from £19, fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
+            answer: "We serve traditional British pub food including famous Sunday roasts from the current menu, fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
-	            answer: "Yes, we offer honest pub pricing with mains from £8.99 and freshly cooked food. Plus, parking is completely free for guests."
+	            answer: "Yes, we offer honest pub pricing with current menu prices and freshly cooked food. Plus, parking is completely free for guests."
 	          },
           {
             question: "Do you take reservations?",

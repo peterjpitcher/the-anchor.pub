@@ -91,7 +91,7 @@ export default function PubNearMarriottHeathrowPage() {
                       'Quieter dining room for business meals',
                       'Group bookings and private hire available',
                       'Relaxed atmosphere, no dress code',
-                      'Honest pub pricing with mains from £8.99',
+                      'Honest pub pricing with current menu prices',
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <span className="text-accent-text font-bold">✓</span>
@@ -131,9 +131,9 @@ export default function PubNearMarriottHeathrowPage() {
             <SectionHeading title="Food & Drink at The Anchor" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
               {[
-                { title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily' },
-                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80' },
-                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for groups and families' },
+                { title: 'Classic Mains', description: 'Current menu prices for steaks, fish & chips, burgers and British classics cooked fresh daily' },
+                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from the drinks menu' },
+                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from the live menu, great for groups and families' },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">

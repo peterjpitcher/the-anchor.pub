@@ -494,7 +494,7 @@ export default function Terminal5Page() {
                   </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-accent-text"></span>
-	                    <span>Stone-baked pizzas from £12</span>
+	                    <span>Stone-baked pizzas from the live menu</span>
 	                  </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-accent-text"></span>

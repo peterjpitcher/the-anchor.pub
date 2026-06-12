@@ -11,19 +11,19 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: 'Baby Guinness Shot £3.50 | Near Heathrow',
-  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each. Popular for hen parties and celebrations. Much cheaper than airport bars.',
+  title: 'Baby Guinness Shot | Near Heathrow',
+  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. Ask the bar team for the current price. Popular for hen parties and celebrations.',
   alternates: {
     canonical: '/drinks/baby-guinness'
   },
   openGraph: {
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. Ask the bar team for the current price.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. Ask the bar team for the current price.',
     images: [DEFAULT_DRINKS_IMAGE]
   })
 }
@@ -46,7 +46,7 @@ export default function BabyGuinnessPage() {
             </h2>
 
             <div className="mb-8 flex gap-4">
-              <Badge variant="green">£3.50 each</Badge>
+              <Badge variant="green">Ask for current price</Badge>
             </div>
 
             <section className="mb-12">
@@ -140,7 +140,7 @@ export default function BabyGuinnessPage() {
                 <CardBody className="text-center">
                   <h3 className="mb-2 font-semibold text-ink-strong">Classic Baby Guinness</h3>
                   <p className="text-sm text-ink-muted">Kahlúa &amp; Bailey&apos;s</p>
-                  <p className="font-display text-2xl text-accent-text">£3.50</p>
+                  <p className="font-display text-2xl text-accent-text">Ask at the bar</p>
                 </CardBody>
               </Card>
             </section>
@@ -152,7 +152,7 @@ export default function BabyGuinnessPage() {
               <Card accent>
                 <CardBody>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Better Value:</strong> £3.50 vs £8+ at Heathrow Airport bars</li>
+                    <li><strong className="text-ink-strong">Better Value:</strong> Proper pub pricing without airport markup</li>
                     <li><strong className="text-ink-strong">Perfect Location:</strong> Just 7 minutes from Terminal 5</li>
                     <li><strong className="text-ink-strong">Experienced Staff:</strong> We make hundreds every month</li>
                     <li><strong className="text-ink-strong">Great Atmosphere:</strong> Friendly local pub, not a chain</li>
@@ -182,8 +182,7 @@ export default function BabyGuinnessPage() {
                 </div>
                 <div>
                   <h3 className="mb-2 font-semibold text-ink-strong">How much is a Baby Guinness?</h3>
-                  <p className="text-ink-muted">Our Baby Guinness shots are £3.50 each - great value
-                  compared to airport bars where you&apos;d pay £8 or more for the same thing.</p>
+                  <p className="text-ink-muted">Ask the bar team for the current Baby Guinness price.</p>
                 </div>
               </div>
             </section>

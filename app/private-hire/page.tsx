@@ -98,8 +98,9 @@ const whyPoints = [
 
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
-    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
-    const desc = `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
+    const fromPrice = getLowestFoodPrice(foodPackages)
+    const buffetPhrase = fromPrice ? `Buffets from ${fromPrice}pp` : 'Current buffet packages'
+    const desc = `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, free parking, and a dedicated events team.`
 
     return {
         title: 'Private Hire Pub Near Heathrow & Staines | Event Venue',

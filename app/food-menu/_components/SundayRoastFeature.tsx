@@ -1,25 +1,32 @@
 import Image from 'next/image'
 import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
+import type { MenuPageItem } from '@/lib/menu-page-data'
 
-// Sunday roast line-up: verbatim from docs/SSOT.md §4 (effective 17 May 2026).
-// The wellington is fully VEGAN, never "vegetarian". Do not reorder or reprice
-// without updating the SSOT first.
-const ROASTS: Array<{ name: string; price: string; flag?: string }> = [
-  { name: 'Roast Beef Topside', price: '£22' },
-  { name: 'Roast Pork Leg', price: '£20' },
-  { name: 'Roast Turkey with Stuffing Ball', price: '£19' },
-  { name: 'Beef & Ale Pie', price: '£21' },
-  { name: 'Chicken & Wild Mushroom Pie', price: '£21' },
-  { name: 'Beetroot & Butternut Squash Wellington', price: '£20', flag: 'Vegan' },
-  { name: 'Kids Roast', price: '£14' }
-]
+interface SundayRoastFeatureProps {
+  items?: MenuPageItem[]
+}
+
+function formatDisplayPrice(price: string | undefined): string {
+  const trimmed = price?.trim()
+  if (!trimmed) return ''
+  return trimmed.startsWith('£') ? trimmed : `£${trimmed}`
+}
+
+function dietaryFlag(item: MenuPageItem): string | null {
+  if (item.vegan) return 'Vegan'
+  if (item.vegetarian) return 'Veg'
+  if (item.glutenFree) return 'GF'
+  return null
+}
 
 /**
  * Sunday roast feature split (redesign §7.2.4): roast image on the left, copy
- * and the SSOT §4 roast line-up on the right. Mobile stacks image above text.
+ * and the live Sunday roast line-up on the right. Mobile stacks image above text.
  */
-export function SundayRoastFeature() {
+export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
+  const roasts = items.filter(item => item.price)
+
   return (
     <div className="grid items-center gap-10 lg:grid-cols-2">
       {/* Image first on mobile, left on desktop. */}
@@ -44,24 +51,33 @@ export function SundayRoastFeature() {
 
         <Card accent>
           <CardBody className="py-2">
-            <ul className="divide-y divide-line">
-              {ROASTS.map(roast => (
-                <li key={roast.name} className="flex items-baseline justify-between gap-4 py-3">
-                  <p className="font-sans font-medium text-ink-strong">
-                    {roast.name}
-                    {roast.flag && (
-                      <span className="font-sans text-sm font-semibold text-accent-text">
-                        {' '}
-                        &middot; {roast.flag}
+            {roasts.length > 0 ? (
+              <ul className="divide-y divide-line">
+                {roasts.map(roast => {
+                  const flag = dietaryFlag(roast)
+                  return (
+                    <li key={roast.id || roast.name} className="flex items-baseline justify-between gap-4 py-3">
+                      <p className="font-sans font-medium text-ink-strong">
+                        {roast.name}
+                        {flag && (
+                          <span className="font-sans text-sm font-semibold text-accent-text">
+                            {' '}
+                            &middot; {flag}
+                          </span>
+                        )}
+                      </p>
+                      <span className="whitespace-nowrap font-display text-xl text-accent-text">
+                        {formatDisplayPrice(roast.price)}
                       </span>
-                    )}
-                  </p>
-                  <span className="whitespace-nowrap font-display text-xl text-accent-text">
-                    {roast.price}
-                  </span>
-                </li>
-              ))}
-            </ul>
+                    </li>
+                  )
+                })}
+              </ul>
+            ) : (
+              <p className="py-4 text-ink-muted">
+                Current Sunday roast dishes and prices are temporarily unavailable. Please call 01753 682707 before travelling.
+              </p>
+            )}
           </CardBody>
         </Card>
 

@@ -24,6 +24,19 @@ function extractSchemaPrice(item: MenuPageItem): string | undefined {
   return match ? match[1].replace(',', '.') : undefined
 }
 
+function formatPoundPrice(price: number): string {
+  return price % 1 === 0 ? `£${price}` : `£${price.toFixed(2)}`
+}
+
+function getPriceFromLabel(items: MenuPageItem[]): string | null {
+  const prices = items
+    .map((item) => item.priceValue)
+    .filter((price) => Number.isFinite(price) && price > 0)
+
+  if (prices.length === 0) return null
+  return `from ${formatPoundPrice(Math.min(...prices))}`
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPizzaMenuPageData()
   const pricePhrase = data?.priceFromLabel ? ` ${data.priceFromLabel}.` : ''
@@ -56,6 +69,7 @@ export default async function PizzaMenuPage() {
   const pizzaItems = data?.pizzaItems ?? []
   const gfAvailable = pizzaItems.some((item) => item.glutenFreeAvailable)
   const veganOptions = pizzaItems.filter((item) => item.veganOptionAvailable)
+  const pizzaPriceFrom = getPriceFromLabel(pizzaItems)
 
   const menuSchema = data
     ? {
@@ -113,7 +127,7 @@ export default async function PizzaMenuPage() {
         crumb="Pizza"
         title="Pizza at The Anchor"
         lead="Current pizza dishes, descriptions and prices from the latest kitchen menu."
-        badges={<Badge variant="sand">Pizzas from £12</Badge>}
+        badges={<Badge variant="sand">{pizzaPriceFrom ? `Pizzas ${pizzaPriceFrom}` : 'Live pizza prices'}</Badge>}
       />
 
       <section className="bg-canvas py-section-y">

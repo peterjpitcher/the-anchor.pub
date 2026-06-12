@@ -24,19 +24,20 @@ const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet'
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const wakePackages = foodPackages.filter((p) => WAKE_PACKAGE_NAMES.includes(p.name))
-    const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
+    const fromPrice = getLowestFoodPrice(wakePackages)
+    const buffetPhrase = fromPrice ? `buffet packages from ${fromPrice}pp` : 'current buffet packages'
 
     return {
         title: 'Wake Venue Near Staines & Heathrow | Private Room',
-        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, buffet packages from ${fromPrice}pp, free parking. Compassionate staff.`,
+        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, ${buffetPhrase}, free parking. Compassionate staff.`,
         openGraph: {
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
-            description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp. Minutes from local crematoriums.`,
+            description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. ${buffetPhrase}. Minutes from local crematoriums.`,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
-            description: `Wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp, free parking, minutes from local crematoriums.`,
+            description: `Wakes, funeral teas and celebrations of life. ${buffetPhrase}, free parking, minutes from local crematoriums.`,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
         alternates: {
@@ -50,7 +51,7 @@ const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
 export default async function WakesPage() {
     const { foodPackages } = await getCateringData()
     const wakePackages = foodPackages.filter((p) => WAKE_PACKAGE_NAMES.includes(p.name))
-    const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
+    const fromPrice = getLowestFoodPrice(wakePackages)
 
     const eventVenueSchema = {
         "@context": "https://schema.org",
@@ -113,7 +114,7 @@ export default async function WakesPage() {
                     <>
                         <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
                         <Badge variant="sand">Compassionate Team</Badge>
-                        <Badge variant="sand">Funeral Tea from {fromPrice}pp</Badge>
+                        <Badge variant="sand">{fromPrice ? `Funeral Tea from ${fromPrice}pp` : 'Current catering packages'}</Badge>
                         <Badge variant="sand">Free Parking</Badge>
                     </>
                 }

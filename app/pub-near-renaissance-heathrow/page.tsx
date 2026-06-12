@@ -86,7 +86,7 @@ export default function PubNearRenaissanceHeathrowPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">The Anchor Experience</h3>
                   <ul className="space-y-3 text-ink">
                     {[
-                      'Home-cooked British food, from £8.99',
+                      'Home-cooked British food, with current menu prices',
                       'Rotating draught beers and craft beers',
                       'Warm, character-filled village pub',
                       'Seasonal menu and daily specials',
@@ -131,7 +131,7 @@ export default function PubNearRenaissanceHeathrowPage() {
             <SectionHeading title="What Renaissance Guests Enjoy Most" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
-                { title: 'Sunday Roast', description: 'Traditional British roast from £19, the definitive Sunday roast experience.' },
+                { title: 'Sunday Roast', description: 'Traditional British roast from the current menu, the definitive Sunday roast experience.' },
                 { title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.' },
                 { title: 'Fish & Chips', description: 'Fresh battered cod with chips, the British classic every visitor should try.' },
               ].map((item) => (
@@ -179,7 +179,7 @@ export default function PubNearRenaissanceHeathrowPage() {
           },
           {
             question: 'What food is available near Renaissance Heathrow Hotel?',
-            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts (weekends, pre-booking recommended), steaks, burgers, and daily specials. Mains start from £8.99, significantly less than Renaissance hotel dining.'
+            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts (weekends, pre-booking recommended), steaks, burgers, and daily specials. Current prices are shown on the live menu, significantly less than Renaissance hotel dining.'
           },
           {
             question: 'Is The Anchor near Renaissance Heathrow good for groups?',

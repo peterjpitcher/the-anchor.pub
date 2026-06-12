@@ -13,10 +13,17 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { getSundayLunchMenuPageData, type MenuPageItem } from '@/lib/menu-page-data'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+
+function formatMenuItemPrice(item: MenuPageItem): string {
+  const price = item.price.trim()
+  if (!price) return ''
+  return ` - ${price.startsWith('£') ? price : `£${price}`}`
+}
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -44,8 +51,9 @@ export function generateMetadata(): Metadata {
   }
 }
 
-export default function StanwellPubPage() {
+export default async function StanwellPubPage() {
   const sunday = getSundayRoastContent()
+  const sundayMenu = await getSundayLunchMenuPageData()
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["Restaurant", "BarOrPub"],
@@ -269,13 +277,17 @@ export default function StanwellPubPage() {
                   <p className="text-ink-muted mb-3">
                     The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
                   </p>
-                  <ul className="space-y-2 text-ink-muted">
-                    <li>• Roast Turkey with Stuffing Ball - £19</li>
-                    <li>• Roast Pork Leg - £20</li>
-                    <li>• Roast Beef Topside - £22</li>
-                    <li>• Beetroot &amp; Butternut Squash Wellington (VG) - £20</li>
-                    <li>• Kids Roast - £14</li>
-                  </ul>
+                  {sundayMenu.mains.length > 0 ? (
+                    <ul className="space-y-2 text-ink-muted">
+                      {sundayMenu.mains.map((item) => (
+                        <li key={item.id || item.name}>• {item.name}{formatMenuItemPrice(item)}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-ink-muted">
+                      Current Sunday roast dishes and prices are listed on the Sunday roast page.
+                    </p>
+                  )}
                   <p className="mt-3 text-sm text-accent-text">Book ahead for peak slots - walk-ins are welcome.</p>
                 </CardBody>
               </Card>

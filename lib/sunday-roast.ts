@@ -11,7 +11,7 @@ export const SUNDAY_ROAST = {
   serviceStart: '1pm',
   serviceEnd: '6pm',
   lastBooking: '5:30pm',
-  fromPriceLabel: 'from £16',
+  fromPriceLabel: 'from the current menu',
   bookingHref: '/book-table?source=sunday_roast&bookingType=sunday_roast',
   menuHref: '/sunday-roast',
   largePartyThreshold: LARGE_GROUP_DEPOSIT_THRESHOLD,
@@ -58,7 +58,7 @@ export function getSundayRoastContent(now: Date = new Date()): SundayRoastConten
     isLive,
       availabilityShort: `Sunday roast served ${SUNDAY_ROAST.serviceDay}, ${SUNDAY_ROAST.serviceStart} to ${SUNDAY_ROAST.serviceEnd}.`,
       availabilityLong: `Sunday roast served ${SUNDAY_ROAST.serviceDay}, ${SUNDAY_ROAST.serviceStart} to ${SUNDAY_ROAST.serviceEnd}. Walk in or book ahead. ${depositCopy}`,
-    heroLead: `Sunday roast ${SUNDAY_ROAST.fromPriceLabel} • Walk in or book ahead • Served ${SUNDAY_ROAST.serviceStart}-${SUNDAY_ROAST.serviceEnd}`,
+    heroLead: `Sunday roast from the current menu • Walk in or book ahead • Served ${SUNDAY_ROAST.serviceStart}-${SUNDAY_ROAST.serviceEnd}`,
     bookingCta: 'Book Sunday Roast',
     depositCopy,
     smallPartyCopy: 'No deposit for small tables.'

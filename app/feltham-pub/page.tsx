@@ -251,7 +251,7 @@ export default function FelthamPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Work Gatherings</h3>
                   <p className="mb-3 text-ink-muted">Popular with teams from Feltham's business parks. Private areas available for corporate events.</p>
                   <ul className="space-y-2 text-ink">
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Buffet menus from £12pp</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Buffet menus from current catering packages</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Reserved areas available</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Free parking for all guests</li>
                   </ul>

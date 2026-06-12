@@ -950,7 +950,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
                   <li>Festive dessert bites - Small £24 (serves ~12) · Large £45 (serves ~24)</li>
-                  <li>Coffee & mince pie station - £3.50 per person</li>
+                  <li>Coffee & mince pie station, ask for current pricing</li>
                   <li>Unlimited tea & coffee - £4.49 per person</li>
                   <li>Welcome drink (Prosecco or orange juice) - £6.99 per person</li>
                   <li>Unlimited kids' squash - £2.50 per child</li>

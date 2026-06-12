@@ -91,7 +91,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                       'Free WiFi, work while you eat',
                       'Group bookings taken in advance',
                       'Quieter than the hotel bar',
-                      'Honest pub pricing with mains from £8.99',
+                      'Honest pub pricing with current menu prices',
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-3">
                         <span className="text-accent-text font-bold">✓</span>
@@ -131,9 +131,9 @@ export default function PubNearCrownePlazaHeathrowPage() {
             <SectionHeading title="Menu Highlights" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
-                { title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99' },
-                { title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint' },
-                { title: 'Sunday Roast', description: 'Traditional British roast from £19, walk in or book ahead' },
+                { title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh, with current menu prices' },
+                { title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from the drinks menu' },
+                { title: 'Sunday Roast', description: 'Traditional British roast from the current menu, walk in or book ahead' },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">

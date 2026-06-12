@@ -35,9 +35,6 @@ const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
 const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
-const MOTHERS_DAY_ADULT_PRICE_LOW = 16
-const MOTHERS_DAY_ADULT_PRICE_HIGH = 22
-const MOTHERS_DAY_KIDS_ROAST_PRICE = 14
 // Offer validity start for the 2027 service. Walk-in/booking model — no
 // pre-order or cut-off; validFrom only satisfies Google's Event offer schema.
 const MOTHERS_DAY_OFFER_VALID_FROM = '2027-01-01'
@@ -89,7 +86,7 @@ const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines | The Anch
 const descriptionStatic =
   `Mother's Day lunch near me, Mother's Day Sunday roast at The Anchor near Staines. ` +
   `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-  `Walk-ins welcome, booking recommended. From £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}.`
+  `Walk-ins welcome, booking recommended. Current Sunday roast menu.`
 const keywordsStatic =
   "mothers day lunch near me, mothers day sunday roast near me, mothers day sunday roast, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
 
@@ -126,9 +123,7 @@ export default function MothersDayPage() {
     `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). Walk in or book ahead. No set sittings.`
 
   const heroLeadText =
-    `Adults £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)} • ` +
-    `Kids roast £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)} • ` +
-    'Walk in or book ahead'
+    'Current Sunday roast menu • Walk in or book ahead'
 
   const faqs = [
     {
@@ -139,7 +134,7 @@ export default function MothersDayPage() {
       question: 'Where can I find a Mother’s Day Sunday roast near me?',
       answer:
         `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
-        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef, pies and a vegan wellington, mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
+        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef, pies and a vegan wellington. ` +
         `Walk-ins welcome 1pm–6pm, booking recommended.`
     },
     {
@@ -156,7 +151,7 @@ export default function MothersDayPage() {
     },
     {
       question: 'How much is Mother’s Day pub lunch?',
-      answer: `Adult mains are £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}. Kids roast is available from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}.`
+      answer: 'Current dishes and prices are listed on the Sunday roast menu.'
     },
     {
       question: 'Do you have vegetarian or vegan options?',
@@ -180,9 +175,7 @@ export default function MothersDayPage() {
       `Mother’s Day Sunday roast near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
       `No set sittings, walk in or book ahead. ` +
-      `Adults mains £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}; ` +
-      `kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}. Vegetarian and vegan options available, ` +
-      `served with vegetarian gravy.`,
+      `Current dishes and prices are listed on the Sunday roast menu. Vegetarian and vegan options available, served with vegetarian gravy.`,
     startDate: MOTHERS_DAY_SERVICE_START_ISO,
     endDate: MOTHERS_DAY_SERVICE_END_ISO,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -212,11 +205,8 @@ export default function MothersDayPage() {
       email: CONTACT.email
     },
     offers: {
-      '@type': 'AggregateOffer',
+      '@type': 'Offer',
       url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
-      priceCurrency: 'GBP',
-      lowPrice: String(MOTHERS_DAY_KIDS_ROAST_PRICE),
-      highPrice: String(MOTHERS_DAY_ADULT_PRICE_HIGH),
       availability: 'https://schema.org/InStock',
       validFrom: MOTHERS_DAY_OFFER_VALID_FROM
     },
@@ -280,18 +270,9 @@ export default function MothersDayPage() {
 
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Prices</p>
-                  <ul className="space-y-2 text-sm text-ink-muted">
-                    <li className="flex gap-2">
-                      <span className="text-accent-text">•</span>
-                      <span>
-                        Adults: £{String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£{String(MOTHERS_DAY_ADULT_PRICE_HIGH)}
-                      </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="text-accent-text">•</span>
-                      <span>Kids roast: from £{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>
-                    </li>
-                  </ul>
+                  <p className="text-sm text-ink-muted">
+                    Current dishes and prices are listed on the Sunday roast menu.
+                  </p>
                 </div>
 
                 <div className="space-y-2">
@@ -353,9 +334,7 @@ export default function MothersDayPage() {
                 </p>
                 <p className="mt-3 text-ink-muted leading-relaxed">
                   We&apos;re serving from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>, with the{' '}
-                  <span className="font-semibold text-ink">last table booking at {MOTHERS_DAY_LAST_BOOKING_LABEL}</span>. Adults mains are{' '}
-                  <span className="font-semibold text-ink">£{String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£{String(MOTHERS_DAY_ADULT_PRICE_HIGH)}</span>,
-                  and kids roast is available from <span className="font-semibold text-ink">£{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>.
+                  <span className="font-semibold text-ink">last table booking at {MOTHERS_DAY_LAST_BOOKING_LABEL}</span>. Current dishes and prices are listed on the Sunday roast menu.
                 </p>
                 <p className="mt-3 text-ink-muted leading-relaxed">
                   There are no set sittings. Walk in or book a time that suits you within the service window, either way, enjoy your meal at a comfortable pace.

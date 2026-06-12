@@ -103,7 +103,7 @@ export default function PubNearSofitelHeathrowPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">What You Get at The Anchor</h3>
                   <ul className="space-y-3 text-ink">
                     {[
-                      'Home-cooked British food from £8.99',
+                      'Home-cooked British food with current menu prices',
                       'Draught beers and lagers',
                       'Warm, unpretentious pub atmosphere',
                       'Dog-friendly beer garden',
@@ -144,8 +144,8 @@ export default function PubNearSofitelHeathrowPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
               {[
                 { title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas' },
-                { title: 'Sunday Roast', description: 'Traditional roast from £19, a British institution worth experiencing' },
-                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing' },
+                { title: 'Sunday Roast', description: 'Traditional roast from the current menu, a British institution worth experiencing' },
+                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from the live menu, great for sharing' },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">

@@ -133,7 +133,7 @@ export default function PubNearNovotelHeathrowPage() {
               <Card accent>
                 <CardBody className="p-6 text-center">
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
-                  <p className="font-display text-h3 text-accent-text mb-2">From £19</p>
+                  <p className="font-display text-h3 text-accent-text mb-2">Current menu</p>
                   <p className="text-ink-muted">Traditional British roast, pre-booking recommended</p>
                 </CardBody>
               </Card>
@@ -199,7 +199,7 @@ export default function PubNearNovotelHeathrowPage() {
           },
           {
             question: 'What restaurants are near Novotel Heathrow?',
-            answer: 'The Anchor in Stanwell Moor is the closest independent pub-restaurant to Novotel London Heathrow, serving traditional British food including fish & chips, burgers, steaks, and Sunday roasts. Mains start from £8.99.'
+            answer: 'The Anchor in Stanwell Moor is the closest independent pub-restaurant to Novotel London Heathrow, serving traditional British food including fish & chips, burgers, steaks, and Sunday roasts. Current prices are shown on the live menu.'
           },
           {
             question: 'Is The Anchor family-friendly near Novotel Heathrow?',

@@ -19,26 +19,25 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm–6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
-const EASTER_ROAST_PRICE_FROM = 19
 
 const EASTER_BOOKING_URL = '/book-table'
 
 export const metadata: Metadata = {
   title: 'Easter Sunday Roast & Beer Garden',
   description:
-    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm from the current menu. Walk in or book ahead. Dog-friendly beer garden, free parking.',
   alternates: { canonical: '/easter' },
   openGraph: {
     title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm from the current menu. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm from the current menu. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -70,7 +69,7 @@ export default function EasterPage() {
       question: 'What’s on the Easter menu?',
       answer:
         'Our Easter Sunday menu is the same as our regular Sunday roast, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. ' +
-        'Mains start from £19. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts.'
+        'Current dishes and prices are listed on the Sunday roast menu.'
     },
     {
       question: 'Is there parking?',
@@ -87,7 +86,7 @@ export default function EasterPage() {
         crumb="Easter"
         kicker={EASTER_SUNDAY_LABEL}
         title="Easter at The Anchor"
-        lead={`Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor, cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden. Sunday roast from £${String(EASTER_ROAST_PRICE_FROM)} • Walk in or book ahead • Served ${EASTER_SUNDAY_SERVICE_WINDOW}`}
+        lead={`Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor, cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden. Sunday roast from the current menu • Walk in or book ahead • Served ${EASTER_SUNDAY_SERVICE_WINDOW}`}
       />
 
       {/* Easter Sunday Roast */}
@@ -104,8 +103,7 @@ export default function EasterPage() {
             </p>
             <p className="text-ink-muted leading-relaxed">
               Choose from roast turkey, roast pork, roast beef, pies or a vegan wellington, all served with golden roast potatoes,
-              seasonal vegetables and gravy. Yorkshire puddings come with the sliced roasts. Mains start from{' '}
-              <span className="font-semibold text-ink">&pound;{String(EASTER_ROAST_PRICE_FROM)}</span>.
+              seasonal vegetables and gravy. Yorkshire puddings come with the sliced roasts. Current dishes and prices are listed on the Sunday roast menu.
             </p>
             <p className="text-ink-muted leading-relaxed">
               We serve from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>,

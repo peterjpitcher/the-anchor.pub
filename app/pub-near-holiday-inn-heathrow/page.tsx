@@ -133,7 +133,7 @@ export default function PubNearHolidayInnHeathrowPage() {
               <Card accent>
                 <CardBody className="p-6 text-center">
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast</h3>
-                  <p className="font-display text-h3 text-accent-text mb-2">From £19</p>
+                  <p className="font-display text-h3 text-accent-text mb-2">Current menu</p>
                   <p className="text-ink-muted">Traditional British roast with all the trimmings</p>
                   <p className="text-sm text-ink-muted mt-2">Pre-booking recommended for Sundays</p>
                 </CardBody>
@@ -199,7 +199,7 @@ export default function PubNearHolidayInnHeathrowPage() {
           },
           {
             question: 'Does The Anchor near Holiday Inn Heathrow serve pizza?',
-            answer: 'Yes! The Anchor serves stone-baked pizzas from £12, available Tuesday to Saturday. It\'s perfect for families or groups who want great value dining near Heathrow.'
+            answer: 'Yes! The Anchor serves stone-baked pizzas from the live menu, available Tuesday to Saturday. It\'s perfect for families or groups who want great value dining near Heathrow.'
           },
           {
             question: 'Can I walk from Holiday Inn to The Anchor?',

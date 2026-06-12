@@ -134,8 +134,8 @@ export default function PubNearHiltonHeathrowPage() {
             <SectionHeading title="Food & Drink at The Anchor" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
               {[
-                { title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily' },
-                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80' },
+                { title: 'Classic Mains', description: 'Current menu prices for steaks, fish & chips, burgers and British classics cooked fresh daily' },
+                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from the drinks menu' },
                 { title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices' },
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -156,7 +156,7 @@ export default function PubNearHiltonHeathrowPage() {
                   </div>
                   <div>
                     <p className="font-semibold mb-1 text-ink-strong">Cost</p>
-                    <p>Honest pub pricing with mains from £8.99</p>
+                    <p>Honest pub pricing with current menu prices</p>
                   </div>
                   <div>
                     <p className="font-semibold mb-1 text-ink-strong">Booking</p>

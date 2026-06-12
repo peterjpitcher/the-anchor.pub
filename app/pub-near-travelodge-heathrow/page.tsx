@@ -63,7 +63,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               { title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central' },
               { title: '~£12–15', description: 'Short taxi fare each way' },
               { title: 'Free Parking', description: '20 spaces, drive and park for free' },
-              { title: 'From £8.99', description: 'Mains at proper pub prices' },
+              { title: 'current menu prices', description: 'Proper pub prices' },
             ].map((fact) => (
               <Card key={fact.title} accent>
                 <CardBody className="p-6 text-center">
@@ -89,10 +89,10 @@ export default function PubNearTravelodgeHeathrowPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">What You Get</h3>
                   <ul className="space-y-3 text-ink">
                     {[
-                      'Home-cooked food from £8.99 a main',
-                      'Real draught ales from £4.80 a pint',
+                      'Home-cooked food with current menu prices',
+                      'Real draught ales from the drinks menu',
                       'Large beer garden for warm evenings',
-                      'Stone-baked pizzas from £12',
+                      'Stone-baked pizzas from the live menu',
                       'Dog-friendly throughout',
                       'No booking required for small groups',
                     ].map((item) => (
@@ -181,7 +181,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Is food near Travelodge Heathrow affordable?',
-            answer: 'Yes, The Anchor serves home-cooked British pub food with mains from £8.99. Stone-baked pizzas from £12 and classic pub dishes are available throughout the week. It\'s significantly cheaper than hotel or airport dining.'
+            answer: 'Yes, The Anchor serves home-cooked British pub food with current menu prices. Stone-baked pizzas from the live menu and classic pub dishes are available throughout the week. It\'s significantly cheaper than hotel or airport dining.'
           },
           {
             question: 'Can I walk from Travelodge Heathrow to The Anchor?',
@@ -190,8 +190,8 @@ export default function PubNearTravelodgeHeathrowPage() {
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
             answer: sunday.isLive
-              ? 'Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
-              : `Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
+              ? 'Yes, The Anchor serves stone-baked pizzas from the live menu and classic British pub food with current menu prices. We also have a Sunday roast from the current menu at weekends. Check our menu for other specials and seasonal deals.'
+              : `Yes, The Anchor serves stone-baked pizzas from the live menu and classic British pub food with current menu prices. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
           },
         ]}
         className="bg-canvas"

@@ -86,7 +86,7 @@ export default function PubNearRadissonBluHeathrowPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">What You Get at The Anchor</h3>
                   <ul className="space-y-3 text-ink">
                     {[
-                      'Home-cooked British food, from £8.99',
+                      'Home-cooked British food, with current menu prices',
                       'Draught lagers, bottled ales and craft beers',
                       'Warm, unpretentious community atmosphere',
                       'Dog-friendly beer garden',
@@ -132,7 +132,7 @@ export default function PubNearRadissonBluHeathrowPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
                 { title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.' },
-                { title: 'Sunday Roast', description: 'Traditional roast from £19, walk in or book ahead.' },
+                { title: 'Sunday Roast', description: 'Traditional roast from the current menu, walk in or book ahead.' },
                 { title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.' },
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -204,7 +204,7 @@ export default function PubNearRadissonBluHeathrowPage() {
           },
           {
             question: 'What restaurants are near Radisson Blu Heathrow?',
-            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts, burgers, steaks and daily specials. It\'s approximately 12 minutes from Radisson Blu Heathrow, with mains from £8.99.'
+            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts, burgers, steaks and daily specials. It\'s approximately 12 minutes from Radisson Blu Heathrow, with current menu prices.'
           },
           {
             question: 'Does The Anchor near Radisson Blu cater for business expenses?',

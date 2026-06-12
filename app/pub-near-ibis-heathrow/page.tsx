@@ -60,7 +60,7 @@ export default function PubNearIbisHeathrowPage() {
               { title: '12 Minutes', description: 'By taxi from ibis Heathrow' },
               { title: '~£15', description: 'Typical taxi fare each way' },
               { title: 'Free Parking', description: '20 spaces, drive and park free' },
-              { title: 'Great Value', description: 'Mains from £8.99, pub prices' },
+              { title: 'Great Value', description: 'Current menu prices' },
             ].map((fact) => (
               <Card key={fact.title} accent>
                 <CardBody className="p-6 text-center">
@@ -132,8 +132,8 @@ export default function PubNearIbisHeathrowPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
               {[
                 { title: 'Fish & Chips', description: 'British classic, fresh battered cod, chips and mushy peas. Proper pub grub.' },
-                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, proper pub grub cooked fresh to order.' },
-                { title: 'Draught Beers from £4.80', description: 'Wide selection of beers, wines and spirits, proper British drinks at proper pub prices.' },
+                { title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from the live menu, proper pub grub cooked fresh to order.' },
+                { title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, proper British drinks at proper pub prices.' },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -175,11 +175,11 @@ export default function PubNearIbisHeathrowPage() {
           },
           {
             question: 'What\'s the nearest pub to ibis Heathrow Bath Road?',
-            answer: 'The Anchor in Stanwell Moor is the closest independent pub to ibis Heathrow Bath Road, approximately 12 minutes away. We serve traditional British pub food with mains from £8.99, much better value than hotel dining.'
+            answer: 'The Anchor in Stanwell Moor is the closest independent pub to ibis Heathrow Bath Road, approximately 12 minutes away. We serve traditional British pub food with current menu prices, much better value than hotel dining.'
           },
           {
             question: 'Is food at The Anchor near ibis Heathrow good value?',
-            answer: 'Yes, mains start from £8.99 and everything is freshly cooked to order. Stone-baked pizzas from £12, classic fish & chips, and a full menu of British pub favourites.'
+            answer: 'Yes, current prices are shown on the live menu and everything is freshly cooked to order. Stone-baked pizzas from the live menu, classic fish & chips, and a full menu of British pub favourites.'
           },
           {
             question: 'Can I get a taxi from ibis Heathrow to The Anchor?',
