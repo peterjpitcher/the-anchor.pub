@@ -19,10 +19,22 @@ export type EventBookingPaymentSource = {
 }
 
 type EventBookingAvailabilitySource = {
+  booking_mode?: string | null
   seats_remaining?: number | null
+  seated_remaining?: number | null
+  standing_remaining?: number | null
+  total_remaining?: number | null
   remainingAttendeeCapacity?: number | null
   is_full?: boolean | null
   offers?: OfferLike | null
+}
+
+function isCommunalBookingMode(mode: string | null | undefined): boolean {
+  return typeof mode === 'string' && mode.trim().toLowerCase() === 'communal'
+}
+
+function parseRemaining(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : null
 }
 
 function parsePositiveMoney(value: unknown): number | null {
@@ -96,9 +108,12 @@ export function formatEventBookingMoney(value: number): string {
 
 export function getEventBookingReassurance(event: EventBookingPaymentSource): string {
   const unitPrice = getEventUnitPrice(event)
+  const isCommunal = isCommunalBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
-    return 'No payment needed. Reserve seats online so your table is held.'
+    return isCommunal
+      ? 'No payment needed. Book seated or standing places online.'
+      : 'No payment needed. Reserve seats online so your table is held.'
   }
 
   if (hasPaidOnlineSignal(event)) {
@@ -107,17 +122,22 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
 
   if (event.payment_mode === 'cash_only' || unitPrice) {
     const priceText = unitPrice ? ` ${formatEventBookingMoney(unitPrice)} per person` : ''
-    return `No payment now. Reserve seats online and pay${priceText} on arrival.`
+    return isCommunal
+      ? `No payment now. Book online and pay${priceText} on arrival.`
+      : `No payment now. Reserve seats online and pay${priceText} on arrival.`
   }
 
-  return 'Reserve seats online now. If any payment is needed, the next step will explain it clearly.'
+  return isCommunal
+    ? 'Book online now. If any payment is needed, the next step will explain it clearly.'
+    : 'Reserve seats online now. If any payment is needed, the next step will explain it clearly.'
 }
 
 export function getEventShortPaymentReassurance(event: EventBookingPaymentSource): string {
   const unitPrice = getEventUnitPrice(event)
+  const isCommunal = isCommunalBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
-    return 'No payment needed, booking holds your table'
+    return isCommunal ? 'No payment needed' : 'No payment needed, booking holds your table'
   }
 
   if (hasPaidOnlineSignal(event)) {
@@ -129,7 +149,7 @@ export function getEventShortPaymentReassurance(event: EventBookingPaymentSource
     return `No payment now, pay${priceText} on arrival`
   }
 
-  return 'Booking holds your table'
+  return isCommunal ? 'Booking secures your place' : 'Booking holds your table'
 }
 
 export function getEventBookingAnchorHref(event: Pick<Event, 'id'> & Partial<Pick<Event, 'slug'>>): string {
@@ -145,26 +165,56 @@ export function getEventBookingHeroStatement(
     day: 'numeric',
     month: 'long'
   })
-  return `Reserve a table for ${date}. ${getEventShortPaymentReassurance(event)}.`
+  const action = isCommunalBookingMode(event.booking_mode) ? 'Book tickets' : 'Reserve a table'
+  return `${action} for ${date}. ${getEventShortPaymentReassurance(event)}.`
 }
 
 export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): number | null {
-  const candidates = [event.seats_remaining, event.remainingAttendeeCapacity]
+  const candidates = isCommunalBookingMode(event.booking_mode)
+    ? [event.total_remaining, event.seats_remaining, event.remainingAttendeeCapacity]
+    : [event.seats_remaining, event.remainingAttendeeCapacity]
   for (const value of candidates) {
-    if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
-      return value
-    }
+    const parsed = parseRemaining(value)
+    if (parsed !== null) return parsed
   }
   return null
 }
 
 export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySource): string | null {
   const seatsRemaining = getEventSeatsRemaining(event)
-  const soldOut =
-    event.is_full === true ||
-    seatsRemaining === 0 ||
-    event.offers?.availability === 'https://schema.org/SoldOut'
+  const seatedRemaining = parseRemaining(event.seated_remaining)
+  const standingRemaining = parseRemaining(event.standing_remaining)
+  const schemaSoldOut = event.offers?.availability === 'https://schema.org/SoldOut'
 
+  if (isCommunalBookingMode(event.booking_mode)) {
+    if (
+      event.is_full === true ||
+      schemaSoldOut ||
+      (seatedRemaining === 0 && standingRemaining === 0) ||
+      (seatsRemaining === 0 && (seatedRemaining === null || seatedRemaining === 0) && (standingRemaining === null || standingRemaining === 0))
+    ) {
+      return 'Sold out'
+    }
+
+    if (seatedRemaining !== null && standingRemaining !== null) {
+      if (seatedRemaining > 0 && standingRemaining > 0) {
+        return `${seatedRemaining} seated, ${standingRemaining} standing left`
+      }
+
+      if (seatedRemaining > 0) {
+        return `${seatedRemaining} seated left`
+      }
+
+      if (standingRemaining > 0) {
+        return `${standingRemaining} standing left`
+      }
+    }
+
+    if (seatedRemaining !== null && seatedRemaining > 0) return `${seatedRemaining} seated left`
+    if (standingRemaining !== null && standingRemaining > 0) return `${standingRemaining} standing left`
+  }
+
+  const soldOut = event.is_full === true || seatsRemaining === 0 || schemaSoldOut
   if (soldOut) return 'Sold out'
   if (seatsRemaining === null) return null
   if (seatsRemaining <= 10) return `Only ${seatsRemaining} seat${seatsRemaining === 1 ? '' : 's'} left`

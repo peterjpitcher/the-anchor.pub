@@ -139,6 +139,41 @@ describe('Event Bookings API - policy violation handling', () => {
     expect(upstreamBody.notes).toBe('Event dining intent: Planning to eat before the event')
   })
 
+  it('forwards communal seating preference to the management event booking API', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            state: 'confirmed',
+            booking_id: 'booking-123'
+          }
+        }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      )
+    )
+
+    const request = {
+      json: async () => ({
+        event_id: '550e8400-e29b-41d4-a716-446655440000',
+        phone: '07700900000',
+        seats: 2,
+        seating_preference: 'standing',
+        _t: 4
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createEventBooking(request)
+
+    expect(response.status).toBe(200)
+    const upstreamBody = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
+    expect(upstreamBody.seating_preference).toBe('standing')
+  })
+
   it('forwards confirmed event bookings to CheersAI with paid attribution', async () => {
     process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
     process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'

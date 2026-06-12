@@ -322,6 +322,9 @@ export default async function EventPage({ params }: Props) {
   const headerDoorTime = formatDoorTime(event.doorTime)
   const eventBookingCopy = getEventBookingCopy(event)
   const bookingModeLabel = eventBookingCopy.label || getEventBookingModeLabel(event.booking_mode)
+  const isCommunalEvent = typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
+  const bookingCtaLabel = isCommunalEvent ? 'Book tickets' : 'Reserve table'
+  const bookingFormTitle = isCommunalEvent ? 'Book tickets' : 'Reserve table'
   const statusLabel = getEventStatusLabel(status)
   const endTime = formatClockTime(event.end_time)
   const doorsTime = formatClockTime(event.doors_time)
@@ -382,7 +385,7 @@ export default async function EventPage({ params }: Props) {
       className="w-full sm:w-auto"
       fullWidth={false}
       size="lg"
-      label="Reserve table"
+      label={bookingCtaLabel}
       customHref="#event-booking"
       source={`event_page_hero_${params.id}`}
     />
@@ -593,7 +596,7 @@ export default async function EventPage({ params }: Props) {
                     ) : (
                       <ManagementEventBookingForm
                         event={event}
-                        title="Reserve table"
+                        title={bookingFormTitle}
                         compact
                         foodPrompt={eventBookingCopy.foodPrompt}
                       />
@@ -716,7 +719,7 @@ export default async function EventPage({ params }: Props) {
 
       {/* CTA Section */}
       <CtaBand
-        title="Ready to reserve your event table?"
+        title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
         copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
       >
         {mothersDayBookingFlow ? (
@@ -729,7 +732,7 @@ export default async function EventPage({ params }: Props) {
             className="w-full sm:w-auto"
             fullWidth={false}
             size="lg"
-            label="Reserve table"
+            label={bookingCtaLabel}
             customHref="#event-booking"
             source={`event_page_cta_${params.id}`}
           />

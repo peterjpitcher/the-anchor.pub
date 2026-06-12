@@ -237,6 +237,78 @@ describe('ManagementEventBookingForm', () => {
     )
   })
 
+  it('offers standing tickets for communal events when seated places are full', async () => {
+    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+
+      if (url === '/api/event-bookings') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                state: 'confirmed',
+                booking_id: 'booking-standing-123',
+                reason: null,
+                seats_remaining: 9,
+                seated_remaining: 0,
+                standing_remaining: 9,
+                total_remaining: 9,
+                event_seating_type: 'standing',
+                next_step_url: null,
+                manage_booking_url: null
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+    })
+
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          name: 'Cabaret Night',
+          slug: 'cabaret-night',
+          startDate: '2026-06-12T20:00:00+01:00',
+          time: '20:00',
+          booking_mode: 'communal',
+          price_per_seat: 10,
+          seated_remaining: 0,
+          standing_remaining: 9,
+          total_remaining: 9
+        }}
+      />
+    )
+
+    expect(screen.getByText('Seated places are full. 9 standing tickets available.')).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: /Seated/i })).toBeDisabled()
+    await waitFor(() => expect(screen.getByRole('radio', { name: /Standing/i })).toBeChecked())
+
+    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '3' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Book standing tickets' }))
+
+    await waitFor(() => expect(screen.getByText('Your standing tickets are confirmed for Cabaret Night.')).toBeInTheDocument())
+
+    const bookingCall = (global.fetch as jest.Mock).mock.calls.find(([url]) => url === '/api/event-bookings')
+    expect(bookingCall).toBeDefined()
+    const payload = JSON.parse(String((bookingCall?.[1] as RequestInit).body))
+
+    expect(payload.seats).toBe(3)
+    expect(payload.seating_preference).toBe('standing')
+    expect(payload.event_price).toBe(10)
+    expect(payload.event_value).toBe(30)
+  })
+
   it('sends first and last name directly when joining the waitlist', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()

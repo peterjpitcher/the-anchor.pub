@@ -47,10 +47,23 @@ function hasFreeSignal(event: EventBookingCopySource): boolean {
     (Number.isFinite(numericPrice) && numericPrice <= 0)
 }
 
+function isCommunalBooking(event: EventBookingCopySource): boolean {
+  return typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
+}
+
 export function getEventBookingCopy(event: EventBookingCopySource): EventBookingCopy {
   const text = eventText(event)
   const unitPrice = getEventUnitPrice(event)
   const arrivalReassurance = getEventBookingReassurance(event)
+
+  if (isCommunalBooking(event)) {
+    return {
+      label: 'Book seated or standing tickets',
+      policy: `${arrivalReassurance} Choose seated tickets for communal table seating or standing tickets if seats are full.`,
+      foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
+      suppressRawCancellationPolicy: false
+    }
+  }
 
   if (text.includes('cash bingo')) {
     return {

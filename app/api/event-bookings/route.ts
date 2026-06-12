@@ -41,6 +41,7 @@ type EventBookingPayload = {
   event_price?: number
   event_value?: number
   food_intent?: string
+  seating_preference?: 'seated' | 'standing'
 }
 
 function createIdempotencyKey(prefix: string): string {
@@ -80,6 +81,12 @@ function asNonNegativeNumber(value: unknown): number | undefined {
   return undefined
 }
 
+function asSeatingPreference(value: unknown): 'seated' | 'standing' | undefined {
+  if (typeof value !== 'string') return undefined
+  const normalized = value.trim().toLowerCase()
+  return normalized === 'seated' || normalized === 'standing' ? normalized : undefined
+}
+
 function normalizePayload(input: unknown): { payload?: EventBookingPayload; error?: string } {
   if (!input || typeof input !== 'object') {
     return { error: 'Invalid request body' }
@@ -97,9 +104,15 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const eventPrice = asNonNegativeNumber(body.event_price)
   const eventValue = asNonNegativeNumber(body.event_value)
   const metaConsentGranted = body.meta_consent_granted === true
+  const rawSeatingPreference = body.seating_preference ?? body.seatingPreference
+  const seatingPreference = asSeatingPreference(rawSeatingPreference)
 
   if (!eventId || !phone || !seats) {
     return { error: 'Missing required fields: event_id, phone, seats' }
+  }
+
+  if (rawSeatingPreference !== undefined && !seatingPreference) {
+    return { error: 'seating_preference must be seated or standing' }
   }
 
   return {
@@ -112,6 +125,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(email ? { email } : {}),
       ...(notes ? { notes } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      ...(seatingPreference ? { seating_preference: seatingPreference } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
         'source_url',

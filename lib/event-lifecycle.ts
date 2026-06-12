@@ -78,6 +78,7 @@ export function getEventBookingModeLabel(mode: string | null | undefined): strin
   if (normalized === 'table') return 'Reserve a table'
   if (normalized === 'general') return 'General entry'
   if (normalized === 'mixed') return 'Table + general'
+  if (normalized === 'communal') return 'Communal seating'
   return mode ? mode : null
 }
 

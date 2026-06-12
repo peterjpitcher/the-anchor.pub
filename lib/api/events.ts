@@ -79,7 +79,10 @@ export interface Event {
   seats_remaining?: number | null
   is_full?: boolean
   waitlist_enabled?: boolean
-  booking_mode?: 'table' | 'general' | 'mixed' | string | null
+  booking_mode?: 'table' | 'general' | 'mixed' | 'communal' | string | null
+  seated_remaining?: number | null
+  standing_remaining?: number | null
+  total_remaining?: number | null
   payment_mode?: string | null
   price?: number | null
   price_per_seat?: number | null
