@@ -74,9 +74,18 @@ export function captureBookingAttributionFromLocation(now = new Date()): Booking
     return existing ? storedToPayload(existing) : {}
   }
 
+  // `latest` carries the most recent campaign params. A paramless navigation
+  // (e.g. organic click from a landing page to /book-table) must NOT clobber a
+  // richer existing `latest` — otherwise we'd drop the UTMs that brought the
+  // visitor in. Only advance `latest` when the current URL actually has marketing
+  // params, or when there's no prior record at all (so a purely organic first
+  // session still stores a valid entry capturing its landing_path).
+  const currentHasParams = Object.keys(current.params).length > 0
+  const latest = existing && !currentHasParams ? existing.latest : current
+
   const stored: StoredBookingAttribution = {
     first: existing?.first ?? current,
-    latest: current,
+    latest,
     expiresAt: new Date(now.getTime() + ATTRIBUTION_TTL_MS).toISOString(),
   }
 
@@ -132,8 +141,9 @@ function readAttributionFromUrl(urlValue: string, now: Date): StoredAttributionE
     sanitizedUrl.searchParams.set(key, value)
   }
 
-  if (Object.keys(params).length === 0) return null
-
+  // Even with no UTM/click-id params (i.e. organic traffic), we still record a
+  // valid entry so every first session captures its landing path. Marketing
+  // params stay empty; `params` as {} remains a valid StoredAttributionEntry.
   return {
     sourceUrl: sanitizedUrl.toString(),
     landingPath: url.pathname || '/',

@@ -1,4 +1,15 @@
 import { canUseCookieCategory } from '../cookies'
+import { getBookingAttributionPayload } from '../booking-attribution'
+
+/**
+ * Conversion events that should carry booking-attribution context
+ * (landing_path, UTMs, etc.) so organic→booking conversions are measurable.
+ */
+const ATTRIBUTION_EVENTS = new Set([
+  'purchase',
+  'table_booking_completed',
+  'event_booking_completed',
+])
 
 export interface TrackingEventPayload {
   event: string
@@ -149,6 +160,25 @@ export function dispatchTrackingEvent(
 
   if (payload.device_type === undefined) {
     payload.device_type = deviceType
+  }
+
+  // Attach booking-attribution context (landing_path, UTMs, click ids) to
+  // conversion events so organic→booking conversions are measurable. Hot path:
+  // keep it null-safe — the getter returns {} when unavailable. Existing keys
+  // on the event win, so we never clobber explicit values.
+  if (ATTRIBUTION_EVENTS.has(eventData.event)) {
+    try {
+      const attribution = getBookingAttributionPayload()
+      if (attribution) {
+        for (const [key, value] of Object.entries(attribution)) {
+          if (value !== undefined && payload[key] === undefined) {
+            payload[key] = value
+          }
+        }
+      }
+    } catch {
+      // Attribution must never block analytics dispatch.
+    }
   }
 
   const dataLayerPayload = sanitizePayload(payload)
