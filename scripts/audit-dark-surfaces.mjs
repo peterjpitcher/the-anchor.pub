@@ -25,7 +25,7 @@ const BASE = process.argv[2] || 'http://localhost:3000'
 
 // One route per distinct template + the component-heavy pages. Add more freely.
 const ROUTES = [
-  '/', '/food-menu', '/sunday-lunch', '/pizza-menu', '/drinks', '/drinks/managers-special',
+  '/', '/food-menu', '/sunday-roast', '/pizza-menu', '/drinks', '/drinks/managers-special',
   '/whats-on', '/quiz-night', '/music-bingo', '/cash-bingo', '/karaoke', '/live-music',
   '/live-sport', '/live-sport/world-cup/sweepstake',
   '/private-hire', '/function-room-hire', '/corporate-events', '/private-party-venue',

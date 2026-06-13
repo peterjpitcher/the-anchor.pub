@@ -208,11 +208,6 @@ export default function ChristmasPartiesPage() {
             title: 'Corporate Christmas Parties',
             description: 'Work Christmas party options for Heathrow, Staines and Surrey teams.',
           },
-          {
-            href: '/boxing-day',
-            title: 'Boxing Day',
-            description: 'Post-Christmas pub visits, food and drinks at The Anchor.',
-          },
         ]}
       />
       <OrganicSearchClusterLinks
