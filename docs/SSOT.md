@@ -1,5 +1,7 @@
 # The Anchor, Single Source of Truth
 
+> **PRICING POLICY:** All food & drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database** (menu API). This document holds item names and structure only — **never hardcode or quote a price from here or anywhere else; always pull live**. Non-food figures (deposits, ULEZ saving, quiz/bingo entry, prizes, minimum spend) are not menu prices and remain.
+
 > **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask**, do not guess, do not infer, do not fall back on training data.
 >
 > If this document and existing page copy disagree, the SSOT wins. Update this document first when operational reality changes; the page copy and JSON-LD must follow.
@@ -75,15 +77,15 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 | Dish | Price | Yorkshire pud? | Notes |
 |---|---|---|---|
-| Roast Beef Topside | £22 | Yes | 28-day topside, slow-roasted, carved fresh per plate |
-| Roast Pork Leg | £20 | Yes | Sliced to order with Bramley apple sauce |
-| Roast Turkey with Stuffing Ball | £19 | Yes | Carved fresh; sage and onion stuffing ball |
-| Beef & Ale Pie | £21 | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
-| Chicken & Wild Mushroom Pie | £21 | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
-| Beetroot & Butternut Squash Wellington | £20 | No | **Fully vegan.** Default plate is vegan |
-| Kids Roast | £14 | If pork or turkey | Smaller, child-sized portion. Choice of pork, turkey or wellington |
+| Roast Beef Topside | (live — DB) | Yes | 28-day topside, slow-roasted, carved fresh per plate |
+| Roast Pork Leg | (live — DB) | Yes | Sliced to order with Bramley apple sauce |
+| Roast Turkey with Stuffing Ball | (live — DB) | Yes | Carved fresh; sage and onion stuffing ball |
+| Beef & Ale Pie | (live — DB) | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
+| Chicken & Wild Mushroom Pie | (live — DB) | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
+| Beetroot & Butternut Squash Wellington | (live — DB) | No | **Fully vegan.** Default plate is vegan |
+| Kids Roast | (live — DB) | If pork or turkey | Smaller, child-sized portion. Choice of pork, turkey or wellington |
 
-**Price range to quote in copy:** "Mains from £19" (the cheapest is turkey at £19; the headline is beef at £22).
+**Price range to quote in copy:** Do NOT quote a hardcoded range — prices are live from the management DB (menu API). Pull live.
 
 ### Accompaniments
 
@@ -130,25 +132,25 @@ British, Pizza, Pub Food, Sunday Roast.
 
 | Dish | Price |
 |---|---|
-| Fish and Chips | £15 |
-| Half Fish and Chips | £12 |
-| Scampi and Chips | £13 |
-| Bangers and Mash | £14 |
-| Beef and Ale Pie *(weekday version)* | £16 |
-| Chicken & Wild Mushroom Pie *(weekday version)* | £15 |
-| Chicken, Ham Hock & Leek Pie | £15 |
-| Butternut Squash, Mixed Bean & Mature Cheddar Pie | £15 (vegetarian) |
-| Classic Beef Burger | £11 (chips included) |
-| Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | £14 |
-| Lasagne | £15 |
-| Mac and Cheese | £14 (vegetarian) |
-| Stone-baked pizzas | £12 – £14 (12-inch, hand-stretched, gluten-free bases available) |
-| Kids menu | from £8 |
-| Wraps | from £10 |
-| Chips | £4 |
-| Cheesy Chips | £6 |
+| Fish and Chips | (live — DB) |
+| Half Fish and Chips | (live — DB) |
+| Scampi and Chips | (live — DB) |
+| Bangers and Mash | (live — DB) |
+| Beef and Ale Pie *(weekday version)* | (live — DB) |
+| Chicken & Wild Mushroom Pie *(weekday version)* | (live — DB) |
+| Chicken, Ham Hock & Leek Pie | (live — DB) |
+| Butternut Squash, Mixed Bean & Mature Cheddar Pie | (live — DB) (vegetarian) |
+| Classic Beef Burger | (live — DB) (chips included) |
+| Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live — DB) |
+| Lasagne | (live — DB) |
+| Mac and Cheese | (live — DB) (vegetarian) |
+| Stone-baked pizzas | (live — DB) (12-inch, hand-stretched, gluten-free bases available) |
+| Kids menu | from (live — DB) |
+| Wraps | from (live — DB) |
+| Chips | (live — DB) |
+| Cheesy Chips | (live — DB) |
 
-**Price range to quote in copy:** Mains £11 – £16. Pizzas from £12.
+**Price range to quote in copy:** Do NOT quote a hardcoded range — prices are live from the management DB (menu API). Pull live.
 
 ### Friday over-65s offer
 
@@ -173,7 +175,7 @@ The full drinks inventory lives in `/SSOT.json` under `drinks`. The website does
 - **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
-- **Promotions:** Double-up on optics for £2. Monthly Manager's Special (discounted featured premium spirit).
+- **Promotions:** Double-up on optics for (live — DB). Monthly Manager's Special (discounted featured premium spirit).
 - **Shandies:** Available for all draught lagers.
 
 ## 7. Booking & Deposits
@@ -343,31 +345,31 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 | Package | Price | Minimum |
 |---|---|---|
-| Sandwich Buffet | £9.95/head | 30 guests |
-| Finger Buffet | £10.50/head | 30 guests |
-| Burger Buffet | £10.95/head | 30 guests |
-| Premium Buffet | £13.95/head | 30 guests |
+| Sandwich Buffet | (live — DB) | 30 guests |
+| Finger Buffet | (live — DB) | 30 guests |
+| Burger Buffet | (live — DB) | 30 guests |
+| Premium Buffet | (live — DB) | 30 guests |
 | Pizza Buffet | menu priced | 30 guests |
-| Indoor BBQ | £17.99/head | 30 guests |
-| Chicken Goujon Sharing Tray | £35 (serves ~10) | 25 guests |
+| Indoor BBQ | (live — DB) | 30 guests |
+| Chicken Goujon Sharing Tray | (live — DB) (serves ~10) | 25 guests |
 
 ### Drinks Packages
 
 | Package | Price | Minimum |
 |---|---|---|
-| Welcome Drinks | £6.99/head | 10 |
-| Welcome Prosecco / Orange Juice | £7.99/head | 10 |
-| Unlimited Tea and Coffee | £4.49/head | 10 |
-| Kids Unlimited Squash | £3.50/head | 10 |
-| Pimm's Jar | £5.99 | 30 |
+| Welcome Drinks | (live — DB) | 10 |
+| Welcome Prosecco / Orange Juice | (live — DB) | 10 |
+| Unlimited Tea and Coffee | (live — DB) | 10 |
+| Kids Unlimited Squash | (live — DB) | 10 |
+| Pimm's Jar | (live — DB) | 30 |
 | Bar Tab | variable |, |
 | Bring Your Own Food | free |, |
 
 ### Kids Catering
 
-- Kids Burger and Chips: £8/head.
-- Kids Chicken Nuggets and Chips: £8/head.
-- Kids Mini Pizza and Chips: £8/head.
+- Kids Burger and Chips: (live — DB).
+- Kids Chicken Nuggets and Chips: (live — DB).
+- Kids Mini Pizza and Chips: (live — DB).
 
 ### Equipment & services
 

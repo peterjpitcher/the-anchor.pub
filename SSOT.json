@@ -322,23 +322,23 @@
         "items": [
           {
             "name": "Fish & Chips",
-            "price": 15.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Half Fish & Chips",
-            "price": 12.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Scampi & Chips",
-            "price": 13.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Jumbo Sausage & Chips",
-            "price": 13.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Bangers & Mash",
-            "price": 14.0,
+            "price": "LIVE_FROM_DB",
             "description": "Three sausages, creamy mash, crispy onions, rich onion gravy"
           }
         ]
@@ -349,20 +349,20 @@
         "items": [
           {
             "name": "Beef & Ale Pie",
-            "price": 16.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chicken & Wild Mushroom Pie",
-            "price": 15.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chicken, Ham Hock & Leek Pie",
-            "price": 15.0,
+            "price": "LIVE_FROM_DB",
             "new": true
           },
           {
             "name": "Butternut Squash, Mixed Bean & Mature Cheddar Pie",
-            "price": 15.0,
+            "price": "LIVE_FROM_DB",
             "new": true,
             "vegetarian": true
           }
@@ -374,54 +374,67 @@
         "items": [
           {
             "name": "Classic Beef Burger",
-            "price": 11.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chicken Burger",
-            "price": 11.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Spicy Chicken Burger",
-            "price": 11.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Katsu Chicken Burger",
-            "price": 14.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Garden Veg Burger",
-            "price": 11.0,
+            "price": "LIVE_FROM_DB",
             "vegetarian": true
           },
-          { "name": "Beef Stack", "price": 14 },
-          { "name": "Chicken Stack", "price": 14 },
-          { "name": "Garden Stack", "price": 14, "vegetarian": true },
-          { "name": "Spicy Chicken Stack", "price": 14 }
+          {
+            "name": "Beef Stack",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Chicken Stack",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Garden Stack",
+            "price": "LIVE_FROM_DB",
+            "vegetarian": true
+          },
+          {
+            "name": "Spicy Chicken Stack",
+            "price": "LIVE_FROM_DB"
+          }
         ],
         "extras": [
           {
             "name": "Mature cheddar",
-            "price": 1.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Bacon",
-            "price": 2.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Hash brown",
-            "price": 2.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Onion ring",
-            "price": 1.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Upgrade to cheesy chips",
-            "price": 2.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Swap to sweet potato fries",
-            "price": 2.0
+            "price": "LIVE_FROM_DB"
           }
         ]
       },
@@ -430,21 +443,21 @@
         "items": [
           {
             "name": "Lasagne",
-            "price": 15.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Mac & Cheese",
-            "price": 14.0,
+            "price": "LIVE_FROM_DB",
             "vegetarian": true
           },
           {
             "name": "Spinach & Ricotta Cannelloni",
-            "price": 14.0,
+            "price": "LIVE_FROM_DB",
             "vegetarian": true
           },
           {
             "name": "Chicken Katsu Curry",
-            "price": 14.0
+            "price": "LIVE_FROM_DB"
           }
         ]
       },
@@ -452,23 +465,47 @@
         "name": "Stone-Baked Pizza",
         "note": "12-inch, hand-stretched. Gluten-free bases available on request.",
         "items": [
-          { "name": "Rustic Classic", "price": 12 },
-          { "name": "Simply Salami", "price": 13 },
-          { "name": "Fully Loaded", "price": 14 },
-          { "name": "Nice & Spicy", "price": 14 },
-          { "name": "The Garden Club", "price": 13 },
-          { "name": "Smoked Chilli Chicken", "price": 14 },
-          { "name": "Chicken & Pesto", "price": 14 },
-          { "name": "Barbecue Chicken", "price": 14 }
+          {
+            "name": "Rustic Classic",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Simply Salami",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Fully Loaded",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Nice & Spicy",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "The Garden Club",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Smoked Chilli Chicken",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Chicken & Pesto",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Barbecue Chicken",
+            "price": "LIVE_FROM_DB"
+          }
         ],
         "sides": [
           {
             "name": "Garlic Bread",
-            "price": 10.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Garlic Bread with Mozzarella",
-            "price": 12.0
+            "price": "LIVE_FROM_DB"
           }
         ]
       },
@@ -477,43 +514,43 @@
         "items": [
           {
             "name": "Chicken Goujon Wrap",
-            "price": 10.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Fish Finger Wrap",
-            "price": 10.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "4 Chicken Goujons & Chips",
-            "price": 9.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "5 Salt & Chilli Squid & Chips",
-            "price": 9.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "3 Fish Fingers & Chips",
-            "price": 9.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chips",
-            "price": 4.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chunky Chips",
-            "price": 5.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Cheesy Chips",
-            "price": 6.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Sweet Potato Fries",
-            "price": 5.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "6 Onion Rings",
-            "price": 4.0
+            "price": "LIVE_FROM_DB"
           }
         ]
       },
@@ -522,25 +559,25 @@
         "items": [
           {
             "name": "Sticky Toffee Pudding",
-            "price": 6.0,
+            "price": "LIVE_FROM_DB",
             "gluten_free": true
           },
           {
             "name": "Apple Crumble",
-            "price": 6.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chocolate Fudge Brownie",
-            "price": 6.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Chocolate Fudge Cake",
-            "price": 6.0,
+            "price": "LIVE_FROM_DB",
             "new": true
           },
           {
             "name": "Ice Cream Sundae",
-            "price": 5.0
+            "price": "LIVE_FROM_DB"
           }
         ]
       },
@@ -549,26 +586,44 @@
         "items": [
           {
             "name": "Americano",
-            "price": 3.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Latte",
-            "price": 3.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Cappuccino",
-            "price": 3.0
+            "price": "LIVE_FROM_DB"
           },
           {
             "name": "Hot Chocolate",
-            "price": 3.0
+            "price": "LIVE_FROM_DB"
           },
-          { "name": "Individual Pot of Tea (Tetley)", "price": 3.0 },
-          { "name": "Decaffeinated Tea", "price": 3.0 },
-          { "name": "Green Tea with Lemon", "price": 3.0 },
-          { "name": "Lemon & Ginger Tea", "price": 3.0 },
-          { "name": "Peppermint Tea", "price": 3.0 },
-          { "name": "Red Berries Tea", "price": 3.0 }
+          {
+            "name": "Individual Pot of Tea (Tetley)",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Decaffeinated Tea",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Green Tea with Lemon",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Lemon & Ginger Tea",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Peppermint Tea",
+            "price": "LIVE_FROM_DB"
+          },
+          {
+            "name": "Red Berries Tea",
+            "price": "LIVE_FROM_DB"
+          }
         ]
       }
     ],
@@ -593,49 +648,49 @@
   },
   "sunday_roast": {
     "_source": "Menu refreshed 2026-04-29. DB table sunday_lunch_menu_items in the management project is the live source; old rows soft-deleted (is_active=false) because table_booking_items has FKs into them.",
-    "price_from": 16,
+    "price_from": "LIVE_FROM_DB",
     "currency": "GBP",
     "options": [
       {
         "name": "Roast Beef Topside",
-        "price": 22,
+        "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "28-day topside, slow-roasted, carved fresh per plate."
       },
       {
         "name": "Roast Pork Leg",
-        "price": 20,
+        "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "Roasted pork leg sliced to order with Bramley apple sauce."
       },
       {
         "name": "Roast Turkey with Stuffing Ball",
-        "price": 16,
+        "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "Carved fresh, served with a sage and onion stuffing ball."
       },
       {
         "name": "Beef & Ale Pie",
-        "price": 21,
+        "price": "LIVE_FROM_DB",
         "yorkshire_pudding": false,
         "notes": "Slow-cooked British beef in ale gravy under golden short-crust pastry. NO Yorkshire pudding with the pies."
       },
       {
         "name": "Chicken & Wild Mushroom Pie",
-        "price": 21,
+        "price": "LIVE_FROM_DB",
         "yorkshire_pudding": false,
         "notes": "Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry. NO Yorkshire pudding with the pies."
       },
       {
         "name": "Beetroot & Butternut Squash Wellington",
-        "price": 20,
+        "price": "LIVE_FROM_DB",
         "vegan": true,
         "yorkshire_pudding": false,
         "notes": "Fully vegan. Default gravy is the regular vegan gravy. Free upgrade to the signature gravy on request, that contains meat stock, so the upgrade makes the dish non-vegan. Use 'vegan' (never 'vegetarian') in customer copy."
       },
       {
         "name": "Kids Roast",
-        "price": 14,
+        "price": "LIVE_FROM_DB",
         "kids": true,
         "smaller_portion": true,
         "notes": "Smaller, child-sized plate. Choice of roast pork, roast turkey or beetroot & butternut squash wellington. Yorkshire pudding only with pork or turkey."
@@ -653,7 +708,7 @@
       "pre_order_required": false,
       "advance_booking_required": false,
       "walk_ins_welcome": true,
-      "deposit_per_person_gbp_for_groups_of_10_or_more": 10,
+      "deposit_per_person_gbp_for_groups_of_10_or_more": "LIVE_FROM_DB",
       "deposit_deducted": true,
       "regular_menu_also_available": "Yes",
       "max_online_party_size": 20,
@@ -663,36 +718,279 @@
   },
   "drinks": {
     "_source": "product-list-export-2026-03-22. Complete inventory from POS system.",
-    "draught": ["Birra Moretti", "Guinness", "Stella Artois", "Aspall Cider", "Inch's Apple Cider", "Fosters", "Carlsberg"],
-    "draught_note": "Shandies available for all draught lagers.",
-    "bottled_ales": ["Abbot Ale", "Greene King IPA", "Old Speckled Hen", "Newcastle Brown Ale"],
-    "bottled_beers": ["Budweiser", "Corona Extra", "Desperados", "Peroni", "Peroni 0%"],
-    "bottled_ciders": ["Magners", "Old Mout Berries & Cherries", "Old Mout Kiwi & Lime", "Aspall"],
-    "cocktails": ["Aperol Spritz", "Espresso Martini", "Passion Fruit Martini", "Mojito", "Classic Margarita", "Vodka Margarita", "Woo Woo", "Moscow Mule", "Dark & Stormy", "Whiskey Ginger", "Cuba Libre", "Pink Paloma", "English Garden", "Tropical Punch", "Apricot Fizz", "Captain's Colada", "Peach Blush", "Apple and Blackberry Pie", "Hot Toddy", "Glass Pimms", "Jug Pimms", "Baby Guinness", "Kick Bomb", "Skittle Bomb"],
-    "spirits_optics": ["Bacardi", "Captain Morgan Gold Spiced Rum", "Bell's", "Famous Grouse", "Gordon's", "Gordon's Pink", "Jack Daniel's", "Jameson", "Smirnoff Red"],
-    "spirits_gin": ["Bombay Sapphire", "Gordon's Lemon", "Gordon's White Peach", "Gordon's Tropical Passionfruit", "Gordon's Sloe Gin", "Hendrick's", "Hendrick's Flora Adora", "Tanqueray", "Tanqueray 10", "Tanqueray Flor de Sevilla", "Tanqueray Blackcurrant Royale", "Whitley Neill Rhubarb", "Williams Chase Pink Grapefruit", "Botanist", "Warner's Elderflower", "Warner's Honeybee", "Chase Sloe Gin", "Monkey Sloe Gin 47"],
-    "spirits_rum": ["Captain Morgan Original Dark", "Captain Morgan Gold Spiced", "Captain Morgan Sliced Apple", "Captain Morgan Tiki", "Havana Club 3", "Havana Club 7", "Havana Club Especial", "Kraken", "Bambu Rum", "Bumbu Cream", "Redleg Spiced", "Redleg Pineapple", "Redleg Banana", "Redleg Tropical", "Bacardi Coconut", "Trash & Treasure Banana"],
-    "spirits_vodka": ["Smirnoff Red", "Smirnoff Raspberry Crush", "Smirnoff Mango & Passionfruit", "Smirnoff Miami Peach", "Ketel One", "Grey Goose"],
-    "spirits_whisky": ["Bell's", "Famous Grouse", "Jack Daniel's", "Jack Daniel's Fire", "Jack Daniel's Honey", "Jack Daniel's Apple", "Jameson", "Bushmills", "Johnnie Walker Black Label", "Monkey Shoulder", "Maker's Mark", "Glenfiddich", "Glenmorangie", "Talisker", "Bowmore 12yr", "Bulleit", "Shanky's Whip"],
-    "spirits_tequila": ["Jose Cuervo Gold", "Jose Cuervo Silver", "Patron Silver", "Olmeca Altos Plata", "Olmeca Reposado", "Cazcabel Coffee"],
-    "spirits_brandy": ["Courvoisier", "Hennessy VS", "Martell VS"],
-    "spirits_liqueurs": ["Aperol", "Archers", "Baileys", "Cointreau", "Disaronno", "Drambuie", "Kahlua", "Malibu", "Midori", "Pernod", "Southern Comfort", "Chambord", "Tia Maria", "Lustre Strawberry Cream", "Lustre Pineapple Cream", "Lustre Caffe Latte Cream"],
-    "spirits_shooters": ["Jagermeister", "Sambuca Classic", "Sambuca Raspberry", "Sambuca Liquorice", "Sambuca Chilli", "Sourz Cherry", "Sourz Apple", "Sourz Strawberry"],
-    "wines_red": ["Counterpoint Shiraz", "El Pico Cabernet Sauvignon", "Gentlemens Collection", "I Heart Merlot", "I Heart Shiraz", "Rocosa Malbec"],
-    "wines_white": ["Counterpoint Chardonnay", "Giotto Pinot Grigio", "I Heart Chardonnay", "I Heart Pinot Grigio", "I Heart Sauvignon Blanc", "Piesporter Michelsberg", "Montford Estate Sauvignon Blanc"],
-    "wines_rose": ["Gris des Signeurs", "I Heart Rose", "Three Pebbles Bay", "Ara Marl Sauvignon Rose", "Ara Pinot Gris"],
-    "wines_sparkling": ["G&G Prosecco (750ml)", "G&G Prosecco (200ml)"],
-    "wines_note": "Most wines available in 187ml single-serve and 750ml bottles.",
-    "port_sherry_vermouth": ["Taylors Fine Ruby Port", "Harvey's Bristol Cream", "Martini Rosso", "Martini Extra Dry"],
-    "soft_drinks": ["Harrogate Still Water", "Harrogate Sparkling Water", "Can of Coke", "Can of Diet Coke", "Can of Fanta", "J2O Orange & Passionfruit", "J2O Apple & Mango", "J2O Apple & Raspberry", "Apple Juice", "Fruit Shoot Orange", "Fruit Shoot Blackcurrant", "Appletiser"],
-    "mixers": ["Coca Cola", "Diet Coke", "Coke Zero", "Lemonade", "7-Up Free", "Soda", "Tonic", "Slimline Tonic", "Ginger Ale", "Slimline Elderflower", "Russchian Pink Soda", "Schweppes Pink Grapefruit Soda", "Schweppes Tropical Soda", "Kick Energy Drink", "Fever Tree Soda Water", "Fever Tree Madagascan Cola", "Fever Tree Ginger Beer", "Fever Tree White Grape & Apricot Soda", "Fever Tree Ginger Ale", "Lime Cordial", "Blackcurrant Cordial", "Orange Juice", "Cranberry Juice", "Pineapple Juice"],
-    "bar_snacks": ["Tayto Crisps (5 flavours)", "Quavers", "Pork Scratchings", "Maltesers", "Nuts (Salted, Dry Roasted, Honey Roasted, Chilli, Cashews)"],
-    "discontinued_draught": [
-      { "name": "Stanwell Moor Brew", "status": "DISCONTINUED as of 2026-03-22." },
-      { "name": "Pravha", "status": "DISCONTINUED. Confirmed by owner 2026-03-22. Remove from all pages and blog posts." }
+    "draught": [
+      "Birra Moretti",
+      "Guinness",
+      "Stella Artois",
+      "Aspall Cider",
+      "Inch's Apple Cider",
+      "Fosters",
+      "Carlsberg"
     ],
-    "promotions": ["Double-up on optics for £2", "Monthly Manager's Special, discounted featured premium spirit"],
-    "bar_tab_policy": { "eligibility": "Regular customers only", "validity": "7 days", "maximum_gbp": 50 },
+    "draught_note": "Shandies available for all draught lagers.",
+    "bottled_ales": [
+      "Abbot Ale",
+      "Greene King IPA",
+      "Old Speckled Hen",
+      "Newcastle Brown Ale"
+    ],
+    "bottled_beers": [
+      "Budweiser",
+      "Corona Extra",
+      "Desperados",
+      "Peroni",
+      "Peroni 0%"
+    ],
+    "bottled_ciders": [
+      "Magners",
+      "Old Mout Berries & Cherries",
+      "Old Mout Kiwi & Lime",
+      "Aspall"
+    ],
+    "cocktails": [
+      "Aperol Spritz",
+      "Espresso Martini",
+      "Passion Fruit Martini",
+      "Mojito",
+      "Classic Margarita",
+      "Vodka Margarita",
+      "Woo Woo",
+      "Moscow Mule",
+      "Dark & Stormy",
+      "Whiskey Ginger",
+      "Cuba Libre",
+      "Pink Paloma",
+      "English Garden",
+      "Tropical Punch",
+      "Apricot Fizz",
+      "Captain's Colada",
+      "Peach Blush",
+      "Apple and Blackberry Pie",
+      "Hot Toddy",
+      "Glass Pimms",
+      "Jug Pimms",
+      "Baby Guinness",
+      "Kick Bomb",
+      "Skittle Bomb"
+    ],
+    "spirits_optics": [
+      "Bacardi",
+      "Captain Morgan Gold Spiced Rum",
+      "Bell's",
+      "Famous Grouse",
+      "Gordon's",
+      "Gordon's Pink",
+      "Jack Daniel's",
+      "Jameson",
+      "Smirnoff Red"
+    ],
+    "spirits_gin": [
+      "Bombay Sapphire",
+      "Gordon's Lemon",
+      "Gordon's White Peach",
+      "Gordon's Tropical Passionfruit",
+      "Gordon's Sloe Gin",
+      "Hendrick's",
+      "Hendrick's Flora Adora",
+      "Tanqueray",
+      "Tanqueray 10",
+      "Tanqueray Flor de Sevilla",
+      "Tanqueray Blackcurrant Royale",
+      "Whitley Neill Rhubarb",
+      "Williams Chase Pink Grapefruit",
+      "Botanist",
+      "Warner's Elderflower",
+      "Warner's Honeybee",
+      "Chase Sloe Gin",
+      "Monkey Sloe Gin 47"
+    ],
+    "spirits_rum": [
+      "Captain Morgan Original Dark",
+      "Captain Morgan Gold Spiced",
+      "Captain Morgan Sliced Apple",
+      "Captain Morgan Tiki",
+      "Havana Club 3",
+      "Havana Club 7",
+      "Havana Club Especial",
+      "Kraken",
+      "Bambu Rum",
+      "Bumbu Cream",
+      "Redleg Spiced",
+      "Redleg Pineapple",
+      "Redleg Banana",
+      "Redleg Tropical",
+      "Bacardi Coconut",
+      "Trash & Treasure Banana"
+    ],
+    "spirits_vodka": [
+      "Smirnoff Red",
+      "Smirnoff Raspberry Crush",
+      "Smirnoff Mango & Passionfruit",
+      "Smirnoff Miami Peach",
+      "Ketel One",
+      "Grey Goose"
+    ],
+    "spirits_whisky": [
+      "Bell's",
+      "Famous Grouse",
+      "Jack Daniel's",
+      "Jack Daniel's Fire",
+      "Jack Daniel's Honey",
+      "Jack Daniel's Apple",
+      "Jameson",
+      "Bushmills",
+      "Johnnie Walker Black Label",
+      "Monkey Shoulder",
+      "Maker's Mark",
+      "Glenfiddich",
+      "Glenmorangie",
+      "Talisker",
+      "Bowmore 12yr",
+      "Bulleit",
+      "Shanky's Whip"
+    ],
+    "spirits_tequila": [
+      "Jose Cuervo Gold",
+      "Jose Cuervo Silver",
+      "Patron Silver",
+      "Olmeca Altos Plata",
+      "Olmeca Reposado",
+      "Cazcabel Coffee"
+    ],
+    "spirits_brandy": [
+      "Courvoisier",
+      "Hennessy VS",
+      "Martell VS"
+    ],
+    "spirits_liqueurs": [
+      "Aperol",
+      "Archers",
+      "Baileys",
+      "Cointreau",
+      "Disaronno",
+      "Drambuie",
+      "Kahlua",
+      "Malibu",
+      "Midori",
+      "Pernod",
+      "Southern Comfort",
+      "Chambord",
+      "Tia Maria",
+      "Lustre Strawberry Cream",
+      "Lustre Pineapple Cream",
+      "Lustre Caffe Latte Cream"
+    ],
+    "spirits_shooters": [
+      "Jagermeister",
+      "Sambuca Classic",
+      "Sambuca Raspberry",
+      "Sambuca Liquorice",
+      "Sambuca Chilli",
+      "Sourz Cherry",
+      "Sourz Apple",
+      "Sourz Strawberry"
+    ],
+    "wines_red": [
+      "Counterpoint Shiraz",
+      "El Pico Cabernet Sauvignon",
+      "Gentlemens Collection",
+      "I Heart Merlot",
+      "I Heart Shiraz",
+      "Rocosa Malbec"
+    ],
+    "wines_white": [
+      "Counterpoint Chardonnay",
+      "Giotto Pinot Grigio",
+      "I Heart Chardonnay",
+      "I Heart Pinot Grigio",
+      "I Heart Sauvignon Blanc",
+      "Piesporter Michelsberg",
+      "Montford Estate Sauvignon Blanc"
+    ],
+    "wines_rose": [
+      "Gris des Signeurs",
+      "I Heart Rose",
+      "Three Pebbles Bay",
+      "Ara Marl Sauvignon Rose",
+      "Ara Pinot Gris"
+    ],
+    "wines_sparkling": [
+      "G&G Prosecco (750ml)",
+      "G&G Prosecco (200ml)"
+    ],
+    "wines_note": "Most wines available in 187ml single-serve and 750ml bottles.",
+    "port_sherry_vermouth": [
+      "Taylors Fine Ruby Port",
+      "Harvey's Bristol Cream",
+      "Martini Rosso",
+      "Martini Extra Dry"
+    ],
+    "soft_drinks": [
+      "Harrogate Still Water",
+      "Harrogate Sparkling Water",
+      "Can of Coke",
+      "Can of Diet Coke",
+      "Can of Fanta",
+      "J2O Orange & Passionfruit",
+      "J2O Apple & Mango",
+      "J2O Apple & Raspberry",
+      "Apple Juice",
+      "Fruit Shoot Orange",
+      "Fruit Shoot Blackcurrant",
+      "Appletiser"
+    ],
+    "mixers": [
+      "Coca Cola",
+      "Diet Coke",
+      "Coke Zero",
+      "Lemonade",
+      "7-Up Free",
+      "Soda",
+      "Tonic",
+      "Slimline Tonic",
+      "Ginger Ale",
+      "Slimline Elderflower",
+      "Russchian Pink Soda",
+      "Schweppes Pink Grapefruit Soda",
+      "Schweppes Tropical Soda",
+      "Kick Energy Drink",
+      "Fever Tree Soda Water",
+      "Fever Tree Madagascan Cola",
+      "Fever Tree Ginger Beer",
+      "Fever Tree White Grape & Apricot Soda",
+      "Fever Tree Ginger Ale",
+      "Lime Cordial",
+      "Blackcurrant Cordial",
+      "Orange Juice",
+      "Cranberry Juice",
+      "Pineapple Juice"
+    ],
+    "bar_snacks": [
+      "Tayto Crisps (5 flavours)",
+      "Quavers",
+      "Pork Scratchings",
+      "Maltesers",
+      "Nuts (Salted, Dry Roasted, Honey Roasted, Chilli, Cashews)"
+    ],
+    "discontinued_draught": [
+      {
+        "name": "Stanwell Moor Brew",
+        "status": "DISCONTINUED as of 2026-03-22."
+      },
+      {
+        "name": "Pravha",
+        "status": "DISCONTINUED. Confirmed by owner 2026-03-22. Remove from all pages and blog posts."
+      }
+    ],
+    "promotions": [
+      "Double-up on optics for £2",
+      "Monthly Manager's Special, discounted featured premium spirit"
+    ],
+    "bar_tab_policy": {
+      "eligibility": "Regular customers only",
+      "validity": "7 days",
+      "maximum_gbp": 50
+    },
     "equipment": "T-Bar beer pumps (shorter lines, colder/fresher pints), upgraded glass washer",
     "live_sport_note": "Terrestrial channels only (BBC/ITV/Channel 4). Does NOT have Sky Sports or TNT Sports."
   },
@@ -719,7 +1017,7 @@
       "start": "7:00pm",
       "end": "~9:45pm",
       "duration": "3 hours",
-      "entry_fee_gbp": 3.00,
+      "entry_fee_gbp": 3.0,
       "team_size_max": 6,
       "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
       "capacity": 80,
@@ -735,7 +1033,7 @@
       "doors": "6:00pm (book sales from 6pm)",
       "start": "7:00pm (eyes-down, confirmed 2026-03-22)",
       "end": "~9:30pm",
-      "entry_fee_gbp": 10.00,
+      "entry_fee_gbp": 10.0,
       "entry_note": "Per book, cash only. £1 daubers also cash only.",
       "games": 10,
       "capacity": 60,
@@ -745,7 +1043,7 @@
       "schedule": "Dates vary (see listings)",
       "doors": "6:30pm",
       "start": "~7:00pm",
-      "entry_fee_gbp": 3.00,
+      "entry_fee_gbp": 3.0,
       "RESOLVED": "Website FAQ says £3 per person. static-events.ts incorrectly shows free. £3 is correct per the FAQ page.",
       "format": "Two games; song clips replace bingo numbers",
       "capacity": 90,
@@ -766,7 +1064,13 @@
       "entry": "Free",
       "capacity": 50,
       "catalogue": "50,000+ songs",
-      "features": ["Two microphones", "Duets with Nikki", "Lip sync battle hour", "Props and costumes provided", "Group singalongs"],
+      "features": [
+        "Two microphones",
+        "Duets with Nikki",
+        "Lip sync battle hour",
+        "Props and costumes provided",
+        "Group singalongs"
+      ],
       "host": "Nikki Manfadge (Nikki's Karaoke Night)"
     },
     "nikkis_games_night": {
@@ -782,7 +1086,13 @@
     },
     "tasting_nights": {
       "schedule": "Occasional (not fixed frequency)",
-      "categories": ["Whisky", "Gin", "Rum", "Wine", "Beer"],
+      "categories": [
+        "Whisky",
+        "Gin",
+        "Rum",
+        "Wine",
+        "Beer"
+      ],
       "format": "Expert-led sessions"
     },
     "retired_event_formats": {
@@ -809,34 +1119,120 @@
     "catering_packages": {
       "source": "anchor-management-tools database (2026-03-22)",
       "buffet": [
-        { "name": "Sandwich Buffet", "price_per_head_gbp": 9.95, "min_guests": 30 },
-        { "name": "Finger Buffet", "price_per_head_gbp": 10.50, "min_guests": 30 },
-        { "name": "Burger Buffet", "price_per_head_gbp": 10.95, "min_guests": 30 },
-        { "name": "Premium Buffet", "price_per_head_gbp": 13.95, "min_guests": 30 },
-        { "name": "Pizza Buffet", "price_per_head_gbp": "menu priced", "min_guests": 30 },
-        { "name": "Indoor BBQ", "price_per_head_gbp": 17.99, "min_guests": 30 },
-        { "name": "Chicken Goujon Sharing Tray", "price_gbp": 35.00, "serves": "~10", "min_guests": 25 }
+        {
+          "name": "Sandwich Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Finger Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Burger Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Premium Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Pizza Buffet",
+          "price_per_head_gbp": "menu priced",
+          "min_guests": 30
+        },
+        {
+          "name": "Indoor BBQ",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Chicken Goujon Sharing Tray",
+          "price_gbp": "LIVE_FROM_DB",
+          "serves": "~10",
+          "min_guests": 25
+        }
       ],
       "christmas": [
-        { "name": "Festive Menu (weekday)", "price_per_head_gbp": 36.95, "min_guests": 6, "style": "sit-down" },
-        { "name": "Festive Menu (weekend)", "price_per_head_gbp": 39.95, "min_guests": 6, "style": "sit-down" },
-        { "name": "Festive Sandwich & Salad", "price_per_head_gbp": 10.95, "min_guests": 30 },
-        { "name": "Festive Hot Finger", "price_per_head_gbp": 13.95, "min_guests": 30 },
-        { "name": "Festive Premium Grazing", "price_per_head_gbp": 16.95, "min_guests": 30 }
+        {
+          "name": "Festive Menu (weekday)",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 6,
+          "style": "sit-down"
+        },
+        {
+          "name": "Festive Menu (weekend)",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 6,
+          "style": "sit-down"
+        },
+        {
+          "name": "Festive Sandwich & Salad",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Festive Hot Finger",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Festive Premium Grazing",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        }
       ],
       "kids": [
-        { "name": "Kids Burger & Chips", "price_per_head_gbp": 8.00 },
-        { "name": "Kids Chicken Nuggets & Chips", "price_per_head_gbp": 8.00 },
-        { "name": "Kids Mini Pizza & Chips", "price_per_head_gbp": 8.00 }
+        {
+          "name": "Kids Burger & Chips",
+          "price_per_head_gbp": "LIVE_FROM_DB"
+        },
+        {
+          "name": "Kids Chicken Nuggets & Chips",
+          "price_per_head_gbp": "LIVE_FROM_DB"
+        },
+        {
+          "name": "Kids Mini Pizza & Chips",
+          "price_per_head_gbp": "LIVE_FROM_DB"
+        }
       ],
       "drinks": [
-        { "name": "Welcome Drinks", "price_per_head_gbp": 6.99, "min_guests": 10 },
-        { "name": "Welcome Prosecco/Orange Juice", "price_per_head_gbp": 7.99, "min_guests": 10 },
-        { "name": "Unlimited Tea & Coffee", "price_per_head_gbp": 4.49, "min_guests": 10 },
-        { "name": "Kids Unlimited Squash", "price_per_head_gbp": 3.50, "min_guests": 10 },
-        { "name": "Pimm's Jar", "price_gbp": 5.99, "min_guests": 30 },
-        { "name": "Bar Tab", "price": "variable" },
-        { "name": "Bring Your Own Food", "price": "free" }
+        {
+          "name": "Welcome Drinks",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 10
+        },
+        {
+          "name": "Welcome Prosecco/Orange Juice",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 10
+        },
+        {
+          "name": "Unlimited Tea & Coffee",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 10
+        },
+        {
+          "name": "Kids Unlimited Squash",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 10
+        },
+        {
+          "name": "Pimm's Jar",
+          "price_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Bar Tab",
+          "price": "variable"
+        },
+        {
+          "name": "Bring Your Own Food",
+          "price": "free"
+        }
       ]
     },
     "av_equipment": "Projector, screen, sound system",
@@ -1004,21 +1400,90 @@
     "note": "Excludes all venues inside Heathrow terminals, they are not direct competitors. Researched 2026-03-22.",
     "total_licensed_premises": 164,
     "named_competitors": [
-      { "name": "Rising Sun", "type": "Independent (Star Pubs & Bars)", "location": "Stanwell village", "distance": "0.7 miles", "overlap": "Nearest pub, Sunday roast, garden, live music" },
-      { "name": "Sir John Gibson", "type": "Craft Union (Stonegate)", "location": "Stanwell village", "distance": "0.8 miles", "overlap": "Village local, sport (Sky/BT), pool" },
-      { "name": "The Green Man", "type": "Greene King", "location": "East Bedfont", "distance": "2 miles", "overlap": "Beer garden, free parking, Sunday roast, live music" },
-      { "name": "Three Magpies", "type": "Greene King managed", "location": "Bath Road (airport perimeter)", "distance": "2.5 miles", "overlap": "Closest pub on airport perimeter road" },
-      { "name": "Bell on the Green", "type": "Independent", "location": "East Bedfont", "distance": "2.5 miles", "overlap": "Beer garden, parking, function room, Indian-British food" },
-      { "name": "The Swan Hotel", "type": "Fuller's", "location": "Staines (riverside)", "distance": "2.5 miles", "overlap": "Premium Sunday roast, private hire, hotel" },
-      { "name": "The Bells", "type": "Independent", "location": "Staines town centre", "distance": "2.5 miles", "overlap": "Sunday roast, function room (The Stables)" },
-      { "name": "The George", "type": "JD Wetherspoon", "location": "Staines High Street", "distance": "2.5 miles", "overlap": "Budget food/drink, all-day service" },
-      { "name": "Five Bells", "type": "Independent (family-owned)", "location": "Horton, Berkshire", "distance": "3 miles", "overlap": "Food-led village pub near Heathrow, beer garden" },
-      { "name": "The Ostrich Inn", "type": "Independent (freehold)", "location": "Colnbrook", "distance": "3.5 miles", "overlap": "Grade II* heritage, restaurant, private dining, accommodation" }
+      {
+        "name": "Rising Sun",
+        "type": "Independent (Star Pubs & Bars)",
+        "location": "Stanwell village",
+        "distance": "0.7 miles",
+        "overlap": "Nearest pub, Sunday roast, garden, live music"
+      },
+      {
+        "name": "Sir John Gibson",
+        "type": "Craft Union (Stonegate)",
+        "location": "Stanwell village",
+        "distance": "0.8 miles",
+        "overlap": "Village local, sport (Sky/BT), pool"
+      },
+      {
+        "name": "The Green Man",
+        "type": "Greene King",
+        "location": "East Bedfont",
+        "distance": "2 miles",
+        "overlap": "Beer garden, free parking, Sunday roast, live music"
+      },
+      {
+        "name": "Three Magpies",
+        "type": "Greene King managed",
+        "location": "Bath Road (airport perimeter)",
+        "distance": "2.5 miles",
+        "overlap": "Closest pub on airport perimeter road"
+      },
+      {
+        "name": "Bell on the Green",
+        "type": "Independent",
+        "location": "East Bedfont",
+        "distance": "2.5 miles",
+        "overlap": "Beer garden, parking, function room, Indian-British food"
+      },
+      {
+        "name": "The Swan Hotel",
+        "type": "Fuller's",
+        "location": "Staines (riverside)",
+        "distance": "2.5 miles",
+        "overlap": "Premium Sunday roast, private hire, hotel"
+      },
+      {
+        "name": "The Bells",
+        "type": "Independent",
+        "location": "Staines town centre",
+        "distance": "2.5 miles",
+        "overlap": "Sunday roast, function room (The Stables)"
+      },
+      {
+        "name": "The George",
+        "type": "JD Wetherspoon",
+        "location": "Staines High Street",
+        "distance": "2.5 miles",
+        "overlap": "Budget food/drink, all-day service"
+      },
+      {
+        "name": "Five Bells",
+        "type": "Independent (family-owned)",
+        "location": "Horton, Berkshire",
+        "distance": "3 miles",
+        "overlap": "Food-led village pub near Heathrow, beer garden"
+      },
+      {
+        "name": "The Ostrich Inn",
+        "type": "Independent (freehold)",
+        "location": "Colnbrook",
+        "distance": "3.5 miles",
+        "overlap": "Grade II* heritage, restaurant, private dining, accommodation"
+      }
     ],
     "removed_competitors": [
-      { "name": "Queen's Arms", "reason": "Inside Heathrow Terminal 2, not a direct competitor" },
-      { "name": "Gordon Ramsay Plane Food", "reason": "Inside Heathrow Terminal 5, not a direct competitor" },
-      { "name": "The Pheasant, Stanwell", "reason": "No current listing found, likely closed or changed name" }
+      {
+        "name": "Queen's Arms",
+        "reason": "Inside Heathrow Terminal 2, not a direct competitor"
+      },
+      {
+        "name": "Gordon Ramsay Plane Food",
+        "reason": "Inside Heathrow Terminal 5, not a direct competitor"
+      },
+      {
+        "name": "The Pheasant, Stanwell",
+        "reason": "No current listing found, likely closed or changed name"
+      }
     ]
   },
   "seo_keywords": [
@@ -1040,8 +1505,19 @@
     "sunday roast"
   ],
   "areas_served": {
-    "primary": ["Stanwell Moor", "Stanwell", "Staines-upon-Thames"],
-    "secondary": ["Ashford", "Feltham", "Sunbury", "Egham", "Windsor", "Colnbrook"],
+    "primary": [
+      "Stanwell Moor",
+      "Stanwell",
+      "Staines-upon-Thames"
+    ],
+    "secondary": [
+      "Ashford",
+      "Feltham",
+      "Sunbury",
+      "Egham",
+      "Windsor",
+      "Colnbrook"
+    ],
     "note": "Area landing pages exist for all secondary areas (/ashford-pub, /feltham-pub, etc.) but have been deprioritised and are NOT in the sitemap. Owner has confirmed some should be reviewed."
   },
   "community_context": {
@@ -1054,18 +1530,66 @@
       "Polash Tandoori (takeaway)"
     ],
     "nearby_nature": [
-      { "name": "Staines Moor Nature Reserve", "distance": "5-minute walk", "description": "Ancient SSSI grassland, never ploughed in 1,000+ years, with over 200 bird species." },
-      { "name": "River Colne Footpath", "distance": "5-minute walk (village edge)", "description": "Bankside path south through open wetland countryside towards Staines Moor." },
-      { "name": "King George VI Reservoir Path", "distance": "15-minute walk", "description": "Fenced embankment causeway between two vast reservoirs; outstanding winter wildfowl." },
-      { "name": "Staines Reservoir Causeway Path", "distance": "20-minute walk", "description": "High-level path across twin Staines Reservoirs (built 1902); superb birdwatching." },
-      { "name": "Lammas Recreation Ground & Church Lammas Lakes", "distance": "25-min walk or 5-min drive", "description": "Restored gravel-pit lakes in Staines with wheelchair-accessible paths, cafe, and toilets." },
-      { "name": "Colne Valley Trail / Colne Valley Way", "distance": "Starts adjacent to village", "description": "Long-distance greenway from Thames at Staines to Rickmansworth; passes through Stanwell Moor." },
-      { "name": "Stanwell Village Walk (Surrey County Council)", "distance": "5-minute drive", "description": "Official easy walk with 1.4-mile and 2.7-mile options; longer route reaches Staines Reservoir." },
-      { "name": "Stanwell and Staines Moor Circular", "distance": "Starts from village (6.1-mile loop)", "description": "Signposted moderate circular walk (~2.5 hrs) past reservoirs, Staines Moor, and River Colne." },
-      { "name": "Bedfont Lakes Country Park", "distance": "10-minute drive (~3 miles east)", "description": "73-hectare Local Nature Reserve with four lakes, wildflower meadows, woodland trails, and dog exercise area." },
-      { "name": "Wraysbury Reservoir & Lakes", "distance": "10-minute drive or 2-mile footpath", "description": "Internationally important SSSI wetland; superb wildfowl including smew, goldeneye, and kingfisher." },
-      { "name": "Wraysbury and Hythe End Gravel Pits", "distance": "10-minute drive (~4 miles SW)", "description": "117-hectare SSSI of former gravel workings with open water, fen, wet woodland, and scrub." },
-      { "name": "Runnymede & Ankerwycke (National Trust)", "distance": "10-minute drive (~5 miles SW)", "description": "Historic Thames-side meadows where Magna Carta was sealed; ancient Ankerwycke Yew; free access." }
+      {
+        "name": "Staines Moor Nature Reserve",
+        "distance": "5-minute walk",
+        "description": "Ancient SSSI grassland, never ploughed in 1,000+ years, with over 200 bird species."
+      },
+      {
+        "name": "River Colne Footpath",
+        "distance": "5-minute walk (village edge)",
+        "description": "Bankside path south through open wetland countryside towards Staines Moor."
+      },
+      {
+        "name": "King George VI Reservoir Path",
+        "distance": "15-minute walk",
+        "description": "Fenced embankment causeway between two vast reservoirs; outstanding winter wildfowl."
+      },
+      {
+        "name": "Staines Reservoir Causeway Path",
+        "distance": "20-minute walk",
+        "description": "High-level path across twin Staines Reservoirs (built 1902); superb birdwatching."
+      },
+      {
+        "name": "Lammas Recreation Ground & Church Lammas Lakes",
+        "distance": "25-min walk or 5-min drive",
+        "description": "Restored gravel-pit lakes in Staines with wheelchair-accessible paths, cafe, and toilets."
+      },
+      {
+        "name": "Colne Valley Trail / Colne Valley Way",
+        "distance": "Starts adjacent to village",
+        "description": "Long-distance greenway from Thames at Staines to Rickmansworth; passes through Stanwell Moor."
+      },
+      {
+        "name": "Stanwell Village Walk (Surrey County Council)",
+        "distance": "5-minute drive",
+        "description": "Official easy walk with 1.4-mile and 2.7-mile options; longer route reaches Staines Reservoir."
+      },
+      {
+        "name": "Stanwell and Staines Moor Circular",
+        "distance": "Starts from village (6.1-mile loop)",
+        "description": "Signposted moderate circular walk (~2.5 hrs) past reservoirs, Staines Moor, and River Colne."
+      },
+      {
+        "name": "Bedfont Lakes Country Park",
+        "distance": "10-minute drive (~3 miles east)",
+        "description": "73-hectare Local Nature Reserve with four lakes, wildflower meadows, woodland trails, and dog exercise area."
+      },
+      {
+        "name": "Wraysbury Reservoir & Lakes",
+        "distance": "10-minute drive or 2-mile footpath",
+        "description": "Internationally important SSSI wetland; superb wildfowl including smew, goldeneye, and kingfisher."
+      },
+      {
+        "name": "Wraysbury and Hythe End Gravel Pits",
+        "distance": "10-minute drive (~4 miles SW)",
+        "description": "117-hectare SSSI of former gravel workings with open water, fen, wet woodland, and scrub."
+      },
+      {
+        "name": "Runnymede & Ankerwycke (National Trust)",
+        "distance": "10-minute drive (~5 miles SW)",
+        "description": "Historic Thames-side meadows where Magna Carta was sealed; ancient Ankerwycke Yew; free access."
+      }
     ],
     "dining_room_history": "Original conservatory built in 1995 for George and Alex Best's wedding reception. Replaced with new dining room extension, renovation started April 2024, ready for Euro 2024 (14 June). Features French doors to garden.",
     "greene_king_partnership": "Renovation funding supported by Greene King. Stanwell Moor Brew developed in partnership."
@@ -1156,5 +1680,6 @@
       "resolution": "DISCONTINUED. Remove all references from pages, schemas, and blog posts.",
       "resolved_date": "2026-03-22"
     }
-  ]
+  ],
+  "_pricing_policy": "All food & drink prices are LIVE from the management database (menu API). Never hardcode or quote prices from this file; item names/structure are canonical, prices are not."
 }
