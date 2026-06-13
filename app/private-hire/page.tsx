@@ -100,18 +100,20 @@ export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages)
     const buffetPhrase = fromPrice ? `Buffets from ${fromPrice}pp` : 'Current buffet packages'
-    const desc = `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, free parking, and a dedicated events team.`
+    const desc = `Function room hire near Heathrow and Staines with no room-hire fee and free parking. Wakes, parties, meetings and family events for ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, and a dedicated events team.`
+
+    const title = 'Function Room Hire Near Heathrow & Staines | The Anchor'
 
     return {
-        title: 'Private Hire Pub Near Heathrow & Staines | Event Venue',
+        title,
         description: `${desc} The Anchor, Stanwell Moor.`,
         openGraph: {
-            title: 'Private Hire Pub Near Heathrow & Staines | The Anchor',
+            title,
             description: desc,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
-            title: 'Private Hire Pub Near Heathrow & Staines | The Anchor',
+            title,
             description: desc,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
@@ -189,8 +191,8 @@ export default async function PrivateHirePage() {
                 image="/images/page-headers/private-hire/private-hire.jpg"
                 crumb="Private Hire"
                 kicker="Private hire"
-                title="Host your event at The Anchor"
-                lead="Room bookings for 10 to 50 guests in Stanwell Moor, near Staines and Heathrow. Free parking, custom catering, and a team that plans it with you."
+                title="Function Room Hire Near Heathrow & Staines"
+                lead="Room bookings for 10 to 50 guests in Stanwell Moor, near Staines and Heathrow. No room-hire fee, free parking, custom catering, and a team that plans it with you."
                 badges={
                     <>
                         <Badge variant="sand">10 to 50 guests</Badge>

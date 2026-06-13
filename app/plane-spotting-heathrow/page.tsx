@@ -7,6 +7,7 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -320,6 +321,15 @@ export default async function PlaneSpottingHeathrowPage() {
         currentPath="/plane-spotting-heathrow"
         title="Plan the full spotting day"
         intro="Compare locations, check our beer garden details and choose food before you visit."
+      />
+
+      <InternalLinkingSection
+        title="Eat, drink and celebrate near Heathrow"
+        links={[
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
+          { href: '/private-hire', title: 'Function Room Hire', description: 'Room bookings for 10 to 50 guests, no room-hire fee, free parking' },
+        ]}
       />
 
       <CtaBand

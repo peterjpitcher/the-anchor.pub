@@ -7,7 +7,7 @@ const root = process.cwd()
 
 const targetPages = [
   'app/food-menu/page.tsx',
-  'app/sunday-lunch/page.tsx',
+  'app/sunday-roast/page.tsx',
   'app/pizza-menu/page.tsx',
   'app/fish-and-chips-heathrow/page.tsx',
   'app/food-menu/vegetarian/page.tsx',

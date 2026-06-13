@@ -18,15 +18,15 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
-  title: 'Restaurants Near Heathrow Airport | The Anchor, Stanwell Moor',
-  description: 'Looking for restaurants near Heathrow Airport? The Anchor serves pub food with current menu prices, 7 mins from T5 with free parking. Book a table or walk in.',
+  title: 'Restaurants Near Heathrow Airport | The Anchor, 7 Mins T5',
+  description: 'Heathrow restaurants compared: The Anchor serves proper British pub food 7 minutes from Terminal 5, with free parking and honest prices. Book a table or walk in.',
   openGraph: {
-    title: 'Best Restaurants Near Heathrow Airport | The Anchor',
+    title: 'Restaurants Near Heathrow Airport | The Anchor',
     description: 'Proper pub food 7 minutes from Heathrow Terminal 5. Free parking, honest prices, and a calmer meal than anything inside the airport.',
-    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor restaurant near Heathrow Airport — pub food with free parking' }],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor restaurant near Heathrow Airport with pub food and free parking' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Best Restaurants Near Heathrow Airport | The Anchor',
+    title: 'Restaurants Near Heathrow Airport | The Anchor',
     description: 'Proper pub food 7 minutes from Heathrow Terminal 5. Free parking, honest prices, and a calmer meal than anything inside the airport.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -136,7 +136,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="py-section-y bg-canvas">
         <Container>
           <h2 className="text-center font-display text-h2 text-ink-strong">
-            Restaurants Near Heathrow Airport &mdash; The Best Place to Eat Before You Fly
+            Heathrow Restaurants: A Better Place to Eat Near the Airport
           </h2>
         </Container>
       </section>

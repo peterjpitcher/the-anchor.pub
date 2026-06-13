@@ -27,16 +27,18 @@ export function generateMetadata(): Metadata {
     ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
+  const title = 'Pub Near Heathrow Airport | The Anchor, 7 Mins from T5'
+
   return {
-    title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
-    description: `Traditional pub near Heathrow with food, free customer parking, WiFi, dog-friendly beer garden, ${sundayPhrase}, events and table booking.`,
+    title,
+    description: `The Anchor is a traditional pub near Heathrow Airport, 7 minutes from Terminal 5 with free parking, freshly made food, a dog-friendly beer garden, ${sundayPhrase} and table booking.`,
     openGraph: {
-      title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
+      title,
       description: 'The closest traditional pub to Heathrow Terminal 5, with pub food, WiFi, free customer parking, events and a dog-friendly beer garden.',
       images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
-      title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
+      title,
       description: `The closest traditional pub to Heathrow Terminal 5, with pub food, WiFi, free customer parking, events and ${sundayPhrase}.`,
       images: [DEFAULT_NEAR_HEATHROW_IMAGE]
     }),
@@ -68,8 +70,8 @@ export default function NearHeathrowPage() {
         image="/images/page-headers/near-heathrow/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         kicker="Stanwell Moor Village"
-        title="Pubs Near Heathrow Airport, The Anchor"
-        lead="The closest proper pub to Heathrow, just 7 minutes from Terminal 5 with free parking, freshly made food and a beer garden under the flight path."
+        title="The Anchor: Your Pub Near Heathrow Airport"
+        lead="The closest Heathrow pub to Terminal 5, just 7 minutes away with free parking, freshly made food and a beer garden under the flight path."
         badges={
           <>
             <Badge variant="sand">7 mins from T5</Badge>
@@ -233,6 +235,9 @@ export default function NearHeathrowPage() {
       <InternalLinkingSection
         title="More for Heathrow visitors"
         links={[
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
+          { href: '/private-hire', title: 'Function Room Hire', description: 'Room bookings for 10 to 50 guests, no room-hire fee, free parking' },
           { href: '/blog/tag/heathrow', title: 'Heathrow Guides', description: 'Our guides for visitors and workers near Heathrow' },
           { href: '/heathrow-parking', title: 'Heathrow Parking', description: 'Parking options near Heathrow' },
           { href: '/find-us', title: 'Find Us', description: 'Directions and free parking' },

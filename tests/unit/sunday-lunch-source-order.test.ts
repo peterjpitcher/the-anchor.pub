@@ -15,8 +15,8 @@ import path from 'path'
  * stable regression: rendering the full page would require mocking HeroWrapper
  * and many deps, and a snapshot would obscure the actual invariant.
  */
-describe('/sunday-lunch source order', () => {
-  const pagePath = path.resolve(__dirname, '../../app/sunday-lunch/page.tsx')
+describe('/sunday-roast source order', () => {
+  const pagePath = path.resolve(__dirname, '../../app/sunday-roast/page.tsx')
   const menuDataPath = path.resolve(__dirname, '../../lib/menu-page-data.ts')
   const source = fs.readFileSync(pagePath, 'utf8')
   const menuDataSource = fs.readFileSync(menuDataPath, 'utf8')

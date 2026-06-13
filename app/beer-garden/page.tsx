@@ -12,6 +12,7 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -370,6 +371,15 @@ export default async function BeerGardenPage() {
         currentPath="/beer-garden"
         title="Plan your garden visit"
         intro="Compare plane spotting, food and dog-friendly options before you book a table."
+      />
+
+      <InternalLinkingSection
+        title="Eat, drink and celebrate near Heathrow"
+        links={[
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
+          { href: '/private-hire', title: 'Function Room Hire', description: 'Room bookings for 10 to 50 guests, no room-hire fee, free parking' },
+        ]}
       />
 
       {/* CTA Section */}
