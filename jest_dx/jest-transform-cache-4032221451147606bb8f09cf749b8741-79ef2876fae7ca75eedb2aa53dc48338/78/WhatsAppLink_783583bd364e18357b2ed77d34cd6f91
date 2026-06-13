@@ -1,0 +1,51 @@
+97475e51660b3794d66e3c0093aa6137
+"use client";
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "WhatsAppLink", {
+    enumerable: true,
+    get: function() {
+        return WhatsAppLink;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _gtmevents = require("../lib/gtm-events");
+const _utils = require("../lib/utils");
+function WhatsAppLink({ phone, source, message, children, className, showIcon = true, iconPosition = "left", onClick, role }) {
+    // Clean the phone number - remove spaces and add country code if needed
+    const cleanPhone = phone.replace(/\s/g, "").replace(/^0/, "44");
+    // Build WhatsApp URL
+    const whatsappUrl = message ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}` : `https://wa.me/${cleanPhone}`;
+    const handleClick = ()=>{
+        // Track the click event
+        (0, _gtmevents.trackWhatsAppClick)(source);
+        // Call any additional onClick handler
+        if (onClick) {
+            onClick();
+        }
+    };
+    const icon = showIcon ? "" : null;
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("a", {
+        href: whatsappUrl,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: (0, _utils.cn)("inline-flex items-center gap-2", className),
+        onClick: handleClick,
+        role: role,
+        children: [
+            icon && iconPosition === "left" && /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                "aria-hidden": "true",
+                children: icon
+            }),
+            children,
+            icon && iconPosition === "right" && /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                "aria-hidden": "true",
+                children: icon
+            })
+        ]
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2NvbXBvbmVudHMvV2hhdHNBcHBMaW5rLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIGNsaWVudCdcblxuaW1wb3J0IHsgdHJhY2tXaGF0c0FwcENsaWNrIH0gZnJvbSAnQC9saWIvZ3RtLWV2ZW50cydcbmltcG9ydCB7IGNuIH0gZnJvbSAnQC9saWIvdXRpbHMnXG5cbmludGVyZmFjZSBXaGF0c0FwcExpbmtQcm9wcyB7XG4gIHBob25lOiBzdHJpbmdcbiAgc291cmNlOiBzdHJpbmdcbiAgbWVzc2FnZT86IHN0cmluZ1xuICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlXG4gIGNsYXNzTmFtZT86IHN0cmluZ1xuICBzaG93SWNvbj86IGJvb2xlYW5cbiAgaWNvblBvc2l0aW9uPzogJ2xlZnQnIHwgJ3JpZ2h0J1xuICBvbkNsaWNrPzogKCkgPT4gdm9pZFxuICByb2xlPzogc3RyaW5nXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBXaGF0c0FwcExpbmsoe1xuICBwaG9uZSxcbiAgc291cmNlLFxuICBtZXNzYWdlLFxuICBjaGlsZHJlbixcbiAgY2xhc3NOYW1lLFxuICBzaG93SWNvbiA9IHRydWUsXG4gIGljb25Qb3NpdGlvbiA9ICdsZWZ0JyxcbiAgb25DbGljayxcbiAgcm9sZVxufTogV2hhdHNBcHBMaW5rUHJvcHMpIHtcbiAgLy8gQ2xlYW4gdGhlIHBob25lIG51bWJlciAtIHJlbW92ZSBzcGFjZXMgYW5kIGFkZCBjb3VudHJ5IGNvZGUgaWYgbmVlZGVkXG4gIGNvbnN0IGNsZWFuUGhvbmUgPSBwaG9uZS5yZXBsYWNlKC9cXHMvZywgJycpLnJlcGxhY2UoL14wLywgJzQ0JylcbiAgXG4gIC8vIEJ1aWxkIFdoYXRzQXBwIFVSTFxuICBjb25zdCB3aGF0c2FwcFVybCA9IG1lc3NhZ2UgXG4gICAgPyBgaHR0cHM6Ly93YS5tZS8ke2NsZWFuUGhvbmV9P3RleHQ9JHtlbmNvZGVVUklDb21wb25lbnQobWVzc2FnZSl9YFxuICAgIDogYGh0dHBzOi8vd2EubWUvJHtjbGVhblBob25lfWBcblxuICBjb25zdCBoYW5kbGVDbGljayA9ICgpID0+IHtcbiAgICAvLyBUcmFjayB0aGUgY2xpY2sgZXZlbnRcbiAgICB0cmFja1doYXRzQXBwQ2xpY2soc291cmNlKVxuICAgIFxuICAgIC8vIENhbGwgYW55IGFkZGl0aW9uYWwgb25DbGljayBoYW5kbGVyXG4gICAgaWYgKG9uQ2xpY2spIHtcbiAgICAgIG9uQ2xpY2soKVxuICAgIH1cbiAgfVxuXG4gIGNvbnN0IGljb24gPSBzaG93SWNvbiA/ICcnIDogbnVsbFxuXG4gIHJldHVybiAoXG4gICAgPGFcbiAgICAgIGhyZWY9e3doYXRzYXBwVXJsfVxuICAgICAgdGFyZ2V0PVwiX2JsYW5rXCJcbiAgICAgIHJlbD1cIm5vb3BlbmVyIG5vcmVmZXJyZXJcIlxuICAgICAgY2xhc3NOYW1lPXtjbignaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0yJywgY2xhc3NOYW1lKX1cbiAgICAgIG9uQ2xpY2s9e2hhbmRsZUNsaWNrfVxuICAgICAgcm9sZT17cm9sZX1cbiAgICA+XG4gICAgICB7aWNvbiAmJiBpY29uUG9zaXRpb24gPT09ICdsZWZ0JyAmJiA8c3BhbiBhcmlhLWhpZGRlbj1cInRydWVcIj57aWNvbn08L3NwYW4+fVxuICAgICAge2NoaWxkcmVufVxuICAgICAge2ljb24gJiYgaWNvblBvc2l0aW9uID09PSAncmlnaHQnICYmIDxzcGFuIGFyaWEtaGlkZGVuPVwidHJ1ZVwiPntpY29ufTwvc3Bhbj59XG4gICAgPC9hPlxuICApXG59XG4iXSwibmFtZXMiOlsiV2hhdHNBcHBMaW5rIiwicGhvbmUiLCJzb3VyY2UiLCJtZXNzYWdlIiwiY2hpbGRyZW4iLCJjbGFzc05hbWUiLCJzaG93SWNvbiIsImljb25Qb3NpdGlvbiIsIm9uQ2xpY2siLCJyb2xlIiwiY2xlYW5QaG9uZSIsInJlcGxhY2UiLCJ3aGF0c2FwcFVybCIsImVuY29kZVVSSUNvbXBvbmVudCIsImhhbmRsZUNsaWNrIiwidHJhY2tXaGF0c0FwcENsaWNrIiwiaWNvbiIsImEiLCJocmVmIiwidGFyZ2V0IiwicmVsIiwiY24iLCJzcGFuIiwiYXJpYS1oaWRkZW4iXSwibWFwcGluZ3MiOiJBQUFBOzs7OzsrQkFpQmdCQTs7O2VBQUFBOzs7OzJCQWZtQjt1QkFDaEI7QUFjWixTQUFTQSxhQUFhLEVBQzNCQyxLQUFLLEVBQ0xDLE1BQU0sRUFDTkMsT0FBTyxFQUNQQyxRQUFRLEVBQ1JDLFNBQVMsRUFDVEMsV0FBVyxJQUFJLEVBQ2ZDLGVBQWUsTUFBTSxFQUNyQkMsT0FBTyxFQUNQQyxJQUFJLEVBQ2M7SUFDbEIsd0VBQXdFO0lBQ3hFLE1BQU1DLGFBQWFULE1BQU1VLE9BQU8sQ0FBQyxPQUFPLElBQUlBLE9BQU8sQ0FBQyxNQUFNO0lBRTFELHFCQUFxQjtJQUNyQixNQUFNQyxjQUFjVCxVQUNoQixDQUFDLGNBQWMsRUFBRU8sV0FBVyxNQUFNLEVBQUVHLG1CQUFtQlYsU0FBUyxDQUFDLEdBQ2pFLENBQUMsY0FBYyxFQUFFTyxXQUFXLENBQUM7SUFFakMsTUFBTUksY0FBYztRQUNsQix3QkFBd0I7UUFDeEJDLElBQUFBLDZCQUFrQixFQUFDYjtRQUVuQixzQ0FBc0M7UUFDdEMsSUFBSU0sU0FBUztZQUNYQTtRQUNGO0lBQ0Y7SUFFQSxNQUFNUSxPQUFPVixXQUFXLEtBQUs7SUFFN0IscUJBQ0Usc0JBQUNXO1FBQ0NDLE1BQU1OO1FBQ05PLFFBQU87UUFDUEMsS0FBSTtRQUNKZixXQUFXZ0IsSUFBQUEsU0FBRSxFQUFDLGtDQUFrQ2hCO1FBQ2hERyxTQUFTTTtRQUNUTCxNQUFNQTs7WUFFTE8sUUFBUVQsaUJBQWlCLHdCQUFVLHFCQUFDZTtnQkFBS0MsZUFBWTswQkFBUVA7O1lBQzdEWjtZQUNBWSxRQUFRVCxpQkFBaUIseUJBQVcscUJBQUNlO2dCQUFLQyxlQUFZOzBCQUFRUDs7OztBQUdyRSJ9

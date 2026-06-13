@@ -1,0 +1,177 @@
+462c211eaa4dcabebf66eb60408aadc1
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    getLandmarkBySlug: function() {
+        return getLandmarkBySlug;
+    },
+    getLandmarksByType: function() {
+        return getLandmarksByType;
+    },
+    landmarks: function() {
+        return landmarks;
+    }
+});
+const landmarks = [
+    // Crematoriums & Cemeteries
+    {
+        slug: "south-west-middlesex-crematorium",
+        name: "South West Middlesex Crematorium",
+        type: "crematorium",
+        address: "Hounslow Road, Feltham TW13 5JH",
+        distance: "10 mins drive",
+        description: "Located just a short drive away, The Anchor provides a peaceful and respectful setting for post-service gatherings. We are easily accessible via the A30 and perimeter roads."
+    },
+    {
+        slug: "staines-cemetery",
+        name: "Staines Cemetery",
+        type: "crematorium",
+        address: "London Road, Staines-upon-Thames TW18 4AJ",
+        distance: "8 mins drive",
+        description: "A convenient and quiet location for families gathering after services at Staines Cemetery. Our private rooms offer a secluded space for reflection."
+    },
+    {
+        slug: "slough-crematorium",
+        name: "Slough Cemetery and Crematorium",
+        type: "crematorium",
+        address: "Stoke Road, Slough SL2 5AX",
+        distance: "15 mins drive",
+        description: "We welcome families from Slough Crematorium looking for a quality venue with ample free parking and flexible catering options."
+    },
+    // Churches
+    {
+        slug: "st-mary-the-virgin-stanwell",
+        name: "St Mary the Virgin, Stanwell",
+        type: "church",
+        address: "Church Road, Stanwell TW19 7HF",
+        distance: "4 mins drive",
+        description: "We are the perfect neighbour for St Mary's, located just minutes away in Stanwell Moor. Ideal for christening receptions and post-service meals."
+    },
+    {
+        slug: "our-lady-of-the-rosary-staines",
+        name: "Our Lady of the Rosary RC Church",
+        type: "church",
+        address: "59 Gresham Road, Staines TW18 2BD",
+        distance: "8 mins drive",
+        description: "After your ceremony at Our Lady of the Rosary, gather your friends and family at The Anchor for a celebratory meal or buffet."
+    },
+    {
+        slug: "st-johns-church-egham",
+        name: "St John's Church, Egham",
+        type: "church",
+        address: "Manor Farm Lane, Egham TW20 9HL",
+        distance: "10 mins drive",
+        description: "A short drive from Egham, offering a relaxed and welcoming atmosphere for church events and family celebrations."
+    },
+    // Registry Offices & Wedding Venues
+    {
+        slug: "staines-registration-office",
+        name: "Staines Registration Office",
+        type: "registry_office",
+        address: "The Library, Friends Walk, Staines TW18 4PG",
+        distance: "9 mins drive",
+        description: "Avoid the town centre parking hassle. Come to The Anchor after your registry office ceremony for a relaxed wedding lunch or dinner with free parking for all guests."
+    },
+    {
+        slug: "great-fosters-egham",
+        name: "Great Fosters",
+        type: "registry_office",
+        address: "Stroude Road, Egham TW20 9UR",
+        distance: "12 mins drive",
+        description: "Planning a wedding at Great Fosters? We are the ideal location for your rehearsal dinner, pre-wedding family meal, or day-after brunch."
+    },
+    // Hospitals
+    {
+        slug: "ashford-hospital",
+        name: "Ashford Hospital",
+        type: "hospital",
+        address: "London Road, Ashford TW15 3AA",
+        distance: "8 mins drive",
+        description: "Conveniently located for medical teams and hospital staff looking for a venue for leaving dos, baby showers, or team lunches."
+    },
+    // Business Parks
+    {
+        slug: "bedfont-lakes",
+        name: "Bedfont Lakes Business Park",
+        type: "business_park",
+        address: "Bedfont Lakes, Feltham TW14 8HA",
+        distance: "8 mins drive",
+        description: "Escape the office park canteen. We offer a professional yet relaxed environment for team meetings, client lunches, and corporate dinners."
+    },
+    {
+        slug: "stockley-park",
+        name: "Stockley Park",
+        type: "business_park",
+        address: "Uxbridge UB11 1AQ",
+        distance: "12 mins drive",
+        description: "Accessible via the M25 and local roads, we provide a great off-site location for Stockley Park businesses."
+    },
+    // Additional Crematoriums
+    {
+        slug: "kempton-park-crematorium",
+        name: "Kempton Park Crematorium",
+        type: "crematorium",
+        address: "Feltham Road, Hanworth TW13 4LY",
+        distance: "12 mins drive",
+        description: "The Anchor offers a private, peaceful setting for families gathering after services at Kempton Park Crematorium, a straightforward 12-minute drive via the A316."
+    },
+    // Additional Registry Offices
+    {
+        slug: "windsor-register-office",
+        name: "Windsor Register Office",
+        type: "registry_office",
+        address: "King Edward Court, Windsor SL4 1DT",
+        distance: "20 mins drive",
+        description: "After your ceremony at Windsor Register Office, The Anchor provides a relaxed venue for a celebratory meal or drinks reception, with free parking for all guests."
+    },
+    {
+        slug: "spelthorne-registration-office",
+        name: "Spelthorne Registration Office",
+        type: "registry_office",
+        address: "Knowle Green, Staines TW18 1XB",
+        distance: "9 mins drive",
+        description: "Just 9 minutes from Spelthorne Registration Office, The Anchor is perfectly placed for wedding breakfasts, naming ceremonies, and post-registration celebrations."
+    },
+    // Airports
+    {
+        slug: "heathrow-airport",
+        name: "Heathrow Airport",
+        type: "other",
+        address: "Heathrow Airport TW6",
+        distance: "7 mins drive",
+        description: "The Anchor is 7 minutes from Heathrow Terminal 5, ideal for airport staff events, farewell dinners, and gatherings for those travelling or arriving at Heathrow."
+    },
+    // Sports Venues
+    {
+        slug: "staines-rugby-club",
+        name: "Staines Rugby Football Club",
+        type: "sports_venue",
+        address: "Snakey Lane, Feltham TW13 7NB",
+        distance: "10 mins drive",
+        description: "The perfect spot for end-of-season dinners, committee meetings, or team socials near Staines RFC."
+    },
+    {
+        slug: "ashford-town-fc",
+        name: "Ashford Town (Middx) FC",
+        type: "sports_venue",
+        address: "Short Lane, Stanwell TW19 7BH",
+        distance: "6 mins drive",
+        description: "Just down the road from the club, we host team presentations, supporter meet-ups, and committee dinners."
+    }
+];
+function getLandmarkBySlug(slug) {
+    return landmarks.find((l)=>l.slug === slug);
+}
+function getLandmarksByType(type) {
+    return landmarks.filter((l)=>l.type === type);
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9sb2NhbC1zZW8tZGF0YS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgdHlwZSBMYW5kbWFya1R5cGUgPSAnY3JlbWF0b3JpdW0nIHwgJ2NodXJjaCcgfCAncmVnaXN0cnlfb2ZmaWNlJyB8ICdob3NwaXRhbCcgfCAnYnVzaW5lc3NfcGFyaycgfCAnc3BvcnRzX3ZlbnVlJyB8ICdvdGhlcic7XG5cbmV4cG9ydCBpbnRlcmZhY2UgTGFuZG1hcmsge1xuICAgIHNsdWc6IHN0cmluZztcbiAgICBuYW1lOiBzdHJpbmc7XG4gICAgdHlwZTogTGFuZG1hcmtUeXBlO1xuICAgIGFkZHJlc3M6IHN0cmluZztcbiAgICBkaXN0YW5jZTogc3RyaW5nOyAvLyBlLmcuLCBcIjcgbWlucyBkcml2ZVwiXG4gICAgZ29vZ2xlTWFwc1VybD86IHN0cmluZzsgLy8gT3B0aW9uYWwgZGlyZWN0IGxpbmtcbiAgICBkZXNjcmlwdGlvbjogc3RyaW5nOyAvLyBTcGVjaWZpYyBjb3B5IGFib3V0IHRoZSBjb25uZWN0aW9uIChlLmcuLCBcIkVhc2lseSBhY2Nlc3NpYmxlIHZpYSBBMzBcIilcbn1cblxuZXhwb3J0IGNvbnN0IGxhbmRtYXJrczogTGFuZG1hcmtbXSA9IFtcbiAgICAvLyBDcmVtYXRvcml1bXMgJiBDZW1ldGVyaWVzXG4gICAge1xuICAgICAgICBzbHVnOiAnc291dGgtd2VzdC1taWRkbGVzZXgtY3JlbWF0b3JpdW0nLFxuICAgICAgICBuYW1lOiAnU291dGggV2VzdCBNaWRkbGVzZXggQ3JlbWF0b3JpdW0nLFxuICAgICAgICB0eXBlOiAnY3JlbWF0b3JpdW0nLFxuICAgICAgICBhZGRyZXNzOiAnSG91bnNsb3cgUm9hZCwgRmVsdGhhbSBUVzEzIDVKSCcsXG4gICAgICAgIGRpc3RhbmNlOiAnMTAgbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnTG9jYXRlZCBqdXN0IGEgc2hvcnQgZHJpdmUgYXdheSwgVGhlIEFuY2hvciBwcm92aWRlcyBhIHBlYWNlZnVsIGFuZCByZXNwZWN0ZnVsIHNldHRpbmcgZm9yIHBvc3Qtc2VydmljZSBnYXRoZXJpbmdzLiBXZSBhcmUgZWFzaWx5IGFjY2Vzc2libGUgdmlhIHRoZSBBMzAgYW5kIHBlcmltZXRlciByb2Fkcy4nXG4gICAgfSxcbiAgICB7XG4gICAgICAgIHNsdWc6ICdzdGFpbmVzLWNlbWV0ZXJ5JyxcbiAgICAgICAgbmFtZTogJ1N0YWluZXMgQ2VtZXRlcnknLFxuICAgICAgICB0eXBlOiAnY3JlbWF0b3JpdW0nLFxuICAgICAgICBhZGRyZXNzOiAnTG9uZG9uIFJvYWQsIFN0YWluZXMtdXBvbi1UaGFtZXMgVFcxOCA0QUonLFxuICAgICAgICBkaXN0YW5jZTogJzggbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnQSBjb252ZW5pZW50IGFuZCBxdWlldCBsb2NhdGlvbiBmb3IgZmFtaWxpZXMgZ2F0aGVyaW5nIGFmdGVyIHNlcnZpY2VzIGF0IFN0YWluZXMgQ2VtZXRlcnkuIE91ciBwcml2YXRlIHJvb21zIG9mZmVyIGEgc2VjbHVkZWQgc3BhY2UgZm9yIHJlZmxlY3Rpb24uJ1xuICAgIH0sXG4gICAge1xuICAgICAgICBzbHVnOiAnc2xvdWdoLWNyZW1hdG9yaXVtJyxcbiAgICAgICAgbmFtZTogJ1Nsb3VnaCBDZW1ldGVyeSBhbmQgQ3JlbWF0b3JpdW0nLFxuICAgICAgICB0eXBlOiAnY3JlbWF0b3JpdW0nLFxuICAgICAgICBhZGRyZXNzOiAnU3Rva2UgUm9hZCwgU2xvdWdoIFNMMiA1QVgnLFxuICAgICAgICBkaXN0YW5jZTogJzE1IG1pbnMgZHJpdmUnLFxuICAgICAgICBkZXNjcmlwdGlvbjogJ1dlIHdlbGNvbWUgZmFtaWxpZXMgZnJvbSBTbG91Z2ggQ3JlbWF0b3JpdW0gbG9va2luZyBmb3IgYSBxdWFsaXR5IHZlbnVlIHdpdGggYW1wbGUgZnJlZSBwYXJraW5nIGFuZCBmbGV4aWJsZSBjYXRlcmluZyBvcHRpb25zLidcbiAgICB9LFxuXG4gICAgLy8gQ2h1cmNoZXNcbiAgICB7XG4gICAgICAgIHNsdWc6ICdzdC1tYXJ5LXRoZS12aXJnaW4tc3RhbndlbGwnLFxuICAgICAgICBuYW1lOiAnU3QgTWFyeSB0aGUgVmlyZ2luLCBTdGFud2VsbCcsXG4gICAgICAgIHR5cGU6ICdjaHVyY2gnLFxuICAgICAgICBhZGRyZXNzOiAnQ2h1cmNoIFJvYWQsIFN0YW53ZWxsIFRXMTkgN0hGJyxcbiAgICAgICAgZGlzdGFuY2U6ICc0IG1pbnMgZHJpdmUnLFxuICAgICAgICBkZXNjcmlwdGlvbjogJ1dlIGFyZSB0aGUgcGVyZmVjdCBuZWlnaGJvdXIgZm9yIFN0IE1hcnlcXCdzLCBsb2NhdGVkIGp1c3QgbWludXRlcyBhd2F5IGluIFN0YW53ZWxsIE1vb3IuIElkZWFsIGZvciBjaHJpc3RlbmluZyByZWNlcHRpb25zIGFuZCBwb3N0LXNlcnZpY2UgbWVhbHMuJ1xuICAgIH0sXG4gICAge1xuICAgICAgICBzbHVnOiAnb3VyLWxhZHktb2YtdGhlLXJvc2FyeS1zdGFpbmVzJyxcbiAgICAgICAgbmFtZTogJ091ciBMYWR5IG9mIHRoZSBSb3NhcnkgUkMgQ2h1cmNoJyxcbiAgICAgICAgdHlwZTogJ2NodXJjaCcsXG4gICAgICAgIGFkZHJlc3M6ICc1OSBHcmVzaGFtIFJvYWQsIFN0YWluZXMgVFcxOCAyQkQnLFxuICAgICAgICBkaXN0YW5jZTogJzggbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnQWZ0ZXIgeW91ciBjZXJlbW9ueSBhdCBPdXIgTGFkeSBvZiB0aGUgUm9zYXJ5LCBnYXRoZXIgeW91ciBmcmllbmRzIGFuZCBmYW1pbHkgYXQgVGhlIEFuY2hvciBmb3IgYSBjZWxlYnJhdG9yeSBtZWFsIG9yIGJ1ZmZldC4nXG4gICAgfSxcbiAgICB7XG4gICAgICAgIHNsdWc6ICdzdC1qb2hucy1jaHVyY2gtZWdoYW0nLFxuICAgICAgICBuYW1lOiAnU3QgSm9oblxcJ3MgQ2h1cmNoLCBFZ2hhbScsXG4gICAgICAgIHR5cGU6ICdjaHVyY2gnLFxuICAgICAgICBhZGRyZXNzOiAnTWFub3IgRmFybSBMYW5lLCBFZ2hhbSBUVzIwIDlITCcsXG4gICAgICAgIGRpc3RhbmNlOiAnMTAgbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnQSBzaG9ydCBkcml2ZSBmcm9tIEVnaGFtLCBvZmZlcmluZyBhIHJlbGF4ZWQgYW5kIHdlbGNvbWluZyBhdG1vc3BoZXJlIGZvciBjaHVyY2ggZXZlbnRzIGFuZCBmYW1pbHkgY2VsZWJyYXRpb25zLidcbiAgICB9LFxuXG4gICAgLy8gUmVnaXN0cnkgT2ZmaWNlcyAmIFdlZGRpbmcgVmVudWVzXG4gICAge1xuICAgICAgICBzbHVnOiAnc3RhaW5lcy1yZWdpc3RyYXRpb24tb2ZmaWNlJyxcbiAgICAgICAgbmFtZTogJ1N0YWluZXMgUmVnaXN0cmF0aW9uIE9mZmljZScsXG4gICAgICAgIHR5cGU6ICdyZWdpc3RyeV9vZmZpY2UnLFxuICAgICAgICBhZGRyZXNzOiAnVGhlIExpYnJhcnksIEZyaWVuZHMgV2FsaywgU3RhaW5lcyBUVzE4IDRQRycsXG4gICAgICAgIGRpc3RhbmNlOiAnOSBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdBdm9pZCB0aGUgdG93biBjZW50cmUgcGFya2luZyBoYXNzbGUuIENvbWUgdG8gVGhlIEFuY2hvciBhZnRlciB5b3VyIHJlZ2lzdHJ5IG9mZmljZSBjZXJlbW9ueSBmb3IgYSByZWxheGVkIHdlZGRpbmcgbHVuY2ggb3IgZGlubmVyIHdpdGggZnJlZSBwYXJraW5nIGZvciBhbGwgZ3Vlc3RzLidcbiAgICB9LFxuICAgIHtcbiAgICAgICAgc2x1ZzogJ2dyZWF0LWZvc3RlcnMtZWdoYW0nLFxuICAgICAgICBuYW1lOiAnR3JlYXQgRm9zdGVycycsXG4gICAgICAgIHR5cGU6ICdyZWdpc3RyeV9vZmZpY2UnLCAvLyBVc2luZyBnZW5lcmljIHR5cGUgZm9yIHdlZGRpbmcgdmVudWUgZWNvc3lzdGVtXG4gICAgICAgIGFkZHJlc3M6ICdTdHJvdWRlIFJvYWQsIEVnaGFtIFRXMjAgOVVSJyxcbiAgICAgICAgZGlzdGFuY2U6ICcxMiBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdQbGFubmluZyBhIHdlZGRpbmcgYXQgR3JlYXQgRm9zdGVycz8gV2UgYXJlIHRoZSBpZGVhbCBsb2NhdGlvbiBmb3IgeW91ciByZWhlYXJzYWwgZGlubmVyLCBwcmUtd2VkZGluZyBmYW1pbHkgbWVhbCwgb3IgZGF5LWFmdGVyIGJydW5jaC4nXG4gICAgfSxcblxuICAgIC8vIEhvc3BpdGFsc1xuICAgIHtcbiAgICAgICAgc2x1ZzogJ2FzaGZvcmQtaG9zcGl0YWwnLFxuICAgICAgICBuYW1lOiAnQXNoZm9yZCBIb3NwaXRhbCcsXG4gICAgICAgIHR5cGU6ICdob3NwaXRhbCcsXG4gICAgICAgIGFkZHJlc3M6ICdMb25kb24gUm9hZCwgQXNoZm9yZCBUVzE1IDNBQScsXG4gICAgICAgIGRpc3RhbmNlOiAnOCBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdDb252ZW5pZW50bHkgbG9jYXRlZCBmb3IgbWVkaWNhbCB0ZWFtcyBhbmQgaG9zcGl0YWwgc3RhZmYgbG9va2luZyBmb3IgYSB2ZW51ZSBmb3IgbGVhdmluZyBkb3MsIGJhYnkgc2hvd2Vycywgb3IgdGVhbSBsdW5jaGVzLidcbiAgICB9LFxuXG4gICAgLy8gQnVzaW5lc3MgUGFya3NcbiAgICB7XG4gICAgICAgIHNsdWc6ICdiZWRmb250LWxha2VzJyxcbiAgICAgICAgbmFtZTogJ0JlZGZvbnQgTGFrZXMgQnVzaW5lc3MgUGFyaycsXG4gICAgICAgIHR5cGU6ICdidXNpbmVzc19wYXJrJyxcbiAgICAgICAgYWRkcmVzczogJ0JlZGZvbnQgTGFrZXMsIEZlbHRoYW0gVFcxNCA4SEEnLFxuICAgICAgICBkaXN0YW5jZTogJzggbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnRXNjYXBlIHRoZSBvZmZpY2UgcGFyayBjYW50ZWVuLiBXZSBvZmZlciBhIHByb2Zlc3Npb25hbCB5ZXQgcmVsYXhlZCBlbnZpcm9ubWVudCBmb3IgdGVhbSBtZWV0aW5ncywgY2xpZW50IGx1bmNoZXMsIGFuZCBjb3Jwb3JhdGUgZGlubmVycy4nXG4gICAgfSxcbiAgICB7XG4gICAgICAgIHNsdWc6ICdzdG9ja2xleS1wYXJrJyxcbiAgICAgICAgbmFtZTogJ1N0b2NrbGV5IFBhcmsnLFxuICAgICAgICB0eXBlOiAnYnVzaW5lc3NfcGFyaycsXG4gICAgICAgIGFkZHJlc3M6ICdVeGJyaWRnZSBVQjExIDFBUScsXG4gICAgICAgIGRpc3RhbmNlOiAnMTIgbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnQWNjZXNzaWJsZSB2aWEgdGhlIE0yNSBhbmQgbG9jYWwgcm9hZHMsIHdlIHByb3ZpZGUgYSBncmVhdCBvZmYtc2l0ZSBsb2NhdGlvbiBmb3IgU3RvY2tsZXkgUGFyayBidXNpbmVzc2VzLidcbiAgICB9LFxuXG4gICAgLy8gQWRkaXRpb25hbCBDcmVtYXRvcml1bXNcbiAgICB7XG4gICAgICAgIHNsdWc6ICdrZW1wdG9uLXBhcmstY3JlbWF0b3JpdW0nLFxuICAgICAgICBuYW1lOiAnS2VtcHRvbiBQYXJrIENyZW1hdG9yaXVtJyxcbiAgICAgICAgdHlwZTogJ2NyZW1hdG9yaXVtJyxcbiAgICAgICAgYWRkcmVzczogJ0ZlbHRoYW0gUm9hZCwgSGFud29ydGggVFcxMyA0TFknLFxuICAgICAgICBkaXN0YW5jZTogJzEyIG1pbnMgZHJpdmUnLFxuICAgICAgICBkZXNjcmlwdGlvbjogJ1RoZSBBbmNob3Igb2ZmZXJzIGEgcHJpdmF0ZSwgcGVhY2VmdWwgc2V0dGluZyBmb3IgZmFtaWxpZXMgZ2F0aGVyaW5nIGFmdGVyIHNlcnZpY2VzIGF0IEtlbXB0b24gUGFyayBDcmVtYXRvcml1bSwgYSBzdHJhaWdodGZvcndhcmQgMTItbWludXRlIGRyaXZlIHZpYSB0aGUgQTMxNi4nXG4gICAgfSxcblxuICAgIC8vIEFkZGl0aW9uYWwgUmVnaXN0cnkgT2ZmaWNlc1xuICAgIHtcbiAgICAgICAgc2x1ZzogJ3dpbmRzb3ItcmVnaXN0ZXItb2ZmaWNlJyxcbiAgICAgICAgbmFtZTogJ1dpbmRzb3IgUmVnaXN0ZXIgT2ZmaWNlJyxcbiAgICAgICAgdHlwZTogJ3JlZ2lzdHJ5X29mZmljZScsXG4gICAgICAgIGFkZHJlc3M6ICdLaW5nIEVkd2FyZCBDb3VydCwgV2luZHNvciBTTDQgMURUJyxcbiAgICAgICAgZGlzdGFuY2U6ICcyMCBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdBZnRlciB5b3VyIGNlcmVtb255IGF0IFdpbmRzb3IgUmVnaXN0ZXIgT2ZmaWNlLCBUaGUgQW5jaG9yIHByb3ZpZGVzIGEgcmVsYXhlZCB2ZW51ZSBmb3IgYSBjZWxlYnJhdG9yeSBtZWFsIG9yIGRyaW5rcyByZWNlcHRpb24sIHdpdGggZnJlZSBwYXJraW5nIGZvciBhbGwgZ3Vlc3RzLidcbiAgICB9LFxuICAgIHtcbiAgICAgICAgc2x1ZzogJ3NwZWx0aG9ybmUtcmVnaXN0cmF0aW9uLW9mZmljZScsXG4gICAgICAgIG5hbWU6ICdTcGVsdGhvcm5lIFJlZ2lzdHJhdGlvbiBPZmZpY2UnLFxuICAgICAgICB0eXBlOiAncmVnaXN0cnlfb2ZmaWNlJyxcbiAgICAgICAgYWRkcmVzczogJ0tub3dsZSBHcmVlbiwgU3RhaW5lcyBUVzE4IDFYQicsXG4gICAgICAgIGRpc3RhbmNlOiAnOSBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdKdXN0IDkgbWludXRlcyBmcm9tIFNwZWx0aG9ybmUgUmVnaXN0cmF0aW9uIE9mZmljZSwgVGhlIEFuY2hvciBpcyBwZXJmZWN0bHkgcGxhY2VkIGZvciB3ZWRkaW5nIGJyZWFrZmFzdHMsIG5hbWluZyBjZXJlbW9uaWVzLCBhbmQgcG9zdC1yZWdpc3RyYXRpb24gY2VsZWJyYXRpb25zLidcbiAgICB9LFxuXG4gICAgLy8gQWlycG9ydHNcbiAgICB7XG4gICAgICAgIHNsdWc6ICdoZWF0aHJvdy1haXJwb3J0JyxcbiAgICAgICAgbmFtZTogJ0hlYXRocm93IEFpcnBvcnQnLFxuICAgICAgICB0eXBlOiAnb3RoZXInLFxuICAgICAgICBhZGRyZXNzOiAnSGVhdGhyb3cgQWlycG9ydCBUVzYnLFxuICAgICAgICBkaXN0YW5jZTogJzcgbWlucyBkcml2ZScsXG4gICAgICAgIGRlc2NyaXB0aW9uOiAnVGhlIEFuY2hvciBpcyA3IG1pbnV0ZXMgZnJvbSBIZWF0aHJvdyBUZXJtaW5hbCA1LCBpZGVhbCBmb3IgYWlycG9ydCBzdGFmZiBldmVudHMsIGZhcmV3ZWxsIGRpbm5lcnMsIGFuZCBnYXRoZXJpbmdzIGZvciB0aG9zZSB0cmF2ZWxsaW5nIG9yIGFycml2aW5nIGF0IEhlYXRocm93LidcbiAgICB9LFxuXG4gICAgLy8gU3BvcnRzIFZlbnVlc1xuICAgIHtcbiAgICAgICAgc2x1ZzogJ3N0YWluZXMtcnVnYnktY2x1YicsXG4gICAgICAgIG5hbWU6ICdTdGFpbmVzIFJ1Z2J5IEZvb3RiYWxsIENsdWInLFxuICAgICAgICB0eXBlOiAnc3BvcnRzX3ZlbnVlJyxcbiAgICAgICAgYWRkcmVzczogJ1NuYWtleSBMYW5lLCBGZWx0aGFtIFRXMTMgN05CJyxcbiAgICAgICAgZGlzdGFuY2U6ICcxMCBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdUaGUgcGVyZmVjdCBzcG90IGZvciBlbmQtb2Ytc2Vhc29uIGRpbm5lcnMsIGNvbW1pdHRlZSBtZWV0aW5ncywgb3IgdGVhbSBzb2NpYWxzIG5lYXIgU3RhaW5lcyBSRkMuJ1xuICAgIH0sXG4gICAge1xuICAgICAgICBzbHVnOiAnYXNoZm9yZC10b3duLWZjJyxcbiAgICAgICAgbmFtZTogJ0FzaGZvcmQgVG93biAoTWlkZHgpIEZDJyxcbiAgICAgICAgdHlwZTogJ3Nwb3J0c192ZW51ZScsXG4gICAgICAgIGFkZHJlc3M6ICdTaG9ydCBMYW5lLCBTdGFud2VsbCBUVzE5IDdCSCcsXG4gICAgICAgIGRpc3RhbmNlOiAnNiBtaW5zIGRyaXZlJyxcbiAgICAgICAgZGVzY3JpcHRpb246ICdKdXN0IGRvd24gdGhlIHJvYWQgZnJvbSB0aGUgY2x1Yiwgd2UgaG9zdCB0ZWFtIHByZXNlbnRhdGlvbnMsIHN1cHBvcnRlciBtZWV0LXVwcywgYW5kIGNvbW1pdHRlZSBkaW5uZXJzLidcbiAgICB9XG5dO1xuXG5leHBvcnQgZnVuY3Rpb24gZ2V0TGFuZG1hcmtCeVNsdWcoc2x1Zzogc3RyaW5nKTogTGFuZG1hcmsgfCB1bmRlZmluZWQge1xuICAgIHJldHVybiBsYW5kbWFya3MuZmluZChsID0+IGwuc2x1ZyA9PT0gc2x1Zyk7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBnZXRMYW5kbWFya3NCeVR5cGUodHlwZTogTGFuZG1hcmtUeXBlKTogTGFuZG1hcmtbXSB7XG4gICAgcmV0dXJuIGxhbmRtYXJrcy5maWx0ZXIobCA9PiBsLnR5cGUgPT09IHR5cGUpO1xufVxuIl0sIm5hbWVzIjpbImdldExhbmRtYXJrQnlTbHVnIiwiZ2V0TGFuZG1hcmtzQnlUeXBlIiwibGFuZG1hcmtzIiwic2x1ZyIsIm5hbWUiLCJ0eXBlIiwiYWRkcmVzcyIsImRpc3RhbmNlIiwiZGVzY3JpcHRpb24iLCJmaW5kIiwibCIsImZpbHRlciJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7SUF3S2dCQSxpQkFBaUI7ZUFBakJBOztJQUlBQyxrQkFBa0I7ZUFBbEJBOztJQWhLSEMsU0FBUztlQUFUQTs7O0FBQU4sTUFBTUEsWUFBd0I7SUFDakMsNEJBQTRCO0lBQzVCO1FBQ0lDLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLFNBQVM7UUFDVEMsVUFBVTtRQUNWQyxhQUFhO0lBQ2pCO0lBQ0E7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFDQTtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtJQUVBLFdBQVc7SUFDWDtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtJQUNBO1FBQ0lMLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLFNBQVM7UUFDVEMsVUFBVTtRQUNWQyxhQUFhO0lBQ2pCO0lBQ0E7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFFQSxvQ0FBb0M7SUFDcEM7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFDQTtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtJQUVBLFlBQVk7SUFDWjtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtJQUVBLGlCQUFpQjtJQUNqQjtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtJQUNBO1FBQ0lMLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLFNBQVM7UUFDVEMsVUFBVTtRQUNWQyxhQUFhO0lBQ2pCO0lBRUEsMEJBQTBCO0lBQzFCO1FBQ0lMLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLFNBQVM7UUFDVEMsVUFBVTtRQUNWQyxhQUFhO0lBQ2pCO0lBRUEsOEJBQThCO0lBQzlCO1FBQ0lMLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLFNBQVM7UUFDVEMsVUFBVTtRQUNWQyxhQUFhO0lBQ2pCO0lBQ0E7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFFQSxXQUFXO0lBQ1g7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFFQSxnQkFBZ0I7SUFDaEI7UUFDSUwsTUFBTTtRQUNOQyxNQUFNO1FBQ05DLE1BQU07UUFDTkMsU0FBUztRQUNUQyxVQUFVO1FBQ1ZDLGFBQWE7SUFDakI7SUFDQTtRQUNJTCxNQUFNO1FBQ05DLE1BQU07UUFDTkMsTUFBTTtRQUNOQyxTQUFTO1FBQ1RDLFVBQVU7UUFDVkMsYUFBYTtJQUNqQjtDQUNIO0FBRU0sU0FBU1Isa0JBQWtCRyxJQUFZO0lBQzFDLE9BQU9ELFVBQVVPLElBQUksQ0FBQ0MsQ0FBQUEsSUFBS0EsRUFBRVAsSUFBSSxLQUFLQTtBQUMxQztBQUVPLFNBQVNGLG1CQUFtQkksSUFBa0I7SUFDakQsT0FBT0gsVUFBVVMsTUFBTSxDQUFDRCxDQUFBQSxJQUFLQSxFQUFFTCxJQUFJLEtBQUtBO0FBQzVDIn0=

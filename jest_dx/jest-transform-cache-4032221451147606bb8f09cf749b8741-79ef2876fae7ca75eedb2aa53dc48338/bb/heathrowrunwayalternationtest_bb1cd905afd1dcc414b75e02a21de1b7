@@ -1,0 +1,50 @@
+d0cf19a8d09a2ad382972bb50ead8d2f
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _heathrowrunwayalternation = require("../heathrow-runway-alternation");
+describe("heathrow runway alternation", ()=>{
+    it("returns until 3pm for the week commencing 18 May 2026", ()=>{
+        const result = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2026-05-18");
+        expect(result.window).toBe("until_3pm");
+        expect(result.statusText).toBe("Planes: expected until 3pm");
+        expect(result.weekCommencing).toBe("2026-05-18");
+    });
+    it("returns from 3pm for the week commencing 25 May 2026", ()=>{
+        const result = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2026-05-25");
+        expect(result.window).toBe("from_3pm");
+        expect(result.statusText).toBe("Planes: expected from 3pm");
+        expect(result.weekCommencing).toBe("2026-05-25");
+    });
+    it("continues alternating for future dates beyond 2026", ()=>{
+        const oneWeek = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2027-01-04");
+        const nextWeek = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2027-01-11");
+        expect(oneWeek.window).not.toBe("unknown");
+        expect(nextWeek.window).not.toBe("unknown");
+        expect(oneWeek.window).not.toBe(nextWeek.window);
+    });
+    it("uses the Monday week for Sunday dates", ()=>{
+        const sunday = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2026-05-24");
+        const monday = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2026-05-18");
+        expect(sunday.window).toBe(monday.window);
+        expect(sunday.weekCommencing).toBe("2026-05-18");
+    });
+    it("returns unknown for invalid dates", ()=>{
+        const result = (0, _heathrowrunwayalternation.getPlaneSpottingWindowForDate)("2026-02-31");
+        expect(result.window).toBe("unknown");
+        expect(result.weekCommencing).toBeNull();
+    });
+    it("returns neutral time-specific booking copy inside and outside the expected window", ()=>{
+        expect((0, _heathrowrunwayalternation.getAircraftOverheadNoteForDateTime)("2026-05-18", "14:00")).toBe("Aircraft overhead are expected around this time. Weather and Heathrow operations dependent, not guaranteed.");
+        expect((0, _heathrowrunwayalternation.getAircraftOverheadNoteForDateTime)("2026-05-18", "16:00")).toBe("Aircraft overhead is usually expected until 3pm on this date. Weather and Heathrow operations dependent, not guaranteed.");
+        expect((0, _heathrowrunwayalternation.getAircraftOverheadNoteForDateTime)("2026-05-25", "16:00")).toBe("Aircraft overhead are expected around this time. Weather and Heathrow operations dependent, not guaranteed.");
+    });
+    it("derives today from Europe/London date", ()=>{
+        const result = (0, _heathrowrunwayalternation.getTodayPlaneSpottingWindow)(new Date("2026-05-24T23:30:00.000Z"));
+        expect(result.weekCommencing).toBe("2026-05-25");
+        expect(result.window).toBe("from_3pm");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9fX3Rlc3RzX18vaGVhdGhyb3ctcnVud2F5LWFsdGVybmF0aW9uLnRlc3QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgZ2V0QWlyY3JhZnRPdmVyaGVhZE5vdGVGb3JEYXRlVGltZSxcbiAgZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUsXG4gIGdldFRvZGF5UGxhbmVTcG90dGluZ1dpbmRvdyxcbn0gZnJvbSAnQC9saWIvaGVhdGhyb3ctcnVud2F5LWFsdGVybmF0aW9uJ1xuXG5kZXNjcmliZSgnaGVhdGhyb3cgcnVud2F5IGFsdGVybmF0aW9uJywgKCkgPT4ge1xuICBpdCgncmV0dXJucyB1bnRpbCAzcG0gZm9yIHRoZSB3ZWVrIGNvbW1lbmNpbmcgMTggTWF5IDIwMjYnLCAoKSA9PiB7XG4gICAgY29uc3QgcmVzdWx0ID0gZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUoJzIwMjYtMDUtMTgnKVxuXG4gICAgZXhwZWN0KHJlc3VsdC53aW5kb3cpLnRvQmUoJ3VudGlsXzNwbScpXG4gICAgZXhwZWN0KHJlc3VsdC5zdGF0dXNUZXh0KS50b0JlKCdQbGFuZXM6IGV4cGVjdGVkIHVudGlsIDNwbScpXG4gICAgZXhwZWN0KHJlc3VsdC53ZWVrQ29tbWVuY2luZykudG9CZSgnMjAyNi0wNS0xOCcpXG4gIH0pXG5cbiAgaXQoJ3JldHVybnMgZnJvbSAzcG0gZm9yIHRoZSB3ZWVrIGNvbW1lbmNpbmcgMjUgTWF5IDIwMjYnLCAoKSA9PiB7XG4gICAgY29uc3QgcmVzdWx0ID0gZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUoJzIwMjYtMDUtMjUnKVxuXG4gICAgZXhwZWN0KHJlc3VsdC53aW5kb3cpLnRvQmUoJ2Zyb21fM3BtJylcbiAgICBleHBlY3QocmVzdWx0LnN0YXR1c1RleHQpLnRvQmUoJ1BsYW5lczogZXhwZWN0ZWQgZnJvbSAzcG0nKVxuICAgIGV4cGVjdChyZXN1bHQud2Vla0NvbW1lbmNpbmcpLnRvQmUoJzIwMjYtMDUtMjUnKVxuICB9KVxuXG4gIGl0KCdjb250aW51ZXMgYWx0ZXJuYXRpbmcgZm9yIGZ1dHVyZSBkYXRlcyBiZXlvbmQgMjAyNicsICgpID0+IHtcbiAgICBjb25zdCBvbmVXZWVrID0gZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUoJzIwMjctMDEtMDQnKVxuICAgIGNvbnN0IG5leHRXZWVrID0gZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUoJzIwMjctMDEtMTEnKVxuXG4gICAgZXhwZWN0KG9uZVdlZWsud2luZG93KS5ub3QudG9CZSgndW5rbm93bicpXG4gICAgZXhwZWN0KG5leHRXZWVrLndpbmRvdykubm90LnRvQmUoJ3Vua25vd24nKVxuICAgIGV4cGVjdChvbmVXZWVrLndpbmRvdykubm90LnRvQmUobmV4dFdlZWsud2luZG93KVxuICB9KVxuXG4gIGl0KCd1c2VzIHRoZSBNb25kYXkgd2VlayBmb3IgU3VuZGF5IGRhdGVzJywgKCkgPT4ge1xuICAgIGNvbnN0IHN1bmRheSA9IGdldFBsYW5lU3BvdHRpbmdXaW5kb3dGb3JEYXRlKCcyMDI2LTA1LTI0JylcbiAgICBjb25zdCBtb25kYXkgPSBnZXRQbGFuZVNwb3R0aW5nV2luZG93Rm9yRGF0ZSgnMjAyNi0wNS0xOCcpXG5cbiAgICBleHBlY3Qoc3VuZGF5LndpbmRvdykudG9CZShtb25kYXkud2luZG93KVxuICAgIGV4cGVjdChzdW5kYXkud2Vla0NvbW1lbmNpbmcpLnRvQmUoJzIwMjYtMDUtMTgnKVxuICB9KVxuXG4gIGl0KCdyZXR1cm5zIHVua25vd24gZm9yIGludmFsaWQgZGF0ZXMnLCAoKSA9PiB7XG4gICAgY29uc3QgcmVzdWx0ID0gZ2V0UGxhbmVTcG90dGluZ1dpbmRvd0ZvckRhdGUoJzIwMjYtMDItMzEnKVxuXG4gICAgZXhwZWN0KHJlc3VsdC53aW5kb3cpLnRvQmUoJ3Vua25vd24nKVxuICAgIGV4cGVjdChyZXN1bHQud2Vla0NvbW1lbmNpbmcpLnRvQmVOdWxsKClcbiAgfSlcblxuICBpdCgncmV0dXJucyBuZXV0cmFsIHRpbWUtc3BlY2lmaWMgYm9va2luZyBjb3B5IGluc2lkZSBhbmQgb3V0c2lkZSB0aGUgZXhwZWN0ZWQgd2luZG93JywgKCkgPT4ge1xuICAgIGV4cGVjdChnZXRBaXJjcmFmdE92ZXJoZWFkTm90ZUZvckRhdGVUaW1lKCcyMDI2LTA1LTE4JywgJzE0OjAwJykpLnRvQmUoXG4gICAgICAnQWlyY3JhZnQgb3ZlcmhlYWQgYXJlIGV4cGVjdGVkIGFyb3VuZCB0aGlzIHRpbWUuIFdlYXRoZXIgYW5kIEhlYXRocm93IG9wZXJhdGlvbnMgZGVwZW5kZW50LCBub3QgZ3VhcmFudGVlZC4nXG4gICAgKVxuICAgIGV4cGVjdChnZXRBaXJjcmFmdE92ZXJoZWFkTm90ZUZvckRhdGVUaW1lKCcyMDI2LTA1LTE4JywgJzE2OjAwJykpLnRvQmUoXG4gICAgICAnQWlyY3JhZnQgb3ZlcmhlYWQgaXMgdXN1YWxseSBleHBlY3RlZCB1bnRpbCAzcG0gb24gdGhpcyBkYXRlLiBXZWF0aGVyIGFuZCBIZWF0aHJvdyBvcGVyYXRpb25zIGRlcGVuZGVudCwgbm90IGd1YXJhbnRlZWQuJ1xuICAgIClcbiAgICBleHBlY3QoZ2V0QWlyY3JhZnRPdmVyaGVhZE5vdGVGb3JEYXRlVGltZSgnMjAyNi0wNS0yNScsICcxNjowMCcpKS50b0JlKFxuICAgICAgJ0FpcmNyYWZ0IG92ZXJoZWFkIGFyZSBleHBlY3RlZCBhcm91bmQgdGhpcyB0aW1lLiBXZWF0aGVyIGFuZCBIZWF0aHJvdyBvcGVyYXRpb25zIGRlcGVuZGVudCwgbm90IGd1YXJhbnRlZWQuJ1xuICAgIClcbiAgfSlcblxuICBpdCgnZGVyaXZlcyB0b2RheSBmcm9tIEV1cm9wZS9Mb25kb24gZGF0ZScsICgpID0+IHtcbiAgICBjb25zdCByZXN1bHQgPSBnZXRUb2RheVBsYW5lU3BvdHRpbmdXaW5kb3cobmV3IERhdGUoJzIwMjYtMDUtMjRUMjM6MzA6MDAuMDAwWicpKVxuXG4gICAgZXhwZWN0KHJlc3VsdC53ZWVrQ29tbWVuY2luZykudG9CZSgnMjAyNi0wNS0yNScpXG4gICAgZXhwZWN0KHJlc3VsdC53aW5kb3cpLnRvQmUoJ2Zyb21fM3BtJylcbiAgfSlcbn0pXG4iXSwibmFtZXMiOlsiZGVzY3JpYmUiLCJpdCIsInJlc3VsdCIsImdldFBsYW5lU3BvdHRpbmdXaW5kb3dGb3JEYXRlIiwiZXhwZWN0Iiwid2luZG93IiwidG9CZSIsInN0YXR1c1RleHQiLCJ3ZWVrQ29tbWVuY2luZyIsIm9uZVdlZWsiLCJuZXh0V2VlayIsIm5vdCIsInN1bmRheSIsIm1vbmRheSIsInRvQmVOdWxsIiwiZ2V0QWlyY3JhZnRPdmVyaGVhZE5vdGVGb3JEYXRlVGltZSIsImdldFRvZGF5UGxhbmVTcG90dGluZ1dpbmRvdyIsIkRhdGUiXSwibWFwcGluZ3MiOiI7Ozs7MkNBSU87QUFFUEEsU0FBUywrQkFBK0I7SUFDdENDLEdBQUcseURBQXlEO1FBQzFELE1BQU1DLFNBQVNDLElBQUFBLHdEQUE2QixFQUFDO1FBRTdDQyxPQUFPRixPQUFPRyxNQUFNLEVBQUVDLElBQUksQ0FBQztRQUMzQkYsT0FBT0YsT0FBT0ssVUFBVSxFQUFFRCxJQUFJLENBQUM7UUFDL0JGLE9BQU9GLE9BQU9NLGNBQWMsRUFBRUYsSUFBSSxDQUFDO0lBQ3JDO0lBRUFMLEdBQUcsd0RBQXdEO1FBQ3pELE1BQU1DLFNBQVNDLElBQUFBLHdEQUE2QixFQUFDO1FBRTdDQyxPQUFPRixPQUFPRyxNQUFNLEVBQUVDLElBQUksQ0FBQztRQUMzQkYsT0FBT0YsT0FBT0ssVUFBVSxFQUFFRCxJQUFJLENBQUM7UUFDL0JGLE9BQU9GLE9BQU9NLGNBQWMsRUFBRUYsSUFBSSxDQUFDO0lBQ3JDO0lBRUFMLEdBQUcsc0RBQXNEO1FBQ3ZELE1BQU1RLFVBQVVOLElBQUFBLHdEQUE2QixFQUFDO1FBQzlDLE1BQU1PLFdBQVdQLElBQUFBLHdEQUE2QixFQUFDO1FBRS9DQyxPQUFPSyxRQUFRSixNQUFNLEVBQUVNLEdBQUcsQ0FBQ0wsSUFBSSxDQUFDO1FBQ2hDRixPQUFPTSxTQUFTTCxNQUFNLEVBQUVNLEdBQUcsQ0FBQ0wsSUFBSSxDQUFDO1FBQ2pDRixPQUFPSyxRQUFRSixNQUFNLEVBQUVNLEdBQUcsQ0FBQ0wsSUFBSSxDQUFDSSxTQUFTTCxNQUFNO0lBQ2pEO0lBRUFKLEdBQUcseUNBQXlDO1FBQzFDLE1BQU1XLFNBQVNULElBQUFBLHdEQUE2QixFQUFDO1FBQzdDLE1BQU1VLFNBQVNWLElBQUFBLHdEQUE2QixFQUFDO1FBRTdDQyxPQUFPUSxPQUFPUCxNQUFNLEVBQUVDLElBQUksQ0FBQ08sT0FBT1IsTUFBTTtRQUN4Q0QsT0FBT1EsT0FBT0osY0FBYyxFQUFFRixJQUFJLENBQUM7SUFDckM7SUFFQUwsR0FBRyxxQ0FBcUM7UUFDdEMsTUFBTUMsU0FBU0MsSUFBQUEsd0RBQTZCLEVBQUM7UUFFN0NDLE9BQU9GLE9BQU9HLE1BQU0sRUFBRUMsSUFBSSxDQUFDO1FBQzNCRixPQUFPRixPQUFPTSxjQUFjLEVBQUVNLFFBQVE7SUFDeEM7SUFFQWIsR0FBRyxxRkFBcUY7UUFDdEZHLE9BQU9XLElBQUFBLDZEQUFrQyxFQUFDLGNBQWMsVUFBVVQsSUFBSSxDQUNwRTtRQUVGRixPQUFPVyxJQUFBQSw2REFBa0MsRUFBQyxjQUFjLFVBQVVULElBQUksQ0FDcEU7UUFFRkYsT0FBT1csSUFBQUEsNkRBQWtDLEVBQUMsY0FBYyxVQUFVVCxJQUFJLENBQ3BFO0lBRUo7SUFFQUwsR0FBRyx5Q0FBeUM7UUFDMUMsTUFBTUMsU0FBU2MsSUFBQUEsc0RBQTJCLEVBQUMsSUFBSUMsS0FBSztRQUVwRGIsT0FBT0YsT0FBT00sY0FBYyxFQUFFRixJQUFJLENBQUM7UUFDbkNGLE9BQU9GLE9BQU9HLE1BQU0sRUFBRUMsSUFBSSxDQUFDO0lBQzdCO0FBQ0YifQ==

@@ -1,0 +1,25 @@
+168896f0f18a7f73629a094d3a59d23d
+// lib/api.ts
+// This file is kept for backwards compatibility.
+// All exports are now in lib/api/ domain modules.
+// Existing imports from '@/lib/api' continue to work unchanged.
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+_export_star(require("./api/index"), exports);
+function _export_star(from, to) {
+    Object.keys(from).forEach(function(k) {
+        if (k !== "default" && !Object.prototype.hasOwnProperty.call(to, k)) {
+            Object.defineProperty(to, k, {
+                enumerable: true,
+                get: function() {
+                    return from[k];
+                }
+            });
+        }
+    });
+    return from;
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9hcGkudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gbGliL2FwaS50c1xuLy8gVGhpcyBmaWxlIGlzIGtlcHQgZm9yIGJhY2t3YXJkcyBjb21wYXRpYmlsaXR5LlxuLy8gQWxsIGV4cG9ydHMgYXJlIG5vdyBpbiBsaWIvYXBpLyBkb21haW4gbW9kdWxlcy5cbi8vIEV4aXN0aW5nIGltcG9ydHMgZnJvbSAnQC9saWIvYXBpJyBjb250aW51ZSB0byB3b3JrIHVuY2hhbmdlZC5cbmV4cG9ydCAqIGZyb20gJy4vYXBpL2luZGV4J1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGFBQWE7QUFDYixpREFBaUQ7QUFDakQsa0RBQWtEO0FBQ2xELGdFQUFnRTs7Ozs7cUJBQ2xEIn0=

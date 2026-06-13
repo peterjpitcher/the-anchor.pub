@@ -1,0 +1,33 @@
+2e886cf95e535858f3bf0986c031a4ae
+[
+  {
+    "source": "/event-details/:slug",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/company-christmas-party-venue",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/celebrating-sport-at-the-anchor",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/_api/:path*",
+    "destination": "/api/:path*",
+    "permanent": true
+  },
+  {
+    "source": "/_serverless/:path*",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/heel-of-fortune-admin",
+    "destination": "/",
+    "permanent": true
+  }
+]

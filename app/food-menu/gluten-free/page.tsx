@@ -21,17 +21,17 @@ export const revalidate = 3600
 
 function joinItemNames(items: MenuPageItem[]): string {
   const names = items.slice(0, 5).map((item) => item.name)
-  if (names.length === 0) return 'the current gluten-free options'
+  if (names.length === 0) return 'the current filtered options'
   if (names.length === 1) return names[0]
   return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getGlutenFreeMenuPageData()
-  const gfCount = data ? data.glutenFreeItems.length + data.glutenFreeOptionItems.length : 0
+  const filteredCount = data ? data.glutenFreeItems.length + data.glutenFreeOptionItems.length : 0
   const description = data
-    ? `Gluten-free pub food near Heathrow from The Anchor's live menu. ${gfCount} current gluten-free or gluten-free-option dishes. Free parking, 7 minutes from Terminal 5.`
-    : 'Gluten-free pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
+    ? `Gluten-aware pub food near Heathrow from The Anchor's live menu. ${filteredCount} current dishes with allergen details. Free parking, 7 minutes from Terminal 5.`
+    : 'Gluten-aware pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
 
   return {
     title: 'Gluten-Free Pub Food Near Heathrow | The Anchor',
@@ -62,13 +62,13 @@ export default async function GlutenFreeMenuPage() {
     {
       question: 'Does The Anchor have gluten-free options?',
       answer: data
-        ? `Yes. This page lists ${totalGfItems} current gluten-free or gluten-free-option dishes.`
+        ? `This page lists ${totalGfItems} current dishes with no gluten allergen listed or possible changes on request. Please check with the team before ordering.`
         : getMenuUnavailableMessage(),
     },
     {
       question: 'What gluten-free dishes are currently listed?',
       answer: data
-        ? `The current gluten-free list includes ${joinItemNames([...naturallyGf, ...gfoItems])}. Check the live menu sections for descriptions and prices.`
+        ? `The current filtered list includes ${joinItemNames([...naturallyGf, ...gfoItems])}. Check the live menu sections for descriptions, prices and allergens.`
         : getMenuUnavailableMessage(),
     },
     {
@@ -91,7 +91,7 @@ export default async function GlutenFreeMenuPage() {
         image="/images/page-headers/food-menu/food-menu.jpg"
         crumb="Gluten-Free"
         title="Gluten-Free Pub Food"
-        lead="Current gluten-free and gluten-free-option dishes from the latest kitchen menu."
+        lead="Current dishes with allergen details from the latest kitchen menu."
       />
 
       <section className="bg-canvas py-section-y">
@@ -99,7 +99,7 @@ export default async function GlutenFreeMenuPage() {
           <div className="mx-auto max-w-3xl text-center">
             <SectionHeading
               title="Gluten-Free Pub Food at The Anchor"
-              lead="Current gluten-free and gluten-free-option dishes."
+              lead="Current dishes with allergen details from the live menu."
             />
             <p className="text-ink-muted">
               We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.
@@ -114,11 +114,11 @@ export default async function GlutenFreeMenuPage() {
       <section className="bg-surface py-section-y">
         <div className="container">
           <SectionHeading
-            title="Gluten-Free (GF)"
-            lead="These dishes are gluten-free as standard according to the live menu."
+            title="No Gluten Allergen Listed"
+            lead="These dishes have no gluten allergen listed in the live menu data. Please check with the team before ordering."
           />
           {naturallyGf.length > 0 ? (
-            <DietaryItemList items={naturallyGf} badge="GF" />
+            <DietaryItemList items={naturallyGf} />
           ) : (
             <p className="text-center text-ink-muted">{getMenuUnavailableMessage()}</p>
           )}
@@ -129,10 +129,10 @@ export default async function GlutenFreeMenuPage() {
         <section className="bg-canvas py-section-y">
           <div className="container">
             <SectionHeading
-              title="Gluten-Free Options (GFO)"
-              lead="These dishes can be made gluten-free on request."
+              title="Possible Changes on Request"
+              lead="These dishes may be changed on request. Please check with the team before ordering."
             />
-            <DietaryItemList items={gfoItems} badge="GFO" />
+            <DietaryItemList items={gfoItems} />
           </div>
         </section>
       )}
@@ -146,7 +146,7 @@ export default async function GlutenFreeMenuPage() {
               lead="A quick word at the bar is all it takes."
             />
             <p className="text-ink-muted">
-              Let the bar staff know you need gluten-free options before ordering. Our dishes are prepared in one kitchen, so we cannot guarantee zero cross-contamination.
+              Let the bar staff know about gluten or any other allergen needs before ordering. Our dishes are prepared in one kitchen, so we cannot guarantee zero cross-contamination.
             </p>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default async function GlutenFreeMenuPage() {
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-2 text-h3 text-ink-strong">Kitchen Hours</h2>
             <p className="text-ink-muted">
-              Gluten-free options are available during regular kitchen hours. See the{' '}
+              These options are available during regular kitchen hours. See the{' '}
               <Link href="/food-menu" className="font-semibold text-accent-text hover:underline">
                 full food menu
               </Link>{' '}
@@ -214,7 +214,7 @@ export default async function GlutenFreeMenuPage() {
             context="food"
             variant="primary"
             size="lg"
-            trackingLabel="GF Footer Book a Table"
+            trackingLabel="Gluten Footer Book a Table"
           >
             Book a table
           </BookTableButton>
@@ -241,8 +241,8 @@ export default async function GlutenFreeMenuPage() {
             '@context': 'https://schema.org',
             '@type': 'Menu',
             '@id': 'https://www.the-anchor.pub/food-menu/gluten-free#menu',
-            name: 'Gluten-Free Menu at The Anchor',
-            description: 'Gluten-free pub food options at The Anchor near Heathrow.',
+            name: 'Gluten-Aware Menu at The Anchor',
+            description: 'Pub food with allergen details at The Anchor near Heathrow.',
             url: 'https://www.the-anchor.pub/food-menu/gluten-free',
             isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
           }),

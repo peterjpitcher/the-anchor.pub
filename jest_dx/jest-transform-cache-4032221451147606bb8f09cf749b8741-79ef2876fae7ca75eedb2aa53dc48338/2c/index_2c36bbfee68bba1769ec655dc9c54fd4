@@ -1,0 +1,31 @@
+1a6b24ba89af05184b70577fdaf0d4e0
+// lib/api/index.ts
+// Barrel re-export, all domain modules re-exported from one place.
+// This keeps all existing `import { X } from '@/lib/api'` imports working.
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+_export_star(require("./shared"), exports);
+_export_star(require("./private-bookings"), exports);
+_export_star(require("./events"), exports);
+_export_star(require("./menu"), exports);
+_export_star(require("./hours"), exports);
+_export_star(require("./bookings"), exports);
+_export_star(require("./parking"), exports);
+_export_star(require("./client"), exports);
+function _export_star(from, to) {
+    Object.keys(from).forEach(function(k) {
+        if (k !== "default" && !Object.prototype.hasOwnProperty.call(to, k)) {
+            Object.defineProperty(to, k, {
+                enumerable: true,
+                get: function() {
+                    return from[k];
+                }
+            });
+        }
+    });
+    return from;
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9hcGkvaW5kZXgudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gbGliL2FwaS9pbmRleC50c1xuLy8gQmFycmVsIHJlLWV4cG9ydCwgYWxsIGRvbWFpbiBtb2R1bGVzIHJlLWV4cG9ydGVkIGZyb20gb25lIHBsYWNlLlxuLy8gVGhpcyBrZWVwcyBhbGwgZXhpc3RpbmcgYGltcG9ydCB7IFggfSBmcm9tICdAL2xpYi9hcGknYCBpbXBvcnRzIHdvcmtpbmcuXG5cbmV4cG9ydCAqIGZyb20gJy4vc2hhcmVkJ1xuZXhwb3J0ICogZnJvbSAnLi9wcml2YXRlLWJvb2tpbmdzJ1xuZXhwb3J0ICogZnJvbSAnLi9ldmVudHMnXG5leHBvcnQgKiBmcm9tICcuL21lbnUnXG5leHBvcnQgKiBmcm9tICcuL2hvdXJzJ1xuZXhwb3J0ICogZnJvbSAnLi9ib29raW5ncydcbmV4cG9ydCAqIGZyb20gJy4vcGFya2luZydcbmV4cG9ydCAqIGZyb20gJy4vY2xpZW50J1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG1CQUFtQjtBQUNuQixtRUFBbUU7QUFDbkUsMkVBQTJFOzs7OztxQkFFN0Q7cUJBQ0E7cUJBQ0E7cUJBQ0E7cUJBQ0E7cUJBQ0E7cUJBQ0E7cUJBQ0EifQ==

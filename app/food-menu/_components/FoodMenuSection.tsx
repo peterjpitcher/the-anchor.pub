@@ -4,37 +4,63 @@ import { useMemo, useState } from 'react'
 import { Card, CardBody } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
+import {
+  formatMenuAllergenLabel,
+  formatMenuAllergenList,
+  getMenuAllergenFilters,
+  getMenuItemAllergens
+} from '@/lib/menu-allergens'
 
-type DietaryFilter = 'all' | 'vegetarian' | 'vegan' | 'glutenFree'
+type DietaryFilter = 'all' | 'vegetarian' | 'vegan'
+type AllergenFilter = string
 
 const FILTERS: Array<{ value: DietaryFilter; label: string }> = [
   { value: 'all', label: 'All' },
   { value: 'vegetarian', label: 'Vegetarian' },
-  { value: 'vegan', label: 'Vegan' },
-  { value: 'glutenFree', label: 'Gluten-free' }
+  { value: 'vegan', label: 'Vegan' }
 ]
 
-function matchesFilter(item: MenuItem, filter: DietaryFilter): boolean {
+function matchesFilter(item: MenuItem, filter: DietaryFilter, selectedAllergens: Set<AllergenFilter>): boolean {
   switch (filter) {
     case 'all':
-      return true
+      break
     case 'vegetarian':
-      return Boolean(item.vegetarian || item.vegan)
+      if (!item.vegetarian && !item.vegan) return false
+      break
     case 'vegan':
-      return Boolean(item.vegan || item.veganOptionAvailable)
-    case 'glutenFree':
-      return Boolean(item.glutenFree || item.glutenFreeAvailable)
+      if (!item.vegan && !item.veganOptionAvailable) return false
+      break
     default:
-      return true
+      break
   }
+
+  if (selectedAllergens.size === 0) return true
+
+  return !getMenuItemAllergens(item).some(allergen => selectedAllergens.has(allergen))
 }
 
-/** Small gold dietary flag shown after the dish name, e.g. "· Vegan". */
-function dietaryFlag(item: MenuItem): string | null {
-  if (item.vegan) return 'Vegan'
-  if (item.vegetarian) return 'Veg'
-  if (item.glutenFree) return 'GF'
-  return null
+function dietaryFlags(item: MenuItem): string[] {
+  const flags: string[] = []
+
+  if (item.vegan) {
+    flags.push('Vegan')
+  } else if (item.veganOptionAvailable) {
+    flags.push('Vegan option')
+  } else if (item.vegetarian) {
+    flags.push('Veg')
+  }
+
+  return flags
+}
+
+function toggleSetValue<T>(set: Set<T>, value: T): Set<T> {
+  const next = new Set(set)
+  if (next.has(value)) {
+    next.delete(value)
+  } else {
+    next.add(value)
+  }
+  return next
 }
 
 export interface FoodMenuSectionProps {
@@ -45,6 +71,7 @@ export interface FoodMenuSectionProps {
    * `false` to render the accent-card rows without the filter row.
    */
   showFilters?: boolean
+  showAllergens?: boolean
 }
 
 /**
@@ -52,44 +79,93 @@ export interface FoodMenuSectionProps {
  * filter chips, then each menu group as a DM Serif heading + accent Card of menu
  * rows. Data is the live menu the page already loads; nothing is hardcoded here.
  */
-export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectionProps) {
+export function FoodMenuSection({ menuData, showFilters = true, showAllergens = true }: FoodMenuSectionProps) {
   const [filter, setFilter] = useState<DietaryFilter>('all')
+  const [selectedAllergens, setSelectedAllergens] = useState<Set<AllergenFilter>>(new Set())
+
+  const allergenFilters = useMemo(() => getMenuAllergenFilters(menuData), [menuData])
+  const activeFilterCount = (filter === 'all' ? 0 : 1) + selectedAllergens.size
 
   const groups = useMemo(() => {
     return menuData.categories
       .map(category => {
         const items = category.sections
           .flatMap(section => section.items)
-          .filter(item => matchesFilter(item, filter))
+          .filter(item => matchesFilter(item, filter, selectedAllergens))
         return { id: category.id, title: category.title, items }
       })
       .filter(group => group.items.length > 0)
-  }, [menuData, filter])
+  }, [menuData, filter, selectedAllergens])
 
   return (
     <div className="mx-auto w-full max-w-[920px]">
-      {/* Dietary filter chips: 44px pills, green-on-select, gold hover border. */}
       {showFilters && (
-        <div className="mb-10 flex flex-wrap justify-center gap-3" role="group" aria-label="Dietary filters">
-          {FILTERS.map(({ value, label }) => {
-            const isActive = filter === value
-            return (
+        <div className="mb-10 space-y-5">
+          <div className="flex flex-wrap justify-center gap-3" role="group" aria-label="Dietary filters">
+            {FILTERS.map(({ value, label }) => {
+              const isActive = filter === value
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setFilter(value)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    'inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] px-5 font-sans text-sm font-semibold transition-colors',
+                    isActive
+                      ? 'border-anchor-green bg-anchor-green text-white'
+                      : 'border-line-strong bg-surface text-ink hover:border-anchor-gold-dark'
+                  )}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+
+          {allergenFilters.length > 0 && (
+            <div>
+              <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.18em] text-accent-text">
+                Hide items containing
+              </p>
+              <div className="flex flex-wrap justify-center gap-3" role="group" aria-label="Allergen filters">
+                {allergenFilters.map(allergen => {
+                  const isActive = selectedAllergens.has(allergen)
+                  return (
+                    <button
+                      key={allergen}
+                      type="button"
+                      onClick={() => setSelectedAllergens(current => toggleSetValue(current, allergen))}
+                      aria-pressed={isActive}
+                      className={cn(
+                        'inline-flex min-h-[40px] items-center rounded-pill border-[1.5px] px-4 font-sans text-sm font-semibold transition-colors',
+                        isActive
+                          ? 'border-anchor-gold-dark bg-anchor-gold-dark text-white'
+                          : 'border-line-strong bg-surface text-ink hover:border-anchor-gold-dark'
+                      )}
+                    >
+                      {formatMenuAllergenLabel(allergen)}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {activeFilterCount > 0 && (
+            <div className="text-center">
               <button
-                key={value}
                 type="button"
-                onClick={() => setFilter(value)}
-                aria-pressed={isActive}
-                className={cn(
-                  'inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] px-5 font-sans text-sm font-semibold transition-colors',
-                  isActive
-                    ? 'border-anchor-green bg-anchor-green text-white'
-                    : 'border-line-strong bg-surface text-ink hover:border-anchor-gold-dark'
-                )}
+                onClick={() => {
+                  setFilter('all')
+                  setSelectedAllergens(new Set())
+                }}
+                className="inline-flex min-h-[40px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark"
               >
-                {label}
+                Clear filters
               </button>
-            )
-          })}
+            </div>
+          )}
         </div>
       )}
 
@@ -106,7 +182,8 @@ export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectio
                 <CardBody className="py-2">
                   <ul className="divide-y divide-line">
                     {group.items.map((item, index) => {
-                      const flag = dietaryFlag(item)
+                      const flags = dietaryFlags(item)
+                      const allergens = getMenuItemAllergens(item)
                       return (
                         <li key={`${group.id}-${item.name}-${index}`} className="py-3">
                           <div className="min-w-0">
@@ -117,15 +194,19 @@ export function FoodMenuSection({ menuData, showFilters = true }: FoodMenuSectio
                                   {item.price}
                                 </span>
                               )}
-                              {flag && (
+                              {flags.length > 0 && (
                                 <span className="font-sans text-sm font-semibold text-accent-text">
-                                  {' '}
-                                  &middot; {flag}
+                                  {' '}&middot; {flags.join(', ')}
                                 </span>
                               )}
                             </p>
                             {item.description && (
                               <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
+                            )}
+                            {showAllergens && (
+                              <p className="mt-2 text-xs text-ink-muted">
+                                Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                              </p>
                             )}
                           </div>
                         </li>

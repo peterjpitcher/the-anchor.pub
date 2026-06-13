@@ -1,0 +1,66 @@
+187dfa31240f9d5b7437998c75750764
+"use strict";
+jest.mock("@/lib/gtm-events", ()=>({
+        trackFaqItemOpened: jest.fn()
+    }));
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("@testing-library/react");
+const _FAQAccordionWithSchema = require("../../components/FAQAccordionWithSchema");
+const _gtmevents = require("../../lib/gtm-events");
+const mockFaqs = [
+    {
+        question: "What time do you open?",
+        answer: "We open at 11am."
+    },
+    {
+        question: "Do you take bookings?",
+        answer: "Yes."
+    }
+];
+describe("FAQAccordionWithSchema", ()=>{
+    beforeEach(()=>{
+        jest.clearAllMocks();
+    });
+    it("fires trackFaqItemOpened when a question is expanded", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_FAQAccordionWithSchema.FAQAccordionWithSchema, {
+            faqs: mockFaqs,
+            renderSchema: false
+        }));
+        _react.fireEvent.click(_react.screen.getByText("What time do you open?"));
+        expect(_gtmevents.trackFaqItemOpened).toHaveBeenCalledTimes(1);
+        expect(_gtmevents.trackFaqItemOpened).toHaveBeenCalledWith({
+            questionText: "What time do you open?",
+            faqPagePath: expect.any(String)
+        });
+    });
+    it("does not fire when a question is collapsed", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_FAQAccordionWithSchema.FAQAccordionWithSchema, {
+            faqs: mockFaqs,
+            renderSchema: false
+        }));
+        // Open it
+        _react.fireEvent.click(_react.screen.getByText("What time do you open?"));
+        jest.clearAllMocks();
+        // Close it by clicking again
+        _react.fireEvent.click(_react.screen.getByText("What time do you open?"));
+        expect(_gtmevents.trackFaqItemOpened).not.toHaveBeenCalled();
+    });
+    it("fires for a different question when switching", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_FAQAccordionWithSchema.FAQAccordionWithSchema, {
+            faqs: mockFaqs,
+            renderSchema: false
+        }));
+        _react.fireEvent.click(_react.screen.getByText("What time do you open?"));
+        jest.clearAllMocks();
+        _react.fireEvent.click(_react.screen.getByText("Do you take bookings?"));
+        expect(_gtmevents.trackFaqItemOpened).toHaveBeenCalledWith({
+            questionText: "Do you take bookings?",
+            faqPagePath: expect.any(String)
+        });
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL3Rlc3RzL3VuaXQvRkFRQWNjb3JkaW9uV2l0aFNjaGVtYS50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyByZW5kZXIsIHNjcmVlbiwgZmlyZUV2ZW50IH0gZnJvbSAnQHRlc3RpbmctbGlicmFyeS9yZWFjdCdcbmltcG9ydCB7IEZBUUFjY29yZGlvbldpdGhTY2hlbWEgfSBmcm9tICdAL2NvbXBvbmVudHMvRkFRQWNjb3JkaW9uV2l0aFNjaGVtYSdcbmltcG9ydCB7IHRyYWNrRmFxSXRlbU9wZW5lZCB9IGZyb20gJ0AvbGliL2d0bS1ldmVudHMnXG5cbmplc3QubW9jaygnQC9saWIvZ3RtLWV2ZW50cycsICgpID0+ICh7XG4gIHRyYWNrRmFxSXRlbU9wZW5lZDogamVzdC5mbigpLFxufSkpXG5cbmNvbnN0IG1vY2tGYXFzID0gW1xuICB7IHF1ZXN0aW9uOiAnV2hhdCB0aW1lIGRvIHlvdSBvcGVuPycsIGFuc3dlcjogJ1dlIG9wZW4gYXQgMTFhbS4nIH0sXG4gIHsgcXVlc3Rpb246ICdEbyB5b3UgdGFrZSBib29raW5ncz8nLCBhbnN3ZXI6ICdZZXMuJyB9LFxuXVxuXG5kZXNjcmliZSgnRkFRQWNjb3JkaW9uV2l0aFNjaGVtYScsICgpID0+IHtcbiAgYmVmb3JlRWFjaCgoKSA9PiB7XG4gICAgamVzdC5jbGVhckFsbE1vY2tzKClcbiAgfSlcblxuICBpdCgnZmlyZXMgdHJhY2tGYXFJdGVtT3BlbmVkIHdoZW4gYSBxdWVzdGlvbiBpcyBleHBhbmRlZCcsICgpID0+IHtcbiAgICByZW5kZXIoPEZBUUFjY29yZGlvbldpdGhTY2hlbWEgZmFxcz17bW9ja0ZhcXN9IHJlbmRlclNjaGVtYT17ZmFsc2V9IC8+KVxuICAgIGZpcmVFdmVudC5jbGljayhzY3JlZW4uZ2V0QnlUZXh0KCdXaGF0IHRpbWUgZG8geW91IG9wZW4/JykpXG4gICAgZXhwZWN0KHRyYWNrRmFxSXRlbU9wZW5lZCkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpXG4gICAgZXhwZWN0KHRyYWNrRmFxSXRlbU9wZW5lZCkudG9IYXZlQmVlbkNhbGxlZFdpdGgoe1xuICAgICAgcXVlc3Rpb25UZXh0OiAnV2hhdCB0aW1lIGRvIHlvdSBvcGVuPycsXG4gICAgICBmYXFQYWdlUGF0aDogZXhwZWN0LmFueShTdHJpbmcpLFxuICAgIH0pXG4gIH0pXG5cbiAgaXQoJ2RvZXMgbm90IGZpcmUgd2hlbiBhIHF1ZXN0aW9uIGlzIGNvbGxhcHNlZCcsICgpID0+IHtcbiAgICByZW5kZXIoPEZBUUFjY29yZGlvbldpdGhTY2hlbWEgZmFxcz17bW9ja0ZhcXN9IHJlbmRlclNjaGVtYT17ZmFsc2V9IC8+KVxuICAgIC8vIE9wZW4gaXRcbiAgICBmaXJlRXZlbnQuY2xpY2soc2NyZWVuLmdldEJ5VGV4dCgnV2hhdCB0aW1lIGRvIHlvdSBvcGVuPycpKVxuICAgIGplc3QuY2xlYXJBbGxNb2NrcygpXG4gICAgLy8gQ2xvc2UgaXQgYnkgY2xpY2tpbmcgYWdhaW5cbiAgICBmaXJlRXZlbnQuY2xpY2soc2NyZWVuLmdldEJ5VGV4dCgnV2hhdCB0aW1lIGRvIHlvdSBvcGVuPycpKVxuICAgIGV4cGVjdCh0cmFja0ZhcUl0ZW1PcGVuZWQpLm5vdC50b0hhdmVCZWVuQ2FsbGVkKClcbiAgfSlcblxuICBpdCgnZmlyZXMgZm9yIGEgZGlmZmVyZW50IHF1ZXN0aW9uIHdoZW4gc3dpdGNoaW5nJywgKCkgPT4ge1xuICAgIHJlbmRlcig8RkFRQWNjb3JkaW9uV2l0aFNjaGVtYSBmYXFzPXttb2NrRmFxc30gcmVuZGVyU2NoZW1hPXtmYWxzZX0gLz4pXG4gICAgZmlyZUV2ZW50LmNsaWNrKHNjcmVlbi5nZXRCeVRleHQoJ1doYXQgdGltZSBkbyB5b3Ugb3Blbj8nKSlcbiAgICBqZXN0LmNsZWFyQWxsTW9ja3MoKVxuICAgIGZpcmVFdmVudC5jbGljayhzY3JlZW4uZ2V0QnlUZXh0KCdEbyB5b3UgdGFrZSBib29raW5ncz8nKSlcbiAgICBleHBlY3QodHJhY2tGYXFJdGVtT3BlbmVkKS50b0hhdmVCZWVuQ2FsbGVkV2l0aCh7XG4gICAgICBxdWVzdGlvblRleHQ6ICdEbyB5b3UgdGFrZSBib29raW5ncz8nLFxuICAgICAgZmFxUGFnZVBhdGg6IGV4cGVjdC5hbnkoU3RyaW5nKSxcbiAgICB9KVxuICB9KVxufSlcbiJdLCJuYW1lcyI6WyJqZXN0IiwibW9jayIsInRyYWNrRmFxSXRlbU9wZW5lZCIsImZuIiwibW9ja0ZhcXMiLCJxdWVzdGlvbiIsImFuc3dlciIsImRlc2NyaWJlIiwiYmVmb3JlRWFjaCIsImNsZWFyQWxsTW9ja3MiLCJpdCIsInJlbmRlciIsIkZBUUFjY29yZGlvbldpdGhTY2hlbWEiLCJmYXFzIiwicmVuZGVyU2NoZW1hIiwiZmlyZUV2ZW50IiwiY2xpY2siLCJzY3JlZW4iLCJnZXRCeVRleHQiLCJleHBlY3QiLCJ0b0hhdmVCZWVuQ2FsbGVkVGltZXMiLCJ0b0hhdmVCZWVuQ2FsbGVkV2l0aCIsInF1ZXN0aW9uVGV4dCIsImZhcVBhZ2VQYXRoIiwiYW55IiwiU3RyaW5nIiwibm90IiwidG9IYXZlQmVlbkNhbGxlZCJdLCJtYXBwaW5ncyI6IjtBQUlBQSxLQUFLQyxJQUFJLENBQUMsb0JBQW9CLElBQU8sQ0FBQTtRQUNuQ0Msb0JBQW9CRixLQUFLRyxFQUFFO0lBQzdCLENBQUE7Ozs7O3VCQU4wQzt3Q0FDSDsyQkFDSjtBQU1uQyxNQUFNQyxXQUFXO0lBQ2Y7UUFBRUMsVUFBVTtRQUEwQkMsUUFBUTtJQUFtQjtJQUNqRTtRQUFFRCxVQUFVO1FBQXlCQyxRQUFRO0lBQU87Q0FDckQ7QUFFREMsU0FBUywwQkFBMEI7SUFDakNDLFdBQVc7UUFDVFIsS0FBS1MsYUFBYTtJQUNwQjtJQUVBQyxHQUFHLHdEQUF3RDtRQUN6REMsSUFBQUEsYUFBTSxnQkFBQyxxQkFBQ0MsOENBQXNCO1lBQUNDLE1BQU1UO1lBQVVVLGNBQWM7O1FBQzdEQyxnQkFBUyxDQUFDQyxLQUFLLENBQUNDLGFBQU0sQ0FBQ0MsU0FBUyxDQUFDO1FBQ2pDQyxPQUFPakIsNkJBQWtCLEVBQUVrQixxQkFBcUIsQ0FBQztRQUNqREQsT0FBT2pCLDZCQUFrQixFQUFFbUIsb0JBQW9CLENBQUM7WUFDOUNDLGNBQWM7WUFDZEMsYUFBYUosT0FBT0ssR0FBRyxDQUFDQztRQUMxQjtJQUNGO0lBRUFmLEdBQUcsOENBQThDO1FBQy9DQyxJQUFBQSxhQUFNLGdCQUFDLHFCQUFDQyw4Q0FBc0I7WUFBQ0MsTUFBTVQ7WUFBVVUsY0FBYzs7UUFDN0QsVUFBVTtRQUNWQyxnQkFBUyxDQUFDQyxLQUFLLENBQUNDLGFBQU0sQ0FBQ0MsU0FBUyxDQUFDO1FBQ2pDbEIsS0FBS1MsYUFBYTtRQUNsQiw2QkFBNkI7UUFDN0JNLGdCQUFTLENBQUNDLEtBQUssQ0FBQ0MsYUFBTSxDQUFDQyxTQUFTLENBQUM7UUFDakNDLE9BQU9qQiw2QkFBa0IsRUFBRXdCLEdBQUcsQ0FBQ0MsZ0JBQWdCO0lBQ2pEO0lBRUFqQixHQUFHLGlEQUFpRDtRQUNsREMsSUFBQUEsYUFBTSxnQkFBQyxxQkFBQ0MsOENBQXNCO1lBQUNDLE1BQU1UO1lBQVVVLGNBQWM7O1FBQzdEQyxnQkFBUyxDQUFDQyxLQUFLLENBQUNDLGFBQU0sQ0FBQ0MsU0FBUyxDQUFDO1FBQ2pDbEIsS0FBS1MsYUFBYTtRQUNsQk0sZ0JBQVMsQ0FBQ0MsS0FBSyxDQUFDQyxhQUFNLENBQUNDLFNBQVMsQ0FBQztRQUNqQ0MsT0FBT2pCLDZCQUFrQixFQUFFbUIsb0JBQW9CLENBQUM7WUFDOUNDLGNBQWM7WUFDZEMsYUFBYUosT0FBT0ssR0FBRyxDQUFDQztRQUMxQjtJQUNGO0FBQ0YifQ==

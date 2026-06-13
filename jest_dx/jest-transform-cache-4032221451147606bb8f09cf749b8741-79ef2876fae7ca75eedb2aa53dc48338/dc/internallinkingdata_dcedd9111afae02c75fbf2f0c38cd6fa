@@ -1,0 +1,100 @@
+ab594d8dfa6bbeaaf1a0a41b80933c00
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    seasonalOccasionLinks: function() {
+        return seasonalOccasionLinks;
+    },
+    trustLinks: function() {
+        return trustLinks;
+    }
+});
+const seasonalOccasionLinks = [
+    {
+        label: "Valentine's Day",
+        href: "/valentines-day",
+        description: "Romantic meals and tables for two near Heathrow."
+    },
+    {
+        label: "Mother's Day",
+        href: "/mothers-day",
+        description: "Sunday roast and family tables for Mothering Sunday."
+    },
+    {
+        label: "St Patrick's Day",
+        href: "/st-patricks-day",
+        description: "Irish drinks, pub atmosphere and seasonal celebrations."
+    },
+    {
+        label: "Easter",
+        href: "/easter",
+        description: "Easter meals, family visits and long-weekend bookings."
+    },
+    {
+        label: "Father's Day",
+        href: "/fathers-day",
+        description: "Sunday roast, pints and family bookings for dads."
+    },
+    {
+        label: "Summer Garden Parties",
+        href: "/summer-garden-parties",
+        description: "Beer garden gatherings and private summer events."
+    },
+    {
+        label: "Bank Holiday Weekends",
+        href: "/bank-holiday-weekends",
+        description: "Food, drinks and local plans for long weekends."
+    },
+    {
+        label: "Halloween",
+        href: "/halloween",
+        description: "Spooky pub nights, costumes and seasonal parties."
+    },
+    {
+        label: "Bonfire Night",
+        href: "/bonfire-night",
+        description: "November gatherings, food and drinks before or after displays."
+    },
+    {
+        label: "Christmas Parties",
+        href: "/christmas-parties",
+        description: "Festive lunches, work parties and private Christmas events."
+    },
+    {
+        label: "Boxing Day",
+        href: "/boxing-day",
+        description: "Post-Christmas food, drinks and family pub visits."
+    },
+    {
+        label: "New Year's Eve",
+        href: "/new-years-eve",
+        description: "See in the new year at The Anchor."
+    }
+];
+const trustLinks = [
+    {
+        label: "Guest Reviews",
+        href: "/reviews",
+        description: "Read recent guest feedback and Google review highlights."
+    },
+    {
+        label: "Safety and Respect",
+        href: "/safety-and-respect",
+        description: "How we keep The Anchor welcoming, inclusive and safe."
+    },
+    {
+        label: "Sustainability",
+        href: "/sustainability",
+        description: "Our approach to waste, local suppliers and responsible operations."
+    }
+];
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9pbnRlcm5hbC1saW5raW5nLWRhdGEudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IHR5cGUgSW50ZXJuYWxTZW9MaW5rID0ge1xuICBsYWJlbDogc3RyaW5nXG4gIGhyZWY6IHN0cmluZ1xuICBkZXNjcmlwdGlvbjogc3RyaW5nXG59XG5cbmV4cG9ydCBjb25zdCBzZWFzb25hbE9jY2FzaW9uTGlua3M6IEludGVybmFsU2VvTGlua1tdID0gW1xuICB7XG4gICAgbGFiZWw6IFwiVmFsZW50aW5lJ3MgRGF5XCIsXG4gICAgaHJlZjogJy92YWxlbnRpbmVzLWRheScsXG4gICAgZGVzY3JpcHRpb246ICdSb21hbnRpYyBtZWFscyBhbmQgdGFibGVzIGZvciB0d28gbmVhciBIZWF0aHJvdy4nLFxuICB9LFxuICB7XG4gICAgbGFiZWw6IFwiTW90aGVyJ3MgRGF5XCIsXG4gICAgaHJlZjogJy9tb3RoZXJzLWRheScsXG4gICAgZGVzY3JpcHRpb246ICdTdW5kYXkgcm9hc3QgYW5kIGZhbWlseSB0YWJsZXMgZm9yIE1vdGhlcmluZyBTdW5kYXkuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiBcIlN0IFBhdHJpY2sncyBEYXlcIixcbiAgICBocmVmOiAnL3N0LXBhdHJpY2tzLWRheScsXG4gICAgZGVzY3JpcHRpb246ICdJcmlzaCBkcmlua3MsIHB1YiBhdG1vc3BoZXJlIGFuZCBzZWFzb25hbCBjZWxlYnJhdGlvbnMuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiAnRWFzdGVyJyxcbiAgICBocmVmOiAnL2Vhc3RlcicsXG4gICAgZGVzY3JpcHRpb246ICdFYXN0ZXIgbWVhbHMsIGZhbWlseSB2aXNpdHMgYW5kIGxvbmctd2Vla2VuZCBib29raW5ncy4nLFxuICB9LFxuICB7XG4gICAgbGFiZWw6IFwiRmF0aGVyJ3MgRGF5XCIsXG4gICAgaHJlZjogJy9mYXRoZXJzLWRheScsXG4gICAgZGVzY3JpcHRpb246ICdTdW5kYXkgcm9hc3QsIHBpbnRzIGFuZCBmYW1pbHkgYm9va2luZ3MgZm9yIGRhZHMuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiAnU3VtbWVyIEdhcmRlbiBQYXJ0aWVzJyxcbiAgICBocmVmOiAnL3N1bW1lci1nYXJkZW4tcGFydGllcycsXG4gICAgZGVzY3JpcHRpb246ICdCZWVyIGdhcmRlbiBnYXRoZXJpbmdzIGFuZCBwcml2YXRlIHN1bW1lciBldmVudHMuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiAnQmFuayBIb2xpZGF5IFdlZWtlbmRzJyxcbiAgICBocmVmOiAnL2JhbmstaG9saWRheS13ZWVrZW5kcycsXG4gICAgZGVzY3JpcHRpb246ICdGb29kLCBkcmlua3MgYW5kIGxvY2FsIHBsYW5zIGZvciBsb25nIHdlZWtlbmRzLicsXG4gIH0sXG4gIHtcbiAgICBsYWJlbDogJ0hhbGxvd2VlbicsXG4gICAgaHJlZjogJy9oYWxsb3dlZW4nLFxuICAgIGRlc2NyaXB0aW9uOiAnU3Bvb2t5IHB1YiBuaWdodHMsIGNvc3R1bWVzIGFuZCBzZWFzb25hbCBwYXJ0aWVzLicsXG4gIH0sXG4gIHtcbiAgICBsYWJlbDogJ0JvbmZpcmUgTmlnaHQnLFxuICAgIGhyZWY6ICcvYm9uZmlyZS1uaWdodCcsXG4gICAgZGVzY3JpcHRpb246ICdOb3ZlbWJlciBnYXRoZXJpbmdzLCBmb29kIGFuZCBkcmlua3MgYmVmb3JlIG9yIGFmdGVyIGRpc3BsYXlzLicsXG4gIH0sXG4gIHtcbiAgICBsYWJlbDogJ0NocmlzdG1hcyBQYXJ0aWVzJyxcbiAgICBocmVmOiAnL2NocmlzdG1hcy1wYXJ0aWVzJyxcbiAgICBkZXNjcmlwdGlvbjogJ0Zlc3RpdmUgbHVuY2hlcywgd29yayBwYXJ0aWVzIGFuZCBwcml2YXRlIENocmlzdG1hcyBldmVudHMuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiAnQm94aW5nIERheScsXG4gICAgaHJlZjogJy9ib3hpbmctZGF5JyxcbiAgICBkZXNjcmlwdGlvbjogJ1Bvc3QtQ2hyaXN0bWFzIGZvb2QsIGRyaW5rcyBhbmQgZmFtaWx5IHB1YiB2aXNpdHMuJyxcbiAgfSxcbiAge1xuICAgIGxhYmVsOiBcIk5ldyBZZWFyJ3MgRXZlXCIsXG4gICAgaHJlZjogJy9uZXcteWVhcnMtZXZlJyxcbiAgICBkZXNjcmlwdGlvbjogJ1NlZSBpbiB0aGUgbmV3IHllYXIgYXQgVGhlIEFuY2hvci4nLFxuICB9LFxuXVxuXG5leHBvcnQgY29uc3QgdHJ1c3RMaW5rczogSW50ZXJuYWxTZW9MaW5rW10gPSBbXG4gIHtcbiAgICBsYWJlbDogJ0d1ZXN0IFJldmlld3MnLFxuICAgIGhyZWY6ICcvcmV2aWV3cycsXG4gICAgZGVzY3JpcHRpb246ICdSZWFkIHJlY2VudCBndWVzdCBmZWVkYmFjayBhbmQgR29vZ2xlIHJldmlldyBoaWdobGlnaHRzLicsXG4gIH0sXG4gIHtcbiAgICBsYWJlbDogJ1NhZmV0eSBhbmQgUmVzcGVjdCcsXG4gICAgaHJlZjogJy9zYWZldHktYW5kLXJlc3BlY3QnLFxuICAgIGRlc2NyaXB0aW9uOiAnSG93IHdlIGtlZXAgVGhlIEFuY2hvciB3ZWxjb21pbmcsIGluY2x1c2l2ZSBhbmQgc2FmZS4nLFxuICB9LFxuICB7XG4gICAgbGFiZWw6ICdTdXN0YWluYWJpbGl0eScsXG4gICAgaHJlZjogJy9zdXN0YWluYWJpbGl0eScsXG4gICAgZGVzY3JpcHRpb246ICdPdXIgYXBwcm9hY2ggdG8gd2FzdGUsIGxvY2FsIHN1cHBsaWVycyBhbmQgcmVzcG9uc2libGUgb3BlcmF0aW9ucy4nLFxuICB9LFxuXVxuIl0sIm5hbWVzIjpbInNlYXNvbmFsT2NjYXNpb25MaW5rcyIsInRydXN0TGlua3MiLCJsYWJlbCIsImhyZWYiLCJkZXNjcmlwdGlvbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7SUFNYUEscUJBQXFCO2VBQXJCQTs7SUErREFDLFVBQVU7ZUFBVkE7OztBQS9ETixNQUFNRCx3QkFBMkM7SUFDdEQ7UUFDRUUsT0FBTztRQUNQQyxNQUFNO1FBQ05DLGFBQWE7SUFDZjtJQUNBO1FBQ0VGLE9BQU87UUFDUEMsTUFBTTtRQUNOQyxhQUFhO0lBQ2Y7SUFDQTtRQUNFRixPQUFPO1FBQ1BDLE1BQU07UUFDTkMsYUFBYTtJQUNmO0lBQ0E7UUFDRUYsT0FBTztRQUNQQyxNQUFNO1FBQ05DLGFBQWE7SUFDZjtJQUNBO1FBQ0VGLE9BQU87UUFDUEMsTUFBTTtRQUNOQyxhQUFhO0lBQ2Y7SUFDQTtRQUNFRixPQUFPO1FBQ1BDLE1BQU07UUFDTkMsYUFBYTtJQUNmO0lBQ0E7UUFDRUYsT0FBTztRQUNQQyxNQUFNO1FBQ05DLGFBQWE7SUFDZjtJQUNBO1FBQ0VGLE9BQU87UUFDUEMsTUFBTTtRQUNOQyxhQUFhO0lBQ2Y7SUFDQTtRQUNFRixPQUFPO1FBQ1BDLE1BQU07UUFDTkMsYUFBYTtJQUNmO0lBQ0E7UUFDRUYsT0FBTztRQUNQQyxNQUFNO1FBQ05DLGFBQWE7SUFDZjtJQUNBO1FBQ0VGLE9BQU87UUFDUEMsTUFBTTtRQUNOQyxhQUFhO0lBQ2Y7SUFDQTtRQUNFRixPQUFPO1FBQ1BDLE1BQU07UUFDTkMsYUFBYTtJQUNmO0NBQ0Q7QUFFTSxNQUFNSCxhQUFnQztJQUMzQztRQUNFQyxPQUFPO1FBQ1BDLE1BQU07UUFDTkMsYUFBYTtJQUNmO0lBQ0E7UUFDRUYsT0FBTztRQUNQQyxNQUFNO1FBQ05DLGFBQWE7SUFDZjtJQUNBO1FBQ0VGLE9BQU87UUFDUEMsTUFBTTtRQUNOQyxhQUFhO0lBQ2Y7Q0FDRCJ9

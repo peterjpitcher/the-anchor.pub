@@ -1,0 +1,15 @@
+bda8ea0bd46a702970d8a59493821031
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _schemautils = require("../../lib/schema-utils");
+describe("generateNutritionInfo", ()=>{
+    it("returns undefined (no invalid range strings)", ()=>{
+        expect((0, _schemautils.generateNutritionInfo)("Margherita Pizza", "pizza")).toBeUndefined();
+        expect((0, _schemautils.generateNutritionInfo)("Cheeseburger", "burger")).toBeUndefined();
+        expect((0, _schemautils.generateNutritionInfo)("Sunday Roast", "sunday-roast")).toBeUndefined();
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL3Rlc3RzL3VuaXQvc2NoZW1hLXV0aWxzLnRlc3QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZ2VuZXJhdGVOdXRyaXRpb25JbmZvIH0gZnJvbSAnQC9saWIvc2NoZW1hLXV0aWxzJ1xuXG5kZXNjcmliZSgnZ2VuZXJhdGVOdXRyaXRpb25JbmZvJywgKCkgPT4ge1xuICBpdCgncmV0dXJucyB1bmRlZmluZWQgKG5vIGludmFsaWQgcmFuZ2Ugc3RyaW5ncyknLCAoKSA9PiB7XG4gICAgZXhwZWN0KGdlbmVyYXRlTnV0cml0aW9uSW5mbygnTWFyZ2hlcml0YSBQaXp6YScsICdwaXp6YScpKS50b0JlVW5kZWZpbmVkKClcbiAgICBleHBlY3QoZ2VuZXJhdGVOdXRyaXRpb25JbmZvKCdDaGVlc2VidXJnZXInLCAnYnVyZ2VyJykpLnRvQmVVbmRlZmluZWQoKVxuICAgIGV4cGVjdChnZW5lcmF0ZU51dHJpdGlvbkluZm8oJ1N1bmRheSBSb2FzdCcsICdzdW5kYXktcm9hc3QnKSkudG9CZVVuZGVmaW5lZCgpXG4gIH0pXG59KVxuIl0sIm5hbWVzIjpbImRlc2NyaWJlIiwiaXQiLCJleHBlY3QiLCJnZW5lcmF0ZU51dHJpdGlvbkluZm8iLCJ0b0JlVW5kZWZpbmVkIl0sIm1hcHBpbmdzIjoiOzs7OzZCQUFzQztBQUV0Q0EsU0FBUyx5QkFBeUI7SUFDaENDLEdBQUcsZ0RBQWdEO1FBQ2pEQyxPQUFPQyxJQUFBQSxrQ0FBcUIsRUFBQyxvQkFBb0IsVUFBVUMsYUFBYTtRQUN4RUYsT0FBT0MsSUFBQUEsa0NBQXFCLEVBQUMsZ0JBQWdCLFdBQVdDLGFBQWE7UUFDckVGLE9BQU9DLElBQUFBLGtDQUFxQixFQUFDLGdCQUFnQixpQkFBaUJDLGFBQWE7SUFDN0U7QUFDRiJ9

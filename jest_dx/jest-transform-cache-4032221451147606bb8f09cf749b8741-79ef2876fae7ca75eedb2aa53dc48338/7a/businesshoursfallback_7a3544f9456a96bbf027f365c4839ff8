@@ -1,0 +1,75 @@
+683e72eacc09a401937c9abb0e15d8e5
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    STATIC_BAR_HOURS_SHORT: function() {
+        return STATIC_BAR_HOURS_SHORT;
+    },
+    STATIC_BAR_HOURS_SUMMARY: function() {
+        return STATIC_BAR_HOURS_SUMMARY;
+    },
+    STATIC_HOURS_REVIEW_NOTE: function() {
+        return STATIC_HOURS_REVIEW_NOTE;
+    },
+    STATIC_HOURS_ROWS: function() {
+        return STATIC_HOURS_ROWS;
+    },
+    STATIC_KITCHEN_HOURS_SHORT: function() {
+        return STATIC_KITCHEN_HOURS_SHORT;
+    },
+    STATIC_KITCHEN_HOURS_SUMMARY: function() {
+        return STATIC_KITCHEN_HOURS_SUMMARY;
+    }
+});
+const STATIC_BAR_HOURS_SUMMARY = "Bar hours: Tuesday to Thursday 4pm-11pm, Friday 4pm-midnight, Saturday noon-midnight, Sunday noon-9pm, Monday closed.";
+const STATIC_KITCHEN_HOURS_SUMMARY = "Kitchen hours: Tuesday to Friday 4pm-9pm, Saturday noon-7pm, Sunday roast 1pm-6pm, Monday closed.";
+const STATIC_HOURS_REVIEW_NOTE = "Bank holidays and special events may vary. Last reviewed May 2026.";
+const STATIC_BAR_HOURS_SHORT = "Bar: Tue-Thu 4pm-11pm, Fri 4pm-midnight, Sat noon-midnight, Sun noon-9pm";
+const STATIC_KITCHEN_HOURS_SHORT = "Kitchen: Tue-Fri 4pm-9pm, Sat noon-7pm, Sun roast 1pm-6pm";
+const STATIC_HOURS_ROWS = [
+    {
+        day: "Monday",
+        bar: "Closed",
+        kitchen: "Closed"
+    },
+    {
+        day: "Tuesday",
+        bar: "4pm-11pm",
+        kitchen: "4pm-9pm"
+    },
+    {
+        day: "Wednesday",
+        bar: "4pm-11pm",
+        kitchen: "4pm-9pm"
+    },
+    {
+        day: "Thursday",
+        bar: "4pm-11pm",
+        kitchen: "4pm-9pm"
+    },
+    {
+        day: "Friday",
+        bar: "4pm-midnight",
+        kitchen: "4pm-9pm"
+    },
+    {
+        day: "Saturday",
+        bar: "Noon-midnight",
+        kitchen: "Noon-7pm"
+    },
+    {
+        day: "Sunday",
+        bar: "Noon-9pm",
+        kitchen: "Sunday roast 1pm-6pm"
+    }
+];
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9idXNpbmVzcy1ob3Vycy1mYWxsYmFjay50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgU1RBVElDX0JBUl9IT1VSU19TVU1NQVJZID1cbiAgJ0JhciBob3VyczogVHVlc2RheSB0byBUaHVyc2RheSA0cG0tMTFwbSwgRnJpZGF5IDRwbS1taWRuaWdodCwgU2F0dXJkYXkgbm9vbi1taWRuaWdodCwgU3VuZGF5IG5vb24tOXBtLCBNb25kYXkgY2xvc2VkLidcblxuZXhwb3J0IGNvbnN0IFNUQVRJQ19LSVRDSEVOX0hPVVJTX1NVTU1BUlkgPVxuICAnS2l0Y2hlbiBob3VyczogVHVlc2RheSB0byBGcmlkYXkgNHBtLTlwbSwgU2F0dXJkYXkgbm9vbi03cG0sIFN1bmRheSByb2FzdCAxcG0tNnBtLCBNb25kYXkgY2xvc2VkLidcblxuZXhwb3J0IGNvbnN0IFNUQVRJQ19IT1VSU19SRVZJRVdfTk9URSA9XG4gICdCYW5rIGhvbGlkYXlzIGFuZCBzcGVjaWFsIGV2ZW50cyBtYXkgdmFyeS4gTGFzdCByZXZpZXdlZCBNYXkgMjAyNi4nXG5cbmV4cG9ydCBjb25zdCBTVEFUSUNfQkFSX0hPVVJTX1NIT1JUID1cbiAgJ0JhcjogVHVlLVRodSA0cG0tMTFwbSwgRnJpIDRwbS1taWRuaWdodCwgU2F0IG5vb24tbWlkbmlnaHQsIFN1biBub29uLTlwbSdcblxuZXhwb3J0IGNvbnN0IFNUQVRJQ19LSVRDSEVOX0hPVVJTX1NIT1JUID1cbiAgJ0tpdGNoZW46IFR1ZS1GcmkgNHBtLTlwbSwgU2F0IG5vb24tN3BtLCBTdW4gcm9hc3QgMXBtLTZwbSdcblxuZXhwb3J0IGNvbnN0IFNUQVRJQ19IT1VSU19ST1dTID0gW1xuICB7IGRheTogJ01vbmRheScsIGJhcjogJ0Nsb3NlZCcsIGtpdGNoZW46ICdDbG9zZWQnIH0sXG4gIHsgZGF5OiAnVHVlc2RheScsIGJhcjogJzRwbS0xMXBtJywga2l0Y2hlbjogJzRwbS05cG0nIH0sXG4gIHsgZGF5OiAnV2VkbmVzZGF5JywgYmFyOiAnNHBtLTExcG0nLCBraXRjaGVuOiAnNHBtLTlwbScgfSxcbiAgeyBkYXk6ICdUaHVyc2RheScsIGJhcjogJzRwbS0xMXBtJywga2l0Y2hlbjogJzRwbS05cG0nIH0sXG4gIHsgZGF5OiAnRnJpZGF5JywgYmFyOiAnNHBtLW1pZG5pZ2h0Jywga2l0Y2hlbjogJzRwbS05cG0nIH0sXG4gIHsgZGF5OiAnU2F0dXJkYXknLCBiYXI6ICdOb29uLW1pZG5pZ2h0Jywga2l0Y2hlbjogJ05vb24tN3BtJyB9LFxuICB7IGRheTogJ1N1bmRheScsIGJhcjogJ05vb24tOXBtJywga2l0Y2hlbjogJ1N1bmRheSByb2FzdCAxcG0tNnBtJyB9XG5dIGFzIGNvbnN0XG4iXSwibmFtZXMiOlsiU1RBVElDX0JBUl9IT1VSU19TSE9SVCIsIlNUQVRJQ19CQVJfSE9VUlNfU1VNTUFSWSIsIlNUQVRJQ19IT1VSU19SRVZJRVdfTk9URSIsIlNUQVRJQ19IT1VSU19ST1dTIiwiU1RBVElDX0tJVENIRU5fSE9VUlNfU0hPUlQiLCJTVEFUSUNfS0lUQ0hFTl9IT1VSU19TVU1NQVJZIiwiZGF5IiwiYmFyIiwia2l0Y2hlbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7SUFTYUEsc0JBQXNCO2VBQXRCQTs7SUFUQUMsd0JBQXdCO2VBQXhCQTs7SUFNQUMsd0JBQXdCO2VBQXhCQTs7SUFTQUMsaUJBQWlCO2VBQWpCQTs7SUFIQUMsMEJBQTBCO2VBQTFCQTs7SUFUQUMsNEJBQTRCO2VBQTVCQTs7O0FBSE4sTUFBTUosMkJBQ1g7QUFFSyxNQUFNSSwrQkFDWDtBQUVLLE1BQU1ILDJCQUNYO0FBRUssTUFBTUYseUJBQ1g7QUFFSyxNQUFNSSw2QkFDWDtBQUVLLE1BQU1ELG9CQUFvQjtJQUMvQjtRQUFFRyxLQUFLO1FBQVVDLEtBQUs7UUFBVUMsU0FBUztJQUFTO0lBQ2xEO1FBQUVGLEtBQUs7UUFBV0MsS0FBSztRQUFZQyxTQUFTO0lBQVU7SUFDdEQ7UUFBRUYsS0FBSztRQUFhQyxLQUFLO1FBQVlDLFNBQVM7SUFBVTtJQUN4RDtRQUFFRixLQUFLO1FBQVlDLEtBQUs7UUFBWUMsU0FBUztJQUFVO0lBQ3ZEO1FBQUVGLEtBQUs7UUFBVUMsS0FBSztRQUFnQkMsU0FBUztJQUFVO0lBQ3pEO1FBQUVGLEtBQUs7UUFBWUMsS0FBSztRQUFpQkMsU0FBUztJQUFXO0lBQzdEO1FBQUVGLEtBQUs7UUFBVUMsS0FBSztRQUFZQyxTQUFTO0lBQXVCO0NBQ25FIn0=

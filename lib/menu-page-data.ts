@@ -57,6 +57,7 @@ export type MenuPageItem = MenuItem & {
   sectionId: string
   sectionTitle: string
   dietaryInfo: string[]
+  allergens: string[]
   imageUrl?: string
 }
 
@@ -120,6 +121,16 @@ function hasGlutenAllergen(item: MenuSectionItem | SundayLunchMenuItem): boolean
 
 function itemText(item: { name?: string | null; description?: string | null }): string {
   return `${item.name || ''} ${item.description || ''}`
+}
+
+function sanitizeMenuItemDescription(description?: string | null): string {
+  if (!description) return ''
+
+  return description
+    .replace(/\bgluten[- ]free\s+/gi, '')
+    .replace(/\bgluten[- ]free\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
 }
 
 function isFishAndChipsFamily(item: { name?: string | null }): boolean {
@@ -190,7 +201,7 @@ function mapApiItem(
   return {
     id: item.id,
     name: item.name,
-    description: item.description || '',
+    description: sanitizeMenuItemDescription(item.description),
     price,
     priceValue: Number(item.price || 0),
     priceLabel: formatPriceLabel(item.price),

@@ -239,7 +239,7 @@ export default async function DrinksMenuPage() {
       {/* Menu Content */}
       <section className="bg-surface py-section-y">
         <div className="container">
-          <FoodMenuSection menuData={menuDataWithoutManagersSpecial} showFilters={false} />
+          <FoodMenuSection menuData={menuDataWithoutManagersSpecial} showFilters={false} showAllergens={false} />
         </div>
       </section>
 

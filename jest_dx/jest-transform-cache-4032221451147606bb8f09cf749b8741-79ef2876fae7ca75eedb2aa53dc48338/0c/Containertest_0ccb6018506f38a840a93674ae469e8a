@@ -1,0 +1,129 @@
+4fe3925486c71a724ab27bac1c644af2
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("@testing-library/react");
+const _Container = require("../Container");
+describe("Container", ()=>{
+    it("renders children correctly", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            children: "Container content"
+        }));
+        expect(_react.screen.getByText("Container content")).toBeInTheDocument();
+    });
+    it("applies size classes correctly", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            size: "sm",
+            children: "Small"
+        }));
+        expect(_react.screen.getByText("Small")).toHaveClass("max-w-3xl");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            size: "lg",
+            children: "Large"
+        }));
+        expect(_react.screen.getByText("Large")).toHaveClass("max-w-7xl");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            size: "full",
+            children: "Full"
+        }));
+        expect(_react.screen.getByText("Full")).toHaveClass("max-w-full");
+    });
+    it("applies padding classes correctly", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            padding: "none",
+            children: "No padding"
+        }));
+        expect(_react.screen.getByText("No padding").className).not.toMatch(/\bpx-\d/);
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            padding: "sm",
+            children: "Small padding"
+        }));
+        expect(_react.screen.getByText("Small padding")).toHaveClass("px-4", "sm:px-6");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            padding: "lg",
+            children: "Large padding"
+        }));
+        expect(_react.screen.getByText("Large padding")).toHaveClass("px-6", "sm:px-8", "lg:px-12");
+    });
+    it("renders as different HTML elements", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            as: "div",
+            children: "Div container"
+        }));
+        expect(_react.screen.getByText("Div container").tagName).toBe("DIV");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            as: "section",
+            children: "Section container"
+        }));
+        expect(_react.screen.getByText("Section container").tagName).toBe("SECTION");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            as: "main",
+            children: "Main container"
+        }));
+        expect(_react.screen.getByText("Main container").tagName).toBe("MAIN");
+    });
+    it("applies custom className", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            className: "custom-class",
+            children: "Custom"
+        }));
+        expect(_react.screen.getByText("Custom")).toHaveClass("custom-class");
+    });
+    it("forwards ref correctly", ()=>{
+        const ref = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Container, {
+            ref: ref,
+            children: "Container"
+        }));
+        expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+    });
+});
+describe("Section", ()=>{
+    it("renders as section element", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            children: "Section content"
+        }));
+        const section = _react.screen.getByText("Section content");
+        expect(section.tagName).toBe("SECTION");
+    });
+    it("applies spacing classes correctly", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            spacing: "none",
+            children: "No spacing"
+        }));
+        expect(_react.screen.getByText("No spacing").className).not.toMatch(/\bpy-\d/);
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            spacing: "sm",
+            children: "Small spacing"
+        }));
+        expect(_react.screen.getByText("Small spacing")).toHaveClass("py-8", "md:py-10");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            spacing: "lg",
+            children: "Large spacing"
+        }));
+        expect(_react.screen.getByText("Large spacing")).toHaveClass("py-12", "md:py-14", "lg:py-16");
+    });
+    it("inherits Container props", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            size: "xl",
+            padding: "lg",
+            children: "Section"
+        }));
+        const section = _react.screen.getByText("Section");
+        expect(section).toHaveClass("max-w-[1440px]");
+        expect(section).toHaveClass("px-6");
+    });
+    it("combines spacing and custom className", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Container.Section, {
+            spacing: "md",
+            className: "bg-gray-100",
+            children: "Section"
+        }));
+        const section = _react.screen.getByText("Section");
+        expect(section).toHaveClass("py-10", "md:py-12", "lg:py-14", "bg-gray-100");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2NvbXBvbmVudHMvdWkvbGF5b3V0L19fdGVzdHNfXy9Db250YWluZXIudGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcmVuZGVyLCBzY3JlZW4gfSBmcm9tICdAdGVzdGluZy1saWJyYXJ5L3JlYWN0J1xuaW1wb3J0IHsgQ29udGFpbmVyLCBTZWN0aW9uIH0gZnJvbSAnLi4vQ29udGFpbmVyJ1xuXG5kZXNjcmliZSgnQ29udGFpbmVyJywgKCkgPT4ge1xuICBpdCgncmVuZGVycyBjaGlsZHJlbiBjb3JyZWN0bHknLCAoKSA9PiB7XG4gICAgcmVuZGVyKDxDb250YWluZXI+Q29udGFpbmVyIGNvbnRlbnQ8L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ0NvbnRhaW5lciBjb250ZW50JykpLnRvQmVJblRoZURvY3VtZW50KClcbiAgfSlcblxuICBpdCgnYXBwbGllcyBzaXplIGNsYXNzZXMgY29ycmVjdGx5JywgKCkgPT4ge1xuICAgIGNvbnN0IHsgcmVyZW5kZXIgfSA9IHJlbmRlcig8Q29udGFpbmVyIHNpemU9XCJzbVwiPlNtYWxsPC9Db250YWluZXI+KVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdTbWFsbCcpKS50b0hhdmVDbGFzcygnbWF4LXctM3hsJylcblxuICAgIHJlcmVuZGVyKDxDb250YWluZXIgc2l6ZT1cImxnXCI+TGFyZ2U8L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ0xhcmdlJykpLnRvSGF2ZUNsYXNzKCdtYXgtdy03eGwnKVxuXG4gICAgcmVyZW5kZXIoPENvbnRhaW5lciBzaXplPVwiZnVsbFwiPkZ1bGw8L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ0Z1bGwnKSkudG9IYXZlQ2xhc3MoJ21heC13LWZ1bGwnKVxuICB9KVxuXG4gIGl0KCdhcHBsaWVzIHBhZGRpbmcgY2xhc3NlcyBjb3JyZWN0bHknLCAoKSA9PiB7XG4gICAgY29uc3QgeyByZXJlbmRlciB9ID0gcmVuZGVyKDxDb250YWluZXIgcGFkZGluZz1cIm5vbmVcIj5ObyBwYWRkaW5nPC9Db250YWluZXI+KVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdObyBwYWRkaW5nJykuY2xhc3NOYW1lKS5ub3QudG9NYXRjaCgvXFxicHgtXFxkLylcblxuICAgIHJlcmVuZGVyKDxDb250YWluZXIgcGFkZGluZz1cInNtXCI+U21hbGwgcGFkZGluZzwvQ29udGFpbmVyPilcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgnU21hbGwgcGFkZGluZycpKS50b0hhdmVDbGFzcygncHgtNCcsICdzbTpweC02JylcblxuICAgIHJlcmVuZGVyKDxDb250YWluZXIgcGFkZGluZz1cImxnXCI+TGFyZ2UgcGFkZGluZzwvQ29udGFpbmVyPilcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgnTGFyZ2UgcGFkZGluZycpKS50b0hhdmVDbGFzcygncHgtNicsICdzbTpweC04JywgJ2xnOnB4LTEyJylcbiAgfSlcblxuICBpdCgncmVuZGVycyBhcyBkaWZmZXJlbnQgSFRNTCBlbGVtZW50cycsICgpID0+IHtcbiAgICBjb25zdCB7IHJlcmVuZGVyIH0gPSByZW5kZXIoPENvbnRhaW5lciBhcz1cImRpdlwiPkRpdiBjb250YWluZXI8L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ0RpdiBjb250YWluZXInKS50YWdOYW1lKS50b0JlKCdESVYnKVxuXG4gICAgcmVyZW5kZXIoPENvbnRhaW5lciBhcz1cInNlY3Rpb25cIj5TZWN0aW9uIGNvbnRhaW5lcjwvQ29udGFpbmVyPilcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgnU2VjdGlvbiBjb250YWluZXInKS50YWdOYW1lKS50b0JlKCdTRUNUSU9OJylcblxuICAgIHJlcmVuZGVyKDxDb250YWluZXIgYXM9XCJtYWluXCI+TWFpbiBjb250YWluZXI8L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ01haW4gY29udGFpbmVyJykudGFnTmFtZSkudG9CZSgnTUFJTicpXG4gIH0pXG5cbiAgaXQoJ2FwcGxpZXMgY3VzdG9tIGNsYXNzTmFtZScsICgpID0+IHtcbiAgICByZW5kZXIoPENvbnRhaW5lciBjbGFzc05hbWU9XCJjdXN0b20tY2xhc3NcIj5DdXN0b208L0NvbnRhaW5lcj4pXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ0N1c3RvbScpKS50b0hhdmVDbGFzcygnY3VzdG9tLWNsYXNzJylcbiAgfSlcblxuICBpdCgnZm9yd2FyZHMgcmVmIGNvcnJlY3RseScsICgpID0+IHtcbiAgICBjb25zdCByZWYgPSBqZXN0LmZuKClcbiAgICByZW5kZXIoPENvbnRhaW5lciByZWY9e3JlZn0+Q29udGFpbmVyPC9Db250YWluZXI+KVxuICAgIGV4cGVjdChyZWYpLnRvSGF2ZUJlZW5DYWxsZWRXaXRoKGV4cGVjdC5hbnkoSFRNTERpdkVsZW1lbnQpKVxuICB9KVxufSlcblxuZGVzY3JpYmUoJ1NlY3Rpb24nLCAoKSA9PiB7XG4gIGl0KCdyZW5kZXJzIGFzIHNlY3Rpb24gZWxlbWVudCcsICgpID0+IHtcbiAgICByZW5kZXIoPFNlY3Rpb24+U2VjdGlvbiBjb250ZW50PC9TZWN0aW9uPilcbiAgICBjb25zdCBzZWN0aW9uID0gc2NyZWVuLmdldEJ5VGV4dCgnU2VjdGlvbiBjb250ZW50JylcbiAgICBleHBlY3Qoc2VjdGlvbi50YWdOYW1lKS50b0JlKCdTRUNUSU9OJylcbiAgfSlcblxuICBpdCgnYXBwbGllcyBzcGFjaW5nIGNsYXNzZXMgY29ycmVjdGx5JywgKCkgPT4ge1xuICAgIGNvbnN0IHsgcmVyZW5kZXIgfSA9IHJlbmRlcig8U2VjdGlvbiBzcGFjaW5nPVwibm9uZVwiPk5vIHNwYWNpbmc8L1NlY3Rpb24+KVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdObyBzcGFjaW5nJykuY2xhc3NOYW1lKS5ub3QudG9NYXRjaCgvXFxicHktXFxkLylcblxuICAgIHJlcmVuZGVyKDxTZWN0aW9uIHNwYWNpbmc9XCJzbVwiPlNtYWxsIHNwYWNpbmc8L1NlY3Rpb24+KVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdTbWFsbCBzcGFjaW5nJykpLnRvSGF2ZUNsYXNzKCdweS04JywgJ21kOnB5LTEwJylcblxuICAgIHJlcmVuZGVyKDxTZWN0aW9uIHNwYWNpbmc9XCJsZ1wiPkxhcmdlIHNwYWNpbmc8L1NlY3Rpb24+KVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdMYXJnZSBzcGFjaW5nJykpLnRvSGF2ZUNsYXNzKCdweS0xMicsICdtZDpweS0xNCcsICdsZzpweS0xNicpXG4gIH0pXG5cbiAgaXQoJ2luaGVyaXRzIENvbnRhaW5lciBwcm9wcycsICgpID0+IHtcbiAgICByZW5kZXIoPFNlY3Rpb24gc2l6ZT1cInhsXCIgcGFkZGluZz1cImxnXCI+U2VjdGlvbjwvU2VjdGlvbj4pXG4gICAgY29uc3Qgc2VjdGlvbiA9IHNjcmVlbi5nZXRCeVRleHQoJ1NlY3Rpb24nKVxuICAgIGV4cGVjdChzZWN0aW9uKS50b0hhdmVDbGFzcygnbWF4LXctWzE0NDBweF0nKVxuICAgIGV4cGVjdChzZWN0aW9uKS50b0hhdmVDbGFzcygncHgtNicpXG4gIH0pXG5cbiAgaXQoJ2NvbWJpbmVzIHNwYWNpbmcgYW5kIGN1c3RvbSBjbGFzc05hbWUnLCAoKSA9PiB7XG4gICAgcmVuZGVyKDxTZWN0aW9uIHNwYWNpbmc9XCJtZFwiIGNsYXNzTmFtZT1cImJnLWdyYXktMTAwXCI+U2VjdGlvbjwvU2VjdGlvbj4pXG4gICAgY29uc3Qgc2VjdGlvbiA9IHNjcmVlbi5nZXRCeVRleHQoJ1NlY3Rpb24nKVxuICAgIGV4cGVjdChzZWN0aW9uKS50b0hhdmVDbGFzcygncHktMTAnLCAnbWQ6cHktMTInLCAnbGc6cHktMTQnLCAnYmctZ3JheS0xMDAnKVxuICB9KVxufSlcbiJdLCJuYW1lcyI6WyJkZXNjcmliZSIsIml0IiwicmVuZGVyIiwiQ29udGFpbmVyIiwiZXhwZWN0Iiwic2NyZWVuIiwiZ2V0QnlUZXh0IiwidG9CZUluVGhlRG9jdW1lbnQiLCJyZXJlbmRlciIsInNpemUiLCJ0b0hhdmVDbGFzcyIsInBhZGRpbmciLCJjbGFzc05hbWUiLCJub3QiLCJ0b01hdGNoIiwiYXMiLCJ0YWdOYW1lIiwidG9CZSIsInJlZiIsImplc3QiLCJmbiIsInRvSGF2ZUJlZW5DYWxsZWRXaXRoIiwiYW55IiwiSFRNTERpdkVsZW1lbnQiLCJTZWN0aW9uIiwic2VjdGlvbiIsInNwYWNpbmciXSwibWFwcGluZ3MiOiI7Ozs7O3VCQUErQjsyQkFDSTtBQUVuQ0EsU0FBUyxhQUFhO0lBQ3BCQyxHQUFHLDhCQUE4QjtRQUMvQkMsSUFBQUEsYUFBTSxnQkFBQyxxQkFBQ0Msb0JBQVM7c0JBQUM7O1FBQ2xCQyxPQUFPQyxhQUFNLENBQUNDLFNBQVMsQ0FBQyxzQkFBc0JDLGlCQUFpQjtJQUNqRTtJQUVBTixHQUFHLGtDQUFrQztRQUNuQyxNQUFNLEVBQUVPLFFBQVEsRUFBRSxHQUFHTixJQUFBQSxhQUFNLGdCQUFDLHFCQUFDQyxvQkFBUztZQUFDTSxNQUFLO3NCQUFLOztRQUNqREwsT0FBT0MsYUFBTSxDQUFDQyxTQUFTLENBQUMsVUFBVUksV0FBVyxDQUFDO1FBRTlDRix1QkFBUyxxQkFBQ0wsb0JBQVM7WUFBQ00sTUFBSztzQkFBSzs7UUFDOUJMLE9BQU9DLGFBQU0sQ0FBQ0MsU0FBUyxDQUFDLFVBQVVJLFdBQVcsQ0FBQztRQUU5Q0YsdUJBQVMscUJBQUNMLG9CQUFTO1lBQUNNLE1BQUs7c0JBQU87O1FBQ2hDTCxPQUFPQyxhQUFNLENBQUNDLFNBQVMsQ0FBQyxTQUFTSSxXQUFXLENBQUM7SUFDL0M7SUFFQVQsR0FBRyxxQ0FBcUM7UUFDdEMsTUFBTSxFQUFFTyxRQUFRLEVBQUUsR0FBR04sSUFBQUEsYUFBTSxnQkFBQyxxQkFBQ0Msb0JBQVM7WUFBQ1EsU0FBUTtzQkFBTzs7UUFDdERQLE9BQU9D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

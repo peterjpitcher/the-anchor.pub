@@ -1,0 +1,21 @@
+f9f736f7b3f9d4b5b37771d9f2a0cffc
+// Shared API types used across multiple domain modules
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "formatCurrency", {
+    enumerable: true,
+    get: function() {
+        return formatCurrency;
+    }
+});
+function formatCurrency(amount) {
+    return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+        currencyDisplay: "symbol"
+    }).format(amount).replace(/\u00A0/g, " ");
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9hcGkvc2hhcmVkLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIFNoYXJlZCBBUEkgdHlwZXMgdXNlZCBhY3Jvc3MgbXVsdGlwbGUgZG9tYWluIG1vZHVsZXNcblxuZXhwb3J0IGludGVyZmFjZSBBcGlTdWNjZXNzUmVzcG9uc2U8VD4ge1xuICBzdWNjZXNzOiB0cnVlXG4gIGRhdGE6IFRcbn1cblxuZXhwb3J0IGludGVyZmFjZSBBcGlFcnJvclJlc3BvbnNlIHtcbiAgc3VjY2VzczogZmFsc2VcbiAgZXJyb3I6IHtcbiAgICBjb2RlOiBzdHJpbmdcbiAgICBtZXNzYWdlOiBzdHJpbmdcbiAgICBkZXRhaWxzPzogYW55XG4gIH1cbn1cblxuZXhwb3J0IHR5cGUgQXBpUmVzcG9uc2U8VD4gPSBBcGlTdWNjZXNzUmVzcG9uc2U8VD4gfCBBcGlFcnJvclJlc3BvbnNlXG5cbi8vIEhlbHBlciBmdW5jdGlvbiB0byBmb3JtYXQgY3VycmVuY3lcbmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRDdXJyZW5jeShhbW91bnQ6IG51bWJlcik6IHN0cmluZyB7XG4gIHJldHVybiBuZXcgSW50bC5OdW1iZXJGb3JtYXQoJ2VuLUdCJywge1xuICAgIHN0eWxlOiAnY3VycmVuY3knLFxuICAgIGN1cnJlbmN5OiAnR0JQJyxcbiAgICBjdXJyZW5jeURpc3BsYXk6ICdzeW1ib2wnXG4gIH0pLmZvcm1hdChhbW91bnQpLnJlcGxhY2UoL1xcdTAwQTAvZywgJyAnKVxufVxuIl0sIm5hbWVzIjpbImZvcm1hdEN1cnJlbmN5IiwiYW1vdW50IiwiSW50bCIsIk51bWJlckZvcm1hdCIsInN0eWxlIiwiY3VycmVuY3kiLCJjdXJyZW5jeURpc3BsYXkiLCJmb3JtYXQiLCJyZXBsYWNlIl0sIm1hcHBpbmdzIjoiQUFBQSx1REFBdUQ7Ozs7OytCQW1CdkNBOzs7ZUFBQUE7OztBQUFULFNBQVNBLGVBQWVDLE1BQWM7SUFDM0MsT0FBTyxJQUFJQyxLQUFLQyxZQUFZLENBQUMsU0FBUztRQUNwQ0MsT0FBTztRQUNQQyxVQUFVO1FBQ1ZDLGlCQUFpQjtJQUNuQixHQUFHQyxNQUFNLENBQUNOLFFBQVFPLE9BQU8sQ0FBQyxXQUFXO0FBQ3ZDIn0=

@@ -1,0 +1,89 @@
+! / — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /food-menu — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /sunday-lunch — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /pizza-menu — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /drinks — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /drinks/managers-special — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /whats-on — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /quiz-night — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /music-bingo — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /cash-bingo — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /karaoke — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /live-music — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /live-sport — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /live-sport/world-cup/sweepstake — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /private-hire — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /function-room-hire — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /corporate-events — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /private-party-venue — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /private-hire/wakes — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /book-table — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /near-heathrow — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /near-heathrow/terminal-5 — error: page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "http://localho
+! /find-us — error: page.goto: net::ERR_ABORTED at http://localhost:52589/find-us
+Call log:
+  - navi
+! /plane-spotting-heathrow — error: page.goto: Target page, context or browser has been closed
+Call log:
+  - navigat
+! /beer-garden — error: page.goto: Target page, context or browser has been closed
+! /heathrow-parking — error: page.goto: Target page, context or browser has been closed
+! /coach-parking-heathrow — error: page.goto: Target page, context or browser has been closed
+! /staines-pub — error: page.goto: Target page, context or browser has been closed
+! /pub-near-hilton-heathrow — error: page.goto: Target page, context or browser has been closed
+! /easter — error: page.goto: Target page, context or browser has been closed
+! /fathers-day — error: page.goto: Target page, context or browser has been closed
+! /summer-garden-parties — error: page.goto: Target page, context or browser has been closed
+! /blog — error: page.goto: Target page, context or browser has been closed
+! /about — error: page.goto: Target page, context or browser has been closed
+! /our-pub — error: page.goto: Target page, context or browser has been closed
+! /reviews — error: page.goto: Target page, context or browser has been closed
+! /sustainability — error: page.goto: Target page, context or browser has been closed
+! /join-our-team — error: page.goto: Target page, context or browser has been closed
+
+============================================================
+Dark-surface audit: 0 offender(s) across 0/38 route(s).

@@ -1,0 +1,264 @@
+eb126a3f2acf49307e9d1e678edb3392
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("@testing-library/react");
+const _userevent = /*#__PURE__*/ _interop_require_default(require("@testing-library/user-event"));
+const _Modal = require("../Modal");
+function _interop_require_default(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+describe("Modal", ()=>{
+    it("renders when open", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        expect(_react.screen.getByText("Modal content")).toBeInTheDocument();
+    });
+    it("does not render when closed", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: false,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        expect(_react.screen.queryByText("Modal content")).not.toBeInTheDocument();
+    });
+    it("calls onClose when close button is clicked", ()=>{
+        const onClose = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: onClose,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        const closeButton = _react.screen.getByLabelText("Close modal");
+        _react.fireEvent.click(closeButton);
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+    it("calls onClose when escape key is pressed", ()=>{
+        const onClose = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: onClose,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        _react.fireEvent.keyDown(document, {
+            key: "Escape"
+        });
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+    it("does not call onClose on escape when closeOnEscape is false", ()=>{
+        const onClose = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: onClose,
+            closeOnEscape: false,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        _react.fireEvent.keyDown(document, {
+            key: "Escape"
+        });
+        expect(onClose).not.toHaveBeenCalled();
+    });
+    it("calls onClose when backdrop is clicked", ()=>{
+        const onClose = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: onClose,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        const dialog = _react.screen.getByRole("dialog");
+        const overlay = dialog.parentElement;
+        _react.fireEvent.click(overlay);
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+    it("does not call onClose when modal content is clicked", ()=>{
+        const onClose = jest.fn();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: onClose,
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        _react.fireEvent.click(_react.screen.getByText("Modal content"));
+        expect(onClose).not.toHaveBeenCalled();
+    });
+    it("prevents body scroll when open", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: false,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        expect(document.body.style.overflow).toBe("");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        expect(document.body.style.overflow).toBe("hidden");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: false,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Modal content"
+            })
+        }));
+        expect(document.body.style.overflow).toBe("");
+    });
+    it("renders with different sizes", ()=>{
+        const { rerender } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            size: "sm",
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Small modal"
+            })
+        }));
+        expect(_react.screen.getByRole("dialog")).toHaveClass("max-w-md");
+        rerender(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            size: "lg",
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                children: "Large modal"
+            })
+        }));
+        expect(_react.screen.getByRole("dialog")).toHaveClass("max-w-2xl");
+    });
+    it("focuses first focusable element when opened", async ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_Modal.ModalBody, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "First button"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "Second button"
+                    })
+                ]
+            })
+        }));
+        await (0, _react.waitFor)(()=>{
+            expect(_react.screen.getByLabelText("Close modal")).toHaveFocus();
+        }, {
+            timeout: 200
+        });
+    });
+    it("traps focus within modal", async ()=>{
+        const user = _userevent.default.setup();
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_Modal.ModalBody, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "First button"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "Second button"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "Last button"
+                    })
+                ]
+            })
+        }));
+        const firstButton = _react.screen.getByText("First button");
+        const lastButton = _react.screen.getByText("Last button");
+        // Focus last button
+        lastButton.focus();
+        expect(lastButton).toHaveFocus();
+        // Tab should cycle to close button (first focusable)
+        await user.tab();
+        // Shift+Tab from first button should cycle to last
+        firstButton.focus();
+        await user.tab({
+            shift: true
+        });
+    });
+    it("renders with proper ARIA attributes", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsxs)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            title: "Test Modal",
+            description: "Modal description",
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalHeader, {
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalTitle, {
+                        id: "modal-title",
+                        children: "Test Modal"
+                    })
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalBody, {
+                    children: /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                        id: "modal-description",
+                        children: "Modal description"
+                    })
+                })
+            ]
+        }));
+        const modal = _react.screen.getByRole("dialog");
+        expect(modal).toHaveAttribute("aria-modal", "true");
+        expect(modal).toHaveAttribute("aria-labelledby");
+        expect(modal).toHaveAttribute("aria-describedby");
+    });
+});
+describe("Modal Sub-components", ()=>{
+    it("renders ModalHeader correctly", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalHeader, {
+                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.ModalTitle, {
+                    children: "Header Title"
+                })
+            })
+        }));
+        expect(_react.screen.getByText("Header Title")).toBeInTheDocument();
+        expect(_react.screen.getByText("Header Title").parentElement).toHaveClass("px-6", "pt-6", "pb-4");
+    });
+    it("renders ModalFooter with proper styling", ()=>{
+        (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_Modal.Modal, {
+            open: true,
+            onClose: ()=>{},
+            children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_Modal.ModalFooter, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "Cancel"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("button", {
+                        children: "Save"
+                    })
+                ]
+            })
+        }));
+        const footer = _react.screen.getByText("Cancel").parentElement;
+        expect(footer).toHaveClass("flex", "items-center", "justify-end", "gap-2");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2NvbXBvbmVudHMvdWkvb3ZlcmxheXMvX190ZXN0c19fL01vZGFsLnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHJlbmRlciwgc2NyZWVuLCBmaXJlRXZlbnQsIHdhaXRGb3IgfSBmcm9tICdAdGVzdGluZy1saWJyYXJ5L3JlYWN0J1xuaW1wb3J0IHVzZXJFdmVudCBmcm9tICdAdGVzdGluZy1saWJyYXJ5L3VzZXItZXZlbnQnXG5pbXBvcnQgeyBNb2RhbCwgTW9kYWxIZWFkZXIsIE1vZGFsVGl0bGUsIE1vZGFsQm9keSwgTW9kYWxGb290ZXIgfSBmcm9tICcuLi9Nb2RhbCdcblxuZGVzY3JpYmUoJ01vZGFsJywgKCkgPT4ge1xuICBpdCgncmVuZGVycyB3aGVuIG9wZW4nLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9eygpID0+IHt9fT5cbiAgICAgICAgPE1vZGFsQm9keT5Nb2RhbCBjb250ZW50PC9Nb2RhbEJvZHk+XG4gICAgICA8L01vZGFsPlxuICAgIClcbiAgICBcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgnTW9kYWwgY29udGVudCcpKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gIH0pXG5cbiAgaXQoJ2RvZXMgbm90IHJlbmRlciB3aGVuIGNsb3NlZCcsICgpID0+IHtcbiAgICByZW5kZXIoXG4gICAgICA8TW9kYWwgb3Blbj17ZmFsc2V9IG9uQ2xvc2U9eygpID0+IHt9fT5cbiAgICAgICAgPE1vZGFsQm9keT5Nb2RhbCBjb250ZW50PC9Nb2RhbEJvZHk+XG4gICAgICA8L01vZGFsPlxuICAgIClcbiAgICBcbiAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlUZXh0KCdNb2RhbCBjb250ZW50JykpLm5vdC50b0JlSW5UaGVEb2N1bWVudCgpXG4gIH0pXG5cbiAgaXQoJ2NhbGxzIG9uQ2xvc2Ugd2hlbiBjbG9zZSBidXR0b24gaXMgY2xpY2tlZCcsICgpID0+IHtcbiAgICBjb25zdCBvbkNsb3NlID0gamVzdC5mbigpXG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9e29uQ2xvc2V9PlxuICAgICAgICA8TW9kYWxCb2R5Pk1vZGFsIGNvbnRlbnQ8L01vZGFsQm9keT5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuICAgIFxuICAgIGNvbnN0IGNsb3NlQnV0dG9uID0gc2NyZWVuLmdldEJ5TGFiZWxUZXh0KCdDbG9zZSBtb2RhbCcpXG4gICAgZmlyZUV2ZW50LmNsaWNrKGNsb3NlQnV0dG9uKVxuICAgIFxuICAgIGV4cGVjdChvbkNsb3NlKS50b0hhdmVCZWVuQ2FsbGVkVGltZXMoMSlcbiAgfSlcblxuICBpdCgnY2FsbHMgb25DbG9zZSB3aGVuIGVzY2FwZSBrZXkgaXMgcHJlc3NlZCcsICgpID0+IHtcbiAgICBjb25zdCBvbkNsb3NlID0gamVzdC5mbigpXG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9e29uQ2xvc2V9PlxuICAgICAgICA8TW9kYWxCb2R5Pk1vZGFsIGNvbnRlbnQ8L01vZGFsQm9keT5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuICAgIFxuICAgIGZpcmVFdmVudC5rZXlEb3duKGRvY3VtZW50LCB7IGtleTogJ0VzY2FwZScgfSlcbiAgICBcbiAgICBleHBlY3Qob25DbG9zZSkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpXG4gIH0pXG5cbiAgaXQoJ2RvZXMgbm90IGNhbGwgb25DbG9zZSBvbiBlc2NhcGUgd2hlbiBjbG9zZU9uRXNjYXBlIGlzIGZhbHNlJywgKCkgPT4ge1xuICAgIGNvbnN0IG9uQ2xvc2UgPSBqZXN0LmZuKClcbiAgICByZW5kZXIoXG4gICAgICA8TW9kYWwgb3Blbj17dHJ1ZX0gb25DbG9zZT17b25DbG9zZX0gY2xvc2VPbkVzY2FwZT17ZmFsc2V9PlxuICAgICAgICA8TW9kYWxCb2R5Pk1vZGFsIGNvbnRlbnQ8L01vZGFsQm9keT5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuICAgIFxuICAgIGZpcmVFdmVudC5rZXlEb3duKGRvY3VtZW50LCB7IGtleTogJ0VzY2FwZScgfSlcbiAgICBcbiAgICBleHBlY3Qob25DbG9zZSkubm90LnRvSGF2ZUJlZW5DYWxsZWQoKVxuICB9KVxuXG4gIGl0KCdjYWxscyBvbkNsb3NlIHdoZW4gYmFja2Ryb3AgaXMgY2xpY2tlZCcsICgpID0+IHtcbiAgICBjb25zdCBvbkNsb3NlID0gamVzdC5mbigpXG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9e29uQ2xvc2V9PlxuICAgICAgICA8TW9kYWxCb2R5Pk1vZGFsIGNvbnRlbnQ8L01vZGFsQm9keT5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuXG4gICAgY29uc3QgZGlhbG9nID0gc2NyZWVuLmdldEJ5Um9sZSgnZGlhbG9nJylcbiAgICBjb25zdCBvdmVybGF5ID0gZGlhbG9nLnBhcmVudEVsZW1lbnQgYXMgSFRNTEVsZW1lbnRcbiAgICBmaXJlRXZlbnQuY2xpY2sob3ZlcmxheSlcblxuICAgIGV4cGVjdChvbkNsb3NlKS50b0hhdmVCZWVuQ2FsbGVkVGltZXMoMSlcbiAgfSlcblxuICBpdCgnZG9lcyBub3QgY2FsbCBvbkNsb3NlIHdoZW4gbW9kYWwgY29udGVudCBpcyBjbGlja2VkJywgKCkgPT4ge1xuICAgIGNvbnN0IG9uQ2xvc2UgPSBqZXN0LmZuKClcbiAgICByZW5kZXIoXG4gICAgICA8TW9kYWwgb3Blbj17dHJ1ZX0gb25DbG9zZT17b25DbG9zZX0+XG4gICAgICAgIDxNb2RhbEJvZHk+TW9kYWwgY29udGVudDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgZmlyZUV2ZW50LmNsaWNrKHNjcmVlbi5nZXRCeVRleHQoJ01vZGFsIGNvbnRlbnQnKSlcbiAgICBcbiAgICBleHBlY3Qob25DbG9zZSkubm90LnRvSGF2ZUJlZW5DYWxsZWQoKVxuICB9KVxuXG4gIGl0KCdwcmV2ZW50cyBib2R5IHNjcm9sbCB3aGVuIG9wZW4nLCAoKSA9PiB7XG4gICAgY29uc3QgeyByZXJlbmRlciB9ID0gcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e2ZhbHNlfSBvbkNsb3NlPXsoKSA9PiB7fX0+XG4gICAgICAgIDxNb2RhbEJvZHk+TW9kYWwgY29udGVudDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgZXhwZWN0KGRvY3VtZW50LmJvZHkuc3R5bGUub3ZlcmZsb3cpLnRvQmUoJycpXG4gICAgXG4gICAgcmVyZW5kZXIoXG4gICAgICA8TW9kYWwgb3Blbj17dHJ1ZX0gb25DbG9zZT17KCkgPT4ge319PlxuICAgICAgICA8TW9kYWxCb2R5Pk1vZGFsIGNvbnRlbnQ8L01vZGFsQm9keT5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuICAgIFxuICAgIGV4cGVjdChkb2N1bWVudC5ib2R5LnN0eWxlLm92ZXJmbG93KS50b0JlKCdoaWRkZW4nKVxuICAgIFxuICAgIHJlcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e2ZhbHNlfSBvbkNsb3NlPXsoKSA9PiB7fX0+XG4gICAgICAgIDxNb2RhbEJvZHk+TW9kYWwgY29udGVudDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgZXhwZWN0KGRvY3VtZW50LmJvZHkuc3R5bGUub3ZlcmZsb3cpLnRvQmUoJycpXG4gIH0pXG5cbiAgaXQoJ3JlbmRlcnMgd2l0aCBkaWZmZXJlbnQgc2l6ZXMnLCAoKSA9PiB7XG4gICAgY29uc3QgeyByZXJlbmRlciB9ID0gcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9eygpID0+IHt9fSBzaXplPVwic21cIj5cbiAgICAgICAgPE1vZGFsQm9keT5TbWFsbCBtb2RhbDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoJ2RpYWxvZycpKS50b0hhdmVDbGFzcygnbWF4LXctbWQnKVxuICAgIFxuICAgIHJlcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9eygpID0+IHt9fSBzaXplPVwibGdcIj5cbiAgICAgICAgPE1vZGFsQm9keT5MYXJnZSBtb2RhbDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoJ2RpYWxvZycpKS50b0hhdmVDbGFzcygnbWF4LXctMnhsJylcbiAgfSlcblxuICBpdCgnZm9jdXNlcyBmaXJzdCBmb2N1c2FibGUgZWxlbWVudCB3aGVuIG9wZW5lZCcsIGFzeW5jICgpID0+IHtcbiAgICByZW5kZXIoXG4gICAgICA8TW9kYWwgb3Blbj17dHJ1ZX0gb25DbG9zZT17KCkgPT4ge319PlxuICAgICAgICA8TW9kYWxCb2R5PlxuICAgICAgICAgIDxidXR0b24+Rmlyc3QgYnV0dG9uPC9idXR0b24+XG4gICAgICAgICAgPGJ1dHRvbj5TZWNvbmQgYnV0dG9uPC9idXR0b24+XG4gICAgICAgIDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgYXdhaXQgd2FpdEZvcigoKSA9PiB7XG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5TGFiZWxUZXh0KCdDbG9zZSBtb2RhbCcpKS50b0hhdmVGb2N1cygpXG4gICAgfSwgeyB0aW1lb3V0OiAyMDAgfSlcbiAgfSlcblxuICBpdCgndHJhcHMgZm9jdXMgd2l0aGluIG1vZGFsJywgYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IHVzZXIgPSB1c2VyRXZlbnQuc2V0dXAoKVxuICAgIHJlbmRlcihcbiAgICAgIDxNb2RhbCBvcGVuPXt0cnVlfSBvbkNsb3NlPXsoKSA9PiB7fX0+XG4gICAgICAgIDxNb2RhbEJvZHk+XG4gICAgICAgICAgPGJ1dHRvbj5GaXJzdCBidXR0b248L2J1dHRvbj5cbiAgICAgICAgICA8YnV0dG9uPlNlY29uZCBidXR0b248L2J1dHRvbj5cbiAgICAgICAgICA8YnV0dG9uPkxhc3QgYnV0dG9uPC9idXR0b24+XG4gICAgICAgIDwvTW9kYWxCb2R5PlxuICAgICAgPC9Nb2RhbD5cbiAgICApXG4gICAgXG4gICAgY29uc3QgZmlyc3RCdXR0b24gPSBzY3JlZW4uZ2V0QnlUZXh0KCdGaXJzdCBidXR0b24nKVxuICAgIGNvbnN0IGxhc3RCdXR0b24gPSBzY3JlZW4uZ2V0QnlUZXh0KCdMYXN0IGJ1dHRvbicpXG4gICAgXG4gICAgLy8gRm9jdXMgbGFzdCBidXR0b25cbiAgICBsYXN0QnV0dG9uLmZvY3VzKClcbiAgICBleHBlY3QobGFzdEJ1dHRvbikudG9IYXZlRm9jdXMoKVxuICAgIFxuICAgIC8vIFRhYiBzaG91bGQgY3ljbGUgdG8gY2xvc2UgYnV0dG9uIChmaXJzdCBmb2N1c2FibGUpXG4gICAgYXdhaXQgdXNlci50YWIoKVxuICAgIFxuICAgIC8vIFNoaWZ0K1RhYiBmcm9tIGZpcnN0IGJ1dHRvbiBzaG91bGQgY3ljbGUgdG8gbGFzdFxuICAgIGZpcnN0QnV0dG9uLmZvY3VzKClcbiAgICBhd2FpdCB1c2VyLnRhYih7IHNoaWZ0OiB0cnVlIH0pXG4gIH0pXG5cbiAgaXQoJ3JlbmRlcnMgd2l0aCBwcm9wZXIgQVJJQSBhdHRyaWJ1dGVzJywgKCkgPT4ge1xuICAgIHJlbmRlcihcbiAgICAgIDxNb2RhbCBcbiAgICAgICAgb3Blbj17dHJ1ZX0gXG4gICAgICAgIG9uQ2xvc2U9eygpID0+IHt9fVxuICAgICAgICB0aXRsZT1cIlRlc3QgTW9kYWxcIlxuICAgICAgICBkZXNjcmlwdGlvbj1cIk1vZGFsIGRlc2NyaXB0aW9uXCJcbiAgICAgID5cbiAgICAgICAgPE1vZGFsSGVhZGVyPlxuICAgICAgICAgIDxNb2RhbFRpdGxlIGlkPVwibW9kYWwtdGl0bGVcIj5UZXN0IE1vZGFsPC9Nb2RhbFRpdGxlPlxuICAgICAgICA8L01vZGFsSGVhZGVyPlxuICAgICAgICA8TW9kYWxCb2R5PlxuICAgICAgICAgIDxwIGlkPVwibW9kYWwtZGVzY3JpcHRpb25cIj5Nb2RhbCBkZXNjcmlwdGlvbjwvcD5cbiAgICAgICAgPC9Nb2RhbEJvZHk+XG4gICAgICA8L01vZGFsPlxuICAgIClcbiAgICBcbiAgICBjb25zdCBtb2RhbCA9IHNjcmVlbi5nZXRCeVJvbGUoJ2RpYWxvZycpXG4gICAgZXhwZWN0KG1vZGFsKS50b0hhdmVBdHRyaWJ1dGUoJ2FyaWEtbW9kYWwnLCAndHJ1ZScpXG4gICAgZXhwZWN0KG1vZGFsKS50b0hhdmVBdHRyaWJ1dGUoJ2FyaWEtbGFiZWxsZWRieScpXG4gICAgZXhwZWN0KG1vZGFsKS50b0hhdmVBdHRyaWJ1dGUoJ2FyaWEtZGVzY3JpYmVkYnknKVxuICB9KVxufSlcblxuZGVzY3JpYmUoJ01vZGFsIFN1Yi1jb21wb25lbnRzJywgKCkgPT4ge1xuICBpdCgncmVuZGVycyBNb2RhbEhlYWRlciBjb3JyZWN0bHknLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9eygpID0+IHt9fT5cbiAgICAgICAgPE1vZGFsSGVhZGVyPlxuICAgICAgICAgIDxNb2RhbFRpdGxlPkhlYWRlciBUaXRsZTwvTW9kYWxUaXRsZT5cbiAgICAgICAgPC9Nb2RhbEhlYWRlcj5cbiAgICAgIDwvTW9kYWw+XG4gICAgKVxuICAgIFxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdIZWFkZXIgVGl0bGUnKSkudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdIZWFkZXIgVGl0bGUnKS5wYXJlbnRFbGVtZW50KS50b0hhdmVDbGFzcygncHgtNicsICdwdC02JywgJ3BiLTQnKVxuICB9KVxuXG4gIGl0KCdyZW5kZXJzIE1vZGFsRm9vdGVyIHdpdGggcHJvcGVyIHN0eWxpbmcnLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPE1vZGFsIG9wZW49e3RydWV9IG9uQ2xvc2U9eygpID0+IHt9fT5cbiAgICAgICAgPE1vZGFsRm9vdGVyPlxuICAgICAgICAgIDxidXR0b24+Q2FuY2VsPC9idXR0b24+XG4gICAgICAgICAgPGJ1dHRvbj5TYXZlPC9idXR0b24+XG4gICAgICAgIDwvTW9kYWxGb290ZXI+XG4gICAgICA8L01vZGFsPlxuICAgIClcbiAgICBcbiAgICBjb25zdCBmb290ZXIgPSBzY3JlZW4uZ2V0QnlUZXh0KCdDYW5jZWwnKS5wYXJlbnRFbGVtZW50XG4gICAgZXhwZWN0KGZvb3RlcikudG9IYXZlQ2xhc3MoJ2ZsZXgnLCAnaXRlbXMtY2VudGVyJywgJ2p1c3RpZnktZW5kJywgJ2dhcC0yJylcbiAgfSlcbn0pXG4iXSwibmFtZXMiOlsiZGVzY3JpYmUiLCJpdCIsInJlbmRlciIsIk1vZGFsIiwib3BlbiIsIm9uQ2xvc2UiLCJNb2RhbEJvZHkiLCJleHBlY3QiLCJzY3JlZW4iLCJnZXRCeVRleHQiLCJ0b0JlSW5UaGVEb2N1bWVudCIsInF1ZXJ5QnlUZXh0Iiwibm90IiwiamVzdCIsImZuIiwiY2xvc2VCdXR0b24iLCJnZXRCeUxhYmVsVGV4dCIsImZpcmVFdmVudCIsImNsaWNrIiwidG9IYXZlQmVlbkNhbGxlZFRpbWVzIiwia2V5RG93biIsImRvY3VtZW50Iiwia2V5IiwiY2xvc2VPbkVzY2FwZSIsInRvSGF2ZUJlZW5DYWxsZWQiLCJkaWFsb2ciLCJnZXRCeVJvbGUiLCJvdmVybGF5IiwicGFyZW50RWxlbWVudCIsInJlcmVuZGVyIiwiYm9keSIsInN0eWxlIiwib3ZlcmZsb3ciLCJ0b0JlIiwic2l6ZSIsInRvSGF2ZUNsYXNzIiwiYnV0dG9uIiwid2FpdEZvciIsInRvSGF2ZUZvY3VzIiwidGltZW91dCIsInVzZXIiLCJ1c2VyRXZlbnQiLCJzZXR1cCIsImZpcnN0QnV0dG9uIiwibGFzdEJ1dHRvbiIsImZvY3VzIiwidGFiIiwic2hpZnQiLCJ0aXRsZSIsImRlc2NyaXB0aW9uIiwiTW9kYWxIZWFkZXIiLCJNb2RhbFRpdGxlIiwiaWQiLCJwIiwibW9kYWwiLCJ0b0hhdmVBdHRyaWJ1dGUi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

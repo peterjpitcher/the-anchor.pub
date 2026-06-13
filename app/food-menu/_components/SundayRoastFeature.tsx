@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
+import { formatMenuAllergenList, getMenuItemAllergens } from '@/lib/menu-allergens'
 import type { MenuPageItem } from '@/lib/menu-page-data'
 
 interface SundayRoastFeatureProps {
@@ -16,7 +17,6 @@ function formatDisplayPrice(price: string | undefined): string {
 function dietaryFlag(item: MenuPageItem): string | null {
   if (item.vegan) return 'Vegan'
   if (item.vegetarian) return 'Veg'
-  if (item.glutenFree) return 'GF'
   return null
 }
 
@@ -55,6 +55,7 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
               <ul className="divide-y divide-line">
                 {roasts.map(roast => {
                   const flag = dietaryFlag(roast)
+                  const allergens = getMenuItemAllergens(roast)
                   return (
                     <li key={roast.id || roast.name} className="py-3">
                       <p className="font-sans font-medium text-ink-strong">
@@ -68,6 +69,9 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
                             &middot; {flag}
                           </span>
                         )}
+                      </p>
+                      <p className="mt-2 text-xs text-ink-muted">
+                        Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
                       </p>
                     </li>
                   )

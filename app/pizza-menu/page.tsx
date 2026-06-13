@@ -152,7 +152,7 @@ export default async function PizzaMenuPage() {
             <div className="space-y-6 text-left">
               <h2 className="text-h3 text-ink-strong">Dietary Notes</h2>
               <ul className="space-y-4 text-ink-muted">
-                <li>Gluten-free availability is shown on each live menu item when available.</li>
+                <li>Allergens are listed on each pizza from the live menu data.</li>
                 <li>Vegan-option dishes are labelled from the menu data and should be requested at the bar.</li>
                 <li>Allergen guidance is available before you order.</li>
               </ul>
@@ -185,8 +185,8 @@ export default async function PizzaMenuPage() {
           {
             question: 'Do you do gluten-free bases?',
             answer: gfAvailable
-              ? 'The current pizza menu includes gluten-free-base options. Please ask at the bar when ordering and tell us about any allergies.'
-              : 'Please ask at the bar for the latest gluten-free pizza and allergen guidance.'
+              ? 'Some pizzas have change options in the live menu. Please ask at the bar when ordering and tell us about any allergies.'
+              : 'Please ask at the bar for the latest pizza allergen guidance.'
           },
           {
             question: 'Can pizzas be made vegan?',

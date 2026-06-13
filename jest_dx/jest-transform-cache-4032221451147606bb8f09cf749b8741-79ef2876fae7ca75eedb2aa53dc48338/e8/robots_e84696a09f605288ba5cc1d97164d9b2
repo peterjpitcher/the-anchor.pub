@@ -1,0 +1,64 @@
+4e9e588a7a450c82efb82d4d597343a2
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "default", {
+    enumerable: true,
+    get: function() {
+        return robots;
+    }
+});
+function robots() {
+    return {
+        rules: [
+            {
+                userAgent: "*",
+                allow: [
+                    "/",
+                    "/_next/static/"
+                ],
+                disallow: [
+                    "/api/",
+                    // Allow static assets so crawlers can render pages correctly.
+                    "/_next/data/",
+                    "/_serverless/",
+                    "/_partials/",
+                    "/_api/",
+                    "/_scripts/",
+                    "/cdn-cgi/",
+                    "/subscribe",
+                    "/leave-a-review",
+                    "/subscribe-for-digital-flyers",
+                    "/p5-demo"
+                ]
+            },
+            {
+                // AI scraper / model-training crawlers — full opt-out. These were
+                // previously injected by Cloudflare's managed robots.txt; that feature
+                // is now disabled, so the policy lives here in version control where it
+                // is testable (see tests/seo-indexing.test.ts). NOTE: Cloudflare's
+                // declarative `Content-Signal: ai-train=no` line is not reproducible via
+                // Next's typed robots API — these explicit Disallows are the enforceable
+                // equivalent for the major bots.
+                userAgent: [
+                    "Amazonbot",
+                    "Applebot-Extended",
+                    "Bytespider",
+                    "CCBot",
+                    "ClaudeBot",
+                    "CloudflareBrowserRenderingCrawler",
+                    "Google-Extended",
+                    "GPTBot",
+                    "meta-externalagent"
+                ],
+                disallow: "/"
+            }
+        ],
+        sitemap: [
+            "https://www.the-anchor.pub/sitemap.xml"
+        ]
+    };
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2FwcC9yb2JvdHMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTWV0YWRhdGFSb3V0ZSB9IGZyb20gJ25leHQnXG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHJvYm90cygpOiBNZXRhZGF0YVJvdXRlLlJvYm90cyB7XG4gIHJldHVybiB7XG4gICAgcnVsZXM6IFtcbiAgICAgIHtcbiAgICAgICAgdXNlckFnZW50OiAnKicsXG4gICAgICAgIGFsbG93OiBbJy8nLCAnL19uZXh0L3N0YXRpYy8nXSxcbiAgICAgICAgZGlzYWxsb3c6IFtcbiAgICAgICAgICAnL2FwaS8nLFxuICAgICAgICAgIC8vIEFsbG93IHN0YXRpYyBhc3NldHMgc28gY3Jhd2xlcnMgY2FuIHJlbmRlciBwYWdlcyBjb3JyZWN0bHkuXG4gICAgICAgICAgJy9fbmV4dC9kYXRhLycsXG4gICAgICAgICAgJy9fc2VydmVybGVzcy8nLFxuICAgICAgICAgICcvX3BhcnRpYWxzLycsXG4gICAgICAgICAgJy9fYXBpLycsXG4gICAgICAgICAgJy9fc2NyaXB0cy8nLFxuICAgICAgICAgICcvY2RuLWNnaS8nLFxuICAgICAgICAgICcvc3Vic2NyaWJlJyxcbiAgICAgICAgICAnL2xlYXZlLWEtcmV2aWV3JyxcbiAgICAgICAgICAnL3N1YnNjcmliZS1mb3ItZGlnaXRhbC1mbHllcnMnLFxuICAgICAgICAgICcvcDUtZGVtbydcbiAgICAgICAgXVxuICAgICAgfSxcbiAgICAgIHtcbiAgICAgICAgLy8gQUkgc2NyYXBlciAvIG1vZGVsLXRyYWluaW5nIGNyYXdsZXJzIOKAlCBmdWxsIG9wdC1vdXQuIFRoZXNlIHdlcmVcbiAgICAgICAgLy8gcHJldmlvdXNseSBpbmplY3RlZCBieSBDbG91ZGZsYXJlJ3MgbWFuYWdlZCByb2JvdHMudHh0OyB0aGF0IGZlYXR1cmVcbiAgICAgICAgLy8gaXMgbm93IGRpc2FibGVkLCBzbyB0aGUgcG9saWN5IGxpdmVzIGhlcmUgaW4gdmVyc2lvbiBjb250cm9sIHdoZXJlIGl0XG4gICAgICAgIC8vIGlzIHRlc3RhYmxlIChzZWUgdGVzdHMvc2VvLWluZGV4aW5nLnRlc3QudHMpLiBOT1RFOiBDbG91ZGZsYXJlJ3NcbiAgICAgICAgLy8gZGVjbGFyYXRpdmUgYENvbnRlbnQtU2lnbmFsOiBhaS10cmFpbj1ub2AgbGluZSBpcyBub3QgcmVwcm9kdWNpYmxlIHZpYVxuICAgICAgICAvLyBOZXh0J3MgdHlwZWQgcm9ib3RzIEFQSSDigJQgdGhlc2UgZXhwbGljaXQgRGlzYWxsb3dzIGFyZSB0aGUgZW5mb3JjZWFibGVcbiAgICAgICAgLy8gZXF1aXZhbGVudCBmb3IgdGhlIG1ham9yIGJvdHMuXG4gICAgICAgIHVzZXJBZ2VudDogW1xuICAgICAgICAgICdBbWF6b25ib3QnLFxuICAgICAgICAgICdBcHBsZWJvdC1FeHRlbmRlZCcsXG4gICAgICAgICAgJ0J5dGVzcGlkZXInLFxuICAgICAgICAgICdDQ0JvdCcsXG4gICAgICAgICAgJ0NsYXVkZUJvdCcsXG4gICAgICAgICAgJ0Nsb3VkZmxhcmVCcm93c2VyUmVuZGVyaW5nQ3Jhd2xlcicsXG4gICAgICAgICAgJ0dvb2dsZS1FeHRlbmRlZCcsXG4gICAgICAgICAgJ0dQVEJvdCcsXG4gICAgICAgICAgJ21ldGEtZXh0ZXJuYWxhZ2VudCdcbiAgICAgICAgXSxcbiAgICAgICAgZGlzYWxsb3c6ICcvJ1xuICAgICAgfVxuICAgIF0sXG4gICAgc2l0ZW1hcDogWydodHRwczovL3d3dy50aGUtYW5jaG9yLnB1Yi9zaXRlbWFwLnhtbCddLFxuICB9XG59XG4iXSwibmFtZXMiOlsicm9ib3RzIiwicnVsZXMiLCJ1c2VyQWdlbnQiLCJhbGxvdyIsImRpc2FsbG93Iiwic2l0ZW1hcCJdLCJtYXBwaW5ncyI6Ijs7OzsrQkFFQTs7O2VBQXdCQTs7O0FBQVQsU0FBU0E7SUFDdEIsT0FBTztRQUNMQyxPQUFPO1lBQ0w7Z0JBQ0VDLFdBQVc7Z0JBQ1hDLE9BQU87b0JBQUM7b0JBQUs7aUJBQWlCO2dCQUM5QkMsVUFBVTtvQkFDUjtvQkFDQSw4REFBOEQ7b0JBQzlEO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO2lCQUNEO1lBQ0g7WUFDQTtnQkFDRSxrRUFBa0U7Z0JBQ2xFLHVFQUF1RTtnQkFDdkUsd0VBQXdFO2dCQUN4RSxtRUFBbUU7Z0JBQ25FLHlFQUF5RTtnQkFDekUseUVBQXlFO2dCQUN6RSxpQ0FBaUM7Z0JBQ2pDRixXQUFXO29CQUNUO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO29CQUNBO2lCQUNEO2dCQUNERSxVQUFVO1lBQ1o7U0FDRDtRQUNEQyxTQUFTO1lBQUM7U0FBeUM7SUFDckQ7QUFDRiJ9

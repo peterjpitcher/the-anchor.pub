@@ -68,7 +68,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
       { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },
       { label: 'Vegan Options', href: '/food-menu/vegan' },
-      { label: 'Gluten-Free Options', href: '/food-menu/gluten-free' },
+      { label: 'Gluten-Aware Menu', href: '/food-menu/gluten-free' },
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Baby Guinness', href: '/drinks/baby-guinness' },

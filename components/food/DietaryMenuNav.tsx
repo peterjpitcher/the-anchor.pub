@@ -8,7 +8,7 @@ const menuLinks = [
   { href: '/food-menu', label: 'Full Menu', badge: null, badgeColor: null },
   { href: '/food-menu/vegetarian', label: 'Vegetarian', badge: 'V', badgeColor: 'emerald' },
   { href: '/food-menu/vegan', label: 'Vegan', badge: 'VE', badgeColor: 'emerald' },
-  { href: '/food-menu/gluten-free', label: 'Gluten-Free', badge: 'GF', badgeColor: 'green' },
+  { href: '/food-menu/gluten-free', label: 'Gluten-Free', badge: null, badgeColor: null },
 ] as const
 
 export function DietaryMenuNav() {

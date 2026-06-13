@@ -1,0 +1,57 @@
+9620c3a8c34930195c56640940eba4e5
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "AlertBox", {
+    enumerable: true,
+    get: function() {
+        return AlertBox;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+function AlertBox({ title, content, variant = "info", className = "" }) {
+    const variantStyles = {
+        info: {
+            container: "bg-anchor-green-card border-anchor-gold-dark/25",
+            title: "text-anchor-gold-bright",
+            content: "text-anchor-cream-text/75"
+        },
+        warning: {
+            container: "bg-amber-500/10 border-amber-500/30",
+            title: "text-amber-300",
+            content: "text-anchor-cream-text/75"
+        },
+        success: {
+            container: "bg-emerald-500/10 border-emerald-500/30",
+            title: "text-emerald-300",
+            content: "text-anchor-cream-text/75"
+        },
+        error: {
+            container: "bg-red-500/10 border-red-500/30",
+            title: "text-red-300",
+            content: "text-anchor-cream-text/75"
+        },
+        tip: {
+            container: "bg-anchor-green-card border-anchor-gold-dark/25",
+            title: "text-anchor-gold-bright",
+            content: "text-anchor-cream-text/75"
+        }
+    };
+    const styles = variantStyles[variant];
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: `rounded-none p-6 border ${styles.container} ${className}`,
+        children: [
+            title && /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                className: `text-lg font-bold mb-2 ${styles.title}`,
+                children: title
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                className: `${styles.content}`,
+                children: content
+            })
+        ]
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2NvbXBvbmVudHMvQWxlcnRCb3gudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImludGVyZmFjZSBBbGVydEJveFByb3BzIHtcbiAgdGl0bGU/OiBzdHJpbmdcbiAgY29udGVudDogUmVhY3QuUmVhY3ROb2RlXG4gIHZhcmlhbnQ/OiAnaW5mbycgfCAnd2FybmluZycgfCAnc3VjY2VzcycgfCAnZXJyb3InIHwgJ3RpcCdcbiAgY2xhc3NOYW1lPzogc3RyaW5nXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBBbGVydEJveCh7IFxuICB0aXRsZSwgXG4gIGNvbnRlbnQsIFxuICB2YXJpYW50ID0gJ2luZm8nLFxuICBjbGFzc05hbWUgPSAnJyBcbn06IEFsZXJ0Qm94UHJvcHMpIHtcbiAgY29uc3QgdmFyaWFudFN0eWxlcyA9IHtcbiAgICBpbmZvOiB7XG4gICAgICBjb250YWluZXI6ICdiZy1hbmNob3ItZ3JlZW4tY2FyZCBib3JkZXItYW5jaG9yLWdvbGQtZGFyay8yNScsXG4gICAgICB0aXRsZTogJ3RleHQtYW5jaG9yLWdvbGQtYnJpZ2h0JyxcbiAgICAgIGNvbnRlbnQ6ICd0ZXh0LWFuY2hvci1jcmVhbS10ZXh0Lzc1J1xuICAgIH0sXG4gICAgd2FybmluZzoge1xuICAgICAgY29udGFpbmVyOiAnYmctYW1iZXItNTAwLzEwIGJvcmRlci1hbWJlci01MDAvMzAnLFxuICAgICAgdGl0bGU6ICd0ZXh0LWFtYmVyLTMwMCcsXG4gICAgICBjb250ZW50OiAndGV4dC1hbmNob3ItY3JlYW0tdGV4dC83NSdcbiAgICB9LFxuICAgIHN1Y2Nlc3M6IHtcbiAgICAgIGNvbnRhaW5lcjogJ2JnLWVtZXJhbGQtNTAwLzEwIGJvcmRlci1lbWVyYWxkLTUwMC8zMCcsXG4gICAgICB0aXRsZTogJ3RleHQtZW1lcmFsZC0zMDAnLFxuICAgICAgY29udGVudDogJ3RleHQtYW5jaG9yLWNyZWFtLXRleHQvNzUnXG4gICAgfSxcbiAgICBlcnJvcjoge1xuICAgICAgY29udGFpbmVyOiAnYmctcmVkLTUwMC8xMCBib3JkZXItcmVkLTUwMC8zMCcsXG4gICAgICB0aXRsZTogJ3RleHQtcmVkLTMwMCcsXG4gICAgICBjb250ZW50OiAndGV4dC1hbmNob3ItY3JlYW0tdGV4dC83NSdcbiAgICB9LFxuICAgIHRpcDoge1xuICAgICAgY29udGFpbmVyOiAnYmctYW5jaG9yLWdyZWVuLWNhcmQgYm9yZGVyLWFuY2hvci1nb2xkLWRhcmsvMjUnLFxuICAgICAgdGl0bGU6ICd0ZXh0LWFuY2hvci1nb2xkLWJyaWdodCcsXG4gICAgICBjb250ZW50OiAndGV4dC1hbmNob3ItY3JlYW0tdGV4dC83NSdcbiAgICB9XG4gIH1cblxuICBjb25zdCBzdHlsZXMgPSB2YXJpYW50U3R5bGVzW3ZhcmlhbnRdXG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT17YHJvdW5kZWQtbm9uZSBwLTYgYm9yZGVyICR7c3R5bGVzLmNvbnRhaW5lcn0gJHtjbGFzc05hbWV9YH0+XG4gICAgICB7dGl0bGUgJiYgKFxuICAgICAgICA8aDMgY2xhc3NOYW1lPXtgdGV4dC1sZyBmb250LWJvbGQgbWItMiAke3N0eWxlcy50aXRsZX1gfT5cbiAgICAgICAgICB7dGl0bGV9XG4gICAgICAgIDwvaDM+XG4gICAgICApfVxuICAgICAgPGRpdiBjbGFzc05hbWU9e2Ake3N0eWxlcy5jb250ZW50fWB9PlxuICAgICAgICB7Y29udGVudH1cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICApXG59XG4iXSwibmFtZXMiOlsiQWxlcnRCb3giLCJ0aXRsZSIsImNvbnRlbnQiLCJ2YXJpYW50IiwiY2xhc3NOYW1lIiwidmFyaWFudFN0eWxlcyIsImluZm8iLCJjb250YWluZXIiLCJ3YXJuaW5nIiwic3VjY2VzcyIsImVycm9yIiwidGlwIiwic3R5bGVzIiwiZGl2IiwiaDMiXSwibWFwcGluZ3MiOiI7Ozs7K0JBT2dCQTs7O2VBQUFBOzs7O0FBQVQsU0FBU0EsU0FBUyxFQUN2QkMsS0FBSyxFQUNMQyxPQUFPLEVBQ1BDLFVBQVUsTUFBTSxFQUNoQkMsWUFBWSxFQUFFLEVBQ0E7SUFDZCxNQUFNQyxnQkFBZ0I7UUFDcEJDLE1BQU07WUFDSkMsV0FBVztZQUNYTixPQUFPO1lBQ1BDLFNBQVM7UUFDWDtRQUNBTSxTQUFTO1lBQ1BELFdBQVc7WUFDWE4sT0FBTztZQUNQQyxTQUFTO1FBQ1g7UUFDQU8sU0FBUztZQUNQRixXQUFXO1lBQ1hOLE9BQU87WUFDUEMsU0FBUztRQUNYO1FBQ0FRLE9BQU87WUFDTEgsV0FBVztZQUNYTixPQUFPO1lBQ1BDLFNBQVM7UUFDWDtRQUNBUyxLQUFLO1lBQ0hKLFdBQVc7WUFDWE4sT0FBTztZQUNQQyxTQUFTO1FBQ1g7SUFDRjtJQUVBLE1BQU1VLFNBQVNQLGFBQWEsQ0FBQ0YsUUFBUTtJQUVyQyxxQkFDRSxzQkFBQ1U7UUFBSVQsV0FBVyxDQUFDLHdCQUF3QixFQUFFUSxPQUFPTCxTQUFTLENBQUMsQ0FBQyxFQUFFSCxVQUFVLENBQUM7O1lBQ3ZFSCx1QkFDQyxxQkFBQ2E7Z0JBQUdWLFdBQVcsQ0FBQyx1QkFBdUIsRUFBRVEsT0FBT1gsS0FBSyxDQUFDLENBQUM7MEJBQ3BEQTs7MEJBR0wscUJBQUNZO2dCQUFJVCxXQUFXLENBQUMsRUFBRVEsT0FBT1YsT0FBTyxDQUFDLENBQUM7MEJBQ2hDQTs7OztBQUlUIn0=

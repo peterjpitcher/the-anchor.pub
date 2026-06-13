@@ -1,0 +1,124 @@
+8d603b4f4eb63cd5d5de1bee0abd2753
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _eventbookingcopy = require("../../lib/event-booking-copy");
+const _eventbookingexperience = require("../../lib/event-booking-experience");
+describe("getEventBookingCopy", ()=>{
+    it("clarifies quiz table booking and cash entry", ()=>{
+        const copy = (0, _eventbookingcopy.getEventBookingCopy)({
+            name: "Pub Quiz Night",
+            category: {
+                id: "quiz",
+                name: "Quiz Nights",
+                slug: "quiz-night",
+                color: "#000"
+            },
+            event_type: null,
+            booking_mode: "table",
+            payment_mode: null,
+            offers: {
+                price: "3",
+                priceCurrency: "GBP",
+                "@type": "Offer",
+                availability: "",
+                validFrom: ""
+            },
+            isAccessibleForFree: false,
+            is_free: false
+        });
+        expect(copy.label).toBe("Reserve a table, pay quiz entry on arrival");
+        expect(copy.policy).toContain("pay \xa33 cash entry");
+    });
+    it("clarifies cash bingo books are bought on arrival", ()=>{
+        const copy = (0, _eventbookingcopy.getEventBookingCopy)({
+            name: "Cash Bingo Night",
+            event_type: null,
+            booking_mode: "table",
+            payment_mode: null,
+            offers: {
+                price: "10",
+                priceCurrency: "GBP",
+                "@type": "Offer",
+                availability: "",
+                validFrom: ""
+            },
+            isAccessibleForFree: false,
+            is_free: false
+        });
+        expect(copy.label).toBe("Reserve a table, buy bingo book on arrival");
+        expect(copy.policy).toContain("Buy your \xa310 bingo book on arrival");
+    });
+    it("front-loads cash-on-arrival reassurance for paid reservation events", ()=>{
+        const event = {
+            name: "Music Bingo",
+            startDate: "2026-05-08T20:00:00+01:00",
+            payment_mode: "cash_only",
+            price_per_seat: 3
+        };
+        expect((0, _eventbookingexperience.getEventBookingReassurance)(event)).toBe("No payment now. Reserve seats online and pay \xa33 per person on arrival.");
+        expect((0, _eventbookingexperience.getEventShortPaymentReassurance)(event)).toBe("No payment now, pay \xa33 on arrival");
+        expect((0, _eventbookingexperience.getEventBookingHeroStatement)(event)).toBe("Reserve a table for Friday 8 May. No payment now, pay \xa33 on arrival.");
+    });
+    it("handles free entry as a table-hold message", ()=>{
+        expect((0, _eventbookingexperience.getEventBookingReassurance)({
+            name: "Free Live Music",
+            is_free: true,
+            offers: {
+                price: "0"
+            }
+        })).toBe("No payment needed. Reserve seats online so your table is held.");
+    });
+    it("does not call a positive-price event free when a free-access flag is also present", ()=>{
+        expect((0, _eventbookingexperience.getEventBookingReassurance)({
+            name: "Pub Quiz Night",
+            isAccessibleForFree: true,
+            offers: {
+                price: "3"
+            }
+        })).toBe("No payment now. Reserve seats online and pay \xa33 per person on arrival.");
+    });
+    it("handles prepaid events as payment-step copy", ()=>{
+        expect((0, _eventbookingexperience.getEventBookingReassurance)({
+            name: "Ticketed Supper Club",
+            payment_mode: "prepaid",
+            price_per_seat: 20
+        })).toBe("Book online and complete any payment shown in the booking step.");
+    });
+    it("uses ticket-focused copy for communal seating events", ()=>{
+        const event = {
+            name: "Cabaret Night",
+            startDate: "2026-05-08T20:00:00+01:00",
+            booking_mode: "communal",
+            payment_mode: "cash_only",
+            price_per_seat: 10,
+            offers: {
+                price: "10",
+                priceCurrency: "GBP",
+                "@type": "Offer",
+                availability: "",
+                validFrom: ""
+            }
+        };
+        const copy = (0, _eventbookingcopy.getEventBookingCopy)(event);
+        expect(copy.label).toBe("Book seated or standing tickets");
+        expect(copy.policy).toContain("Choose seated tickets for communal table seating");
+        expect((0, _eventbookingexperience.getEventBookingReassurance)(event)).toBe("No payment now. Book online and pay \xa310 per person on arrival.");
+        expect((0, _eventbookingexperience.getEventBookingHeroStatement)(event)).toBe("Book tickets for Friday 8 May. No payment now, pay \xa310 on arrival.");
+        expect((0, _eventbookingexperience.getEventSeatAvailabilityLabel)({
+            booking_mode: "communal",
+            total_remaining: 8,
+            seated_remaining: 0,
+            standing_remaining: 8
+        })).toBe("8 standing left");
+    });
+    it("surfaces sold-out availability clearly", ()=>{
+        expect((0, _eventbookingexperience.getEventSeatAvailabilityLabel)({
+            seats_remaining: 0,
+            is_full: true
+        })).toBe("Sold out");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL3Rlc3RzL3VuaXQvZXZlbnQtYm9va2luZy1jb3B5LnRlc3QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZ2V0RXZlbnRCb29raW5nQ29weSB9IGZyb20gJ0AvbGliL2V2ZW50LWJvb2tpbmctY29weSdcbmltcG9ydCB7XG4gIGdldEV2ZW50Qm9va2luZ0hlcm9TdGF0ZW1lbnQsXG4gIGdldEV2ZW50Qm9va2luZ1JlYXNzdXJhbmNlLFxuICBnZXRFdmVudFNlYXRBdmFpbGFiaWxpdHlMYWJlbCxcbiAgZ2V0RXZlbnRTaG9ydFBheW1lbnRSZWFzc3VyYW5jZVxufSBmcm9tICdAL2xpYi9ldmVudC1ib29raW5nLWV4cGVyaWVuY2UnXG5cbmRlc2NyaWJlKCdnZXRFdmVudEJvb2tpbmdDb3B5JywgKCkgPT4ge1xuICBpdCgnY2xhcmlmaWVzIHF1aXogdGFibGUgYm9va2luZyBhbmQgY2FzaCBlbnRyeScsICgpID0+IHtcbiAgICBjb25zdCBjb3B5ID0gZ2V0RXZlbnRCb29raW5nQ29weSh7XG4gICAgICBuYW1lOiAnUHViIFF1aXogTmlnaHQnLFxuICAgICAgY2F0ZWdvcnk6IHsgaWQ6ICdxdWl6JywgbmFtZTogJ1F1aXogTmlnaHRzJywgc2x1ZzogJ3F1aXotbmlnaHQnLCBjb2xvcjogJyMwMDAnIH0sXG4gICAgICBldmVudF90eXBlOiBudWxsLFxuICAgICAgYm9va2luZ19tb2RlOiAndGFibGUnLFxuICAgICAgcGF5bWVudF9tb2RlOiBudWxsLFxuICAgICAgb2ZmZXJzOiB7IHByaWNlOiAnMycsIHByaWNlQ3VycmVuY3k6ICdHQlAnLCAnQHR5cGUnOiAnT2ZmZXInLCBhdmFpbGFiaWxpdHk6ICcnLCB2YWxpZEZyb206ICcnIH0sXG4gICAgICBpc0FjY2Vzc2libGVGb3JGcmVlOiBmYWxzZSxcbiAgICAgIGlzX2ZyZWU6IGZhbHNlXG4gICAgfSlcblxuICAgIGV4cGVjdChjb3B5LmxhYmVsKS50b0JlKCdSZXNlcnZlIGEgdGFibGUsIHBheSBxdWl6IGVudHJ5IG9uIGFycml2YWwnKVxuICAgIGV4cGVjdChjb3B5LnBvbGljeSkudG9Db250YWluKCdwYXkgwqMzIGNhc2ggZW50cnknKVxuICB9KVxuXG4gIGl0KCdjbGFyaWZpZXMgY2FzaCBiaW5nbyBib29rcyBhcmUgYm91Z2h0IG9uIGFycml2YWwnLCAoKSA9PiB7XG4gICAgY29uc3QgY29weSA9IGdldEV2ZW50Qm9va2luZ0NvcHkoe1xuICAgICAgbmFtZTogJ0Nhc2ggQmluZ28gTmlnaHQnLFxuICAgICAgZXZlbnRfdHlwZTogbnVsbCxcbiAgICAgIGJvb2tpbmdfbW9kZTogJ3RhYmxlJyxcbiAgICAgIHBheW1lbnRfbW9kZTogbnVsbCxcbiAgICAgIG9mZmVyczogeyBwcmljZTogJzEwJywgcHJpY2VDdXJyZW5jeTogJ0dCUCcsICdAdHlwZSc6ICdPZmZlcicsIGF2YWlsYWJpbGl0eTogJycsIHZhbGlkRnJvbTogJycgfSxcbiAgICAgIGlzQWNjZXNzaWJsZUZvckZyZWU6IGZhbHNlLFxuICAgICAgaXNfZnJlZTogZmFsc2VcbiAgICB9IGFzIGFueSlcblxuICAgIGV4cGVjdChjb3B5LmxhYmVsKS50b0JlKCdSZXNlcnZlIGEgdGFibGUsIGJ1eSBiaW5nbyBib29rIG9uIGFycml2YWwnKVxuICAgIGV4cGVjdChjb3B5LnBvbGljeSkudG9Db250YWluKCdCdXkgeW91ciDCozEwIGJpbmdvIGJvb2sgb24gYXJyaXZhbCcpXG4gIH0pXG5cbiAgaXQoJ2Zyb250LWxvYWRzIGNhc2gtb24tYXJyaXZhbCByZWFzc3VyYW5jZSBmb3IgcGFpZCByZXNlcnZhdGlvbiBldmVudHMnLCAoKSA9PiB7XG4gICAgY29uc3QgZXZlbnQgPSB7XG4gICAgICBuYW1lOiAnTXVzaWMgQmluZ28nLFxuICAgICAgc3RhcnREYXRlOiAnMjAyNi0wNS0wOFQyMDowMDowMCswMTowMCcsXG4gICAgICBwYXltZW50X21vZGU6ICdjYXNoX29ubHknLFxuICAgICAgcHJpY2VfcGVyX3NlYXQ6IDNcbiAgICB9XG5cbiAgICBleHBlY3QoZ2V0RXZlbnRCb29raW5nUmVhc3N1cmFuY2UoZXZlbnQpKS50b0JlKFxuICAgICAgJ05vIHBheW1lbnQgbm93LiBSZXNlcnZlIHNlYXRzIG9ubGluZSBhbmQgcGF5IMKjMyBwZXIgcGVyc29uIG9uIGFycml2YWwuJ1xuICAgIClcbiAgICBleHBlY3QoZ2V0RXZlbnRTaG9ydFBheW1lbnRSZWFzc3VyYW5jZShldmVudCkpLnRvQmUoJ05vIHBheW1lbnQgbm93LCBwYXkgwqMzIG9uIGFycml2YWwnKVxuICAgIGV4cGVjdChnZXRFdmVudEJvb2tpbmdIZXJvU3RhdGVtZW50KGV2ZW50KSkudG9CZShcbiAgICAgICdSZXNlcnZlIGEgdGFibGUgZm9yIEZyaWRheSA4IE1heS4gTm8gcGF5bWVudCBub3csIHBheSDCozMgb24gYXJyaXZhbC4nXG4gICAgKVxuICB9KVxuXG4gIGl0KCdoYW5kbGVzIGZyZWUgZW50cnkgYXMgYSB0YWJsZS1ob2xkIG1lc3NhZ2UnLCAoKSA9PiB7XG4gICAgZXhwZWN0KFxuICAgICAgZ2V0RXZlbnRCb29raW5nUmVhc3N1cmFuY2Uoe1xuICAgICAgICBuYW1lOiAnRnJlZSBMaXZlIE11c2ljJyxcbiAgICAgICAgaXNfZnJlZTogdHJ1ZSxcbiAgICAgICAgb2ZmZXJzOiB7IHByaWNlOiAnMCcgfVxuICAgICAgfSlcbiAgICApLnRvQmUoJ05vIHBheW1lbnQgbmVlZGVkLiBSZXNlcnZlIHNlYXRzIG9ubGluZSBzbyB5b3VyIHRhYmxlIGlzIGhlbGQuJylcbiAgfSlcblxuICBpdCgnZG9lcyBub3QgY2FsbCBhIHBvc2l0aXZlLXByaWNlIGV2ZW50IGZyZWUgd2hlbiBhIGZyZWUtYWNjZXNzIGZsYWcgaXMgYWxzbyBwcmVzZW50JywgKCkgPT4ge1xuICAgIGV4cGVjdChcbiAgICAgIGdldEV2ZW50Qm9va2luZ1JlYXNzdXJhbmNlKHtcbiAgICAgICAgbmFtZTogJ1B1YiBRdWl6IE5pZ2h0JyxcbiAgICAgICAgaXNBY2Nlc3NpYmxlRm9yRnJlZTogdHJ1ZSxcbiAgICAgICAgb2ZmZXJzOiB7IHByaWNlOiAnMycgfVxuICAgICAgfSlcbiAgICApLnRvQmUoJ05vIHBheW1lbnQgbm93LiBSZXNlcnZlIHNlYXRzIG9ubGluZSBhbmQgcGF5IMKjMyBwZXIgcGVyc29uIG9uIGFycml2YWwuJylcbiAgfSlcblxuICBpdCgnaGFuZGxlcyBwcmVwYWlkIGV2ZW50cyBhcyBwYXltZW50LXN0ZXAgY29weScsICgpID0+IHtcbiAgICBleHBlY3QoXG4gICAgICBnZXRFdmVudEJvb2tpbmdSZWFzc3VyYW5jZSh7XG4gICAgICAgIG5hbWU6ICdUaWNrZXRlZCBTdXBwZXIgQ2x1YicsXG4gICAgICAgIHBheW1lbnRfbW9kZTogJ3ByZXBhaWQnLFxuICAgICAgICBwcmljZV9wZXJfc2VhdDogMjBcbiAgICAgIH0pXG4gICAgKS50b0JlKCdCb29rIG9ubGluZSBhbmQgY29tcGxldGUgYW55IHBheW1lbnQgc2hvd24gaW4gdGhlIGJvb2tpbmcgc3RlcC4nKVxuICB9KVxuXG4gIGl0KCd1c2VzIHRpY2tldC1mb2N1c2VkIGNvcHkgZm9yIGNvbW11bmFsIHNlYXRpbmcgZXZlbnRzJywgKCkgPT4ge1xuICAgIGNvbnN0IGV2ZW50ID0ge1xuICAgICAgbmFtZTogJ0NhYmFyZXQgTmlnaHQnLFxuICAgICAgc3RhcnREYXRlOiAnMjAyNi0wNS0wOFQyMDowMDowMCswMTowMCcsXG4gICAgICBib29raW5nX21vZGU6ICdjb21tdW5hbCcsXG4gICAgICBwYXltZW50X21vZGU6ICdjYXNoX29ubHknLFxuICAgICAgcHJpY2VfcGVyX3NlYXQ6IDEwLFxuICAgICAgb2ZmZXJzOiB7IHByaWNlOiAnMTAnLCBwcmljZUN1cnJlbmN5OiAnR0JQJywgJ0B0eXBlJzogJ09mZmVyJywgYXZhaWxhYmlsaXR5OiAnJywgdmFsaWRGcm9tOiAnJyB9XG4gICAgfSBhcyBhbnlcblxuICAgIGNvbnN0IGNvcHkgPSBnZXRFdmVudEJvb2tpbmdDb3B5KGV2ZW50KVxuXG4gICAgZXhwZWN0KGNvcHkubGFiZWwpLnRvQmUoJ0Jvb2sgc2VhdGVkIG9yIHN0YW5kaW5nIHRpY2tldHMnKVxuICAgIGV4cGVjdChjb3B5LnBvbGljeSkudG9Db250YWluKCdDaG9vc2Ugc2VhdGVkIHRpY2tldHMgZm9yIGNvbW11bmFsIHRhYmxlIHNlYXRpbmcnKVxuICAgIGV4cGVjdChnZXRFdmVudEJvb2tpbmdSZWFzc3VyYW5jZShldmVudCkpLnRvQmUoJ05vIHBheW1lbnQgbm93LiBCb29rIG9ubGluZSBhbmQgcGF5IMKjMTAgcGVyIHBlcnNvbiBvbiBhcnJpdmFsLicpXG4gICAgZXhwZWN0KGdldEV2ZW50Qm9va2luZ0hlcm9TdGF0ZW1lbnQoZXZlbnQpKS50b0JlKFxuICAgICAgJ0Jvb2sgdGlja2V0cyBmb3IgRnJpZGF5IDggTWF5LiBObyBwYXltZW50IG5vdywgcGF5IMKjMTAgb24gYXJyaXZhbC4nXG4gICAgKVxuICAgIGV4cGVjdChcbiAgICAgIGdldEV2ZW50U2VhdEF2YWlsYWJpbGl0eUxhYmVsKHtcbiAgICAgICAgYm9va2luZ19tb2RlOiAnY29tbXVuYWwnLFxuICAgICAgICB0b3RhbF9yZW1haW5pbmc6IDgsXG4gICAgICAgIHNlYXRlZF9yZW1haW5pbmc6IDAsXG4gICAgICAgIHN0YW5kaW5nX3JlbWFpbmluZzogOFxuICAgICAgfSlcbiAgICApLnRvQmUoJzggc3RhbmRpbmcgbGVmdCcpXG4gIH0pXG5cbiAgaXQoJ3N1cmZhY2VzIHNvbGQtb3V0IGF2YWlsYWJpbGl0eSBjbGVhcmx5JywgKCkgPT4ge1xuICAgIGV4cGVjdChnZXRFdmVudFNlYXRBdmFpbGFiaWxpdHlMYWJlbCh7IHNlYXRzX3JlbWFpbmluZzogMCwgaXNfZnVsbDogdHJ1ZSB9KSkudG9CZSgnU29sZCBvdXQnKVxuICB9KVxufSlcbiJdLCJuYW1lcyI6WyJkZXNjcmliZSIsIml0IiwiY29weSIsImdldEV2ZW50Qm9va2luZ0NvcHkiLCJuYW1lIiwiY2F0ZWdvcnkiLCJpZCIsInNsdWciLCJjb2xvciIsImV2ZW50X3R5cGUiLCJib29raW5nX21vZGUiLCJwYXltZW50X21vZGUiLCJvZmZlcnMiLCJwcmljZSIsInByaWNlQ3VycmVuY3kiLCJhdmFpbGFiaWxpdHkiLCJ2YWxpZEZyb20iLCJpc0FjY2Vzc2libGVGb3JGcmVlIiwiaXNfZnJlZSIsImV4cGVjdCIsImxhYmVsIiwidG9CZSIsInBvbGljeSIsInRvQ29udGFpbiIsImV2ZW50Iiwic3RhcnREYXRlIiwicHJpY2VfcGVyX3NlYXQiLCJnZXRFdmVudEJvb2tpbmdSZWFzc3VyYW5jZSIsImdldEV2ZW50U2hvcnRQYXltZW50UmVhc3N1cmFuY2UiLCJnZXRFdmVudEJvb2tpbmdIZXJvU3RhdGVtZW50IiwiZ2V0RXZlbnRTZWF0QXZhaWxhYmlsaXR5TGFiZWwiLCJ0b3RhbF9yZW1haW5pbmciLCJzZWF0ZWRfcmVtYWluaW5nIiwic3RhbmRpbmdfcmVtYWluaW5nIiwic2VhdHNfcmVtYWluaW5nIiwiaXNfZnVsbCJdLCJtYXBwaW5ncyI6Ijs7OztrQ0FBb0M7d0NBTTdCO0FBRVBBLFNBQVMsdUJBQXVCO0lBQzlCQyxHQUFHLCtDQUErQztRQUNoRCxNQUFNQyxPQUFPQyxJQUFBQSxxQ0FBbUIsRUFBQztZQUMvQkMsTUFBTTtZQUNOQyxVQUFVO2dCQUFFQyxJQUFJO2dCQUFRRixNQUFNO2dCQUFlRyxNQUFNO2dCQUFjQyxPQUFPO1lBQU87WUFDL0VDLFlBQVk7WUFDWkMsY0FBYztZQUNkQyxjQUFjO1lBQ2RDLFFBQVE7Z0JBQUVDLE9BQU87Z0JBQUtDLGVBQWU7Z0JBQU8sU0FBUztnQkFBU0MsY0FBYztnQkFBSUMsV0FBVztZQUFHO1lBQzlGQyxxQkFBcUI7WUFDckJDLFNBQVM7UUFDWDtRQUVBQyxPQUFPakIsS0FBS2tCLEtBQUssRUFBRUMsSUFBSSxDQUFDO1FBQ3hCRixPQUFPakIsS0FBS29CLE1BQU0sRUFBRUMsU0FBUyxDQUFDO0lBQ2hDO0lBRUF0QixHQUFHLG9EQUFvRDtRQUNyRCxNQUFNQyxPQUFPQyxJQUFBQSxxQ0FBbUIsRUFBQztZQUMvQkMsTUFBTTtZQUNOSyxZQUFZO1lBQ1pDLGNBQWM7WUFDZEMsY0FBYztZQUNkQyxRQUFRO2dCQUFFQyxPQUFPO2dCQUFNQyxlQUFlO2dCQUFPLFNBQVM7Z0JBQVNDLGNBQWM7Z0JBQUlDLFdBQVc7WUFBRztZQUMvRkMscUJBQXFCO1lBQ3JCQyxTQUFTO1FBQ1g7UUFFQUMsT0FBT2pCLEtBQUtrQixLQUFLLEVBQUVDLElBQUksQ0FBQztRQUN4QkYsT0FBT2pCLEtBQUtvQixNQUFNLEVBQUVDLFNBQVMsQ0FBQztJQUNoQztJQUVBdEIsR0FBRyx1RUFBdUU7UUFDeEUsTUFBTXVCLFFBQVE7WUFDWnBCLE1BQU07WUFDTnFCLFdBQVc7WUFDWGQsY0FBYztZQUNkZSxnQkFBZ0I7UUFDbEI7UUFFQVAsT0FBT1EsSUFBQUEsa0RBQTBCLEVBQUNILFFBQVFILElBQUksQ0FDNUM7UUFFRkYsT0FBT1MsSUFBQUEsdURBQStCLEVBQUNKLFFBQVFILElBQUksQ0FBQztRQUNwREYsT0FBT1UsSUFBQUEsb0RBQTRCLEVBQUNMLFFBQVFILElBQUksQ0FDOUM7SUFFSjtJQUVBcEIsR0FBRyw4Q0FBOEM7UUFDL0NrQixPQUNFUSxJQUFBQSxrREFBMEIsRUFBQztZQUN6QnZCLE1BQU07WUFDTmMsU0FBUztZQUNUTixRQUFRO2dCQUFFQyxPQUFPO1lBQUk7UUFDdkIsSUFDQVEsSUFBSSxDQUFDO0lBQ1Q7SUFFQXBCLEdBQUcscUZBQXFGO1FBQ3RGa0IsT0FDRVEsSUFBQUEsa0RBQTBCLEVBQUM7WUFDekJ2QixNQUFNO1lBQ05hLHFCQUFxQjtZQUNyQkwsUUFBUTtnQkFBRUMsT0FBTztZQUFJO1FBQ3ZCLElBQ0FRLElBQUksQ0FBQztJQUNUO0lBRUFwQixHQUFHLCtDQUErQztRQUNoRGtCLE9BQ0VRLElBQUFBLGtEQUEwQixFQUFDO1lBQ3pCdkIsTUFBTTtZQUNOTyxjQUFjO1lBQ2RlLGdCQUFnQjtRQUNsQixJQUNBTCxJQUFJLENBQUM7SUFDVDtJQUVBcEIsR0FBRyx3REFBd0Q7UUFDekQsTUFBTXVCLFFBQVE7WUFDWnBCLE1BQU07WUFDTnFCLFdBQVc7WUFDWGYsY0FBYztZQUNkQyxjQUFjO1lBQ2RlLGdCQUFnQjtZQUNoQmQsUUFBUTtnQkFBRUMsT0FBTztnQkFBTUMsZUFBZTtnQkFBTyxTQUFTO2dCQUFTQyxjQUFjO2dCQUFJQyxXQUFXO1lBQUc7UUFDakc7UUFFQSxNQUFNZCxPQUFPQyxJQUFBQSxxQ0FBbUIsRUFBQ3FCO1FBRWpDTCxPQUFPakIsS0FBS2tCLEtBQUssRUFBRUMsSUFBSSxDQUFDO1FBQ3hCRixPQUFPakIsS0FBS29CLE1BQU0sRUFBRUMsU0FBUyxDQUFDO1FBQzlCSixPQUFPUSxJQUFBQSxrREFBMEIsRUFBQ0gsUUFBUUgsSUFBSSxDQUFDO1FBQy9DRixPQUFPVSxJQUFBQSxvREFBNEIsRUFBQ0wsUUFBUUgsSUFBSSxDQUM5QztRQUVGRixPQUNFVyxJQUFBQSxxREFBNkIsRUFBQztZQUM1QnBCLGNBQWM7WUFDZHFCLGlCQUFpQjtZQUNqQkMsa0JBQWtCO1lBQ2xCQyxvQkFBb0I7UUFDdEIsSUFDQVosSUFBSSxDQUFDO0lBQ1Q7SUFFQXBCLEdBQUcsMENBQTBDO1FBQzNDa0IsT0FBT1csSUFBQUEscURBQTZCLEVBQUM7WUFBRUksaUJBQWlCO1lBQUdDLFNBQVM7UUFBSyxJQUFJZCxJQUFJLENBQUM7SUFDcEY7QUFDRiJ9

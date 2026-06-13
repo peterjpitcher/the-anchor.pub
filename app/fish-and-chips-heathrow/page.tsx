@@ -10,6 +10,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { formatMenuAllergenList, getMenuItemAllergens } from '@/lib/menu-allergens'
 import {
   getFishAndChipsMenuPageData,
   getGlutenFreeFishAndChipsNotice,
@@ -147,27 +148,30 @@ export default async function FishAndChipsPage() {
 
           {fishItems.length > 0 ? (
             <div className="mx-auto grid max-w-3xl gap-6 text-left md:grid-cols-2">
-              {fishItems.map((item) => (
-                <Card key={item.id} accent hover>
-                  <CardBody>
-                    <h2 className="mb-2 text-h4 text-ink-strong">
-                      {item.name}
-                      {item.priceLabel && (
-                        <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
-                          {item.priceLabel}
-                        </span>
+              {fishItems.map((item) => {
+                const allergens = getMenuItemAllergens(item)
+                return (
+                  <Card key={item.id} accent hover>
+                    <CardBody>
+                      <h2 className="mb-2 text-h4 text-ink-strong">
+                        {item.name}
+                        {item.priceLabel && (
+                          <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
+                            {item.priceLabel}
+                          </span>
+                        )}
+                      </h2>
+                      {item.description && (
+                        <p className="mb-3 text-sm text-ink-muted">{item.description}</p>
                       )}
-                    </h2>
-                    {item.description && (
-                      <p className="mb-3 text-sm text-ink-muted">{item.description}</p>
-                    )}
-                    <p className="mb-3 text-xs text-ink-muted">{item.categoryTitle}</p>
-                    {item.allergens && item.allergens.length > 0 && (
-                      <Badge variant="outline">Contains: {item.allergens.join(', ')}</Badge>
-                    )}
-                  </CardBody>
-                </Card>
-              ))}
+                      <p className="mb-3 text-xs text-ink-muted">{item.categoryTitle}</p>
+                      <Badge variant="outline">
+                        Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                      </Badge>
+                    </CardBody>
+                  </Card>
+                )
+              })}
             </div>
           ) : (
             <Card accent className="mx-auto max-w-2xl">

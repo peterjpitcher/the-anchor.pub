@@ -1,0 +1,478 @@
+90bdc6cda73ea39d6cd1c13e22d7433d
+"use strict";
+jest.mock("@/components/providers/BusinessHoursProvider", ()=>({
+        useBusinessHoursContext: ()=>mockContextValue
+    }));
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("@testing-library/react");
+const _userevent = /*#__PURE__*/ _interop_require_default(require("@testing-library/user-event"));
+const _BusinessHours = require("../../components/BusinessHours");
+function _interop_require_default(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+// Mock the provider context
+const mockContextValue = {
+    hours: null,
+    loading: false,
+    error: null,
+    isStale: false
+};
+// Freeze time to Wednesday 2026-04-29 at 14:00 London time (BST = UTC+1).
+// Day-to-date mapping:
+//   Mon = 2026-05-04, Tue = 2026-05-05, Wed = 2026-04-29 (today),
+//   Thu = 2026-04-30, Fri = 2026-05-01, Sat = 2026-05-02, Sun = 2026-05-03
+const FROZEN_TIME = new Date("2026-04-29T13:00:00.000Z") // 14:00 BST
+;
+// Configure userEvent to work with fake timers
+const user = _userevent.default.setup({
+    advanceTimers: jest.advanceTimersByTime
+});
+beforeAll(()=>{
+    jest.useFakeTimers();
+    jest.setSystemTime(FROZEN_TIME);
+});
+afterAll(()=>{
+    jest.useRealTimers();
+});
+beforeEach(()=>{
+    mockContextValue.hours = null;
+    mockContextValue.loading = false;
+    mockContextValue.error = null;
+    mockContextValue.isStale = false;
+});
+/** Minimal valid hours response for a full week */ function makeHours(overrides = {}) {
+    return {
+        currentStatus: {
+            isOpen: true,
+            kitchenOpen: true,
+            closesIn: "PT8H",
+            opensIn: null
+        },
+        regularHours: {
+            monday: {
+                opens: "16:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "18:00",
+                    closes: "21:00"
+                }
+            },
+            tuesday: {
+                opens: "12:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "18:00",
+                    closes: "21:00"
+                }
+            },
+            wednesday: {
+                opens: "12:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "18:00",
+                    closes: "21:00"
+                }
+            },
+            thursday: {
+                opens: "12:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "18:00",
+                    closes: "21:00"
+                }
+            },
+            friday: {
+                opens: "12:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "18:00",
+                    closes: "21:00"
+                }
+            },
+            saturday: {
+                opens: "11:00",
+                closes: "23:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "13:00",
+                    closes: "19:00"
+                }
+            },
+            sunday: {
+                opens: "12:00",
+                closes: "22:00",
+                is_closed: false,
+                kitchen: {
+                    opens: "13:00",
+                    closes: "18:00"
+                }
+            }
+        },
+        specialHours: [],
+        serviceOverrides: {
+            sunday_lunch: []
+        },
+        serviceStatus: {
+            sunday_lunch: {
+                isEnabled: true,
+                message: null
+            }
+        },
+        ...overrides
+    };
+}
+describe("BusinessHours", ()=>{
+    describe("rendering states", ()=>{
+        it("should render useful fallback copy when loading", ()=>{
+            mockContextValue.loading = true;
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/Opening hours/i)).toBeInTheDocument();
+            expect(_react.screen.getByText(/Bar hours: Tuesday to Thursday 4pm-11pm/i)).toBeInTheDocument();
+            expect(_react.screen.getByText(/Kitchen hours: Tuesday to Friday 4pm-9pm/i)).toBeInTheDocument();
+        });
+        it("should render error fallback with phone number when error", ()=>{
+            mockContextValue.error = {
+                message: "API failed"
+            };
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/API failed/)).toBeInTheDocument();
+            expect(_react.screen.getByText(/01753 682707/)).toBeInTheDocument();
+        });
+        it("should render error fallback when hours is null", ()=>{
+            mockContextValue.hours = null;
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/opening hours/i)).toBeInTheDocument();
+            expect(_react.screen.getByText(/01753 682707/)).toBeInTheDocument();
+        });
+        it("should render 7 day rows starting with today when hours loaded", ()=>{
+            mockContextValue.hours = makeHours();
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const days = [
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun",
+                "Mon",
+                "Tue"
+            ];
+            days.forEach((day)=>{
+                expect(_react.screen.getByText(new RegExp(`^${day}`))).toBeInTheDocument();
+            });
+            const renderedDays = _react.screen.getAllByText(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)/).map((day)=>day.textContent?.replace(/\s*•$/, ""));
+            expect(renderedDays).toEqual(days);
+        });
+    });
+    describe("className prop", ()=>{
+        it("should apply className to root wrapper in loading state", ()=>{
+            mockContextValue.loading = true;
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {
+                className: "custom-class"
+            }));
+            expect(container.firstElementChild).toHaveClass("custom-class");
+        });
+        it("should apply className to root wrapper in error state", ()=>{
+            mockContextValue.error = {
+                message: "fail"
+            };
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {
+                className: "custom-class"
+            }));
+            expect(container.firstElementChild).toHaveClass("custom-class");
+        });
+        it("should apply className to root wrapper in success state", ()=>{
+            mockContextValue.hours = makeHours();
+            const { container } = (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {
+                className: "custom-class"
+            }));
+            expect(container.firstElementChild).toHaveClass("custom-class");
+        });
+    });
+    describe("showKitchen prop", ()=>{
+        it("should render kitchen labels and times by default", ()=>{
+            mockContextValue.hours = makeHours();
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const kitchenLabels = _react.screen.getAllByText(/Kitchen:/i);
+            expect(kitchenLabels.length).toBeGreaterThan(0);
+        });
+        it("should hide all kitchen information when showKitchen is false", ()=>{
+            mockContextValue.hours = makeHours();
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {
+                showKitchen: false
+            }));
+            expect(_react.screen.queryByText(/Kitchen:/i)).not.toBeInTheDocument();
+        });
+    });
+    describe("kitchen resolution", ()=>{
+        it('should render "No service" when kitchen is null', ()=>{
+            mockContextValue.hours = makeHours({
+                regularHours: {
+                    ...makeHours().regularHours,
+                    monday: {
+                        opens: "16:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        kitchen: null
+                    }
+                }
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText("No service")).toBeInTheDocument();
+        });
+        it('should render "Closed" when is_kitchen_closed is true', ()=>{
+            mockContextValue.hours = makeHours({
+                regularHours: {
+                    ...makeHours().regularHours,
+                    monday: {
+                        opens: "16:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        is_kitchen_closed: true,
+                        kitchen: {
+                            opens: "18:00",
+                            closes: "21:00"
+                        }
+                    }
+                }
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getAllByText("Closed").length).toBeGreaterThan(0);
+        });
+        it("should render formatted times when kitchen has opens/closes", ()=>{
+            mockContextValue.hours = makeHours();
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getAllByText(/6pm/).length).toBeGreaterThan(0);
+            expect(_react.screen.getAllByText(/9pm/).length).toBeGreaterThan(0);
+        });
+        it("should use special hours kitchen when property is present and null (not fallback)", ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-04-29",
+                        opens: "12:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        kitchen: null,
+                        note: "Private event"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText("No service")).toBeInTheDocument();
+        });
+        it("should fall back to regular kitchen when special hours has no kitchen property", ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-04-29",
+                        opens: "10:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        note: "Extended hours"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getAllByText(/6pm/).length).toBeGreaterThan(0);
+        });
+    });
+    describe("special hours", ()=>{
+        it("should show note text for day with special hours", ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-04-29",
+                        opens: "10:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        note: "Bank holiday hours",
+                        kitchen: {
+                            opens: "12:00",
+                            closes: "20:00"
+                        }
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/Bank holiday hours/)).toBeInTheDocument();
+        });
+        it('should show "Closed" for special hours with is_closed true', ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-04-29",
+                        is_closed: true,
+                        note: "Closed for maintenance"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getAllByText(/Closed/).length).toBeGreaterThan(0);
+            expect(_react.screen.getByText(/Closed for maintenance/)).toBeInTheDocument();
+        });
+    });
+    describe("sunday lunch notices", ()=>{
+        it("should show amber notice when sunday lunch is unavailable", ()=>{
+            mockContextValue.hours = makeHours({
+                serviceStatus: {
+                    sunday_lunch: {
+                        isEnabled: false,
+                        message: "Sunday lunch service unavailable"
+                    }
+                }
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/Sunday lunch/i)).toBeInTheDocument();
+        });
+        it("should show no notice when sunday lunch is available", ()=>{
+            mockContextValue.hours = makeHours({
+                serviceStatus: {
+                    sunday_lunch: {
+                        isEnabled: true,
+                        message: null
+                    }
+                }
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.queryByText(/Sunday lunch service unavailable/i)).not.toBeInTheDocument();
+        });
+    });
+    describe("upcoming changes section", ()=>{
+        it("should not render when no special hours exist beyond main list", ()=>{
+            mockContextValue.hours = makeHours();
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.queryByText(/upcoming changes/i)).not.toBeInTheDocument();
+        });
+        it("should render with correct count when qualifying entries exist", ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-05-10",
+                        is_closed: true,
+                        note: "Private function"
+                    },
+                    {
+                        date: "2026-05-17",
+                        opens: "14:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        note: "Late opening"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/upcoming changes \(2\)/i)).toBeInTheDocument();
+        });
+        it("should exclude entries already in main list", ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-04-29",
+                        opens: "10:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        note: "Extended"
+                    },
+                    {
+                        date: "2026-05-10",
+                        is_closed: true,
+                        note: "Closed"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            expect(_react.screen.getByText(/upcoming changes \(1\)/i)).toBeInTheDocument();
+        });
+        it("should sort entries ascending by date", async ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-05-17",
+                        is_closed: true,
+                        note: "Second"
+                    },
+                    {
+                        date: "2026-05-10",
+                        is_closed: true,
+                        note: "First"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const toggle = _react.screen.getByText(/upcoming changes/i);
+            await user.click(toggle);
+            const items = _react.screen.getAllByText(/First|Second/);
+            expect(items[0]).toHaveTextContent("First");
+            expect(items[1]).toHaveTextContent("Second");
+        });
+        it("should toggle expand/collapse on click", async ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-05-10",
+                        is_closed: true,
+                        note: "Private function"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const toggle = _react.screen.getByText(/upcoming changes/i);
+            expect(_react.screen.queryByText("Private function")).not.toBeInTheDocument();
+            await user.click(toggle);
+            expect(_react.screen.getByText("Private function")).toBeInTheDocument();
+            await user.click(toggle);
+            expect(_react.screen.queryByText("Private function")).not.toBeInTheDocument();
+        });
+        it("should merge with regular weekday hours for partial overrides", async ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-05-10",
+                        opens: "14:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        note: "Late start"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const toggle = _react.screen.getByText(/upcoming changes/i);
+            await user.click(toggle);
+            // 2pm appears in the upcoming changes row (bar opens 14:00)
+            expect(_react.screen.getAllByText(/2pm/).length).toBeGreaterThan(0);
+            // 1pm appears from regular Saturday kitchen fallback (opens: '13:00')
+            expect(_react.screen.getAllByText(/1pm/).length).toBeGreaterThan(0);
+        });
+        it('should show "No service" for future kitchen: null (property-presence)', async ()=>{
+            mockContextValue.hours = makeHours({
+                specialHours: [
+                    {
+                        date: "2026-05-10",
+                        opens: "14:00",
+                        closes: "23:00",
+                        is_closed: false,
+                        kitchen: null,
+                        note: "No food"
+                    }
+                ]
+            });
+            (0, _react.render)(/*#__PURE__*/ (0, _jsxruntime.jsx)(_BusinessHours.BusinessHours, {}));
+            const toggle = _react.screen.getByText(/upcoming changes/i);
+            await user.click(toggle);
+            const upcomingSection = _react.screen.getByText("No food").closest("div");
+            expect(upcomingSection).toBeTruthy();
+        });
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL3Rlc3RzL3VuaXQvQnVzaW5lc3NIb3Vycy50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyByZW5kZXIsIHNjcmVlbiwgd2l0aGluIH0gZnJvbSAnQHRlc3RpbmctbGlicmFyeS9yZWFjdCdcbmltcG9ydCB1c2VyRXZlbnQgZnJvbSAnQHRlc3RpbmctbGlicmFyeS91c2VyLWV2ZW50J1xuaW1wb3J0IHsgQnVzaW5lc3NIb3VycyB9IGZyb20gJ0AvY29tcG9uZW50cy9CdXNpbmVzc0hvdXJzJ1xuXG4vLyBNb2NrIHRoZSBwcm92aWRlciBjb250ZXh0XG5jb25zdCBtb2NrQ29udGV4dFZhbHVlID0ge1xuICBob3VyczogbnVsbCBhcyBhbnksXG4gIGxvYWRpbmc6IGZhbHNlLFxuICBlcnJvcjogbnVsbCBhcyBhbnksXG4gIGlzU3RhbGU6IGZhbHNlLFxufVxuXG5qZXN0Lm1vY2soJ0AvY29tcG9uZW50cy9wcm92aWRlcnMvQnVzaW5lc3NIb3Vyc1Byb3ZpZGVyJywgKCkgPT4gKHtcbiAgdXNlQnVzaW5lc3NIb3Vyc0NvbnRleHQ6ICgpID0+IG1vY2tDb250ZXh0VmFsdWUsXG59KSlcblxuLy8gRnJlZXplIHRpbWUgdG8gV2VkbmVzZGF5IDIwMjYtMDQtMjkgYXQgMTQ6MDAgTG9uZG9uIHRpbWUgKEJTVCA9IFVUQysxKS5cbi8vIERheS10by1kYXRlIG1hcHBpbmc6XG4vLyAgIE1vbiA9IDIwMjYtMDUtMDQsIFR1ZSA9IDIwMjYtMDUtMDUsIFdlZCA9IDIwMjYtMDQtMjkgKHRvZGF5KSxcbi8vICAgVGh1ID0gMjAyNi0wNC0zMCwgRnJpID0gMjAyNi0wNS0wMSwgU2F0ID0gMjAyNi0wNS0wMiwgU3VuID0gMjAyNi0wNS0wM1xuY29uc3QgRlJPWkVOX1RJTUUgPSBuZXcgRGF0ZSgnMjAyNi0wNC0yOVQxMzowMDowMC4wMDBaJykgLy8gMTQ6MDAgQlNUXG5cbi8vIENvbmZpZ3VyZSB1c2VyRXZlbnQgdG8gd29yayB3aXRoIGZha2UgdGltZXJzXG5jb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKHsgYWR2YW5jZVRpbWVyczogamVzdC5hZHZhbmNlVGltZXJzQnlUaW1lIH0pXG5cbmJlZm9yZUFsbCgoKSA9PiB7XG4gIGplc3QudXNlRmFrZVRpbWVycygpXG4gIGplc3Quc2V0U3lzdGVtVGltZShGUk9aRU5fVElNRSlcbn0pXG5cbmFmdGVyQWxsKCgpID0+IHtcbiAgamVzdC51c2VSZWFsVGltZXJzKClcbn0pXG5cbmJlZm9yZUVhY2goKCkgPT4ge1xuICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbnVsbFxuICBtb2NrQ29udGV4dFZhbHVlLmxvYWRpbmcgPSBmYWxzZVxuICBtb2NrQ29udGV4dFZhbHVlLmVycm9yID0gbnVsbFxuICBtb2NrQ29udGV4dFZhbHVlLmlzU3RhbGUgPSBmYWxzZVxufSlcblxuLyoqIE1pbmltYWwgdmFsaWQgaG91cnMgcmVzcG9uc2UgZm9yIGEgZnVsbCB3ZWVrICovXG5mdW5jdGlvbiBtYWtlSG91cnMob3ZlcnJpZGVzOiBSZWNvcmQ8c3RyaW5nLCBhbnk+ID0ge30pIHtcbiAgcmV0dXJuIHtcbiAgICBjdXJyZW50U3RhdHVzOiB7XG4gICAgICBpc09wZW46IHRydWUsXG4gICAgICBraXRjaGVuT3BlbjogdHJ1ZSxcbiAgICAgIGNsb3Nlc0luOiAnUFQ4SCcsXG4gICAgICBvcGVuc0luOiBudWxsLFxuICAgIH0sXG4gICAgcmVndWxhckhvdXJzOiB7XG4gICAgICBtb25kYXk6IHsgb3BlbnM6ICcxNjowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwga2l0Y2hlbjogeyBvcGVuczogJzE4OjAwJywgY2xvc2VzOiAnMjE6MDAnIH0gfSxcbiAgICAgIHR1ZXNkYXk6IHsgb3BlbnM6ICcxMjowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwga2l0Y2hlbjogeyBvcGVuczogJzE4OjAwJywgY2xvc2VzOiAnMjE6MDAnIH0gfSxcbiAgICAgIHdlZG5lc2RheTogeyBvcGVuczogJzEyOjAwJywgY2xvc2VzOiAnMjM6MDAnLCBpc19jbG9zZWQ6IGZhbHNlLCBraXRjaGVuOiB7IG9wZW5zOiAnMTg6MDAnLCBjbG9zZXM6ICcyMTowMCcgfSB9LFxuICAgICAgdGh1cnNkYXk6IHsgb3BlbnM6ICcxMjowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwga2l0Y2hlbjogeyBvcGVuczogJzE4OjAwJywgY2xvc2VzOiAnMjE6MDAnIH0gfSxcbiAgICAgIGZyaWRheTogeyBvcGVuczogJzEyOjAwJywgY2xvc2VzOiAnMjM6MDAnLCBpc19jbG9zZWQ6IGZhbHNlLCBraXRjaGVuOiB7IG9wZW5zOiAnMTg6MDAnLCBjbG9zZXM6ICcyMTowMCcgfSB9LFxuICAgICAgc2F0dXJkYXk6IHsgb3BlbnM6ICcxMTowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwga2l0Y2hlbjogeyBvcGVuczogJzEzOjAwJywgY2xvc2VzOiAnMTk6MDAnIH0gfSxcbiAgICAgIHN1bmRheTogeyBvcGVuczogJzEyOjAwJywgY2xvc2VzOiAnMjI6MDAnLCBpc19jbG9zZWQ6IGZhbHNlLCBraXRjaGVuOiB7IG9wZW5zOiAnMTM6MDAnLCBjbG9zZXM6ICcxODowMCcgfSB9LFxuICAgIH0sXG4gICAgc3BlY2lhbEhvdXJzOiBbXSxcbiAgICBzZXJ2aWNlT3ZlcnJpZGVzOiB7IHN1bmRheV9sdW5jaDogW10gfSxcbiAgICBzZXJ2aWNlU3RhdHVzOiB7IHN1bmRheV9sdW5jaDogeyBpc0VuYWJsZWQ6IHRydWUsIG1lc3NhZ2U6IG51bGwgfSB9LFxuICAgIC4uLm92ZXJyaWRlcyxcbiAgfVxufVxuXG5kZXNjcmliZSgnQnVzaW5lc3NIb3VycycsICgpID0+IHtcbiAgZGVzY3JpYmUoJ3JlbmRlcmluZyBzdGF0ZXMnLCAoKSA9PiB7XG4gICAgaXQoJ3Nob3VsZCByZW5kZXIgdXNlZnVsIGZhbGxiYWNrIGNvcHkgd2hlbiBsb2FkaW5nJywgKCkgPT4ge1xuICAgICAgbW9ja0NvbnRleHRWYWx1ZS5sb2FkaW5nID0gdHJ1ZVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoL09wZW5pbmcgaG91cnMvaSkpLnRvQmVJblRoZURvY3VtZW50KClcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KC9CYXIgaG91cnM6IFR1ZXNkYXkgdG8gVGh1cnNkYXkgNHBtLTExcG0vaSkpLnRvQmVJblRoZURvY3VtZW50KClcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KC9LaXRjaGVuIGhvdXJzOiBUdWVzZGF5IHRvIEZyaWRheSA0cG0tOXBtL2kpKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgcmVuZGVyIGVycm9yIGZhbGxiYWNrIHdpdGggcGhvbmUgbnVtYmVyIHdoZW4gZXJyb3InLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmVycm9yID0geyBtZXNzYWdlOiAnQVBJIGZhaWxlZCcgfVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoL0FQSSBmYWlsZWQvKSkudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoLzAxNzUzIDY4MjcwNy8pKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgcmVuZGVyIGVycm9yIGZhbGxiYWNrIHdoZW4gaG91cnMgaXMgbnVsbCcsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBudWxsXG4gICAgICByZW5kZXIoPEJ1c2luZXNzSG91cnMgLz4pXG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgvb3BlbmluZyBob3Vycy9pKSkudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoLzAxNzUzIDY4MjcwNy8pKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgcmVuZGVyIDcgZGF5IHJvd3Mgc3RhcnRpbmcgd2l0aCB0b2RheSB3aGVuIGhvdXJzIGxvYWRlZCcsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoKVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgY29uc3QgZGF5cyA9IFsnV2VkJywgJ1RodScsICdGcmknLCAnU2F0JywgJ1N1bicsICdNb24nLCAnVHVlJ11cbiAgICAgIGRheXMuZm9yRWFjaChkYXkgPT4ge1xuICAgICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dChuZXcgUmVnRXhwKGBeJHtkYXl9YCkpKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgICB9KVxuICAgICAgY29uc3QgcmVuZGVyZWREYXlzID0gc2NyZWVuXG4gICAgICAgIC5nZXRBbGxCeVRleHQoL14oTW9ufFR1ZXxXZWR8VGh1fEZyaXxTYXR8U3VuKS8pXG4gICAgICAgIC5tYXAoZGF5ID0+IGRheS50ZXh0Q29udGVudD8ucmVwbGFjZSgvXFxzKuKAoiQvLCAnJykpXG4gICAgICBleHBlY3QocmVuZGVyZWREYXlzKS50b0VxdWFsKGRheXMpXG4gICAgfSlcbiAgfSlcblxuICBkZXNjcmliZSgnY2xhc3NOYW1lIHByb3AnLCAoKSA9PiB7XG4gICAgaXQoJ3Nob3VsZCBhcHBseSBjbGFzc05hbWUgdG8gcm9vdCB3cmFwcGVyIGluIGxvYWRpbmcgc3RhdGUnLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmxvYWRpbmcgPSB0cnVlXG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKDxCdXNpbmVzc0hvdXJzIGNsYXNzTmFtZT1cImN1c3RvbS1jbGFzc1wiIC8+KVxuICAgICAgZXhwZWN0KGNvbnRhaW5lci5maXJzdEVsZW1lbnRDaGlsZCkudG9IYXZlQ2xhc3MoJ2N1c3RvbS1jbGFzcycpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgYXBwbHkgY2xhc3NOYW1lIHRvIHJvb3Qgd3JhcHBlciBpbiBlcnJvciBzdGF0ZScsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuZXJyb3IgPSB7IG1lc3NhZ2U6ICdmYWlsJyB9XG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKDxCdXNpbmVzc0hvdXJzIGNsYXNzTmFtZT1cImN1c3RvbS1jbGFzc1wiIC8+KVxuICAgICAgZXhwZWN0KGNvbnRhaW5lci5maXJzdEVsZW1lbnRDaGlsZCkudG9IYXZlQ2xhc3MoJ2N1c3RvbS1jbGFzcycpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgYXBwbHkgY2xhc3NOYW1lIHRvIHJvb3Qgd3JhcHBlciBpbiBzdWNjZXNzIHN0YXRlJywgKCkgPT4ge1xuICAgICAgbW9ja0NvbnRleHRWYWx1ZS5ob3VycyA9IG1ha2VIb3VycygpXG4gICAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKDxCdXNpbmVzc0hvdXJzIGNsYXNzTmFtZT1cImN1c3RvbS1jbGFzc1wiIC8+KVxuICAgICAgZXhwZWN0KGNvbnRhaW5lci5maXJzdEVsZW1lbnRDaGlsZCkudG9IYXZlQ2xhc3MoJ2N1c3RvbS1jbGFzcycpXG4gICAgfSlcbiAgfSlcblxuICBkZXNjcmliZSgnc2hvd0tpdGNoZW4gcHJvcCcsICgpID0+IHtcbiAgICBpdCgnc2hvdWxkIHJlbmRlciBraXRjaGVuIGxhYmVscyBhbmQgdGltZXMgYnkgZGVmYXVsdCcsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoKVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgY29uc3Qga2l0Y2hlbkxhYmVscyA9IHNjcmVlbi5nZXRBbGxCeVRleHQoL0tpdGNoZW46L2kpXG4gICAgICBleHBlY3Qoa2l0Y2hlbkxhYmVscy5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKVxuICAgIH0pXG5cbiAgICBpdCgnc2hvdWxkIGhpZGUgYWxsIGtpdGNoZW4gaW5mb3JtYXRpb24gd2hlbiBzaG93S2l0Y2hlbiBpcyBmYWxzZScsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoKVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIHNob3dLaXRjaGVuPXtmYWxzZX0gLz4pXG4gICAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlUZXh0KC9LaXRjaGVuOi9pKSkubm90LnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuICB9KVxuXG4gIGRlc2NyaWJlKCdraXRjaGVuIHJlc29sdXRpb24nLCAoKSA9PiB7XG4gICAgaXQoJ3Nob3VsZCByZW5kZXIgXCJObyBzZXJ2aWNlXCIgd2hlbiBraXRjaGVuIGlzIG51bGwnLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgcmVndWxhckhvdXJzOiB7XG4gICAgICAgICAgLi4ubWFrZUhvdXJzKCkucmVndWxhckhvdXJzLFxuICAgICAgICAgIG1vbmRheTogeyBvcGVuczogJzE2OjAwJywgY2xvc2VzOiAnMjM6MDAnLCBpc19jbG9zZWQ6IGZhbHNlLCBraXRjaGVuOiBudWxsIH0sXG4gICAgICAgIH0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoJ05vIHNlcnZpY2UnKSkudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgIH0pXG5cbiAgICBpdCgnc2hvdWxkIHJlbmRlciBcIkNsb3NlZFwiIHdoZW4gaXNfa2l0Y2hlbl9jbG9zZWQgaXMgdHJ1ZScsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoe1xuICAgICAgICByZWd1bGFySG91cnM6IHtcbiAgICAgICAgICAuLi5tYWtlSG91cnMoKS5yZWd1bGFySG91cnMsXG4gICAgICAgICAgbW9uZGF5OiB7IG9wZW5zOiAnMTY6MDAnLCBjbG9zZXM6ICcyMzowMCcsIGlzX2Nsb3NlZDogZmFsc2UsIGlzX2tpdGNoZW5fY2xvc2VkOiB0cnVlLCBraXRjaGVuOiB7IG9wZW5zOiAnMTg6MDAnLCBjbG9zZXM6ICcyMTowMCcgfSB9LFxuICAgICAgICB9LFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QWxsQnlUZXh0KCdDbG9zZWQnKS5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKVxuICAgIH0pXG5cbiAgICBpdCgnc2hvdWxkIHJlbmRlciBmb3JtYXR0ZWQgdGltZXMgd2hlbiBraXRjaGVuIGhhcyBvcGVucy9jbG9zZXMnLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKClcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QWxsQnlUZXh0KC82cG0vKS5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRBbGxCeVRleHQoLzlwbS8pLmxlbmd0aCkudG9CZUdyZWF0ZXJUaGFuKDApXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgdXNlIHNwZWNpYWwgaG91cnMga2l0Y2hlbiB3aGVuIHByb3BlcnR5IGlzIHByZXNlbnQgYW5kIG51bGwgKG5vdCBmYWxsYmFjayknLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNC0yOScsIG9wZW5zOiAnMTI6MDAnLCBjbG9zZXM6ICcyMzowMCcsIGlzX2Nsb3NlZDogZmFsc2UsIGtpdGNoZW46IG51bGwsIG5vdGU6ICdQcml2YXRlIGV2ZW50JyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KCdObyBzZXJ2aWNlJykpLnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuXG4gICAgaXQoJ3Nob3VsZCBmYWxsIGJhY2sgdG8gcmVndWxhciBraXRjaGVuIHdoZW4gc3BlY2lhbCBob3VycyBoYXMgbm8ga2l0Y2hlbiBwcm9wZXJ0eScsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoe1xuICAgICAgICBzcGVjaWFsSG91cnM6IFtcbiAgICAgICAgICB7IGRhdGU6ICcyMDI2LTA0LTI5Jywgb3BlbnM6ICcxMDowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwgbm90ZTogJ0V4dGVuZGVkIGhvdXJzJyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QWxsQnlUZXh0KC82cG0vKS5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKVxuICAgIH0pXG4gIH0pXG5cbiAgZGVzY3JpYmUoJ3NwZWNpYWwgaG91cnMnLCAoKSA9PiB7XG4gICAgaXQoJ3Nob3VsZCBzaG93IG5vdGUgdGV4dCBmb3IgZGF5IHdpdGggc3BlY2lhbCBob3VycycsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoe1xuICAgICAgICBzcGVjaWFsSG91cnM6IFtcbiAgICAgICAgICB7IGRhdGU6ICcyMDI2LTA0LTI5Jywgb3BlbnM6ICcxMDowMCcsIGNsb3NlczogJzIzOjAwJywgaXNfY2xvc2VkOiBmYWxzZSwgbm90ZTogJ0JhbmsgaG9saWRheSBob3VycycsIGtpdGNoZW46IHsgb3BlbnM6ICcxMjowMCcsIGNsb3NlczogJzIwOjAwJyB9IH0sXG4gICAgICAgIF0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoL0JhbmsgaG9saWRheSBob3Vycy8pKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgc2hvdyBcIkNsb3NlZFwiIGZvciBzcGVjaWFsIGhvdXJzIHdpdGggaXNfY2xvc2VkIHRydWUnLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNC0yOScsIGlzX2Nsb3NlZDogdHJ1ZSwgbm90ZTogJ0Nsb3NlZCBmb3IgbWFpbnRlbmFuY2UnIH0sXG4gICAgICAgIF0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5nZXRBbGxCeVRleHQoL0Nsb3NlZC8pLmxlbmd0aCkudG9CZUdyZWF0ZXJUaGFuKDApXG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgvQ2xvc2VkIGZvciBtYWludGVuYW5jZS8pKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcbiAgfSlcblxuICBkZXNjcmliZSgnc3VuZGF5IGx1bmNoIG5vdGljZXMnLCAoKSA9PiB7XG4gICAgaXQoJ3Nob3VsZCBzaG93IGFtYmVyIG5vdGljZSB3aGVuIHN1bmRheSBsdW5jaCBpcyB1bmF2YWlsYWJsZScsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoe1xuICAgICAgICBzZXJ2aWNlU3RhdHVzOiB7IHN1bmRheV9sdW5jaDogeyBpc0VuYWJsZWQ6IGZhbHNlLCBtZXNzYWdlOiAnU3VuZGF5IGx1bmNoIHNlcnZpY2UgdW5hdmFpbGFibGUnIH0gfSxcbiAgICAgIH0pXG4gICAgICByZW5kZXIoPEJ1c2luZXNzSG91cnMgLz4pXG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgvU3VuZGF5IGx1bmNoL2kpKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcblxuICAgIGl0KCdzaG91bGQgc2hvdyBubyBub3RpY2Ugd2hlbiBzdW5kYXkgbHVuY2ggaXMgYXZhaWxhYmxlJywgKCkgPT4ge1xuICAgICAgbW9ja0NvbnRleHRWYWx1ZS5ob3VycyA9IG1ha2VIb3Vycyh7XG4gICAgICAgIHNlcnZpY2VTdGF0dXM6IHsgc3VuZGF5X2x1bmNoOiB7IGlzRW5hYmxlZDogdHJ1ZSwgbWVzc2FnZTogbnVsbCB9IH0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5xdWVyeUJ5VGV4dCgvU3VuZGF5IGx1bmNoIHNlcnZpY2UgdW5hdmFpbGFibGUvaSkpLm5vdC50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgfSlcbiAgfSlcblxuICBkZXNjcmliZSgndXBjb21pbmcgY2hhbmdlcyBzZWN0aW9uJywgKCkgPT4ge1xuICAgIGl0KCdzaG91bGQgbm90IHJlbmRlciB3aGVuIG5vIHNwZWNpYWwgaG91cnMgZXhpc3QgYmV5b25kIG1haW4gbGlzdCcsICgpID0+IHtcbiAgICAgIG1vY2tDb250ZXh0VmFsdWUuaG91cnMgPSBtYWtlSG91cnMoKVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgZXhwZWN0KHNjcmVlbi5xdWVyeUJ5VGV4dCgvdXBjb21pbmcgY2hhbmdlcy9pKSkubm90LnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuXG4gICAgaXQoJ3Nob3VsZCByZW5kZXIgd2l0aCBjb3JyZWN0IGNvdW50IHdoZW4gcXVhbGlmeWluZyBlbnRyaWVzIGV4aXN0JywgKCkgPT4ge1xuICAgICAgbW9ja0NvbnRleHRWYWx1ZS5ob3VycyA9IG1ha2VIb3Vycyh7XG4gICAgICAgIHNwZWNpYWxIb3VyczogW1xuICAgICAgICAgIHsgZGF0ZTogJzIwMjYtMDUtMTAnLCBpc19jbG9zZWQ6IHRydWUsIG5vdGU6ICdQcml2YXRlIGZ1bmN0aW9uJyB9LFxuICAgICAgICAgIHsgZGF0ZTogJzIwMjYtMDUtMTcnLCBvcGVuczogJzE0OjAwJywgY2xvc2VzOiAnMjM6MDAnLCBpc19jbG9zZWQ6IGZhbHNlLCBub3RlOiAnTGF0ZSBvcGVuaW5nJyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KC91cGNvbWluZyBjaGFuZ2VzIFxcKDJcXCkvaSkpLnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuXG4gICAgaXQoJ3Nob3VsZCBleGNsdWRlIGVudHJpZXMgYWxyZWFkeSBpbiBtYWluIGxpc3QnLCAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNC0yOScsIG9wZW5zOiAnMTA6MDAnLCBjbG9zZXM6ICcyMzowMCcsIGlzX2Nsb3NlZDogZmFsc2UsIG5vdGU6ICdFeHRlbmRlZCcgfSxcbiAgICAgICAgICB7IGRhdGU6ICcyMDI2LTA1LTEwJywgaXNfY2xvc2VkOiB0cnVlLCBub3RlOiAnQ2xvc2VkJyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KC91cGNvbWluZyBjaGFuZ2VzIFxcKDFcXCkvaSkpLnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuXG4gICAgaXQoJ3Nob3VsZCBzb3J0IGVudHJpZXMgYXNjZW5kaW5nIGJ5IGRhdGUnLCBhc3luYyAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNS0xNycsIGlzX2Nsb3NlZDogdHJ1ZSwgbm90ZTogJ1NlY29uZCcgfSxcbiAgICAgICAgICB7IGRhdGU6ICcyMDI2LTA1LTEwJywgaXNfY2xvc2VkOiB0cnVlLCBub3RlOiAnRmlyc3QnIH0sXG4gICAgICAgIF0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgY29uc3QgdG9nZ2xlID0gc2NyZWVuLmdldEJ5VGV4dCgvdXBjb21pbmcgY2hhbmdlcy9pKVxuICAgICAgYXdhaXQgdXNlci5jbGljayh0b2dnbGUpXG4gICAgICBjb25zdCBpdGVtcyA9IHNjcmVlbi5nZXRBbGxCeVRleHQoL0ZpcnN0fFNlY29uZC8pXG4gICAgICBleHBlY3QoaXRlbXNbMF0pLnRvSGF2ZVRleHRDb250ZW50KCdGaXJzdCcpXG4gICAgICBleHBlY3QoaXRlbXNbMV0pLnRvSGF2ZVRleHRDb250ZW50KCdTZWNvbmQnKVxuICAgIH0pXG5cbiAgICBpdCgnc2hvdWxkIHRvZ2dsZSBleHBhbmQvY29sbGFwc2Ugb24gY2xpY2snLCBhc3luYyAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNS0xMCcsIGlzX2Nsb3NlZDogdHJ1ZSwgbm90ZTogJ1ByaXZhdGUgZnVuY3Rpb24nIH0sXG4gICAgICAgIF0sXG4gICAgICB9KVxuICAgICAgcmVuZGVyKDxCdXNpbmVzc0hvdXJzIC8+KVxuICAgICAgY29uc3QgdG9nZ2xlID0gc2NyZWVuLmdldEJ5VGV4dCgvdXBjb21pbmcgY2hhbmdlcy9pKVxuICAgICAgZXhwZWN0KHNjcmVlbi5xdWVyeUJ5VGV4dCgnUHJpdmF0ZSBmdW5jdGlvbicpKS5ub3QudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgICAgYXdhaXQgdXNlci5jbGljayh0b2dnbGUpXG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dCgnUHJpdmF0ZSBmdW5jdGlvbicpKS50b0JlSW5UaGVEb2N1bWVudCgpXG4gICAgICBhd2FpdCB1c2VyLmNsaWNrKHRvZ2dsZSlcbiAgICAgIGV4cGVjdChzY3JlZW4ucXVlcnlCeVRleHQoJ1ByaXZhdGUgZnVuY3Rpb24nKSkubm90LnRvQmVJblRoZURvY3VtZW50KClcbiAgICB9KVxuXG4gICAgaXQoJ3Nob3VsZCBtZXJnZSB3aXRoIHJlZ3VsYXIgd2Vla2RheSBob3VycyBmb3IgcGFydGlhbCBvdmVycmlkZXMnLCBhc3luYyAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNS0xMCcsIG9wZW5zOiAnMTQ6MDAnLCBjbG9zZXM6ICcyMzowMCcsIGlzX2Nsb3NlZDogZmFsc2UsIG5vdGU6ICdMYXRlIHN0YXJ0JyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGNvbnN0IHRvZ2dsZSA9IHNjcmVlbi5nZXRCeVRleHQoL3VwY29taW5nIGNoYW5nZXMvaSlcbiAgICAgIGF3YWl0IHVzZXIuY2xpY2sodG9nZ2xlKVxuICAgICAgLy8gMnBtIGFwcGVhcnMgaW4gdGhlIHVwY29taW5nIGNoYW5nZXMgcm93IChiYXIgb3BlbnMgMTQ6MDApXG4gICAgICBleHBlY3Qoc2NyZWVuLmdldEFsbEJ5VGV4dCgvMnBtLykubGVuZ3RoKS50b0JlR3JlYXRlclRoYW4oMClcbiAgICAgIC8vIDFwbSBhcHBlYXJzIGZyb20gcmVndWxhciBTYXR1cmRheSBraXRjaGVuIGZhbGxiYWNrIChvcGVuczogJzEzOjAwJylcbiAgICAgIGV4cGVjdChzY3JlZW4uZ2V0QWxsQnlUZXh0KC8xcG0vKS5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKVxuICAgIH0pXG5cbiAgICBpdCgnc2hvdWxkIHNob3cgXCJObyBzZXJ2aWNlXCIgZm9yIGZ1dHVyZSBraXRjaGVuOiBudWxsIChwcm9wZXJ0eS1wcmVzZW5jZSknLCBhc3luYyAoKSA9PiB7XG4gICAgICBtb2NrQ29udGV4dFZhbHVlLmhvdXJzID0gbWFrZUhvdXJzKHtcbiAgICAgICAgc3BlY2lhbEhvdXJzOiBbXG4gICAgICAgICAgeyBkYXRlOiAnMjAyNi0wNS0xMCcsIG9wZW5zOiAnMTQ6MDAnLCBjbG9zZXM6ICcyMzowMCcsIGlzX2Nsb3NlZDogZmFsc2UsIGtpdGNoZW46IG51bGwsIG5vdGU6ICdObyBmb29kJyB9LFxuICAgICAgICBdLFxuICAgICAgfSlcbiAgICAgIHJlbmRlcig8QnVzaW5lc3NIb3VycyAvPilcbiAgICAgIGNvbnN0IHRvZ2dsZSA9IHNjcmVlbi5nZXRCeVRleHQoL3VwY29taW5nIGNoYW5nZXMvaSlcbiAgICAgIGF3YWl0IHVzZXIuY2xpY2sodG9nZ2xlKVxuICAgICAgY29uc3QgdXBjb21pbmdTZWN0aW9uID0gc2NyZWVuLmdldEJ5VGV4dCgnTm8gZm9vZCcpLmNsb3Nlc3QoJ2RpdicpXG4gICAgICBleHBlY3QodXBjb21pbmdTZWN0aW9uKS50b0JlVHJ1dGh5KClcbiAgICB9KVxuICB9KVxufSlcbiJdLCJuYW1lcyI6WyJqZXN0IiwibW9jayIsInVzZUJ1c2luZXNzSG91cnNDb250ZXh0IiwibW9ja0NvbnRleHRWYWx1ZSIsImhvdXJzIiwibG9hZGluZyIsImVycm9yIiwiaXNTdGFsZSIsIkZST1pFTl9USU1FIiwiRGF0ZSIsInVzZXIiLCJ1c2VyRXZlbnQiLCJzZXR1cCIsImFkdmFuY2VUaW1lcnMiLCJhZHZhbmNlVGltZXJzQnlUaW1lIiwiYmVmb3JlQWxsIiwidXNlRmFrZVRpbWVycyIsInNldFN5c3RlbVRpbWUiLCJhZnRlckFsbCIsInVzZVJlYWxUaW1lcnMiLCJiZWZvcmVFYWNoIiwibWFrZUhvdXJzIiwib3ZlcnJpZGVzIiwiY3VycmVudFN0YXR1cyIsImlzT3BlbiIsImtpdGNoZW5PcGVuIiwiY2xvc2VzSW4iLCJvcGVuc0luIiwicmVndWxhckhvdXJzIiwibW9uZGF5Iiwib3BlbnMiLCJjbG9zZXMiLCJpc19jbG9zZWQiLCJraXRjaGVuIiwidHVlc2RheSIsIndlZG5lc2RheSIsInRodXJzZGF5IiwiZnJpZGF5Iiwic2F0dXJkYXkiLCJzdW5kYXkiLCJzcGVjaWFsSG91cnMiLCJzZXJ2aWNlT3ZlcnJpZGVzIiwic3VuZGF5X2x1bmNoIiwic2VydmljZVN0YXR1cyIsImlzRW5hYmxlZCIsIm1lc3NhZ2UiLCJkZXNjcmliZSIsIml0IiwicmVuZGVyIiwiQnVzaW5lc3NIb3VycyIsImV4cGVjdCIsInNjcmVlbiIsImdldEJ5VGV4dCIsInRvQmVJblRoZURvY3VtZW50IiwiZGF5cyIsImZvckVhY2giLCJkYXkiLCJSZWdFeHAiLCJyZW5kZXJlZERheXMiLCJnZXRBbGxCeVRleHQiLCJtYXAiLCJ0ZXh0Q29udGVudCIsInJlcGxhY2UiLCJ0b0VxdWFsIiwiY29udGFpbmVyIiwiY2xhc3NOYW1lIiwiZmlyc3RFbGVtZW50Q2hpbGQiLCJ0b0hhdmVDbGFzcyIsImtpdGNoZW5MYWJlbHMiLCJsZW5ndGgiLCJ0b0JlR3JlYXRlclRoYW4iLCJzaG93S2l0Y2hlbiIsInF1ZXJ5QnlUZXh0Iiwibm90IiwiaXNfa2l0Y2hlbl9jbG9zZWQiLCJkYXRlIiwibm90ZSIsInRvZ2dsZSIsImNsaWNrIiwiaXRlbXMiLCJ0b0hhdmVUZXh0Q29udGVudCIsInVwY29taW5nU2VjdGlvbiIsImNsb3Nlc3QiLCJ0b0JlVHJ1dGh5Il0sIm1hcHBpbmdzIjoiO0FBWUFBLEtBQUtDLElBQUksQ0FBQyxnREFBZ0QsSUFBTyxDQUFBO1FBQy9EQyx5QkFBeUIsSUFBTUM7SUFDakMsQ0FBQTs7Ozs7dUJBZHVDO2tFQUNqQjsrQkFDUTs7Ozs7O0FBRTlCLDRCQUE0QjtBQUM1QixNQUFNQSxtQkFBbUI7SUFDdkJDLE9BQU87SUFDUEMsU0FBUztJQUNUQyxPQUFPO0lBQ1BDLFNBQVM7QUFDWDtBQU1BLDBFQUEwRTtBQUMxRSx1QkFBdUI7QUFDdkIsa0VBQWtFO0FBQ2xFLDJFQUEyRTtBQUMzRSxN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

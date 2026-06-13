@@ -1,0 +1,359 @@
+773c00180a7b31f7ac285ed6ea168798
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    availabilityOptions: function() {
+        return availabilityOptions;
+    },
+    experienceOptions: function() {
+        return experienceOptions;
+    },
+    mainRoleCards: function() {
+        return mainRoleCards;
+    },
+    poorFitSignals: function() {
+        return poorFitSignals;
+    },
+    quickFacts: function() {
+        return quickFacts;
+    },
+    recruitmentDatePosted: function() {
+        return recruitmentDatePosted;
+    },
+    recruitmentFaqs: function() {
+        return recruitmentFaqs;
+    },
+    recruitmentRoleOptions: function() {
+        return recruitmentRoleOptions;
+    },
+    recruitmentRolePages: function() {
+        return recruitmentRolePages;
+    },
+    recruitmentValidThrough: function() {
+        return recruitmentValidThrough;
+    },
+    roleExpectations: function() {
+        return roleExpectations;
+    },
+    startDateOptions: function() {
+        return startDateOptions;
+    },
+    strongCandidateTraits: function() {
+        return strongCandidateTraits;
+    },
+    workBenefits: function() {
+        return workBenefits;
+    }
+});
+const recruitmentDatePosted = "2026-05-12";
+const recruitmentValidThrough = "2027-05-12";
+const recruitmentRoleOptions = [
+    "Bar Staff",
+    "Kitchen Team",
+    "Either role",
+    "Not sure yet"
+];
+const availabilityOptions = [
+    "Weekday daytime",
+    "Weekday evenings",
+    "Friday evenings",
+    "Saturdays",
+    "Sundays",
+    "Bank holidays",
+    "Flexible"
+];
+const experienceOptions = [
+    "Yes",
+    "No",
+    "Not sure, but I have related experience"
+];
+const startDateOptions = [
+    "Immediately",
+    "Within 1 week",
+    "Within 2 weeks",
+    "Within 1 month",
+    "Other"
+];
+const quickFacts = [
+    {
+        label: "Roles",
+        value: "Bar Staff, Kitchen Team"
+    },
+    {
+        label: "Pay",
+        value: "\xa312.71 per hour base rate"
+    },
+    {
+        label: "Holiday pay",
+        value: "Handled in line with current UK holiday pay rules and clearly shown in contracts and payslips"
+    },
+    {
+        label: "Hours",
+        value: "Part-time, mainly evenings and weekends"
+    },
+    {
+        label: "Location",
+        value: "The Anchor, Horton Road, Stanwell Moor Village, TW19 6AQ"
+    },
+    {
+        label: "Parking",
+        value: "Free on-site parking"
+    },
+    {
+        label: "Experience",
+        value: "Minimum 1 year preferred"
+    },
+    {
+        label: "Contract",
+        value: "Part-time, permanent"
+    },
+    {
+        label: "Best fit",
+        value: "Reliable, experienced, friendly people who care about service and standards"
+    }
+];
+const mainRoleCards = [
+    {
+        title: "Bar Staff",
+        href: "/join-our-team/bar-staff",
+        description: "Part-time bar work in a friendly, owner-managed village pub near Heathrow. This role suits someone with previous bar or hospitality experience who is confident with customers, reliable on shifts and comfortable working as part of a small team.",
+        outcome: "You will help deliver warm service, well-kept drinks, a clean bar and a positive guest experience.",
+        cta: "View Bar Staff Role"
+    },
+    {
+        title: "Kitchen Team",
+        href: "/join-our-team/kitchen-team",
+        description: "Part-time kitchen work supporting our pub menu, Sunday roasts, event food and private bookings. This role suits someone with previous kitchen, catering or food service experience who works cleanly, safely and consistently.",
+        outcome: "You will help maintain high standards of cleanliness, food safety, preparation, presentation and quality.",
+        cta: "View Kitchen Team Role"
+    }
+];
+const workBenefits = [
+    "regular part-time shifts where possible",
+    "clear expectations from the start",
+    "free on-site parking",
+    "required training provided",
+    "proper contracts, payslips and clear pay information",
+    "a small team where your contribution matters",
+    "a pub that is actively investing in quality, service, events and growth"
+];
+const strongCandidateTraits = [
+    "take pride in giving guests a brilliant experience",
+    "understand that small details matter",
+    "can deliver the basics consistently, even when it is busy",
+    "are friendly, calm and confident with customers",
+    "notice what needs doing without always being asked",
+    "care about cleanliness, presentation and standards",
+    "are comfortable working in a small team",
+    "want to be part of a pub that is actively growing and improving",
+    "understand that evenings, weekends and events are part of pub life"
+];
+const roleExpectations = [
+    "turning up on time and ready to work",
+    "being friendly and professional with guests",
+    "keeping working areas clean and organised",
+    "following instructions and agreed standards",
+    "communicating clearly with the team",
+    "staying calm during busy periods",
+    "using initiative during quieter periods",
+    "treating food safety, hygiene and service standards seriously",
+    "helping create the kind of experience guests want to come back for"
+];
+const poorFitSignals = [
+    "you are looking for short-term or casual-only work",
+    "you cannot reliably get to and from TW19 6AQ",
+    "you need Monday to Friday daytime-only work",
+    "you cannot work regular evenings or weekends",
+    "you are not comfortable working independently during quieter periods",
+    "you do not enjoy working to clear standards",
+    "you are not willing to take cleanliness, food safety or guest service seriously",
+    "you need a large corporate team structure"
+];
+const recruitmentFaqs = [
+    {
+        question: "Do I need previous experience?",
+        answer: "Previous experience is strongly preferred. For bar roles, this could be pub, bar, restaurant or hospitality experience. For kitchen roles, this could be pub kitchen, restaurant, catering or food preparation experience."
+    },
+    {
+        question: "Do I need a CV?",
+        answer: "No. A CV is helpful, but not required. If you do not have a CV, please tell us about your experience in the application form."
+    },
+    {
+        question: "Is parking available?",
+        answer: "Yes. We have free on-site parking."
+    },
+    {
+        question: "What hours are available?",
+        answer: "The roles are part-time and mainly involve evenings, weekends, events and occasional bank holidays."
+    },
+    {
+        question: "Can I apply if I only want weekday daytime shifts?",
+        answer: "Probably not. Most of our available shifts are evenings and weekends."
+    },
+    {
+        question: "Where is The Anchor?",
+        answer: "The Anchor is in Stanwell Moor Village, close to Heathrow Terminal 5, Staines, Ashford, Hounslow and Feltham."
+    }
+];
+const recruitmentRolePages = {
+    "bar-staff": {
+        slug: "bar-staff",
+        role: "Bar Staff",
+        title: "Bar Staff",
+        metaTitle: "Bar Staff Jobs Near Heathrow | The Anchor Stanwell Moor",
+        metaDescription: "Apply for part-time bar staff jobs at The Anchor in Stanwell Moor near Heathrow. Ideal for experienced, reliable hospitality staff who care about great guest service.",
+        heroTitle: "Bar Staff Jobs Near Heathrow",
+        heroIntro: [
+            "We are looking for experienced, reliable bar staff to join our small team at The Anchor in Stanwell Moor.",
+            "This role is about more than serving drinks. Our bar team helps create the guest experience from the moment someone walks in, whether they are a regular local, a family coming for food, a group joining us for an event, or visitors staying near Heathrow.",
+            "You will need to be friendly, confident, practical and able to keep high standards even when the pub is busy."
+        ],
+        image: {
+            src: "/images/our-pub/the-anchor-main-bar-area.jpg",
+            alt: "The Anchor main bar area in Stanwell Moor near Heathrow"
+        },
+        aboutTitle: "About the role",
+        about: [
+            "Our bar team plays a major part in the guest experience at The Anchor. This is not just about serving drinks. It is about creating a warm welcome, keeping the bar running properly, and making sure every guest feels looked after.",
+            "You will be part of a small team, so reliability, initiative and attention to detail matter. During quieter shifts, you may be trusted to work independently once trained. During busy services and events, you will need to stay calm, organised and guest-focused."
+        ],
+        shiftsTitle: "Typical shifts",
+        shifts: [
+            "Friday evenings",
+            "Saturday daytime or evening shifts",
+            "Sunday roast or evening shifts",
+            "weekday evening cover",
+            "event nights such as quiz nights, music bingo, karaoke and private bookings",
+            "occasional bank holiday shifts"
+        ],
+        dutiesTitle: "What you will do",
+        dutiesIntro: "You will be trusted with:",
+        duties: [
+            "welcoming guests and creating a friendly first impression",
+            "serving drinks accurately and consistently",
+            "keeping the bar clean, tidy and well stocked",
+            "handling payments correctly",
+            "supporting food service where needed",
+            "helping during busy events, quiz nights, music bingo and private bookings",
+            "looking after regular customers and new guests with equal care",
+            "noticing the small details that improve the guest experience",
+            "completing opening or closing checks once trained"
+        ],
+        lookingFor: [
+            "has previous bar, pub or hospitality experience",
+            "is reliable and punctual",
+            "is confident speaking to customers",
+            "works well under pressure",
+            "keeps high standards of cleanliness and presentation",
+            "can use initiative during both quiet and busy periods",
+            "understands that great service is built on consistency, warmth and attention to detail",
+            "can work regular evenings and weekends",
+            "can reliably get to and from TW19 6AQ"
+        ],
+        niceToHave: [
+            "cellar experience",
+            "food service experience",
+            "experience using EPOS or till systems",
+            "licensing awareness",
+            "experience working events or busy pub services",
+            "confidence working independently once trained"
+        ],
+        expectationIntro: "You can expect clear standards, required training, free on-site parking, regular part-time shifts where possible and a small team where your contribution matters.",
+        jobPostingDescription: "Part-time bar staff role at The Anchor in Stanwell Moor near Heathrow. The role suits experienced, reliable hospitality staff who can deliver warm guest service, keep the bar clean and well stocked, support food service and work regular evenings, weekends and events.",
+        workHours: "Part-time, mainly evenings and weekends including Friday evenings, Saturdays, Sundays, events and occasional bank holidays"
+    },
+    "kitchen-team": {
+        slug: "kitchen-team",
+        role: "Kitchen Team",
+        title: "Kitchen Team",
+        metaTitle: "Kitchen Jobs Near Heathrow | The Anchor Stanwell Moor",
+        metaDescription: "Apply for part-time kitchen jobs at The Anchor in Stanwell Moor near Heathrow. Join a small pub kitchen focused on cleanliness, food safety, consistency and quality.",
+        heroTitle: "Kitchen Jobs Near Heathrow",
+        heroIntro: [
+            "We are looking for an experienced kitchen team member to support food service at The Anchor in Stanwell Moor.",
+            "This role is about consistency, cleanliness, food safety and pride in every plate. You will help prepare and serve food for our pub menu, Sunday roasts, events and private bookings, making sure everything is handled properly and presented with care.",
+            "Guests should feel confident that food from our kitchen is prepared safely, served properly and delivered with attention to detail."
+        ],
+        image: {
+            src: "/images/food/sunday-roast/sunday-roast-the-anchor.jpeg",
+            alt: "Sunday roast served at The Anchor in Stanwell Moor"
+        },
+        aboutTitle: "About the kitchen role",
+        about: [
+            "Our kitchen team is responsible for delivering food that guests can trust, enjoy and come back for. This role is about more than getting food out quickly. It is about consistency, cleanliness, safe working, presentation and pride in every plate.",
+            "We maintain high standards of cleanliness, food safety and kitchen discipline at all times. Guests should be able to feel confident that everything coming from our kitchen has been prepared carefully, handled properly and served with attention to detail."
+        ],
+        shiftsTitle: "Typical shifts and services",
+        shifts: [
+            "weekday evening food service",
+            "Friday and Saturday food service",
+            "Sunday roast service",
+            "event food preparation",
+            "private booking buffets",
+            "occasional bank holiday shifts",
+            "kitchen close-down shifts"
+        ],
+        dutiesTitle: "What you will do",
+        dutiesIntro: "This role may include:",
+        duties: [
+            "preparing ingredients before service",
+            "cooking from the main pub menu",
+            "supporting Sunday roast service",
+            "preparing pizzas, burgers, pub classics, sharers and event food",
+            "following recipes, portion standards and presentation standards",
+            "keeping prep areas, equipment and storage areas clean and organised",
+            "following allergen, hygiene and food safety procedures carefully",
+            "checking quality before food leaves the kitchen",
+            "communicating clearly with bar and floor staff",
+            "helping with event menus, buffets and private bookings",
+            "closing down the kitchen properly after service"
+        ],
+        standardsTitle: "Cleanliness and food safety",
+        standardsIntro: "Cleanliness and food safety are non-negotiable at The Anchor. Every kitchen team member is expected to:",
+        standards: [
+            "work cleanly throughout each shift",
+            "follow food hygiene and allergen procedures",
+            "keep prep areas, fridges, freezers, storage and equipment organised",
+            "use safe food handling practices",
+            "follow cleaning schedules properly",
+            "report issues quickly",
+            "take pride in the condition of the kitchen",
+            "understand that guest trust starts with safe, clean and careful food preparation"
+        ],
+        lookingFor: [
+            "has previous kitchen, pub, restaurant or catering experience",
+            "works cleanly and safely",
+            "takes food hygiene seriously",
+            "understands allergen awareness and safe food handling",
+            "can follow recipes and portion standards",
+            "keeps calm during busy service",
+            "pays attention to presentation and consistency",
+            "takes pride in serving food that reflects well on the pub",
+            "can work well as part of a small team",
+            "understands that quality and cleanliness matter every shift, not just when someone is watching",
+            "can work regular evenings and weekends",
+            "can reliably get to and from TW19 6AQ"
+        ],
+        niceToHave: [
+            "Level 2 Food Hygiene certificate",
+            "experience in a pub kitchen",
+            "experience with Sunday roasts or traditional pub food",
+            "experience preparing buffets or event food",
+            "allergen training",
+            "confidence working independently once trained"
+        ],
+        expectationIntro: "You can expect clear standards, required training, free on-site parking, regular part-time shifts where possible and a small team that takes food safety, cleanliness and consistency seriously.",
+        jobPostingDescription: "Part-time kitchen team role at The Anchor in Stanwell Moor near Heathrow. The role suits experienced kitchen, catering or food service candidates who work cleanly, follow food safety and allergen procedures, support pub food service, Sunday roasts, events and private bookings, and can work regular evenings and weekends.",
+        workHours: "Part-time, mainly evenings and weekends including weekday evenings, Friday and Saturday food service, Sunday roast service, events and occasional bank holidays"
+    }
+};
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2FwcC9qb2luLW91ci10ZWFtL3JlY3J1aXRtZW50Q29udGVudC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgdHlwZSBSZWNydWl0bWVudFJvbGVWYWx1ZSA9ICdCYXIgU3RhZmYnIHwgJ0tpdGNoZW4gVGVhbScgfCAnRWl0aGVyIHJvbGUnIHwgJ05vdCBzdXJlIHlldCdcblxuZXhwb3J0IHR5cGUgUm9sZVNsdWcgPSAnYmFyLXN0YWZmJyB8ICdraXRjaGVuLXRlYW0nXG5cbmV4cG9ydCBjb25zdCByZWNydWl0bWVudERhdGVQb3N0ZWQgPSAnMjAyNi0wNS0xMidcbi8vIEpvYlBvc3RpbmcgdmFsaWRpdHkuIEdvb2dsZSBjYW4gZHJvcCBwb3N0aW5ncyB3aG9zZSB2YWxpZFRocm91Z2ggaGFzIHBhc3NlZCxcbi8vIHNvIGtlZXAgdGhpcyB+MSB5ZWFyIGFoZWFkIGFuZCBidW1wIGl0IGFsb25nc2lkZSByZWNydWl0bWVudERhdGVQb3N0ZWQgd2hlblxuLy8gdGhlIHJlY3J1aXRtZW50IHBhZ2VzIGFyZSByZWZyZXNoZWQuXG5leHBvcnQgY29uc3QgcmVjcnVpdG1lbnRWYWxpZFRocm91Z2ggPSAnMjAyNy0wNS0xMidcblxuZXhwb3J0IGNvbnN0IHJlY3J1aXRtZW50Um9sZU9wdGlvbnM6IFJlY3J1aXRtZW50Um9sZVZhbHVlW10gPSBbXG4gICdCYXIgU3RhZmYnLFxuICAnS2l0Y2hlbiBUZWFtJyxcbiAgJ0VpdGhlciByb2xlJyxcbiAgJ05vdCBzdXJlIHlldCdcbl1cblxuZXhwb3J0IGNvbnN0IGF2YWlsYWJpbGl0eU9wdGlvbnMgPSBbXG4gICdXZWVrZGF5IGRheXRpbWUnLFxuICAnV2Vla2RheSBldmVuaW5ncycsXG4gICdGcmlkYXkgZXZlbmluZ3MnLFxuICAnU2F0dXJkYXlzJyxcbiAgJ1N1bmRheXMnLFxuICAnQmFuayBob2xpZGF5cycsXG4gICdGbGV4aWJsZSdcbl1cblxuZXhwb3J0IGNvbnN0IGV4cGVyaWVuY2VPcHRpb25zID0gW1xuICAnWWVzJyxcbiAgJ05vJyxcbiAgJ05vdCBzdXJlLCBidXQgSSBoYXZlIHJlbGF0ZWQgZXhwZXJpZW5jZSdcbl1cblxuZXhwb3J0IGNvbnN0IHN0YXJ0RGF0ZU9wdGlvbnMgPSBbXG4gICdJbW1lZGlhdGVseScsXG4gICdXaXRoaW4gMSB3ZWVrJyxcbiAgJ1dpdGhpbiAyIHdlZWtzJyxcbiAgJ1dpdGhpbiAxIG1vbnRoJyxcbiAgJ090aGVyJ1xuXVxuXG5leHBvcnQgY29uc3QgcXVpY2tGYWN0cyA9IFtcbiAgeyBsYWJlbDogJ1JvbGVzJywgdmFsdWU6ICdCYXIgU3RhZmYsIEtpdGNoZW4gVGVhbScgfSxcbiAgeyBsYWJlbDogJ1BheScsIHZhbHVlOiAnwqMxMi43MSBwZXIgaG91ciBiYXNlIHJhdGUnIH0sXG4gIHtcbiAgICBsYWJlbDogJ0hvbGlkYXkgcGF5JyxcbiAgICB2YWx1ZTogJ0hhbmRsZWQgaW4gbGluZSB3aXRoIGN1cnJlbnQgVUsgaG9saWRheSBwYXkgcnVsZXMgYW5kIGNsZWFybHkgc2hvd24gaW4gY29udHJhY3RzIGFuZCBwYXlzbGlwcydcbiAgfSxcbiAgeyBsYWJlbDogJ0hvdXJzJywgdmFsdWU6ICdQYXJ0LXRpbWUsIG1haW5seSBldmVuaW5ncyBhbmQgd2Vla2VuZHMnIH0sXG4gIHsgbGFiZWw6ICdMb2NhdGlvbicsIHZhbHVlOiAnVGhlIEFuY2hvciwgSG9ydG9uIFJvYWQsIFN0YW53ZWxsIE1vb3IgVmlsbGFnZSwgVFcxOSA2QVEnIH0sXG4gIHsgbGFiZWw6ICdQYXJraW5nJywgdmFsdWU6ICdGcmVlIG9uLXNpdGUgcGFya2luZycgfSxcbiAgeyBsYWJlbDogJ0V4cGVyaWVuY2UnLCB2YWx1ZTogJ01pbmltdW0gMSB5ZWFyIHByZWZlcnJlZCcgfSxcbiAgeyBsYWJlbDogJ0NvbnRyYWN0JywgdmFsdWU6ICdQYXJ0LXRpbWUsIHBlcm1hbmVudCcgfSxcbiAge1xuICAgIGxhYmVsOiAnQmVzdCBmaXQnLFxuICAgIHZhbHVlOiAnUmVsaWFibGUsIGV4cGVyaWVuY2VkLCBmcmllbmRseSBwZW9wbGUgd2hvIGNhcmUgYWJvdXQgc2VydmljZSBhbmQgc3RhbmRhcmRzJ1xuICB9XG5dXG5cbmV4cG9ydCBjb25zdCBtYWluUm9sZUNhcmRzID0gW1xuICB7XG4gICAgdGl0bGU6ICdCYXIgU3RhZmYnLFxuICAgIGhyZWY6ICcvam9pbi1vdXItdGVhbS9iYXItc3RhZmYnLFxuICAgIGRlc2NyaXB0aW9uOlxuICAgICAgJ1BhcnQtdGltZSBiYXIgd29yayBpbiBhIGZyaWVuZGx5LCBvd25lci1tYW5hZ2VkIHZpbGxhZ2UgcHViIG5lYXIgSGVhdGhyb3cuIFRoaXMgcm9sZSBzdWl0cyBzb21lb25lIHdpdGggcHJldmlvdXMgYmFyIG9yIGhvc3BpdGFsaXR5IGV4cGVyaWVuY2Ugd2hvIGlzIGNvbmZpZGVudCB3aXRoIGN1c3RvbWVycywgcmVsaWFibGUgb24gc2hpZnRzIGFuZCBjb21mb3J0YWJsZSB3b3JraW5nIGFzIHBhcnQgb2YgYSBzbWFsbCB0ZWFtLicsXG4gICAgb3V0Y29tZTogJ1lvdSB3aWxsIGhlbHAgZGVsaXZlciB3YXJtIHNlcnZpY2UsIHdlbGwta2VwdCBkcmlua3MsIGEgY2xlYW4gYmFyIGFuZCBhIHBvc2l0aXZlIGd1ZXN0IGV4cGVyaWVuY2UuJyxcbiAgICBjdGE6ICdWaWV3IEJhciBTdGFmZiBSb2xlJ1xuICB9LFxuICB7XG4gICAgdGl0bGU6ICdLaXRjaGVuIFRlYW0nLFxuICAgIGhyZWY6ICcvam9pbi1vdXItdGVhbS9raXRjaGVuLXRlYW0nLFxuICAgIGRlc2NyaXB0aW9uOlxuICAgICAgJ1BhcnQtdGltZSBraXRjaGVuIHdvcmsgc3VwcG9ydGluZyBvdXIgcHViIG1lbnUsIFN1bmRheSByb2FzdHMsIGV2ZW50IGZvb2QgYW5kIHByaXZhdGUgYm9va2luZ3MuIFRoaXMgcm9sZSBzdWl0cyBzb21lb25lIHdpdGggcHJldmlvdXMga2l0Y2hlbiwgY2F0ZXJpbmcgb3IgZm9vZCBzZXJ2aWNlIGV4cGVyaWVuY2Ugd2hvIHdvcmtzIGNsZWFubHksIHNhZmVseSBhbmQgY29uc2lzdGVudGx5LicsXG4gICAgb3V0Y29tZTpcbiAgICAgICdZb3Ugd2lsbCBoZWxwIG1haW50YWluIGhpZ2ggc3RhbmRhcmRzIG9mIGNsZWFubGluZXNzLCBmb29kIHNhZmV0eSwgcHJlcGFyYXRpb24sIHByZXNlbnRhdGlvbiBhbmQgcXVhbGl0eS4nLFxuICAgIGN0YTogJ1ZpZXcgS2l0Y2hlbiBUZWFtIFJvbGUnXG4gIH1cbl1cblxuZXhwb3J0IGNvbnN0IHdvcmtCZW5lZml0cyA9IFtcbiAgJ3JlZ3VsYXIgcGFydC10aW1lIHNoaWZ0cyB3aGVyZSBwb3NzaWJsZScsXG4gICdjbGVhciBleHBlY3RhdGlvbnMgZnJvbSB0aGUgc3RhcnQnLFxuICAnZnJlZSBvbi1zaXRlIHBhcmtpbmcnLFxuICAncmVxdWlyZWQgdHJhaW5pbmcgcHJvdmlkZWQnLFxuICAncHJvcGVyIGNvbnRyYWN0cywgcGF5c2xpcHMgYW5kIGNsZWFyIHBheSBpbmZvcm1hdGlvbicsXG4gICdhIHNtYWxsIHRlYW0gd2hlcmUgeW91ciBjb250cmlidXRpb24gbWF0dGVycycsXG4gICdhIHB1YiB0aGF0IGlzIGFjdGl2ZWx5IGludmVzdGluZyBpbiBxdWFsaXR5LCBzZXJ2aWNlLCBldmVudHMgYW5kIGdyb3d0aCdcbl1cblxuZXhwb3J0IGNvbnN0IHN0cm9uZ0NhbmRpZGF0ZVRyYWl0cyA9IFtcbiAgJ3Rha2UgcHJpZGUgaW4gZ2l2aW5nIGd1ZXN0cyBhIGJyaWxsaWFudCBleHBlcmllbmNlJyxcbiAgJ3VuZGVyc3RhbmQgdGhhdCBzbWFsbCBkZXRhaWxzIG1hdHRlcicsXG4gICdjYW4gZGVsaXZlciB0aGUgYmFzaWNzIGNvbnNpc3RlbnRseSwgZXZlbiB3aGVuIGl0IGlzIGJ1c3knLFxuICAnYXJlIGZyaWVuZGx5LCBjYWxtIGFuZCBjb25maWRlbnQgd2l0aCBjdXN0b21lcnMnLFxuICAnbm90aWNlIHdoYXQgbmVlZHMgZG9pbmcgd2l0aG91dCBhbHdheXMgYmVpbmcgYXNrZWQnLFxuICAnY2FyZSBhYm91dCBjbGVhbmxpbmVzcywgcHJlc2VudGF0aW9uIGFuZCBzdGFuZGFyZHMnLFxuICAnYXJlIGNvbWZvcnRhYmxlIHdvcmtpbmcgaW4gYSBzbWFsbCB0ZWFtJyxcbiAgJ3dhbnQgdG8gYmUgcGFydCBvZiBhIHB1YiB0aGF0IGlzIGFjdGl2ZWx5IGdyb3dpbmcgYW5kIGltcHJvdmluZycsXG4gICd1bmRlcnN0YW5kIHRoYXQgZXZlbmluZ3MsIHdlZWtlbmRzIGFuZCBldmVudHMgYXJlIHBhcnQgb2YgcHViIGxpZmUnXG5dXG5cbmV4cG9ydCBjb25zdCByb2xlRXhwZWN0YXRpb25zID0gW1xuICAndHVybmluZyB1cCBvbiB0aW1lIGFuZCByZWFkeSB0byB3b3JrJyxcbiAgJ2JlaW5nIGZyaWVuZGx5IGFuZCBwcm9mZXNzaW9uYWwgd2l0aCBndWVzdHMnLFxuICAna2VlcGluZyB3b3JraW5nIGFyZWFzIGNsZWFuIGFuZCBvcmdhbmlzZWQnLFxuICAnZm9sbG93aW5nIGluc3RydWN0aW9ucyBhbmQgYWdyZWVkIHN0YW5kYXJkcycsXG4gICdjb21tdW5pY2F0aW5nIGNsZWFybHkgd2l0aCB0aGUgdGVhbScsXG4gICdzdGF5aW5nIGNhbG0gZHVyaW5nIGJ1c3kgcGVyaW9kcycsXG4gICd1c2luZyBpbml0aWF0aXZlIGR1cmluZyBxdWlldGVyIHBlcmlvZHMnLFxuICAndHJlYXRpbmcgZm9vZCBzYWZldHksIGh5Z2llbmUgYW5kIHNlcnZpY2Ugc3RhbmRhcmRzIHNlcmlvdXNseScsXG4gICdoZWxwaW5nIGNyZWF0ZSB0aGUga2luZCBvZiBleHBlcmllbmNlIGd1ZXN0cyB3YW50IHRvIGNvbWUgYmFjayBmb3InXG5dXG5cbmV4cG9ydCBjb25zdCBwb29yRml0U2lnbmFscyA9IFtcbiAgJ3lvdSBhcmUgbG9va2luZyBmb3Igc2hvcnQtdGVybSBvciBjYXN1YWwtb25seSB3b3JrJyxcbiAgJ3lvdSBjYW5ub3QgcmVsaWFibHkgZ2V0IHRvIGFuZCBmcm9tIFRXMTkgNkFRJyxcbiAgJ3lvdSBuZWVkIE1vbmRheSB0byBGcmlkYXkgZGF5dGltZS1vbmx5IHdvcmsnLFxuICAneW91IGNhbm5vdCB3b3JrIHJlZ3VsYXIgZXZlbmluZ3Mgb3Igd2Vla2VuZHMnLFxuICAneW91IGFyZSBub3QgY29tZm9ydGFibGUgd29ya2luZyBpbmRlcGVuZGVudGx5IGR1cmluZyBxdWlldGVyIHBlcmlvZHMnLFxuICAneW91IGRvIG5vdCBlbmpveSB3b3JraW5nIHRvIGNsZWFyIHN0YW5kYXJkcycsXG4gICd5b3UgYXJlIG5vdCB3aWxsaW5nIHRvIHRha2UgY2xlYW5saW5lc3MsIGZvb2Qgc2FmZXR5IG9yIGd1ZXN0IHNlcnZpY2Ugc2VyaW91c2x5JyxcbiAgJ3lvdSBuZWVkIGEgbGFyZ2UgY29ycG9yYXRlIHRlYW0gc3RydWN0dXJlJ1xuXVxuXG5leHBvcnQgY29uc3QgcmVjcnVpdG1lbnRGYXFzID0gW1xuICB7XG4gICAgcXVlc3Rpb246ICdEbyBJIG5lZWQgcHJldmlvdXMgZXhwZXJpZW5jZT8nLFxuICAgIGFuc3dlcjpcbiAgICAgICdQcmV2aW91cyBleHBlcmllbmNlIGlzIHN0cm9uZ2x5IHByZWZlcnJlZC4gRm9yIGJhciByb2xlcywgdGhpcyBjb3VsZCBiZSBwdWIsIGJhciwgcmVzdGF1cmFudCBvciBob3NwaXRhbGl0eSBleHBlcmllbmNlLiBGb3Iga2l0Y2hlbiByb2xlcywgdGhpcyBjb3VsZCBiZSBwdWIga2l0Y2hlbiwgcmVzdGF1cmFudCwgY2F0ZXJpbmcgb3IgZm9vZCBwcmVwYXJhdGlvbiBleHBlcmllbmNlLidcbiAgfSxcbiAge1xuICAgIHF1ZXN0aW9uOiAnRG8gSSBuZWVkIGEgQ1Y/JyxcbiAgICBhbnN3ZXI6XG4gICAgICAnTm8uIEEgQ1YgaXMgaGVscGZ1bCwgYnV0IG5vdCByZXF1aXJlZC4gSWYgeW91IGRvIG5vdCBoYXZlIGEgQ1YsIHBsZWFzZSB0ZWxsIHVzIGFib3V0IHlvdXIgZXhwZXJpZW5jZSBpbiB0aGUgYXBwbGljYXRpb24gZm9ybS4nXG4gIH0sXG4gIHtcbiAgICBxdWVzdGlvbjogJ0lzIHBhcmtpbmcgYXZhaWxhYmxlPycsXG4gICAgYW5zd2VyOiAnWWVzLiBXZSBoYXZlIGZyZWUgb24tc2l0ZSBwYXJraW5nLidcbiAgfSxcbiAge1xuICAgIHF1ZXN0aW9uOiAnV2hhdCBob3VycyBhcmUgYXZhaWxhYmxlPycsXG4gICAgYW5zd2VyOlxuICAgICAgJ1RoZSByb2xlcyBhcmUgcGFydC10aW1lIGFuZCBtYWlubHkgaW52b2x2ZSBldmVuaW5ncywgd2Vla2VuZHMsIGV2ZW50cyBhbmQgb2NjYXNpb25hbCBiYW5rIGhvbGlkYXlzLidcbiAgfSxcbiAge1xuICAgIHF1ZXN0aW9uOiAnQ2FuIEkgYXBwbHkgaWYgSSBvbmx5IHdhbnQgd2Vla2RheSBkYXl0aW1lIHNoaWZ0cz8nLFxuICAgIGFuc3dlcjogJ1Byb2JhYmx5IG5vdC4gTW9zdCBvZiBvdXIgYXZhaWxhYmxlIHNoaWZ0cyBhcmUgZXZlbmluZ3MgYW5kIHdlZWtlbmRzLidcbiAgfSxcbiAge1xuICAgIHF1ZXN0aW9uOiAnV2hlcmUgaXMgVGhlIEFuY2hvcj8nLFxuICAgIGFuc3dlcjpcbiAgICAgICdUaGUgQW5jaG9yIGlzIGluIFN0YW53ZWxsIE1vb3IgVmlsbGFnZSwgY2xvc2UgdG8gSGVhdGhyb3cgVGVybWluYWwgNSwgU3RhaW5lcywgQXNoZm9yZCwgSG91bnNsb3cgYW5kIEZlbHRoYW0uJ1xuICB9XG5dXG5cbmV4cG9ydCB0eXBlIFJlY3J1aXRtZW50Um9sZVBhZ2UgPSB7XG4gIHNsdWc6IFJvbGVTbHVnXG4gIHJvbGU6IFJlY3J1aXRtZW50Um9sZVZhbHVlXG4gIHRpdGxlOiBzdHJpbmdcbiAgbWV0YVRpdGxlOiBzdHJpbmdcbiAgbWV0YURlc2NyaXB0aW9uOiBzdHJpbmdcbiAgaGVyb1RpdGxlOiBzdHJpbmdcbiAgaGVyb0ludHJvOiBzdHJpbmdbXVxuICBpbWFnZToge1xuICAgIHNyYzogc3RyaW5nXG4gICAgYWx0OiBzdHJpbmdcbiAgfVxuICBhYm91dFRpdGxlOiBzdHJpbmdcbiAgYWJvdXQ6IHN0cmluZ1tdXG4gIHNoaWZ0c1RpdGxlOiBzdHJpbmdcbiAgc2hpZnRzOiBzdHJpbmdbXVxuICBkdXRpZXNUaXRsZTogc3RyaW5nXG4gIGR1dGllc0ludHJvOiBzdHJpbmdcbiAgZHV0aWVzOiBzdHJpbmdbXVxuICBzdGFuZGFyZHNUaXRsZT86IHN0cmluZ1xuICBzdGFuZGFyZHNJbnRybz86IHN0cmluZ1xuICBzdGFuZGFyZHM/OiBzdHJpbmdbXVxuICBsb29raW5nRm9yOiBzdHJpbmdbXVxuICBuaWNlVG9IYXZlOiBzdHJpbmdbXVxuICBleHBlY3RhdGlvbkludHJvOiBzdHJpbmdcbiAgam9iUG9zdGluZ0Rlc2NyaXB0aW9uOiBzdHJpbmdcbiAgd29ya0hvdXJzOiBzdHJpbmdcbn1cblxuZXhwb3J0IGNvbnN0IHJlY3J1aXRtZW50Um9sZVBhZ2VzOiBSZWNvcmQ8Um9sZVNsdWcsIFJlY3J1aXRtZW50Um9sZVBhZ2U+ID0ge1xuICAnYmFyLXN0YWZmJzoge1xuICAgIHNsdWc6ICdiYXItc3RhZmYnLFxuICAgIHJvbGU6ICdCYXIgU3RhZmYnLFxuICAgIHRpdGxlOiAnQmFyIFN0YWZmJyxcbiAgICBtZXRhVGl0bGU6ICdCYXIgU3RhZmYgSm9icyBOZWFyIEhlYXRocm93IHwgVGhlIEFuY2hvciBTdGFud2VsbCBNb29yJyxcbiAgICBtZXRhRGVzY3JpcHRpb246XG4gICAgICAnQXBwbHkgZm9yIHBhcnQtdGltZSBiYXIgc3RhZmYgam9icyBhdCBUaGUgQW5jaG9yIGluIFN0YW53ZWxsIE1vb3IgbmVhciBIZWF0aHJvdy4gSWRlYWwgZm9yIGV4cGVyaWVuY2VkLCByZWxpYWJsZSBob3NwaXRhbGl0eSBzdGFmZiB3aG8gY2FyZSBhYm91dCBncmVhdCBndWVzdCBzZXJ2aWNlLicsXG4gICAgaGVyb1RpdGxlOiAnQmFyIFN0YWZmIEpvYnMgTmVhciBIZWF0aHJvdycsXG4gICAgaGVyb0ludHJvOiBbXG4gICAgICAnV2UgYXJlIGxvb2tpbmcgZm9yIGV4cGVyaWVuY2VkLCByZWxpYWJsZSBiYXIgc3RhZmYgdG8gam9pbiBvdXIgc21hbGwgdGVhbSBhdCBUaGUgQW5jaG9yIGluIFN0YW53ZWxsIE1vb3IuJyxcbiAgICAgICdUaGlzIHJvbGUgaXMgYWJvdXQgbW9yZSB0aGFuIHNlcnZpbmcgZHJpbmtzLiBPdXIgYmFyIHRlYW0gaGVscHMgY3JlYXRlIHRoZSBndWVzdCBleHBlcmllbmNlIGZyb20gdGhlIG1vbWVudCBzb21lb25lIHdhbGtzIGluLCB3aGV0aGVyIHRoZXkgYXJlIGEgcmVndWxhciBsb2NhbCwgYSBmYW1pbHkgY29taW5nIGZvciBmb29kLCBhIGdyb3VwIGpvaW5pbmcgdXMgZm9yIGFuIGV2ZW50LCBvciB2aXNpdG9ycyBzdGF5aW5nIG5lYXIgSGVhdGhyb3cuJyxcbiAgICAgICdZb3Ugd2lsbCBuZWVkIHRvIGJlIGZyaWVuZGx5LCBjb25maWRlbnQsIHByYWN0aWNhbCBhbmQgYWJsZSB0byBrZWVwIGhpZ2ggc3RhbmRhcmRzIGV2ZW4gd2hlbiB0aGUgcHViIGlzIGJ1c3kuJ1xuICAgIF0sXG4gICAgaW1hZ2U6IHtcbiAgICAgIHNyYzogJy9pbWFnZXMvb3VyLXB1Yi90aGUtYW5jaG9yLW1haW4tYmFyLWFyZWEuanBnJyxcbiAgICAgIGFsdDogJ1RoZSBBbmNob3IgbWFpbiBiYXIgYXJlYSBpbiBTdGFud2VsbCBNb29yIG5lYXIgSGVhdGhyb3cnXG4gICAgfSxcbiAgICBhYm91dFRpdGxlOiAnQWJvdXQgdGhlIHJvbGUnLFxuICAgIGFib3V0OiBbXG4gICAgICAnT3VyIGJhciB0ZWFtIHBsYXlzIGEgbWFqb3IgcGFydCBpbiB0aGUgZ3Vlc3QgZXhwZXJpZW5jZSBhdCBUaGUgQW5jaG9yLiBUaGlzIGlzIG5vdCBqdXN0IGFib3V0IHNlcnZpbmcgZHJpbmtzLiBJdCBpcyBhYm91dCBjcmVhdGluZyBhIHdhcm0gd2VsY29tZSwga2VlcGluZyB0aGUgYmFyIHJ1bm5pbmcgcHJvcGVybHksIGFuZCBtYWtpbmcgc3VyZSBldmVyeSBndWVzdCBmZWVscyBsb29rZWQgYWZ0ZXIuJyxcbiAgICAgICdZb3Ugd2lsbCBiZSBwYXJ0IG9mIGEgc21hbGwgdGVhbSwgc28gcmVsaWFiaWxpdHksIGluaXRpYXRpdmUgYW5kIGF0dGVudGlvbiB0byBkZXRhaWwgbWF0dGVyLiBEdXJpbmcgcXVpZXRlciBzaGlmdHMsIHlvdSBtYXkgYmUgdHJ1c3RlZCB0byB3b3JrIGluZGVwZW5kZW50bHkgb25jZSB0cmFpbmVkLiBEdXJpbmcgYnVzeSBzZXJ2aWNlcyBhbmQgZXZlbnRzLCB5b3Ugd2lsbCBuZWVkIHRvIHN0YXkgY2FsbSwgb3JnYW5pc2VkIGFuZCBndWVzdC1mb2N1c2VkLidcbiAgICBdLFxuICAgIHNoaWZ0c1RpdGxlOiAnVHlwaWNhbCBzaGlmdHMnLFxuICAgIHNoaWZ0czogW1xuICAgICAgJ0ZyaWRheSBldmVuaW5ncycsXG4gICAgICAnU2F0dXJkYXkgZGF5dGltZSBvciBldmVuaW5nIHNoaWZ0cycsXG4gICAgICAnU3VuZGF5IHJvYXN0IG9yIGV2ZW5pbmcgc2hpZnRzJyxcbiAgICAgICd3ZWVrZGF5IGV2ZW5pbmcgY292ZXInLFxuICAgICAgJ2V2ZW50IG5pZ2h0cyBzdWNoIGFzIHF1aXogbmlnaHRzLCBtdXNpYyBiaW5nbywga2FyYW9rZSBhbmQgcHJpdmF0ZSBib29raW5ncycsXG4gICAgICAnb2NjYXNpb25hbCBiYW5rIGhvbGlkYXkgc2hpZnRzJ1xuICAgIF0sXG4gICAgZHV0aWVzVGl0bGU6ICdXaGF0IHlvdSB3aWxsIGRvJyxcbiAgICBkdXRpZXNJbnRybzogJ1lvdSB3aWxsIGJlIHRydXN0ZWQgd2l0aDonLFxuICAgIGR1dGllczogW1xuICAgICAgJ3dlbGNvbWluZyBndWVzdHMgYW5kIGNyZWF0aW5nIGEgZnJpZW5kbHkgZmlyc3QgaW1wcmVzc2lvbicsXG4gICAgICAnc2VydmluZyBkcmlua3MgYWNjdXJhdGVseSBhbmQgY29uc2lzdGVudGx5JyxcbiAgICAgICdrZWVwaW5nIHRoZSBiYXIgY2xlYW4sIHRpZHkgYW5kIHdlbGwgc3RvY2tlZCcsXG4gICAgICAnaGFuZGxpbmcgcGF5bWVudHMgY29ycmVjdGx5JyxcbiAgICAgICdzdXBwb3J0aW5nIGZvb2Qgc2VydmljZSB3aGVyZSBuZWVkZWQnLFxuICAgICAgJ2hlbHBpbmcgZHVyaW5nIGJ1c3kgZXZlbnRzLCBxdWl6IG5pZ2h0cywgbXVzaWMgYmluZ28gYW5kIHByaXZhdGUgYm9va2luZ3MnLFxuICAgICAgJ2xvb2tpbmcgYWZ0ZXIgcmVndWxhciBjdXN0b21lcnMgYW5kIG5ldyBndWVzdHMgd2l0aCBlcXVhbCBjYXJlJyxcbiAgICAgICdub3RpY2luZyB0aGUgc21hbGwgZGV0YWlscyB0aGF0IGltcHJvdmUgdGhlIGd1ZXN0IGV4cGVyaWVuY2UnLFxuICAgICAgJ2NvbXBsZXRpbmcgb3BlbmluZyBvciBjbG9zaW5nIGNoZWNrcyBvbmNlIHRyYWluZWQnXG4gICAgXSxcbiAgICBsb29raW5nRm9yOiBbXG4gICAgICAnaGFzIHByZXZpb3VzIGJhciwgcHViIG9yIGhvc3BpdGFsaXR5IGV4cGVyaWVuY2UnLFxuICAgICAgJ2lzIHJlbGlhYmxlIGFuZCBwdW5jdHVhbCcsXG4gICAgICAnaXMgY29uZmlkZW50IHNwZWFraW5nIHRvIGN1c3RvbWVycycsXG4gICAgICAnd29ya3Mgd2VsbCB1bmRlciBwcmVzc3VyZScsXG4gICAgICAna2VlcHMgaGlnaCBzdGFuZGFyZHMgb2YgY2xlYW5saW5lc3MgYW5kIHByZXNlbnRhdGlvbicsXG4gICAgICAnY2FuIHVzZSBpbml0aWF0aXZlIGR1cmluZyBib3RoIHF1aWV0IGFuZCBidXN5IHBlcmlvZHMnLFxuICAgICAgJ3VuZGVyc3RhbmRzIHRoYXQgZ3JlYXQgc2VydmljZSBpcyBidWlsdCBvbiBjb25zaXN0ZW5jeSwgd2FybXRoIGFuZCBhdHRlbnRpb24gdG8gZGV0YWlsJyxcbiAgICAgICdjYW4gd29yayByZWd1bGFyIGV2ZW5pbmdzIGFuZCB3ZWVrZW5kcycsXG4gICAgICAnY2FuIHJlbGlhYmx5IGdldCB0byBhbmQgZnJvbSBUVzE5IDZBUSdcbiAgICBdLFxuICAgIG5pY2VUb0hhdmU6IFtcbiAgICAgICdjZWxsYXIgZXhwZXJpZW5jZScsXG4gICAgICAnZm9vZCBzZXJ2aWNlIGV4cGVyaWVuY2UnLFxuICAgICAgJ2V4cGVyaWVuY2UgdXNpbmcgRVBPUyBvciB0aWxsIHN5c3RlbXMnLFxuICAgICAgJ2xpY2Vuc2luZyBhd2FyZW5lc3MnLFxuICAgICAgJ2V4cGVyaWVuY2Ugd29ya2luZyBldmVudHMgb3IgYnVzeSBwdWIgc2VydmljZXMnLFxuICAgICAgJ2NvbmZpZGVuY2Ugd29ya2luZyBpbmRlcGVuZGVudGx5IG9uY2UgdHJhaW5lZCdcbiAgICBdLFxuICAgIGV4cGVjdGF0aW9uSW50cm86XG4gICAgICAnWW91IGNhbiBleHBlY3QgY2xlYXIgc3RhbmRhcmRzLCByZXF1aXJlZCB0cmFpbmluZywgZnJlZSBvbi1zaXRlIHBhcmtpbmcsIHJlZ3VsYXIgcGFydC10aW1lIHNoaWZ0cyB3aGVyZSBwb3NzaWJsZSBhbmQgYSBzbWFsbCB0ZWFtIHdoZXJlIHlvdXIgY29udHJpYnV0aW9uIG1hdHRlcnMuJyxcbiAgICBqb2JQb3N0aW5nRGVzY3JpcHRpb246XG4gICAgICAnUGFydC10aW1lIGJhciBzdGFmZiByb2xlIGF0IFRoZSBBbmNob3IgaW4gU3RhbndlbGwgTW9vciBuZWFyIEhlYXRocm93LiBUaGUgcm9sZSBzdWl0cyBleHBlcmllbmNlZCwgcmVsaWFibGUgaG9zcGl0YWxpdHkgc3RhZmYgd2hvIGNhbiBkZWxpdmVyIHdhcm0gZ3Vlc3Qgc2VydmljZSwga2VlcCB0aGUgYmFyIGNsZWFuIGFuZCB3ZWxsIHN0b2NrZWQsIHN1cHBvcnQgZm9vZCBzZXJ2aWNlIGFuZCB3b3JrIHJlZ3VsYXIgZXZlbmluZ3MsIHdlZWtlbmRzIGFuZCBldmVudHMuJyxcbiAgICB3b3JrSG91cnM6ICdQYXJ0LXRpbWUsIG1haW5seSBldmVuaW5ncyBhbmQgd2Vla2VuZHMgaW5jbHVkaW5nIEZyaWRheSBldmVuaW5ncywgU2F0dXJkYXlzLCBTdW5kYXlzLCBldmVudHMgYW5kIG9jY2FzaW9uYWwgYmFuayBob2xpZGF5cydcbiAgfSxcbiAgJ2tpdGNoZW4tdGVhbSc6IHtcbiAgICBzbHVnOiAna2l0Y2hlbi10ZWFtJyxcbiAgICByb2xlOiAnS2l0Y2hlbiBUZWFtJyxcbiAgICB0aXRsZTogJ0tpdGNoZW4gVGVhbScsXG4gICAgbWV0YVRpdGxlOiAnS2l0Y2hlbiBKb2JzIE5lYXIgSGVhdGhyb3cgfCBUaGUgQW5jaG9yIFN0YW53ZWxsIE1vb3InLFxuICAgIG1ldGFEZXNjcmlwdGlvbjpcbiAgICAgICdBcHBseSBmb3IgcGFydC10aW1lIGtpdGNoZW4gam9icyBhdCBUaGUgQW5jaG9yIGluIFN0YW53ZWxsIE1vb3IgbmVhciBIZWF0aHJvdy4gSm9pbiBhIHNtYWxsIHB1YiBraXRjaGVuIGZvY3VzZWQgb24gY2xlYW5saW5lc3MsIGZvb2Qgc2FmZXR5LCBjb25zaXN0ZW5jeSBhbmQgcXVhbGl0eS4nLFxuICAgIGhlcm9UaXRsZTogJ0tpdGNoZW4gSm9icyBOZWFyIEhlYXRocm93JyxcbiAgICBoZXJvSW50cm86IFtcbiAgICAgICdXZSBhcmUgbG9va2luZyBmb3IgYW4gZXhwZXJpZW5jZWQga2l0Y2hlbiB0ZWFtIG1lbWJlciB0byBzdXBwb3J0IGZvb2Qgc2VydmljZSBhdCBUaGUgQW5jaG9yIGluIFN0YW53ZWxsIE1vb3IuJyxcbiAgICAgICdUaGlzIHJvbGUgaXMgYWJvdXQgY29uc2lzdGVuY3ksIGNsZWFubGluZXNzLCBmb29kIHNhZmV0eSBhbmQgcHJpZGUgaW4gZXZlcnkgcGxhdGUuIFlvdSB3aWxsIGhlbHAgcHJlcGFyZSBhbmQgc2VydmUgZm9vZCBmb3Igb3VyIHB1YiBtZW51LCBTdW5kYXkgcm9hc3RzLCBldmVudHMgYW5kIHByaXZhdGUgYm9va2luZ3MsIG1ha2luZyBzdXJlIGV2ZXJ5dGhpbmcgaXMgaGFuZGxlZCBwcm9wZXJseSBhbmQgcHJlc2VudGVkIHdpdGggY2FyZS4nLFxuICAgICAgJ0d1ZXN0cyBzaG91bGQgZmVlbCBjb25maWRlbnQgdGhhdCBmb29kIGZyb20gb3VyIGtpdGNoZW4gaXMgcHJlcGFyZWQgc2FmZWx5LCBzZXJ2ZWQgcHJvcGVybHkgYW5kIGRlbGl2ZXJlZCB3aXRoIGF0dGVudGlvbiB0byBkZXRhaWwuJ1xuICAgIF0sXG4gICAgaW1hZ2U6IHtcbiAgICAgIHNyYzogJy9pbWFnZXMvZm9vZC9zdW5kYXktcm9hc3Qvc3VuZGF5LXJvYXN0LXRoZS1hbmNob3IuanBlZycsXG4gICAgICBhbHQ6ICdTdW5kYXkgcm9hc3Qgc2VydmVkIGF0IFRoZSBBbmNob3IgaW4gU3RhbndlbGwgTW9vcidcbiAgICB9LFxuICAgIGFib3V0VGl0bGU6ICdBYm91dCB0aGUga2l0Y2hlbiByb2xlJyxcbiAgICBhYm91dDogW1xuICAgICAgJ091ciBraXRjaGVuIHRlYW0gaXMgcmVzcG9uc2libGUgZm9yIGRlbGl2ZXJpbmcgZm9vZCB0aGF0IGd1ZXN0cyBjYW4gdHJ1c3QsIGVuam95IGFuZCBjb21lIGJhY2sgZm9yLiBUaGlzIHJvbGUgaXMgYWJvdXQgbW9yZSB0aGFuIGdldHRpbmcgZm9vZCBvdXQgcXVpY2tseS4gSXQgaXMgYWJvdXQgY29uc2lzdGVuY3ksIGNsZWFubGluZXNzLCBzYWZlIHdvcmtpbmcsIHByZXNlbnRhdGlvbiBhbmQgcHJpZGUgaW4gZXZlcnkgcGxhdGUuJyxcbiAgICAgICdXZSBtYWludGFpbiBoaWdoIHN0YW5kYXJkcyBvZiBjbGVhbmxpbmVzcywgZm9vZCBzYWZldHkgYW5kIGtpdGNoZW4gZGlzY2lwbGluZSBhdCBhbGwgdGltZXMuIEd1ZXN0cyBzaG91bGQgYmUgYWJsZSB0byBmZWVsIGNvbmZpZGVudCB0aGF0IGV2ZXJ5dGhpbmcgY29taW5nIGZyb20gb3VyIGtpdGNoZW4gaGFzIGJlZW4gcHJlcGFyZWQgY2FyZWZ1bGx5LCBoYW5kbGVkIHByb3Blcmx5IGFuZCBzZXJ2ZWQgd2l0aCBhdHRlbnRpb24gdG8gZGV0YWlsLidcbiAgICBdLFxuICAgIHNoaWZ0c1RpdGxlOiAnVHlwaWNhbCBzaGlmdHMgYW5kIHNlcnZpY2VzJyxcbiAgICBzaGlmdHM6IFtcbiAgICAgICd3ZWVrZGF5IGV2ZW5pbmcgZm9vZCBzZXJ2aWNlJyxcbiAgICAgICdGcmlkYXkgYW5kIFNhdHVyZGF5IGZvb2Qgc2VydmljZScsXG4gICAgICAnU3VuZGF5IHJvYXN0IHNlcnZpY2UnLFxuICAgICAgJ2V2ZW50IGZvb2QgcHJlcGFyYXRpb24nLFxuICAgICAgJ3ByaXZhdGUgYm9va2luZyBidWZmZXRzJyxcbiAgICAgICdvY2Nhc2lvbmFsIGJhbmsgaG9saWRheSBzaGlmdHMnLFxuICAgICAgJ2tpdGNoZW4gY2xvc2UtZG93biBzaGlmdHMnXG4gICAgXSxcbiAgICBkdXRpZXNUaXRsZTogJ1doYXQgeW91IHdpbGwgZG8nLFxuICAgIGR1dGllc0ludHJvOiAnVGhpcyByb2xlIG1heSBpbmNsdWRlOicsXG4gICAgZHV0aWVzOiBbXG4gICAgICAncHJlcGFyaW5nIGluZ3JlZGllbnRzIGJlZm9yZSBzZXJ2aWNlJyxcbiAgICAgICdjb29raW5nIGZyb20gdGhlIG1haW4gcHViIG1lbnUnLFxuICAgICAgJ3N1cHBvcnRpbmcgU3VuZGF5IHJvYXN0IHNlcnZpY2UnLFxuICAgICAgJ3ByZXBhcmluZyBwaXp6YXMsIGJ1cmdlcnMsIHB1YiBjbGFzc2ljcywgc2hhcmVycyBhbmQgZXZlbnQgZm9vZCcsXG4gICAgICAnZm9sbG93aW5nIHJlY2lwZXMsIHBvcnRpb24gc3RhbmRhcmRzIGFuZCBwcmVzZW50YXRpb24gc3RhbmRhcmRzJyxcbiAgICAgICdrZWVwaW5nIHByZXAgYXJlYXMsIGVxdWlwbWVudCBhbmQgc3RvcmFnZSBhcmVhcyBjbGVhbiBhbmQgb3JnYW5pc2VkJyxcbiAgICAgICdmb2xsb3dpbmcgYWxsZXJnZW4sIGh5Z2llbmUgYW5kIGZvb2Qgc2FmZXR5IHByb2NlZHVyZXMgY2FyZWZ1bGx5JyxcbiAgICAgICdjaGVja2luZyBxdWFsaXR5IGJlZm9yZSBmb29kIGxlYXZlcyB0aGUga2l0Y2hlbicsXG4gICAgICAnY29tbXVuaWNhdGluZyBjbGVhcmx5IHdpdGggYmFyIGFuZCBmbG9vciBzdGFmZicsXG4gICAgICAnaGVscGluZyB3aXRoIGV2ZW50IG1lbnVzLCBidWZmZXRzIGFuZCBwcml2YXRlIGJvb2tpbmdzJyxcbiAgICAgICdjbG9zaW5nIGRvd24gdGhlIGtpdGNoZW4gcHJvcGVybHkgYWZ0ZXIgc2VydmljZSdcbiAgICBdLFxuICAgIHN0YW5kYXJkc1RpdGxlOiAnQ2xlYW5saW5lc3MgYW5kIGZvb2Qgc2FmZXR5JyxcbiAgICBzdGFuZGFyZHNJbnRybzogJ0NsZWFubGluZXNzIGFuZCBmb29kIHNhZmV0eSBhcmUgbm9uLW5lZ290aWFibGUgYXQgVGhlIEFuY2hvci4gRXZlcnkga2l0Y2hlbiB0ZWFtIG1lbWJlciBpcyBleHBlY3RlZCB0bzonLFxuICAgIHN0YW5kYXJkczogW1xuICAgICAgJ3dvcmsgY2xlYW5seSB0aHJvdWdob3V0IGVhY2ggc2hpZnQnLFxuICAgICAgJ2ZvbGxvdyBmb29kIGh5Z2llbmUgYW5kIGFsbGVyZ2VuIHByb2NlZHVyZXMnLFxuICAgICAgJ2tlZXAgcHJlcCBhcmVhcywgZnJpZGdlcywgZnJlZXplcnMsIHN0b3JhZ2UgYW5kIGVxdWlwbWVudCBvcmdhbmlzZWQnLFxuICAgICAgJ3VzZSBzYWZlIGZvb2QgaGFuZGxpbmcgcHJhY3RpY2VzJyxcbiAgICAgICdmb2xsb3cgY2xlYW5pbmcgc2NoZWR1bGVzIHByb3Blcmx5JyxcbiAgICAgICdyZXBvcnQgaXNzdWVzIHF1aWNrbHknLFxuICAgICAgJ3Rha2UgcHJpZGUgaW4gdGhlIGNvbmRpdGlvbiBvZiB0aGUga2l0Y2hlbicsXG4gICAgICAndW5kZXJzdGFuZCB0aGF0IGd1ZXN0IHRydXN0IHN0YXJ0cyB3aXRoIHNhZmUsIGNsZWFuIGFuZCBjYXJlZnVsIGZvb2QgcHJlcGFyYXRpb24nXG4gICAgXSxcbiAgICBsb29raW5nRm9yOiBbXG4gICAgICAnaGFzIHByZXZpb3VzIGtpdGNoZW4sIHB1YiwgcmVzdGF1cmFudCBvciBjYXRlcmluZyBleHBlcmllbmNlJyxcbiAgICAgICd3b3JrcyBjbGVhbmx5IGFuZCBzYWZlbHknLFxuICAgICAgJ3Rha2VzIGZvb2QgaHlnaWVuZSBzZXJpb3VzbHknLFxuICAgICAgJ3VuZGVyc3RhbmRzIGFsbGVyZ2VuIGF3YXJlbmVzcyBhbmQgc2FmZSBmb29kIGhhbmRsaW5nJyxcbiAgICAgICdjYW4gZm9sbG93IHJlY2lwZXMgYW5kIHBvcnRpb24gc3RhbmRhcmRzJyxcbiAgICAgICdrZWVwcyBjYWxtIGR1cmluZyBidXN5IHNlcnZpY2UnLFxuICAgICAgJ3BheXMgYXR0ZW50aW9uIHRvIHByZXNlbnRhdGlvbiBhbmQgY29uc2lzdGVuY3knLFxuICAgICAgJ3Rha2VzIHByaWRlIGluIHNlcnZpbmcgZm9vZCB0aGF0IHJlZmxlY3RzIHdlbGwgb24gdGhlIHB1YicsXG4gICAgICAnY2FuIHdvcmsgd2VsbCBhcyBwYXJ0IG9mIGEgc21hbGwgdGVhbScsXG4gICAgICAndW5kZXJzdGFuZHMgdGhhdCBxdWFsaXR5IGFuZCBjbGVhbmxpbmVzcyBtYXR0ZXIgZXZlcnkgc2hpZnQsIG5vdCBqdXN0IHdoZW4gc29tZW9uZSBpcyB3YXRjaGluZycsXG4gICAgICAnY2FuIHdvcmsgcmVndWxhciBldmVuaW5ncyBhbmQgd2Vla2VuZHMnLFxuICAgICAgJ2NhbiByZWxpYWJseSBnZXQgdG8gYW5kIGZyb20gVFcxOSA2QVEnXG4gICAgXSxcbiAgICBuaWNlVG9IYXZlOiBbXG4gICAgICAnTGV2ZWwgMiBGb29kIEh5Z2llbmUgY2VydGlmaWNhdGUnLFxuICAgICAgJ2V4cGVyaWVuY2UgaW4gYSBwdWIga2l0Y2hlbicsXG4gICAgICAnZXhwZXJpZW5jZSB3aXRoIFN1bmRheSByb2FzdHMgb3IgdHJhZGl0aW9uYWwgcHViIGZvb2QnLFxuICAgICAgJ2V4cGVyaWVuY2UgcHJlcGFyaW5nIGJ1ZmZldHMgb3IgZXZlbnQgZm9vZCcsXG4gICAgICAnYWxsZXJnZW4gdHJhaW5pbmcnLFxuICAgICAgJ2NvbmZpZGVuY2Ugd29ya2luZyBpbmRlcGVuZGVudGx5IG9uY2UgdHJhaW5lZCdcbiAgICBdLFxuICAgIGV4cGVjdGF0aW9uSW50cm86XG4gICAgICAnWW91IGNhbiBleHBlY3QgY2xlYXIgc3RhbmRhcmRzLCByZXF1aXJlZCB0cmFpbmluZywgZnJlZSBvbi1zaXRlIHBhcmtpbmcsIHJlZ3VsYXIgcGFydC10aW1lIHNoaWZ0cyB3aGVyZSBwb3NzaWJsZSBhbmQgYSBzbWFsbCB0ZWFtIHRoYXQgdGFrZXMgZm9vZCBzYWZldHksIGNsZWFubGluZXNzIGFuZCBjb25zaXN0ZW5jeSBzZXJpb3VzbHkuJyxcbiAgICBqb2JQb3N0aW5nRGVzY3JpcHRpb246XG4gICAgICAnUGFydC10aW1lIGtpdGNoZW4gdGVhbSByb2xlIGF0IFRoZSBBbmNob3IgaW4gU3RhbndlbGwgTW9vciBuZWFyIEhlYXRocm93LiBUaGUgcm9sZSBzdWl0cyBleHBlcmllbmNlZCBraXRjaGVuLCBjYXRlcmluZyBvciBmb29kIHNlcnZpY2UgY2FuZGlkYXRlcyB3aG8gd29yayBjbGVhbmx5LCBmb2xsb3cgZm9vZCBzYWZldHkgYW5kIGFsbGVyZ2VuIHByb2NlZHVyZXMsIHN1cHBvcnQgcHViIGZvb2Qgc2VydmljZSwgU3VuZGF5IHJvYXN0cywgZXZlbnRzIGFuZCBwcml2YXRlIGJvb2tpbmdzLCBhbmQgY2FuIHdvcmsgcmVndWxhciBldmVuaW5ncyBhbmQgd2Vla2VuZHMuJyxcbiAgICB3b3JrSG91cnM6ICdQYXJ0LXRpbWUsIG1haW5seSBldmVuaW5ncyBhbmQgd2Vla2VuZHMgaW5jbHVkaW5nIHdlZWtkYXkgZXZlbmluZ3MsIEZyaWRheSBhbmQgU2F0dXJkYXkgZm9vZCBzZXJ2aWNlLCBTdW5kYXkgcm9hc3Qgc2VydmljZSwgZXZlbnRzIGFuZCBvY2Nhc2lvbmFsIGJhbmsgaG9saWRheXMnXG4gIH1cbn1cblxuIl0sIm5hbWVzIjpbImF2YWlsYWJpbGl0eU9wdGlvbnMiLCJleHBlcmllbmNlT3B0aW9ucyIsIm1haW5Sb2xlQ2FyZHMiLCJwb29yRml0U2lnbmFscyIsInF1aWNrRmFjdHMiLCJyZWNydWl0bWVudERhdGVQb3N0ZWQiLCJyZWNydWl0bWVudEZhcXMiLCJyZWNydWl0bWVudFJvbGVPcHRpb25zIiwicmVjcnVpdG1lbnRSb2xlUGFnZXMiLCJyZWNydWl0bWVudFZhbGlkVGhyb3VnaCIsInJvbGVFeHBlY3RhdGlvbnMiLCJzdGFydERhdGVPcHRpb25zIiwic3Ryb25nQ2FuZGlkYXRlVHJhaXRzIiwid29ya0JlbmVmaXRzIiwibGFiZWwiLCJ2YWx1ZSIsInRpdGxlIiwiaHJlZiIsImRlc2NyaXB0aW9uIiwib3V0Y29tZSIsImN0YSIsInF1ZXN0aW9uIiwiYW5zd2VyIiwic2x1ZyIsInJvbGUiLCJtZXRhVGl0bGUiLCJtZXRhRGVzY3JpcHRpb24iLCJoZXJvVGl0bGUiLCJoZXJvSW50cm8iLCJpbWFnZSIsInNyYyIsImFsdCIsImFib3V0VGl0bGUiLCJhYm91dCIsInNoaWZ0c1RpdGxlIiwic2hpZnRzIiwiZHV0aWVzVGl0bGUiLCJkdXRpZXNJbnRybyIsImR1dGllcyIsImxvb2tpbmdGb3IiLCJuaWNlVG9IYXZlIiwiZXhwZWN0YXRpb25JbnRybyIsImpvYlBvc3RpbmdEZXNjcmlwdGlvbiIsIndvcmtIb3VycyIsInN0YW5kYXJkc1RpdGxlIiwic3RhbmRhcmRzSW50cm8iLCJzdGFuZGFyZHMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0lBaUJhQSxtQkFBbUI7ZUFBbkJBOztJQVVBQyxpQkFBaUI7ZUFBakJBOztJQWdDQUMsYUFBYTtlQUFiQTs7SUFzREFDLGNBQWM7ZUFBZEE7O0lBeEVBQyxVQUFVO2VBQVZBOztJQXJDQUMscUJBQXFCO2VBQXJCQTs7SUF3SEFDLGVBQWU7ZUFBZkE7O0lBbEhBQyxzQkFBc0I7ZUFBdEJBOztJQThLQUMsb0JBQW9CO2VBQXBCQTs7SUFoTEFDLHVCQUF1QjtlQUF2QkE7O0lBNkZBQyxnQkFBZ0I7ZUFBaEJBOztJQXBFQUMsZ0JBQWdCO2VBQWhCQTs7SUF3REFDLHFCQUFxQjtlQUFyQkE7O0lBVkFDLFlBQVk7ZUFBWkE7OztBQTNFTixNQUFNUix3QkFBd0I7QUFJOUIsTUFBTUksMEJBQTBCO0FBRWhDLE1BQU1GLHlCQUFpRDtJQUM1RDtJQUNBO0lB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

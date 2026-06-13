@@ -1,0 +1,104 @@
+483975caad0cf709081f32ddb72a03ab
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    DELETE: function() {
+        return DELETE;
+    },
+    GET: function() {
+        return GET;
+    }
+});
+const _server = require("next/server");
+const _api = require("../../../../lib/api");
+const _errorhandling = require("../../../../lib/error-handling");
+async function GET(request, { params }) {
+    const customerEmail = request.headers.get("x-customer-email") || new URL(request.url).searchParams.get("customer_email") || "";
+    const { reference } = params;
+    if (!reference) {
+        return (0, _errorhandling.createApiErrorResponse)("Booking reference is required", 400);
+    }
+    if (!customerEmail) {
+        return (0, _errorhandling.createApiErrorResponse)("Customer email required to verify booking", 400);
+    }
+    try {
+        const bookingData = await _api.anchorAPI.getTableBooking(reference, customerEmail);
+        // Return with success wrapper format for consistency
+        return _server.NextResponse.json({
+            success: true,
+            data: bookingData
+        });
+    } catch (error) {
+        (0, _errorhandling.logError)("api/table-bookings/[reference]", error, {
+            reference
+        });
+        const err = error;
+        if (err.status === 501 || err.code === "NOT_SUPPORTED") {
+            return (0, _errorhandling.createApiErrorResponse)("Online booking lookup is currently unavailable. Please call us at 01753 682707 and we will help you.", 501);
+        }
+        if (err.status === 404 || err.code === "NOT_FOUND") {
+            return (0, _errorhandling.createApiErrorResponse)("Booking not found. Please check your reference number.", 404);
+        }
+        if (err.status === 401 || err.code === "UNAUTHORIZED") {
+            return (0, _errorhandling.createApiErrorResponse)("Service temporarily unavailable. Please try again later.", 503);
+        }
+        return (0, _errorhandling.createApiErrorResponse)("We couldn't retrieve your booking details. Please try again or call us at 01753 682707.", 503);
+    }
+}
+async function DELETE(request, { params }) {
+    const customerEmail = request.headers.get("x-customer-email") || new URL(request.url).searchParams.get("customer_email") || "";
+    const { reference } = params;
+    if (!reference) {
+        return (0, _errorhandling.createApiErrorResponse)("Booking reference is required", 400);
+    }
+    if (!customerEmail) {
+        return (0, _errorhandling.createApiErrorResponse)("Customer email required to verify booking", 400);
+    }
+    try {
+        // Get cancellation reason from request body if provided
+        let reason;
+        try {
+            const body = await request.json();
+            reason = body.reason;
+        } catch  {
+        // Body parsing failed, continue without reason
+        }
+        const response = await _api.anchorAPI.cancelTableBooking(reference, {
+            reason: reason || "Cancelled via website",
+            customerEmail
+        });
+        // Return with success wrapper format for consistency
+        return _server.NextResponse.json({
+            success: true,
+            data: response
+        });
+    } catch (error) {
+        (0, _errorhandling.logError)("api/table-bookings/[reference]/cancel", error, {
+            reference
+        });
+        const err = error;
+        if (err.status === 501 || err.code === "NOT_SUPPORTED") {
+            return (0, _errorhandling.createApiErrorResponse)("Online cancellation is currently unavailable. Please call us at 01753 682707 and we will cancel it for you.", 501);
+        }
+        if (err.status === 404 || err.code === "NOT_FOUND") {
+            return (0, _errorhandling.createApiErrorResponse)("Booking not found. It may have already been cancelled.", 404);
+        }
+        if (err.status === 400 || err.code === "VALIDATION_ERROR") {
+            return (0, _errorhandling.createApiErrorResponse)(err.message || "Cannot cancel this booking. Please call us at 01753 682707 for assistance.", 400);
+        }
+        if (err.status === 401 || err.code === "UNAUTHORIZED") {
+            return (0, _errorhandling.createApiErrorResponse)("Service temporarily unavailable. Please try again later.", 503);
+        }
+        return (0, _errorhandling.createApiErrorResponse)("We couldn't cancel your booking online. Please call us at 01753 682707 and we'll help you right away.", 503);
+    }
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2FwcC9hcGkvdGFibGUtYm9va2luZ3MvW3JlZmVyZW5jZV0vcm91dGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTmV4dFJlc3BvbnNlIH0gZnJvbSAnbmV4dC9zZXJ2ZXInXG5pbXBvcnQgeyBhbmNob3JBUEkgfSBmcm9tICdAL2xpYi9hcGknXG5pbXBvcnQgeyBjcmVhdGVBcGlFcnJvclJlc3BvbnNlLCBsb2dFcnJvciB9IGZyb20gJ0AvbGliL2Vycm9yLWhhbmRsaW5nJ1xuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gR0VUKFxuICByZXF1ZXN0OiBSZXF1ZXN0LFxuICB7IHBhcmFtcyB9OiB7IHBhcmFtczogeyByZWZlcmVuY2U6IHN0cmluZyB9IH1cbikge1xuICBjb25zdCBjdXN0b21lckVtYWlsID1cbiAgICByZXF1ZXN0LmhlYWRlcnMuZ2V0KCd4LWN1c3RvbWVyLWVtYWlsJykgfHxcbiAgICBuZXcgVVJMKHJlcXVlc3QudXJsKS5zZWFyY2hQYXJhbXMuZ2V0KCdjdXN0b21lcl9lbWFpbCcpIHx8XG4gICAgJydcbiAgXG4gIGNvbnN0IHsgcmVmZXJlbmNlIH0gPSBwYXJhbXNcbiAgXG4gIGlmICghcmVmZXJlbmNlKSB7XG4gICAgcmV0dXJuIGNyZWF0ZUFwaUVycm9yUmVzcG9uc2UoJ0Jvb2tpbmcgcmVmZXJlbmNlIGlzIHJlcXVpcmVkJywgNDAwKVxuICB9XG5cbiAgaWYgKCFjdXN0b21lckVtYWlsKSB7XG4gICAgcmV0dXJuIGNyZWF0ZUFwaUVycm9yUmVzcG9uc2UoJ0N1c3RvbWVyIGVtYWlsIHJlcXVpcmVkIHRvIHZlcmlmeSBib29raW5nJywgNDAwKVxuICB9XG5cbiAgdHJ5IHtcbiAgICBjb25zdCBib29raW5nRGF0YSA9IGF3YWl0IGFuY2hvckFQSS5nZXRUYWJsZUJvb2tpbmcocmVmZXJlbmNlLCBjdXN0b21lckVtYWlsKVxuICAgIFxuICAgIC8vIFJldHVybiB3aXRoIHN1Y2Nlc3Mgd3JhcHBlciBmb3JtYXQgZm9yIGNvbnNpc3RlbmN5XG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHtcbiAgICAgIHN1Y2Nlc3M6IHRydWUsXG4gICAgICBkYXRhOiBib29raW5nRGF0YVxuICAgIH0pXG4gIH0gY2F0Y2ggKGVycm9yOiB1bmtub3duKSB7XG4gICAgbG9nRXJyb3IoJ2FwaS90YWJsZS1ib29raW5ncy9bcmVmZXJlbmNlXScsIGVycm9yLCB7IHJlZmVyZW5jZSB9KVxuXG4gICAgY29uc3QgZXJyID0gZXJyb3IgYXMgeyBzdGF0dXM/OiBudW1iZXI7IGNvZGU/OiBzdHJpbmc7IG1lc3NhZ2U/OiBzdHJpbmcgfVxuXG4gICAgaWYgKGVyci5zdGF0dXMgPT09IDUwMSB8fCBlcnIuY29kZSA9PT0gJ05PVF9TVVBQT1JURUQnKSB7XG4gICAgICByZXR1cm4gY3JlYXRlQXBpRXJyb3JSZXNwb25zZShcbiAgICAgICAgJ09ubGluZSBib29raW5nIGxvb2t1cCBpcyBjdXJyZW50bHkgdW5hdmFpbGFibGUuIFBsZWFzZSBjYWxsIHVzIGF0IDAxNzUzIDY4MjcwNyBhbmQgd2Ugd2lsbCBoZWxwIHlvdS4nLFxuICAgICAgICA1MDFcbiAgICAgIClcbiAgICB9XG5cbiAgICBpZiAoZXJyLnN0YXR1cyA9PT0gNDA0IHx8IGVyci5jb2RlID09PSAnTk9UX0ZPVU5EJykge1xuICAgICAgICAgcmV0dXJuIGNyZWF0ZUFwaUVycm9yUmVzcG9uc2UoJ0Jvb2tpbmcgbm90IGZvdW5kLiBQbGVhc2UgY2hlY2sgeW91ciByZWZlcmVuY2UgbnVtYmVyLicsIDQwNClcbiAgICB9XG4gICAgaWYgKGVyci5zdGF0dXMgPT09IDQwMSB8fCBlcnIuY29kZSA9PT0gJ1VOQVVUSE9SSVpFRCcpIHtcbiAgICAgICAgIHJldHVybiBjcmVhdGVBcGlFcnJvclJlc3BvbnNlKCdTZXJ2aWNlIHRlbXBvcmFyaWx5IHVuYXZhaWxhYmxlLiBQbGVhc2UgdHJ5IGFnYWluIGxhdGVyLicsIDUwMylcbiAgICB9XG5cbiAgICByZXR1cm4gY3JlYXRlQXBpRXJyb3JSZXNwb25zZShcbiAgICAgICdXZSBjb3VsZG5cXCd0IHJldHJpZXZlIHlvdXIgYm9va2luZyBkZXRhaWxzLiBQbGVhc2UgdHJ5IGFnYWluIG9yIGNhbGwgdXMgYXQgMDE3NTMgNjgyNzA3LicsXG4gICAgICA1MDNcbiAgICApXG4gIH1cbn1cblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIERFTEVURShcbiAgcmVxdWVzdDogUmVxdWVzdCxcbiAgeyBwYXJhbXMgfTogeyBwYXJhbXM6IHsgcmVmZXJlbmNlOiBzdHJpbmcgfSB9XG4pIHtcbiAgY29uc3QgY3VzdG9tZXJFbWFpbCA9XG4gICAgcmVxdWVzdC5oZWFkZXJzLmdldCgneC1jdXN0b21lci1lbWFpbCcpIHx8XG4gICAgbmV3IFVSTChyZXF1ZXN0LnVybCkuc2VhcmNoUGFyYW1zLmdldCgnY3VzdG9tZXJfZW1haWwnKSB8fFxuICAgICcnXG5cbiAgY29uc3QgeyByZWZlcmVuY2UgfSA9IHBhcmFtc1xuICBcbiAgaWYgKCFyZWZlcmVuY2UpIHtcbiAgICByZXR1cm4gY3JlYXRlQXBpRXJyb3JSZXNwb25zZSgnQm9va2luZyByZWZlcmVuY2UgaXMgcmVxdWlyZWQnLCA0MDApXG4gIH1cblxuICBpZiAoIWN1c3RvbWVyRW1haWwpIHtcbiAgICByZXR1cm4gY3JlYXRlQXBpRXJyb3JSZXNwb25zZSgnQ3VzdG9tZXIgZW1haWwgcmVxdWlyZWQgdG8gdmVyaWZ5IGJvb2tpbmcnLCA0MDApXG4gIH1cblxuICB0cnkge1xuICAgIC8vIEdldCBjYW5jZWxsYXRpb24gcmVhc29uIGZyb20gcmVxdWVzdCBib2R5IGlmIHByb3ZpZGVkXG4gICAgbGV0IHJlYXNvbjogc3RyaW5nIHwgdW5kZWZpbmVkXG4gICAgdHJ5IHtcbiAgICAgIGNvbnN0IGJvZHkgPSBhd2FpdCByZXF1ZXN0Lmpzb24oKVxuICAgICAgcmVhc29uID0gYm9keS5yZWFzb25cbiAgICB9IGNhdGNoIHtcbiAgICAgIC8vIEJvZHkgcGFyc2luZyBmYWlsZWQsIGNvbnRpbnVlIHdpdGhvdXQgcmVhc29uXG4gICAgfVxuXG4gICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBhbmNob3JBUEkuY2FuY2VsVGFibGVCb29raW5nKHJlZmVyZW5jZSwge1xuICAgICAgcmVhc29uOiByZWFzb24gfHwgJ0NhbmNlbGxlZCB2aWEgd2Vic2l0ZScsXG4gICAgICBjdXN0b21lckVtYWlsXG4gICAgfSlcblxuICAgIC8vIFJldHVybiB3aXRoIHN1Y2Nlc3Mgd3JhcHBlciBmb3JtYXQgZm9yIGNvbnNpc3RlbmN5XG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKHtcbiAgICAgIHN1Y2Nlc3M6IHRydWUsXG4gICAgICBkYXRhOiByZXNwb25zZVxuICAgIH0pXG4gIH0gY2F0Y2ggKGVycm9yOiB1bmtub3duKSB7XG4gICAgbG9nRXJyb3IoJ2FwaS90YWJsZS1ib29raW5ncy9bcmVmZXJlbmNlXS9jYW5jZWwnLCBlcnJvciwgeyByZWZlcmVuY2UgfSlcblxuICAgIGNvbnN0IGVyciA9IGVycm9yIGFzIHsgc3RhdHVzPzogbnVtYmVyOyBjb2RlPzogc3RyaW5nOyBtZXNzYWdlPzogc3RyaW5nIH1cblxuICAgIGlmIChlcnIuc3RhdHVzID09PSA1MDEgfHwgZXJyLmNvZGUgPT09ICdOT1RfU1VQUE9SVEVEJykge1xuICAgICAgcmV0dXJuIGNyZWF0ZUFwaUVycm9yUmVzcG9uc2UoXG4gICAgICAgICdPbmxpbmUgY2FuY2VsbGF0aW9uIGlzIGN1cnJlbnRseSB1bmF2YWlsYWJsZS4gUGxlYXNlIGNhbGwgdXMgYXQgMDE3NTMgNjgyNzA3IGFuZCB3ZSB3aWxsIGNhbmNlbCBpdCBmb3IgeW91LicsXG4gICAgICAgIDUwMVxuICAgICAgKVxuICAgIH1cblxuICAgIGlmIChlcnIuc3RhdHVzID09PSA0MDQgfHwgZXJyLmNvZGUgPT09ICdOT1RfRk9VTkQnKSB7XG4gICAgICAgIHJldHVybiBjcmVhdGVBcGlFcnJvclJlc3BvbnNlKFxuICAgICAgICAgICdCb29raW5nIG5vdCBmb3VuZC4gSXQgbWF5IGhhdmUgYWxyZWFkeSBiZWVuIGNhbmNlbGxlZC4nLFxuICAgICAgICAgIDQwNFxuICAgICAgICApXG4gICAgfVxuXG4gICAgaWYgKGVyci5zdGF0dXMgPT09IDQwMCB8fCBlcnIuY29kZSA9PT0gJ1ZBTElEQVRJT05fRVJST1InKSB7XG4gICAgICAgIHJldHVybiBjcmVhdGVBcGlFcnJvclJlc3BvbnNlKFxuICAgICAgICAgIGVyci5tZXNzYWdlIHx8ICdDYW5ub3QgY2FuY2VsIHRoaXMgYm9va2luZy4gUGxlYXNlIGNhbGwgdXMgYXQgMDE3NTMgNjgyNzA3IGZvciBhc3Npc3RhbmNlLicsXG4gICAgICAgICAgNDAwXG4gICAgICAgIClcbiAgICB9XG5cbiAgICBpZiAoZXJyLnN0YXR1cyA9PT0gNDAxIHx8IGVyci5jb2RlID09PSAnVU5BVVRIT1JJWkVEJykge1xuICAgICAgICByZXR1cm4gY3JlYXRlQXBpRXJyb3JSZXNwb25zZSgnU2VydmljZSB0ZW1wb3JhcmlseSB1bmF2YWlsYWJsZS4gUGxlYXNlIHRyeSBhZ2FpbiBsYXRlci4nLCA1MDMpXG4gICAgfVxuXG4gICAgcmV0dXJuIGNyZWF0ZUFwaUVycm9yUmVzcG9uc2UoXG4gICAgICAnV2UgY291bGRuXFwndCBjYW5jZWwgeW91ciBib29raW5nIG9ubGluZS4gUGxlYXNlIGNhbGwgdXMgYXQgMDE3NTMgNjgyNzA3IGFuZCB3ZVxcJ2xsIGhlbHAgeW91IHJpZ2h0IGF3YXkuJyxcbiAgICAgIDUwM1xuICAgIClcbiAgfVxufVxuIl0sIm5hbWVzIjpbIkRFTEVURSIsIkdFVCIsInJlcXVlc3QiLCJwYXJhbXMiLCJjdXN0b21lckVtYWlsIiwiaGVhZGVycyIsImdldCIsIlVSTCIsInVybCIsInNlYXJjaFBhcmFtcyIsInJlZmVyZW5jZSIsImNyZWF0ZUFwaUVycm9yUmVzcG9uc2UiLCJib29raW5nRGF0YSIsImFuY2hvckFQSSIsImdldFRhYmxlQm9va2luZyIsIk5leHRSZXNwb25zZSIsImpzb24iLCJzdWNjZXNzIiwiZGF0YSIsImVycm9yIiwibG9nRXJyb3IiLCJlcnIiLCJzdGF0dXMiLCJjb2RlIiwicmVhc29uIiwiYm9keSIsInJlc3BvbnNlIiwiY2FuY2VsVGFibGVCb29raW5nIiwibWVzc2FnZSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7SUF5RHNCQSxNQUFNO2VBQU5BOztJQXJEQUMsR0FBRztlQUFIQTs7O3dCQUpPO3FCQUNIOytCQUN1QjtBQUUxQyxlQUFlQSxJQUNwQkMsT0FBZ0IsRUFDaEIsRUFBRUMsTUFBTSxFQUFxQztJQUU3QyxNQUFNQyxnQkFDSkYsUUFBUUcsT0FBTyxDQUFDQyxHQUFHLENBQUMsdUJBQ3BCLElBQUlDLElBQUlMLFFBQVFNLEdBQUcsRUFBRUMsWUFBWSxDQUFDSCxHQUFHLENBQUMscUJBQ3RDO0lBRUYsTUFBTSxFQUFFSSxTQUFTLEVBQUUsR0FBR1A7SUFFdEIsSUFBSSxDQUFDTyxXQUFXO1FBQ2QsT0FBT0MsSUFBQUEscUNBQXNCLEVBQUMsaUNBQWlDO0lBQ2pFO0lBRUEsSUFBSSxDQUFDUCxlQUFlO1FBQ2xCLE9BQU9PLElBQUFBLHFDQUFzQixFQUFDLDZDQUE2QztJQUM3RTtJQUVBLElBQUk7UUFDRixNQUFNQyxjQUFjLE1BQU1DLGNBQVMsQ0FBQ0MsZUFBZSxDQUFDSixXQUFXTjtRQUUvRCxxREFBcUQ7UUFDckQsT0FBT1csb0JBQVksQ0FBQ0MsSUFBSSxDQUFDO1lBQ3ZCQyxTQUFTO1lBQ1RDLE1BQU1OO1FBQ1I7SUFDRixFQUFFLE9BQU9PLE9BQWdCO1FBQ3ZCQyxJQUFBQSx1QkFBUSxFQUFDLGtDQUFrQ0QsT0FBTztZQUFFVDtRQUFVO1FBRTlELE1BQU1XLE1BQU1GO1FBRVosSUFBSUUsSUFBSUMsTUFBTSxLQUFLLE9BQU9ELElBQUlFLElBQUksS0FBSyxpQkFBaUI7WUFDdEQsT0FBT1osSUFBQUEscUNBQXNCLEVBQzNCLHdHQUNBO1FBRUo7UUFFQSxJQUFJVSxJQUFJQyxNQUFNLEtBQUssT0FBT0QsSUFBSUUsSUFBSSxLQUFLLGFBQWE7WUFDL0MsT0FBT1osSUFBQUEscUNBQXNCLEVBQUMsMERBQTBEO1FBQzdGO1FBQ0EsSUFBSVUsSUFBSUMsTUFBTSxLQUFLLE9BQU9ELElBQUlFLElBQUksS0FBSyxnQkFBZ0I7WUFDbEQsT0FBT1osSUFBQUEscUNBQXNCLEVBQUMsNERBQTREO1FBQy9GO1FBRUEsT0FBT0EsSUFBQUEscUNBQXNCLEVBQzNCLDJGQUNBO0lBRUo7QUFDRjtBQUVPLGVBQWVYLE9BQ3BCRSxPQUFnQixFQUNoQixFQUFFQyxNQUFNLEVBQXFDO0lBRTdDLE1BQU1DLGdCQUNKRixRQUFRRyxPQUFPLENBQUNDLEdBQUcsQ0FBQyx1QkFDcEIsSUFBSUMsSUFBSUwsUUFBUU0sR0FBRyxFQUFFQyxZQUFZLENBQUNILEdBQUcsQ0FBQyxxQkFDdEM7SUFFRixNQUFNLEVBQUVJLFNBQVMsRUFBRSxHQUFHUDtJQUV0QixJQUFJLENBQUNPLFdBQVc7UUFDZCxPQUFPQyxJQUFBQSxxQ0FBc0IsRUFBQyxpQ0FBaUM7SUFDakU7SUFFQSxJQUFJLENBQUNQLGVBQWU7UUFDbEIsT0FBT08sSUFBQUEscUNBQXNCLEVBQUMsNkNBQTZDO0lBQzdFO0lBRUEsSUFBSTtRQUNGLHdEQUF3RDtRQUN4RCxJQUFJYTtRQUNKLElBQUk7WUFDRixNQUFNQyxPQUFPLE1BQU12QixRQUFRYyxJQUFJO1lBQy9CUSxTQUFTQyxLQUFLRCxNQUFNO1FBQ3RCLEVBQUUsT0FBTTtRQUNOLCtDQUErQztRQUNqRDtRQUVBLE1BQU1FLFdBQVcsTUFBTWIsY0FBUyxDQUFDYyxrQkFBa0IsQ0FBQ2pCLFdBQVc7WUFDN0RjLFFBQVFBLFVBQVU7WUFDbEJwQjtRQUNGO1FBRUEscURBQXFEO1FBQ3JELE9BQU9XLG9CQUFZLENBQUNDLElBQUksQ0FBQztZQUN2QkMsU0FBUztZQUNUQyxNQUFNUTtRQUNSO0lBQ0YsRUFBRSxPQUFPUCxPQUFnQjtRQUN2QkMsSUFBQUEsdUJBQVEsRUFBQyx5Q0FBeUNELE9BQU87WUFBRVQ7UUFBVTtRQUVyRSxNQUFNVyxNQUFNRjtRQUVaLElBQUlFLElBQUlDLE1BQU0sS0FBSyxPQUFPRCxJQUFJRSxJQUFJLEtBQUssaUJBQWlCO1lBQ3RELE9BQU9aLElBQUFBLHFDQUFzQixFQUMzQiwrR0FDQTtRQUVKO1FBRUEsSUFBSVUsSUFBSUMsTUFBTSxLQUFLLE9BQU9ELElBQUlFLElBQUksS0FBSyxhQUFhO1lBQ2hELE9BQU9aLElBQUFBLHFDQUFzQixFQUMzQiwwREFDQTtRQUVOO1FBRUEsSUFBSVUsSUFBSUMsTUFBTSxLQUFLLE9BQU9ELElBQUlFLElBQUksS0FBSyxvQkFBb0I7WUFDdkQsT0FBT1osSUFBQUEscUNBQXNCLEVBQzNCVSxJQUFJTyxPQUFPLElBQUksOEVBQ2Y7UUFFTjtRQUVBLElBQUlQLElBQUlDLE1BQU0sS0FBSyxPQUFPRCxJQUFJRSxJQUFJLEtBQUssZ0JBQWdCO1lBQ25ELE9BQU9aLElBQUFBLHFDQUFzQixFQUFDLDREQUE0RDtRQUM5RjtRQUVBLE9BQU9BLElBQUFBLHFDQUFzQixFQUMzQix5R0FDQTtJQUVKO0FBQ0YifQ==

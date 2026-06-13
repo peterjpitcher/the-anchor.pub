@@ -1,0 +1,22 @@
+0ccefc1b6779c0a448e240e4fe0dbb7c
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _sundayroast = require("../sunday-roast");
+describe("Sunday roast availability copy", ()=>{
+    it("uses launch copy before 17 May 2026", ()=>{
+        const now = new Date("2026-04-30T12:00:00+01:00");
+        expect((0, _sundayroast.getSundayRoastStatus)(now)).toBe("pre-launch");
+        expect((0, _sundayroast.getSundayRoastContent)(now).availabilityLong).toBe("Sunday roast starts Sunday 17 May 2026. Until then, our normal Sunday menu is available.");
+    });
+    it("uses live copy from 17 May 2026", ()=>{
+        const now = new Date("2026-05-17T12:00:00+01:00");
+        const content = (0, _sundayroast.getSundayRoastContent)(now);
+        expect(content.status).toBe("live");
+        expect(content.availabilityLong).toContain("Sunday roast served Sundays, 1pm to 6pm.");
+        expect(content.availabilityLong).toContain("Groups of 10 or more");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9fX3Rlc3RzX18vc3VuZGF5LXJvYXN0LnRlc3QudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZ2V0U3VuZGF5Um9hc3RDb250ZW50LCBnZXRTdW5kYXlSb2FzdFN0YXR1cyB9IGZyb20gJ0AvbGliL3N1bmRheS1yb2FzdCdcblxuZGVzY3JpYmUoJ1N1bmRheSByb2FzdCBhdmFpbGFiaWxpdHkgY29weScsICgpID0+IHtcbiAgaXQoJ3VzZXMgbGF1bmNoIGNvcHkgYmVmb3JlIDE3IE1heSAyMDI2JywgKCkgPT4ge1xuICAgIGNvbnN0IG5vdyA9IG5ldyBEYXRlKCcyMDI2LTA0LTMwVDEyOjAwOjAwKzAxOjAwJylcblxuICAgIGV4cGVjdChnZXRTdW5kYXlSb2FzdFN0YXR1cyhub3cpKS50b0JlKCdwcmUtbGF1bmNoJylcbiAgICBleHBlY3QoZ2V0U3VuZGF5Um9hc3RDb250ZW50KG5vdykuYXZhaWxhYmlsaXR5TG9uZykudG9CZShcbiAgICAgICdTdW5kYXkgcm9hc3Qgc3RhcnRzIFN1bmRheSAxNyBNYXkgMjAyNi4gVW50aWwgdGhlbiwgb3VyIG5vcm1hbCBTdW5kYXkgbWVudSBpcyBhdmFpbGFibGUuJ1xuICAgIClcbiAgfSlcblxuICBpdCgndXNlcyBsaXZlIGNvcHkgZnJvbSAxNyBNYXkgMjAyNicsICgpID0+IHtcbiAgICBjb25zdCBub3cgPSBuZXcgRGF0ZSgnMjAyNi0wNS0xN1QxMjowMDowMCswMTowMCcpXG4gICAgY29uc3QgY29udGVudCA9IGdldFN1bmRheVJvYXN0Q29udGVudChub3cpXG5cbiAgICBleHBlY3QoY29udGVudC5zdGF0dXMpLnRvQmUoJ2xpdmUnKVxuICAgIGV4cGVjdChjb250ZW50LmF2YWlsYWJpbGl0eUxvbmcpLnRvQ29udGFpbignU3VuZGF5IHJvYXN0IHNlcnZlZCBTdW5kYXlzLCAxcG0gdG8gNnBtLicpXG4gICAgZXhwZWN0KGNvbnRlbnQuYXZhaWxhYmlsaXR5TG9uZykudG9Db250YWluKCdHcm91cHMgb2YgMTAgb3IgbW9yZScpXG4gIH0pXG59KVxuIl0sIm5hbWVzIjpbImRlc2NyaWJlIiwiaXQiLCJub3ciLCJEYXRlIiwiZXhwZWN0IiwiZ2V0U3VuZGF5Um9hc3RTdGF0dXMiLCJ0b0JlIiwiZ2V0U3VuZGF5Um9hc3RDb250ZW50IiwiYXZhaWxhYmlsaXR5TG9uZyIsImNvbnRlbnQiLCJzdGF0dXMiLCJ0b0NvbnRhaW4iXSwibWFwcGluZ3MiOiI7Ozs7NkJBQTREO0FBRTVEQSxTQUFTLGtDQUFrQztJQUN6Q0MsR0FBRyx1Q0FBdUM7UUFDeEMsTUFBTUMsTUFBTSxJQUFJQyxLQUFLO1FBRXJCQyxPQUFPQyxJQUFBQSxpQ0FBb0IsRUFBQ0gsTUFBTUksSUFBSSxDQUFDO1FBQ3ZDRixPQUFPRyxJQUFBQSxrQ0FBcUIsRUFBQ0wsS0FBS00sZ0JBQWdCLEVBQUVGLElBQUksQ0FDdEQ7SUFFSjtJQUVBTCxHQUFHLG1DQUFtQztRQUNwQyxNQUFNQyxNQUFNLElBQUlDLEtBQUs7UUFDckIsTUFBTU0sVUFBVUYsSUFBQUEsa0NBQXFCLEVBQUNMO1FBRXRDRSxPQUFPSyxRQUFRQyxNQUFNLEVBQUVKLElBQUksQ0FBQztRQUM1QkYsT0FBT0ssUUFBUUQsZ0JBQWdCLEVBQUVHLFNBQVMsQ0FBQztRQUMzQ1AsT0FBT0ssUUFBUUQsZ0JBQWdCLEVBQUVHLFNBQVMsQ0FBQztJQUM3QztBQUNGIn0=

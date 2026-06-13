@@ -65,13 +65,13 @@ export function generateSpecialOpeningHours(businessHours: BusinessHours | null)
 // Map allergen types to schema.org RestrictedDiet values
 export function mapAllergenToRestrictedDiet(allergen: AllergenType): string | null {
   const allergenMap: Record<AllergenType, string | null> = {
-    gluten: "https://schema.org/GlutenFreeDiet",
+    gluten: null,
     crustaceans: null,
     eggs: null,
     fish: null,
     peanuts: null,
     soya: null,
-    milk: "https://schema.org/LactoseFreeDiet",
+    milk: null,
     nuts: null,
     celery: null,
     mustard: null,
@@ -84,8 +84,9 @@ export function mapAllergenToRestrictedDiet(allergen: AllergenType): string | nu
   return allergenMap[allergen]
 }
 
-// Generate suitableForDiet array for menu items
-export function generateSuitableForDiet(item: { vegetarian?: boolean, vegan?: boolean, glutenFree?: boolean, allergens?: string[] }) {
+// Generate suitableForDiet array for menu items.
+// Keep this to explicit vegan and vegetarian claims only.
+export function generateSuitableForDiet(item: { vegetarian?: boolean, vegan?: boolean }) {
   const diets: string[] = []
 
   if (item.vegan) {
@@ -94,20 +95,6 @@ export function generateSuitableForDiet(item: { vegetarian?: boolean, vegan?: bo
 
   if (item.vegetarian) {
     diets.push("https://schema.org/VegetarianDiet")
-  }
-
-  if (item.glutenFree) {
-    diets.push("https://schema.org/GlutenFreeDiet")
-  }
-  
-  // Add gluten-free if no gluten allergen
-  if (item.allergens && !item.allergens.includes('gluten')) {
-    diets.push("https://schema.org/GlutenFreeDiet")
-  }
-  
-  // Add dairy-free if no milk allergen
-  if (item.allergens && !item.allergens.includes('milk')) {
-    diets.push("https://schema.org/LactoseFreeDiet")
   }
   
   return diets.length > 0 ? diets : undefined

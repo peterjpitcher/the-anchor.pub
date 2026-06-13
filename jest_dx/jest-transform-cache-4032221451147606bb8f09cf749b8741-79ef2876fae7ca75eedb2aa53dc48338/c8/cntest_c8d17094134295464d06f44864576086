@@ -1,0 +1,29 @@
+f8fedd01481fe229e933e12fc1e62174
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+const _utils = require("../utils");
+describe("cn (tailwind-merge with custom font sizes)", ()=>{
+    it("keeps a custom heading size when combined with a colour utility", ()=>{
+        // The custom `text-h2` font size must survive alongside `text-ink-strong`.
+        // With a vanilla twMerge config the colour would clobber the size.
+        const result = (0, _utils.cn)("text-h2", "text-ink-strong");
+        expect(result).toContain("text-h2");
+        expect(result).toContain("text-ink-strong");
+    });
+    it("keeps the script size with the accent colour", ()=>{
+        const result = (0, _utils.cn)("text-script", "text-accent-text");
+        expect(result).toContain("text-script");
+        expect(result).toContain("text-accent-text");
+    });
+    it("still treats two font sizes as a conflict (last wins)", ()=>{
+        expect((0, _utils.cn)("text-xl", "text-h1")).toBe("text-h1");
+        expect((0, _utils.cn)("text-h3", "text-h2")).toBe("text-h2");
+    });
+    it("preserves ordinary tailwind-merge conflict resolution", ()=>{
+        expect((0, _utils.cn)("px-4", "px-6")).toBe("px-6");
+    });
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2xpYi9fX3Rlc3RzX18vY24udGVzdC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjbiB9IGZyb20gJy4uL3V0aWxzJ1xuXG5kZXNjcmliZSgnY24gKHRhaWx3aW5kLW1lcmdlIHdpdGggY3VzdG9tIGZvbnQgc2l6ZXMpJywgKCkgPT4ge1xuICBpdCgna2VlcHMgYSBjdXN0b20gaGVhZGluZyBzaXplIHdoZW4gY29tYmluZWQgd2l0aCBhIGNvbG91ciB1dGlsaXR5JywgKCkgPT4ge1xuICAgIC8vIFRoZSBjdXN0b20gYHRleHQtaDJgIGZvbnQgc2l6ZSBtdXN0IHN1cnZpdmUgYWxvbmdzaWRlIGB0ZXh0LWluay1zdHJvbmdgLlxuICAgIC8vIFdpdGggYSB2YW5pbGxhIHR3TWVyZ2UgY29uZmlnIHRoZSBjb2xvdXIgd291bGQgY2xvYmJlciB0aGUgc2l6ZS5cbiAgICBjb25zdCByZXN1bHQgPSBjbigndGV4dC1oMicsICd0ZXh0LWluay1zdHJvbmcnKVxuICAgIGV4cGVjdChyZXN1bHQpLnRvQ29udGFpbigndGV4dC1oMicpXG4gICAgZXhwZWN0KHJlc3VsdCkudG9Db250YWluKCd0ZXh0LWluay1zdHJvbmcnKVxuICB9KVxuXG4gIGl0KCdrZWVwcyB0aGUgc2NyaXB0IHNpemUgd2l0aCB0aGUgYWNjZW50IGNvbG91cicsICgpID0+IHtcbiAgICBjb25zdCByZXN1bHQgPSBjbigndGV4dC1zY3JpcHQnLCAndGV4dC1hY2NlbnQtdGV4dCcpXG4gICAgZXhwZWN0KHJlc3VsdCkudG9Db250YWluKCd0ZXh0LXNjcmlwdCcpXG4gICAgZXhwZWN0KHJlc3VsdCkudG9Db250YWluKCd0ZXh0LWFjY2VudC10ZXh0JylcbiAgfSlcblxuICBpdCgnc3RpbGwgdHJlYXRzIHR3byBmb250IHNpemVzIGFzIGEgY29uZmxpY3QgKGxhc3Qgd2lucyknLCAoKSA9PiB7XG4gICAgZXhwZWN0KGNuKCd0ZXh0LXhsJywgJ3RleHQtaDEnKSkudG9CZSgndGV4dC1oMScpXG4gICAgZXhwZWN0KGNuKCd0ZXh0LWgzJywgJ3RleHQtaDInKSkudG9CZSgndGV4dC1oMicpXG4gIH0pXG5cbiAgaXQoJ3ByZXNlcnZlcyBvcmRpbmFyeSB0YWlsd2luZC1tZXJnZSBjb25mbGljdCByZXNvbHV0aW9uJywgKCkgPT4ge1xuICAgIGV4cGVjdChjbigncHgtNCcsICdweC02JykpLnRvQmUoJ3B4LTYnKVxuICB9KVxufSlcbiJdLCJuYW1lcyI6WyJkZXNjcmliZSIsIml0IiwicmVzdWx0IiwiY24iLCJleHBlY3QiLCJ0b0NvbnRhaW4iLCJ0b0JlIl0sIm1hcHBpbmdzIjoiOzs7O3VCQUFtQjtBQUVuQkEsU0FBUyw4Q0FBOEM7SUFDckRDLEdBQUcsbUVBQW1FO1FBQ3BFLDJFQUEyRTtRQUMzRSxtRUFBbUU7UUFDbkUsTUFBTUMsU0FBU0MsSUFBQUEsU0FBRSxFQUFDLFdBQVc7UUFDN0JDLE9BQU9GLFFBQVFHLFNBQVMsQ0FBQztRQUN6QkQsT0FBT0YsUUFBUUcsU0FBUyxDQUFDO0lBQzNCO0lBRUFKLEdBQUcsZ0RBQWdEO1FBQ2pELE1BQU1DLFNBQVNDLElBQUFBLFNBQUUsRUFBQyxlQUFlO1FBQ2pDQyxPQUFPRixRQUFRRyxTQUFTLENBQUM7UUFDekJELE9BQU9GLFFBQVFHLFNBQVMsQ0FBQztJQUMzQjtJQUVBSixHQUFHLHlEQUF5RDtRQUMxREcsT0FBT0QsSUFBQUEsU0FBRSxFQUFDLFdBQVcsWUFBWUcsSUFBSSxDQUFDO1FBQ3RDRixPQUFPRCxJQUFBQSxTQUFFLEVBQUMsV0FBVyxZQUFZRyxJQUFJLENBQUM7SUFDeEM7SUFFQUwsR0FBRyx5REFBeUQ7UUFDMURHLE9BQU9ELElBQUFBLFNBQUUsRUFBQyxRQUFRLFNBQVNHLElBQUksQ0FBQztJQUNsQztBQUNGIn0=

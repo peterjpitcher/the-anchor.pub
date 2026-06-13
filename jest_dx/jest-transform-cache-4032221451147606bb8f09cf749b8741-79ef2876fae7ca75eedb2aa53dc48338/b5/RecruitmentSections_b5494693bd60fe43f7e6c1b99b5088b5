@@ -1,0 +1,315 @@
+3dcb1a422515603d9ab700840f87e185
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    BulletListSection: function() {
+        return BulletListSection;
+    },
+    LocationTransportSection: function() {
+        return LocationTransportSection;
+    },
+    PayNotice: function() {
+        return PayNotice;
+    },
+    QuickFactsBox: function() {
+        return QuickFactsBox;
+    },
+    RecruitmentImageStrip: function() {
+        return RecruitmentImageStrip;
+    },
+    RoleCards: function() {
+        return RoleCards;
+    },
+    RoleQuickFacts: function() {
+        return RoleQuickFacts;
+    },
+    StandardsPledge: function() {
+        return StandardsPledge;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _image = /*#__PURE__*/ _interop_require_default(require("next/image"));
+const _link = /*#__PURE__*/ _interop_require_default(require("next/link"));
+const _ui = require("../../../components/ui");
+function _interop_require_default(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+function QuickFactsBox({ facts, title = "Quick facts" }) {
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: "rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-5 sm:p-6",
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("h2", {
+                className: "text-2xl font-bold text-anchor-gold-bright",
+                children: title
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("dl", {
+                className: "mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3",
+                children: facts.map((fact)=>/*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        className: "rounded-md border border-anchor-gold-dark/15 bg-anchor-green-deep px-4 py-3",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("dt", {
+                                className: "text-xs font-semibold uppercase tracking-wide text-anchor-gold-bright",
+                                children: fact.label
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("dd", {
+                                className: "mt-1 text-sm leading-relaxed text-anchor-cream-text/80",
+                                children: fact.value
+                            })
+                        ]
+                    }, fact.label))
+            })
+        ]
+    });
+}
+function PayNotice() {
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: "rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-card p-5",
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                className: "text-lg font-semibold text-anchor-cream-text",
+                children: "Pay: \xa312.71 per hour base rate"
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                className: "mt-2 text-sm leading-relaxed text-anchor-cream-text/70",
+                children: "Holiday pay is handled in line with current UK holiday pay rules and will be clearly shown in your contract and payslip."
+            })
+        ]
+    });
+}
+function RoleCards({ roles }) {
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+        className: "grid gap-6 md:grid-cols-2",
+        children: roles.map((role)=>/*#__PURE__*/ (0, _jsxruntime.jsx)(_link.default, {
+                href: role.href,
+                className: "group block h-full rounded-lg border border-anchor-gold-dark/20 bg-anchor-green-card p-6 transition hover:-translate-y-1 hover:border-anchor-gold-dark/50 hover:shadow-[0_18px_45px_rgba(0,0,0,0.35)]",
+                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                    className: "flex h-full flex-col",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                            className: "text-2xl font-bold text-anchor-cream-text group-hover:text-anchor-gold-bright",
+                            children: role.title
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            className: "mt-4 text-anchor-cream-text/75",
+                            children: role.description
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            className: "mt-4 text-anchor-cream-text/75",
+                            children: role.outcome
+                        }),
+                        /*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                            className: "mt-6 inline-flex items-center gap-2 font-semibold text-anchor-gold-bright",
+                            children: [
+                                role.cta,
+                                /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Icon, {
+                                    name: "arrowRight",
+                                    className: "h-4 w-4 transition group-hover:translate-x-1",
+                                    "aria-hidden": "true"
+                                })
+                            ]
+                        })
+                    ]
+                })
+            }, role.href))
+    });
+}
+function BulletListSection({ title, intro, items, className = "" }) {
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: className,
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("h2", {
+                className: "text-3xl font-bold text-anchor-gold-bright",
+                children: title
+            }),
+            intro ? /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                className: "mt-4 max-w-3xl text-anchor-cream-text/75",
+                children: intro
+            }) : null,
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("ul", {
+                className: "mt-6 grid gap-3 md:grid-cols-2",
+                children: items.map((item)=>/*#__PURE__*/ (0, _jsxruntime.jsxs)("li", {
+                        className: "flex gap-3 rounded-md border border-anchor-gold-dark/15 bg-anchor-green-card p-4",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Icon, {
+                                name: "check",
+                                className: "mt-0.5 h-5 w-5 flex-none text-anchor-gold-bright",
+                                "aria-hidden": "true"
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                className: "text-anchor-cream-text/80",
+                                children: item
+                            })
+                        ]
+                    }, item))
+            })
+        ]
+    });
+}
+function RoleQuickFacts({ role }) {
+    const roleLabel = role && role !== "Either role" && role !== "Not sure yet" ? role : "Bar Staff, Kitchen Team";
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)(QuickFactsBox, {
+        facts: [
+            {
+                label: "Role",
+                value: roleLabel
+            },
+            {
+                label: "Pay",
+                value: "\xa312.71 per hour base rate"
+            },
+            {
+                label: "Hours",
+                value: "Part-time, mainly evenings and weekends"
+            },
+            {
+                label: "Location",
+                value: "The Anchor, Stanwell Moor, TW19 6AQ"
+            },
+            {
+                label: "Parking",
+                value: "Free on-site parking"
+            },
+            {
+                label: "Experience",
+                value: "Minimum 1 year preferred"
+            }
+        ]
+    });
+}
+function StandardsPledge() {
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+        className: "rounded-lg border border-anchor-gold-dark/25 bg-anchor-green-raised p-6",
+        children: /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+            className: "text-lg leading-relaxed text-anchor-cream-text/85",
+            children: "We are proud of the standards we set, whether guests are joining us for a quiet drink, a Sunday roast, a busy event night or a private celebration. Every member of the team plays a part in making that experience feel warm, well-run and worth coming back for."
+        })
+    });
+}
+function LocationTransportSection() {
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: "grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center",
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("h2", {
+                        className: "text-3xl font-bold text-anchor-gold-bright",
+                        children: "Location and transport"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                        className: "mt-4 text-anchor-cream-text/75",
+                        children: "The Anchor is in Stanwell Moor Village, close to Heathrow Terminal 5."
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("address", {
+                        className: "mt-5 not-italic text-anchor-cream-text/85",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                className: "text-anchor-cream-text",
+                                children: "The Anchor"
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                            "Horton Road",
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                            "Stanwell Moor Village",
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("br", {}),
+                            "TW19 6AQ"
+                        ]
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                        className: "mt-5 text-anchor-cream-text/75",
+                        children: "There is free on-site parking for staff."
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                        className: "mt-3 text-anchor-cream-text/75",
+                        children: "Before applying, please make sure you can reliably get to and from the pub for evening and weekend shifts, including later finishes when public transport may be limited."
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        className: "mt-6 flex flex-col gap-3 sm:flex-row",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Button, {
+                                asChild: true,
+                                variant: "outline",
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)("a", {
+                                    href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Icon, {
+                                            name: "mapPin",
+                                            className: "h-4 w-4",
+                                            "aria-hidden": "true"
+                                        }),
+                                        "Get Directions"
+                                    ]
+                                })
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Button, {
+                                asChild: true,
+                                variant: "outline",
+                                children: /*#__PURE__*/ (0, _jsxruntime.jsxs)(_link.default, {
+                                    href: "/find-us",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxruntime.jsx)(_ui.Icon, {
+                                            name: "navigation",
+                                            className: "h-4 w-4",
+                                            "aria-hidden": "true"
+                                        }),
+                                        "View Travel Details"
+                                    ]
+                                })
+                            })
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                className: "relative aspect-[4/3] overflow-hidden rounded-lg border border-anchor-gold-dark/20",
+                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_image.default, {
+                    src: "/images/page-headers/private-hire/private-hire.jpg",
+                    alt: "Private hire space at The Anchor in Stanwell Moor",
+                    fill: true,
+                    className: "object-cover",
+                    sizes: "(max-width: 1024px) 100vw, 42vw"
+                })
+            })
+        ]
+    });
+}
+function RecruitmentImageStrip() {
+    const images = [
+        {
+            src: "/images/our-pub/the-anchor-bar.jpg",
+            alt: "The Anchor bar in Stanwell Moor"
+        },
+        {
+            src: "/images/join-our-team/guinness-handover.jpg",
+            alt: "A pint being handed across the bar at The Anchor"
+        },
+        {
+            src: "/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg",
+            alt: "Sunday roast at The Anchor"
+        }
+    ];
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+        className: "grid gap-4 md:grid-cols-3",
+        children: images.map((image)=>/*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                className: "relative aspect-[4/3] overflow-hidden rounded-lg border border-anchor-gold-dark/20",
+                children: /*#__PURE__*/ (0, _jsxruntime.jsx)(_image.default, {
+                    src: image.src,
+                    alt: image.alt,
+                    fill: true,
+                    className: "object-cover",
+                    sizes: "(max-width: 768px) 100vw, 33vw"
+                })
+            }, image.src))
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2FwcC9qb2luLW91ci10ZWFtL19jb21wb25lbnRzL1JlY3J1aXRtZW50U2VjdGlvbnMudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBJbWFnZSBmcm9tICduZXh0L2ltYWdlJ1xuaW1wb3J0IExpbmsgZnJvbSAnbmV4dC9saW5rJ1xuaW1wb3J0IHsgQnV0dG9uLCBJY29uIH0gZnJvbSAnQC9jb21wb25lbnRzL3VpJ1xuaW1wb3J0IHR5cGUgeyBSZWNydWl0bWVudFJvbGVWYWx1ZSB9IGZyb20gJy4uL3JlY3J1aXRtZW50Q29udGVudCdcblxudHlwZSBGYWN0ID0ge1xuICBsYWJlbDogc3RyaW5nXG4gIHZhbHVlOiBzdHJpbmdcbn1cblxudHlwZSBMaW5rQ2FyZCA9IHtcbiAgdGl0bGU6IHN0cmluZ1xuICBocmVmOiBzdHJpbmdcbiAgZGVzY3JpcHRpb246IHN0cmluZ1xuICBvdXRjb21lOiBzdHJpbmdcbiAgY3RhOiBzdHJpbmdcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIFF1aWNrRmFjdHNCb3goeyBmYWN0cywgdGl0bGUgPSAnUXVpY2sgZmFjdHMnIH06IHsgZmFjdHM6IEZhY3RbXTsgdGl0bGU/OiBzdHJpbmcgfSkge1xuICByZXR1cm4gKFxuICAgIDxkaXYgY2xhc3NOYW1lPVwicm91bmRlZC1sZyBib3JkZXIgYm9yZGVyLWFuY2hvci1nb2xkLWRhcmsvMjAgYmctYW5jaG9yLWdyZWVuLWNhcmQgcC01IHNtOnAtNlwiPlxuICAgICAgPGgyIGNsYXNzTmFtZT1cInRleHQtMnhsIGZvbnQtYm9sZCB0ZXh0LWFuY2hvci1nb2xkLWJyaWdodFwiPnt0aXRsZX08L2gyPlxuICAgICAgPGRsIGNsYXNzTmFtZT1cIm10LTUgZ3JpZCBnYXAtMyBzbTpncmlkLWNvbHMtMiBsZzpncmlkLWNvbHMtM1wiPlxuICAgICAgICB7ZmFjdHMubWFwKChmYWN0KSA9PiAoXG4gICAgICAgICAgPGRpdiBrZXk9e2ZhY3QubGFiZWx9IGNsYXNzTmFtZT1cInJvdW5kZWQtbWQgYm9yZGVyIGJvcmRlci1hbmNob3ItZ29sZC1kYXJrLzE1IGJnLWFuY2hvci1ncmVlbi1kZWVwIHB4LTQgcHktM1wiPlxuICAgICAgICAgICAgPGR0IGNsYXNzTmFtZT1cInRleHQteHMgZm9udC1zZW1pYm9sZCB1cHBlcmNhc2UgdHJhY2tpbmctd2lkZSB0ZXh0LWFuY2hvci1nb2xkLWJyaWdodFwiPlxuICAgICAgICAgICAgICB7ZmFjdC5sYWJlbH1cbiAgICAgICAgICAgIDwvZHQ+XG4gICAgICAgICAgICA8ZGQgY2xhc3NOYW1lPVwibXQtMSB0ZXh0LXNtIGxlYWRpbmctcmVsYXhlZCB0ZXh0LWFuY2hvci1jcmVhbS10ZXh0LzgwXCI+XG4gICAgICAgICAgICAgIHtmYWN0LnZhbHVlfVxuICAgICAgICAgICAgPC9kZD5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgKSl9XG4gICAgICA8L2RsPlxuICAgIDwvZGl2PlxuICApXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBQYXlOb3RpY2UoKSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJyb3VuZGVkLWxnIGJvcmRlciBib3JkZXItYW5jaG9yLWdvbGQtZGFyay8yNSBiZy1hbmNob3ItZ3JlZW4tY2FyZCBwLTVcIj5cbiAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtbGcgZm9udC1zZW1pYm9sZCB0ZXh0LWFuY2hvci1jcmVhbS10ZXh0XCI+UGF5OiDCozEyLjcxIHBlciBob3VyIGJhc2UgcmF0ZTwvcD5cbiAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTIgdGV4dC1zbSBsZWFkaW5nLXJlbGF4ZWQgdGV4dC1hbmNob3ItY3JlYW0tdGV4dC83MFwiPlxuICAgICAgICBIb2xpZGF5IHBheSBpcyBoYW5kbGVkIGluIGxpbmUgd2l0aCBjdXJyZW50IFVLIGhvbGlkYXkgcGF5IHJ1bGVzIGFuZCB3aWxsIGJlIGNsZWFybHkgc2hvd24gaW4geW91clxuICAgICAgICBjb250cmFjdCBhbmQgcGF5c2xpcC5cbiAgICAgIDwvcD5cbiAgICA8L2Rpdj5cbiAgKVxufVxuXG5leHBvcnQgZnVuY3Rpb24gUm9sZUNhcmRzKHsgcm9sZXMgfTogeyByb2xlczogTGlua0NhcmRbXSB9KSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJncmlkIGdhcC02IG1kOmdyaWQtY29scy0yXCI+XG4gICAgICB7cm9sZXMubWFwKChyb2xlKSA9PiAoXG4gICAgICAgIDxMaW5rXG4gICAgICAgICAga2V5PXtyb2xlLmhyZWZ9XG4gICAgICAgICAgaHJlZj17cm9sZS5ocmVmfVxuICAgICAgICAgIGNsYXNzTmFtZT1cImdyb3VwIGJsb2NrIGgtZnVsbCByb3VuZGVkLWxnIGJvcmRlciBib3JkZXItYW5jaG9yLWdvbGQtZGFyay8yMCBiZy1hbmNob3ItZ3JlZW4tY2FyZCBwLTYgdHJhbnNpdGlvbiBob3ZlcjotdHJhbnNsYXRlLXktMSBob3Zlcjpib3JkZXItYW5jaG9yLWdvbGQtZGFyay81MCBob3ZlcjpzaGFkb3ctWzBfMThweF80NXB4X3JnYmEoMCwwLDAsMC4zNSldXCJcbiAgICAgICAgPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBoLWZ1bGwgZmxleC1jb2xcIj5cbiAgICAgICAgICAgIDxoMyBjbGFzc05hbWU9XCJ0ZXh0LTJ4bCBmb250LWJvbGQgdGV4dC1hbmNob3ItY3JlYW0tdGV4dCBncm91cC1ob3Zlcjp0ZXh0LWFuY2hvci1nb2xkLWJyaWdodFwiPlxuICAgICAgICAgICAgICB7cm9sZS50aXRsZX1cbiAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC00IHRleHQtYW5jaG9yLWNyZWFtLXRleHQvNzVcIj57cm9sZS5kZXNjcmlwdGlvbn08L3A+XG4gICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC00IHRleHQtYW5jaG9yLWNyZWFtLXRleHQvNzVcIj57cm9sZS5vdXRjb21lfTwvcD5cbiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cIm10LTYgaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGdhcC0yIGZvbnQtc2VtaWJvbGQgdGV4dC1hbmNob3ItZ29sZC1icmlnaHRcIj5cbiAgICAgICAgICAgICAge3JvbGUuY3RhfVxuICAgICAgICAgICAgICA8SWNvbiBuYW1lPVwiYXJyb3dSaWdodFwiIGNsYXNzTmFtZT1cImgtNCB3LTQgdHJhbnNpdGlvbiBncm91cC1ob3Zlcjp0cmFuc2xhdGUteC0xXCIgYXJpYS1oaWRkZW49XCJ0cnVlXCIgLz5cbiAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9MaW5rPlxuICAgICAgKSl9XG4gICAgPC9kaXY+XG4gIClcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIEJ1bGxldExpc3RTZWN0aW9uKHtcbiAgdGl0bGUsXG4gIGludHJvLFxuICBpdGVtcyxcbiAgY2xhc3NOYW1lID0gJydcbn06IHtcbiAgdGl0bGU6IHN0cmluZ1xuICBpbnRybz86IHN0cmluZ1xuICBpdGVtczogc3RyaW5nW11cbiAgY2xhc3NOYW1lPzogc3RyaW5nXG59KSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9e2NsYXNzTmFtZX0+XG4gICAgICA8aDIgY2xhc3NOYW1lPVwidGV4dC0zeGwgZm9udC1ib2xkIHRleHQtYW5jaG9yLWdvbGQtYnJpZ2h0XCI+e3RpdGxlfTwvaDI+XG4gICAgICB7aW50cm8gPyA8cCBjbGFzc05hbWU9XCJtdC00IG1heC13LTN4bCB0ZXh0LWFuY2hvci1jcmVhbS10ZXh0Lzc1XCI+e2ludHJvfTwvcD4gOiBudWxsfVxuICAgICAgPHVsIGNsYXNzTmFtZT1cIm10LTYgZ3JpZCBnYXAtMyBtZDpncmlkLWNvbHMtMlwiPlxuICAgICAgICB7aXRlbXMubWFwKChpdGVtKSA9PiAoXG4gICAgICAgICAgPGxpIGtleT17aXRlbX0gY2xhc3NOYW1lPVwiZmxleCBnYXAtMyByb3VuZGVkLW1kIGJvcmRlciBib3JkZXItYW5jaG9yLWdvbGQtZGFyay8xNSBiZy1hbmNob3ItZ3JlZW4tY2FyZCBwLTRcIj5cbiAgICAgICAgICAgIDxJY29uIG5hbWU9XCJjaGVja1wiIGNsYXNzTmFtZT1cIm10LTAuNSBoLTUgdy01IGZsZXgtbm9uZSB0ZXh0LWFuY2hvci1nb2xkLWJyaWdodFwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiIC8+XG4gICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LWFuY2hvci1jcmVhbS10ZXh0LzgwXCI+e2l0ZW19PC9zcGFuPlxuICAgICAgICAgIDwvbGk+XG4gICAgICAgICkpfVxuICAgICAgPC91bD5cbiAgICA8L2Rpdj5cbiAgKVxufVxuXG5leHBvcnQgZnVuY3Rpb24gUm9sZVF1aWNrRmFjdHMoeyByb2xlIH06IHsgcm9sZT86IFJlY3J1aXRtZW50Um9sZVZhbHVlIH0pIHtcbiAgY29uc3Qgcm9sZUxhYmVsID0gcm9sZSAmJiByb2xlICE9PSAnRWl0aGVyIHJvbGUnICYmIHJvbGUgIT09ICdOb3Qgc3VyZSB5ZXQnID8gcm9sZSA6ICdCYXIgU3RhZmYsIEtpdGNoZW4gVGVhbSdcblxuICByZXR1cm4gKFxuICAgIDxRdWlja0ZhY3RzQm94XG4gICAgICBmYWN0cz17W1xuICAgICAgICB7IGxhYmVsOiAnUm9sZScsIHZhbHVlOiByb2xlTGFiZWwgfSxcbiAgICAgICAgeyBsYWJlbDogJ1BheScsIHZhbHVlOiAnwqMxMi43MSBwZXIgaG91ciBiYXNlIHJhdGUnIH0sXG4gICAgICAgIHsgbGFiZWw6ICdIb3VycycsIHZhbHVlOiAnUGFydC10aW1lLCBtYWlubHkgZXZlbmluZ3MgYW5kIHdlZWtlbmRzJyB9LFxuICAgICAgICB7IGxhYmVsOiAnTG9jYXRpb24nLCB2YWx1ZTogJ1RoZSBBbmNob3IsIFN0YW53ZWxsIE1vb3IsIFRXMTkgNkFRJyB9LFxuICAgICAgICB7IGxhYmVsOiAnUGFya2luZycsIHZhbHVlOiAnRnJlZSBvbi1zaXRlIHBhcmtpbmcnIH0sXG4gICAgICAgIHsgbGFiZWw6ICdFeHBlcmllbmNlJywgdmFsdWU6ICdNaW5pbXVtIDEgeWVhciBwcmVmZXJyZWQnIH1cbiAgICAgIF19XG4gICAgLz5cbiAgKVxufVxuXG5leHBvcnQgZnVuY3Rpb24gU3RhbmRhcmRzUGxlZGdlKCkge1xuICByZXR1cm4gKFxuICAgIDxkaXYgY2xhc3NOYW1lPVwicm91bmRlZC1sZyBib3JkZXIgYm9yZGVyLWFuY2hvci1nb2xkLWRhcmsvMjUgYmctYW5jaG9yLWdyZWVuLXJhaXNlZCBwLTZcIj5cbiAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtbGcgbGVhZGluZy1yZWxheGVkIHRleHQtYW5jaG9yLWNyZWFtLXRleHQvODVcIj5cbiAgICAgICAgV2UgYXJlIHByb3VkIG9mIHRoZSBzdGFuZGFyZHMgd2Ugc2V0LCB3aGV0aGVyIGd1ZXN0cyBhcmUgam9pbmluZyB1cyBmb3IgYSBxdWlldCBkcmluaywgYSBTdW5kYXlcbiAgICAgICAgcm9hc3QsIGEgYnVzeSBldmVudCBuaWdodCBvciBhIHByaXZhdGUgY2VsZWJyYXRpb24uIEV2ZXJ5IG1lbWJlciBvZiB0aGUgdGVhbSBwbGF5cyBhIHBhcnQgaW4gbWFraW5nXG4gICAgICAgIHRoYXQgZXhwZXJpZW5jZSBmZWVsIHdhcm0sIHdlbGwtcnVuIGFuZCB3b3J0aCBjb21pbmcgYmFjayBmb3IuXG4gICAgICA8L3A+XG4gICAgPC9kaXY+XG4gIClcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIExvY2F0aW9uVHJhbnNwb3J0U2VjdGlvbigpIHtcbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cImdyaWQgZ2FwLTggbGc6Z3JpZC1jb2xzLVsxLjFmcl8wLjlmcl0gbGc6aXRlbXMtY2VudGVyXCI+XG4gICAgICA8ZGl2PlxuICAgICAgICA8aDIgY2xhc3NOYW1lPVwidGV4dC0zeGwgZm9udC1ib2xkIHRleHQtYW5jaG9yLWdvbGQtYnJpZ2h0XCI+TG9jYXRpb24gYW5kIHRyYW5zcG9ydDwvaDI+XG4gICAgICAgIDxwIGNsYXNzTmFtZT1cIm10LTQgdGV4dC1hbmNob3ItY3JlYW0tdGV4dC83NVwiPlxuICAgICAgICAgIFRoZSBBbmNob3IgaXMgaW4gU3RhbndlbGwgTW9vciBWaWxsYWdlLCBjbG9zZSB0byBIZWF0aHJvdyBUZXJtaW5hbCA1LlxuICAgICAgICA8L3A+XG4gICAgICAgIDxhZGRyZXNzIGNsYXNzTmFtZT1cIm10LTUgbm90LWl0YWxpYyB0ZXh0LWFuY2hvci1jcmVhbS10ZXh0Lzg1XCI+XG4gICAgICAgICAgPHN0cm9uZyBjbGFzc05hbWU9XCJ0ZXh0LWFuY2hvci1jcmVhbS10ZXh0XCI+VGhlIEFuY2hvcjwvc3Ryb25nPlxuICAgICAgICAgIDxiciAvPlxuICAgICAgICAgIEhvcnRvbiBSb2FkXG4gICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgU3RhbndlbGwgTW9vciBWaWxsYWdlXG4gICAgICAgICAgPGJyIC8+XG4gICAgICAgICAgVFcxOSA2QVFcbiAgICAgICAgPC9hZGRyZXNzPlxuICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC01IHRleHQtYW5jaG9yLWNyZWFtLXRleHQvNzVcIj5cbiAgICAgICAgICBUaGVyZSBpcyBmcmVlIG9uLXNpdGUgcGFya2luZyBmb3Igc3RhZmYuXG4gICAgICAgIDwvcD5cbiAgICAgICAgPHAgY2xhc3NOYW1lPVwibXQtMyB0ZXh0LWFuY2hvci1jcmVhbS10ZXh0Lzc1XCI+XG4gICAgICAgICAgQmVmb3JlIGFwcGx5aW5nLCBwbGVhc2UgbWFrZSBzdXJlIHlvdSBjYW4gcmVsaWFibHkgZ2V0IHRvIGFuZCBmcm9tIHRoZSBwdWIgZm9yIGV2ZW5pbmcgYW5kIHdlZWtlbmRcbiAgICAgICAgICBzaGlmdHMsIGluY2x1ZGluZyBsYXRlciBmaW5pc2hlcyB3aGVuIHB1YmxpYyB0cmFuc3BvcnQgbWF5IGJlIGxpbWl0ZWQuXG4gICAgICAgIDwvcD5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJtdC02IGZsZXggZmxleC1jb2wgZ2FwLTMgc206ZmxleC1yb3dcIj5cbiAgICAgICAgICA8QnV0dG9uIGFzQ2hpbGQgdmFyaWFudD1cIm91dGxpbmVcIj5cbiAgICAgICAgICAgIDxhIGhyZWY9XCJodHRwczovL21hcHMuZ29vZ2xlLmNvbS9tYXBzP3E9VGhlK0FuY2hvcitTdGFud2VsbCtNb29yK1RXMTkrNkFRXCI+XG4gICAgICAgICAgICAgIDxJY29uIG5hbWU9XCJtYXBQaW5cIiBjbGFzc05hbWU9XCJoLTQgdy00XCIgYXJpYS1oaWRkZW49XCJ0cnVlXCIgLz5cbiAgICAgICAgICAgICAgR2V0IERpcmVjdGlvbnNcbiAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICA8L0J1dHRvbj5cbiAgICAgICAgICA8QnV0dG9uIGFzQ2hpbGQgdmFyaWFudD1cIm91dGxpbmVcIj5cbiAgICAgICAgICAgIDxMaW5rIGhyZWY9XCIvZmluZC11c1wiPlxuICAgICAgICAgICAgICA8SWNvbiBuYW1lPVwibmF2aWdhdGlvblwiIGNsYXNzTmFtZT1cImgtNCB3LTRcIiBhcmlhLWhpZGRlbj1cInRydWVcIiAvPlxuICAgICAgICAgICAgICBWaWV3IFRyYXZlbCBEZXRhaWxzXG4gICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgPC9CdXR0b24+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cInJlbGF0aXZlIGFzcGVjdC1bNC8zXSBvdmVyZmxvdy1oaWRkZW4gcm91bmRlZC1sZyBib3JkZXIgYm9yZGVyLWFuY2hvci1nb2xkLWRhcmsvMjBcIj5cbiAgICAgICAgPEltYWdlXG4gICAgICAgICAgc3JjPVwiL2ltYWdlcy9wYWdlLWhlYWRlcnMvcHJpdmF0ZS1oaXJlL3ByaXZhdGUtaGlyZS5qcGdcIlxuICAgICAgICAgIGFsdD1cIlByaXZhdGUgaGlyZSBzcGFjZSBhdCBUaGUgQW5jaG9yIGluIFN0YW53ZWxsIE1vb3JcIlxuICAgICAgICAgIGZpbGxcbiAgICAgICAgICBjbGFzc05hbWU9XCJvYmplY3QtY292ZXJcIlxuICAgICAgICAgIHNpemVzPVwiKG1heC13aWR0aDogMTAyNHB4KSAxMDB2dywgNDJ2d1wiXG4gICAgICAgIC8+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgKVxufVxuXG5leHBvcnQgZnVuY3Rpb24gUmVjcnVpdG1lbnRJbWFnZVN0cmlwKCkge1xuICBjb25zdCBpbWFnZXMgPSBbXG4gICAge1xuICAgICAgc3JjOiAnL2ltYWdlcy9vdXItcHViL3RoZS1hbmNob3ItYmFyLmpwZycsXG4gICAgICBhbHQ6ICdUaGUgQW5jaG9yIGJhciBpbiBTdGFud2VsbCBNb29yJ1xuICAgIH0sXG4gICAge1xuICAgICAgc3JjOiAnL2ltYWdlcy9qb2luLW91ci10ZWFtL2d1aW5uZXNzLWhhbmRvdmVyLmpwZycsXG4gICAgICBhbHQ6ICdBIHBpbnQgYmVpbmcgaGFuZGVkIGFjcm9zcyB0aGUgYmFyIGF0IFRoZSBBbmNob3InXG4gICAgfSxcbiAgICB7XG4gICAgICBzcmM6ICcvaW1hZ2VzL2Zvb2Qvc3VuZGF5LXJvYXN0L3RoZS1hbmNob3Itc3VuZGF5LXJvYXN0LWhlcm8uanBnJyxcbiAgICAgIGFsdDogJ1N1bmRheSByb2FzdCBhdCBUaGUgQW5jaG9yJ1xuICAgIH1cbiAgXVxuXG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJncmlkIGdhcC00IG1kOmdyaWQtY29scy0zXCI+XG4gICAgICB7aW1hZ2VzLm1hcCgoaW1hZ2UpID0+IChcbiAgICAgICAgPGRpdiBrZXk9e2ltYWdlLnNyY30gY2xhc3NOYW1lPVwicmVsYXRpdmUgYXNwZWN0LVs0LzNdIG92ZXJmbG93LWhpZGRlbiByb3VuZGVkLWxnIGJvcmRlciBib3JkZXItYW5jaG9yLWdvbGQtZGFyay8yMFwiPlxuICAgICAgICAgIDxJbWFnZSBzcmM9e2ltYWdlLnNyY30gYWx0PXtpbWFnZS5hbHR9IGZpbGwgY2xhc3NOYW1lPVwib2JqZWN0LWNvdmVyXCIgc2l6ZXM9XCIobWF4LXdpZHRoOiA3NjhweCkgMTAwdncsIDMzdndcIiAvPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICkpfVxuICAgIDwvZGl2PlxuICApXG59XG4iXSwibmFtZXMiOlsiQnVsbGV0TGlzdFNlY3Rpb24iLCJMb2NhdGlvblRyYW5zcG9ydFNlY3Rpb24iLCJQYXlOb3RpY2UiLCJRdWlja0ZhY3RzQm94IiwiUmVjcnVpdG1lbnRJbWFnZVN0cmlwIiwiUm9sZUNhcmRzIiwiUm9sZVF1aWNrRmFjdHMiLCJTdGFuZGFyZHNQbGVkZ2UiLCJmYWN0cyIsInRpdGxlIiwiZGl2IiwiY2xhc3NOYW1lIiwiaDIiLCJkbCIsIm1hcCIsImZhY3QiLCJkdCIsImxhYmVsIiwiZGQiLCJ2YWx1ZSIsInAiLCJyb2xlcyIsInJvbGUiLCJMaW5rIiwiaHJlZiIsImgzIiwiZGVzY3JpcHRpb24iLCJvdXRjb21lIiwic3BhbiIsImN0YSIsIkljb24iLCJuYW1lIiwiYXJpYS1oaWRkZW4iLCJpbnRybyIsIml0ZW1zIiwidWwiLCJpdGVtIiwibGkiLCJyb2xlTGFiZWwiLCJhZGRyZXNzIiwic3Ryb25nIiwiYnIiLCJCdXR0b24iLCJhc0NoaWxkIiwidmFyaWFudCIsImEiLCJJbWFnZSIsInNyYyIsImFsdCIsImZpbGwiLCJzaXplcyIsImltYWdlcyIsImltYWdlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztJQTRFZ0JBLGlCQUFpQjtlQUFqQkE7O0lBd0RBQyx3QkFBd0I7ZUFBeEJBOztJQTlGQUMsU0FBUztlQUFUQTs7SUFwQkFDLGFBQWE7ZUFBYkE7O0lBc0tBQyxxQkFBcUI7ZUFBckJBOztJQXRJQUMsU0FBUztlQUFUQTs7SUFxREFDLGNBQWM7ZUFBZEE7O0lBaUJBQyxlQUFlO2VBQWZBOzs7OzhEQXhIRTs2REFDRDtvQkFDWTs7Ozs7O0FBZ0J0QixTQUFTSixjQUFjLEVBQUVLLEtBQUssRUFBRUMsUUFBUSxhQUFhLEVBQXFDO0lBQy9GLHFCQUNFLHNCQUFDQztRQUFJQyxXQUFVOzswQkFDYixxQkFBQ0M7Z0JBQUdELFdBQVU7MEJBQThDRjs7MEJBQzVELHFCQUFDSTtnQkFBR0YsV0FBVTswQkFDWEgsTUFBTU0sR0FBRyxDQUFDLENBQUNDLHFCQUNWLHNCQUFDTDt3QkFBcUJDLFdBQVU7OzBDQUM5QixxQkFBQ0s7Z0NBQUdMLFdBQVU7MENBQ1hJLEtBQUtFLEtBQUs7OzBDQUViLHFCQUFDQztnQ0FBR1AsV0FBVTswQ0FDWEksS0FBS0ksS0FBSzs7O3VCQUxMSixLQUFLRSxLQUFLOzs7O0FBWTlCO0FBRU8sU0FBU2Y7SUFDZCxxQkFDRSxzQkFBQ1E7UUFBSUMsV0FBVTs7MEJBQ2IscUJBQUNTO2dCQUFFVCxXQUFVOzBCQUErQzs7MEJBQzVELHFCQUFDUztnQkFBRVQsV0FBVTswQkFBeUQ7Ozs7QUFNNUU7QUFFTyxTQUFTTixVQUFVLEVBQUVnQixLQUFLLEVBQXlCO0lBQ3hELHFCQUNFLHFCQUFDWDtRQUFJQyxXQUFVO2tCQUNaVSxNQUFNUCxHQUFHLENBQUMsQ0FBQ1EscUJBQ1YscUJBQUNDLGFBQUk7Z0JBRUhDLE1BQU1GLEtBQUtFLElBQUk7Z0JBQ2ZiLFdBQVU7MEJBRVYsY0FBQSxzQkFBQ0Q7b0JBQUlDLFdBQVU7O3NDQUNiLHFCQUFDYzs0QkFBR2QsV0FBVTtzQ0FDWFcsS0FBS2IsS0FBSzs7c0NBRWIscUJBQUNXOzRCQUFFVCxXQUFVO3NDQUFrQ1csS0FBS0ksV0FBVzs7c0NBQy9ELHFCQUFDTjs0QkFBRVQsV0FBVTtzQ0FBa0NXLEtBQUtLLE9BQU87O3NDQUMzRCxzQkFBQ0M7NEJBQUtqQixXQUFVOztnQ0FDYlcsS0FBS08sR0FBRzs4Q0FDVCxxQkFBQ0MsUUFBSTtvQ0FBQ0MsTUFBSztvQ0FBYXBCLFdBQVU7b0NBQStDcUIsZUFBWTs7Ozs7O2VBWjVGVixLQUFLRSxJQUFJOztBQW1CeEI7QUFFTyxTQUFTeEIsa0JBQWtCLEVBQ2hDUyxLQUFLLEVBQ0x3QixLQUFLLEVBQ0xDLEtBQUssRUFDTHZCLFlBQVksRUFBRSxFQU1mO0lBQ0MscUJBQ0Usc0JBQUNEO1FBQUlDLFdBQVdBOzswQkFDZCxxQkFBQ0M7Z0JBQUdELFdBQVU7MEJBQThDRjs7WUFDM0R3QixzQkFBUSxxQkFBQ2I7Z0JBQUVULFdBQVU7MEJBQTRDc0I7aUJBQWE7MEJBQy9FLHFCQUFDRTtnQkFBR3hCLFdBQVU7MEJBQ1h1QixNQUFNcEIsR0FBRyxDQUFDLENBQUNzQixxQkFDVixzQkFBQ0M7d0JBQWMxQixXQUFVOzswQ0FDdkIscUJBQUNtQixRQUFJO2dDQUFDQyxNQUFLO2dDQUFRcEIsV0FBVTtnQ0FBbURxQixlQUFZOzswQ0FDNUYscUJBQUNKO2dDQUFLakIsV0FBVTswQ0FBNkJ5Qjs7O3VCQUZ0Q0E7Ozs7QUFRbkI7QUFFTyxTQUFTOUIsZUFBZSxFQUFFZ0IsSUFBSSxFQUFtQztJQUN0RSxNQUFNZ0IsWUFBWWhCLFFBQVFBLFNBQVMsaUJBQWlCQSxTQUFTLGlCQUFpQkEsT0FBTztJQUVyRixxQkFDRSxxQkFBQ25CO1FBQ0NLLE9BQU87WUFDTDtnQkFBRVMsT0FBTztnQkFBUUUsT0FBT21CO1lBQVU7WUFDbEM7Z0JBQUVyQixPQUFPO2dCQUFPRSxPQUFPO1lBQTRCO1lBQ25EO2dCQUFFRixPQUFPO2dCQUFTRSxPQUFPO1lBQTBDO1lBQ25FO2dCQUFFRixPQUFPO2dCQUFZRSxPQUFPO1lBQXNDO1lBQ2xFO2dCQUFFRixPQUFPO2dCQUFXRSxPQUFPO1lBQXVCO1lBQ2xEO2dCQUFFRixPQUFPO2dCQUFjRSxPQUFPO1lBQTJCO1NBQzFEOztBQUdQO0FBRU8sU0FBU1o7SUFDZCxxQkFDRSxxQkFBQ0c7UUFBSUMsV0FBVTtrQkFDYixjQUFBLHFCQUFDUztZQUFFVCxXQUFVO3NCQUFvRDs7O0FBT3ZFO0FBRU8sU0FBU1Y7SUFDZCxxQkFDRSxzQkFBQ1M7UUFBSUMsV0FBVTs7MEJBQ2Isc0JBQUNEOztrQ0FDQyxxQkFBQ0U7d0JBQUdELFdBQVU7a0NBQTZDOztrQ0FDM0QscUJBQUNTO3dCQUFFVCxXQUFVO2tDQUFpQzs7a0NBRzlDLHNCQUFDNEI7d0JBQVE1QixXQUFVOzswQ0FDakIscUJBQUM2QjtnQ0FBTzdCLFdBQVU7MENBQXlCOzswQ0FDM0MscUJBQUM4Qjs0QkFBSzswQ0FFTixxQkFBQ0E7NEJBQUs7MENBRU4scUJBQUNBOzRCQUFLOzs7a0NBR1IscUJBQUNyQjt3QkFBRVQsV0FBVTtrQ0FBaUM7O2tDQUc5QyxxQkFBQ1M7d0JBQUVULFdBQVU7a0NBQWlDOztrQ0FJOUMsc0JBQUNEO3dCQUFJQyxXQUFVOzswQ0FDYixxQkFBQytCLFVBQU07Z0NBQUNDLE9BQU87Z0NBQUNDLFNBQVE7MENBQ3RCLGNBQUEsc0JBQUNDO29DQUFFckIsTUFBSzs7c0RBQ04scUJBQUNNLFFBQUk7NENBQUNDLE1BQUs7NENBQVNwQixXQUFVOzRDQUFVcUIsZUFBWTs7d0NBQVM7Ozs7MENBSWpFLHFCQUFDVSxVQUFNO2dDQUFDQyxPQUFPO2dDQUFDQyxTQUFROzBDQUN0QixjQUFBLHNCQUFDckIsYUFBSTtvQ0FBQ0MsTUFBSzs7c0RBQ1QscUJBQUNNLFFBQUk7NENBQUNDLE1BQUs7NENBQWFwQixXQUFVOzRDQUFVcUIsZUFBWTs7d0NBQVM7Ozs7Ozs7OzBCQU16RSxxQkFBQ3RCO2dCQUFJQyxXQUFVOzBCQUNiLGNBQUEscUJBQUNtQyxjQUFLO29CQUNKQyxLQUFJO29CQUNKQyxLQUFJO29CQUNKQyxJQUFJO29CQUNKdEMsV0FBVTtvQkFDVnVDLE9BQU07Ozs7O0FBS2hCO0FBRU8sU0FBUzlDO0lBQ2QsTUFBTStDLFNBQVM7UUFDYjtZQUNFSixLQUFLO1lBQ0xDLEtBQUs7UUFDUDtRQUNBO1lBQ0VELEtBQUs7WUFDTEMsS0FBSztRQUNQO1FBQ0E7WUFDRUQsS0FBSztZQUNMQyxLQUFLO1FBQ1A7S0FDRDtJQUVELHFCQUNFLHFCQUFDdEM7UUFBSUMsV0FBVTtrQkFDWndDLE9BQU9yQyxHQUFHLENBQUMsQ0FBQ3NDLHNCQUNYLHFCQUFDMUM7Z0JBQW9CQyxXQUFVOzBCQUM3QixjQUFBLHFCQUFDbUMsY0FBSztvQkFBQ0MsS0FBS0ssTUFBTUwsR0FBRztvQkFBRUMsS0FBS0ksTUFBTUosR0FBRztvQkFBRUMsSUFBSTtvQkFBQ3RDLFdBQVU7b0JBQWV1QyxPQUFNOztlQURuRUUsTUFBTUwsR0FBRzs7QUFNM0IifQ==

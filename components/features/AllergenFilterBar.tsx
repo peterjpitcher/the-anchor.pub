@@ -27,11 +27,9 @@ export function AllergenFilterBar({
   selectedAllergens,
   showVegetarianOnly,
   showVeganOnly,
-  showGlutenFreeOnly,
   onToggleAllergen,
   onToggleVegetarian,
   onToggleVegan,
-  onToggleGlutenFree,
   onClearAll,
   activeFilterCount,
   isOpen,
@@ -165,28 +163,6 @@ export function AllergenFilterBar({
               >
                 <span>Vegan Options</span>
                 <span className="ml-auto text-xs opacity-70">(VEO)</span>
-              </button>
-              <button
-                type="button"
-                aria-pressed={showGlutenFreeOnly}
-                onClick={() => {
-                  trackAllergenFilterToggle(
-                    'gluten_free',
-                    'gluten_free_only',
-                    !showGlutenFreeOnly,
-                    showGlutenFreeOnly ? activeFilterCount - 1 : activeFilterCount + 1
-                  )
-                  onToggleGlutenFree()
-                }}
-                className={cn(
-                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
-                  showGlutenFreeOnly
-                    ? 'bg-anchor-green text-white shadow'
-                    : 'bg-surface-sunk text-ink hover:bg-surface-sunk/70'
-                )}
-              >
-                <span>Gluten-Free Options</span>
-                <span className="ml-auto text-xs opacity-70">(GFO)</span>
               </button>
             </div>
           </div>

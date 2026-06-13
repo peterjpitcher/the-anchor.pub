@@ -1,0 +1,77 @@
+be9e15364c26e8132730c6d1ac9cdbab
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "TrustBar", {
+    enumerable: true,
+    get: function() {
+        return TrustBar;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _utils = require("../../lib/utils");
+const SIGNALS = {
+    food: [
+        {
+            icon: "",
+            text: "BII Sustainability Champion"
+        },
+        {
+            icon: "",
+            text: "Free parking for 20 cars"
+        },
+        {
+            icon: "",
+            text: "7 min from Heathrow T5"
+        }
+    ],
+    events: [
+        {
+            icon: "",
+            text: "Hosted by Nikki Manfadge"
+        },
+        {
+            icon: "",
+            text: "Free parking"
+        },
+        {
+            icon: "",
+            text: "Bar open all night"
+        }
+    ],
+    "private-hire": [
+        {
+            icon: "",
+            text: "Space for up to 200 guests"
+        },
+        {
+            icon: "",
+            text: "BII Sustainability Champion"
+        },
+        {
+            icon: "",
+            text: "Free parking for all guests"
+        }
+    ]
+};
+function TrustBar({ variant = "food", className }) {
+    const signals = SIGNALS[variant];
+    return /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+        role: "complementary",
+        "aria-label": "Trust signals",
+        className: (0, _utils.cn)("flex flex-wrap justify-center gap-x-6 gap-y-2 py-3 px-4", "bg-anchor-green-raised border-y border-anchor-gold-dark/15", className),
+        children: signals.map(({ icon, text }, index)=>/*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                className: "flex items-center gap-1.5 text-sm font-medium text-anchor-gold-bright",
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                        "aria-hidden": "true",
+                        children: icon
+                    }),
+                    text
+                ]
+            }, index))
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2NvbXBvbmVudHMvcHN5Y2hvbG9neS9UcnVzdEJhci50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgY24gfSBmcm9tICdAL2xpYi91dGlscydcblxudHlwZSBUcnVzdEJhclZhcmlhbnQgPSAnZm9vZCcgfCAnZXZlbnRzJyB8ICdwcml2YXRlLWhpcmUnXG5cbmludGVyZmFjZSBUcnVzdEJhclByb3BzIHtcbiAgdmFyaWFudD86IFRydXN0QmFyVmFyaWFudFxuICBjbGFzc05hbWU/OiBzdHJpbmdcbn1cblxuY29uc3QgU0lHTkFMUzogUmVjb3JkPFRydXN0QmFyVmFyaWFudCwgQXJyYXk8eyBpY29uOiBzdHJpbmc7IHRleHQ6IHN0cmluZyB9Pj4gPSB7XG4gIGZvb2Q6IFtcbiAgICB7IGljb246ICcnLCB0ZXh0OiAnQklJIFN1c3RhaW5hYmlsaXR5IENoYW1waW9uJyB9LFxuICAgIHsgaWNvbjogJycsIHRleHQ6ICdGcmVlIHBhcmtpbmcgZm9yIDIwIGNhcnMnIH0sXG4gICAgeyBpY29uOiAnJywgdGV4dDogJzcgbWluIGZyb20gSGVhdGhyb3cgVDUnIH0sXG4gIF0sXG4gIGV2ZW50czogW1xuICAgIHsgaWNvbjogJycsIHRleHQ6ICdIb3N0ZWQgYnkgTmlra2kgTWFuZmFkZ2UnIH0sXG4gICAgeyBpY29uOiAnJywgdGV4dDogJ0ZyZWUgcGFya2luZycgfSxcbiAgICB7IGljb246ICcnLCB0ZXh0OiAnQmFyIG9wZW4gYWxsIG5pZ2h0JyB9LFxuICBdLFxuICAncHJpdmF0ZS1oaXJlJzogW1xuICAgIHsgaWNvbjogJycsIHRleHQ6ICdTcGFjZSBmb3IgdXAgdG8gMjAwIGd1ZXN0cycgfSxcbiAgICB7IGljb246ICcnLCB0ZXh0OiAnQklJIFN1c3RhaW5hYmlsaXR5IENoYW1waW9uJyB9LFxuICAgIHsgaWNvbjogJycsIHRleHQ6ICdGcmVlIHBhcmtpbmcgZm9yIGFsbCBndWVzdHMnIH0sXG4gIF0sXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBUcnVzdEJhcih7IHZhcmlhbnQgPSAnZm9vZCcsIGNsYXNzTmFtZSB9OiBUcnVzdEJhclByb3BzKSB7XG4gIGNvbnN0IHNpZ25hbHMgPSBTSUdOQUxTW3ZhcmlhbnRdXG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2XG4gICAgICByb2xlPVwiY29tcGxlbWVudGFyeVwiXG4gICAgICBhcmlhLWxhYmVsPVwiVHJ1c3Qgc2lnbmFsc1wiXG4gICAgICBjbGFzc05hbWU9e2NuKFxuICAgICAgICAnZmxleCBmbGV4LXdyYXAganVzdGlmeS1jZW50ZXIgZ2FwLXgtNiBnYXAteS0yIHB5LTMgcHgtNCcsXG4gICAgICAgICdiZy1hbmNob3ItZ3JlZW4tcmFpc2VkIGJvcmRlci15IGJvcmRlci1hbmNob3ItZ29sZC1kYXJrLzE1JyxcbiAgICAgICAgY2xhc3NOYW1lXG4gICAgICApfVxuICAgID5cbiAgICAgIHtzaWduYWxzLm1hcCgoeyBpY29uLCB0ZXh0IH0sIGluZGV4KSA9PiAoXG4gICAgICAgIDxzcGFuXG4gICAgICAgICAga2V5PXtpbmRleH1cbiAgICAgICAgICBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMS41IHRleHQtc20gZm9udC1tZWRpdW0gdGV4dC1hbmNob3ItZ29sZC1icmlnaHRcIlxuICAgICAgICA+XG4gICAgICAgICAgPHNwYW4gYXJpYS1oaWRkZW49XCJ0cnVlXCI+e2ljb259PC9zcGFuPlxuICAgICAgICAgIHt0ZXh0fVxuICAgICAgICA8L3NwYW4+XG4gICAgICApKX1cbiAgICA8L2Rpdj5cbiAgKVxufVxuIl0sIm5hbWVzIjpbIlRydXN0QmFyIiwiU0lHTkFMUyIsImZvb2QiLCJpY29uIiwidGV4dCIsImV2ZW50cyIsInZhcmlhbnQiLCJjbGFzc05hbWUiLCJzaWduYWxzIiwiZGl2Iiwicm9sZSIsImFyaWEtbGFiZWwiLCJjbiIsIm1hcCIsImluZGV4Iiwic3BhbiIsImFyaWEtaGlkZGVuIl0sIm1hcHBpbmdzIjoiOzs7OytCQTJCZ0JBOzs7ZUFBQUE7Ozs7dUJBM0JHO0FBU25CLE1BQU1DLFVBQTBFO0lBQzlFQyxNQUFNO1FBQ0o7WUFBRUMsTUFBTTtZQUFJQyxNQUFNO1FBQThCO1FBQ2hEO1lBQUVELE1BQU07WUFBSUMsTUFBTTtRQUEyQjtRQUM3QztZQUFFRCxNQUFNO1lBQUlDLE1BQU07UUFBeUI7S0FDNUM7SUFDREMsUUFBUTtRQUNOO1lBQUVGLE1BQU07WUFBSUMsTUFBTTtRQUEyQjtRQUM3QztZQUFFRCxNQUFNO1lBQUlDLE1BQU07UUFBZTtRQUNqQztZQUFFRCxNQUFNO1lBQUlDLE1BQU07UUFBcUI7S0FDeEM7SUFDRCxnQkFBZ0I7UUFDZDtZQUFFRCxNQUFNO1lBQUlDLE1BQU07UUFBNkI7UUFDL0M7WUFBRUQsTUFBTTtZQUFJQyxNQUFNO1FBQThCO1FBQ2hEO1lBQUVELE1BQU07WUFBSUMsTUFBTTtRQUE4QjtLQUNqRDtBQUNIO0FBRU8sU0FBU0osU0FBUyxFQUFFTSxVQUFVLE1BQU0sRUFBRUMsU0FBUyxFQUFpQjtJQUNyRSxNQUFNQyxVQUFVUCxPQUFPLENBQUNLLFFBQVE7SUFFaEMscUJBQ0UscUJBQUNHO1FBQ0NDLE1BQUs7UUFDTEMsY0FBVztRQUNYSixXQUFXSyxJQUFBQSxTQUFFLEVBQ1gsMkRBQ0EsOERBQ0FMO2tCQUdEQyxRQUFRSyxHQUFHLENBQUMsQ0FBQyxFQUFFVixJQUFJLEVBQUVDLElBQUksRUFBRSxFQUFFVSxzQkFDNUIsc0JBQUNDO2dCQUVDUixXQUFVOztrQ0FFVixxQkFBQ1E7d0JBQUtDLGVBQVk7a0NBQVFiOztvQkFDekJDOztlQUpJVTs7QUFTZiJ9

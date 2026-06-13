@@ -1,0 +1,14 @@
+d97c0bc6654adc37f2e6b3b540040ef0
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "POST", {
+    enumerable: true,
+    get: function() {
+        return _route.POST;
+    }
+});
+const _route = require("../route");
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wZXRlcnBpdGNoZXIvQ3Vyc29yL09KLVRoZS1BbmNob3IucHViL2FwcC9hcGkvdGFibGUtYm9va2luZ3MvY3JlYXRlL3JvdXRlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IFBPU1QgfSBmcm9tICcuLi9yb3V0ZSdcbiJdLCJuYW1lcyI6WyJQT1NUIl0sIm1hcHBpbmdzIjoiOzs7OytCQUFTQTs7O2VBQUFBLFdBQUk7Ozt1QkFBUSJ9
