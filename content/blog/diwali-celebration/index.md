@@ -2,7 +2,7 @@
 title: Diwali Celebrations Near Heathrow | Festival of Lights at The Anchor
 slug: diwali-celebration
 description: >-
-  Celebrate Diwali at The Anchor pub near Heathrow Airport in Stanwell Moor.
+  Celebrate Diwali at The Anchor near Heathrow Airport in Stanwell Moor.
   Join our Festival of Lights celebrations with traditional Indian festivities,
   just 7 minutes from Terminal 5. Perfect for the Indian community near
   Heathrow, airport workers, and Staines residents. Family-friendly Diwali
@@ -47,7 +47,7 @@ _દિવાળીની હાર્દિક શુભકામનાઓ!_
 
 ## Celebrate Diwali at The Anchor Near Heathrow Airport
 
-The Anchor pub in **Stanwell Moor** proudly hosts **Diwali celebrations near Heathrow Airport**, bringing the Festival of Lights to our diverse community. Just **7 minutes from Terminal 5**, we welcome the **Indian community**, **Heathrow workers**, and residents from **Staines** to join our vibrant Diwali festivities. Experience authentic cultural celebrations at your **local pub near the airport**.
+The Anchor in **Stanwell Moor** proudly hosts **Diwali celebrations near Heathrow Airport**, bringing the Festival of Lights to our diverse community. Just **7 minutes from Terminal 5**, we welcome the **Indian community**, **Heathrow workers**, and residents from **Staines** to join our vibrant Diwali festivities. Experience authentic cultural celebrations at your **local pub near the airport**.
 
   
 
@@ -61,7 +61,7 @@ But as we step into 2023, Diwali's radiance has crossed borders and oceans. From
 
 ## **Diwali Festival Events Near Heathrow Terminal 5**
 
-**Stanwell Moor Village Hall** hosts our annual **Diwali celebrations near Heathrow**, supported by The Anchor pub and the SMRA. This **family-friendly festival** features:
+**Stanwell Moor Village Hall** hosts our annual **Diwali celebrations near Heathrow**, supported by The Anchor and the SMRA. This **family-friendly festival** features:
 
 - **Live performances** by local Indian artists
 - **Traditional music** by Sonia Panesar

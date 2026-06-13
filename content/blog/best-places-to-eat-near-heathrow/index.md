@@ -18,7 +18,7 @@ hero: "hero.jpg"
 images: []
 ---
 
-> **Looking for somewhere specific?** [See our full restaurants near Heathrow guide](/restaurants-near-heathrow) for the best dining options by distance, price, and cuisine — updated for 2026.
+> **Looking for somewhere specific?** [See our full restaurants near Heathrow guide](/restaurants-near-heathrow) for the best dining options by distance, price, and cuisine, updated for 2026.
 
 If you're looking for a proper meal near Heathrow, you've got three options: airport restaurants, hotel dining, or venturing out to a local pub or restaurant. Each has its place, but they're not created equal when it comes to value, quality, or atmosphere.
 

@@ -4,7 +4,7 @@ title: >-
   Heathrow
 slug: charity-walk-holly
 description: >-
-  Join Jason West's 65-mile charity walk from The Anchor pub Stanwell Moor to
+  Join Jason West's 65-mile charity walk from The Anchor Stanwell Moor to
   Brighton Pier for Holly's cancer fight. Supporting Momentum Children's
   Charity. Local pub near Heathrow hosts community fundraiser. Donate or join
   the walk starting March 21st.
@@ -34,7 +34,7 @@ noindex: true
 
 ![Charity Walk for Holly - Supporting Momentum Children's Charity](/content/blog/charity-walk-holly/hero.jpg)
 
-The Anchor pub in **Stanwell Moor** proudly supports Jason West's incredible 65-mile charity walk for his daughter Holly. Starting from our **traditional pub near Heathrow Airport**, this community event showcases the strength of our local village.
+The Anchor in **Stanwell Moor** proudly supports Jason West's incredible 65-mile charity walk for his daughter Holly. Starting from our **traditional pub near Heathrow Airport**, this community event showcases the strength of our local village.
 
 ## Holly's Courageous Fight Against Cancer
 
@@ -46,7 +46,7 @@ Throughout Holly's treatment, **Momentum Children's Charity** has provided inval
 
 ## A Father's 65-Mile Mission: From The Anchor to Brighton
 
-Jason West, Holly's devoted father, is undertaking an extraordinary 65-mile walk to thank everyone who has supported his daughter. The journey begins at **The Anchor pub, Horton Road, Stanwell Moor** on **March 21st** and ends at Brighton Pier.
+Jason West, Holly's devoted father, is undertaking an extraordinary 65-mile walk to thank everyone who has supported his daughter. The journey begins at **The Anchor, Horton Road, Stanwell Moor** on **March 21st** and ends at Brighton Pier.
 
 ### The Route Through Our Communities
 
@@ -62,7 +62,7 @@ Starting from our **pub near Heathrow**, Jason's route passes through:
 
 ## How The Anchor and Our Community Can Help
 
-As the starting point for this charity walk, **The Anchor pub** is proud to support Holly and her family. Here's how you can get involved:
+As the starting point for this charity walk, **The Anchor** is proud to support Holly and her family. Here's how you can get involved:
 
 ### Before the Walk
 - **Donation collection point** at The Anchor bar
@@ -95,11 +95,11 @@ This charity walk represents the best of British community spirit, starting righ
 
 ## Event Details
 
-**What**: Charity Walk for Holly - Supporting Momentum Children's Charity  
-**When**: March 21st, 7am start  
-**Starting Point**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-**Distance**: 65 miles to Brighton Pier  
-**Beneficiary**: Momentum Children's Charity  
+**What**: Charity Walk for Holly - Supporting Momentum Children's Charity
+**When**: March 21st, 7am start
+**Starting Point**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Distance**: 65 miles to Brighton Pier
+**Beneficiary**: Momentum Children's Charity
 
 ### Getting to The Anchor
 - **From Heathrow Terminal 5**: 7 minutes by car
@@ -132,9 +132,9 @@ Whether you're a **Stanwell Moor** local, visiting our **pub near Heathrow Airpo
 
 ---
 
-**The Anchor**  
-Horton Road, Stanwell Moor, TW19 6AQ  
-Tel: 01753 682707  
+**The Anchor**
+Horton Road, Stanwell Moor, TW19 6AQ
+Tel: 01753 682707
 Your **traditional pub near Heathrow** supporting our local community
 
 *Follow updates on the Charity Walk for Holly on our social media channels. #WalkForHolly #StanwellMoorCommunity*

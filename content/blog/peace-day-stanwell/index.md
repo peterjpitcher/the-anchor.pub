@@ -102,7 +102,7 @@ Stanwell Moor Village is more than its human inhabitants; it's a naturally beaut
 - 7 minutes from Heathrow Terminal 5
 - 8 minutes from Staines town centre
 - Bus routes 441 & 442
-- Free parking at The Anchor pub
+- Free parking at The Anchor
 
 ### Visit The Anchor - Your Village Pub Near Heathrow
 
