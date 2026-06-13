@@ -2,7 +2,7 @@
 title: A First-Timer's Guide to British Pub Culture (For International Visitors Near Heathrow)
 description: >-
   Visiting a British pub for the first time? This practical guide explains pub
-  etiquette, ordering, real ale, Sunday roasts and everything international
+  etiquette, ordering, British beers, Sunday roasts and everything international
   visitors near Heathrow need to know to enjoy the authentic experience.
 date: '2026-03-01'
 author: The Anchor Team
@@ -47,7 +47,7 @@ For food, you may be given a table number and asked to order at the bar, or a st
 
 This is where international visitors often need the most guidance.
 
-**Real ale:** A cornerstone of British pub culture. At The Anchor, we serve bottled real ales, Abbot Ale, Greene King IPA, Old Speckled Hen, and Newcastle Brown Ale, alongside our draught lagers and ciders. Ask the bar staff for a recommendation.
+**British ales:** A cornerstone of British pub culture. At The Anchor, we serve bottled ales, Abbot Ale, Greene King IPA, Old Speckled Hen, and Newcastle Brown Ale, alongside our draught lagers and ciders. Ask the bar staff for a recommendation.
 
 **Craft beer on tap:** Modern kegged beers, served colder, often from smaller breweries. Good range available at most pubs.
 
@@ -88,7 +88,7 @@ At The Anchor, Sunday roasts are served 1pm-6pm from Sunday 17 May 2026, walk in
 
 **Tipping:** Unlike restaurants in the USA, tipping in British pubs is not expected. A "keep the change" tip is always appreciated, but never required or expected.
 
-**Ordering a "warm beer":** Real ale is served at cellar temperature, not warm. But do try it before assuming you won't like it, the flavour profile is completely different from cold lager.
+**Ordering a "warm beer":** Traditional British ales are served at cellar temperature, not warm. But do try one before assuming you won't like it, the flavour profile is completely different from cold lager.
 
 **Rushing:** A proper pub visit is not meant to be efficient. Order another round, have a conversation, watch the sport, stay longer than you planned.
 
@@ -99,7 +99,7 @@ The Anchor in Stanwell Moor is a genuine village local that has been serving the
 For international visitors passing through Heathrow, it offers something the airport simply cannot: an authentic British experience that hasn't been designed for tourists.
 
 **What to try:**
-- One pint of real ale (ask what's on)
+- One bottled British ale (ask what's on)
 - Fish & chips (the most British dish)
 - Sunday roast (weekends, book in advance)
 - A seat in the beer garden on a clear day

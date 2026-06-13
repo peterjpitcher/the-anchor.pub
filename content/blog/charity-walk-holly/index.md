@@ -97,7 +97,7 @@ This charity walk represents the best of British community spirit, starting righ
 
 **What**: Charity Walk for Holly - Supporting Momentum Children's Charity  
 **When**: March 21st, 7am start  
-**Starting Point**: The Anchor Pub, Horton Road, Stanwell Moor, TW19 6AQ  
+**Starting Point**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 **Distance**: 65 miles to Brighton Pier  
 **Beneficiary**: Momentum Children's Charity  
 
@@ -132,7 +132,7 @@ Whether you're a **Stanwell Moor** local, visiting our **pub near Heathrow Airpo
 
 ---
 
-**The Anchor Pub**  
+**The Anchor**  
 Horton Road, Stanwell Moor, TW19 6AQ  
 Tel: 01753 682707  
 Your **traditional pub near Heathrow** supporting our local community

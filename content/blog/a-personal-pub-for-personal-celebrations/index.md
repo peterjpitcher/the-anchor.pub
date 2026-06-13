@@ -3,7 +3,7 @@ title: Best Party Venue Near Heathrow Airport | Private Events Stanwell Moor
 description: >-
   Book your perfect celebration at The Anchor pub, just 7 minutes from Heathrow
   Terminal 5. Full party planning service for birthdays, corporate events, baby
-  showers, and weddings. Private dining room, free parking, and trusted catering
+  showers, and christenings. Private dining room, free parking, and trusted catering
   partners. The ideal party venue near Heathrow for airport staff celebrations
   and local events in Stanwell Moor.
 date: '2025-01-15'
@@ -16,7 +16,7 @@ keywords:
   - corporate venue near terminal 5
   - baby shower venue staines
   - celebration pub near heathrow airport
-  - wedding reception stanwell moor
+  - private party venue stanwell moor
   - private dining heathrow
   - party planning near heathrow
   - event space near airport
@@ -71,7 +71,7 @@ A party at our **event venue near Heathrow Airport** isn't complete without exce
 - Bespoke menu creation
 - Dietary requirement accommodations
 
-Perfect for **corporate events near Terminal 5**, wedding receptions, or any celebration in **Stanwell Moor**.
+Perfect for **corporate events near Terminal 5**, private parties, or any celebration in **Stanwell Moor**.
 
 ## Book Your Event at The Best Party Venue Near Heathrow
 

@@ -157,7 +157,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : event
     ? [
         `Celebrate Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19).`,
-        performerName ? `Live music from ${performerName}.` : 'Live music, great food and a brilliant atmosphere.',
+        performerName ? `Live music from ${performerName}.` : 'Great food and a warm welcome.',
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
@@ -165,7 +165,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const keywords = event?.keywords
     ? event.keywords
-    : 'valentines day stanwell moor, valentines near heathrow, romantic dinner TW19, live music valentines'
+    : 'valentines day stanwell moor, valentines near heathrow, romantic dinner TW19, valentines pub near heathrow'
 
   const socialImages = [
     DEFAULT_PAGE_HEADER_IMAGE,
@@ -246,7 +246,7 @@ export default async function ValentinesDayPage() {
           question: 'What time is food served?',
           answer: dinnerRange
             ? `Our full menu is available ${formatTimeRange(dinnerRange)}. ${lateMenuRange ? `A late menu runs ${formatTimeRange(lateMenuRange)}.` : ''}`.trim()
-            : 'Our full menu is served earlier in the evening. Book your table to dine before the music.'
+            : 'Our full menu is served earlier in the evening. Book your table to dine.'
         },
         {
           question: 'What time does the live music start?',
@@ -286,7 +286,7 @@ export default async function ValentinesDayPage() {
         crumb="Valentine's Day"
         kicker={eventDate}
         title="Valentine's Day Dinner at The Anchor"
-        lead={`${event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : 'Live music, great food and a brilliant atmosphere. '}Free parking • Seven minutes from Heathrow Terminal 5`}
+        lead={`${event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : 'Great food and a warm welcome. '}Free parking • Seven minutes from Heathrow Terminal 5`}
       />
 
       <section className="py-section-y bg-surface">
@@ -372,9 +372,11 @@ export default async function ValentinesDayPage() {
                       <Badge variant="success">
                         {isFreeEntry ? 'Free entry' : 'Booking recommended'}
                       </Badge>
-                      <Badge variant="green">
-                        {performerName ? `Live music: ${performerName}` : 'Live music'}
-                      </Badge>
+                      {performerName ? (
+                        <Badge variant="green">
+                          {`Live music: ${performerName}`}
+                        </Badge>
+                      ) : null}
                       <Badge variant="green">
                         Dinner bookings recommended
                       </Badge>

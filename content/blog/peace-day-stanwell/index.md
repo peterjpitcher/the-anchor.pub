@@ -64,7 +64,7 @@ Our **community near Heathrow** thrives with regular events that bring neighbour
 - Community gatherings throughout the year
 - Local group meetings and activities
 
-**The Anchor Pub - Community Hub:**
+**The Anchor - Community Hub:**
 - Halloween parties for all ages
 - Christmas celebrations and events
 - Regular quiz nights bringing locals together

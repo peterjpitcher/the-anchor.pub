@@ -13,9 +13,9 @@ author: Billy
 keywords:
   - best beer pub near heathrow
   - draught beer heathrow airport
-  - t-bar pumps stanwell moor
+  - bottled beers stanwell moor
   - beer garden near heathrow terminal 5
-  - real ale pub near heathrow
+  - bottled ales near heathrow
   - best pint near heathrow
   - premium beer stanwell moor
   - pub with beer garden heathrow

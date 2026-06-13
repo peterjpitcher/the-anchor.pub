@@ -17,21 +17,21 @@ const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTA
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
 export const metadata: Metadata = {
-  title: 'Halloween Pub Near Heathrow | Fancy Dress & Cocktails',
+  title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
   description:
-    'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
+    'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
   alternates: { canonical: '/halloween' },
   openGraph: {
-    title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
+    title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
     description:
-      'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
+      'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
+    title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
     description:
-      'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
+      'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
 }
@@ -40,12 +40,12 @@ const faqs = [
   {
     question: 'Is there a dress code for Halloween?',
     answer:
-      'Fancy dress is encouraged but absolutely not required. Whether you turn up in full costume or just your usual glad rags, you\u2019re welcome. There are prizes for the best costume, so if you\u2019re feeling creative, go for it.',
+      'No, there is no dress code. Come as you are and enjoy the evening.',
   },
   {
-    question: 'Is Halloween at The Anchor family-friendly?',
+    question: 'Is The Anchor family-friendly on Halloween?',
     answer:
-      'Earlier in the evening (before 8pm) is great for families. Kids in costume are very welcome, and the beer garden is perfect for trick-or-treat age children before it gets dark. Later in the evening the atmosphere shifts to a more adult crowd.',
+      'Earlier in the evening (before 8pm) is great for families. Children are very welcome, and the beer garden gives little ones plenty of space. Later in the evening the crowd is more grown-up.',
   },
   {
     question: 'Do you serve food on Halloween?',
@@ -67,50 +67,44 @@ export default function HalloweenPage() {
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="Halloween"
         kicker="Saturday 31 October 2026"
-        title="Halloween Pub Night at The Anchor"
-        lead="Fancy dress, themed cocktails, spooky decorations and a brilliant atmosphere. Join us on 31 October for our annual Halloween celebration in Stanwell Moor. Fancy dress encouraged · Themed cocktails · Prizes for best costume"
+        title="Halloween at The Anchor"
+        lead="Spend Halloween at The Anchor in Stanwell Moor on Saturday 31 October. Our full food menu and bar are on, the beer garden sits right under the Heathrow flight path, and parking is free. Book a table or walk in."
       />
 
       <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-12">
-            {/* Halloween Night */}
+            {/* Halloween at The Anchor */}
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">
-                Halloween Night
+                Halloween at The Anchor
               </h2>
               <p className="text-ink-muted text-lg leading-relaxed">
-                Every year we go all out for Halloween at The Anchor. The pub gets fully decked out with
-                spooky decorations, the bar team put together a menu of themed cocktails and shots, and
-                fancy dress is very much encouraged (though never required, you won&apos;t be turned away
-                in jeans).
+                Halloween falls on a Saturday in 2026, so come and spend it with us in Stanwell Moor.
+                The full food menu and bar are on, and you are welcome to drop in for a drink or settle
+                in for dinner.
               </p>
               <p className="text-ink-muted leading-relaxed">
-                There&apos;s something about the beer garden on Halloween night that&apos;s hard to beat. Stanwell
+                There&apos;s something about the beer garden here that&apos;s hard to beat. Stanwell
                 Moor sits right under the Heathrow flight path, so you get planes lit up overhead, the
                 autumn air, and a drink in hand. It adds to the atmosphere in a way you wouldn&apos;t expect.
               </p>
             </div>
 
-            {/* What to Expect */}
+            {/* Food & Drink */}
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">
-                What to Expect
+                Food &amp; Drink
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                Previous years have featured themed cocktails, spooky shots, and a few surprises behind
-                the bar. The music keeps things lively, and there are prizes for the best fancy dress
-                costume, so it&apos;s worth making an effort if you&apos;re the competitive type.
-              </p>
-              <p className="text-ink-muted leading-relaxed">
-                Our regular food menu is available earlier in the evening (kitchen closes at 7pm on
-                Saturdays), so you can come for dinner before the Halloween festivities really get going.
+                Our regular food menu is available earlier in the evening (the kitchen is open
+                1pm&ndash;7pm on Saturdays), so you can come for dinner before settling in for the night.
               </p>
               <div className="flex flex-wrap items-center gap-3">
-                <Badge variant="green">Themed cocktails &amp; shots</Badge>
-                <Badge variant="green">Music</Badge>
-                <Badge variant="success">Best costume prizes</Badge>
+                <Badge variant="green">Full bar</Badge>
                 <Badge variant="green">Food menu (until 7pm)</Badge>
+                <Badge variant="green">Free parking</Badge>
+                <Badge variant="green">Dog friendly</Badge>
               </div>
             </div>
 
@@ -120,14 +114,10 @@ export default function HalloweenPage() {
                 Families Welcome
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                Earlier in the evening, before about 8pm, Halloween at The Anchor is great
-                for families. Kids in costume are very welcome, and the beer garden is perfect for
-                trick-or-treat age children. There&apos;s plenty of space to run around, and the decorations
-                are more fun than frightening.
-              </p>
-              <p className="text-ink-muted leading-relaxed">
-                Later in the evening, the vibe shifts to a more adult crowd. If you&apos;re bringing little
-                ones, the earlier the better.
+                Earlier in the evening, before about 8pm, The Anchor is a great
+                spot for families. Children are very welcome, and the beer garden gives little ones
+                plenty of space. Later in the evening the crowd is more grown-up, so if you&apos;re bringing
+                little ones, the earlier the better.
               </p>
             </div>
 
@@ -164,7 +154,7 @@ export default function HalloweenPage() {
 
       <CtaBand
         title="Join us on Halloween"
-        copy="Saturday 31 October 2026. Fancy dress, themed drinks, and a proper Halloween night out at The Anchor in Stanwell Moor."
+        copy="Saturday 31 October 2026. Food, a full bar and a warm welcome at The Anchor in Stanwell Moor. Book a table or walk in."
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={HALLOWEEN_BOOKING_URL}>Book a Table</a>

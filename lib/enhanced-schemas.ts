@@ -70,7 +70,7 @@ export const drinksMenuSchema = {
   "@context": "https://schema.org",
   "@type": "Menu",
   "name": "The Anchor Drinks Menu",
-  "description": "Full bar service with real ales, draught lagers, wines, spirits and soft drinks",
+  "description": "Full bar service with bottled beers, draught lagers, wines, spirits and soft drinks",
   "hasMenuSection": [
     {
       "@type": "MenuSection",

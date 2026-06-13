@@ -62,7 +62,7 @@ A note from our local Councillor, Jim McIlroy:
 
 ## The Anchor
 
-![The Anchor Pub](/content/blog/stanwell-moor-village/image-1.jpg)
+![The Anchor](/content/blog/stanwell-moor-village/image-1.jpg)
 
 **Link to Website:** [https://www.the-anchor.pub](https://www.the-anchor.pub) (online ordering for collection available here:
 

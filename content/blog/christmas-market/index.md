@@ -199,7 +199,7 @@ Can't make the Christmas market? We offer:
 - **Local products** in our bar
 - **Event tickets** for entertainment
 - **Private shopping** events available
-- **Wedding/party** venue hire
+- **Party** venue hire
 
 ## Book Your Christmas Market Visit
 

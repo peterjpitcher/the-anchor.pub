@@ -144,7 +144,7 @@ Father's Day was first introduced in the United States. A woman named Sonora Sma
 
 ## Terms and Conditions
 
-1.  **Eligibility**: This offer is available to fathers aged 18 and over dining in at The Anchor Pub, Stanwell Moor Village, on the pre-booked Father's Day set menu. Pre-bookings must be made by Friday, June 16th, 2023.
+1.  **Eligibility**: This offer is available to fathers aged 18 and over dining in at The Anchor, Stanwell Moor Village, on the pre-booked Father's Day set menu. Pre-bookings must be made by Friday, June 16th, 2023.
     
 2.  **Offer Period**: The free pint of Fosters must be claimed between 12:00 and 17:00 on Sunday, June 18th, 2023.
     
@@ -152,6 +152,6 @@ Father's Day was first introduced in the United States. A woman named Sonora Sma
     
 4.  **Availability**: This offer is subject to the availability of Fosters Lager. The Anchor reserves the right to substitute the free pint with another item of equal or lesser value if Fosters Lager is unavailable for any reason.
     
-5.  **Amendments**: The Anchor reserves the right to change, amend or withdraw this offer at The Anchor Pub, Stanwell Moor Village without prior notice at any time.
+5.  **Amendments**: The Anchor reserves the right to change, amend or withdraw this offer at The Anchor, Stanwell Moor Village without prior notice at any time.
     
 6.  **General**: This offer is non-transferable, non-exchangeable, and no cash alternative will be offered. The decision of The Anchor in all matters under its control is final and binding.

@@ -19,7 +19,7 @@ import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookin
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { getSundayRoastContent, SUNDAY_ROAST, type SundayRoastContent } from '@/lib/sunday-roast'
+import { getSundayRoastContent, SUNDAY_ROAST } from '@/lib/sunday-roast'
 import { getSundayLunchMenuPageData, type MenuPageItem } from '@/lib/menu-page-data'
 import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
 import { SundayRoastFeature } from '../food-menu/_components/SundayRoastFeature'
@@ -33,10 +33,9 @@ export const revalidate = 60 * 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const menu = await getSundayLunchMenuPageData()
-  const pricePhrase = menu.priceFromLabel ? ` Mains ${menu.priceFromLabel}.` : ''
   const description = menu.menuData
-    ? `Sunday roast near Heathrow, walk in 1pm-6pm, no booking needed.${pricePhrase} The Anchor, Stanwell Moor, 7 minutes from Terminal 5. Free parking, dog-friendly.`
-    : 'Sunday roast near Heathrow, walk in 1pm-6pm at The Anchor, Stanwell Moor. Call us for the current Sunday dish list.'
+    ? 'Proper Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey, pies and a vegan option.'
+    : 'Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.'
 
   const title = 'Sunday Roast Near Heathrow | The Anchor Pub, Stanwell Moor'
 
@@ -59,49 +58,31 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-function joinItemNames(items: MenuPageItem[]): string {
-  if (items.length === 0) return 'the current Sunday roast menu'
-  if (items.length === 1) return items[0].name
-  return `${items.slice(0, -1).map((item) => item.name).join(', ')} and ${items[items.length - 1].name}`
-}
-
-function getSundayLunchFaqs(sunday: SundayRoastContent, currentMains: MenuPageItem[]) {
+function getSundayLunchFaqs() {
   return [
     {
-      question: 'Do I need to book a Sunday roast near me?',
-      answer: 'Walk-ins are welcome during Sunday roast service. Booking is still recommended for larger groups and peak slots.'
+      question: 'Do I need to book a table for Sunday roast?',
+      answer: 'No. Walk in any time between 1pm and 6pm and order at the table. Booking is only recommended for groups of 10 or more, or for busy afternoons.'
     },
     {
-      question: 'Is there a deposit for Sunday roast?',
-      answer: `${sunday.smallPartyCopy} ${sunday.depositCopy}`
+      question: 'What time is Sunday roast served at The Anchor?',
+      answer: 'Every Sunday from 1pm to 6pm. The last tables are seated at 5:30pm.'
     },
     {
-      question: 'What time is Sunday roast served?',
-      answer: 'Sunday roast is served 1pm to 6pm every Sunday. Last table booking is 5:30pm.'
+      question: 'Do you have to pre-order the roast?',
+      answer: 'No. There is no pre-order, no Saturday cut-off and no per-plate prepayment. You choose and order when you arrive.'
     },
     {
-      question: 'What is on the Sunday roast menu?',
-      answer: currentMains.length > 0
-        ? `The current Sunday roast mains are ${joinItemNames(currentMains)}.`
-        : 'Please call us for the current Sunday dish list.'
+      question: 'Is there a vegan Sunday roast?',
+      answer: 'Yes. The Beetroot and Butternut Squash Wellington is fully vegan, served with vegan gravy and the full plate of roast sides.'
     },
     {
-      question: 'Is The Anchor a dog-friendly Sunday roast?',
-      answer: 'Yes. Dogs are welcome inside the pub and in the beer garden. Water bowls are always out.'
+      question: "Where's the best Sunday roast near Heathrow Airport?",
+      answer: 'The Anchor in Stanwell Moor is seven minutes from Terminal 5, with free parking, fresh made-to-order roasts and no booking needed. Rated 4.6 from 238 Google reviews.'
     },
     {
-      question: 'How far is The Anchor from Heathrow?',
-      answer: "We're 7 minutes from Heathrow Terminal 5 by car. Free parking on site, no meters, no time limits while you're dining."
-    },
-    {
-      question: 'Is The Anchor a carvery?',
-      answer: 'No. We serve freshly carved, plated roasts to your table, not a self-service carvery line.'
-    },
-    {
-      question: 'Do you serve a vegan or vegetarian Sunday roast?',
-      answer: currentMains.some((item) => item.vegan || item.vegetarian)
-        ? 'Yes. The current Sunday roast menu includes a vegetarian or vegan option. Ask at the bar for allergen guidance before ordering.'
-        : 'Please call us for the current Sunday roast dietary options.'
+      question: 'Is there parking, and is it free?',
+      answer: 'Yes. 20 free on-site spaces with CCTV, no meters and no time limit while you dine. The pub is also outside the ULEZ zone.'
     }
   ] as const
 }
@@ -138,7 +119,7 @@ function buildMenuJsonLd(menuItems: MenuPageItem[]) {
 export default async function SundayRoastPage() {
   const sunday = getSundayRoastContent()
   const sundayMenu = await getSundayLunchMenuPageData()
-  const faqs = getSundayLunchFaqs(sunday, sundayMenu.mains)
+  const faqs = getSundayLunchFaqs()
   const menuJsonLd = buildMenuJsonLd(sundayMenu.mains)
 
   return (
@@ -161,7 +142,7 @@ export default async function SundayRoastPage() {
         crumb="Sunday Roast"
         kicker="The Anchor, Stanwell Moor"
         title="Sunday Roast Near Heathrow"
-        lead="Sunday roast is served 1pm-6pm. Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5."
+        lead="A proper Sunday roast 7 minutes from Heathrow Terminal 5. Walk in any time from 1pm to 6pm. No booking, no pre-order, just sit down and order at the table."
         actions={
           <>
             <BookTableButton
@@ -202,7 +183,7 @@ export default async function SundayRoastPage() {
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-ink-muted max-w-3xl mx-auto">
-            Sunday roast is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and the current dishes are listed below.
+            The Anchor serves a proper Sunday roast every Sunday from 1pm to 6pm, seven minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
           </p>
           <ul
             aria-label="At a glance"
@@ -229,8 +210,8 @@ export default async function SundayRoastPage() {
       <section className="bg-canvas py-section-y">
         <div className="container">
           <SectionHeading
-            title="Current Sunday Roast Menu"
-            lead={sundayMenu.menuData ? 'Choose from our current Sunday roast menu.' : 'Call us for the current Sunday roast dish list.'}
+            title="The Roast Line-Up"
+            lead={sundayMenu.menuData ? 'Everything is cooked to order, so you get a plate that was put together for you, not held under a lamp. Every roast comes with roast potatoes, seasonal veg and gravy.' : 'Call us for the current Sunday roast dish list.'}
           />
 
           {sundayMenu.menuData ? (
@@ -254,6 +235,11 @@ export default async function SundayRoastPage() {
               </CardBody>
             </Card>
           )}
+          <p className="mt-6 text-center text-sm text-ink-muted">
+            Prices are kept current on our{' '}
+            <Link href="/food-menu" className="font-semibold text-accent-text underline">menu page</Link>
+            {' '}rather than here.
+          </p>
         </div>
       </section>
 
@@ -261,8 +247,30 @@ export default async function SundayRoastPage() {
         <div className="container">
           <div className="mx-auto max-w-3xl">
             <h2 className="mb-4 text-h3 text-ink-strong">
-              How Sundays Work at The Anchor
+              Vegan, and Tell Us About Allergies
             </h2>
+            <p className="mb-4 leading-relaxed text-ink-muted">
+              The Beetroot and Butternut Squash Wellington is fully vegan, made as a vegan dish from the start. It comes with its own vegan gravy and the same generous plate of sides as everything else. So a mixed table, one person eating plant-based and everyone else after beef, works without anyone compromising.
+            </p>
+            <p className="leading-relaxed text-ink-muted">
+              Got an allergy or a dietary need? Let the team know when you sit down and we will talk you through what works. We would rather you ask than guess.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-canvas py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-4 text-h3 text-ink-strong">
+              No Booking, No Pre-Order, No Fuss
+            </h2>
+            <p className="mb-4 leading-relaxed text-ink-muted">
+              Most Sunday roasts near Heathrow want you to commit days ahead: choose your meat by Saturday lunchtime, pay up front, lock in a slot. We used to do that too. Not any more.
+            </p>
+            <p className="mb-6 leading-relaxed text-ink-muted">
+              Since May 2026, the roast is walk-in all the way through. Turn up between 1pm and 6pm (last tables seated at 5:30pm) and we will cook it fresh. No Saturday cut-off, no deposit per plate, no pre-order form. Changed your mind about pork on the drive over? Order beef instead. Booking is still a good idea for bigger tables or a busy afternoon, but for two or four people it is genuinely never required.
+            </p>
             <SundayLunchHowItWorks />
             <ul className="mt-6 space-y-2 text-base text-ink-muted">
               <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm.</li>
@@ -294,7 +302,7 @@ export default async function SundayRoastPage() {
       </section>
 
       <SectionViewTracker sectionId="carvery_comparison">
-        <section className="bg-canvas py-section-y">
+        <section className="bg-surface py-section-y">
           <div className="container">
             <div className="mx-auto max-w-4xl">
               <h2 className="mb-4 text-h3 text-ink-strong">
@@ -349,17 +357,20 @@ export default async function SundayRoastPage() {
         </section>
       </SectionViewTracker>
 
-      <section className="bg-surface py-section-y">
+      <section className="bg-canvas py-section-y">
         <div className="container">
           <SectionHeading
-            title="Why Locals Choose Sunday Roast Here"
-            lead="Free parking, easy booking and a village pub setting minutes from Heathrow."
+            title="Finding Us, Parking and the Drive from Heathrow"
+            lead="The Anchor is in Stanwell Moor, on the Surrey and Middlesex edge, close to Staines and a short hop from the airport."
           />
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              ['Easy to reach', '7 minutes from Heathrow Terminal 5 by car, outside the terminal rush.'],
-              ['Good for groups', 'Book online for standard tables or call us for larger parties.'],
-              ['Dog friendly', 'Dogs are welcome inside and in the beer garden.']
+              ['7 minutes from Terminal 5', 'A short drive from Heathrow Terminal 5 by car, and easy to reach from the other terminals.'],
+              ['Free on-site parking', '20 spaces with CCTV, no meters and no time limit while you are dining.'],
+              ['Outside the ULEZ zone', 'No daily charge to drive in and park up for your roast.'],
+              ['Step-free access', 'Step-free from the car park through to the bar and dining area.'],
+              ['Dog friendly', 'The dog comes too, inside the pub and in the beer garden.'],
+              ['Good for a stop', 'Easy for travellers, locals around Staines and Stanwell Moor, or anyone on the way back from the airport.']
             ].map(([title, body]) => (
               <Card key={title} accent>
                 <CardBody>
@@ -368,6 +379,43 @@ export default async function SundayRoastPage() {
                 </CardBody>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-4 text-h3 text-ink-strong">
+              Big Tables, Groups and Booking
+            </h2>
+            <p className="mb-4 leading-relaxed text-ink-muted">
+              Coming as a group? For {SUNDAY_ROAST.largePartyThreshold} or more we take a {SUNDAY_ROAST.largePartyDepositLabel} deposit that comes straight off your final bill, so it is not an extra cost, just a way to hold the table. Smaller groups can book if you would like the certainty, or simply walk in.
+            </p>
+            <p className="mb-6 leading-relaxed text-ink-muted">
+              Booking is recommended for peak times and larger parties. Everyone else: the door is open from 1pm.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <BookTableButton
+                source="sunday_roast_groups"
+                context="sunday_roast"
+                variant="primary"
+                size="lg"
+                customHref={SUNDAY_LUNCH_BOOKING_URL}
+                trackingLabel="Book a Sunday roast"
+                eventName="Sunday roast"
+              >
+                Book a Table
+              </BookTableButton>
+              <PhoneButton
+                phone="01753 682707"
+                source="sunday_roast_groups"
+                variant="outline"
+                size="lg"
+              >
+                01753 682707
+              </PhoneButton>
+            </div>
           </div>
         </div>
       </section>
@@ -404,6 +452,19 @@ export default async function SundayRoastPage() {
                 </div>
               </li>
             </ol>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface py-section-y">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-3 text-h3 text-ink-strong">
+              Rated 4.6 by 238 Diners
+            </h2>
+            <p className="leading-relaxed text-ink-muted">
+              We are rated 4.6 out of 5 across 238 Google reviews, which for a village pub doing fresh, made-to-order roasts is something we are quietly proud of. Come and see what the fuss is about.
+            </p>
           </div>
         </div>
       </section>

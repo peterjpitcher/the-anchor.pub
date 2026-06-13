@@ -54,7 +54,7 @@ At The Anchor, we've perfected the art of the **cosy pub near Heathrow Airport**
 
 **Traditional Pub Features:**
 - **Warm, inviting atmosphere** with comfortable seating
-- **Real ales and local beers** on tap
+- **Bottled beers and draught lagers**
 - **Classic pub food** made with quality ingredients
 - **Friendly local staff** who know your name
 - **Historic charm** with modern amenities

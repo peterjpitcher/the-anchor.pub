@@ -13,9 +13,9 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 const NYE_BOOKING_URL = '/book-table?purpose=drinks'
 
-const PAGE_TITLE = "New Year's Eve Pub Near Heathrow"
+const PAGE_TITLE = "New Year's Eve Near Heathrow | The Anchor"
 const PAGE_DESCRIPTION =
-  "Ring in 2027 at The Anchor near Heathrow. New Year's Eve party with live entertainment, midnight countdown, and free parking. Book your spot."
+  "See in the New Year at The Anchor near Heathrow. A proper village pub with a full bar, food earlier in the evening and free parking. Book a table or walk in."
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -40,24 +40,24 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
   const faqs = [
     {
-      question: "What time does the New Year's Eve party start?",
+      question: "What's happening at The Anchor on New Year's Eve?",
       answer:
-        "We're open from our regular hours and the party atmosphere builds through the evening. Entertainment typically kicks off mid-evening, with the countdown to midnight as the main event. Check our What's On page closer to the date for confirmed timings.",
+        "We're open for New Year's Eve with the full bar and a warm welcome. For confirmed timings and anything we have planned, check our What's On page closer to the date.",
     },
     {
       question: 'Is there a ticket or entry fee?',
       answer:
-        "In previous years, entry has been free with no tickets required. We'll confirm details for this year's event on our What's On page. Booking a table is recommended to guarantee your spot.",
+        "We'll confirm any details for this year's evening on our What's On page closer to the date. Booking a table is recommended to guarantee your spot.",
     },
     {
       question: 'What time does the pub close on New Year&apos;s Eve?',
       answer:
-        "We typically have a late licence for New Year's Eve, staying open until at least 1am. The exact closing time will be confirmed closer to the date.",
+        "Closing time on New Year's Eve will be confirmed closer to the date. Check our What's On page or call us for the latest.",
     },
     {
       question: "Is food available on New Year's Eve?",
       answer:
-        "We usually serve food earlier in the evening. Check our What's On page or call us closer to the date for confirmed kitchen times and any special menus.",
+        "We usually serve food earlier in the evening. Check our What's On page or call us closer to the date for confirmed kitchen times.",
     },
     {
       question: 'Is there parking?',
@@ -73,8 +73,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="New Year's Eve"
         kicker="31 December"
-        title="New Year's Eve Pub in Stanwell Moor"
-        lead="See in the New Year at a proper village pub. Midnight countdown, live entertainment, and none of the London prices or transport chaos. Midnight countdown · Live entertainment · Free parking · No surge pricing"
+        title="New Year's Eve at The Anchor, Stanwell Moor"
+        lead="See in the New Year at a proper village pub, without the London prices or the transport chaos. Full bar, food earlier in the evening, and free parking right outside. Book a table or walk in."
       />
 
       {/* See in the New Year */}
@@ -86,19 +86,19 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               Forget the overpriced city centre bars and the nightmare of getting home afterwards. New Year&apos;s Eve
-              at The Anchor is a proper celebration in a proper village pub, midnight countdown, party atmosphere,
-              and you can actually get served at the bar.
+              at The Anchor is a proper village pub welcome, where you can actually get served at the bar and
+              settle in with people who want to be there.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              We put on live entertainment every New Year&apos;s Eve, keep the drinks flowing, and make sure
-              everyone has a brilliant night. The atmosphere is always spot on, lively enough to feel like a
-              real party, small enough that you&apos;re not queuing for everything.
+              It&apos;s lively enough to feel like a real night out, small enough that you&apos;re not queuing for
+              everything. For anything we have planned this year, keep an eye on our What&apos;s On page closer
+              to the date.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="success">Midnight countdown</Badge>
-              <Badge variant="green">Live entertainment</Badge>
-              <Badge variant="green">Late licence</Badge>
-              <Badge variant="green">Party atmosphere</Badge>
+              <Badge variant="green">Full bar</Badge>
+              <Badge variant="green">Free parking</Badge>
+              <Badge variant="green">Village pub atmosphere</Badge>
+              <Badge variant="green">Dog friendly (early evening)</Badge>
             </div>
           </div>
         </Container>
@@ -130,8 +130,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 <CardBody className="space-y-2">
                   <h3 className="text-lg font-semibold text-ink-strong">Actually get a drink</h3>
                   <p className="text-sm text-ink-muted">
-                    Unlike packed city bars, you can actually get to our bar. Craft beer, cocktails, champagne for
-                    the midnight toast, all without the 20-minute queue.
+                    Unlike packed city bars, you can actually get to our bar. Draught lagers, bottled beers,
+                    wines, spirits and cocktails, all without the 20-minute queue.
                   </p>
                 </CardBody>
               </Card>
@@ -166,13 +166,13 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Food &amp; drink
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              We typically serve food earlier in the evening on New Year&apos;s Eve, a chance to eat well
-              before the party gets going. Whether it&apos;s from our regular menu or a special NYE menu,
-              you&apos;ll want to book your table if you&apos;re planning to dine.
+              We usually serve food earlier in the evening on New Year&apos;s Eve, a chance to eat well
+              before the night gets going. Book your table if you&apos;re planning to dine. Kitchen times
+              are confirmed closer to the date.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              At midnight, expect a champagne toast to see in the New Year. Throughout the evening we&apos;ll
-              have our full range of craft beer, wines, spirits and cocktails.
+              Throughout the evening we&apos;ll have our full range of draught lagers, bottled beers, wines,
+              spirits and cocktails.
             </p>
             <Card accent className="mt-6">
               <CardBody>
@@ -215,9 +215,9 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Practical details
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              We typically have a late licence on New Year&apos;s Eve, staying open until at least 1am so you
-              can properly see in the New Year. Walk-ins are possible, but booking is strongly recommended,
-              it gets busy, and a reserved table means you&apos;re guaranteed your spot.
+              Opening and closing times for New Year&apos;s Eve are confirmed closer to the date, so check
+              our What&apos;s On page or call us for the latest. Walk-ins are welcome, but booking is strongly
+              recommended, it gets busy, and a reserved table means you&apos;re guaranteed your spot.
             </p>
             <Card accent>
               <CardBody>
@@ -227,15 +227,15 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Late licence, typically open until at least 1am</span>
+                    <span>Opening hours confirmed closer to the date</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Midnight countdown and champagne toast</span>
+                    <span>Full bar all evening</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Live entertainment (confirmed closer to the date)</span>
+                    <span>Food served earlier in the evening</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
@@ -295,7 +295,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
       {/* Booking CTA */}
       <CtaBand
         title="Book your New Year's Eve"
-        copy="New Year's Eve always fills up. Book your table now to guarantee your spot for the countdown. Large groups (8+), give us a call so we can sort the right space."
+        copy="New Year's Eve always fills up. Book your table now to guarantee your spot. Large groups (8+), give us a call so we can sort the right space."
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={NYE_BOOKING_URL}>Book Your Spot Online</a>

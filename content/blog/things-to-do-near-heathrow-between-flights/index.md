@@ -42,7 +42,7 @@ For most Heathrow layover travellers, this is the single best use of time.
 
 - A genuine British pub experience (not a chain, not an airport restaurant)
 - Home-cooked food including fish & chips, Sunday roasts (weekends), burgers, and daily specials
-- Real ales and proper draught beer
+- Bottled beers and proper draught lagers
 - A large beer garden for sunny days
 - Free parking if you've picked up a rental car
 

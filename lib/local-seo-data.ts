@@ -63,22 +63,22 @@ export const landmarks: Landmark[] = [
         description: 'A short drive from Egham, offering a relaxed and welcoming atmosphere for church events and family celebrations.'
     },
 
-    // Registry Offices & Wedding Venues
+    // Registry Offices
     {
         slug: 'staines-registration-office',
         name: 'Staines Registration Office',
         type: 'registry_office',
         address: 'The Library, Friends Walk, Staines TW18 4PG',
         distance: '9 mins drive',
-        description: 'Avoid the town centre parking hassle. Come to The Anchor after your registry office ceremony for a relaxed wedding lunch or dinner with free parking for all guests.'
+        description: 'Avoid the town centre parking hassle. Come to The Anchor after your ceremony for a relaxed family meal with free parking for all guests.'
     },
     {
         slug: 'great-fosters-egham',
         name: 'Great Fosters',
-        type: 'registry_office', // Using generic type for wedding venue ecosystem
+        type: 'registry_office', // Using generic type for nearby ceremony venues
         address: 'Stroude Road, Egham TW20 9UR',
         distance: '12 mins drive',
-        description: 'Planning a wedding at Great Fosters? We are the ideal location for your rehearsal dinner, pre-wedding family meal, or day-after brunch.'
+        description: 'Close to Great Fosters and ideal for a relaxed family meal or a day-after brunch with free parking for all guests.'
     },
 
     // Hospitals
@@ -134,7 +134,7 @@ export const landmarks: Landmark[] = [
         type: 'registry_office',
         address: 'Knowle Green, Staines TW18 1XB',
         distance: '9 mins drive',
-        description: 'Just 9 minutes from Spelthorne Registration Office, The Anchor is perfectly placed for wedding breakfasts, naming ceremonies, and post-registration celebrations.'
+        description: 'Just 9 minutes from Spelthorne Registration Office, The Anchor is perfectly placed for naming ceremonies, family meals, and post-registration celebrations.'
     },
 
     // Airports

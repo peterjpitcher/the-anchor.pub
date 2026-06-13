@@ -113,7 +113,7 @@ At The Anchor **near Heathrow Airport**, we celebrate our diverse community with
 ## **Join Our Annual Diwali Celebrations Near Heathrow**
 
 ### Event Details:
-🎪 **Venue**: Stanwell Moor Village Hall & The Anchor Pub
+🎪 **Venue**: Stanwell Moor Village Hall & The Anchor
 📅 **When**: October/November annually (check for dates)
 📍 **Location**: Horton Road, Stanwell Moor, TW19 6AQ
 ✈️ **From Heathrow**: Just 7 minutes from all terminals

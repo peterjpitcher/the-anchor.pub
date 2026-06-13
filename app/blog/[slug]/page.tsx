@@ -15,6 +15,8 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
+import { VisitPlannerPanel } from '@/components/conversion/VisitPlannerPanel'
+import { shouldShowVisitPlannerPanel } from '@/components/conversion/visit-planner-config'
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
 
 export const revalidate = 3600
@@ -231,6 +233,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   const showHeathrowCta = shouldShowHeathrowBookingCta(post.slug, post.tags)
   const organicSearchCluster = getBlogOrganicSearchCluster(post.slug, post.tags)
+  // WP5: additive inline "plan your visit" conversion panel for high-intent
+  // plane-spotting / Heathrow-travel posts. Allow-list lives in
+  // components/conversion/visit-planner-config.ts (slug list or `visitPlanner`
+  // frontmatter flag). Read the frontmatter flag leniently so it does not
+  // require a BlogPost type change to opt a post in.
+  const visitPlannerFrontmatterFlag = (post as { visitPlanner?: unknown }).visitPlanner
+  const showVisitPlannerPanel = shouldShowVisitPlannerPanel(post.slug, visitPlannerFrontmatterFlag)
+  const isPlaneSpottingPost = organicSearchCluster === 'planeSpotting'
 
   // BlogPosting structured data for better SEO
   const blogPostingSchema = {
@@ -404,6 +414,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         </Container>
       </article>
+
+      {/* WP5: Inline "plan your visit" conversion panel (additive, allow-listed) */}
+      {showVisitPlannerPanel && (
+        <VisitPlannerPanel
+          source="blog_visit_planner_panel"
+          showScheduleNote={isPlaneSpottingPost}
+        />
+      )}
 
       {/* Heathrow / Plane-Spotting Booking CTA, only shown for relevant posts */}
       {showHeathrowCta && (

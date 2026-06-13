@@ -43,7 +43,7 @@ These are representative main course prices from mid-to-upscale Heathrow hotels.
 
 A typical two-course dinner with a drink comes to £50–70 per person.
 
-### The Anchor Pub Prices (7–15 Minutes from Heathrow Hotels)
+### The Anchor Prices (7–15 Minutes from Heathrow Hotels)
 
 | Dish | Price at The Anchor |
 |------|-------------------|
@@ -51,7 +51,7 @@ A typical two-course dinner with a drink comes to £50–70 per person.
 | Fish & chips | £13.99 |
 | Sunday Roast (weekends) | from £16 |
 | Stone-baked pizza | from £13.99 |
-| Real ale (pint) | from £4.80 |
+| Bottled ale (pint) | from £4.80 |
 | House wine (glass) | from £5.50 |
 
 A typical two-course dinner with a drink: **£25–35 per person**.

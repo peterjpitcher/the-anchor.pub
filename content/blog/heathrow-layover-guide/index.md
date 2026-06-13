@@ -38,7 +38,7 @@ A few bits of planning will save you stress on the return.
 
 Terminal dining is expensive, uninspiring, and oddly stressful. A proper pub meal seven minutes from the airport is none of those things.
 
-[The Anchor](https://www.the-anchor.pub) in Stanwell Moor sits just off the A3044, roughly seven minutes from Terminal 5 by taxi. The fare is usually £12-15 each way. It's a proper village pub, real ales, a solid food menu with mains from around £10, and a beer garden that happens to sit directly under the Heathrow flight path.
+[The Anchor](https://www.the-anchor.pub) in Stanwell Moor sits just off the A3044, roughly seven minutes from Terminal 5 by taxi. The fare is usually £12-15 each way. It's a proper village pub, bottled beers and draught lagers, a solid food menu with mains from around £10, and a beer garden that happens to sit directly under the Heathrow flight path.
 
 Order a roast on Sunday, a burger on a Wednesday, or whatever the daily specials board offers. The point is: you're eating real food, at normal prices, in an actual pub. Compare that to paying £25 for a terminal burger and a flat lemonade.
 

@@ -77,7 +77,7 @@ For the majority of events we see enquiries about -- birthday parties, wakes, ch
 
 **Budget matters.** A 50-person evening buffet at The Anchor typically comes in at £750--1,000 total, including food and a good chunk of the drinks. The same event at a Heathrow hotel would run £2,500--4,000 before you factor in parking.
 
-**You want a relaxed atmosphere.** Hotel function rooms can feel sterile -- beige walls, strip lighting, identical to every other conference room in the country. A pub has character. Log fires, real ales, a garden if the weather's kind. People relax in pubs in a way they don't in hotel meeting rooms.
+**You want a relaxed atmosphere.** Hotel function rooms can feel sterile -- beige walls, strip lighting, identical to every other conference room in the country. A pub has character. Log fires, bottled beers, a garden if the weather's kind. People relax in pubs in a way they don't in hotel meeting rooms.
 
 **Your guest numbers are flexible.** Hotels often require confirmed numbers weeks in advance and charge for no-shows. Pubs are generally more accommodating if your headcount shifts. We don't charge for empty chairs.
 
