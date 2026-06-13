@@ -85,7 +85,7 @@ export const localBusinessSchema = {
     },
     {
       "@type": "LocationFeatureSpecification", 
-      "name": "Wheelchair Accessible",
+      "name": "Step-free access",
       "value": true
     },
     {
@@ -369,7 +369,7 @@ export const parkingFacilitySchema = {
   "amenityFeature": [
     {
       "@type": "LocationFeatureSpecification",
-      "name": "Wheelchair Accessible Spaces",
+      "name": "Step-free access",
       "value": true
     },
     {

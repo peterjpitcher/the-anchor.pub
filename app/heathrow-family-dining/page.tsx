@@ -64,7 +64,7 @@ export default function FamilyDiningPage() {
                         { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
-                        { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true }
+                        { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true }
                     ],
                     "servesCuisine": ["British", "Pub Food", "Pizza"],
                     "acceptsReservations": true,

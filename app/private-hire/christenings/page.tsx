@@ -58,7 +58,7 @@ export default function ChristeningsPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },

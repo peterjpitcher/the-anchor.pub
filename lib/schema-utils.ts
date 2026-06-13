@@ -225,14 +225,8 @@ export function generateServiceArea() {
 // Generate aggregate rating from actual review data
 export function generateAggregateRating(reviews?: Array<{ rating: number }>) {
   if (!reviews || reviews.length === 0) {
-    // Return placeholder until we have real data
-    return {
-      "@type": "AggregateRating",
-      "ratingValue": "4.6",
-      "reviewCount": "238",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
+    // No self-serving or hardcoded ratings. Only emit AggregateRating from real review data.
+    return undefined
   }
   
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0)
