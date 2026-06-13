@@ -16,11 +16,6 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
     description: 'Sunday roast and family tables for Mothering Sunday.',
   },
   {
-    label: "St Patrick's Day",
-    href: '/st-patricks-day',
-    description: 'Irish drinks, pub atmosphere and seasonal celebrations.',
-  },
-  {
     label: 'Easter',
     href: '/easter',
     description: 'Easter meals, family visits and long-weekend bookings.',
@@ -36,29 +31,14 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
     description: 'Beer garden gatherings and private summer events.',
   },
   {
-    label: 'Bank Holiday Weekends',
-    href: '/bank-holiday-weekends',
-    description: 'Food, drinks and local plans for long weekends.',
-  },
-  {
     label: 'Halloween',
     href: '/halloween',
     description: 'Spooky pub nights, costumes and seasonal parties.',
   },
   {
-    label: 'Bonfire Night',
-    href: '/bonfire-night',
-    description: 'November gatherings, food and drinks before or after displays.',
-  },
-  {
     label: 'Christmas Parties',
     href: '/christmas-parties',
     description: 'Festive lunches, work parties and private Christmas events.',
-  },
-  {
-    label: 'Boxing Day',
-    href: '/boxing-day',
-    description: 'Post-Christmas food, drinks and family pub visits.',
   },
   {
     label: "New Year's Eve",

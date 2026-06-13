@@ -1,5 +1,30 @@
 [
   {
+    "source": "/downloads/the-anchor-menu-march-2026.pdf",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
+    "source": "/bonfire-night",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/boxing-day",
+    "destination": "/sunday-roast",
+    "permanent": true
+  },
+  {
+    "source": "/st-patricks-day",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/bank-holiday-weekends",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/private-hire/near",
     "destination": "/private-hire",
     "permanent": true

@@ -3,9 +3,7 @@ import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
-import tagRedirects from '@/config/redirects/tag-redirects.json'
 import { PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
-import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
 import { isRetiredEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
@@ -112,6 +110,11 @@ const DATES = {
   may2026Late: new Date('2026-05-21'), // History page
 } as const
 
+// Pages we want Google to recrawl promptly report a rolling lastModified
+// anchored to the most recent sitemap regeneration (revalidated hourly). Using
+// a frozen constant told crawlers nothing had changed and slowed re-indexing.
+const RECENTLY_UPDATED = new Date()
+
 type StaticRoute = { path: string; lastModified: Date }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -135,15 +138,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/food-menu/gluten-free', lastModified: DATES.seoOverhaul },
     { path: '/mothers-day', lastModified: DATES.seoOverhaul },
     { path: '/valentines-day', lastModified: DATES.seoOverhaul },
-    { path: '/st-patricks-day', lastModified: DATES.seoOverhaul },
     { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
     { path: '/easter', lastModified: DATES.seoOverhaul },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
     { path: '/halloween', lastModified: DATES.seoOverhaul },
-    { path: '/boxing-day', lastModified: DATES.seoOverhaul },
-    { path: '/bonfire-night', lastModified: DATES.seoOverhaul },
-    { path: '/bank-holiday-weekends', lastModified: DATES.seoOverhaul },
-    { path: '/sunday-roast', lastModified: DATES.apr2026 },
+    // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends
+    // are now 301-redirected (see config/redirects/additional-redirects.json)
+    // and their route dirs deleted, so they are intentionally omitted here.
+    { path: '/sunday-roast', lastModified: RECENTLY_UPDATED },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
@@ -260,12 +262,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
   const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
 
-  // Get all unique tags
-  const allTags = new Set<string>()
-  indexableBlogPosts.forEach(post => {
-    post.tags.forEach(tag => allTags.add(tag))
-  })
-
   // Map static routes
   const staticSitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route.path}`,
@@ -281,21 +277,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   })
 
-  // Build set of tag slugs that are redirect sources (to exclude from sitemap)
-  const redirectSourceTags = new Set(
-    tagRedirects
-      .filter((r) => r.source.startsWith('/blog/tag/'))
-      .map((r) => r.source.replace('/blog/tag/', ''))
-  )
-
-  // Map tag pages, exclude redirect sources and broad archive tags that are
-  // intentionally noindexed in favour of stronger topical landing pages.
-  const tagSitemap = Array.from(allTags)
-    .filter((tag) => !redirectSourceTags.has(tag) && !isNoindexBlogTag(tag))
-    .map((tag) => ({
-      url: `${baseUrl}/blog/tag/${tag}`,
-      lastModified: DATES.apr2026,
-    }))
+  // Blog tag archive pages are now uniformly noindex (see
+  // app/blog/tag/[tag]/page.tsx) because they are low-value crawl noise that
+  // surfaced in the crawled-not-indexed / 404 / redirect-error GSC buckets.
+  // A noindex page must never appear in the sitemap, so none are emitted.
 
   const landmarkSitemap = landmarks.map((landmark) => ({
     url: `${baseUrl}/private-hire/near/${landmark.slug}`,
@@ -325,5 +310,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
     }))
 
-  return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap, ...eventSitemap]
+  return [...staticSitemap, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
 }

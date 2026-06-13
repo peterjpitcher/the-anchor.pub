@@ -10,7 +10,7 @@ import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
-import { isNoindexBlogTag, normalizeBlogTag } from '@/lib/blog-tag-policy'
+import { normalizeBlogTag } from '@/lib/blog-tag-policy'
 
 export const revalidate = 3600
 
@@ -59,7 +59,10 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       description: seoContent.metaDescription,
       images: [BLOG_FALLBACK_IMAGE]
     }),
-    ...(isNoindexBlogTag(tag) ? { robots: { index: false, follow: true } } : {}),
+    // All blog tag archive pages are low-value crawl noise (they surface in the
+    // crawled-not-indexed, 404 and redirect-error GSC buckets). Keep them out of
+    // the index but followable so link equity still flows to the posts.
+    robots: { index: false, follow: true },
   }
 }
 

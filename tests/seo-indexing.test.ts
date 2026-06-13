@@ -184,20 +184,30 @@ describe('robots.txt', () => {
     expect(offending).toEqual([])
   })
 
-  it('keeps the AI-scraper opt-out in version control (was Cloudflare-managed)', () => {
-    // Cloudflare's managed robots.txt previously injected these Disallow groups.
-    // With that feature disabled, the opt-out must live in app/robots.ts so it
-    // is not silently lost from production.
+  it('allows AI crawlers (no per-bot disallow group)', () => {
+    // The previous policy blocked AI scraper / model-training crawlers via a
+    // dedicated rule group. That opt-out has been removed so AI crawlers can
+    // index the site (LLM/AEO visibility). Guards against re-introducing a
+    // blanket disallow for any of these user agents.
     const groups = Array.isArray(result.rules) ? result.rules : [result.rules]
-    const aiGroup = groups.find((g) => {
+    const aiBots = [
+      'Amazonbot',
+      'Applebot-Extended',
+      'Bytespider',
+      'CCBot',
+      'ClaudeBot',
+      'CloudflareBrowserRenderingCrawler',
+      'Google-Extended',
+      'GPTBot',
+      'meta-externalagent',
+    ]
+    const blockedAiGroup = groups.find((g) => {
       const ua = Array.isArray(g.userAgent) ? g.userAgent : g.userAgent ? [g.userAgent] : []
-      return ua.includes('GPTBot')
+      if (!ua.some((agent) => aiBots.includes(agent))) return false
+      const dis = Array.isArray(g.disallow) ? g.disallow : g.disallow ? [g.disallow] : []
+      return dis.includes('/')
     })
-    expect(aiGroup).toBeDefined()
-    const ua = Array.isArray(aiGroup!.userAgent) ? aiGroup!.userAgent : [aiGroup!.userAgent!]
-    expect(ua).toEqual(expect.arrayContaining(['GPTBot', 'CCBot', 'ClaudeBot', 'Google-Extended', 'Bytespider']))
-    const dis = Array.isArray(aiGroup!.disallow) ? aiGroup!.disallow : [aiGroup!.disallow!]
-    expect(dis).toContain('/')
+    expect(blockedAiGroup).toBeUndefined()
   })
 })
 
@@ -392,15 +402,13 @@ describe('sitemap-vs-redirects', () => {
 })
 
 describe('orphan-page internal linking guards', () => {
+  // Bonfire Night, Boxing Day, St Patrick's and Bank Holidays were 301'd to
+  // evergreen parents (June 2026 SEO cleanup) and removed from the link set.
   const previouslyOrphanedSeasonalPaths = [
-    '/bank-holiday-weekends',
-    '/bonfire-night',
-    '/boxing-day',
     '/easter',
     '/fathers-day',
     '/halloween',
     '/new-years-eve',
-    '/st-patricks-day',
   ]
 
   const previouslyOrphanedTrustPaths = [
