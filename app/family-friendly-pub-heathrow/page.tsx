@@ -64,7 +64,6 @@ export default function FamilyFriendlyPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
                                 { title: 'Kids Menu', description: 'Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.' },
-                                { title: 'Colouring Books & Crayons', description: 'Communal colouring books and crayons available to keep boredom at bay while you wait for food.' },
                                 { title: 'High Chairs', description: 'Sturdy high chairs available for our smallest guests. Just request one when booking.' }
                             ].map(feature => (
                                 <Card key={feature.title} accent hover>

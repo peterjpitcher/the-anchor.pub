@@ -64,7 +64,7 @@ Baby showers tend to be afternoon affairs, smaller groups, lighter food, and (of
 
 **What to prioritise:** A private or semi-private space where your group won't be drowned out by the Saturday football crowd. Somewhere child-friendly if older siblings are coming along. And flexible timing, baby showers don't follow pub hours.
 
-Our dining room works brilliantly for [baby showers](/private-hire/baby-showers). It's fully private with its own entrance area. We have high chairs, bottle warming on request, and activity packs for older children. The beer garden is right through the French doors if the weather plays along.
+Our dining room works brilliantly for [baby showers](/private-hire/baby-showers). It's fully private with its own entrance area. We have high chairs and bottle warming on request. The beer garden is right through the French doors if the weather plays along.
 
 ### Christenings
 

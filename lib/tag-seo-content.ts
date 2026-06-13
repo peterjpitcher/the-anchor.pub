@@ -301,7 +301,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Family Friendly Pub Stanwell Moor | Kids Welcome at The Anchor',
     metaDescription: 'Family pub in Stanwell Moor. Kids menu, high chairs, family events & spacious beer garden. Perfect for family dining near Heathrow Airport.',
     heroContent: 'The Anchor welcomes families with open arms. From our dedicated kids menu to family events, we\'re Stanwell Moor\'s favourite family-friendly pub.',
-    introContent: 'We believe pubs should be places where families create memories together. The Anchor offers everything you need for a stress-free family meal - a dedicated children\'s menu with healthy options, high chairs and booster seats, colouring activities to keep little ones entertained, and a spacious beer garden perfect for summer days. Our staff are experienced in making families feel welcome and comfortable.',
+    introContent: 'We believe pubs should be places where families create memories together. The Anchor offers everything you need for a stress-free family meal - a dedicated children\'s menu with healthy options, high chairs and booster seats, and a spacious beer garden perfect for summer days. Our staff are experienced in making families feel welcome and comfortable.',
     valueProposition: 'Make The Anchor your family\'s regular dining spot. With something for everyone, fair prices, and a warm welcome, we\'re the perfect choice for family gatherings in Stanwell Moor.',
     keywords: ['family friendly pub stanwell moor', 'kids menu heathrow', 'family dining surrey', 'children welcome TW19', 'family pub stanwell moor']
   },
@@ -566,7 +566,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Family Dining Stanwell Moor | Family Restaurant at The Anchor',
     metaDescription: 'Family-friendly dining at The Anchor Stanwell Moor. Kids menu, high chairs, family meals & Sunday roast. Perfect for families near Heathrow.',
     heroContent: 'The Anchor welcomes families with dedicated menus, comfortable spaces, and warm hospitality that makes dining out with children a pleasure.',
-    introContent: 'Family dining at The Anchor is designed to be stress-free and enjoyable for all ages. Our children\'s menu offers healthy, tasty options alongside kid favourites, all at family-friendly prices. High chairs, colouring materials, and patient staff ensure parents can relax while children are entertained. Our spacious layout provides room for pushchairs, and our beer garden offers safe outdoor space for little ones to explore.',
+    introContent: 'Family dining at The Anchor is designed to be stress-free and enjoyable for all ages. Our children\'s menu offers healthy, tasty options alongside kid favourites, all at family-friendly prices. High chairs and patient staff ensure parents can relax while children are entertained. Our spacious layout provides room for pushchairs, and our beer garden offers safe outdoor space for little ones to explore.',
     valueProposition: 'Make The Anchor your family\'s regular dining destination. With something for everyone and a genuine welcome for children, we\'re where family memories are made.',
     keywords: ['family dining stanwell moor', 'kids restaurant heathrow', 'family meals surrey', 'children dining TW19', 'family restaurant stanwell moor']
   },

@@ -136,10 +136,6 @@ export default function FamilyDiningPage() {
                                     <p className="font-semibold text-ink-strong">Kid-Friendly Drinks</p>
                                     <p className="text-sm text-ink-muted">Fruit shoots, juices, and milk available.</p>
                                 </div>
-                                <div>
-                                    <p className="font-semibold text-ink-strong">Activity Possible</p>
-                                    <p className="text-sm text-ink-muted">Feel free (and encouraged!) to bring colouring pads.</p>
-                                </div>
                             </div>
                         </CardBody>
                     </Card>

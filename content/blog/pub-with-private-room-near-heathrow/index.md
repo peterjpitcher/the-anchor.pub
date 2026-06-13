@@ -184,7 +184,7 @@ We're obviously biased, but here's what we offer and you can judge for yourself.
 
 **Dog friendly.** If your event includes four-legged guests (and more events do than you'd think), dogs are welcome throughout the venue. Water bowls and treats provided. Dogs must be on leads.
 
-**Family friendly.** High chairs available, communal colouring books and crayons for children, and no age restrictions. Breastfeeding welcome. Bottle warming on request.
+**Family friendly.** High chairs available and no age restrictions. Breastfeeding welcome. Bottle warming on request.
 
 **Location.** Horton Road, Stanwell Moor, Surrey, TW19 6AQ. Two minutes from Junction 14 of the M25. Seven to twelve minutes from all Heathrow terminals. Outside the ULEZ zone (saving visitors £12.50 per day). Bus routes 441, 442, and 555 run from Heathrow Central Bus Station.
 

@@ -186,7 +186,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: "Is there a children's menu?",
-      answer: 'We have smaller portions, high chairs, and colouring packs on request.'
+      answer: 'We have smaller portions and high chairs on request.'
     },
     {
       question: 'Do you serve fish and chips?',

@@ -249,7 +249,7 @@ Absolutely. Most pub venues, including The Anchor, are happy for you to bring a 
 
 **Is The Anchor family-friendly for a 40th with children?**
 
-Yes. The Anchor is completely family-friendly with no age cut-off. High chairs are available, bottle warming is provided on request, and there are communal colouring books and crayons for younger guests. Buggy space is available. The beer garden gives children room to move around while adults eat and drink. Kids eat from £8 per head from the children's menu.
+Yes. The Anchor is completely family-friendly with no age cut-off. High chairs are available, and bottle warming is provided on request. Buggy space is available. The beer garden gives children room to move around while adults eat and drink. Kids eat from £8 per head from the children's menu.
 
 **Can I bring my dog to a 40th birthday party at a pub?**
 

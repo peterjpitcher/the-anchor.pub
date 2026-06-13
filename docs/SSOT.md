@@ -251,7 +251,6 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Bottle warming: on request.
 - Buggy space: yes.
 - Breastfeeding: welcome.
-- Activity packs: communal colouring books and crayons.
 - Children: welcome at all hours, no age cut-off.
 
 ### Dog policy

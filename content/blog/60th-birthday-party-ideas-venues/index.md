@@ -98,7 +98,7 @@ A 60th birthday party typically brings together the widest age range of any mile
 The Anchor is completely family-friendly with no age cut-off. That means:
 
 - **Babies and toddlers:** High chairs available, bottle warming on request, buggy space
-- **Young children:** Communal colouring books and crayons, kids menu from £8, unlimited squash at £3.50 per head
+- **Young children:** Kids menu from £8, unlimited squash at £3.50 per head
 - **Teenagers:** Full regular menu available, free WiFi, beer garden space
 - **Older guests:** Comfortable seating in the dining room, step-free access, quieter atmosphere than a busy town-centre pub
 - **Dogs:** Welcome throughout the entire venue, on a lead, with water bowls and treats provided
@@ -222,7 +222,7 @@ The bar, dining area, and car park all have step-free access. The beer garden ha
 
 **Can children attend a 60th birthday party at The Anchor?**
 
-Yes, The Anchor is completely family-friendly with no age cut-off. High chairs, bottle warming on request, kids menu from £8, unlimited squash at £3.50 per head, and communal colouring books and crayons. Breastfeeding is welcome throughout. There is no baby changing facility.
+Yes, The Anchor is completely family-friendly with no age cut-off. High chairs, bottle warming on request, kids menu from £8, and unlimited squash at £3.50 per head. Breastfeeding is welcome throughout. There is no baby changing facility.
 
 **Can I arrange a surprise 60th birthday party?**
 

@@ -69,8 +69,6 @@ Or skip favours entirely. Nobody judges a christening by the party bag.
 
 Christening receptions aren't raves. But a few thoughtful touches keep guests (especially older children) engaged during the afternoon.
 
-**Colouring and activity corner.** Crayons, colouring sheets, sticker books, and some play-dough on a small table. Keeps children aged 2-8 occupied while adults chat. Some venues have these ready to go -- worth asking.
-
 **A short speech or toast.** The godparents, grandparents, or parents saying a few words. Keep it under five minutes. Heartfelt is better than polished. If public speaking terrifies you, write it on your phone and read it -- nobody minds.
 
 **Background music.** A Bluetooth speaker with a soft playlist. Nothing with explicit lyrics or aggressive bass. Think Sunday afternoon soundtrack: acoustic covers, jazz, soul. The venue's own sound system often works for this.
@@ -164,7 +162,6 @@ We have AV equipment including a projector, screen, and sound system if you want
 - **Bottle warming:** Yes, on request -- just ask the bar team
 - **Buggy space:** Yes, plenty. The dining room and entrance area accommodate buggies, car seats, and all the paraphernalia that comes with young families
 - **Breastfeeding:** Always welcome, anywhere in the venue, without question
-- **Activity packs:** Communal colouring books and crayons are always available. For a christening party, we can set up a small activity corner for younger guests
 - **Children welcome:** At all times, completely family-friendly, with no age cut-off whatsoever
 
 ### Nearby churches and ceremony venues
@@ -247,7 +244,7 @@ Yes. Our private dining room works well for a short naming ceremony (15-20 minut
 
 ### Do you have baby changing facilities?
 
-No. We want to be upfront about this. We have high chairs, buggy space, bottle warming on request, breastfeeding welcome everywhere, and colouring books for older children. But we don't have baby changing. Parents typically use a portable mat or their car. We know it's a drawback and we'd rather be honest about it.
+No. We want to be upfront about this. We have high chairs, buggy space, bottle warming on request, and breastfeeding welcome everywhere. But we don't have baby changing. Parents typically use a portable mat or their car. We know it's a drawback and we'd rather be honest about it.
 
 ### How close is The Anchor to local churches?
 
