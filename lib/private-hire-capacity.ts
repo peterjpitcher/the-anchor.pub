@@ -1,7 +1,7 @@
 export const PRIVATE_HIRE_CAPACITY = {
-  recommendedRange: '10 to 50 guests',
+  recommendedRange: '10+ to 150 guests',
   largerEventsCopy: 'Larger events and full-venue hire available by enquiry.',
-  summary: 'Room bookings for 10 to 50 guests; larger events and full-venue hire by enquiry.',
+  summary: 'Private hire for 10+ to 150 guests; larger events and full-venue hire by enquiry.',
   spaces: {
     diningRoom: {
       name: 'Dining room',

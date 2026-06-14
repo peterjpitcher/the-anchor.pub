@@ -33,11 +33,11 @@ If you're short on time, here's the overview. If you want the detail, keep scrol
 |---|---|---|
 | **Atmosphere** | Warm, relaxed, characterful | Polished, neutral, professional |
 | **Cost (30 guests, evening)** | £500-£1,000 | £2,000-£5,000+ |
-| **Room hire** | Often free (minimum spend model) | Typically £200-£1,000+ |
-| **Catering per head** | £9.95-£17.99 | £45-£120 |
+| **Room hire** | Often free (quote-on-enquiry model) | Typically £200-£1,000+ |
+| **Catering per head** | current approved price-current approved price | £45-£120 |
 | **Parking** | Usually free | £15-£35 per car per day |
 | **Flexibility** | High -- timings, food, decorations | Moderate -- set packages, time slots |
-| **Capacity** | 10-50 room bookings; larger events by enquiry | 10-1,000+ |
+| **Capacity** | 10+ to 150 room bookings; larger events by enquiry | 10-1,000+ |
 | **Dog-friendly** | Often yes | Rarely |
 | **Overnight stays** | No (nearby hotels available) | Yes |
 | **AV/tech** | Basic to good | Professional-grade |
@@ -66,8 +66,8 @@ This is where the difference between pub and hotel becomes stark. We've written 
 
 | Item | Cost |
 |---|---|
-| Room hire | £0 (minimum spend model, no hire fee) |
-| Finger Buffet (30 x £10.50) | £315 |
+| Room hire | £0 (quote-on-enquiry model, no hire fee) |
+| Finger Buffet (30 x current approved price) | £315 |
 | Welcome Drinks (30 x £6.99) | £210 |
 | Bar Tab | £200 (you set the limit) |
 | Parking | £0 (free, 20 spaces) |
@@ -124,7 +124,7 @@ There's an outdated assumption that pub food means microwaved lasagne and frozen
 
 At The Anchor, the kitchen turns out stone-baked pizzas on hand-stretched dough (with gluten-free bases available), proper Sunday roasts with herb and garlic-crusted roast potatoes, beef and ale pie, and a full menu that changes seasonally. The 5-star food hygiene rating has been maintained for seven consecutive years, and all kitchen staff hold Level 2 food safety qualifications.
 
-For private events, buffet catering ranges from a straightforward Sandwich Buffet at £9.95 per head to a full Indoor BBQ at £17.99 per head. Kids eat for £8.00 per head with proper meals -- burger and chips, chicken nuggets and chips, or mini pizza and chips. Not a sad sandwich on a paper plate.
+For private events, buffet catering ranges from a straightforward Sandwich Buffet at current approved price to a full Indoor BBQ at current approved price. Kids eat for £8.00 per head with proper meals -- burger and chips, chicken nuggets and chips, or mini pizza and chips. Not a sad sandwich on a paper plate.
 
 Hotel food is fine. Often good. Occasionally excellent. But it's rarely so superior that it justifies the four-to-six-times markup. You're paying for white tablecloths and uniformed serving staff, not better ingredients.
 
@@ -148,7 +148,7 @@ We'd be dishonest if we didn't say this clearly: hotels are better for some even
 
 **High-end corporate hospitality.** When the venue is part of the impression you're making on clients or stakeholders, a five-star hotel delivers something a pub can't -- prestige, exclusivity, and a specific kind of polish.
 
-**Events requiring professional-grade AV.** Built-in projector arrays, stage lighting, wireless microphones for 500 people, simultaneous translation -- hotels have this infrastructure. Pubs have a projector and a sound system, which covers most needs but not all.
+**Events requiring professional-grade AV.** Built-in professional AV systems, stage lighting, wireless microphones for 500 people, simultaneous translation -- hotels have this infrastructure. Pubs have a TV and a sound system, which covers most needs but not all.
 
 ## When a Pub Is the Better Choice
 
@@ -170,13 +170,13 @@ For the majority of celebrations we see enquiries about, a pub delivers a better
 
 We're biased. Obviously. But here's what we offer that bridges the gap between pub informality and hotel functionality.
 
-**The space:** A private dining room seating 26, with standing room for more. French doors open onto the beer garden (64 seats). Total private hire capacity of 10-50 guests.
+**The space:** A private dining room seating 26, with standing room for more. French doors open onto the beer garden (64 seats). Total private hire capacity of 10+ to 150 guests.
 
-**The tech:** Projector, screen, and sound system included at no charge. Enough for presentations, slideshows, and speeches.
+**The tech:** TVs and sound system included at no charge. Enough for presentations, slideshows, and speeches.
 
 **The coordination:** A dedicated events coordinator handles your booking from first enquiry to the day itself. You're not dealing with an anonymous bookings department.
 
-**The cost:** No room hire fee. Minimum spend of £500-£1,500 depending on day and group size. £250 deposit secures your date (deducted from the final bill). Buffet catering from £9.95 per head.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **The location:** Stanwell Moor, Surrey. 7 minutes from Heathrow Terminal 5. 2 minutes from M25 Junction 14. 8 minutes from Staines. Free parking for everyone.
 
@@ -194,11 +194,11 @@ We cater for vegetarian, vegan, gluten-free, and dairy-free diets. Gluten-free p
 
 ### Is a pub appropriate for a wake?
 
-Very much so. Pubs have been the traditional setting for wakes for centuries. The informal, warm atmosphere lets people grieve and remember comfortably. We host wakes regularly and have a [dedicated service](/private-hire/wakes) with private entrance, no room hire charge, and short-notice availability.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### What's the maximum capacity?
 
-The Anchor's private hire accommodates 10-50 guests. For larger celebrations, contact us to discuss using multiple areas of the venue. Call 01753 682707 for bespoke arrangements.
+The Anchor's private hire accommodates 10+ to 150 guests. For larger celebrations, contact us to discuss using multiple areas of the venue. Call 01753 682707 for bespoke arrangements.
 
 ### Can I visit before booking?
 
@@ -208,6 +208,6 @@ Absolutely. Drop in any day we're open, or arrange a time with our events coordi
 
 If you're weighing up a pub vs hotel for your celebration near Heathrow, the honest answer is: it depends on what you're celebrating, how many people are coming, and what you want the day to feel like.
 
-For gatherings of 10-50 people where atmosphere, flexibility, and value matter more than formality and scale, a pub wins. For large-scale corporate events or occasions where hotel prestige is part of the package, a hotel wins.
+For gatherings of 10+ to 150 guests where atmosphere, flexibility, and value matter more than formality and scale, a pub wins. For large-scale corporate events or occasions where hotel prestige is part of the package, a hotel wins.
 
 [Explore private hire at The Anchor](/private-hire) or [see our function room pricing compared to hotels](/function-room-hire). You can call us on 01753 682707, email manager@the-anchor.pub, or message us on [WhatsApp](https://wa.me/441753682707). We'll give you an honest steer -- even if the honest answer is that a hotel suits your event better.

@@ -106,7 +106,7 @@ For international visitors passing through Heathrow, it offers something the air
 
 **Getting here:** Taxi or Uber to TW19 6AQ. 7–15 minutes from any Heathrow hotel.
 
-**Opening hours:** Check our website for current opening hours at [the-anchor.pub](https://www.the-anchor.pub). Kitchen closed Monday.
+**Opening hours:** Check our website for current opening and kitchen hours at [the-anchor.pub](https://www.the-anchor.pub).
 
 [Book a table →](/book-table) | Call: 01753 682707
 

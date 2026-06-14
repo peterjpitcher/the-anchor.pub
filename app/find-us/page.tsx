@@ -423,7 +423,7 @@ export default function FindUsPage() {
                   <div className="space-y-3">
                     <h4 className="text-lg font-semibold text-ink-strong mb-3">Good to Know</h4>
                     <p className="text-ink text-sm">Free parking for patrons</p>
-                    <p className="text-ink text-sm">Kitchen closed Mondays</p>
+                    <p className="text-ink text-sm">Kitchen times update live</p>
                     <p className="text-ink text-sm">Children always welcome</p>
                     <p className="text-ink text-sm">Dogs welcome in bar & garden</p>
                   </div>

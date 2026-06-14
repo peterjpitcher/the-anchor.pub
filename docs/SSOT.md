@@ -1,6 +1,6 @@
 # The Anchor, Single Source of Truth
 
-> **PRICING POLICY:** All food & drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database** (menu API). This document holds item names and structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures (deposits, ULEZ saving, quiz/bingo entry, prizes, minimum spend) are not menu prices and remain.
+> **PRICING POLICY:** All food and drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database, POS, menu API, or latest approved private-hire source**. This document holds stable rules and item structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures such as deposits, ULEZ saving, quiz/bingo entry and fixed prizes may remain only where confirmed.
 
 > **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask**, do not guess, do not infer, do not fall back on training data.
 >
@@ -60,9 +60,11 @@ General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 
 ## 3. Opening Hours (regular)
 
-Only ever use the API for opening hours in case they have to change. No hard coded opening times.
+Only ever use the API for opening hours in case they have to change. No hardcoded opening times.
 
 > Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
+>
+> Last orders are 15 minutes before the bar closes and 30 minutes before the kitchen closes. Do not claim late food on live music nights unless the event record or live kitchen hours explicitly confirms it.
 
 ## 4. Sunday Roast, operational claims
 
@@ -154,9 +156,9 @@ British, Pizza, Pub Food, Sunday Roast.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
-### Friday over-65s offer
+### Food deals
 
-50% off fish & chips for over-65s on Fridays.
+No current food deal should be promoted unless it comes from the live management system or another approved live source.
 
 ### Things we don't do (food)
 
@@ -171,14 +173,16 @@ Sausage and mash · Fish fingers · Tomato pasta · Chicken goujons · Mini roas
 
 ## 6. Drinks
 
-The full drinks inventory lives in `/SSOT.json` under `drinks`. The website does not own a master drinks list. Use the JSON for any "what do you serve" lookups.
+The full drinks inventory must come from POS/API before publishing. The website and SSOT do not own a master drinks list.
 
 **Notable rules:**
 - **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
-- **Promotions:** Double-up on optics for (live, DB). Monthly Manager's Special (discounted featured premium spirit).
+- **Promotions:** Double-up on optics only when current POS/promotion data confirms it. Monthly Manager's Special uses the current live Manager's Special source.
 - **Shandies:** Available for all draught lagers.
+- **Drink pricing:** Never show drink pricing unless it comes from an approved live source. Cocktail pricing may be shown only from the current approved cocktail menu/API.
+- **No food deals:** Remove stale food-deal claims unless the live management system confirms a current offer.
 
 ## 7. Booking & Deposits
 
@@ -210,7 +214,7 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 | Space | Capacity |
 |---|---|
 | Maximum (whole venue) | 250 |
-| Private hire | 10 – 50 guests |
+| Private hire | 10+ – 150 guests |
 | Dining room (seated) | 26 |
 | Christmas (seated) | 60 |
 | Christmas (standing) | 200 |
@@ -286,8 +290,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Quiz Night
 
-- First Wednesday of each month.
-- Doors 6:30pm · Start 7pm · End ~9:45pm.
+- Monthly, dates vary, see listings.
+- Doors usually 6:30pm · Start usually 7pm · End ~9:45pm.
 - £3 per person. Team size max 6.
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
 - Capacity 80.
@@ -301,13 +305,13 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Doors 6pm (book sales from 6pm) · Eyes-down 7pm.
 - £10 per book (**cash only**). £1 daubers cash only.
 - 10 games. Capacity 60.
-- Prizes: drinks, chocolate, vouchers, £10 cash boosts. Snowball bonus: +£20 each month it rolls over. Jackpot pot grows to £300+ when the room sells out.
+- Prizes vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.
 
 ### Music Bingo
 
 - Dates vary.
-- Doors 6:30pm · Start ~7pm.
-- £3 per person. Two games; song clips replace bingo numbers.
+- Doors 6:30pm · Start 8pm unless the event record says otherwise.
+- £3 per person unless the event record says otherwise. Two games with interactive music games and quizzes too; song clips replace bingo numbers.
 - Capacity 90. Host: Nikki Manfadge.
 - Private nights available on request.
 
@@ -318,14 +322,14 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Start ~8:30pm · End ~11:30pm.
 - 18+ after 9pm.
 - Capacity 150.
-- Kitchen open until midnight on live music nights.
+- Use live kitchen hours or the event record. Do not claim kitchen open until midnight by default.
 
 ### Karaoke
 
-- Fridays 8pm – 11pm.
+- Occasional, only promote when listed or confirmed. Do not assume every Friday.
 - Free entry.
-- Capacity 50. Catalogue 50,000+ songs.
-- Host: Nikki Manfadge.
+- Capacity 50.
+- Use event listing for host and song-count details.
 
 ### Curry Club
 
@@ -333,10 +337,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Nikki's Games Night
 
-- Wednesdays 7pm – 10pm.
-- Host: Nikki Manfadge.
-- Classic TV gameshow formats with a drag twist (Blankety Blank, Name That Tune, Play Your Cards Right, and similar).
-- Formerly "Drag Cabaret with Nikki Manfadge", renamed July 2025.
+Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/games nights as a recurring format. Nikki currently hosts Music Bingo only.
 
 ### Tasting Nights
 
@@ -351,12 +352,12 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ## 11. Private Hire
 
-- **Capacity:** 10 – 50 guests. (250 max venue-wide; 60 seated at Christmas, 200 standing.)
+- **Capacity:** 10+ – 150 guests. (250 max venue-wide; 60 seated at Christmas, 200 standing.)
 - **Dining room:** 26 seated, with standing room for more. French doors open onto the beer garden.
 - **Spaces available:** Beer garden, dining room.
-- **Room hire charge:** None. We use a minimum-spend model.
-- **Minimum spend:** £500 – £1,500 depending on day and size.
+- **Room hire charge:** Discuss on enquiry. Do not publish minimum-spend wording.
 - **Deposit:** £250.
+- **Pricing rule:** Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.
 
 ### Catering, Buffet (verified prices)
 
@@ -390,7 +391,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Equipment & services
 
-AV equipment (projector, screen, sound system) · Dedicated events coordinator · Free WiFi · Free parking for all attendees.
+Equipment and services: TVs and sound system (no projector) · Dedicated events coordinator · Free WiFi · Free parking for all attendees.
 
 ### Event types offered
 
@@ -412,9 +413,9 @@ Wakes / memorials · Christenings · Engagement parties · Baby showers · Gende
 
 ## 12. Ratings & Reputation
 
-- **Google:** 4.6 stars, 238 reviews.
-- **Claim:** Highest-rated independent pub near Heathrow.
-- **TripAdvisor:** #22 of 95 restaurants in Staines.
+- **Google:** Show the 4.6 rating. Do not show or hardcode a review count; pull any count from an approved live source or omit it.
+- **Claim:** Highly rated near Heathrow. Use stronger highest-rated claims only with current evidence.
+- **TripAdvisor:** Volatile. Do not hardcode rank in evergreen copy.
 - **Food Hygiene:** 5-star rating, maintained 7 years (since 2019). All staff Level 2 qualified.
 
 ## 13. Areas Served & Nearby Hotels
@@ -461,7 +462,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 
 **The update rule:** When operational reality changes, update **this document first**. Page copy, JSON-LD, schemas, blog posts, and the management DB all follow.
 
-**Mirror file:** `/SSOT.json` carries a structured subset of these facts (menu, hours, drinks inventory, etc.) for programmatic lookup. When this Markdown file changes, the JSON should be reconciled. If the two ever disagree, this Markdown is canonical.
+**Mirror file:** `/SSOT.json` carries a structured subset of stable facts for programmatic lookup. Opening hours, kitchen hours, drinks stock, prices, current review counts and ranks must come from live sources. When this Markdown file changes, the JSON should be reconciled. If the two ever disagree, this Markdown is canonical.
 
 **Word doc render:** `docs/SSOT-Review-The-Anchor.docx` can be regenerated for non-technical reviewers via `node docs/generate-ssot-docx.mjs` (the script reads `/SSOT.json`, so update the JSON first if the docx is what an external reviewer is reading).
 

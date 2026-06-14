@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { DEFAULT_REVIEW_STATS, filterReviews, mockReviews } from '@/lib/google/review-utils'
+import { filterReviews, mockReviews } from '@/lib/google/review-utils'
 import { ReviewsFilter } from '@/lib/google/types'
 import { logError } from '@/lib/error-handling'
 
@@ -28,8 +28,8 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       reviews: filteredReviews,
-      rating: DEFAULT_REVIEW_STATS.rating,
-      totalReviews: DEFAULT_REVIEW_STATS.totalReviews,
+      rating: null,
+      totalReviews: null,
       source: 'mock',
       lastUpdated: new Date().toISOString()
     }, { headers })

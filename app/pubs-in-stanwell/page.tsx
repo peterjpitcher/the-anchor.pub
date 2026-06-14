@@ -380,7 +380,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "Can I book The Anchor for a private event?",
-            answer: "Yes! We offer flexible function room hire for parties, celebrations, wakes, and corporate events. Our room bookings suit 10-50 people, with larger events by enquiry and various catering options. Contact us on 01753 682707 to discuss your requirements."
+            answer: "Yes! We offer flexible private hire for parties, celebrations, wakes, and corporate events. Our spaces suit 10+ to 150 guests, with larger events by enquiry and various catering options. Contact us on 01753 682707 to discuss your requirements."
           }
         ]}
         className="bg-surface"

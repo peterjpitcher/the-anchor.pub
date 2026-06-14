@@ -12,7 +12,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Dog Friendly Pub Near Heathrow | Beer Garden & Water Bowls',
-    description: `Dog friendly pub near Heathrow with a 64-seat beer garden, water bowls and food served to your table outdoors. Free parking, 7 mins from T5. Rated 4.6/5 on Google.`,
+    description: `Dog friendly pub near Heathrow with a 64-seat beer garden, water bowls and food served to your table outdoors. Free parking, around 7 mins from T5, traffic dependent.`,
     openGraph: {
         title: 'Dog Friendly Pub Near Heathrow, Beer Garden & Free Parking',
         description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',

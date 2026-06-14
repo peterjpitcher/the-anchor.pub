@@ -28,12 +28,12 @@ export function generateMetadata(): Metadata {
     description: `Pub near Staines with ${sundayPhrase}, stone-baked pizza, quiz nights, private rooms, dog-friendly beer garden and free customer parking.`,
     openGraph: {
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
-      description: `Rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
+      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     },
     twitter: getTwitterMetadata({
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
-      description: `Rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
+      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {

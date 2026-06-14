@@ -11,16 +11,16 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 export const metadata: Metadata = {
   title: 'Christmas Party Venue Near Heathrow & Staines | 2026',
   description:
-    'Book your Christmas party at The Anchor, a pub Christmas dinner venue near Heathrow & Staines. Festive meals from £36.95, free parking, 10–200 guests.',
+    'Book your Christmas party at The Anchor, a pub Christmas dinner venue near Heathrow & Staines. Festive menus, free parking, 10+ to 150 guests.',
   openGraph: {
     title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
     description:
-      'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
+      'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, festive menus, and space for 10+ to 150 guests.',
     images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.jpg', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
-    description: 'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
+    description: 'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, festive menus, and space for 10+ to 150 guests.',
     images: ['/images/page-headers/christmas-parties/2026/hero-table.jpg']
   }),
   alternates: {
@@ -33,7 +33,7 @@ const structuredData = {
   '@type': 'Event',
   name: 'Christmas Party Venue 2026: The Anchor, Stanwell Moor near Heathrow',
   description:
-    'Christmas party venue near Heathrow Airport. Three-course pub Christmas dinners from £36.95, buffets for 26+, free parking outside the ULEZ, and space for up to 60 seated or 200 standing guests.',
+    'Christmas party venue near Heathrow Airport. Festive pub Christmas dinners, buffets for larger groups, free parking outside the ULEZ, and space for 10+ to 150 guests.',
   // Christmas party service window (owner-confirmed): 1 Nov – 23 Dec 2026.
   startDate: '2026-11-01',
   endDate: '2026-12-23',
@@ -69,7 +69,7 @@ const structuredData = {
       {
         '@type': 'LocationFeatureSpecification',
         name: 'Village pub dining rooms',
-        value: 'Up to 60 seated, 200 standing for Christmas events'
+        value: 'Private hire for 10+ to 150 guests'
       }
     ],
     areaServed: [

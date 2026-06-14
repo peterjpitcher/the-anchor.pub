@@ -1,6 +1,6 @@
 ---
 title: "Cheap Christmas Party Venues Near Heathrow (2026 Guide)"
-description: "Find affordable Christmas party venues near Heathrow. Compare hotel packages vs local pub prices, from £12/head at a proper pub to £80+ at airport hotels."
+description: "Find affordable Christmas party venues near Heathrow. Compare hotel packages vs local pub prices, from the live approved source at a proper pub to £80+ at airport hotels."
 date: "2026-03-20"
 author: "The Anchor Team"
 keywords:
@@ -24,12 +24,12 @@ There are better options. If you're willing to look five minutes beyond the term
 
 ## Price comparison: hotels vs local venues
 
-| Venue Type | Per Head Cost | Minimum Spend | Parking | Private Space | Typical Total (30 guests) |
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 |---|---|---|---|---|---|
 | Airport hotels (Sofitel, Hilton T5) | £60–100 | £2,000–5,000 | £15–25/car | Yes (large ballrooms) | £2,500–4,500 |
 | Local hotels (Runnymede, De Vere) | £45–75 | £1,500–3,000 | £5–15/car | Yes | £1,800–3,000 |
 | Chain pubs (Wetherspoons, Harvester) | £20–35 | Varies | Limited | Rarely private | £600–1,200 |
-| Independent pubs (The Anchor) | From £12 (buffet) | £500–1,500 | Free | Yes (private dining room) | £500–1,500 |
+| Independent pubs (The Anchor) | from the live approved source (buffet) | quoted on enquiry | Free | Yes (private dining room) | quoted on enquiry |
 
 Those are real 2026 figures. The gap is significant, especially when you factor in parking, which hotels treat as a separate revenue stream.
 
@@ -49,11 +49,11 @@ For some companies, that's fine. The hotel handles everything, there's a dance f
 
 ## What a local pub Christmas party looks like
 
-At The Anchor in Stanwell Moor, seven minutes from Heathrow Terminal 5, a Christmas party starts from £12 per head for a buffet. That's not a loss-leader price that requires a £3,000 bar tab. It's what a buffet costs when you're not paying for a hotel lobby and concierge desk.
+At The Anchor in Stanwell Moor, seven minutes from Heathrow Terminal 5, a Christmas party starts from the live approved source for a buffet. That's not a loss-leader price that requires a £3,000 bar tab. It's what a buffet costs when you're not paying for a hotel lobby and concierge desk.
 
 Here's what we typically put together for office Christmas parties:
 
-- **Buffet from £12 per head**, proper food, not crisps and sausage rolls. Think carved turkey, pigs in blankets, stuffing, roast potatoes, and a selection of cold platters
+- **Buffet from the live approved source**, proper food, not crisps and sausage rolls. Think carved turkey, pigs in blankets, stuffing, roast potatoes, and a selection of cold platters
 - **Sit-down meal from £22 per head**, two or three courses with a genuine choice of mains
 - **Private dining room**, seats up to 40, with AV equipment if you want to do a quick presentation or awards before the party starts
 - **Free parking**, 20 spaces on site, no charge, no validation stamps

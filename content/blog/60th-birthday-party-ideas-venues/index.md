@@ -45,21 +45,21 @@ At The Anchor, [Sunday roast](/sunday-roast) starts from £16 per person, with o
 
 An afternoon event (say 2pm to 6pm) with tea, coffee, cake, and light bites is a format that works brilliantly for a 60th. It's sociable, it accommodates guests who don't drink alcohol, and it finishes at a sensible hour, which, when your guest list includes people in their 70s and 80s, genuinely matters.
 
-**Make it work:** The Anchor offers unlimited tea and coffee at £4.49 per head (minimum 10 guests). Combine that with a [sandwich buffet at £9.95 per head](/food-menu) or [finger buffet at £10.50 per head](/food-menu) and bring your own birthday cake. For 30 guests, that's a complete afternoon celebration for well under £500. The private dining room seats 26 with French doors opening onto the beer garden, giving you flexibility as numbers shift through the afternoon.
+**Make it work:** The Anchor offers unlimited tea and coffee at £4.49 per head (minimum 10 guests). Combine that with a [sandwich buffet at current approved price](/food-menu) or [finger buffet at current approved price](/food-menu) and bring your own birthday cake. For 30 guests, that's a complete afternoon celebration for well under £500. The private dining room seats 26 with French doors opening onto the beer garden, giving you flexibility as numbers shift through the afternoon.
 
 ### Evening buffet party
 
 If the guest of honour prefers an evening celebration, a buffet party is the format that accommodates the widest range of guests with the least amount of fuss. People arrive when they can, eat when they're hungry, and stay as long as they like. No fixed seating plan, no three-course timing constraints, no panic when Uncle David arrives 45 minutes late.
 
-**Make it work:** Buffet packages at The Anchor start from £9.95 per head for groups of 30 or more:
+**Make it work:** Buffet packages at The Anchor start from current approved price for groups of 30 or more:
 
 | Package | Per Head | Works Well For |
 |---|---|---|
-| Sandwich Buffet | £9.95 | Afternoon or early evening, budget-friendly |
-| Finger Buffet | £10.50 | Standing events, cocktail-style |
-| Burger Buffet | £10.95 | Mixed ages, casual atmosphere |
-| Premium Buffet | £13.95 | Evening celebrations, a proper spread |
-| Indoor BBQ | £17.99 | When you want to push the boat out |
+| Sandwich Buffet | current approved price | Afternoon or early evening, budget-friendly |
+| Finger Buffet | current approved price | Standing events, cocktail-style |
+| Burger Buffet | current approved price | Mixed ages, casual atmosphere |
+| Premium Buffet | current approved price | Evening celebrations, a proper spread |
+| Indoor BBQ | current approved price | When you want to push the boat out |
 
 For a 60th with 35 guests, a premium buffet comes to £488.25. An indoor BBQ for 40 guests is £719.60. Compare that with hotel function room pricing (£45-80 per head before room hire and parking) and the difference is substantial.
 
@@ -73,7 +73,7 @@ For summer birthdays, The Anchor's beer garden offers something you won't find a
 
 A 60th birthday is sixty years of stories. Put them on display. Print photos from every decade, school photos, wedding day, holidays, career milestones, embarrassing haircuts, and arrange them around the venue as a visual timeline. Invite two or four people from different chapters of the guest of honour's life to share a brief story or toast (keep each one to two minutes, no exceptions, or someone will talk for twenty).
 
-**Make it work:** The Anchor's private hire includes AV equipment, projector, screen, and sound system, as standard. Set up a slideshow running on loop, or use the projector for a short "this is your life" presentation between courses. The private dining room is perfect for this: intimate enough that everyone can see the screen, big enough that it doesn't feel like a living room.
+**Make it work:** The Anchor's private hire includes AV equipment, TVs and sound system, as standard. Set up a slideshow running on loop, or use the TV for a short "this is your life" presentation between courses. The private dining room is perfect for this: intimate enough that everyone can see the screen, big enough that it doesn't feel like a living room.
 
 ## Accessibility: being honest about what's available
 
@@ -115,7 +115,7 @@ The right venue for a 60th is different from the right venue for a 30th or 40th.
 
 **Free parking, close to the entrance.** When your guest list includes people in their 60s, 70s, and 80s, the walk from the car park to the front door matters. Hotel parking that costs £15-25 per car and involves a five-minute walk through a multi-storey is a poor start to anyone's evening. The Anchor has 20 free spaces on a level surface, close to the entrance. Additional parking is available nearby.
 
-**No room hire charge.** Many hotels charge £500-2,000 for a function room before you've spent anything on food or drink. The Anchor uses a minimum spend model: £500-1,500 depending on day and group size, and every pound goes toward what your guests actually eat and drink. There's no separate room fee.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **A team that handles the details.** At a 60th, the organiser (usually a son, daughter, or partner) has enough to manage without also running the catering. A dedicated events coordinator who manages the timeline, checks the food, and solves problems before they become visible is worth its weight in gold. The Anchor includes this with every private hire.
 
@@ -123,11 +123,11 @@ The right venue for a 60th is different from the right venue for a 30th or 40th.
 
 | | Airport Hotel | Chain Restaurant | The Anchor |
 |---|---|---|---|
-| Room hire | £500-2,000 | £200-500 | Free (min spend) |
-| Food (35 guests) | £1,575-2,800 | £700-1,225 | £348-630 |
+| Room hire | £500-2,000 | £200-500 | Quote on enquiry |
+| Food (35 guests) | £1,575-2,800 | £700-1,225 | Quoted from current approved source |
 | Parking (15 cars) | £225-375 | Limited free | Free |
-| Welcome drinks | £350-700 | Varies | £280 (prosecco) |
-| **Estimated total** | **£2,650-5,875** | **£1,100-2,425** | **£500-1,500** |
+| Welcome drinks | £350-700 | Varies | Quote on enquiry |
+| **Estimated total** | **£2,650-5,875** | **£1,100-2,425** | **quoted on enquiry** |
 
 The price gap is real, and it compounds. Every pound saved on room hire and parking is a pound that goes toward food, drinks, or a generous bar tab that makes the evening feel special.
 
@@ -183,13 +183,13 @@ If you're organising a 60th for someone else (as is often the case), here's a pr
 Real numbers for 35 guests at The Anchor.
 
 **The relaxed afternoon (around £550):**
-- Sandwich buffet: £348 (35 x £9.95)
-- Unlimited tea and coffee: £157 (35 x £4.49)
+- Sandwich buffet: current approved price
+- Unlimited tea and coffee: current approved price
 - Bring your own cake: free
 - Decorations: ~£30
-- Venue: no room hire (min spend covered)
+- Venue: quoted on enquiry
 - Parking: free
-- **Total: approximately £535**
+- **Total:** quoted on enquiry
 
 **The Sunday roast (around £1,000):**
 - Sunday roast from £16/head: ~£560 (35 guests, mixed choices)
@@ -198,7 +198,7 @@ Real numbers for 35 guests at The Anchor.
 - **Total: approximately £985**
 
 **The evening celebration (around £1,300):**
-- Premium buffet: £488 (35 x £13.95)
+- Premium buffet: £488 (35 x current approved price)
 - Welcome prosecco: £280
 - Bar tab: £400
 - Photo timeline and decorations: ~£60

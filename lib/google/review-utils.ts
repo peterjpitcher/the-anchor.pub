@@ -2,8 +2,8 @@
 import { GoogleReview, ReviewsFilter } from './types'
 
 export const DEFAULT_REVIEW_STATS = {
-  rating: 4.6,
-  totalReviews: 238
+  rating: null,
+  totalReviews: null
 } as const
 
 export function filterReviews(reviews: GoogleReview[], filter?: ReviewsFilter): GoogleReview[] {

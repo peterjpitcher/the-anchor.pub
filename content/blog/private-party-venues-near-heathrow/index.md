@@ -44,11 +44,11 @@ Private parties aren't one-size-fits-all. A 60th birthday has different requirem
 
 ### Milestone birthdays
 
-The big ones, 18th, 21st, 30th, 40th, 50th, 60th, 70th, and beyond. Birthday parties are the most common private hire we see, and the range is enormous. An 18th birthday might want a sound system and space to dance. A 70th might want seated dining for 30 with a projector showing old photos.
+The big ones, 18th, 21st, 30th, 40th, 50th, 60th, 70th, and beyond. Birthday parties are the most common private hire we see, and the range is enormous. An 18th birthday might want a sound system and space to dance. A 70th might want seated dining for 30 with a TV showing old photos.
 
 **What to prioritise:** Flexibility. Your venue should be able to accommodate your specific vision rather than forcing you into a template. Ask about AV equipment if you're planning speeches or slideshows. Check whether they'll let you decorate the space. And confirm the noise situation, if your party runs until 11pm, will the venue actually allow that?
 
-At The Anchor, our [private dining room](/private-hire/milestone-birthdays) seats 26 with standing room for more. French doors open onto the beer garden for overflow. We've got a projector, screen, and sound system included at no extra charge.
+At The Anchor, our [private dining room](/private-hire/milestone-birthdays) seats 26 with standing room for more. French doors open onto the beer garden for overflow. We've got a TVs and sound system included at no extra charge.
 
 ### Leaving dos and retirement parties
 
@@ -56,7 +56,7 @@ These tend to be weekday evening events, people coming straight from work, stayi
 
 **What to prioritise:** Location and transport links. Somewhere near the M25 with free parking works for drivers. Bus routes matter if people are coming from the airport or Staines. A venue that serves food quickly (buffet rather than sit-down) keeps the evening moving.
 
-We're two minutes from Junction 14 of the M25 and reachable by the 441, 442, and 555 bus routes from Heathrow Central Bus Station. Our [retirement party packages](/private-hire/retirement-parties) start with a minimum spend rather than a room hire fee, so you're not paying for the space on top of everything else.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Baby showers
 
@@ -88,7 +88,7 @@ End-of-project drinks. Quarterly team socials. The annual "we survived another y
 
 **What to prioritise:** Easy access from major roads (the M25 and M4 corridor for the Heathrow area). AV equipment if there are presentations. A drinks package or bar tab option to keep things simple. And critically, food, corporate events without food become messy corporate events.
 
-We host corporate events regularly. The projector and screen are there if you need them, free WiFi throughout, and our [buffet packages](/private-hire) start from £9.95 per head with a minimum of 30 guests.
+We host corporate events regularly. The TVs are there if you need them, free WiFi throughout, and our [buffet packages](/private-hire) start from current approved price with a minimum of 30 guests.
 
 ### Summer garden parties
 
@@ -104,20 +104,20 @@ This is the big decision most people wrestle with. Hotels feel "safe", they're a
 
 | Factor | Pub venue (The Anchor) | Hotel venue (Heathrow area) |
 |---|---|---|
-| Room hire charge | None, minimum spend model (£500-1,500) | £500-2,000 for the room alone |
-| Catering per head | From £9.95 (buffet) | From £35-45 (set menu) |
+| Room hire charge | None, quote-on-enquiry model (quoted on enquiry) | £500-2,000 for the room alone |
+| Catering per head | From current approved price (buffet) | From £35-45 (set menu) |
 | Parking | Free, 20 spaces, CCTV, floodlit | £15-25 per car |
 | Atmosphere | Character, warmth, personality | Professional but generic |
-| Capacity (private) | 10-50 guests | 20-200+ guests |
+| Capacity (private) | 10+ to 150 guests | 20-200+ guests |
 | AV equipment | Included | Often an add-on charge |
 | Flexibility | High, BYO food option, custom menus | Low, fixed packages |
 | Dedicated coordinator | Yes | Yes (usually shared across events) |
 
 **Where hotels win:** If you need space for 100+ guests, or if you need on-site accommodation for people travelling from afar, hotels have the advantage. They're also the default for very formal corporate events where the venue name carries weight.
 
-**Where pubs win:** For parties of 10-50 people, a good pub beats a hotel on atmosphere, value, and flexibility every time. You're not one of six events happening simultaneously. Your guests aren't navigating conference-centre corridors to find you. And you're saving potentially thousands on room hire, parking, and catering.
+**Where pubs win:** For parties of 10+ to 150 guests, a good pub beats a hotel on atmosphere, value, and flexibility every time. You're not one of six events happening simultaneously. Your guests aren't navigating conference-centre corridors to find you. And you're saving potentially thousands on room hire, parking, and catering.
 
-The difference in total cost is stark. A party for 40 guests at a Heathrow airport hotel might run £3,000-5,000 all-in. The same event at The Anchor, with buffet catering and a minimum spend arrangement, comes in at £600-2,000 depending on what you choose.
+The difference in total cost is stark. A party for 40 guests at a Heathrow airport hotel might run £3,000-5,000 all-in. The same event at The Anchor, with buffet catering and a quote-on-enquiry arrangement, comes in at £600-2,000 depending on what you choose.
 
 ## The practical details
 
@@ -136,11 +136,11 @@ Twenty free spaces on site, level surface, close to the entrance, CCTV monitored
 We don't believe in one-size-fits-all catering. Here's what's available:
 
 **Buffets (minimum 30 guests):**
-- Sandwich Buffet: £9.95 per head
-- Finger Buffet: £10.50 per head
-- Burger Buffet: £10.95 per head
-- Premium Buffet: £13.95 per head
-- Indoor BBQ: £17.99 per head
+- Sandwich Buffet: current approved price
+- Finger Buffet: current approved price
+- Burger Buffet: current approved price
+- Premium Buffet: current approved price
+- Indoor BBQ: current approved price
 
 **Drinks packages (minimum 10 guests):**
 - Welcome Drinks: £6.99 per head
@@ -153,15 +153,15 @@ We don't believe in one-size-fits-all catering. Here's what's available:
 
 ### How pricing works
 
-No room hire charge. We operate on a minimum spend model: £500-1,500 depending on the day and the size of your party. A £250 deposit secures your date. The minimum spend covers food and drink, so it's money you'd be spending anyway.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Equipment included
 
-Projector, screen, and sound system are all included at no extra cost. Free WiFi runs throughout the pub and beer garden. A dedicated events coordinator handles your booking from first enquiry to the day itself.
+TVs and sound system are all included at no extra cost. Free WiFi runs throughout the pub and beer garden. A dedicated events coordinator handles your booking from first enquiry to the day itself.
 
 ## What our guests actually say
 
-We're rated 4.6 stars on Google from 238 reviews, the highest-rated independent pub near Heathrow. We hold a 5-star food hygiene rating maintained for seven consecutive years, with all staff Level 2 qualified.
+We hold a 5-star food hygiene rating maintained for seven consecutive years, with all staff Level 2 qualified.
 
 ## How to book your private party
 
@@ -170,7 +170,7 @@ Two ways to get started:
 1. **Use our online calculator** at [the-anchor.pub/private-hire](/private-hire) to get an instant estimate based on your guest count, date, and catering preferences.
 2. **Call us on 01753 682707** or email [manager@the-anchor.pub](mailto:manager@the-anchor.pub). We're happy to talk through options, and there's no obligation.
 
-We take bookings for groups of 10-50 guests. If you've got something specific in mind that doesn't fit neatly into a package, call us anyway, we're an independent pub, not a chain. We can usually make it work.
+We take bookings for groups of 10+ to 150 guests. If you've got something specific in mind that doesn't fit neatly into a package, call us anyway, we're an independent pub, not a chain. We can usually make it work.
 
 ## Frequently asked questions
 
@@ -181,7 +181,7 @@ For weekend dates, two to four weeks is ideal. We can sometimes accommodate shor
 Yes. Balloons, banners, photo walls, table decorations, bring whatever you like. We're happy to help you set up beforehand and we won't charge for it.
 
 **Is there a corkage or setup fee?**
-No. The minimum spend covers your use of the space. We don't add corkage, setup fees, or event surcharges on top.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **What if my guest numbers change?**
 We understand that party numbers shift. Let us know as soon as you can and we'll adjust the catering accordingly. Final numbers are usually needed a few days before, not weeks.

@@ -1,24 +1,24 @@
 export const STATIC_BAR_HOURS_SUMMARY =
-  'Bar hours: Tuesday to Thursday 4pm-11pm, Friday 4pm-midnight, Saturday noon-midnight, Sunday noon-9pm, Monday closed.'
+  'Bar hours: live hours are loading from the management system.'
 
 export const STATIC_KITCHEN_HOURS_SUMMARY =
-  'Kitchen hours: Tuesday to Friday 4pm-9pm, Saturday noon-7pm, Sunday roast 1pm-6pm, Monday closed.'
+  'Kitchen hours: live kitchen times are loading from the management system.'
 
 export const STATIC_HOURS_REVIEW_NOTE =
-  'Bank holidays and special events may vary. Last reviewed May 2026.'
+  'Bank holidays and special events may vary. Call us if live hours are unavailable.'
 
 export const STATIC_BAR_HOURS_SHORT =
-  'Bar: Tue-Thu 4pm-11pm, Fri 4pm-midnight, Sat noon-midnight, Sun noon-9pm'
+  'Bar: live hours loading'
 
 export const STATIC_KITCHEN_HOURS_SHORT =
-  'Kitchen: Tue-Fri 4pm-9pm, Sat noon-7pm, Sun roast 1pm-6pm'
+  'Kitchen: live hours loading'
 
 export const STATIC_HOURS_ROWS = [
-  { day: 'Monday', bar: 'Closed', kitchen: 'Closed' },
-  { day: 'Tuesday', bar: '4pm-11pm', kitchen: '4pm-9pm' },
-  { day: 'Wednesday', bar: '4pm-11pm', kitchen: '4pm-9pm' },
-  { day: 'Thursday', bar: '4pm-11pm', kitchen: '4pm-9pm' },
-  { day: 'Friday', bar: '4pm-midnight', kitchen: '4pm-9pm' },
-  { day: 'Saturday', bar: 'Noon-midnight', kitchen: 'Noon-7pm' },
-  { day: 'Sunday', bar: 'Noon-9pm', kitchen: 'Sunday roast 1pm-6pm' }
+  { day: 'Monday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Tuesday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Wednesday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Thursday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Friday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Saturday', bar: 'Live API', kitchen: 'Live API' },
+  { day: 'Sunday', bar: 'Live API', kitchen: 'Live API' }
 ] as const

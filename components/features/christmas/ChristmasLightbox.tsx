@@ -171,7 +171,7 @@ export function ChristmasLightbox() {
                 {/* Content */}
                 <div className="p-6 sm:p-8 text-center space-y-6">
                     <div className="space-y-2">
-                        <h3 className="text-2xl text-ink-strong">Get 20% Off Your Food Bill</h3>
+                        <h3 className="text-2xl text-ink-strong">Ask for Current Christmas Pricing</h3>
                         <p className="text-ink-muted">
                             Book your Christmas party early to secure the best dates. Pay your deposit by <strong className="text-ink-strong">October 1st</strong> to claim your discount.
                         </p>

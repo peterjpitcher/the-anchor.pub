@@ -325,7 +325,7 @@ export default function GenderRevealPage() {
                     },
                     {
                         question: "Is there a hire fee?",
-                        answer: "Yes, a venue hire fee applies and varies depending on the day, time, and group size. There is no minimum spend required. Contact us on 01753 682707 for specifics based on your guest count and plans."
+                        answer: "Yes, a venue hire fee applies and varies depending on the day, time, and group size. There is pricing discussed on enquiry. Contact us on 01753 682707 for specifics based on your guest count and plans."
                     },
                     {
                         question: "Can we combine a gender reveal with a baby shower?",

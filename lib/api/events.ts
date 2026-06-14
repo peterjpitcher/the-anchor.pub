@@ -213,7 +213,7 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       id: 'drag-shows',
       name: 'Hosted Nights',
       slug: 'drag-shows',
-      description: 'Hosted nights with special guests (including Nikki Manfadge), plus one-off event evenings. See /whats-on for details.',
+      description: 'Listed hosted nights and one-off event evenings. Nikki Manfadge currently hosts Music Bingo. See /whats-on for details.',
       color: '#8b5cf6',
       icon: '',
       is_active: true,
@@ -444,7 +444,7 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
     // Generate a default description based on event type
     const name = event.name.toLowerCase()
     if (name.includes('drag')) {
-      return 'Join us for a Nikki Manfadge-hosted night and special entertainment. See /whats-on for the latest details.'
+      return 'Join us for a listed hosted night or special entertainment. See /whats-on for the latest details.'
     } else if (name.includes('quiz')) {
       return 'Test your knowledge at our popular quiz night. Great prizes to be won!'
     } else if (name.includes('bingo')) {

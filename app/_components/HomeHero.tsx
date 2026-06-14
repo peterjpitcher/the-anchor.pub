@@ -4,17 +4,16 @@ import { Star } from 'lucide-react'
 import { Button, Badge } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { BookTableButton } from '@/components/BookTableButton'
-import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
 
 // HomeHero — the homepage's special hero (redesign spec §7.1). This is the ONLY
 // non-InteriorHero hero on the site. A full-bleed photographic hero with a green
 // scrim + 6% grain, centred content (max-width 880px), the white wordmark, the
-// brand H1/script lines, the live StatusBar pill, a Google rating row sourced from
-// review-utils, and four sand amenity chips.
+// brand H1/script lines, the live StatusBar pill, a Google review row, and four
+// sand amenity chips.
 //
-// All facts are SSOT-confirmed: rating 4.6/238 + "Highest-rated independent pub
-// near Heathrow" (SSOT §12), 7 mins from T5, free parking, dog friendly, beer
-// garden (SSOT §2/§3/§4).
+// Stable facts are SSOT-confirmed: around 7 mins from T5, free parking, dog
+// friendly, beer garden (SSOT §2/§3/§4). Review counts are volatile and not
+// hardcoded.
 
 interface HomeHeroProps {
   /** Full-bleed background image src. */
@@ -28,8 +27,6 @@ interface HomeHeroProps {
 }
 
 export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: HomeHeroProps) {
-  const { rating, totalReviews } = DEFAULT_REVIEW_STATS
-
   return (
     <section
       className="theme-dark relative flex items-center justify-center overflow-hidden bg-anchor-green-deep"
@@ -122,7 +119,7 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: Ho
           {/* Live status pill */}
           <StatusBar variant="pill" />
 
-          {/* Google rating row (numbers sourced from review-utils) */}
+          {/* Google review row, without volatile hardcoded counts */}
           <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-anchor-cream-text/90">
             <span aria-hidden className="flex items-center gap-0.5 text-anchor-gold-bright">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -130,7 +127,7 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: Ho
               ))}
             </span>
             <span>
-              {rating} from {totalReviews} Google reviews · Highest-rated independent pub near Heathrow
+              Highly rated on Google · Independent village pub near Heathrow
             </span>
           </p>
 

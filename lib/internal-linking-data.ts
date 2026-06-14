@@ -17,8 +17,8 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
   },
   {
     label: 'Easter',
-    href: '/easter',
-    description: 'Easter meals, family visits and long-weekend bookings.',
+    href: '/easter-sunday',
+    description: 'Easter Sunday roast, family visits and long-weekend opening hours.',
   },
   {
     label: "Father's Day",

@@ -54,9 +54,9 @@ If your birthday falls anywhere between May and September, an outdoor celebratio
 
 ### Film or TV marathon night
 
-Pick a film series or TV show that defined your twenties. Set up a projector, arrange comfortable seating, and build the menu around the theme. A Peaky Blinders night gets whisky cocktails and flat caps. An Italian Job theme gets pizza and questionable cockney accents.
+Pick a film series or TV show that defined your twenties. Set up a TV, arrange comfortable seating, and build the menu around the theme. A Peaky Blinders night gets whisky cocktails and flat caps. An Italian Job theme gets pizza and questionable cockney accents.
 
-**Make it work:** You need a venue with AV equipment or a space where you can bring your own. Some pubs have projectors, screens, and sound systems already set up, worth asking before you start lugging your own gear.
+**Make it work:** You need a venue with AV equipment or a space where you can bring your own. Some pubs have TVs, and sound systems already set up, worth asking before you start lugging your own gear.
 
 ## Activity ideas to keep 30 guests entertained
 
@@ -92,11 +92,11 @@ Realistic buffet pricing for 2026 (based on what we charge at The Anchor):
 
 | Buffet Package | Price Per Head | Minimum Guests |
 |---|---|---|
-| Sandwich Buffet | £9.95 | 30 |
-| Finger Buffet | £10.50 | 30 |
-| Burger Buffet | £10.95 | 30 |
-| Premium Buffet | £13.95 | 30 |
-| Indoor BBQ | £17.99 | 30 |
+| Sandwich Buffet | current approved price | 30 |
+| Finger Buffet | current approved price | 30 |
+| Burger Buffet | current approved price | 30 |
+| Premium Buffet | current approved price | 30 |
+| Indoor BBQ | current approved price | 30 |
 
 That's real money. A sandwich buffet for 30 guests comes to £298.50. A premium buffet for 40 guests is £558. Compare that with restaurant prices in Staines or Feltham and the difference is stark.
 
@@ -126,13 +126,13 @@ Right, you've got your theme. You've got your food plan. Now you need somewhere 
 
 **Private space that's actually private.** "Semi-private area" means a roped-off corner of a busy pub where you'll spend the night shouting over strangers. You want a room with a door. At The Anchor, the private dining room seats 26 with standing room for more, and French doors open onto the beer garden for overflow. It's your space for the night.
 
-**No room hire fee.** Many venues charge £200-500 just for the room before you've spent a penny on food or drink. Look for venues that use a minimum spend model instead, you're spending money on food and drinks anyway, so the room cost effectively disappears. The Anchor charges no room hire fee. The minimum spend is £500-1,500 depending on the day and group size, and that goes entirely toward what your guests actually consume.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Parking that doesn't cost extra.** If your guests are driving (and near Heathrow, many will be), parking fees add up fast. Hotel venues typically charge £15-25 per car. The Anchor has 20 free parking spaces on-site, no fees, no time limits while visiting, CCTV and floodlit. Additional parking is also available nearby.
 
 **A dedicated person who handles things.** You don't want to be chasing bar staff on the night of your own party. Venues with a dedicated events coordinator take the logistics off your hands. That means someone who manages the timeline, checks the food is ready, and sorts problems before you even notice them.
 
-**Equipment you don't have to bring.** Projector for a slideshow? Sound system for your playlist? Screen for embarrassing childhood photos? If the venue already has AV equipment, that's one less thing to organise. The Anchor's private hire includes a projector, screen, and sound system as standard.
+**Equipment you don't have to bring.** TV for a slideshow? Sound system for your playlist? Screen for embarrassing childhood photos? If the venue already has AV equipment, that's one less thing to organise. The Anchor's private hire includes a TVs and sound system as standard.
 
 ### What doesn't matter as much as you think
 
@@ -144,11 +144,11 @@ Right, you've got your theme. You've got your food plan. Now you need somewhere 
 
 | | Airport Hotel | Chain Pub | The Anchor |
 |---|---|---|---|
-| Room hire | £500-2,000 | Varies | Free (min spend) |
-| Food (30 guests) | £1,350-2,400 (£45-80/head) | £600-1,050 (£20-35/head) | £298-540 (£9.95-17.99/head) |
+| Room hire | £500-2,000 | Varies | Quote on enquiry |
+| Food (30 guests) | £1,350-2,400 (£45-80/head) | £600-1,050 (£20-35/head) | Quoted from current approved source |
 | Parking (15 cars) | £225-375 | Limited free | Free |
-| Welcome drinks | £300-600 | Varies | £240 (prosecco, 30 guests) |
-| **Estimated total** | **£2,375-5,375** | **£800-1,850** | **£500-1,500** |
+| Welcome drinks | £300-600 | Varies | Quote on enquiry |
+| **Estimated total** | **£2,375-5,375** | **£800-1,850** | **quoted on enquiry** |
 
 Those figures tell a clear story. A 30th birthday at an airport hotel can cost five to ten times more than the same celebration at a good local venue. And the food is often worse.
 
@@ -198,22 +198,22 @@ If your 30th is a few months away, here's a realistic timeline that keeps you or
 People either massively overspend or massively underspend on their 30th. Here's what a solid celebration for 35 guests actually looks like, using real prices.
 
 **Budget option (around £600):**
-- Sandwich buffet: £348 (35 x £9.95)
+- Sandwich buffet: £348 (35 x current approved price)
 - Welcome drinks (prosecco): £280 (35 x £7.99)
 - Decorations (DIY): ~£30
-- Venue: no room hire charge (covered by minimum spend)
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Parking: free
 - **Total: approximately £658**
 
 **Mid-range option (around £1,000):**
-- Burger buffet: £383 (35 x £10.95)
+- Burger buffet: £383 (35 x current approved price)
 - Welcome prosecco: £280
 - Bar tab: £300
 - Decorations and photo display: ~£50
 - **Total: approximately £1,013**
 
 **Push-the-boat-out option (around £1,500):**
-- Indoor BBQ: £630 (35 x £17.99)
+- Indoor BBQ: £630 (35 x current approved price)
 - Welcome prosecco: £280
 - Bar tab: £500
 - Decorations, photo wall, custom playlist: ~£80
@@ -241,11 +241,11 @@ No. Nice try, though.
 
 **What's the minimum number of guests for a private venue hire?**
 
-It varies. At The Anchor, [private hire](/private-hire) accommodates 10-50 guests, with buffet packages starting at a minimum of 30 guests. For smaller groups, you can still book the private dining room and order from the regular menu.
+It varies. At The Anchor, [private hire](/private-hire) accommodates 10+ to 150 guests, with buffet packages starting at a minimum of 30 guests. For smaller groups, you can still book the private dining room and order from the regular menu.
 
 **Do I need to pay a deposit?**
 
-Most venues require a deposit to secure your date. At The Anchor, it's £250, and you'll confirm final numbers and food choices closer to the date. The minimum spend model means you're not paying for an empty room, every pound goes toward food and drinks.
+Most venues require a deposit to secure your date. At The Anchor, it's £250, and you'll confirm final numbers and food choices closer to the date. The quote-on-enquiry model means you're not paying for an empty room, every pound goes toward food and drinks.
 
 ---
 

@@ -125,9 +125,9 @@ Your guests are coming from all over. Paid parking or limited spaces add stress 
 
 High chairs for the youngest guests, space for buggies, and a welcoming attitude to children of all ages. Not every venue genuinely welcomes families -- some tolerate them. You want somewhere that actually means it when they say children are welcome.
 
-### No room hire charges
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-Some venues charge £200-500 for room hire before you've even thought about food. A minimum spend model is more practical -- your spend on food and drinks counts towards it, so you're not paying twice.
+Some venues charge £200-500 for room hire before you've even thought about food. A quote-on-enquiry model is more practical -- your spend on food and drinks counts towards it, so you're not paying twice.
 
 ## Why The Anchor Works for Gender Reveal Parties
 
@@ -154,7 +154,7 @@ We're completely family-friendly with no age cut-off at any time. Here's what we
 
 ### Catering that fits the occasion
 
-Gender reveals are grazing events, not sit-down dinners. Our buffet packages start from £9.95 per head (minimum 30 guests) for a sandwich buffet, scaling up to £17.99 per head for an indoor BBQ. Most gender reveal groups go for the finger buffet at £10.50 per head or the burger buffet at £10.95 per head -- enough food to keep everyone happy without overcomplicating things.
+Gender reveals are grazing events, not sit-down dinners. Our Buffet package prices come from the live approved source (minimum 30 guests) for a sandwich buffet, scaling up to current approved price for an indoor BBQ. Most gender reveal groups go for the finger buffet at current approved price or the burger buffet at current approved price -- enough food to keep everyone happy without overcomplicating things.
 
 Kids eat for £8.00 per head with choices of burger, chicken nuggets, or mini pizza, all with chips. Unlimited kids' squash is £3.50 per head.
 
@@ -162,7 +162,7 @@ Want to bring your own cake for the reveal? That's fine -- we don't charge cakea
 
 ### What it costs
 
-No room hire charge. We work on a minimum spend model of £500-1,500 depending on the day and group size, with a £250 deposit to secure your date. For a typical gender reveal of 25-35 guests with a finger buffet and a bar tab, you're looking at £400-600 total spend on food and drinks -- well within the minimum spend range.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Parking
 
@@ -214,7 +214,7 @@ Not everyone is equally enthusiastic about gender reveals. That's fine. Keep the
 
 ### How much does a gender reveal party cost at a pub venue?
 
-At The Anchor, there's no room hire charge. A typical gender reveal for 25-35 guests with a finger buffet (£10.50 per head) and a modest bar tab comes to £400-600 total. The minimum spend is £500-1,500 depending on day and group size, with a £250 deposit. Compare that to hotel function rooms that charge £500+ for room hire alone before you've ordered a single sausage roll.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Can I do a smoke cannon or confetti reveal at The Anchor?
 

@@ -20,15 +20,15 @@ import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychol
 
 export const metadata: Metadata = {
   title: 'Function Room Hire Near Heathrow | The Anchor Pub',
-  description: 'Hire a pub function room near Heathrow for 10-50 guests. Room hire, free parking, flexible catering, and a £250 deposit. Call 01753 682707.',
+  description: 'Hire a pub function room near Heathrow for 10+ to 150 guests. Free parking, flexible catering, and a £250 deposit. Call 01753 682707.',
   openGraph: {
     title: 'Function Room Hire Near Heathrow | The Anchor Pub',
-    description: 'Pub with function rooms near Heathrow for 10-50 guests. Room hire from a simple fee. Free parking, 6 layouts, in-house catering.',
+    description: 'Pub with function rooms near Heathrow for 10+ to 150 guests. Free parking, flexible layouts and in-house catering.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Function room hire at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Function Room Hire Near Heathrow | The Anchor Pub',
-    description: 'Pub with function rooms near Heathrow for 10-50 guests. Room hire from a simple fee. Free parking, 6 layouts, in-house catering.',
+    description: 'Pub with function rooms near Heathrow for 10+ to 150 guests. Free parking, flexible layouts and in-house catering.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -41,7 +41,7 @@ const functionRoomSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "Function Room Hire at The Anchor",
-  description: "Function room hire at a pub near Heathrow Airport and Staines. Private rooms for 10-50 guests with catering, free parking, and a simple room hire fee.",
+  description: "Function room hire at a pub near Heathrow Airport and Staines. Private hire for 10+ to 150 guests with catering, free parking, and a clear quote on enquiry.",
   provider: {
     "@type": "Organization",
     name: "The Anchor",
@@ -58,7 +58,7 @@ const functionRoomSchema = {
   offers: {
     "@type": "Offer",
     priceCurrency: "GBP",
-    description: "Room hire fee varies by event type, day, and party size. Deposit £250. Call for a quote."
+    description: "Private hire quote varies by event type, day, and party size. Deposit £250. Call for a quote."
   },
   potentialAction: {
     "@type": "CommunicateAction",
@@ -89,7 +89,7 @@ export default function FunctionRoomHirePage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Function Room Hire"
         title="Function Room Hire Near Heathrow"
-        lead="A pub with private rooms for 10 to 50 guests. Room hire, free parking, flexible layouts, and in-house catering. No minimum spend."
+        lead="A pub with private hire for 10+ to 150 guests. Free parking, flexible layouts, and in-house catering. Ask for a clear quote."
         badges={
           <>
             <Badge variant="sand">Multiple Spaces</Badge>
@@ -133,7 +133,7 @@ export default function FunctionRoomHirePage() {
               <h2 className="font-display text-h3 text-ink-strong mb-3">What Makes Our Function Rooms Work</h2>
               <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
                 <div className="flex items-start gap-2">
-                  <span>Flexible spaces for 10-50 guests, with larger events by enquiry</span>
+                  <span>Flexible spaces for 10+ to 150 guests, with larger events by enquiry</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span>Free parking outside the ULEZ zone, ideal for corporate events</span>
@@ -142,7 +142,7 @@ export default function FunctionRoomHirePage() {
                   <span>In-house catering: buffets, two-course dinners or canapés</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span>AV support, microphones and hybrid meeting options available</span>
+                  <span>TVs, sound system, microphones and WiFi available</span>
                 </div>
               </div>
             </CardBody>
@@ -171,24 +171,24 @@ export default function FunctionRoomHirePage() {
             <Card accent><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-4">The Dining Room</h3>
               <div className="mb-4">
-                <Badge variant="gold">20-80 guests</Badge>
+                <Badge variant="gold">10+ guests</Badge>
               </div>
               <p className="text-ink-muted mb-4">
                 Our main function space offers complete flexibility. Perfect for formal dinners,
-                presentations, parties, or meetings. Can be configured to your exact requirements.
+                presentations, parties, or meetings. Can be configured around your requirements.
               </p>
               <ul className="space-y-2 text-ink-muted">
                 <li>Natural daylight with dimming options</li>
                 <li>Climate controlled</li>
                 <li>Direct access to facilities</li>
-                <li>AV equipment available</li>
+                <li>TVs and sound system available</li>
               </ul>
             </CardBody></Card>
 
             <Card accent><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-4">Exclusive Venue Hire</h3>
               <div className="mb-4">
-                <Badge variant="gold">80-200 guests</Badge>
+                <Badge variant="gold">Up to 150 guests</Badge>
               </div>
               <p className="text-ink-muted mb-4">
                 Take over the entire venue for larger events. Includes all indoor spaces,
@@ -204,9 +204,9 @@ export default function FunctionRoomHirePage() {
           </div>
 
           <Card accent className="max-w-3xl mx-auto"><CardBody>
-            <h3 className="font-display text-h4 text-ink-strong mb-2 text-center">Simple Room Hire</h3>
+            <h3 className="font-display text-h4 text-ink-strong mb-2 text-center">Simple Private Hire Quotes</h3>
             <p className="text-center text-ink-muted">
-              Room hire fees vary by event type, day, and party size. No minimum spend, you only pay for what you order on top of the hire. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
+              Private hire quotes vary by event type, day, and party size. Food and drink pricing comes from the live approved source. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
             </p>
           </CardBody></Card>
         </Container>
@@ -344,15 +344,15 @@ export default function FunctionRoomHirePage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeading
               title="Simple, Transparent Pricing"
-              lead="Room hire, no minimum spend, £250 deposit"
+              lead="Clear quote, live catering prices, £250 deposit"
             />
 
             <Card accent className="mb-8"><CardBody className="text-center">
               <h3 className="font-display text-h4 text-ink-strong mb-6">How Our Pricing Works</h3>
-              <p className="font-display text-h3 text-accent-text mb-2">Room Hire + What You Order</p>
-              <p className="text-ink-muted mb-4">no minimum spend</p>
+              <p className="font-display text-h3 text-accent-text mb-2">Clear Quote + Live Catering Prices</p>
+              <p className="text-ink-muted mb-4">built around your event</p>
               <p className="text-ink-muted">
-                A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services, no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
+                We quote around your event type, day, party size, food, drinks and services. Catering prices come from the live approved source. Deposit is £250 to secure your date. Call us for a quote.
               </p>
             </CardBody></Card>
 
@@ -360,7 +360,7 @@ export default function FunctionRoomHirePage() {
               <h3 className="font-display text-h4 text-ink-strong mb-3">Get a Personalised Quote</h3>
               <p className="mb-3 text-ink-muted">
                 Every event is different, so we tailor pricing to your needs. Tell us about your event and
-                we'll put together a clear, no-obligation quote covering venue hire, catering and any extras.
+                we'll put together a clear, no-obligation quote covering the space, catering and any extras.
               </p>
               <p className="font-semibold text-center text-ink-strong">
                 Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-accent-text underline">submit an enquiry online</a>.
@@ -419,8 +419,8 @@ export default function FunctionRoomHirePage() {
             <Card accent className="mb-6"><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-3">Which space suits your event?</h3>
               <ul className="space-y-2 text-sm text-ink-muted">
-                <li>• <strong className="text-ink-strong">10-50 guests</strong>, our private dining room, ideal for dinners and celebrations</li>
-                <li>• <strong className="text-ink-strong">50+ guests</strong>, larger room, garden or full venue hire by enquiry</li>
+                <li>• <strong className="text-ink-strong">10+ guests</strong>, our private dining room, ideal for dinners and celebrations</li>
+                <li>• <strong className="text-ink-strong">Up to 150 guests</strong>, larger room, garden or full venue hire by enquiry</li>
               </ul>
             </CardBody></Card>
             <div className="mb-6">
@@ -459,11 +459,11 @@ export default function FunctionRoomHirePage() {
         faqs={[
           {
             question: "What exactly is included in function room hire?",
-            answer: "Your room hire includes the space configured to your requirements, tables, chairs, linens, basic AV equipment (microphone, music system), dedicated staff, setup/breakdown, and cleaning. Catering and drinks are ordered separately so you control your budget."
+            answer: "Private hire includes the space configured to your requirements, tables, chairs, TVs, sound system, dedicated staff, setup/breakdown, and cleaning. Catering and drinks are quoted separately so you control your budget."
           },
           {
             question: "How does your venue hire pricing work?",
-            answer: "A room hire fee covers your space, it varies by event type, day, and party size. There's no minimum spend on top, so you only pay for the food and drinks you actually order. Deposit is £250 to secure your date. Call us on 01753 682707 for a personalised quote."
+            answer: "Your quote varies by event type, day, and party size. Food and drink prices come from the live approved source. Deposit is £250 to secure your date. Call us on 01753 682707 for a personalised quote."
           },
           {
             question: "Can I view the function rooms before booking?",
@@ -471,7 +471,7 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "What catering options are available?",
-            answer: "We offer a range of catering from tea and coffee to premium buffets and indoor BBQ. Options include sandwich buffets (from £9.95/head), finger buffets, burger buffets, pizza buffets and more. Welcome drinks packages are also available. We'll put together a menu to match your event and budget."
+            answer: "We offer a range of catering from tea and coffee to buffets and indoor BBQ. Food pricing comes from the live approved source. Welcome drinks packages may also be available. We'll put together a menu to match your event and budget."
           },
           {
             question: "Can I bring my own decorations or entertainment?",

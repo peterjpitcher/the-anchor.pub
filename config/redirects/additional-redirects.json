@@ -1,5 +1,10 @@
 [
   {
+    "source": "/easter",
+    "destination": "/easter-sunday",
+    "permanent": true
+  },
+  {
     "source": "/downloads/the-anchor-menu-march-2026.pdf",
     "destination": "/food-menu",
     "permanent": true

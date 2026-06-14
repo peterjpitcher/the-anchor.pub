@@ -34,7 +34,7 @@ What we do show is everything on **free-to-air terrestrial channels**, BBC and I
 - **Rugby World Cup**
 - **Olympic Games**
 
-We put it on the **projector and big screen** for the major events. One screen, everyone watching together, the way sport is meant to be watched in a pub. No splitting the room across six different matches on muted tellies.
+We put it on the **TV and big screen** for the major events. One screen, everyone watching together, the way sport is meant to be watched in a pub. No splitting the room across six different matches on muted tellies.
 
 ## Comparison: Sport Pubs Near Heathrow
 
@@ -42,7 +42,7 @@ Here's a fair breakdown of your options, so you can pick the right pub for what 
 
 | Pub | Sky Sports | BT Sport | TNT Sports | Free-to-Air | Screens | Parking | Distance from T5 |
 |-----|-----------|----------|------------|-------------|---------|---------|-------------------|
-| **The Anchor** (Stanwell Moor) | No | No | No | Yes | Projector + screens | Free (20 spaces) | 7 mins |
+| **The Anchor** (Stanwell Moor) | No | No | No | Yes | TV + screens | Free (20 spaces) | 7 mins |
 | **Wetherspoon** (Staines) | No | No | No | Yes | Multiple TVs | Town centre pay & display | 15 mins |
 | **Greene King pubs** (various) | Yes (most) | Some | Some | Yes | Multiple | Varies | 10-20 mins |
 | **Sports Bar & Grill type** (Staines/Feltham) | Yes | Yes | Yes | Yes | Many | Varies | 15-20 mins |
@@ -94,15 +94,15 @@ For Premier League matches on Sky Sports or TNT Sports, your best options near H
 
 ### Does The Anchor show the Six Nations?
 
-Yes, every match, every round. The Six Nations is broadcast on BBC and ITV, so we show the lot. We put it on the big screen and projector, and the atmosphere for England matches in particular is fantastic. If you're looking for a proper pub to watch the rugby near Heathrow, this is the one.
+Yes, every match, every round. The Six Nations is broadcast on BBC and ITV, so we show the lot. We put it on the big screen and TV, and the atmosphere for England matches in particular is fantastic. If you're looking for a proper pub to watch the rugby near Heathrow, this is the one.
 
 ### Is there a sports pub near Heathrow with free parking?
 
-The Anchor has 20 free parking spaces and is seven minutes from Terminal 5. We show free-to-air sport on a projector and big screen. If you specifically need Sky Sports with free parking, you'll likely need to head further out to a pub with its own car park, most town-centre sports bars in Staines rely on pay-and-display.
+The Anchor has 20 free parking spaces and is seven minutes from Terminal 5. We show free-to-air sport on a TV and big screen. If you specifically need Sky Sports with free parking, you'll likely need to head further out to a pub with its own car park, most town-centre sports bars in Staines rely on pay-and-display.
 
 ### Does The Anchor have a big screen?
 
-Yes. We have a projector and screens that go up for major sporting events. For the big tournaments, World Cup, Six Nations, Euros, we set up the projector so the whole pub can watch together. It's not a permanent 40-screen setup like a sports bar, but for the events we do show, the setup is spot on.
+Yes. We have a TVs that go up for major sporting events. For the big tournaments, World Cup, Six Nations, Euros, we set up the TV so the whole pub can watch together. It's not a permanent 40-screen setup like a sports bar, but for the events we do show, the setup is spot on.
 
 ---
 

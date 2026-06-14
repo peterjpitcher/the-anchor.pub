@@ -17,7 +17,7 @@ hero: "hero.jpg"
 images: []
 ---
 
-If you're looking for function room hire near Heathrow, you've probably already discovered that the airport hotel corridor isn't short on options. What it is short on is transparency. Most hotel venues won't publish their prices, parking adds a nasty surprise to the final bill, and minimum spends can push a modest gathering into four figures before anyone's had a drink.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 We've put together this honest comparison of what it actually costs to hire a function room near Heathrow -- covering hotels, pubs, and everything in between. We run The Anchor in Stanwell Moor, so we're obviously biased, but the numbers are the numbers. You can decide what makes sense for your event.
 
@@ -27,9 +27,9 @@ This is the bit most venues don't want you to see in one place. Here's what you'
 
 | | The Anchor, Stanwell Moor | Hilton T5 | Radisson Blu Heathrow | Sofitel T5 | Marriott Heathrow |
 |---|---|---|---|---|---|
-| **Room hire** | No hire fee (minimum spend) | From £500+ | From £750+ | From £1,000+ | From £500+ |
-| **Minimum spend (evening)** | From £300 (weekday) / £500 (weekend) | £1,500--3,000 | £2,000--5,000 | £3,000--8,000 | £1,500--3,000 |
-| **Catering per head** | From £9.95 (buffet) | £45--85 | £55--95 | £65--120 | £50--90 |
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+| **Catering per head** | From current approved price (buffet) | £45--85 | £55--95 | £65--120 | £50--90 |
 | **Day delegate rate** | From £15 (tea, coffee, lunch) | From £45 + VAT | From £50 + VAT | From £75 + VAT | From £55 + VAT |
 | **Parking** | Free (20 spaces) | £15--25/day | £18--30/day | £20--35/day | £15--25/day |
 | **Capacity** | 10--200 guests | 10--500+ | 10--700+ | 10--1,100+ | 10--500+ |
@@ -47,17 +47,17 @@ The headline numbers are only part of the story. Here's what tends to catch peop
 
 Most Heathrow hotels charge £15--35 per vehicle per day for event parking. For a 50-person event where 30 people drive, that's an extra £450--1,050 your guests are paying between them -- or you're covering it. At The Anchor, parking is free for all 20 spaces, and there's additional street parking in the village.
 
-### The minimum spend trap
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-Hotels near Heathrow typically set minimum spends based on the room, not the event. A hotel ballroom might require a £3,000 minimum even if you only have 25 guests. At a pub, the minimum spend is lower and scales more sensibly with your group size. Our weekday minimum starts from £150 for a daytime event.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### The per-head markup
 
-Hotel catering near Heathrow runs £45--120 per person for a buffet or plated meal. The same quality of food at a pub venue costs £9.95--25 per head. The difference isn't always about the food itself -- it's the hotel overhead built into every sandwich and canapé.
+Hotel catering near Heathrow runs £45--120 per person for a buffet or plated meal. The same quality of food at a pub venue costs current approved price--25 per head. The difference isn't always about the food itself -- it's the hotel overhead built into every sandwich and canapé.
 
 ### The extras that add up
 
-Hotels often charge separately for items that pubs include as standard: table linen, a microphone for speeches, background music, room setup and breakdown, and sometimes even the projector screen. At The Anchor, these are included in the package.
+Hotels often charge separately for items that pubs include as standard: table linen, a microphone for speeches, background music, room setup and breakdown, and sometimes even the TV. At The Anchor, these are included in the package.
 
 ## When a Hotel Makes Sense
 
@@ -67,7 +67,7 @@ We'd be dishonest if we said a pub is always the right choice. There are situati
 
 **Overnight accommodation is essential.** If delegates are flying in from overseas and need rooms steps from the function space, an airport hotel is hard to beat. The Sofitel and Hilton T5 are physically connected to the terminal -- that convenience has genuine value for international gatherings.
 
-**Your event requires hotel-standard AV.** Built-in projector arrays, stage lighting, professional sound systems, and technical support staff are standard at larger hotel venues. If your event depends on flawless AV delivery, this matters.
+**Your event requires hotel-standard AV.** Built-in professional AV systems, stage lighting, professional sound systems, and technical support staff are standard at larger hotel venues. If your event depends on flawless AV delivery, this matters.
 
 **The budget isn't the primary concern.** Some events -- major client entertainment, awards dinners, C-suite away days -- need the polish that a five-star hotel provides. If the venue is part of the impression you're making, pay for it.
 
@@ -125,13 +125,13 @@ Every function room booking at The Anchor includes:
 
 ### Catering
 
-Buffet packages start from £9.95 per person for finger food. Hot fork buffets, formal plated meals, canapés, and BBQ options are all available. We accommodate all dietary requirements and will work with you to build a menu that fits your budget.
+Buffet package prices come from the live approved source for finger food. Hot fork buffets, formal plated meals, canapés, and BBQ options are all available. We accommodate all dietary requirements and will work with you to build a menu that fits your budget.
 
 For corporate events, we offer day delegate packages from £15 per person including tea, coffee, refreshments, and a working lunch.
 
 ### Pricing structure
 
-We don't charge a separate room hire fee. Instead, we work on minimum spends:
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 - **Weekdays (Mon--Thu):** From £150 (daytime) / £300 (evening) / £400 (all day)
 - **Weekends (Fri--Sun):** From £250 (daytime) / £500 (evening) / £600 (all day)
@@ -148,7 +148,7 @@ To make this concrete, here's what a typical 50-person evening celebration looks
 
 | Cost item | The Anchor | Typical Heathrow hotel |
 |---|---|---|
-| Room hire | £0 (minimum spend model) | £500--1,000 |
+| Room hire | £0 (quote-on-enquiry model) | £500--1,000 |
 | Buffet catering (50 guests) | £500--750 | £2,250--4,250 |
 | Drinks (bar tab estimate) | £400--600 | £600--1,000 |
 | Parking (30 cars) | Free | £450--1,050 |
@@ -173,7 +173,7 @@ You can also send us a WhatsApp message or fill in the enquiry form on our [priv
 
 ### How much does function room hire near Heathrow cost?
 
-It varies enormously. Hotel function rooms near Heathrow typically start from £500 for room hire alone, with minimum spends of £1,500--8,000 depending on the venue. Pub function rooms, including The Anchor, work on lower minimum spends starting from £150 for weekday daytime events, with no separate room hire fee.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Can I hire a function room near Heathrow with free parking?
 
@@ -181,7 +181,7 @@ Most hotel venues near Heathrow charge £15--35 per vehicle per day for parking.
 
 ### What's included in function room hire at The Anchor?
 
-Everything you need: the space configured to your requirements, tables, chairs, linen, a microphone for speeches, background music, climate control, a dedicated event coordinator, and full setup and cleanup. Catering is quoted separately and starts from £9.95 per person for buffet packages.
+Everything you need: the space configured to your requirements, tables, chairs, linen, a microphone for speeches, background music, climate control, a dedicated event coordinator, and full setup and cleanup. Catering is quoted separately and starts from current approved price for buffet packages.
 
 ### Is a pub function room suitable for corporate events?
 

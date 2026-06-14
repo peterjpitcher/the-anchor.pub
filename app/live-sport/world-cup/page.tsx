@@ -484,8 +484,8 @@ export default async function WorldCupPage() {
                 answer: 'Bookings are open now for all matches we\'re showing. Use the Book Table button next to the fixture.',
               },
               {
-                question: 'Do you take deposits or minimum spend?',
-                answer: 'No deposits for groups under 10. Groups of 10 or more: a £10 per person deposit, fully deducted from your bill. No minimum spend.',
+                question: 'Do you take deposits for group bookings?',
+                answer: 'No deposits for groups under 10. Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.',
               },
               {
                 question: 'How long do you hold tables?',

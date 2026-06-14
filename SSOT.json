@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md, if this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content; use this JSON for programmatic lookups (menu, hours, drinks inventory).",
+  "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md. If this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content. Use this JSON for stable programmatic facts only; volatile data such as opening hours, kitchen hours, drinks stock, food and drink prices, event dates, current review counts, and live ranks must come from the management API, POS, or approved live source.",
   "_canonical_source": "docs/SSOT.md",
   "meta": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "generated": "2026-06-14",
     "sources": [
       "lib/constants.ts",
@@ -24,7 +24,8 @@
       "app/*/page.tsx (all pages)",
       "public/manifest.json",
       "CLAUDE.md",
-      "content/blog/*/index.md (all blog posts)"
+      "content/blog/*/index.md (all blog posts)",
+      "the_anchor_clean_ssot_review.docx"
     ]
   },
   "identity": {
@@ -204,7 +205,7 @@
   "venue": {
     "capacity": {
       "maximum": 250,
-      "private_hire": "10-50 guests",
+      "private_hire": "10+ to 150 guests",
       "dining_room_seated": 26,
       "christmas_seated": 60,
       "christmas_standing": 200,
@@ -247,7 +248,7 @@
       "accessible_toilet": false,
       "assistance_dogs": "Always welcome",
       "note": "Guests are encouraged to call ahead if they would like to plan their visit.",
-      "beer_garden_access_note": "There are steps from the bar to the garden, but a ramp is available on request."
+      "beer_garden_access_note": "The garden has step-free access from the car park. A ramp is available on request between the garden and bar."
     },
     "family_facilities": {
       "high_chairs": true,
@@ -307,12 +308,12 @@
       "Sunday Roast"
     ],
     "kitchen_hours": {
-      "monday": "CLOSED (always, unless special hours record explicitly opens it)",
-      "tuesday_to_friday": "16:00-21:00",
-      "saturday": "12:00-19:00",
-      "sunday": "13:00-18:00",
-      "live_music_nights": "Open until midnight on live music nights",
-      "quiz_nights": "Until 9pm when the kitchen closes"
+      "_source": "LIVE_FROM_MANAGEMENT_API",
+      "policy": "Kitchen hours must come from the management API/live website. Do not hardcode kitchen times in evergreen copy, schemas, or tests.",
+      "last_orders": "Last kitchen orders are 30 minutes before the kitchen closes.",
+      "monday_default": "Kitchen usually closed on Mondays unless a special-hours record explicitly opens it.",
+      "sunday_roast": "Sunday roast service is 1pm to 6pm; use live data for exceptions.",
+      "live_music_nights": "Do not claim late food service on live music nights unless the event record or live kitchen hours explicitly confirms it."
     },
     "menu_url": "https://www.the-anchor.pub/food-menu",
     "menu_categories": [
@@ -716,282 +717,27 @@
     }
   },
   "drinks": {
-    "_source": "product-list-export-2026-03-22. Complete inventory from POS system.",
-    "draught": [
-      "Birra Moretti",
-      "Guinness",
-      "Stella Artois",
-      "Aspall Cider",
-      "Inch's Apple Cider",
-      "Fosters",
-      "Carlsberg"
-    ],
-    "draught_note": "Shandies available for all draught lagers.",
-    "bottled_ales": [
-      "Abbot Ale",
-      "Greene King IPA",
-      "Old Speckled Hen",
-      "Newcastle Brown Ale"
-    ],
-    "bottled_beers": [
-      "Budweiser",
-      "Corona Extra",
-      "Desperados",
-      "Peroni",
-      "Peroni 0%"
-    ],
-    "bottled_ciders": [
-      "Magners",
-      "Old Mout Berries & Cherries",
-      "Old Mout Kiwi & Lime",
-      "Aspall"
-    ],
-    "cocktails": [
-      "Aperol Spritz",
-      "Espresso Martini",
-      "Passion Fruit Martini",
-      "Mojito",
-      "Classic Margarita",
-      "Vodka Margarita",
-      "Woo Woo",
-      "Moscow Mule",
-      "Dark & Stormy",
-      "Whiskey Ginger",
-      "Cuba Libre",
-      "Pink Paloma",
-      "English Garden",
-      "Tropical Punch",
-      "Apricot Fizz",
-      "Captain's Colada",
-      "Peach Blush",
-      "Apple and Blackberry Pie",
-      "Hot Toddy",
-      "Glass Pimms",
-      "Jug Pimms",
-      "Baby Guinness",
-      "Kick Bomb",
-      "Skittle Bomb"
-    ],
-    "spirits_optics": [
-      "Bacardi",
-      "Captain Morgan Gold Spiced Rum",
-      "Bell's",
-      "Famous Grouse",
-      "Gordon's",
-      "Gordon's Pink",
-      "Jack Daniel's",
-      "Jameson",
-      "Smirnoff Red"
-    ],
-    "spirits_gin": [
-      "Bombay Sapphire",
-      "Gordon's Lemon",
-      "Gordon's White Peach",
-      "Gordon's Tropical Passionfruit",
-      "Gordon's Sloe Gin",
-      "Hendrick's",
-      "Hendrick's Flora Adora",
-      "Tanqueray",
-      "Tanqueray 10",
-      "Tanqueray Flor de Sevilla",
-      "Tanqueray Blackcurrant Royale",
-      "Whitley Neill Rhubarb",
-      "Williams Chase Pink Grapefruit",
-      "Botanist",
-      "Warner's Elderflower",
-      "Warner's Honeybee",
-      "Chase Sloe Gin",
-      "Monkey Sloe Gin 47"
-    ],
-    "spirits_rum": [
-      "Captain Morgan Original Dark",
-      "Captain Morgan Gold Spiced",
-      "Captain Morgan Sliced Apple",
-      "Captain Morgan Tiki",
-      "Havana Club 3",
-      "Havana Club 7",
-      "Havana Club Especial",
-      "Kraken",
-      "Bambu Rum",
-      "Bumbu Cream",
-      "Redleg Spiced",
-      "Redleg Pineapple",
-      "Redleg Banana",
-      "Redleg Tropical",
-      "Bacardi Coconut",
-      "Trash & Treasure Banana"
-    ],
-    "spirits_vodka": [
-      "Smirnoff Red",
-      "Smirnoff Raspberry Crush",
-      "Smirnoff Mango & Passionfruit",
-      "Smirnoff Miami Peach",
-      "Ketel One",
-      "Grey Goose"
-    ],
-    "spirits_whisky": [
-      "Bell's",
-      "Famous Grouse",
-      "Jack Daniel's",
-      "Jack Daniel's Fire",
-      "Jack Daniel's Honey",
-      "Jack Daniel's Apple",
-      "Jameson",
-      "Bushmills",
-      "Johnnie Walker Black Label",
-      "Monkey Shoulder",
-      "Maker's Mark",
-      "Glenfiddich",
-      "Glenmorangie",
-      "Talisker",
-      "Bowmore 12yr",
-      "Bulleit",
-      "Shanky's Whip"
-    ],
-    "spirits_tequila": [
-      "Jose Cuervo Gold",
-      "Jose Cuervo Silver",
-      "Patron Silver",
-      "Olmeca Altos Plata",
-      "Olmeca Reposado",
-      "Cazcabel Coffee"
-    ],
-    "spirits_brandy": [
-      "Courvoisier",
-      "Hennessy VS",
-      "Martell VS"
-    ],
-    "spirits_liqueurs": [
-      "Aperol",
-      "Archers",
-      "Baileys",
-      "Cointreau",
-      "Disaronno",
-      "Drambuie",
-      "Kahlua",
-      "Malibu",
-      "Midori",
-      "Pernod",
-      "Southern Comfort",
-      "Chambord",
-      "Tia Maria",
-      "Lustre Strawberry Cream",
-      "Lustre Pineapple Cream",
-      "Lustre Caffe Latte Cream"
-    ],
-    "spirits_shooters": [
-      "Jagermeister",
-      "Sambuca Classic",
-      "Sambuca Raspberry",
-      "Sambuca Liquorice",
-      "Sambuca Chilli",
-      "Sourz Cherry",
-      "Sourz Apple",
-      "Sourz Strawberry"
-    ],
-    "wines_red": [
-      "Counterpoint Shiraz",
-      "El Pico Cabernet Sauvignon",
-      "Gentlemens Collection",
-      "I Heart Merlot",
-      "I Heart Shiraz",
-      "Rocosa Malbec"
-    ],
-    "wines_white": [
-      "Counterpoint Chardonnay",
-      "Giotto Pinot Grigio",
-      "I Heart Chardonnay",
-      "I Heart Pinot Grigio",
-      "I Heart Sauvignon Blanc",
-      "Piesporter Michelsberg",
-      "Montford Estate Sauvignon Blanc"
-    ],
-    "wines_rose": [
-      "Gris des Signeurs",
-      "I Heart Rose",
-      "Three Pebbles Bay",
-      "Ara Marl Sauvignon Rose",
-      "Ara Pinot Gris"
-    ],
-    "wines_sparkling": [
-      "G&G Prosecco (750ml)",
-      "G&G Prosecco (200ml)"
-    ],
-    "wines_note": "Most wines available in 187ml single-serve and 750ml bottles.",
-    "port_sherry_vermouth": [
-      "Taylors Fine Ruby Port",
-      "Harvey's Bristol Cream",
-      "Martini Rosso",
-      "Martini Extra Dry"
-    ],
-    "soft_drinks": [
-      "Harrogate Still Water",
-      "Harrogate Sparkling Water",
-      "Can of Coke",
-      "Can of Diet Coke",
-      "Can of Fanta",
-      "J2O Orange & Passionfruit",
-      "J2O Apple & Mango",
-      "J2O Apple & Raspberry",
-      "Apple Juice",
-      "Fruit Shoot Orange",
-      "Fruit Shoot Blackcurrant",
-      "Appletiser"
-    ],
-    "mixers": [
-      "Coca Cola",
-      "Diet Coke",
-      "Coke Zero",
-      "Lemonade",
-      "7-Up Free",
-      "Soda",
-      "Tonic",
-      "Slimline Tonic",
-      "Ginger Ale",
-      "Slimline Elderflower",
-      "Russchian Pink Soda",
-      "Schweppes Pink Grapefruit Soda",
-      "Schweppes Tropical Soda",
-      "Kick Energy Drink",
-      "Fever Tree Soda Water",
-      "Fever Tree Madagascan Cola",
-      "Fever Tree Ginger Beer",
-      "Fever Tree White Grape & Apricot Soda",
-      "Fever Tree Ginger Ale",
-      "Lime Cordial",
-      "Blackcurrant Cordial",
-      "Orange Juice",
-      "Cranberry Juice",
-      "Pineapple Juice"
-    ],
-    "bar_snacks": [
-      "Tayto Crisps (5 flavours)",
-      "Quavers",
-      "Pork Scratchings",
-      "Maltesers",
-      "Nuts (Salted, Dry Roasted, Honey Roasted, Chilli, Cashews)"
-    ],
-    "discontinued_draught": [
-      {
-        "name": "Stanwell Moor Brew",
-        "status": "DISCONTINUED as of 2026-03-22."
-      },
-      {
-        "name": "Pravha",
-        "status": "DISCONTINUED. Confirmed by owner 2026-03-22. Remove from all pages and blog posts."
-      }
-    ],
-    "promotions": [
-      "Double-up on optics for £2",
-      "Monthly Manager's Special, discounted featured premium spirit"
-    ],
-    "bar_tab_policy": {
-      "eligibility": "Regular customers only",
-      "validity": "7 days",
-      "maximum_gbp": 50
+    "_source": "LIVE_FROM_POS_OR_MANAGEMENT_API",
+    "policy": "Full drinks stock must be checked against POS/API before publishing. The SSOT is not a current drinks inventory.",
+    "pricing_rule": "Never show drink pricing unless it comes from an approved live source. Cocktail pricing may be shown only from the current approved cocktail menu/API.",
+    "stock_summary": {
+      "draught": "Use POS/API before naming current draught products.",
+      "bottled_ales": "Use POS/API before naming current bottled ales.",
+      "bottled_beers": "Use POS/API before naming current bottled beers.",
+      "bottled_ciders": "Use POS/API before naming current bottled ciders.",
+      "cocktails": "Cocktail menu includes spritzes, martinis, margaritas, mojito, rum cocktails, long drinks, Pimm's and shots; confirm current menu before publishing."
     },
-    "equipment": "T-Bar beer pumps (shorter lines, colder/fresher pints), upgraded glass washer",
-    "live_sport_note": "Terrestrial channels only (BBC/ITV/Channel 4). Does NOT have Sky Sports or TNT Sports."
+    "promotions": {
+      "optics_double_up": "Available when current POS/promotion data confirms it; price must come from approved live source.",
+      "managers_special": "Monthly discounted featured premium spirit; use current Manager's Special source."
+    },
+    "bar_tab_policy": "Regular customers only, 7 days, maximum £50.",
+    "discontinued_do_not_promote": [
+      "Stanwell Moor Brew",
+      "Pravha",
+      "BOGOF pizza references tied to drinks/food promotions"
+    ],
+    "food_deals_rule": "No current food deals unless explicitly provided by the live management system. Remove stale food-deal claims."
   },
   "offers": [],
   "discontinued_offers": [
@@ -1011,12 +757,12 @@
   "events": {
     "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-03-22. Actual event dates, prices, and times are managed per-event in the management app, the values below are defaults.",
     "quiz_night": {
-      "schedule": "First Wednesday of each month",
-      "doors": "6:30pm",
-      "start": "7:00pm",
+      "schedule": "Monthly (dates vary, see listings)",
+      "doors": "Usually 6:30pm, confirm against event listing",
+      "start": "Usually 7:00pm, confirm against event listing",
       "end": "~9:45pm",
       "duration": "3 hours",
-      "entry_fee_gbp": 3.0,
+      "entry_fee_gbp": 3,
       "team_size_max": 6,
       "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
       "capacity": 80,
@@ -1025,58 +771,54 @@
         "second_from_last": "Bottle of house wine"
       },
       "rules": "Phone-free. -5 points for phone use.",
-      "host": "Question One Quiz Masters (Nikki Manfadge occasional)"
+      "host": "Question One Quiz Masters"
     },
     "cash_bingo": {
       "schedule": "Monthly (dates vary, see listings)",
       "doors": "6:00pm (book sales from 6pm)",
       "start": "7:00pm (eyes-down, confirmed 2026-03-22)",
       "end": "~9:30pm",
-      "entry_fee_gbp": 10.0,
+      "entry_fee_gbp": 10,
       "entry_note": "Per book, cash only. £1 daubers also cash only.",
       "games": 10,
       "capacity": 60,
-      "prizes": "Drinks, chocolate, vouchers, £10 cash boosts. Snowball bonus: +£20 each month it rolls over. Jackpot pot grows to £300+ when room sells out."
+      "prizes": "Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.",
+      "snowball_rule": "Increases by £20 and 2 calls each month it rolls over."
     },
     "music_bingo": {
       "schedule": "Dates vary (see listings)",
       "doors": "6:30pm",
-      "start": "~7:00pm",
-      "entry_fee_gbp": 3.0,
+      "start": "8:00pm unless event record says otherwise",
+      "entry_fee_gbp": 3,
       "RESOLVED": "Website FAQ says £3 per person. static-events.ts incorrectly shows free. £3 is correct per the FAQ page.",
-      "format": "Two games; song clips replace bingo numbers",
+      "format": "Two games with interactive music games and quizzes too; song clips replace bingo numbers.",
       "capacity": 90,
       "host": "Nikki Manfadge",
       "private_nights": "Available on request"
     },
     "live_music": {
-      "description": "Local bands, acoustic sets, tribute acts",
+      "description": "Local bands, acoustic sets, tribute acts; usually weekends or special events.",
       "entry": "Always free",
       "typical_start": "8:30pm",
       "end": "~11:30pm",
       "age_restriction": "18+ after 9pm",
       "capacity": 150,
-      "kitchen": "Open until midnight on live music nights"
+      "kitchen": "Use live kitchen hours or the event record. Do not claim kitchen open until midnight by default."
     },
     "karaoke": {
-      "schedule": "Fridays 8-11pm",
+      "schedule": "Occasional, only promote when listed or confirmed",
       "entry": "Free",
       "capacity": 50,
-      "catalogue": "50,000+ songs",
+      "catalogue": "Use event listing if song-count detail is needed",
       "features": [
-        "Two microphones",
-        "Duets with Nikki",
-        "Lip sync battle hour",
-        "Props and costumes provided",
-        "Group singalongs"
+        "Free entry when listed",
+        "Solo singers, duets and group singalongs welcome"
       ],
-      "host": "Nikki Manfadge (Nikki's Karaoke Night)"
+      "host": "Use event listing; do not assume Nikki Manfadge or a fixed Friday schedule."
     },
     "nikkis_games_night": {
-      "schedule": "Wednesdays 7-10pm",
-      "host": "Nikki Manfadge",
-      "format": "Classic TV gameshow formats with a drag twist, Blankety Blank, Name That Tune, Play Your Cards Right, etc.",
-      "note": "Formerly 'Drag Cabaret with Nikki Manfadge', renamed July 2025"
+      "schedule": "Discontinued unless reintroduced in event listings",
+      "note": "Do not promote Nikki hosted/games nights as a recurring format. Nikki currently hosts Music Bingo only."
     },
     "curry_club": {
       "schedule": "Monthly",
@@ -1099,15 +841,14 @@
     }
   },
   "private_hire": {
-    "capacity": "10-50 guests",
+    "capacity": "10+ to 150 guests",
     "dining_room_seated": 26,
     "dining_room_note": "26 seated with standing room for more. French doors open onto beer garden.",
     "spaces": [
       "Beer garden",
       "Dining room (private hire)"
     ],
-    "room_hire_charge": "None, minimum spend model applies",
-    "minimum_spend_range_gbp": "500-1500 depending on day/size",
+    "room_hire_charge": "Discuss on enquiry; do not publish minimum-spend wording.",
     "catering_buffet_from_gbp": "LIVE_FROM_DB",
     "catering_sitdown_from_gbp": "LIVE_FROM_DB",
     "christmas_menus_from_gbp": "LIVE_FROM_DB",
@@ -1234,11 +975,11 @@
         }
       ]
     },
-    "av_equipment": "Projector, screen, sound system",
+    "av_equipment": "TVs and sound system. No projector.",
     "dedicated_events_coordinator": true,
     "free_wifi": true,
     "free_parking": "For all attendees",
-    "wakes_speciality": "Private entrance area, no room hire charge, short notice accepted",
+    "wakes_speciality": "Private entrance area, short notice accepted",
     "event_types": [
       "Wakes / memorials",
       "Christenings",
@@ -1265,7 +1006,8 @@
         "name": "Slough Crematorium",
         "drive_time": "15 minutes"
       }
-    ]
+    ],
+    "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF."
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",
@@ -1319,11 +1061,12 @@
   "ratings": {
     "google": {
       "rating": 4.6,
-      "review_count": 238,
-      "RESOLVED": "Confirmed 2026-03-22: 238 reviews, 4.6 stars. All hardcoded values (300, 312, 127) across the codebase must be updated to 238.",
-      "claim": "Highest-rated independent pub near Heathrow"
+      "review_count": "LIVE_SOURCE_REQUIRED",
+      "volatility": "Show the 4.6 Google rating. Do not show or hardcode a review count; pull any count from an approved live source or omit it.",
+      "claim": "Highly rated near Heathrow. Use stronger highest-rated claims only with current evidence."
     },
-    "tripadvisor_rank": "#22 of 95 restaurants in Staines"
+    "tripadvisor_rank": "VOLATILE_LIVE_SOURCE_REQUIRED",
+    "policy": "Avoid hardcoding Google review counts, Tripadvisor rank, current snowball amounts, exact drinks stock, food prices, drink prices, opening hours, or kitchen hours."
   },
   "_strategy_doc": "Strategy data (target_audiences, psychographic_segments, competitive_landscape) was moved to docs/brand-strategy.md on 2026-06-14 to keep this file to verifiable brand facts. See that doc for audience, segment, and competitor detail.",
   "seo_keywords": [
@@ -1521,5 +1264,43 @@
       "resolved_date": "2026-03-22"
     }
   ],
-  "_pricing_policy": "All food & drink prices are LIVE from the management database (menu API). Never hardcode or quote prices from this file; item names/structure are canonical, prices are not."
+  "_pricing_policy": "All food & drink prices are LIVE from the management database (menu API). Never hardcode or quote prices from this file; item names/structure are canonical, prices are not.",
+  "opening_hours": {
+    "_source": "LIVE_FROM_MANAGEMENT_API",
+    "policy": "Opening hours must come from the management API/live website. Do not hardcode bar opening times in evergreen copy, schemas, or tests.",
+    "last_orders": "Last orders for the bar is 15 minutes before the bar closes.",
+    "exception_rule": "Bank holidays and special events may vary; API special-hours records always win."
+  },
+  "volatile_claims_register": [
+    {
+      "claim": "Google rating and review count",
+      "source": "Approved live review source",
+      "rule": "Do not hardcode; hide numbers if source is unavailable."
+    },
+    {
+      "claim": "TripAdvisor rank",
+      "source": "TripAdvisor live listing",
+      "rule": "Do not hardcode in evergreen copy."
+    },
+    {
+      "claim": "Opening and kitchen hours",
+      "source": "Management API/live website",
+      "rule": "API special-hours records always win."
+    },
+    {
+      "claim": "Current snowball/jackpot values",
+      "source": "Event record",
+      "rule": "Do not hardcode in evergreen pages."
+    },
+    {
+      "claim": "Drinks stock",
+      "source": "POS/API",
+      "rule": "Check current stock before publishing exact product names."
+    },
+    {
+      "claim": "Food and private-hire prices",
+      "source": "Management DB/API/latest approved PDF",
+      "rule": "No hardcoded menu or catering prices in evergreen copy."
+    }
+  ]
 }

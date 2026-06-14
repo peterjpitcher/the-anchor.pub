@@ -66,11 +66,11 @@ Full disclosure: this is us. We're writing this guide, so take what follows with
 
 The Anchor sits in Stanwell Moor, about seven minutes from Terminal 5 by car. It's a proper village pub with a full kitchen, a beer garden that happens to sit under the Heathrow flight path (which, depending on your outlook, is either a nuisance or brilliant plane-spotting territory), and free parking.
 
-**What it costs:** Mains run £10--17. A burger is around £13. Fish and chips is £14. Our Sunday roast starts from £16 and is walk-in friendly, booking is recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
+**What it costs:** Check the live menu for current prices. Sunday roast is walk-in friendly, with booking recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
 
 **What you get that you won't find at the airport:** A log fire in winter. A beer garden in summer. Dogs welcome. Bottled beers alongside draught lagers and ciders. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
 
-**Practical details:** Free car park, open seven days a week (kitchen closed Mondays), about seven minutes from Terminal 5 via the A3044. We're at 01753 682707 or manager@the-anchor.pub if you want to check availability.
+**Practical details:** Free car park, current bar and kitchen hours live on our website, about seven minutes from Terminal 5 via the A3044. We're at 01753 682707 or manager@the-anchor.pub if you want to check availability.
 
 ### The Three Magpies, Bath Road
 

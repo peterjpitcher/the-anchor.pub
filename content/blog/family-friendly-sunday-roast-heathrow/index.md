@@ -28,12 +28,12 @@ Planning a **family Sunday roast near Heathrow**? Whether you’re welcoming rel
 
 ### Spacious Seating & Flexible Layouts
 - Dedicated dining room with space for prams, car seats, and cabin luggage.
-- Book the snug for **10–20 guests** if you want a private celebration.
+- Ask about the snug if you want a smaller private celebration.
 - Dog-friendly bar area for four-legged family members.
 
 ### Kids Eat Like Grown-Ups
-- Kids roast for **£14** (a smaller portion with all the trimmings).
-- Adult roasts are from **£16** depending on your choice.
+- Kids roast options are available for smaller appetites.
+- Adult roasts vary by choice, check the live menu for current prices.
 - Desserts and hot drinks are available to add on the day.
 - Juices and soft drinks keep younger guests happy.
 
@@ -73,7 +73,7 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 1. [Book Sunday roast](/sunday-roast) (or call/WhatsApp **+44 1753 682707**) with your party details.
 2. Tell us if you need high chairs, booster seats, or pram space.
-3. Walk in or book ahead, no pre-order needed. Groups of 10 or more take a **£10 per person deposit** on booking, fully deducted from the bill on the day.
+3. Walk in or book ahead, no pre-order needed. A group deposit may apply for larger bookings and is deducted from the bill on the day.
 4. Want a cake or balloons? Drop them off the day before and we’ll set the table.
 
 ## Useful Family Dining Pages

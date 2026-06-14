@@ -10,7 +10,7 @@ import { trackFaqItemOpened } from '@/lib/gtm-events'
 // DM Serif question + gold plus icon rotating 45° when open, muted answer.
 //
 // Emits FAQPage JSON-LD matching the rendered Q&As exactly. Every answer is
-// verified against docs/SSOT.md: kitchen closed Mondays (§3/§4), 20 free parking
+// verified against docs/SSOT.md: live kitchen hours (§3/§4), 20 free parking
 // spaces (§6), dog friendly (§3/§9), 7 mins from T5 + bus routes 441/442/555 (§2),
 // booking + walk-ins (§7).
 
@@ -38,7 +38,7 @@ const FAQS: FaqItem[] = [
   {
     question: 'When is the kitchen open?',
     answer:
-      'Kitchen hours are shown live on this page and can vary on holidays. We serve food Tuesday to Sunday, with roast service on Sundays. The kitchen is closed on Mondays. You can also call 01753 682707 to check today’s times.'
+      'Kitchen hours are shown live on this page and can vary on holidays and event days. Please check today’s times online or call 01753 682707 before you visit.'
   },
   {
     question: 'Do I need to book a table?',

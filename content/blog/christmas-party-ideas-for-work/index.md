@@ -145,21 +145,21 @@ Fifteen ideas is a lot. So here's a quick way to narrow it down.
 
 **What's the team actually like?** If half your office would rather die than do karaoke, don't book karaoke. If they're competitive, a quiz or escape room will land. If they just want good food and good company, a sit-down dinner is perfect. Read the room, literally.
 
-**Does anyone have accessibility needs?** Always ask. Not everyone can do an escape room or a scavenger hunt. A venue with step-free access, accessible toilets, and flexible seating should be your baseline, not your afterthought.
+**Does anyone have accessibility needs?** Always ask. Not everyone can do an escape room or a scavenger hunt. A venue with step-free access, clear facilities information, and flexible seating should be your baseline, not your afterthought.
 
 ## Why teams book their Christmas party at The Anchor
 
 Right, here's the bit where we talk about ourselves, but only because it's genuinely relevant if you're searching for a christmas party near me in the Surrey, Middlesex, or West London area.
 
-The Anchor is a proper pub in Shepperton, about seven minutes from Heathrow Terminal 5. We've got free parking, we're outside the ULEZ zone, and we host everything from small team dinners to full private hire events for up to 120 guests.
+The Anchor is a proper pub in Stanwell Moor, about seven minutes from Heathrow Terminal 5. We've got free parking, we're outside the ULEZ zone, and we host everything from small team dinners to full private hire events for 10+ to 150 guests.
 
 Here's what we can do for your office christmas party:
 
-- **Sit-down Christmas dinners** from £36.95 per person, with set menus that actually taste like someone cared
+- **Sit-down Christmas dinners** with current pricing confirmed when you enquire
 - **Shared party nights** with DJ, dance floor, and festive menu
 - **Quiz nights and music bingo**, we run these regularly, so the equipment and hosts are already sorted
 - **Karaoke and live entertainment**, full AV setup with space to dance
-- **Private and semi-private dining** for groups from 10 to 120
+- **Private and semi-private dining** for groups from 10+ to 150
 - **Buffet options** for more relaxed celebrations
 
 We're not a faceless function room. We're a village pub that happens to be really, really good at hosting parties. Our christmas party venue spaces book up fast, especially Fridays and Saturdays in December, so if you're reading this and thinking "that could work," it's worth getting in touch sooner rather than later.

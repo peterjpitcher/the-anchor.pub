@@ -78,7 +78,7 @@ function getSundayLunchFaqs() {
     },
     {
       question: "Where's the best Sunday roast near Heathrow Airport?",
-      answer: 'The Anchor in Stanwell Moor is seven minutes from Terminal 5, with free parking, fresh made-to-order roasts and no booking needed. Rated 4.6 from 238 Google reviews.'
+      answer: 'The Anchor in Stanwell Moor is around seven minutes from Terminal 5, traffic dependent, with free parking, fresh made-to-order roasts and no booking needed.'
     },
     {
       question: 'Is there parking, and is it free?',
@@ -195,7 +195,7 @@ export default async function SundayRoastPage() {
             <li aria-hidden="true" className="text-line-strong">&middot;</li>
             <li>Walk-ins welcome</li>
             <li aria-hidden="true" className="text-line-strong">&middot;</li>
-            <li>4.6/5 on Google</li>
+            <li>Highly rated on Google</li>
           </ul>
         </div>
       </section>
@@ -460,10 +460,10 @@ export default async function SundayRoastPage() {
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-3 text-h3 text-ink-strong">
-              Rated 4.6 by 238 Diners
+              Fresh Roasts, Made to Order
             </h2>
             <p className="leading-relaxed text-ink-muted">
-              We are rated 4.6 out of 5 across 238 Google reviews, which for a village pub doing fresh, made-to-order roasts is something we are quietly proud of. Come and see what the fuss is about.
+              We plate Sunday roasts fresh to order, with walk-ins welcome and no pre-order needed. Come and see why guests keep talking about our roasts.
             </p>
           </div>
         </div>

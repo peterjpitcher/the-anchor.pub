@@ -21,12 +21,12 @@ import { CtaBand } from '@/components/CtaBand'
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
   description:
-    "The Anchor in Stanwell Moor has been a village pub since 1751. Rated 4.6/5 on Google with 5-star food hygiene. Meet the team behind Heathrow\u2019s favourite local pub.",
+    "The Anchor in Stanwell Moor has been a village pub since 1751. 5-star food hygiene. Meet the team behind Heathrow\u2019s favourite local pub.",
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About The Anchor | Our Story Since 1751',
     description:
-      'A proper village pub since 1751, now the closest traditional British pub to Heathrow Airport. 4.6/5 on Google, 5-star food hygiene, dog-friendly, free parking.',
+      'A proper village pub since 1751, now the closest traditional British pub to Heathrow Airport. 5-star food hygiene, dog-friendly, free parking.',
     url: '/about',
     siteName: 'The Anchor',
     locale: 'en_GB',
@@ -47,7 +47,7 @@ const aboutPageSchema = {
   '@type': 'AboutPage',
   name: 'About The Anchor',
   description:
-    'The Anchor in Stanwell Moor has been a village pub since 1751. Rated 4.6/5 on Google with 5-star food hygiene rating.',
+    'The Anchor in Stanwell Moor has been a village pub since 1751, with a 5-star food hygiene rating.',
   url: 'https://www.the-anchor.pub/about',
   mainEntity: {
     '@type': 'BarOrPub',
@@ -94,7 +94,7 @@ export default function AboutPage() {
         badges={
           <>
             <Badge variant="sand">Est. 1751</Badge>
-            <Badge variant="sand">4.6/5 on Google</Badge>
+            <Badge variant="sand">Highly Rated on Google</Badge>
             <Badge variant="sand">5-Star Food Hygiene</Badge>
           </>
         }
@@ -135,7 +135,7 @@ export default function AboutPage() {
                 When Heathrow grew from a grass airstrip in the 1940s into one of the
                 world&apos;s busiest airports, the village changed around us. Roads were
                 widened, reservoirs were dug, and flight paths were drawn overhead. But
-                The Anchor stayed put. We kept doing what we&apos;d always done,
+                The Anchor stayed put. We kept doing what we&apos;d always done:
                 pulling pints, serving proper food, and making people feel at home.
               </p>
 
@@ -150,7 +150,7 @@ export default function AboutPage() {
 
               <p>
                 But for all that, we&apos;re still a village pub at heart. We have our regulars
-                who prop up the bar every week. We run quiz nights, music bingo, and karaoke.
+                who prop up the bar every week. We run quiz nights, music bingo, karaoke when listed, and live music.
                 The kids play in the garden while the dogs snooze under the tables. The kitchen
                 turns out honest British food, nothing fussy, just good ingredients
                 cooked well. That&apos;s what we&apos;ve been doing since George II was on the
@@ -192,9 +192,9 @@ export default function AboutPage() {
                   'The highest possible rating from the Food Standards Agency. We take food safety as seriously as we take the food itself.',
               },
               {
-                title: '4.6/5 on Google',
+                title: 'Highly Rated on Google',
                 description:
-                  'Over 238 reviews and counting. The highest-rated independent, non-airport pub near Heathrow.',
+                  'Guests regularly mention the warm welcome, pub food, beer garden and free parking.',
               },
               {
                 title: 'Outside the ULEZ Zone',
@@ -232,7 +232,7 @@ export default function AboutPage() {
                     </h3>
                     <p className="text-ink-muted mb-4">
                       Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
-                      fair prices, with food served daily (check our opening hours for times).
+                      fair prices, served during live kitchen hours.
                     </p>
                     <p className="text-accent-text font-semibold">View menu &rarr;</p>
                   </CardBody>
@@ -244,7 +244,7 @@ export default function AboutPage() {
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
-                      Sunday Roasts from &pound;19
+                      Sunday Roasts
                     </h3>
                     <p className="text-ink-muted mb-4">
                       Proper roasts with all the trimmings. Yorkshire puddings, roast
@@ -263,7 +263,7 @@ export default function AboutPage() {
                       Weekly Events
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Quiz nights, music bingo with Nikki, karaoke, live music, and more.
+                      Quiz nights, music bingo with Nikki, karaoke when listed, live music, and more.
                       There&apos;s always something on.
                     </p>
                     <p className="text-accent-text font-semibold">See what&apos;s on &rarr;</p>
@@ -279,7 +279,7 @@ export default function AboutPage() {
                       Private Hire
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Flexible room bookings for 10 to 50 guests, with larger events by enquiry. Birthdays, corporate events,
+                      Flexible private hire for 10+ to 150 guests. Birthdays, corporate events,
                       celebrations, we handle the lot.
                     </p>
                     <p className="text-accent-text font-semibold">Plan your event &rarr;</p>
@@ -352,11 +352,10 @@ export default function AboutPage() {
                 <CardBody className="p-8 text-center">
                 <div className="text-4xl mb-3" aria-hidden="true"></div>
                 <h3 className="text-xl text-ink-strong mb-2">
-                  4.6 / 5 on Google
+                  Highly Rated on Google
                 </h3>
                 <p className="text-ink-muted">
-                  Over 238 verified reviews. Consistently rated the top independent pub
-                  near Heathrow.
+                  Guests regularly praise the welcome, food, beer garden and location near Heathrow.
                 </p>
                 </CardBody>
               </Card>

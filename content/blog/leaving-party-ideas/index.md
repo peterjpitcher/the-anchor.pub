@@ -31,7 +31,7 @@ Better approach: keep it under five minutes. Structure it around moments, not mi
 
 **What works:**
 
-- Open with a specific, funny story, the time they accidentally replied-all, the client meeting where the projector died, the day they wore odd shoes and nobody told them until 3pm
+- Open with a specific, funny story, the time they accidentally replied-all, the client meeting where the TV died, the day they wore odd shoes and nobody told them until 3pm
 - Mention what they actually contributed. Not "Sarah was a valued member of the team" but "Sarah rewrote the entire onboarding process and our new starter dropout rate halved"
 - End with something genuine. What will you miss? What did they teach you? One honest sentence lands harder than five paragraphs of corporate warmth
 
@@ -52,7 +52,7 @@ Photo slideshows have become a leaving party staple, and when they're done well,
 - Collect photos quietly in advance. Set up a shared folder and message people individually, a group email asking "send me your photos of Dave" gets two responses, both from Dave's manager
 - Include a mix: work moments, team nights out, screenshots of funny Slack messages (with permission), that photo from the 2023 Christmas party where everyone's wearing paper crowns
 - Keep it to 4-5 minutes. Twenty photos, maybe thirty. Not eighty-seven.
-- If you have access to a venue with AV equipment, a projector, screen, and sound system, the whole thing goes from "someone's laptop balanced on a filing cabinet" to something that actually feels special
+- If you have access to a venue with AV equipment, a TVs and sound system, the whole thing goes from "someone's laptop balanced on a filing cabinet" to something that actually feels special
 
 The venue matters here. Trying to show a slideshow in a noisy bar where you can't dim the lights is a losing battle. A private space with proper AV equipment makes all the difference.
 
@@ -95,7 +95,7 @@ Not every leaving do needs to be an evening event. For some teams, especially if
 - The mood is different, more relaxed, less performative, nobody watching the clock thinking about the last train
 - You can do the speech and slideshow over pudding, then let people drift off naturally
 
-A buffet keeps things simple. If you're at a venue that offers catering packages, you avoid the nightmare of trying to get forty-two people to order from a menu at the same time. Sandwich buffets start from around £9.95 per head at most venues, with more substantial options like burger or premium buffets available too.
+A buffet keeps things simple. If you're at a venue that offers catering packages, you avoid the nightmare of trying to get forty-two people to order from a menu at the same time. Sandwich buffets start from around current approved price at most venues, with more substantial options like burger or premium buffets available too.
 
 ## The "surprise" element
 
@@ -131,11 +131,11 @@ Whether you're planning a long lunch or an evening event, the venue can make or 
 
 **Private or semi-private space.** You want your group to feel like a group, not a scattering of people trying to find each other in a busy bar. A private dining room or function space means you can do speeches, slideshows, and awards without shouting over someone else's music.
 
-**AV equipment.** If you're doing a slideshow, a quiz, or showing video messages, you need a projector, screen, and sound system. Not "we can probably plug your laptop into the TV", actual equipment that works.
+**AV equipment.** If you're doing a slideshow, a quiz, or showing video messages, you need a TVs and sound system. Not "we can probably plug your laptop into the TV", actual equipment that works.
 
-**Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. Buffets starting from £9.95 per head keep costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
+**Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. Buffets starting from current approved price keep costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
 
-**No hidden costs.** Room hire charges, minimum spend requirements, AV surcharges, cake-cutting fees (yes, that's a thing), these add up fast. The best venues operate on a straightforward minimum spend model with no room hire charge.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Parking.** If your team is driving, free parking matters. Paying £15 per car to attend someone's leaving drinks takes the shine off quickly. Free on-site parking for all guests removes that friction entirely.
 
@@ -147,13 +147,13 @@ We host leaving dos regularly, and we'll be straightforward about what we offer.
 
 **The space:** Our private dining room seats 26 with standing room for more. French doors open onto the [beer garden](/beer-garden), so you're not boxed in. For larger groups, we can host up to 50 guests across the venue.
 
-**AV equipment:** We have a projector, screen, and sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
+**AV equipment:** We have a TVs and sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
 
-**Food options:** [Buffets](/food-menu) start from £9.95 per head (sandwich buffet, minimum 30 guests), going up through finger buffets at £10.50, burger buffets at £10.95, and premium buffets at £13.95. Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
+**Food options:** [Buffets](/food-menu) start from current approved price (sandwich buffet, minimum 30 guests), going up through finger buffets at current approved price, burger buffets at current approved price, and premium buffets at current approved price. Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
 
 **Drinks:** Bar tab option means you set a budget and we track it. Welcome drinks packages from £6.99 per head if you want prosecco or cocktails on arrival. Or just let people buy their own, no pressure either way. We accept cash, card, Amex, and contactless.
 
-**Cost structure:** No room hire charge. We operate on a minimum spend model (£500-£1,500 depending on day and group size), with a £250 deposit. The minimum spend covers food and drink, it's not an additional cost on top.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Parking:** Free on-site parking for approximately 20 cars. Level surface, close to the entrance, CCTV and floodlit. No charges, no time limits while you're visiting.
 
@@ -169,19 +169,19 @@ We host leaving dos regularly, and we'll be straightforward about what we offer.
 - Premium buffet or sit-down meal
 - Bar tab for the evening
 - Welcome drinks on arrival (prosecco at £7.99 per head)
-- Custom slideshow on the projector
+- Custom slideshow on the TV
 - Funny awards with printed certificates
 
 ### Company's paying (modest budget)
 
-- Sandwich or finger buffet (£9.95-£10.50 per head)
+- Sandwich or finger buffet (current approved price-current approved price)
 - Set bar tab with a cap
 - Speech and slideshow in a venue with AV equipment
 - Memory jar or card signed by the team
 
 ### Team's chipping in
 
-- Book a venue with no room hire charge
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Everyone orders their own food and drinks
 - Organise a collection for a gift
 - Someone volunteers for the speech
@@ -203,7 +203,7 @@ If the person is leaving under difficult circumstances (redundancy, restructure,
 
 ### How much should you spend on a leaving party?
 
-There's no fixed rule. Company-funded events typically budget £20-£40 per head for food and drinks. If the team is chipping in, even a modest venue with no room hire charge and buffet food from £9.95 per head keeps costs reasonable. The effort matters more than the spend, a thoughtful speech and a good slideshow cost nothing.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Should you invite the whole company or just the team?
 
@@ -221,4 +221,4 @@ Two to four weeks is usually enough for smaller groups. For larger events (30+ p
 
 Absolutely, and it's becoming more common. A long lunch avoids the evening childcare juggle, includes people who can't stay out late, and feels less forced than after-work drinks. A [private venue](/private-hire/retirement-parties) with buffet catering makes lunchtime events simple to organise.
 
-Ready to plan a leaving do that people will actually remember? [Get in touch with our events coordinator](/private-hire/retirement-parties) to check availability and talk through what you need. No room hire charge, no fuss, just a proper send-off in a proper pub.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.

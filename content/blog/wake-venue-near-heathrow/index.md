@@ -76,7 +76,7 @@ Community halls give you the most control and the lowest cost, but they also req
 
 ### Restaurant Private Dining
 
-A restaurant with a private dining room can work well for smaller, more intimate wakes -- perhaps 15 to 30 guests. The food is usually a step above buffet standard, which some families appreciate. The downside is that restaurant private dining tends to be more structured, with set menus and fixed timings, and there may be a minimum spend requirement.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ## What to Look for in a Wake Venue
 
@@ -110,8 +110,8 @@ Whatever you choose, mention dietary requirements when you book. At least a few 
 We host wakes regularly at The Anchor, and we approach every one with care. Here's what we offer:
 
 - A private area suitable for gatherings of **10 to 100+ guests**
-- **Buffet catering from £12 per head**, including finger food, sandwiches, and hot options. We can cater for vegetarian, halal, and gluten-free requirements
-- **No room hire charge** -- you only pay for food and drinks
+- **Buffet catering from the live approved source**, including finger food, sandwiches, and hot options. We can cater for vegetarian, halal, and gluten-free requirements
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - **Free parking** for all guests, with space for funeral cars to pull in
 - **Flexible arrival times** -- come when you're ready after the service. We won't rush you
 - Just **7 minutes from Heathrow Terminal 5**, which helps when family members are flying in from overseas
@@ -146,7 +146,7 @@ A few things that families often don't think about until the day -- worth consid
 
 ### How much does it cost to host a wake near Heathrow?
 
-Costs vary widely. Hotel function rooms typically start at £40-60 per head for a set menu, plus room hire of £500 or more. Pub buffets are usually £12-25 per head with no room hire. Community halls may only charge a hire fee (£100-300) but you'll need to arrange your own catering. At The Anchor, buffets start from £12 per head with no room hire charge.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Do I need to book a wake venue in advance?
 

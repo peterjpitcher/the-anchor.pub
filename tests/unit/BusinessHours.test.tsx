@@ -70,8 +70,8 @@ describe('BusinessHours', () => {
       mockContextValue.loading = true
       render(<BusinessHours />)
       expect(screen.getByText(/Opening hours/i)).toBeInTheDocument()
-      expect(screen.getByText(/Bar hours: Tuesday to Thursday 4pm-11pm/i)).toBeInTheDocument()
-      expect(screen.getByText(/Kitchen hours: Tuesday to Friday 4pm-9pm/i)).toBeInTheDocument()
+      expect(screen.getByText(/Bar hours: live hours are loading from the management system/i)).toBeInTheDocument()
+      expect(screen.getByText(/Kitchen hours: live kitchen times are loading from the management system/i)).toBeInTheDocument()
     })
 
     it('should render error fallback with phone number when error', () => {

@@ -153,7 +153,7 @@ We've hosted christening receptions, baptism parties, and naming ceremonies for 
 
 Twenty-six seated with standing room for more. French doors open directly onto the beer garden, which gives you indoor-outdoor flow on a nice day and a contained, private space on a cooler one. It's the right size for a christening reception of 15-40 guests -- large enough to feel like an event, small enough to feel personal.
 
-We have AV equipment including a projector, screen, and sound system if you want to play a slideshow of baby photos or set up a background playlist. A dedicated events coordinator handles your booking from first enquiry through to the day itself.
+We have AV equipment including a TVs and sound system if you want to play a slideshow of baby photos or set up a background playlist. A dedicated events coordinator handles your booking from first enquiry through to the day itself.
 
 ### Family facilities -- the honest version
 
@@ -185,12 +185,12 @@ Most christening groups opt for a buffet and a drinks package. Here's how it bre
 
 | Package | Per Head |
 | --- | --- |
-| Sandwich Buffet | £9.95 |
-| Finger Buffet | £10.50 |
-| Burger Buffet | £10.95 |
-| Premium Buffet | £13.95 |
+| Sandwich Buffet | current approved price |
+| Finger Buffet | current approved price |
+| Burger Buffet | current approved price |
+| Premium Buffet | current approved price |
 | Pizza Buffet | Menu priced |
-| Indoor BBQ | £17.99 |
+| Indoor BBQ | current approved price |
 
 **Kids' catering (all £8.00 per head):**
 - Kids Burger and Chips
@@ -206,13 +206,13 @@ Most christening groups opt for a buffet and a drinks package. Here's how it bre
 | Unlimited Tea and Coffee | £4.49 |
 | Kids Unlimited Squash | £3.50 |
 
-For a typical christening reception of 30 guests with a finger buffet, kids' meals for eight children, unlimited tea and coffee, and a welcome prosecco, you're looking at around £500-600 total. That's well within our minimum spend range of £500-1,500 (which varies by day and group size).
+For a typical christening reception of 30 guests with a finger buffet, kids' meals for eight children, unlimited tea and coffee, and a welcome prosecco, you're looking at around £500-600 total. That's well within our pricing is discussed on enquiry (which varies by day and group size).
 
 Bring your own christening cake at no extra charge. Bring your own food entirely if you'd prefer -- no cakeage, no corkage drama.
 
 ### What it costs
 
-No room hire charge. A £250 deposit secures your date, and the minimum spend covers your food and drink -- so you're not paying twice. For most christening receptions, the catering spend naturally meets the minimum without stretching.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Parking and access
 
@@ -236,7 +236,7 @@ You don't need a theme, but if you want one, these work for christenings without
 
 ### How much does a christening reception cost at a pub?
 
-At The Anchor, a typical christening for 30 guests with a finger buffet and drinks packages costs £500-600 total. No room hire charge. The £250 deposit is deducted from your final bill, so it's not an extra cost. Compare this to hotel function rooms near Heathrow that charge £1,000+ for the room alone before catering.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Can I hold a naming ceremony and reception at the same venue?
 

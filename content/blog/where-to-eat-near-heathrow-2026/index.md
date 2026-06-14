@@ -30,7 +30,7 @@ Good news: there are genuine options within 15 minutes of the airport, and most 
 
 Before we get into specific places, it is worth understanding why so many seasoned travellers make the short trip outside Heathrow's perimeter.
 
-**Price is the obvious one.** A burger and chips inside Terminal 5 costs between £18 and £22. The same meal at a local pub runs £11 to £14. A pint of lager that is £7.50 airside drops to around £5.50 at a village pub. Over a meal for two, the savings add up to £20 to £40.
+**Price is the obvious one.** Airport restaurants often charge more than nearby local pubs. Check each venue's current menu before you travel, because live prices change.
 
 **Quality is the less obvious but bigger factor.** Airport restaurants serve a captive audience. They do not need repeat customers, so there is less incentive to impress. Local pubs and restaurants, on the other hand, survive on regulars and word of mouth. The food has to be good enough that people come back.
 
@@ -46,7 +46,7 @@ We will be upfront: this is our pub and we are biased. But there are genuine, pr
 
 **Free parking with no catches.** We have around 20 spaces in our car park, and they are genuinely free. No ticket machines, no time limits, no "free for first 30 minutes then £8 an hour" small print. You park, you eat, you leave. Compare that to the £15 to £25 most hotel car parks charge non-guests, or the multi-pound-per-hour airport parking rates.
 
-**Proper pub food, cooked fresh.** Our kitchen turns out British pub classics done properly. Beer-battered fish and chips at £15, stone-baked pizzas from £12, gourmet burgers from £11, pies with golden pastry and rich gravy from £15, comfort dishes like lasagne and chicken katsu curry around £14 to £15. Everything is made to order. We do not do microwaved ready meals dressed up with a sprig of parsley.
+**Proper pub food, cooked fresh.** Our kitchen turns out British pub classics done properly, with beer-battered fish and chips, stone-baked pizzas, burgers, pies and comfort dishes cooked to order. Check the live menu for current prices before you visit.
 
 **Dog-friendly.** If you are travelling with a dog (or picking one up from the pet reception centre at Heathrow's animal quarantine facility), The Anchor welcomes dogs in the bar and beer garden. Water bowls are always out, and your dog will probably get more attention from the regulars than you will.
 
@@ -58,7 +58,7 @@ For a quick lunch, the burgers and pizzas are your best bet. They come out fast 
 
 For a proper dinner, the steaks and pie selection are worth the trip. Our steak and ale pie in particular is a regular favourite.
 
-On Sundays, we do a [traditional roast](/sunday-roast) served 1pm-6pm, walk in or book ahead, no pre-order needed. It is the real thing: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables and proper gravy. Prices start from £16. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
+On Sundays, we do a [traditional roast](/sunday-roast), walk in or book ahead, no pre-order needed. It is the real thing: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables and proper gravy. Check the live menu for current prices before you visit.
 
 Browse our full [food menu](/food-menu) to see current prices and options, including [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) choices.
 
@@ -66,7 +66,7 @@ Browse our full [food menu](/food-menu) to see current prices and options, inclu
 
 - **Address:** Horton Road, Stanwell Moor, TW19 6AQ
 - **Phone:** 01753 682707
-- **Kitchen hours:** Open Tuesday to Sunday (kitchen closed on Mondays, though the pub is open for drinks)
+- **Kitchen hours:** Check the live opening hours before visiting
 - **Booking:** [Book a table online](/book-table) or call us. Walk-ins are welcome for standard food service; booking is recommended for Sunday roast peak slots and groups of 4 or more
 - **Getting there:** 7 minutes from Terminal 5, 12 minutes from Terminals 2 and 3, 15 minutes from Terminal 4
 
@@ -76,7 +76,7 @@ We would love to tell you we are the only option, but that would not be honest o
 
 ### Local Pubs Along the A4 and Bath Road
 
-The stretch of road between Heathrow and Slough has several pub-restaurants, mostly run by the major chains (Greene King, Marston's, and similar). These tend to be large-format dining pubs with extensive menus covering everything from burgers to curries to grills.
+The stretch of road between Heathrow and Slough has several pub-restaurants, mostly run by the major chains. These tend to be large-format dining pubs with extensive menus covering everything from burgers to curries to grills.
 
 **What is good about them:** Reliable and predictable. If you know the brand, you know roughly what you are getting. Portions are generous. Most have free parking. Family-friendly with play areas. Mains typically £11 to £17.
 
@@ -121,9 +121,9 @@ Every terminal at Heathrow has a range of restaurants, from fast food chains to 
 
 ### Colnbrook Village
 
-Just north of the airport, the village of Colnbrook has a couple of historic pubs that serve food. It is one of the oldest villages in the area and has genuine character. The pubs here tend to be traditional, with real ales and classic British menus.
+Just north of the airport, the village of Colnbrook has a couple of historic pubs that serve food. It is one of the oldest villages in the area and has genuine character. The pubs here tend to be traditional, with classic British menus.
 
-**What is good about them:** Genuine historic atmosphere. Real ales. Proper village pub feel. Food is typically good pub fare at reasonable prices (mains £13 to £18). Free parking.
+**What is good about them:** Genuine historic atmosphere. Proper village pub feel. Food is typically good pub fare. Free parking.
 
 **What is less good:** Slightly further from the main terminals (15 to 20 minutes). Smaller venues with limited menus compared to larger operations. Not always open for food at lunchtime on weekdays.
 
@@ -147,7 +147,7 @@ About 15 to 20 minutes south of the airport, Staines has a proper high street wi
 
 | Option | Distance from T5 | Parking | Price (mains) | Cuisine | Atmosphere |
 |--------|------------------|---------|---------------|---------|------------|
-| **The Anchor** | 7 mins | Free | £11--19 | British pub | Village pub, beer garden, plane spotting |
+| **The Anchor** | 7 mins | Free | Live menu | British pub | Village pub, beer garden, plane spotting |
 | **Bath Road pubs** | 10--15 mins | Free | £11--17 | Chain pub | Large family dining |
 | **Hotel restaurants** | 0--10 mins | £15--25 (or free for guests) | £18--30 | International | Corporate, quiet |
 | **Terminal restaurants** | 0 mins | N/A | £15--25 | Mixed | Busy, transactional |
@@ -221,7 +221,7 @@ Yes, most local pubs offer free parking. The Anchor in Stanwell Moor has around 
 
 ### What are the cheapest places to eat near Heathrow?
 
-Local pubs offer the best value. At The Anchor, burgers start from £11, pizzas from £12, and a kids meal is around £8 to £9. Chain pubs along Bath Road are similar. The cheapest option inside the airport is a meal deal from Boots or Pret (£5 to £8), but for a proper sit-down meal, you will pay £15 to £22 per main course airside.
+Local pubs often offer the best value. At The Anchor, check the live menu for current prices and options. The cheapest option inside the airport is usually a grab-and-go meal deal, while sit-down meals airside cost more.
 
 ### Is it worth eating outside Heathrow Airport?
 
@@ -229,7 +229,7 @@ If you have at least two hours and access to a car or taxi, yes. You will save �
 
 ### What restaurants are open late near Heathrow?
 
-Hotel restaurants typically serve latest (until 10pm or later). Local pubs usually serve food until 8:30pm to 9pm on weeknights and 9pm to 9:30pm on weekends. Terminal restaurants have varying hours but several are open late for departures. Check specific restaurant hours before travelling, especially on Sundays and bank holidays.
+Hotel restaurants typically serve latest. Local pub kitchen hours vary by venue and date. Terminal restaurants have varying hours but several are open late for departures. Check specific restaurant hours before travelling, especially on Sundays and bank holidays.
 
 ## The Bottom Line
 
@@ -243,4 +243,4 @@ Whatever you choose, you will eat better and spend less by knowing what is actua
 
 ---
 
-*The Anchor is at Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes from Heathrow Terminal 5, with free parking. Kitchen open Tuesday to Sunday.*
+*The Anchor is at Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes from Heathrow Terminal 5, with free parking. Check live kitchen hours before visiting.*

@@ -102,7 +102,7 @@ A 50th birthday party can cost anywhere from £500 to £5,000 depending on forma
 
 | Component | Budget option | Mid-range | Premium |
 |---|---|---|---|
-| Venue hire | Free (minimum spend) | £200-500 | £500-2,000 |
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 | Food (40 guests) | £400 (buffet at £10/head) | £800 (£20/head) | £1,600+ (£40/head) |
 | Drinks | Cash bar | £300 tab | £600+ open bar |
 | Decorations | DIY, £50-100 | Venue-provided, £100-200 | Professional, £300+ |
@@ -147,17 +147,17 @@ Here's exactly what we offer and what we don't, because honest information is mo
 
 Our private dining room seats 26 for a sit-down meal, with standing room for more. French doors open onto the beer garden, which seats 64. For a 50th birthday, that means you can comfortably host an intimate dinner for 20-odd people indoors, or a larger celebration of up to 50 guests using both spaces.
 
-For groups of 10 to 50, we operate on a minimum spend model, no room hire charge. The minimum spend ranges from £500 to £1,500 depending on the day and size of your event, with a £250 deposit to secure the date.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Food and drink packages
 
-Buffet options start from £9.95 per head (minimum 30 guests):
+Buffet options start from current approved price (minimum 30 guests):
 
-- **Sandwich Buffet:** £9.95/head
-- **Finger Buffet:** £10.50/head
-- **Burger Buffet:** £10.95/head
-- **Premium Buffet:** £13.95/head
-- **Indoor BBQ:** £17.99/head
+- **Sandwich Buffet:** current approved price
+- **Finger Buffet:** current approved price
+- **Burger Buffet:** current approved price
+- **Premium Buffet:** current approved price
+- **Indoor BBQ:** current approved price
 
 Drinks packages are available from £6.99 per head for welcome drinks, or £7.99 for prosecco and orange juice. Unlimited tea and coffee runs at £4.49 per head, useful for afternoon celebrations with older guests. Kids get unlimited squash for £3.50 per head.
 
@@ -168,7 +168,7 @@ You can also bring your own food at no charge if you prefer to arrange catering 
 - **Free parking** for all guests, 20 spaces on site, no fees, no time limits. CCTV and floodlit.
 - **Step-free access** to the bar, dining area, and car park
 - **Beer garden ramp** available on request (there are steps from the bar, but we have a ramp for those who need it)
-- **AV equipment**, projector, screen, and sound system for slideshows, speeches, or that embarrassing montage someone always puts together
+- **AV equipment**, TVs and sound system for slideshows, speeches, or that embarrassing montage someone always puts together
 - **Dedicated events coordinator** who handles the details
 - **Dog friendly** throughout the venue, water bowls and treats provided, so the family dog is welcome too
 - **Free WiFi**, handy for sharing photos on the night
@@ -231,7 +231,7 @@ Use this timeline to stay on track:
 
 ### How much does a 50th birthday party cost in 2026?
 
-A 50th birthday party for 30-40 guests typically costs between £800 and £3,000 depending on venue, catering, and drinks. At a local pub venue like The Anchor near Heathrow, buffet packages start from £9.95 per head with no room hire charge, making a complete celebration for 40 guests achievable from around £600-800 before drinks. Hotel venues near Heathrow typically start from £50 per head, putting the same event at £2,500-4,000.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### How far in advance should I book a 50th birthday venue?
 
@@ -247,7 +247,7 @@ Absolutely, and it's increasingly popular. A Sunday celebration, particularly a 
 
 ### What's the best venue for a 50th birthday near Heathrow?
 
-The best venue depends on your group size, budget, and style. Airport hotels suit large formal events (80+ guests) but cost £50-100 per head before drinks. For celebrations of 10-50 guests, a local pub with a private dining room offers better value, a warmer atmosphere, and practical advantages like free parking. The Anchor in Stanwell Moor, seven minutes from Terminal 5, hosts milestone birthday celebrations with [buffets from £9.95 per head](/private-hire), a private dining room seating 26, and a [beer garden](/food-menu) seating 64.
+The best venue depends on your group size, budget, and style. Airport hotels suit large formal events (80+ guests) but cost £50-100 per head before drinks. For celebrations of 10+ to 150 guests, a local pub with a private dining room offers better value, a warmer atmosphere, and practical advantages like free parking. The Anchor in Stanwell Moor, seven minutes from Terminal 5, hosts milestone birthday celebrations with [buffets priced from the live approved source](/private-hire), a private dining room seating 26, and a [beer garden](/food-menu) seating 64.
 
 ---
 

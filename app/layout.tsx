@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor Stanwell Moor'
   },
-  description: 'The Anchor, Stanwell Moor, rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5. Sunday roasts, quiz nights, karaoke Fridays, beer garden & free parking.',
+  description: 'The Anchor, Stanwell Moor. Traditional pub around 7 mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.',
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',

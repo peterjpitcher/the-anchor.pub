@@ -81,7 +81,7 @@ All six premium spirits from our **tasting event** are now available at The Anch
 #### 4. Gordon's Tropical Passionfruit Gin
 - **Profile**: Tart, refreshing, delightfully citrusy
 - **Perfect serve**: Classic tonic or ginger ale
-- **Guest rating**: 4.6/5
+- **Guest rating**: see live reviews
 
 #### 5. Warner's Elderflower Gin
 - **Profile**: Elegant and lightly fruity

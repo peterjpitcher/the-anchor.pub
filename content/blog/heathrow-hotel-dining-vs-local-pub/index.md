@@ -138,5 +138,5 @@ We have detailed guides for guests at:
 
 ---
 
-*The Anchor is open Tuesday–Sunday. Kitchen closed Monday. Free parking, postcode TW19 6AQ.*
+*The Anchor’s current opening and kitchen hours are live on our website. Free parking, postcode TW19 6AQ.*
 *[Book a table online](/book-table) or call 01753 682707.*

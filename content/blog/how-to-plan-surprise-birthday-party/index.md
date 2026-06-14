@@ -46,7 +46,7 @@ Here's what to look for:
 
 **On-site parking.** Nothing gives away a surprise faster than the birthday person spotting their best mate's car on the way in. Venues with their own car park (rather than street parking) let guests park away from the main entrance. At The Anchor, we've got [free parking for 20 cars](/private-hire), and we can advise guests on where to park so their vehicles aren't visible from the approach.
 
-**AV equipment for slideshows and music.** A projector and sound system transform a surprise party. You can run a slideshow of embarrassing photos during the meal, play their favourite playlist, or set up a video message montage from friends who couldn't make it. Hiring AV separately adds cost and complexity. Venues that include it (like we do -- projector, screen, and sound system) save you the hassle.
+**AV equipment for slideshows and music.** A TV and sound system transform a surprise party. You can run a slideshow of embarrassing photos during the meal, play their favourite playlist, or set up a video message montage from friends who couldn't make it. Hiring AV separately adds cost and complexity. Venues that include it (like we do -- TVs and sound system) save you the hassle.
 
 **A dedicated coordinator.** This is the secret weapon most people don't think about. Someone at the venue who's in on the plan, who can manage arrivals, keep guests quiet at the right moment, and signal when the birthday person is approaching. At The Anchor, our events coordinator handles all of this -- they've done it enough times to know exactly how to orchestrate the reveal.
 
@@ -94,7 +94,7 @@ The final thirty minutes before the surprise are the most nerve-wracking. Here's
 
 A surprise party with no food plan means thirty hungry people descending on the bar menu all at once. Pre-arranged catering keeps things smooth and gives the kitchen time to prepare.
 
-**Buffet options work best for surprise parties.** They're ready when you need them, guests can eat at their own pace, and you're not trying to coordinate a three-course sit-down meal immediately after the big reveal. At The Anchor, our buffet packages start from just £9.95 per head for a sandwich buffet, with options like the finger buffet at £10.50 per head and the premium buffet at £13.95 per head (minimum 30 guests for buffet packages).
+**Buffet options work best for surprise parties.** They're ready when you need them, guests can eat at their own pace, and you're not trying to coordinate a three-course sit-down meal immediately after the big reveal. At The Anchor, our buffet packages start from just current approved price for a sandwich buffet, with options like the finger buffet at current approved price and the premium buffet at current approved price (minimum 30 guests for buffet packages).
 
 **Welcome drinks add a proper celebration feel.** A tray of prosecco or cocktails waiting for guests as they arrive sets the tone before the birthday person even gets there. We offer welcome prosecco and orange juice packages from £7.99 per head (minimum 10 guests).
 
@@ -110,7 +110,7 @@ Decorations transform a private room from "a table in a pub" to "a party that so
 
 **Arrange access for decorating.** Most venues will let you (or a couple of helpers) in an hour or so before guests arrive. This is plenty of time for balloons, banners, table confetti, and a photo display. The key is that the birthday person must not see any of this -- which is why a private room with its own entrance is so valuable.
 
-**The slideshow trick.** If your venue has AV equipment (projector and screen are included at The Anchor), put together a slideshow of photos from across the birthday person's life. Childhood photos, embarrassing holiday snaps, group shots from memorable nights out. Run it on a loop during the party. People love it. The birthday person will pretend to be mortified but secretly enjoy every second.
+**The slideshow trick.** If your venue has AV equipment (TVs are included at The Anchor), put together a slideshow of photos from across the birthday person's life. Childhood photos, embarrassing holiday snaps, group shots from memorable nights out. Run it on a loop during the party. People love it. The birthday person will pretend to be mortified but secretly enjoy every second.
 
 **Keep a guest book or message board.** Place a blank book or a framed print at the entrance for guests to write messages. It becomes a keepsake that's genuinely meaningful -- much more personal than a card signed by forty people in identical biro.
 
@@ -148,7 +148,7 @@ Restaurants are formal, hired halls are impersonal, and house parties mean you'r
 
 **Relaxed atmosphere.** People behave differently in pubs. They're more natural, more social, more themselves. A restaurant makes people sit in assigned seats and talk to the two people either side of them. A pub lets them move around, mix, and actually enjoy the evening.
 
-**No room hire fees (at the right pub).** Many pubs operate on a minimum spend model rather than a room hire charge. At The Anchor, there's no room hire fee at all -- just a minimum spend between £500 and £1,500 depending on the day and party size. That minimum spend goes on food and drink your guests would be ordering anyway, so you're not paying for the privilege of using a room.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Everything's included.** Bar, kitchen, music, parking -- it's all there. You're not hiring a caterer, renting glasses, arranging a sound system, or paying for parking separately. The Anchor includes AV equipment, free WiFi, free parking for 20 cars, and a dedicated events coordinator in every private hire booking.
 
@@ -205,13 +205,13 @@ The Anchor is at Horton Road, Stanwell Moor, Surrey, TW19 6AQ. Free parking for 
 Four to six weeks is ideal. This gives you enough time to coordinate guests, arrange catering, and sort decorations without rushing. We can sometimes accommodate shorter notice -- call us on 01753 682707 to check availability.
 
 **How many people can you fit for a private birthday party?**
-The Anchor accommodates private hire events for 10 to 50 guests. The dining room seats 26 with additional standing room, and the French doors open onto the beer garden for extra space in warmer months.
+The Anchor accommodates private hire events for 10+ to 150 guests. The dining room seats 26 with additional standing room, and the French doors open onto the beer garden for extra space in warmer months.
 
 **Is there a room hire charge?**
-No. We operate on a minimum spend model -- between £500 and £1,500 depending on the day and group size. That spend covers the food and drink your guests order, so you're not paying extra just for the space.
+No. We operate on a quote-on-enquiry model -- between £500 and £1,500 depending on the day and group size. That spend covers the food and drink your guests order, so you're not paying extra just for the space.
 
 **Can I bring my own cake and decorations?**
 Absolutely. Bring whatever you like -- cake, balloons, banners, photo displays. We just ask that you let us know in advance so we can arrange the setup time and have everything ready.
 
 **Do you have AV equipment for slideshows?**
-Yes. We have a projector, screen, and sound system included with every private hire booking. Bring your slideshow on a USB stick or connect wirelessly, and we'll make sure it's working before guests arrive.
+Yes. We have a TVs and sound system included with every private hire booking. Bring your slideshow on a USB stick or connect wirelessly, and we'll make sure it's working before guests arrive.

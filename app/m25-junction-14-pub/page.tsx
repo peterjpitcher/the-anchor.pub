@@ -134,7 +134,7 @@ export default function M25Junction14PubPage() {
                 <span>Free parking for cars, vans and minibuses while you dine</span>
               </div>
               <div className="flex items-start gap-2">
-                <span>Burgers, pizzas and pub classics served daily (check our opening hours for times)</span>
+                <span>Burgers, pizzas and pub classics served during live kitchen hours</span>
               </div>
               <div className="flex items-start gap-2">
                 <span>Dog friendly bar area and beer garden for four-legged passengers</span>

@@ -48,7 +48,7 @@ const primaryFacts = [
   ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke, live music and sport.'],
   ['Areas served', 'Stanwell Moor, Staines, Heathrow, Ashford, Colnbrook, Bedfont and nearby Surrey villages.'],
   ['Heathrow distance', `${HEATHROW_TIMES.terminal5} minutes by car from Heathrow Terminal 5, with other terminals usually within ${HEATHROW_TIMES.range}.`],
-  ['Google rating', '4.6/5 where shown on site, reviewed before updates.'],
+  ['Google rating', 'Use an approved live source. Do not hardcode rating or review count.'],
   ['Last reviewed', LAST_REVIEWED],
 ] as const
 

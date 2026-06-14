@@ -29,7 +29,7 @@ This is us, so we'll be upfront about that. But the facts speak for themselves:
 
 - **20 free parking spaces** on site, no time limit while you're dining or drinking
 - **No validation or ticket system**, just pull in and park
-- **Open 7 days a week**, lunch and dinner service daily (kitchen closed Mondays)
+- **Current bar and kitchen hours**, live on our website before you visit
 - **Full menu**, proper pub food, Sunday roasts, pizzas, daily specials
 - **Beer garden**, large outdoor area with seating
 - **Dog-friendly**, well-behaved dogs welcome in the bar area

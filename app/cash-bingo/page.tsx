@@ -515,7 +515,7 @@ export default async function CashBingoPage() {
               <ul className="space-y-3 text-ink-muted text-sm">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
                 <li><strong>Public transport:</strong> 441 & 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> Step-free entrance, accessible loos and flexible seating for players.</li>
+                <li><strong>Accessibility:</strong> Step-free bar and dining areas, flexible seating for players, and no accessible toilet.</li>
               </ul>
               <div className="flex flex-col sm:flex-row gap-3 mt-4">
                 <Link

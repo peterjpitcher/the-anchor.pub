@@ -139,7 +139,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/mothers-day', lastModified: DATES.seoOverhaul },
     { path: '/valentines-day', lastModified: DATES.seoOverhaul },
     { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
-    { path: '/easter', lastModified: DATES.seoOverhaul },
     { path: '/easter-sunday', lastModified: RECENTLY_UPDATED },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
     { path: '/halloween', lastModified: DATES.seoOverhaul },

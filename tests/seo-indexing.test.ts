@@ -405,7 +405,7 @@ describe('orphan-page internal linking guards', () => {
   // Bonfire Night, Boxing Day, St Patrick's and Bank Holidays were 301'd to
   // evergreen parents (June 2026 SEO cleanup) and removed from the link set.
   const previouslyOrphanedSeasonalPaths = [
-    '/easter',
+    '/easter-sunday',
     '/fathers-day',
     '/halloween',
     '/new-years-eve',

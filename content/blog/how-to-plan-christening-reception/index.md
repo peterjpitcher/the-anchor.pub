@@ -79,11 +79,11 @@ A buffet is the natural choice for christenings. It works for all ages, guests c
 
 | Package | Price per head |
 |---|---|
-| Sandwich Buffet | £9.95 |
-| Finger Buffet | £10.50 |
-| Burger Buffet | £10.95 |
-| Premium Buffet | £13.95 |
-| Indoor BBQ | £17.99 |
+| Sandwich Buffet | current approved price |
+| Finger Buffet | current approved price |
+| Burger Buffet | current approved price |
+| Premium Buffet | current approved price |
+| Indoor BBQ | current approved price |
 | Chicken Goujon Sharing Tray | £35.00 (serves approximately 10, minimum 25 guests) |
 
 **Kids catering** is £8.00 per head, with choices of burger and chips, chicken nuggets and chips, or mini pizza and chips.
@@ -188,8 +188,8 @@ Here's what a christening reception actually costs when you break it down. These
 
 | Item | Cost |
 |---|---|
-| Venue hire | £0 (no room hire at The Anchor -- minimum spend model) |
-| Finger Buffet (30 adults at £10.50) | £315.00 |
+| Venue hire | £0 (no room hire at The Anchor -- quote-on-enquiry model) |
+| Finger Buffet (30 adults at current approved price) | £315.00 |
 | Kids Catering (10 children at £8.00) | £80.00 |
 | Welcome Prosecco/OJ (40 at £7.99) | £319.60 |
 | Unlimited Tea and Coffee (40 at £4.49) | £179.60 |
@@ -200,21 +200,21 @@ Here's what a christening reception actually costs when you break it down. These
 
 That's a proper reception for 40 people -- welcome drinks, a full buffet, hot drinks, and kids sorted -- for under a grand. Try getting that at a hotel.
 
-The minimum spend at The Anchor is £500-£1,500 depending on the day and group size, with a £250 deposit to secure your date.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ## Christening Reception FAQ
 
 ### Can we hold the reception on a weekday?
 
-Yes. Weekday receptions are often quieter and the minimum spend is lower. If the church offers a weekday christening slot, it's worth considering.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### What if we have more than 50 guests?
 
-The Anchor's private hire space accommodates 10-50 guests in the dining room. For larger gatherings, we can discuss using additional areas of the pub. Call us on 01753 682707 to talk through options.
+The Anchor's private hire space accommodates 10+ to 150 guests in the dining room. For larger gatherings, we can discuss using additional areas of the pub. Call us on 01753 682707 to talk through options.
 
-### Is there a projector for a slideshow?
+### Is there a TV for a slideshow?
 
-Yes. We have AV equipment including a projector, screen, and sound system -- perfect for a photo slideshow of the baby's first months.
+Yes. We have AV equipment including a TVs and sound system -- perfect for a photo slideshow of the baby's first months.
 
 ### Can we bring our own decorations?
 
@@ -230,7 +230,7 @@ Yes -- dogs are welcome throughout the venue. We provide water bowls and dog tre
 
 ## Ready to Plan Your Christening Reception?
 
-The Anchor in Stanwell Moor is a proper village pub that's been hosting family celebrations since 1751. No room hire charge, free parking, a dedicated events coordinator, and catering that won't bankrupt you.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 We're 7 minutes from Heathrow Terminal 5, 2 minutes from M25 Junction 14, and easy to reach from churches across Surrey and West London.
 

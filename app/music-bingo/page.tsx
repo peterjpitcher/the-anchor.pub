@@ -117,7 +117,7 @@ const FAQS = [
   {
     question: 'When does Music Bingo start and finish?',
     answer:
-      'It typically starts at 7pm, but with Nikki hosting the show can run a little late. We play two games, so it finishes after those rounds.'
+      'It typically starts at 8pm unless the event listing says otherwise. We play two games, with interactive music games and quizzes too.'
   },
   {
     question: 'How much is entry?',
@@ -142,7 +142,7 @@ const FAQS = [
   {
     question: 'Can we eat and drink during the games?',
     answer:
-      'Absolutely. Our kitchen is normally open from 4pm to 9pm, so you can order throughout and enjoy it while you play.'
+      'Absolutely. Check the live kitchen hours for the night, then order before the first game or during breaks.'
   },
   {
     question: 'Can you run a private Music Bingo night?',
@@ -263,13 +263,13 @@ export default async function MusicBingoPage() {
   const events = await getMusicBingoEvents()
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
-  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30pm'
+  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8pm'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
   const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
 
   const heroDescription = nextEvent
     ? `Doors ${doorTime}. Music Bingo starts at ${nextEventTime}. ${entryLabel}. Booking is recommended.`
-    : 'Doors 6:30pm. Music Bingo starts at 7:30pm. £3 entry. Booking is recommended.'
+    : 'Doors 6:30pm. Music Bingo starts at 8pm. £3 entry. Booking is recommended.'
 
   return (
     <>
@@ -286,7 +286,7 @@ export default async function MusicBingoPage() {
           "eventSchedule": {
             "@type": "Schedule",
             "repeatFrequency": "P1M",
-            "startTime": "19:00:00",
+            "startTime": "20:00:00",
             "endTime": "22:00:00",
             "scheduleTimezone": "Europe/London"
           },
@@ -603,7 +603,7 @@ export default async function MusicBingoPage() {
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> Step-free entrance, accessible loos, and flexible seating.</li>
+                <li><strong>Accessibility:</strong> Step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <Link

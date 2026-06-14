@@ -4,8 +4,8 @@
  * claim is reintroduced into a customer-facing JSON value.
  *
  * Background: docs/SSOT.md is the human-edited canonical source; SSOT.json
- * is its structured mirror (consumed at build time by components/HeroBadge.tsx
- * and lib/menu-page-data.ts, and by scripts/audit-menu-pages.js). The two
+ * is its structured mirror (consumed at build time by menu/schema helpers and
+ * scripts/audit-menu-pages.js). The two
  * have drifted in the past (founding year, email, parking, party-size cap,
  * "19th century" footer, Stanwell Moor Brew). This test pins the facts that
  * matter so a future edit to one file without the other cannot ship silently.
@@ -28,10 +28,6 @@ const mdFlat = md.replace(/\s+/g, ' ')
 // Same, but with Markdown emphasis markers stripped, so bold/italic around a
 // value (e.g. "**Max online party size:** 20") doesn't break substring checks.
 const mdPlain = mdFlat.replace(/[*_`]/g, '')
-// CLAUDE.md is the agent-facing operational brief; the Monday-kitchen-closed
-// policy lives there and in SSOT.json (docs/SSOT.md states it via the kitchen
-// special-hours rule rather than the literal word "Monday").
-const claudeMd = fs.readFileSync(path.join(process.cwd(), 'CLAUDE.md'), 'utf8')
 // Positive customer-facing JSON string values only. We deliberately skip:
 //  - internal guidance/governance blocks (do_not_use, resolved_inconsistencies,
 //    RESOLVED notes, _comment-style keys, naming_rule, CORRECTION) which name
@@ -118,14 +114,11 @@ describe('SSOT drift guard — heritage & reputation', () => {
     expect(mdFlat).toContain('1751')
   })
 
-  it('Google rating and review count agree across both files', () => {
-    // These ship to every page at build time via components/HeroBadge.tsx,
-    // so they must stay populated (4.6 / 238) and in sync with the MD.
-    // Do NOT null these out: a null rating breaks the HeroBadge build-time read.
+  it('shows the 4.6 Google rating but never a hardcoded review count', () => {
     expect(ssot.ratings.google.rating).toBe(4.6)
-    expect(ssot.ratings.google.review_count).toBe(238)
-    expect(mdFlat).toContain('4.6')
-    expect(mdFlat).toContain('238')
+    expect(ssot.ratings.google.review_count).toBe('LIVE_SOURCE_REQUIRED')
+    expect(ssot.ratings.google.volatility).toContain('Do not show or hardcode a review count')
+    expect(mdPlain).toContain('Do not show or hardcode a review count')
   })
 })
 
@@ -140,15 +133,28 @@ describe('SSOT drift guard — booking policy', () => {
     expect(mdPlain).not.toContain('10 guests. Larger groups must call')
   })
 
-  it('Monday-kitchen-closed policy is present (JSON + CLAUDE.md)', () => {
-    // Monday kitchen is closed by default. Do NOT convert this to an
-    // "API-only"/null policy: the management app relies on the explicit
-    // Monday-closed default and HeroBadge/other build-time reads expect it.
-    expect(String(ssot.food.kitchen_hours.monday).toUpperCase()).toContain(
-      'CLOSED',
+  it('kitchen hours are live-source only', () => {
+    expect(ssot.food.kitchen_hours._source).toBe('LIVE_FROM_MANAGEMENT_API')
+    expect(ssot.food.kitchen_hours.policy).toContain('Do not hardcode')
+    expect(ssot.food.kitchen_hours.live_music_nights).toContain(
+      'Do not claim late food service',
     )
-    // The operational brief states the Monday default explicitly.
-    expect(claudeMd.toLowerCase()).toContain('monday kitchen')
+    expect(mdPlain).toContain('Only ever use the API')
+    expect(mdPlain).toContain('Do not claim late food')
+  })
+})
+
+describe('SSOT drift guard — private hire policy', () => {
+  it('private hire capacity and facilities match the reviewed SSOT', () => {
+    expect(ssot.private_hire.capacity).toBe('10+ to 150 guests')
+    expect(ssot.venue.capacity.private_hire).toBe('10+ to 150 guests')
+    expect(ssot.private_hire.room_hire_charge).toContain(
+      'do not publish minimum-spend wording',
+    )
+    expect(ssot.private_hire.av_equipment).toBe('TVs and sound system. No projector.')
+    expect(mdPlain).toContain('10+ – 150 guests')
+    expect(mdPlain).toContain('Do not publish minimum-spend wording')
+    expect(mdPlain).toContain('no projector')
   })
 })
 
@@ -186,5 +192,59 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
 
   it.each(banned)('does not contain %s', (_label, re) => {
     expect(custBlob).not.toMatch(re)
+  })
+})
+
+describe('SSOT drift guard — high-risk site copy', () => {
+  const CUSTOMER_DIRS = ['app', 'components', 'content/blog', 'lib']
+  const CUSTOMER_EXTS = new Set(['.ts', '.tsx', '.md', '.json'])
+
+  function collectFiles(dir: string): string[] {
+    if (!fs.existsSync(dir)) return []
+
+    const entries = fs.readdirSync(dir, { withFileTypes: true })
+    return entries.flatMap((entry) => {
+      const fullPath = path.join(dir, entry.name)
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name === '.next') return []
+        return collectFiles(fullPath)
+      }
+      return CUSTOMER_EXTS.has(path.extname(entry.name)) ? [fullPath] : []
+    })
+  }
+
+  const siteFiles = CUSTOMER_DIRS.flatMap((dir) =>
+    collectFiles(path.join(process.cwd(), dir)),
+  )
+
+  function matchingFiles(pattern: RegExp): string[] {
+    return siteFiles
+      .filter((file) => pattern.test(fs.readFileSync(file, 'utf8')))
+      .map((file) => path.relative(process.cwd(), file))
+      .sort()
+  }
+
+  it('does not hardcode volatile review stats', () => {
+    expect(
+      matchingFiles(
+        /238 Google|238 reviews|Highest-rated|highest-rated/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not hardcode old kitchen-hour or late-food claims', () => {
+    expect(
+      matchingFiles(
+        /Kitchen closed Mondays?|kitchen closed Mondays?|Tue-Fri 4pm-9pm|Tuesday to Friday 4pm-9pm|Open Tuesday to Sunday|Food served .*Tuesday to Sunday|kitchen open until midnight|food (?:served|available).*midnight/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not reintroduce old private-hire and Christmas-price copy', () => {
+    expect(
+      matchingFiles(
+        /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|minimum spend|min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
+      ),
+    ).toEqual([])
   })
 })

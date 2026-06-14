@@ -213,7 +213,7 @@ describe('StatusBar Boundary Tests', () => {
     render(<StatusBar />)
 
     expect(screen.getByText(/live status unavailable/i)).toBeInTheDocument()
-    expect(screen.getByText(/Kitchen: Tue-Fri 4pm-9pm/i)).toHaveAttribute('href', 'tel:+441753682707')
+    expect(screen.getByText(/Kitchen: live hours loading/i)).toHaveAttribute('href', 'tel:+441753682707')
   })
 
   it('should show useful fallback content when loading and no cached data', () => {
@@ -228,8 +228,8 @@ describe('StatusBar Boundary Tests', () => {
     
     render(<StatusBar />)
 
-    expect(screen.getByText(/Bar: Tue-Thu 4pm-11pm/i)).toBeInTheDocument()
-    expect(screen.getByText(/Kitchen: Tue-Fri 4pm-9pm/i)).toHaveAttribute('href', 'tel:+441753682707')
+    expect(screen.getByText(/Bar: live hours loading/i)).toBeInTheDocument()
+    expect(screen.getByText(/Kitchen: live hours loading/i)).toHaveAttribute('href', 'tel:+441753682707')
   })
 
   it('shows the plane status in navigation but not hero status bars by default', () => {

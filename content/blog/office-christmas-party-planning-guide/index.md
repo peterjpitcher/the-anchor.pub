@@ -48,7 +48,7 @@ This is the month that separates the organised from the panicked. Every Friday a
 
 - **Book the venue.** Call your shortlist, check availability, and lock in your christmas party booking. A deposit secures the date, don't wait for perfect information.
 - **Confirm the format.** Sit-down meal, buffet, or drinks and canapes? The venue needs to know to plan staffing and kitchen prep.
-- **Ask about early-bird deals.** Plenty of venues offer discounts for bookings made before October. At The Anchor, we offer 20% off christmas party packages booked before 1st October, that's a meaningful saving on a group of 20 or more.
+- **Ask about current seasonal options.** Plenty of venues change offers through the year. At The Anchor, we only confirm offers that are live for your booking date.
 - **Check logistics.** Parking, public transport links, accessibility. If half the team will be driving, a venue with free parking saves everyone £15-20 each compared to a city-centre location.
 
 ### October: nail down the details
@@ -89,7 +89,7 @@ Evening works better if you want a longer, more relaxed affair. People are in "n
 
 A sit-down meal feels more "event." There's a structure to the evening, starters, mains, desserts, speeches if you're doing them. It works well for groups under 40 where you want everyone at one table or a few tables together.
 
-A buffet is more flexible. People can move around, chat to different colleagues, and eat at their own pace. It's usually cheaper per head, and it's far easier to cater for dietary requirements when people can choose from a spread. Buffets from £10.95 per head make it viable even on a tight budget.
+A buffet is more flexible. People can move around, chat to different colleagues, and eat at their own pace. It's usually cheaper per head, and it's far easier to cater for dietary requirements when people can choose from a spread. buffets priced from the live approved source make it viable even on a tight budget.
 
 For groups over 30, buffets tend to work better logistically.
 
@@ -101,7 +101,7 @@ Not every christmas party needs a DJ, a photo booth, and a karaoke machine. Some
 
 The average spend on a corporate christmas party in the UK sits around £30-50 per head for food alone, before drinks. That can go higher in London or lower if you're savvy about venue choice.
 
-At The Anchor, our christmas party packages run from £36.95 to £39.95 per person for a three-course sit-down meal, well within that range, with a proper menu rather than a production-line hotel dinner. Buffets start from £10.95 per head if you're watching the pennies.
+At The Anchor, christmas party package pricing is confirmed from the current approved source when you enquire, with a proper menu rather than a production-line hotel dinner.
 
 If the party is self-funded, be honest about what people can afford. A £25 per head contribution covers a very decent buffet with drinks. A £40-50 contribution gets a sit-down meal. Nobody should feel priced out of the works christmas do.
 
@@ -137,7 +137,7 @@ A few things that'll make your life easier and make you look like you know what 
 
 **Get a VAT invoice upfront.** If the company's paying, your finance team will want a proper VAT invoice for the christmas party booking. Ask for this when you book, not after the event when the venue's accounts team has moved on to January.
 
-**Ask about organiser perks.** Some venues reward the person doing all the legwork. At The Anchor, we give organisers a £40 voucher to say thanks. It's a small thing, but you deserve it.
+**Ask about organiser support.** Some venues help the person doing all the legwork. At The Anchor, you get a clear contact and a simple pre-order process.
 
 **Book midweek for better value.** A Tuesday or Wednesday in December gives you better availability, often lower prices, and a more relaxed atmosphere. Your team won't care what day of the week it is once the drinks are flowing.
 
@@ -151,12 +151,12 @@ At [The Anchor](/christmas-parties), we've been hosting staff christmas parties,
 
 Here's what you get when you book with us:
 
-- **Christmas party packages from £36.95-£39.95pp** for a three-course meal, or **buffets from £10.95pp**
-- **20% early bird discount** on bookings made before 1st October
+- **Christmas party packages priced from the current approved source** for three-course meals or buffets
+- **Current seasonal options** confirmed when you enquire
 - **Online pre-order system**, no spreadsheets, no chasing
 - **Free parking** on site, no meters, no charges, no validation stamps
 - **7 minutes from Heathrow Terminal 5** and outside the ULEZ zone
-- **A £40 organiser voucher** because someone should thank you
+- **Organiser support** because someone should make your job easier
 - **Proper VAT invoices** for your expenses claim
 - **A dedicated contact** from first enquiry to the night itself
 

@@ -378,7 +378,7 @@ export default async function BeerGardenPage() {
         links={[
           { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
-          { href: '/private-hire', title: 'Function Room Hire', description: 'Room bookings for 10 to 50 guests, no room-hire fee, free parking' },
+          { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
         ]}
       />
 

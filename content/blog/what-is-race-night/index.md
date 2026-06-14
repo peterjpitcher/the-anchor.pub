@@ -216,4 +216,4 @@ Whether you're a racing enthusiast or just looking for a fun night out, The Anch
 
 Join us for our next **race night near Heathrow** and experience the thrill of the races in the comfort of your local pub!
 
-*Follow The Anchor on social media for race night announcements and early bird betting offers!*
+*Follow The Anchor on social media for current race night announcements.*

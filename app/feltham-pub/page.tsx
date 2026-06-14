@@ -336,7 +336,7 @@ export default function FelthamPubPage() {
               <CardBody className="p-6">
                 <p className="text-lg text-ink mb-4">
                   <strong>Feltham groups love our flexibility!</strong>
-                  Competitive rates - let's discuss your needs. Room bookings for 10-50 guests, with larger events by enquiry.
+                  Competitive rates - let's discuss your needs. Private hire for 10+ to 150 guests, with larger events by enquiry.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link href="/private-party-venue">

@@ -13,17 +13,16 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
-import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
   description:
-    'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 238 reviews. Real feedback about our food, beer garden, events and private hire.',
+    'Read what guests say about The Anchor near Heathrow. Real feedback about our food, beer garden, events and private hire.',
   alternates: { canonical: '/reviews' },
   openGraph: {
     title: 'Reviews | What Our Guests Say | The Anchor Stanwell Moor',
     description:
-      'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 238 reviews. Real feedback about our food, beer garden, events and private hire.',
+      'Read what guests say about The Anchor near Heathrow. Real feedback about our food, beer garden, events and private hire.',
     images: [
       {
         url: '/images/page-headers/home/page-headers-homepage.jpg',
@@ -133,8 +132,6 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function ReviewsPage() {
-  const { rating, totalReviews } = DEFAULT_REVIEW_STATS
-
   return (
     <>
       <BreadcrumbJsonLd
@@ -150,7 +147,7 @@ export default function ReviewsPage() {
             '@context': 'https://schema.org',
             '@type': 'WebPage',
             'name': 'Reviews, What Our Guests Say About The Anchor',
-            'description': `Read what guests say about The Anchor near Heathrow. Rated ${rating}/5 on Google with ${totalReviews}+ reviews.`,
+            'description': 'Read what guests say about The Anchor near Heathrow. Real feedback about food, beer garden, events and private hire.',
             'url': 'https://www.the-anchor.pub/reviews',
             'about': { '@id': 'https://www.the-anchor.pub/#business' }
           })
@@ -161,7 +158,7 @@ export default function ReviewsPage() {
         image="/images/page-headers/our-pub/the-anchor-our-pub.jpg"
         crumb="Reviews"
         title="What Our Guests Say"
-        lead={`Rated ${rating}/5 on Google with ${totalReviews}+ reviews. Real feedback about food, beer garden, events and private hire near Heathrow.`}
+        lead="Real feedback about food, beer garden, events and private hire near Heathrow."
       />
 
       {/* Rating Summary */}
@@ -169,12 +166,11 @@ export default function ReviewsPage() {
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <Card accent className="inline-flex flex-col items-center gap-3 p-6">
-              <div className="text-5xl text-ink-strong">
-                {rating}
+              <div className="text-h3 text-ink-strong">
+                Google reviews
               </div>
-              <StarRating rating={Math.round(rating)} />
               <p className="text-ink-muted text-lg">
-                Based on {totalReviews}+ Google reviews
+                Read the latest live reviews on Google.
               </p>
             </Card>
           </div>
@@ -252,8 +248,8 @@ export default function ReviewsPage() {
         title="Reviews FAQ"
         faqs={[
           {
-            question: "What is The Anchor's Google rating?",
-            answer: `The Anchor is rated ${rating}/5 on Google with over ${totalReviews} reviews, making us one of the highest-rated pubs near Heathrow Airport.`,
+            question: "Where can I read The Anchor's Google reviews?",
+            answer: 'You can read the latest live Google reviews on our Google Business page. We do not hardcode the rating or review count because they change over time.',
           },
           {
             question: 'Can I leave a review for The Anchor?',

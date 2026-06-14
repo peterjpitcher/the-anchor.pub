@@ -276,11 +276,7 @@ export function getStatusBarDisplay(
       kitchenColor = 'amber';
       kitchenPill = 'Kitchen closed';
       
-      // Special case for Monday (no kitchen service)
-      const todayKey = getTodayKey();
-      if (todayKey === 'monday' && !data.regularHours.monday?.kitchen) {
-        kitchenPill = 'Kitchen closed Mondays';
-      }
+      // The currentStatus payload is the public source of truth here.
     }
   }
   // If venue is closed, kitchen status remains null (not displayed)

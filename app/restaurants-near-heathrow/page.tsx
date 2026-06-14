@@ -423,7 +423,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Fish and Chips</h3>
-                  <p className="text-ink-muted">Beer-battered cod with chips, mushy peas and tartare sauce. Over-65s get 50% off on Fridays.</p>
+                  <p className="text-ink-muted">Beer-battered cod with chips, mushy peas and tartare sauce. Check the live menu for current prices and availability.</p>
                 </CardBody>
               </Card>
               <Card accent hover>

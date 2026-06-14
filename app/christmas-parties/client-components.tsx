@@ -75,7 +75,7 @@ const ENQUIRY_STORAGE_KEYS = {
 
 const TIME_OPTIONS = ['5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm']
 
-const EARLY_BIRD_DEADLINE = '2026-10-01T23:59:59'
+const SEASONAL_ENQUIRY_DEADLINE = '2026-10-01T23:59:59'
 
 interface CountdownState {
   days: number
@@ -128,35 +128,35 @@ const useCountdown = (target: string | Date) => {
 }
 
 const PERK_OPTIONS = [
-  { id: 'early-bird', label: 'Early-Bird: 20% off your food bill, book by 1 Oct (parties of 6+)' },
-  { id: 'mid-week', label: 'Tue–Wed: complimentary coffee & mince pie with your festive dinner' }
+  { id: 'current-pricing', label: 'Current pricing: Ask us to confirm live menu pricing and any seasonal options' },
+  { id: 'mid-week', label: 'Menu help: We can explain the current festive menu and pre-order process' }
 ]
 
 const FESTIVE_PRICING = [
   {
     tier: 'Shared Christmas party nights (Tue–Thu)',
-    price: '£36.95 per person',
+    price: 'Current pricing',
     includes: 'Three-course festive menu with crackers, candles, background playlist and optional Prosecco upgrade. Join other groups for the buzz of a proper Christmas party night out.'
   },
   {
     tier: 'Weekend private hire dinners (Fri–Sat)',
-    price: '£39.95 per person',
+    price: 'Quote on enquiry',
     includes: 'Private dining room or main bar layout, late bar option until midnight, and room for DJs or live entertainment. Your Christmas party, your way.'
   },
   {
     tier: 'Festive buffets (26+ guests)',
-    price: 'From £13 per person',
-    includes: 'Three festive buffet tiers: sandwich buffet (£13pp), hot finger buffet (£16pp), or premium grazing (£19pp). Great for standing receptions and team gatherings.'
+    price: 'Current pricing',
+    includes: 'Festive buffet tiers are priced from the current approved source. Great for standing receptions and team gatherings.'
   }
 ]
 
-const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
-  const { days, hours, minutes, expired } = useCountdown(EARLY_BIRD_DEADLINE)
+const SeasonalEnquiryCountdown = ({ className = '' }: { className?: string }) => {
+  const { days, hours, minutes, expired } = useCountdown(SEASONAL_ENQUIRY_DEADLINE)
 
   const classes = `text-xs font-semibold uppercase tracking-wide ${className}`.trim()
 
   if (expired) {
-    return <span className={classes}>Early-Bird offer ends soon</span>
+    return <span className={classes}>Seasonal enquiry reminder</span>
   }
 
   const segments: string[] = []
@@ -168,17 +168,17 @@ const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
   segments.push(`${hours} hr${hours === 1 ? '' : 's'}`)
   segments.push(`${minutes} min${minutes === 1 ? '' : 's'}`)
 
-  return <span className={classes}>Offer ends in {segments.slice(0, 3).join(' · ')}</span>
+  return <span className={classes}>Seasonal enquiry window: {segments.slice(0, 3).join(' · ')}</span>
 }
 
 const FAQ_ITEMS = [
   {
     question: "How much does a Christmas party cost?",
-    answer: "Mid-week three-course Christmas dinners start at £36.95 per person. Weekend private dinners run from £39.95 per person. Festive buffets start from £13 per person. Room hire applies separately and varies by date and party size. Call us on 01753 682707 for a quote tailored to your group."
+    answer: "Festive menu and buffet prices are confirmed from the current approved source. Room hire and setup options vary by date and party size. Call us on 01753 682707 for a quote tailored to your group."
   },
   {
-    question: "Can I combine the early bird offer with the festive offer?",
-    answer: "No, our offers cannot be combined. If you take the early bird discount, the festive offer won't apply on top, and vice versa. Each offer is great value on its own though."
+    question: "Are there seasonal offers?",
+    answer: "Ask about current seasonal options when you enquire. We will only confirm offers that are live for your booking date."
   },
   {
     question: "Is there a minimum group size?",
@@ -273,7 +273,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'users' as const,
     title: 'Private Spaces for Every Size',
-    description: 'Intimate dining room for up to 25, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party, not the other way round.'
+    description: 'Intimate dining room, main bar for larger groups, and full venue hire for 10+ to 150 guests. We shape the space around your party, not the other way round.'
   },
   {
     icon: 'heart' as const,
@@ -283,7 +283,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'briefcase' as const,
     title: 'Easy for Organisers',
-    description: 'Simple pre-order system (no spreadsheets), VAT invoices for accounts, a dedicated contact for your booking, and a £40 voucher for the organiser when you bring 20 or more.'
+    description: 'Simple pre-order system (no spreadsheets), VAT invoices for accounts, and a dedicated contact for your booking.'
   }
 ]
 
@@ -364,9 +364,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
 
   useEffect(() => {
     trackBannerEvent({
-      id: 'christmas_earlybird_banner',
+      id: 'christmas_seasonal_enquiry_banner',
       action: 'view',
-      label: 'Early-Bird Offer',
+      label: 'Seasonal Enquiry',
       campaign: 'christmas_2026'
     })
   }, [])
@@ -443,23 +443,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
     }
   }
 
-  const handleClaimEarlyBird = () => {
+  const handleAddCurrentPricing = () => {
     trackBannerEvent({
-      id: 'christmas_earlybird_banner',
+      id: 'christmas_seasonal_enquiry_banner',
       action: 'click',
-      label: 'Early-Bird Offer',
+      label: 'Seasonal Enquiry',
       campaign: 'christmas_2026'
     })
     trackCtaClick({
-      id: 'christmas_earlybird_cta',
-      label: 'Claim Early-Bird offer',
-      location: 'earlybird_banner',
+      id: 'christmas_current_pricing_cta',
+      label: 'Ask about current pricing',
+      location: 'seasonal_enquiry_banner',
       destination: 'enquiry_form',
       mode: 'dinner'
     })
-    const updatedPerks = union(context.perks, ['early-bird'])
+    const updatedPerks = union(context.perks, ['current-pricing'])
     setContext(prev => ({ ...prev, perks: updatedPerks, mode: 'dinner' }))
-    handleOpenForm('dinner', { perks: ['early-bird'] }, 'early_bird_offer')
+    handleOpenForm('dinner', { perks: ['current-pricing'] }, 'current_pricing_request')
     setPerkNotice(true)
     if (typeof window !== 'undefined') {
       if (perkTimeoutRef.current) {
@@ -478,15 +478,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="flex items-center gap-2">
                 <Icon name="sparkles" className="h-5 w-5" />
                 <p className="text-sm md:text-base font-semibold">
-                  Book by 1 Oct and take 20% off your food bill, that's every adult in parties of six or more.
+                  Ask us to confirm current festive menu pricing and any live seasonal options for your date.
                 </p>
               </div>
-              <EarlyBirdCountdown className="text-red-100 text-xs md:text-sm" />
+              <SeasonalEnquiryCountdown className="text-red-100 text-xs md:text-sm" />
             </div>
             <button
               type="button"
               className="text-white text-sm underline decoration-dotted"
-              onClick={handleClaimEarlyBird}
+              onClick={handleAddCurrentPricing}
             >
               See details
             </button>
@@ -512,8 +512,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-ink-strong">Mid-week Christmas meals from £36.95</h3>
-                <p className="text-sm text-ink-muted">Tue–Thu three-course festive dinners for £36.95 per person. The same generous menu, the same crackers and candles, just a kinder price tag for your Christmas do.</p>
+                <h3 className="text-lg font-semibold text-ink-strong">Festive menus with live pricing</h3>
+                <p className="text-sm text-ink-muted">Ask for the current three-course festive menu and confirmed pricing when you enquire. The same generous menu, crackers and candles, with prices confirmed before you book.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -609,7 +609,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               The Anchor is one of the most popular Christmas party venues in Surrey for a reason, we're seven minutes from Heathrow Terminal 5, fifteen from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
             </p>
             <p className="text-sm text-ink-muted">
-              We're also one of the best-value options around. Mid-week Christmas dinners start at £36.95 for a full three-course meal with all the trimmings, and festive lunches run on the same menu, so whether your team wants a Christmas lunch near Staines or an evening works Christmas do after shifts, the price stays fair. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
+              We're also one of the best-value options around. Ask for current festive pricing when you enquire, and we will confirm the menu, setup and any live seasonal options before you book. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
             </p>
           </div>
         </Container>
@@ -645,21 +645,21 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl font-bold text-ink-strong">Christmas pricing at a glance</h2>
+            <h2 className="text-3xl font-bold text-ink-strong">Christmas menu options at a glance</h2>
             <div className="overflow-hidden rounded-2xl border border-line bg-surface">
               <table className="w-full text-left text-sm md:text-base text-ink-muted">
                 <tbody>
                   <tr className="border-b border-line bg-surface-sunk">
                     <th className="px-4 py-4 font-semibold text-ink-strong">Tue-Thu</th>
-                    <td className="px-4 py-4 font-bold text-accent-text">£36.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-accent-text">Current pricing</td>
                   </tr>
                   <tr className="border-b border-line">
                     <th className="px-4 py-4 font-semibold text-ink-strong">Fri-Sat</th>
-                    <td className="px-4 py-4 font-bold text-accent-text">£39.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-accent-text">Quote on enquiry</td>
                   </tr>
                   <tr>
                     <th className="px-4 py-4 font-semibold text-ink-strong">Children (under 12)</th>
-                    <td className="px-4 py-4">2 courses £12.95 · 3 courses £15.95</td>
+                    <td className="px-4 py-4">Ask for current children's options</td>
                   </tr>
                 </tbody>
               </table>
@@ -829,7 +829,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Drinks & finale
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Bundle A: Prosecco arrival + coffee & mince pie - £9.95pp (counts towards the £45-£52 spend target)</li>
+                  <li>Bundle A: Prosecco arrival + coffee & mince pie - live price (counts towards the £45-£52 spend target)</li>
                   <li>Wine bundle: 2 bottles of house wine - £39.00</li>
                   <li>Beer bucket (6 × 330ml) - £27.00</li>
                   <li>Pre-set bar tab with running updates</li>
@@ -868,8 +868,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <Badge className="bg-red-600 text-white w-fit">Festive offer</Badge>
                   <h3 className="text-lg font-semibold text-ink-strong">{option.label.split(':')[0]}</h3>
                   <p className="text-sm text-ink-muted">{option.label.split(':')[1]?.trim() || ''}</p>
-                  {option.id === 'early-bird' && (
-                    <EarlyBirdCountdown className="text-red-600" />
+                  {option.id === 'current-pricing' && (
+                    <SeasonalEnquiryCountdown className="text-red-600" />
                   )}
                 </div>
               </Card>
@@ -877,12 +877,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </Grid>
 
           <div className="mt-12 flex justify-center">
-            <Button variant="primary" size="md" onClick={handleClaimEarlyBird}>Claim my Early-Bird</Button>
+            <Button variant="primary" size="md" onClick={handleAddCurrentPricing}>Add to enquiry</Button>
           </div>
 
           {perkNotice && (
-            <Alert variant="success" className="mt-6 mx-auto max-w-xl" title="Early-Bird saved">
-              Thanks - we've tagged the Early-Bird free glass of Prosecco offer against your enquiry so it doesn't get missed.
+            <Alert variant="success" className="mt-6 mx-auto max-w-xl" title="Enquiry note saved">
+              Thanks, we've tagged your request for current festive pricing against your enquiry so it doesn't get missed.
             </Alert>
           )}
         </Container>
@@ -901,17 +901,17 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             {[
               {
                 title: 'Festive Sandwich & Salad',
-                price: '£10.95 per person',
+                price: 'live price',
                 description: 'Seasonal sandwich platters with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudites and dips.'
               },
               {
                 title: 'Festive Hot Finger',
-                price: '£13.95 per person',
+                price: 'live price',
                 description: 'Everything from the sandwich tier plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and dipping sauces.'
               },
               {
                 title: 'Festive Premium Grazing',
-                price: '£16.95 per person',
+                price: 'live price',
                 description: 'Cured meats and cheese boards with freshly baked rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
               }
             ].map(tier => (
@@ -933,12 +933,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Add-on platters
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Pigs in blankets (tray of 50) - £39</li>
-                  <li>Stuffing balls (tray of 40) - £28</li>
-                  <li>Broccoli cheese (serves ~12) - £24</li>
-                  <li>Gourmet broccoli cheese with truffle crumb (serves ~12) - £36</li>
-                  <li>Roast potatoes & gravy (serves ~12) - £19</li>
-                  <li>Mini Yorkshire puddings with gravy (24) - £22</li>
+                  <li>Pigs in blankets, live price</li>
+                  <li>Stuffing balls, live price</li>
+                  <li>Broccoli cheese, live price</li>
+                  <li>Gourmet broccoli cheese with truffle crumb, live price</li>
+                  <li>Roast potatoes and gravy, live price</li>
+                  <li>Mini Yorkshire puddings with gravy, live price</li>
                 </ul>
               </div>
             </Card>
@@ -1122,7 +1122,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">The organiser perk</strong>, Book a staff Christmas party for 20 or more and receive a £40 voucher for yourself in January. You've earned it.</span>
+                    <span><strong className="text-ink-strong">The organiser support</strong>, we give you one clear contact, a pre-order process and confirmed details before you book.</span>
                   </li>
                 </ul>
               </div>
@@ -1131,7 +1131,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <div className="space-y-4">
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Small team dinner (6–25)</h4>
-                    <p className="text-sm text-ink-muted">Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
+                    <p className="text-sm text-ink-muted">Private dining room with three-course festive menu, crackers and candles. Ask for current pricing when you enquire. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (26–60)</h4>
@@ -1778,9 +1778,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
     const showLightbox = () => {
       setVisible(true)
       trackBannerEvent({
-        id: 'christmas_earlybird_lightbox',
+        id: 'christmas_seasonal_enquiry_lightbox',
         action: 'view',
-        label: 'Early-Bird Lightbox',
+        label: 'Seasonal Enquiry Lightbox',
         campaign: 'christmas_2026'
       })
       markLocalStorage(ENQUIRY_STORAGE_KEYS.lightbox, String(Date.now()))
@@ -1809,9 +1809,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
   const closeLightbox = () => {
     trackBannerEvent({
-      id: 'christmas_earlybird_lightbox',
+      id: 'christmas_seasonal_enquiry_lightbox',
       action: 'dismiss',
-      label: 'Early-Bird Lightbox',
+      label: 'Seasonal Enquiry Lightbox',
       campaign: 'christmas_2026'
     })
     setVisible(false)
@@ -1820,7 +1820,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
-      setError('Please fill in all fields so we can hold your Early-Bird offer.')
+      setError('Please fill in all fields so we can confirm current seasonal options.')
       return
     }
 
@@ -1829,7 +1829,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
     try {
       trackFormStart({
-        formName: 'christmas_earlybird_lightbox',
+        formName: 'christmas_seasonal_enquiry_lightbox',
         source: 'lightbox',
         mode: context.mode,
         journey: 'christmas_parties_page'
@@ -1847,8 +1847,8 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
           preferredDate,
           preferredTime: 'Flexible',
           extras: context.extras,
-          perks: union(context.perks, ['early-bird']),
-          notes: 'Submitted via Early-Bird lightbox',
+          perks: union(context.perks, ['current-pricing']),
+          notes: 'Submitted via seasonal enquiry lightbox',
           ...(lbHoneypot ? { website: lbHoneypot } : {}),
           _t: Math.floor((Date.now() - lbFormLoadedAt.current) / 1000)
         })
@@ -1856,14 +1856,14 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null)
-        const errorMessage = errorData?.error || 'Sorry, we could not hold your Early-Bird offer right now. Please call us on 01753 682707.'
+        const errorMessage = errorData?.error || 'Sorry, we could not confirm seasonal options right now. Please call us on 01753 682707.'
         setError(errorMessage)
         return
       }
 
       markLocalStorage(ENQUIRY_STORAGE_KEYS.submitted, 'true')
       trackFormComplete({
-        formName: 'christmas_earlybird_lightbox',
+        formName: 'christmas_seasonal_enquiry_lightbox',
         source: 'lightbox',
         mode: context.mode,
         journey: 'christmas_parties_page'
@@ -1877,7 +1877,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
       setPreferredDate('')
     } catch (err) {
       console.error('Christmas lightbox submission failed:', err)
-      setError("Sorry, something went wrong. Please call us on 01753 682707 and we'll secure your Early-Bird offer.")
+      setError("Sorry, something went wrong. Please call us on 01753 682707 and we'll confirm current seasonal options.")
     } finally {
       setSubmitting(false)
     }
@@ -1897,9 +1897,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
           <Icon name="close" className="h-5 w-5" />
         </button>
         <div className="space-y-4">
-          <Badge className="bg-red-100 text-red-700 w-fit">Early-Bird reminder</Badge>
-          <h3 className="text-2xl font-bold text-ink-strong">Early-Bird ends 31 Oct - shall we save you a spot?</h3>
-          <p className="text-sm text-ink-muted">Share a few details and we'll hold the free glass of Prosecco offer for you. We typically reply within one working day.</p>
+          <Badge className="bg-red-100 text-red-700 w-fit">Christmas enquiry</Badge>
+          <h3 className="text-2xl font-bold text-ink-strong">Want current festive pricing for your date?</h3>
+          <p className="text-sm text-ink-muted">Share a few details and we'll confirm live menu pricing, availability and any current seasonal options. We typically reply within one working day.</p>
 
           {error && (
             <Alert variant="error" title="Almost there" className="text-sm">

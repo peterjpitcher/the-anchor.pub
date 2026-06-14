@@ -137,7 +137,7 @@ const FAQS = [
   {
     question: 'What food and drink is available?',
     answer:
-      'Order from the full food menu before the quiz starts or during the break. Sharing platters, pizzas and seasonal specials run until 9pm, with themed cocktails, mocktails and local ales on tap all night.'
+      'Order from the food menu before the quiz starts or during the break. Kitchen times come from the live hours for that date, with cocktails, mocktails and bottled ales available from the bar.'
   },
   {
     question: 'What if we want to celebrate a win or host a private quiz?',
@@ -157,7 +157,7 @@ const FAQS = [
   {
     question: 'Do you run quiz nights on weekends?',
     answer:
-      "Our quiz night is on the first Wednesday of each month. Keep an eye on the What’s On page or call 01753 682707 for the next date."
+      "Our quiz night is monthly and dates vary. Keep an eye on the What’s On page or call 01753 682707 for the next date."
   }
 ]
 

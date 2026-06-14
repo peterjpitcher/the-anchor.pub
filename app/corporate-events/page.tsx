@@ -41,10 +41,10 @@ export default function CorporateEventsPage() {
         image="/images/page-headers/corporate-events/corporate-events.jpg"
         crumb="Corporate Events"
         title="Corporate Event Venue Near Heathrow"
-        lead="Room bookings for 10-50 guests, with larger corporate events by enquiry. 7 minutes from Terminal 5 with free parking."
+        lead="Private hire for 10+ to 150 guests, with larger corporate events by enquiry. Around 7 minutes from Terminal 5, traffic dependent, with free parking."
         badges={
           <>
-            <Badge variant="sand">7 mins from Heathrow</Badge>
+            <Badge variant="sand">Around 7 mins from Heathrow</Badge>
             <Badge variant="sand">Free Parking</Badge>
             <Badge variant="sand">AV Equipment</Badge>
             <Badge variant="sand">Outside ULEZ</Badge>
@@ -82,7 +82,7 @@ export default function CorporateEventsPage() {
               Corporate Event Venue Near Heathrow: Business Events at The Anchor
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Planning a corporate event near Heathrow? Professional meeting rooms for 10-50 guests, with larger events by enquiry, just 7 minutes from Terminal 5.
+              Planning a corporate event near Heathrow? Professional meeting rooms for 10+ to 150 guests, with larger events by enquiry, around 7 minutes from Terminal 5, traffic dependent.
             </p>
           </div>
         </Container>
@@ -97,10 +97,10 @@ export default function CorporateEventsPage() {
           />
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Heathrow Proximity", description: "7 minutes from T5 - perfect for international teams & clients" },
+              { title: "Heathrow Proximity", description: "Around 7 minutes from T5, traffic dependent, useful for international teams and clients" },
               { title: "Free Parking", description: "20 spaces on-site - saves significantly compared to city venues" },
               { title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs" },
-              { title: "Flexible Spaces", description: "Configure room bookings for 10-50 guests; larger events by enquiry" },
+              { title: "Flexible Spaces", description: "Configure private hire for 10+ to 150 guests; larger events by enquiry" },
             ].map(feature => (
               <Card key={feature.title} accent className="h-full text-center">
                 <CardBody className="flex h-full flex-col gap-2">
@@ -147,8 +147,8 @@ export default function CorporateEventsPage() {
                 Configurable for boardroom or theatre style.
               </p>
               <ul className="text-sm text-ink-muted space-y-1">
-                <li>• 10-50 attendees</li>
-                <li>• Presentation facilities</li>
+                <li>• 10+ to 150 attendees</li>
+                <li>• TVs and sound system</li>
                 <li>• WiFi &amp; power points</li>
                 <li>• Coffee &amp; refreshments</li>
               </ul>
@@ -216,7 +216,7 @@ export default function CorporateEventsPage() {
                 <p className="mb-4 text-ink-muted">Every corporate event is unique. We provide:</p>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">Flexible timing</strong> - Half day, full day, or evening sessions</li>
-                  <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for 10-50 attendees, with larger events by enquiry</li>
+                  <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for 10+ to 150 attendees, with larger events by enquiry</li>
                   <li><strong className="text-ink-strong">Custom catering</strong> - From coffee breaks to formal dinners</li>
                   <li><strong className="text-ink-strong">Professional support</strong> - AV equipment and dedicated coordinator</li>
                   <li><strong className="text-ink-strong">Transparent pricing</strong> - Clear quotes with no hidden fees</li>
@@ -226,7 +226,7 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">How Our Pricing Works</h3>
                 <p className="mb-4 text-ink-muted">We believe in fair, flexible pricing:</p>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong className="text-ink-strong">Venue hire fees</strong> - Vary by day, time, and group size with no minimum spend</li>
+                  <li><strong className="text-ink-strong">Venue hire quotes</strong> - Vary by day, time, group size and event needs</li>
                   <li><strong className="text-ink-strong">Weekday rates</strong> - More competitive for daytime events</li>
                   <li><strong className="text-ink-strong">Bespoke quotes</strong> - Based on your specific requirements</li>
                   <li><strong className="text-ink-strong">All-inclusive options</strong> - Know your total cost upfront</li>
@@ -281,7 +281,7 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Technology &amp; Equipment</h3>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">High-speed WiFi</strong><p className="text-sm">Reliable connection for video calls and presentations</p></li>
-                  <li><strong className="text-ink-strong">Presentation Equipment</strong><p className="text-sm">Projector/screen available, laptop connections</p></li>
+                  <li><strong className="text-ink-strong">Presentation Equipment</strong><p className="text-sm">TVs, sound system, laptop connections and WiFi</p></li>
                   <li><strong className="text-ink-strong">Power Access</strong><p className="text-sm">Multiple power points for devices</p></li>
                   <li><strong className="text-ink-strong">Audio System</strong><p className="text-sm">Microphone and speakers for larger groups</p></li>
                 </ul>
@@ -398,11 +398,11 @@ export default function CorporateEventsPage() {
         faqs={[
           {
             question: "What makes The Anchor ideal for corporate events near Heathrow?",
-            answer: "We're just 7 minutes from Terminal 5 with free parking, making us perfect for international teams. We offer flexible room bookings for 10-50 guests, larger events by enquiry, professional catering, and competitive venue hire rates tailored to your needs. Being outside the ULEZ zone saves your attendees money too."
+            answer: "We're around 7 minutes from Terminal 5, traffic dependent, with free parking, making us useful for international teams. We offer flexible private hire for 10+ to 150 guests, larger events by enquiry, professional catering, and venue hire quotes tailored to your needs. Being outside the ULEZ zone saves your attendees money too."
           },
           {
             question: "What technology and equipment do you provide for business meetings?",
-            answer: "We provide high-speed WiFi, projector and screen, audio system with microphones, and multiple power points throughout our spaces. We can also arrange additional AV equipment through our suppliers if needed."
+            answer: "We provide high-speed WiFi, TVs, a sound system with microphones, and multiple power points throughout our spaces. We can also discuss additional AV requirements in advance."
           },
           {
             question: "Can you accommodate different types of corporate events?",

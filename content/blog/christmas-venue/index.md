@@ -56,7 +56,7 @@ Experience the magic of a proper British Christmas at your local village pub!
 Our **Christmas party packages** cater to all needs:
 
 **Company Christmas Parties:**
-- Team celebrations (10-50 people)
+- Team celebrations (10+ to 150 guests)
 - Private dining room available
 - Buffet or sit-down options
 - Welcome drinks included
@@ -125,7 +125,7 @@ Book our **private areas** for intimate celebrations:
 - Designated party zones
 - Flexible configurations
 - Maintains pub atmosphere
-- Ideal for 10-20 guests
+- Ideal for smaller groups
 - Easy mingling space
 
 ## Why Choose The Anchor for Christmas

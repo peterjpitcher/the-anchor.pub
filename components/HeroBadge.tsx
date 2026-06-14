@@ -2,9 +2,9 @@ import { Badge } from '@/components/ui/primitives/Badge'
 import { cn } from '@/lib/utils'
 import ssot from '@/SSOT.json'
 
-// Pull badge content from SSOT.json at build time (per D-03)
 const GOOGLE_RATING = ssot.ratings.google.rating
-const GOOGLE_REVIEW_COUNT = ssot.ratings.google.review_count
+const googleRatingLabel =
+  typeof GOOGLE_RATING === 'number' ? `Rated ${GOOGLE_RATING} on Google` : 'Highly rated on Google'
 
 interface HeroBadgeProps {
   className?: string
@@ -13,18 +13,17 @@ interface HeroBadgeProps {
 }
 
 /**
- * HeroBadge — displays the standard set of trust badges (Google rating, review count).
- * All pages show the same badges (per D-02). Content comes from SSOT.json (per D-03).
- * Wraps the Badge primitive (per D-01).
+ * HeroBadge — displays standard trust badges (Google rating, food hygiene).
+ * Shows the 4.6 Google rating with no review count. Wraps the Badge primitive (per D-01).
  */
 export function HeroBadge({ className, badgeClassName, reviewBadgeClassName }: HeroBadgeProps) {
   return (
     <div className={cn('flex flex-wrap items-center justify-center gap-2', className)}>
       <Badge variant="green" className={badgeClassName}>
-        {GOOGLE_RATING}/5 on Google
+        {googleRatingLabel}
       </Badge>
       <Badge variant="outline" className={reviewBadgeClassName || badgeClassName}>
-        {GOOGLE_REVIEW_COUNT} reviews
+        5-Star Food Hygiene
       </Badge>
     </div>
   )

@@ -41,12 +41,12 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   // Phase 1: High-Priority Tags
   'events': {
     name: 'Events & Entertainment',
-    description: 'Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, seasonal celebrations, and one-off events',
+    description: 'Quiz nights, Music Bingo with Nikki Manfadge, seasonal celebrations, and one-off events',
     metaTitle: 'Pub Events Stanwell Moor | What\'s On at The Anchor Near Heathrow',
-    metaDescription: 'Discover the best pub events in Stanwell Moor. Quiz nights, hosted nights, seasonal celebrations & more at The Anchor - we\'re just 7 minutes from Heathrow Airport.',
-    heroContent: 'Experience the best pub events in Stanwell Moor at The Anchor, your premier entertainment venue just minutes from Heathrow Airport. From quiz nights to hosted events like Music Bingo with Nikki Manfadge, we\'re the heart of local entertainment.',
-    introContent: 'The Anchor is Stanwell Moor\'s premier destination for unforgettable events and entertainment. Our calendar includes quiz nights, hosted nights like Music Bingo with Nikki Manfadge, and special one-off events throughout the year. With our warm atmosphere, excellent food and drinks, and convenient location near Heathrow, we\'re the perfect venue for a memorable night out. See /whats-on for the latest details.',
-    valueProposition: 'Why settle for an ordinary night when you can experience extraordinary entertainment? Book your table today and discover why locals and visitors alike choose The Anchor for the best events in the area. With free parking, a welcoming atmosphere, and events throughout the week, your perfect night out is waiting.',
+    metaDescription: 'Discover pub events in Stanwell Moor. Quiz nights, Music Bingo, seasonal celebrations & more at The Anchor, around 7 minutes from Heathrow Airport.',
+    heroContent: 'Experience pub events in Stanwell Moor at The Anchor, just minutes from Heathrow Airport. From quiz nights to Music Bingo with Nikki Manfadge, we are a local home for a good night out.',
+    introContent: 'The Anchor hosts quiz nights, Music Bingo with Nikki Manfadge, and special one-off events throughout the year. With our warm atmosphere, excellent food and drinks, and convenient location near Heathrow, we are a strong choice for a memorable night out. See /whats-on for the latest details.',
+    valueProposition: 'Book your table and see what is coming up. With free parking, a welcoming atmosphere, and regular listed events, your next night out is easy to plan.',
     keywords: ['pub events stanwell moor', 'events near heathrow', 'what\'s on stanwell moor', 'entertainment venue surrey', 'live events TW19']
   },
 
@@ -155,20 +155,20 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Quiz Nights',
     description: 'Test your knowledge at our regular quiz nights',
     metaTitle: 'Pub Quiz Stanwell Moor | Monthly Quiz Night at The Anchor',
-    metaDescription: 'Join our famous monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, 3 entry. Book your team table. We\'re 7 minutes from Heathrow.',
-    heroContent: 'Put your knowledge to the test at Stanwell Moor\'s best pub quiz! Join us monthly at The Anchor, where teams battle it out for glory, prizes, and bragging rights.',
-    introContent: 'Our legendary monthly quiz nights have been bringing the community together for years. Starting at 7pm, with questions ranging from general knowledge to music, sports to local history, there\'s something for every team member. Our charismatic quiz master keeps the energy high and the laughs coming, while you enjoy great food and drinks throughout the evening. Entry is just 3 per person.',
+    metaDescription: 'Join our monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, £3 entry. Book your team table. We are around 7 minutes from Heathrow.',
+    heroContent: 'Put your knowledge to the test at The Anchor. Join us monthly, dates vary, for team trivia, prizes and bragging rights.',
+    introContent: 'Our monthly quiz nights bring the community together. The quiz usually starts at 7pm, with questions ranging from general knowledge to music, sport and local history. Entry is £3 per person.',
     valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With cash prizes for the winners and spot prizes throughout, it\'s the perfect night out. Tables fill up fast, so book early!',
     keywords: ['pub quiz stanwell moor', 'quiz night near heathrow', 'monthly quiz surrey', 'trivia night TW19', 'team quiz stanwell moor']
   },
 
   'drag-shows': {
-    name: 'Hosted Nights with Nikki Manfadge',
-    description: 'Hosted events like Music Bingo and one-off specials at The Anchor',
-    metaTitle: 'Hosted Nights Stanwell Moor | Nikki Manfadge at The Anchor',
-    metaDescription: 'Discover hosted nights at The Anchor Stanwell Moor, including Music Bingo hosted by Nikki Manfadge and one-off specials. See /whats-on for the latest details.',
-    heroContent: 'Get ready for a lively night out at The Anchor. Nikki Manfadge hosts special event nights that bring games, laughs and big energy to Stanwell Moor.',
-    introContent: 'We don\'t run regular drag shows, but we do host occasional Nikki Manfadge nights (including Music Bingo) plus a handful of one-off events throughout the year. Check /whats-on for what\'s coming up next.',
+    name: 'Hosted Nights and Music Bingo',
+    description: 'Music Bingo with Nikki Manfadge and one-off specials at The Anchor',
+    metaTitle: 'Hosted Nights Stanwell Moor | The Anchor',
+    metaDescription: 'Discover hosted nights at The Anchor Stanwell Moor, including Music Bingo with Nikki Manfadge and one-off specials. See /whats-on for the latest details.',
+    heroContent: 'Get ready for a lively night out at The Anchor. Music Bingo with Nikki Manfadge and listed one-off events bring games, laughs and big energy to Stanwell Moor.',
+    introContent: 'We do not run regular drag shows or Nikki games nights. We do host Music Bingo with Nikki Manfadge plus one-off events throughout the year. Check /whats-on for what is coming up next.',
     valueProposition: 'See /whats-on for the latest hosted nights and special events. Book a table and make a night of it.',
     keywords: ['hosted nights stanwell moor', 'music bingo near heathrow', 'nikki manfadge host', 'pub events TW19', 'entertainment near terminal 5']
   },
@@ -187,11 +187,11 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   'bingo': {
     name: 'Bingo Nights',
     description: 'Fun-filled bingo events with great prizes',
-    metaTitle: 'Bingo Night Stanwell Moor | Thursday Bingo at The Anchor',
-    metaDescription: 'Play bingo at The Anchor Stanwell Moor. Thursday nights, cash prizes, fun atmosphere. Popular bingo venue - we\'re 7 minutes from Heathrow Airport.',
+    metaTitle: 'Bingo Night Stanwell Moor | Cash Bingo at The Anchor',
+    metaDescription: 'Play bingo at The Anchor Stanwell Moor. Monthly dates vary, cash prizes, fun atmosphere. Popular bingo venue, around 7 minutes from Heathrow Airport.',
     heroContent: 'Eyes down for a full house! Join us for exciting bingo nights at The Anchor, where fun and prizes await in Stanwell Moor\'s friendliest pub.',
-    introContent: 'Our bingo nights have become a beloved tradition at The Anchor. Every Thursday, players of all ages come together for an evening of excitement, laughter, and the chance to win cash prizes. Our entertaining bingo caller keeps the energy high while you enjoy drinks and snacks throughout the evening.',
-    valueProposition: 'Join the fun this Thursday - arrive early to get a good table and enjoy our special bingo night menu. With multiple games, accumulator prizes, and a fantastic atmosphere, it\'s the perfect night out for groups of friends or solo players looking to meet new people.',
+    introContent: 'Our bingo nights have become a beloved tradition at The Anchor. Monthly dates vary, with players coming together for an evening of excitement, laughter, and the chance to win prizes.',
+    valueProposition: 'Join the next listed bingo night, arrive early to get a good table, and enjoy the atmosphere with friends or other regular players.',
     keywords: ['bingo night stanwell moor', 'thursday bingo surrey', 'cash prizes heathrow', 'bingo pub TW19', 'bingo venue stanwell moor']
   },
 
@@ -811,7 +811,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Travel tips from The Anchor, 7 minutes from Heathrow Airport. Pre-flight meals, parking advice and what to do with spare time before your flight.',
     heroContent: 'Travelling through Heathrow? We\'re the closest traditional pub to the airport, and we\'ve picked up a thing or two about making journeys smoother. Here\'s what we know.',
     introContent: 'Living seven minutes from one of the world\'s busiest airports means we see a lot of travellers. Early morning flyers grabbing a meal, cabin crew winding down after long hauls, families killing time before a late departure. Our travel posts cover the practical stuff, where to park without overpaying, how to time your journey to the terminals, and why a proper meal before security beats an overpriced airport sandwich every time.',
-    valueProposition: 'Flying soon? Pop in for a pre-flight meal with free parking. We\'re open Tuesday to Sunday, check our hours before heading over.',
+    valueProposition: 'Flying soon? Pop in for a pre-flight meal with free parking. Check our live hours before heading over.',
     keywords: ['travel tips heathrow airport', 'pre flight meal near heathrow', 'things to do before flight heathrow', 'pub near heathrow for travellers', 'heathrow travel advice stanwell moor']
   },
 

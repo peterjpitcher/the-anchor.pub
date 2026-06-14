@@ -192,10 +192,10 @@ export default async function PrivateHirePage() {
                 crumb="Private Hire"
                 kicker="Private hire"
                 title="Function Room Hire Near Heathrow & Staines"
-                lead="Room bookings for 10 to 50 guests in Stanwell Moor, near Staines and Heathrow. No room-hire fee, free parking, custom catering, and a team that plans it with you."
+                lead="Private hire for 10+ to 150 guests in Stanwell Moor, near Staines and Heathrow. Free parking, custom catering, and a team that plans it with you."
                 badges={
                     <>
-                        <Badge variant="sand">10 to 50 guests</Badge>
+                        <Badge variant="sand">10+ to 150 guests</Badge>
                         <Badge variant="sand">Free parking</Badge>
                         <Badge variant="sand">Custom catering</Badge>
                     </>
@@ -372,7 +372,7 @@ export default async function PrivateHirePage() {
                 title="Also explore"
                 links={[
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
-                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Room bookings for 10-50 guests; larger events by enquiry' },
+                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests; larger events by enquiry' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                     { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },
                 ]}

@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 interface ReviewsBadgeProps {
-  rating: number
-  totalReviews: number
+  rating: number | null
+  totalReviews: number | null
   size?: 'small' | 'medium' | 'large'
 }
 
@@ -27,17 +27,19 @@ export function ReviewsBadge({
     <div className={`bg-surface border border-line rounded-md shadow-md inline-flex items-center gap-4 ${sizeClasses[size]}`}>
       <div className="text-center">
         <div className={`font-semibold text-3xl text-accent-text ${size === 'large' ? 'text-4xl' : ''}`}>
-          {rating}
+          {typeof rating === 'number' ? rating : 'Google'}
         </div>
-        <div className={`flex gap-0.5 ${starSize[size]}`}>
-          {[...Array(5)].map((_, i) => (
-            <span
-              key={i}
-              className={i < Math.round(rating) ? "text-anchor-gold" : "text-ink-muted/30"}
-            >
-            </span>
-          ))}
-        </div>
+        {typeof rating === 'number' && (
+          <div className={`flex gap-0.5 ${starSize[size]}`}>
+            {[...Array(5)].map((_, i) => (
+              <span
+                key={i}
+                className={i < Math.round(rating) ? "text-anchor-gold" : "text-ink-muted/30"}
+              >
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="text-left">
@@ -45,7 +47,7 @@ export function ReviewsBadge({
           Google Reviews
         </div>
         <div className="text-ink-muted">
-          {totalReviews} reviews
+          {typeof totalReviews === 'number' ? `${totalReviews} reviews` : 'Latest reviews'}
         </div>
         <a
           href="https://g.page/theanchorpubsm?share"

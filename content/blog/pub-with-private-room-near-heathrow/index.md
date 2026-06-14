@@ -34,20 +34,20 @@ For sit-down meals, you need enough table space for plates, glasses, and elbows.
 
 Also think about the flow beyond the room itself. Is there outdoor space guests can spill into? A beer garden or terrace connected to the private area gives your event breathing room and stops the room feeling claustrophobic when everyone's inside.
 
-### Room Hire Charges vs Minimum Spend
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 This is where pub private rooms vary wildly, and it's worth understanding the difference before you start comparing prices.
 
-**Room hire charge:** You pay a flat fee for the space (typically £100-£500), regardless of how much you spend on food and drink. This fee is on top of your catering and bar bill. Some venues charge room hire plus a minimum spend, which really stacks up.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-**Minimum spend model:** You don't pay for the room itself. Instead, you commit to spending a minimum amount on food and drink. If your minimum spend is £800 and your guests order £800 worth of food and drinks, you've paid nothing extra for the room. The spend goes entirely on things your guests were going to consume anyway.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-The minimum spend model is almost always better value, especially for groups of 20 or more. Do the maths: if twenty people each spend £40 on food and drinks over an evening, that's £800 -- which often covers the minimum with nothing extra out of pocket.
+The quote-on-enquiry model is almost always better value, especially for groups of 20 or more. Do the maths: if twenty people each spend £40 on food and drinks over an evening, that's £800 -- which often covers the minimum with nothing extra out of pocket.
 
 **What to ask:**
-- Is there a room hire fee, a minimum spend, or both?
-- What counts towards the minimum spend? (Food, drink, or both?)
-- What happens if you don't hit the minimum spend?
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Is the deposit refundable or deducted from the final bill?
 
 ### Catering Options and Flexibility
@@ -68,9 +68,9 @@ The food situation can make or break a private event. You want options, not a si
 
 ### AV Equipment and Entertainment
 
-If your event involves speeches, slideshows, music, or any kind of presentation, you need AV equipment. Hiring it separately is expensive (a projector and screen rental alone can run £150-£300) and adds logistical headaches: who's setting it up? Who's testing it? What if the cable doesn't reach?
+If your event involves speeches, slideshows, music, or any kind of presentation, you need AV equipment. Hiring it separately is expensive (a TVs rental alone can run £150-£300) and adds logistical headaches: who's setting it up? Who's testing it? What if the cable doesn't reach?
 
-Venues that include AV equipment -- projector, screen, sound system -- as part of the private hire save you money and hassle. Ask what's included and whether you need to bring anything (a laptop, USB stick, adaptor).
+Venues that include AV equipment -- TVs, sound system -- as part of the private hire save you money and hassle. Ask what's included and whether you need to bring anything (a laptop, USB stick, adaptor).
 
 For music, find out what the options are. Can you connect your own playlist via Bluetooth or aux? Is there a jukebox? Does the venue host live music nights you could align your event with?
 
@@ -142,13 +142,13 @@ Costs vary by venue, day of the week, and group size, but here's a realistic fra
 - Drinks: £20-£40 per head (estimated)
 - Total for 30 guests: roughly £1,150-£3,050
 
-**Minimum spend model venues:**
+**quote-on-enquiry model venues:**
 - Room fee: £0
-- Minimum spend: £500-£1,500 (covers food and drink)
-- Anything above minimum spend: you'd have spent it anyway
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Total for 30 guests: often the same as what you'd spend naturally on food and drink
 
-The minimum spend model is transparent. You know the floor, and everything you spend goes on the actual event rather than subsidising the room.
+The quote-on-enquiry model is transparent. You know the floor, and everything you spend goes on the actual event rather than subsidising the room.
 
 **Additional costs to watch for:**
 - Corkage for bringing your own wine or champagne
@@ -170,11 +170,11 @@ We're obviously biased, but here's what we offer and you can judge for yourself.
 
 **The dining room.** Seats 26 around tables with standing room beyond that. French doors open directly onto our beer garden (64 seats), so your event can expand outdoors in warmer months. It's a proper room, not a roped-off section of the pub -- your guests have genuine privacy.
 
-**No room hire charge.** We use a minimum spend model. The minimum is between £500 and £1,500 depending on the day and your group size. A £250 deposit secures your booking and gets deducted from the final bill.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-**Catering that covers every budget.** Buffet packages start from £9.95 per head (sandwich buffet) up to £17.99 per head (indoor BBQ). We also offer welcome drinks packages from £6.99 per head, kids catering at £8.00 per head, and unlimited tea and coffee for £4.49 per head. All buffet packages require a minimum of 30 guests. You're also welcome to bring your own food at no charge.
+**Catering that covers every budget.** Buffet package prices come from the live approved source (sandwich buffet) up to current approved price (indoor BBQ). We also offer welcome drinks packages from £6.99 per head, kids catering at £8.00 per head, and unlimited tea and coffee for £4.49 per head. All buffet packages require a minimum of 30 guests. You're also welcome to bring your own food at no charge.
 
-**AV included.** Projector, screen, and sound system -- all part of the booking. No hire charge, no third-party rental. Connect your laptop or bring a USB stick.
+**AV included.** TVs and sound system -- all part of the booking. No hire charge, no third-party rental. Connect your laptop or bring a USB stick.
 
 **Free parking.** Twenty spaces on-site, free for all guests. The car park is level, close to the entrance, covered by CCTV, and floodlit. Additional parking is available nearby if you're expecting a larger group.
 
@@ -199,7 +199,7 @@ Once you've found a venue you like, here's how to approach the booking:
 **Questions to ask on the first call:**
 - Is your date available?
 - What's the capacity for your type of event (seated vs standing)?
-- What's the cost model (room hire, minimum spend, or both)?
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - What's included (AV, WiFi, parking, coordinator)?
 - What catering options are available at your group size?
 - What's the deposit and cancellation policy?
@@ -207,7 +207,7 @@ Once you've found a venue you like, here's how to approach the booking:
 
 **Visit the venue.** If at all possible, see the room in person. Photos on websites are taken at optimal angles with professional lighting. Visiting lets you assess the actual size, the condition of the space, the noise level from the main pub, access from the car park, and whether it feels right for your event.
 
-**Confirm in writing.** Once you've agreed the details, get a written confirmation covering: date, times, room, number of guests, catering package, minimum spend or room hire fee, deposit amount, and what's included. This protects both sides.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Communicate with the coordinator.** A good coordinator will check in with you before the event to confirm final numbers, dietary requirements, timing, and any special requests. If they don't reach out, you reach out to them. The week before the event is the time to nail down every detail.
 
@@ -221,8 +221,8 @@ Four to six weeks is comfortable for most events. For December bookings (Christm
 **Can I see the room before booking?**
 You should be able to. Any venue that won't let you visit the space before committing is a red flag. Call ahead to arrange a time that works for both sides.
 
-**What's a typical minimum spend for a private room?**
-It varies hugely. Budget pubs might start at £300. Higher-end venues can require £2,000 or more. At The Anchor, our minimum spend ranges from £500 to £1,500 depending on the day and group size. The key is that the spend goes on food and drink, not on the room itself.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+It varies hugely. Budget pubs might start at £300. Higher-end venues can require £2,000 or more. At The Anchor, our pricing is discussed on enquiry depending on the day and group size. The key is that the spend goes on food and drink, not on the room itself.
 
 **Can I bring my own decorations?**
 Almost always yes. Balloons, banners, table decorations, photo displays -- bring whatever you like. Just let the venue know in advance so they can arrange setup time. Avoid anything that might damage walls or fixtures (no drawing pins in listed buildings, that sort of thing).

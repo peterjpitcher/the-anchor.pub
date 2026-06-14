@@ -40,15 +40,15 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
     title: 'Live Music Pub Near Heathrow | Bands & Acoustic Nights',
     description:
-        'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        'Live music pub near Heathrow, bands, acoustic sessions and tribute acts in Stanwell Moor. Free entry, free parking, around 7 mins from T5. See upcoming gigs.',
     openGraph: {
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
+        description: 'Live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, around 7 mins from T5.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
+        description: 'Live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, around 7 mins from T5.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -103,7 +103,7 @@ const WHY_LOVE_IT = [
     {
         icon: '',
         title: 'Fuel for the Show',
-        body: 'Kitchen open until midnight for burgers, pizzas and sharers. Perfect for lining the stomach before the band starts.'
+        body: 'Order before the music starts and check live kitchen hours for the night. Event food times can vary.'
     }
 ]
 
@@ -373,7 +373,7 @@ export default async function LiveMusicPage() {
                                 <ul className="space-y-3 text-ink-muted">
                                     <li><strong>Start time:</strong> Bands usually kick off around 8:30 pm.</li>
                                     <li><strong>Cost:</strong> Always free entry. Support local music by buying a pint!</li>
-                                    <li><strong>Food:</strong> Kitchen open until midnight for gig fuel.</li>
+                                    <li><strong>Food:</strong> Check live kitchen hours before you travel. Event food times can vary.</li>
                                     <li><strong>Atmosphere:</strong> Up-close, personal and friendly. Standing room at the bar, tables available to book.</li>
                                 </ul>
                                 <p className="text-sm text-ink-muted">
@@ -404,7 +404,7 @@ export default async function LiveMusicPage() {
                             <CardBody>
                                 <h3 className="text-xl font-semibold text-accent-text mb-2">Pre-Gig Dinner</h3>
                                 <p className="text-sm text-ink-muted mb-4">
-                                    Kitchen open until midnight. Grab a burger or pizza before the music starts.
+                                    Check live kitchen hours and grab food before the music starts.
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <BookTableButton

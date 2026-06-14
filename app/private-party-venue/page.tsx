@@ -14,15 +14,15 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Party Venue Near Heathrow & Staines | The Anchor Pub',
-  description: 'Book a party venue near Heathrow and Staines for birthdays, celebrations & private events. DJ space, late licence, 10-50 room bookings, free parking.',
+  description: 'Book a party venue near Heathrow and Staines for birthdays, celebrations & private events. DJ space, late licence, private hire for 10+ to 150 guests, free parking.',
   openGraph: {
     title: 'Party Venue Near Heathrow & Staines | The Anchor',
-    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. 10-50 room bookings for birthdays and celebrations.',
+    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. Private hire for 10+ to 150 guests.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Party Venue Near Heathrow & Staines | The Anchor',
-    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. 10-50 room bookings for birthdays and celebrations.',
+    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. Private hire for 10+ to 150 guests.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -42,7 +42,7 @@ export default function PrivatePartyVenuePage() {
         lead="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
         badges={
           <>
-            <Badge variant="sand">10-50 Room Bookings</Badge>
+            <Badge variant="sand">10+ to 150 Guests</Badge>
             <Badge variant="sand">All Occasions</Badge>
             <Badge variant="sand">Free Parking</Badge>
             <Badge variant="sand">Custom Menus</Badge>
@@ -271,7 +271,7 @@ export default function PrivatePartyVenuePage() {
           },
 	          {
 	            question: "Is there a room hire fee for private parties?",
-	            answer: "Yes, room hire fees vary depending on the day, time, and group size. There is no minimum spend required. We'll discuss pricing when you enquire."
+		            answer: "Private hire pricing varies depending on the day, time, group size and what you need. We'll discuss pricing when you enquire."
 	          },
           {
             question: "Can we have music and dancing?",

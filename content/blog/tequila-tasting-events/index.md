@@ -255,7 +255,7 @@ Contact us to design your perfect tasting event.
 
 ## Join Our Next 5-Star Tasting
 
-Don't miss out on Surrey's highest-rated spirits experiences. With limited spaces and growing demand, our **tequila tasting near Heathrow** events are becoming legendary.
+Join us for listed tasting events when they are confirmed. With limited spaces and growing demand, our **tequila tasting near Heathrow** events are becoming legendary.
 
 **Book now and discover why every guest gives us 5 stars!**
 

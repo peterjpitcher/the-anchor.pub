@@ -259,7 +259,7 @@ export default function WraysburyPubPage() {
                     },
                     {
                         question: "Do you serve food all day?",
-                        answer: "Our kitchen times vary slightly by day (generally open for dinner Tue-Fri and all day Sat-Sun). Please check our opening hours section for the latest service times."
+                        answer: "Our kitchen times vary by date. Please check the opening hours section or call us for the latest service times."
                     }
                 ]}
                 className="bg-surface"

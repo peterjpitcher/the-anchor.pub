@@ -84,6 +84,11 @@ export default function EasterSundayPage() {
         'Our Easter Sunday menu is our regular Sunday roast: roast beef, roast pork, roast turkey, a beef and ale pie, a chicken and wild mushroom pie, or a vegan wellington, all cooked from scratch. Current dishes and prices are live on our Sunday roast menu.'
     },
     {
+      question: 'Are you open over the Easter weekend and on Easter Monday?',
+      answer:
+        'Yes. We are open as normal right across the Easter bank holiday weekend. Good Friday through Easter Sunday we are open with full kitchen service, including the Sunday roast on Easter Sunday. On Easter Monday we are open for drinks only, as our kitchen is closed every Monday, including bank holidays.'
+    },
+    {
       question: 'Is there parking?',
       answer: `Yes, we have ${PARKING.capacity} free parking spaces on site. No meters, no charges. We are about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car, and you will find us at ${addressLine}.`
     }
@@ -294,6 +299,50 @@ export default function EasterSundayPage() {
           </PhoneButton>
         }
       />
+
+      {/* Easter weekend opening hours (migrated from the former /easter weekend page) */}
+      <section className="py-section-y bg-surface-sunk">
+        <Container size="lg">
+          <div className="mx-auto max-w-4xl space-y-6">
+            <h2 className="text-h3 text-ink-strong">
+              Easter weekend opening hours
+            </h2>
+            <p className="text-ink-muted text-lg leading-relaxed">
+              Planning the whole long weekend, not just Sunday? Here is what to expect across the Easter bank holiday.
+            </p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Card>
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Good Friday &ndash; Easter Sunday</h3>
+                  <p className="text-sm text-ink-muted">
+                    Open as normal with full kitchen service. Our regular evening menu is available Friday and Saturday,
+                    and our Sunday roast menu on Easter Sunday.
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <Badge variant="success">Kitchen open</Badge>
+                    <Badge variant="green">Full menu</Badge>
+                  </div>
+                </CardBody>
+              </Card>
+
+              <Card>
+                <CardBody className="space-y-2">
+                  <h3 className="text-lg font-semibold text-ink-strong">Easter Monday</h3>
+                  <p className="text-sm text-ink-muted">
+                    Open for drinks only. Our kitchen is closed every Monday, including bank holidays.
+                    Pop in for a pint, enjoy the beer garden, and wind down the long weekend.
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <Badge variant="green">Drinks only</Badge>
+                    <Badge variant="green">Kitchen closed</Badge>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* Where we are */}
       <section className="py-section-y bg-surface">

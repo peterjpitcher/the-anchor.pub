@@ -39,17 +39,17 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Karaoke Fridays Near Heathrow | Free Entry',
+    title: 'Karaoke Near Heathrow | Free Entry When Listed',
     description:
-        'Karaoke every Friday 8–11pm at The Anchor, Stanwell Moor. 50,000+ songs, hosted nights, free entry & free parking. 7 mins from Heathrow T5. Grab the mic tonight.',
+        'Karaoke nights at The Anchor, Stanwell Moor when listed or confirmed. Free entry, free parking and around 7 mins from Heathrow T5, traffic dependent.',
     openGraph: {
         title: 'Karaoke Pub Near Heathrow | The Anchor',
-        description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
+        description: 'Karaoke nights when listed or confirmed. Free entry. Sing your heart out in Stanwell Moor.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
         title: 'Karaoke Pub Near Heathrow | The Anchor',
-        description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
+        description: 'Karaoke nights when listed or confirmed. Free entry. Sing your heart out in Stanwell Moor.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -219,7 +219,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
                                     <p className="text-ink-muted leading-relaxed">{event.description}</p>
                                 )}
                                 <p className="text-sm text-ink-muted">
-                                    Grab the mic and show us what you've got! 50,000+ songs, hosted by Nikki Manfadge, and free entry all night.
+                                    Grab the mic and show us what you've got. Check the event listing for host, timings and song details.
                                 </p>
                             </div>
 
@@ -252,14 +252,13 @@ export default async function KaraokePage() {
                     "@context": "https://schema.org",
                     "@type": "EventSeries",
                     "@id": "https://www.the-anchor.pub/#karaoke-series",
-                    "name": "Karaoke Nights with Nikki Manfadge at The Anchor",
-                    "description": "Friday karaoke nights hosted by Nikki Manfadge with 50,000+ songs. Free entry, free parking, 7 mins from Heathrow T5.",
+                    "name": "Karaoke Nights at The Anchor",
+                    "description": "Karaoke nights when listed or confirmed. Free entry, free parking, around 7 mins from Heathrow T5, traffic dependent.",
                     "startDate": "2024-01-01",
                     "endDate": "2026-12-31",
                     "eventSchedule": {
                         "@type": "Schedule",
-                        "repeatFrequency": "P1W",
-                        "byDay": "https://schema.org/Friday",
+                        "repeatFrequency": "P1M",
                         "startTime": "20:00:00",
                         "endTime": "23:00:00",
                         "scheduleTimezone": "Europe/London"
@@ -298,7 +297,7 @@ export default async function KaraokePage() {
                 image="/images/page-headers/home/page-headers-homepage.jpg"
                 crumb="Karaoke"
                 title="Karaoke Nights at The Anchor"
-                lead="The stage is yours! Join us near Heathrow for the ultimate karaoke night. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry."
+                lead="The stage is yours. Join us near Heathrow for karaoke nights when they are listed or confirmed. Free entry."
             />
 
             <section className="bg-surface-sunk py-section-y">
@@ -347,9 +346,9 @@ export default async function KaraokePage() {
                             <CardBody className="space-y-4">
                                 <h3 className="text-h4 text-ink-strong">How it works</h3>
                                 <ul className="space-y-3 text-ink-muted">
-                                    <li><strong>Every Friday, 8-11pm:</strong> Hosted by Nikki Manfadge with 50,000+ songs to choose from.</li>
-                                    <li><strong>Choose your track:</strong> Browse the digital library or ask Nikki. Everything from Abba to ZZ Top.</li>
-                                    <li><strong>Eat & Drink:</strong> Kitchen open until 9 pm for pre-show burgers. Bar open late.</li>
+                                    <li><strong>Dates vary:</strong> Karaoke is occasional, so check the latest listing before you travel.</li>
+                                    <li><strong>Choose your track:</strong> Browse the available song list on the night.</li>
+                                    <li><strong>Eat & Drink:</strong> Check live kitchen hours before you travel. Bar times come from the live listing.</li>
                                     <li><strong>Free Entry:</strong> Always free entry, always good vibes.</li>
                                 </ul>
                                 <p className="text-sm text-ink-muted">

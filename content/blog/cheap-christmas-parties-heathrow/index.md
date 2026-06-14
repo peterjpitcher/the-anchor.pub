@@ -40,9 +40,9 @@ Need to plan a **Christmas get-together near Heathrow** without spending a fortu
 
 ## 1. Pick the best-value dates
 
-- **Tuesday to Thursday** three-course dinners are just **£36.95 per person** and include Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables and signature gravy.
-- Mid-week bookings also unlock the **complimentary coffee & mince pie perk**, so everyone gets a sweet finale without extra cost.
-- Lock in the **Early-Bird free glass of Prosecco** by booking before 31 October, it adds welcome sparkle for no extra spend.
+- **Tuesday to Thursday** dates can be good value, ask for current festive menu pricing when you enquire.
+- Ask about any **current seasonal options**, so your quote reflects what is live for your booking date.
+- Book early for the best choice of dates, especially for larger groups.
 
 ## 2. Share platters, not extra starters
 
@@ -50,14 +50,14 @@ Our **All the Trimmings sharing boards** feed four guests for **£11.95** and ke
 
 For relaxed evenings, switch to a buffet:
 
-- **Festive Sandwich & Salad Buffet** from **£10.95pp** suits training days and lighter lunches.
+- **Festive Sandwich & Salad Buffet** from **current approved price** suits training days and lighter lunches.
 - **Festive Premium Grazing Buffet** at **£16.95pp** layers cured meats, cheeses and hot bites so no one misses the trimmings.
 
 ![Guests raising a toast during a mid-week Christmas party near Heathrow](/images/events/christmas/christmas-buffet-table.jpg)
 
 ## 3. Pre-book smart drinks bundles
 
-- **Bundle A** combines arrival Prosecco with coffee & mince pie for **£9.95pp**, counting toward the £45–52 spend goal.
+- **Bundle A** combines arrival Prosecco with coffee & mince pie for **current approved price**, counting toward the £45–52 spend goal.
 - **Wine bundle (2 bottles £39)** and **beer buckets (£27 for six)** keep pouring costs predictable.
 - Hosting a mixed-age crowd? Add **unlimited kids' squash (£2.50 per child)** and invite grown-ups to pre-pay a bar tab with a sensible cap.
 
@@ -75,7 +75,7 @@ Popular Thursdays and Fridays fill quickly. Secure your preferred date with a **
 
 ### Ready to lock in your Christmas party?
 
-Our team handles everything, crackers, festive decor, allergen planning and thoughtful touches. **Tell us about your celebration and we’ll hold the Early-Bird perks for you.**
+Our team handles everything, crackers, festive decor, allergen planning and thoughtful touches. **Tell us about your celebration and we’ll confirm current seasonal options for you.**
 
 [Request a Christmas booking now →](https://www.the-anchor.pub/christmas-parties)
 

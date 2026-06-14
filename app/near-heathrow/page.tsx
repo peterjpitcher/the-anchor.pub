@@ -104,7 +104,7 @@ export default function NearHeathrowPage() {
                 align="left"
                 kicker="Why stop with us"
                 title="One of the easiest places to eat near Heathrow"
-                lead="Skip the terminal queues and the terminal prices. The Anchor is a traditional village pub minutes from every Heathrow terminal, with free parking and room to relax before you fly or while you wait for arrivals. We are the highest-rated independent pub near Heathrow, with a 4.6-star rating from hundreds of guest reviews."
+                lead="Skip the terminal queues and the terminal prices. The Anchor is a traditional village pub minutes from every Heathrow terminal, with free parking and room to relax before you fly or while you wait for arrivals. We are a highly rated independent pub near Heathrow, around 7 minutes from Terminal 5, traffic dependent."
                 className="mb-0"
               />
               <WhyStopList />
@@ -243,7 +243,7 @@ export default function NearHeathrowPage() {
         links={[
           { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
-          { href: '/private-hire', title: 'Function Room Hire', description: 'Room bookings for 10 to 50 guests, no room-hire fee, free parking' },
+          { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
           { href: '/blog/tag/heathrow', title: 'Heathrow Guides', description: 'Our guides for visitors and workers near Heathrow' },
           { href: '/heathrow-parking', title: 'Heathrow Parking', description: 'Parking options near Heathrow' },
           { href: '/find-us', title: 'Find Us', description: 'Directions and free parking' },

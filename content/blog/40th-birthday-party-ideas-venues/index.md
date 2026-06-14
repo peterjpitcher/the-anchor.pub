@@ -39,19 +39,19 @@ The ideas below lean into that. They're sophisticated without being pretentious,
 
 A cocktail evening feels elevated without the formality of a sit-down dinner. The twist that makes it personal: name the cocktails after moments from your life. "The 2009" for the year you moved to London. "The Promotion" for obvious reasons. "The One We Don't Talk About" for... well, everyone's got one.
 
-**Make it work:** You don't need a professional mixologist. Most venues with a decent bar can prepare a small cocktail menu in advance. At The Anchor, the bar team can put together a bespoke drinks list for your evening, just discuss it with the events coordinator when you book. Pair it with a [finger buffet at £10.50 per head](/food-menu) and you've got an evening that feels curated, not catered.
+**Make it work:** You don't need a professional mixologist. Most venues with a decent bar can prepare a small cocktail menu in advance. At The Anchor, the bar team can put together a bespoke drinks list for your evening, just discuss it with the events coordinator when you book. Pair it with a [finger buffet at current approved price](/food-menu) and you've got an evening that feels curated, not catered.
 
 ### Wine or gin tasting supper
 
 If your idea of a perfect evening involves discovering a new favourite bottle rather than dancing to Mr Brightside (again), a tasting supper is your format. Set up four or five stations, each with a different wine, gin, or spirit, paired with complementary food. Guests move between stations, try things, argue about flavour profiles, and feel like adults doing adult things.
 
-**Make it work:** Combine a tasting element with The Anchor's [premium buffet at £13.95 per head](/food-menu), and you've got a structured evening that doesn't feel like a conference. The private dining room seats 26, with French doors opening onto the beer garden if you need overflow space. For groups under 30, you can order from the regular menu instead of a buffet package.
+**Make it work:** Combine a tasting element with The Anchor's [premium buffet at current approved price](/food-menu), and you've got a structured evening that doesn't feel like a conference. The private dining room seats 26, with French doors opening onto the beer garden if you need overflow space. For groups under 30, you can order from the regular menu instead of a buffet package.
 
 ### Surprise dinner party
 
 The classic. And it's a classic because it works, especially for someone who'd never organise their own 40th. The trick is making the surprise landing believable. "We're just going for a quiet dinner" is the standard cover story, and it works because at 40, a quiet dinner actually sounds appealing.
 
-**Make it work:** You need a venue that can hold your group privately, away from the regular punters. The Anchor's private dining room is perfect for this, the guest of honour walks through the main pub, turns the corner, and there's everyone they love. AV equipment (projector, screen, and sound system) is included, so a slideshow of embarrassing photos is practically mandatory.
+**Make it work:** You need a venue that can hold your group privately, away from the regular punters. The Anchor's private dining room is perfect for this, the guest of honour walks through the main pub, turns the corner, and there's everyone they love. AV equipment (TVs and sound system) is included, so a slideshow of embarrassing photos is practically mandatory.
 
 ### Garden party under the flight path
 
@@ -63,13 +63,13 @@ There's something about an outdoor party that instantly relaxes people. Combine 
 
 Halfway between a party and a roast. Put together a timeline of your life, photos from each decade, key moments, achievements, spectacular failures, and display it around the venue. Invite specific friends to give short (two-minute maximum, strictly enforced) toasts or stories from different eras. It's personal, it's funny, and it gives structure to an evening without turning it into a formal affair.
 
-**Make it work:** A projector and screen make this easy. The Anchor includes AV equipment with private hire as standard. Create a slideshow, set it running on loop, and have the toasts at intervals throughout the evening rather than all in one block. People lose attention after the fourth speech. Space them out and they feel like events rather than a duty.
+**Make it work:** A TVs make this easy. The Anchor includes AV equipment with private hire as standard. Create a slideshow, set it running on loop, and have the toasts at intervals throughout the evening rather than all in one block. People lose attention after the fourth speech. Space them out and they feel like events rather than a duty.
 
 ### Supper club format
 
 This is the 40th birthday party idea for people who genuinely love food. Arrange a multi-course meal, or a succession of sharing plates, where the food is the main event. No theme. No activities. Just really good food, good wine, and the kind of long-table conversation that only happens when everyone's eating the same thing.
 
-**Make it work:** For groups up to 26, The Anchor's private dining room works perfectly for a seated meal. The [indoor BBQ at £17.99 per head](/food-menu) gives you a sharing-style feast that feels generous and communal. For larger groups, the [burger buffet at £10.95 per head](/food-menu) keeps things relaxed while still putting food at the centre.
+**Make it work:** For groups up to 26, The Anchor's private dining room works perfectly for a seated meal. The [indoor BBQ at current approved price](/food-menu) gives you a sharing-style feast that feels generous and communal. For larger groups, the [burger buffet at current approved price](/food-menu) keeps things relaxed while still putting food at the centre.
 
 ## Activities that work for a 40th (and ones that don't)
 
@@ -103,11 +103,11 @@ For groups of 30 or more, a buffet remains the smartest option. People eat what 
 
 | Package | Per Head | Min Guests | Best For |
 |---|---|---|---|
-| Sandwich Buffet | £9.95 | 30 | Budget-conscious, afternoon events |
-| Finger Buffet | £10.50 | 30 | Cocktail evenings, standing events |
-| Burger Buffet | £10.95 | 30 | Casual celebrations, mixed ages |
-| Premium Buffet | £13.95 | 30 | Evening parties, when you want a spread |
-| Indoor BBQ | £17.99 | 30 | The "push the boat out" option |
+| Sandwich Buffet | current approved price | 30 | Budget-conscious, afternoon events |
+| Finger Buffet | current approved price | 30 | Cocktail evenings, standing events |
+| Burger Buffet | current approved price | 30 | Casual celebrations, mixed ages |
+| Premium Buffet | current approved price | 30 | Evening parties, when you want a spread |
+| Indoor BBQ | current approved price | 30 | The "push the boat out" option |
 
 All prices are current at The Anchor. That's real food at real prices, not the £45-80 per head you'll get quoted from airport hotels.
 
@@ -135,11 +135,11 @@ The venue makes or breaks it. Not because of how it looks on Instagram, nobody o
 
 **Private space with a proper door.** At 40, "we've reserved some tables at the back" isn't good enough. You want a room where your guests can hear each other, speeches are audible, and nobody's competing with the general public for the barman's attention. The Anchor's private dining room accommodates this, it's a separate space with its own atmosphere.
 
-**No room hire charge.** This is significant. Many hotels and chains charge £500-2,000 just for the room. At The Anchor, private hire operates on a minimum spend model (£500-1,500 depending on day and group size), and every pound of that goes toward food and drinks your guests actually consume. There's no hidden room fee.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Free parking for guests.** Near Heathrow, this matters more than you'd think. Hotel venues typically charge £15-25 per car. Multiply that across 15-20 cars and you've added £300+ to the cost of the evening before anyone's eaten. The Anchor has 20 free parking spaces, no charge, no time limit while visiting, CCTV and floodlit. Additional parking is also available nearby.
 
-**Equipment included.** AV gear (projector, screen, sound system), WiFi, and a dedicated events coordinator should come with the venue, not as add-ons. At The Anchor, they're all included with private hire.
+**Equipment included.** AV gear (TVs, sound system), WiFi, and a dedicated events coordinator should come with the venue, not as add-ons. At The Anchor, they're all included with private hire.
 
 **Flexibility on format.** The best venues let you do what you want. Afternoon or evening. Buffet or sit-down. Speeches and slideshow or just music and mingling. Avoid venues that force you into a rigid "party package" with fixed timings.
 
@@ -147,13 +147,13 @@ The venue makes or breaks it. Not because of how it looks on Instagram, nobody o
 
 | | Airport Hotel | Chain Pub | The Anchor |
 |---|---|---|---|
-| Room hire | £500-2,000 | Varies | Free (min spend) |
-| Food (40 guests) | £1,800-3,200 | £800-1,400 | £398-720 |
+| Room hire | £500-2,000 | Varies | Quote on enquiry |
+| Food (40 guests) | £1,800-3,200 | £800-1,400 | Quoted from current approved source |
 | Parking (20 cars) | £300-500 | Limited free | Free |
-| Welcome drinks | £400-800 | Varies | £320 (prosecco) |
+| Welcome drinks | £400-800 | Varies | Quote on enquiry |
 | AV equipment | £200-500 extra | Rarely available | Included |
 | Events coordinator | Included | Rarely | Included |
-| **Estimated total** | **£3,200-7,000** | **£1,000-2,200** | **£500-1,500** |
+| **Estimated total** | **£3,200-7,000** | **£1,000-2,200** | **quoted on enquiry** |
 
 The numbers speak for themselves. And the irony is that the most expensive option often delivers the least personal experience, you're in a generic function room eating the same menu they served at last night's corporate dinner.
 
@@ -210,22 +210,22 @@ You don't need a project manager. You need a list and some discipline.
 Three realistic scenarios for 40 guests, using actual 2026 prices.
 
 **The smart celebration (around £700):**
-- Finger buffet: £420 (40 x £10.50)
+- Finger buffet: £420 (40 x current approved price)
 - Welcome prosecco: £320 (40 x £7.99)
 - Decorations: ~£40
-- Venue hire: free (covered by minimum spend)
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Parking: free
 - **Total: approximately £780**
 
 **The proper party (around £1,200):**
-- Premium buffet: £558 (40 x £13.95)
+- Premium buffet: £558 (40 x current approved price)
 - Welcome prosecco: £320
 - Bar tab: £300
 - Decorations and photo display: ~£60
 - **Total: approximately £1,238**
 
 **The full works (around £1,500):**
-- Indoor BBQ: £720 (40 x £17.99)
+- Indoor BBQ: £720 (40 x current approved price)
 - Welcome prosecco: £320
 - Bar tab: £500
 - Decorations, photo timeline, quiz prizes: ~£80
@@ -237,7 +237,7 @@ Every scenario above includes free parking, a private room, AV equipment, a dedi
 
 **How many people should I invite to a 40th birthday party?**
 
-There's no right number, but 30-50 is the sweet spot for most 40th celebrations. Big enough to feel like an event, small enough that you actually talk to everyone. The Anchor's [private hire](/private-hire) accommodates 10-50 guests, so you've got flexibility. For intimate dinners, the private dining room seats 26.
+There's no right number, but 30-50 is the sweet spot for most 40th celebrations. Big enough to feel like an event, small enough that you actually talk to everyone. The Anchor's [private hire](/private-hire) accommodates 10+ to 150 guests, so you've got flexibility. For intimate dinners, the private dining room seats 26.
 
 **What's the best time of day for a 40th birthday party?**
 

@@ -116,11 +116,11 @@ Pricing varies wildly depending on where you go and what you choose. Here's what
 
 ### Buffet: £10-17 per person
 
-A solid christmas buffet, hot and cold options, a couple of desserts, enough variety to keep everyone happy. This is the best value option for larger groups, and the quality at a good pub or venue is genuinely excellent. Our buffets at The Anchor start from £10.95 per head, with premium options stepping up from there.
+A solid christmas buffet, hot and cold options, a couple of desserts, enough variety to keep everyone happy. This is the best value option for larger groups, and the quality at a good pub or venue is genuinely excellent. Our buffets at The Anchor start from current approved price, with premium options stepping up from there.
 
-### Three-course sit-down: £35-40 per person
+### Three-course sit-down
 
-A proper christmas dinner with starter, main, and dessert. At The Anchor, our festive dinner menu runs from £36.95 to £39.95 per person depending on choices, which includes the full works, turkey or alternatives, trimmings, and dessert.
+A proper christmas dinner with starter, main, and dessert. At The Anchor, festive dinner pricing is confirmed from the current approved source when you enquire.
 
 For comparison, airport hotels and chain venues typically charge £55-80 for a similar meal. The food isn't necessarily better; you're paying for the postcode and the function room overheads.
 
@@ -128,9 +128,9 @@ For comparison, airport hotels and chain venues typically charge £55-80 for a s
 
 The food bill is only part of the story. Smart organisers look at what's available on top:
 
-- **Prosecco reception**: Usually £4-6 per person on arrival
+- **Prosecco reception**: Ask for current pricing on arrival drinks
 - **Wine packages**: Per-table allocations or free-pour for a fixed period
-- **Bundle deals**: At The Anchor, our Bundle A includes prosecco on arrival plus coffee and a mince pie to finish, at £9.95 per person, a good way to bookend the meal without running up a separate tab
+- **Bundle deals**: At The Anchor, our Bundle A includes prosecco on arrival plus coffee and a mince pie to finish, at current approved price, a good way to bookend the meal without running up a separate tab
 
 These extras turn a christmas lunch into an event without blowing the budget.
 
@@ -144,9 +144,9 @@ We've been hosting Christmas parties for years, and we know what works. Our fest
 - Vegan wellington
 - Beetroot Wellington (vegetarian)
 - A full dessert selection including Christmas pudding
-- Trimmings boards for sharing (£11.95 for 4, £21.95 for 8)
+- Trimmings boards for sharing, current pricing confirmed on enquiry
 
-**Christmas party packages** start from £10.95 per head for buffets, with three-course festive dinner options from £36.95 to £39.95 per person. Bundle A (prosecco + coffee and mince pie) adds £9.95 per head.
+**Christmas party packages** are priced from the current approved source for buffets and three-course festive dinner options. Bundle add-ons are confirmed from the current approved source.
 
 **The practical bits:**
 - Free parking for all guests

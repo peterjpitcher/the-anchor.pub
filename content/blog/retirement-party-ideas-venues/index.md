@@ -90,7 +90,7 @@ A retirement slideshow is a step up from a leaving do slideshow. You're covering
 - A "then and now" comparison of their desk, the office, or the team
 - Short video clips from colleagues who can't attend in person
 
-The key is having proper AV equipment. A projector, screen, and sound system turn a slideshow from "squinting at a laptop" into an actual experience. If your venue has this kit, use it. If they don't, factor that into your venue choice, it's worth it.
+The key is having proper AV equipment. A TVs and sound system turn a slideshow from "squinting at a laptop" into an actual experience. If your venue has this kit, use it. If they don't, factor that into your venue choice, it's worth it.
 
 Keep the whole thing under eight minutes. Career-spanning slideshows can easily balloon to twenty minutes, and even the most beloved retiree loses the room after ten.
 
@@ -119,13 +119,13 @@ A private dining room or function space gives you that. French doors opening ont
 
 ### AV equipment
 
-If you're doing a slideshow, video messages, or a quiz, this isn't optional. A venue with a projector, screen, and sound system already set up saves you the embarrassment of thirty minutes of "can someone get the HDMI working" while sixty people watch.
+If you're doing a slideshow, video messages, or a quiz, this isn't optional. A venue with a TVs and sound system already set up saves you the embarrassment of thirty minutes of "can someone get the HDMI working" while sixty people watch.
 
 ### Catering flexibility
 
 Retirement parties can range from an afternoon tea to a full evening event. The venue should offer catering options that flex to match, not force you into a single set menu.
 
-[Buffet packages](/food-menu) work well for retirement celebrations because they're sociable (people mingle rather than sit in fixed seats) and predictable on cost. Expect to pay somewhere between £9.95 and £17.99 per head depending on the menu, with options from sandwich platters through to indoor BBQ packages.
+[Buffet packages](/food-menu) work well for retirement celebrations because they're sociable (people mingle rather than sit in fixed seats) and predictable on cost. Expect to pay somewhere between current approved price and current approved price depending on the menu, with options from sandwich platters through to indoor BBQ packages.
 
 A bar tab is useful too, it means you set a drinks budget upfront and guests order what they like without anyone counting pennies.
 
@@ -139,21 +139,21 @@ Look for venues with free on-site parking, level, well-lit, and close to the ent
 
 Retirement party budgets vary enormously. Some companies allocate thousands. Some teams pass a hat round. The venue shouldn't punish you either way.
 
-Watch out for room hire charges on top of food and drink spend. The fairest model is a minimum spend arrangement, your food and drink count towards the total, there's no separate hire fee, and you know exactly what you're committing to upfront.
+Watch out for room hire charges on top of food and drink spend. The fairest model is a quote-on-enquiry arrangement, your food and drink count towards the total, there's no separate hire fee, and you know exactly what you're committing to upfront.
 
 ## Hosting a retirement party at The Anchor
 
 We'll be direct about what we offer and what we don't.
 
-**Space:** Our private dining room seats 26 with additional standing room. French doors open onto the beer garden, giving you flexibility. We host private events for 10 to 50 guests.
+**Space:** Our private dining room seats 26 with additional standing room. French doors open onto the beer garden, giving you flexibility. We host private events for 10+ to 150 guests.
 
-**AV:** Projector, screen, and sound system are all available. Your slideshow, video tributes, and speeches all work properly without any improvised tech solutions.
+**AV:** TVs and sound system are all available. Your slideshow, video tributes, and speeches all work properly without any improvised tech solutions.
 
-**Catering:** [Buffet options](/food-menu) from £9.95 per head (sandwich buffet) up to £17.99 per head (indoor BBQ). Welcome drinks packages from £6.99 per head, or prosecco at £7.99 per head for something a bit celebratory. Unlimited tea and coffee at £4.49 per head if you're doing an afternoon event. Bar tab option available. We accept cash, card, Amex, and contactless.
+**Catering:** [Buffet options](/food-menu) from current approved price (sandwich buffet) up to current approved price (indoor BBQ). Welcome drinks packages from £6.99 per head, or prosecco at £7.99 per head for something a bit celebratory. Unlimited tea and coffee at £4.49 per head if you're doing an afternoon event. Bar tab option available. We accept cash, card, Amex, and contactless.
 
 **Events coordinator:** Our dedicated events coordinator handles the planning. You tell us what you want, buffet choice, timings, AV needs, any specific setup, and we take care of it.
 
-**Cost:** No room hire charge. Minimum spend of £500-£1,500 depending on day and group size, with a £250 deposit. The minimum spend is your food and drink budget, not an extra fee.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 **Parking:** Free on-site parking for approximately 20 cars. Level surface, close to the entrance, CCTV and floodlit. No charges, no time limits while visiting.
 
@@ -194,7 +194,7 @@ We'll be direct about what we offer and what we don't.
 
 ### How much does a retirement party cost?
 
-Budgets vary widely. A simple afternoon with buffet food (from £9.95 per head), tea and coffee, and a homemade slideshow could cost under £500 for 30 people. A fuller evening event with premium catering, welcome drinks, and a bar tab might run £1,000-£2,000 depending on guest numbers and how generous the drinks budget is. The key is finding a venue with no room hire charge so your entire budget goes on the actual celebration.
+Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
 ### Should a retirement party be during work hours or after?
 
