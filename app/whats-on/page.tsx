@@ -22,7 +22,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: "Pub Events Near Heathrow | Quiz, Bingo, Karaoke & Live Music",
-  description: "Pub events near Heathrow this week — Music Bingo, pub quiz, cash bingo, karaoke & live music at The Anchor, Stanwell Moor. Free parking, from £3.",
+  description: "Pub events near Heathrow this week, Music Bingo, pub quiz, cash bingo, karaoke & live music at The Anchor, Stanwell Moor. Free parking, from £3.",
   openGraph: {
     title: "Pub Events & Entertainment Near Heathrow | The Anchor",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",

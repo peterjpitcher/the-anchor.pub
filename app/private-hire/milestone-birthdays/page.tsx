@@ -71,7 +71,7 @@ export default function MilestoneBirthdaysPage() {
             <InteriorHero
                 image={DEFAULT_CORPORATE_IMAGE}
                 crumb="Milestone Birthdays"
-                title="Birthday Party Venue Near Heathrow — 21st to 50th Celebrations"
+                title="Birthday Party Venue Near Heathrow: 21st to 50th Celebrations"
                 lead="A pub birthday party venue with private rooms, DJ space, and catering. Celebrate the big numbers in style near Staines and Heathrow Airport."
                 actions={
                     <>
@@ -91,10 +91,10 @@ export default function MilestoneBirthdaysPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
-                            Birthday Party Venue Near Heathrow &amp; Staines &mdash; 21st, 30th, 40th, 50th
+                            Birthday Party Venue Near Heathrow &amp; Staines: 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10&ndash;50 guests, buffets from &pound;9.95pp, and free parking. No minimum spend &mdash; you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
+                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10&ndash;50 guests, buffets from &pound;9.95pp, and free parking. No minimum spend, you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
                         </p>
                     </div>
                 </Container>
@@ -167,19 +167,19 @@ export default function MilestoneBirthdaysPage() {
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">21st Birthday Venue</h3>
                                 <p className="text-ink-muted">
-                                    A 21st is the first big one worth celebrating properly. Our beer garden works brilliantly for summer 21sts — reserve an area, order a buffet, and let the evening unfold naturally. Strict ID policies apply, but the vibe is relaxed. Most 21sts here run 15&ndash;30 guests with a finger buffet and a bar tab.
+                                    A 21st is the first big one worth celebrating properly. Our beer garden works brilliantly for summer 21sts, reserve an area, order a buffet, and let the evening unfold naturally. Strict ID policies apply, but the vibe is relaxed. Most 21sts here run 15&ndash;30 guests with a finger buffet and a bar tab.
                                 </p>
                             </div>
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">30th Birthday Party Venue Near Heathrow</h3>
                                 <p className="text-ink-muted">
-                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No minimum spend means your budget goes on exactly what you want — food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">30th birthday party ideas</Link> for inspiration.
+                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No minimum spend means your budget goes on exactly what you want, food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">30th birthday party ideas</Link> for inspiration.
                                 </p>
                             </div>
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">40th Birthday Party Venue</h3>
                                 <p className="text-ink-muted">
-                                    The big four-oh is when parties get good — people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">40th birthday party ideas</Link> guide.
+                                    The big four-oh is when parties get good, people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">40th birthday party ideas</Link> guide.
                                 </p>
                             </div>
                             <div className="space-y-3">
@@ -191,7 +191,7 @@ export default function MilestoneBirthdaysPage() {
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">60th &amp; Beyond</h3>
                                 <p className="text-ink-muted">
-                                    60th, 70th, and 80th birthdays tend to be more intimate — a long table, a great meal, and the people who matter most. We can set a private dining area for 10&ndash;20 guests with a set menu or à la carte service. The atmosphere is warm without being fussy, and there&apos;s no pressure to rush. See our <Link href="/blog/60th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">60th birthday party ideas</Link>.
+                                    60th, 70th, and 80th birthdays tend to be more intimate, a long table, a great meal, and the people who matter most. We can set a private dining area for 10&ndash;20 guests with a set menu or à la carte service. The atmosphere is warm without being fussy, and there&apos;s no pressure to rush. See our <Link href="/blog/60th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">60th birthday party ideas</Link>.
                                 </p>
                             </div>
                         </div>

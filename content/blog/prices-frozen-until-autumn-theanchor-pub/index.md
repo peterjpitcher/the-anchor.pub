@@ -61,19 +61,19 @@ Thanks to our strong relationship with [Greene King](https://www.greeneking.co.u
 
 ![Promotional image introducing Carlsberg Pilsner at The Anchor for just £4.75 a pint.](/content/blog/prices-frozen-until-autumn-theanchor-pub/image-1.jpg)
 
-### Carlsberg Pilsner – £4.75 a Pint
+### Carlsberg Pilsner: £4.75 a Pint
 
 We're excited to bring Carlsberg Pilsner to the bar at just **£4.75 a pint**. It's smooth, refreshing, and at a price that proves quality doesn't have to cost the earth. Compare that to **£7+ at Heathrow Airport bars** and you'll see why locals choose The Anchor!
 
   
 
-### Sip the Summer – Now Pouring Aspall Cider
+### Sip the Summer: Now Pouring Aspall Cider
 
 Sunshine meets cider with [Aspall](https://www.aspall.co.uk/), our latest addition that's perfect for garden days or a relaxed evening indoors. It's premium, crisp, and perfectly complements our **prices frozen until autumn** approach.
 
   
 
-### Double Up for £2 – Every Day
+### Double Up for £2: Every Day
 
 Love a proper spirit? You can **double up any of our optic spirits for just £2 extra**, any time, any day. No time limits, no catch, just straight-up value. That's a full double measure for less than a single costs at the airport!
 
@@ -85,13 +85,13 @@ Love a proper spirit? You can **double up any of our optic spirits for just £2 
 
 ## Deals That Make a Difference
 
-### 🍕 ~~Pizza Tuesdays – Buy One, Get One Free~~ *(no longer available)*
+### 🍕 ~~Pizza Tuesdays: Buy One, Get One Free~~ *(no longer available)*
 
 **Update:** This offer has been discontinued.
 
 
 
-### 🐟 ~~Fridays for the Over 65s – 50% Off Chip Shop Classics~~ *(no longer available)*
+### 🐟 ~~Fridays for the Over 65s: 50% Off Chip Shop Classics~~ *(no longer available)*
 
 **Update:** This offer has been discontinued.
 
@@ -109,11 +109,11 @@ Each month we feature a **premium spirit at 25% off**. Past favourites include B
 
 Our events aren't just entertainment, they're tradition. They're what make us _the living room of the village_.
 
-*   [**Pub Quiz**](https://www.the-anchor.pub/whats-on) – _Monthly quiz nights_, £3 entry
+*   [**Pub Quiz**](https://www.the-anchor.pub/whats-on), _Monthly quiz nights_, £3 entry
     
-*   [**Cash Bingo**](https://www.the-anchor.pub/whats-on) – _Last Friday monthly at 6pm_, £10 per book
+*   [**Cash Bingo**](https://www.the-anchor.pub/whats-on), _Last Friday monthly at 6pm_, £10 per book
     
-*   [**Live Entertainment**](https://www.the-anchor.pub/whats-on) – _Hosted nights & one-offs_ – including Music Bingo hosted by Nikki Manfadge (see /whats-on for the latest)
+*   [**Live Entertainment**](https://www.the-anchor.pub/whats-on), _Hosted nights & one-offs_, including Music Bingo hosted by Nikki Manfadge (see /whats-on for the latest)
     
 
   
@@ -130,7 +130,7 @@ There's always something to do:
     
 *   🎯 **Dart Board**
     
-*   🎶 **Jukebox – free to play every Monday**
+*   🎶 **Jukebox, free to play every Monday**
     
 
   
@@ -139,7 +139,7 @@ Whether you're playing, singing, or spectating, you're part of it.
 
   
 
-## Great Times, No Stress – Right on Your Doorstep
+## Great Times, No Stress: Right on Your Doorstep
 
 ### Garden Space & Ample Parking
 

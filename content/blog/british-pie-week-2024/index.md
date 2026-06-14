@@ -87,7 +87,7 @@ Book your table now
 
 At The Anchor, British Pie Week is far more than a mere promotional event; it's a celebration of a storied culinary legacy. This week, we're inviting you to step into our cosy and welcoming pub, where every guest is treated like part of the family, and every dish is prepared with the utmost care. Our pies aren't just meals; they are stories of tradition, each with a unique twist that showcases our passion for flavour and quality.
 
-As you relish each bite, surrounded by the warm and friendly atmosphere of The Anchor, you're not just enjoying a meal; you're part of a tradition that has been beloved for generations. It’s an experience that extends beyond mere taste – it's about community, comfort, and the simple joy of sharing good food with good company.
+As you relish each bite, surrounded by the warm and friendly atmosphere of The Anchor, you're not just enjoying a meal; you're part of a tradition that has been beloved for generations. It’s an experience that extends beyond mere taste. It's about community, comfort, and the simple joy of sharing good food with good company.
 
   
 

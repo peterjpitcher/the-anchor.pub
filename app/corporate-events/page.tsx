@@ -79,7 +79,7 @@ export default function CorporateEventsPage() {
               seo={{ structured: true, speakable: true }}
               className="text-ink-strong mb-4"
             >
-              Corporate Event Venue Near Heathrow &mdash; Business Events at The Anchor
+              Corporate Event Venue Near Heathrow: Business Events at The Anchor
             </PageTitle>
             <p className="text-lg text-ink-muted">
               Planning a corporate event near Heathrow? Professional meeting rooms for 10-50 guests, with larger events by enquiry, just 7 minutes from Terminal 5.

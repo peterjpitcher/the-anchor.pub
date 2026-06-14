@@ -40,7 +40,7 @@ In the heart of our village stands The Anchor, a cosy **family-friendly pub near
 
 ## The Power of Kindness in Our Heathrow Community
 
-"Although we are capable of great acts of kindness, history teaches us that we sometimes need saving from ourselves – from our recklessness or our greed," once said Queen Elizabeth II in her Christmas broadcast of 2011. These words ring true in our everyday interactions, reminding us that kindness is a gift that costs nothing but means everything. 
+"Although we are capable of great acts of kindness, history teaches us that we sometimes need saving from ourselves, from our recklessness or our greed," once said Queen Elizabeth II in her Christmas broadcast of 2011. These words ring true in our everyday interactions, reminding us that kindness is a gift that costs nothing but means everything. 
 
 At **The Anchor near Heathrow Airport**, we believe that kindness is the golden thread that connects us, whether we're serving a pint to tired airport workers, sharing a smile with traveling families, or lending a listening ear to our regulars. Our commitment to spreading kindness goes beyond Random Acts of Kindness Day; it's woven into the very fabric of our daily lives in Stanwell Moor.
 
@@ -59,7 +59,7 @@ These small acts can make a big difference in someone's day, especially in our b
 
 ## The Anchor's Commitment to a Kinder World
 
-Here at **The Anchor pub near Terminal 5**, our doors are always open to everyone – families, travellers, airport staff, and our four-legged friends. We take pride in creating a space where kindness is not just an occasional gesture but a consistent practise. Our friendly staff are always ready with a warm welcome, ensuring that every visitor feels part of our village community.
+Here at **The Anchor pub near Terminal 5**, our doors are always open to everyone, families, travellers, airport staff, and our four-legged friends. We take pride in creating a space where kindness is not just an occasional gesture but a consistent practise. Our friendly staff are always ready with a warm welcome, ensuring that every visitor feels part of our village community.
 
 **What Makes Us Special:**
 - Dog-friendly environment for pet owners

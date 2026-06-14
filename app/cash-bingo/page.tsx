@@ -94,7 +94,7 @@ const WHY_LOVE_IT = [
   {
     icon: '',
     title: 'Classic calls with Anchor humour',
-    body: 'Traditional bingo calls and bingo numbers delivered by our bingo number caller, mixed with Anchor in-jokes – Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
+    body: 'Traditional bingo calls and bingo numbers delivered by our bingo number caller, mixed with Anchor in-jokes, Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
   },
   {
     icon: '',
@@ -260,7 +260,7 @@ export default async function CashBingoPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
-            Cash Bingo Night & Bingo Games – Stanwell Moor & Heathrow
+            Cash Bingo Night & Bingo Games: Stanwell Moor & Heathrow
           </PageTitle>
           <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
             Searching for cash bingo games near Heathrow? If you're after things to do near Heathrow, our bingo nights are a local favourite. Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
@@ -483,7 +483,7 @@ export default async function CashBingoPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-h4 text-ink-strong mb-3">Prefer music bingo?</h2>
             <p className="text-ink-muted mb-4">
-              We also run <Link href="/music-bingo" className="text-accent-text hover:text-accent-text font-semibold">Music Bingo</Link> — a separate event where you mark off songs instead of numbers. Same pub, different buzz. Check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On</Link> for upcoming dates of both.
+              We also run <Link href="/music-bingo" className="text-accent-text hover:text-accent-text font-semibold">Music Bingo</Link>, a separate event where you mark off songs instead of numbers. Same pub, different buzz. Check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On</Link> for upcoming dates of both.
             </p>
           </div>
         </Container>

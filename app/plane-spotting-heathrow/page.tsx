@@ -208,7 +208,7 @@ export default async function PlaneSpottingHeathrowPage() {
         <Container>
           <SectionHeading
             title="Best Heathrow Plane Spotting Locations"
-            lead="Front-row views, hot food and shelter when the weather turns – everything you need for an aviation day out."
+            lead="Front-row views, hot food and shelter when the weather turns, everything you need for an aviation day out."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -250,7 +250,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
                   <li>7 minutes from Heathrow Terminal 5 via A3044</li>
                   <li>Free on-site parking for patrons</li>
-                  <li>442 bus stops outside – perfect for spotters without a car</li>
+                  <li>442 bus stops outside, perfect for spotters without a car</li>
                 </ul>
               </CardBody>
             </Card>
@@ -260,7 +260,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
                   <li>Camera with 70-200mm lens covers most arrivals</li>
                   <li>Radio scanner or FR24 app (free WiFi provided)</li>
-                  <li>Layers – the beer garden is sheltered but breezy</li>
+                  <li>Layers: the beer garden is sheltered but breezy</li>
                 </ul>
               </CardBody>
             </Card>

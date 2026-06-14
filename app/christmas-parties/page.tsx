@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
     description:
-      'Book a Christmas party at The Anchor — a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
+      'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
     images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.jpg', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
-    description: 'Book a Christmas party at The Anchor — a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
+    description: 'Book a Christmas party at The Anchor, a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
     images: ['/images/page-headers/christmas-parties/2026/hero-table.jpg']
   }),
   alternates: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Christmas Party Venue 2026 — The Anchor, Stanwell Moor near Heathrow',
+  name: 'Christmas Party Venue 2026: The Anchor, Stanwell Moor near Heathrow',
   description:
     'Christmas party venue near Heathrow Airport. Three-course pub Christmas dinners from £36.95, buffets for 26+, free parking outside the ULEZ, and space for up to 60 seated or 200 standing guests.',
   // Christmas party service window (owner-confirmed): 1 Nov – 23 Dec 2026.
@@ -143,7 +143,7 @@ const structuredData = {
       availabilityStarts: '2026-09-01',
       availabilityEnds: '2026-12-23',
       url: 'https://www.the-anchor.pub/christmas-parties',
-      description: 'Shared Christmas party nights with crackers, festive playlists and three-course menus – ideal for airport teams and Surrey offices.'
+      description: 'Shared Christmas party nights with crackers, festive playlists and three-course menus, ideal for airport teams and Surrey offices.'
     }
   ],
   addOn: [
@@ -152,14 +152,14 @@ const structuredData = {
       name: 'All the Trimmings Board',
       price: '11.95',
       priceCurrency: 'GBP',
-      description: 'Serves four guests – extra Yorkshire puddings, pigs in blankets, roast potatoes, stuffing balls, seasonal veg and gravy.'
+      description: 'Serves four guests, extra Yorkshire puddings, pigs in blankets, roast potatoes, stuffing balls, seasonal veg and gravy.'
     },
     {
       '@type': 'Offer',
       name: 'XL Trimmings Board',
       price: '21.95',
       priceCurrency: 'GBP',
-      description: 'Serves eight guests – doubles up the festive sides so the whole table can feast.'
+      description: 'Serves eight guests, doubles up the festive sides so the whole table can feast.'
     },
     {
       '@type': 'Offer',
@@ -184,7 +184,7 @@ export default function ChristmasPartiesPage() {
         image="/images/page-headers/christmas-parties/2026/hero-table.jpg"
         crumb="Christmas Parties"
         kicker="Christmas 2026"
-        title="Christmas party near Heathrow — pub dinners, party nights & festive lunch 2026"
+        title="Christmas party near Heathrow, pub dinners, party nights & festive lunch 2026"
         lead="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted, whether it's a works night out or a family Christmas meal."
         actions={
           <>

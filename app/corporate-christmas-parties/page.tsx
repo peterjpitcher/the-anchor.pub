@@ -37,7 +37,7 @@ export default function ChristmasPartiesPage() {
                 image="/images/page-headers/home/page-headers-homepage.jpg"
                 crumb="Corporate Christmas Parties"
                 kicker="Corporate Christmas 2026"
-                title="Corporate Christmas party near Heathrow — for offices, airport teams & Surrey businesses"
+                title="Corporate Christmas party near Heathrow, for offices, airport teams & Surrey businesses"
                 lead="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
                 actions={
                     <>
@@ -59,7 +59,7 @@ export default function ChristmasPartiesPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4">
-                            Corporate Christmas Party &mdash; Make It the Works Do They Actually Talk About
+                            Corporate Christmas Party: Make It the Works Do They Actually Talk About
                         </PageTitle>
                         <p className="text-lg text-ink-muted mb-4">
                             Every office has that one legendary Christmas do. The food was brilliant. Nobody had to argue about parking. Someone from accounts sang karaoke. Let&apos;s make yours the one people remember this year.
@@ -225,7 +225,7 @@ export default function ChristmasPartiesPage() {
                     },
                     {
                         question: "What's included in your christmas party packages?",
-                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. The per-person price covers your meal, room hire, and table setup — drinks are additional."
+                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. The per-person price covers your meal, room hire, and table setup, drinks are additional."
                     },
                     {
                         question: "Do you provide VAT invoices and corporate billing?",

@@ -42,11 +42,11 @@ Need to plan a **Christmas get-together near Heathrow** without spending a fortu
 
 - **Tuesday to Thursday** three-course dinners are just **£36.95 per person** and include Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables and signature gravy.
 - Mid-week bookings also unlock the **complimentary coffee & mince pie perk**, so everyone gets a sweet finale without extra cost.
-- Lock in the **Early-Bird free glass of Prosecco** by booking before 31 October – it adds welcome sparkle for no extra spend.
+- Lock in the **Early-Bird free glass of Prosecco** by booking before 31 October, it adds welcome sparkle for no extra spend.
 
 ## 2. Share platters, not extra starters
 
-Our **All the Trimmings sharing boards** feed four guests for **£11.95** and keep tables buzzing without ordering individual extras. An **XL board** covers eight guests for **£21.95** – perfect for hungry teams.
+Our **All the Trimmings sharing boards** feed four guests for **£11.95** and keep tables buzzing without ordering individual extras. An **XL board** covers eight guests for **£21.95**, perfect for hungry teams.
 
 For relaxed evenings, switch to a buffet:
 
@@ -64,7 +64,7 @@ For relaxed evenings, switch to a buffet:
 ## 4. Make travel easy for the team
 
 - Free on-site parking outside the ULEZ, plus space to leave cars overnight.
-- Five minutes from Heathrow Terminal 5, fifteen from Terminal 2 landside – perfect for airline crews finishing a late turn.
+- Five minutes from Heathrow Terminal 5, fifteen from Terminal 2 landside, perfect for airline crews finishing a late turn.
 - Ten minutes to Staines-upon-Thames and Ashford, so local offices can walk, taxi or rideshare.
 
 ## 5. Confirm early for the best slots
@@ -75,7 +75,7 @@ Popular Thursdays and Fridays fill quickly. Secure your preferred date with a **
 
 ### Ready to lock in your Christmas party?
 
-Our team handles everything – crackers, festive decor, allergen planning and thoughtful touches. **Tell us about your celebration and we’ll hold the Early-Bird perks for you.**
+Our team handles everything, crackers, festive decor, allergen planning and thoughtful touches. **Tell us about your celebration and we’ll hold the Early-Bird perks for you.**
 
 [Request a Christmas booking now →](https://www.the-anchor.pub/christmas-parties)
 

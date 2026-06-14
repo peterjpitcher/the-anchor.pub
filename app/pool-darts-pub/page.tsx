@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     description: 'Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1/game), dartboard (free), proper pub games with a pint. 7 mins from Heathrow, free parking.',
     openGraph: {
         title: 'Pub with Pool Table & Darts Near You | The Anchor',
-        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor — 7 mins from Heathrow with free parking.',
+        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, 7 mins from Heathrow with free parking.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'Pool table and darts at The Anchor pub in Stanwell Moor' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pub with Pool Table & Darts Near You | The Anchor',
-        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor — 7 mins from Heathrow with free parking.',
+        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, 7 mins from Heathrow with free parking.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -54,7 +54,7 @@ export default function PoolAndDartsPage() {
                             Some pubs stick a wobbly table in a dark corner and call it a games area. Not here. The Anchor has a quality pool table kept level and re-covered regularly, a dartboard with a proper throw area, and enough space to actually play without elbowing the person behind you. We&apos;re also upgrading the darts setup in 2026 with a professional board, electronic scorer, and better lighting.
                         </p>
                         <p className="text-lg text-ink-muted">
-                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening — this is a pub where the games are taken seriously and the beer is cold. We&apos;re seven minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
+                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening, this is a pub where the games are taken seriously and the beer is cold. We&apos;re seven minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
                         </p>
                     </div>
                 </Container>
@@ -88,7 +88,7 @@ export default function PoolAndDartsPage() {
                                 <CardBody>
                                     <h3 className="font-display text-h3 text-ink-strong mb-2">Darts</h3>
                                     <p className="text-ink-muted mb-4">
-                                        A dartboard with a proper throw area — not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
+                                        A dartboard with a proper throw area, not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
                                     </p>
                                     <ul className="space-y-2 text-sm text-ink bg-surface-sunk p-4 rounded-sm">
                                         <li>Dartboard with clear throw area</li>
@@ -113,10 +113,10 @@ export default function PoolAndDartsPage() {
 
                         <div className="max-w-none text-ink-muted space-y-4">
                             <p>
-                                The Anchor isn&apos;t a pool hall — it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (Tuesday to Sunday), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
+                                The Anchor isn&apos;t a pool hall, it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (Tuesday to Sunday), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
                             </p>
                             <p>
-                                Most people who come to play pool or throw darts end up staying longer than they planned. That&apos;s not an accident — it&apos;s what happens when you combine decent equipment with a relaxed atmosphere and no pressure to rush.
+                                Most people who come to play pool or throw darts end up staying longer than they planned. That&apos;s not an accident, it&apos;s what happens when you combine decent equipment with a relaxed atmosphere and no pressure to rush.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
@@ -156,7 +156,7 @@ export default function PoolAndDartsPage() {
                             title="Fancy Playing Competitively?"
                         />
                         <p className="text-ink-muted mb-4">
-                            We don&apos;t have a pool or darts team yet, but we&apos;re always on the lookout for a great captain to pull one together and lead it to glory. If you&apos;re the kind of person who organises the WhatsApp group, picks the team name, and actually turns up on match night — we want to hear from you.
+                            We don&apos;t have a pool or darts team yet, but we&apos;re always on the lookout for a great captain to pull one together and lead it to glory. If you&apos;re the kind of person who organises the WhatsApp group, picks the team name, and actually turns up on match night, we want to hear from you.
                         </p>
                         <Card accent className="max-w-xl mx-auto">
                             <CardBody>
@@ -172,7 +172,7 @@ export default function PoolAndDartsPage() {
                 faqs={[
                     {
                         question: "Can I reserve the pool table?",
-                        answer: "During normal pub hours it works on a winner-stays-on or chalkboard system. For private events, the table can be reserved — get in touch to arrange it."
+                        answer: "During normal pub hours it works on a winner-stays-on or chalkboard system. For private events, the table can be reserved, get in touch to arrange it."
                     },
                     {
                         question: "How much does it cost to play pool?",
@@ -184,7 +184,7 @@ export default function PoolAndDartsPage() {
                     },
                     {
                         question: "Do you have parking?",
-                        answer: "Yes — 20 free parking spaces on site. No fees, no time limit while you're visiting. The car park is level, CCTV-monitored, and floodlit."
+                        answer: "Yes, 20 free parking spaces on site. No fees, no time limit while you're visiting. The car park is level, CCTV-monitored, and floodlit."
                     },
                     {
                         question: "What other pub games do you have?",

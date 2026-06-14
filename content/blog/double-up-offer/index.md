@@ -77,7 +77,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Jameson Irish Whiskey – Smooth & Versatile**
+### **Jameson Irish Whiskey: Smooth & Versatile**
 
 **Tasting Notes:** Jameson is **triple-distilled**, making it exceptionally smooth. It has subtle **spiced wood notes**, hints of **vanilla and sherry**, and a slightly **nutty sweetness**.
 
@@ -89,11 +89,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Jameson & Ginger Ale** – The spiciness of ginger ale enhances the whiskey's smoothness.
+🥃 **Jameson & Ginger Ale**: The spiciness of ginger ale enhances the whiskey's smoothness.
 
-🥃 **Jameson, Ice & Lime** – A simple serve with a refreshing citrus twist.
+🥃 **Jameson, Ice & Lime**: A simple serve with a refreshing citrus twist.
 
-🥃 **Jameson Old Fashioned** – Mixed with bitters and sugar for a classic cocktail.
+🥃 **Jameson Old Fashioned**: Mixed with bitters and sugar for a classic cocktail.
 
   
 
@@ -101,7 +101,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **The Famous Grouse – A Classic Scotch Blend**
+### **The Famous Grouse: A Classic Scotch Blend**
 
 **Tasting Notes:** A balanced blend of **Macallan and Highland Park** single malts gives The Famous Grouse a **rich, slightly smoky flavour**, with hints of **dried fruit, caramel, and spice**.
 
@@ -113,11 +113,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **The Grouse & Cola** – A rich, caramel-sweet pairing.
+🥃 **The Grouse & Cola**: A rich, caramel-sweet pairing.
 
-🥃 **Classic Whisky & Soda** – A refreshing, light way to enjoy Scotch.
+🥃 **Classic Whisky & Soda**: A refreshing, light way to enjoy Scotch.
 
-🥃 **The Grouse & Ginger Ale** – Brings out the whisky's warm spice notes.
+🥃 **The Grouse & Ginger Ale**: Brings out the whisky's warm spice notes.
 
   
 
@@ -125,7 +125,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Jack Daniel's – The Tennessee Whiskey Legend**
+### **Jack Daniel's: The Tennessee Whiskey Legend**
 
 **Tasting Notes:** Charcoal-mellowed for smoothness, Jack Daniel's delivers rich **hints of caramel, vanilla, and toasted oak**, with a subtly **smoky finish**.
 
@@ -137,11 +137,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Jack & Cola** – The ultimate Tennessee classic.
+🥃 **Jack & Cola**: The ultimate Tennessee classic.
 
-🥃 **Jack & Lemonade** – A refreshing alternative to cola.
+🥃 **Jack & Lemonade**: A refreshing alternative to cola.
 
-🥃 **Jack on the Rocks** – Best for those who love the bold flavours.
+🥃 **Jack on the Rocks**: Best for those who love the bold flavours.
 
   
 
@@ -149,7 +149,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Bell's Whisky – A Smooth and Well-Balanced Blend**
+### **Bell's Whisky: A Smooth and Well-Balanced Blend**
 
 **Tasting Notes:** Bell's Whisky features **warm spice, dried fruit, and a touch of smoke**, making it **full-bodied yet easy-drinking**.
 
@@ -161,11 +161,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Bell's & Cola** – A rich, comforting combination.
+🥃 **Bell's & Cola**: A rich, comforting combination.
 
-🥃 **Bell's & Dry Ginger Ale** – A great way to enhance its spiced notes.
+🥃 **Bell's & Dry Ginger Ale**: A great way to enhance its spiced notes.
 
-🥃 **Bell's Neat or on Ice** – Perfect for those who enjoy whisky's natural flavours.
+🥃 **Bell's Neat or on Ice**: Perfect for those who enjoy whisky's natural flavours.
 
   
 
@@ -173,7 +173,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Gordon's Gin – A Timeless London Dry**
+### **Gordon's Gin: A Timeless London Dry**
 
 **Tasting Notes:** Gordon's London Dry Gin is **juniper-forward**, with crisp notes of **coriander, angelica root, and citrus**.
 
@@ -185,11 +185,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Classic G&T** – Served with **Schweppes Tonic** and a wedge of lime.
+🍸 **Classic G&T**: Served with **Schweppes Tonic** and a wedge of lime.
 
-🍸 **Gordon's & Lemonade** – A refreshing alternative to tonic.
+🍸 **Gordon's & Lemonade**: A refreshing alternative to tonic.
 
-🍸 **Gordon's Negroni** – Mixed with Campari and sweet vermouth.
+🍸 **Gordon's Negroni**: Mixed with Campari and sweet vermouth.
 
   
 
@@ -197,7 +197,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Gordon's Pink Gin – A Fruity & Refreshing Twist**
+### **Gordon's Pink Gin: A Fruity & Refreshing Twist**
 
 **Tasting Notes:** Infused with **strawberry, raspberry, and redcurrant**, this gin offers a **fruity, sweet flavour with a crisp finish**.
 
@@ -209,11 +209,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Pink Gin & Lemonade** – A sweet and summery option.
+🍸 **Pink Gin & Lemonade**: A sweet and summery option.
 
-🍸 **Pink Gin & Prosecco** – For a sparkling serve.
+🍸 **Pink Gin & Prosecco**: For a sparkling serve.
 
-🍸 **Pink Gin & Tonic** – A classic with a fruity edge.
+🍸 **Pink Gin & Tonic**: A classic with a fruity edge.
 
   
 
@@ -221,7 +221,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Bacardi White Rum – The Ultimate Mixer**
+### **Bacardi White Rum: The Ultimate Mixer**
 
 **Tasting Notes:** Bacardi Carta Blanca is a **light-bodied white rum** with delicate notes of **vanilla, almond, and tropical fruits**, finishing with a smooth, crisp taste.
 
@@ -233,11 +233,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍹 **Bacardi & Coke (Cuba Libre)** – A timeless combination with fresh lime.
+🍹 **Bacardi & Coke (Cuba Libre)**: A timeless combination with fresh lime.
 
-🍹 **Bacardi Mojito** – Mixed with lime, sugar, mint, and soda for a refreshing Cuban classic.
+🍹 **Bacardi Mojito**: Mixed with lime, sugar, mint, and soda for a refreshing Cuban classic.
 
-🍹 **Bacardi & Pineapple Juice** – A tropical favourite with a sweet, juicy finish.
+🍹 **Bacardi & Pineapple Juice**: A tropical favourite with a sweet, juicy finish.
 
   
 
@@ -245,7 +245,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Smirnoff Vodka – A Classic Choice**
+### **Smirnoff Vodka: A Classic Choice**
 
 **Tasting Notes:** Smirnoff No.21 is **triple-distilled** and **charcoal-filtered** for purity, resulting in a **clean, smooth taste with subtle grain sweetness**.
 
@@ -257,11 +257,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Vodka & Cranberry** – A crisp, tart classic.
+🍸 **Vodka & Cranberry**: A crisp, tart classic.
 
-🍸 **Vodka & Tonic** – A light and refreshing option.
+🍸 **Vodka & Tonic**: A light and refreshing option.
 
-🍸 **Vodka & Orange Juice (Screwdriver)** – A simple, citrusy favourite.
+🍸 **Vodka & Orange Juice (Screwdriver)**: A simple, citrusy favourite.
 
   
 
@@ -269,7 +269,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Captain Morgan Gold Spiced Rum – A Bold & Sweet Favourite**
+### **Captain Morgan Gold Spiced Rum: A Bold & Sweet Favourite**
 
 **Tasting Notes:** Captain Morgan Spiced Rum features **rich vanilla, cinnamon, and caramel notes**, balanced with a **hint of oak and warming spices**.
 
@@ -281,11 +281,11 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍹 **Captain & Cola** – The go-to serve for a smooth, sweet, and spiced drink.
+🍹 **Captain & Cola**: The go-to serve for a smooth, sweet, and spiced drink.
 
-🍹 **Captain & Pineapple Juice** – A tropical twist that brings out the rum's sweetness.
+🍹 **Captain & Pineapple Juice**: A tropical twist that brings out the rum's sweetness.
 
-🍹 **Captain & Ginger Beer (Spiced Mule)** – A bold, zesty alternative with a fiery kick.
+🍹 **Captain & Ginger Beer (Spiced Mule)**: A bold, zesty alternative with a fiery kick.
 
   
 
@@ -297,15 +297,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 The **Double Up Offer** is **one of the easiest ways to get better value on your drinks**.
 
-*   **Great Savings** – Get a **double measure for just £2 extra** (compare to airport prices!)
+*   **Great Savings**: Get a **double measure for just £2 extra** (compare to airport prices!)
     
-*   **No Special Conditions** – The offer is **always available**, no time restrictions
+*   **No Special Conditions**: The offer is **always available**, no time restrictions
     
-*   **Top-Shelf Brands** – Enjoy **premium spirits** without overspending
+*   **Top-Shelf Brands**: Enjoy **premium spirits** without overspending
     
-*   **Perfect for Social Gatherings** – A **longer-lasting drink** for nights out
+*   **Perfect for Social Gatherings**: A **longer-lasting drink** for nights out
     
-*   **Convenient Location** – Just **7 minutes from all Heathrow terminals**
+*   **Convenient Location**: Just **7 minutes from all Heathrow terminals**
 
   
 

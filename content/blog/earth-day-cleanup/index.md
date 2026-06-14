@@ -100,11 +100,11 @@ Earth Day 2024 is a result of numerous partnerships and sponsorships. Organised 
 
   
 
-This event epitomises how businesses, local authorities, and residents can unite for a common cause, reflecting the spirit of Stanwell Moor – a community that truly cares.
+This event epitomises how businesses, local authorities, and residents can unite for a common cause, reflecting the spirit of Stanwell Moor, a community that truly cares.
 
   
 
-Join us for Earth Day 2024 at The Anchor – a day where our actions speak volumes about our dedication to our environment. Remember, your involvement is pivotal. Please visit the Facebook event page and mark yourself as 'Going' for Earth Day 2024 at The Anchor. Together, let's make Earth Day 2024 a memorable and impactful day!
+Join us for Earth Day 2024 at The Anchor, a day where our actions speak volumes about our dedication to our environment. Remember, your involvement is pivotal. Please visit the Facebook event page and mark yourself as 'Going' for Earth Day 2024 at The Anchor. Together, let's make Earth Day 2024 a memorable and impactful day!
 
   
 

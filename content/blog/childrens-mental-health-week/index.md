@@ -101,7 +101,7 @@ Children don’t always have the words to express how they’re feeling. Instead
 
 *   **Frequent headaches or stomach aches** with no clear cause.
     
-*   **Changes in appetite** – eating much more or much less than usual.
+*   **Changes in appetite**, eating much more or much less than usual.
     
 *   **Difficulty sleeping** or having frequent nightmares.
     
@@ -172,15 +172,15 @@ If you need additional guidance, these **organisations provide expert advice, he
 
   
 
-📌 [**YoungMinds**](https://www.youngminds.org.uk/) – UK’s leading charity for children’s mental health.
+📌 [**YoungMinds**](https://www.youngminds.org.uk/), UK’s leading charity for children’s mental health.
 
-📌 [**Childline**](https://www.childline.org.uk/) – Free, confidential helpline for children (**Call 0800 1111**).
+📌 [**Childline**](https://www.childline.org.uk/), Free, confidential helpline for children (**Call 0800 1111**).
 
-📌 [**NSPCC**](https://www.nspcc.org.uk/) – Support for child well-being and safety.
+📌 [**NSPCC**](https://www.nspcc.org.uk/), Support for child well-being and safety.
 
-📌 [**Place2Be**](https://www.place2be.org.uk/) – Mental health support for schools.
+📌 [**Place2Be**](https://www.place2be.org.uk/), Mental health support for schools.
 
-📌 [**MindEd for Families**](https://www.minded.org.uk/) – Free online resources for parents.
+📌 [**MindEd for Families**](https://www.minded.org.uk/), Free online resources for parents.
 
   
 
@@ -216,7 +216,7 @@ At **The Anchor**, we know that **quality time together is essential for a child
 
   
 
-## **Final Thoughts – Let’s Support Children’s Mental Health Together**
+## **Final Thoughts: Let’s Support Children’s Mental Health Together**
 
 Children’s Mental Health Week is an important reminder that **mental health needs to be prioritised just as much as physical health**. By **taking time to talk, supporting routines, and encouraging positive habits**, we can help children build **resilience, confidence, and emotional well-being**.
 

@@ -45,7 +45,7 @@ March 17th rolls around once more, and with it comes the sea of green, vibrant c
 
   
 
-As you step into our cosy pub, you're not just stepping into any old local – you're entering a place where history meets festivity. And what better way to revel in this age-old celebration than over our scrumptious Sunday roast, a feast fitting for St. Patrick himself?
+As you step into our cosy pub, you're not just stepping into any old local. You're entering a place where history meets festivity. And what better way to revel in this age-old celebration than over our scrumptious Sunday roast, a feast fitting for St. Patrick himself?
 
   
 
@@ -53,7 +53,7 @@ As you step into our cosy pub, you're not just stepping into any old local – y
 
   
 
-But first, let's take a moment to delve into the 'why' of this widely celebrated day. March 17th isn't just a random date picked from the hat; it's believed to be the day Saint Patrick, the patron saint of Ireland, passed away. Saint Patrick's influence was so profound that this day transformed from a solemn religious observance into a global festival of Irish culture. And yes, while you may find folks decked out in all shades of green, the day is steeped in more than just colourful parades – it's a day rich with history and meaning.
+But first, let's take a moment to delve into the 'why' of this widely celebrated day. March 17th isn't just a random date picked from the hat; it's believed to be the day Saint Patrick, the patron saint of Ireland, passed away. Saint Patrick's influence was so profound that this day transformed from a solemn religious observance into a global festival of Irish culture. And yes, while you may find folks decked out in all shades of green, the day is steeped in more than just colourful parades. It's a day rich with history and meaning.
 
   
 

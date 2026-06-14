@@ -104,7 +104,7 @@ Easter falls on Sunday, April 9th, 2023. The date of Easter varies each year, as
 
 What is Easter and why is it celebrated?
 
-Easter is a Christian holiday celebrating the resurrection of Jesus Christ. It marks the end of Lent, a 40-day period of fasting, prayer, and penance. The resurrection of Jesus, as described in the New Testament, signifies hope, renewal, and the victory of good over evil. Easter is considered the most important Christian festival, as it embodies the central belief of Christianity – the resurrection of Jesus and the promise of eternal life.
+Easter is a Christian holiday celebrating the resurrection of Jesus Christ. It marks the end of Lent, a 40-day period of fasting, prayer, and penance. The resurrection of Jesus, as described in the New Testament, signifies hope, renewal, and the victory of good over evil. Easter is considered the most important Christian festival, as it embodies the central belief of Christianity, the resurrection of Jesus and the promise of eternal life.
 
 Why is the bunny associated with Easter?
 

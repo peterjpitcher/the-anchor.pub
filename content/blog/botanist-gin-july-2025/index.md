@@ -42,13 +42,13 @@ Welcome to The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Termi
 
 ## **What Makes The Botanist Gin So Special?**
 
-Here's the fun bit – The Botanist contains a whopping 31 botanicals! That includes 22 hand-foraged beauties from the Scottish island of Islay. We're talking wild juniper, elderflower, and even some thistle (it's Scottish after all!). The folks at Bruichladdich Distillery actually send people out to pick these by hand. How's that for dedication to your G&T?
+Here's the fun bit. The Botanist contains a whopping 31 botanicals! That includes 22 hand-foraged beauties from the Scottish island of Islay. We're talking wild juniper, elderflower, and even some thistle (it's Scottish after all!). The folks at Bruichladdich Distillery actually send people out to pick these by hand. How's that for dedication to your G&T?
 
   
 
 ## **The Perfect Summer G&T Awaits**
 
-All month long, we're serving The Botanist with premium tonic water and a fresh wedge of lime – simple, classic, and absolutely refreshing. It's the kind of drink that makes you wonder why you'd ever complicate things. The botanical complexity of the gin does all the talking, creating layers of flavour that unfold with every sip.
+All month long, we're serving The Botanist with premium tonic water and a fresh wedge of lime, simple, classic, and absolutely refreshing. It's the kind of drink that makes you wonder why you'd ever complicate things. The botanical complexity of the gin does all the talking, creating layers of flavour that unfold with every sip.
 
   
 
@@ -58,7 +58,7 @@ Whether you're cooling down after work, catching up with friends, or just enjoyi
 
 ## **Why The Anchor is Your Botanist Destination**
 
-We've been serving the good people of Stanwell Moor since 1751, and we know a thing or two about what makes a great G&T. Our bartenders pour with a generous hand (none of those stingy measures here!), and our comfortable spaces – from the lively bar to the peaceful beer garden – give you the perfect backdrop for your botanical adventure.
+We've been serving the good people of Stanwell Moor since 1751, and we know a thing or two about what makes a great G&T. Our bartenders pour with a generous hand (none of those stingy measures here!), and our comfortable spaces, from the lively bar to the peaceful beer garden, give you the perfect backdrop for your botanical adventure.
 
   
 
@@ -80,7 +80,7 @@ Fun fact: The distillery uses a special still called "Ugly Betty" to make The Bo
 
 ## **Come In and Enjoy The Botanist Gin**
 
-No need to book, no special events to remember – just brilliant gin at brilliant prices, available every single day throughout July. Whether it's a Tuesday afternoon pick-me-up or a Saturday night celebration, The Botanist is waiting for you.
+No need to book, no special events to remember, just brilliant gin at brilliant prices, available every single day throughout July. Whether it's a Tuesday afternoon pick-me-up or a Saturday night celebration, The Botanist is waiting for you.
 
   
 

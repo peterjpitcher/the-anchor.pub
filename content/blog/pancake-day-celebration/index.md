@@ -39,7 +39,7 @@ noindex: true
 
 ## Annual Pancake Day Celebration Near Heathrow Airport
 
-Ready for a pancake extravaganza? Every **Pancake Day** (Shrove Tuesday), The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, offers a special treat! Between 6pm and 9pm, enjoy our delightful weekday menu and receive two complimentary pancakes for dessert. Perfect for **Heathrow workers** finishing their shifts, **Staines families** enjoying a meal out, or anyone near the **airport** wanting to celebrate this British tradition. Choose from traditional sugar and lemon, chocolate and banana, or strawberries and cream pancakes – all on us!
+Ready for a pancake extravaganza? Every **Pancake Day** (Shrove Tuesday), The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, offers a special treat! Between 6pm and 9pm, enjoy our delightful weekday menu and receive two complimentary pancakes for dessert. Perfect for **Heathrow workers** finishing their shifts, **Staines families** enjoying a meal out, or anyone near the **airport** wanting to celebrate this British tradition. Choose from traditional sugar and lemon, chocolate and banana, or strawberries and cream pancakes, all on us!
 
   
 
@@ -110,7 +110,7 @@ Lent is deeply connected with the life of Jesus. This 40-day period leading up t
 
 ## Celebrate Pancake Day at The Anchor Near Heathrow!
 
-Don't miss out on our annual Pancake Day festivities at The Anchor! Come in for a delicious dinner and enjoy our complimentary pancakes – a perfect way to celebrate this delightful British tradition.
+Don't miss out on our annual Pancake Day festivities at The Anchor! Come in for a delicious dinner and enjoy our complimentary pancakes, a perfect way to celebrate this delightful British tradition.
 
 ### Visit The Anchor for Pancake Day Near Terminal 5
 

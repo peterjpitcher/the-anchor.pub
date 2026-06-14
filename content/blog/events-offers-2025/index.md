@@ -58,26 +58,26 @@ At **The Anchor** pub in **Stanwell Moor**, just **7 minutes from Heathrow Termi
 
 ## Exciting Events & Entertainment
 
-*   **Tasting Nights – A Journey Through Flavour** Back by popular demand, our quarterly Tasting Nights will return in 2025, each with a unique theme. Whether it’s whisky, gin, rum, or wine, we’ll be curating a selection of top-tier drinks for you to sample, along with expert-led sessions to enhance your appreciation.
+*   **Tasting Nights: A Journey Through Flavour** Back by popular demand, our quarterly Tasting Nights will return in 2025, each with a unique theme. Whether it’s whisky, gin, rum, or wine, we’ll be curating a selection of top-tier drinks for you to sample, along with expert-led sessions to enhance your appreciation.
     
     For more details, visit: [https://bit.ly/3WL87DY](https://bit.ly/3WL87DY)
     
       
     
-*   **Quiz Nights – Pub Pursuit Live!** We’re shaking up quiz nights with **Pub Pursuit Live**, an interactive, fast-paced, and competitive trivia experience! Expect engaging rounds, bonus point challenges, and great prizes to be won.
+*   **Quiz Nights: Pub Pursuit Live!** We’re shaking up quiz nights with **Pub Pursuit Live**, an interactive, fast-paced, and competitive trivia experience! Expect engaging rounds, bonus point challenges, and great prizes to be won.
     
 
 For more details, visit: [https://bit.ly/4aDMXNy](https://bit.ly/4aDMXNy)
 
   
 
-*   **Bingo Nights – Monthly Cash Prize Events** New for 2025, we’re bringing a monthly **Bingo Night** to The Anchor! Hosted every Friday evening, you can enjoy a fun night of numbers with a chance to win cash prizes.
+*   **Bingo Nights: Monthly Cash Prize Events** New for 2025, we’re bringing a monthly **Bingo Night** to The Anchor! Hosted every Friday evening, you can enjoy a fun night of numbers with a chance to win cash prizes.
     
     For more details, visit: [https://bit.ly/3EkcH5z](https://bit.ly/3EkcH5z)
     
       
     
-*   **Gameshow House Party – A Night of Nostalgia & Laughs** Our legendary **Gameshow House Party** is making a grand return in 2025! Hosted by the fabulous Nikki Manfadge, we’ll be bringing 70s, 80s, 90s, and 00s gameshows to life, ensuring a night of belly laughter and nostalgia.
+*   **Gameshow House Party: A Night of Nostalgia & Laughs** Our legendary **Gameshow House Party** is making a grand return in 2025! Hosted by the fabulous Nikki Manfadge, we’ll be bringing 70s, 80s, 90s, and 00s gameshows to life, ensuring a night of belly laughter and nostalgia.
     
     For more details, visit: [https://bit.ly/4hDzwj7](https://bit.ly/4hDzwj7)
     
@@ -89,7 +89,7 @@ For more details, visit: [https://bit.ly/4aDMXNy](https://bit.ly/4aDMXNy)
     
       
     
-*   **"An Indian Summer" Event – A Cultural Celebration** In summer 2025, we’re launching a brand-new event – **"An Indian Summer"**! This special evening will feature performances by Sonia Panesar, an authentic Indian menu, and an atmosphere brimming with colour and festivity. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) and our social media for further updates.
+*   **"An Indian Summer" Event: A Cultural Celebration** In summer 2025, we’re launching a brand-new event, **"An Indian Summer"**! This special evening will feature performances by Sonia Panesar, an authentic Indian menu, and an atmosphere brimming with colour and festivity. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) and our social media for further updates.
     
     Details to be released soon.
     
@@ -100,24 +100,24 @@ For more details, visit: [https://bit.ly/4aDMXNy](https://bit.ly/4aDMXNy)
 
 *   **The Anchor’s Chip Shop Menu** We’re making our Chip Shop menu even better in 2025, bringing proper chip shop favourites to your doorstep. Our full menu includes:
     
-    *   **Fish & Chips** – Served with peas and tartar sauce
+    *   **Fish & Chips**: Served with peas and tartar sauce
         
-    *   **Scampi & Chips** – Served with peas and tartar sauce
+    *   **Scampi & Chips**: Served with peas and tartar sauce
         
-    *   **Jumbo Sausage & Chips** – Served with peas
+    *   **Jumbo Sausage & Chips**: Served with peas
         
-    *   **Small Fish & Chips** – A lighter portion, perfect for smaller appetites
+    *   **Small Fish & Chips**: A lighter portion, perfect for smaller appetites
         
 
 And the best part? The Chip Shop menu will be available all week, so you don’t have to wait until Fridays to enjoy it.
 
   
 
-*   **Cobra Lager – A Smooth New Addition** We’re thrilled to introduce [**Cobra Lager**](https://www.cobra-beer.co.uk) on draught! Known for its smooth, malty flavour, Cobra is a fantastic easy-drinking beer that pairs beautifully with food. _Details to be released soon._
+*   **Cobra Lager: A Smooth New Addition** We’re thrilled to introduce [**Cobra Lager**](https://www.cobra-beer.co.uk) on draught! Known for its smooth, malty flavour, Cobra is a fantastic easy-drinking beer that pairs beautifully with food. _Details to be released soon._
     
       
     
-*   **Aspall Cyder – Crisp & Refreshing** For cider lovers, we’re excited to bring [**Aspall Cyder**](https://www.aspall.co.uk) to The Anchor. This crisp, lightly sparkling apple cider is packed with natural flavour, offering a perfect balance of sweetness and acidity._Details to be released soon._
+*   **Aspall Cyder: Crisp & Refreshing** For cider lovers, we’re excited to bring [**Aspall Cyder**](https://www.aspall.co.uk) to The Anchor. This crisp, lightly sparkling apple cider is packed with natural flavour, offering a perfect balance of sweetness and acidity._Details to be released soon._
     
 
   
@@ -160,15 +160,15 @@ Walk-ins are welcome and booking ahead is recommended for peak slots. We’ll al
 
 ## Venue & Ambience Enhancements
 
-*   **New Outside Seating Area – A Cosy Outdoor Haven** Big changes are coming to our outdoor space! We’re transforming our smoking area into a brand-new outside seating area, featuring covered seating, lighting, and heating.
+*   **New Outside Seating Area: A Cosy Outdoor Haven** Big changes are coming to our outdoor space! We’re transforming our smoking area into a brand-new outside seating area, featuring covered seating, lighting, and heating.
     
       
     
-*   **Fresh New Look – Interior Repainting** We’re also freshening up our interior décor to match the charm of our dining area. Our new warm and inviting colour scheme will enhance The Anchor’s cosy atmosphere while keeping its traditional pub feel intact.
+*   **Fresh New Look: Interior Repainting** We’re also freshening up our interior décor to match the charm of our dining area. Our new warm and inviting colour scheme will enhance The Anchor’s cosy atmosphere while keeping its traditional pub feel intact.
     
       
     
-*   **Upgraded Sound System – New Jukebox & Speakers** Music lovers, get ready! We’re upgrading our sound system to a brand-new jukebox and speaker setup. This means even better sound quality inside the pub, without increasing noise for our neighbours. Expect crisper, clearer audio and an improved ambience for your nights out at The Anchor!
+*   **Upgraded Sound System: New Jukebox & Speakers** Music lovers, get ready! We’re upgrading our sound system to a brand-new jukebox and speaker setup. This means even better sound quality inside the pub, without increasing noise for our neighbours. Expect crisper, clearer audio and an improved ambience for your nights out at The Anchor!
     
 
   

@@ -51,7 +51,7 @@ Nestled in the heart of **Stanwell Moor Village**, just **7 minutes from Heathro
 
   
 
-The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside – a nod to modernity with a purpose. This design is more than aesthetic; it's about enveloping our guests in warmth during the winter and providing a cool haven in the summer, perfect for those escaping the busy **Heathrow terminals** nearby.
+The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside, a nod to modernity with a purpose. This design is more than aesthetic; it's about enveloping our guests in warmth during the winter and providing a cool haven in the summer, perfect for those escaping the busy **Heathrow terminals** nearby.
 
   
 
@@ -63,7 +63,7 @@ The new extension, fondly to be known as the Dining Room, is poised to become a 
 
   
 
-As we usher in this new era, The Anchor is also undergoing a revamp in its interior décor. The Dining Room will be the first to receive a fresh coat of colours, setting the tone for an exciting and cohesive redesign of the entire pub. This rejuvenation will reflect our ethos – a place where tradition meets contemporary comfort, a place that feels like home for everyone, whether you're a local resident or visiting from near **Heathrow Airport**.
+As we usher in this new era, The Anchor is also undergoing a revamp in its interior décor. The Dining Room will be the first to receive a fresh coat of colours, setting the tone for an exciting and cohesive redesign of the entire pub. This rejuvenation will reflect our ethos, a place where tradition meets contemporary comfort, a place that feels like home for everyone, whether you're a local resident or visiting from near **Heathrow Airport**.
 
   
 
@@ -175,7 +175,7 @@ Stay tuned for regular updates on our progress! We invite you to join us on this
 *   **LinkedIn:** [https://www.linkedin.com/company/102814641](https://www.linkedin.com/company/102814641)  
     
 
-As we eagerly anticipate the completion of the new Dining Room, we extend a hearty invitation to our esteemed guests – old and new. Prepare to be charmed by the warmth of The Anchor, as we continue to serve you with the same love and cheer that has been our trademark for years. Here's to new beginnings, here's to The Anchor, your home away from home!
+As we eagerly anticipate the completion of the new Dining Room, we extend a hearty invitation to our esteemed guests, old and new. Prepare to be charmed by the warmth of The Anchor, as we continue to serve you with the same love and cheer that has been our trademark for years. Here's to new beginnings, here's to The Anchor, your home away from home!
 
   
 

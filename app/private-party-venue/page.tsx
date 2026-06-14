@@ -79,7 +79,7 @@ export default function PrivatePartyVenuePage() {
               seo={{ structured: true, speakable: true }}
               className="text-ink-strong mb-4"
             >
-              Party Venue Near Heathrow &amp; Staines &mdash; Birthdays &amp; Celebrations at The Anchor
+              Party Venue Near Heathrow &amp; Staines: Birthdays &amp; Celebrations at The Anchor
             </PageTitle>
             <p className="text-lg text-ink-muted">
               DJ space, late licence, decorations welcome, everything you need for birthdays and celebrations

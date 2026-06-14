@@ -199,11 +199,11 @@ export default async function BeerGardenPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Why Aviation Enthusiasts Love Us</h3>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Perfect Position</strong> — Under the expected Heathrow 27R approach path</li>
-                    <li><strong className="text-ink-strong">Low & Loud</strong> — When operating, aircraft pass at approximately 500-800 feet</li>
-                    <li><strong className="text-ink-strong">Photo Friendly</strong> — Unobstructed views perfect for photography</li>
-                    <li><strong className="text-ink-strong">Refreshments</strong> — Full bar service delivered to your table</li>
-                    <li><strong className="text-ink-strong">Free WiFi</strong> — Free high-speed guest WiFi throughout the venue</li>
+                    <li><strong className="text-ink-strong">Perfect Position</strong>: Under the expected Heathrow 27R approach path</li>
+                    <li><strong className="text-ink-strong">Low & Loud</strong>: When operating, aircraft pass at approximately 500-800 feet</li>
+                    <li><strong className="text-ink-strong">Photo Friendly</strong>: Unobstructed views perfect for photography</li>
+                    <li><strong className="text-ink-strong">Refreshments</strong>: Full bar service delivered to your table</li>
+                    <li><strong className="text-ink-strong">Free WiFi</strong>: Free high-speed guest WiFi throughout the venue</li>
                   </ul>
                 </CardBody>
               </Card>

@@ -65,11 +65,11 @@ While you can enjoy it neat, we've also crafted three signature serves that enha
 
   
 
-*   **The Deep Cola** – A smooth, classic serve with a zesty twist.
+*   **The Deep Cola**: A smooth, classic serve with a zesty twist.
     
-*   **Storm Moor Mule** – Crisp, fiery, and refreshing, featuring a hint of island spice.
+*   **Storm Moor Mule**: Crisp, fiery, and refreshing, featuring a hint of island spice.
     
-*   **Spiced Anchor** – Layered, complex, and bold, delivering sweet and spicy depth.
+*   **Spiced Anchor**: Layered, complex, and bold, delivering sweet and spicy depth.
     
       
     

@@ -80,7 +80,7 @@ const featureHighlights = [
   {
     icon: '',
     title: 'Stay for a meal or coffee pre-flight',
-    description: 'Grab a Sunday roast, a coffee or a quiet working lunch before you head to the terminal – parking customers are welcome in the pub.'
+    description: 'Grab a Sunday roast, a coffee or a quiet working lunch before you head to the terminal, parking customers are welcome in the pub.'
   }
 ]
 
@@ -93,7 +93,7 @@ const terminalGuides = [
   {
     icon: 'T3',
     title: 'Terminal 3 long stay alternative',
-    description: 'Drive 12 minutes door-to-door. No shuttle buses, no ticket barriers – just reserve online and go straight to departures.'
+    description: 'Drive 12 minutes door-to-door. No shuttle buses, no ticket barriers, just reserve online and go straight to departures.'
   },
   {
     icon: 'T4',
@@ -144,7 +144,7 @@ const faqs = (rateCard: ParkingRateCard | null) => {
 	  return [
 	  {
 	    question: 'Is The Anchor cheaper than Heathrow long stay parking?',
-	    answer: `Yes – our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
+	    answer: `Yes, our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
 	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
@@ -229,7 +229,7 @@ function buildParkingOfferSchema(rateCard: ParkingRateCard | null) {
     description: 'Pre-book secure Heathrow airport parking at The Anchor pub with on-site hospitality and PayPal checkout.',
     brand: {
       '@type': 'Brand',
-      name: 'The Anchor – Stanwell Moor'
+      name: 'The Anchor, Stanwell Moor'
     },
     offers: {
       '@type': 'AggregateOffer',
@@ -301,7 +301,7 @@ export default async function HeathrowParkingPage() {
 	      <InteriorHero
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
-        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
+        title="Heathrow Parking: Book, Pay & Park in Stanwell Moor"
         lead="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
         badges={
           <>
@@ -331,7 +331,7 @@ export default async function HeathrowParkingPage() {
             <SectionHeading
               kicker="Book online"
               title="Reserve & Pay for Heathrow Parking in Four Steps"
-              lead="Check live availability, lock in the best long stay parking price and pay securely with PayPal – perfect for airport drop-offs, contractors and extended holidays."
+              lead="Check live availability, lock in the best long stay parking price and pay securely with PayPal, perfect for airport drop-offs, contractors and extended holidays."
             />
             <ParkingBookingWizard initialRates={rateCard} />
           </div>
@@ -350,7 +350,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
+                    Lock in from £15 per day or £75 per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
                   </p>
                 </CardBody>
               </Card>
@@ -547,10 +547,10 @@ export default async function HeathrowParkingPage() {
             <div>
               <h2 className="font-display text-h2 text-ink-strong">Airport long term parking with pub-level perks</h2>
               <p className="mt-4 text-ink-muted">
-                Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. Travellers Googling "cheap long term parking", "long term parking near me" or "airport long term parking rates" land here because we keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow – all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi or use the 442 bus once you've parked.
+                Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. Travellers Googling "cheap long term parking", "long term parking near me" or "airport long term parking rates" land here because we keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow, all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi or use the 442 bus once you've parked.
               </p>
               <ul className="mt-4 space-y-2 text-ink-muted">
-                <li>• Flexible booking windows – from four hours to 30 days</li>
+                <li>• Flexible booking windows, from four hours to 30 days</li>
                 <li>• PayPal receipts for expenses and insurance</li>
                 <li>• Easy access from M25 Junction 14 and the A3044</li>
                 <li>• Optional overnight pub stays for early flights</li>

@@ -340,7 +340,7 @@ export default async function QuizNightPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
-            Pub Quiz Night Near Heathrow &amp; Staines &mdash; Monthly at The Anchor
+            Pub Quiz Night Near Heathrow &amp; Staines: Monthly at The Anchor
           </PageTitle>
           <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
             Looking for a pub quiz in Staines, Stanwell Moor or near Heathrow? Once a month we turn The Anchor into a trivia night for locals, airport crews and anyone who fancies a proper pub quiz in Surrey. {heroDescription}

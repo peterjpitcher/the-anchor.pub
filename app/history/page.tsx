@@ -212,7 +212,7 @@ export default function HistoryPage(): React.JSX.Element {
               <div className="relative w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/the-anchor-c1910.png"
-                  alt="The Anchor, Stanwell Moor, around 1910 — the brick pub with Isleworth Brewery 'Ales and Stout' signage and a group of villagers gathered outside the entrance"
+                  alt="The Anchor, Stanwell Moor, around 1910, the brick pub with Isleworth Brewery 'Ales and Stout' signage and a group of villagers gathered outside the entrance"
                   width={1532}
                   height={1027}
                   className="w-full h-auto"
@@ -483,7 +483,7 @@ export default function HistoryPage(): React.JSX.Element {
                   <p>Oh Lord if you&apos;ve time to help me out</p>
                   <p>There&apos;s poor old Charlie sore with gout</p>
                   <p>My temper&apos;s strayed I&apos;m tuckered out</p>
-                  <p>Come on Gents &ndash; TIME!! &ndash; Sod off out!</p>
+                  <p>Come on Gents. TIME!! Sod off out!</p>
                 </div>
                 <div className="space-y-0.5">
                   <p>Oh Lord so won&apos;t you hear my prayer</p>
@@ -546,14 +546,14 @@ export default function HistoryPage(): React.JSX.Element {
               <div className="relative aspect-square w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/handover-day-2019.jpg"
-                  alt="Handover day at The Anchor, 5 March 2019 — Martine and Ronnie's last drink and Billy and Peter's first"
+                  alt="Handover day at The Anchor, 5 March 2019, Martine and Ronnie's last drink and Billy and Peter's first"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 320px"
                 />
               </div>
               <p className="text-sm text-ink-muted mt-3 text-center">
-                Handover day, 5 March 2019 — Martine and Ronnie&apos;s last drink
+                Handover day, 5 March 2019, Martine and Ronnie&apos;s last drink
                 and Billy and Peter&apos;s first
               </p>
             </div>

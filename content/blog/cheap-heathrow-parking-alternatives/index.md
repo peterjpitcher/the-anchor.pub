@@ -68,7 +68,7 @@ Meet-and-greet firms offer tempting promo codes, but the small print matters. Ve
 
 - Mandatory damage waivers or extra insurance at check-in
 - Charges if your return flight is delayed
-- Key-handling risks – your car will be moved multiple times
+- Key-handling risks, your car will be moved multiple times
 
 If you genuinely need a kerbside drop-off, book a reputable BAA-approved provider and read reviews carefully.
 
@@ -112,7 +112,7 @@ If you are comparing costs by terminal, use these dedicated pages:
 ## How to book the Anchor’s cheap Heathrow parking
 
 1. Visit the [Heathrow parking booking page](/heathrow-parking) and pick your arrival/departure times.
-2. Enter driver and vehicle details – this powers automated SMS confirmations.
+2. Enter driver and vehicle details. This powers automated SMS confirmations.
 3. Pay with PayPal (or Apple/Google Pay via PayPal). Your receipt arrives instantly.
 4. On the day, park in The Anchor’s car park, keep your keys and head inside if you fancy refreshments.
 5. Arrange a taxi or rideshare to your terminal (7–12 minutes). The daytime 442 bus stops outside the pub.
@@ -143,4 +143,4 @@ At present we recommend arriving with sufficient charge. Trickle charging is com
 
 ---
 
-Ready to stop overpaying for airport parking? [Book cheap Heathrow parking at The Anchor](/heathrow-parking) or call **01753 682707** for a bespoke quote. You will drive away with extra holiday spending money – and maybe a takeaway pizza too.
+Ready to stop overpaying for airport parking? [Book cheap Heathrow parking at The Anchor](/heathrow-parking) or call **01753 682707** for a bespoke quote. You will drive away with extra holiday spending money, and maybe a takeaway pizza too.

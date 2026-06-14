@@ -154,7 +154,7 @@ export default function FunctionRoomHirePage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
-            Function Room Hire &mdash; A Pub with Private Rooms Near Heathrow &amp; Staines
+            Function Room Hire: A Pub with Private Rooms Near Heathrow &amp; Staines
           </PageTitle>
         </Container>
       </section>
@@ -206,7 +206,7 @@ export default function FunctionRoomHirePage() {
           <Card accent className="max-w-3xl mx-auto"><CardBody>
             <h3 className="font-display text-h4 text-ink-strong mb-2 text-center">Simple Room Hire</h3>
             <p className="text-center text-ink-muted">
-              Room hire fees vary by event type, day, and party size. No minimum spend &mdash; you only pay for what you order on top of the hire. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
+              Room hire fees vary by event type, day, and party size. No minimum spend, you only pay for what you order on top of the hire. Deposit is £250 to secure your date. Call us on 01753 682707 for a quote.
             </p>
           </CardBody></Card>
         </Container>
@@ -352,7 +352,7 @@ export default function FunctionRoomHirePage() {
               <p className="font-display text-h3 text-accent-text mb-2">Room Hire + What You Order</p>
               <p className="text-ink-muted mb-4">no minimum spend</p>
               <p className="text-ink-muted">
-                A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services &mdash; no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
+                A simple room hire fee covers your space, and the rest of your budget goes on food, drinks and services, no minimum spend, so you only pay for what you actually order. The hire fee varies by event type, day and party size. Deposit is £250 to secure your date. Call us for a quote.
               </p>
             </CardBody></Card>
 
@@ -463,7 +463,7 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "How does your venue hire pricing work?",
-            answer: "A room hire fee covers your space — it varies by event type, day, and party size. There's no minimum spend on top, so you only pay for the food and drinks you actually order. Deposit is £250 to secure your date. Call us on 01753 682707 for a personalised quote."
+            answer: "A room hire fee covers your space, it varies by event type, day, and party size. There's no minimum spend on top, so you only pay for the food and drinks you actually order. Deposit is £250 to secure your date. Call us on 01753 682707 for a personalised quote."
           },
           {
             question: "Can I view the function rooms before booking?",

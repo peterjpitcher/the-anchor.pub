@@ -35,7 +35,7 @@ function extractSchemaPrice(item?: MenuPageItem): string | undefined {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getFishAndChipsMenuPageData()
   const description = data
-    ? "Fish and chips in Staines — see The Anchor's live menu with prices. Free parking, 7 mins from Heathrow Terminal 5."
+    ? "Fish and chips in Staines, see The Anchor's live menu with prices. Free parking, 7 mins from Heathrow Terminal 5."
     : 'Fish and chips in Staines at The Anchor pub near Heathrow. Current menu with prices and free parking.'
 
   return {

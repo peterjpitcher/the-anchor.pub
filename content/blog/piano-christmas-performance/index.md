@@ -37,7 +37,7 @@ noindex: true
 
   
 
-![A black and white photo featuring a young male pianist, identified as Arjun R, deeply focused on playing a grand piano. The image captures him from the side, with his hands gracefully positioned over the piano keys. An audience is subtly visible in the soft-focused background, suggesting a live performance setting. The upper left corner displays 'THE ANCHOR' logo with the subtitle 'Stanwell Moor Village.' Across the bottom of the image, in a stylish script font, reads 'Arjun R – a prodigy in the making,' highlighting his promising musical talent.](/content/blog/piano-christmas-performance/hero.jpg)
+![A black and white photo featuring a young male pianist, identified as Arjun R, deeply focused on playing a grand piano. The image captures him from the side, with his hands gracefully positioned over the piano keys. An audience is subtly visible in the soft-focused background, suggesting a live performance setting. The upper left corner displays 'THE ANCHOR' logo with the subtitle 'Stanwell Moor Village.' Across the bottom of the image, in a stylish script font, reads 'Arjun R, a prodigy in the making,' highlighting his promising musical talent.](/content/blog/piano-christmas-performance/hero.jpg)
 
   
 
