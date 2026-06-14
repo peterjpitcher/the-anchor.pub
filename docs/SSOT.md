@@ -1,12 +1,14 @@
 # The Anchor, Single Source of Truth
 
-> **PRICING POLICY:** All food & drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database** (menu API). This document holds item names and structure only — **never hardcode or quote a price from here or anywhere else; always pull live**. Non-food figures (deposits, ULEZ saving, quiz/bingo entry, prizes, minimum spend) are not menu prices and remain.
+> **PRICING POLICY:** All food & drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database** (menu API). This document holds item names and structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures (deposits, ULEZ saving, quiz/bingo entry, prizes, minimum spend) are not menu prices and remain.
 
 > **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask**, do not guess, do not infer, do not fall back on training data.
 >
 > If this document and existing page copy disagree, the SSOT wins. Update this document first when operational reality changes; the page copy and JSON-LD must follow.
 
 This file is the human-edited source. `/SSOT.json` mirrors a subset of these facts in structured form for programmatic lookup. When the two diverge, this Markdown file is canonical and the JSON should be reconciled to match.
+
+> **Strategy data lives elsewhere.** Marketing strategy (target audiences, psychographic segments, competitive landscape) is not a brand fact and lives in `docs/brand-strategy.md`, not here and not in `SSOT.json`. Do not quote competitor names or audience labels in customer-facing copy.
 
 Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaffirmed as vegan; cauliflower cheese retired). Walk-in launch shipped **2026-05-17**.
 
@@ -48,11 +50,11 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 
 | From | Time by car | Distance |
 |---|---|---|
-| Terminal 2 | 11 minutes |, |
+| Terminal 2 | 11 minutes | n/a |
 | Terminal 3 | 11 minutes | 5.3 miles |
-| Terminal 4 | 12 minutes |, |
+| Terminal 4 | 12 minutes | n/a |
 | Terminal 5 | 7 minutes | 3.8 miles |
-| Staines | 8 minutes |, |
+| Staines | 8 minutes | n/a |
 
 General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 
@@ -77,15 +79,15 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 | Dish | Price | Yorkshire pud? | Notes |
 |---|---|---|---|
-| Roast Beef Topside | (live — DB) | Yes | 28-day topside, slow-roasted, carved fresh per plate |
-| Roast Pork Leg | (live — DB) | Yes | Sliced to order with Bramley apple sauce |
-| Roast Turkey with Stuffing Ball | (live — DB) | Yes | Carved fresh; sage and onion stuffing ball |
-| Beef & Ale Pie | (live — DB) | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
-| Chicken & Wild Mushroom Pie | (live — DB) | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
-| Beetroot & Butternut Squash Wellington | (live — DB) | No | **Fully vegan.** Default plate is vegan |
-| Kids Roast | (live — DB) | If pork or turkey | Smaller, child-sized portion. Choice of pork, turkey or wellington |
+| Roast Beef Topside | (live, DB) | Yes | 28-day topside, slow-roasted, carved fresh per plate |
+| Roast Pork Leg | (live, DB) | Yes | Sliced to order with Bramley apple sauce |
+| Roast Turkey with Stuffing Ball | (live, DB) | Yes | Carved fresh; sage and onion stuffing ball |
+| Beef & Ale Pie | (live, DB) | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
+| Chicken & Wild Mushroom Pie | (live, DB) | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
+| Beetroot & Butternut Squash Wellington | (live, DB) | No | **Fully vegan.** Default plate is vegan |
+| Kids Roast | (live, DB) | If pork or turkey | Smaller, child-sized portion. Choice of pork, turkey or wellington |
 
-**Price range to quote in copy:** Do NOT quote a hardcoded range — prices are live from the management DB (menu API). Pull live.
+**Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
 ### Accompaniments
 
@@ -132,25 +134,25 @@ British, Pizza, Pub Food, Sunday Roast.
 
 | Dish | Price |
 |---|---|
-| Fish and Chips | (live — DB) |
-| Half Fish and Chips | (live — DB) |
-| Scampi and Chips | (live — DB) |
-| Bangers and Mash | (live — DB) |
-| Beef and Ale Pie *(weekday version)* | (live — DB) |
-| Chicken & Wild Mushroom Pie *(weekday version)* | (live — DB) |
-| Chicken, Ham Hock & Leek Pie | (live — DB) |
-| Butternut Squash, Mixed Bean & Mature Cheddar Pie | (live — DB) (vegetarian) |
-| Classic Beef Burger | (live — DB) (chips included) |
-| Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live — DB) |
-| Lasagne | (live — DB) |
-| Mac and Cheese | (live — DB) (vegetarian) |
-| Stone-baked pizzas | (live — DB) (12-inch, hand-stretched, gluten-free bases available) |
-| Kids menu | from (live — DB) |
-| Wraps | from (live — DB) |
-| Chips | (live — DB) |
-| Cheesy Chips | (live — DB) |
+| Fish and Chips | (live, DB) |
+| Half Fish and Chips | (live, DB) |
+| Scampi and Chips | (live, DB) |
+| Bangers and Mash | (live, DB) |
+| Beef and Ale Pie *(weekday version)* | (live, DB) |
+| Chicken & Wild Mushroom Pie *(weekday version)* | (live, DB) |
+| Chicken, Ham Hock & Leek Pie | (live, DB) |
+| Butternut Squash, Mixed Bean & Mature Cheddar Pie | (live, DB) (vegetarian) |
+| Classic Beef Burger | (live, DB) (chips included) |
+| Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live, DB) |
+| Lasagne | (live, DB) |
+| Mac and Cheese | (live, DB) (vegetarian) |
+| Stone-baked pizzas | (live, DB) (12-inch, hand-stretched, gluten-free bases available) |
+| Kids menu | from (live, DB) |
+| Wraps | from (live, DB) |
+| Chips | (live, DB) |
+| Cheesy Chips | (live, DB) |
 
-**Price range to quote in copy:** Do NOT quote a hardcoded range — prices are live from the management DB (menu API). Pull live.
+**Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
 ### Friday over-65s offer
 
@@ -175,7 +177,7 @@ The full drinks inventory lives in `/SSOT.json` under `drinks`. The website does
 - **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
-- **Promotions:** Double-up on optics for (live — DB). Monthly Manager's Special (discounted featured premium spirit).
+- **Promotions:** Double-up on optics for (live, DB). Monthly Manager's Special (discounted featured premium spirit).
 - **Shandies:** Available for all draught lagers.
 
 ## 7. Booking & Deposits
@@ -199,7 +201,7 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 ### Max party size online
 
-20 guests. Larger groups must call 01753 682707.
+10 guests. Larger groups must call 01753 682707. (Canonical value: `SSOT.json` `sunday_roast.booking_policy.max_online_party_size`.)
 
 ## 8. Venue
 
@@ -222,6 +224,8 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 - Additional parking available nearby.
 
 ### Amenities
+
+> The canonical amenities list (with full wording) is `SSOT.json` `venue.amenities`. The summary below is for quick human reference; reconcile to the JSON if they ever differ.
 
 Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under Heathrow flight path) · Pool table · Darts · Jukebox · Live sport on terrestrial TV · Luggage storage · Private event space / function room · Dog friendly · Board games · Community notice board.
 
@@ -289,7 +293,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Capacity 80.
 - Prizes: 1st place £25 bar tab; second from last gets a bottle of house wine.
 - **Phone-free.** -5 points for phone use.
-- Host: Question One Quiz Masters.
+- Host: Question One Quiz Masters (Nikki Manfadge occasional).
 
 ### Cash Bingo
 
@@ -327,6 +331,20 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 - Monthly rotating curry-night specials.
 
+### Nikki's Games Night
+
+- Wednesdays 7pm – 10pm.
+- Host: Nikki Manfadge.
+- Classic TV gameshow formats with a drag twist (Blankety Blank, Name That Tune, Play Your Cards Right, and similar).
+- Formerly "Drag Cabaret with Nikki Manfadge", renamed July 2025.
+
+### Tasting Nights
+
+- Occasional (no fixed frequency).
+- Expert-led sessions across whisky, gin, rum, wine and beer.
+
+> Event details are managed per-event in the management app and live canonically in `SSOT.json` under `events`. The summaries above are for reference; confirm current dates, times and prices against the management app / API.
+
 ### Retired entertainment formats
 
 - **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/live-music`.
@@ -344,31 +362,31 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 | Package | Price | Minimum |
 |---|---|---|
-| Sandwich Buffet | (live — DB) | 30 guests |
-| Finger Buffet | (live — DB) | 30 guests |
-| Burger Buffet | (live — DB) | 30 guests |
-| Premium Buffet | (live — DB) | 30 guests |
+| Sandwich Buffet | (live, DB) | 30 guests |
+| Finger Buffet | (live, DB) | 30 guests |
+| Burger Buffet | (live, DB) | 30 guests |
+| Premium Buffet | (live, DB) | 30 guests |
 | Pizza Buffet | menu priced | 30 guests |
-| Indoor BBQ | (live — DB) | 30 guests |
-| Chicken Goujon Sharing Tray | (live — DB) (serves ~10) | 25 guests |
+| Indoor BBQ | (live, DB) | 30 guests |
+| Chicken Goujon Sharing Tray | (live, DB) (serves ~10) | 25 guests |
 
 ### Drinks Packages
 
 | Package | Price | Minimum |
 |---|---|---|
-| Welcome Drinks | (live — DB) | 10 |
-| Welcome Prosecco / Orange Juice | (live — DB) | 10 |
-| Unlimited Tea and Coffee | (live — DB) | 10 |
-| Kids Unlimited Squash | (live — DB) | 10 |
-| Pimm's Jar | (live — DB) | 30 |
+| Welcome Drinks | (live, DB) | 10 |
+| Welcome Prosecco / Orange Juice | (live, DB) | 10 |
+| Unlimited Tea and Coffee | (live, DB) | 10 |
+| Kids Unlimited Squash | (live, DB) | 10 |
+| Pimm's Jar | (live, DB) | 30 |
 | Bar Tab | variable |, |
 | Bring Your Own Food | free |, |
 
 ### Kids Catering
 
-- Kids Burger and Chips: (live — DB).
-- Kids Chicken Nuggets and Chips: (live — DB).
-- Kids Mini Pizza and Chips: (live — DB).
+- Kids Burger and Chips: (live, DB).
+- Kids Chicken Nuggets and Chips: (live, DB).
+- Kids Mini Pizza and Chips: (live, DB).
 
 ### Equipment & services
 
@@ -376,7 +394,7 @@ AV equipment (projector, screen, sound system) · Dedicated events coordinator �
 
 ### Event types offered
 
-Wakes / memorials · Christenings · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties.
+Wakes / memorials · Christenings · Engagement parties · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties. (Canonical list: `SSOT.json` `private_hire.event_types`. Never "weddings" or "wedding receptions", see §14.)
 
 > **Pre-order language is allowed** for private events and Christmas parties. The 2026-05-17 walk-in change applies only to the **Sunday roast service**, it does not affect private-hire pre-ordering.
 

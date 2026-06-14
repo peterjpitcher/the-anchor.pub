@@ -106,7 +106,7 @@ These are short reminders. The full set of operational claims and banned phrases
 - **Location:** Stanwell Moor, near Heathrow Airport.
 - **Monday kitchen:** Always closed unless a special-hours record explicitly opens it.
 - **Sunday lunch:** Walk-ins welcome 1pm – 6pm. **No pre-order, no Saturday cutoff, no per-roast prepayment** (changed at the 17 May 2026 walk-in launch). Blocked only if the kitchen is closed for that date.
-- **Sunday roast menu (current):** Beef Topside £22 · Pork Leg £20 · Turkey w/ Stuffing Ball £19 · Beef & Ale Pie £21 · Chicken & Wild Mushroom Pie £21 · Vegan Wellington £20 · Kids Roast £14. Wellington is **vegan**, never "vegetarian". See `docs/SSOT.md` §4 for full rules (gravy, accompaniments, retired items).
+- **Sunday roast menu (current):** Beef Topside · Pork Leg · Turkey w/ Stuffing Ball · Beef & Ale Pie · Chicken & Wild Mushroom Pie · Vegan Wellington · Kids Roast. Wellington is **vegan**, never "vegetarian". **Prices are always live from the management DB, never hardcode them** (see `docs/SSOT.md` §4 for full rules: gravy, accompaniments, retired items).
 - **Group deposit:** Groups of 10+ on any day, any booking type — £10 per person, deducted from the bill.
 - **No service:** No breakfast, no delivery, no Sky/TNT Sports, no guest ales, no real-ale positioning, no wedding receptions, no accessible toilet, no baby changing.
 - **Verified copy:** `docs/SSOT.md` is canonical. `SSOT.json` mirrors the structured subset.

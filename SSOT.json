@@ -3,8 +3,8 @@
   "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md, if this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content; use this JSON for programmatic lookups (menu, hours, drinks inventory).",
   "_canonical_source": "docs/SSOT.md",
   "meta": {
-    "version": "1.0.0",
-    "generated": "2026-03-22",
+    "version": "1.0.1",
+    "generated": "2026-06-14",
     "sources": [
       "lib/constants.ts",
       "lib/schema.ts",
@@ -30,20 +30,20 @@
   "identity": {
     "name": "The Anchor",
     "name_with_location": "The Anchor, Stanwell Moor",
-    "naming_rule": "Use 'The Anchor Pub' when describing what the business is (SEO value), but use 'The Anchor' for general mentions (e.g. 'we at The Anchor love serving our community').",
+    "naming_rule": "Use 'The Anchor' as the default customer-facing name. Use 'The Anchor Pub' only where SEO value warrants it (page titles, alt text, schema name fields). Never use 'The Anchor Pub' as the conversational default. See docs/SSOT.md section 1.",
     "motto": "Eat, Drink, Enjoy",
     "tagline": "Where Everyone's Welcome",
     "type": "Independent British village pub and restaurant",
     "pub_group": "Greene King Tenants network",
     "heritage_statement": "Part of the community since 1751",
-    "detailed_heritage": "A village pub since 1751. Stood before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
+    "detailed_heritage": "A village pub since 1751, with evidence of an Anchor Inn on the site by at least 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
     "founding_year": 1751,
     "founding_year_note": "RESOLVED 2026-03-22: Canonical year is 1751. Claims.json (1866), blog posts (1869), and footer ('since the 1800s') are all incorrect and should be updated.",
     "descriptions": {
       "default_seo": "Traditional British pub near Heathrow Airport",
       "schema_org": "Traditional British pub near Heathrow with quiz nights, hosted events, and famous Sunday roasts",
       "marketing": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.",
-      "footer": "Your local pub in Stanwell Moor, serving the community with great food, drinks, and entertainment since the 19th century.",
+      "footer": "Your local pub in Stanwell Moor, serving the community with great food, drinks, and entertainment since 1751.",
       "pwa": "Traditional British pub near Heathrow with quiz nights, hosted events & great food"
     }
   },
@@ -630,7 +630,7 @@
       "Lamb Shank (removed from both main menu and Sunday roast as of 2026-04-29)",
       "Speck Ham & Parmesan pizza"
     ],
-    "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu at £14 each, they were previously listed as removed. Updated in House Burgers section.",
+    "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu, they were previously listed as removed. Updated in House Burgers section. Prices are LIVE from the management DB, never quote a figure here.",
     "copy_corrections": {
       "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
       "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
@@ -710,7 +710,7 @@
       "deposit_per_person_gbp_for_groups_of_10_or_more": "LIVE_FROM_DB",
       "deposit_deducted": true,
       "regular_menu_also_available": "Yes",
-      "max_online_party_size": 20,
+      "max_online_party_size": 10,
       "larger_groups": "Must call",
       "kitchen_dependency": "Blocked if kitchen is closed for that date"
     }
@@ -1108,11 +1108,11 @@
     ],
     "room_hire_charge": "None, minimum spend model applies",
     "minimum_spend_range_gbp": "500-1500 depending on day/size",
-    "catering_buffet_from_gbp": 12.0,
-    "catering_sitdown_from_gbp": 18.0,
-    "christmas_menus_from_gbp": 36.95,
-    "christmas_menus_weekday_gbp": 36.95,
-    "christmas_menus_weekend_gbp": 39.95,
+    "catering_buffet_from_gbp": "LIVE_FROM_DB",
+    "catering_sitdown_from_gbp": "LIVE_FROM_DB",
+    "christmas_menus_from_gbp": "LIVE_FROM_DB",
+    "christmas_menus_weekday_gbp": "LIVE_FROM_DB",
+    "christmas_menus_weekend_gbp": "LIVE_FROM_DB",
     "christmas_buffets": "Available for 26+ guests",
     "private_booking_deposit_gbp": 250,
     "catering_packages": {
@@ -1325,166 +1325,7 @@
     },
     "tripadvisor_rank": "#22 of 95 restaurants in Staines"
   },
-  "target_audiences": [
-    {
-      "id": "local-residents",
-      "name": "Local residents",
-      "description": "Stanwell Moor village and surrounding areas including growing Indian community",
-      "acorn_segments": [
-        "Settled Suburbia",
-        "Family Renters",
-        "Stable Seniors"
-      ]
-    },
-    {
-      "id": "travellers",
-      "name": "Heathrow travellers",
-      "description": "People travelling to/from Heathrow, domestic and international"
-    },
-    {
-      "id": "families",
-      "name": "Families",
-      "description": "Multi-generational groups seeking a welcoming pub and dining experience"
-    },
-    {
-      "id": "women",
-      "name": "Women",
-      "description": "Including women visiting alone, safety and welcome-led positioning"
-    },
-    {
-      "id": "dog-owners",
-      "name": "Dog owners",
-      "description": "People looking for dog-welcoming venues"
-    },
-    {
-      "id": "business-professionals",
-      "name": "Business professionals",
-      "description": "After-work crowd, meeting hosts, networking"
-    },
-    {
-      "id": "event-planners",
-      "name": "Event planners / private hire seekers",
-      "description": "Individuals or organisations hosting private events"
-    },
-    {
-      "id": "food-enthusiasts",
-      "name": "Food and drink enthusiasts",
-      "description": "People interested in quality pub food and broad drinks selection"
-    }
-  ],
-  "psychographic_segments": [
-    {
-      "name": "Social Explorers",
-      "source": "Yonder"
-    },
-    {
-      "name": "Trusty Traditionalists",
-      "source": "Yonder"
-    },
-    {
-      "name": "Ethical Enthusiasts",
-      "source": "Yonder"
-    },
-    {
-      "name": "Down-to-Earth Deal Seekers",
-      "source": "Yonder"
-    },
-    {
-      "name": "Cautious Homebodies",
-      "source": "Yonder"
-    }
-  ],
-  "competitive_landscape": {
-    "radius": "3-5 miles",
-    "note": "Excludes all venues inside Heathrow terminals, they are not direct competitors. Researched 2026-03-22.",
-    "total_licensed_premises": 164,
-    "named_competitors": [
-      {
-        "name": "Rising Sun",
-        "type": "Independent (Star Pubs & Bars)",
-        "location": "Stanwell village",
-        "distance": "0.7 miles",
-        "overlap": "Nearest pub, Sunday roast, garden, live music"
-      },
-      {
-        "name": "Sir John Gibson",
-        "type": "Craft Union (Stonegate)",
-        "location": "Stanwell village",
-        "distance": "0.8 miles",
-        "overlap": "Village local, sport (Sky/BT), pool"
-      },
-      {
-        "name": "The Green Man",
-        "type": "Greene King",
-        "location": "East Bedfont",
-        "distance": "2 miles",
-        "overlap": "Beer garden, free parking, Sunday roast, live music"
-      },
-      {
-        "name": "Three Magpies",
-        "type": "Greene King managed",
-        "location": "Bath Road (airport perimeter)",
-        "distance": "2.5 miles",
-        "overlap": "Closest pub on airport perimeter road"
-      },
-      {
-        "name": "Bell on the Green",
-        "type": "Independent",
-        "location": "East Bedfont",
-        "distance": "2.5 miles",
-        "overlap": "Beer garden, parking, function room, Indian-British food"
-      },
-      {
-        "name": "The Swan Hotel",
-        "type": "Fuller's",
-        "location": "Staines (riverside)",
-        "distance": "2.5 miles",
-        "overlap": "Premium Sunday roast, private hire, hotel"
-      },
-      {
-        "name": "The Bells",
-        "type": "Independent",
-        "location": "Staines town centre",
-        "distance": "2.5 miles",
-        "overlap": "Sunday roast, function room (The Stables)"
-      },
-      {
-        "name": "The George",
-        "type": "JD Wetherspoon",
-        "location": "Staines High Street",
-        "distance": "2.5 miles",
-        "overlap": "Budget food/drink, all-day service"
-      },
-      {
-        "name": "Five Bells",
-        "type": "Independent (family-owned)",
-        "location": "Horton, Berkshire",
-        "distance": "3 miles",
-        "overlap": "Food-led village pub near Heathrow, beer garden"
-      },
-      {
-        "name": "The Ostrich Inn",
-        "type": "Independent (freehold)",
-        "location": "Colnbrook",
-        "distance": "3.5 miles",
-        "overlap": "Grade II* heritage, restaurant, private dining, accommodation"
-      }
-    ],
-    "removed_competitors": [
-      {
-        "name": "Queen's Arms",
-        "reason": "Inside Heathrow Terminal 2, not a direct competitor"
-      },
-      {
-        "name": "Gordon Ramsay Plane Food",
-        "reason": "Inside Heathrow Terminal 5, not a direct competitor"
-      },
-      {
-        "name": "The Pheasant, Stanwell",
-        "reason": "No current listing found, likely closed or changed name"
-      }
-    ]
-  },
+  "_strategy_doc": "Strategy data (target_audiences, psychographic_segments, competitive_landscape) was moved to docs/brand-strategy.md on 2026-06-14 to keep this file to verifiable brand facts. See that doc for audience, segment, and competitor detail.",
   "seo_keywords": [
     "Cosy village pubs",
     "Family-friendly pub near me",
@@ -1591,7 +1432,7 @@
       }
     ],
     "dining_room_history": "Original conservatory built in 1995 for George and Alex Best's wedding reception. Replaced with new dining room extension, renovation started April 2024, ready for Euro 2024 (14 June). Features French doors to garden.",
-    "greene_king_partnership": "Renovation funding supported by Greene King. Stanwell Moor Brew developed in partnership."
+    "greene_king_partnership": "Renovation funding supported by Greene King."
   },
   "food_hygiene": {
     "rating": "5-star",
@@ -1619,7 +1460,7 @@
     "old_sunday_roast_options": "As of 2026-04-29: Do NOT list Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side, or 'vegetarian wellington'. Current menu: Roast Beef Topside, Roast Pork Leg, Roast Turkey with Stuffing Ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, Beetroot & Butternut Squash Wellington (VEGAN), Kids Roast. Beef IS now a roast option, older 'do not use beef' guidance is reversed.",
     "wellington_vegetarian_phrasing": "Wellington is VEGAN, not vegetarian. Do NOT describe the wellington as 'vegetarian' in customer-facing copy or schemas.",
     "sunday_roast_pre_order_pre_pay": "Pre-order, Saturday-1pm cutoff and per-roast prepayment are RETIRED post-2026-05-17 walk-in launch. Do not reintroduce in copy, JSON-LD, or booking flows.",
-    "old_menu_items": "Lamb Shank (main) and Speck Ham & Parmesan pizza are removed. Do not list them. Stacks are back on the menu at £14 each.",
+    "old_menu_items": "Lamb Shank (main) and Speck Ham & Parmesan pizza are removed. Do not list them. Stacks are back on the menu (prices LIVE from the management DB, never quote a figure here).",
     "gluten_free_fish_and_chips": "Do NOT claim gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.",
     "info_email": "info@theanchorpub.co.uk is legacy, use manager@the-anchor.pub",
     "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
