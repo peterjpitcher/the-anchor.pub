@@ -77,6 +77,7 @@ const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
 ])
 
 const PRIVATE_HIRE_CHILD_ROUTES = new Set([
+  '/private-hire/anniversary-parties',
   '/private-hire/baby-showers',
   '/private-hire/christenings',
   '/private-hire/engagement-parties',

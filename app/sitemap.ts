@@ -179,6 +179,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/anniversary-parties', lastModified: RECENTLY_UPDATED },
     { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
