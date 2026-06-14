@@ -169,8 +169,9 @@ export default function EasterSundayPage() {
             </p>
             <p className="text-ink-muted leading-relaxed">
               Choose from roast beef, roast pork, roast turkey, a beef and ale pie, a chicken and wild mushroom pie,
-              or a vegan wellington, all cooked from scratch and served with triple-cooked roast potatoes, seasonal
-              vegetables and our signature gravy. Yorkshire puddings come with the sliced roasts. Current dishes and
+              or a vegan wellington, all cooked from scratch and served with triple-cooked roast potatoes and seasonal
+              vegetables. The sliced roasts come with Yorkshire puddings and our signature gravy; the vegan wellington
+              is served with our regular vegan gravy. Current dishes and
               prices are live on our{' '}
               <Link href="/sunday-roast" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                 Sunday roast menu
@@ -201,7 +202,7 @@ export default function EasterSundayPage() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Vegetarian and vegan dishes are served with vegetarian gravy, just add a note when you book.</span>
+                    <span>The vegan wellington comes with our regular vegan gravy, which we can serve with any dish, just add a note when you book.</span>
                   </li>
                 </ul>
               </CardBody>

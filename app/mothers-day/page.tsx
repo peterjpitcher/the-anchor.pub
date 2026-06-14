@@ -165,7 +165,7 @@ export default function MothersDayPage() {
     {
       question: 'Do you have vegetarian or vegan options?',
       answer:
-        'Yes, vegetarian and vegan options are available, including a dedicated vegan main. Vegetarian and vegan dishes are served with vegetarian gravy. Please mention dietary requirements when booking.'
+        'Yes, there is a dedicated vegan main, our vegan wellington, served with our regular vegan gravy. Vegan gravy is available with any dish on request, so please mention dietary requirements when booking.'
     },
     {
       question: 'Where is The Anchor and is there parking?',
@@ -184,7 +184,7 @@ export default function MothersDayPage() {
       `Mother’s Day Sunday roast near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
       `No set sittings, walk in or book ahead. ` +
-      `Current dishes and prices are listed on the Sunday roast menu. Vegetarian and vegan options available, served with vegetarian gravy.`,
+      `Current dishes and prices are listed on the Sunday roast menu. A dedicated vegan main is available, served with our regular vegan gravy.`,
     startDate: MOTHERS_DAY_SERVICE_START_ISO,
     endDate: MOTHERS_DAY_SERVICE_END_ISO,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -338,8 +338,8 @@ export default function MothersDayPage() {
                   traditional Sunday roast: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
                 </p>
                 <p className="mt-3 text-ink-muted leading-relaxed">
-                  We also offer vegetarian and vegan options, including a dedicated vegan main. Vegetarian and vegan dishes are served with
-                  vegetarian gravy.
+                  We also offer a dedicated vegan main, our vegan wellington, served with our regular vegan gravy, which is
+                  available with any dish on request.
                 </p>
                 <p className="mt-3 text-ink-muted leading-relaxed">
                   We&apos;re serving from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>, with the{' '}
@@ -420,7 +420,7 @@ export default function MothersDayPage() {
                       </li>
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
-                        <span>Vegetarian and vegan dishes are served with vegetarian gravy. Add dietary notes when booking.</span>
+                        <span>Our vegan main is served with regular vegan gravy, available with any dish on request. Add dietary notes when booking.</span>
                       </li>
                     </ul>
                   </div>
