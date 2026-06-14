@@ -710,7 +710,7 @@
       "deposit_per_person_gbp_for_groups_of_10_or_more": "LIVE_FROM_DB",
       "deposit_deducted": true,
       "regular_menu_also_available": "Yes",
-      "max_online_party_size": 10,
+      "max_online_party_size": 20,
       "larger_groups": "Must call",
       "kitchen_dependency": "Blocked if kitchen is closed for that date"
     }

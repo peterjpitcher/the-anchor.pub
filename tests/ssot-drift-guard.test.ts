@@ -26,7 +26,7 @@ const md = fs.readFileSync(path.join(process.cwd(), 'docs', 'SSOT.md'), 'utf8')
 // false negatives on substring checks.
 const mdFlat = md.replace(/\s+/g, ' ')
 // Same, but with Markdown emphasis markers stripped, so bold/italic around a
-// value (e.g. "**Max online party size:** 10") doesn't break substring checks.
+// value (e.g. "**Max online party size:** 20") doesn't break substring checks.
 const mdPlain = mdFlat.replace(/[*_`]/g, '')
 // CLAUDE.md is the agent-facing operational brief; the Monday-kitchen-closed
 // policy lives there and in SSOT.json (docs/SSOT.md states it via the kitchen
@@ -130,14 +130,14 @@ describe('SSOT drift guard — heritage & reputation', () => {
 })
 
 describe('SSOT drift guard — booking policy', () => {
-  it('max online party size is 10 in JSON and stated in the MD', () => {
-    expect(ssot.sunday_roast.booking_policy.max_online_party_size).toBe(10)
-    // MD §4 and §7 should both say 10 (not 20). Use the emphasis-stripped
-    // copy so bold markers around the value don't matter.
-    expect(mdPlain).toContain('Max online party size: 10')
-    expect(mdPlain).toContain('10 guests. Larger groups must call')
-    // The old contradictory "20 guests" copy must be gone.
-    expect(mdPlain).not.toContain('20 guests. Larger groups must call')
+  it('max online party size is 20 in JSON and stated in the MD', () => {
+    expect(ssot.sunday_roast.booking_policy.max_online_party_size).toBe(20)
+    // MD §4 and §7 should both say 20 (aligned to the live booking flow).
+    // Use the emphasis-stripped copy so bold markers around the value don't matter.
+    expect(mdPlain).toContain('Max online party size: 20')
+    expect(mdPlain).toContain('20 guests. Larger groups must call')
+    // The old contradictory "10 guests" copy must be gone.
+    expect(mdPlain).not.toContain('10 guests. Larger groups must call')
   })
 
   it('Monday-kitchen-closed policy is present (JSON + CLAUDE.md)', () => {

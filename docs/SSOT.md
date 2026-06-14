@@ -72,7 +72,7 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 - **Pre-order:** **Not required.** No Saturday cutoff. No per-roast prepayment.
 - **Walk-ins:** Welcome the whole window. Last seating is 5:30pm.
 - **Booking:** Strongly recommended for groups and peak slots, but not required.
-- **Max online party size:** 10. Larger groups must call.
+- **Max online party size:** 20. Larger groups must call.
 - **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 10+) applies on any day, any booking type, see §7.
 
 ### Current menu
@@ -201,7 +201,7 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 ### Max party size online
 
-10 guests. Larger groups must call 01753 682707. (Canonical value: `SSOT.json` `sunday_roast.booking_policy.max_online_party_size`.)
+20 guests. Larger groups must call 01753 682707. (Canonical value: `SSOT.json` `sunday_roast.booking_policy.max_online_party_size`.)
 
 ## 8. Venue
 
