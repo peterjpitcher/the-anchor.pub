@@ -94,6 +94,16 @@ const TERMINAL_ROUTES = new Set([
   '/near-heathrow/terminal-5',
 ])
 
+// Shared template components that render their own hero internally. A page that
+// delegates to one of these satisfies the hero-presence requirement: the audit
+// parses page files only and cannot see into the component, but the template
+// guarantees a single InteriorHero. Listed explicitly so a page that forgets to
+// render the template still fails the audit. These heroes are self-describing
+// (inline image, no route), so the route-keyed image/variant/CTA rules skip them.
+const HERO_PROVIDING_COMPONENTS = new Set([
+  'HotelProximityPage',
+])
+
 const LOCAL_BOOKING_PRIMARY_ROUTES = new Set([
   '/ashford-pub',
   '/bedfont-pub',
@@ -227,6 +237,19 @@ function parsePage(pageFile) {
       // self-describing (inline image, no route), so the route-keyed rules below
       // skip it (no routeLiteral).
       if (tagName === 'HomeHero') {
+        heroWrappers.push({
+          line: getSourceLocation(node, sourceFile),
+          routeLiteral: null,
+          routeExpr: '',
+          variantLiteral: null,
+          primaryExpr: '',
+          hasImageProp: true,
+        })
+      }
+
+      // A page that renders a known hero-providing wrapper component (e.g. the
+      // shared HotelProximityPage template) is treated as having a hero.
+      if (HERO_PROVIDING_COMPONENTS.has(tagName)) {
         heroWrappers.push({
           line: getSourceLocation(node, sourceFile),
           routeLiteral: null,
