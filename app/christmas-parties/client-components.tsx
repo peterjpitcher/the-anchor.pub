@@ -520,7 +520,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="p-6 space-y-3 text-center">
                 <Icon name="utensils" className="mx-auto h-8 w-8 text-red-600" />
                 <h3 className="text-lg font-semibold text-ink-strong">Yorkies, pigs in blankets & all the trimmings</h3>
-                <p className="text-sm text-ink-muted">Every Christmas meal arrives with herb-crusted triple-cooked roast potatoes, seasonal veg, sage & onion stuffing, Yorkshire puddings and our signature gravy. No shortcuts.</p>
+                <p className="text-sm text-ink-muted">Every Christmas meal arrives with herb-crusted triple-cooked roast potatoes, seasonal veg, sage & onion stuffing, Yorkshire puddings and our signature gravy, with our regular vegan gravy on the vegan Wellington. No shortcuts.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -713,7 +713,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <h2 className="text-3xl font-bold text-ink-strong">Our festive menu</h2>
               <p className="text-sm italic text-ink-muted mb-2">Sample menu, 2026 selection confirmed in October</p>
               <p className="text-base sm:text-lg text-ink-muted">
-                Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy. It's the same festive menu for lunch and dinner, so your Christmas meal tastes just as good at midday.
+                Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy, with our regular vegan gravy on the vegan Wellington. It's the same festive menu for lunch and dinner, so your Christmas meal tastes just as good at midday.
               </p>
               <p className="text-sm text-accent-text font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
@@ -752,11 +752,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                     </li>
                     <li>
                       <p className="font-semibold text-ink-strong">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
-                      <p className="text-ink-muted">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our signature gravy.</p>
+                      <p className="text-ink-muted">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our regular vegan gravy.</p>
                       <p className="text-xs text-ink-muted">Vegan option served without Yorkshire pudding.</p>
                     </li>
                   </ul>
-                  <p className="mt-3 text-xs text-ink-muted">Vegetarian gravy available on request for every main course.</p>
+                  <p className="mt-3 text-xs text-ink-muted">Regular vegan gravy available on request for every main course.</p>
                 </div>
                 <div className="rounded-2xl border border-line bg-surface-sunk p-5 space-y-3">
                   <h3 className="text-lg font-semibold text-ink-strong">Dessert</h3>
@@ -778,7 +778,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-surface-sunk px-4 py-2 text-sm font-semibold text-accent-text">
-                <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy.
+                <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy, with our regular vegan gravy on the vegan Wellington.
               </div>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
