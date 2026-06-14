@@ -140,6 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/valentines-day', lastModified: DATES.seoOverhaul },
     { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
     { path: '/easter', lastModified: DATES.seoOverhaul },
+    { path: '/easter-sunday', lastModified: RECENTLY_UPDATED },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
     { path: '/halloween', lastModified: DATES.seoOverhaul },
     // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends

@@ -163,6 +163,121 @@ export function getSeasonalObjectPosition(season: SeasonalImage['season']): stri
   return `${focal.x}% ${focal.yMobile}%`
 }
 
+/* -------------------------------------------------------------------------- */
+/* A11 dynamic-field system (seasonal occasion pages)                         */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A11 dynamic fields for a seasonal occasion page.
+ *
+ * Every field is optional. The seasonal page templates render a complete,
+ * evergreen page when ALL of these are unset, the dynamic block simply does
+ * not appear. Set one or more for an annual update (e.g. confirm this year's
+ * Halloween theme, the NYE DJ, or a one-off special menu) without a code change
+ * to the page body.
+ *
+ * NEVER invent values for these. Only populate a field when the detail is
+ * confirmed by the owner or returned by the management API. An empty string is
+ * treated the same as unset, so a blank value is always safe.
+ */
+export interface SeasonalDynamicFields {
+  /** Human-readable occasion date, e.g. "Sunday 4 April 2027". */
+  occasionDate?: string
+  /** Food service window, e.g. "1pm to 6pm". */
+  foodServiceTimes?: string
+  /** Event start time, e.g. "8pm". */
+  eventStartTime?: string
+  /** Event end time, e.g. "1am". */
+  eventEndTime?: string
+  /** Booking status note, e.g. "Booking recommended" or "Now taking bookings". */
+  bookingStatus?: string
+  /** Ticket status note, e.g. "Free entry" or "Tickets on sale". */
+  ticketStatus?: string
+  /** Annual theme (Halloween fancy-dress theme changes yearly). */
+  annualTheme?: string
+  /** Performer, DJ or entertainment name. */
+  performer?: string
+  /** Special menu note (link to /food-menu in copy, never a hardcoded price). */
+  specialMenu?: string
+  /** Special offer note. */
+  specialOffer?: string
+  /** Pricing note. NEVER a hardcoded food/drink price, use "live on our menu". */
+  pricing?: string
+  /** Override the call-to-action label. */
+  ctaLabel?: string
+  /** Override the call-to-action destination (path or absolute URL). */
+  ctaDestination?: string
+}
+
+/** A single resolved dynamic detail, ready to render as a labelled row. */
+export interface SeasonalDetailRow {
+  label: string
+  value: string
+}
+
+/**
+ * Resolved A11 fields. `details` is the ordered list of labelled rows that have
+ * a confirmed value; `hasDetails` is a convenience flag for templates so they
+ * can decide whether to render the dynamic block at all. CTA overrides are
+ * surfaced separately because they change a button rather than add a row.
+ */
+export interface ResolvedSeasonalFields {
+  details: SeasonalDetailRow[]
+  hasDetails: boolean
+  ctaLabel?: string
+  ctaDestination?: string
+}
+
+function cleanField(value?: string): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  return trimmed.length > 0 ? trimmed : undefined
+}
+
+/**
+ * Normalises raw A11 fields into an ordered, render-ready structure.
+ *
+ * Blank / whitespace-only / undefined values are dropped, so a page given an
+ * empty object (or no object) resolves to `{ details: [], hasDetails: false }`
+ * and renders its evergreen base only. The field order here is the display
+ * order in the dynamic block.
+ */
+export function resolveSeasonalFields(fields: SeasonalDynamicFields = {}): ResolvedSeasonalFields {
+  const orderedRows: Array<[string, string | undefined]> = [
+    ['Date', cleanField(fields.occasionDate)],
+    ['Annual theme', cleanField(fields.annualTheme)],
+    ['Entertainment', cleanField(fields.performer)],
+    ['Event time', resolveEventTimeRange(fields)],
+    ['Food service', cleanField(fields.foodServiceTimes)],
+    ['Special menu', cleanField(fields.specialMenu)],
+    ['Special offer', cleanField(fields.specialOffer)],
+    ['Pricing', cleanField(fields.pricing)],
+    ['Booking', cleanField(fields.bookingStatus)],
+    ['Tickets', cleanField(fields.ticketStatus)]
+  ]
+
+  const details: SeasonalDetailRow[] = orderedRows
+    .filter((row): row is [string, string] => Boolean(row[1]))
+    .map(([label, value]) => ({ label, value }))
+
+  return {
+    details,
+    hasDetails: details.length > 0,
+    ctaLabel: cleanField(fields.ctaLabel),
+    ctaDestination: cleanField(fields.ctaDestination)
+  }
+}
+
+/** Combines start/end times into a single "8pm to 1am" / "from 8pm" string. */
+function resolveEventTimeRange(fields: SeasonalDynamicFields): string | undefined {
+  const start = cleanField(fields.eventStartTime)
+  const end = cleanField(fields.eventEndTime)
+  if (start && end) return `${start} to ${end}`
+  if (start) return `From ${start}`
+  if (end) return `Until ${end}`
+  return undefined
+}
+
 /**
  * Server-side only: Validates if seasonal image exists
  * Use this in development to verify all seasonal images are present

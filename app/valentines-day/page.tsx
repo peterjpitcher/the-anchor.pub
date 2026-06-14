@@ -7,17 +7,27 @@ import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { anchorAPI, formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import { DEFAULT_EVENT_IMAGE, DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
+import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 export const dynamic = 'force-dynamic'
 
 const VALENTINES_DAY_BOOKING_URL =
   '/book-table?purpose=food'
+
+// A11 dynamic fields. Valentine's & Galentine's specials are driven primarily
+// by the management API (this page reads live events). Use this manual block
+// only for owner-confirmed extras the API does not carry, and it stays empty by
+// default so the page reads completely with nothing set. Never invent a set
+// menu, prosecco offer, performer or theme, the brief is explicit that those
+// must be API-confirmed.
+const VALENTINES_DYNAMIC: SeasonalDynamicFields = {}
 
 type ValentinesEventResult = {
   targetYear: number
@@ -149,23 +159,23 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = event?.metaTitle
     ? event.metaTitle
     : event?.name
-    ? `${event.name} | Valentine's Day at The Anchor`
-    : "Valentine's Day Dinner Near Heathrow | The Anchor Stanwell Moor"
+    ? `${event.name} | Valentine's & Galentine's at The Anchor`
+    : "Valentine's & Galentine's Near Heathrow | The Anchor Stanwell Moor"
 
   const description = event?.metaDescription
     ? event.metaDescription
     : event
     ? [
-        `Celebrate Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19).`,
-        performerName ? `Live music from ${performerName}.` : 'Great food and a warm welcome.',
+        `Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19).`,
+        performerName ? `Live music from ${performerName}.` : 'Good food, proper drinks and a warm welcome.',
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
-    : `Celebrate Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19). Romantic dining, great atmosphere, and online table bookings for ${eventDateLabel}.`
+    : `Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19). A relaxed night out for couples, friends and small groups, with good food and proper drinks. Book online for ${eventDateLabel}.`
 
   const keywords = event?.keywords
     ? event.keywords
-    : 'valentines day stanwell moor, valentines near heathrow, romantic dinner TW19, valentines pub near heathrow'
+    : "valentine's day pub near heathrow, galentine's night near heathrow, valentine's dinner stanwell moor, galentine's drinks stanwell moor, relaxed date night pub near heathrow"
 
   const socialImages = [
     DEFAULT_PAGE_HEADER_IMAGE,
@@ -237,9 +247,14 @@ export default async function ValentinesDayPage() {
           answer: `${event.name} is on ${eventDate}. The event starts at around ${eventTime}.`
         },
         {
+          question: 'Can I come for Galentine’s with friends?',
+          answer:
+            'Absolutely. Valentine’s and Galentine’s are both welcome here, and so are couples, friends and small groups. There’s no couples-only rule, just book a table for your group and enjoy the night.'
+        },
+        {
           question: 'Is it free entry?',
           answer: isFreeEntry
-            ? 'Yes, entry is free (no tickets needed). We recommend booking a table for dinner to guarantee your spot.'
+            ? 'Yes, entry is free (no tickets needed). We recommend booking a table to guarantee your spot.'
             : 'Please use the booking link on this page for the latest entry and booking details.'
         },
         {
@@ -267,7 +282,12 @@ export default async function ValentinesDayPage() {
     : [
         {
           question: "When is Valentine's Day at The Anchor?",
-          answer: `Valentine's Day is 14 February ${targetYear}. We'll publish this year's details here as soon as they're confirmed.`
+          answer: `Valentine's Day is 14 February ${targetYear}, and Galentine's lands around the same time. We'll publish this year's details here as soon as they're confirmed.`
+        },
+        {
+          question: 'Can I come for Galentine’s with friends?',
+          answer:
+            'Yes. Valentine’s and Galentine’s are both welcome, and so are couples, friends and small groups. There’s no couples-only rule, just book a table for your group.'
         },
         {
           question: 'How do I book?',
@@ -283,10 +303,10 @@ export default async function ValentinesDayPage() {
 
             <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
-        crumb="Valentine's Day"
+        crumb="Valentine's & Galentine's"
         kicker={eventDate}
-        title="Valentine's Day Dinner at The Anchor"
-        lead={`${event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : 'Great food and a warm welcome. '}Free parking • Seven minutes from Heathrow Terminal 5`}
+        title="Valentine's and Galentine's at The Anchor"
+        lead={`${event?.description || "Good food, proper drinks and a relaxed night out with the people you love spending time with. Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : ''}Free parking • Seven minutes from Heathrow Terminal 5`}
       />
 
       <section className="py-section-y bg-surface">
@@ -331,21 +351,36 @@ export default async function ValentinesDayPage() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-h3 text-ink-strong">
-                  Valentine's Day dinner near Heathrow
+                  Valentine's and Galentine's near Heathrow
                 </h2>
                 <p className="mt-4 text-ink-muted text-lg leading-relaxed">
-                  Celebrate Valentine's Day in Stanwell Moor at The Anchor, a cosy village pub with free parking,
-                  seven minutes from{' '}
+                  Spend Valentine's or Galentine's at The Anchor in Stanwell Moor, a relaxed village pub with free
+                  parking, seven minutes from{' '}
                   <Link href="/near-heathrow/terminal-5" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                     Heathrow Terminal 5
                   </Link>
-                  .
+                  . Couples, friends and small groups all welcome, this is a good food, proper drinks kind of night,
+                  not a stuffy romantic restaurant.
+                </p>
+                <p className="mt-3 text-ink-muted leading-relaxed">
+                  Galentine's is just as much a part of it as Valentine's. Round up your favourite people, book a
+                  table, and settle in for an easy evening with no fuss and no pressure.
                 </p>
                 <p className="mt-3 text-ink-muted leading-relaxed">
                   {event
-                    ? `This year's Valentine's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free, book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
-                    : "We'll publish this year's Valentine's details here as soon as they're confirmed. In the meantime, you can still book a regular table below."}
+                    ? `This year's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free, book your table and enjoy the night.' : 'Book early to secure your place.'}`
+                    : "We'll publish this year's Valentine's and Galentine's details here as soon as they're confirmed. In the meantime, you can still book a table below."}
                 </p>
+
+                {!event && (
+                  <div className="mt-6">
+                    <SeasonalDynamicDetails
+                      fields={VALENTINES_DYNAMIC}
+                      heading="This year's Valentine's & Galentine's"
+                      intro="What we can confirm so far for this year at The Anchor."
+                    />
+                  </div>
+                )}
 
                 {event?.about && (
                   <Card accent className="mt-6">
@@ -446,9 +481,10 @@ export default async function ValentinesDayPage() {
               ) : (
                 <Card accent>
                   <CardBody>
-                    <p className="font-semibold text-ink-strong">We're updating our Valentine's listings.</p>
+                    <p className="font-semibold text-ink-strong">We're updating our Valentine's and Galentine's listings.</p>
                     <p className="mt-2 text-sm text-ink-muted">
-                      In the meantime, book online via our table booking page or call us to reserve your table.
+                      In the meantime, book online via our table booking page or call us to reserve your table, for two
+                      or for the whole group.
                     </p>
                   </CardBody>
                 </Card>
@@ -492,8 +528,8 @@ export default async function ValentinesDayPage() {
       </section>
 
       <CtaBand
-        title="Book your Valentine's table"
-        copy="We take online bookings on our table booking page. Choose your date, time, and party size, and book early to get your preferred slot."
+        title="Book your Valentine's or Galentine's table"
+        copy="We take online bookings on our table booking page. Choose your date, time and party size, whether it's a table for two or the whole group, and book early to get your preferred slot."
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={VALENTINES_DAY_BOOKING_URL}>Book a Table Online</a>
@@ -519,8 +555,8 @@ export default async function ValentinesDayPage() {
                 <h2 className="text-h3 text-ink-strong">Where we are</h2>
                 <p className="text-ink-muted leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy to reach
-                  from Staines-upon-Thames, Ashford and Windsor. If you're searching for a Valentine's Day restaurant
-                  near Heathrow, this is the easy, stress-free option with free parking.
+                  from Staines-upon-Thames, Ashford and Windsor. If you're after a relaxed Valentine's or Galentine's
+                  night out near Heathrow, this is the easy, stress-free option with free parking.
                 </p>
                 <p className="text-ink-muted">
                   Address: <span className="font-semibold text-ink-strong">{addressLine}</span>

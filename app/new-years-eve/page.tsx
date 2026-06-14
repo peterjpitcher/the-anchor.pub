@@ -4,18 +4,29 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
-import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 const NYE_BOOKING_URL = '/book-table?purpose=drinks'
 
-const PAGE_TITLE = "New Year's Eve Near Heathrow | The Anchor"
+// A11 dynamic fields. New Year's Eve is a CONFIRMED recurring event (DJ,
+// midnight countdown, open until 1am, brief §6), so those facts live in the
+// evergreen body below. Use this block only to confirm a given year's extras
+// (this year's date, DJ name, ticket status, special menu). Empty by design,
+// the page reads completely with nothing set. Never invent details.
+const NYE_DYNAMIC: SeasonalDynamicFields = {
+  eventEndTime: '1am'
+}
+
+const PAGE_TITLE = "New Year's Eve Party Near Heathrow | DJ & Open Until 1am | The Anchor"
 const PAGE_DESCRIPTION =
-  "See in the New Year at The Anchor near Heathrow. A proper village pub with a full bar, food earlier in the evening and free parking. Book a table or walk in."
+  "See in the new year at The Anchor near Heathrow. A proper local New Year's Eve party with a DJ, a midnight countdown and late opening until 1am. Full bar, free parking. Book a table or walk in."
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -42,27 +53,32 @@ export default function NewYearsEvePage(): React.JSX.Element {
     {
       question: "What's happening at The Anchor on New Year's Eve?",
       answer:
-        "We're open for New Year's Eve with the full bar and a warm welcome. For confirmed timings and anything we have planned, check our What's On page closer to the date.",
+        "It's a proper local New Year's Eve party. We have a DJ on, a midnight countdown to see in the new year, and we stay open until 1am. The full bar is on all evening. For this year's confirmed timings and any extras, check our What's On page closer to the date.",
+    },
+    {
+      question: 'Is there a DJ?',
+      answer:
+        "Yes. A DJ plays through the evening to keep the party going right up to the midnight countdown and beyond. We confirm the line-up for each year on our What's On page closer to the date.",
     },
     {
       question: 'Is there a ticket or entry fee?',
       answer:
-        "We'll confirm any details for this year's evening on our What's On page closer to the date. Booking a table is recommended to guarantee your spot.",
+        "We confirm whether a given year's evening is ticketed or free entry on our What's On page closer to the date. Either way, booking a table is recommended to guarantee your spot.",
     },
     {
-      question: 'What time does the pub close on New Year&apos;s Eve?',
+      question: "What time does the pub close on New Year's Eve?",
       answer:
-        "Closing time on New Year's Eve will be confirmed closer to the date. Check our What's On page or call us for the latest.",
+        "We stay open until 1am on New Year's Eve, so there's plenty of time to celebrate after the midnight countdown.",
     },
     {
       question: "Is food available on New Year's Eve?",
       answer:
-        "We usually serve food earlier in the evening. Check our What's On page or call us closer to the date for confirmed kitchen times.",
+        "We usually serve food earlier in the evening. Confirmed kitchen times for each year go on our What's On page, or give us a call closer to the date.",
     },
     {
       question: 'Is there parking?',
       answer:
-        'Yes. We have 20 free parking spaces on site, ideal for designated drivers. If you are drinking, taxis are easy to arrange for the short trip back to local hotels or home.',
+        `Yes. We have ${PARKING.capacity} free parking spaces on site, ideal for designated drivers. If you are drinking, taxis are easy to arrange for the short trip back to local hotels or home.`,
     },
   ]
 
@@ -74,7 +90,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
         crumb="New Year's Eve"
         kicker="31 December"
         title="New Year's Eve at The Anchor, Stanwell Moor"
-        lead="See in the New Year at a proper village pub, without the London prices or the transport chaos. Full bar, food earlier in the evening, and free parking right outside. Book a table or walk in."
+        lead="See in the new year with a proper local party, a DJ and late opening until 1am, without the London prices or the transport chaos. Full bar all evening, a midnight countdown, and free parking right outside. Book a table or walk in."
       />
 
       {/* See in the New Year */}
@@ -82,24 +98,35 @@ export default function NewYearsEvePage(): React.JSX.Element {
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
             <h2 className="text-h3 text-ink-strong">
-              See in the New Year
+              See in the new year with a proper local party
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               Forget the overpriced city centre bars and the nightmare of getting home afterwards. New Year&apos;s Eve
-              at The Anchor is a proper village pub welcome, where you can actually get served at the bar and
-              settle in with people who want to be there.
+              at The Anchor is a proper local party, with a DJ keeping things going, a midnight countdown to see in the
+              new year together, and late opening until 1am. You can actually get served at the bar and settle in with
+              people who want to be there.
             </p>
             <p className="text-ink-muted leading-relaxed">
               It&apos;s lively enough to feel like a real night out, small enough that you&apos;re not queuing for
-              everything. For anything we have planned this year, keep an eye on our What&apos;s On page closer
-              to the date.
+              everything. For this year&apos;s confirmed timings and any extras, keep an eye on our{' '}
+              <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                What&apos;s On page
+              </Link>{' '}
+              closer to the date.
             </p>
             <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="green">DJ on the night</Badge>
+              <Badge variant="green">Midnight countdown</Badge>
+              <Badge variant="green">Open until 1am</Badge>
               <Badge variant="green">Full bar</Badge>
-              <Badge variant="green">Free parking</Badge>
-              <Badge variant="green">Village pub atmosphere</Badge>
-              <Badge variant="green">Dog friendly (early evening)</Badge>
+              <Badge variant="success">Free parking</Badge>
             </div>
+
+            <SeasonalDynamicDetails
+              fields={NYE_DYNAMIC}
+              heading="This year's New Year's Eve"
+              intro="What we can confirm for this year's New Year's Eve at The Anchor."
+            />
           </div>
         </Container>
       </section>
@@ -215,9 +242,10 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Practical details
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              Opening and closing times for New Year&apos;s Eve are confirmed closer to the date, so check
-              our What&apos;s On page or call us for the latest. Walk-ins are welcome, but booking is strongly
-              recommended, it gets busy, and a reserved table means you&apos;re guaranteed your spot.
+              We stay open until 1am on New Year&apos;s Eve, with a DJ and a midnight countdown. Opening time and
+              confirmed kitchen hours for each year go on our What&apos;s On page, so check there or call us for the
+              latest. Walk-ins are welcome, but booking is strongly recommended, it gets busy, and a reserved table
+              means you&apos;re guaranteed your spot.
             </p>
             <Card accent>
               <CardBody>
@@ -227,7 +255,11 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Opening hours confirmed closer to the date</span>
+                    <span>DJ and a midnight countdown</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-accent-text">&bull;</span>
+                    <span>Open until 1am</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
@@ -239,7 +271,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>20 free parking spaces on site</span>
+                    <span>{PARKING.capacity} free parking spaces on site</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>

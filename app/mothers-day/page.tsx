@@ -7,6 +7,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -20,8 +21,16 @@ import {
 } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
+
+// A11 dynamic fields. Mother's Day is an evergreen Sunday-roast page; the body
+// reads completely with nothing set. Use this only to surface an owner-confirmed
+// extra for a given year (a special menu, a one-off offer). Empty by default.
+// Never invent a "Mum gets..." offer, free fizz, gift or set menu, the brief
+// rules those out unless confirmed.
+const MOTHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 
 // Mother's Day 2026 (15 March) is past at time of authoring. The page persists
 // for rolling SEO and Mother's Day 2027 (Sunday 14 March 2027). Copy describes
@@ -439,6 +448,12 @@ export default function MothersDayPage() {
                 </CardBody>
               </Card>
 
+              <SeasonalDynamicDetails
+                fields={MOTHERS_DAY_DYNAMIC}
+                heading="This year's Mother's Day"
+                intro="The latest confirmed details for this year's Mother's Day at The Anchor."
+              />
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card>
                   <CardBody className="space-y-2">
@@ -510,7 +525,7 @@ export default function MothersDayPage() {
             variant="outline"
             size="lg"
           >
-            Call {CONTACT.phone}
+            Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>
         }
       />

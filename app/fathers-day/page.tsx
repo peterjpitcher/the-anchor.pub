@@ -6,12 +6,14 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 // Father's Day 2026 (Sunday 21 June 2026) is the next live seasonal event after
 // the 17 May walk-in launch, the page ships in the post-launch walk-in state
@@ -26,6 +28,12 @@ const FATHERS_DAY_LAST_BOOKING = '5:30pm'
 const FATHERS_DAY_BOOKING_URL = '/book-table'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
+
+// A11 dynamic fields. Father's Day is an evergreen Sunday-roast page; the body
+// reads completely with nothing set. Use this only for an owner-confirmed extra
+// for a given year. Empty by default. Never invent a free pint, dad discount,
+// steak special or ticketed event, the brief rules those out unless confirmed.
+const FATHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 
 export const metadata: Metadata = {
   title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
@@ -208,6 +216,12 @@ export default function FathersDayPage() {
                 </p>
               </CardBody>
             </Card>
+
+            <SeasonalDynamicDetails
+              fields={FATHERS_DAY_DYNAMIC}
+              heading="This year's Father's Day"
+              intro="The latest confirmed details for this year's Father's Day at The Anchor."
+            />
           </div>
         </Container>
       </section>
@@ -334,7 +348,7 @@ export default function FathersDayPage() {
             variant="outline"
             size="lg"
           >
-            Call {CONTACT.phone}
+            Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>
         }
       />

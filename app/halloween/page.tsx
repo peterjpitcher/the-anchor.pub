@@ -4,58 +4,73 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
-import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 const HALLOWEEN_BOOKING_URL = '/book-table?purpose=food'
 
 const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county}, ${CONTACT.address.postcode}`
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
+// A11 dynamic fields. Halloween is a CONFIRMED recurring fancy-dress disco
+// (brief §5), but the THEME changes every year. Confirm this year's theme,
+// DJ/entertainment, start time, ticket status and any special menu here, the
+// evergreen body stands on its own with nothing set. Never invent a theme,
+// music act, costume competition or special menu, leave each out until
+// confirmed for the year.
+const HALLOWEEN_DYNAMIC: SeasonalDynamicFields = {}
+
 export const metadata: Metadata = {
-  title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
+  title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor Stanwell Moor',
   description:
-    'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
-  alternates: { canonical: '/halloween' },
+    'Halloween at The Anchor near Heathrow: a fancy-dress disco with a different theme every year. A proper local Halloween night with music, drinks and a full bar. Free parking. Check this year’s details, book a table or walk in.',
+  alternates: { canonical: './' },
   openGraph: {
-    title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
+    title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor',
     description:
-      'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
+      'A fancy-dress Halloween disco at The Anchor near Heathrow, with a different theme every year. Music, drinks and a proper local Halloween night. Free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Halloween Near Heathrow | The Anchor, Stanwell Moor',
+    title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor',
     description:
-      'Spend Halloween at The Anchor near Heathrow on Saturday 31 October 2026. Food menu, full bar, beer garden, free parking and dog-friendly. Book a table or walk in.',
+      'A fancy-dress Halloween disco at The Anchor near Heathrow, with a different theme every year. Music, drinks and a proper local Halloween night. Free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
 }
 
 const faqs = [
   {
-    question: 'Is there a dress code for Halloween?',
+    question: 'Is there a Halloween party at The Anchor?',
     answer:
-      'No, there is no dress code. Come as you are and enjoy the evening.',
+      'Yes. Halloween at The Anchor is a fancy-dress disco, a proper local Halloween night with music and drinks. The theme changes every year, so check this year\u2019s details on our What\u2019s On page or give us a call.',
   },
   {
-    question: 'Is The Anchor family-friendly on Halloween?',
+    question: 'Do I have to wear fancy dress?',
     answer:
-      'Earlier in the evening (before 8pm) is great for families. Children are very welcome, and the beer garden gives little ones plenty of space. Later in the evening the crowd is more grown-up.',
+      'Fancy dress is the heart of the night and very much encouraged, but it is not compulsory. Come dressed up for the full experience, or come as you are and enjoy the disco either way.',
+  },
+  {
+    question: 'What is this year\u2019s Halloween theme?',
+    answer:
+      'The fancy-dress theme changes every year. We confirm each year\u2019s theme on our What\u2019s On page closer to the date, so check there or call us for the latest.',
   },
   {
     question: 'Do you serve food on Halloween?',
     answer:
-      'Yes, our regular food menu is available earlier in the evening. Halloween falls on a Saturday in 2026, so the kitchen is open 1pm\u20137pm. Book a table if you\u2019d like to eat.',
+      'Yes, our regular food menu is available earlier in the evening before the disco gets going. Confirmed kitchen times for the night go on our What\u2019s On page. Book a table if you\u2019d like to eat.',
   },
   {
     question: 'Is there parking?',
     answer:
-      `Free on-site parking is available for guests. We\u2019re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. You\u2019ll find us at ${addressLine}.`,
+      `Free on-site parking is available for guests, with ${PARKING.capacity} spaces. We\u2019re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. You\u2019ll find us at ${addressLine}.`,
   },
 ]
 
@@ -66,58 +81,78 @@ export default function HalloweenPage() {
             <InteriorHero
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="Halloween"
-        kicker="Saturday 31 October 2026"
+        kicker="31 October"
         title="Halloween at The Anchor"
-        lead="Spend Halloween at The Anchor in Stanwell Moor on Saturday 31 October. Our full food menu and bar are on, the beer garden sits right under the Heathrow flight path, and parking is free. Book a table or walk in."
+        lead="Fancy dress, music, drinks and a proper local Halloween night. Our annual Halloween fancy-dress disco at The Anchor in Stanwell Moor has a different theme every year, with food earlier in the evening, a full bar and free parking. Check this year's details, book a table or walk in."
       />
 
       <section className="py-section-y bg-surface">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-12">
-            {/* Halloween at The Anchor */}
+            {/* The fancy-dress disco */}
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">
-                Halloween at The Anchor
+                A proper local Halloween night
               </h2>
               <p className="text-ink-muted text-lg leading-relaxed">
-                Halloween falls on a Saturday in 2026, so come and spend it with us in Stanwell Moor.
-                The full food menu and bar are on, and you are welcome to drop in for a drink or settle
-                in for dinner.
+                Halloween at The Anchor is a fancy-dress disco, our take on a proper local Halloween night.
+                Think music, a dressed-up crowd and a buzzing bar, the kind of cheeky, lively evening you
+                get at a real village pub rather than a stiff club night. Pull a costume together, round up
+                your friends, and come and join in.
               </p>
               <p className="text-ink-muted leading-relaxed">
-                There&apos;s something about the beer garden here that&apos;s hard to beat. Stanwell
-                Moor sits right under the Heathrow flight path, so you get planes lit up overhead, the
-                autumn air, and a drink in hand. It adds to the atmosphere in a way you wouldn&apos;t expect.
-              </p>
-            </div>
-
-            {/* Food & Drink */}
-            <div className="space-y-4">
-              <h2 className="text-h3 text-ink-strong">
-                Food &amp; Drink
-              </h2>
-              <p className="text-ink-muted leading-relaxed">
-                Our regular food menu is available earlier in the evening (the kitchen is open
-                1pm&ndash;7pm on Saturdays), so you can come for dinner before settling in for the night.
+                The fancy-dress theme changes every year, so it never feels like the same night twice. We
+                confirm each year&apos;s theme and timings on our{' '}
+                <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                  What&apos;s On page
+                </Link>
+                , so check there for this year&apos;s details before you plan your costume.
               </p>
               <div className="flex flex-wrap items-center gap-3">
+                <Badge variant="green">Fancy-dress disco</Badge>
+                <Badge variant="green">Different theme every year</Badge>
                 <Badge variant="green">Full bar</Badge>
-                <Badge variant="green">Food menu (until 7pm)</Badge>
-                <Badge variant="green">Free parking</Badge>
+                <Badge variant="success">Free parking</Badge>
                 <Badge variant="green">Dog friendly</Badge>
               </div>
             </div>
 
-            {/* Families Welcome */}
+            {/* This year's theme (A11 dynamic block) */}
+            <SeasonalDynamicDetails
+              fields={HALLOWEEN_DYNAMIC}
+              heading="This year's Halloween"
+              intro="The fancy-dress theme changes every year. Here's what's confirmed for this year's Halloween disco at The Anchor."
+            />
+
+            {/* Food & Drink */}
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">
-                Families Welcome
+                Food &amp; drink
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                Earlier in the evening, before about 8pm, The Anchor is a great
-                spot for families. Children are very welcome, and the beer garden gives little ones
-                plenty of space. Later in the evening the crowd is more grown-up, so if you&apos;re bringing
-                little ones, the earlier the better.
+                Our regular food menu is available earlier in the evening, so you can come for dinner before the
+                disco gets going. Confirmed kitchen times for the night go on our What&apos;s On page. Take a look at
+                our{' '}
+                <Link href="/food-menu" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                  food menu
+                </Link>{' '}
+                and{' '}
+                <Link href="/drinks" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                  drinks menu
+                </Link>{' '}
+                to plan ahead.
+              </p>
+            </div>
+
+            {/* Families welcome */}
+            <div className="space-y-4">
+              <h2 className="text-h3 text-ink-strong">
+                Families welcome
+              </h2>
+              <p className="text-ink-muted leading-relaxed">
+                The Anchor is a family-friendly pub, and children are very welcome, with the beer garden giving
+                little ones plenty of space. If you&apos;re bringing the family along, give us a call and we&apos;ll talk
+                you through what works best for this year&apos;s night.
               </p>
             </div>
 
@@ -126,8 +161,8 @@ export default function HalloweenPage() {
               <CardBody className="space-y-4">
                 <h2 className="text-h4 text-ink-strong">Booking</h2>
                 <p className="text-ink-muted leading-relaxed">
-                  Walk-ins are welcome for drinks all evening. If you&apos;d like to eat, we recommend booking
-                  a table, the kitchen is open 1pm&ndash;7pm on Saturdays.
+                  Walk-ins are welcome for drinks all evening. If you&apos;d like to eat before the disco, we recommend
+                  booking a table. Check this year&apos;s confirmed timings on our What&apos;s On page.
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
@@ -153,8 +188,8 @@ export default function HalloweenPage() {
       </section>
 
       <CtaBand
-        title="Join us on Halloween"
-        copy="Saturday 31 October 2026. Food, a full bar and a warm welcome at The Anchor in Stanwell Moor. Book a table or walk in."
+        title="Check this year's Halloween details"
+        copy="Our fancy-dress Halloween disco at The Anchor in Stanwell Moor, with a different theme every year. Check this year's theme and timings on What's On, then book a table or walk in."
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={HALLOWEEN_BOOKING_URL}>Book a Table</a>
@@ -167,7 +202,7 @@ export default function HalloweenPage() {
             variant="outline"
             size="lg"
           >
-            Call {CONTACT.phone}
+            Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>
         }
       />
@@ -182,7 +217,7 @@ export default function HalloweenPage() {
                 </h2>
                 <p className="text-ink-muted leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), about {HEATHROW_TIMES.terminal5} minutes
-                  from Heathrow Terminal 5, with free on-site parking.
+                  from Heathrow Terminal 5, with {PARKING.capacity} free on-site parking spaces.
                 </p>
                 <p className="text-ink-muted">
                   Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
