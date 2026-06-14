@@ -466,7 +466,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Full Bar Service</h3>
-                  <p className="text-ink-muted">9 draught beers, premium spirits, wines, and cocktails. A pint costs what a pint should cost!</p>
+                  <p className="text-ink-muted">A good range of draught lagers and beers, premium spirits, wines and cocktails. A pint costs what a pint should cost!</p>
                 </CardBody>
               </Card>
             </div>

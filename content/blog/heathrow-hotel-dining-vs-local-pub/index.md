@@ -28,11 +28,11 @@ You've checked in to your Heathrow hotel, you're tired, and the path of least re
 
 Let's start with the numbers that matter most.
 
-### Typical Heathrow Hotel Restaurant Prices (2026)
+### Typical Heathrow Hotel Restaurant Prices (2026, approx)
 
-These are representative main course prices from mid-to-upscale Heathrow hotels. Budget hotels (ibis, Travelodge) often use third-party restaurant brands with similar pricing.
+These are representative, approximate main course prices from mid-to-upscale Heathrow hotels. Budget hotels (ibis, Travelodge) often use third-party restaurant brands with similar pricing.
 
-| Dish | Typical Hotel Price |
+| Dish | Typical Hotel Price (approx) |
 |------|-------------------|
 | Burger and chips | £22–28 |
 | Fish & chips | £24–30 |
@@ -41,22 +41,15 @@ These are representative main course prices from mid-to-upscale Heathrow hotels.
 | Glass of wine | £9–14 |
 | Pint of beer | £7–10 |
 
-A typical two-course dinner with a drink comes to £50–70 per person.
+A typical two-course dinner with a drink comes to roughly £50–70 per person.
 
-### The Anchor Prices (7–15 Minutes from Heathrow Hotels)
+### What You'll Pay at The Anchor (7–15 Minutes from Heathrow Hotels)
 
-| Dish | Price at The Anchor |
-|------|-------------------|
-| Burger and chips | £13.99 |
-| Fish & chips | £13.99 |
-| Sunday Roast (weekends) | from £16 |
-| Stone-baked pizza | from £13.99 |
-| Bottled ale (500ml bottle) | from £4.80 |
-| House wine (glass) | from £5.50 |
+Our pub prices sit well below those hotel figures, and they're a fraction of the cost for the same kind of dish. Rather than quote numbers that drift over time, we keep everything current on our menu: pub classics like burgers, fish and chips and stone-baked pizzas, the weekend Sunday roast, and a full range of drinks.
 
-A typical two-course dinner with a drink: **£25–35 per person**.
+See exactly what you'll pay on [our live food menu](/food-menu).
 
-**The saving: approximately £25–40 per person.** For two people, that's £50–80 back in your pocket for a 10-minute taxi ride.
+**The bottom line:** eating at The Anchor typically works out far cheaper than a Heathrow hotel restaurant, comfortably tens of pounds per person on a two-course dinner with a drink. For two people, that's money back in your pocket for a 10-minute taxi ride.
 
 ## Atmosphere and Experience
 
@@ -103,7 +96,7 @@ What does the journey actually add?
 - Return: ~10 minutes, £12–18
 - Total extra time: 30–40 minutes travel + waiting
 
-In exchange for 30–40 minutes of travel time, you save £50–80 (if dining with one other person), get a genuinely better experience, and come back to your hotel room having actually done something, rather than eating a forgettable meal in a hotel dining room.
+In exchange for 30–40 minutes of travel time, you typically save a meaningful amount per couple, get a genuinely better experience, and come back to your hotel room having actually done something, rather than eating a forgettable meal in a hotel dining room.
 
 For most travellers, that's a worthwhile trade-off.
 

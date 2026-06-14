@@ -12,14 +12,14 @@
 **Title tag** (59 chars):
 > Office Christmas Party Near Heathrow | Corporate | The Anchor
 
-**Meta description** (157 chars):
-> Book your office or corporate Christmas party at The Anchor, Surrey. Free parking, 7 min from Heathrow T5. Three-course festive menu from £36.95pp. Enquire now.
+**Meta description** (155 chars):
+> Book your office or corporate Christmas party at The Anchor, Surrey. Free parking, 7 min from Heathrow T5. Three-course festive menu, easy admin. Enquire now.
 
 **OG title:**
 > Office & Corporate Christmas Party 2026 | Near Heathrow T5 | The Anchor Pub
 
 **OG description:**
-> The easy-to-reach corporate Christmas party venue near Heathrow. Festive menus from £36.95pp, free parking, VAT invoices, and a simple pre-order system. No spreadsheets required.
+> The easy-to-reach corporate Christmas party venue near Heathrow. A three-course festive menu, free parking, VAT invoices, and a simple pre-order system. No spreadsheets required.
 
 **Keywords hit:** office christmas party, corporate christmas party, festive menu, christmas party, Heathrow
 
@@ -33,7 +33,7 @@
 > **Office Christmas party** & **corporate Christmas party** venue near Heathrow
 
 **Description:**
-> You've been handed the job of organising the **works christmas do**. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course **festive menu** from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas.
+> You've been handed the job of organising the **works christmas do**. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. A generous three-course **festive menu**, with a proper pub atmosphere that actually feels like Christmas.
 
 **Badges:**
 - Free parking · ~20 spaces
@@ -90,14 +90,14 @@
 
 **Perk 2, Corporate Billing:**
 > **Invoices, Deposits & Bar Tabs**
-> A £10 per person deposit (non-refundable) secures your date. We can invoice the deposit separately, set up a pre-paid bar tab with your budget, and send a full VAT invoice after the event. Finance will thank you.
+> A per-person deposit (non-refundable) secures your date. We can invoice the deposit separately, set up a pre-paid bar tab with your budget, and send a full VAT invoice after the event. Finance will thank you.
 
 **Perk 3, The Organiser Perk:**
-> **£40 Voucher for Groups of 20+**
-> Book a **staff christmas party** for twenty or more guests and we'll send you a £40 voucher to spend at The Anchor in January. You organised the whole thing, you've earned a quiet meal on us.
+> **A Thank-You Voucher for Groups of 20+**
+> Book a **staff christmas party** for twenty or more guests and we'll send you a voucher to spend at The Anchor in January. You organised the whole thing, you've earned a quiet meal on us.
 
 **Early bird offer box:**
-> **20% off your food bill** when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course **festive menu**, the same crackers and candles, just a kinder number on the invoice.
+> **20% off your food bill** when booked by 1 October (parties of 6+). The same generous three-course **festive menu**, the same crackers and candles, just a kinder number on the invoice.
 
 ---
 
@@ -110,12 +110,12 @@
 
 **Package 1, Small Team Dinner (6–25):**
 > **Private dining room · Three-course festive menu**
-> Tue–Thu: £36.95 per person · Fri–Sat: £39.95 per person
+> Per-person pricing, with a small midweek-to-weekend difference
 > Cosy private dining with crackers, candles and direct table service. The room seats up to 25, perfect for a department **work christmas lunch** or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.
 
 **Package 2, Department Celebration (26–60):**
 > **Main bar configured for your group · Sit-down or buffet**
-> Sit-down from £36.95pp · Buffets from £10.95pp (26+ guests)
+> Sit-down or buffet options for 26+ guests
 > The main bar reshaped for your party with flexible layouts for sit-down dinners or buffet service. Add a quiz, Music Bingo or karaoke and turn your **works christmas do** into something people actually look forward to.
 
 **Package 3, Full Venue Hire (60–200):**
@@ -124,7 +124,7 @@
 > Private use of the bar, dining room and conservatory. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Up to 60 seated or 200 standing, ideal for airline crews, multi-site teams and larger **corporate christmas parties**.
 
 **Children's pricing:**
-> Under 12: 2 courses £12.95 · 3 courses £15.95
+> Under 12: two-course and three-course options available
 
 **CTA:**
 - Request your Christmas party booking
@@ -156,13 +156,13 @@
 **Heading:** Corporate Christmas Party FAQs
 
 **FAQ 1: How do we book an office Christmas party?**
-> Send us an enquiry with your group size, preferred date and whether you'd like lunch or dinner. We'll come back within one working day with availability and next steps. A £10 per person deposit (non-refundable) secures your **christmas party booking**, we can invoice this separately for your accounts team.
+> Send us an enquiry with your group size, preferred date and whether you'd like lunch or dinner. We'll come back within one working day with availability and next steps. A per-person deposit (non-refundable) secures your **christmas party booking**, we can invoice this separately for your accounts team.
 
 **FAQ 2: Can we book a work christmas lunch instead of an evening dinner?**
 > Absolutely. We serve the same **festive menu** at lunchtime and in the evening, so a **festive lunch** here is every bit as generous as the dinner service. Midweek **christmas lunch near me** searches lead straight to us, and for good reason. Lunchtime bookings are popular with office teams who want to celebrate during the day and still get home at a sensible hour.
 
 **FAQ 3: What's included in your christmas party packages?**
-> All **christmas party packages** include a three-course **festive menu** with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. There are no hidden hire fees, the per-person price covers everything except drinks.
+> All **christmas party packages** include a three-course **festive menu** with crackers and candlelit tables. Buffets are available for groups of 26 or more. There are no hidden hire fees, the per-person price covers everything except drinks. We'll confirm current per-person pricing with your enquiry.
 
 **FAQ 4: Do you provide VAT invoices and corporate billing?**
 > Yes. We provide full VAT invoices, can invoice deposits separately, and offer pre-paid bar tab management with live updates through the evening. Everything your finance team needs to process the **staff christmas party** without chasing receipts.
@@ -177,7 +177,7 @@
 > Festive playlists through our sound system are included. Beyond that, we can arrange quiz nights, Music Bingo, karaoke, live bands or DJs. A late bar until midnight is available for larger bookings. Tell us what kind of **works christmas do** your team would enjoy and we'll put it together.
 
 **FAQ 8: What's the early bird offer?**
-> Book by 1 October for parties of six or more and take 20% off your food bill. That brings midweek **office christmas party** pricing down to around £29.56 per person for a full three-course festive meal with all the trimmings. Not a bad number to put in front of your manager.
+> Book by 1 October for parties of six or more and take 20% off your food bill. That's a healthy saving on a full three-course festive meal with all the trimmings, a kinder number to put in front of your manager.
 
 ---
 
