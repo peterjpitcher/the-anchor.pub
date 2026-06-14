@@ -16,6 +16,8 @@ Project-specific guidance. The workspace CLAUDE.md at `/Users/peterpitcher/Curso
 
 `docs/SSOT.md` covers: identity & voice · contact & location · opening hours · Sunday roast · weekday food · drinks · booking & deposits · venue/parking/amenities · beer garden · events · private hire · ratings · areas served · banned claims.
 
+**SSOT structure:** `docs/SSOT.md` = rules/voice/narrative; `SSOT.json` = the structured data (imported at build time by code such as `components/HeroBadge.tsx` and `lib/menu-page-data.ts`); `docs/brand-strategy.md` = audience/competitor strategy (extracted from the SSOT, not brand facts). A drift-guard test (`tests/ssot-drift-guard.test.ts`) fails if `docs/SSOT.md` and `SSOT.json` contradict on key facts (phone, address, founding year, ratings, online party-size cap, Monday-kitchen-closed, banned claims) — run `npx jest tests/ssot-drift-guard.test.ts` after any SSOT change.
+
 ---
 
 ## Stack
