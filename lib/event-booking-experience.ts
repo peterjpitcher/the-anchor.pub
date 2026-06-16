@@ -84,7 +84,7 @@ function hasFreeSignal(event: EventBookingPaymentSource): boolean {
 
 function hasPaidOnlineSignal(event: EventBookingPaymentSource): boolean {
   const text = eventPaymentText(event)
-  return /prepaid|pre-pay|online|stripe|payment_link|ticket/.test(text)
+  return /prepaid|pre-pay|online|payment_link|ticket/.test(text)
 }
 
 export function getEventUnitPrice(event: EventBookingPaymentSource): number | null {

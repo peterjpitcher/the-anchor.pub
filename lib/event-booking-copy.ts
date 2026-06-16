@@ -28,7 +28,7 @@ function eventText(event: EventBookingCopySource): string {
 
 function hasPaidOnlineSignal(event: EventBookingCopySource): boolean {
   const text = eventText(event)
-  return /online|prepay|pre-pay|ticket|stripe|payment_link/.test(text)
+  return /online|prepay|pre-pay|ticket|payment_link/.test(text)
 }
 
 function hasFreeSignal(event: EventBookingCopySource): boolean {

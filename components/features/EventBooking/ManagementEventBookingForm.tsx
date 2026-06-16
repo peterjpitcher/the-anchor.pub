@@ -12,6 +12,7 @@ import { getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booki
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
+import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -183,6 +184,7 @@ export function ManagementEventBookingForm({
   foodPrompt = 'Food is available before most hosted events. Book early if your group wants to eat first.'
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [seats, setSeats] = useState(2)
@@ -193,6 +195,7 @@ export function ManagementEventBookingForm({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EventBookingResult | null>(null)
+  const [paymentConversionPayload, setPaymentConversionPayload] = useState<EventPaymentConversionPayload | null>(null)
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
@@ -201,6 +204,7 @@ export function ManagementEventBookingForm({
   const formLoadedAt = useRef(Date.now())
   const phoneEnteredTracked = useRef(false)
   const formViewedTracked = useRef(false)
+  const paymentCompleteTracked = useRef(false)
 
   const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
   const bookingReassurance = getEventBookingReassurance(event)
@@ -258,6 +262,8 @@ export function ManagementEventBookingForm({
     formEvent.preventDefault()
     setError(null)
     setResult(null)
+    setPaymentConversionPayload(null)
+    paymentCompleteTracked.current = false
     setSubmittedSeatingPreference(null)
     setWaitlistResult(null)
 
@@ -289,6 +295,13 @@ export function ManagementEventBookingForm({
 
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
+    const resolvedEmail = email.trim()
+
+    if (resolvedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resolvedEmail)) {
+      setLoading(false)
+      setError('Please enter a valid email address, or leave it blank.')
+      return
+    }
 
     trackEventBookingStart({
       eventId: event.id,
@@ -323,6 +336,7 @@ export function ManagementEventBookingForm({
         body: JSON.stringify({
           event_id: event.id,
           phone: phone.trim(),
+          ...(resolvedEmail ? { email: resolvedEmail } : {}),
           default_country_code: '44',
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
@@ -371,7 +385,23 @@ export function ManagementEventBookingForm({
       const bookingData = data as EventBookingResult
       setResult(bookingData)
 
+      if (bookingData.state === 'pending_payment' && bookingData.booking_id) {
+        setPaymentConversionPayload({
+          eventId: event.id,
+          eventSlug: event.slug ?? null,
+          eventName: event.name,
+          eventCategoryName: event.category?.name ?? null,
+          eventCategorySlug: event.category?.slug ?? null,
+          eventDate: event.startDate,
+          tickets: clampedSeats,
+          value: totalValue,
+          foodIntent,
+          attribution,
+        })
+      }
+
       if (bookingData.state === 'confirmed') {
+        setPaymentConversionPayload(null)
         trackEventBookingFunnelStep({
           step: 'confirmed',
           eventId: event.id,
@@ -397,6 +427,7 @@ export function ManagementEventBookingForm({
       }
 
       if (bookingData.state === 'blocked') {
+        setPaymentConversionPayload(null)
         trackEventBookingFunnelStep({
           step: 'blocked',
           eventId: event.id,
@@ -426,6 +457,55 @@ export function ManagementEventBookingForm({
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
+  }
+
+  function handleEventPaymentSuccess() {
+    if (!result?.booking_id || !paymentConversionPayload || paymentCompleteTracked.current) return
+    paymentCompleteTracked.current = true
+
+    trackEventBookingFunnelStep({
+      step: 'confirmed',
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      partySize: paymentConversionPayload.tickets,
+      foodIntent: paymentConversionPayload.foodIntent || undefined,
+      bookingId: result.booking_id,
+      source: 'event_booking_form'
+    })
+    trackEventBookingComplete({
+      eventId: event.id,
+      eventName: event.name,
+      eventSlug: event.slug,
+      eventCategoryName: event.category?.name ?? null,
+      eventCategorySlug: event.category?.slug ?? null,
+      eventDate: event.startDate,
+      tickets: paymentConversionPayload.tickets,
+      totalValue: paymentConversionPayload.value ?? undefined,
+      foodIntent: paymentConversionPayload.foodIntent || undefined,
+      bookingId: result.booking_id
+    })
+
+    setResult({
+      ...result,
+      state: 'confirmed',
+      next_step_url: null
+    })
+    setPaymentConversionPayload(null)
+  }
+
+  function handleEventPaymentManualReview() {
+    trackEventBookingFunnelStep({
+      step: 'blocked',
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      partySize: paymentConversionPayload?.tickets,
+      foodIntent: paymentConversionPayload?.foodIntent || undefined,
+      bookingId: result?.booking_id,
+      reason: 'manual_review_after_payment',
+      source: 'event_booking_form'
+    })
   }
 
   async function handleJoinWaitlist() {
@@ -604,6 +684,16 @@ export function ManagementEventBookingForm({
             helperText="For your confirmation text."
           />
 
+          <Input
+            label="Email address (optional)"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="jane@example.com"
+            autoComplete="email"
+            helperText="For payment follow-up if needed."
+          />
+
           <label className="flex cursor-pointer gap-2.5 rounded-sm border border-line bg-surface-sunk p-2.5">
             <input
               type="checkbox"
@@ -696,11 +786,22 @@ export function ManagementEventBookingForm({
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
             ) : null}
+            {result.booking_id && paymentConversionPayload ? (
+              <PayPalEventPaymentSection
+                bookingId={result.booking_id}
+                bookingSummary={`${event.name} · ${paymentConversionPayload.tickets} ${paymentConversionPayload.tickets === 1 ? 'ticket' : 'tickets'}`}
+                fallbackUrl={result.next_step_url}
+                conversionPayload={paymentConversionPayload}
+                onSuccess={handleEventPaymentSuccess}
+                onManualReview={handleEventPaymentManualReview}
+                onError={setError}
+              />
+            ) : null}
             {result.next_step_url ? (
               <div className="mt-3">
-                <Button asChild size="sm" variant="primary">
+                <Button asChild size="sm" variant={paymentConversionPayload ? 'outline' : 'primary'}>
                   <a href={result.next_step_url} target="_blank" rel="noopener noreferrer">
-                    Complete Payment
+                    Open Payment Link
                   </a>
                 </Button>
               </div>
