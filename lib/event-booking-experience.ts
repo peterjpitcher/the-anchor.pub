@@ -12,7 +12,10 @@ export type EventBookingPaymentSource = {
   booking_mode?: string | null
   payment_mode?: string | null
   price?: string | number | null
+  ticket_price?: string | number | null
   price_per_seat?: string | number | null
+  online_discount_type?: string | null
+  online_discount_value?: string | number | null
   offers?: OfferLike | null
   isAccessibleForFree?: boolean | null
   is_free?: boolean | null
@@ -53,6 +56,10 @@ function parseMoney(value: unknown): number | null {
   return null
 }
 
+function normalizeDiscountType(value: unknown): 'fixed' | 'percent' | null {
+  return value === 'fixed' || value === 'percent' ? value : null
+}
+
 function eventPaymentText(event: EventBookingPaymentSource): string {
   return [
     event.name,
@@ -67,9 +74,10 @@ function eventPaymentText(event: EventBookingPaymentSource): string {
 
 function hasFreeSignal(event: EventBookingPaymentSource): boolean {
   const offerPrice = parseMoney(event.offers?.price)
+  const ticketPrice = parseMoney(event.ticket_price)
   const directPrice = parseMoney(event.price)
   const seatPrice = parseMoney(event.price_per_seat)
-  const prices = [offerPrice, directPrice, seatPrice].filter((value): value is number => value !== null)
+  const prices = [offerPrice, ticketPrice, directPrice, seatPrice].filter((value): value is number => value !== null)
 
   if (prices.some((value) => value > 0)) {
     return false
@@ -78,6 +86,7 @@ function hasFreeSignal(event: EventBookingPaymentSource): boolean {
   return event.isAccessibleForFree === true ||
     event.is_free === true ||
     offerPrice === 0 ||
+    ticketPrice === 0 ||
     directPrice === 0 ||
     seatPrice === 0
 }
@@ -87,13 +96,54 @@ function hasPaidOnlineSignal(event: EventBookingPaymentSource): boolean {
   return /prepaid|pre-pay|online|payment_link|ticket/.test(text)
 }
 
+function hasOnlineDiscountSignal(event: EventBookingPaymentSource): boolean {
+  const text = eventPaymentText(event)
+  return event.payment_mode === 'prepaid' || /prepaid|pre-pay|online|payment_link/.test(text)
+}
+
 export function getEventUnitPrice(event: EventBookingPaymentSource): number | null {
-  const candidates = [event.price_per_seat, event.price, event.offers?.price]
+  const directPrice = parsePositiveMoney(event.price)
+  if (directPrice !== null) return directPrice
+
+  const ticketPrice = getEventTicketPrice(event)
+  if (ticketPrice === null) return null
+
+  return Math.max(0, Number((ticketPrice - getEventOnlineSaving(event)).toFixed(2)))
+}
+
+export function getEventTicketPrice(event: EventBookingPaymentSource): number | null {
+  const candidates = [event.ticket_price, event.price_per_seat, event.offers?.price, event.price]
   for (const value of candidates) {
     const parsed = parsePositiveMoney(value)
     if (parsed !== null) return parsed
   }
   return null
+}
+
+export function getEventOnlineSaving(event: EventBookingPaymentSource): number {
+  if (!hasOnlineDiscountSignal(event)) return 0
+
+  const ticketPrice = getEventTicketPrice(event)
+  if (!ticketPrice) return 0
+
+  const discountType = normalizeDiscountType(event.online_discount_type)
+  const rawDiscountValue = typeof event.online_discount_value === 'number'
+    ? event.online_discount_value
+    : Number(event.online_discount_value)
+
+  if (!discountType || !Number.isFinite(rawDiscountValue) || rawDiscountValue <= 0) return 0
+
+  const saving = discountType === 'percent'
+    ? ticketPrice * (Math.min(rawDiscountValue, 100) / 100)
+    : rawDiscountValue
+
+  return Math.min(ticketPrice, Number(saving.toFixed(2)))
+}
+
+export function getEventOnlineSavingText(event: EventBookingPaymentSource): string | null {
+  const saving = getEventOnlineSaving(event)
+  if (saving <= 0) return null
+  return formatEventBookingMoney(saving)
 }
 
 export function formatEventBookingMoney(value: number): string {
@@ -117,6 +167,10 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
   }
 
   if (hasPaidOnlineSignal(event)) {
+    const savingText = getEventOnlineSavingText(event)
+    if (unitPrice && savingText) {
+      return `Get your tickets now to save ${savingText}. Pay ${formatEventBookingMoney(unitPrice)} online.`
+    }
     return 'Book online and complete any payment shown in the booking step.'
   }
 
@@ -141,6 +195,8 @@ export function getEventShortPaymentReassurance(event: EventBookingPaymentSource
   }
 
   if (hasPaidOnlineSignal(event)) {
+    const savingText = getEventOnlineSavingText(event)
+    if (savingText) return `Get tickets now to save ${savingText}`
     return 'Complete any required payment in the booking step'
   }
 

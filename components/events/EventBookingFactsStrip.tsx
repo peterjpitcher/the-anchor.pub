@@ -5,10 +5,8 @@ import type { Event } from '@/lib/api'
 import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import {
-  formatEventBookingMoney,
   getEventFoodArrivalLabel,
   getEventSeatAvailabilityLabel,
-  getEventUnitPrice
 } from '@/lib/event-booking-experience'
 
 type Fact = {
@@ -48,8 +46,7 @@ export function EventBookingFactsStrip({
     day: 'numeric',
     month: 'short'
   })
-  const unitPrice = getEventUnitPrice(event)
-  const priceLabel = unitPrice ? formatEventBookingMoney(unitPrice) : getEventPriceLabel(event) || 'Check booking step'
+  const priceLabel = getEventPriceLabel(event) || 'Check booking step'
   const isCommunalEvent = typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
   const seatsFactLabel = isCommunalEvent ? 'Tickets' : 'Seats'
   const seatLabel = getEventSeatAvailabilityLabel(event) || (isCommunalEvent ? 'Book early for seated places' : 'Book early for best tables')

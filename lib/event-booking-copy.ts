@@ -1,9 +1,9 @@
 import type { Event } from '@/lib/api'
-import { formatEventBookingMoney, getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
+import { formatEventBookingMoney, getEventBookingReassurance, getEventOnlineSavingText, getEventUnitPrice } from '@/lib/event-booking-experience'
 
 type EventBookingCopySource = Pick<
   Event,
-  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free' | 'price' | 'price_per_seat'
+  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value'
 >
 
 export type EventBookingCopy = {
@@ -34,7 +34,7 @@ function hasPaidOnlineSignal(event: EventBookingCopySource): boolean {
 function hasFreeSignal(event: EventBookingCopySource): boolean {
   const rawPrice = event.offers?.price
   const numericPrice = typeof rawPrice === 'string' ? Number.parseFloat(rawPrice) : Number(rawPrice)
-  const directPrices = [event.price, event.price_per_seat]
+  const directPrices = [event.price, event.ticket_price, event.price_per_seat]
     .map((value) => (typeof value === 'string' ? Number(value) : value))
     .filter((value): value is number => typeof value === 'number' && Number.isFinite(value))
 
@@ -94,9 +94,12 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   }
 
   if (hasPaidOnlineSignal(event)) {
+    const savingText = getEventOnlineSavingText(event)
     return {
-      label: 'Buy ticket now',
-      policy: 'Book online and complete any payment shown in the booking step to secure your place.',
+      label: savingText ? `Buy online and save ${savingText}` : 'Buy ticket now',
+      policy: savingText && unitPrice
+        ? `Get your tickets now to save ${savingText}. Pay ${formatEventBookingMoney(unitPrice)} online to secure your place.`
+        : 'Book online and complete any payment shown in the booking step to secure your place.',
       foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
       suppressRawCancellationPolicy: false
     }

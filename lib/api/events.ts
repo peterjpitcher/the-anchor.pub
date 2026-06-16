@@ -85,7 +85,10 @@ export interface Event {
   total_remaining?: number | null
   payment_mode?: string | null
   price?: number | null
+  ticket_price?: number | null
   price_per_seat?: number | null
+  online_discount_type?: 'fixed' | 'percent' | string | null
+  online_discount_value?: number | null
   is_free?: boolean | null
   bookingUrl?: string | null // External booking link
   booking_url?: string | null

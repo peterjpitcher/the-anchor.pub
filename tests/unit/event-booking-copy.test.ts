@@ -5,6 +5,7 @@ import {
   getEventSeatAvailabilityLabel,
   getEventShortPaymentReassurance
 } from '@/lib/event-booking-experience'
+import { getEventPriceLabel } from '@/lib/event-pricing'
 
 describe('getEventBookingCopy', () => {
   it('clarifies quiz table booking and cash entry', () => {
@@ -83,6 +84,24 @@ describe('getEventBookingCopy', () => {
         price_per_seat: 20
       })
     ).toBe('Book online and complete any payment shown in the booking step.')
+  })
+
+  it('shows online ticket savings for prepaid events', () => {
+    const event = {
+      name: 'Ticketed Supper Club',
+      payment_mode: 'prepaid',
+      ticket_price: 10,
+      price: 8,
+      online_discount_type: 'fixed',
+      online_discount_value: 2
+    } as any
+
+    const copy = getEventBookingCopy(event)
+
+    expect(copy.label).toBe('Buy online and save £2')
+    expect(copy.policy).toBe('Get your tickets now to save £2. Pay £8 online to secure your place.')
+    expect(getEventBookingReassurance(event)).toBe('Get your tickets now to save £2. Pay £8 online.')
+    expect(getEventPriceLabel(event)).toBe('Ticket £10 · online £8 (save £2)')
   })
 
   it('uses ticket-focused copy for communal seating events', () => {

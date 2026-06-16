@@ -11,6 +11,7 @@ import { isEventFree } from '@/lib/api'
 import { getEventLocalIsoDate } from '@/lib/event-calendar'
 import { nowInLondonComponents } from '@/lib/time-london'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getEventPriceLabel } from '@/lib/event-pricing'
 
 /** Capacity threshold below which a "n tables left" badge is shown (spec §6.2). */
 export const LOW_CAPACITY_THRESHOLD = 12
@@ -49,20 +50,7 @@ export function getRelativeDayLabel(startDate: string): string {
 export function getEventPriceText(event: Event): string | null {
   if (isEventFree(event)) return 'Free entry'
 
-  const raw = event.offers?.price
-  if (raw === undefined || raw === null) return null
-  const value = typeof raw === 'string' ? Number.parseFloat(raw) : Number(raw)
-  if (!Number.isFinite(value)) return null
-  if (value <= 0) return 'Free entry'
-
-  const currency = event.offers?.priceCurrency || 'GBP'
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency,
-    currencyDisplay: 'symbol'
-  })
-    .format(value)
-    .replace(/ /g, ' ')
+  return getEventPriceLabel(event)
 }
 
 /**
