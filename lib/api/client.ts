@@ -8,7 +8,8 @@ import {
   londonNowParts,
   normalizeTime,
   resolveCombinedServiceRanges,
-  type BookingType
+  type BookingType,
+  type SlotBusynessOptions
 } from '@/lib/table-booking-service-windows'
 
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
@@ -16,7 +17,7 @@ import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsRes
 import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
 import { FALLBACK_SUNDAY_LUNCH_MENU } from './menu'
 import type { BusinessHours, AmenitiesResponse } from './hours'
-import type { TableAvailabilityResponse, TableBookingRequest, TableBookingResponse } from './bookings'
+import type { TableAvailabilityResponse, TableBookingLoadResponse, TableBookingRequest, TableBookingResponse } from './bookings'
 import type {
   ParkingRateCard,
   ParkingAvailabilitySlot,
@@ -69,6 +70,21 @@ type ManagementTableBookingResult = {
   next_step_url: string | null
   hold_expires_at: string | null
   table_name: string | null
+}
+
+function toSlotBusynessOptions(load?: TableBookingLoadResponse | null): SlotBusynessOptions | undefined {
+  if (!load || !Array.isArray(load.bookings)) {
+    return undefined
+  }
+
+  return {
+    load: load.bookings,
+    thresholds: {
+      windowMinutes: load.window_minutes,
+      filling: load.filling_threshold_covers,
+      busy: load.busy_threshold_covers,
+    },
+  }
 }
 
 export class AnchorAPI {
@@ -422,6 +438,7 @@ export class AnchorAPI {
       time: string
       party_size: number
       booking_type?: 'regular' | 'sunday_lunch'
+      bookingLoad?: TableBookingLoadResponse | null
     }
   ): TableAvailabilityResponse {
     // The public availability contract is now combined: a single bookable slot
@@ -458,7 +475,8 @@ export class AnchorAPI {
       kitchenRanges,
       params.party_size,
       30,
-      minMinutesForToday
+      minMinutesForToday,
+      toSlotBusynessOptions(params.bookingLoad)
     )
 
     const available = timeSlots.some(
@@ -1002,11 +1020,40 @@ export class AnchorAPI {
       })
     }
 
-    const businessHours = await this.getBusinessHours()
+    const [businessHours, bookingLoad] = await Promise.all([
+      this.getBusinessHours(),
+      this.getTableBookingLoadFailOpen(params.date),
+    ])
     return this.buildTableAvailabilityFromBusinessHours(businessHours, {
       ...params,
-      time: normalizedTime
+      time: normalizedTime,
+      bookingLoad
     })
+  }
+
+  async getTableBookingLoad(date: string, options: RequestInit = {}): Promise<TableBookingLoadResponse> {
+    const query = new URLSearchParams({ date })
+    return this.request<TableBookingLoadResponse>(`/table-bookings/load?${query.toString()}`, {
+      ...options,
+      next: { revalidate: 0 },
+    } as RequestInit & { next: { revalidate: number } })
+  }
+
+  async getTableBookingLoadFailOpen(date: string, timeoutMs = 1500): Promise<TableBookingLoadResponse | null> {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), timeoutMs)
+
+    try {
+      return await this.getTableBookingLoad(date, { signal: controller.signal })
+    } catch (error) {
+      console.warn('[table-bookings] Booking load unavailable; continuing without busyness labels', {
+        date,
+        error: error instanceof Error ? error.message : String((error as any)?.message || error),
+      })
+      return null
+    } finally {
+      clearTimeout(timeout)
+    }
   }
 
   async createTableBooking(

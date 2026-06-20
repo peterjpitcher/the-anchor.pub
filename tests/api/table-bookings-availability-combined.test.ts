@@ -1,10 +1,12 @@
 export {}
 
 const mockGetBusinessHours = jest.fn()
+const mockGetTableBookingLoadFailOpen = jest.fn()
 
 jest.mock('@/lib/api', () => ({
   anchorAPI: {
-    getBusinessHours: (...args: unknown[]) => mockGetBusinessHours(...args)
+    getBusinessHours: (...args: unknown[]) => mockGetBusinessHours(...args),
+    getTableBookingLoadFailOpen: (...args: unknown[]) => mockGetTableBookingLoadFailOpen(...args)
   }
 }))
 
@@ -71,6 +73,7 @@ describe('GET /api/table-bookings/availability — combined contract', () => {
         }
       })
     )
+    mockGetTableBookingLoadFailOpen.mockResolvedValue(null)
 
     jest.resetModules()
     ;({ GET: getAvailability } = await import('@/app/api/table-bookings/availability/route'))
@@ -114,6 +117,32 @@ describe('GET /api/table-bookings/availability — combined contract', () => {
 
     expect(earlyEvening?.kitchen_open).toBe(true)
     expect(lateEvening?.kitchen_open).toBe(false)
+  })
+
+  it('stamps busyness labels when load data is available', async () => {
+    mockGetTableBookingLoadFailOpen.mockResolvedValue({
+      date: '2026-05-05',
+      window_minutes: 60,
+      busy_threshold_covers: 30,
+      filling_threshold_covers: 20,
+      bookings: [{ time: '13:00', covers: 30 }]
+    })
+
+    const body = await fetchSlots('date=2026-05-05&party_size=2&time=13:00')
+    const slots = body.data.time_slots as Array<{ time: string; busyness?: string }>
+
+    expect(slots.find((s) => s.time === '13:00')?.busyness).toBe('busy')
+    expect(slots.find((s) => s.time === '14:00')?.busyness).toBe('quiet')
+  })
+
+  it('fails open when load data is unavailable', async () => {
+    mockGetTableBookingLoadFailOpen.mockResolvedValue(null)
+
+    const body = await fetchSlots('date=2026-05-05&party_size=2&time=13:00')
+    const slots = body.data.time_slots as Array<{ busyness?: string }>
+
+    expect(slots.length).toBeGreaterThan(0)
+    expect(slots.every((slot) => slot.busyness === undefined)).toBe(true)
   })
 
   it('does not include meta.purpose in the response', async () => {

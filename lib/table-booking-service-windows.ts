@@ -16,6 +16,24 @@ export type ServiceRange = {
   capacity: number
 }
 
+export type SlotBusyness = 'quiet' | 'filling' | 'busy'
+
+export type BookingLoadEntry = {
+  time: string
+  covers: number
+}
+
+export type BusynessThresholds = {
+  windowMinutes: number
+  filling: number
+  busy: number
+}
+
+export type SlotBusynessOptions = {
+  load: BookingLoadEntry[]
+  thresholds: BusynessThresholds
+}
+
 export type ServiceRangeResolution = {
   ranges: ServiceRange[]
   closed: boolean
@@ -43,6 +61,35 @@ export function toMinutes(time: string): number {
   const minutes = Number.parseInt(minutesRaw || '0', 10)
   if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return 0
   return hours * 60 + minutes
+}
+
+export function busynessForSlot(
+  time: string,
+  load: BookingLoadEntry[],
+  thresholds: BusynessThresholds
+): SlotBusyness {
+  const slotMinutes = toMinutes(time)
+  const halfWindow = thresholds.windowMinutes / 2
+  const covers = load.reduce((total, entry) => {
+    const bookingMinutes = toMinutes(entry.time)
+    const delta = bookingMinutes - slotMinutes
+    if (delta >= -halfWindow && delta < halfWindow) {
+      return total + Math.max(0, Number(entry.covers) || 0)
+    }
+    return total
+  }, 0)
+
+  if (covers >= thresholds.busy) return 'busy'
+  if (covers >= thresholds.filling) return 'filling'
+  return 'quiet'
+}
+
+function slotBusyness(time: string, options?: SlotBusynessOptions): SlotBusyness | undefined {
+  if (!options || options.thresholds.windowMinutes <= 0 || options.thresholds.filling >= options.thresholds.busy) {
+    return undefined
+  }
+
+  return busynessForSlot(time, options.load, options.thresholds)
 }
 
 export function toTimeString(totalMinutes: number): string {
@@ -149,14 +196,16 @@ export function buildSlotsFromRanges(
   ranges: ServiceRange[],
   partySize: number,
   slotIntervalMinutes = 30,
-  minMinutesForToday?: number
+  minMinutesForToday?: number,
+  busynessOptions?: SlotBusynessOptions
 ): Array<{
   time: string
   available: boolean
   available_capacity: number
   reason?: string
+  busyness?: SlotBusyness
 }> {
-  const slots = new Map<string, { time: string; available: boolean; available_capacity: number; reason?: string }>()
+  const slots = new Map<string, { time: string; available: boolean; available_capacity: number; reason?: string; busyness?: SlotBusyness }>()
 
   for (const range of ranges) {
     const start = toMinutes(range.startsAt)
@@ -179,7 +228,8 @@ export function buildSlotsFromRanges(
           time: slotTime,
           available: isAvailable,
           available_capacity: availableCapacity,
-          reason: isAvailable ? undefined : 'party_too_large'
+          reason: isAvailable ? undefined : 'party_too_large',
+          busyness: slotBusyness(slotTime, busynessOptions)
         })
         continue
       }
@@ -380,20 +430,23 @@ export function buildSlotsWithKitchenState(
   kitchenRanges: ServiceRange[],
   partySize: number,
   slotIntervalMinutes = 30,
-  minMinutesForToday?: number
+  minMinutesForToday?: number,
+  busynessOptions?: SlotBusynessOptions
 ): Array<{
   time: string
   available: boolean
   available_capacity: number
   reason?: string
   kitchen_open: boolean
+  busyness?: SlotBusyness
 }> {
-  const baseSlots = buildSlotsFromRanges(ranges, partySize, slotIntervalMinutes, minMinutesForToday)
+  const baseSlots = buildSlotsFromRanges(ranges, partySize, slotIntervalMinutes, minMinutesForToday, busynessOptions)
   return baseSlots.map((slot) => ({
     time: slot.time,
     available: slot.available ?? false,
     available_capacity: slot.available_capacity,
     reason: slot.reason,
-    kitchen_open: isTimeWithinRanges(slot.time, kitchenRanges)
+    kitchen_open: isTimeWithinRanges(slot.time, kitchenRanges),
+    busyness: slot.busyness
   }))
 }

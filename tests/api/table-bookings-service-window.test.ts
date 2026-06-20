@@ -349,6 +349,36 @@ describe('resolveCombinedServiceRanges', () => {
   })
 })
 
+describe('busynessForSlot', () => {
+  it('includes the lower window boundary and excludes the upper boundary', async () => {
+    const { busynessForSlot } = await import('@/lib/table-booking-service-windows')
+    const load = [
+      { time: '12:30', covers: 10 },
+      { time: '13:00', covers: 10 },
+      { time: '13:30', covers: 10 }
+    ]
+
+    expect(busynessForSlot('13:00', load, {
+      windowMinutes: 60,
+      filling: 20,
+      busy: 30
+    })).toBe('filling')
+  })
+
+  it('returns busy once the busy threshold is met', async () => {
+    const { busynessForSlot } = await import('@/lib/table-booking-service-windows')
+
+    expect(busynessForSlot('13:00', [
+      { time: '12:30', covers: 10 },
+      { time: '13:00', covers: 20 }
+    ], {
+      windowMinutes: 60,
+      filling: 20,
+      busy: 30
+    })).toBe('busy')
+  })
+})
+
 describe('resolveServiceRanges — drinks purpose spans full pub window', () => {
   it('drinks ranges cover late-evening times even when schedule_config drinks entry matches kitchen hours', async () => {
     const { resolveServiceRanges, isTimeWithinRanges } = await import('@/lib/table-booking-service-windows')
