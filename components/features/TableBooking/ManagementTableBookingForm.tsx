@@ -98,6 +98,7 @@ type AvailabilitySlot = {
   available_capacity: number
   reason?: string
   kitchen_open?: boolean
+  busyness?: 'quiet' | 'filling' | 'busy'
 }
 
 type AvailabilityData = {
@@ -257,7 +258,11 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
       available_capacity: availableCapacity,
       reason: typeof source.reason === 'string' ? source.reason : undefined,
       kitchen_open:
-        typeof source.kitchen_open === 'boolean' ? source.kitchen_open : undefined
+        typeof source.kitchen_open === 'boolean' ? source.kitchen_open : undefined,
+      busyness:
+        source.busyness === 'quiet' || source.busyness === 'filling' || source.busyness === 'busy'
+          ? source.busyness
+          : undefined
     })
   }
 
@@ -324,6 +329,19 @@ function formatTimeForDisplay(time: string): string {
   const period = hours >= 12 ? 'pm' : 'am'
   const displayHour = hours % 12 || 12
   return minutes === 0 ? `${displayHour}${period}` : `${displayHour}:${String(minutes).padStart(2, '0')}${period}`
+}
+
+function formatTimeList(times: string[]): string {
+  if (times.length === 0) return ''
+  if (times.length === 1) return times[0]
+  return `${times.slice(0, -1).join(', ')} and ${times[times.length - 1]}`
+}
+
+function busynessCaption(busyness: AvailabilitySlot['busyness']): string | null {
+  if (busyness === 'busy') return 'Busy'
+  if (busyness === 'filling') return 'Filling up'
+  if (busyness === 'quiet') return 'Plenty of space'
+  return null
 }
 
 function addDays(isoDate: string, days: number): string {
@@ -724,6 +742,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         : pickSlotWindow(availableSlots, slotWindowAnchorTime),
     [availableSlots, showAllTimes, slotWindowAnchorTime]
   )
+  const selectedSlot = useMemo(
+    () => availableSlots.find((slot) => slot.time === selectedTime) || null,
+    [availableSlots, selectedTime]
+  )
+  const quieterSlots = useMemo(() => {
+    if (selectedSlot?.busyness !== 'busy') return []
+    const selectedMinutes = toMinutes(selectedSlot.time)
+    return availableSlots
+      .filter((slot) => slot.time !== selectedSlot.time && slot.busyness === 'quiet')
+      .sort((a, b) => Math.abs(toMinutes(a.time) - selectedMinutes) - Math.abs(toMinutes(b.time) - selectedMinutes))
+      .slice(0, 2)
+  }, [availableSlots, selectedSlot])
+  const quieterTimeLabel = formatTimeList(quieterSlots.map((slot) => formatTimeForDisplay(slot.time)))
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
   // field on the Find step. Pulls from the global BusinessHoursProvider
@@ -1937,14 +1968,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     // path) we default to "drinks and food" to match the visual
                     // default.
                     const serviceCaption = slot.kitchen_open === false ? 'drinks only' : 'drinks and food'
+                    const loadCaption = busynessCaption(slot.busyness)
                     return (
                       <button
                         key={slot.time}
                         type="button"
-                        aria-label={`${formatTimeForDisplay(slot.time)}, ${serviceCaption}`}
+                        aria-label={`${formatTimeForDisplay(slot.time)}, ${serviceCaption}${loadCaption ? `, ${loadCaption}` : ''}`}
                         aria-pressed={isSelected}
                         onClick={() => handleSlotSelect(slot)}
-                        className={`min-h-14 rounded-pill border-[1.5px] px-3 py-3 text-center transition-colors ${
+                        className={`min-h-16 rounded-pill border-[1.5px] px-3 py-3 text-center transition-colors ${
                           isSelected
                             ? 'border-anchor-green bg-anchor-green text-white'
                             : 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
@@ -1956,6 +1988,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         {typeof slot.kitchen_open === 'boolean' ? (
                           <span className={`mt-1 block text-xs font-normal ${isSelected ? 'text-white/80' : 'text-ink-muted'}`}>
                             {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
+                          </span>
+                        ) : null}
+                        {loadCaption ? (
+                          <span className={`mt-1 block text-xs font-medium ${isSelected ? 'text-white' : slot.busyness === 'busy' ? 'text-anchor-gold-dark' : 'text-ink-muted'}`}>
+                            {loadCaption}
                           </span>
                         ) : null}
                       </button>
@@ -1972,6 +2009,29 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     See more times
                     <ChevronDown aria-hidden="true" className="h-4 w-4" />
                   </button>
+                ) : null}
+
+                {selectedSlot?.busyness === 'busy' ? (
+                  <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
+                    <p>
+                      {formatTimeForDisplay(selectedSlot.time)} is one of our busiest times, so service may take a little longer.
+                      {quieterTimeLabel ? ` ${quieterTimeLabel} ${quieterSlots.length === 1 ? 'is' : 'are'} quieter if you'd like more space.` : ''}
+                    </p>
+                    {quieterSlots.length > 0 ? (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {quieterSlots.map((slot) => (
+                          <button
+                            key={slot.time}
+                            type="button"
+                            onClick={() => handleSlotSelect(slot)}
+                            className="rounded-pill border border-line-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-anchor-gold"
+                          >
+                            {formatTimeForDisplay(slot.time)}
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
                 ) : null}
               </>
             ) : (
@@ -2060,7 +2120,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     setError(null)
                   }}
                 >
-                  Continue
+                  {selectedSlot?.busyness === 'busy'
+                    ? `Book ${formatTimeForDisplay(selectedSlot.time)} anyway`
+                    : 'Continue'}
                 </Button>
               ) : null}
             </div>

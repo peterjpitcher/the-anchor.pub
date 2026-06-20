@@ -1,4 +1,4 @@
-import { anchorAPI, type BusinessHours, type TableAvailabilityResponse } from '@/lib/api'
+import { anchorAPI, type BusinessHours, type TableAvailabilityResponse, type TableBookingLoadResponse } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import {
   buildSlotsWithKitchenState,
@@ -7,7 +7,8 @@ import {
   londonNowParts,
   normalizeTime,
   resolveCombinedServiceRanges,
-  type BookingType
+  type BookingType,
+  type SlotBusynessOptions
 } from '@/lib/table-booking-service-windows'
 
 function parsePositiveInt(value: string | null, fallback: number): number {
@@ -24,6 +25,7 @@ function buildCombinedAvailability(
     partySize: number
     time: string
     bookingType: BookingType
+    bookingLoad?: TableBookingLoadResponse | null
   }
 ): TableAvailabilityResponse {
   const { ranges, kitchenRanges, message } = resolveCombinedServiceRanges(
@@ -38,12 +40,24 @@ function buildCombinedAvailability(
       ? Math.ceil((londonNow.minutes + 60) / 30) * 30
       : undefined
 
+  const busynessOptions: SlotBusynessOptions | undefined = options.bookingLoad
+    ? {
+        load: options.bookingLoad.bookings,
+        thresholds: {
+          windowMinutes: options.bookingLoad.window_minutes,
+          filling: options.bookingLoad.filling_threshold_covers,
+          busy: options.bookingLoad.busy_threshold_covers
+        }
+      }
+    : undefined
+
   const timeSlots = buildSlotsWithKitchenState(
     ranges,
     kitchenRanges,
     options.partySize,
     30,
-    minMinutesForToday
+    minMinutesForToday,
+    busynessOptions
   )
 
   const available = timeSlots.some(
@@ -100,12 +114,16 @@ export async function GET(request: Request) {
   const partySize = parsePositiveInt(partySizeRaw, 2)
 
   try {
-    const businessHours = await anchorAPI.getBusinessHours()
+    const [businessHours, bookingLoad] = await Promise.all([
+      anchorAPI.getBusinessHours(),
+      anchorAPI.getTableBookingLoadFailOpen(date)
+    ])
     const fallback = buildCombinedAvailability(businessHours, {
       date,
       partySize,
       time: normalizedTime,
-      bookingType
+      bookingType,
+      bookingLoad
     })
 
     return new Response(

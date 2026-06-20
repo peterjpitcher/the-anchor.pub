@@ -1,5 +1,7 @@
 // Table Booking domain types
 
+export type SlotBusyness = 'quiet' | 'filling' | 'busy'
+
 export interface TableAvailabilitySlot {
   time: string
   available?: boolean
@@ -7,6 +9,18 @@ export interface TableAvailabilitySlot {
   reason?: string
   requires_prepayment?: boolean
   kitchen_open?: boolean
+  busyness?: SlotBusyness
+}
+
+export interface TableBookingLoadResponse {
+  date: string
+  window_minutes: number
+  busy_threshold_covers: number
+  filling_threshold_covers: number
+  bookings: Array<{
+    time: string
+    covers: number
+  }>
 }
 
 export interface TableAvailabilityResponse {

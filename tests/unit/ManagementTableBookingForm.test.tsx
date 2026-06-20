@@ -29,6 +29,7 @@ type TimeSlot = {
   available: boolean
   available_capacity: number
   kitchen_open?: boolean
+  busyness?: 'quiet' | 'filling' | 'busy'
 }
 
 type AvailabilityHandler = (url: string) => {
@@ -184,7 +185,7 @@ describe('ManagementTableBookingForm', () => {
 
   it('does not render the dining disclaimer footer', async () => {
     setupFetchMock({ availability: [] })
-    render(<ManagementTableBookingForm prefill={{ date: '2026-06-07' }} />)
+    render(<ManagementTableBookingForm prefill={{ date: '2026-07-07' }} />)
     expect(
       screen.queryByText(/any time during bar hours/i)
     ).not.toBeInTheDocument()
@@ -225,7 +226,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
@@ -243,7 +244,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -252,6 +253,37 @@ describe('ManagementTableBookingForm', () => {
     const lateButton = screen.getByRole('button', { name: /10pm/ })
     expect(within(earlyButton).getByText(/drinks & food/i)).toBeInTheDocument()
     expect(within(lateButton).getByText(/drinks only/i)).toBeInTheDocument()
+  })
+
+  it('shows busy labels, calmer alternatives, and a book-anyway path', async () => {
+    setupFetchMock({
+      availability: [
+        { time: '12:30', available: true, available_capacity: 4, kitchen_open: true, busyness: 'quiet' },
+        { time: '13:00', available: true, available_capacity: 4, kitchen_open: true, busyness: 'busy' },
+        { time: '13:30', available: true, available_capacity: 4, kitchen_open: true, busyness: 'quiet' }
+      ]
+    })
+
+    render(<ManagementTableBookingForm prefill={{ date: '2026-07-07', time: '13:00' }} />)
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+    const busyButton = screen.getByRole('button', { name: /1pm.+busy/i })
+    expect(within(busyButton).getByText('Busy')).toBeInTheDocument()
+    expect(screen.getAllByText('Plenty of space')).toHaveLength(2)
+
+    fireEvent.click(busyButton)
+
+    expect(screen.getByText(/1pm is one of our busiest times/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '12:30pm' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '1:30pm' })).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Book 1pm anyway' }))
+
+    await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
   })
 
   it('does not render the "Showing X slots" purpose-flavoured caption', async () => {
@@ -264,7 +296,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -283,7 +315,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -316,7 +348,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -349,12 +381,12 @@ describe('ManagementTableBookingForm', () => {
       availability: (url) => {
         const params = new URL(url, 'https://t.test').searchParams
         const date = params.get('date')
-        if (date === '2026-06-07') {
-          return { date: '2026-06-07', time_slots: [] }
+        if (date === '2026-07-07') {
+          return { date: '2026-07-07', time_slots: [] }
         }
-        if (date === '2026-06-08') {
+        if (date === '2026-07-08') {
           return {
-            date: '2026-06-08',
+            date: '2026-07-08',
             time_slots: [
               { time: '22:30', available: true, available_capacity: 6, kitchen_open: false }
             ]
@@ -368,7 +400,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -400,7 +432,7 @@ describe('ManagementTableBookingForm', () => {
     render(<ManagementTableBookingForm />)
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -490,7 +522,7 @@ describe('ManagementTableBookingForm', () => {
             JSON.stringify({
               success: true,
               data: {
-                date: '2026-06-10',
+                date: '2026-07-10',
                 available: true,
                 time_slots: [
                   {
@@ -578,14 +610,14 @@ describe('ManagementTableBookingForm', () => {
       '',
       '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=deposit-table&fbclid=fb-123&gclid=g-123&short_code=ma-table&email=jane@example.com',
     )
-    captureBookingAttributionFromLocation(new Date('2026-06-10T11:30:00.000Z'))
+    captureBookingAttributionFromLocation(new Date('2026-07-10T11:30:00.000Z'))
     window.history.pushState({}, '', '/book-table')
 
     render(<ManagementTableBookingForm />)
 
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-10' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-10' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -631,7 +663,7 @@ describe('ManagementTableBookingForm', () => {
     expect(payload.fbclid).toBe('fb-123')
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-table')
-    expect(payload.attribution_captured_at).toBe('2026-06-10T11:30:00.000Z')
+    expect(payload.attribution_captured_at).toBe('2026-07-10T11:30:00.000Z')
     expect(JSON.stringify(payload)).not.toMatch(/jane@example\.com|email/)
   })
 
@@ -654,7 +686,7 @@ describe('ManagementTableBookingForm', () => {
             JSON.stringify({
               success: true,
               data: {
-                date: '2026-06-07',
+                date: '2026-07-07',
                 available: true,
                 time_slots: [
                   { time: '13:00', available: true, available_capacity: 8, kitchen_open: true }
@@ -715,7 +747,7 @@ describe('ManagementTableBookingForm', () => {
     )
 
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -737,7 +769,7 @@ describe('ManagementTableBookingForm', () => {
     // submit + success fire as the booking flow completes.
     await waitFor(() =>
       expect(trackTableBookingFunnel).toHaveBeenCalledWith(
-        expect.objectContaining({ step: 'submit', partySize: 4, bookingDate: '2026-06-07' })
+        expect.objectContaining({ step: 'submit', partySize: 4, bookingDate: '2026-07-07' })
       )
     )
     await waitFor(() =>
@@ -797,7 +829,7 @@ describe('ManagementTableBookingForm', () => {
       overrides: { partySize?: string; date?: string; requestedTime?: string } = {}
     ) {
       const partySize = overrides.partySize ?? '2'
-      const date = overrides.date ?? '2026-06-07'
+      const date = overrides.date ?? '2026-07-07'
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
@@ -923,7 +955,7 @@ describe('ManagementTableBookingForm', () => {
       // Back to find step
       fireEvent.click(screen.getByRole('button', { name: 'Back' }))
       // Change the date and search again
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-08' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-08' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
 
@@ -982,7 +1014,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       // Type 10 but DO NOT blur — onChange fires, but stale-closure paths would still see 2.
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '19:00' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -1105,7 +1137,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -1125,7 +1157,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -1158,7 +1190,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -1169,18 +1201,18 @@ describe('ManagementTableBookingForm', () => {
       expect(drinksSlot).toBeInTheDocument()
     })
 
-    it('slot button class includes min-h-14, alternative button class includes min-h-12', async () => {
+    it('alternative button class includes min-h-12', async () => {
       // Primary date returns no available slots; alternative date returns a late slot.
       setupFetchMock({
         availability: (url) => {
           const params = new URL(url, 'https://t.test').searchParams
           const date = params.get('date')
-          if (date === '2026-06-07') {
-            return { date: '2026-06-07', time_slots: [] }
+          if (date === '2026-07-07') {
+            return { date: '2026-07-07', time_slots: [] }
           }
-          if (date === '2026-06-08') {
+          if (date === '2026-07-08') {
             return {
-              date: '2026-06-08',
+              date: '2026-07-08',
               time_slots: [
                 { time: '22:30', available: true, available_capacity: 6, kitchen_open: false }
               ]
@@ -1193,12 +1225,12 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
 
-      // The alternative button (10:30pm on 2026-06-08) should be present and at least 48px tall.
+      // The alternative button (10:30pm on 2026-07-08) should be present and at least 48px tall.
       const altBtn = await screen.findByRole('button', { name: /10:30pm/i })
       expect(altBtn.className).toMatch(/min-h-12/)
       expect(altBtn.className).toMatch(/py-3/)
@@ -1213,7 +1245,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -1256,7 +1288,7 @@ describe('ManagementTableBookingForm', () => {
 
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -1285,7 +1317,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '13:00' } })
 
       // Submitting the surrounding <form> via the time input must trigger the search.
@@ -1309,7 +1341,7 @@ describe('ManagementTableBookingForm', () => {
       notes?: string
     } = {}) {
       const partySize = options.partySize ?? '2'
-      const date = options.date ?? '2026-06-07'
+      const date = options.date ?? '2026-07-07'
       const slotName = options.slotName ?? /1pm/i
       const firstName = options.firstName ?? 'Sam'
       const lastName = options.lastName ?? 'Walker'
@@ -1395,7 +1427,7 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      await fillFindAndProceedToReview({ date: '2026-06-07' })
+      await fillFindAndProceedToReview({ date: '2026-07-07' })
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(1))
       await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
@@ -1404,7 +1436,7 @@ describe('ManagementTableBookingForm', () => {
       // new search on a different date and confirm again.
       fireEvent.click(screen.getByRole('button', { name: /Book another table/i }))
       await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
-      await fillFindAndProceedToReview({ date: '2026-06-08' })
+      await fillFindAndProceedToReview({ date: '2026-07-08' })
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(2))
 
@@ -1611,7 +1643,7 @@ describe('ManagementTableBookingForm', () => {
       const fillBookingFlow = async () => {
         fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
         fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
@@ -1666,7 +1698,7 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
@@ -1756,13 +1788,13 @@ describe('ManagementTableBookingForm', () => {
         availability: (url) => {
           const params = new URL(url, 'https://t.test').searchParams
           const date = params.get('date') || ''
-          // The wizard's primary search hits 2026-06-07 first; we want it to
+          // The wizard's primary search hits 2026-07-07 first; we want it to
           // return no slots so loadNearestAlternatives fires. Secondary
-          // candidate calls land on 2026-06-08/09/10 and must be deferred.
-          if (date === '2026-06-07') {
+          // candidate calls land on 2026-07-08/09/10 and must be deferred.
+          if (date === '2026-07-07') {
             return { date, time_slots: [] }
           }
-          if (date === '2026-06-08' || date === '2026-06-09' || date === '2026-06-10') {
+          if (date === '2026-07-08' || date === '2026-07-09' || date === '2026-07-10') {
             // Mark the call so the test can resolve it later. Returning a
             // pending promise from a synchronous handler isn't possible here,
             // so we approximate by returning an empty placeholder and using a
@@ -1784,7 +1816,7 @@ describe('ManagementTableBookingForm', () => {
         if (url.startsWith('/api/table-bookings/availability')) {
           const params = new URL(url, 'https://t.test').searchParams
           const date = params.get('date') || ''
-          if (date === '2026-06-08' || date === '2026-06-09' || date === '2026-06-10') {
+          if (date === '2026-07-08' || date === '2026-07-09' || date === '2026-07-10') {
             const slot = staleAltCallIndex++
             const d = staleAltDeferreds[Math.min(slot, staleAltDeferreds.length - 1)]
             return d.promise.then((payload) =>
@@ -1804,11 +1836,11 @@ describe('ManagementTableBookingForm', () => {
 
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       // Step 2 reached; alternatives panel shows loading because deferreds
-      // for 2026-06-08/09/10 are still pending.
+      // for 2026-07-08/09/10 are still pending.
       await waitFor(() =>
         expect(screen.getByText(/Finding nearby options/i)).toBeInTheDocument()
       )
@@ -1820,7 +1852,7 @@ describe('ManagementTableBookingForm', () => {
       // Resolve the (now-stale) responses with a distinctive 9:00pm slot.
       staleAltDeferreds.forEach((d, i) =>
         d.resolve({
-          date: ['2026-06-08', '2026-06-09', '2026-06-10'][i],
+          date: ['2026-07-08', '2026-07-09', '2026-07-10'][i],
           time_slots: [
             { time: '21:00', available: true, available_capacity: 8, kitchen_open: false }
           ]
