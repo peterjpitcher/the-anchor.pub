@@ -70,6 +70,7 @@ type ManagementTableBookingResult = {
   next_step_url: string | null
   hold_expires_at: string | null
   table_name: string | null
+  notification_channel?: 'email' | 'whatsapp' | 'sms' | null
 }
 
 function toSlotBusynessOptions(load?: TableBookingLoadResponse | null): SlotBusynessOptions | undefined {
@@ -312,6 +313,7 @@ export class AnchorAPI {
       next_step_url: result.next_step_url,
       hold_expires_at: result.hold_expires_at,
       table_name: result.table_name,
+      notification_channel: result.notification_channel,
       confirmation_details: {
         date: originalRequest.date,
         time: originalRequest.time,

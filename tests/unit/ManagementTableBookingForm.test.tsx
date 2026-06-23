@@ -767,6 +767,7 @@ describe('ManagementTableBookingForm', () => {
                 next_step_url: null,
                 hold_expires_at: null,
                 table_name: 'Window 4',
+                notification_channel: 'email',
                 reason: null
               }
             }),
@@ -829,6 +830,7 @@ describe('ManagementTableBookingForm', () => {
         })
       )
     )
+    expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
 
     // GA4 purchase event should fire with the booking reference as transaction_id.
     expect(pushToDataLayer).toHaveBeenCalledWith(

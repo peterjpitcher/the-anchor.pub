@@ -89,6 +89,7 @@ type ManagementTableBookingResult = {
   next_step_url: string | null
   hold_expires_at: string | null
   table_name: string | null
+  notification_channel?: 'email' | 'whatsapp' | 'sms' | null
   booking_id?: string
   deposit_amount?: number
   // Set by the management API when inline PayPal setup fails for a 10+ booking.
@@ -96,6 +97,13 @@ type ManagementTableBookingResult = {
   // See spec §6 ("Failed-PayPal recovery") and §8.1 (PayPal failure recovery).
   fallback_payment_url?: string | null
   payment_required?: boolean
+}
+
+function confirmationDeliveryCopy(channel?: ManagementTableBookingResult['notification_channel']): string {
+  if (channel === 'email') return "We've sent confirmation details by email."
+  if (channel === 'whatsapp') return "We've sent confirmation details by WhatsApp."
+  if (channel === 'sms') return "We've sent confirmation details by SMS."
+  return "We've sent confirmation details."
 }
 
 type AvailabilitySlot = {
@@ -1795,7 +1803,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <div>
               <h3 className="font-display text-h3 text-ink-strong">You&apos;re all booked in, see you soon!</h3>
               <p className="mt-2 text-sm text-ink-muted">
-                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided by SMS shortly'}</strong>. We&apos;ve sent confirmation details by SMS.
+                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided shortly'}</strong>. {confirmationDeliveryCopy(result.notification_channel)}
               </p>
             </div>
           </div>

@@ -101,6 +101,7 @@ export interface TableBookingResponse {
   next_step_url?: string | null
   hold_expires_at?: string | null
   table_name?: string | null
+  notification_channel?: 'email' | 'whatsapp' | 'sms' | null
   // New API format uses confirmation_details instead of booking_details
   confirmation_details?: {
     date: string
