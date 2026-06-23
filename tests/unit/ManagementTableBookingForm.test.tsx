@@ -260,7 +260,8 @@ describe('ManagementTableBookingForm', () => {
       availability: [
         { time: '12:30', available: true, available_capacity: 4, kitchen_open: true, busyness: 'quiet' },
         { time: '13:00', available: true, available_capacity: 4, kitchen_open: true, busyness: 'busy' },
-        { time: '13:30', available: true, available_capacity: 4, kitchen_open: true, busyness: 'quiet' }
+        { time: '13:30', available: true, available_capacity: 4, kitchen_open: true, busyness: 'quiet' },
+        { time: '14:00', available: true, available_capacity: 4, kitchen_open: true, busyness: 'filling' }
       ]
     })
 
@@ -271,19 +272,54 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
 
-    const busyButton = screen.getByRole('button', { name: /1pm.+busy/i })
-    expect(within(busyButton).getByText('Busy')).toBeInTheDocument()
+    const busyButton = screen.getByRole('button', { name: /1pm.+busiest time/i })
+    const fillingButton = screen.getByRole('button', { name: /2pm.+getting busy/i })
+    expect(within(busyButton).getByText('Busiest time')).toBeInTheDocument()
+    expect(within(fillingButton).getByText('Getting busy')).toBeInTheDocument()
     expect(screen.getAllByText('Plenty of space')).toHaveLength(2)
 
     fireEvent.click(busyButton)
 
-    expect(screen.getByText(/1pm is one of our busiest times/i)).toBeInTheDocument()
+    expect(screen.getByText(/food and drinks may take a little longer/i)).toBeInTheDocument()
+    expect(screen.getByText(/slightly earlier or later table may mean a smoother visit/i)).toBeInTheDocument()
+    expect(screen.getByText(/12:30pm and 1:30pm may be a smoother option/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '12:30pm' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '1:30pm' })).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Book 1pm anyway' }))
 
     await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+  })
+
+  it('repeats busy service expectations on the review page', async () => {
+    setupFetchMock({
+      availability: [
+        { time: '13:00', available: true, available_capacity: 4, kitchen_open: true, busyness: 'busy' }
+      ]
+    })
+
+    render(<ManagementTableBookingForm prefill={{ date: '2026-07-07', time: '13:00' }} />)
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: /1pm.+busiest time/i }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book 1pm anyway' }))
+
+    await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+    expect(screen.getByText('Worth knowing before you confirm')).toBeInTheDocument()
+    expect(screen.getByText(/food and drinks may take a little longer/i)).toBeInTheDocument()
+    expect(screen.getByText(/slightly earlier or later table may mean a smoother visit/i)).toBeInTheDocument()
   })
 
   it('does not render the "Showing X slots" purpose-flavoured caption', async () => {

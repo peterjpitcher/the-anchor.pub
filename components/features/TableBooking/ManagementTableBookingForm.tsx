@@ -344,10 +344,30 @@ function formatTimeList(times: string[]): string {
 }
 
 function busynessCaption(busyness: AvailabilitySlot['busyness']): string | null {
-  if (busyness === 'busy') return 'Busy'
-  if (busyness === 'filling') return 'Filling up'
+  if (busyness === 'busy') return 'Busiest time'
+  if (busyness === 'filling') return 'Getting busy'
   if (busyness === 'quiet') return 'Plenty of space'
   return null
+}
+
+function shouldNudgeForBusyness(busyness: AvailabilitySlot['busyness']): boolean {
+  return busyness === 'filling' || busyness === 'busy'
+}
+
+function busynessAdvisory(slot: AvailabilitySlot | null): string | null {
+  if (!slot || !shouldNudgeForBusyness(slot.busyness)) return null
+
+  if (slot.busyness === 'busy') {
+    return `You've chosen one of our busiest times. We'll still be happy to see you, but food and drinks may take a little longer. If you're flexible, a slightly earlier or later table may mean a smoother visit.`
+  }
+
+  return `You've chosen a busier time. If you're flexible, a slightly earlier or later table may mean a smoother visit.`
+}
+
+function isQuieterSlot(selectedBusyness: AvailabilitySlot['busyness'], candidateBusyness: AvailabilitySlot['busyness']): boolean {
+  if (selectedBusyness === 'busy') return candidateBusyness === 'quiet' || candidateBusyness === 'filling'
+  if (selectedBusyness === 'filling') return candidateBusyness === 'quiet'
+  return false
 }
 
 function addDays(isoDate: string, days: number): string {
@@ -756,14 +776,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     [availableSlots, selectedTime]
   )
   const quieterSlots = useMemo(() => {
-    if (selectedSlot?.busyness !== 'busy') return []
+    if (!selectedSlot || !shouldNudgeForBusyness(selectedSlot.busyness)) return []
     const selectedMinutes = toMinutes(selectedSlot.time)
     return availableSlots
-      .filter((slot) => slot.time !== selectedSlot.time && slot.busyness === 'quiet')
+      .filter((slot) => slot.time !== selectedSlot.time && isQuieterSlot(selectedSlot.busyness, slot.busyness))
       .sort((a, b) => Math.abs(toMinutes(a.time) - selectedMinutes) - Math.abs(toMinutes(b.time) - selectedMinutes))
       .slice(0, 2)
   }, [availableSlots, selectedSlot])
   const quieterTimeLabel = formatTimeList(quieterSlots.map((slot) => formatTimeForDisplay(slot.time)))
+  const selectedSlotAdvisory = busynessAdvisory(selectedSlot)
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
   // field on the Find step. Pulls from the global BusinessHoursProvider
@@ -2024,12 +2045,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </button>
                 ) : null}
 
-                {selectedSlot?.busyness === 'busy' ? (
+                {selectedSlotAdvisory ? (
                   <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
-                    <p>
-                      {formatTimeForDisplay(selectedSlot.time)} is one of our busiest times, so service may take a little longer.
-                      {quieterTimeLabel ? ` ${quieterTimeLabel} ${quieterSlots.length === 1 ? 'is' : 'are'} quieter if you'd like more space.` : ''}
-                    </p>
+                    <p>{selectedSlotAdvisory}</p>
+                    {quieterTimeLabel ? (
+                      <p className="mt-2">
+                        {quieterTimeLabel} may be a smoother option.
+                      </p>
+                    ) : null}
                     {quieterSlots.length > 0 ? (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {quieterSlots.map((slot) => (
@@ -2133,7 +2156,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     setError(null)
                   }}
                 >
-                  {selectedSlot?.busyness === 'busy'
+                  {selectedSlot && shouldNudgeForBusyness(selectedSlot.busyness)
                     ? `Book ${formatTimeForDisplay(selectedSlot.time)} anyway`
                     : 'Continue'}
                 </Button>
@@ -2339,6 +2362,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </p>
               ) : null}
             </div>
+
+            {selectedSlotAdvisory ? (
+              <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
+                <p className="font-semibold text-ink-strong">Worth knowing before you confirm</p>
+                <p className="mt-1">{selectedSlotAdvisory}</p>
+              </div>
+            ) : null}
 
             <p className="text-sm text-ink-muted">
               Plans changed?{' '}
