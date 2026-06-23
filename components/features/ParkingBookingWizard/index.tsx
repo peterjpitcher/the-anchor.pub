@@ -11,6 +11,12 @@ import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import {
+  DEFAULT_COMMUNICATION_CONSENT_STATE,
+  buildCommunicationConsentPayload,
+  type CommunicationConsentState,
+} from '@/lib/communication-consent'
 
 
 interface AvailabilityResult {
@@ -170,6 +176,7 @@ interface BookingPayload {
     colour: string
   }
   notes: string
+  communicationConsent: CommunicationConsentState
 }
 
 const stepTitles = [
@@ -216,6 +223,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   })
 
   const [notes, setNotes] = useState('')
+  const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(DEFAULT_COMMUNICATION_CONSENT_STATE)
 
   const router = useRouter()
   const paypalContainerRef = useRef<HTMLDivElement>(null)
@@ -226,7 +234,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   // Stores the booking_id returned by createOrder so onApprove can pass it to capture
   const pendingBookingIdRef = useRef<string | null>(null)
   // Sync ref keeps createOrder callbacks from closing over stale state
-  const bookingDataRef = useRef({ customer, vehicle, start, end, notes })
+  const bookingDataRef = useRef({ customer, vehicle, start, end, notes, communicationConsent })
 
   const estimate = useMemo(
     () => calculateEstimate(rates, start, end),
@@ -339,8 +347,8 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
   // Keep bookingDataRef current so createOrder always reads the latest state values
   useEffect(() => {
-    bookingDataRef.current = { customer, vehicle, start, end, notes }
-  }, [customer, vehicle, start, end, notes])
+    bookingDataRef.current = { customer, vehicle, start, end, notes, communicationConsent }
+  }, [customer, vehicle, start, end, notes, communicationConsent])
 
   useEffect(() => {
     if (currentStep === 4 && paypalLoaded && !paypalRendered) {
@@ -393,6 +401,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             start_at: iso(bookingDataRef.current.start),
             end_at: iso(bookingDataRef.current.end),
             notes: bookingDataRef.current.notes || undefined,
+            communication_consent: buildCommunicationConsentPayload(bookingDataRef.current.communicationConsent),
           }),
         })
 
@@ -566,6 +575,10 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             <p className="text-sm text-ink-muted">
               We use your mobile number to send booking confirmation and updates. Your details are never shared.
             </p>
+            <CommunicationConsentFields
+              value={communicationConsent}
+              onChange={setCommunicationConsent}
+            />
           </div>
         )
       case 3:

@@ -4,6 +4,12 @@ import { useRef, useState } from 'react'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
+import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import {
+    DEFAULT_COMMUNICATION_CONSENT_STATE,
+    buildCommunicationConsentPayload,
+    type CommunicationConsentState,
+} from '@/lib/communication-consent'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -53,6 +59,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     const [honeypot, setHoneypot] = useState('')
     const formLoadedAt = useRef(Date.now())
     const enquiryStartedRef = useRef(false)
+    const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(DEFAULT_COMMUNICATION_CONSENT_STATE)
 
     const [formData, setFormData] = useState<PrivateBookingRequest>({
         customer_first_name: initialData?.customer_first_name || '',
@@ -172,6 +179,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 customer_last_name: formData.customer_last_name?.trim() || '',
                 contact_email: formData.contact_email?.trim() || '',
                 items: bookingItems,
+                communication_consent: buildCommunicationConsentPayload(communicationConsent),
                 ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
                 ...(honeypot ? { website: honeypot } : {}),
                 _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -413,6 +421,11 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
                 {detailsUnlocked && (
                     <div className="pt-4 border-t border-line space-y-4">
+                        <CommunicationConsentFields
+                            value={communicationConsent}
+                            onChange={setCommunicationConsent}
+                        />
+
                         {/* Honeypot, hidden from real users, filled by bots */}
                         <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                             <label htmlFor="prv-website">Website</label>

@@ -3,14 +3,18 @@ import { anchorAPI, ParkingBookingRequest } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
 import { normaliseUKPhone } from '@/lib/hours-utils'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import {
+  sanitizeCommunicationConsent,
+  communicationConsentIdempotencyPart,
+} from '@/lib/communication-consent-server'
 
 const REQUIRED_CUSTOMER_FIELDS = ['first_name', 'last_name', 'mobile_number'] as const
 const REQUIRED_VEHICLE_FIELDS = ['registration'] as const
 
 function buildIdempotencyKey(
-  fallbackData: { start_at: string; end_at: string; phone: string; registration: string }
+  fallbackData: { start_at: string; end_at: string; phone: string; registration: string; communication_consent?: unknown }
 ): string {
-  const safe = `${fallbackData.start_at}|${fallbackData.end_at}|${fallbackData.phone}|${fallbackData.registration}`
+  const safe = `${fallbackData.start_at}|${fallbackData.end_at}|${fallbackData.phone}|${fallbackData.registration}|${communicationConsentIdempotencyPart(fallbackData.communication_consent)}`
   return `parking-${Buffer.from(safe).toString('base64')}`
 }
 
@@ -93,6 +97,8 @@ export async function POST(request: NextRequest) {
     }, { status: 400 })
   }
 
+  const communicationConsent = sanitizeCommunicationConsent(body?.communication_consent)
+
   const bookingRequest: ParkingBookingRequest = {
     customer: {
       first_name: customer.first_name,
@@ -108,7 +114,8 @@ export async function POST(request: NextRequest) {
     },
     start_at: new Date(startTimestamp).toISOString(),
     end_at: new Date(endTimestamp).toISOString(),
-    notes: notes || undefined
+    notes: notes || undefined,
+    ...(communicationConsent ? { communication_consent: communicationConsent } : {})
   }
 
   const headerIdempotency = request.headers.get('idempotency-key')
@@ -119,7 +126,8 @@ export async function POST(request: NextRequest) {
     start_at: bookingRequest.start_at,
     end_at: bookingRequest.end_at,
     phone: bookingRequest.customer.mobile_number,
-    registration: bookingRequest.vehicle.registration
+    registration: bookingRequest.vehicle.registration,
+    communication_consent: bookingRequest.communication_consent
   })
 
   try {

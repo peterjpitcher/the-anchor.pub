@@ -3,6 +3,7 @@
 import { logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import type { ApiResponse } from './shared'
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = typeof window === 'undefined'
   ? getManagementApiBaseUrl()
@@ -73,6 +74,7 @@ export interface PrivateBookingRequest {
   event_type?: string
   internal_notes?: string
   items?: PrivateBookingItem[]
+  communication_consent?: CommunicationConsentPayload
   // Spam protection fields, checked server-side, not forwarded upstream
   turnstile_token?: string
   website?: string

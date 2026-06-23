@@ -13,6 +13,12 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
+import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import {
+  DEFAULT_COMMUNICATION_CONSENT_STATE,
+  buildCommunicationConsentPayload,
+  type CommunicationConsentState,
+} from '@/lib/communication-consent'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -187,6 +193,9 @@ export function ManagementEventBookingForm({
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
+    DEFAULT_COMMUNICATION_CONSENT_STATE
+  )
   const [seats, setSeats] = useState(2)
   const [seatsDisplay, setSeatsDisplay] = useState('2')
   const [foodIntent, setFoodIntent] = useState<FoodIntent>('planning_to_eat')
@@ -351,6 +360,7 @@ export function ManagementEventBookingForm({
           event_category_slug: event.category?.slug,
           event_price: getEventUnitPrice(event),
           event_value: totalValue,
+          communication_consent: buildCommunicationConsentPayload(communicationConsent),
           ...attribution,
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
@@ -527,6 +537,7 @@ export function ManagementEventBookingForm({
           last_name: lastName.trim(),
           requested_seats: seats,
           notes: buildFoodNotes(),
+          communication_consent: buildCommunicationConsentPayload(communicationConsent),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -692,6 +703,11 @@ export function ManagementEventBookingForm({
             placeholder="jane@example.com"
             autoComplete="email"
             helperText="For payment follow-up if needed."
+          />
+
+          <CommunicationConsentFields
+            value={communicationConsent}
+            onChange={setCommunicationConsent}
           />
 
           <label className="flex cursor-pointer gap-2.5 rounded-sm border border-line bg-surface-sunk p-2.5">

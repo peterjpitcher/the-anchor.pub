@@ -10,6 +10,11 @@ import {
 } from '@/lib/table-booking-service-windows'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import {
+  sanitizeCommunicationConsent,
+  communicationConsentIdempotencyPart,
+} from '@/lib/communication-consent-server'
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 
@@ -28,6 +33,7 @@ type ManagementTableBookingPayload = {
   dietary_requirements?: string[]
   allergies?: string[]
   default_country_code?: string
+  communication_consent?: CommunicationConsentPayload
 }
 
 type BookingAttributionPayload = {
@@ -77,7 +83,11 @@ function mergeNotes(...parts: Array<string | undefined>): string | undefined {
   return merged.join('\n')
 }
 
-function createIdempotencyKey(prefix: string): string {
+function createIdempotencyKey(prefix: string, payload?: unknown): string {
+  if (payload !== undefined) {
+    return `${prefix}_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
+  }
+
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return `${prefix}_${crypto.randomUUID()}`
   }
@@ -184,6 +194,7 @@ function normaliseIncomingPayload(input: unknown): {
 
   const dietaryRequirements = toStringList(body.dietary_requirements)
   const allergies = toStringList(body.allergies)
+  const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
   // notes is strictly the user's free-text. Sunday-lunch pre-order menu_selections
   // are no longer supported on the public path (spec §6, §8.1), Sundays are
@@ -210,6 +221,7 @@ function normaliseIncomingPayload(input: unknown): {
       ...(dietaryRequirements.length > 0 ? { dietary_requirements: dietaryRequirements } : {}),
       ...(allergies.length > 0 ? { allergies } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),
   }
@@ -421,7 +433,15 @@ export async function POST(request: NextRequest) {
     }
 
     const idempotencyKey =
-      asTrimmedString(request.headers.get('Idempotency-Key')) || createIdempotencyKey('tbl')
+      asTrimmedString(request.headers.get('Idempotency-Key')) ||
+      createIdempotencyKey('tbl', {
+        phone: normalized.payload.phone,
+        date: normalized.payload.date,
+        time: normalized.payload.time,
+        party_size: normalized.payload.party_size,
+        purpose: normalized.payload.purpose,
+        communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
+      })
 
     const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
 

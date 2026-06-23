@@ -1,3 +1,5 @@
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
+
 // Parking domain types
 
 export interface ParkingCustomerDetails {
@@ -20,6 +22,7 @@ export interface ParkingBookingRequest {
   start_at: string
   end_at: string
   notes?: string
+  communication_consent?: CommunicationConsentPayload
 }
 
 export interface ParkingPricingBreakdownItem {
@@ -67,6 +70,7 @@ export interface ParkingCreateOrderRequest {
   start_at: string
   end_at: string
   notes?: string
+  communication_consent?: CommunicationConsentPayload
 }
 
 // Management tools returns this from /parking/bookings when source:'website'.

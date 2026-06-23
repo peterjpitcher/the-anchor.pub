@@ -4,6 +4,11 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import {
+  sanitizeCommunicationConsent,
+  communicationConsentIdempotencyPart,
+} from '@/lib/communication-consent-server'
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -42,9 +47,13 @@ type EventBookingPayload = {
   event_value?: number
   food_intent?: string
   seating_preference?: 'seated' | 'standing'
+  communication_consent?: CommunicationConsentPayload
 }
 
-function createIdempotencyKey(prefix: string): string {
+function createIdempotencyKey(prefix: string, payload?: unknown): string {
+  if (payload !== undefined) {
+    return `${prefix}_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
+  }
   return `${prefix}_${crypto.randomUUID()}`
 }
 
@@ -106,6 +115,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const metaConsentGranted = body.meta_consent_granted === true
   const rawSeatingPreference = body.seating_preference ?? body.seatingPreference
   const seatingPreference = asSeatingPreference(rawSeatingPreference)
+  const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
   if (!eventId || !phone || !seats) {
     return { error: 'Missing required fields: event_id, phone, seats' }
@@ -151,7 +161,8 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
         'food_intent'
       ]),
       ...(eventPrice !== undefined ? { event_price: eventPrice } : {}),
-      ...(eventValue !== undefined ? { event_value: eventValue } : {})
+      ...(eventValue !== undefined ? { event_value: eventValue } : {}),
+      ...(communicationConsent ? { communication_consent: communicationConsent } : {})
     }
   }
 }
@@ -333,7 +344,13 @@ export async function POST(request: NextRequest) {
     }
 
     const idempotencyKey =
-      asTrimmedString(request.headers.get('Idempotency-Key')) || createIdempotencyKey('evt')
+      asTrimmedString(request.headers.get('Idempotency-Key')) ||
+      createIdempotencyKey('evt', {
+        event_id: normalized.payload.event_id,
+        phone: normalized.payload.phone,
+        seats: normalized.payload.seats,
+        communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
+      })
 
     const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
 

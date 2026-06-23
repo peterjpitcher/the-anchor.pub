@@ -1,5 +1,7 @@
 // Table Booking domain types
 
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
+
 export type SlotBusyness = 'quiet' | 'filling' | 'busy'
 
 export interface TableAvailabilitySlot {
@@ -60,6 +62,7 @@ export interface TableBookingRequest {
   allergies?: string[]  // Array of allergies
   celebration_type?: string  // birthday, anniversary, etc.
   source?: string  // website, phone, walk-in, social_media (default: website)
+  communication_consent?: CommunicationConsentPayload
   // Legacy fields for backward compatibility
   customer_name?: string
   customer_first_name?: string

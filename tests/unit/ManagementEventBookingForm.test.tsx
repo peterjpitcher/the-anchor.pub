@@ -220,7 +220,18 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-bingo')
     expect(payload.attribution_captured_at).toBe('2026-05-08T18:30:00.000Z')
-    expect(JSON.stringify(payload)).not.toMatch(/jane@example\.com|email/)
+    expect(payload.email).toBeUndefined()
+    expect(JSON.stringify(payload)).not.toContain('jane@example.com')
+    expect(payload.communication_consent).toEqual(
+      expect.objectContaining({
+        service_contact_notice_shown: true,
+        marketing_email_opt_in: false,
+        marketing_sms_opt_in: false,
+        whatsapp_opt_in: false,
+        marketing_whatsapp_opt_in: false,
+        consent_text_version: 'guest-comms-consent-v1'
+      })
+    )
     expect(trackEventBookingComplete).toHaveBeenCalledWith(
       expect.objectContaining({
         eventId: '550e8400-e29b-41d4-a716-446655440000',

@@ -55,6 +55,7 @@ export default function PrivacyPolicyPage() {
           <h3>Information You Provide</h3>
           <ul>
             <li>Name and contact details when making bookings</li>
+            <li>Your service-contact and marketing consent choices, including the consent wording version shown to you</li>
             <li>Email address when signing up for our newsletter</li>
             <li>Feedback and correspondence sent to us</li>
             <li>Information provided when participating in events or promotions</li>
@@ -86,11 +87,15 @@ export default function PrivacyPolicyPage() {
           <p>We use the information we collect to:</p>
           <ul>
             <li>Process your bookings and reservations</li>
+            <li>Send booking confirmations, reminders, payment links, waitlist updates, and booking changes by phone, email, SMS, or WhatsApp where relevant</li>
             <li>Send you updates about events and promotions (with your consent)</li>
             <li>Improve our website and services</li>
             <li>Respond to your inquiries and provide customer support</li>
             <li>Comply with legal obligations</li>
           </ul>
+          <p>
+            Guest communication consent is recorded against the wording version guest-comms-consent-v1. Marketing consent is optional, unchecked by default, and recorded separately for email, SMS, and WhatsApp. Clicking a WhatsApp contact link does not by itself opt you in to WhatsApp messages or marketing.
+          </p>
 
           <h2>5. Cookie Policy</h2>
           <p>
@@ -150,6 +155,7 @@ export default function PrivacyPolicyPage() {
             <li>The right to restrict processing</li>
             <li>The right to data portability</li>
             <li>The right to object to processing</li>
+            <li>The right to withdraw email, SMS, or WhatsApp marketing consent at any time</li>
           </ul>
 
           <h2>9. Children&apos;s Privacy</h2>

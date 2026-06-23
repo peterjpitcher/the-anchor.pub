@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
+import {
+  sanitizeCommunicationConsent,
+  communicationConsentIdempotencyPart,
+} from '@/lib/communication-consent-server'
 
 const CreateOrderSchema = z.object({
   customer: z.object({
@@ -18,6 +22,7 @@ const CreateOrderSchema = z.object({
   start_at: z.string().datetime({ offset: true }),
   end_at: z.string().datetime({ offset: true }),
   notes: z.string().optional(),
+  communication_consent: z.unknown().optional(),
 })
 
 export async function POST(request: NextRequest) {
@@ -40,12 +45,17 @@ export async function POST(request: NextRequest) {
 
   // Derive an idempotency key from the booking fingerprint so duplicate button
   // clicks don't create duplicate bookings.
+  const communicationConsent = sanitizeCommunicationConsent(parsed.data.communication_consent)
   const idempotencyKey = Buffer.from(
-    `${parsed.data.customer.mobile_number}|${parsed.data.vehicle.registration}|${parsed.data.start_at}`
+    `${parsed.data.customer.mobile_number}|${parsed.data.vehicle.registration}|${parsed.data.start_at}|${communicationConsentIdempotencyPart(communicationConsent)}`
   ).toString('base64')
 
   try {
-    const result = await anchorAPI.createParkingPaymentOrder(parsed.data, idempotencyKey)
+    const { communication_consent: _ignored, ...orderData } = parsed.data
+    const result = await anchorAPI.createParkingPaymentOrder({
+      ...orderData,
+      ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
+    }, idempotencyKey)
     return NextResponse.json(result, { status: 201 })
   } catch (error: unknown) {
     // error is typed as unknown; cast to access dynamic API error shape

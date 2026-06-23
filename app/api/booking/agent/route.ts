@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
         last_name: body.customer.lastName,
         email: body.customer.email,
         mobile_number: body.customer.phone,
-        sms_opt_in: body.customer.smsOptIn ?? false
+        sms_opt_in: false
       },
       duration_minutes: body.duration || 120,
       special_requirements: body.specialRequirements,

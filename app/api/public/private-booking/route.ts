@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { logError } from '@/lib/error-handling'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
+import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -17,6 +19,7 @@ type LegacyPrivateBookingPayload = {
     guest_count?: number
     event_type?: string
     internal_notes?: string
+    communication_consent?: CommunicationConsentPayload
     items?: Array<{
         description?: string
         quantity?: number
@@ -45,8 +48,8 @@ function asPositiveInt(value: unknown): number | undefined {
     return undefined
 }
 
-function createIdempotencyKey(): string {
-    return `prv_${crypto.randomUUID()}`
+function createIdempotencyKey(payload: unknown): string {
+    return `prv_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
 }
 
 function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {
@@ -120,6 +123,7 @@ export async function POST(request: NextRequest) {
 
         const groupSize = asPositiveInt(pb.guest_count)
         const notes = toNotes(pb)
+        const communicationConsent = sanitizeCommunicationConsent(pb.communication_consent)
 
         const mappedPayload = {
             phone,
@@ -128,10 +132,11 @@ export async function POST(request: NextRequest) {
             ...(asTrimmedString(pb.event_date) ? { date: asTrimmedString(pb.event_date) } : {}),
             ...(asTrimmedString(pb.start_time) ? { time: asTrimmedString(pb.start_time) } : {}),
             ...(groupSize ? { group_size: groupSize } : {}),
-            ...(notes ? { notes } : {})
+            ...(notes ? { notes } : {}),
+            ...(communicationConsent ? { communication_consent: communicationConsent } : {})
         }
 
-        const idempotencyKey = request.headers.get('Idempotency-Key') || createIdempotencyKey()
+        const idempotencyKey = request.headers.get('Idempotency-Key') || createIdempotencyKey(mappedPayload)
 
         const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
 

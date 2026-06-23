@@ -15,6 +15,12 @@ import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { trackTableBookingClick, trackTableBookingFunnel, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
+import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import {
+  DEFAULT_COMMUNICATION_CONSENT_STATE,
+  buildCommunicationConsentPayload,
+  type CommunicationConsentState,
+} from '@/lib/communication-consent'
 
 export interface TableBookingFormProps {
   className?: string
@@ -54,6 +60,9 @@ export default function TableBookingForm({
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [retryCount, setRetryCount] = useState(0)
+  const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
+    DEFAULT_COMMUNICATION_CONSENT_STATE
+  )
   const abortControllerRef = useRef<AbortController | null>(null)
 
   // Handle date/time selection from first step
@@ -117,9 +126,9 @@ export default function TableBookingForm({
         first_name: customerDetails.firstName,
         last_name: customerDetails.lastName,
         email: customerDetails.email,
-        mobile_number: customerDetails.phone,
-        sms_opt_in: true
+        mobile_number: customerDetails.phone
       },
+      communication_consent: buildCommunicationConsentPayload(communicationConsent),
       duration_minutes: 120,
       special_requirements: customerDetails.specialRequirements,
       dietary_requirements: customerDetails.dietaryRequirements ? [customerDetails.dietaryRequirements] : undefined,
@@ -203,7 +212,7 @@ export default function TableBookingForm({
       setIsSubmitting(false)
       abortControllerRef.current = null
     }
-  }, [bookingState, onSuccess])
+  }, [bookingState, communicationConsent, onSuccess])
 
   // Handle new booking
   const handleNewBooking = useCallback(() => {
@@ -292,6 +301,12 @@ export default function TableBookingForm({
           onBack={handleBack}
           loading={isSubmitting}
           className={className}
+          footer={(
+            <CommunicationConsentFields
+              value={communicationConsent}
+              onChange={setCommunicationConsent}
+            />
+          )}
         />
       )
 

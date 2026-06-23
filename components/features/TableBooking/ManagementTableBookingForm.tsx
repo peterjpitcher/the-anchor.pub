@@ -44,6 +44,12 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { getAircraftOverheadNotePartsForDateTime } from '@/lib/heathrow-runway-alternation'
+import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import {
+  DEFAULT_COMMUNICATION_CONSENT_STATE,
+  buildCommunicationConsentPayload,
+  type CommunicationConsentState,
+} from '@/lib/communication-consent'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -667,6 +673,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [notes, setNotes] = useState('')
+  const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
+    DEFAULT_COMMUNICATION_CONSENT_STATE
+  )
 
   const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null)
   const [bookingIdForPayment, setBookingIdForPayment] = useState<string | null>(null)
@@ -1438,6 +1447,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     partySize: number
     purpose: 'food' | 'drinks'
     notes?: string
+    communicationConsent: CommunicationConsentState
   }): string {
     return JSON.stringify({
       phone: input.phone.trim(),
@@ -1448,7 +1458,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       time: input.time,
       partySize: input.partySize,
       purpose: input.purpose,
-      notes: input.notes?.trim() || ''
+      notes: input.notes?.trim() || '',
+      communicationConsent: input.communicationConsent
     })
   }
 
@@ -1506,7 +1517,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       time: selectedTime,
       partySize,
       purpose,
-      notes: trimmedNotes
+      notes: trimmedNotes,
+      communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
 
@@ -1554,6 +1566,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         party_size: partySize,
         purpose,
         ...(trimmedNotes ? { notes: trimmedNotes } : {}),
+        communication_consent: buildCommunicationConsentPayload(communicationConsent),
         ...attribution,
         // Volatile fields below, added after the idempotency key has already
         // been selected so they cannot influence the submit-intent fingerprint.
@@ -2241,6 +2254,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 onChange={(event) => setNotes(event.target.value)}
                 placeholder="Special requests, accessibility needs, occasion details..."
                 rows={3}
+              />
+            ) : null}
+
+            {detailsUnlocked ? (
+              <CommunicationConsentFields
+                value={communicationConsent}
+                onChange={setCommunicationConsent}
               />
             ) : null}
 

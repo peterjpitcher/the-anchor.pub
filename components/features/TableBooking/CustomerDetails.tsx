@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, type ReactNode } from 'react'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
@@ -29,6 +29,7 @@ export interface CustomerDetailsProps {
   onBack: () => void
   loading?: boolean
   className?: string
+  footer?: ReactNode
 }
 
 const OCCASION_OPTIONS = [
@@ -48,7 +49,8 @@ export default function CustomerDetails({
   onSubmit,
   onBack,
   loading = false,
-  className = ''
+  className = '',
+  footer
 }: CustomerDetailsProps) {
   const [formData, setFormData] = useState<CustomerDetailsData>({
     firstName: '',
@@ -313,6 +315,8 @@ export default function CustomerDetails({
               </div>
             </Alert>
           )}
+
+          {footer}
 
           <div className="flex gap-3 pt-4">
             <Button
