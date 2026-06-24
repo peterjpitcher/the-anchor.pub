@@ -1,9 +1,0 @@
-e5d2e51bfbb3ea8d3508a8de4a77221a
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.version = void 0;
-exports.version = {
-    major: 4,
-    minor: 3,
-    patch: 5,
-};

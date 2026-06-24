@@ -80,14 +80,6 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
     console.log(`[Seasonal Image] Serving ${season} image: ${imagePath}`)
   }
 
-  try {
-    const fs = require('fs')
-    const path = require('path')
-    fs.appendFileSync('debug-seasonal.log', `[${new Date().toISOString()}] Season: ${season}, Path: ${imagePath}\n`)
-  } catch (e) {
-    // ignore
-  }
-
   return { src: imagePath, season, fallback: defaultImage }
 }
 

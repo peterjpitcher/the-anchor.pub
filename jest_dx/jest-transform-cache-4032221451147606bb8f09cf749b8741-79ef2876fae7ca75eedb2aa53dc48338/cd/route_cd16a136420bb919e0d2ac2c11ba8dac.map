@@ -1,1 +1,0 @@
-{"version":3,"sources":["/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/app/api/table-bookings/create/route.ts"],"sourcesContent":["export { POST } from '../route'\n"],"names":["POST"],"mappings":";;;;+BAASA;;;eAAAA,WAAI;;;uBAAQ"}
