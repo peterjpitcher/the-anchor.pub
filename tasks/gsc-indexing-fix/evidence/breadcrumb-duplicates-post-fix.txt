@@ -1,9 +1,0 @@
-Post-fix breadcrumb duplicate scan
-=========================================
-Built HTML files scanned: 275
-Pages with >1 BreadcrumbList: 0
-Pages with exactly 1 BreadcrumbList: 268
-Pages with 0 BreadcrumbLists: 7
-
-Verdict: 0 of 275 pages have >1 BreadcrumbList
-
