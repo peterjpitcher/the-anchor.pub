@@ -87,3 +87,9 @@ temp/
 website/
 .claude/session-context.md
 .claude/launch.json
+
+# Local tool/test caches (regenerated; never commit)
+jest_dx/
+node-compile-cache/
+tsx-*/
+.seo-workspace/
