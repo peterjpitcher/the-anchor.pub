@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pub With Coach Parking Near Heathrow | Group Bookings',
-    description: `${BRAND.name} welcomes coach parties! Large car park with easy turning, group menus available, and the driver eats FREE. We're just 7 mins from T5.`,
+    description: `${BRAND.name} welcomes coach groups of up to 20 near Heathrow. Large car park, group menus, and a free driver meal for groups over 15.`,
     openGraph: {
         title: 'Coach Parties Welcome at The Anchor',
-        description: 'Looking for a tour stop? We have coach parking, group menus, and a special offer for drivers.',
+        description: 'Looking for a tour stop? We welcome coach groups of up to 20, offer group menus, and give the driver a free meal for groups over 15.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Coach Parties Welcome at The Anchor',
-        description: 'Looking for a tour stop? We have coach parking, group menus, and a special offer for drivers.',
+        description: 'Looking for a tour stop? We welcome coach groups of up to 20, offer group menus, and give the driver a free meal for groups over 15.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -38,7 +38,7 @@ export default function CoachParkingPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Coach Parking"
         title="Coach Parties Welcome"
-        lead="Ample parking, great group food, and the driver eats on us."
+        lead="Coach groups up to 20, group food, and a free driver meal for groups over 15."
       />
 
             <section className="py-section-y bg-canvas">
@@ -48,7 +48,7 @@ export default function CoachParkingPage() {
                             The Perfect Stop for Tour Groups
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Finding a pub near Heathrow that can handle a 50-seater coach is rare. finding one with great food is even rarer! The Anchor has a large, accessible car park and the capacity to feed hungry tour groups quickly and deliciously.
+                            Need a pub near Heathrow for a coach group? The Anchor has a large, accessible car park, space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 25 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
                         </p>
                     </div>
                 </Container>
@@ -65,10 +65,10 @@ export default function CoachParkingPage() {
                             />
                             <Card className="p-6 shadow-lg">
                                 <h3 className="text-2xl font-bold mb-2 text-ink-strong"> The Driver Deal</h3>
-                                <p className="mb-4 text-ink">Bring a group of 15+ passengers for a main meal, and the driver gets:</p>
+                                <p className="mb-4 text-ink">Bring a group of more than 15 people for a main meal, and the driver gets:</p>
                                 <ul className="space-y-2 font-medium text-ink">
-                                    <li> A Free Main Meal</li>
-                                    <li> Free Soft Drinks / Coffee</li>
+                                    <li> A free main meal</li>
+                                    <li> Free soft drinks or coffee</li>
                                     <li> A quiet spot to rest if needed</li>
                                 </ul>
                             </Card>
@@ -83,13 +83,13 @@ export default function CoachParkingPage() {
                                 <Card accent>
                                     <CardBody className="p-5">
                                         <h3 className="text-lg font-semibold text-ink-strong">Large Car Park</h3>
-                                        <p className="mt-2 text-sm text-ink-muted">No tight squeezes. Our open lot allows for easy entry and exit for large vehicles.</p>
+                                        <p className="mt-2 text-sm text-ink-muted">Parking is dependent on availability, and we cannot reserve spaces. Please arrive early, especially at busy times.</p>
                                     </CardBody>
                                 </Card>
                                 <Card accent>
                                     <CardBody className="p-5">
                                         <h3 className="text-lg font-semibold text-ink-strong">Quick Turnaround</h3>
-                                        <p className="mt-2 text-sm text-ink-muted">Pre-order available for groups to ensure you stay on schedule.</p>
+                                        <p className="mt-2 text-sm text-ink-muted">Pre-orders are needed 7 days before your visit to help us keep your group on schedule.</p>
                                     </CardBody>
                                 </Card>
                             </div>
@@ -134,15 +134,15 @@ export default function CoachParkingPage() {
                 faqs={[
                     {
                         question: "Do we need to book in advance?",
-                        answer: "For coaches, yes absoluteley. We need to reserve the parking bays and ensure we have staff ready to serve a large group efficiently."
+                        answer: "For coaches, yes, absolutely. We need advance notice so we can prepare staff and tables for your group. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early."
                     },
                     {
                         question: "Is there a maximum group size?",
-                        answer: "We can comfortably seat 50-60 people in one area. For larger double-decker groups, please call us to discuss."
+                        answer: "Coach groups of up to 20 can sit together. Our private dining room can fit up to 25 people. Groups of around 50 can be hosted, but they would be spread across the pub rather than seated all together."
                     },
                     {
                         question: "How do we pre-order?",
-                        answer: "Email us your numbers and requirements 24 hours in advance, and we will have everything ready to go when you pull in."
+                        answer: "Email us your numbers and requirements 7 days before your visit, and we will have everything ready to go when you pull in."
                     }
                 ]}
                 className="bg-surface"
@@ -150,7 +150,7 @@ export default function CoachParkingPage() {
 
             <CtaBand
                 title="Plan Your Stop"
-                copy="Call us today to book your coach parking and table."
+                copy="Call us today to plan your coach stop and table."
             >
                 <PhoneButton phone={CONTACT.phone} source="coach_cta" variant="primary" size="lg">
                     Call Us
