@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import securityHeaders from '@/config/security-headers.json'
 import { lookupRedirect, getRedirectStatus, resolveRedirectUrl } from '@/lib/middleware-redirects'
 
 export function middleware(request: NextRequest) {
@@ -71,12 +72,9 @@ export function middleware(request: NextRequest) {
 
     const response = NextResponse.next()
 
-    // Add performance and security headers
-    response.headers.set('X-Content-Type-Options', 'nosniff')
-    response.headers.set('X-Frame-Options', 'DENY')
-    response.headers.set('X-XSS-Protection', '1; mode=block')
-    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-    response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+    for (const { key, value } of securityHeaders) {
+        response.headers.set(key, value)
+    }
 
     const pathname = request.nextUrl.pathname
 

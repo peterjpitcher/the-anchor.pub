@@ -7,6 +7,7 @@ const wixRedirects = require('./config/redirects/wix-redirects.json')
 const legacyRedirects = require('./config/redirects/legacy-redirects.json')
 const drinksRedirects = require('./config/redirects/drinks-redirects.json')
 const additionalRedirects = require('./config/redirects/additional-redirects.json')
+const securityHeaders = require('./config/security-headers.json')
 
 function normaliseRedirect(redirect) {
   if (!redirect || typeof redirect !== 'object') return redirect
@@ -52,34 +53,6 @@ const nextConfig = {
     return allRedirects.filter(isPatternRedirect).map(normaliseRedirect)
   },
   async headers() {
-    const securityHeaders = [
-      {
-        key: 'X-Content-Type-Options',
-        value: 'nosniff',
-      },
-      {
-        key: 'X-Frame-Options',
-        value: 'DENY',
-      },
-      {
-        key: 'X-XSS-Protection',
-        value: '1; mode=block',
-      },
-      {
-        key: 'X-DNS-Prefetch-Control',
-        value: 'on',
-      },
-      {
-        key: 'Strict-Transport-Security',
-        value: 'max-age=63072000; includeSubDomains; preload',
-      },
-      // NOTE: No Content-Security-Policy header is set here.
-      // A restrictive CSP blocks Next.js App Router inline hydration scripts,
-      // GTM, and other required third-party resources, breaking the entire site.
-      // PayPal Smart Buttons do not require a CSP to function — iframes and
-      // external scripts are permitted by default when no CSP is present.
-    ]
-
     const baseHeaders = [
       {
         source: '/:path*',
