@@ -111,6 +111,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Christenings', href: '/private-hire/christenings' },
       { label: 'Baby Showers', href: '/private-hire/baby-showers' },
       { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
+      { label: 'Anniversary Parties', href: '/private-hire/anniversary-parties' },
       { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
       { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
       { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },

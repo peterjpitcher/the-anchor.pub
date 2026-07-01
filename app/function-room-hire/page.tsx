@@ -442,6 +442,7 @@ export default function FunctionRoomHirePage() {
           { href: '/private-hire#enquiry', title: 'Submit Event Enquiry', description: 'Tell us about your celebration or meeting' },
           { href: '/corporate-events', title: 'Corporate Event Packages', description: 'See delegate rates and meeting add-ons' },
           { href: '/private-party-venue', title: 'Private Party Venue', description: 'Plan birthdays, wakes and anniversaries' },
+          { href: '/private-hire/anniversary-parties', title: 'Anniversary Parties', description: 'Plan a milestone celebration with catering and free parking' },
           { href: '/food-menu', title: 'Menu Ideas', description: 'Select canapés, buffets or two-course meals' }
         ]}
         className="py-section-y"
