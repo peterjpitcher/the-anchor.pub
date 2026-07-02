@@ -13,11 +13,18 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
+type TicketSelection = {
+  ticket_type_id: string
+  quantity: number
+  attendee_names: string[]
+}
+
 type EventBookingPayload = {
   event_id: string
   phone: string
   seats: number
   attendee_names?: string[]
+  ticket_selections?: TicketSelection[]
   first_name?: string
   last_name?: string
   email?: string
@@ -104,6 +111,21 @@ function asNameArray(value: unknown): string[] | undefined {
   return value.map((entry) => (typeof entry === 'string' ? entry.trim() : ''))
 }
 
+// Parses the multi-ticket-type payload. Returns undefined when absent, and an
+// (empty-name-tolerant) normalized array otherwise so validatePayload can reject
+// malformed lines with a clear message. Passed straight through to AMS, which is
+// the source of truth for pricing/capacity — the proxy only shape-checks it.
+function asTicketSelections(value: unknown): TicketSelection[] | undefined {
+  if (!Array.isArray(value)) return undefined
+  return value.map((entry) => {
+    const line = (entry && typeof entry === 'object' ? entry : {}) as Record<string, unknown>
+    const ticketTypeId = asTrimmedString(line.ticket_type_id) || ''
+    const quantity = asPositiveInt(line.quantity) ?? 0
+    const attendeeNames = asNameArray(line.attendee_names) ?? []
+    return { ticket_type_id: ticketTypeId, quantity, attendee_names: attendeeNames }
+  })
+}
+
 const MAX_ATTENDEE_NAME_LENGTH = 120
 
 function normalizePayload(input: unknown): { payload?: EventBookingPayload; error?: string } {
@@ -126,6 +148,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const rawSeatingPreference = body.seating_preference ?? body.seatingPreference
   const seatingPreference = asSeatingPreference(rawSeatingPreference)
   const attendeeNames = asNameArray(body.attendee_names)
+  const ticketSelections = asTicketSelections(body.ticket_selections)
   const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
   if (!eventId || !phone || !seats) {
@@ -148,6 +171,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
       ...(seatingPreference ? { seating_preference: seatingPreference } : {}),
       ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
+      ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
         'source_url',
@@ -212,22 +236,61 @@ function validatePayload(payload: EventBookingPayload): string | null {
   const attendeeNames = payload.attendee_names
   const isPaidEvent = typeof payload.event_price === 'number' && payload.event_price > 0
 
+  const ticketSelections = payload.ticket_selections
+  if (ticketSelections) {
+    if (ticketSelections.length === 0) {
+      return 'Please choose at least one ticket'
+    }
+    let selectionSeatSum = 0
+    for (const line of ticketSelections) {
+      if (!line.ticket_type_id) {
+        return 'Invalid ticket selection'
+      }
+      if (line.quantity < 1) {
+        return 'Please choose at least one ticket'
+      }
+      if (line.attendee_names.length !== line.quantity) {
+        return 'Please enter a name for each ticket'
+      }
+      if (line.attendee_names.some((name) => name.length === 0)) {
+        return 'Please enter a name for each ticket'
+      }
+      if (line.attendee_names.some((name) => name.length > MAX_ATTENDEE_NAME_LENGTH)) {
+        return `Each name must be ${MAX_ATTENDEE_NAME_LENGTH} characters or fewer`
+      }
+      selectionSeatSum += line.quantity
+    }
+    if (selectionSeatSum !== payload.seats) {
+      return 'Seat total does not match the ticket selection'
+    }
+    // Multi-type events carry the full name set inside ticket_selections; the flat
+    // attendee_names aggregate is validated below when present.
+    return validateFlatAttendeeNames(attendeeNames, payload.seats)
+  }
+
   if (isPaidEvent && (!attendeeNames || attendeeNames.length === 0)) {
     return 'Please enter a name for each ticket'
   }
 
-  if (attendeeNames) {
-    if (attendeeNames.some((name) => name.length === 0)) {
-      return 'Please enter a name for each ticket'
-    }
-    if (attendeeNames.some((name) => name.length > MAX_ATTENDEE_NAME_LENGTH)) {
-      return `Each name must be ${MAX_ATTENDEE_NAME_LENGTH} characters or fewer`
-    }
-    if (attendeeNames.length !== payload.seats) {
-      return 'Please enter a name for each ticket'
-    }
-  }
+  return validateFlatAttendeeNames(attendeeNames, payload.seats)
+}
 
+// Validates the flat attendee_names aggregate (shared by single- and multi-type
+// paths). No-op when the aggregate is absent.
+function validateFlatAttendeeNames(
+  attendeeNames: string[] | undefined,
+  seats: number
+): string | null {
+  if (!attendeeNames) return null
+  if (attendeeNames.some((name) => name.length === 0)) {
+    return 'Please enter a name for each ticket'
+  }
+  if (attendeeNames.some((name) => name.length > MAX_ATTENDEE_NAME_LENGTH)) {
+    return `Each name must be ${MAX_ATTENDEE_NAME_LENGTH} characters or fewer`
+  }
+  if (attendeeNames.length !== seats) {
+    return 'Please enter a name for each ticket'
+  }
   return null
 }
 
@@ -381,6 +444,7 @@ export async function POST(request: NextRequest) {
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
         ...(normalized.payload.attendee_names ? { attendee_names: normalized.payload.attendee_names } : {}),
+        ...(normalized.payload.ticket_selections ? { ticket_selections: normalized.payload.ticket_selections } : {}),
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 

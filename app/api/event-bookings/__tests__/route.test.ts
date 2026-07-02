@@ -186,3 +186,99 @@ describe('website /api/event-bookings proxy, per-ticket attendee names', () => {
     expect((calls[0].init.headers as Record<string, string>)['Idempotency-Key']).toBe(expectedLegacyKey)
   })
 })
+
+describe('website /api/event-bookings proxy, ticket_selections passthrough', () => {
+  it('forwards a valid ticket_selections basket to the management API', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        ...VALID_BASE,
+        seats: 3,
+        event_price: 5,
+        attendee_names: ['Alice Booker', 'Bob Guest', 'Cara Guest'],
+        ticket_selections: [
+          { ticket_type_id: 'type-adult', quantity: 2, attendee_names: ['Alice Booker', 'Bob Guest'] },
+          { ticket_type_id: 'type-child', quantity: 1, attendee_names: ['Cara Guest'] }
+        ]
+      }) as any
+    )
+
+    expect(res.status).toBe(201)
+    const forwarded = JSON.parse(String(calls[0].init.body))
+    expect(forwarded.ticket_selections).toEqual([
+      { ticket_type_id: 'type-adult', quantity: 2, attendee_names: ['Alice Booker', 'Bob Guest'] },
+      { ticket_type_id: 'type-child', quantity: 1, attendee_names: ['Cara Guest'] }
+    ])
+    expect(forwarded.seats).toBe(3)
+  })
+
+  it('rejects when the selection seat total does not match seats', async () => {
+    installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        ...VALID_BASE,
+        seats: 3,
+        event_price: 5,
+        attendee_names: ['Alice Booker', 'Bob Guest'],
+        ticket_selections: [
+          { ticket_type_id: 'type-adult', quantity: 2, attendee_names: ['Alice Booker', 'Bob Guest'] }
+        ]
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+  })
+
+  it('rejects when a selection line has a name-count mismatch', async () => {
+    installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        ...VALID_BASE,
+        seats: 2,
+        event_price: 5,
+        attendee_names: ['Alice Booker', 'Bob Guest'],
+        ticket_selections: [
+          { ticket_type_id: 'type-adult', quantity: 2, attendee_names: ['Alice Booker'] }
+        ]
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+  })
+
+  it('rejects when a selection line is missing its ticket_type_id', async () => {
+    installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        ...VALID_BASE,
+        seats: 1,
+        event_price: 5,
+        attendee_names: ['Alice Booker'],
+        ticket_selections: [
+          { ticket_type_id: '', quantity: 1, attendee_names: ['Alice Booker'] }
+        ]
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+  })
+
+  it('does not add a ticket_selections key to single-type bookings', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequest({ ...VALID_BASE }) as any)
+
+    expect(res.status).toBe(201)
+    const forwarded = JSON.parse(String(calls[0].init.body))
+    expect('ticket_selections' in forwarded).toBe(false)
+  })
+})

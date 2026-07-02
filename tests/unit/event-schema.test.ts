@@ -30,6 +30,33 @@ describe('buildEventSchema', () => {
   })
 })
 
+describe('buildEventSchema — multiple ticket types', () => {
+  it('emits one Offer per type when prices differ', () => {
+    const event = {
+      ...minimalEvent,
+      ticket_types: [
+        { id: 'adult', name: 'Adult', price: 12, sort_order: 0 },
+        { id: 'child', name: 'Child', price: 6, sort_order: 1 }
+      ]
+    }
+    const schema = buildEventSchema(event) as any
+    expect(Array.isArray(schema.offers)).toBe(true)
+    expect(schema.offers).toHaveLength(2)
+    expect(schema.offers[0]).toMatchObject({ '@type': 'Offer', name: 'Adult', price: '12.00', priceCurrency: 'GBP' })
+    expect(schema.offers[1]).toMatchObject({ '@type': 'Offer', name: 'Child', price: '6.00' })
+  })
+
+  it('keeps a single Offer object when there is one type', () => {
+    const event = {
+      ...minimalEvent,
+      ticket_types: [{ id: 'std', name: 'Standard', price: 5, sort_order: 0 }]
+    }
+    const schema = buildEventSchema(event) as any
+    expect(Array.isArray(schema.offers)).toBe(false)
+    expect(schema.offers['@type']).toBe('Offer')
+  })
+})
+
 describe('buildEventSchema — booking URL sanitisation', () => {
   it('uses bookingUrl when it is a valid external URL', () => {
     const event = {

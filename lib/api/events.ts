@@ -5,6 +5,25 @@ import { logError } from '@/lib/error-handling'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 import { dedupeUpcomingEvents } from '@/lib/event-normalization'
 
+/**
+ * A purchasable ticket type on an event (e.g. Adult / Child / Concession, or
+ * Standard / VIP tiers). `price` is the final, post-discount price per seat in
+ * GBP. An event only carries multiple entries once the management API is
+ * configured for it; most events expose zero or one type and behave as before.
+ */
+export interface EventTicketType {
+  id: string
+  name: string
+  description?: string | null
+  /** Final, post-discount price per seat, in GBP. */
+  price: number
+  /** Per-type capacity (null/undefined = shares the event pool). */
+  capacity?: number | null
+  /** Seats still available for this type (null/undefined = unknown). */
+  remaining?: number | null
+  sort_order: number
+}
+
 export interface Event {
   '@type': 'Event'
   id: string
@@ -89,6 +108,10 @@ export interface Event {
   price_per_seat?: number | null
   online_discount_type?: 'fixed' | 'percent' | string | null
   online_discount_value?: number | null
+  // Multiple ticket options. The management API returns snake_case `ticket_types`;
+  // `ticketTypes` is the camelCase alias. Read both via `getEventTicketTypes()`.
+  ticketTypes?: EventTicketType[] | null
+  ticket_types?: EventTicketType[] | null
   is_free?: boolean | null
   bookingUrl?: string | null // External booking link
   booking_url?: string | null
@@ -423,6 +446,63 @@ export function formatPrice(price: string | number, currency: string = 'GBP'): s
   return formatter
     .format(typeof price === 'string' ? parseFloat(price) : price)
     .replace(/\u00A0/g, ' ')
+}
+
+// A minimal event shape carrying ticket-type data, so helpers can be reused by
+// callers that only hold a partial event (booking form, price helpers, etc.).
+type EventTicketTypeSource = {
+  ticketTypes?: EventTicketType[] | null
+  ticket_types?: EventTicketType[] | null
+}
+
+function parseTicketTypePrice(value: unknown): number | null {
+  const parsed = typeof value === 'string' ? Number(value) : value
+  if (typeof parsed === 'number' && Number.isFinite(parsed) && parsed >= 0) {
+    return parsed
+  }
+  return null
+}
+
+/**
+ * Normalised, ordered list of active ticket types for an event, reading from
+ * either the camelCase `ticketTypes` or the raw snake_case `ticket_types`
+ * (whichever the API supplied). Returns `[]` when the event has no types, so
+ * existing single-price behaviour is preserved for every current event.
+ */
+export function getEventTicketTypes(event: EventTicketTypeSource): EventTicketType[] {
+  const raw = event.ticketTypes ?? event.ticket_types
+  if (!Array.isArray(raw)) return []
+
+  return raw
+    .filter((type): type is EventTicketType => {
+      if (!type || typeof type !== 'object') return false
+      return parseTicketTypePrice((type as EventTicketType).price) !== null
+    })
+    .map((type) => ({
+      ...type,
+      price: parseTicketTypePrice(type.price) ?? 0,
+      sort_order: typeof type.sort_order === 'number' ? type.sort_order : 0,
+    }))
+    .sort((a, b) => a.sort_order - b.sort_order)
+}
+
+/**
+ * True only when the event offers 2+ ticket types whose prices differ — the
+ * condition under which the "from £X" / multi-type UI is shown. A single type
+ * (or several identically-priced types) keeps the existing single-price path.
+ */
+export function hasMultipleTicketPrices(event: EventTicketTypeSource): boolean {
+  const types = getEventTicketTypes(event)
+  if (types.length < 2) return false
+  const first = types[0].price
+  return types.some((type) => type.price !== first)
+}
+
+/** Lowest active ticket-type price, or null when there are none. */
+export function getLowestTicketTypePrice(event: EventTicketTypeSource): number | null {
+  const types = getEventTicketTypes(event)
+  if (types.length === 0) return null
+  return types.reduce((min, type) => (type.price < min ? type.price : min), types[0].price)
 }
 
 export function isEventSoldOut(event: Event): boolean {

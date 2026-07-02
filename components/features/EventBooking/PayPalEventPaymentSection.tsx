@@ -17,14 +17,32 @@ export interface EventPaymentConversionPayload {
   attribution?: BookingAttributionPayload | null
 }
 
+export type EventPaymentBreakdownLine = {
+  name: string
+  quantity: number
+  lineTotal: number
+}
+
 interface Props {
   bookingId: string
   bookingSummary: string
+  /** Per-ticket-type breakdown, shown in the review box for multi-type bookings. */
+  bookingBreakdown?: EventPaymentBreakdownLine[]
   fallbackUrl?: string | null
   conversionPayload: EventPaymentConversionPayload
   onSuccess: () => void
   onManualReview: () => void
   onError: (message: string) => void
+}
+
+function formatMoney(value: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    maximumFractionDigits: value % 1 === 0 ? 0 : 2,
+  })
+    .format(value)
+    .replace(/ /g, ' ')
 }
 
 type PaymentState = 'idle' | 'creating' | 'paying' | 'manual_review' | 'error'
@@ -45,6 +63,7 @@ function resolveErrorMessage(error: unknown, fallback: string): string {
 export function PayPalEventPaymentSection({
   bookingId,
   bookingSummary,
+  bookingBreakdown,
   fallbackUrl,
   conversionPayload,
   onSuccess,
@@ -125,7 +144,25 @@ export function PayPalEventPaymentSection({
       <div className="mt-3 space-y-3">
         <div className="rounded-sm border border-line bg-surface p-3 text-sm">
           <p className="font-semibold text-ink">{bookingSummary}</p>
-          <p className="text-ink-muted">Pay with PayPal to confirm your booking.</p>
+          {bookingBreakdown && bookingBreakdown.length > 0 ? (
+            <div className="mt-2 space-y-1 border-t border-line pt-2 text-ink-muted">
+              {bookingBreakdown.map((line) => (
+                <div key={line.name} className="flex justify-between">
+                  <span>
+                    {line.quantity} × {line.name}
+                  </span>
+                  <span>{formatMoney(line.lineTotal)}</span>
+                </div>
+              ))}
+              <div className="flex justify-between pt-1 font-semibold text-ink">
+                <span>Total</span>
+                <span>
+                  {formatMoney(bookingBreakdown.reduce((sum, line) => sum + line.lineTotal, 0))}
+                </span>
+              </div>
+            </div>
+          ) : null}
+          <p className="mt-2 text-ink-muted">Pay with PayPal to confirm your booking.</p>
         </div>
 
         {paymentState === 'error' ? (
