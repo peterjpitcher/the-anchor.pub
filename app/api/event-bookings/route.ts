@@ -17,6 +17,7 @@ type EventBookingPayload = {
   event_id: string
   phone: string
   seats: number
+  attendee_names?: string[]
   first_name?: string
   last_name?: string
   email?: string
@@ -96,6 +97,15 @@ function asSeatingPreference(value: unknown): 'seated' | 'standing' | undefined 
   return normalized === 'seated' || normalized === 'standing' ? normalized : undefined
 }
 
+// Returns a trimmed name array when the input is an array (empties preserved so
+// validatePayload can reject them), or undefined when no array was supplied.
+function asNameArray(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined
+  return value.map((entry) => (typeof entry === 'string' ? entry.trim() : ''))
+}
+
+const MAX_ATTENDEE_NAME_LENGTH = 120
+
 function normalizePayload(input: unknown): { payload?: EventBookingPayload; error?: string } {
   if (!input || typeof input !== 'object') {
     return { error: 'Invalid request body' }
@@ -115,6 +125,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const metaConsentGranted = body.meta_consent_granted === true
   const rawSeatingPreference = body.seating_preference ?? body.seatingPreference
   const seatingPreference = asSeatingPreference(rawSeatingPreference)
+  const attendeeNames = asNameArray(body.attendee_names)
   const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
   if (!eventId || !phone || !seats) {
@@ -136,6 +147,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(notes ? { notes } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
       ...(seatingPreference ? { seating_preference: seatingPreference } : {}),
+      ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
         'source_url',
@@ -195,6 +207,25 @@ function validatePayload(payload: EventBookingPayload): string | null {
 
   if (payload.notes && payload.notes.length > 500) {
     return 'Notes must be 500 characters or fewer'
+  }
+
+  const attendeeNames = payload.attendee_names
+  const isPaidEvent = typeof payload.event_price === 'number' && payload.event_price > 0
+
+  if (isPaidEvent && (!attendeeNames || attendeeNames.length === 0)) {
+    return 'Please enter a name for each ticket'
+  }
+
+  if (attendeeNames) {
+    if (attendeeNames.some((name) => name.length === 0)) {
+      return 'Please enter a name for each ticket'
+    }
+    if (attendeeNames.some((name) => name.length > MAX_ATTENDEE_NAME_LENGTH)) {
+      return `Each name must be ${MAX_ATTENDEE_NAME_LENGTH} characters or fewer`
+    }
+    if (attendeeNames.length !== payload.seats) {
+      return 'Please enter a name for each ticket'
+    }
   }
 
   return null
@@ -349,6 +380,7 @@ export async function POST(request: NextRequest) {
         event_id: normalized.payload.event_id,
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
+        attendee_names: normalized.payload.attendee_names ?? null,
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 
