@@ -177,5 +177,12 @@ describe('website /api/event-bookings proxy, per-ticket attendee names', () => {
     expect(res.status).toBe(201)
     const forwarded = JSON.parse(String(calls[0].init.body))
     expect(forwarded.attendee_names).toBeUndefined()
+    const expectedLegacyKey = `evt_${Buffer.from(JSON.stringify({
+      event_id: VALID_BASE.event_id,
+      phone: VALID_BASE.phone,
+      seats: VALID_BASE.seats,
+      communication_consent: ''
+    })).toString('base64url').slice(0, 120)}`
+    expect((calls[0].init.headers as Record<string, string>)['Idempotency-Key']).toBe(expectedLegacyKey)
   })
 })

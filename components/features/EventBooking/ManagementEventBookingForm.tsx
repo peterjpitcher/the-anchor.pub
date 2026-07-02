@@ -225,8 +225,11 @@ export function ManagementEventBookingForm({
   const eventUnitPrice = getEventUnitPrice(event)
   const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
   const collectsAttendeeNames = isPaidEvent && seats > 1
+  const requiredAdditionalAttendeeCount = Math.max(0, seats - 1)
   const attendeeNamesComplete =
-    !collectsAttendeeNames || additionalAttendeeNames.every((name) => name.trim().length > 0)
+    !collectsAttendeeNames ||
+    (additionalAttendeeNames.length === requiredAdditionalAttendeeCount &&
+      additionalAttendeeNames.every((name) => name.trim().length > 0))
   const seatedRemaining = normalizeRemaining(event.seated_remaining)
   const standingRemaining = normalizeRemaining(event.standing_remaining)
   const totalRemaining = normalizeRemaining(event.total_remaining) ?? normalizeRemaining(event.seats_remaining)

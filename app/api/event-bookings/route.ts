@@ -380,7 +380,7 @@ export async function POST(request: NextRequest) {
         event_id: normalized.payload.event_id,
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
-        attendee_names: normalized.payload.attendee_names ?? null,
+        ...(normalized.payload.attendee_names ? { attendee_names: normalized.payload.attendee_names } : {}),
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 
