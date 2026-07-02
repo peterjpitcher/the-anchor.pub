@@ -1,4 +1,5 @@
-import type { Event } from '@/lib/api'
+import type { Event, EventTicketType } from '@/lib/api'
+import { getEventTicketTypes, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 
 type OfferLike = {
@@ -19,6 +20,8 @@ export type EventBookingPaymentSource = {
   offers?: OfferLike | null
   isAccessibleForFree?: boolean | null
   is_free?: boolean | null
+  ticketTypes?: EventTicketType[] | null
+  ticket_types?: EventTicketType[] | null
 }
 
 type EventBookingAvailabilitySource = {
@@ -102,6 +105,12 @@ function hasOnlineDiscountSignal(event: EventBookingPaymentSource): boolean {
 }
 
 export function getEventUnitPrice(event: EventBookingPaymentSource): number | null {
+  // Multi-type events: ticket-type prices are already the final (post-discount)
+  // charge, so the discount must not be re-applied — return the lowest directly.
+  if (hasMultipleTicketPrices(event)) {
+    return getLowestTicketTypePrice(event)
+  }
+
   const directPrice = parsePositiveMoney(event.price)
   if (directPrice !== null) return directPrice
 
@@ -112,6 +121,11 @@ export function getEventUnitPrice(event: EventBookingPaymentSource): number | nu
 }
 
 export function getEventTicketPrice(event: EventBookingPaymentSource): number | null {
+  // Multi-type events price "from" the lowest active type (already post-discount).
+  if (hasMultipleTicketPrices(event)) {
+    return getLowestTicketTypePrice(event)
+  }
+
   const candidates = [event.ticket_price, event.price_per_seat, event.offers?.price, event.price]
   for (const value of candidates) {
     const parsed = parsePositiveMoney(value)

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, formatEventTime, formatPrice } from '@/lib/api'
+import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import type { Event } from '@/lib/api'
@@ -98,13 +98,21 @@ export default async function RelatedEvents({
                   </h3>
 
                   {/* Price */}
-                  {event.offers && (
+                  {hasMultipleTicketPrices(event) ? (
+                    <p className="text-accent-text text-sm font-semibold">
+                      {(() => {
+                        const lowest = getLowestTicketTypePrice(event)
+                        if (lowest === null) return null
+                        return lowest <= 0 ? 'Free entry' : `from ${formatPrice(lowest)}`
+                      })()}
+                    </p>
+                  ) : event.offers ? (
                     <p className="text-accent-text text-sm font-semibold">
                       {event.offers.price === '0' || event.offers.price === '0.00'
                         ? 'Free entry'
                         : formatPrice(event.offers.price, event.offers.priceCurrency)}
                     </p>
-                  )}
+                  ) : null}
                 </div>
               </Link>
             )

@@ -26,6 +26,8 @@ import {
   formatEventDate,
   formatEventTime,
   formatDoorTime,
+  getLowestTicketTypePrice,
+  hasMultipleTicketPrices,
   type Event,
   type EventCategory
 } from '@/lib/api'
@@ -157,6 +159,14 @@ const FAQS = [
 ]
 
 function getEntryLabel(event: Event) {
+  // Multiple ticket types with differing prices → "from £X" (lowest active type).
+  if (hasMultipleTicketPrices(event)) {
+    const lowest = getLowestTicketTypePrice(event)
+    if (lowest !== null) {
+      return lowest <= 0 ? 'Free entry' : `from £${lowest} entry`
+    }
+  }
+
   const rawPrice = event.offers?.price
   const parsedPrice = rawPrice ? Number.parseFloat(rawPrice) : Number.NaN
 

@@ -7,8 +7,17 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
-import type { Event } from '@/lib/api'
-import { getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
+import type { Event, EventTicketType } from '@/lib/api'
+import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
+import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney } from '@/lib/event-booking-experience'
+import {
+  areSelectionNamesComplete,
+  buildTicketSelections,
+  getMaxForType,
+  getSelectionBreakdown,
+  getTotalSeats,
+  isSelectionOverCapacity,
+} from '@/lib/event-ticket-selection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
@@ -48,7 +57,7 @@ type WaitlistResult = {
 
 interface ManagementEventBookingFormProps {
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types'>>
   title?: string
   compact?: boolean
 }
@@ -136,6 +145,14 @@ export function ManagementEventBookingForm({
   // Per-ticket attendee names for tickets 2..N (ticket 1 is the booker above).
   // Only collected on paid events.
   const [additionalAttendeeNames, setAdditionalAttendeeNames] = useState<string[]>([])
+  // Multi-ticket-type state (only used when the event exposes 2+ active types).
+  const [ticketQuantities, setTicketQuantities] = useState<Record<string, number>>({})
+  const [ticketAttendeeNames, setTicketAttendeeNames] = useState<Record<string, string[]>>({})
+  // Snapshot of the per-type breakdown at submit time, for the summary /
+  // confirmation UI (which render after the form fields are hidden).
+  const [submittedTicketBreakdown, setSubmittedTicketBreakdown] = useState<
+    Array<{ name: string; quantity: number; lineTotal: number }>
+  >([])
   const [seatingPreference, setSeatingPreference] = useState<EventSeatingPreference>('seated')
   const [submittedSeatingPreference, setSubmittedSeatingPreference] = useState<EventSeatingPreference | null>(null)
   const [loading, setLoading] = useState(false)
@@ -154,15 +171,32 @@ export function ManagementEventBookingForm({
 
   const bookingReassurance = getEventBookingReassurance(event)
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
+  // Multi-type flow: only when the event exposes 2+ active types at differing
+  // prices AND is not communal (communal keeps its seated/standing chooser).
+  const ticketTypes = getEventTicketTypes(event)
+  const isMultiTypeEvent = !isCommunalEvent && hasMultipleTicketPrices(event)
   // Paid events require a name for every ticket (booker is ticket 1).
   const eventUnitPrice = getEventUnitPrice(event)
   const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
-  const collectsAttendeeNames = isPaidEvent && seats > 1
+  // Single-type name collection is skipped entirely in the multi-type flow,
+  // which collects a name per seat under each type instead.
+  const collectsAttendeeNames = !isMultiTypeEvent && isPaidEvent && seats > 1
   const requiredAdditionalAttendeeCount = Math.max(0, seats - 1)
-  const attendeeNamesComplete =
-    !collectsAttendeeNames ||
-    (additionalAttendeeNames.length === requiredAdditionalAttendeeCount &&
-      additionalAttendeeNames.every((name) => name.trim().length > 0))
+  // Multi-type derived state.
+  const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
+  const multiTypeBreakdown = getSelectionBreakdown(ticketTypes, ticketQuantities)
+  const multiTypeOverCapacity = isMultiTypeEvent && isSelectionOverCapacity(ticketTypes, ticketQuantities)
+  const multiTypeNamesComplete = areSelectionNamesComplete(ticketTypes, {
+    quantities: ticketQuantities,
+    attendeeNames: ticketAttendeeNames,
+  })
+  // Seats actually being booked, regardless of flow.
+  const effectiveSeats = isMultiTypeEvent ? multiTypeTotalSeats : seats
+  const attendeeNamesComplete = isMultiTypeEvent
+    ? multiTypeTotalSeats > 0 && !multiTypeOverCapacity && multiTypeNamesComplete
+    : !collectsAttendeeNames ||
+      (additionalAttendeeNames.length === requiredAdditionalAttendeeCount &&
+        additionalAttendeeNames.every((name) => name.trim().length > 0))
   const seatedRemaining = normalizeRemaining(event.seated_remaining)
   const standingRemaining = normalizeRemaining(event.standing_remaining)
   const seatedDisabled = isCommunalEvent && seatedRemaining !== null && seatedRemaining <= 0
@@ -215,6 +249,29 @@ export function ManagementEventBookingForm({
     })
   }, [event.id, event.name, event.startDate])
 
+  // Adjust a ticket type's quantity (clamped to its cap) and keep that type's
+  // attendee-name inputs the same length as its quantity.
+  function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
+    const max = getMaxForType(type, ticketTypes, ticketQuantities)
+    const clamped = Math.max(0, Math.min(nextQuantity, max))
+    setTicketQuantities((prev) => ({ ...prev, [type.id]: clamped }))
+    setTicketAttendeeNames((prev) => {
+      const existing = prev[type.id] ?? []
+      const next = existing.slice(0, clamped)
+      while (next.length < clamped) next.push('')
+      return { ...prev, [type.id]: next }
+    })
+  }
+
+  function setTicketAttendeeName(typeId: string, index: number, value: string) {
+    setTicketAttendeeNames((prev) => {
+      const existing = prev[typeId] ?? []
+      const next = existing.slice()
+      next[index] = value
+      return { ...prev, [typeId]: next }
+    })
+  }
+
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
     setError(null)
@@ -222,15 +279,42 @@ export function ManagementEventBookingForm({
     setPaymentConversionPayload(null)
     paymentCompleteTracked.current = false
     setSubmittedSeatingPreference(null)
+    setSubmittedTicketBreakdown([])
     setWaitlistResult(null)
 
-    // Sync seatsDisplay → seats in case blur hasn't fired
+    // Sync seatsDisplay → seats in case blur hasn't fired. In the multi-type
+    // flow the seat count is the sum of the per-type quantities instead.
     const parsedSeats = Number.parseInt(seatsDisplay, 10)
-    const clampedSeats = (!Number.isFinite(parsedSeats) || parsedSeats < 1) ? 1 : Math.min(parsedSeats, 20)
-    setSeats(clampedSeats)
-    setSeatsDisplay(String(clampedSeats))
+    const clampedSingleSeats = (!Number.isFinite(parsedSeats) || parsedSeats < 1) ? 1 : Math.min(parsedSeats, 20)
+    const clampedSeats = isMultiTypeEvent ? multiTypeTotalSeats : clampedSingleSeats
+    if (!isMultiTypeEvent) {
+      setSeats(clampedSingleSeats)
+      setSeatsDisplay(String(clampedSingleSeats))
+    }
+
+    // Build the ticket_selections payload for multi-type events (each line's
+    // attendee_names length equals its quantity).
+    const ticketSelections = isMultiTypeEvent
+      ? buildTicketSelections(ticketTypes, {
+          quantities: ticketQuantities,
+          attendeeNames: ticketAttendeeNames,
+        })
+      : null
 
     setLoading(true)
+
+    if (isMultiTypeEvent) {
+      if (clampedSeats < 1) {
+        setLoading(false)
+        setError('Please choose at least one ticket.')
+        return
+      }
+      if (multiTypeOverCapacity) {
+        setLoading(false)
+        setError('Some ticket types no longer have that many seats available.')
+        return
+      }
+    }
 
     if (!firstName.trim()) {
       setLoading(false)
@@ -260,21 +344,35 @@ export function ManagementEventBookingForm({
       return
     }
 
-    // Booker is ticket 1; collect a name for every remaining ticket on paid events.
-    const additionalNamesForSubmit = Array.from(
-      { length: Math.max(0, clampedSeats - 1) },
-      (_, index) => (additionalAttendeeNames[index] ?? '').trim()
-    )
+    let attendeeNames: string[] | null
+    if (isMultiTypeEvent) {
+      // Every selected seat needs a name; the flat aggregate (back-compat) is the
+      // ordered concatenation of each line's names.
+      if (ticketSelections && ticketSelections.some((line) => line.attendee_names.some((name) => name.length === 0))) {
+        setLoading(false)
+        setError('Please enter a name for every ticket.')
+        return
+      }
+      attendeeNames = ticketSelections
+        ? ticketSelections.flatMap((line) => line.attendee_names)
+        : null
+    } else {
+      // Booker is ticket 1; collect a name for every remaining ticket on paid events.
+      const additionalNamesForSubmit = Array.from(
+        { length: Math.max(0, clampedSeats - 1) },
+        (_, index) => (additionalAttendeeNames[index] ?? '').trim()
+      )
 
-    if (isPaidEvent && additionalNamesForSubmit.some((name) => name.length === 0)) {
-      setLoading(false)
-      setError('Please enter a name for every ticket.')
-      return
+      if (isPaidEvent && additionalNamesForSubmit.some((name) => name.length === 0)) {
+        setLoading(false)
+        setError('Please enter a name for every ticket.')
+        return
+      }
+
+      attendeeNames = isPaidEvent
+        ? [`${resolvedFirstName} ${resolvedLastName}`.trim(), ...additionalNamesForSubmit]
+        : null
     }
-
-    const attendeeNames = isPaidEvent
-      ? [`${resolvedFirstName} ${resolvedLastName}`.trim(), ...additionalNamesForSubmit]
-      : null
 
     trackEventBookingStart({
       eventId: event.id,
@@ -293,9 +391,20 @@ export function ManagementEventBookingForm({
     })
 
     const attribution = collectBookingAttribution()
-    const totalValue = calculateBookingValue(event, clampedSeats)
+    const totalValue = isMultiTypeEvent
+      ? multiTypeBreakdown.total
+      : calculateBookingValue(event, clampedSeats)
     const bookingSeatingPreference = isCommunalEvent ? seatingPreference : null
     setSubmittedSeatingPreference(bookingSeatingPreference)
+    setSubmittedTicketBreakdown(
+      isMultiTypeEvent
+        ? multiTypeBreakdown.lines.map((line) => ({
+            name: line.type.name,
+            quantity: line.quantity,
+            lineTotal: line.lineTotal,
+          }))
+        : []
+    )
 
     try {
       const response = await fetch('/api/event-bookings', {
@@ -312,6 +421,7 @@ export function ManagementEventBookingForm({
           last_name: resolvedLastName,
           seats: clampedSeats,
           ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
+          ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
           event_name: event.name,
@@ -523,6 +633,28 @@ export function ManagementEventBookingForm({
     }
   }
 
+  // Per-type breakdown block for the result alerts (multi-type bookings only).
+  const submittedBreakdownBlock = submittedTicketBreakdown.length > 0 ? (
+    <div className="mt-2 space-y-1 text-sm">
+      {submittedTicketBreakdown.map((line) => (
+        <div key={line.name} className="flex justify-between">
+          <span>
+            {line.quantity} × {line.name}
+          </span>
+          <span>{formatEventBookingMoney(line.lineTotal)}</span>
+        </div>
+      ))}
+      <div className="flex justify-between border-t border-current/20 pt-1 font-semibold">
+        <span>Total</span>
+        <span>
+          {formatEventBookingMoney(
+            submittedTicketBreakdown.reduce((sum, line) => sum + line.lineTotal, 0)
+          )}
+        </span>
+      </div>
+    </div>
+  ) : null
+
   return (
     <Card>
       <CardBody className={compact ? 'space-y-3 p-3 lg:p-4' : 'space-y-5'}>
@@ -536,29 +668,109 @@ export function ManagementEventBookingForm({
         </div>
 
         <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
-          <Input
-            label="Seats"
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            required
-            value={seatsDisplay}
-            onChange={(event) => {
-              const raw = event.target.value
-              if (raw !== '' && !/^\d+$/.test(raw)) return
-              setSeatsDisplay(raw)
-              if (raw === '') return
-              const parsed = Number.parseInt(raw, 10)
-              if (Number.isNaN(parsed)) return
-              setSeats(Math.min(Math.max(parsed, 1), 20))
-            }}
-            onBlur={() => {
-              const parsed = Number.parseInt(seatsDisplay, 10)
-              const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
-              setSeats(clamped)
-              setSeatsDisplay(String(clamped))
-            }}
-          />
+          {isMultiTypeEvent ? (
+            <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
+              <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
+              <div className="space-y-2.5">
+                {ticketTypes.map((type) => {
+                  const quantity = ticketQuantities[type.id] || 0
+                  const max = getMaxForType(type, ticketTypes, ticketQuantities)
+                  const soldOut = max <= 0 && quantity <= 0
+                  return (
+                    <div
+                      key={type.id}
+                      className="flex items-start justify-between gap-3 rounded-sm border border-line bg-surface p-2.5"
+                    >
+                      <div className="min-w-0">
+                        <span className="block text-sm font-semibold text-ink">{type.name}</span>
+                        {type.description ? (
+                          <span className="block text-xs leading-relaxed text-ink-muted">{type.description}</span>
+                        ) : null}
+                        <span className="mt-0.5 block text-xs font-semibold text-accent-text">
+                          {formatEventBookingMoney(type.price)}
+                          {soldOut ? ' · Sold out' : ''}
+                        </span>
+                      </div>
+                      <div className="flex flex-shrink-0 items-center gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          aria-label={`Remove one ${type.name} ticket`}
+                          disabled={quantity <= 0}
+                          onClick={() => setTicketTypeQuantity(type, quantity - 1)}
+                        >
+                          −
+                        </Button>
+                        <span className="w-6 text-center text-sm font-semibold text-ink" aria-live="polite">
+                          {quantity}
+                        </span>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          aria-label={`Add one ${type.name} ticket`}
+                          disabled={quantity >= max}
+                          onClick={() => setTicketTypeQuantity(type, quantity + 1)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {multiTypeBreakdown.lines.length > 0 ? (
+                <div className="space-y-1 border-t border-line px-1 pt-2.5 text-sm">
+                  {multiTypeBreakdown.lines.map((line) => (
+                    <div key={line.type.id} className="flex justify-between text-ink-muted">
+                      <span>
+                        {line.quantity} × {line.type.name}
+                      </span>
+                      <span>{formatEventBookingMoney(line.lineTotal)}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between pt-1 font-semibold text-ink">
+                    <span>Total ({multiTypeTotalSeats} {multiTypeTotalSeats === 1 ? 'ticket' : 'tickets'})</span>
+                    <span>{formatEventBookingMoney(multiTypeBreakdown.total)}</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="px-1 text-xs text-ink-muted">Add at least one ticket to continue.</p>
+              )}
+
+              {multiTypeOverCapacity ? (
+                <p className="px-1 text-xs font-semibold text-anchor-danger">
+                  Some ticket types no longer have that many seats available.
+                </p>
+              ) : null}
+            </fieldset>
+          ) : (
+            <Input
+              label="Seats"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              required
+              value={seatsDisplay}
+              onChange={(event) => {
+                const raw = event.target.value
+                if (raw !== '' && !/^\d+$/.test(raw)) return
+                setSeatsDisplay(raw)
+                if (raw === '') return
+                const parsed = Number.parseInt(raw, 10)
+                if (Number.isNaN(parsed)) return
+                setSeats(Math.min(Math.max(parsed, 1), 20))
+              }}
+              onBlur={() => {
+                const parsed = Number.parseInt(seatsDisplay, 10)
+                const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
+                setSeats(clamped)
+                setSeatsDisplay(String(clamped))
+              }}
+            />
+          )}
 
           {isCommunalEvent ? (
             <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
@@ -655,6 +867,36 @@ export function ManagementEventBookingForm({
             </fieldset>
           ) : null}
 
+          {isMultiTypeEvent && multiTypeTotalSeats > 0 ? (
+            <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
+              <legend className="px-1 text-sm font-semibold text-ink">Who are the tickets for?</legend>
+              <p className="px-1 text-xs font-semibold leading-relaxed text-ink">
+                Please use each guest’s real name — everyone will need photo ID matching their ticket on the night.
+              </p>
+              <div className="space-y-4">
+                {multiTypeBreakdown.lines.map((line) => (
+                  <div key={line.type.id} className="space-y-2.5">
+                    <p className="px-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">
+                      {line.type.name}
+                    </p>
+                    {Array.from({ length: line.quantity }, (_, index) => (
+                      <Input
+                        key={index}
+                        label={`${line.type.name} ticket ${index + 1} name`}
+                        type="text"
+                        required
+                        value={ticketAttendeeNames[line.type.id]?.[index] ?? ''}
+                        onChange={(inputEvent) => setTicketAttendeeName(line.type.id, index, inputEvent.target.value)}
+                        placeholder="First and last name"
+                        autoComplete="off"
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          ) : null}
+
           <Input
             label="Mobile number"
             type="tel"
@@ -729,7 +971,7 @@ export function ManagementEventBookingForm({
                 eventId: event.id,
                 eventName: event.name,
                 eventDate: event.startDate,
-                partySize: seats,
+                partySize: effectiveSeats,
                 source: 'event_booking_form'
               })
             }}
@@ -750,6 +992,7 @@ export function ManagementEventBookingForm({
         {result?.state === 'confirmed' && (
           <Alert variant="success" title="Event booking confirmed">
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
+            {submittedBreakdownBlock}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
             ) : null}
@@ -768,6 +1011,7 @@ export function ManagementEventBookingForm({
         {result?.state === 'pending_payment' && (
           <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
             <p>Your {submittedTicketLabel} are currently on hold.</p>
+            {submittedBreakdownBlock}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
             ) : null}
@@ -775,6 +1019,7 @@ export function ManagementEventBookingForm({
               <PayPalEventPaymentSection
                 bookingId={result.booking_id}
                 bookingSummary={`${event.name} · ${paymentConversionPayload.tickets} ${paymentConversionPayload.tickets === 1 ? 'ticket' : 'tickets'}`}
+                bookingBreakdown={submittedTicketBreakdown}
                 fallbackUrl={result.next_step_url}
                 conversionPayload={paymentConversionPayload}
                 onSuccess={handleEventPaymentSuccess}

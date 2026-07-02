@@ -3,6 +3,9 @@ import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking
 import { getUpcomingEvents } from '@/lib/api'
 
 jest.mock('@/lib/api', () => ({
+  // Keep the real helpers (getEventTicketTypes, hasMultipleTicketPrices, etc.)
+  // that the price label depends on; only stub the network fetch.
+  ...jest.requireActual('@/lib/api'),
   getUpcomingEvents: jest.fn()
 }))
 

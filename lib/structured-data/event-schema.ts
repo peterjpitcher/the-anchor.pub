@@ -1,4 +1,4 @@
-import { Event } from '@/lib/api'
+import { Event, getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
@@ -113,6 +113,27 @@ export function buildEventSchema(event: Event) {
     offer.validFrom = event.offers.validFrom
   }
 
+  // When the event sells 2+ ticket types at differing prices, emit one Offer per
+  // type so search engines surface the real price range. Otherwise keep the
+  // single legacy Offer object unchanged.
+  const priceCurrency = event.offers?.priceCurrency || 'GBP'
+  const offers: Record<string, unknown> | Record<string, unknown>[] = hasMultipleTicketPrices(event)
+    ? getEventTicketTypes(event).map((type) => {
+        const typeOffer: Record<string, unknown> = {
+          '@type': 'Offer',
+          name: type.name,
+          url: bookingUrl,
+          availability: getSchemaOfferAvailability(event),
+          price: type.price.toFixed(2),
+          priceCurrency
+        }
+        if (event.offers?.validFrom) {
+          typeOffer.validFrom = event.offers.validFrom
+        }
+        return typeOffer
+      })
+    : offer
+
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -156,7 +177,7 @@ export function buildEventSchema(event: Event) {
           name: 'The Anchor Entertainment',
           url: 'https://www.the-anchor.pub'
         },
-    offers: offer,
+    offers,
     image: Array.isArray(event.image) && event.image.length > 0 ? event.image : [eventImage],
     ...(event.thumbnailImageUrl && { thumbnailUrl: event.thumbnailImageUrl }),
     organizer:
