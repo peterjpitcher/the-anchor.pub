@@ -84,8 +84,13 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.getByLabelText('First name')).toBeInTheDocument()
     expect(screen.getByLabelText('Last name')).toBeInTheDocument()
     expect(screen.getByLabelText('Mobile number')).toBeInTheDocument()
-    expect(screen.getByRole('checkbox', { name: /Planning to eat before the event/i })).toBeChecked()
-    expect(screen.getByText('Not a food pre-order.')).toBeInTheDocument()
+    // The 'Planning to eat before the event' tickbox has been removed
+    expect(screen.queryByRole('checkbox', { name: /Planning to eat/i })).not.toBeInTheDocument()
+    expect(screen.queryByText('Not a food pre-order.')).not.toBeInTheDocument()
+    // Paid multi-ticket bookings collect a real name per ticket
+    expect(screen.getByText('Who are the tickets for?')).toBeInTheDocument()
+    expect(screen.getByText(/photo ID matching their ticket on the night/i)).toBeInTheDocument()
+    expect(screen.getByLabelText('Ticket 2 name')).toBeInTheDocument()
     expect(screen.getByText('No payment now. Reserve seats online and pay £3 per person on arrival.')).toBeInTheDocument()
     expect(screen.getByText('18 seats currently available.')).toBeInTheDocument()
     expect(screen.queryByText('How many seats should we hold?')).not.toBeInTheDocument()
@@ -115,7 +120,7 @@ describe('ManagementEventBookingForm', () => {
     await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
   })
 
-  it('submits event dining intent without collecting pre-order notes', async () => {
+  it('submits per-ticket names and omits food fields', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
 
@@ -186,13 +191,15 @@ describe('ManagementEventBookingForm', () => {
             color: '#f2c94c'
           }
         }}
-        foodPrompt="Arrive from 6:30pm for food. Music Bingo starts at 8pm."
       />
     )
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '6' } })
-    fireEvent.click(screen.getByRole('checkbox', { name: /Planning to eat before the event/i }))
-    expect(screen.queryByLabelText('Food notes (optional)')).not.toBeInTheDocument()
+    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
+    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
+    fireEvent.change(screen.getByLabelText('Ticket 4 name'), { target: { value: 'Cy Four' } })
+    fireEvent.change(screen.getByLabelText('Ticket 5 name'), { target: { value: 'Di Five' } })
+    fireEvent.change(screen.getByLabelText('Ticket 6 name'), { target: { value: 'Ez Six' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -207,8 +214,9 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.seats).toBe(6)
     expect(payload.first_name).toBe('Jane')
     expect(payload.last_name).toBe('Guest')
-    expect(payload.notes).toBe('Event dining intent: Event or drinks only')
-    expect(payload.food_intent).toBe('event_only')
+    expect(payload.attendee_names).toEqual(['Jane Guest', 'Al Two', 'Bo Three', 'Cy Four', 'Di Five', 'Ez Six'])
+    expect(payload.notes).toBeUndefined()
+    expect(payload.food_intent).toBeUndefined()
     expect(payload.event_slug).toBe('music-bingo')
     expect(payload.event_name).toBe('Music Bingo')
     expect(payload.event_category_name).toBe('Bingo')
@@ -242,7 +250,6 @@ describe('ManagementEventBookingForm', () => {
         eventDate: '2026-05-08T20:00:00+01:00',
         tickets: 6,
         totalValue: 36,
-        foodIntent: 'event_only',
         bookingId: 'booking-123'
       })
     )
@@ -303,6 +310,8 @@ describe('ManagementEventBookingForm', () => {
     await waitFor(() => expect(screen.getByRole('radio', { name: /Standing/i })).toBeChecked())
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '3' } })
+    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
+    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -316,6 +325,7 @@ describe('ManagementEventBookingForm', () => {
 
     expect(payload.seats).toBe(3)
     expect(payload.seating_preference).toBe('standing')
+    expect(payload.attendee_names).toEqual(['Jane Guest', 'Al Two', 'Bo Three'])
     expect(payload.event_price).toBe(10)
     expect(payload.event_value).toBe(30)
   })
@@ -384,6 +394,9 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
+    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
+    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
+    fireEvent.change(screen.getByLabelText('Ticket 4 name'), { target: { value: 'Cy Four' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
