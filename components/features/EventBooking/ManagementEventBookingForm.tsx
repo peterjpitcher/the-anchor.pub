@@ -198,6 +198,9 @@ export function ManagementEventBookingForm({
   )
   const [seats, setSeats] = useState(2)
   const [seatsDisplay, setSeatsDisplay] = useState('2')
+  // Per-ticket attendee names for tickets 2..N (ticket 1 is the booker above).
+  // Only collected on paid events.
+  const [additionalAttendeeNames, setAdditionalAttendeeNames] = useState<string[]>([])
   const [foodIntent, setFoodIntent] = useState<FoodIntent>('planning_to_eat')
   const [seatingPreference, setSeatingPreference] = useState<EventSeatingPreference>('seated')
   const [submittedSeatingPreference, setSubmittedSeatingPreference] = useState<EventSeatingPreference | null>(null)
@@ -218,6 +221,15 @@ export function ManagementEventBookingForm({
   const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
   const bookingReassurance = getEventBookingReassurance(event)
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
+  // Paid events require a name for every ticket (booker is ticket 1).
+  const eventUnitPrice = getEventUnitPrice(event)
+  const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
+  const collectsAttendeeNames = isPaidEvent && seats > 1
+  const requiredAdditionalAttendeeCount = Math.max(0, seats - 1)
+  const attendeeNamesComplete =
+    !collectsAttendeeNames ||
+    (additionalAttendeeNames.length === requiredAdditionalAttendeeCount &&
+      additionalAttendeeNames.every((name) => name.trim().length > 0))
   const seatedRemaining = normalizeRemaining(event.seated_remaining)
   const standingRemaining = normalizeRemaining(event.standing_remaining)
   const totalRemaining = normalizeRemaining(event.total_remaining) ?? normalizeRemaining(event.seats_remaining)
@@ -250,6 +262,21 @@ export function ManagementEventBookingForm({
       setSeatingPreference('seated')
     }
   }, [isCommunalEvent, seatedDisabled, seatingPreference, standingDisabled])
+
+  // Keep the additional-attendee inputs in step with the seat count (tickets 2..N).
+  useEffect(() => {
+    if (!isPaidEvent) {
+      setAdditionalAttendeeNames((prev) => (prev.length === 0 ? prev : []))
+      return
+    }
+    const needed = Math.max(0, seats - 1)
+    setAdditionalAttendeeNames((prev) => {
+      if (prev.length === needed) return prev
+      const next = prev.slice(0, needed)
+      while (next.length < needed) next.push('')
+      return next
+    })
+  }, [isPaidEvent, seats])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -312,6 +339,22 @@ export function ManagementEventBookingForm({
       return
     }
 
+    // Booker is ticket 1; collect a name for every remaining ticket on paid events.
+    const additionalNamesForSubmit = Array.from(
+      { length: Math.max(0, clampedSeats - 1) },
+      (_, index) => (additionalAttendeeNames[index] ?? '').trim()
+    )
+
+    if (isPaidEvent && additionalNamesForSubmit.some((name) => name.length === 0)) {
+      setLoading(false)
+      setError('Please enter a name for every ticket.')
+      return
+    }
+
+    const attendeeNames = isPaidEvent
+      ? [`${resolvedFirstName} ${resolvedLastName}`.trim(), ...additionalNamesForSubmit]
+      : null
+
     trackEventBookingStart({
       eventId: event.id,
       eventName: event.name,
@@ -350,6 +393,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
+          ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           notes,
           food_intent: foodIntent,
@@ -671,6 +715,33 @@ export function ManagementEventBookingForm({
             />
           </div>
 
+          {collectsAttendeeNames ? (
+            <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
+              <legend className="px-1 text-sm font-semibold text-ink">Who are the tickets for?</legend>
+              <p className="px-1 text-xs leading-relaxed text-ink-muted">
+                Ticket 1 is you. Add a name for each of the other {seats - 1} {seats - 1 === 1 ? 'ticket' : 'tickets'} so we know who to expect.
+              </p>
+              <div className="space-y-2">
+                {additionalAttendeeNames.map((name, index) => (
+                  <Input
+                    key={index}
+                    label={`Ticket ${index + 2} name`}
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(inputEvent) =>
+                      setAdditionalAttendeeNames((prev) =>
+                        prev.map((existing, i) => (i === index ? inputEvent.target.value : existing))
+                      )
+                    }
+                    placeholder="Full name"
+                    autoComplete="off"
+                  />
+                ))}
+              </div>
+            </fieldset>
+          ) : null}
+
           <Input
             label="Mobile number"
             type="tel"
@@ -752,7 +823,7 @@ export function ManagementEventBookingForm({
             fullWidth
             size="lg"
             loading={loading}
-            disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+            disabled={(TURNSTILE_SITE_KEY ? !turnstileToken : false) || !attendeeNamesComplete}
             onClick={() => {
               trackEventBookingFunnelStep({
                 step: 'cta_click',
