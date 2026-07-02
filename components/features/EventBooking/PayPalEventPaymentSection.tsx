@@ -29,6 +29,19 @@ interface Props {
 
 type PaymentState = 'idle' | 'creating' | 'paying' | 'manual_review' | 'error'
 
+// The management API returns errors as either a plain string or an object
+// envelope `{ code, message }` (e.g. auth/rate-limit paths). Rendering an object
+// into JSX throws "Objects are not valid as a React child", so always resolve to
+// a string before displaying.
+function resolveErrorMessage(error: unknown, fallback: string): string {
+  if (typeof error === 'string' && error.trim()) return error
+  if (error && typeof error === 'object') {
+    const message = (error as { message?: unknown }).message
+    if (typeof message === 'string' && message.trim()) return message
+  }
+  return fallback
+}
+
 export function PayPalEventPaymentSection({
   bookingId,
   bookingSummary,
@@ -95,7 +108,7 @@ export function PayPalEventPaymentSection({
         return
       }
 
-      const message = data?.error || 'Payment could not be confirmed. Please try again or call us.'
+      const message = resolveErrorMessage(data?.error, 'Payment could not be confirmed. Please try again or call us.')
       setErrorMessage(message)
       setPaymentState('error')
       onError(message)
@@ -138,7 +151,7 @@ export function PayPalEventPaymentSection({
               })
               const data = await response.json().catch(() => null)
               if (!response.ok || !data?.orderId) {
-                const message = data?.error || 'Could not start PayPal payment.'
+                const message = resolveErrorMessage(data?.error, 'Could not start PayPal payment.')
                 setErrorMessage(message)
                 setPaymentState('error')
                 throw new Error(message)
