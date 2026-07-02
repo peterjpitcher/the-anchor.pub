@@ -23,7 +23,6 @@ import {
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
-type FoodIntent = 'planning_to_eat' | 'event_only'
 type EventSeatingPreference = 'seated' | 'standing'
 
 type EventBookingResult = {
@@ -52,7 +51,6 @@ interface ManagementEventBookingFormProps {
     Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining'>>
   title?: string
   compact?: boolean
-  foodPrompt?: string
 }
 
 const BLOCKED_COPY: Record<string, string> = {
@@ -61,19 +59,6 @@ const BLOCKED_COPY: Record<string, string> = {
   sold_out: 'This event is sold out.',
   payment_required: 'Payment is required to secure this booking.'
 }
-
-const FOOD_INTENT_OPTIONS: Array<{ value: FoodIntent; label: string; description: string }> = [
-  {
-    value: 'planning_to_eat',
-    label: 'Planning to eat before the event',
-    description: 'Arrive early and order from the team on the night.'
-  },
-  {
-    value: 'event_only',
-    label: 'Event or drinks only',
-    description: 'Reserve seats without food on this visit.'
-  }
-]
 
 function getBlockedMessage(reason: string | null | undefined): string {
   if (!reason) return BLOCKED_COPY.blocked
@@ -116,15 +101,6 @@ function collectBookingAttribution() {
     ...storedAttribution,
     ...getMarketingConsentSignalPayload(fbclid)
   }
-}
-
-function getCompactFoodPrompt(value: string): string {
-  const arriveFromMatch = value.match(/arrive from\s+([^.\s]+)\s+for food/i)
-  if (arriveFromMatch?.[1]) {
-    return `Food from ${arriveFromMatch[1]}. Not a pre-order.`
-  }
-
-  return 'Not a food pre-order.'
 }
 
 function normalizeRemaining(value: unknown): number | null {
@@ -187,7 +163,6 @@ export function ManagementEventBookingForm({
   event,
   title,
   compact = false,
-  foodPrompt = 'Food is available before most hosted events. Book early if your group wants to eat first.'
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -201,7 +176,6 @@ export function ManagementEventBookingForm({
   // Per-ticket attendee names for tickets 2..N (ticket 1 is the booker above).
   // Only collected on paid events.
   const [additionalAttendeeNames, setAdditionalAttendeeNames] = useState<string[]>([])
-  const [foodIntent, setFoodIntent] = useState<FoodIntent>('planning_to_eat')
   const [seatingPreference, setSeatingPreference] = useState<EventSeatingPreference>('seated')
   const [submittedSeatingPreference, setSubmittedSeatingPreference] = useState<EventSeatingPreference | null>(null)
   const [loading, setLoading] = useState(false)
@@ -218,7 +192,6 @@ export function ManagementEventBookingForm({
   const formViewedTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
-  const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
   const bookingReassurance = getEventBookingReassurance(event)
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
   // Paid events require a name for every ticket (booker is ticket 1).
@@ -246,7 +219,6 @@ export function ManagementEventBookingForm({
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
   const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
-  const compactFoodPrompt = getCompactFoodPrompt(foodPrompt)
 
   useEffect(() => {
     if (!isCommunalEvent) {
@@ -289,10 +261,6 @@ export function ManagementEventBookingForm({
       source: 'event_booking_form'
     })
   }, [event.id, event.name, event.startDate])
-
-  function buildFoodNotes(): string {
-    return `Event dining intent: ${selectedFoodIntent.label}`
-  }
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
@@ -360,7 +328,6 @@ export function ManagementEventBookingForm({
       eventName: event.name,
       eventDate: event.startDate,
       partySize: clampedSeats,
-      foodIntent,
       source: 'event_booking_form'
     })
     trackEventBookingFunnelStep({
@@ -369,11 +336,9 @@ export function ManagementEventBookingForm({
       eventName: event.name,
       eventDate: event.startDate,
       partySize: clampedSeats,
-      foodIntent,
       source: 'event_booking_form'
     })
 
-    const notes = buildFoodNotes()
     const attribution = collectBookingAttribution()
     const totalValue = calculateBookingValue(event, clampedSeats)
     const bookingSeatingPreference = isCommunalEvent ? seatingPreference : null
@@ -395,8 +360,6 @@ export function ManagementEventBookingForm({
           seats: clampedSeats,
           ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
-          notes,
-          food_intent: foodIntent,
           event_slug: event.slug,
           event_name: event.name,
           event_date: event.startDate,
@@ -449,7 +412,7 @@ export function ManagementEventBookingForm({
           eventDate: event.startDate,
           tickets: clampedSeats,
           value: totalValue,
-          foodIntent,
+          foodIntent: null,
           attribution,
         })
       }
@@ -462,7 +425,6 @@ export function ManagementEventBookingForm({
           eventName: event.name,
           eventDate: event.startDate,
           partySize: clampedSeats,
-          foodIntent,
           bookingId: bookingData.booking_id,
           source: 'event_booking_form'
         })
@@ -475,7 +437,6 @@ export function ManagementEventBookingForm({
           eventDate: event.startDate,
           tickets: clampedSeats,
           totalValue,
-          foodIntent,
           bookingId: bookingData.booking_id
         })
       }
@@ -488,7 +449,6 @@ export function ManagementEventBookingForm({
           eventName: event.name,
           eventDate: event.startDate,
           partySize: clampedSeats,
-          foodIntent,
           reason: bookingData.reason,
           source: 'event_booking_form'
         })
@@ -501,7 +461,6 @@ export function ManagementEventBookingForm({
         eventName: event.name,
         eventDate: event.startDate,
         partySize: clampedSeats,
-        foodIntent,
         reason: submitError?.message || 'submission_error',
         source: 'event_booking_form'
       })
@@ -580,7 +539,6 @@ export function ManagementEventBookingForm({
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           requested_seats: seats,
-          notes: buildFoodNotes(),
           communication_consent: buildCommunicationConsentPayload(communicationConsent),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
@@ -716,12 +674,17 @@ export function ManagementEventBookingForm({
           </div>
 
           {collectsAttendeeNames ? (
-            <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
+            <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Who are the tickets for?</legend>
-              <p className="px-1 text-xs leading-relaxed text-ink-muted">
-                Ticket 1 is you. Add a name for each of the other {seats - 1} {seats - 1 === 1 ? 'ticket' : 'tickets'} so we know who to expect.
-              </p>
-              <div className="space-y-2">
+              <div className="space-y-1.5 px-1">
+                <p className="text-xs leading-relaxed text-ink-muted">
+                  Ticket 1 is you. Add the full name for each of the other {requiredAdditionalAttendeeCount} {requiredAdditionalAttendeeCount === 1 ? 'ticket' : 'tickets'}.
+                </p>
+                <p className="text-xs font-semibold leading-relaxed text-ink">
+                  Please use each guest’s real name — everyone will need photo ID matching their ticket on the night.
+                </p>
+              </div>
+              <div className="space-y-2.5">
                 {additionalAttendeeNames.map((name, index) => (
                   <Input
                     key={index}
@@ -734,7 +697,7 @@ export function ManagementEventBookingForm({
                         prev.map((existing, i) => (i === index ? inputEvent.target.value : existing))
                       )
                     }
-                    placeholder="Full name"
+                    placeholder="First and last name"
                     autoComplete="off"
                   />
                 ))}
@@ -781,20 +744,6 @@ export function ManagementEventBookingForm({
             onChange={setCommunicationConsent}
           />
 
-          <label className="flex cursor-pointer gap-2.5 rounded-sm border border-line bg-surface-sunk p-2.5">
-            <input
-              type="checkbox"
-              name="food_intent"
-              checked={foodIntent === 'planning_to_eat'}
-              onChange={(event) => setFoodIntent(event.target.checked ? 'planning_to_eat' : 'event_only')}
-              className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
-            />
-            <span>
-              <span className="block text-sm font-semibold text-ink">Planning to eat before the event</span>
-              <span className="block text-xs leading-relaxed text-ink-muted">{compactFoodPrompt}</span>
-            </span>
-          </label>
-
           {/* Honeypot, hidden from real users, filled by bots */}
           <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
             <label htmlFor="evt-website">Website</label>
@@ -831,7 +780,6 @@ export function ManagementEventBookingForm({
                 eventName: event.name,
                 eventDate: event.startDate,
                 partySize: seats,
-                foodIntent,
                 source: 'event_booking_form'
               })
             }}

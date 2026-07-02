@@ -598,7 +598,6 @@ export default async function EventPage({ params }: Props) {
                         event={event}
                         title={bookingFormTitle}
                         compact
-                        foodPrompt={eventBookingCopy.foodPrompt}
                       />
                     )}
                   </div>
