@@ -471,7 +471,6 @@ export default async function EventPage({ params }: Props) {
               event={event}
               eventDate={eventDate}
               eventTime={eventTime}
-              foodPrompt={eventBookingCopy.foodPrompt}
             />
           </div>
         </Container>

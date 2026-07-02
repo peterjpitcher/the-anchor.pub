@@ -107,46 +107,6 @@ function normalizeRemaining(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : null
 }
 
-function pluralizeTicket(count: number): string {
-  return count === 1 ? 'ticket' : 'tickets'
-}
-
-function pluralizePlace(count: number): string {
-  return count === 1 ? 'place' : 'places'
-}
-
-function getCommunalAvailabilityText(
-  seatedRemaining: number | null,
-  standingRemaining: number | null,
-  totalRemaining: number | null
-): string | null {
-  if (seatedRemaining === 0 && standingRemaining && standingRemaining > 0) {
-    return `Seated places are full. ${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
-  }
-
-  if (seatedRemaining && seatedRemaining > 0 && standingRemaining === 0) {
-    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} available. Standing tickets are full.`
-  }
-
-  if (seatedRemaining !== null && standingRemaining !== null) {
-    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} and ${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
-  }
-
-  if (seatedRemaining !== null) {
-    return `${seatedRemaining} seated ${pluralizePlace(seatedRemaining)} available.`
-  }
-
-  if (standingRemaining !== null) {
-    return `${standingRemaining} standing ${pluralizeTicket(standingRemaining)} available.`
-  }
-
-  if (totalRemaining !== null) {
-    return `${totalRemaining} ${pluralizeTicket(totalRemaining)} currently available.`
-  }
-
-  return null
-}
-
 function getBookingTicketLabel(
   result: EventBookingResult | null,
   submittedSeatingPreference: EventSeatingPreference | null
@@ -205,15 +165,8 @@ export function ManagementEventBookingForm({
       additionalAttendeeNames.every((name) => name.trim().length > 0))
   const seatedRemaining = normalizeRemaining(event.seated_remaining)
   const standingRemaining = normalizeRemaining(event.standing_remaining)
-  const totalRemaining = normalizeRemaining(event.total_remaining) ?? normalizeRemaining(event.seats_remaining)
-  const seatsRemaining = normalizeRemaining(event.seats_remaining)
   const seatedDisabled = isCommunalEvent && seatedRemaining !== null && seatedRemaining <= 0
   const standingDisabled = isCommunalEvent && (standingRemaining === null || standingRemaining <= 0)
-  const availabilityText = isCommunalEvent
-    ? getCommunalAvailabilityText(seatedRemaining, standingRemaining, totalRemaining)
-    : seatsRemaining && seatsRemaining > 0
-    ? `${seatsRemaining} seats currently available.`
-    : null
   const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
   const fellBackToStanding = isCommunalEvent &&
     submittedSeatingPreference === 'seated' &&
@@ -580,9 +533,6 @@ export function ManagementEventBookingForm({
             </h2>
           ) : null}
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
-          {availabilityText ? (
-            <p className="text-xs text-ink-muted">{availabilityText}</p>
-          ) : null}
         </div>
 
         <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>

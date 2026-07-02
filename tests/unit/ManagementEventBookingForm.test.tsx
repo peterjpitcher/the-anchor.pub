@@ -92,7 +92,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.getByText(/photo ID matching their ticket on the night/i)).toBeInTheDocument()
     expect(screen.getByLabelText('Ticket 2 name')).toBeInTheDocument()
     expect(screen.getByText('No payment now. Reserve seats online and pay £3 per person on arrival.')).toBeInTheDocument()
-    expect(screen.getByText('18 seats currently available.')).toBeInTheDocument()
+    expect(screen.queryByText('18 seats currently available.')).not.toBeInTheDocument()
     expect(screen.queryByText('How many seats should we hold?')).not.toBeInTheDocument()
     expect(screen.queryByText('Want to eat before the event?')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
@@ -305,7 +305,8 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    expect(screen.getByText('Seated places are full. 9 standing tickets available.')).toBeInTheDocument()
+    expect(screen.queryByText('Seated places are full. 9 standing tickets available.')).not.toBeInTheDocument()
+    expect(screen.getByText('Seated places are full.')).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: /Seated/i })).toBeDisabled()
     await waitFor(() => expect(screen.getByRole('radio', { name: /Standing/i })).toBeChecked())
 
