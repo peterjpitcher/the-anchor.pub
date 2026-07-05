@@ -41,6 +41,20 @@ export function isEventInPast(event: Pick<Event, 'startDate'>, now: number = Dat
   return startMs < now
 }
 
+/**
+ * True only when the event has an online ticket-sales cutoff (`booking_cutoff_at`)
+ * that is in the past. A missing/invalid cutoff means sales stay open (false).
+ */
+export function isEventBookingClosed(
+  event: Pick<Event, 'booking_cutoff_at'>,
+  now: number = Date.now()
+): boolean {
+  if (!event.booking_cutoff_at) return false
+  const cutoffMs = Date.parse(event.booking_cutoff_at)
+  if (!Number.isFinite(cutoffMs)) return false
+  return cutoffMs < now
+}
+
 export function getEventBookingBlockReason(
   event: Pick<Event, 'event_status' | 'eventStatus' | 'startDate' | 'bookings_enabled'>,
   now: number = Date.now()
