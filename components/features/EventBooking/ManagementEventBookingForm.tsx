@@ -85,6 +85,17 @@ function getBlockedMessage(reason: string | null | undefined): string {
   return BLOCKED_COPY[key] || reason
 }
 
+function hasErrorCode(payload: any, code: string): boolean {
+  if (!payload || typeof payload !== 'object') return false
+  const data = payload?.data && typeof payload.data === 'object' ? payload.data : null
+  const codes = [
+    payload?.error?.code,
+    payload?.code,
+    data?.code
+  ]
+  return codes.some((value) => typeof value === 'string' && value.toUpperCase() === code.toUpperCase())
+}
+
 function hasPolicyViolation(payload: any): boolean {
   const data = payload?.data || payload
   const candidates = [
@@ -172,6 +183,10 @@ export function ManagementEventBookingForm({
   const [paymentConversionPayload, setPaymentConversionPayload] = useState<EventPaymentConversionPayload | null>(null)
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
+  // Set when a submit-time 409 SALES_CLOSED comes back: the event's online
+  // sales cutoff passed between page load and submit. Folds into salesClosed so
+  // the same friendly closed panel renders (rather than a generic error).
+  const [salesClosedAtSubmit, setSalesClosedAtSubmit] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [honeypot, setHoneypot] = useState('')
@@ -182,7 +197,7 @@ export function ManagementEventBookingForm({
 
   // Online ticket sales are closed if the caller says so, or the event's own
   // cutoff has passed. Either way the form must not render its fields or POST.
-  const salesClosed = bookingClosed || isEventBookingClosed(event)
+  const salesClosed = bookingClosed || isEventBookingClosed(event) || salesClosedAtSubmit
   const bookingReassurance = getEventBookingReassurance(event)
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
   // Multi-type flow: only when the event exposes 2+ active types at differing
@@ -461,6 +476,15 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        // The event's online sales cutoff passed between page load and submit.
+        // Route into the component's own closed-state so the friendly closed
+        // panel shows, the spinner clears, and no generic error is thrown.
+        if (response.status === 409 && hasErrorCode(body, 'SALES_CLOSED')) {
+          // finally clears loading + resets turnstile; just flip closed-state.
+          setSalesClosedAtSubmit(true)
+          return
+        }
+
         if (response.status === 409 && hasPolicyViolation(body)) {
           const policyMessage =
             body?.error?.message ||

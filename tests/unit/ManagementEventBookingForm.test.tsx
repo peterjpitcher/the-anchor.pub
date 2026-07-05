@@ -120,6 +120,57 @@ describe('ManagementEventBookingForm', () => {
     await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
   })
 
+  it('shows the closed panel (not a generic error) on a SALES_CLOSED 409 at submit', async () => {
+    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+
+      if (url === '/api/event-bookings') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: false,
+              error: {
+                code: 'SALES_CLOSED',
+                message: 'Online ticket sales for this event have closed.'
+              }
+            }),
+            {
+              status: 409,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+    })
+
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          name: 'Pub Quiz Night',
+          startDate: '2026-05-06T19:00:00+00:00',
+          time: '19:00'
+        }}
+      />
+    )
+
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+    // The friendly closed panel replaces the form; the generic error is not shown.
+    await waitFor(() => expect(screen.getByText('Online ticket sales have closed')).toBeInTheDocument())
+    expect(
+      screen.getByText('Online ticket sales for this event have closed. Please contact us or turn up on the night.')
+    ).toBeInTheDocument()
+    expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+    // Form fields are gone once the closed panel renders.
+    expect(screen.queryByLabelText('First name')).not.toBeInTheDocument()
+  })
+
   it('submits per-ticket names and omits food fields', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
