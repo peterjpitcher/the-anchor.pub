@@ -70,7 +70,7 @@ interface ManagementEventBookingFormProps {
   bookingClosed?: boolean
 }
 
-const SALES_CLOSED_MESSAGE = 'Online ticket sales for this event have closed. Please contact us or turn up on the night.'
+const SALES_CLOSED_MESSAGE = 'Online ticket sales for this event have closed. Please contact us if you need help.'
 
 const BLOCKED_COPY: Record<string, string> = {
   blocked: 'This event is not bookable online right now.',

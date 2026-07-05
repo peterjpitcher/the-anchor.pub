@@ -93,7 +93,7 @@ function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEv
 
 const SALES_CLOSED_COPY = {
   title: 'Online ticket sales have closed',
-  message: 'Online ticket sales for this event have closed. Please contact us or turn up on the night.'
+  message: 'Online ticket sales for this event have closed. Please contact us if you need help.'
 } as const
 
 function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {

@@ -164,7 +164,7 @@ describe('ManagementEventBookingForm', () => {
     // The friendly closed panel replaces the form; the generic error is not shown.
     await waitFor(() => expect(screen.getByText('Online ticket sales have closed')).toBeInTheDocument())
     expect(
-      screen.getByText('Online ticket sales for this event have closed. Please contact us or turn up on the night.')
+      screen.getByText('Online ticket sales for this event have closed. Please contact us if you need help.')
     ).toBeInTheDocument()
     expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
     // Form fields are gone once the closed panel renders.
