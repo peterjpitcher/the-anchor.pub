@@ -22,6 +22,7 @@ import {
   getEventBookingModeLabel,
   getEventCanonicalSegment,
   getEventStatusLabel,
+  isEventBookingClosed,
   isEventInPast,
   normalizeEventStatus
 } from '@/lib/event-lifecycle'
@@ -89,6 +90,11 @@ function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEv
 
   return null
 }
+
+const SALES_CLOSED_COPY = {
+  title: 'Online ticket sales have closed',
+  message: 'Online ticket sales for this event have closed. Please contact us or turn up on the night.'
+} as const
 
 function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {
   title: string
@@ -314,7 +320,16 @@ export default async function EventPage({ params }: Props) {
   }
 
   const bookingBlockReason = getEventBookingBlockReason(event)
-  const bookingDisabledCopy = bookingBlockReason ? getBookingDisabledCopy(bookingBlockReason) : null
+  // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
+  // surfaced when nothing more specific (cancelled / sold out / past) applies.
+  const bookingClosedByCutoff = !bookingBlockReason && isEventBookingClosed(event)
+  const bookingDisabledCopy = bookingBlockReason
+    ? getBookingDisabledCopy(bookingBlockReason)
+    : bookingClosedByCutoff
+      ? SALES_CLOSED_COPY
+      : null
+  // The online booking form is hidden whenever a block reason OR the cutoff applies.
+  const bookingFormSuppressed = Boolean(bookingBlockReason) || bookingClosedByCutoff
   const statusNotice = getStatusNotice(status, isPastEvent)
 
   const eventDate = formatEventDate(event.startDate)
@@ -362,7 +377,7 @@ export default async function EventPage({ params }: Props) {
       ? rawHeroDescription.substring(0, 157).trimEnd() + '…'
       : rawHeroDescription
     : undefined
-  const heroDescription = bookingBlockReason
+  const heroDescription = bookingFormSuppressed
     ? eventSummary
     : getEventBookingHeroStatement(event)
   const heroTags = [
@@ -379,7 +394,7 @@ export default async function EventPage({ params }: Props) {
     <Button asChild size="lg" className="w-full sm:w-auto">
       <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
     </Button>
-  ) : bookingBlockReason ? undefined : (
+  ) : bookingFormSuppressed ? undefined : (
     <EventBookingButton
       event={event}
       className="w-full sm:w-auto"
@@ -588,7 +603,7 @@ export default async function EventPage({ params }: Props) {
                           </Button>
                         </CardBody>
                       </Card>
-                    ) : bookingBlockReason ? (
+                    ) : bookingFormSuppressed ? (
                       <Alert variant="info" title={bookingDisabledCopy?.title}>
                         <p>{bookingDisabledCopy?.message}</p>
                       </Alert>
@@ -724,7 +739,7 @@ export default async function EventPage({ params }: Props) {
           <Button asChild size="lg" className="w-full sm:w-auto">
             <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
           </Button>
-        ) : bookingBlockReason ? null : (
+        ) : bookingFormSuppressed ? null : (
           <EventBookingButton
             event={event}
             className="w-full sm:w-auto"

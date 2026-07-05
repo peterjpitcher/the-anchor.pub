@@ -9,6 +9,7 @@ import { TurnstileField, type TurnstileFieldRef } from '@/components/security/Tu
 import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
+import { isEventBookingClosed } from '@/lib/event-lifecycle'
 import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney } from '@/lib/event-booking-experience'
 import {
   areSelectionNamesComplete,
@@ -57,10 +58,19 @@ type WaitlistResult = {
 
 interface ManagementEventBookingFormProps {
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at'>>
   title?: string
   compact?: boolean
+  /**
+   * When true, online ticket sales have closed for this event: the form
+   * renders a friendly closed message and refuses to submit. The event page
+   * normally hides the form entirely, so this is a defensive guard for direct
+   * use and for a cutoff that passes while the page is open.
+   */
+  bookingClosed?: boolean
 }
+
+const SALES_CLOSED_MESSAGE = 'Online ticket sales for this event have closed. Please contact us or turn up on the night.'
 
 const BLOCKED_COPY: Record<string, string> = {
   blocked: 'This event is not bookable online right now.',
@@ -132,6 +142,7 @@ export function ManagementEventBookingForm({
   event,
   title,
   compact = false,
+  bookingClosed = false,
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -169,6 +180,9 @@ export function ManagementEventBookingForm({
   const formViewedTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
+  // Online ticket sales are closed if the caller says so, or the event's own
+  // cutoff has passed. Either way the form must not render its fields or POST.
+  const salesClosed = bookingClosed || isEventBookingClosed(event)
   const bookingReassurance = getEventBookingReassurance(event)
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
   // Multi-type flow: only when the event exposes 2+ active types at differing
@@ -274,6 +288,11 @@ export function ManagementEventBookingForm({
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
+    // Defensive: never POST once online sales have closed for this event.
+    if (salesClosed) {
+      setError(SALES_CLOSED_MESSAGE)
+      return
+    }
     setError(null)
     setResult(null)
     setPaymentConversionPayload(null)
@@ -654,6 +673,18 @@ export function ManagementEventBookingForm({
       </div>
     </div>
   ) : null
+
+  if (salesClosed) {
+    return (
+      <Card>
+        <CardBody className={compact ? 'space-y-3 p-3 lg:p-4' : 'space-y-5'}>
+          <Alert variant="info" title="Online ticket sales have closed">
+            <p>{SALES_CLOSED_MESSAGE}</p>
+          </Alert>
+        </CardBody>
+      </Card>
+    )
+  }
 
   return (
     <Card>
