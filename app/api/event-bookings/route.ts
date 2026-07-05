@@ -479,6 +479,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Handle SALES_CLOSED rejection from management API (online ticket-sales cutoff)
+    const salesClosed = upstream.status === 409 && hasErrorCode(parsed, 'SALES_CLOSED')
+    if (salesClosed) {
+      return NextResponse.json(
+        { success: false, error: { code: 'SALES_CLOSED', message: 'Online ticket sales for this event have closed.' } },
+        { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
+    }
+
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
     if (policyViolation) {
       const message =
