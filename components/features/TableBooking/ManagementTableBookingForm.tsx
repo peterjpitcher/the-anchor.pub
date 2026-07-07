@@ -1922,8 +1922,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           result.high_chairs_granted !== undefined &&
           result.high_chairs_granted < (result.high_chair_count ?? 0) ? (
             <p className="text-left text-sm text-ink-muted">
-              We couldn&apos;t reserve a high chair for this time. Give us a ring on 01753 682707
-              and we&apos;ll do our best to help.
+              {(result.high_chairs_granted ?? 0) > 0
+                ? `We could only reserve ${result.high_chairs_granted} of the ${result.high_chair_count} high chairs you asked for. `
+                : `We couldn't reserve a high chair for this time. `}
+              Give us a ring on 01753 682707 and we&apos;ll do our best to help.
             </p>
           ) : null}
 

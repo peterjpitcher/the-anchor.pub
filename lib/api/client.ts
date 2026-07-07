@@ -53,7 +53,9 @@ type ManagementTableBookingPayload = {
   // High-chair request (0-2) and outside-seating flag, forwarded to the
   // management API so the agent path supports the same features as the form.
   high_chair_count?: number
-  is_outside_seating?: boolean
+  // AMS management API wire key for the outside flag (the form/proxy inbound key
+  // is `is_outside_seating`; the management endpoint expects `outside_seating`).
+  outside_seating?: boolean
 }
 
 type ManagementTableBookingResult = {
@@ -260,7 +262,7 @@ export class AnchorAPI {
       ...(data.booking_type === 'sunday_lunch' ? { sunday_lunch: true } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
       ...(highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
-      ...(isOutsideSeating ? { is_outside_seating: true } : {})
+      ...(isOutsideSeating ? { outside_seating: true } : {})
     }
   }
 
