@@ -10,6 +10,7 @@ import {
 } from '@/lib/table-booking-service-windows'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import {
   sanitizeCommunicationConsent,
   communicationConsentIdempotencyPart,
@@ -372,6 +373,15 @@ async function forwardConfirmedTableBookingConversion(
     fbc: attribution?.meta_consent_granted === true ? attribution.fbc ?? null : null,
     clientUserAgent: attribution?.meta_consent_granted === true
       ? attribution.client_user_agent ?? request.headers.get('user-agent')
+      : null,
+    emailSha256: attribution?.meta_consent_granted === true
+      ? hashEmailForMeta(payload.email)
+      : null,
+    phoneSha256: attribution?.meta_consent_granted === true
+      ? hashPhoneForMeta(payload.phone, payload.default_country_code)
+      : null,
+    clientIpAddress: attribution?.meta_consent_granted === true
+      ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString()
   }).catch(() => undefined)

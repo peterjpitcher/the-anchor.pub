@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { getClientIpAddress } from '@/lib/booking-conversion-signals'
 
 const BodySchema = z.object({
   bookingId: z.string().uuid(),
@@ -100,6 +101,9 @@ async function forwardCapturedDepositConversion(
     fbc: payload.meta_consent_granted === true ? payload.fbc ?? null : null,
     clientUserAgent: payload.meta_consent_granted === true
       ? payload.client_user_agent ?? request.headers.get('user-agent')
+      : null,
+    clientIpAddress: payload.meta_consent_granted === true
+      ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString(),
   }).catch(() => undefined)

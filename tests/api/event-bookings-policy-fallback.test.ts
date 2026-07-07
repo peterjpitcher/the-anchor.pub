@@ -204,6 +204,8 @@ describe('Event Bookings API - policy violation handling', () => {
         seats: 4,
         first_name: 'Jane',
         last_name: 'Guest',
+        // Paid events require a name per ticket since c7e4fd78.
+        attendee_names: ['Jane Guest', 'Alex Guest', 'Sam Guest', 'Chris Guest'],
         event_slug: 'music-bingo-2026-05-08',
         event_name: 'Music Bingo',
         event_category_name: 'Bingo',

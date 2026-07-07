@@ -29,6 +29,11 @@ export type BookingConversionForwardPayload = {
   fbp?: string | null
   fbc?: string | null
   clientUserAgent?: string | null
+  // SHA-256 digests only (see lib/booking-conversion-signals.ts) — consent-gated
+  // like fbp/fbc; raw email/phone must never be placed on this payload.
+  emailSha256?: string | null
+  phoneSha256?: string | null
+  clientIpAddress?: string | null
   occurredAt?: string | null
 }
 

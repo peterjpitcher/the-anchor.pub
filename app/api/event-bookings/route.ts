@@ -4,6 +4,7 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import {
   sanitizeCommunicationConsent,
   communicationConsentIdempotencyPart,
@@ -410,6 +411,15 @@ async function forwardConfirmedBookingConversion(
     fbc: payload.meta_consent_granted === true ? payload.fbc ?? null : null,
     clientUserAgent: payload.meta_consent_granted === true
       ? payload.client_user_agent ?? request.headers.get('user-agent')
+      : null,
+    emailSha256: payload.meta_consent_granted === true
+      ? hashEmailForMeta(payload.email)
+      : null,
+    phoneSha256: payload.meta_consent_granted === true
+      ? hashPhoneForMeta(payload.phone, payload.default_country_code)
+      : null,
+    clientIpAddress: payload.meta_consent_granted === true
+      ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString()
   }).catch(() => undefined)
