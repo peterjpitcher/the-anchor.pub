@@ -10,7 +10,6 @@ import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSecti
 import { StickyCtas } from '@/components/layout/StickyCtas'
 import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
-import { MetaPixelProvider } from '@/components/tracking/MetaPixelProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -251,7 +250,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <AnalyticsProvider>
             <BusinessHoursProvider>
               <WebVitals />
-              <MetaPixelProvider />
               {/* Skip Navigation Links for Accessibility */}
               <a
                 href="#main-content"

@@ -1,22 +1,11 @@
 import { canUseCookieCategory } from './cookies'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from './booking-attribution'
 
-type FbqCommand = 'init' | 'track' | 'trackCustom' | 'consent'
-
-type Fbq = {
-  (...args: unknown[]): void
-  callMethod?: (...args: unknown[]) => void
-  queue?: unknown[][]
-  loaded?: boolean
-  version?: string
-  push?: Fbq
-}
+type Fbq = (...args: unknown[]) => void
 
 declare global {
   interface Window {
     fbq?: Fbq
-    _fbq?: Fbq
-    __anchorMetaPixelInitialized?: boolean
     __anchorMetaPixelPurchaseEvents?: Set<string>
   }
 }
@@ -38,43 +27,32 @@ export interface MetaBookingPurchase {
   eventCategorySlug?: string | null
 }
 
-export function getMetaPixelId() {
-  return process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || ''
-}
-
-export function ensureMetaPixel() {
-  if (typeof window === 'undefined') return false
-  if (!canUseCookieCategory('marketing')) return false
-
-  const pixelId = getMetaPixelId().trim()
-  if (!pixelId) return false
-
-  const fbq = installFbq()
-  if (!window.__anchorMetaPixelInitialized) {
-    fbq('init', pixelId)
-    fbq('track', 'PageView')
-    window.__anchorMetaPixelInitialized = true
-  }
-
-  return true
-}
-
+// The Meta Pixel base tag (init + PageView) is owned by Google Tag Manager (container
+// GTM-WWFQTQS). This module deliberately does NOT initialise a pixel — doing so alongside
+// GTM caused a duplicate-pixel init. It only:
+//   1. forwards booking conversions server-side via the Meta Conversions API, and
+//   2. fires the client-side Purchase event on GTM's already-initialised pixel (deduped by eventID).
 export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
   if (!data.eventId.trim()) return false
 
   const eventId = data.eventId.trim()
-  window.__anchorMetaPixelPurchaseEvents = window.__anchorMetaPixelPurchaseEvents ?? new Set<string>()
-  if (window.__anchorMetaPixelPurchaseEvents.has(eventId)) return false
-  window.__anchorMetaPixelPurchaseEvents.add(eventId)
+  if (typeof window !== 'undefined') {
+    window.__anchorMetaPixelPurchaseEvents = window.__anchorMetaPixelPurchaseEvents ?? new Set<string>()
+    if (window.__anchorMetaPixelPurchaseEvents.has(eventId)) return false
+    window.__anchorMetaPixelPurchaseEvents.add(eventId)
+  }
 
-  forwardBookingConversion({
-    ...data,
-    eventId
-  })
+  // Server-side Conversions API — independent of the client pixel; always attempt.
+  forwardBookingConversion({ ...data, eventId })
 
-  if (!ensureMetaPixel()) return false
+  if (typeof window === 'undefined') return true
+  if (!canUseCookieCategory('marketing')) return true
 
-  window.fbq?.(
+  // Fire the Purchase on the pixel GTM has already initialised. Never init a pixel here.
+  const fbq = window.fbq
+  if (typeof fbq !== 'function') return true
+
+  fbq(
     'track',
     'Purchase',
     {
@@ -157,35 +135,6 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
   } catch {
     // Conversion forwarding should never interrupt the booking confirmation UX.
   }
-}
-
-function installFbq(): Fbq {
-  if (window.fbq) return window.fbq
-
-  const fbq = ((...args: unknown[]) => {
-    if (fbq.callMethod) {
-      fbq.callMethod(...args)
-      return
-    }
-    fbq.queue = fbq.queue ?? []
-    fbq.queue.push(args)
-  }) as Fbq
-
-  fbq.push = fbq
-  fbq.loaded = true
-  fbq.version = '2.0'
-  fbq.queue = []
-
-  window.fbq = fbq
-  window._fbq = fbq
-
-  const script = document.createElement('script')
-  script.async = true
-  script.src = 'https://connect.facebook.net/en_US/fbevents.js'
-  const firstScript = document.getElementsByTagName('script')[0]
-  firstScript?.parentNode?.insertBefore(script, firstScript)
-
-  return fbq
 }
 
 export {}

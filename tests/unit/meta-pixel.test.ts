@@ -1,5 +1,5 @@
 import { canUseCookieCategory } from '@/lib/cookies'
-import { ensureMetaPixel, trackMetaBookingPurchase } from '@/lib/meta-pixel'
+import { trackMetaBookingPurchase } from '@/lib/meta-pixel'
 import { trackEventBookingComplete, trackTableBookingFunnel } from '@/lib/gtm-events'
 
 jest.mock('@/lib/cookies', () => ({
@@ -7,22 +7,23 @@ jest.mock('@/lib/cookies', () => ({
 }))
 
 const mockedCanUseCookieCategory = canUseCookieCategory as jest.MockedFunction<typeof canUseCookieCategory>
-const originalPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID
 
-function fbqQueue() {
-  return (window.fbq?.queue ?? []) as unknown[][]
+// The Meta Pixel base tag (init + PageView) is owned by GTM. These tests treat window.fbq as the
+// pixel GTM has already installed, and verify this module only fires Purchase + forwards server-side.
+function fbqMock() {
+  return window.fbq as unknown as jest.Mock
+}
+
+function purchaseCalls() {
+  return fbqMock().mock.calls.filter((entry) => entry[0] === 'track' && entry[1] === 'Purchase')
 }
 
 describe('Meta Pixel booking tracking', () => {
   beforeEach(() => {
-    process.env.NEXT_PUBLIC_META_PIXEL_ID = '757659911002159'
     mockedCanUseCookieCategory.mockImplementation((category) => category === 'marketing' || category === 'analytics')
-    delete window.fbq
-    delete window._fbq
-    delete window.__anchorMetaPixelInitialized
+    window.fbq = jest.fn() as unknown as typeof window.fbq
     delete window.__anchorMetaPixelPurchaseEvents
     window.localStorage.clear()
-    document.head.innerHTML = '<script id="first-script"></script>'
     window.dataLayer = []
     window.history.pushState({}, '', '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=quiz-night&fbclid=fb-123')
     document.cookie = '_fbp=fb.1.1710000000.browser-123; path=/'
@@ -30,28 +31,25 @@ describe('Meta Pixel booking tracking', () => {
   })
 
   afterEach(() => {
-    if (originalPixelId === undefined) {
-      delete process.env.NEXT_PUBLIC_META_PIXEL_ID
-    } else {
-      process.env.NEXT_PUBLIC_META_PIXEL_ID = originalPixelId
-    }
     window.localStorage.clear()
   })
 
-  it('initialises the configured Pixel only when marketing consent is granted', () => {
-    mockedCanUseCookieCategory.mockReturnValue(false)
+  it('never initialises a pixel — GTM owns init + PageView', () => {
+    trackTableBookingFunnel({
+      step: 'success',
+      bookingReference: 'BK-INIT',
+      bookingType: 'table',
+      source: 'booking_widget',
+      deviceType: 'desktop'
+    })
 
-    expect(ensureMetaPixel()).toBe(false)
-    expect(window.fbq).toBeUndefined()
-
-    mockedCanUseCookieCategory.mockImplementation((category) => category === 'marketing')
-
-    expect(ensureMetaPixel()).toBe(true)
-    expect(fbqQueue()[0]).toEqual(['init', '757659911002159'])
-    expect(fbqQueue()[1]).toEqual(['track', 'PageView'])
+    const inits = fbqMock().mock.calls.filter((entry) => entry[0] === 'init')
+    const pageViews = fbqMock().mock.calls.filter((entry) => entry[0] === 'track' && entry[1] === 'PageView')
+    expect(inits).toHaveLength(0)
+    expect(pageViews).toHaveLength(0)
   })
 
-  it('fires one Purchase for a confirmed table booking and deduplicates by booking reference', () => {
+  it('fires one Purchase on GTM\'s pixel for a confirmed table booking and deduplicates by reference', () => {
     trackTableBookingFunnel({
       step: 'success',
       bookingReference: 'BK-123',
@@ -70,7 +68,7 @@ describe('Meta Pixel booking tracking', () => {
       deviceType: 'desktop'
     })
 
-    const purchases = fbqQueue().filter((entry) => entry[0] === 'track' && entry[1] === 'Purchase')
+    const purchases = purchaseCalls()
     expect(purchases).toHaveLength(1)
     expect(purchases[0]?.[2]).toMatchObject({
       currency: 'GBP',
@@ -113,7 +111,7 @@ describe('Meta Pixel booking tracking', () => {
       bookingId: 'EVT-456'
     })
 
-    const purchases = fbqQueue().filter((entry) => entry[0] === 'track' && entry[1] === 'Purchase')
+    const purchases = purchaseCalls()
     expect(purchases).toHaveLength(1)
     expect(purchases[0]?.[2]).toMatchObject({
       currency: 'GBP',
@@ -147,23 +145,23 @@ describe('Meta Pixel booking tracking', () => {
     })
   })
 
-  it('does not fire Purchase for pending/error booking states or without marketing consent', () => {
+  it('does not fire a client Purchase for error states or without marketing consent, but still forwards server-side', () => {
     trackTableBookingFunnel({
       step: 'error',
       bookingReference: 'ERR-1',
       source: 'booking_widget',
       deviceType: 'mobile'
     })
-    expect(fbqQueue().filter((entry) => entry[1] === 'Purchase')).toHaveLength(0)
+    expect(purchaseCalls()).toHaveLength(0)
 
     mockedCanUseCookieCategory.mockReturnValue(false)
-    expect(trackMetaBookingPurchase({
+    trackMetaBookingPurchase({
       eventId: 'BK-789',
       value: 20,
       bookingType: 'table',
       bookingSource: 'booking_widget'
-    })).toBe(false)
-    expect(fbqQueue().filter((entry) => entry[1] === 'Purchase')).toHaveLength(0)
+    })
+    expect(purchaseCalls()).toHaveLength(0)
     expect(global.fetch).toHaveBeenCalledTimes(1)
     const forwardedPayload = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))
     expect(forwardedPayload).toMatchObject({
