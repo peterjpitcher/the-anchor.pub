@@ -138,7 +138,7 @@ export default function EngagementPartiesPage() {
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Room hire:</strong> a simple hire fee covers your space (varies by day and party size). Pricing discussed on enquiry on top, you only pay for what you order.</li>
-                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated with standing room for more. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated, or up to 50 standing. French doors open straight onto the beer garden in summer.</li>
                                     <li><strong className="text-ink-strong">Capacity:</strong> 10+ to 150 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
                                     <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs, go for it. We just ask for no confetti or glitter.</li>
                                 </ul>
@@ -266,7 +266,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "How many guests can you fit for an engagement party?",
-                        answer: "Our private dining room seats 26 with standing room for more. For larger engagement parties, we can accommodate up to 50 guests across the dining room and beer garden. Groups of 10+ to 150 are our sweet spot."
+                        answer: "Our private dining room seats 26, or holds up to 50 standing. For larger engagement parties, we can accommodate up to 150 guests across the venue. Groups of 10+ to 150 are our sweet spot."
                     },
                     {
                         question: "Can we decorate the area?",

@@ -172,7 +172,7 @@ Stanwell Moor
 Surrey TW19 6AQ
 
 Call us: 01753 682707
-Email: info@the-anchor.pub
+Email: manager@the-anchor.pub
 
 [View our Christmas party packages](/christmas-parties) | [Corporate bookings](/corporate-christmas-parties)
 

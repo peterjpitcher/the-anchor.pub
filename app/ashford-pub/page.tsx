@@ -300,7 +300,7 @@ export default function AshfordPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-accent-text font-bold">✓</span>
-                      <span><strong>Flexible spaces</strong> - Intimate gatherings to 200 guests</span>
+                      <span><strong>Flexible spaces</strong> - Private hire for 10+ to 150 guests</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-accent-text font-bold">✓</span>
@@ -562,7 +562,7 @@ export default function AshfordPubPage() {
           },
           {
             question: "Do you host private events for Ashford groups?",
-            answer: "Yes! We regularly host birthday parties, corporate events, and celebrations for Ashford residents. We have spaces for groups from 20 to 250 people. Contact us to discuss your requirements."
+            answer: "Yes! We regularly host birthday parties, corporate events, and celebrations for Ashford residents. We have space for private hire from 10+ to 150 guests. Contact us to discuss your requirements."
           }
         ]}
         className="bg-canvas"

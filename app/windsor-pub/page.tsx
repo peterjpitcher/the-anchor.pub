@@ -269,7 +269,7 @@ export default function WindsorPubPage() {
 
             <div className="text-center">
               <p className="text-lg text-ink-muted mb-6">
-                Private function room available for Windsor groups - from 20 to 250 guests
+                Private function room available for Windsor groups - 10+ to 150 guests
               </p>
               <Link href="/private-hire#enquiry">
                 <Button variant="primary" size="lg">
@@ -473,7 +473,7 @@ export default function WindsorPubPage() {
           },
           {
             question: "Can you accommodate large Windsor groups?",
-            answer: "Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate groups from 20 to 250 people. Many prefer us to Windsor venues for better value and a more relaxed atmosphere."
+            answer: "Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate private hire from 10+ to 150 guests. Many prefer us to Windsor venues for better value and a more relaxed atmosphere."
           }
         ]}
         className="bg-canvas"

@@ -125,7 +125,7 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
 
                 <div className="rounded-md bg-surface-sunk px-6 py-4 text-sm text-ink-muted">
                   <p>
-                    Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:parking@the-anchor.pub" className="font-semibold text-accent-text">parking@the-anchor.pub</a> or call <PhoneLink phone={CONTACT.phone} source="parking-booking_contact" className="font-semibold text-accent-text" showIcon={false} /> with your reference {booking.reference}.
+                    Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:manager@the-anchor.pub" className="font-semibold text-accent-text">manager@the-anchor.pub</a> or call <PhoneLink phone={CONTACT.phone} source="parking-booking_contact" className="font-semibold text-accent-text" showIcon={false} /> with your reference {booking.reference}.
                   </p>
                 </div>
 

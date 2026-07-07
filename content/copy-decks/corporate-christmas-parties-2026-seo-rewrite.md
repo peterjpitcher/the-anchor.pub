@@ -111,7 +111,7 @@
 **Package 1, Small Team Dinner (6–25):**
 > **Private dining room · Three-course festive menu**
 > Per-person pricing, with a small midweek-to-weekend difference
-> Cosy private dining with crackers, candles and direct table service. The room seats up to 25, perfect for a department **work christmas lunch** or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.
+> Cosy private dining with crackers, candles and direct table service. The room seats up to 26, perfect for a department **work christmas lunch** or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.
 
 **Package 2, Department Celebration (26–60):**
 > **Main bar configured for your group · Sit-down or buffet**

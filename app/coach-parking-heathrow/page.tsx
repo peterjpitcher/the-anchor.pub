@@ -48,7 +48,7 @@ export default function CoachParkingPage() {
                             The Perfect Stop for Tour Groups
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Need a pub near Heathrow for a coach group? The Anchor has a large, accessible car park, space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 25 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
+                            Need a pub near Heathrow for a coach group? The Anchor has a large, accessible car park, space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 26 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
                         </p>
                     </div>
                 </Container>
@@ -138,7 +138,7 @@ export default function CoachParkingPage() {
                     },
                     {
                         question: "Is there a maximum group size?",
-                        answer: "Coach groups of up to 20 can sit together. Our private dining room can fit up to 25 people. Groups of around 50 can be hosted, but they would be spread across the pub rather than seated all together."
+                        answer: "Coach groups of up to 20 can sit together. Our private dining room can fit up to 26 people. Groups of around 50 can be hosted, but they would be spread across the pub rather than seated all together."
                     },
                     {
                         question: "How do we pre-order?",
@@ -155,7 +155,7 @@ export default function CoachParkingPage() {
                 <PhoneButton phone={CONTACT.phone} source="coach_cta" variant="primary" size="lg">
                     Call Us
                 </PhoneButton>
-                <Link href="mailto:info@the-anchor.pub">
+                <Link href="mailto:manager@the-anchor.pub">
                     <Button variant="outline" size="lg">Email Us</Button>
                 </Link>
             </CtaBand>

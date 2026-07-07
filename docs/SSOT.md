@@ -192,6 +192,7 @@ The full drinks inventory must come from POS/API before publishing. The website 
 - **Amount:** £10 per person, fully deducted from the bill on the day.
 - **Smaller groups (1–9):** No deposit. No card details required at booking.
 - **Standard copy:** "Groups of 10 or more: a £10 per person deposit, fully deducted from your bill."
+- **Christmas menu exception:** All Christmas menu bookings require a £10 per person deposit **regardless of party size** (including groups under 10). The deposit secures the booking and is non-refundable. (Confirmed by owner 2026-07-07.)
 
 ### Booking type → kitchen dependency
 
@@ -213,12 +214,14 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 | Space | Capacity |
 |---|---|
-| Maximum (whole venue) | 250 |
+| Whole venue, exclusive hire | 119 seated / 300 standing |
 | Private hire | 10+ – 150 guests |
+| Main area | 29 seated / 150 standing |
 | Dining room (seated) | 26 |
+| Dining room (standing) | 50 |
 | Christmas (seated) | 60 |
 | Christmas (standing) | 200 |
-| Beer garden | 64 seats |
+| Beer garden / terrace | 64 seated / 250 standing |
 
 ### Parking
 
@@ -352,8 +355,8 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 ## 11. Private Hire
 
-- **Capacity:** 10+ – 150 guests. (250 max venue-wide; 60 seated at Christmas, 200 standing.)
-- **Dining room:** 26 seated, with standing room for more. French doors open onto the beer garden.
+- **Capacity:** 10+ – 150 guests. (Full venue exclusive hire: 119 seated or 300 standing; 60 seated at Christmas, 200 standing.) Values from the management DB `venue_spaces`: dining room 26 seated / 50 standing, main area 29 / 150, garden 64 / 250, whole venue 119 / 300.
+- **Dining room:** 26 seated or up to 50 standing. French doors open onto the beer garden.
 - **Spaces available:** Beer garden, dining room.
 - **Room hire charge:** Discuss on enquiry. Do not publish minimum-spend wording.
 - **Deposit:** £250.

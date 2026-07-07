@@ -148,7 +148,7 @@ export default async function WorldCupPage() {
             <BookTableButton source="world_cup_hero" variant="primary" size="lg" fullWidth>
               Book a Table
             </BookTableButton>
-            <Link href="/menus">
+            <Link href="/food-menu">
               <Button variant="outline" size="lg" fullWidth>
                 View Menu
               </Button>

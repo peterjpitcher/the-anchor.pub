@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
         title: 'Wake Venue Near Staines & Heathrow | Private Room',
-        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, ${buffetPhrase}, free parking. Compassionate staff.`,
+        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Seats up to 26, or 50 standing, ${buffetPhrase}, free parking. Compassionate staff.`,
         openGraph: {
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
             description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. ${buffetPhrase}. Minutes from local crematoriums.`,
@@ -174,7 +174,7 @@ export default async function WakesPage() {
                     <Card accent className="max-w-2xl mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
-                            <p className="text-ink-muted">A private, enclosed space suitable for 20-60 guests. Quiet and self-contained with direct access to facilities.</p>
+                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities.</p>
                         </CardBody>
                     </Card>
                 </Container>
@@ -202,12 +202,12 @@ export default async function WakesPage() {
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         {[
-                            { title: "Private Dining Room", description: "Our self-contained private dining room accommodates 20 to 60 seated guests comfortably. For larger standing gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
+                            { title: "Private Dining Room", description: "Our self-contained private dining room seats up to 26 guests, or up to 50 standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
                             { title: "Accessibility for All Guests", description: "The venue is entirely on the ground floor with step-free access to the bar and dining area, making it easy for elderly guests and those with mobility difficulties. Our car park is directly adjacent to the entrance with no steps to navigate. Please note we do not currently have an accessible toilet, so call ahead if you would like to talk through your visit." },
                             { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times and can open early or stay later to suit your schedule. Simply call us and we will accommodate your needs." },
                             { title: "Everything Included", description: "Room hire, dedicated staff, setup, and cleardown are all included in our packages. There are no hidden charges. We handle the practical arrangements so you and your family can focus on being together." },
                             { title: "Dietary Accommodation", description: "We regularly cater for large mixed groups with a range of dietary requirements including vegetarian, vegan, gluten-free, and nut-free options. Please let us know your requirements when booking and we will ensure everyone is catered for." },
-                            { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just five minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
+                            { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just ten minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
                         ].map(feature => (
                             <Card key={feature.title} className="h-full">
                                 <CardBody className="flex h-full flex-col gap-2">
@@ -411,7 +411,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "Do you cater for large groups?",
-                        answer: "Yes, we can accommodate up to 60 seated guests in our private dining room, or larger standing gatherings across the venue. For bigger groups, we can arrange a tailored setup."
+                        answer: "Our private dining room seats up to 26, or holds up to 50 standing. For larger gatherings we can arrange more space across the venue, and we will tailor the setup to your group."
                     },
                     {
                         question: "Is there parking for guests?",

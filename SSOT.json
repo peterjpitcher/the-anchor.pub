@@ -204,12 +204,17 @@
   },
   "venue": {
     "capacity": {
-      "maximum": 250,
+      "maximum": 300,
+      "maximum_seated": 119,
       "private_hire": "10+ to 150 guests",
+      "main_area_seated": 29,
+      "main_area_standing": 150,
       "dining_room_seated": 26,
+      "dining_room_standing": 50,
+      "beer_garden_seats": 64,
+      "beer_garden_standing": 250,
       "christmas_seated": 60,
-      "christmas_standing": 200,
-      "beer_garden_seats": 64
+      "christmas_standing": 200
     },
     "parking": {
       "free_spaces": 20,
@@ -843,7 +848,7 @@
   "private_hire": {
     "capacity": "10+ to 150 guests",
     "dining_room_seated": 26,
-    "dining_room_note": "26 seated with standing room for more. French doors open onto beer garden.",
+    "dining_room_note": "26 seated or up to 50 standing. French doors open onto beer garden.",
     "spaces": [
       "Beer garden",
       "Dining room (private hire)"

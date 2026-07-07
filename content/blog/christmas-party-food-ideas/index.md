@@ -80,7 +80,7 @@ Christmas pudding with brandy sauce is the traditional choice, and plenty of peo
 
 A cheeseboard can work as an alternative to dessert or as an extra course between mains and sweets. For a festive lunch or dinner, it adds a touch of indulgence without much extra effort from the kitchen. A well-chosen board with British cheeses, crackers, chutney, and grapes turns a good christmas meal into a leisurely one.
 
-For groups at The Anchor, our trimmings boards work as a shared centrepiece, £11.95 for a board serving four, or £21.95 for a table of eight. They're designed to sit in the middle while everyone helps themselves.
+For groups at The Anchor, our trimmings boards work as a shared centrepiece, one board serving four or a larger board for a table of eight. They're designed to sit in the middle while everyone helps themselves. Ask us for current pricing when you enquire.
 
 ## Feeding different group sizes
 
@@ -114,7 +114,7 @@ For parties this large, christmas party packages are the way to go. A single per
 
 Pricing varies wildly depending on where you go and what you choose. Here's what the main formats typically cost in the Home Counties.
 
-### Buffet: £10-17 per person
+### Buffet options
 
 A solid christmas buffet, hot and cold options, a couple of desserts, enough variety to keep everyone happy. This is the best value option for larger groups, and the quality at a good pub or venue is genuinely excellent. Our buffets at The Anchor start from current approved price, with premium options stepping up from there.
 
@@ -158,6 +158,6 @@ We've been hosting Christmas parties for years, and we know what works. Our fest
 **Ready to sort your Christmas party food?** Have a look at our [Christmas parties page](/christmas-parties) for the full festive menu and pricing, or give us a ring to talk through what works for your group. We're happy to tailor packages around what you need, whether that's a sit-down christmas dinner for twelve or a buffet for sixty.
 
 **The Anchor, Stanwell Moor**
-Phone: [01753 686 574](tel:01753686574)
-Email: [info@the-anchor.pub](mailto:info@the-anchor.pub)
+Phone: [01753 682707](tel:01753682707)
+Email: [manager@the-anchor.pub](mailto:manager@the-anchor.pub)
 [View our Christmas party packages](/christmas-parties)

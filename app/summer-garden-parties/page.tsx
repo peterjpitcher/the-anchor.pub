@@ -143,7 +143,7 @@ export default function SummerGardenPartiesPage() {
                 copy="Dates fill up fast when the forecast is good."
                 primary={
                     <Button asChild variant="primary" size="lg">
-                        <a href="mailto:info@the-anchor.pub?subject=Summer%20Party%20Enquiry">Enquire Now</a>
+                        <a href="mailto:manager@the-anchor.pub?subject=Summer%20Party%20Enquiry">Enquire Now</a>
                     </Button>
                 }
                 secondary={

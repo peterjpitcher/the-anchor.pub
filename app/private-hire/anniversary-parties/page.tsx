@@ -138,7 +138,7 @@ export default function AnniversaryPartiesPage() {
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Room hire:</strong> a hire fee covers your space and varies by day and party size. We confirm the fee and full terms when you enquire.</li>
-                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated with standing room for more. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated, or up to 50 standing. French doors open straight onto the beer garden in summer.</li>
                                     <li><strong className="text-ink-strong">Capacity:</strong> 10+ to 150 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
                                     <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table photos, anniversary signs, bring them along. We just ask for no confetti or glitter.</li>
                                 </ul>
@@ -266,7 +266,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "How many guests can you fit for an anniversary party?",
-                        answer: "Our private dining room seats 26 with standing room for more. For larger anniversary celebrations we can accommodate 10+ to 150 guests across the dining room and beer garden. Smaller groups get a reserved area; larger parties take the dining room to themselves."
+                        answer: "Our private dining room seats 26, or holds up to 50 standing. For larger anniversary celebrations we can accommodate 10+ to 150 guests across the dining room and beer garden. Smaller groups get a reserved area; larger parties take the dining room to themselves."
                     },
                     {
                         question: "Can we decorate the room?",

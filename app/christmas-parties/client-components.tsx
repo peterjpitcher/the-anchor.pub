@@ -186,7 +186,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Are you close to Heathrow and Staines?",
-    answer: "Yes, seven minutes from Heathrow Terminal 5, around fifteen from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
+    answer: "Yes, seven minutes from Heathrow Terminal 5, around eleven from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
   },
   {
     question: "Can we bring our own food?",
@@ -198,7 +198,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "How do guests travel from Heathrow hotels or terminals?",
-    answer: "A taxi from Heathrow T5 takes around seven minutes and typically costs £18–22. We're fifteen minutes from Terminal 2 and have room for mini-coaches."
+    answer: "A taxi from Heathrow T5 takes around seven minutes and typically costs £18–22. We're eleven minutes from Terminal 2 and have room for mini-coaches."
   },
   {
     question: "What entertainment can we have?",
@@ -606,7 +606,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="mx-auto max-w-4xl space-y-4 text-center">
             <h2 className="text-2xl font-bold text-ink-strong">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-ink-muted">
-              The Anchor is one of the most popular Christmas party venues in Surrey for a reason, we're seven minutes from Heathrow Terminal 5, fifteen from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
+              The Anchor is one of the most popular Christmas party venues in Surrey for a reason, we're seven minutes from Heathrow Terminal 5, eleven from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
             </p>
             <p className="text-sm text-ink-muted">
               We're also one of the best-value options around. Ask for current festive pricing when you enquire, and we will confirm the menu, setup and any live seasonal options before you book. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
@@ -664,7 +664,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </tbody>
               </table>
               <p className="px-4 py-4 text-sm text-ink-muted border-t border-line">
-                Our festive menu is available for parties of six or more. A £10 per person deposit secures your Christmas party booking and is non-refundable. Full pre-orders for every guest are due seven days in advance, we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
+                Our festive menu is available for parties of six or more. A £10 per person deposit applies to every Christmas menu booking, whatever your group size, and secures your booking. Deposits are non-refundable. Full pre-orders for every guest are due seven days in advance, we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -774,7 +774,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                       <p className="text-ink-muted">Moist chocolate sponge layered with silky fudge icing, served warm with pouring cream or custard for pure comfort. Vegetarian friendly.</p>
                     </li>
                   </ul>
-                  <p className="text-xs text-ink-muted">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+£3) or add it as a fourth course for £7.95.</p>
+                  <p className="text-xs text-ink-muted">Prefer cheese? Swap dessert for our farmhouse cheeseboard, or add it as a fourth course. Ask us for current pricing.</p>
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-surface-sunk px-4 py-2 text-sm font-semibold text-accent-text">
@@ -812,13 +812,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Trimmings & extras
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>All the Trimmings Board (serves 4) - £11.95</li>
-                  <li>XL Trimmings Board (serves 8) - £21.95</li>
-                  <li>Pigs in blankets (3) - £3.95pp</li>
-                  <li>Stuffing balls (2) - £2.95pp</li>
-                  <li>Cauli cheese pot - £3.95pp</li>
-                  <li>Extra herb-crusted triple-cooked roast potatoes & gravy - £2.95pp</li>
-                  <li>Extra Yorkshire puddings (2) - £2.50pp</li>
+                  <li>All the Trimmings Board (serves 4)</li>
+                  <li>XL Trimmings Board (serves 8)</li>
+                  <li>Pigs in blankets (3)</li>
+                  <li>Stuffing balls (2)</li>
+                  <li>Cauli cheese pot</li>
+                  <li>Extra herb-crusted triple-cooked roast potatoes & gravy</li>
+                  <li>Extra Yorkshire puddings (2)</li>
                 </ul>
               </div>
             </Card>
@@ -829,9 +829,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Drinks & finale
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Bundle A: Prosecco arrival + coffee & mince pie - live price (counts towards the £45-£52 spend target)</li>
-                  <li>Wine bundle: 2 bottles of house wine - £39.00</li>
-                  <li>Beer bucket (6 × 330ml) - £27.00</li>
+                  <li>Bundle A: Prosecco arrival + coffee & mince pie</li>
+                  <li>Wine bundle: 2 bottles of house wine</li>
+                  <li>Beer bucket (6 × 330ml)</li>
                   <li>Pre-set bar tab with running updates</li>
                   <li>Invoicing available for corporate groups</li>
                 </ul>
@@ -900,24 +900,18 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <Grid cols={3} gap="md" className="mt-10">
             {[
               {
-                title: 'Festive Sandwich & Salad',
-                price: 'live price',
-                description: 'Seasonal sandwich platters with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudites and dips.'
+                title: 'Festive Sandwich & Salad',                description: 'Seasonal sandwich platters with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudites and dips.'
               },
               {
-                title: 'Festive Hot Finger',
-                price: 'live price',
-                description: 'Everything from the sandwich tier plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and dipping sauces.'
+                title: 'Festive Hot Finger',                description: 'Everything from the sandwich tier plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and dipping sauces.'
               },
               {
-                title: 'Festive Premium Grazing',
-                price: 'live price',
-                description: 'Cured meats and cheese boards with freshly baked rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
+                title: 'Festive Premium Grazing',                description: 'Cured meats and cheese boards with freshly baked rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
               }
             ].map(tier => (
               <Card key={tier.title} className="h-full">
                 <div className="p-6 space-y-3">
-                  <Badge className="bg-red-100 text-red-700 w-fit">{tier.price}</Badge>
+                  <Badge className="bg-red-100 text-red-700 w-fit">Festive buffet</Badge>
                   <h3 className="text-lg font-semibold text-ink-strong">{tier.title}</h3>
                   <p className="text-sm text-ink-muted">{tier.description}</p>
                 </div>
@@ -933,12 +927,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Add-on platters
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Pigs in blankets, live price</li>
-                  <li>Stuffing balls, live price</li>
-                  <li>Broccoli cheese, live price</li>
-                  <li>Gourmet broccoli cheese with truffle crumb, live price</li>
-                  <li>Roast potatoes and gravy, live price</li>
-                  <li>Mini Yorkshire puddings with gravy, live price</li>
+                  <li>Pigs in blankets</li>
+                  <li>Stuffing balls</li>
+                  <li>Broccoli cheese</li>
+                  <li>Gourmet broccoli cheese with truffle crumb</li>
+                  <li>Roast potatoes and gravy</li>
+                  <li>Mini Yorkshire puddings with gravy</li>
                 </ul>
               </div>
             </Card>
@@ -949,11 +943,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Dessert & drinks stations
                 </h3>
                 <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Festive dessert bites - Small £24 (serves ~12) · Large £45 (serves ~24)</li>
+                  <li>Festive dessert bites (small serves ~12, large serves ~24)</li>
                   <li>Coffee & mince pie station, ask for current pricing</li>
-                  <li>Unlimited tea & coffee - £4.49 per person</li>
-                  <li>Welcome drink (Prosecco or orange juice) - £6.99 per person</li>
-                  <li>Unlimited kids' squash - £2.50 per child</li>
+                  <li>Unlimited tea & coffee</li>
+                  <li>Welcome drink (Prosecco or orange juice)</li>
+                  <li>Unlimited kids' squash</li>
                   <li>Pre-paid bar tab available with agreed limit</li>
                 </ul>
               </div>
@@ -1051,7 +1045,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div className="max-w-3xl mx-auto mt-8">
             <ul className="space-y-3 text-sm text-ink-muted">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />A £10 per person deposit secures your Christmas party booking. Deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />A £10 per person deposit applies to every Christmas menu booking, whatever your group size, and secures your table. Deposits are non-refundable.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />Full pre-orders for every guest are due at least seven days before your Christmas meal.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />We&apos;ll always try to accommodate last-minute changes, but once your order is confirmed we can&apos;t guarantee them.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />Standard table time is two hours. Longer sittings available for larger parties.</li>

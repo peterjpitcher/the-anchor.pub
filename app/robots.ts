@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
           '/_scripts/',
           '/cdn-cgi/',
           '/subscribe',
-          '/leave-a-review',
+          '/leave-review',
           '/subscribe-for-digital-flyers',
           '/p5-demo'
         ]

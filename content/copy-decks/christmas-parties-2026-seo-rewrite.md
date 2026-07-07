@@ -213,7 +213,7 @@
 ## 13. DINING SPACES
 
 **Card 1, Private Dining Room:**
-> Seat up to 25 guests with cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small **staff Christmas party** away from the main bar.
+> Seat up to 26 guests with cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small **staff Christmas party** away from the main bar.
 
 **Card 2, Main Bar & Dining:**
 > Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We'll shape the room to fit your Christmas party, whether it's 30 or 60 guests.
@@ -263,7 +263,7 @@
 
 **Card 4, Spaces:**
 > **Private Spaces for Every Size**
-> Intimate dining room for up to 25, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party, not the other way round.
+> Intimate dining room for up to 26, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party, not the other way round.
 
 **Card 5, Character:**
 > **A Proper Village Pub Christmas**
@@ -298,7 +298,7 @@
 
 **Popular setups:**
 
-1. **Small team dinner (6–25)**, Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Popular with Poyle, Colnbrook and Heathrow business park teams.
+1. **Small team dinner (6–26)**, Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Popular with Poyle, Colnbrook and Heathrow business park teams.
 
 2. **Department celebration (26–60)**, Main bar configured for your group with buffet or sit-down service. Add a quiz or Music Bingo for a memorable works Christmas do.
 
@@ -442,7 +442,7 @@
 > Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team, we're here to help.
 
 **CTAs:**
-- Request a Christmas Booking (up to 25)
+- Request a Christmas Booking (up to 26)
 - Plan a Buffet Party (26+)
 - Call 01753 682707
 - Email us

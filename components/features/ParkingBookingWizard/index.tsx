@@ -807,7 +807,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         <div className="mt-6 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
           <p className="font-semibold">Need to book without JavaScript?</p>
           <p className="mt-1">
-            Call us on 01753 682707, WhatsApp us, or email parking@the-anchor.pub with your arrival time,
+            Call us on 01753 682707, WhatsApp us, or email manager@the-anchor.pub with your arrival time,
             departure time, registration and phone number.
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
@@ -822,7 +822,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             </a>
             <a
               className="font-semibold underline"
-              href="mailto:parking@the-anchor.pub?subject=Parking%20Booking%20Request&body=Arrival%20date%20and%20time%3A%0ADeparture%20date%20and%20time%3A%0AVehicle%20registration%3A%0AMobile%20number%3A"
+              href="mailto:manager@the-anchor.pub?subject=Parking%20Booking%20Request&body=Arrival%20date%20and%20time%3A%0ADeparture%20date%20and%20time%3A%0AVehicle%20registration%3A%0AMobile%20number%3A"
             >
               Email booking request
             </a>

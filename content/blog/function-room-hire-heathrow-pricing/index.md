@@ -93,8 +93,8 @@ Full disclosure: this is the sales pitch section. But we'll keep it factual.
 
 ### The spaces
 
-- **The Dining Room** -- seats 20--80 guests. Works for formal dinners, presentations, parties, or meetings. Natural daylight, climate control, AV equipment available.
-- **Exclusive Venue Hire** -- 80--200 guests. Take over the entire pub, including the bar area and outdoor terrace. Multiple spaces to use for different parts of your event.
+- **The Dining Room**, seats up to 26 or up to 50 standing. Works for formal dinners, presentations, parties, or meetings. Natural daylight, climate control, AV equipment available.
+- **Exclusive Venue Hire**, up to 119 seated or 300 standing. Take over the entire pub, including the bar area and outdoor terrace. Multiple spaces to use for different parts of your event.
 
 ### Layout options
 

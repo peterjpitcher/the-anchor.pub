@@ -292,7 +292,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
                     {isKnownCustomer && (
                         <div className="p-3 bg-anchor-green/5 text-accent rounded-lg text-sm border border-anchor-green/20">
-                            Recognized customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with event details.
+                            Recognised customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with event details.
                         </div>
                     )}
 

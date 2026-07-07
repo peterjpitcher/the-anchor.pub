@@ -61,7 +61,7 @@ export const commonLinkGroups = {
     { href: '/private-hire', title: 'Private Hire & Events', description: 'Get a quote and check availability' }
   ],
   location: [
-    { href: '/near-heathrow', title: 'Near Heathrow', description: '5 minutes from all terminals' },
+    { href: '/near-heathrow', title: 'Near Heathrow', description: '7-12 minutes from Heathrow terminals' },
     { href: '/find-us', title: 'Find Us', description: 'Directions and parking' },
     { href: '/beer-garden', title: 'Beer Garden', description: 'Outdoor seating area' }
   ],

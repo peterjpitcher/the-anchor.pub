@@ -19,7 +19,7 @@ const SIGNALS: Record<TrustBarVariant, Array<{ icon: string; text: string }>> = 
     { icon: '', text: 'Bar open all night' },
   ],
   'private-hire': [
-    { icon: '', text: 'Space for up to 200 guests' },
+    { icon: '', text: 'Space for 10+ to 150 guests' },
     { icon: '', text: 'BII Sustainability Champion' },
     { icon: '', text: 'Free parking for all guests' },
   ],

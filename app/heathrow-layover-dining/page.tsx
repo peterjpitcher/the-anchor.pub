@@ -244,7 +244,7 @@ export default function HeathrowLayoverDiningPage() {
               { title: 'Plane-Spotting Patio', body: 'Watch final approaches with a pint in hand. Great for aviation fans and families.' },
               { title: 'Charging & WiFi', body: 'Power up devices and download shows before you board. Ask staff for quiet seating.' },
               { title: 'Local Walks', body: 'Take a 15-minute stroll along the River Colne or Stanwell Moor village green between courses.' },
-              { title: 'Group-Friendly Menus', body: 'Pre-set menus available for crew briefings or incentive trips. Email events@the-anchor.pub for options.' },
+              { title: 'Group-Friendly Menus', body: 'Pre-set menus available for crew briefings or incentive trips. Email manager@the-anchor.pub for options.' },
               { title: 'Takeaway Ready', body: 'All-day menu items travel well, take leftovers or order takeaway pizzas for the onward journey.' }
             ].map(box => (
               <Card key={box.title} accent>

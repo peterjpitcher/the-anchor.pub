@@ -168,7 +168,7 @@ We're not a faceless function room. We're a village pub that happens to be reall
 
 - Browse our [Christmas party packages](/christmas-parties)
 - See our [corporate Christmas party options](/corporate-christmas-parties)
-- Call us on **01932 221 618**
-- Email **info@the-anchor.pub**
+- Call us on **01753 682707**
+- Email **manager@the-anchor.pub**
 
 Seven minutes from Heathrow T5. Free parking. ULEZ-free. And a team that'll make sure your works christmas do is one people actually talk about, for the right reasons.
