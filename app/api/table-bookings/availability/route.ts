@@ -18,6 +18,28 @@ function parsePositiveInt(value: string | null, fallback: number): number {
   return parsed
 }
 
+// Builds a HH:mm -> high_chairs_remaining lookup from the AMS load read-out.
+// Defensive: only entries with a valid non-negative integer are kept, so a
+// missing/garbled figure leaves the slot's high_chairs_remaining absent.
+function buildHighChairsByTime(
+  bookingLoad: TableBookingLoadResponse | null | undefined
+): Map<string, number> | undefined {
+  const slots = bookingLoad?.slots
+  if (!Array.isArray(slots) || slots.length === 0) return undefined
+
+  const map = new Map<string, number>()
+  for (const slot of slots) {
+    const time = normalizeTime(String(slot?.time ?? ''))
+    const remaining = slot?.high_chairs_remaining
+    if (!isValidTime(time) || typeof remaining !== 'number' || !Number.isFinite(remaining) || remaining < 0) {
+      continue
+    }
+    map.set(time, Math.floor(remaining))
+  }
+
+  return map.size > 0 ? map : undefined
+}
+
 function buildCombinedAvailability(
   businessHours: BusinessHours,
   options: {
@@ -51,13 +73,16 @@ function buildCombinedAvailability(
       }
     : undefined
 
+  const highChairsByTime = buildHighChairsByTime(options.bookingLoad)
+
   const timeSlots = buildSlotsWithKitchenState(
     ranges,
     kitchenRanges,
     options.partySize,
     30,
     minMinutesForToday,
-    busynessOptions
+    busynessOptions,
+    highChairsByTime
   )
 
   const available = timeSlots.some(

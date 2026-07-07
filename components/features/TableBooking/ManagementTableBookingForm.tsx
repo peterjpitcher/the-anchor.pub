@@ -97,6 +97,12 @@ type ManagementTableBookingResult = {
   // See spec §6 ("Failed-PayPal recovery") and §8.1 (PayPal failure recovery).
   fallback_payment_url?: string | null
   payment_required?: boolean
+  // High chairs actually reserved by the server (may be < requested), the
+  // requested count echoed back, and the outside-seating flag. Used on the
+  // confirmation screen to reflect the granted result (spec §10).
+  high_chairs_granted?: number
+  high_chair_count?: number
+  is_outside_seating?: boolean
 }
 
 function confirmationDeliveryCopy(channel?: ManagementTableBookingResult['notification_channel']): string {
@@ -113,6 +119,10 @@ type AvailabilitySlot = {
   reason?: string
   kitchen_open?: boolean
   busyness?: 'quiet' | 'filling' | 'busy'
+  // High chairs still free in this slot's window (advisory; the server is the
+  // authoritative gate). Absent when the API does not report it — treat as
+  // "unknown" and leave the chair picker enabled (fail-open, spec D7).
+  high_chairs_remaining?: number
 }
 
 type AvailabilityData = {
@@ -266,6 +276,19 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     const available =
       typeof source.available === 'boolean' ? source.available : availableCapacity > 0
 
+    // High chairs remaining: defensive number parse. Undefined when absent or
+    // unparseable so the picker stays enabled (fail-open, spec D7).
+    const rawHighChairs = source.high_chairs_remaining
+    let highChairsRemaining: number | undefined
+    if (typeof rawHighChairs === 'number' && Number.isFinite(rawHighChairs)) {
+      highChairsRemaining = Math.max(0, Math.floor(rawHighChairs))
+    } else if (typeof rawHighChairs === 'string' && rawHighChairs.trim().length > 0) {
+      const parsedHighChairs = Number.parseInt(rawHighChairs.trim(), 10)
+      if (Number.isFinite(parsedHighChairs)) {
+        highChairsRemaining = Math.max(0, parsedHighChairs)
+      }
+    }
+
     timeSlots.push({
       time,
       available,
@@ -276,7 +299,10 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
       busyness:
         source.busyness === 'quiet' || source.busyness === 'filling' || source.busyness === 'busy'
           ? source.busyness
-          : undefined
+          : undefined,
+      ...(highChairsRemaining !== undefined
+        ? { high_chairs_remaining: highChairsRemaining }
+        : {})
     })
   }
 
@@ -701,6 +727,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [notes, setNotes] = useState('')
+  const [highChairCount, setHighChairCount] = useState(0)
+  const [isOutsideSeating, setIsOutsideSeating] = useState(false)
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
     DEFAULT_COMMUNICATION_CONSENT_STATE
   )
@@ -783,6 +811,23 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     () => availableSlots.find((slot) => slot.time === selectedTime) || null,
     [availableSlots, selectedTime]
   )
+  // Chair picker upper bound: cap at min(2, remaining) when the slot reports a
+  // remaining figure; otherwise leave it at 2 and enabled (fail-open, spec D7).
+  // The server is the authoritative gate, so a missing/stale value never blocks.
+  const highChairMax = useMemo(() => {
+    const remaining = selectedSlot?.high_chairs_remaining
+    if (typeof remaining === 'number' && Number.isFinite(remaining)) {
+      return Math.max(0, Math.min(2, Math.floor(remaining)))
+    }
+    return 2
+  }, [selectedSlot])
+  // If the chosen slot reports fewer chairs than currently requested, clamp the
+  // request down so the picker never shows more than the slot can advise.
+  useEffect(() => {
+    if (highChairCount > highChairMax) {
+      setHighChairCount(highChairMax)
+    }
+  }, [highChairMax, highChairCount])
   const quieterSlots = useMemo(() => {
     if (!selectedSlot || !shouldNudgeForBusyness(selectedSlot.busyness)) return []
     const selectedMinutes = toMinutes(selectedSlot.time)
@@ -1476,6 +1521,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     partySize: number
     purpose: 'food' | 'drinks'
     notes?: string
+    highChairCount: number
+    isOutsideSeating: boolean
     communicationConsent: CommunicationConsentState
   }): string {
     return JSON.stringify({
@@ -1488,6 +1535,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       partySize: input.partySize,
       purpose: input.purpose,
       notes: input.notes?.trim() || '',
+      highChairCount: input.highChairCount,
+      isOutsideSeating: input.isOutsideSeating,
       communicationConsent: input.communicationConsent
     })
   }
@@ -1532,11 +1581,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const resolvedLastName = lastName.trim()
     const resolvedEmail = (isKnownCustomer ? knownCustomer?.email : email.trim()) || undefined
     const trimmedNotes = notes.trim()
+    // Clamp the request to the slot's advisory bound; the server re-checks and is
+    // the authoritative gate, so this only keeps the client honest.
+    const resolvedHighChairCount = Math.max(0, Math.min(highChairCount, highChairMax))
+    const resolvedOutsideSeating = isOutsideSeating
 
     // Build the submit-intent fingerprint from non-volatile payload fields,
     // then look up (or mint) the idempotency key. This guarantees that a retry
     // of the same booking intent reuses the key, while a changed slot or guest
-    // detail forces a new key. See spec §13.2.
+    // detail forces a new key. High-chair/outside are included so a booking that
+    // differs only in those fields gets its own key. See spec §13.2, §10.
     const idempotencyFingerprint = buildSubmitIntentFingerprint({
       phone: trimmedPhone,
       firstName: resolvedFirstName,
@@ -1547,6 +1601,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       partySize,
       purpose,
       notes: trimmedNotes,
+      highChairCount: resolvedHighChairCount,
+      isOutsideSeating: resolvedOutsideSeating,
       communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
@@ -1595,6 +1651,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         party_size: partySize,
         purpose,
         ...(trimmedNotes ? { notes: trimmedNotes } : {}),
+        // High-chair request (0 omitted) and outside-seating flag (false omitted).
+        // Added before the idempotency key so it varies with them (spec §10).
+        ...(resolvedHighChairCount > 0 ? { high_chair_count: resolvedHighChairCount } : {}),
+        ...(resolvedOutsideSeating ? { is_outside_seating: true } : {}),
         communication_consent: buildCommunicationConsentPayload(communicationConsent),
         ...attribution,
         // Volatile fields below, added after the idempotency key has already
@@ -1630,6 +1690,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       }
 
       const bookingResult = data as ManagementTableBookingResult
+      // Preserve what the guest requested so the confirmation can show
+      // granted-of-requested; fall back to the submitted outside flag if the
+      // API build doesn't echo it back yet.
+      if (resolvedHighChairCount > 0 && bookingResult.high_chair_count === undefined) {
+        bookingResult.high_chair_count = resolvedHighChairCount
+      }
+      if (bookingResult.is_outside_seating === undefined && resolvedOutsideSeating) {
+        bookingResult.is_outside_seating = true
+      }
       setResult(bookingResult)
 
       if (bookingResult.state === 'blocked') {
@@ -1729,6 +1798,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setLastName('')
     setEmail('')
     setNotes('')
+    setHighChairCount(0)
+    setIsOutsideSeating(false)
     setPolicyAccepted(false)
     setError(null)
     setResult(null)
@@ -1818,14 +1889,43 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <dt className="font-medium text-ink-muted">When</dt>
                 <dd className="text-ink-strong">{formatDateForDisplay(date)}, {formatTimeForDisplay(selectedTime || requestedTime)}</dd>
               </div>
-              {result.table_name ? (
+              {result.is_outside_seating ? (
+                <div className="flex justify-between gap-3">
+                  <dt className="font-medium text-ink-muted">Seating</dt>
+                  <dd className="text-ink-strong">Outside (weather permitting)</dd>
+                </div>
+              ) : result.table_name ? (
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium text-ink-muted">Table</dt>
                   <dd className="text-ink-strong">{result.table_name}</dd>
                 </div>
               ) : null}
+              {(result.high_chair_count ?? 0) > 0 ? (
+                <div className="flex justify-between gap-3">
+                  <dt className="font-medium text-ink-muted">High chair</dt>
+                  <dd className="text-ink-strong">
+                    {/* Unknown granted count (older API build) → assume reserved
+                        rather than falsely reporting a failure. */}
+                    {result.high_chairs_granted === undefined ||
+                    result.high_chairs_granted >= (result.high_chair_count ?? 0)
+                      ? 'Reserved'
+                      : result.high_chairs_granted > 0
+                      ? `${result.high_chairs_granted} of ${result.high_chair_count} reserved`
+                      : 'Not available for this time'}
+                  </dd>
+                </div>
+              ) : null}
             </dl>
           </div>
+
+          {(result.high_chair_count ?? 0) > 0 &&
+          result.high_chairs_granted !== undefined &&
+          result.high_chairs_granted < (result.high_chair_count ?? 0) ? (
+            <p className="text-left text-sm text-ink-muted">
+              We couldn&apos;t reserve a high chair for this time. Give us a ring on 01753 682707
+              and we&apos;ll do our best to help.
+            </p>
+          ) : null}
 
           <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm text-ink space-y-1">
             <p className="font-semibold text-ink-strong">When you arrive:</p>
@@ -2289,6 +2389,61 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : null}
 
             {detailsUnlocked ? (
+              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium text-ink-strong">High chair (for a baby)</p>
+                    <p className="mt-0.5 text-xs text-ink-muted">
+                      {highChairMax === 0
+                        ? "We may not be able to reserve one for this time — we'll do our best."
+                        : 'We have a limited number, reserved on a first-come basis.'}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-10 w-10 min-h-0 p-0"
+                      aria-label="Fewer high chairs"
+                      disabled={highChairCount <= 0}
+                      onClick={() => setHighChairCount((count) => Math.max(0, count - 1))}
+                    >
+                      &#8722;
+                    </Button>
+                    <span
+                      className="w-6 text-center text-base font-semibold text-ink-strong"
+                      aria-live="polite"
+                    >
+                      {highChairCount}
+                    </span>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-10 w-10 min-h-0 p-0"
+                      aria-label="More high chairs"
+                      disabled={highChairCount >= highChairMax}
+                      onClick={() =>
+                        setHighChairCount((count) => Math.min(highChairMax, count + 1))
+                      }
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+
+                <label className="flex items-start gap-2 pt-1 text-sm text-ink">
+                  <input
+                    type="checkbox"
+                    checked={isOutsideSeating}
+                    onChange={(event) => setIsOutsideSeating(event.target.checked)}
+                    className="mt-1 accent-anchor-green"
+                  />
+                  <span>I&apos;d like an outside table (weather permitting)</span>
+                </label>
+              </div>
+            ) : null}
+
+            {detailsUnlocked ? (
               <CommunicationConsentFields
                 value={communicationConsent}
                 onChange={setCommunicationConsent}
@@ -2423,13 +2578,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         <li>Or check your phone, we've sent you a secure payment link by SMS.</li>
                       )}
                     </ul>
-                    <p className="mt-2 text-xs">Your table is held while you complete payment.</p>
+                    <p className="mt-2 text-xs">
+                      Your {isOutsideSeating ? 'booking' : 'table'} is held while you complete payment.
+                    </p>
                   </Alert>
                 ) : paypalOrderId && bookingIdForPayment ? (
                   <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
                     {holdExpiry && (
                       <p className="text-sm text-ink font-medium">
-                        Your table is held until {holdExpiry}. Complete payment to confirm your booking.
+                        Your {isOutsideSeating ? 'booking' : 'table'} is held until {holdExpiry}. Complete payment to confirm your booking.
                       </p>
                     )}
                     {paymentState === 'error' && paymentError && (
@@ -2455,7 +2612,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 	                      bookingSummary={[
 	                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
 	                        selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
-	                        partySize ? `${partySize} guests` : null
+	                        partySize ? `${partySize} guests` : null,
+	                        isOutsideSeating ? 'Outside / patio' : null,
+	                        highChairCount > 0 ? `${highChairCount} high chair${highChairCount === 1 ? '' : 's'}` : null
 	                      ].filter(Boolean).join(' · ')}
 	                      onSuccess={() => {
 	                        setPaymentState('confirmed')

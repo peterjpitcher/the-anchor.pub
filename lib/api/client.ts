@@ -50,6 +50,10 @@ type ManagementTableBookingPayload = {
   notes?: string
   sunday_lunch?: boolean
   default_country_code?: string
+  // High-chair request (0-2) and outside-seating flag, forwarded to the
+  // management API so the agent path supports the same features as the form.
+  high_chair_count?: number
+  is_outside_seating?: boolean
 }
 
 type ManagementTableBookingResult = {
@@ -71,6 +75,10 @@ type ManagementTableBookingResult = {
   hold_expires_at: string | null
   table_name: string | null
   notification_channel?: 'email' | 'whatsapp' | 'sms' | null
+  // High chairs actually reserved by the server (may be < requested) and the
+  // outside-seating flag echoed back so callers can reflect the granted result.
+  high_chairs_granted?: number
+  is_outside_seating?: boolean
 }
 
 function toSlotBusynessOptions(load?: TableBookingLoadResponse | null): SlotBusynessOptions | undefined {
@@ -226,6 +234,19 @@ export class AnchorAPI {
     const notes = this.buildLegacyTableBookingNotes(data)
     const defaultCountryCode = this.asTrimmedString((data as any).default_country_code)
 
+    // High chairs: clamp a defensively-parsed request to 0-2; omit when 0.
+    const rawHighChairs = (data as any).high_chair_count
+    const parsedHighChairs =
+      typeof rawHighChairs === 'number' && Number.isFinite(rawHighChairs)
+        ? Math.floor(rawHighChairs)
+        : typeof rawHighChairs === 'string' && rawHighChairs.trim().length > 0
+        ? Number.parseInt(rawHighChairs.trim(), 10)
+        : 0
+    const highChairCount = Number.isFinite(parsedHighChairs)
+      ? Math.min(Math.max(parsedHighChairs, 0), 2)
+      : 0
+    const isOutsideSeating = (data as any).is_outside_seating === true
+
     return {
       phone,
       ...(firstName ? { first_name: firstName } : {}),
@@ -237,7 +258,9 @@ export class AnchorAPI {
       purpose,
       ...(notes ? { notes } : {}),
       ...(data.booking_type === 'sunday_lunch' ? { sunday_lunch: true } : {}),
-      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
+      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      ...(highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
+      ...(isOutsideSeating ? { is_outside_seating: true } : {})
     }
   }
 
@@ -314,6 +337,12 @@ export class AnchorAPI {
       hold_expires_at: result.hold_expires_at,
       table_name: result.table_name,
       notification_channel: result.notification_channel,
+      ...(typeof result.high_chairs_granted === 'number'
+        ? { high_chairs_granted: result.high_chairs_granted }
+        : {}),
+      ...(typeof result.is_outside_seating === 'boolean'
+        ? { is_outside_seating: result.is_outside_seating }
+        : {}),
       confirmation_details: {
         date: originalRequest.date,
         time: originalRequest.time,

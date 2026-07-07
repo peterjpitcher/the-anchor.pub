@@ -118,6 +118,21 @@ export async function POST(request: NextRequest) {
       }, 503)
     }
     
+    // High chairs (0-2) and outside-seating: accept snake_case or camelCase from
+    // the agent, parse defensively, and forward via the standard booking request.
+    const rawHighChairs = body.high_chair_count ?? body.highChairCount
+    const parsedHighChairs =
+      typeof rawHighChairs === 'number' && Number.isFinite(rawHighChairs)
+        ? Math.floor(rawHighChairs)
+        : typeof rawHighChairs === 'string' && rawHighChairs.trim().length > 0
+        ? Number.parseInt(rawHighChairs.trim(), 10)
+        : 0
+    const highChairCount = Number.isFinite(parsedHighChairs)
+      ? Math.min(Math.max(parsedHighChairs, 0), 2)
+      : 0
+    const isOutsideSeating =
+      body.is_outside_seating === true || body.isOutsideSeating === true
+
     // Create booking request
     const bookingRequest: TableBookingRequest = {
       booking_type: bookingType,
@@ -137,6 +152,8 @@ export async function POST(request: NextRequest) {
       dietary_requirements: body.dietaryRequirements,
       allergies: body.allergies,
       celebration_type: body.occasion,
+      ...(highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
+      ...(isOutsideSeating ? { is_outside_seating: true } : {}),
       source: 'ai_agent'
     }
     
@@ -158,6 +175,12 @@ export async function POST(request: NextRequest) {
           name: `${body.customer.firstName} ${body.customer.lastName}`,
           phone: body.customer.phone
         },
+        ...(typeof booking.high_chairs_granted === 'number'
+          ? { highChairsGranted: booking.high_chairs_granted }
+          : {}),
+        ...(typeof booking.is_outside_seating === 'boolean'
+          ? { isOutsideSeating: booking.is_outside_seating }
+          : {}),
         message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
         specialInstructions: body.partySize >= 10
           ? 'Bookings of 10 or more require a £10 per person deposit, fully deducted from your bill on the day.'

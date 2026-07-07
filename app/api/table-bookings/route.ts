@@ -34,6 +34,12 @@ type ManagementTableBookingPayload = {
   dietary_requirements?: string[]
   allergies?: string[]
   default_country_code?: string
+  // High chairs (0-2) and outside-seating flag. Field names here ARE the AMS
+  // wire keys: this object is spread directly into the management API request
+  // body. The management API expects `outside_seating` (NOT `is_outside_seating`)
+  // and `high_chair_count`.
+  high_chair_count?: number
+  outside_seating?: boolean
   communication_consent?: CommunicationConsentPayload
 }
 
@@ -129,6 +135,32 @@ function asNonNegativeNumber(value: unknown): number | undefined {
   return undefined
 }
 
+// Parses a high-chair request into a non-negative integer clamped to 0-2.
+// Returns undefined for absent/invalid input so the field is simply omitted.
+function asHighChairCount(value: unknown): number | undefined {
+  const raw =
+    typeof value === 'number' && Number.isFinite(value)
+      ? Math.floor(value)
+      : typeof value === 'string' && value.trim().length > 0
+        ? Number.parseInt(value.trim(), 10)
+        : undefined
+
+  if (raw === undefined || !Number.isFinite(raw)) return undefined
+  return Math.min(2, Math.max(0, raw))
+}
+
+// Accepts a boolean or its common string encodings ('true'/'false', '1'/'0').
+// Returns undefined for anything else so the field stays absent.
+function asOptionalBoolean(value: unknown): boolean | undefined {
+  if (typeof value === 'boolean') return value
+  if (typeof value === 'string') {
+    const trimmed = value.trim().toLowerCase()
+    if (trimmed === 'true' || trimmed === '1') return true
+    if (trimmed === 'false' || trimmed === '0') return false
+  }
+  return undefined
+}
+
 function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) {
     return value
@@ -197,6 +229,14 @@ function normaliseIncomingPayload(input: unknown): {
   const allergies = toStringList(body.allergies)
   const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
+  // High chairs (0-2) and outside seating. Structured fields forwarded to the
+  // management API, never merged into notes. The inbound body uses
+  // `is_outside_seating` (form/agent); we also accept `outside_seating` for
+  // callers already speaking the AMS wire key, then forward the AMS key.
+  const highChairCount = asHighChairCount(body.high_chair_count)
+  const outsideSeating =
+    asOptionalBoolean(body.is_outside_seating) ?? asOptionalBoolean(body.outside_seating)
+
   // notes is strictly the user's free-text. Sunday-lunch pre-order menu_selections
   // are no longer supported on the public path (spec §6, §8.1), Sundays are
   // regular food bookings now.
@@ -222,6 +262,9 @@ function normaliseIncomingPayload(input: unknown): {
       ...(dietaryRequirements.length > 0 ? { dietary_requirements: dietaryRequirements } : {}),
       ...(allergies.length > 0 ? { allergies } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      // Forward to AMS using the wire key `outside_seating` (not is_outside_seating).
+      ...(highChairCount && highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
+      ...(outsideSeating === true ? { outside_seating: true } : {}),
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),
@@ -450,6 +493,10 @@ export async function POST(request: NextRequest) {
         time: normalized.payload.time,
         party_size: normalized.payload.party_size,
         purpose: normalized.payload.purpose,
+        // Vary the fallback key with the new features so two otherwise-identical
+        // requests differing only in chairs/outside are not collapsed.
+        high_chair_count: normalized.payload.high_chair_count ?? null,
+        outside_seating: normalized.payload.outside_seating ?? null,
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 

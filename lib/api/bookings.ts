@@ -12,6 +12,9 @@ export interface TableAvailabilitySlot {
   requires_prepayment?: boolean
   kitchen_open?: boolean
   busyness?: SlotBusyness
+  // High chairs still free in this slot's window (from the AMS load read-out).
+  // Absent when the management API does not report it — treat as "unknown".
+  high_chairs_remaining?: number
 }
 
 export interface TableBookingLoadResponse {
@@ -22,6 +25,15 @@ export interface TableBookingLoadResponse {
   bookings: Array<{
     time: string
     covers: number
+  }>
+  // Per-slot availability read-out from the management API. Additive and
+  // optional: absent on older API builds. Carries `high_chairs_remaining`
+  // so the availability proxy can surface it per slot to the browser.
+  slots?: Array<{
+    time: string
+    covers?: number
+    remaining?: number
+    high_chairs_remaining?: number
   }>
 }
 
@@ -62,6 +74,8 @@ export interface TableBookingRequest {
   allergies?: string[]  // Array of allergies
   celebration_type?: string  // birthday, anniversary, etc.
   source?: string  // website, phone, walk-in, social_media (default: website)
+  high_chair_count?: number  // 0-2 requested high chairs
+  is_outside_seating?: boolean  // guest asked for an outside/patio table
   communication_consent?: CommunicationConsentPayload
   // Legacy fields for backward compatibility
   customer_name?: string
@@ -102,6 +116,8 @@ export interface TableBookingResponse {
   hold_expires_at?: string | null
   table_name?: string | null
   notification_channel?: 'email' | 'whatsapp' | 'sms' | null
+  high_chairs_granted?: number  // high chairs actually reserved (may be < requested)
+  is_outside_seating?: boolean  // booking flagged as an outside/patio table
   // New API format uses confirmation_details instead of booking_details
   confirmation_details?: {
     date: string

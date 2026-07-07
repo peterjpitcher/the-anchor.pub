@@ -431,7 +431,11 @@ export function buildSlotsWithKitchenState(
   partySize: number,
   slotIntervalMinutes = 30,
   minMinutesForToday?: number,
-  busynessOptions?: SlotBusynessOptions
+  busynessOptions?: SlotBusynessOptions,
+  // Per-slot high-chairs-remaining keyed by HH:mm, sourced from the AMS load
+  // read-out. Omitted or missing entries leave `high_chairs_remaining` absent
+  // (unknown) so the picker stays enabled.
+  highChairsByTime?: Map<string, number>
 ): Array<{
   time: string
   available: boolean
@@ -439,14 +443,19 @@ export function buildSlotsWithKitchenState(
   reason?: string
   kitchen_open: boolean
   busyness?: SlotBusyness
+  high_chairs_remaining?: number
 }> {
   const baseSlots = buildSlotsFromRanges(ranges, partySize, slotIntervalMinutes, minMinutesForToday, busynessOptions)
-  return baseSlots.map((slot) => ({
-    time: slot.time,
-    available: slot.available ?? false,
-    available_capacity: slot.available_capacity,
-    reason: slot.reason,
-    kitchen_open: isTimeWithinRanges(slot.time, kitchenRanges),
-    busyness: slot.busyness
-  }))
+  return baseSlots.map((slot) => {
+    const highChairs = highChairsByTime?.get(slot.time)
+    return {
+      time: slot.time,
+      available: slot.available ?? false,
+      available_capacity: slot.available_capacity,
+      reason: slot.reason,
+      kitchen_open: isTimeWithinRanges(slot.time, kitchenRanges),
+      busyness: slot.busyness,
+      ...(typeof highChairs === 'number' ? { high_chairs_remaining: highChairs } : {})
+    }
+  })
 }
