@@ -2397,40 +2397,42 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <p className="text-sm font-medium text-ink-strong">High chair (for a baby)</p>
                     <p className="mt-0.5 text-xs text-ink-muted">
                       {highChairMax === 0
-                        ? "We may not be able to reserve one for this time — we'll do our best."
+                        ? "Sorry — all our high chairs are booked for this time. If you need one, please try another time slot; you're very welcome to book here without one."
                         : 'We have a limited number, reserved on a first-come basis.'}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="h-10 w-10 min-h-0 p-0"
-                      aria-label="Fewer high chairs"
-                      disabled={highChairCount <= 0}
-                      onClick={() => setHighChairCount((count) => Math.max(0, count - 1))}
-                    >
-                      &#8722;
-                    </Button>
-                    <span
-                      className="w-6 text-center text-base font-semibold text-ink-strong"
-                      aria-live="polite"
-                    >
-                      {highChairCount}
-                    </span>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="h-10 w-10 min-h-0 p-0"
-                      aria-label="More high chairs"
-                      disabled={highChairCount >= highChairMax}
-                      onClick={() =>
-                        setHighChairCount((count) => Math.min(highChairMax, count + 1))
-                      }
-                    >
-                      +
-                    </Button>
-                  </div>
+                  {highChairMax === 0 ? null : (
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 w-10 min-h-0 p-0"
+                        aria-label="Fewer high chairs"
+                        disabled={highChairCount <= 0}
+                        onClick={() => setHighChairCount((count) => Math.max(0, count - 1))}
+                      >
+                        &#8722;
+                      </Button>
+                      <span
+                        className="w-6 text-center text-base font-semibold text-ink-strong"
+                        aria-live="polite"
+                      >
+                        {highChairCount}
+                      </span>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 w-10 min-h-0 p-0"
+                        aria-label="More high chairs"
+                        disabled={highChairCount >= highChairMax}
+                        onClick={() =>
+                          setHighChairCount((count) => Math.min(highChairMax, count + 1))
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 <label className="flex items-start gap-2 pt-1 text-sm text-ink">
