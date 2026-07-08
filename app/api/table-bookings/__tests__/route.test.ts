@@ -286,7 +286,8 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
       metaEventId: 'TB-OK',
       bookingType: 'table',
       tickets: 3,
-      value: 0,
+      // Estimated covers revenue (3 × £25); table bookings take no payment up front.
+      value: 75,
       currency: 'GBP',
       foodIntent: 'food',
       landingPath: '/book-table',

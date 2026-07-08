@@ -520,6 +520,9 @@ export function ManagementEventBookingForm({
           value: totalValue,
           foodIntent: null,
           attribution,
+          // Consent-gated inside PayPalEventPaymentSection; hashed server-side.
+          email: resolvedEmail || null,
+          phone: phone.trim() || null,
         })
       }
 

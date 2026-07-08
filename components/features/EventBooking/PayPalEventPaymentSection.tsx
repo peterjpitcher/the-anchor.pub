@@ -15,7 +15,13 @@ export interface EventPaymentConversionPayload {
   value: number | null
   foodIntent: string | null
   attribution?: BookingAttributionPayload | null
+  /** Raw contact details. Sent only with marketing consent, so the server can hash them. */
+  email?: string | null
+  phone?: string | null
 }
+
+/** UK default, matching the booking forms' hardcoded dialling code. */
+const DEFAULT_COUNTRY_CODE = '44'
 
 export type EventPaymentBreakdownLine = {
   name: string
@@ -112,6 +118,15 @@ export function PayPalEventPaymentSection({
           value: conversionPayload.value,
           foodIntent: conversionPayload.foodIntent,
           ...(conversionPayload.attribution ?? {}),
+          // PII minimisation: only send contact details when the visitor granted
+          // marketing consent, since their only purpose is Meta advanced matching.
+          ...(conversionPayload.attribution?.meta_consent_granted === true
+            ? {
+                email: conversionPayload.email ?? null,
+                phone: conversionPayload.phone ?? null,
+                default_country_code: DEFAULT_COUNTRY_CODE,
+              }
+            : {}),
         }),
       })
       const data = await response.json().catch(() => null)

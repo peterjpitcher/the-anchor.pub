@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
-import { getClientIpAddress } from '@/lib/booking-conversion-signals'
+import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
+import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 
 const BodySchema = z.object({
   bookingId: z.string().uuid(),
@@ -31,6 +32,12 @@ const BodySchema = z.object({
   fbp: z.string().trim().min(1).nullable().optional(),
   fbc: z.string().trim().min(1).nullable().optional(),
   client_user_agent: z.string().trim().min(1).nullable().optional(),
+  // Advanced-matching inputs. Hashed server-side and consent-gated; the raw values
+  // are never forwarded to CheersAI. The client only sends these when the visitor
+  // has granted marketing consent.
+  email: z.string().trim().max(320).nullable().optional(),
+  phone: z.string().trim().max(40).nullable().optional(),
+  default_country_code: z.string().trim().regex(/^\d{1,4}$/).nullable().optional(),
 })
 
 function jsonNoStore(body: unknown, init?: ResponseInit) {
@@ -81,7 +88,8 @@ async function forwardCapturedDepositConversion(
     metaEventId: bookingId,
     bookingType: 'table',
     tickets: payload.partySize ?? null,
-    value: payload.depositAmount ?? 0,
+    // Estimated covers revenue, not the deposit — see booking-conversion-value.ts
+    value: estimateTableBookingValue(payload.partySize),
     currency: 'GBP',
     foodIntent: payload.purpose ?? null,
     sourceUrl,
@@ -101,6 +109,12 @@ async function forwardCapturedDepositConversion(
     fbc: payload.meta_consent_granted === true ? payload.fbc ?? null : null,
     clientUserAgent: payload.meta_consent_granted === true
       ? payload.client_user_agent ?? request.headers.get('user-agent')
+      : null,
+    emailSha256: payload.meta_consent_granted === true
+      ? hashEmailForMeta(payload.email)
+      : null,
+    phoneSha256: payload.meta_consent_granted === true
+      ? hashPhoneForMeta(payload.phone, payload.default_country_code ?? undefined)
       : null,
     clientIpAddress: payload.meta_consent_granted === true
       ? getClientIpAddress(request)

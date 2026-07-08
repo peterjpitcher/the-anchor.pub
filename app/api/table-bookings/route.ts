@@ -10,6 +10,7 @@ import {
 } from '@/lib/table-booking-service-windows'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import {
   sanitizeCommunicationConsent,
@@ -117,19 +118,6 @@ function asPositiveInt(value: unknown): number | undefined {
   if (typeof value === 'string' && value.trim().length > 0) {
     const parsed = Number.parseInt(value.trim(), 10)
     if (Number.isFinite(parsed) && parsed > 0) return parsed
-  }
-
-  return undefined
-}
-
-function asNonNegativeNumber(value: unknown): number | undefined {
-  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
-    return value
-  }
-
-  if (typeof value === 'string' && value.trim().length > 0) {
-    const parsed = Number(value)
-    if (Number.isFinite(parsed) && parsed >= 0) return parsed
   }
 
   return undefined
@@ -388,7 +376,6 @@ async function forwardConfirmedTableBookingConversion(
   if (!bookingId) return
 
   const sourceUrl = buildSourceUrl(attribution, request)
-  const depositAmount = asNonNegativeNumber(data?.deposit_amount)
 
   await forwardBookingConversionToCheersAI({
     sourceSite: 'www.the-anchor.pub',
@@ -396,7 +383,8 @@ async function forwardConfirmedTableBookingConversion(
     metaEventId: bookingId,
     bookingType: 'table',
     tickets: payload.party_size,
-    value: depositAmount ?? 0,
+    // Estimated covers revenue, not the deposit — see booking-conversion-value.ts
+    value: estimateTableBookingValue(payload.party_size),
     currency: 'GBP',
     foodIntent: payload.purpose,
     sourceUrl,

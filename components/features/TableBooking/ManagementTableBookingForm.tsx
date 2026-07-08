@@ -2612,6 +2612,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 	                        purpose: selectedSlotService?.kitchen_open === false ? 'drinks' : 'food',
 	                        bookingSource,
 	                        attribution: submittedAttribution,
+	                        // Consent-gated inside PayPalDepositSection; hashed server-side.
+	                        email: email.trim() || null,
+	                        phone: phone.trim() || null,
 	                      }}
 	                      bookingSummary={[
 	                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,

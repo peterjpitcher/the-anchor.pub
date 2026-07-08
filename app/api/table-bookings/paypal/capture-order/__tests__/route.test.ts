@@ -9,6 +9,7 @@ if (typeof Response !== 'undefined' && !('json' in Response)) {
   })
 }
 
+import { createHash } from 'crypto'
 import { POST } from '../route'
 import { NextRequest } from 'next/server'
 
@@ -100,7 +101,8 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
       metaEventId: 'TB-PAID-123',
       bookingType: 'table',
       tickets: 10,
-      value: 100,
+      // Estimated covers revenue (10 × £25), NOT the £100 deposit.
+      value: 250,
       currency: 'GBP',
       foodIntent: 'food',
       landingPath: '/book-table',
@@ -123,5 +125,74 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
     const res = await POST(req)
 
     expect(res.status).toBe(400)
+  })
+
+  describe('advanced matching (email/phone)', () => {
+    const CONTACT = { email: 'Test@Example.COM', phone: '07700 900123' }
+    // Computed independently of lib/booking-conversion-signals so the test cannot
+    // pass by agreeing with a broken implementation.
+    const sha256 = (value: string) => createHash('sha256').update(value, 'utf8').digest('hex')
+    const EXPECTED_EMAIL_HASH = sha256('test@example.com')
+    const EXPECTED_PHONE_HASH = sha256('447700900123')
+
+    function buildRequest(extra: Record<string, unknown>) {
+      return new NextRequest('http://localhost/api/table-bookings/paypal/capture-order', {
+        method: 'POST',
+        body: JSON.stringify({
+          bookingId: '550e8400-e29b-41d4-a716-446655440000',
+          orderId: 'ORDER-123',
+          bookingReference: 'TB-PAID-123',
+          partySize: 4,
+          ...extra,
+        }),
+        headers: { 'content-type': 'application/json' },
+      })
+    }
+
+    function primeFetch() {
+      mockFetch
+        .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true }) })
+        .mockResolvedValueOnce(new Response(JSON.stringify({ accepted: true }), { status: 202 }))
+    }
+
+    beforeEach(() => {
+      process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
+      process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+    })
+
+    it('should forward hashed email and phone when marketing consent is granted', async () => {
+      primeFetch()
+      const res = await POST(buildRequest({
+        meta_consent_granted: true,
+        default_country_code: '44',
+        ...CONTACT,
+      }))
+
+      expect(res.status).toBe(200)
+      const conversion = JSON.parse(String(mockFetch.mock.calls[1]?.[1]?.body))
+      expect(conversion.emailSha256).toBe(EXPECTED_EMAIL_HASH)
+      expect(conversion.phoneSha256).toBe(EXPECTED_PHONE_HASH)
+      expect(conversion.value).toBe(100) // 4 covers × £25
+    })
+
+    it('should never forward raw email or phone, only digests', async () => {
+      primeFetch()
+      await POST(buildRequest({ meta_consent_granted: true, ...CONTACT }))
+
+      const conversion = JSON.parse(String(mockFetch.mock.calls[1]?.[1]?.body))
+      expect(conversion.email).toBeUndefined()
+      expect(conversion.phone).toBeUndefined()
+      expect(JSON.stringify(conversion)).not.toContain('Test@Example.COM')
+      expect(JSON.stringify(conversion)).not.toContain('900123')
+    })
+
+    it('should null the hashes when marketing consent is absent', async () => {
+      primeFetch()
+      await POST(buildRequest({ meta_consent_granted: false, ...CONTACT }))
+
+      const conversion = JSON.parse(String(mockFetch.mock.calls[1]?.[1]?.body))
+      expect(conversion.emailSha256).toBeNull()
+      expect(conversion.phoneSha256).toBeNull()
+    })
   })
 })
