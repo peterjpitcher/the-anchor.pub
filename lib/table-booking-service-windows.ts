@@ -113,13 +113,18 @@ export function londonNowParts(): { isoDate: string; minutes: number } {
     timeZone: 'Europe/London',
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false
+    // `hourCycle: 'h23'` — NOT `hour12: false`, which some ICU builds (Node 20,
+    // older Safari) resolve to the `h24` cycle where midnight formats as "24".
+    // That made `minutes` 1470 instead of 30 at 00:30 and clamped the booking
+    // form's default time to 23:30 for anyone loading it after midnight.
+    hourCycle: 'h23'
   })
 
   const now = new Date()
   const parts = formatter.formatToParts(now)
   const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
-  const hours = Number.parseInt(map.hour || '0', 10)
+  // Belt and braces: normalise a stray "24" to 0 if a runtime ignores hourCycle.
+  const hours = Number.parseInt(map.hour || '0', 10) % 24
   const minutes = Number.parseInt(map.minute || '0', 10)
 
   return {

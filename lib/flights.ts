@@ -234,7 +234,9 @@ export class FlightAPI {
     return date.toLocaleTimeString('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false,
+      // h23, not `hour12: false` — the latter renders midnight as "24:05" on
+      // some ICU builds.
+      hourCycle: 'h23',
       timeZone: 'Europe/London'
     })
   }

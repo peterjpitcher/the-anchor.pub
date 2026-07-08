@@ -89,7 +89,7 @@ export function isLondonDateInRange(now: Date, start: Date, end: Date): boolean 
  * Useful for debugging and logging
  */
 export function getLondonTimeString(date: Date = new Date()): string {
-  return date.toLocaleString('en-GB', { 
+  return date.toLocaleString('en-GB', {
     timeZone: 'Europe/London',
     year: 'numeric',
     month: '2-digit',
@@ -97,7 +97,8 @@ export function getLondonTimeString(date: Date = new Date()): string {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: false
+    // h23, not `hour12: false` — the latter logs midnight as "24:30:00".
+    hourCycle: 'h23'
   })
 }
 
