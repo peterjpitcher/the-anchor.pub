@@ -103,7 +103,9 @@ export function getMothersDayEventStartTime(event: Pick<MothersDayEventLike, 'st
     timeZone: 'Europe/London',
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false
+    // h23, not `hour12: false` — the latter yields "24:30" at midnight on some
+    // ICU builds, which normalizeTime() then rejects.
+    hourCycle: 'h23'
   }).format(parsed)
 
   return normalizeTime(formatted)

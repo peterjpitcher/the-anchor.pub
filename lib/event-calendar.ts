@@ -65,7 +65,9 @@ function getLondonDatePartsFromInstant(value: string): DateTimeParts | null {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: false
+    // See londonNowParts() in lib/table-booking-service-windows.ts: `hour12: false`
+    // resolves to the h24 cycle on some ICU builds, so midnight formats as "24".
+    hourCycle: 'h23'
   }).formatToParts(parsed)
 
   const lookup = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value
@@ -73,7 +75,7 @@ function getLondonDatePartsFromInstant(value: string): DateTimeParts | null {
     year: Number.parseInt(lookup('year') ?? '', 10),
     month: Number.parseInt(lookup('month') ?? '', 10),
     day: Number.parseInt(lookup('day') ?? '', 10),
-    hour: Number.parseInt(lookup('hour') ?? '', 10),
+    hour: Number.parseInt(lookup('hour') ?? '', 10) % 24,
     minute: Number.parseInt(lookup('minute') ?? '', 10),
     second: Number.parseInt(lookup('second') ?? '0', 10)
   }
@@ -141,7 +143,9 @@ function getTimeZoneOffsetMs(timeZone: string, date: Date): number {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: false
+    // h23, not `hour12: false` — an "24" hour here would roll Date.UTC() into
+    // the next day and skew the offset by 24 hours at midnight.
+    hourCycle: 'h23'
   })
 
   const parts = formatter.formatToParts(date)
@@ -150,7 +154,7 @@ function getTimeZoneOffsetMs(timeZone: string, date: Date): number {
   const year = Number.parseInt(lookup('year') ?? '', 10)
   const month = Number.parseInt(lookup('month') ?? '', 10)
   const day = Number.parseInt(lookup('day') ?? '', 10)
-  const hour = Number.parseInt(lookup('hour') ?? '', 10)
+  const hour = Number.parseInt(lookup('hour') ?? '', 10) % 24
   const minute = Number.parseInt(lookup('minute') ?? '', 10)
   const second = Number.parseInt(lookup('second') ?? '', 10)
 
