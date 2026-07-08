@@ -93,3 +93,7 @@ jest_dx/
 node-compile-cache/
 tsx-*/
 .seo-workspace/
+
+# Raw crawl/scan dumps from audit runs (~11MB of CSV/JSON, regenerable and never
+# diffed). The human-readable reports alongside them ARE committed.
+tasks/**/evidence/
