@@ -168,8 +168,47 @@ beforeAll(() => {
   }
 })
 
+// The wizard rejects past dates before it will fetch availability
+// (`isPastLondonDate`), and its default Preferred Time is "London now + 60 min".
+// Both are read from the wall clock, so the hardcoded booking dates used below
+// (2026-07-07 and later) silently rot into the past and the slot-window tests
+// depend on the hour the suite happens to run at. Pin "now" to the day before
+// the earliest booking date so the suite is deterministic in perpetuity.
+// Nested describes may override this with their own setSystemTime.
+const FROZEN_NOW = new Date('2026-07-06T09:00:00.000Z') // 10:00 BST, Europe/London
+
+// Fake `Date` only — the wall clock is the problem, the event loop is not.
+// Faking setTimeout/setImmediate too makes React Testing Library drive its own
+// timer-advancing `waitFor` loop, which triples the "not wrapped in act(...)"
+// warnings this file emits. Nested describes that genuinely need the timers
+// frozen opt in with their own `jest.useFakeTimers()`.
+const FAKE_DATE_ONLY: Parameters<typeof jest.useFakeTimers>[0] = {
+  now: FROZEN_NOW,
+  doNotFake: [
+    'cancelAnimationFrame',
+    'cancelIdleCallback',
+    'clearImmediate',
+    'clearInterval',
+    'clearTimeout',
+    'hrtime',
+    'nextTick',
+    'performance',
+    'queueMicrotask',
+    'requestAnimationFrame',
+    'requestIdleCallback',
+    'setImmediate',
+    'setInterval',
+    'setTimeout',
+  ],
+}
+
 describe('ManagementTableBookingForm', () => {
+  beforeEach(() => {
+    jest.useFakeTimers(FAKE_DATE_ONLY)
+  })
+
   afterEach(() => {
+    jest.useRealTimers()
     clearBookingAttributionForTest()
     window.localStorage.clear()
     jest.clearAllMocks()
@@ -830,7 +869,13 @@ describe('ManagementTableBookingForm', () => {
         })
       )
     )
-    expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
+    // The success funnel event and the confirmation render are two separate
+    // effects of the same POST. The waitFor above resolves on the mock call, so
+    // the React commit that swaps review → confirmation may not have flushed
+    // yet — assert the DOM asynchronously, as every other step assertion does.
+    await waitFor(() =>
+      expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
+    )
 
     // GA4 purchase event should fire with the booking reference as transaction_id.
     expect(pushToDataLayer).toHaveBeenCalledWith(
