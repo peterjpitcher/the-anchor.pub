@@ -7,10 +7,10 @@ import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
 
 export const metadata: Metadata = {
   title: 'Party Venue Near Heathrow & Staines | The Anchor Pub',
@@ -50,15 +50,11 @@ export default function PrivatePartyVenuePage() {
         }
         actions={
           <>
-            <BookTableButton
-              source="private_party_hero"
-              variant="primary"
-              size="lg"
-              context="private_party"
-              fullWidth
-            >
-              Book Your Party
-            </BookTableButton>
+            <Button asChild variant="primary" size="lg" fullWidth>
+              <Link href="#enquiry">
+                Book Your Party
+              </Link>
+            </Button>
             <PhoneButton
               phone="01753 682707"
               source="private_party_hero"
@@ -149,7 +145,7 @@ export default function PrivatePartyVenuePage() {
                 <li><strong className="text-ink-strong">Music System</strong><p className="text-sm">Connect your playlist or bring a DJ</p></li>
                 <li><strong className="text-ink-strong">Party Lighting</strong><p className="text-sm">Create the perfect atmosphere</p></li>
                 <li><strong className="text-ink-strong">Free Parking for Guests</strong><p className="text-sm">20 spaces while attending your event</p></li>
-                <li><strong className="text-ink-strong">Full Accessibility</strong><p className="text-sm">Everyone can join the celebration</p></li>
+                <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step-free bar and dining area; garden ramp on request; no accessible toilet</p></li>
               </ul>
             </CardBody></Card>
             <Card><CardBody>
@@ -244,7 +240,24 @@ export default function PrivatePartyVenuePage() {
         </Container>
       </section>
 
-      <PrivateBookingSection eventType="Birthday Party" />
+      <section className="bg-canvas py-section-y">
+        <Container>
+          <VenueTourTeaser
+            source="private_party_venue"
+            initialSpaceId="dining-room"
+            eventType="Birthday Party"
+            title="Picture your party at The Anchor"
+            copy="See the private dining room, garden and photo viewpoints before you start planning the details."
+            ctaLabel="Explore the party spaces"
+          />
+        </Container>
+      </section>
+
+      <PrivateBookingSection
+        eventType="Birthday Party"
+        initialSpaceId="dining-room"
+        showVenueTourLink={false}
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
@@ -267,7 +280,7 @@ export default function PrivatePartyVenuePage() {
           },
           {
             question: "Can children attend parties at The Anchor?",
-            answer: "Yes! We're a family-friendly venue and welcome guests of all ages. Children must be supervised, and we stop serving alcohol to under-18s at 9pm. We have children's menu options available."
+            answer: "Yes! We're a family-friendly venue and welcome guests of all ages at all hours. Children must be supervised, and we never serve alcohol to anyone under 18. We have children's menu options available."
           },
 	          {
 	            question: "Is there a room hire fee for private parties?",
@@ -291,31 +304,28 @@ export default function PrivatePartyVenuePage() {
         copy="Get in touch today to check availability and discuss your celebration"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-          <BookTableButton
-            source="private_party_cta"
-            size="lg"
-            variant="primary"
-            context="private_party"
-          >
-            Book Your Party
-          </BookTableButton>
+          <Button asChild size="lg" variant="primary">
+            <Link href="#enquiry">
+              Book Your Party
+            </Link>
+          </Button>
           <PhoneButton phone={CONTACT.phone} source="private-party_cta" size="lg" variant="outline">
             Call: {CONTACT.phone}
           </PhoneButton>
-          <Link
-            href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20party%20venue%20hire"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button size="lg" variant="outline">
+          <Button asChild size="lg" variant="outline">
+            <Link
+              href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20party%20venue%20hire"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               WhatsApp Us
-            </Button>
-          </Link>
-          <Link href="mailto:manager@the-anchor.pub?subject=Private Party Enquiry">
-            <Button size="lg" variant="outline">
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="mailto:manager@the-anchor.pub?subject=Private Party Enquiry">
               Email Enquiry
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
         <p className="mt-8 text-sm text-anchor-cream-text/85">
           <strong>Quick Response Promise.</strong> We will get back to you within 2 hours during opening hours. <strong>WhatsApp:</strong> 01753 682707 for instant chat.

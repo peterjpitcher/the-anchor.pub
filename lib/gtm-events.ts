@@ -936,6 +936,8 @@ export function trackPrivateHireEnquirySubmitted(data: {
   enquiryType?: string
   pageSource: string
   guestCount?: number
+  spaceId?: string
+  spaceName?: string
 }) {
   pushToDataLayer({
     event: 'private_hire_enquiry_submitted',
@@ -946,6 +948,8 @@ export function trackPrivateHireEnquirySubmitted(data: {
     enquiry_type: data.enquiryType,
     page_source: data.pageSource,
     party_size: data.guestCount,
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
   }, { sendToApi: true })
 }
 
@@ -953,6 +957,8 @@ export function trackPrivateHireEnquiryStarted(data: {
   enquiryType?: string
   pageSource: string
   guestCount?: number
+  spaceId?: string
+  spaceName?: string
 }) {
   pushToDataLayer({
     event: 'private_hire_enquiry_started',
@@ -963,6 +969,75 @@ export function trackPrivateHireEnquiryStarted(data: {
     enquiry_type: data.enquiryType,
     page_source: data.pageSource,
     party_size: data.guestCount,
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
+  }, { sendToApi: true })
+}
+
+export function trackVenueTourViewed(data: {
+  sourcePage: string
+  sourceComponent: string
+}) {
+  pushToDataLayer({
+    event: 'venue_tour_viewed',
+    funnel: 'private_hire_enquiry',
+    page_source: data.sourcePage,
+    source_component: data.sourceComponent,
+  }, { sendToApi: true })
+}
+
+export function trackVenueTourSpaceSelected(data: {
+  sourcePage: string
+  sourceComponent: string
+  spaceId: string
+  spaceName: string
+}) {
+  pushToDataLayer({
+    event: 'venue_tour_space_selected',
+    funnel: 'private_hire_enquiry',
+    page_source: data.sourcePage,
+    source_component: data.sourceComponent,
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
+  }, { sendToApi: true })
+}
+
+export function trackVenueTourPhotoOpened(data: {
+  sourcePage: string
+  sourceComponent: string
+  photoId: string
+  photoName: string
+  spaceId?: string
+  spaceName?: string
+}) {
+  pushToDataLayer({
+    event: 'venue_tour_photo_opened',
+    funnel: 'private_hire_enquiry',
+    page_source: data.sourcePage,
+    source_component: data.sourceComponent,
+    photo_id: data.photoId,
+    photo_name: safeText(data.photoName),
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
+  }, { sendToApi: true })
+}
+
+export function trackVenueTourEnquiryClicked(data: {
+  sourcePage: string
+  sourceComponent: string
+  destination: string
+  spaceId?: string
+  spaceName?: string
+}) {
+  pushToDataLayer({
+    event: 'venue_tour_enquiry_clicked',
+    funnel: 'private_hire_enquiry',
+    page_source: data.sourcePage,
+    source_component: data.sourceComponent,
+    destination: data.destination,
+    cta_text: 'Enquire about private hire',
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
   }, { sendToApi: true })
 }
 
@@ -970,16 +1045,21 @@ export function trackQuoteToolStarted(data: {
   eventType?: string
   guestCount?: number
   pageSource?: string
+  sourceComponent?: string
+  spaceId?: string
+  spaceName?: string
 }) {
   pushToDataLayer({
     event: 'quote_tool_started',
     funnel: 'private_hire_enquiry',
-    source_component: data.pageSource || 'private_hire_quote_tool',
+    source_component: data.sourceComponent || 'private_hire_quote_tool',
     destination: '/private-hire#enquiry',
     cta_text: 'Open quote tool',
     enquiry_type: data.eventType,
     party_size: data.guestCount,
     page_source: data.pageSource,
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
   }, { sendToApi: true })
 }
 
@@ -988,11 +1068,14 @@ export function trackQuoteToolCompleted(data: {
   guestCount?: number
   estimateValue?: number
   pageSource?: string
+  sourceComponent?: string
+  spaceId?: string
+  spaceName?: string
 }) {
   pushToDataLayer({
     event: 'quote_tool_completed',
     funnel: 'private_hire_enquiry',
-    source_component: data.pageSource || 'private_hire_quote_tool',
+    source_component: data.sourceComponent || 'private_hire_quote_tool',
     destination: '/private-hire#enquiry',
     cta_text: 'Check availability',
     enquiry_type: data.eventType,
@@ -1000,6 +1083,8 @@ export function trackQuoteToolCompleted(data: {
     value: data.estimateValue,
     currency: 'GBP',
     page_source: data.pageSource,
+    space_id: data.spaceId,
+    space_name: safeText(data.spaceName),
   }, { sendToApi: true })
 }
 

@@ -21,6 +21,11 @@ import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { OccasionCard } from './_components/OccasionCard'
 import { CateringPackagesCard } from './_components/CateringPackagesCard'
+import {
+    InteractiveVenueFloorPlan,
+    isVenueTourEventType,
+    isVenueTourSpaceId,
+} from '@/components/private-hire/venue-tour'
 
 type LandmarkGroup = {
     title: string
@@ -123,7 +128,23 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-export default async function PrivateHirePage() {
+interface PrivateHirePageProps {
+    searchParams?: {
+        space?: string | string[]
+        event?: string | string[]
+    }
+}
+
+export default async function PrivateHirePage({ searchParams }: PrivateHirePageProps) {
+    const requestedSpace = Array.isArray(searchParams?.space)
+        ? searchParams?.space[0]
+        : searchParams?.space
+    const initialSpaceId = isVenueTourSpaceId(requestedSpace) ? requestedSpace : undefined
+    const requestedEvent = Array.isArray(searchParams?.event)
+        ? searchParams?.event[0]
+        : searchParams?.event
+    const eventType = isVenueTourEventType(requestedEvent) ? requestedEvent : 'Other'
+
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -202,11 +223,11 @@ export default async function PrivateHirePage() {
                 }
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Get an event quote
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton
                             phone="01753 682707"
                             source="private_hire_hero"
@@ -266,11 +287,11 @@ export default async function PrivateHirePage() {
                                 ))}
                             </ul>
                             <div className="mt-8">
-                                <Link href="/private-hire#enquiry">
-                                    <Button variant="primary" size="lg">
+                                <Button asChild variant="primary" size="lg">
+                                    <Link href="/private-hire#enquiry">
                                         Start your enquiry
-                                    </Button>
-                                </Link>
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -279,15 +300,31 @@ export default async function PrivateHirePage() {
                 </Container>
             </section>
 
+            <section className="bg-canvas py-section-y">
+                <Container size="xl">
+                    <SectionHeading
+                        kicker="Explore the venue"
+                        script="Take a look around"
+                        title="Find the right space for your event"
+                        lead="Use the floor plan to compare our private spaces and open real photos from around the pub."
+                    />
+                    <InteractiveVenueFloorPlan
+                        source="private_hire_page"
+                        initialSpaceId={initialSpaceId}
+                        eventType={eventType}
+                    />
+                </Container>
+            </section>
+
             <CtaBand
                 title="Let's plan your event"
                 copy="Tell us your date, guest count and the kind of day you have in mind, and we'll build a quote for you."
                 primary={
-                    <Link href="/private-hire#enquiry">
-                        <Button variant="primary" size="lg">
+                    <Button asChild variant="primary" size="lg">
+                        <Link href="/private-hire#enquiry">
                             Get a quote
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 }
                 secondary={
                     <PhoneButton
@@ -305,7 +342,9 @@ export default async function PrivateHirePage() {
             {/* Existing enquiry form (logic preserved) */}
             <PrivateBookingSection
                 id="enquiry"
-                eventType="Other"
+                eventType={eventType}
+                initialSpaceId={initialSpaceId}
+                showVenueTourLink={false}
                 title="Check availability and build a quote"
                 subtitle="Choose your event type, preferred date, guest count, timing and food options."
             />
@@ -393,7 +432,7 @@ export default async function PrivateHirePage() {
                     <div className="mx-auto max-w-4xl">
                         <h2 className="mb-4 font-display text-h3 text-ink-strong">Accessibility</h2>
                         <p className="mb-3 text-ink-muted">
-                            Step-free access to the bar, dining area and beer garden.
+                            The bar and dining area are step-free. The beer garden has steps from the bar, with a ramp available on request.
                         </p>
                         <p className="mb-4 text-ink-muted">
                             We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}

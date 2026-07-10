@@ -86,27 +86,25 @@ export default function FindUsPage() {
 
       <AmenityStrip />
 
-      {/* Page Title for SEO */}
-      <section className="py-section-y bg-canvas">
+      {/* Page introduction and quick facts */}
+      <section className="bg-canvas py-section-y">
         <Container>
-          <h2 className="text-center font-display text-h2 text-ink-strong">
+          <h2 className="mx-auto max-w-4xl text-center font-display text-h2 text-ink-strong">
             Find The Anchor - FREE Parking & Easy Directions from Heathrow
           </h2>
-        </Container>
-      </section>
-
-      {/* Quick Info */}
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 min-[380px]:grid-cols-2 lg:grid-cols-5">
             {[
               { title: 'Stanwell Moor', sub: 'Surrey TW19 6AQ' },
               { title: 'Bus Routes', sub: '441, 442, 555' },
               { title: 'Pool & Darts', sub: 'Games available' },
               { title: 'Entertainment', sub: 'Jukebox & more' },
               { title: 'Payment', sub: 'Cash & all cards inc. Amex' }
-            ].map(item => (
-              <Card key={item.title} accent className="text-center">
+            ].map((item, index, items) => (
+              <Card
+                key={item.title}
+                accent
+                className={index === items.length - 1 ? 'text-center min-[380px]:col-span-2 lg:col-span-1' : 'text-center'}
+              >
                 <CardBody className="p-4">
                   <p className="font-semibold text-ink-strong">{item.title}</p>
                   <p className="text-sm text-ink-muted">{item.sub}</p>
@@ -117,67 +115,13 @@ export default function FindUsPage() {
         </Container>
       </section>
 
-      {/* Heathrow Terminal Directions */}
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <SectionHeading
-              title="Heathrow Terminal to Pub in Under 12 Minutes"
-              lead="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <Card accent>
-                <CardBody>
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminal 5 to The Anchor (7 mins)</h3>
-                  <ul className="list-disc list-inside text-ink-muted space-y-2">
-                    <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
-                    <li>Turn left onto Horton Road; pub is 200 yards on right</li>
-                    <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
-                  </ul>
-                </CardBody>
-              </Card>
-              <Card accent>
-                <CardBody>
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminals 2 & 3 (11 mins)</h3>
-                  <ul className="list-disc list-inside text-ink-muted space-y-2">
-                    <li>Head north on Tunnel Road W to M4 Spur to A4 to A3044</li>
-                    <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
-                    <li>Ideal for pre-flight meals before security queues</li>
-                  </ul>
-                </CardBody>
-              </Card>
-              <Card accent>
-                <CardBody>
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">Terminal 4 (12 mins)</h3>
-                  <ul className="list-disc list-inside text-ink-muted space-y-2">
-                    <li>Take Southern Perimeter Rd to Stanwell Moor Rd</li>
-                    <li>Taxis and rideshares average £22 each way</li>
-                    <li>Plenty of time for a meal before evening departures</li>
-                  </ul>
-                </CardBody>
-              </Card>
-              <Card accent>
-                <CardBody>
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">442 Bus & Hotel Shuttles</h3>
-                  <ul className="list-disc list-inside text-ink-muted space-y-2">
-                    <li>442 stops outside the pub connecting Staines to Heathrow</li>
-                    <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
-                    <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
-                  </ul>
-                </CardBody>
-              </Card>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       {/* Find Us block (spec §7.1): address card + map + WeekHours */}
       <section id="visit-us" className="py-section-y bg-surface-sunk">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch">
               {/* Address card */}
-              <Card accent>
+              <Card accent className="h-full">
                 <CardBody>
                   <SpeakableContent selector="contact-info" priority="high">
                   <h2 className="font-display text-h3 text-ink-strong mb-4">Our Address</h2>
@@ -192,7 +136,7 @@ export default function FindUsPage() {
                     <p className="font-semibold text-ink-strong mb-3">Contact</p>
                     <p className="mb-2">
                       <PhoneLink
-                        phone="01753682707"
+                        phone={CONTACT.phone}
                         source="find_us_contact"
                         className="text-accent-text hover:text-anchor-green"
                       />
@@ -240,26 +184,80 @@ export default function FindUsPage() {
               </Card>
 
               {/* Map */}
-              <div className="overflow-hidden rounded-md shadow-lg">
-                <GoogleMapEmbed query="The Anchor, Stanwell Moor" height="100%" className="min-h-[360px] h-full" />
-              </div>
+              <GoogleMapEmbed
+                query="The Anchor, Stanwell Moor"
+                height="100%"
+                className="h-[360px] min-h-[360px] shadow-lg [&_iframe]:block [&_iframe]:h-full sm:h-[440px] lg:h-full lg:min-h-[560px]"
+              />
             </div>
 
             {/* Opening hours & flight path */}
-            <Card accent className="mt-8">
-              <CardBody>
-                <h2 className="font-display text-h3 text-ink-strong mb-4">Opening hours &amp; flight path</h2>
-                <SpeakableContent selector="opening-hours" priority="high">
-                  <WeekHours />
-                </SpeakableContent>
-              </CardBody>
-            </Card>
+            <div id="opening-hours" className="mt-8 scroll-mt-24">
+              <h2 className="mb-4 font-display text-h3 text-ink-strong">Opening hours &amp; flight path</h2>
+              <SpeakableContent selector="opening-hours" priority="high">
+                <WeekHours />
+              </SpeakableContent>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Heathrow Terminal Directions */}
+      <section className="bg-canvas py-section-y">
+        <Container>
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              title="Heathrow Terminal to Pub in Under 12 Minutes"
+              lead="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
+            />
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <Card accent>
+                <CardBody>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 5 to The Anchor (7 mins)</h3>
+                  <ul className="list-inside list-disc space-y-2 text-ink-muted">
+                    <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
+                    <li>Turn left onto Horton Road; pub is 200 yards on right</li>
+                    <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminals 2 &amp; 3 (11 mins)</h3>
+                  <ul className="list-inside list-disc space-y-2 text-ink-muted">
+                    <li>Head north on Tunnel Road W to M4 Spur to A4 to A3044</li>
+                    <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
+                    <li>Ideal for pre-flight meals before security queues</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 4 (12 mins)</h3>
+                  <ul className="list-inside list-disc space-y-2 text-ink-muted">
+                    <li>Take Southern Perimeter Rd to Stanwell Moor Rd</li>
+                    <li>Taxis and rideshares average £22 each way</li>
+                    <li>Plenty of time for a meal before evening departures</li>
+                  </ul>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">442 Bus &amp; Hotel Shuttles</h3>
+                  <ul className="list-inside list-disc space-y-2 text-ink-muted">
+                    <li>442 stops outside the pub connecting Staines to Heathrow</li>
+                    <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
+                    <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
+                  </ul>
+                </CardBody>
+              </Card>
+            </div>
           </div>
         </Container>
       </section>
 
       {/* Directions */}
-      <section className="py-section-y bg-canvas">
+      <section className="bg-surface-sunk py-section-y">
         <Container>
           <SectionHeading
             title="Directions from Popular Locations"
@@ -359,7 +357,7 @@ export default function FindUsPage() {
               lead="Complimentary parking while you're enjoying our food and drinks"
             />
             <Card accent>
-              <CardBody className="p-8">
+              <CardBody className="p-5 sm:p-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <h3 className="font-display text-h4 text-ink-strong mb-2">ALWAYS FREE</h3>
@@ -402,8 +400,8 @@ export default function FindUsPage() {
                   Book your table online through our booking system or give us a call.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                  <Button asChild variant="primary" size="lg">
+                <div className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                  <Button asChild variant="primary" size="lg" fullWidth>
                     <Link href="/book-table">Book a Table Online</Link>
                   </Button>
                   <PhoneButton
@@ -411,15 +409,16 @@ export default function FindUsPage() {
                     source="find_us_booking_alternative"
                     variant="outline"
                     size="lg"
+                    className="w-full"
                   >
                     Call: 01753 682707
                   </PhoneButton>
-                  <Button asChild variant="outline" size="lg">
+                  <Button asChild variant="outline" size="lg" fullWidth>
                     <Link href="/join-our-team">Join Our Team</Link>
                   </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-line text-left">
+                <div className="mt-8 grid grid-cols-1 gap-6 border-t border-line pt-8 text-left md:grid-cols-2">
                   <div className="space-y-3">
                     <h4 className="text-lg font-semibold text-ink-strong mb-3">Good to Know</h4>
                     <p className="text-ink text-sm">Free parking for patrons</p>
@@ -428,9 +427,17 @@ export default function FindUsPage() {
                     <p className="text-ink text-sm">Dogs welcome in bar & garden</p>
                   </div>
 
-                  <div>
-                    <h4 className="text-lg font-semibold text-ink-strong mb-3">Opening Hours</h4>
-                    <WeekHours showKitchen={false} />
+                  <div className="rounded-md border border-line bg-surface-sunk p-5">
+                    <h4 className="mb-3 text-lg font-semibold text-ink-strong">Plan Your Visit</h4>
+                    <p className="text-sm leading-relaxed text-ink-muted">
+                      Our live opening hours and flight-path times are shown above, alongside the map and contact details.
+                    </p>
+                    <Link
+                      href="#opening-hours"
+                      className="mt-4 inline-flex min-h-11 items-center font-semibold text-accent-text hover:text-anchor-green hover:underline"
+                    >
+                      View opening hours
+                    </Link>
                   </div>
                 </div>
               </CardBody>
@@ -440,7 +447,7 @@ export default function FindUsPage() {
       </section>
 
       {/* Facilities */}
-      <section className="py-section-y bg-canvas">
+      <section className="bg-surface py-section-y">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeading

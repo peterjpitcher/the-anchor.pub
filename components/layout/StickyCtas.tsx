@@ -12,6 +12,7 @@ import {
   trackWhatsAppClick,
   trackStickyCtaShown
 } from '@/lib/gtm-events'
+import { hasUserConsented } from '@/lib/cookies'
 
 // StickyCtas (spec §5.4): the single global sticky CTA bar that replaces every
 // page-level/floating CTA. Fixed to the bottom, full width, revealed only once the
@@ -50,10 +51,22 @@ export function StickyCtas() {
   const isBookTable = pathname?.startsWith('/book-table') ?? false
 
   const [visible, setVisible] = useState(false)
+  const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
+  const showStickyCtas = visible && !cookieBannerVisible
   const heroHeightRef = useRef<number>(HERO_FALLBACK_HEIGHT)
   const visibleSinceRef = useRef<number | null>(null)
   const deviceTypeRef = useRef<DeviceType>('unknown')
+
+  useEffect(() => {
+    const updateCookieBannerVisibility = () => {
+      setCookieBannerVisible(!hasUserConsented())
+    }
+
+    updateCookieBannerVisibility()
+    window.addEventListener('cookieConsentUpdate', updateCookieBannerVisibility)
+    return () => window.removeEventListener('cookieConsentUpdate', updateCookieBannerVisibility)
+  }, [])
 
   // Flush a "sticky_cta_shown" measurement (seconds the bar was visible) using the
   // existing GTM helper. Called on hide, route change and unmount.
@@ -102,12 +115,12 @@ export function StickyCtas() {
 
   // Start/stop the visibility timer and flush on hide.
   useEffect(() => {
-    if (visible) {
+    if (showStickyCtas) {
       if (visibleSinceRef.current === null) visibleSinceRef.current = Date.now()
     } else {
       flushShown()
     }
-  }, [visible, flushShown])
+  }, [showStickyCtas, flushShown])
 
   // Flush on unmount / route change.
   useEffect(() => {
@@ -118,10 +131,10 @@ export function StickyCtas() {
 
   return (
     <div
-      aria-hidden={!visible}
+      aria-hidden={!showStickyCtas}
       className="fixed inset-x-0 bottom-0 z-[80] border-t border-line bg-[rgba(255,255,255,0.96)] py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] backdrop-blur transition-transform duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
       style={{
-        transform: visible ? 'translateY(0)' : 'translateY(125%)',
+        transform: showStickyCtas ? 'translateY(0)' : 'translateY(125%)',
         boxShadow: '0 -6px 24px rgba(26,26,26,0.10)'
       }}
       data-testid="sticky-ctas"
@@ -132,7 +145,7 @@ export function StickyCtas() {
           variant="primary"
           size="md"
           className="flex-1 lg:flex-none"
-          tabIndex={visible ? undefined : -1}
+          tabIndex={showStickyCtas ? undefined : -1}
         >
           <Link
             href="/book-table"
@@ -147,7 +160,7 @@ export function StickyCtas() {
           variant="outline"
           size="md"
           icon={<Utensils className="h-5 w-5" aria-hidden />}
-          tabIndex={visible ? undefined : -1}
+          tabIndex={showStickyCtas ? undefined : -1}
         >
           <Link href="/food-menu" onClick={() => trackMenuView('food')}>
             <span className="max-sm:sr-only">View menu</span>
@@ -157,7 +170,7 @@ export function StickyCtas() {
         <a
           href={`tel:${PHONE_DISPLAY}`}
           aria-label="Call The Anchor"
-          tabIndex={visible ? undefined : -1}
+          tabIndex={showStickyCtas ? undefined : -1}
           onClick={() => trackPhoneCallClick({ phone: PHONE_DISPLAY, source: 'sticky_global' })}
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-accent text-accent transition-colors hover:bg-accent hover:text-canvas"
         >
@@ -169,7 +182,7 @@ export function StickyCtas() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp The Anchor"
-          tabIndex={visible ? undefined : -1}
+          tabIndex={showStickyCtas ? undefined : -1}
           onClick={() => trackWhatsAppClick('sticky_global')}
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-anchor-success text-white transition-opacity hover:opacity-90"
         >

@@ -263,7 +263,7 @@ export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps
               <li
                 key={isoDate || day}
                 aria-label={ariaSummary}
-                className={`flex items-start justify-between gap-3 px-4 py-3 ${
+                className={`flex items-start justify-between gap-3 px-4 py-3 max-[360px]:flex-col max-[360px]:gap-1 ${
                   isToday ? 'bg-anchor-sand text-ink' : 'bg-surface'
                 }`}
               >
@@ -278,7 +278,7 @@ export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps
                 </div>
 
                 {/* Right: bar times, kitchen line, plane window */}
-                <div className="text-right">
+                <div className="text-right max-[360px]:text-left">
                   <span
                     className={`block font-semibold ${closedAllDay ? 'text-anchor-danger' : 'text-ink'}`}
                   >
@@ -292,7 +292,7 @@ export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps
                   )}
 
                   {planeWindow && planeWindow.window !== 'unknown' && (
-                    <span className="mt-0.5 flex items-center justify-end gap-1 text-xs text-accent-text">
+                    <span className="mt-0.5 flex items-center justify-end gap-1 text-xs text-accent-text max-[360px]:justify-start">
                       <Plane size={13} aria-hidden="true" className="flex-shrink-0" />
                       <span>Planes {planeWindow.label}</span>
                     </span>

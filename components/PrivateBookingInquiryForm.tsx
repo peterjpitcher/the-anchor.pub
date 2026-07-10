@@ -32,6 +32,8 @@ type CustomerLookupResult = {
 
 interface Props {
     initialData?: Partial<PrivateBookingRequest>
+    trackingSpaceId?: string
+    trackingSpaceName?: string
     onCancel?: () => void
 }
 
@@ -45,7 +47,12 @@ function parseLookupResponse(payload: any): CustomerLookupResult {
     }
 }
 
-export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
+export function PrivateBookingInquiryForm({
+    initialData,
+    trackingSpaceId,
+    trackingSpaceName,
+    onCancel,
+}: Props) {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -76,6 +83,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
     // Ensure items are preserved from initialData
     const bookingItems = initialData?.items || []
+    const selectedBookingSpaceId = bookingItems.find((item) => item.item_type === 'space')?.space_id
+    const analyticsSpaceId = trackingSpaceId || selectedBookingSpaceId
     const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
     const isKnownCustomer = lookupState === 'known'
 
@@ -86,6 +95,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
             enquiryType: formData.event_type,
             guestCount: formData.guest_count,
             pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+            ...(analyticsSpaceId ? { spaceId: analyticsSpaceId } : {}),
+            ...(trackingSpaceName ? { spaceName: trackingSpaceName } : {}),
         })
     }
 
@@ -191,6 +202,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     enquiryType: formData.event_type,
                     guestCount: formData.guest_count,
                     pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+                    ...(analyticsSpaceId ? { spaceId: analyticsSpaceId } : {}),
+                    ...(trackingSpaceName ? { spaceName: trackingSpaceName } : {}),
                 })
             } else {
                 setError(response.error.message || 'Something went wrong. Please try again.')
