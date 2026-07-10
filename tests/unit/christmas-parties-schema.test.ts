@@ -49,6 +49,8 @@ describe('christmasPartiesSchema', () => {
     const types = graphNodes().map((node) => node['@type'])
     expect(types).toEqual(expect.arrayContaining(['WebPage', 'Service']))
     expect(collectStrings(christmasPartiesSchema)).not.toContain('Event')
+    expect(collectStrings(christmasPartiesSchema)).not.toContain('Offer')
+    expect(collectStrings(christmasPartiesSchema)).not.toContain('OfferCatalog')
     expect(types).not.toContain('Event')
   })
 
@@ -71,25 +73,21 @@ describe('christmasPartiesSchema', () => {
     expect(nodeOfType('WebPage').isPartOf).toEqual({ '@id': WEBSITE_ID })
   })
 
-  it('should bound every offer to the owner-confirmed 2026 service window', () => {
-    const catalog = nodeOfType('Service').hasOfferCatalog as Node
-    const offers = catalog.itemListElement as Node[]
+  it('should describe every enquiry service within the owner-confirmed 2026 service window', () => {
+    const services = nodeOfType('Service').isRelatedTo as Node[]
 
-    expect(offers.length).toBeGreaterThan(0)
-    for (const offer of offers) {
-      expect(offer['@type']).toBe('Offer')
-      expect(offer.availabilityStarts).toBe('2026-11-01')
-      expect(offer.availabilityEnds).toBe('2026-12-23')
-      expect(offer.url).toBe(PAGE_URL)
+    expect(services.length).toBeGreaterThan(0)
+    for (const service of services) {
+      expect(service['@type']).toBe('Service')
+      expect(service.description).toContain('Available from 2026-11-01 to 2026-12-23.')
+      expect(service.provider).toEqual({ '@id': BUSINESS_ID })
+      expect(service.url).toBe(PAGE_URL)
     }
   })
 
   it('should state that sit-down festive meals are pre-order only', () => {
-    const catalog = nodeOfType('Service').hasOfferCatalog as Node
-    const offers = catalog.itemListElement as Node[]
-    const sitDown = offers
-      .map((offer) => offer.itemOffered as Node)
-      .find((item) => /lunch or dinner/i.test(String(item.name)))
+    const services = nodeOfType('Service').isRelatedTo as Node[]
+    const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
 
     expect(sitDown).toBeDefined()
     expect(String(sitDown?.description)).toMatch(/pre-order only/i)

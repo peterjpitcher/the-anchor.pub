@@ -147,11 +147,11 @@
       "effort": 2,
       "risk": 4,
       "owner": "Technical",
-      "dependencies": "Explicit schema approval",
+      "dependencies": "Owner approval received",
       "source": "quick-checkup/technical/technical-seo-report.md; evidence/schema-issues.csv",
-      "approval_bucket": "High-risk approval required",
-      "decision": "Schedule",
-      "notes": "Not implemented. Existing Event/offers block still contains stale hardcoded prices and non-Christmas capacity."
+      "approval_bucket": "High-risk approval received",
+      "decision": "Do now",
+      "notes": "Implemented as a non-priced WebPage and Service graph sourced from SSOT, with regression tests excluding Event and price fields."
     },
     {
       "id": "SEO-010",
@@ -164,11 +164,11 @@
       "effort": 1,
       "risk": 3,
       "owner": "Editorial",
-      "dependencies": "Review source or explicit removal approval",
+      "dependencies": "Owner removal approval received",
       "source": "quick-checkup/editor/editor-qa-report.md",
-      "approval_bucket": "High-risk approval required",
-      "decision": "Schedule",
-      "notes": "Not implemented. No verifiable source or permission record was found in the repository."
+      "approval_bucket": "High-risk approval received",
+      "decision": "Do now",
+      "notes": "Implemented. The three testimonials and the unused testimonial component import were removed after explicit owner approval."
     },
     {
       "id": "SEO-011",

@@ -9,6 +9,8 @@ The page is crawlable and indexable. It returns 200, is self-canonical, is in th
 
 The immediate technical risk is the booking path. The website sends times such as `6:30 pm` or `Flexible`, while the management endpoint accepts only `HH:mm`. The management write therefore rejects the payload, but the website logs the error and still returns success after sending the email. The page also has route-unaware global and local Christmas overlays that can compete with each other and with the specialised enquiry drawer.
 
+**Implementation update:** The booking-time contract, management-first delivery, overlay conflicts, sticky CTA, metadata and SSOT alignment were corrected after this baseline audit. Following explicit owner approval, the Event markup was replaced with a non-priced WebPage and Service graph, and the unverified testimonials were removed. The findings below document the original evidence and the reasons for those changes.
+
 ## Critical Issues
 
 ### 1. Christmas enquiries silently fail to enter the management system
