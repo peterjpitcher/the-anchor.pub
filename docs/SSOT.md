@@ -193,6 +193,8 @@ The full drinks inventory must come from POS/API before publishing. The website 
 - **Smaller groups (1–9):** No deposit. No card details required at booking.
 - **Standard copy:** "Groups of 10 or more: a £10 per person deposit, fully deducted from your bill."
 - **Christmas menu exception:** All Christmas menu bookings require a £10 per person deposit **regardless of party size** (including groups under 10). The deposit secures the booking and is non-refundable. (Confirmed by owner 2026-07-07.)
+- **Christmas sit-down meals:** Christmas lunch and dinner bookings are available by pre-order only. The booking team confirms the meal-choice deadline with the customer. (Confirmed by owner 2026-07-10.)
+- **Christmas 2026 service window:** Christmas party and festive meal enquiries cover 1 November to 23 December 2026. Reconfirm dates before publishing a later season.
 
 ### Booking type → kitchen dependency
 

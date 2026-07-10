@@ -1,24 +1,85 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { normaliseChristmasEnquiryTime } from '@/lib/christmas-enquiry'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
 const GRAPH_TOKEN_HOST = 'https://login.microsoftonline.com'
+const CHRISTMAS_BOOKING_START = '2026-11-01'
+const CHRISTMAS_BOOKING_END = '2026-12-23'
+const VALID_MEAL_SERVICES = new Set(['lunch', 'dinner'])
+const VALID_PARTY_FORMATS = new Set([
+  'not_sure',
+  'shared_party',
+  'private_space',
+  'festive_buffet',
+  'drinks_party',
+  'entertainment'
+])
 
-type EnquiryMode = 'dinner' | 'buffet'
+type EnquiryMode = 'party' | 'meal'
+type MealService = 'lunch' | 'dinner'
+type LegacyEnquiryMode = 'dinner' | 'buffet'
 
 interface ChristmasEnquiryPayload {
   mode: EnquiryMode
+  service?: MealService
+  partyFormat?: string
+  source?: string
   name: string
   email: string
   phone: string
   partySize: string
   preferredDate: string
-  preferredTime: string
+  preferredTime?: string
   extras?: string[]
   perks?: string[]
   notes?: string
+}
+
+type IncomingChristmasEnquiryPayload = Omit<Partial<ChristmasEnquiryPayload>, 'mode'> & {
+  mode?: EnquiryMode | LegacyEnquiryMode
+}
+
+function normaliseIncomingPayload(body: IncomingChristmasEnquiryPayload): Partial<ChristmasEnquiryPayload> {
+  if (body.mode === 'dinner') {
+    return { ...body, mode: 'meal', service: body.service || 'dinner' }
+  }
+
+  if (body.mode === 'buffet') {
+    return { ...body, mode: 'party', partyFormat: body.partyFormat || 'festive_buffet' }
+  }
+
+  return body as Partial<ChristmasEnquiryPayload>
+}
+
+function formatTimeForEmail(value?: string): string {
+  const normalised = normaliseChristmasEnquiryTime(value)
+  if (!normalised) return 'Flexible'
+
+  const [hourText, minute] = normalised.split(':')
+  const hour = Number(hourText)
+  const displayHour = hour % 12 || 12
+  return `${displayHour}:${minute} ${hour >= 12 ? 'pm' : 'am'}`
+}
+
+function enquiryLabel(body: ChristmasEnquiryPayload): string {
+  if (body.mode === 'party') return 'Christmas party'
+  return `Sit-down Christmas ${body.service === 'lunch' ? 'lunch' : 'dinner'} (pre-order only)`
+}
+
+function partyFormatLabel(value?: string): string | undefined {
+  if (!value) return undefined
+  const labels: Record<string, string> = {
+    not_sure: 'Not sure yet',
+    shared_party: 'Shared Christmas party night',
+    private_space: 'Private space',
+    festive_buffet: 'Festive buffet (26+)',
+    drinks_party: 'Drinks party',
+    entertainment: 'Entertainment package'
+  }
+  return labels[value] || value
 }
 
 function escapeHtml(text: string): string {
@@ -34,8 +95,10 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
   const extras = (body.extras || []).filter(Boolean)
   const perks = (body.perks || []).filter(Boolean)
   const preferredDate = body.preferredDate || 'Date TBC'
+  const preferredTime = formatTimeForEmail(body.preferredTime)
+  const label = enquiryLabel(body)
 
-  const subject = `Christmas ${body.mode === 'dinner' ? 'Dinner' : 'Buffet'} Enquiry - ${body.partySize} guests - ${preferredDate}`
+  const subject = `${label} enquiry - ${body.partySize} guests - ${preferredDate}`
 
   const textLines = [
     'New Christmas enquiry',
@@ -45,9 +108,22 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
     `Phone: ${body.phone}`,
     `Party size: ${body.partySize}`,
     `Preferred date: ${preferredDate}`,
-    `Preferred time: ${body.preferredTime}`,
-    `Enquiry type: ${body.mode === 'dinner' ? 'Festive dinner (up to 25)' : 'Buffet (26+)'}`
+    `Preferred time: ${preferredTime}`,
+    `Enquiry type: ${label}`
   ]
+
+  if (body.mode === 'meal') {
+    textLines.push(`Meal sitting: ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}`)
+    textLines.push('Pre-order required: Yes')
+  }
+
+  if (body.mode === 'party' && body.partyFormat) {
+    textLines.push(`Party style: ${partyFormatLabel(body.partyFormat)}`)
+  }
+
+  if (body.source) {
+    textLines.push(`Enquiry source: ${body.source}`)
+  }
 
   if (extras.length > 0) {
     textLines.push(`Extras requested: ${extras.join(', ')}`)
@@ -68,9 +144,22 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
     `<p><strong>Phone:</strong> ${escapeHtml(body.phone)}</p>`,
     `<p><strong>Party size:</strong> ${escapeHtml(body.partySize)}</p>`,
     `<p><strong>Preferred date:</strong> ${escapeHtml(preferredDate)}</p>`,
-    `<p><strong>Preferred time:</strong> ${escapeHtml(body.preferredTime)}</p>`,
-    `<p><strong>Enquiry type:</strong> ${body.mode === 'dinner' ? 'Festive dinner (up to 25)' : 'Buffet (26+)'}</p>`
+    `<p><strong>Preferred time:</strong> ${escapeHtml(preferredTime)}</p>`,
+    `<p><strong>Enquiry type:</strong> ${escapeHtml(label)}</p>`
   ]
+
+  if (body.mode === 'meal') {
+    htmlParts.push(`<p><strong>Meal sitting:</strong> ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}</p>`)
+    htmlParts.push('<p><strong>Pre-order required:</strong> Yes</p>')
+  }
+
+  if (body.mode === 'party' && body.partyFormat) {
+    htmlParts.push(`<p><strong>Party style:</strong> ${escapeHtml(partyFormatLabel(body.partyFormat) || body.partyFormat)}</p>`)
+  }
+
+  if (body.source) {
+    htmlParts.push(`<p><strong>Enquiry source:</strong> ${escapeHtml(body.source)}</p>`)
+  }
 
   if (extras.length > 0) {
     htmlParts.push(`<p><strong>Extras requested:</strong> ${extras.map(escapeHtml).join(', ')}</p>`)
@@ -161,61 +250,131 @@ export async function POST(request: NextRequest) {
     const spam = await checkSpamProtection(request, rawBody, { skipTurnstile: true })
     if (spam.blocked) return spam.response
 
-    const body = rawBody as Partial<ChristmasEnquiryPayload>
+    const body = normaliseIncomingPayload(rawBody as IncomingChristmasEnquiryPayload)
 
-    if (!body.name || !body.email || !body.phone || !body.partySize || !body.preferredDate || !body.preferredTime || !body.mode) {
+    if (!body.name || !body.email || !body.phone || !body.partySize || !body.preferredDate || !body.mode) {
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    const graphUser = process.env.MICROSOFT_USER_EMAIL
-    if (!graphUser) {
-      console.error('MICROSOFT_USER_EMAIL is not configured.')
+    if (!['party', 'meal'].includes(body.mode)) {
       return NextResponse.json(
-        { success: false, error: 'Email service is not configured. Please contact the site administrator.' },
-        { status: 500 }
+        { success: false, error: 'Invalid enquiry type' },
+        { status: 400 }
       )
     }
 
-    const { subject, htmlContent, textContent } = buildEmailContent(body as ChristmasEnquiryPayload)
-    const accessToken = await getMicrosoftGraphToken()
+    if (body.mode === 'meal' && (!body.service || !VALID_MEAL_SERVICES.has(body.service))) {
+      return NextResponse.json(
+        { success: false, error: 'Please choose Christmas lunch or dinner' },
+        { status: 400 }
+      )
+    }
 
-    await sendMicrosoftGraphEmail(accessToken, {
-      to: process.env.CHRISTMAS_ENQUIRY_TO || DEFAULT_TO,
-      fromUser: graphUser,
-      subject,
-      htmlContent,
-      textContent,
-      replyTo: body.email
-    })
+    if (body.mode === 'party' && body.partyFormat && !VALID_PARTY_FORMATS.has(body.partyFormat)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid party style' },
+        { status: 400 }
+      )
+    }
 
-    // Forward to Management App
+    const numericPartySize = Number.parseInt(body.partySize, 10)
+    const maximumPartySize = body.mode === 'meal' ? 60 : 200
+    const minimumPartySize = body.mode === 'party' && body.partyFormat === 'festive_buffet' ? 26 : 6
+    if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
+      return NextResponse.json(
+        { success: false, error: `Guest numbers must be between ${minimumPartySize} and ${maximumPartySize}` },
+        { status: 400 }
+      )
+    }
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
+      return NextResponse.json(
+        { success: false, error: 'Please choose a date within the Christmas booking period' },
+        { status: 400 }
+      )
+    }
+
+    if (body.preferredTime && !/^flexible$/i.test(body.preferredTime.trim()) && !normaliseChristmasEnquiryTime(body.preferredTime)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid preferred time' },
+        { status: 400 }
+      )
+    }
+
+    const enquiry = body as ChristmasEnquiryPayload
     const managementApiBaseUrl = getManagementApiBaseUrl()
     const managementKey = process.env.ANCHOR_API_KEY
+    let managementForwarded = false
 
     if (managementKey) {
       try {
         const cleanUrl = managementApiBaseUrl.replace(/\/$/, '')
+        const managementTime = normaliseChristmasEnquiryTime(body.preferredTime)
+        const managementNotes = [
+          body.notes?.trim(),
+          `Website Christmas journey: ${enquiryLabel(enquiry)}`,
+          body.mode === 'party' && body.partyFormat ? `Party style: ${partyFormatLabel(body.partyFormat)}` : undefined,
+          body.source ? `Website CTA source: ${body.source}` : undefined
+        ].filter((value): value is string => Boolean(value)).join('\n\n').slice(0, 2000)
+
+        const managementPayload = {
+          name: body.name,
+          email: body.email,
+          phone: body.phone,
+          partySize: body.partySize,
+          preferredDate: body.preferredDate,
+          ...(managementTime ? { preferredTime: managementTime } : {}),
+          notes: managementNotes,
+          extras: body.extras,
+          perks: body.perks
+        }
+
         const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'X-API-Key': managementKey
           },
-          body: JSON.stringify(body)
+          body: JSON.stringify(managementPayload)
         })
 
         if (!mgmtResponse.ok) {
           console.error('Failed to create booking in management app:', await mgmtResponse.text())
+        } else {
+          managementForwarded = true
         }
       } catch (dbError) {
         console.error('Error contacting management app:', dbError)
       }
     }
 
-    return NextResponse.json({ success: true })
+    if (!managementForwarded) {
+      const graphUser = process.env.MICROSOFT_USER_EMAIL
+      if (!graphUser) {
+        console.error('Christmas enquiry could not reach the management app and MICROSOFT_USER_EMAIL is not configured.')
+        return NextResponse.json(
+          { success: false, error: 'The enquiry service is temporarily unavailable. Please call us on 01753 682707.' },
+          { status: 500 }
+        )
+      }
+
+      const { subject, htmlContent, textContent } = buildEmailContent(enquiry)
+      const accessToken = await getMicrosoftGraphToken()
+
+      await sendMicrosoftGraphEmail(accessToken, {
+        to: process.env.CHRISTMAS_ENQUIRY_TO || DEFAULT_TO,
+        fromUser: graphUser,
+        subject,
+        htmlContent,
+        textContent,
+        replyTo: body.email
+      })
+    }
+
+    return NextResponse.json({ success: true, delivery: managementForwarded ? 'management' : 'email_fallback' })
   } catch (error) {
     console.error('Christmas enquiry submission failed:', error)
     const message = error instanceof Error ? error.message : 'Unexpected error submitting enquiry.'
