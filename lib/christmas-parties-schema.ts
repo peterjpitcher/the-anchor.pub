@@ -38,17 +38,14 @@ function resolveServiceWindow(): { start: string, end: string } {
 
 const { start: SERVICE_WINDOW_START, end: SERVICE_WINDOW_END } = resolveServiceWindow()
 
-function enquiryOffer(name: string, description: string) {
+function enquiryService(name: string, description: string) {
   return {
-    '@type': 'Offer',
-    availabilityStarts: SERVICE_WINDOW_START,
-    availabilityEnds: SERVICE_WINDOW_END,
+    '@type': 'Service',
+    name,
+    serviceType: name,
+    description: `${description} Available from ${SERVICE_WINDOW_START} to ${SERVICE_WINDOW_END}.`,
+    provider: { '@id': BUSINESS_ID },
     url: PAGE_URL,
-    itemOffered: {
-      '@type': 'Service',
-      name,
-      description
-    }
   }
 }
 
@@ -105,18 +102,14 @@ export const christmasPartiesSchema = {
         serviceUrl: PAGE_URL,
         servicePhone: '+441753682707'
       },
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Christmas enquiry options',
-        itemListElement: [
-          enquiryOffer(
-            'Christmas party',
-            `Private Christmas party hire for up to ${venue.capacity.christmas_seated} seated or ${venue.capacity.christmas_standing} standing guests.`
-          ),
-          enquiryOffer('Sit-down Christmas lunch or dinner', privateHire.christmas_sit_down_meals),
-          enquiryOffer('Festive buffet', privateHire.christmas_buffets)
-        ]
-      }
+      isRelatedTo: [
+        enquiryService(
+          'Christmas party',
+          `Private Christmas party hire for up to ${venue.capacity.christmas_seated} seated or ${venue.capacity.christmas_standing} standing guests.`
+        ),
+        enquiryService('Sit-down Christmas lunch or dinner', privateHire.christmas_sit_down_meals),
+        enquiryService('Festive buffet', privateHire.christmas_buffets)
+      ]
     }
   ]
 }

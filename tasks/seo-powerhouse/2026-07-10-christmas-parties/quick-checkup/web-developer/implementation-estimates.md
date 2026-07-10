@@ -15,8 +15,8 @@ Assumption: a developer familiar with this Next.js codebase; estimates exclude w
 | DEV-06 | Runtime API validation | Implemented | Pre-approved small fix | Template/system fix | 30 min final QA | 1 | 2 | Over-strict validation rejects a valid caller |
 | DEV-07 | Route and component integration tests | API suite and mocked mobile success implemented | Pre-approved small fix | Template/system fix | Complete; live receipt unavailable | 1 | 2 | Browser success/error state differs from route result |
 | DEV-08 | Single-notification and fallback policy | Implemented, staging/monitoring pending | Pre-approved small fix | Template/system fix | 1-2 hours staging/ops work | 2 | 3 | Missing management record during fallback |
-| DEV-09 | Replace price-bearing Event schema | Pending | High-risk approval required | One-off page fix | 1-2 hours after decision | 1 | 4 | Loss of valid enhancement or entity detail |
-| DEV-10 | Testimonial provenance or removal | Pending | High-risk approval required | Content process fix | 30-90 min after decision | 1 | 3 | Unverified proof or reduced social proof |
+| DEV-09 | Replace price-bearing Event schema | Implemented and tested | High-risk approval received | One-off page fix | Complete | 1 | 4 | Loss of valid enhancement or entity detail |
+| DEV-10 | Testimonial provenance or removal | Removed and tested | High-risk approval received | Content process fix | Complete | 1 | 3 | Reduced social proof |
 | DEV-11 | Unsupported-claim cleanup | Implemented and editor-verified | Pre-approved small fix | Content process fix | Complete | 1 | 2 | Lost useful detail |
 | DEV-12 | Page and FAQ reduction | Pending | High-risk approval required | Content process fix | 4-8 hours plus monitoring | 3 | 4 | Search/query coverage loss |
 | DEV-13 | GA4/GTM funnel and key-event mapping | Blocked | Deferred or blocked | Analytics/governance fix | 2-4 hours after access | 2 | 3 | Missing or duplicated leads |
@@ -79,15 +79,21 @@ Assumption: a developer familiar with this Next.js codebase; estimates exclude w
 ### DEV-09: Replace the stale Event schema
 
 - **Files:** `app/christmas-parties/page.tsx`; optionally a shared schema helper if the chosen model repeats.
-- **Approach:** if no genuine scheduled party night exists, remove the long-running Event/offers/add-ons and use accurate non-priced WebPage/Service context, while retaining global venue and breadcrumb schema. If real scheduled nights exist, generate individual Events from approved data.
-- **Approval group:** `Christmas trust and simplification`.
+- **Implemented approach:** the long-running Event and priced offers were replaced with a non-priced WebPage and Service graph sourced from SSOT, while retaining global venue and breadcrumb schema.
+- **Approval group:** `Christmas trust and simplification`, approved and complete.
 - **Acceptance:** no hidden hardcoded food price, unsupported date/package or 10-150 Christmas capacity; every schema claim is current and visible; offline validator passes retained required fields.
 - **Risk/rollback:** material rich-result change, risk 4. Save and restore the previous object only if a verified regression is attributable to the change.
 
-### DEV-10 and DEV-12: Trust and page reduction batch
+### DEV-10: Testimonial evidence
+
+- **Implemented approach:** removed the three quotes and the unused testimonial component import after explicit owner approval.
+- **Acceptance:** no unverified quote, author or testimonial component remains on the page.
+- **Risk/rollback:** restore only testimonials with an approved source and permission record.
+
+### DEV-12: Evidence-led page reduction
 
 - **Files:** `app/christmas-parties/client-components.tsx`, the dated rollback document and approved SSOT/source sheet.
-- **Approach:** source or remove testimonials, then use GSC evidence before preparing any wider keep/merge/remove diff. Unsupported menu and operating claims have already been removed or qualified and pass editor QA.
+- **Approach:** use GSC evidence before preparing any wider keep/merge/remove diff. Unsupported menu and operating claims have already been removed or qualified and pass editor QA.
 - **Approval group:** `Christmas trust and simplification`.
 - **Acceptance:** every retained commercial claim has a dated source; no unverified quote remains; removed copy is saved; no URL/canonical/indexation change occurs.
 - **Risk/rollback:** risk 3-4 due revenue and query coverage. Restore only the affected saved block if validated performance falls.

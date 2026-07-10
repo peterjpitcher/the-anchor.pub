@@ -36,6 +36,13 @@ describe('/christmas-parties booking journeys', () => {
     expect(apiSource).toContain('Website Christmas journey:')
     expect(apiSource).toContain('Website CTA source:')
   })
+
+  it('does not publish testimonials without a traceable approved source', () => {
+    expect(clientSource).not.toContain('TestimonialSection')
+    expect(clientSource).not.toContain('Sarah T.')
+    expect(clientSource).not.toContain('James R.')
+    expect(clientSource).not.toContain('Michelle K.')
+  })
 })
 
 describe('Christmas management time normalisation', () => {

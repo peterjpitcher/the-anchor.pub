@@ -17,7 +17,6 @@ import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
-import { TestimonialSection } from '@/components/TestimonialSection'
 import { CONTACT } from '@/lib/constants'
 
 const CONTACT_EMAIL = CONTACT.email
@@ -1083,33 +1082,6 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
         </Container>
       </Section>
-
-      <TestimonialSection
-        variant="full"
-        title="What Our Guests Say"
-        subtitle="From Previous Christmas Parties"
-        className="py-section-y bg-surface"
-        reviews={[
-          {
-            quote: "We've booked our works Christmas do at The Anchor three years running. The food is brilliant, the staff remember our names, and nobody has to fight for parking. Best Christmas party pub near Heathrow, hands down.",
-            author: "Sarah T.",
-            source: "Office manager, Poyle business park",
-            rating: 5
-          },
-          {
-            quote: "Organised a Christmas buffet for 40 crew from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss on the night. Already rebooked.",
-            author: "James R.",
-            source: "Airline operations team, Heathrow",
-            rating: 5
-          },
-          {
-            quote: "We booked a Christmas lunch for twelve, the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
-            author: "Michelle K.",
-            source: "Staines-upon-Thames",
-            rating: 5
-          }
-        ]}
-      />
 
       <Section background="transparent" spacing="sm" className="bg-surface">
         <Container>
