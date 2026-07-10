@@ -8,6 +8,7 @@ import type {
   SundayLunchMenuResponse
 } from '@/lib/api/menu'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
+import { sortFoodMenuSections } from '@/lib/food-menu-section-order'
 import ssot from '@/SSOT.json'
 
 type SsotData = {
@@ -255,13 +256,6 @@ function mapSundayItem(
   }
 }
 
-function sortSections(sections: MenuSectionData[]): MenuSectionData[] {
-  return [...sections].sort((a, b) => {
-    const order = (a.sort_order || 0) - (b.sort_order || 0)
-    return order !== 0 ? order : (a.name || '').localeCompare(b.name || '')
-  })
-}
-
 function sortItems<T extends MenuSectionItem>(items: T[]): T[] {
   return [...items].sort((a, b) => {
     const order = (a.sort_order || 0) - (b.sort_order || 0)
@@ -300,7 +294,7 @@ function fishPagePriority(item: MenuPageItem): number {
 }
 
 function buildMenuData(response: MenuResponse): MenuData | null {
-  const sections = sortSections(Array.isArray(response.sections) ? response.sections : [])
+  const sections = sortFoodMenuSections(Array.isArray(response.sections) ? response.sections : [])
   if (sections.length === 0) return null
 
   const categories = sections
