@@ -1,0 +1,12 @@
+[
+  {
+    "id": "schema-001",
+    "category": "Technical",
+    "what": "Review the FAQPage schema on http://localhost:3000/christmas-parties — its rich result has been retired by Google; keep the markup only if it still serves a non-rich-result purpose.",
+    "why": "FAQPage on http://localhost:3000/christmas-parties no longer earns a rich result (still valid markup). Decide whether to keep or remove. Source: schema.json.",
+    "source": "schema.json: FAQPage on http://localhost:3000/christmas-parties",
+    "suggested_search_opportunity": 1,
+    "suggested_effort": 1,
+    "suggested_risk": 1
+  }
+]

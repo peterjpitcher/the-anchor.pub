@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { trackFormStart, trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 const SUPPRESSION_KEY = 'christmas_2026_lightbox_seen'
@@ -16,6 +17,8 @@ const CAMPAIGN_START = new Date('2026-08-01T00:00:00').getTime()
 const CAMPAIGN_END = new Date('2026-12-15T23:59:59').getTime()
 
 export function ChristmasLightbox() {
+    const pathname = usePathname()
+    const isChristmasPage = pathname === '/christmas-parties'
     const [isOpen, setIsOpen] = useState(false)
     const [hasINTERACTED, setHasINTERACTED] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
@@ -26,6 +29,7 @@ export function ChristmasLightbox() {
 
     const checkSuppression = useCallback(() => {
         if (typeof window === 'undefined') return true
+        if (isChristmasPage) return true
 
         // Check date range
         const now = Date.now()
@@ -36,7 +40,7 @@ export function ChristmasLightbox() {
 
         // If seen, suppress for the rest of the season
         return true
-    }, [])
+    }, [isChristmasPage])
 
 	    const triggerLightbox = useCallback((trigger?: 'timer' | 'exit_intent') => {
 	        if (checkSuppression() || hasINTERACTED) return

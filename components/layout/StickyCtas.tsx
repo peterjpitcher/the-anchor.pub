@@ -10,7 +10,8 @@ import {
   trackMenuView,
   trackPhoneCallClick,
   trackWhatsAppClick,
-  trackStickyCtaShown
+  trackStickyCtaShown,
+  trackCtaClick
 } from '@/lib/gtm-events'
 import { hasUserConsented } from '@/lib/cookies'
 
@@ -49,6 +50,7 @@ function measureHeroHeight(): number {
 export function StickyCtas() {
   const pathname = usePathname()
   const isBookTable = pathname?.startsWith('/book-table') ?? false
+  const isChristmasParties = pathname === '/christmas-parties'
 
   const [visible, setVisible] = useState(false)
   const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
@@ -140,20 +142,42 @@ export function StickyCtas() {
       data-testid="sticky-ctas"
     >
       <div className="container flex items-center gap-3 lg:justify-end">
-        <Button
-          asChild
-          variant="primary"
-          size="md"
-          className="flex-1 lg:flex-none"
-          tabIndex={showStickyCtas ? undefined : -1}
-        >
-          <Link
-            href="/book-table"
-            onClick={() => trackTableBookingClick('sticky_global')}
+        {isChristmasParties ? (
+          <Button
+            variant="primary"
+            size="md"
+            className="flex-1 lg:flex-none"
+            tabIndex={showStickyCtas ? undefined : -1}
+            onClick={() => {
+              trackCtaClick({
+                id: 'christmas_sticky_global',
+                label: 'Christmas enquiry',
+                location: 'sticky_global',
+                destination: 'enquiry_form'
+              })
+              window.dispatchEvent(new CustomEvent('christmas-open-form', {
+                detail: { source: 'sticky_global' }
+              }))
+            }}
           >
-            Book a table
-          </Link>
-        </Button>
+            Christmas enquiry
+          </Button>
+        ) : (
+          <Button
+            asChild
+            variant="primary"
+            size="md"
+            className="flex-1 lg:flex-none"
+            tabIndex={showStickyCtas ? undefined : -1}
+          >
+            <Link
+              href="/book-table"
+              onClick={() => trackTableBookingClick('sticky_global')}
+            >
+              Book a table
+            </Link>
+          </Button>
+        )}
 
         <Button
           asChild

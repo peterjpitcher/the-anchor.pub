@@ -558,6 +558,7 @@ export function trackWhatsAppClick(context: string) {
 
 function inferFunnelFromSource(source?: string): string {
   const value = String(source || '').toLowerCase()
+  if (value.includes('christmas')) return 'christmas_enquiry'
   if (value.includes('private')) return 'private_hire_enquiry'
   if (value.includes('event') || value.includes('quiz') || value.includes('bingo') || value.includes('karaoke') || value.includes('music')) return 'hosted_event_booking'
   return 'food_table_booking'

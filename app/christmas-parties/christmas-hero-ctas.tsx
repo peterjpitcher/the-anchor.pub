@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { trackCtaClick, trackEmailClick, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CONTACT } from '@/lib/constants'
 
-type ChristmasHeroMode = 'dinner' | 'buffet'
+type ChristmasHeroMode = 'party' | 'meal'
 
 interface ChristmasHeroOpenFormDetail {
   mode: ChristmasHeroMode
@@ -35,16 +35,16 @@ export function ChristmasHeroPrimaryCta() {
         className="w-full md:w-auto"
         onClick={() => {
           trackCtaClick({
-            id: 'christmas_hero_dinner',
-            label: 'Request a Christmas Booking (up to 25)',
+            id: 'christmas_hero_party',
+            label: 'Plan a Christmas party',
             location: 'christmas_hero',
             destination: 'enquiry_form',
-            mode: 'dinner'
+            mode: 'party'
           })
-          dispatchChristmasOpenForm({ mode: 'dinner', source: 'hero_dinner' })
+          dispatchChristmasOpenForm({ mode: 'party', source: 'hero_party' })
         }}
       >
-        Request a Christmas Booking (up to 25)
+        Plan a Christmas party
       </Button>
       <Button
         variant="outline"
@@ -52,16 +52,16 @@ export function ChristmasHeroPrimaryCta() {
         className="w-full md:w-auto"
         onClick={() => {
           trackCtaClick({
-            id: 'christmas_hero_buffet',
-            label: 'Plan a Buffet Party (26+)',
+            id: 'christmas_hero_meal',
+            label: 'Book Christmas lunch or dinner',
             location: 'christmas_hero',
             destination: 'enquiry_form',
-            mode: 'buffet'
+            mode: 'meal'
           })
-          dispatchChristmasOpenForm({ mode: 'buffet', source: 'hero_buffet' })
+          dispatchChristmasOpenForm({ mode: 'meal', source: 'hero_meal' })
         }}
       >
-        Plan a Buffet Party (26+)
+        Book lunch or dinner
       </Button>
     </div>
   )
@@ -69,11 +69,11 @@ export function ChristmasHeroPrimaryCta() {
 
 export function ChristmasHeroSecondaryCta() {
   return (
-    <div className="flex w-full flex-col gap-3 md:flex-row md:justify-center">
+    <div className="grid w-full grid-cols-2 gap-3 md:flex md:justify-center">
       <Button
         variant="primary"
         size="lg"
-        className="w-full md:w-auto"
+        className="min-w-0 w-full md:w-auto"
         onClick={() => {
           trackCtaClick({
             id: 'christmas_hero_call',
@@ -85,12 +85,14 @@ export function ChristmasHeroSecondaryCta() {
           window.location.href = CONTACT_PHONE_LINK
         }}
       >
-        <Icon name="phone" className="mr-2 h-4 w-4" /> Call {CONTACT_PHONE}
+        <Icon name="phone" className="mr-2 h-4 w-4" />
+        <span className="sm:hidden">Call us</span>
+        <span className="hidden sm:inline">Call {CONTACT_PHONE}</span>
       </Button>
       <Button
         variant="primary"
         size="lg"
-        className="w-full md:w-auto"
+        className="min-w-0 w-full md:w-auto"
         onClick={() => {
           trackCtaClick({
             id: 'christmas_hero_email',

@@ -156,6 +156,13 @@ describe('SSOT drift guard — private hire policy', () => {
     expect(mdPlain).toContain('Do not publish minimum-spend wording')
     expect(mdPlain).toContain('no projector')
   })
+
+  it('keeps sit-down Christmas meals pre-order only', () => {
+    expect(ssot.private_hire.christmas_sit_down_meals).toContain('pre-order only')
+    expect(ssot.private_hire.christmas_2026_service_window).toContain('2026-11-01 to 2026-12-23')
+    expect(mdPlain).toContain('Christmas lunch and dinner bookings are available by pre-order only')
+    expect(mdPlain).toContain('1 November to 23 December 2026')
+  })
 })
 
 describe('SSOT drift guard — pricing policy (no hardcoded food prices)', () => {

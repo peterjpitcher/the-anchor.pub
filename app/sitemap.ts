@@ -108,6 +108,7 @@ const DATES = {
   apr2026: new Date('2026-04-21'),      // April 2026 additions
   may2026: new Date('2026-05-12'),      // Recruitment pages
   may2026Late: new Date('2026-05-21'), // History page
+  jul2026: new Date('2026-07-10'),      // Christmas page and booking journey refresh
 } as const
 
 // Pages we want Google to recrawl promptly report a rolling lastModified
@@ -174,7 +175,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/function-room-hire', lastModified: DATES.seoOverhaul },
     { path: '/corporate-events', lastModified: DATES.seoOverhaul },
     { path: '/corporate-christmas-parties', lastModified: DATES.seoOverhaul },
-    { path: '/christmas-parties', lastModified: DATES.seoOverhaul },
+    { path: '/christmas-parties', lastModified: DATES.jul2026 },
     { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },

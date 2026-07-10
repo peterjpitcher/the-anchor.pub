@@ -1,0 +1,592 @@
+{
+  "_collected_at": "2026-07-10T09:25:30.548727+00:00",
+  "_site": "http://localhost:3000/christmas-parties",
+  "pages": {
+    "http://localhost:3000/christmas-parties": {
+      "schema_types": [
+        "AdministrativeArea",
+        "Answer",
+        "BarOrPub",
+        "BreadcrumbList",
+        "BusinessAudience",
+        "City",
+        "Country",
+        "EntryPoint",
+        "Event",
+        "FAQPage",
+        "FoodEstablishmentReservation",
+        "GeoCoordinates",
+        "ListItem",
+        "LocationFeatureSpecification",
+        "Offer",
+        "OpeningHoursSpecification",
+        "Organization",
+        "PeopleAudience",
+        "Place",
+        "PostalAddress",
+        "Question",
+        "ReserveAction",
+        "Restaurant",
+        "WebSite"
+      ],
+      "jsonld": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://www.the-anchor.pub/#organization",
+            "name": "The Anchor",
+            "alternateName": [
+              "The Anchor Stanwell Moor",
+              "The Anchor Pub Stanwell Moor",
+              "The Anchor Heathrow",
+              "The Anchor Pub Heathrow"
+            ],
+            "url": "https://www.the-anchor.pub",
+            "logo": "https://www.the-anchor.pub/images/the-anchor-pub-logo-black-transparent.png",
+            "sameAs": [
+              "https://www.facebook.com/theanchorpubsm/",
+              "https://www.instagram.com/theanchor.pub/",
+              "https://www.google.com/maps?cid=17928230944823812473",
+              "https://www.tripadvisor.co.uk/Restaurant_Review-g477981-d9717898-Reviews-The_Anchor-Staines_Surrey_England.html",
+              "https://www.opentable.co.uk/r/the-anchor-stanwell-moor",
+              "https://ratings.food.gov.uk/business/1110171/the-anchor-stanwell-moor"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Horton Road",
+              "addressLocality": "Stanwell Moor",
+              "addressRegion": "Surrey",
+              "postalCode": "TW19 6AQ",
+              "addressCountry": "GB"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 51.462509,
+              "longitude": -0.502067
+            },
+            "telephone": "+441753682707",
+            "email": "manager@the-anchor.pub"
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": [
+              "Restaurant",
+              "BarOrPub"
+            ],
+            "@id": "https://www.the-anchor.pub/#business",
+            "name": "The Anchor",
+            "description": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.",
+            "image": [
+              "https://www.the-anchor.pub/images/page-headers/home/page-headers-homepage.jpg",
+              "https://www.the-anchor.pub/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg",
+              "https://www.the-anchor.pub/images/page-headers/food-menu/food-menu.jpg"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Horton Road",
+              "addressLocality": "Stanwell Moor",
+              "addressRegion": "Surrey",
+              "postalCode": "TW19 6AQ",
+              "addressCountry": "GB"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 51.462509,
+              "longitude": -0.502067
+            },
+            "url": "https://www.the-anchor.pub",
+            "telephone": "+441753682707",
+            "sameAs": [
+              "https://www.facebook.com/theanchorpubsm/",
+              "https://www.instagram.com/theanchor.pub/",
+              "https://www.google.com/maps?cid=17928230944823812473",
+              "https://www.tripadvisor.co.uk/Restaurant_Review-g477981-d9717898-Reviews-The_Anchor-Staines_Surrey_England.html",
+              "https://www.opentable.co.uk/r/the-anchor-stanwell-moor",
+              "https://ratings.food.gov.uk/business/1110171/the-anchor-stanwell-moor"
+            ],
+            "priceRange": "££",
+            "servesCuisine": [
+              "British",
+              "Pizza",
+              "Pub Food",
+              "Sunday Roast"
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Monday",
+                "opens": "16:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Tuesday",
+                "opens": "16:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Wednesday",
+                "opens": "16:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Thursday",
+                "opens": "16:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Friday",
+                "opens": "16:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "12:00:00",
+                "closes": "22:00:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
+                "opens": "12:00:00",
+                "closes": "22:00:00"
+              }
+            ],
+            "hasMenu": "https://www.the-anchor.pub/food-menu",
+            "acceptsReservations": true,
+            "amenityFeature": [
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Free Parking",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Dog Friendly",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Family Friendly",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Step-free access",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Free WiFi",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Beer Garden",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Live Entertainment",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Plane Spotting",
+                "value": true
+              }
+            ],
+            "paymentAccepted": [
+              "Cash",
+              "Credit Card",
+              "Debit Card",
+              "Contactless"
+            ],
+            "currenciesAccepted": "GBP",
+            "menu": "https://www.the-anchor.pub/food-menu",
+            "smokingAllowed": false,
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Stanwell Moor",
+              "containedInPlace": {
+                "@type": "AdministrativeArea",
+                "name": "Surrey",
+                "containedInPlace": {
+                  "@type": "Country",
+                  "name": "United Kingdom"
+                }
+              }
+            },
+            "potentialAction": {
+              "@type": "ReserveAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/book-table",
+                "actionPlatform": [
+                  "https://schema.org/DesktopWebPlatform",
+                  "https://schema.org/MobileWebPlatform"
+                ]
+              },
+              "result": {
+                "@type": "FoodEstablishmentReservation"
+              }
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://www.the-anchor.pub/#website",
+            "url": "https://www.the-anchor.pub",
+            "name": "The Anchor Stanwell Moor",
+            "description": "Traditional British pub near Heathrow with quiz nights, hosted events, and famous Sunday roasts",
+            "publisher": {
+              "@id": "https://www.the-anchor.pub/#organization"
+            }
+          }
+        ],
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.the-anchor.pub/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Christmas Parties",
+              "item": "https://www.the-anchor.pub/christmas-parties"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How much does a Christmas party cost?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Festive menu and buffet prices are confirmed from the current approved source. Room hire and setup options vary by date and party size. Call us on 01753 682707 for a quote tailored to your group."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are there seasonal offers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask about current seasonal options when you enquire. We will only confirm offers that are live for your booking date."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a minimum group size?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our festive menu is available for Christmas parties of six or more. Smaller groups are welcome to join us from the a la carte menu."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are you close to Heathrow and Staines?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, seven minutes from Heathrow Terminal 5, around eleven from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can we bring our own food?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask us before bringing any food or drink from outside. We will confirm what is possible for your booking."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can you run a bar tab for our group?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask us about setting an agreed bar-tab limit and the billing options available for your booking."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do guests travel from Heathrow hotels or terminals?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The pub is around seven minutes from Heathrow Terminal 5 and eleven minutes from Terminal 2, traffic dependent. Share our postcode, TW19 6AQ, so guests can check a live route and fare."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What entertainment can we have?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask about playlists, DJs, live music, quizzes or karaoke. We will confirm what is suitable for your date, room and finishing time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is parking available?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "There are around 20 free spaces on site. Ask the team in advance if anyone needs to leave a vehicle overnight."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you handle dietary requests?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Vegetarian, vegan, gluten-free and other dietary requirements are happily accommodated. Include the details on your pre-order so the kitchen can prepare suitable alternatives."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a shared Christmas party night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A shared party night gives your group its own table while other groups celebrate in the pub at the same time. Ask whether this format is available on your preferred date."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can we have exclusive use of the whole pub?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask about exclusive hire when you enquire. Availability depends on your date, guest numbers, layout and planned entertainment. Christmas layouts can host up to 60 seated or 200 standing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you offer corporate Christmas party packages near Heathrow?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We do. Ask about VAT invoicing and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can we book a Christmas party for just drinks, no food?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ask about a drinks-only area and an agreed bar tab. We will confirm suitable spaces and any food options for your date."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What time do Christmas parties start and finish?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Choose a preferred time in the enquiry form. We will confirm the available start and finishing times for your date and party format."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is The Anchor outside the ULEZ zone?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, the pub is outside the ULEZ boundary and has around 20 free parking spaces on site. Guests should check their own route and current charging rules before travelling."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can we book a Christmas lunch instead of dinner?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Sit-down Christmas lunches and dinners are available by pre-order only. Tell us your preferred date, sitting, guest count and dietary needs when you enquire."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the difference between a Christmas do and a shared party night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A Christmas do can be any festive celebration. A shared party night is one format where your group has its own table while other parties use the venue too."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you serve a festive menu outside of party bookings?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The sit-down festive menu is available by pre-order for groups of six or more during the confirmed Christmas service window. Ask about other dining options for a smaller group."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is The Anchor for Christmas party guests?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around seven minutes from Heathrow Terminal 5 and eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site."
+              }
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": "Christmas Party Venue 2026: The Anchor, Stanwell Moor near Heathrow",
+          "description": "Christmas party venue near Heathrow Airport. Festive pub Christmas dinners, buffets for larger groups, free parking outside the ULEZ, and space for 10+ to 150 guests.",
+          "startDate": "2026-11-01",
+          "endDate": "2026-12-23",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "image": [
+            "https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.jpg"
+          ],
+          "location": {
+            "@type": "Place",
+            "name": "The Anchor, Stanwell Moor",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Horton Road",
+              "addressLocality": "Stanwell Moor",
+              "addressRegion": "Surrey",
+              "postalCode": "TW19 6AQ",
+              "addressCountry": "GB"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 51.462509,
+              "longitude": -0.502067
+            },
+            "amenityFeature": [
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Free parking near Heathrow Terminal 5",
+                "value": "20 spaces on-site, two minutes from M25 Junction 14"
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Outside the ULEZ zone",
+                "value": "No additional city charge for guests arriving by car"
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Village pub dining rooms",
+                "value": "Private hire for 10+ to 150 guests"
+              }
+            ],
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Staines-upon-Thames"
+              },
+              {
+                "@type": "City",
+                "name": "Ashford"
+              },
+              {
+                "@type": "City",
+                "name": "Windsor"
+              },
+              {
+                "@type": "Place",
+                "name": "Heathrow Airport"
+              }
+            ]
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": "The Anchor",
+            "url": "https://www.the-anchor.pub",
+            "email": "manager@the-anchor.pub",
+            "telephone": "+44 1753 682707"
+          },
+          "audience": [
+            {
+              "@type": "BusinessAudience",
+              "audienceType": "Mid-week workplace gatherings and airport teams"
+            },
+            {
+              "@type": "PeopleAudience",
+              "audienceType": "Local families and community groups from Stanwell Moor and Staines"
+            }
+          ],
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Festive three-course menu (Tue–Thu)",
+              "price": "36.95",
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock",
+              "validFrom": "2026-09-01",
+              "availabilityStarts": "2026-09-01",
+              "availabilityEnds": "2026-12-23",
+              "url": "https://www.the-anchor.pub/christmas-parties",
+              "description": "Three-course Christmas dinner with Yorkshire puddings, pigs in blankets, roast potatoes, seasonal vegetables and gravy. Available Tuesday to Thursday."
+            },
+            {
+              "@type": "Offer",
+              "name": "Festive three-course menu (Fri–Sat)",
+              "price": "39.95",
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock",
+              "validFrom": "2026-09-01",
+              "availabilityStarts": "2026-09-01",
+              "availabilityEnds": "2026-12-23",
+              "url": "https://www.the-anchor.pub/christmas-parties",
+              "description": "Friday and Saturday Christmas dinners with all the trimmings, perfect for larger celebrations."
+            },
+            {
+              "@type": "Offer",
+              "name": "Children’s festive menu (under 12)",
+              "price": "15.95",
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock",
+              "validFrom": "2026-09-01",
+              "availabilityStarts": "2026-09-01",
+              "availabilityEnds": "2026-12-23",
+              "url": "https://www.the-anchor.pub/christmas-parties",
+              "description": "Two or three-course children’s Christmas menu with smaller portions and the same trimmings."
+            },
+            {
+              "@type": "Offer",
+              "name": "Shared party night package (Tue–Thu)",
+              "price": "36.95",
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock",
+              "validFrom": "2026-09-01",
+              "availabilityStarts": "2026-09-01",
+              "availabilityEnds": "2026-12-23",
+              "url": "https://www.the-anchor.pub/christmas-parties",
+              "description": "Shared Christmas party nights with crackers, festive playlists and three-course menus, ideal for airport teams and Surrey offices."
+            }
+          ],
+          "addOn": [
+            {
+              "@type": "Offer",
+              "name": "All the Trimmings Board",
+              "price": "11.95",
+              "priceCurrency": "GBP",
+              "description": "Serves four guests, extra Yorkshire puddings, pigs in blankets, roast potatoes, stuffing balls, seasonal veg and gravy."
+            },
+            {
+              "@type": "Offer",
+              "name": "XL Trimmings Board",
+              "price": "21.95",
+              "priceCurrency": "GBP",
+              "description": "Serves eight guests, doubles up the festive sides so the whole table can feast."
+            },
+            {
+              "@type": "Offer",
+              "name": "Bundle A arrival & finale",
+              "price": "9.95",
+              "priceCurrency": "GBP",
+              "description": "Glass of Prosecco on arrival plus coffee and mince pie to finish."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

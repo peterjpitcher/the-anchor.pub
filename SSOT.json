@@ -859,6 +859,8 @@
     "christmas_menus_from_gbp": "LIVE_FROM_DB",
     "christmas_menus_weekday_gbp": "LIVE_FROM_DB",
     "christmas_menus_weekend_gbp": "LIVE_FROM_DB",
+    "christmas_sit_down_meals": "Lunch and dinner available by pre-order only; booking team confirms the meal-choice deadline",
+    "christmas_2026_service_window": "2026-11-01 to 2026-12-23; reconfirm before publishing a later season",
     "christmas_buffets": "Available for 26+ guests",
     "private_booking_deposit_gbp": 250,
     "catering_packages": {

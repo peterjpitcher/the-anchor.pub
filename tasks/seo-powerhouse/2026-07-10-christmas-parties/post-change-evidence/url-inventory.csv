@@ -1,0 +1,2 @@
+url,status,final_url,content_type,template,in_sitemap,word_count,internal_links,external_links,image_count,missing_alt_count,redirect_hops,error,collected_at,soft_404_candidate,js_dependent
+http://localhost:3000/christmas-parties,200,http://localhost:3000/christmas-parties,text/html; charset=utf-8,top-level:christmas-parties,no,3616,133,11,6,0,0,,2026-07-10T09:25:30.548727+00:00,no,no
