@@ -6,6 +6,16 @@ import { cn } from '@/lib/utils'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
 import { useCountdown } from '@/hooks/useCountdown'
 import { trackQuoteToolCompleted, trackQuoteToolStarted } from '@/lib/gtm-events'
+import { VenueTourLink } from '@/components/private-hire/venue-tour/VenueTourLink'
+import {
+    getVenueTourSpaceIdForEstimatorName,
+    findEstimatorSpaceForTour,
+    isVenueTourEventType,
+    isVenueTourSpaceId,
+    VENUE_TOUR_SPACE_SELECTED_EVENT,
+    VENUE_TOUR_SPACE_SESSION_KEY,
+    type VenueTourSpaceId
+} from '@/components/private-hire/venue-tour/venue-tour-data'
 import {
     PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY,
     PRIVATE_HIRE_2026_PROMO_DISABLED_STORAGE_KEY,
@@ -16,6 +26,8 @@ interface PrivateBookingCalculatorProps {
     eventType?: string
     compact?: boolean
     quoteStartedOnMount?: boolean
+    initialSpaceId?: VenueTourSpaceId
+    source?: string
 }
 
 const EVENT_TYPE_OPTIONS = [
@@ -28,7 +40,13 @@ const EVENT_TYPE_OPTIONS = [
     'Other'
 ]
 
-export function PrivateBookingCalculator({ eventType, compact = false, quoteStartedOnMount = false }: PrivateBookingCalculatorProps) {
+export function PrivateBookingCalculator({
+    eventType,
+    compact = false,
+    quoteStartedOnMount = false,
+    initialSpaceId,
+    source = 'private_booking_calculator',
+}: PrivateBookingCalculatorProps) {
     const [config, setConfig] = useState<PrivateBookingConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -38,11 +56,12 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
     const [selectedDate, setSelectedDate] = useState<string>('')
     const [selectedEventType, setSelectedEventType] = useState<string>(eventType || 'Birthday Party')
     const [selectedSpaceId, setSelectedSpaceId] = useState<string>('')
+    const [requestedTourSpaceId, setRequestedTourSpaceId] = useState<VenueTourSpaceId | undefined>(initialSpaceId)
     const [guestCount, setGuestCount] = useState<number>(30)
     const [hours, setHours] = useState<number>(4)
     const [selectedPackages, setSelectedPackages] = useState<Array<{ id: string, quantity: number }>>([])
     const [selectedVendorIds, setSelectedVendorIds] = useState<Set<string>>(new Set())
-    const quoteStartedRef = useRef(quoteStartedOnMount)
+    const quoteStartedRef = useRef(false)
 
     // UI State
     const [isAddingItem, setIsAddingItem] = useState(false)
@@ -55,8 +74,6 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
                 const response = await getPrivateBookingConfig()
                 if (response.success) {
                     setConfig(response.data)
-                    // Set defaults
-                    if (response.data.spaces.length > 0) setSelectedSpaceId(response.data.spaces[0].id)
                 } else {
                     setError(response.error.message)
                 }
@@ -68,6 +85,32 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
         }
         fetchConfig()
     }, [])
+
+    useEffect(() => {
+        if (initialSpaceId) {
+            setRequestedTourSpaceId(initialSpaceId)
+            return
+        }
+
+        const storedSpaceId = window.sessionStorage.getItem(VENUE_TOUR_SPACE_SESSION_KEY)
+        if (isVenueTourSpaceId(storedSpaceId)) setRequestedTourSpaceId(storedSpaceId)
+    }, [initialSpaceId])
+
+    useEffect(() => {
+        const handleTourSpaceSelected = (event: Event) => {
+            const spaceId = (event as CustomEvent<{ spaceId?: string }>).detail?.spaceId
+            if (isVenueTourSpaceId(spaceId)) setRequestedTourSpaceId(spaceId)
+        }
+
+        window.addEventListener(VENUE_TOUR_SPACE_SELECTED_EVENT, handleTourSpaceSelected)
+        return () => window.removeEventListener(VENUE_TOUR_SPACE_SELECTED_EVENT, handleTourSpaceSelected)
+    }, [])
+
+    useEffect(() => {
+        if (!config || config.spaces.length === 0) return
+        const preferredSpace = findEstimatorSpaceForTour(config.spaces, requestedTourSpaceId)
+        setSelectedSpaceId(preferredSpace?.id || config.spaces[0].id)
+    }, [config, requestedTourSpaceId])
 
     useEffect(() => {
         if (eventType) setSelectedEventType(eventType)
@@ -92,6 +135,21 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
     const selectedSpace = useMemo(() =>
         config?.spaces.find(s => s.id === selectedSpaceId), [config, selectedSpaceId]
     )
+    const selectedTourSpaceId = getVenueTourSpaceIdForEstimatorName(selectedSpace?.name)
+    const trackingSpaceId = selectedTourSpaceId || selectedSpace?.id
+
+    useEffect(() => {
+        if (!quoteStartedOnMount || !selectedSpace || quoteStartedRef.current) return
+        quoteStartedRef.current = true
+        trackQuoteToolStarted({
+            eventType: selectedEventType,
+            guestCount,
+            pageSource: window.location.pathname,
+            sourceComponent: source,
+            spaceId: trackingSpaceId,
+            spaceName: selectedSpace.name,
+        })
+    }, [guestCount, quoteStartedOnMount, selectedEventType, selectedSpace, source, trackingSpaceId])
 
     const promoCountdownText = useMemo(() => {
         if (!promoActive || promoCountdown.expired) return null
@@ -105,7 +163,10 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
         trackQuoteToolStarted({
             eventType: overrideEventType,
             guestCount,
-            pageSource: typeof window !== 'undefined' ? window.location.pathname : ''
+            pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+            sourceComponent: source,
+            spaceId: trackingSpaceId,
+            spaceName: selectedSpace?.name,
         })
     }
 
@@ -214,6 +275,8 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
         return (
             <PrivateBookingInquiryForm
                 initialData={inquiryData}
+                trackingSpaceId={trackingSpaceId}
+                trackingSpaceName={selectedSpace?.name}
                 onCancel={() => setShowInquiryForm(false)}
             />
         )
@@ -353,9 +416,15 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
                     <div className={cn('flex items-center gap-2', compact ? 'mb-3' : 'mb-6')}>
                         <span className={cn(compact ? 'w-5 h-5 text-[10px]' : 'w-7 h-7 text-xs', 'flex items-center justify-center border border-anchor-gold-dark/50 text-accent-text font-bold')}>3</span>
                         <h4 className={cn(compact ? 'text-sm' : 'font-display text-xl', 'font-bold text-ink-strong')}>Choose a Space</h4>
-                        <a href="/our-pub" className={cn(compact ? 'text-xs' : 'text-sm', 'ml-auto text-accent-text font-semibold hover:text-accent hover:underline')}>
-                            See photos &rarr;
-                        </a>
+                        <VenueTourLink
+                            source="private_booking_calculator"
+                            label="See floor plan and photos"
+                            initialSpaceId={selectedTourSpaceId}
+                            eventType={isVenueTourEventType(selectedEventType) ? selectedEventType : undefined}
+                            className={cn(compact ? 'text-xs' : 'text-sm', 'ml-auto text-accent-text font-semibold hover:text-accent hover:underline')}
+                        >
+                            See floor plan &amp; photos &rarr;
+                        </VenueTourLink>
                     </div>
 
                     <div className={cn('grid gap-3', compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2 gap-4')}>
@@ -786,7 +855,10 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
                             eventType: selectedEventType,
                             guestCount,
                             estimateValue: total,
-                            pageSource: typeof window !== 'undefined' ? window.location.pathname : ''
+                            pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+                            sourceComponent: source,
+                            spaceId: trackingSpaceId,
+                            spaceName: selectedSpace?.name,
                         })
                         setShowInquiryForm(true)
                     }}

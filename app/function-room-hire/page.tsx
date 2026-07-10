@@ -8,7 +8,6 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
@@ -17,6 +16,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
+import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
 
 export const metadata: Metadata = {
   title: 'Function Room Hire Near Heathrow | The Anchor Pub',
@@ -108,11 +108,11 @@ export default function FunctionRoomHirePage() {
             >
                Call to Check Availability
             </PhoneButton>
-            <Link href="#enquiry">
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="#enquiry">
                 Enquire Online
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -188,7 +188,7 @@ export default function FunctionRoomHirePage() {
             <Card accent><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-4">Exclusive Venue Hire</h3>
               <div className="mb-4">
-                <Badge variant="gold">Up to 150 guests</Badge>
+                <Badge variant="gold">119 seated / 300 standing</Badge>
               </div>
               <p className="text-ink-muted mb-4">
                 Take over the entire venue for larger events. Includes all indoor spaces,
@@ -212,6 +212,20 @@ export default function FunctionRoomHirePage() {
         </Container>
       </section>
 
+      <section className="bg-canvas py-section-y">
+        <Container>
+          <VenueTourTeaser
+            source="function_room_hire"
+            mode="expand"
+            initialSpaceId="dining-room"
+            eventType="Other"
+            title="Walk through the spaces before you enquire"
+            copy="Open the interactive floor plan to compare the dining room and beer garden, then view real photos from each part of the pub."
+            ctaLabel="Explore the floor plan"
+          />
+        </Container>
+      </section>
+
       {/* Layout Options */}
       <section className="py-section-y bg-surface-sunk">
         <Container>
@@ -222,17 +236,17 @@ export default function FunctionRoomHirePage() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { title: "Banquet Style", count: "80", desc: "Round tables of 8-10 for dining and socializing" },
-              { title: "Theatre Style", count: "40", desc: "Rows of chairs facing front for presentations" },
-              { title: "Cocktail Reception", count: "150", desc: "Standing reception with high tables" },
-              { title: "Classroom Style", count: "60", desc: "Tables and chairs for training/workshops" },
-              { title: "Boardroom Style", count: "30", desc: "Single large table for meetings" },
-              { title: "Cabaret Style", count: "70", desc: "Round tables with stage/presentation area" },
+              { title: "Banquet Style", capacity: "Dining room seats 26", desc: "A seated dining setup for meals and celebrations" },
+              { title: "Theatre Style", capacity: "Capacity confirmed on enquiry", desc: "Forward-facing seating arranged for presentations" },
+              { title: "Cocktail Reception", capacity: "Main area: up to 150 standing", desc: "A standing reception setup for larger gatherings" },
+              { title: "Classroom Style", capacity: "Capacity confirmed on enquiry", desc: "Tables and chairs arranged for training or workshops" },
+              { title: "Boardroom Style", capacity: "Dining room seats 26", desc: "A meeting-table setup for discussions and presentations" },
+              { title: "Cabaret Style", capacity: "Capacity confirmed on enquiry", desc: "Social seating arranged around a presentation area" },
             ].map(layout => (
               <Card key={layout.title} accent className="h-full text-center">
                 <CardBody className="flex h-full flex-col gap-2">
                   <h3 className="font-display text-h4 text-ink-strong">{layout.title}</h3>
-                  <p className="font-display text-h3 text-accent-text">{layout.count}</p>
+                  <p className="font-semibold text-accent-text">{layout.capacity}</p>
                   <p className="text-ink-muted">{layout.desc}</p>
                 </CardBody>
               </Card>
@@ -286,7 +300,7 @@ export default function FunctionRoomHirePage() {
               { title: "Prime Location", description: "7 mins from Heathrow, 3 mins from M25, outside ULEZ zone" },
               { title: "Flexible Catering", description: "From tea & coffee to premium buffets and indoor BBQ" },
               { title: "Full Support", description: "Experienced team handles setup, service, and cleanup" },
-              { title: "Fully Accessible", description: "Ground floor venue with wheelchair access throughout" },
+              { title: "Accessibility", description: "Step-free bar and dining area; garden ramp on request; no accessible toilet" },
             ].map(feature => (
               <Card key={feature.title} accent className="h-full text-center">
                 <CardBody className="flex h-full flex-col gap-2">
@@ -420,7 +434,7 @@ export default function FunctionRoomHirePage() {
               <h3 className="font-display text-h4 text-ink-strong mb-3">Which space suits your event?</h3>
               <ul className="space-y-2 text-sm text-ink-muted">
                 <li>• <strong className="text-ink-strong">10+ guests</strong>, our private dining room, ideal for dinners and celebrations</li>
-                <li>• <strong className="text-ink-strong">Up to 150 guests</strong>, larger room, garden or full venue hire by enquiry</li>
+                <li>• <strong className="text-ink-strong">Full venue hire</strong>, 119 seated or 300 standing, by enquiry</li>
               </ul>
             </CardBody></Card>
             <div className="mb-6">
@@ -433,7 +447,11 @@ export default function FunctionRoomHirePage() {
         </Container>
       </section>
 
-      <PrivateBookingSection eventType="Other" />
+      <PrivateBookingSection
+        eventType="Other"
+        initialSpaceId="dining-room"
+        showVenueTourLink={false}
+      />
 
       <InternalLinkingSection
         title="Next Steps For Your Event"
@@ -480,11 +498,11 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "What are your minimum guest numbers?",
-            answer: "We can accommodate groups from 10 people upwards. For exclusive use of the entire venue, we typically require 80+ guests. Smaller groups are perfectly welcome in our function room."
+            answer: "We can accommodate private hire from 10 guests. The dining room seats 26 or up to 50 standing. Larger spaces and full-venue hire are available by enquiry."
           },
           {
             question: "Is there disabled access to the function rooms?",
-            answer: "Yes, we have full wheelchair access throughout the venue, including to all function spaces and facilities. Our car park has level access to the entrance."
+            answer: "The bar and dining area are step-free, and the car park has level access to the entrance. The beer garden has steps from the bar, with a ramp available on request. We do not have an accessible toilet, so please call ahead and we will help you plan your visit."
           },
           {
             question: "How far in advance should I book?",
@@ -500,27 +518,24 @@ export default function FunctionRoomHirePage() {
         copy="Competitive rates • Free parking • Professional service"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-          <BookTableButton
-            source="function_room_cta"
-            size="lg"
-            variant="primary"
-            context="function_room"
-          >
-            Book Function Room
-          </BookTableButton>
+          <Button asChild size="lg" variant="primary">
+            <Link href="#enquiry">
+              Book Function Room
+            </Link>
+          </Button>
           <PhoneButton phone={CONTACT.phone} source="function-room_cta" size="lg" variant="outline">
             Call: {CONTACT.phone}
           </PhoneButton>
-          <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="outline">
+          <Button asChild size="lg" variant="outline">
+            <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
               WhatsApp Us
-            </Button>
-          </Link>
-          <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
-            <Button size="lg" variant="outline">
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
               Email Enquiry
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
         <p className="mt-8 text-sm text-anchor-cream-text/85">
           <strong>Viewing Welcome.</strong> Pop in during opening hours or arrange a specific viewing time. We&apos;ll respond to enquiries within 2 hours.

@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { StickyDrawer, StickyDrawerTrigger, Button } from '@/components/ui'
 import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
-import { trackCtaClick, trackQuoteToolStarted } from '@/lib/gtm-events'
+import { trackCtaClick } from '@/lib/gtm-events'
+import type { VenueTourSpaceId } from '@/components/private-hire/venue-tour/venue-tour-data'
 
 const OPEN_EVENT = 'open-estimator-drawer'
 
@@ -13,6 +14,7 @@ interface StickyEstimatorDrawerProps {
   source?: string
   showInlineButton?: boolean
   inlineButtonLabel?: string
+  initialSpaceId?: VenueTourSpaceId
 }
 
 export function StickyEstimatorDrawer({
@@ -20,7 +22,8 @@ export function StickyEstimatorDrawer({
   triggerLabel = 'Get Instant Quote',
   source = 'estimator_drawer',
   showInlineButton = false,
-  inlineButtonLabel = 'Open Cost Estimator'
+  inlineButtonLabel = 'Open Cost Estimator',
+  initialSpaceId,
 }: StickyEstimatorDrawerProps) {
   const [open, setOpen] = useState(false)
   const [triggerVisible, setTriggerVisible] = useState(false)
@@ -67,12 +70,8 @@ export function StickyEstimatorDrawer({
       location: 'sticky_trigger',
       destination: 'estimator_drawer'
     })
-    trackQuoteToolStarted({
-      eventType,
-      pageSource: source
-    })
     setOpen(true)
-  }, [eventType, source, triggerLabel])
+  }, [source, triggerLabel])
 
   const handleInlineOpen = useCallback(() => {
     trackCtaClick({
@@ -81,12 +80,8 @@ export function StickyEstimatorDrawer({
       location: 'inline_section',
       destination: 'estimator_drawer'
     })
-    trackQuoteToolStarted({
-      eventType,
-      pageSource: source
-    })
     setOpen(true)
-  }, [eventType, source, inlineButtonLabel])
+  }, [source, inlineButtonLabel])
 
   const handleClose = useCallback(() => {
     setOpen(false)
@@ -134,7 +129,13 @@ export function StickyEstimatorDrawer({
         side="right"
         testId="estimator-drawer"
       >
-        <PrivateBookingCalculator eventType={eventType} compact quoteStartedOnMount />
+        <PrivateBookingCalculator
+          eventType={eventType}
+          initialSpaceId={initialSpaceId}
+          source={source}
+          compact
+          quoteStartedOnMount={open}
+        />
       </StickyDrawer>
     </>
   )

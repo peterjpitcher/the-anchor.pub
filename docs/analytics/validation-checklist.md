@@ -17,6 +17,13 @@ Run this checklist before any analytics-related deployment.
 ### Private Hire
 - [ ] Submit enquiry on `/function-room-hire` → `private_hire_enquiry_submitted` fires
 - [ ] Check `page_source` matches `/function-room-hire`
+- [ ] Scroll the tour into view → one `venue_tour_viewed` event fires with `page_source` and `source_component`
+- [ ] Select the beer garden → `venue_tour_space_selected` fires with the correct `space_id` and `space_name`
+- [ ] Open a photo marker → `venue_tour_photo_opened` fires with the correct `photo_id` and `photo_name`
+- [ ] Garden and dining photos include their matching `space_id`; shared-area photos do not invent a space
+- [ ] Click “Ask about this space” → `venue_tour_enquiry_clicked` fires with the selected space and destination
+- [ ] Open the estimator from a selected-space tour link → the matching live venue space is preselected
+- [ ] Continue from a party or corporate tour → event type remains preselected in the estimator
 
 ### FAQ
 - [ ] Click any FAQ question → `faq_item_opened` fires

@@ -6,13 +6,13 @@ import { CONTACT } from '@/lib/constants'
 import { Button, Container, SectionHeading, Card, CardBody, Badge } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
+import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
 
 export const metadata: Metadata = {
   title: 'Corporate Event Venue Near Heathrow | Free Parking | The Anchor',
@@ -52,20 +52,16 @@ export default function CorporateEventsPage() {
         }
         actions={
           <>
-            <BookTableButton
-              source="corporate_events_hero"
-              variant="primary"
-              size="lg"
-              context="corporate_event"
-              fullWidth
-            >
-              Book Your Event
-            </BookTableButton>
-            <Link href={CONTACT.phoneHref}>
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="primary" size="lg" fullWidth>
+              <Link href="#enquiry">
+                Book Your Event
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href={CONTACT.phoneHref}>
                 Discuss Your Event
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -240,32 +236,32 @@ export default function CorporateEventsPage() {
                 We will create a tailored proposal that works for your budget.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-                  <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
+                <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
+                  <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
                     Call to Discuss
-                  </Button>
-                </Link>
-                <Link
-                  href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20a%20quote%20for%20a%20corporate%20event"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto"
-                >
-                  <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" fullWidth className="sm:w-auto">
+                  <Link
+                    href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20a%20quote%20for%20a%20corporate%20event"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto"
+                  >
                     WhatsApp Us
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </CardBody></Card>
             <div className="mt-12 text-center">
               <p className="text-lg text-ink-muted mb-6">
                 Want to see our full catering options? From working lunches to celebration dinners.
               </p>
-              <Link href="/food-menu" className="inline-block">
-                <Button variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg">
+                <Link href="/food-menu" className="inline-block">
                   View Catering Menu
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -291,7 +287,7 @@ export default function CorporateEventsPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">Climate Control</strong><p className="text-sm">Air conditioning and heating for year-round comfort</p></li>
                   <li><strong className="text-ink-strong">Natural Light</strong><p className="text-sm">Bright spaces with blackout options available</p></li>
-                  <li><strong className="text-ink-strong">Full Accessibility</strong><p className="text-sm">Wheelchair access and accessible facilities</p></li>
+                  <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step-free bar and dining area; garden ramp on request; no accessible toilet</p></li>
                   <li><strong className="text-ink-strong">Private Facilities</strong><p className="text-sm">Dedicated restrooms for your event</p></li>
                 </ul>
               </CardBody></Card>
@@ -381,7 +377,24 @@ export default function CorporateEventsPage() {
         </Container>
       </div>
 
-      <PrivateBookingSection eventType="Corporate Event" />
+      <section className="bg-canvas py-section-y">
+        <Container>
+          <VenueTourTeaser
+            source="corporate_events"
+            initialSpaceId="dining-room"
+            eventType="Corporate Event"
+            title="See how your meeting or event could fit"
+            copy="Explore the private dining room, garden, main bar and parking layout before you request a quote."
+            ctaLabel="Explore the venue"
+          />
+        </Container>
+      </section>
+
+      <PrivateBookingSection
+        eventType="Corporate Event"
+        initialSpaceId="dining-room"
+        showVenueTourLink={false}
+      />
 
       <InternalLinkingSection
         title="Also Explore"
@@ -438,31 +451,28 @@ export default function CorporateEventsPage() {
         copy="Professional venue • Strategic location • No hidden fees"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-          <BookTableButton
-            source="corporate_events_cta"
-            size="lg"
-            variant="primary"
-            context="corporate_event"
-          >
-            Book Your Event
-          </BookTableButton>
+          <Button asChild size="lg" variant="primary">
+            <Link href="#enquiry">
+              Book Your Event
+            </Link>
+          </Button>
           <PhoneButton phone={CONTACT.phone} source="corporate-events_cta" size="lg" variant="outline">
             Call: {CONTACT.phone}
           </PhoneButton>
-          <Link
-            href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20corporate%20events"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button size="lg" variant="outline">
+          <Button asChild size="lg" variant="outline">
+            <Link
+              href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20corporate%20events"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               WhatsApp Us
-            </Button>
-          </Link>
-          <Link href="mailto:manager@the-anchor.pub?subject=Corporate Event Enquiry">
-            <Button size="lg" variant="outline">
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="mailto:manager@the-anchor.pub?subject=Corporate Event Enquiry">
               Email Enquiry
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
         <p className="mt-8 text-lg text-anchor-cream-text/85">
           <strong>Quick Response Guaranteed.</strong> We understand business moves fast. We will respond to your enquiry within 2 hours during business hours.

@@ -114,6 +114,7 @@ const defaultItems: NavigationItem[] = [
     href: '/find-us',
     items: [
       { label: 'Find Us', href: '/find-us', description: 'Address, map, phone number and travel info' },
+      { label: 'Our Venue', href: '/our-pub', description: 'Explore the pub, garden, facilities and venue photos' },
       { label: 'Near Heathrow', href: '/near-heathrow', description: 'Why we work well for airport stops' },
       { label: 'From Terminal 5', href: '/near-heathrow/terminal-5', description: 'Seven minutes from Terminal 5' },
       { label: 'Plane Spotting', href: '/plane-spotting-heathrow', description: 'Watch aircraft from the beer garden' },

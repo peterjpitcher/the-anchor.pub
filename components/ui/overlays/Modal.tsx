@@ -26,7 +26,7 @@ const modalVariants = cva(
 )
 
 const overlayVariants = cva(
-  'fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto',
+  'fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto',
   {
     variants: {
       backdrop: {

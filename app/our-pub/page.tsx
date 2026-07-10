@@ -10,6 +10,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
+import { InteractiveVenueFloorPlan } from '@/components/private-hire/venue-tour'
 
 export const revalidate = 86400
 
@@ -96,6 +97,30 @@ export default function OurPubPage() {
         title="Take a Look Around"
         lead="A proper village pub since 1751, here's what's waiting for you"
       />
+
+      {/* Interactive venue map */}
+      <section className="border-b border-line bg-canvas py-section-y">
+        <Container size="xl">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-8 text-center">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-text">
+                Interactive venue map
+              </p>
+              <h2 className="font-display text-h2 text-ink-strong">
+                Explore The Anchor
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-ink-muted">
+                Select a hire space or open a photo marker to look around the pub.
+              </p>
+            </div>
+
+            <InteractiveVenueFloorPlan
+              source="our_pub_page"
+              initialSpaceId="dining-room"
+            />
+          </div>
+        </Container>
+      </section>
 
       {/* Intro */}
       <section className="py-section-y bg-surface border-b border-line">

@@ -8,7 +8,7 @@ import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReaso
 import type { BaseComponentProps } from '../types'
 
 const drawerVariants = cva(
-  'fixed z-50 bg-surface text-ink border-line shadow-xl flex flex-col overflow-hidden',
+  'fixed z-[90] bg-surface text-ink border-line shadow-xl flex flex-col overflow-hidden',
   {
     variants: {
       side: {
@@ -164,7 +164,7 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
         {/* Backdrop */}
         <div
           className={cn(
-            'fixed inset-0 z-50 bg-black/50 transition-opacity duration-300',
+            'fixed inset-0 z-[90] bg-black/50 transition-opacity duration-300',
             open ? 'opacity-100' : 'pointer-events-none opacity-0'
           )}
           onClick={closeOnBackdropClick ? () => requestClose('backdrop_click') : undefined}
