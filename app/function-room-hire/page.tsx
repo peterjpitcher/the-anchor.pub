@@ -179,7 +179,7 @@ export default function FunctionRoomHirePage() {
               </p>
               <ul className="space-y-2 text-ink-muted">
                 <li>Natural daylight with dimming options</li>
-                <li>Climate controlled</li>
+                <li>Heated</li>
                 <li>Direct access to facilities</li>
                 <li>TVs and sound system available</li>
               </ul>
@@ -331,7 +331,7 @@ export default function FunctionRoomHirePage() {
                   <li>Background music system</li>
                   <li>Microphone for speeches</li>
                   <li>Basic lighting control</li>
-                  <li>Heating and air conditioning</li>
+                  <li>Heating</li>
                   <li>Cloakroom facilities</li>
                 </ul>
               </CardBody></Card>

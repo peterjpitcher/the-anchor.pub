@@ -93,7 +93,7 @@ Full disclosure: this is the sales pitch section. But we'll keep it factual.
 
 ### The spaces
 
-- **The Dining Room**, seats up to 26 or up to 50 standing. Works for formal dinners, presentations, parties, or meetings. Natural daylight, climate control, AV equipment available.
+- **The Dining Room**, seats up to 26 or up to 50 standing. Works for formal dinners, presentations, parties, or meetings. Natural daylight, heating, AV equipment available.
 - **Exclusive Venue Hire**, up to 119 seated or 300 standing. Take over the entire pub, including the bar area and outdoor terrace. Multiple spaces to use for different parts of your event.
 
 ### Layout options
@@ -116,7 +116,7 @@ Every function room booking at The Anchor includes:
 - Background music system
 - Microphone for speeches
 - Basic lighting control
-- Heating and air conditioning
+- Heating
 - Pre-event planning consultation
 - Dedicated event coordinator
 - Setup and breakdown
@@ -181,7 +181,7 @@ Most hotel venues near Heathrow charge £15--35 per vehicle per day for parking.
 
 ### What's included in function room hire at The Anchor?
 
-Everything you need: the space configured to your requirements, tables, chairs, linen, a microphone for speeches, background music, climate control, a dedicated event coordinator, and full setup and cleanup. Catering is quoted separately and starts from current approved price for buffet packages.
+Everything you need: the space configured to your requirements, tables, chairs, linen, a microphone for speeches, background music, a dedicated event coordinator, and full setup and cleanup. Catering is quoted separately and starts from current approved price for buffet packages.
 
 ### Is a pub function room suitable for corporate events?
 

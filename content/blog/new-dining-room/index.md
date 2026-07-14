@@ -115,7 +115,7 @@ The conservatory holds a special place in the history of The Anchor and the hear
 
 ### Enhanced Dining Experience
 - **Increased capacity** for busy periods
-- **Climate control** for year-round comfort
+- **Heating** for comfort in the cooler months
 - **Natural lighting** creating ambiance
 - **Garden access** through French doors
 - **Flexible space** for various occasions
