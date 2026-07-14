@@ -248,6 +248,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Accessible toilet *(verified NO)*
 - EV charging *(no "coming soon" claims)*
 - Baby changing facilities *(verified NO)*
+- Air conditioning / climate control *(verified NO — heating only)*
 
 ### Accessibility
 
@@ -461,6 +462,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
+- **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only — describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
 - **Wedding receptions**, we host smaller private events only, not wedding receptions.
 
 ## 15. Maintaining This Document

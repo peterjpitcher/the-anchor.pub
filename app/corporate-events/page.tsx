@@ -285,7 +285,7 @@ export default function CorporateEventsPage() {
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Comfort &amp; Convenience</h3>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong className="text-ink-strong">Climate Control</strong><p className="text-sm">Air conditioning and heating for year-round comfort</p></li>
+                  <li><strong className="text-ink-strong">Heating</strong><p className="text-sm">A warm, comfortable space through the cooler months</p></li>
                   <li><strong className="text-ink-strong">Natural Light</strong><p className="text-sm">Bright spaces with blackout options available</p></li>
                   <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step-free bar and dining area; garden ramp on request; no accessible toilet</p></li>
                   <li><strong className="text-ink-strong">Private Facilities</strong><p className="text-sm">Dedicated restrooms for your event</p></li>
