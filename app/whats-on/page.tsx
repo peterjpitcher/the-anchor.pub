@@ -21,16 +21,16 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: "Pub Events Near Heathrow | Quiz, Bingo, Karaoke & Live Music",
-  description: "Pub events near Heathrow this week, Music Bingo, pub quiz, cash bingo, karaoke & live music at The Anchor, Stanwell Moor. Free parking, from £3.",
+  title: "Pub Quiz, Bingo & Live Music Near Heathrow",
+  description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free. Free parking, 7 mins from T5.",
   openGraph: {
-    title: "Pub Events & Entertainment Near Heathrow | The Anchor",
-    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
+    title: "Pub Quiz, Bingo & Live Music Near Heathrow | The Anchor",
+    description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free, with free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "Pub Events & Entertainment Near Heathrow | The Anchor",
-    description: "Weekly pub entertainment: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
+    title: "Pub Quiz, Bingo & Live Music Near Heathrow | The Anchor",
+    description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free, with free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {

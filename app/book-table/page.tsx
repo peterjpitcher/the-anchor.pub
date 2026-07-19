@@ -43,10 +43,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = `Reserve your table at The Anchor, Stanwell Moor, quick confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
-    title: 'Book a Table for Pub Food | The Anchor Stanwell Moor',
+    title: 'Book a Table Near Heathrow T5',
     description,
     openGraph: {
-        title: 'Book a Table for Pub Food | The Anchor Stanwell Moor',
+        title: 'Book a Table | The Anchor Stanwell Moor, Near Heathrow T5',
       description,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
     },

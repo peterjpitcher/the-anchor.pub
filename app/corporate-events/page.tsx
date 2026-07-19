@@ -15,8 +15,8 @@ import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychol
 import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
 
 export const metadata: Metadata = {
-  title: 'Corporate Event Venue Near Heathrow | Free Parking | The Anchor',
-  description: 'Corporate event venue near Heathrow at The Anchor. Private rooms, team building space, and free parking just 7 minutes from Terminal 5. Pub setting, not a hotel.',
+  title: 'Corporate Events Near Heathrow Terminal 5',
+  description: 'Corporate events 7 minutes from Heathrow Terminal 5. Private rooms, AV, VAT invoicing and free parking at The Anchor. A pub setting, not a hotel function room.',
   openGraph: {
     title: 'Corporate Event Venue Near Heathrow | The Anchor',
     description: 'Corporate event venue near Heathrow with private rooms, team building space, and free parking 7 minutes from Terminal 5.',

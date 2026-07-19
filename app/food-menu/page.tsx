@@ -121,15 +121,15 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
-    title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
+    title: 'Pub Food Menu & Prices Near Heathrow T5',
     description,
     openGraph: {
-      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
+      title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     },
     twitter: getTwitterMetadata({
-      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
+      title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
