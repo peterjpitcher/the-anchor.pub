@@ -83,6 +83,10 @@ function getSundayLunchFaqs() {
     {
       question: 'Is there parking, and is it free?',
       answer: 'Yes. 20 free on-site spaces with CCTV, no meters and no time limit while you dine. The pub is also outside the ULEZ zone.'
+    },
+    {
+      question: 'Can we fit in a Sunday roast before a flight from Heathrow?',
+      answer: 'Usually, yes. We are around seven minutes from Terminal 5 and last tables are seated at 5:30pm. A pre-flight roast works well with around 90 minutes to spare; allow longer if you need to return a hire car or expect a busy security queue.'
     }
   ] as const
 }

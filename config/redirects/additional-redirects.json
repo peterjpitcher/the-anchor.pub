@@ -635,5 +635,15 @@
     "source": "/blog/private-room-hire-cost-near-heathrow",
     "destination": "/private-hire",
     "permanent": true
+  },
+  {
+    "source": "/blog/where-to-eat-near-heathrow-2026",
+    "destination": "/restaurants-near-heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/blog/best-sunday-roast-near-heathrow",
+    "destination": "/sunday-roast",
+    "permanent": true
   }
 ]

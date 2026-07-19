@@ -623,6 +623,14 @@ export default async function RestaurantsNearHeathrowPage() {
             answer: "We are 7 minutes from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Taxis, Uber, Bolt and the 441, 442 and 555 buses all run from the airport."
           },
           {
+            question: "Can I leave Heathrow during a layover to eat?",
+            answer: "Yes, if you have enough time. Arriving international passengers need to clear immigration, leave, eat, return and pass security again, so allow at least 2.5 to 3 hours. If you are already landside or connecting domestically, around 90 minutes is enough to reach us, have a proper meal and get back."
+          },
+          {
+            question: "Is it worth leaving the airport to eat?",
+            answer: "Usually, yes. Airport and hotel dining tends to cost more, and hotel car parks often charge non-guests. A local pub meal 7 minutes away, with free parking and room to relax, is better value and a calmer way to spend the time."
+          },
+          {
             question: "Are you a good alternative to restaurants near Heathrow Terminal 5?",
             answer: "Yes. If you are searching for restaurants near Heathrow Terminal 5, we are only 7 minutes away with free parking, a proper sit-down meal and room to relax. You can book a table or simply walk in."
           },
