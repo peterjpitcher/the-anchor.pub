@@ -36,13 +36,13 @@ A few bits of planning will save you stress on the return.
 
 ## Option 1: A Proper Meal at a Local Pub (1.5-2 Hours)
 
-Terminal dining is expensive, uninspiring, and oddly stressful. A proper pub meal seven minutes from the airport is none of those things.
+Terminal dining is expensive, uninspiring, and oddly stressful. A [proper restaurant meal seven minutes from the airport](/restaurants-near-heathrow) is none of those things.
 
-[The Anchor](https://www.the-anchor.pub) in Stanwell Moor sits just off the A3044, roughly seven minutes from Terminal 5 by taxi. The fare is usually £12-15 each way. It's a proper village pub, bottled beers and draught lagers, a solid food menu with mains from around £10, and a beer garden that happens to sit directly under the Heathrow flight path.
+[The Anchor](https://www.the-anchor.pub) in Stanwell Moor sits just off the A3044, roughly seven minutes from Terminal 5 by taxi. The fare is usually £12-15 each way. It's a proper village pub, bottled beers and draught lagers, a solid [food menu](/food-menu) with live prices and daily specials, and a beer garden that happens to sit directly under the Heathrow flight path.
 
-Order a roast on Sunday, a burger on a Wednesday, or whatever the daily specials board offers. The point is: you're eating real food, at normal prices, in an actual pub. Compare that to paying £25 for a terminal burger and a flat lemonade.
+Order a [Sunday roast](/sunday-roast) on Sunday, a burger on a Wednesday, or whatever the daily specials board offers. The point is: you're eating real food, at normal prices, in an actual pub. Compare that to paying £25 for a terminal burger and a flat lemonade.
 
-If you've hired a car, parking is free. You can comfortably eat, have a drink, and be back at the airport within two hours, with time to spare.
+If you've hired a car, parking is free. You can comfortably eat, have a drink, and be back at the airport within two hours, with time to spare. If you'd rather have a table waiting, [book ahead](/book-table) before you leave the terminal.
 
 ## Option 2: Windsor Castle (2-3 Hours)
 
@@ -62,7 +62,7 @@ The Anchor's beer garden is positioned directly beneath the final approach path 
 
 Bring a flight tracking app like Flightradar24 and you can identify every aircraft as it comes in. Kids absolutely love it. Adults pretend they don't, but they do.
 
-This is the lowest-effort option on the list, a taxi there, a pint or two in the garden, and a taxi back. Total time: under two hours including travel. Perfect if you're too tired for sightseeing but too restless to sit in the terminal.
+This is the lowest-effort option on the list, a taxi there, a pint or two in [the beer garden](/beer-garden), and a taxi back. Total time: under two hours including travel. Perfect if you're too tired for sightseeing but too restless to sit in the terminal.
 
 ## Option 4: Staines-upon-Thames Riverside Walk (2-3 Hours)
 
