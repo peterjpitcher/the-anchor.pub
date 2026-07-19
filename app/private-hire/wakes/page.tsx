@@ -109,9 +109,10 @@ export default async function WakesPage() {
                 image="/images/page-headers/private-hire/private-hire.jpg"
                 crumb="Wakes"
                 title="Wakes, Funeral Receptions & Celebrations of Life"
-                lead="A peaceful, respectful venue for gathering with family and friends"
+                lead="A peaceful, respectful venue for gathering with family and friends. There is no room hire charge for wakes, a private entrance area is available, and we can arrange everything at 24 to 48 hours' notice."
                 badges={
                     <>
+                        <Badge variant="sand">No Room Hire Charge</Badge>
                         <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
                         <Badge variant="sand">Compassionate Team</Badge>
                         <Badge variant="sand">{fromPrice ? `Funeral Tea from ${fromPrice}pp` : 'Current catering packages'}</Badge>
@@ -174,7 +175,7 @@ export default async function WakesPage() {
                     <Card accent className="max-w-2xl mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
-                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities.</p>
+                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities. There is no room hire charge for wakes, and a private entrance area is available.</p>
                         </CardBody>
                     </Card>
                 </Container>
@@ -351,7 +352,7 @@ export default async function WakesPage() {
                     <div className="max-w-3xl mx-auto">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">Near Slough Crematorium</h2>
                         <p className="text-ink-muted mb-4">
-                            Slough Cemetery and Crematorium on Stoke Road is around 12 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
+                            Slough Cemetery and Crematorium on Stoke Road is around 15 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
                         </p>
                         <p className="text-ink-muted mb-4">
                             We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
@@ -399,7 +400,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "How much does a wake reception cost?",
-                        answer: "Our buffet packages start from a competitive per-head rate. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. There are no hidden charges, the price includes room hire, staff, and parking."
+                        answer: "There is no room hire charge for wakes. You pay only for the catering you choose and anything from the bar. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. Staff and parking are included."
                     },
                     {
                         question: "Can we bring our own flowers or photos?",
@@ -407,7 +408,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "Is there parking for funeral cars?",
-                        answer: "Yes, we have 20 free parking spaces including space for funeral cars and larger vehicles. We're just 5 minutes from South West Middlesex Crematorium."
+                        answer: "Yes, we have 20 free parking spaces including space for funeral cars and larger vehicles. We're around 10 minutes from South West Middlesex Crematorium."
                     },
                     {
                         question: "Do you cater for large groups?",
