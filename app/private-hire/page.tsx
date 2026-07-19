@@ -12,6 +12,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
@@ -65,9 +66,9 @@ const occasions = [
         description: 'Festive get-togethers for work teams, friends and family, with buffet packages to match.',
     },
     {
-        href: '/private-party-venue',
+        href: '/private-hire/milestone-birthdays',
         icon: Cake,
-        title: 'Private parties',
+        title: 'Birthdays and private parties',
         description: 'Milestone birthdays, anniversaries and reunions with food, drinks and space to celebrate.',
     },
     {
@@ -101,11 +102,51 @@ const whyPoints = [
     },
 ]
 
+const roomSetups = [
+    { title: 'Banquet', capacity: 'Dining room seats 26', desc: 'A seated dining set-up for meals and celebrations' },
+    { title: 'Boardroom', capacity: 'Dining room seats 26', desc: 'A meeting-table layout for discussions and presentations' },
+    { title: 'Cocktail reception', capacity: 'Main area up to 150 standing', desc: 'A standing reception for larger gatherings' },
+    { title: 'Theatre', capacity: 'Confirmed on enquiry', desc: 'Forward-facing seating for presentations' },
+    { title: 'Classroom', capacity: 'Confirmed on enquiry', desc: 'Tables and chairs for training or workshops' },
+    { title: 'Cabaret', capacity: 'Confirmed on enquiry', desc: 'Social seating arranged around a presentation area' },
+]
+
+const privateHireFaqs = [
+    {
+        question: 'How much does it cost to hire a function room at The Anchor?',
+        answer: 'Room hire is discussed on enquiry and depends on your date, space and catering. A £250 deposit secures a private hire booking, and buffet prices are confirmed from the live menu when you enquire.',
+    },
+    {
+        question: 'Do you have a private room for hire near Heathrow?',
+        answer: 'Yes. Our dining room seats 26 or holds up to 50 standing, with French doors onto the beer garden. The main area suits bigger groups, and exclusive hire of the whole pub covers up to 119 seated or 300 standing.',
+    },
+    {
+        question: 'How many guests can you host?',
+        answer: 'Private hire works from 10 guests up to 150, with full-venue exclusive hire for larger events by enquiry. Tell us your numbers and we will suggest the right space.',
+    },
+    {
+        question: 'Can you host corporate events and meetings?',
+        answer: 'Yes. We host meetings, training days and team meals with AV equipment, free WiFi and VAT invoicing, around 7 minutes from Heathrow Terminal 5 and 2 minutes from M25 Junction 14.',
+    },
+    {
+        question: 'Is there parking for private hire guests?',
+        answer: 'Around 20 free spaces on site, with no charge while you visit. Ask in advance if anyone needs to leave a car overnight.',
+    },
+    {
+        question: 'Can you arrange a wake at short notice?',
+        answer: 'Yes. We accept wake bookings at 24 to 48 hours’ notice where we can, with a private entrance area and no room hire charge for wakes.',
+    },
+    {
+        question: 'What kinds of events do you host?',
+        answer: 'Wakes and memorials, christenings, engagement parties, baby showers, gender reveals, retirement parties, milestone birthdays, summer garden parties, corporate events, Christmas parties and private parties.',
+    },
+]
+
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages)
     const buffetPhrase = fromPrice ? `Buffets from ${fromPrice}pp` : 'Current buffet packages'
-    const desc = `Function room hire near Heathrow and Staines with no room-hire fee and free parking. Wakes, parties, meetings and family events for ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, and a dedicated events team.`
+    const desc = `Function room hire near Heathrow and Staines with free parking and flexible private spaces. Wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, and a dedicated events team.`
 
     const title = 'Function Room Hire Near Heathrow & Staines | The Anchor'
 
@@ -316,6 +357,26 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 </Container>
             </section>
 
+            {/* Room set-ups */}
+            <section className="bg-surface py-section-y">
+                <Container>
+                    <SectionHeading
+                        kicker="Layouts"
+                        title="Configure the space your way"
+                        lead="Six ways to set the room, from a seated dinner to a standing reception. We arrange the layout before you arrive."
+                    />
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {roomSetups.map(setup => (
+                            <div key={setup.title} className="rounded-md border border-line bg-canvas p-5">
+                                <h3 className="font-semibold text-ink-strong">{setup.title}</h3>
+                                <p className="mt-1 text-sm font-semibold text-accent-text">{setup.capacity}</p>
+                                <p className="mt-2 text-sm text-ink-muted">{setup.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </Container>
+            </section>
+
             <CtaBand
                 title="Let's plan your event"
                 copy="Tell us your date, guest count and the kind of day you have in mind, and we'll build a quote for you."
@@ -411,7 +472,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 title="Also explore"
                 links={[
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
-                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests; larger events by enquiry' },
+                    { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'A quiet private room with no room hire charge and short-notice bookings' },
                     { href: '/private-hire/anniversary-parties', title: 'Anniversary Parties', description: 'Milestone celebrations with food, drinks and free parking' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                     { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },
@@ -425,6 +486,19 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 title="Plan a private room booking near Heathrow"
                 intro="Compare room sizes, catering, meeting options and routes from Staines, Stanwell Moor and Heathrow before you enquire."
             />
+
+            {/* FAQs */}
+            <section className="bg-surface py-section-y">
+                <Container>
+                    <div className="mx-auto max-w-4xl">
+                        <SectionHeading
+                            kicker="Questions"
+                            title="Private hire FAQs"
+                        />
+                        <FAQAccordionWithSchema faqs={privateHireFaqs} />
+                    </div>
+                </Container>
+            </section>
 
             {/* Accessibility */}
             <section className="bg-canvas py-section-y">

@@ -512,7 +512,7 @@ export default function M25Junction14PubPage() {
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'Hot meals and quick bites for motorway drivers' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Draught beers, low alcohol options and takeaway coffee' },
-          { href: '/private-party-venue', title: 'Private Hire', description: 'Book meeting space for team briefings or reunions' },
+          { href: '/private-hire', title: 'Private Hire', description: 'Book meeting space for team briefings or reunions' },
           { href: '/near-heathrow', title: 'Near Heathrow Hub', description: 'Travel tips for every airport terminal' }
         ]}
         className="py-section-y"

@@ -595,5 +595,45 @@
     "source": "/blog/christmas-party-venues-heathrow-2026",
     "destination": "/christmas-parties",
     "permanent": true
+  },
+  {
+    "source": "/function-room-hire",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/private-party-venue",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/function-room-hire-near-heathrow-staines",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/function-room-hire-heathrow-pricing",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/function-room-hire-heathrow-comparison",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/private-party-venues-near-heathrow",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/pub-with-private-room-near-heathrow",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/private-room-hire-cost-near-heathrow",
+    "destination": "/private-hire",
+    "permanent": true
   }
 ]

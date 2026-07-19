@@ -543,7 +543,7 @@ export default function Terminal4Page() {
         links={[
           { href: '/find-us', title: 'Directions & Parking', description: 'Step-by-step travel guide from every terminal' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Order sunshine-ready cocktails in the beer garden' },
-          { href: '/private-party-venue', title: 'Private Party Venue', description: 'Book celebrations for SkyTeam crew or family events' },
+          { href: '/private-hire', title: 'Private Hire Venue', description: 'Book celebrations for SkyTeam crew or family events' },
           { href: '/near-heathrow/terminal-2', title: 'Terminal 2 Guide', description: 'See our tips for other Heathrow terminals' }
         ]}
         className="py-section-y"

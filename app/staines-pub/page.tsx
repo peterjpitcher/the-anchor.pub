@@ -204,7 +204,7 @@ export default function StainesPubPage() {
                   Planning a birthday, wake or team night? Our private dining room is a popular option for
                   groups searching for pubs with private rooms in Staines, with free parking and tailored menus.
                 </p>
-                <Link href="/function-room-hire" className="text-accent-text font-semibold hover:underline transition">
+                <Link href="/private-hire" className="text-accent-text font-semibold hover:underline transition">
                   Explore function room hire →
                 </Link>
               </CardBody>
@@ -216,7 +216,7 @@ export default function StainesPubPage() {
                   We host private events near Staines with flexible layouts, buffet or three-course menus,
                   and dedicated support for speeches and playlists.
                 </p>
-                <Link href="/private-party-venue" className="text-accent-text font-semibold hover:underline transition">
+                <Link href="/private-hire/milestone-birthdays" className="text-accent-text font-semibold hover:underline transition">
                   View private party options →
                 </Link>
               </CardBody>
