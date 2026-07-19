@@ -167,7 +167,7 @@ We're not a faceless function room. We're a village pub that happens to be reall
 **Get in touch:**
 
 - Browse our [Christmas party packages](/christmas-parties)
-- See our [corporate Christmas party options](/corporate-christmas-parties)
+- See our [corporate Christmas party options](/christmas-parties)
 - Call us on **01753 682707**
 - Email **manager@the-anchor.pub**
 

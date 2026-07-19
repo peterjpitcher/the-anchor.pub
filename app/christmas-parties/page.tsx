@@ -9,9 +9,9 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { christmasPartiesSchema } from '@/lib/christmas-parties-schema'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Christmas Parties Near Heathrow | 2026 | The Anchor' },
+  title: { absolute: 'Christmas Party Venue Near Heathrow & Staines | The Anchor' },
   description:
-    'Plan a Christmas party near Heathrow, or request a sit-down Christmas lunch or dinner. Festive meals are pre-order only. Free parking. Enquire for live pricing.',
+    'Christmas party venue near Heathrow and Staines. Sit-down festive meals by pre-order, buffets and full venue hire for up to 200. Free parking, £10pp deposit.',
   openGraph: {
     title: 'Christmas Parties & Festive Dining Near Heathrow | The Anchor',
     description:
@@ -41,8 +41,8 @@ export default function ChristmasPartiesPage() {
         image="/images/page-headers/christmas-parties/2026/hero-table.jpg"
         crumb="Christmas Parties"
         kicker="Christmas 2026"
-        title="Christmas parties and festive dining near Heathrow"
-        lead="Plan a Christmas party, or request a sit-down Christmas lunch or dinner by pre-order. We are around seven minutes from Heathrow Terminal 5, traffic dependent, with free parking and flexible space for groups."
+        title="Christmas parties near Heathrow, Staines and Surrey"
+        lead="A village pub Christmas party venue seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces. Bookings run 1 November to 23 December, from small team dinners to 60 seated or 200 standing, secured with a £10 per person deposit."
         actions={
           <>
             <ChristmasHeroPrimaryCta />
@@ -55,14 +55,19 @@ export default function ChristmasPartiesPage() {
         title="More Christmas Party Planning"
         links={[
           {
-            href: '/blog/cheap-christmas-parties-heathrow',
-            title: 'Cheap Christmas Parties Near Heathrow',
-            description: 'Practical ideas for keeping Christmas party costs sensible without losing the atmosphere.',
+            href: '/blog/office-christmas-party-planning-guide',
+            title: 'Office Christmas Party Planning Guide',
+            description: 'A step-by-step guide for organisers, from setting the date to collecting pre-orders.',
           },
           {
-            href: '/corporate-christmas-parties',
-            title: 'Corporate Christmas Parties',
-            description: 'Work Christmas party options for Heathrow, Staines and Surrey teams.',
+            href: '/blog/christmas-party-food-ideas',
+            title: 'Christmas Party Food Ideas',
+            description: 'Sit-down, buffet and sharing options to suit your group and budget.',
+          },
+          {
+            href: '/private-hire',
+            title: 'Private Hire at The Anchor',
+            description: 'Function room and venue hire for celebrations all year round.',
           },
         ]}
       />

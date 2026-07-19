@@ -174,7 +174,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/private-party-venue', lastModified: DATES.seoOverhaul },
     { path: '/function-room-hire', lastModified: DATES.seoOverhaul },
     { path: '/corporate-events', lastModified: DATES.seoOverhaul },
-    { path: '/corporate-christmas-parties', lastModified: DATES.seoOverhaul },
     { path: '/christmas-parties', lastModified: DATES.jul2026 },
     { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },

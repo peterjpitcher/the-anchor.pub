@@ -580,5 +580,20 @@
     "source": "/hr",
     "destination": "/",
     "permanent": true
+  },
+  {
+    "source": "/corporate-christmas-parties",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/cheap-christmas-parties-heathrow",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-party-venues-heathrow-2026",
+    "destination": "/christmas-parties",
+    "permanent": true
   }
 ]
