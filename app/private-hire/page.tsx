@@ -148,7 +148,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const buffetPhrase = fromPrice ? `Buffets from ${fromPrice}pp` : 'Current buffet packages'
     const desc = `Function room hire near Heathrow and Staines with free parking and flexible private spaces. Wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, and a dedicated events team.`
 
-    const title = 'Function Room Hire Near Heathrow & Staines | The Anchor'
+    const title = 'Function Room Hire Near Heathrow & Staines'
 
     return {
         title,
