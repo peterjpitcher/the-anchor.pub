@@ -16,7 +16,7 @@ const PAGE_URL = 'https://www.the-anchor.pub/about/the-anchor-facts'
 const LAST_REVIEWED = '21 May 2026'
 
 export const metadata: Metadata = {
-  title: 'The Anchor Facts | Food, Hours, Private Hire and Events',
+  title: { absolute: 'The Anchor Facts | Food, Hours, Private Hire and Events' },
   description:
     'Factual source page for The Anchor in Stanwell Moor, including address, booking links, food, hours, parking, private hire, events and Heathrow distance.',
   alternates: {

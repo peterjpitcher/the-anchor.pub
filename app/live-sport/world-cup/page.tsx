@@ -36,7 +36,7 @@ const AREA_LINKS = [
 ]
 
 export const metadata: Metadata = {
-  title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
+  title: 'World Cup 2026 Fixtures & UK Kick-Off Times',
   description: `World Cup 2026 fixtures with UK kick-off times, showing status and table bookings. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking.`,
   openGraph: {
     title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',

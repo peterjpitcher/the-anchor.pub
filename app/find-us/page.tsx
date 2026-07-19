@@ -24,7 +24,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'The Anchor Directions | TW19 6AQ, Near Heathrow T5',
+  title: { absolute: 'The Anchor Directions | TW19 6AQ, Near Heathrow T5' },
   description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow T5 with free customer parking, taxi and bus details.',
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',

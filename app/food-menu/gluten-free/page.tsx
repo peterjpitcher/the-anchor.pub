@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Gluten-aware pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
 
   return {
-    title: 'Gluten-Free Pub Food Near Heathrow | The Anchor',
+    title: 'Gluten-Free Pub Food Near Heathrow',
     description,
     openGraph: {
       title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',
