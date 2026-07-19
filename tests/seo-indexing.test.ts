@@ -459,7 +459,7 @@ describe('orphan-page internal linking guards', () => {
     const christmasPage = fs.readFileSync(path.join(process.cwd(), 'app', 'christmas-parties', 'page.tsx'), 'utf8')
 
     expect(fishPage).toContain('/blog/fish-chips-guide')
-    expect(christmasPage).toContain('/blog/cheap-christmas-parties-heathrow')
+    expect(christmasPage).toContain('/blog/office-christmas-party-planning-guide')
   })
 })
 

@@ -16,8 +16,8 @@ describe('/christmas-parties booking journeys', () => {
     expect(heroSource).toContain("type ChristmasHeroMode = 'party' | 'meal'")
     expect(heroSource).toContain('Plan a Christmas party')
     expect(heroSource).toContain('Book lunch or dinner')
-    expect(pageSource).toContain('Christmas parties and festive dining near Heathrow')
-    expect(pageSource).toContain('sit-down Christmas lunch or dinner by pre-order')
+    expect(pageSource).toContain('Christmas parties near Heathrow, Staines and Surrey')
+    expect(pageSource).toContain('Sit-down festive meals by pre-order')
   })
 
   it('captures lunch and dinner with suitable machine-readable times', () => {
