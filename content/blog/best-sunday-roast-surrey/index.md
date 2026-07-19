@@ -1,6 +1,6 @@
 ---
-title: "Best Sunday Roast Pubs in Surrey (2026 Guide)"
-description: "Honest comparison of the best Sunday roast pubs across Surrey, real prices, booking info, parking, and what to expect. 7 pubs reviewed for 2026."
+title: "Best Sunday Roast in Surrey (2026): 7 Pubs Honestly Compared"
+description: "An honest 2026 comparison of 7 of Surrey's best Sunday roast pubs: quality, booking, parking and family-friendliness, from a Surrey pub team that cooks roasts every week."
 date: "2026-04-07"
 author: "Billy"
 keywords:
@@ -24,7 +24,7 @@ Surrey does Sunday roasts properly. Whether you're after a cooked-to-order roast
 
 We've pulled together seven of the best Sunday roast pubs across Surrey for 2026, covering everything from the villages near Heathrow to the Surrey Hills. Every pub listed here has been chosen for a reason: quality of the roast, value for money, atmosphere, or a combination of all three.
 
-> **Looking for Sunday roasts specifically near Heathrow?** See our dedicated [Sunday roast near Heathrow guide](/blog/best-sunday-roast-near-heathrow) for options within 15 minutes of the terminals.
+> **Looking for Sunday roasts specifically near Heathrow?** See our dedicated [Sunday roast near Heathrow guide](/sunday-roast) for options within 15 minutes of the terminals.
 
 ## Quick Comparison: Best Sunday Roasts in Surrey
 

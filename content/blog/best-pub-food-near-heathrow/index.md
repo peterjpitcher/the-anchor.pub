@@ -74,7 +74,7 @@ The [menu](/food-menu) covers proper British pub food without trying to be somet
 
 **Pizzas:** Full pizza menu available, good for sharing or a lighter option
 
-**Sunday roasts:** From £16, cooked to order, served Sundays 1pm-6pm, walk in or book ahead. See our [Sunday roast guide](/blog/best-sunday-roast-near-heathrow) for full details.
+**Sunday roasts:** From £16, cooked to order, served Sundays 1pm-6pm, walk in or book ahead. See our [Sunday roast guide](/sunday-roast) for full details.
 
 ### Why locals rate it
 
@@ -104,7 +104,7 @@ The Swan is a traditional Staines pub with a solid food reputation. It sits in t
 
 The menu is standard British pub fare done well. Expect fish and chips, pie of the day, steaks, burgers, and usually a couple of specials. Prices are reasonable for the area, most mains £14-22. The fish and chips is one of the more popular dishes. Steaks tend to be good if they're on the menu.
 
-The Sunday roast is decent, see our [Sunday roast guide](/blog/best-sunday-roast-near-heathrow) for comparison.
+The Sunday roast is decent, see our [Sunday roast guide](/sunday-roast) for comparison.
 
 ### What you need to know
 
