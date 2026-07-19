@@ -180,6 +180,7 @@ function formatMenuPrice(price: number | string | undefined): string {
 
   if (!Number.isFinite(numericPrice) || numericPrice <= 0) return ''
 
+  // Deliberately NO currency symbol (menu psychology, SSOT); schema paths use priceValue
   return numericPrice % 1 === 0
     ? String(numericPrice)
     : numericPrice.toFixed(2)

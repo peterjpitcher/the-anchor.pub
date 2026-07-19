@@ -108,7 +108,8 @@ function buildMenuJsonLd(menuItems: MenuPageItem[]) {
           offers: {
             '@type': 'Offer',
             priceCurrency: 'GBP',
-            price: item.price
+            // Schema requires a bare numeric string; item.price is the £-prefixed display label
+            price: item.priceValue > 0 ? item.priceValue.toFixed(2) : ''
           }
         }))
       }

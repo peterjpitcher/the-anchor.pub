@@ -346,7 +346,8 @@ export default async function FoodMenuPage() {
                       description: pageItem.description,
                       offers: {
                         '@type': 'Offer',
-                        price: pageItem.price,
+                        // Schema requires a bare numeric string; pageItem.price is the £-prefixed display label
+                        price: pageItem.priceValue > 0 ? pageItem.priceValue.toFixed(2) : '',
                         priceCurrency: 'GBP',
                         availability: 'https://schema.org/InStock'
                       },

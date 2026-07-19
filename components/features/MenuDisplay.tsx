@@ -19,6 +19,7 @@ function normalizeMenuPrice(price: string): string {
   return price.replace(/\u00A3/g, '').trim()
 }
 
+// Deliberately NO currency symbol on display prices (menu psychology, SSOT)
 function formatMenuPrice(price: string): string {
   const displayPrice = normalizeMenuPrice(price)
   return /\d/.test(displayPrice) ? `(${displayPrice})` : displayPrice
