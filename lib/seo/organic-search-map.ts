@@ -232,16 +232,16 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     successEvents: ['private_hire_enquiry_started', 'call_clicked'],
     supportingRoutes: [
       {
-        href: '/function-room-hire',
-        label: 'Function room hire',
-        description: 'Room bookings for celebrations, wakes and company events.',
-        anchor: 'function room hire near Heathrow'
+        href: '/private-hire/wakes',
+        label: 'Wakes and memorials',
+        description: 'A quiet private room near local crematoriums, with no room hire charge.',
+        anchor: 'wake venue near Heathrow'
       },
       {
-        href: '/private-party-venue',
-        label: 'Party venue',
-        description: 'Birthday parties, milestone celebrations and late licence options.',
-        anchor: 'party venue near Staines'
+        href: '/private-hire/milestone-birthdays',
+        label: 'Birthday parties',
+        description: 'Milestone birthdays and celebrations with food, drinks and free parking.',
+        anchor: 'birthday party venue near Staines'
       },
       {
         href: '/corporate-events',

@@ -339,7 +339,7 @@ export default function FelthamPubPage() {
                   Competitive rates - let's discuss your needs. Private hire for 10+ to 150 guests, with larger events by enquiry.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/private-party-venue">
+                  <Link href="/private-hire">
                     <Button
                       variant="primary"
                       size="md"

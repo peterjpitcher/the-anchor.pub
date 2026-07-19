@@ -58,7 +58,7 @@ At The Anchor, the character comes built in. We've been a village pub since 1751
 
 ## Cost: Where the Numbers Actually Land
 
-This is where the difference between pub and hotel becomes stark. We've written a [full pricing breakdown for function room hire near Heathrow](/blog/function-room-hire-heathrow-pricing) and a [detailed guide to private room hire costs](/blog/private-room-hire-cost-near-heathrow), but here's the summary.
+This is where the difference between pub and hotel becomes stark. We've written a [full pricing breakdown for function room hire near Heathrow](/private-hire) and a [detailed guide to private room hire costs](/private-hire), but here's the summary.
 
 ### What a 30-guest evening celebration costs
 

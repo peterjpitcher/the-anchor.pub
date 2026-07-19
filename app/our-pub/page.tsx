@@ -241,14 +241,14 @@ export default function OurPubPage() {
               <p className="text-ink leading-relaxed">
                 The dining room doubles as our{' '}
                 <Link
-                  href="/function-room-hire"
+                  href="/private-hire"
                   className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   private hire space
                 </Link>{' '}
                 too. Book it for{' '}
                 <Link
-                  href="/private-party-venue"
+                  href="/private-hire/milestone-birthdays"
                   className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   birthday parties

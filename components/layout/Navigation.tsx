@@ -89,8 +89,7 @@ const defaultItems: NavigationItem[] = [
     href: '/private-hire',
     items: [
       { label: 'Check Availability', href: '/private-hire#enquiry', description: 'Tell us your date, guest count and plans' },
-      { label: 'Function Room Hire', href: '/function-room-hire', description: 'Room hire details, layouts and capacity' },
-      { label: 'Private Parties', href: '/private-party-venue', description: 'Birthdays and relaxed celebrations' },
+      { label: 'Birthdays & Private Parties', href: '/private-hire/milestone-birthdays', description: 'Birthdays and relaxed celebrations' },
       { label: 'Wakes & Memorials', href: '/private-hire/wakes', description: 'Respectful gatherings with simple catering' },
       { label: 'Christenings', href: '/private-hire/christenings', description: 'Post-service meals and family receptions' },
       { label: 'Corporate Events', href: '/corporate-events', description: 'Team meals, away days and work socials' },
