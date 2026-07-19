@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Pizza near Heathrow at The Anchor. Current dishes and prices from the latest kitchen menu.'
 
   return {
-    title: 'Pizza Near Heathrow | The Anchor',
+    title: 'Pizza Near Heathrow',
     description,
     openGraph: {
       title: 'Pizza Near Heathrow | The Anchor',

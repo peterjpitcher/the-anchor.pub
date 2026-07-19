@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Pub with Pool Table & Darts | The Anchor, Stanwell Moor',
+    title: 'Pub with Pool Table & Darts',
     description: 'Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1/game), dartboard (free), proper pub games with a pint. 7 mins from Heathrow, free parking.',
     openGraph: {
         title: 'Pub with Pool Table & Darts Near You | The Anchor',

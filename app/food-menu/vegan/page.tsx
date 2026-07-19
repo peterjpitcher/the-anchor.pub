@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Vegan pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
 
   return {
-    title: 'Vegan Pub Food Near Heathrow | The Anchor',
+    title: 'Vegan Pub Food Near Heathrow',
     description,
     openGraph: {
       title: 'Vegan Pub Food | The Anchor Near Heathrow',

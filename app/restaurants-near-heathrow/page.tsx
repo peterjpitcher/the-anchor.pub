@@ -18,7 +18,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
-  title: 'Restaurants Near Heathrow Airport | The Anchor, 7 Mins T5',
+  title: 'Restaurants Near Heathrow Airport, 7 Min T5',
   description: 'Looking for restaurants near Heathrow? The Anchor is a proper British pub 7 minutes from Terminal 5, with free parking, home-cooked food and Sunday roasts. Walk in or book.',
   openGraph: {
     title: 'Restaurants Near Heathrow Airport | The Anchor',

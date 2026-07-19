@@ -32,7 +32,7 @@ export function generateMetadata(): Metadata {
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
   return {
-    title: 'Stanwell Moor Pub | The Anchor, Horton Road',
+    title: 'Stanwell Moor Pub',
     description: `Your local pub in Stanwell Moor near Staines and Heathrow. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights and free parking.`,
     openGraph: {
       title: 'Stanwell Moor Pub, Beer Garden, Food and Free Parking',

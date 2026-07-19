@@ -27,7 +27,7 @@ const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postc
 const HALLOWEEN_DYNAMIC: SeasonalDynamicFields = {}
 
 export const metadata: Metadata = {
-  title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor Stanwell Moor',
+  title: 'Halloween Fancy-Dress Disco Near Heathrow',
   description:
     'Halloween at The Anchor near Heathrow: a fancy-dress disco with a different theme every year. A proper local Halloween night with music, drinks and a full bar. Free parking. Check this year’s details, book a table or walk in.',
   alternates: { canonical: './' },
