@@ -127,7 +127,7 @@ const FESTIVE_PRICING = [
   {
     tier: 'Sit-down Christmas lunch or dinner',
     price: 'Current pricing',
-    includes: 'A pre-order festive menu for groups of six or more. Ask us to confirm the current menu, available sittings and pricing for your date.'
+    includes: 'A pre-order festive menu for groups of six or more. Ask us to confirm the current menu, available sittings and pricing for your date. A £10 per person deposit secures the booking.'
   },
   {
     tier: 'Private Christmas party',
@@ -145,6 +145,18 @@ const FAQ_ITEMS = [
   {
     question: "How much does a Christmas party cost?",
     answer: "Festive menu and buffet prices are confirmed from the current approved source. Room hire and setup options vary by date and party size. Call us on 01753 682707 for a quote tailored to your group."
+  },
+  {
+    question: "Do you take a deposit for Christmas bookings?",
+    answer: "Yes. All Christmas menu bookings are secured with a £10 per person deposit, whatever the size of your group. The deposit is non-refundable and comes off your final bill."
+  },
+  {
+    question: "What dates can we book a Christmas party for?",
+    answer: "Christmas party and festive meal bookings run from 1 November to 23 December 2026. Popular Friday and Saturday dates go first, so enquire early for the best choice."
+  },
+  {
+    question: "How can we keep the cost of our Christmas party down?",
+    answer: "Pick a midweek date, share buffet platters rather than adding extra courses, agree a bar-tab limit up front, and book early for the best choice of sittings. Free parking outside the ULEZ also saves your guests money compared with venues closer to London."
   },
   {
     question: "Are there seasonal offers?",
@@ -1047,7 +1059,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </div>
             <div className="text-center">
               <p className="text-sm text-ink-muted mb-4">
-                Already organising? See our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-accent-text hover:text-accent-text transition">dedicated corporate Christmas parties page</Link> for detailed packages.
+                Organising for your workplace? Ask about VAT invoicing, per-person pre-orders and one named contact for your whole booking. Popular with Heathrow airport teams and business parks, Staines offices and Surrey companies.
               </p>
             </div>
           </div>

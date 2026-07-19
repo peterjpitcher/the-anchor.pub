@@ -105,7 +105,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Private Party Venue', href: '/private-party-venue' },
       { label: 'Function Room Hire', href: '/function-room-hire' },
       { label: 'Corporate Events', href: '/corporate-events' },
-      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
       { label: 'Christmas Parties', href: '/christmas-parties' },
       { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
       { label: 'Christenings', href: '/private-hire/christenings' },

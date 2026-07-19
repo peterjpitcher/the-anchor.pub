@@ -160,7 +160,7 @@ Here's what you get when you book with us:
 - **Proper VAT invoices** for your expenses claim
 - **A dedicated contact** from first enquiry to the night itself
 
-Whether you're planning an intimate team dinner for 12 or a full [corporate christmas party](/corporate-christmas-parties) for 60, we'll make it straightforward. That's what we do.
+Whether you're planning an intimate team dinner for 12 or a full [corporate christmas party](/christmas-parties) for 60, we'll make it straightforward. That's what we do.
 
 ---
 
@@ -174,7 +174,7 @@ Surrey TW19 6AQ
 Call us: 01753 682707
 Email: manager@the-anchor.pub
 
-[View our Christmas party packages](/christmas-parties) | [Corporate bookings](/corporate-christmas-parties)
+[View our Christmas party packages](/christmas-parties) | [Corporate bookings](/christmas-parties)
 
 ---
 
