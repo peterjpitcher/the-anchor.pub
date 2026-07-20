@@ -162,14 +162,14 @@ export default async function WorldCupPage() {
           <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl border border-line bg-surface p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent-text">World Cup Sweep</p>
-              <h2 className="mt-2 text-h4 text-ink-strong">Sweep Draw Results Are Live</h2>
+              <h2 className="mt-2 text-h4 text-ink-strong">Sweep Winners Are Confirmed</h2>
               <p className="mt-2 max-w-2xl text-sm text-ink-muted">
-                All 48 teams are drawn and assigned. Find your name, check the prize pot, and follow your team through the tournament.
+                Spain took the title, Tom won the £100 top prize, and all 13 prize winners are now listed.
               </p>
             </div>
             <Link href="/live-sport/world-cup/sweepstake" className="w-full shrink-0 md:w-auto">
               <Button variant="primary" size="lg" className="w-full md:w-auto">
-                View Sweep Draw
+                View Sweep Winners
               </Button>
             </Link>
           </div>

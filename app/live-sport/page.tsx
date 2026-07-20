@@ -226,14 +226,14 @@ export default async function LiveSportPage() {
                         <CardBody className="p-8 text-center">
                             <h2 className="text-xl text-accent-text">World Cup 2026</h2>
                             <p className="mt-3 text-sm text-ink-muted">
-                                Full fixtures with UK kick-off times, showing status, table bookings, and the pub sweep draw.
+                                Full fixtures with UK kick-off times, showing status, table bookings, and all pub sweep winners.
                             </p>
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
                                 <Button asChild variant="primary">
                                     <Link href="/live-sport/world-cup">World Cup 2026 Fixtures &amp; Bookings →</Link>
                                 </Button>
                                 <Button asChild variant="outline">
-                                    <Link href="/live-sport/world-cup/sweepstake">Sweep Draw Results</Link>
+                                    <Link href="/live-sport/world-cup/sweepstake">Sweep Winners</Link>
                                 </Button>
                             </div>
                         </CardBody>
