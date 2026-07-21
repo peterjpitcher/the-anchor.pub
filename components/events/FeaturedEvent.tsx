@@ -91,8 +91,13 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
   return (
     <Card accent className={cn('overflow-hidden', className)}>
       <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr]">
-        {/* Poster: 16/10 full-width below lg, square 340px column at lg+ */}
-        <div className="relative aspect-[16/10] lg:aspect-square lg:h-full">
+        {/* Poster: event artwork is always 1:1, so keep it square and uncropped
+            at every breakpoint (full-width below lg, 340px in its column at
+            lg+). self-center is load-bearing: without it the grid's default
+            vertical stretch overrides the ratio, stretching the box to the row
+            height and computing width from it, which crops the art and
+            overflows the 340px track into the card body. */}
+        <div className="relative aspect-square lg:self-center">
           <Image
             src={getEventImage(event)}
             alt={event.image_alt_text || event.name}
@@ -102,7 +107,7 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
           />
         </div>
 
-        <CardBody className="flex flex-col gap-4">
+        <CardBody className="flex flex-col gap-4 lg:gap-3">
           {/* Badge row */}
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="gold" dot>
@@ -136,9 +141,11 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
             </p>
           )}
 
-          {/* Description */}
+          {/* Description: clamped at lg+ so long copy can't push the card
+              taller than the square poster (full text lives on the detail
+              page). */}
           {event.description && (
-            <p className="text-ink-muted">{event.description}</p>
+            <p className="text-ink-muted lg:line-clamp-3">{event.description}</p>
           )}
 
           {/* Meta row */}
@@ -149,16 +156,17 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
             {doorTime && <MetaCell label="Doors" value={doorTime} />}
           </div>
 
-          {/* Actions */}
+          {/* Actions: md buttons so both fit one row at lg+, keeping the
+              content column no taller than the 340px square poster. */}
           <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
             <EventBookingButton
               event={event}
-              size="lg"
+              size="md"
               fullWidth={false}
               source="featured_event"
               className="whitespace-normal sm:w-auto"
             />
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="outline" size="md">
               <a href={detailHref}>View details</a>
             </Button>
           </div>
