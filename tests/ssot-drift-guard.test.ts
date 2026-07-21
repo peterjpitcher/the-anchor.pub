@@ -157,11 +157,164 @@ describe('SSOT drift guard — private hire policy', () => {
     expect(mdPlain).toContain('no projector')
   })
 
-  it('keeps sit-down Christmas meals pre-order only', () => {
-    expect(ssot.private_hire.christmas_sit_down_meals).toContain('pre-order only')
-    expect(ssot.private_hire.christmas_2026_service_window).toContain('2026-11-01 to 2026-12-23')
-    expect(mdPlain).toContain('Christmas lunch and dinner bookings are available by pre-order only')
-    expect(mdPlain).toContain('1 November to 23 December 2026')
+  it('keeps Christmas pre-order rules course-conditional, never blanket', () => {
+    // 1 course is pre-book WITHOUT pre-order (owner-confirmed 2026-07-21), so the
+    // old blanket "pre-order only" claim must not come back.
+    expect(ssot.private_hire.christmas_sit_down_meals).toContain(
+      '1 course is pre-book only, no pre-order',
+    )
+    expect(ssot.private_hire.christmas_sit_down_meals).toContain(
+      '2 course and 3 course are pre-book and pre-order',
+    )
+    expect(mdPlain).not.toContain(
+      'Christmas lunch and dinner bookings are available by pre-order only',
+    )
+  })
+})
+
+describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => {
+  const xmas = ssot.christmas_2026
+
+  it('service window is 10 Nov to 20 Dec 2026 inclusive in both files', () => {
+    expect(xmas.service_window.start).toBe('2026-11-10')
+    expect(xmas.service_window.end).toBe('2026-12-20')
+    expect(xmas.service_window.end_inclusive).toBe(true)
+    expect(xmas.service_window.display).toBe('10 November to 20 December 2026')
+    expect(ssot.private_hire.christmas_2026_service_window).toContain(
+      '2026-11-10 to 2026-12-20',
+    )
+    expect(mdPlain).toContain('10 November to 20 December 2026')
+    // The superseded window may only survive as a banned claim, never as an offer.
+    expect(mdPlain).toContain(
+      'The previously published 1 November to 23 December window is superseded',
+    )
+  })
+
+  it('minimum party size is 6 and minimum notice is 24 hours', () => {
+    expect(xmas.booking_rules.min_party_size).toBe(6)
+    expect(xmas.booking_rules.min_notice_hours).toBe(24)
+    expect(xmas.booking_rules.same_day_bookings).toBe(false)
+    expect(mdPlain).toContain('Minimum party size: 6 guests.')
+    expect(mdPlain).toContain('Minimum notice: 24 hours.')
+  })
+
+  it('pre-order is required for 2 and 3 course only', () => {
+    expect(xmas.booking_rules.pre_order_required_by_course).toEqual({
+      one_course: false,
+      two_course: true,
+      three_course: true,
+    })
+    expect(xmas.booking_rules.pre_book_required_by_course).toEqual({
+      one_course: true,
+      two_course: true,
+      three_course: true,
+    })
+  })
+
+  it('deposit is £10pp on every Christmas booking regardless of party size', () => {
+    expect(xmas.deposit.per_person_gbp).toBe(10)
+    expect(xmas.deposit.applies_regardless_of_party_size).toBe(true)
+    expect(xmas.deposit.taken_at_booking).toBe(true)
+    expect(xmas.deposit.refundable).toBe(false)
+    expect(mdPlain).toContain(
+      '£10 per person on every Christmas booking, regardless of party size.',
+    )
+  })
+
+  it('general deposit thresholds are 9-or-fewer free, 10+ paid, 20+ private hire', () => {
+    expect(mdPlain).toContain('9 guests or fewer: No deposit')
+    expect(mdPlain).toContain('10 or more guests: £10 per person')
+    expect(mdPlain).toContain(
+      'More than 20 guests: This is not a table booking, it is private hire',
+    )
+    expect(mdPlain).toContain(
+      'manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707',
+    )
+  })
+
+  it('there is no kids 2-course or 3-course tier', () => {
+    expect(xmas.tiers.one_course.kids).toBe(true)
+    expect(xmas.tiers.two_course.kids).toBe(false)
+    expect(xmas.tiers.three_course.kids).toBe(false)
+    expect(xmas.tiers.no_kids_multi_course).toContain(
+      'NO kids 2 course and NO kids 3 course',
+    )
+    expect(mdPlain).toContain('There is no kids 2 course or 3 course.')
+  })
+
+  it('festive buffet minimum is 30 guests everywhere', () => {
+    expect(xmas.buffets.status).toBe('ACTIVE')
+    expect(xmas.buffets.min_guests).toBe(30)
+    expect(ssot.private_hire.christmas_buffets).toBe('Available for 30+ guests')
+    for (const pkg of ssot.private_hire.catering_packages.christmas) {
+      if (pkg.style === 'sit-down') continue
+      expect(pkg.min_guests).toBe(30)
+    }
+    expect(mdPlain).toContain('Minimum 30 guests, everywhere, no exceptions.')
+  })
+
+  it('the sit-down course tiers are the three-tier structure at 6 guests minimum', () => {
+    const sitDown = ssot.private_hire.catering_packages.christmas.filter(
+      (p: { style?: string }) => p.style === 'sit-down',
+    )
+    expect(sitDown.map((p: { name: string }) => p.name)).toEqual([
+      'Christmas Dinner (1 course)',
+      'Christmas Dinner (2 course)',
+      'Christmas Dinner (3 course)',
+    ])
+    for (const tier of sitDown) {
+      expect(tier.min_guests).toBe(6)
+      expect(tier.price_per_head_gbp).toBe('LIVE_FROM_DB')
+    }
+    // The retired weekday/weekend two-price split must not come back.
+    const names = ssot.private_hire.catering_packages.christmas
+      .map((p: { name: string }) => p.name)
+      .join(' ')
+    expect(names).not.toContain('Festive Menu (weekday)')
+    expect(names).not.toContain('Festive Menu (weekend)')
+  })
+
+  it('menu dishes are not finalised and no dish may be named', () => {
+    expect(xmas.menu_status).toBe('NOT_FINALISED')
+    expect(xmas.menu_wording).toBe('menu released closer to the time')
+    expect(mdPlain).toContain('menu released closer to the time')
+  })
+
+  it('inclusions and trimmings are pinned', () => {
+    expect(xmas.included.adults).toContain('prosecco')
+    expect(xmas.included.adults).toContain('orange juice')
+    expect(xmas.included.children).toContain('Fruit Shoot')
+    expect(xmas.trimmings).toEqual([
+      'Pigs in blankets',
+      'Stuffing',
+      'Brussels sprouts',
+    ])
+  })
+
+  it('Christmas prices are live-sourced, never hardcoded in the shipped shape', () => {
+    expect(xmas.price_source).toBe('LIVE_FROM_DB')
+    // The owner-confirmed figures are provenance only. They live behind an
+    // underscore key so the customer-facing walker never picks them up.
+    expect(Object.keys(xmas)).toContain('_price_provenance_DO_NOT_PUBLISH')
+    expect(custBlob).not.toContain('33.95')
+    expect(custBlob).not.toContain('39.95')
+  })
+})
+
+describe('SSOT drift guard, allergen fallback wording', () => {
+  const FALLBACK = 'See menu or contact us for allergen information'
+
+  it('uses the approved fallback string in both files', () => {
+    expect(ssot.food.allergen_display_rule.fallback_string).toBe(FALLBACK)
+    expect(ssot.christmas_2026.allergen_fallback).toBe(FALLBACK)
+    expect(mdPlain).toContain(FALLBACK)
+  })
+
+  it('bans "no allergens" when allergen data is missing', () => {
+    expect(ssot.food.allergen_display_rule.rule).toContain(
+      "Never render 'no allergens'",
+    )
+    expect(mdPlain).toContain('never render "no allergens"')
   })
 })
 
@@ -170,8 +323,9 @@ describe('SSOT drift guard — pricing policy (no hardcoded food prices)', () =>
     const ph = ssot.private_hire
     for (const key of [
       'christmas_menus_from_gbp',
-      'christmas_menus_weekday_gbp',
-      'christmas_menus_weekend_gbp',
+      'christmas_one_course_gbp',
+      'christmas_two_course_gbp',
+      'christmas_three_course_gbp',
       'catering_buffet_from_gbp',
       'catering_sitdown_from_gbp',
     ]) {

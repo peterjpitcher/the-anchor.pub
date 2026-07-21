@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Container } from '@/components/ui/layout/Container'
@@ -27,28 +27,107 @@ const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
 export type EnquiryMode = 'party' | 'meal'
 export type MealService = 'lunch' | 'dinner'
 
+/** Which course tier the enquirer wants. 'undecided' is a legitimate answer. */
+export type CourseTier = 'undecided' | 'one_course' | 'two_course' | 'three_course'
+
+export type ChristmasTierId = 'one_course' | 'two_course' | 'three_course'
+
+/** A single live dish. Prices are symbol-free, exactly as the menu API supplies them. */
+export interface ChristmasDishView {
+  id: string
+  name: string
+  description: string
+  price: string
+  allergens: string[]
+  allergenStatus: 'known' | 'unknown'
+  allergenNotice?: string
+}
+
+export interface ChristmasTierView {
+  id: ChristmasTierId
+  /** Customer-facing tier name, for example "2 course". */
+  name: string
+  courseCount: 1 | 2 | 3
+  /** True when every guest must choose their dishes in advance. */
+  preOrderRequired: boolean
+  /** True only where a child portion and child price actually exist. */
+  kidsTierAvailable: boolean
+  /** Lowest live adult price for the tier, symbol-free. Empty when nothing is priced yet. */
+  priceFrom: string
+  /** Lowest live kids price, symbol-free. Only ever set where a kids tier exists. */
+  kidsPriceFrom: string
+  /** True when the two prices differ between Tue-Thu and Fri-Sat. */
+  dayRateVaries: boolean
+  items: ChristmasDishView[]
+}
+
+export interface ChristmasMenuSectionView {
+  id: string
+  title: string
+  description: string
+  items: ChristmasDishView[]
+}
+
+export interface ChristmasMenuView {
+  tiers: ChristmasTierView[]
+  /** Live sections that are not one of the three course tiers. */
+  extraSections: ChristmasMenuSectionView[]
+  /** True when at least one live dish came back from the management system. */
+  hasLiveDishes: boolean
+  /** True when the menu call failed, rather than simply returning nothing yet. */
+  isUnavailable: boolean
+}
+
+export interface ChristmasSeasonView {
+  state: 'upcoming' | 'active' | 'ended'
+  /** For example "10 November to 20 December 2026". */
+  windowLabel: string
+  /** Earliest selectable enquiry date, already carrying the 24 hour notice floor. */
+  minEnquiryDate: string
+  /** Latest selectable enquiry date, the last day of the service window. */
+  maxEnquiryDate: string
+  /** False once no date inside the window can still be booked with notice. */
+  isBookable: boolean
+}
+
+export interface ChristmasFactsView {
+  minPartySize: number
+  minNoticeHours: number
+  depositPerPerson: number
+  buffetMinimumGuests: number
+  maxSeated: number
+  maxStanding: number
+  /** Above this, it stops being a table booking and becomes private hire. */
+  privateHireThreshold: number
+}
+
 interface EnquiryContext {
   mode: EnquiryMode
   service: MealService
+  courseTier: CourseTier
   source: string
-  extras: string[]
   perks: string[]
 }
 
 const DEFAULT_CONTEXT: EnquiryContext = {
   mode: 'party',
   service: 'lunch',
+  courseTier: 'undecided',
   source: 'page_default',
-  extras: [],
   perks: []
 }
 
 interface ChristmasPartiesPageClientProps {
   structuredData: Record<string, unknown>
+  menu: ChristmasMenuView
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
 }
 
 interface ChristmasEnquiryFormProps {
   context: EnquiryContext
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
   onContextChange: (updates: Partial<EnquiryContext>) => void
   onSuccess: () => void
 }
@@ -56,6 +135,8 @@ interface ChristmasEnquiryFormProps {
 interface ChristmasLightboxProps {
   suppressed: boolean
   context: EnquiryContext
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
   onContextChange: (updates: Partial<EnquiryContext>) => void
   onSubmitSuccess: () => void
 }
@@ -74,9 +155,6 @@ interface TimeOption {
   value: string
   label: string
 }
-
-const CHRISTMAS_BOOKING_START = '2026-11-01'
-const CHRISTMAS_BOOKING_END = '2026-12-23'
 
 const LUNCH_TIME_OPTIONS: TimeOption[] = [
   { value: '12:00', label: '12:00 pm' },
@@ -104,137 +182,151 @@ const PARTY_TIME_OPTIONS: TimeOption[] = [
   { value: '20:00', label: '8:00 pm' }
 ]
 
-const PARTY_FORMAT_OPTIONS = [
-  { value: 'not_sure', label: 'Not sure yet' },
-  { value: 'shared_party', label: 'Shared Christmas party night' },
-  { value: 'private_space', label: 'Private space' },
-  { value: 'festive_buffet', label: 'Festive buffet (26+)' },
-  { value: 'drinks_party', label: 'Drinks party' },
-  { value: 'entertainment', label: 'Entertainment package' }
-] as const
+/** Shared Christmas party nights were discontinued on 21 July 2026 and are not listed. */
+const PARTY_FORMAT_VALUES = ['not_sure', 'private_space', 'festive_buffet', 'drinks_party', 'entertainment'] as const
+
+const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
+  { value: 'undecided', label: 'Not decided yet' },
+  { value: 'one_course', label: '1 course' },
+  { value: 'two_course', label: '2 course' },
+  { value: 'three_course', label: '3 course' }
+]
+
+const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
 
 const getTimeOptions = (context: EnquiryContext): TimeOption[] => {
   if (context.mode === 'party') return PARTY_TIME_OPTIONS
   return context.service === 'lunch' ? LUNCH_TIME_OPTIONS : DINNER_TIME_OPTIONS
 }
 
-const PERK_OPTIONS = [
-  { id: 'current-pricing', label: 'Current pricing: Ask us to confirm live menu pricing and any seasonal options' },
-  { id: 'mid-week', label: 'Menu help: We can explain the current festive menu and pre-order process' }
-]
+const union = (array: string[], additions: string[]) => Array.from(new Set([...array, ...additions]))
 
-const FESTIVE_PRICING = [
-  {
-    tier: 'Sit-down Christmas lunch or dinner',
-    price: 'Current pricing',
-    includes: 'A pre-order festive menu for groups of six or more. Ask us to confirm the current menu, available sittings and pricing for your date. A £10 per person deposit secures the booking.'
-  },
-  {
-    tier: 'Private Christmas party',
-    price: 'Quote on enquiry',
-    includes: 'Private dining room or main bar layout, with space for DJs or live entertainment by arrangement. Ask us to confirm available finishing times for your date.'
-  },
-  {
-    tier: 'Festive buffets (26+ guests)',
-    price: 'Current pricing',
-    includes: 'Festive buffet tiers are priced from the current approved source. Great for standing receptions and team gatherings.'
+const markLocalStorage = (key: string, value: string) => {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.setItem(key, value)
+  } catch (error) {
+    console.warn('Unable to update localStorage', error)
   }
-]
+}
 
-const FAQ_ITEMS = [
-  {
-    question: "How much does a Christmas party cost?",
-    answer: "Festive menu and buffet prices are confirmed from the current approved source. Room hire and setup options vary by date and party size. Call us on 01753 682707 for a quote tailored to your group."
-  },
-  {
-    question: "Do you take a deposit for Christmas bookings?",
-    answer: "Yes. All Christmas menu bookings are secured with a £10 per person deposit, whatever the size of your group. The deposit is non-refundable and comes off your final bill."
-  },
-  {
-    question: "What dates can we book a Christmas party for?",
-    answer: "Christmas party and festive meal bookings run from 1 November to 23 December 2026. Popular Friday and Saturday dates go first, so enquire early for the best choice."
-  },
-  {
-    question: "How can we keep the cost of our Christmas party down?",
-    answer: "Pick a midweek date, share buffet platters rather than adding extra courses, agree a bar-tab limit up front, and book early for the best choice of sittings. Free parking outside the ULEZ also saves your guests money compared with venues closer to London."
-  },
-  {
-    question: "Are there seasonal offers?",
-    answer: "Ask about current seasonal options when you enquire. We will only confirm offers that are live for your booking date."
-  },
-  {
-    question: "Is there a minimum group size?",
-    answer: "Our festive menu is available for Christmas parties of six or more. Smaller groups are welcome to join us from the a la carte menu."
-  },
-  {
-    question: "Are you close to Heathrow and Staines?",
-    answer: "Yes, seven minutes from Heathrow Terminal 5, around eleven from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
-  },
-  {
-    question: "Can we bring our own food?",
-    answer: "Ask us before bringing any food or drink from outside. We will confirm what is possible for your booking."
-  },
-  {
-    question: "Can you run a bar tab for our group?",
-    answer: "Ask us about setting an agreed bar-tab limit and the billing options available for your booking."
-  },
-  {
-    question: "How do guests travel from Heathrow hotels or terminals?",
-    answer: "The pub is around seven minutes from Heathrow Terminal 5 and eleven minutes from Terminal 2, traffic dependent. Share our postcode, TW19 6AQ, so guests can check a live route and fare."
-  },
-  {
-    question: "What entertainment can we have?",
-    answer: "Ask about playlists, DJs, live music, quizzes or karaoke. We will confirm what is suitable for your date, room and finishing time."
-  },
-  {
-    question: "Is parking available?",
-    answer: "There are around 20 free spaces on site. Ask the team in advance if anyone needs to leave a vehicle overnight."
-  },
-  {
-    question: "How do you handle dietary requests?",
-    answer: "Vegetarian, vegan, gluten-free and other dietary requirements are happily accommodated. Include the details on your pre-order so the kitchen can prepare suitable alternatives."
-  },
-  {
-    question: "What is a shared Christmas party night?",
-    answer: "A shared party night gives your group its own table while other groups celebrate in the pub at the same time. Ask whether this format is available on your preferred date."
-  },
-  {
-    question: "Can we have exclusive use of the whole pub?",
-    answer: "Ask about exclusive hire when you enquire. Availability depends on your date, guest numbers, layout and planned entertainment. Christmas layouts can host up to 60 seated or 200 standing."
-  },
-  {
-    question: "Do you offer corporate Christmas party packages near Heathrow?",
-    answer: "We do. Ask about VAT invoicing and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
-  },
-  {
-    question: "Can we book a Christmas party for just drinks, no food?",
-    answer: "Ask about a drinks-only area and an agreed bar tab. We will confirm suitable spaces and any food options for your date."
-  },
-  {
-    question: "What time do Christmas parties start and finish?",
-    answer: "Choose a preferred time in the enquiry form. We will confirm the available start and finishing times for your date and party format."
-  },
-  {
-    question: "Is The Anchor outside the ULEZ zone?",
-    answer: "Yes, the pub is outside the ULEZ boundary and has around 20 free parking spaces on site. Guests should check their own route and current charging rules before travelling."
-  },
-  {
-    question: "Can we book a Christmas lunch instead of dinner?",
-    answer: "Yes. Sit-down Christmas lunches and dinners are available by pre-order only. Tell us your preferred date, sitting, guest count and dietary needs when you enquire."
-  },
-  {
-    question: "What's the difference between a Christmas do and a shared party night?",
-    answer: "A Christmas do can be any festive celebration. A shared party night is one format where your group has its own table while other parties use the venue too."
-  },
-  {
-    question: "Do you serve a festive menu outside of party bookings?",
-    answer: "The sit-down festive menu is available by pre-order for groups of six or more during the confirmed Christmas service window. Ask about other dining options for a smaller group."
-  },
-  {
-    question: "Where is The Anchor for Christmas party guests?",
-    answer: "We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around seven minutes from Heathrow Terminal 5 and eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site."
+const getLocalStorage = (key: string) => {
+  if (typeof window === 'undefined') return null
+  try {
+    return window.localStorage.getItem(key)
+  } catch (error) {
+    console.warn('Unable to read localStorage', error)
+    return null
   }
-]
+}
+
+function partyFormatOptions(buffetMinimumGuests: number): Array<{ value: string, label: string }> {
+  const labels: Record<(typeof PARTY_FORMAT_VALUES)[number], string> = {
+    not_sure: 'Not sure yet',
+    private_space: 'Private space',
+    festive_buffet: `Festive buffet (${buffetMinimumGuests}+)`,
+    drinks_party: 'Drinks party',
+    entertainment: 'Entertainment package'
+  }
+  return PARTY_FORMAT_VALUES.map(value => ({ value, label: labels[value] }))
+}
+
+function tierPreOrderLabel(tier: ChristmasTierView): string {
+  return tier.preOrderRequired ? 'Pre-book and pre-order' : 'Pre-book only, no pre-order'
+}
+
+function tierPriceLabel(tier: ChristmasTierView): string {
+  return tier.priceFrom ? `From £${tier.priceFrom} per person` : 'Confirmed on enquiry'
+}
+
+function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
+  return [
+    {
+      question: 'What dates can we book Christmas dinner for?',
+      answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. Popular Friday and Saturday dates go first, so enquire early.`
+    },
+    {
+      question: 'Is there a minimum group size for Christmas dinner?',
+      answer: `Yes. Every Christmas dinner booking is for ${facts.minPartySize} guests or more. Smaller groups are very welcome to join us from the regular menu instead.`
+    },
+    {
+      question: 'How far ahead do we need to book?',
+      answer: `At least ${facts.minNoticeHours} hours before your sitting. We cannot take same-day Christmas bookings, because the kitchen orders and preps to your numbers.`
+    },
+    {
+      question: 'Do you take a deposit for Christmas bookings?',
+      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It is non-refundable and comes off your final bill.`
+    },
+    {
+      question: 'Do we have to pre-order our meals?',
+      answer: 'It depends on the tier. The 1 course is pre-book only, so there is no pre-order at all. The 2 course and 3 course are pre-book and pre-order, so every guest chooses their dishes in advance and we confirm the deadline with your booking.'
+    },
+    {
+      question: 'Is there a kids 2 course or 3 course?',
+      answer: 'No. There is a kids 1 course only. No child portion and no child price exists for the 2 course or the 3 course. Children are welcome to order the adult 2 or 3 course, but it is charged at the adult price.'
+    },
+    {
+      question: 'What is included in the price?',
+      answer: 'Adults get a glass of prosecco on all three tiers, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
+    },
+    {
+      question: 'What is on the Christmas menu?',
+      answer: 'The full menu is released closer to the time. Prices come straight from our booking system, so what you see here is always the current price. Ask us and we will send the menu as soon as it is confirmed.'
+    },
+    {
+      question: 'How do you handle allergies and dietary requirements?',
+      answer: 'Tell us when you enquire and we will confirm what the kitchen can do for your date. Where allergen information is not shown against a dish, see the menu or contact us for allergen information rather than assuming a dish is free from anything.'
+    },
+    {
+      question: 'Do you do festive buffets?',
+      answer: `Yes. Festive buffets are available for ${facts.buffetMinimumGuests} guests or more, and they suit standing receptions, quiz nights and team gatherings. Ask us to confirm the current selection and service timings for your date.`
+    },
+    {
+      question: 'What if our group is bigger than 20?',
+      answer: `More than ${facts.privateHireThreshold} guests is not a table booking, it is private hire. Email manager@the-anchor.pub, call ${CONTACT_PHONE} or send a WhatsApp to the same number and we will plan it with you.`
+    },
+    {
+      question: 'How much does a Christmas party cost?',
+      answer: 'Christmas dinner is priced per person by tier and shown live on this page. Buffet and room setup costs vary by date and party size, so call us on 01753 682707 for a quote tailored to your group.'
+    },
+    {
+      question: 'How can we keep the cost of our Christmas party down?',
+      answer: 'Pick a Tuesday to Thursday date, choose the 1 course tier, agree a bar-tab limit up front and book early for the best choice of sittings. Free parking outside the ULEZ also saves your guests money compared with venues closer to London.'
+    },
+    {
+      question: 'Are you close to Heathrow and Staines?',
+      answer: "Yes, seven minutes from Heathrow Terminal 5, around eleven from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
+    },
+    {
+      question: 'Can we have exclusive use of the whole pub?',
+      answer: `Ask about exclusive hire when you enquire. Availability depends on your date, guest numbers, layout and planned entertainment. Christmas layouts can host up to ${facts.maxSeated} seated or ${facts.maxStanding} standing.`
+    },
+    {
+      question: 'What entertainment can we have?',
+      answer: 'Ask about playlists, DJs, live music, quizzes or karaoke. We will confirm what is suitable for your date, room and finishing time.'
+    },
+    {
+      question: 'Is parking available?',
+      answer: 'There are around 20 free spaces on site. Ask the team in advance if anyone needs to leave a vehicle overnight.'
+    },
+    {
+      question: 'Is The Anchor outside the ULEZ zone?',
+      answer: 'Yes, the pub is outside the ULEZ boundary and has around 20 free parking spaces on site. Guests should check their own route and current charging rules before travelling.'
+    },
+    {
+      question: 'Can we book a Christmas party for just drinks, no food?',
+      answer: 'Yes. Ask about a drinks-only area and an agreed bar tab. The 6-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks party.'
+    },
+    {
+      question: 'Do you offer corporate Christmas party packages near Heathrow?',
+      answer: "We do. Ask about VAT invoicing and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
+    },
+    {
+      question: 'Where is The Anchor for Christmas party guests?',
+      answer: "We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around seven minutes from Heathrow Terminal 5 and eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site."
+    }
+  ]
+}
 
 const WHY_BOOK_REASONS = [
   {
@@ -265,7 +357,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'briefcase' as const,
     title: 'Easy for Organisers',
-    description: 'A clear pre-order process and one contact for your booking. Ask about VAT invoicing when you enquire.'
+    description: 'One clear contact for your booking, one deposit rule and a written confirmation of what your group is getting. Ask about VAT invoicing when you enquire.'
   }
 ]
 
@@ -283,7 +375,7 @@ const PARTY_IDEAS = [
   {
     title: 'Karaoke Christmas Party',
     description: 'Ask about a karaoke setup, suitable space and available finishing time for your date.',
-    ideal: 'Office groups and friend circles who aren\'t afraid of the mic'
+    ideal: 'Office groups and friend circles who are not afraid of the mic'
   },
   {
     title: 'Live Band Christmas Celebration',
@@ -292,53 +384,28 @@ const PARTY_IDEAS = [
   }
 ]
 
-const union = (array: string[], additions: string[]) => Array.from(new Set([...array, ...additions]))
-
-const markLocalStorage = (key: string, value: string) => {
-  if (typeof window === 'undefined') return
-  try {
-    window.localStorage.setItem(key, value)
-  } catch (error) {
-    console.warn('Unable to update localStorage', error)
-  }
-}
-
-const getLocalStorage = (key: string) => {
-  if (typeof window === 'undefined') return null
-  try {
-    return window.localStorage.getItem(key)
-  } catch (error) {
-    console.warn('Unable to read localStorage', error)
-    return null
-  }
-}
-
-export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesPageClientProps) {
+export function ChristmasPartiesPageClient({ structuredData, menu, season, facts }: ChristmasPartiesPageClientProps) {
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [perkNotice, setPerkNotice] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const enquiryRef = useRef<HTMLDivElement | null>(null)
-  const perkTimeoutRef = useRef<number | null>(null)
+
+  const seasonEnded = season.state === 'ended' || !season.isBookable
+  const faqItems = useMemo(() => buildFaqItems(season, facts), [season, facts])
 
   useEffect(() => {
     setFormSubmitted(getLocalStorage(ENQUIRY_STORAGE_KEYS.submitted) === 'true')
-
-    return () => {
-      if (perkTimeoutRef.current) {
-        window.clearTimeout(perkTimeoutRef.current)
-      }
-    }
   }, [])
 
   useEffect(() => {
+    if (seasonEnded) return
     trackBannerEvent({
       id: 'christmas_seasonal_enquiry_banner',
       action: 'view',
       label: 'Seasonal Enquiry',
       campaign: 'christmas_2026'
     })
-  }, [])
+  }, [seasonEnded])
 
   const openDrawer = useCallback(() => {
     setDrawerOpen(true)
@@ -354,7 +421,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       mode,
       source,
       service: updates.service ?? prev.service,
-      extras: updates.extras ?? prev.extras,
+      courseTier: updates.courseTier ?? prev.courseTier,
       perks: updates.perks ?? prev.perks
     }))
     trackFormStart({
@@ -394,64 +461,62 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
     setFormSubmitted(true)
   }, [])
 
-  const handleAddCurrentPricing = () => {
-    trackBannerEvent({
-      id: 'christmas_seasonal_enquiry_banner',
-      action: 'click',
-      label: 'Seasonal Enquiry',
-      campaign: 'christmas_2026'
-    })
-    trackCtaClick({
-      id: 'christmas_current_pricing_cta',
-      label: 'Ask about current pricing',
-      location: 'seasonal_enquiry_banner',
-      destination: 'enquiry_form',
-      mode: 'meal'
-    })
-    const updatedPerks = union(context.perks, ['current-pricing'])
-    setContext(prev => ({ ...prev, perks: updatedPerks, mode: 'meal' }))
-    handleOpenForm('meal', { perks: ['current-pricing'] }, 'current_pricing_request')
-    setPerkNotice(true)
-    if (typeof window !== 'undefined') {
-      if (perkTimeoutRef.current) {
-        window.clearTimeout(perkTimeoutRef.current)
-      }
-      perkTimeoutRef.current = window.setTimeout(() => setPerkNotice(false), 4000)
-    }
+  // Out of season the page must not imply a bookable Christmas offer. It stays
+  // live because the URL is indexed and internally linked, but every dated
+  // claim, price and enquiry route is replaced with evergreen private hire.
+  if (seasonEnded) {
+    return (
+      <ChristmasSeasonEndedView season={season} structuredData={structuredData} />
+    )
   }
 
   return (
     <>
       <Section className="py-2 md:py-3 bg-red-700 text-white">
         <Container>
-          <div className="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6">
-            <div className="flex flex-col items-center gap-1 text-center">
-              <div className="flex items-center gap-2">
-                <Icon name="sparkles" className="h-5 w-5" />
-                <p className="text-sm md:text-base font-semibold">
-                  Ask us to confirm current festive menu pricing and any live seasonal options for your date.
-                </p>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="text-white text-sm underline decoration-dotted"
-              onClick={handleAddCurrentPricing}
-            >
-              See details
-            </button>
+          <div className="flex flex-col items-center justify-center gap-2 text-center md:flex-row md:gap-4">
+            <Icon name="sparkles" className="h-5 w-5 shrink-0" />
+            <p className="text-sm md:text-base font-semibold">
+              {season.state === 'active'
+                ? `Christmas dinner is being served now, ${season.windowLabel}. ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice, £${facts.depositPerPerson} per person deposit.`
+                : `Christmas dinner ${season.windowLabel}. ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice, £${facts.depositPerPerson} per person deposit.`}
+            </p>
           </div>
         </Container>
       </Section>
 
+      {/* AEO answer block: the whole offer in plain English, with every number an
+          answer engine or a hurried organiser needs, above the fold-ish. */}
       <Section background="transparent" spacing="md" className="bg-surface">
+        <Container>
+          <div className="mx-auto max-w-3xl space-y-5">
+            <h2 className="text-3xl font-bold text-ink-strong">Christmas at The Anchor, in short</h2>
+            <p className="text-base text-ink-muted">
+              We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
+              Heathrow Terminal 5. Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at
+              least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit that comes off
+              your bill. Choose 1, 2 or 3 courses. The 1 course is pre-book only. The 2 and 3 course are pre-book and
+              pre-order. Festive buffets are available for {facts.buffetMinimumGuests} guests or more. The full dish list
+              is released closer to the time.
+            </p>
+            <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySize} guests or more</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Notice</strong>At least {facts.minNoticeHours} hours, no same-day bookings</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person, every booking, any size</li>
+            </ul>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <div className="mx-auto max-w-5xl space-y-8">
             <div className="space-y-3 text-center">
               <Badge className="mx-auto w-fit bg-red-100 text-red-700">Christmas 2026 bookings</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">What would you like to book?</h2>
               <p className="mx-auto max-w-3xl text-base text-ink-muted">
-                Choose the option that best fits your plans. We will confirm availability, current pricing and the next steps when we reply.
+                Choose the option that fits your plans. We will confirm availability, prices and the next steps when we reply.
               </p>
             </div>
 
@@ -461,9 +526,10 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <Icon name="gift" className="h-8 w-8 text-red-600" />
                   <h3 className="mt-4 text-2xl font-semibold text-ink-strong">Plan a Christmas party</h3>
                   <p className="mt-3 text-sm text-ink-muted">
-                    Tell us about your group, preferred date and party style. Choose a shared night, private space, drinks party or festive buffet for 26 or more guests.
+                    Tell us about your group, preferred date and party style. Choose a private space, a drinks party, entertainment,
+                    or a festive buffet for {facts.buffetMinimumGuests} or more guests.
                   </p>
-                  <p className="mt-3 text-sm font-semibold text-accent-text">Christmas capacity: up to 60 seated or 200 standing.</p>
+                  <p className="mt-3 text-sm font-semibold text-accent-text">Christmas capacity: up to {facts.maxSeated} seated or {facts.maxStanding} standing.</p>
                   <Button
                     variant="primary"
                     size="lg"
@@ -489,12 +555,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <Icon name="utensils" className="h-8 w-8 text-red-600" />
                   <div className="mt-4 flex flex-wrap items-center gap-2">
                     <h3 className="text-2xl font-semibold text-ink-strong">Book Christmas lunch or dinner</h3>
-                    <Badge className="w-fit bg-amber-100 text-amber-900">Pre-order only</Badge>
+                    <Badge className="w-fit bg-amber-100 text-amber-900">{facts.minPartySize}+ guests</Badge>
                   </div>
                   <p className="mt-3 text-sm text-ink-muted">
-                    Book our sit-down festive menu for lunch or dinner. Every guest chooses their meal in advance, and we will confirm the pre-order deadline with your booking.
+                    Book the sit-down Christmas menu for lunch or dinner, at 1, 2 or 3 courses. The 1 course is pre-book only.
+                    The 2 and 3 course are pre-book and pre-order, so every guest chooses their dishes in advance.
                   </p>
-                  <p className="mt-3 text-sm font-semibold text-accent-text">Available for groups of six or more, with a £10 per person non-refundable deposit.</p>
+                  <p className="mt-3 text-sm font-semibold text-accent-text">
+                    {facts.minPartySize} guests or more, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
+                  </p>
                   <Button
                     variant="primary"
                     size="lg"
@@ -515,192 +584,50 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </div>
               </Card>
             </div>
-
-            <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2 lg:grid-cols-4" aria-label="Christmas booking facts">
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Free parking</strong>Around 20 spaces on site</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Near Heathrow</strong>Around seven minutes from T5</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Christmas meals</strong>Lunch and dinner, pre-order only</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Current pricing</strong>Confirmed when you enquire</li>
-            </ul>
           </div>
         </Container>
       </Section>
 
+      <ChristmasMenuAndPricing
+        menu={menu}
+        season={season}
+        facts={facts}
+        onOpenForm={handleOpenForm}
+      />
+
+      {/* Booking rules, deliberately its own high-contrast block: these are the
+          five facts every organiser is caught out by. */}
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <div className="mx-auto max-w-5xl space-y-4 text-center">
-            <h2 className="text-3xl font-bold text-ink-strong">2026 Christmas party packages &amp; pricing</h2>
-            <p className="text-base text-ink-muted">
-              Whether you're after a shared Christmas party night, a private festive meal or a buffet for the whole department, ask us to confirm the current per-person pricing and any room costs for your preferred date.
-            </p>
-          </div>
-          <div className="mt-8 space-y-3 md:hidden">
-            {FESTIVE_PRICING.map(row => (
-              <article key={row.tier} className="rounded-2xl border border-line bg-surface p-5 text-left">
-                <h3 className="font-semibold text-ink-strong">{row.tier}</h3>
-                <p className="mt-2 text-sm font-semibold text-accent-text">{row.price}</p>
-                <p className="mt-3 text-sm text-ink-muted">{row.includes}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-8 hidden overflow-hidden rounded-2xl border border-line bg-surface md:block">
-            <table className="w-full text-left text-sm text-ink-muted">
-              <thead className="bg-surface-sunk text-ink-strong text-xs uppercase tracking-wide">
-                <tr>
-                  <th className="px-4 py-3">Package</th>
-                  <th className="px-4 py-3">Pricing</th>
-                  <th className="px-4 py-3">What&apos;s included</th>
-                </tr>
-              </thead>
-              <tbody>
-                {FESTIVE_PRICING.map(row => (
-                  <tr key={row.tier} className="border-t border-line">
-                    <td className="px-4 py-4 font-semibold text-ink-strong">{row.tier}</td>
-                    <td className="px-4 py-4 text-accent-text font-semibold">{row.price}</td>
-                    <td className="px-4 py-4">{row.includes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-6 flex flex-col items-center gap-3 md:flex-row md:justify-center">
-            <Button
-              variant="primary"
-              size="md"
-              onClick={() => {
-                trackCtaClick({
-                  id: 'christmas_pricing_meal',
-                  label: 'Book Christmas lunch or dinner',
-                  location: 'pricing_table',
-                  destination: 'enquiry_form',
-                  mode: 'meal'
-                })
-                handleOpenForm('meal', {}, 'pricing_table')
-              }}
-              className="w-full md:w-auto"
-            >
-              Book lunch or dinner
-            </Button>
-            <Button
-              variant="outline"
-              size="md"
-              onClick={() => {
-                trackCtaClick({
-                  id: 'christmas_pricing_party',
-                  label: 'Plan a Christmas party',
-                  location: 'pricing_table',
-                  destination: 'enquiry_form',
-                  mode: 'party'
-                })
-                handleOpenForm('party', {}, 'pricing_table')
-              }}
-              className="w-full md:w-auto"
-            >
-              Plan a Christmas party
-            </Button>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="transparent" spacing="sm" className="bg-surface">
-        <Container>
-          <div className="mx-auto max-w-4xl space-y-4 text-center">
-            <h2 className="text-2xl font-bold text-ink-strong">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
-            <p className="text-base text-ink-muted">
-              The Anchor is around seven minutes from Heathrow Terminal 5, eleven minutes from Terminal 2 and eight minutes from Staines-upon-Thames, traffic dependent. Airport teams, local offices, families and friends can meet here without travelling into central London.
-            </p>
-            <p className="text-sm text-ink-muted">
-              Ask for current festive pricing when you enquire. We will confirm the menu, room setup and any live seasonal options before you book. The pub is outside the ULEZ zone and has around 20 free parking spaces on site.
-            </p>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="transparent" spacing="sm" className="bg-surface">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center space-y-5">
-            <h3 className="text-xl font-semibold text-ink-strong">Planning from a nearby town?</h3>
-            <p className="text-sm text-ink-muted">
-              We welcome festive groups from across Surrey and west London every December. Browse our local guides, then send your enquiry.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {[
-                { href: '/staines-pub', label: 'Christmas parties from Staines-upon-Thames' },
-                { href: '/ashford-pub', label: 'Ashford & Stanwell festive gatherings' },
-                { href: '/windsor-pub', label: 'Windsor Christmas party ideas' },
-                { href: '/heathrow-hotels-pub', label: 'Heathrow hotel teams & airport crews' }
-              ].map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink-muted transition hover:border-accent hover:text-accent-text"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="transparent" spacing="md" className="bg-surface-sunk">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl font-bold text-ink-strong">Christmas menu options at a glance</h2>
-            <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-              <table className="w-full text-left text-sm md:text-base text-ink-muted">
-                <tbody>
-                  <tr className="border-b border-line bg-surface-sunk">
-                    <th className="px-4 py-4 font-semibold text-ink-strong">Tue-Thu</th>
-                    <td className="px-4 py-4 font-bold text-accent-text">Current pricing</td>
-                  </tr>
-                  <tr className="border-b border-line">
-                    <th className="px-4 py-4 font-semibold text-ink-strong">Fri-Sat</th>
-                    <td className="px-4 py-4 font-bold text-accent-text">Quote on enquiry</td>
-                  </tr>
-                  <tr>
-                    <th className="px-4 py-4 font-semibold text-ink-strong">Children (under 12)</th>
-                    <td className="px-4 py-4">Ask for current children's options</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p className="px-4 py-4 text-sm text-ink-muted border-t border-line">
-                Our festive menu is available for parties of six or more. A £10 per person deposit applies to every Christmas menu booking, whatever your group size, and secures your booking. Deposits are non-refundable. Every guest must pre-order, and we will confirm the deadline and booking details with you. Flag dietary requirements when you order so we can prepare suitable alternatives.
-              </p>
-            </div>
-            <div className="flex flex-col md:flex-row justify-center gap-4">
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => {
-                  trackCtaClick({
-                    id: 'christmas_menu_meal',
-                    label: 'Book Christmas lunch or dinner',
-                    location: 'pricing_section',
-                    destination: 'enquiry_form',
-                    mode: 'meal'
-                  })
-                  handleOpenForm('meal', {}, 'pricing_section')
-                }}
-              >
-                Book lunch or dinner
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => {
-                  trackCtaClick({
-                    id: 'christmas_menu_party',
-                    label: 'Plan a Christmas party',
-                    location: 'pricing_section',
-                    destination: 'enquiry_form',
-                    mode: 'party'
-                  })
-                  handleOpenForm('party', {}, 'pricing_section')
-                }}
-              >
-                Plan a Christmas party
-              </Button>
+          <div className="mx-auto max-w-3xl space-y-6">
+            <h2 className="text-3xl font-bold text-ink-strong text-center">Christmas booking rules</h2>
+            <div className="rounded-2xl border-2 border-red-600/30 bg-surface p-6 md:p-8">
+              <ul className="space-y-4 text-sm md:text-base text-ink-muted">
+                <li className="flex items-start gap-3">
+                  <Icon name="users" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">{facts.minPartySize} guests or more.</strong> Every Christmas dinner booking needs at least {facts.minPartySize} guests. Smaller groups are welcome from the regular menu.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="clock" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">At least {facts.minNoticeHours} hours notice.</strong> We cannot take same-day Christmas bookings. The kitchen orders and preps to your numbers.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking, non-refundable, and deducted from your bill.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">1 course is pre-book only.</strong> No pre-order. Your group chooses at the table on the day.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">2 and 3 course are pre-book and pre-order.</strong> Every guest chooses their dishes in advance, and we confirm the pre-order deadline with your booking.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">More than {facts.privateHireThreshold} guests is private hire.</strong> Not a table booking. Email <a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted">{CONTACT_EMAIL}</a>, call or WhatsApp {CONTACT_PHONE} and we will plan it with you.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </Container>
@@ -710,19 +637,21 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         <Container>
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div className="space-y-6">
-              <Badge className="bg-red-100 text-red-700 w-fit">Pre-order only</Badge>
+              <Badge className="bg-red-100 text-red-700 w-fit">1, 2 or 3 courses</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Sit-down Christmas lunch or dinner</h2>
               <p className="text-base sm:text-lg text-ink-muted">
-                Choose a lunchtime or evening sitting for your group. When you enquire, we will confirm the current Christmas menu, live pricing and availability for your date.
+                Choose a lunchtime or evening sitting for your group. When you enquire, we will confirm availability for your
+                date, the price for your tier and what happens next.
               </p>
               <p className="text-sm text-accent-text font-semibold">
-                All sit-down Christmas lunches and dinners are pre-order only. The booking team will confirm the deadline for meal choices and dietary requirements.
+                The 1 course is pre-book only, with no pre-order. The 2 and 3 course are pre-book and pre-order, and we will
+                confirm the deadline for meal choices and dietary requirements.
               </p>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/page-headers/christmas-parties/2026/trimmings-board.jpg"
-                alt="Festive food prepared for a Christmas meal at The Anchor"
+                src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
+                alt="A table laid for Christmas dinner at The Anchor near Heathrow"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -734,19 +663,19 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">1. Choose your sitting</h3>
-                <p className="text-sm text-ink-muted">Tell us whether you prefer Christmas lunch or dinner, plus your date and group size.</p>
+                <p className="text-sm text-ink-muted">Tell us lunch or dinner, your date, your guest count and how many courses you want.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-5 space-y-2">
-                <h3 className="font-semibold text-ink-strong">2. Confirm the menu</h3>
-                <p className="text-sm text-ink-muted">We will send the current menu, pricing and the choices available for your booking.</p>
+                <h3 className="font-semibold text-ink-strong">2. Confirm and pay the deposit</h3>
+                <p className="text-sm text-ink-muted">We confirm the sitting and the price, then take the £{facts.depositPerPerson} per person deposit that comes off your bill.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">3. Send your pre-order</h3>
-                <p className="text-sm text-ink-muted">Return meal choices and dietary requirements by the deadline confirmed by the team.</p>
+                <p className="text-sm text-ink-muted">2 and 3 course only. Return meal choices and dietary requirements by the deadline the team confirms. The 1 course needs no pre-order.</p>
               </div>
             </Card>
           </Grid>
@@ -787,61 +716,30 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-ink-strong">Planning help</h2>
-            <p className="text-ink-muted">
-              Choose the extras that suit your celebration and include them in your Christmas party booking.
-            </p>
-          </div>
-
-          <Grid cols={2} gap="md" className="mt-10">
-            {PERK_OPTIONS.map(option => (
-              <Card key={option.id} className="h-full">
-                <div className="p-6 space-y-3">
-                  <Badge className="bg-red-600 text-white w-fit">Enquiry help</Badge>
-                  <h3 className="text-lg font-semibold text-ink-strong">{option.label.split(':')[0]}</h3>
-                  <p className="text-sm text-ink-muted">{option.label.split(':')[1]?.trim() || ''}</p>
-                </div>
-              </Card>
-            ))}
-          </Grid>
-
-          <div className="mt-12 flex justify-center">
-            <Button variant="primary" size="md" onClick={handleAddCurrentPricing}>Add to enquiry</Button>
-          </div>
-
-          {perkNotice && (
-            <Alert variant="success" className="mt-6 mx-auto max-w-xl" title="Enquiry note saved">
-              Thanks, we've tagged your request for current festive pricing against your enquiry so it doesn't get missed.
-            </Alert>
-          )}
-        </Container>
-      </Section>
-
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-ink-strong">Festive buffets for 26 or more guests</h2>
+            <h2 className="text-3xl font-bold text-ink-strong">Festive buffets for {facts.buffetMinimumGuests} or more guests</h2>
             <p className="text-ink-muted">
-              A festive buffet can work well for a standing reception, quiz night or team gathering. Ask us to confirm the current buffet selection, pricing and service timings for your date.
+              A festive buffet works well for a standing reception, a quiz night or a team gathering. There are three festive
+              buffet packages, and the minimum is {facts.buffetMinimumGuests} guests on all of them. Ask us to confirm the current
+              selection, pricing and service timings for your date.
             </p>
           </div>
 
           <Grid cols={3} gap="md" className="mt-10">
             {[
               {
-                title: 'Cold buffet options',
-                description: 'Ask for the current cold buffet selection and dietary alternatives.'
+                title: 'Festive Sandwich & Salad',
+                description: `A cold festive buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and dietary alternatives.`
               },
               {
-                title: 'Hot buffet options',
-                description: 'Ask for the current hot buffet selection and service details.'
+                title: 'Festive Hot Finger',
+                description: `A hot finger buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and service details.`
               },
               {
-                title: 'Grazing and add-ons',
-                description: 'Tell us the style of party you want and we will confirm the current grazing boards and add-ons.'
+                title: 'Festive Premium Grazing',
+                description: `A premium grazing spread for ${facts.buffetMinimumGuests} guests or more. Tell us the style of party and we will confirm what is available.`
               }
             ].map(tier => (
               <Card key={tier.title} className="h-full">
@@ -853,41 +751,6 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               </Card>
             ))}
           </Grid>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong flex items-center gap-2">
-                  <Icon name="gift" className="h-5 w-5 text-red-600" />
-                  Current add-ons
-                </h3>
-                <p className="text-sm text-ink-muted">Ask which hot sides, platters and festive extras are available for your date. Pricing is confirmed from the current approved source.</p>
-              </div>
-            </Card>
-            <Card>
-              <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong flex items-center gap-2">
-                  <Icon name="coffee" className="h-5 w-5 text-red-600" />
-                  Desserts and drinks
-                </h3>
-                <p className="text-sm text-ink-muted">Ask about the current dessert, hot-drink, welcome-drink and bar-tab options for your group.</p>
-              </div>
-            </Card>
-            <Card>
-              <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong flex items-center gap-2">
-                  <Icon name="clock" className="h-5 w-5 text-red-600" />
-                  Service notes
-                </h3>
-                <ul className="space-y-2 text-sm text-ink-muted">
-                  <li>Festive buffets are available for groups of 26 or more.</li>
-                  <li>Current buffet contents and service timings are confirmed with your quote.</li>
-                  <li>We will confirm the deposit, final numbers and pre-order deadline before you book.</li>
-                  <li>Vegetarian, vegan and gluten-free swaps available.</li>
-                </ul>
-              </div>
-            </Card>
-          </div>
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-line">
@@ -901,14 +764,17 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </div>
             <div className="md:w-1/2 space-y-4 text-left">
               <h3 className="text-2xl font-bold text-ink-strong">Ready to feed a crowd?</h3>
-              <p className="text-sm text-ink-muted">Tell us your guest count, preferred date and party style. We will confirm the current buffet options and suitable add-ons.</p>
+              <p className="text-sm text-ink-muted">
+                Tell us your guest count, preferred date and party style. We will confirm the buffet options, pricing and any
+                deposit before you commit.
+              </p>
               <Button
                 variant="primary"
                 size="md"
                 onClick={() => {
                   trackCtaClick({
                     id: 'christmas_buffet_cta',
-                    label: 'Plan a Buffet Party (26+)',
+                    label: `Plan a Buffet Party (${facts.buffetMinimumGuests}+)`,
                     location: 'buffet_section',
                     destination: 'enquiry_form',
                     mode: 'party'
@@ -916,14 +782,46 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   handleOpenForm('party', {}, 'buffet_section')
                 }}
               >
-                Plan a Buffet Party (26+)
+                Plan a Buffet Party ({facts.buffetMinimumGuests}+)
               </Button>
             </div>
           </div>
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface">
+      <Section background="transparent" spacing="sm" className="bg-surface">
+        <Container>
+          <div className="mx-auto max-w-4xl space-y-4 text-center">
+            <h2 className="text-2xl font-bold text-ink-strong">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
+            <p className="text-base text-ink-muted">
+              The Anchor is around seven minutes from Heathrow Terminal 5, eleven minutes from Terminal 2 and eight minutes from
+              Staines-upon-Thames, traffic dependent. Airport teams, local offices, families and friends can meet here without
+              travelling into central London.
+            </p>
+            <p className="text-sm text-ink-muted">
+              The pub is outside the ULEZ zone and has around 20 free parking spaces on site.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 pt-2">
+              {[
+                { href: '/staines-pub', label: 'Christmas parties from Staines-upon-Thames' },
+                { href: '/ashford-pub', label: 'Ashford & Stanwell festive gatherings' },
+                { href: '/windsor-pub', label: 'Windsor Christmas party ideas' },
+                { href: '/heathrow-hotels-pub', label: 'Heathrow hotel teams & airport crews' }
+              ].map(link => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink-muted transition hover:border-accent hover:text-accent-text"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <Grid cols={3} gap="md">
             <Card className="h-full">
@@ -934,19 +832,19 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Main Bar & Dining</h3>
-                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We'll shape the room to fit your Christmas party, whether it's 30 or 60 guests.</p>
+                <h3 className="text-lg font-semibold text-ink-strong">Main Bar &amp; Dining</h3>
+                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or 60 guests.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Light-filled Conservatory</h3>
-                <p className="text-sm text-ink-muted">Bright, semi-private space perfect for welcome drinks, dessert stations or children's tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
+                <p className="text-sm text-ink-muted">Bright, semi-private space perfect for welcome drinks, dessert stations or children&apos;s tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
               </div>
             </Card>
           </Grid>
           <div className="mt-10 text-sm text-ink-muted text-center space-y-2">
-            <p>Free on-site parking for around 20 cars · Seven minutes from Heathrow Terminal 5 · Eight minutes to Staines-upon-Thames · Outside the ULEZ · Sheltered smoking area</p>
+            <p>Free on-site parking for around 20 cars &middot; Seven minutes from Heathrow Terminal 5 &middot; Eight minutes to Staines-upon-Thames &middot; Outside the ULEZ &middot; Sheltered smoking area</p>
             <p>
               Driving from farther afield?{' '}
               <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-accent-text transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
@@ -958,34 +856,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface-sunk">
-        <Container>
-          <div className="max-w-3xl mx-auto space-y-6 text-center">
-            <h2 className="text-3xl font-bold text-ink-strong">Booking essentials</h2>
-          </div>
-          <div className="max-w-3xl mx-auto mt-8">
-            <ul className="space-y-3 text-sm text-ink-muted">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />A £10 per person deposit applies to every Christmas menu booking, whatever your group size, and secures your table. Deposits are non-refundable.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />Sit-down Christmas lunches and dinners are pre-order only. We will confirm the meal-choice deadline with your booking.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />We&apos;ll always try to accommodate last-minute changes, but once your order is confirmed we can&apos;t guarantee them.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />We will confirm your sitting time, room setup and any other booking terms before you pay the deposit.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />Include dietary requirements or allergies with your pre-order so the kitchen can prepare suitable alternatives.</li>
-              <li className="flex items-start gap-3">
-                <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text" />
-                <span>Guests driving? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-accent-text transition-colors">cheap Heathrow parking tips</Link> or point them to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-accent-text transition-colors">pre-booked spaces at The Anchor</Link>.</span>
-              </li>
-            </ul>
-          </div>
-        </Container>
-      </Section>
-
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Why book your Christmas party at The Anchor?</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Whether you're planning a staff Christmas party for airport colleagues, a festive lunch for the team or a Friday-night Christmas do with friends from Staines, The Anchor offers a traditional pub setting close to Heathrow with free parking and flexible spaces.
+                Whether you are planning a staff Christmas party for airport colleagues, a festive lunch for the team or a
+                Friday-night Christmas do with friends from Staines, The Anchor offers a traditional pub setting close to
+                Heathrow with free parking and flexible spaces.
               </p>
             </div>
             <Grid cols={3} gap="md">
@@ -1010,7 +889,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Office Christmas party venue near Heathrow</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that's actually good, and a bill that won't make finance wince. We make all three easy, and we've been hosting office Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
+                Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that is
+                actually good, and a bill that will not make finance wince. We have been hosting office Christmas parties for
+                Heathrow businesses, Poyle teams and Surrey offices for years.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -1019,23 +900,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <ul className="space-y-3 text-sm text-ink-muted">
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Central for distributed teams</strong>, Seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
+                    <span><strong className="text-ink-strong">Central for distributed teams</strong>, seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Corporate billing</strong>, Ask about VAT invoices, deposit invoicing and agreed bar-tab options for your booking.</span>
+                    <span><strong className="text-ink-strong">Corporate billing</strong>, ask about VAT invoices, deposit invoicing and agreed bar-tab options for your booking.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Clear pre-order process</strong>, We will explain how to collect meal choices and confirm them with the team.</span>
+                    <span><strong className="text-ink-strong">One clear pre-order process</strong>, on the 2 and 3 course we will explain how to collect meal choices and confirm them with the team. The 1 course needs none.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Free parking and ULEZ-free</strong>, Around 20 free spaces plus we're outside the ULEZ zone. No parking charges, no congestion fees.</span>
+                    <span><strong className="text-ink-strong">Free parking and ULEZ-free</strong>, around 20 free spaces plus we are outside the ULEZ zone. No parking charges, no congestion fees.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">The organiser support</strong>, we give you one clear contact, a pre-order process and confirmed details before you book.</span>
+                    <span><strong className="text-ink-strong">One deposit rule</strong>, £{facts.depositPerPerson} per person on every Christmas booking, so finance can budget it before you send the invite.</span>
                   </li>
                 </ul>
               </div>
@@ -1043,24 +924,19 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <h3 className="text-xl font-semibold text-ink-strong">Popular corporate setups</h3>
                 <div className="space-y-4">
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
-                    <h4 className="font-semibold text-ink-strong mb-1">Small team dinner (6–25)</h4>
-                    <p className="text-sm text-ink-muted">Private dining room with three-course festive menu, crackers and candles. Ask for current pricing when you enquire. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
+                    <h4 className="font-semibold text-ink-strong mb-1">Small team dinner ({facts.minPartySize} to 20)</h4>
+                    <p className="text-sm text-ink-muted">Private dining room with the sit-down Christmas menu at 1, 2 or 3 courses. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
-                    <h4 className="font-semibold text-ink-strong mb-1">Department celebration (26–60)</h4>
-                    <p className="text-sm text-ink-muted">Main bar configured for your group with buffet or sit-down service. Add a quiz or Music Bingo for a memorable works Christmas do.</p>
+                    <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Add a quiz or Music Bingo for a memorable works Christmas do.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
-                    <h4 className="font-semibold text-ink-strong mb-1">Full venue hire (60–200)</h4>
+                    <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
                     <p className="text-sm text-ink-muted">Ask about exclusive use, suitable entertainment and the available finishing time for your chosen date.</p>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-ink-muted mb-4">
-                Organising for your workplace? Ask about VAT invoicing, per-person pre-orders and one named contact for your whole booking. Popular with Heathrow airport teams and business parks, Staines offices and Surrey companies.
-              </p>
             </div>
           </div>
         </Container>
@@ -1072,7 +948,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Christmas party ideas at The Anchor</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Not every Christmas do needs to be a standard sit-down meal. We can shape the celebration around your group. Here are a few ideas to discuss when you enquire.
+                Not every Christmas do needs to be a standard sit-down meal. We can shape the celebration around your group.
+                Here are a few ideas to discuss when you enquire.
               </p>
             </div>
             <Grid cols={2} gap="md">
@@ -1102,10 +979,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
               <h2 className="text-2xl font-bold text-ink-strong">Book early, December dates fill fast</h2>
               <p className="text-base text-ink-muted">
-                Popular December dates can fill quickly. Whether you're planning a festive dinner, a Christmas lunch or a works do, enquiring early gives us more options for your preferred date and space.
+                Christmas dinner runs {season.windowLabel} and popular December dates fill quickly. Enquiring early gives us
+                more options for your preferred date, sitting and space.
               </p>
               <p className="text-sm text-ink-muted">
-                Not sure about exact numbers yet? Send an enquiry with your rough headcount and preferred week. We will confirm the available options, then the applicable deposit secures your agreed booking.
+                Not sure about exact numbers yet? Send an enquiry with your rough headcount and preferred week. Remember we need
+                at least {facts.minNoticeHours} hours notice, and the £{facts.depositPerPerson} per person deposit secures the booking.
               </p>
               <div className="flex flex-col md:flex-row justify-center gap-4 pt-2">
                 <Button
@@ -1141,7 +1020,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         <Container>
           <FAQAccordionWithSchema
             title="Christmas Party FAQs"
-            faqs={FAQ_ITEMS}
+            faqs={faqItems}
             className="bg-surface"
           />
         </Container>
@@ -1240,7 +1119,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div ref={enquiryRef} className="max-w-md mx-auto text-center">
             <p className="text-ink-muted mb-6">
-              Tell us whether you are planning a Christmas party or a pre-order sit-down lunch or dinner. We will confirm availability, current pricing and the next steps.
+              Tell us whether you are planning a Christmas party or a sit-down Christmas lunch or dinner. We will confirm
+              availability, the price for your tier and the next steps.
             </p>
             <Button
               size="lg"
@@ -1260,13 +1140,17 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         title="Christmas Booking Enquiry"
-        description={context.mode === 'meal' ? 'Sit-down Christmas lunch or dinner, pre-order only' : 'Christmas parties, private spaces, drinks and buffets'}
+        description={context.mode === 'meal'
+          ? `Sit-down Christmas lunch or dinner, ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice`
+          : 'Christmas parties, private spaces, drinks and buffets'}
         side="right"
         testId="christmas-enquiry-drawer"
       >
         <div className="p-3 sm:p-6">
           <ChristmasEnquiryForm
             context={context}
+            season={season}
+            facts={facts}
             onContextChange={handleContextChange}
             onSuccess={() => {
               handleFormSuccess()
@@ -1278,6 +1162,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <ChristmasLightbox
         suppressed={drawerOpen || formSubmitted}
         context={context}
+        season={season}
+        facts={facts}
         onContextChange={handleContextChange}
         onSubmitSuccess={handleFormSuccess}
       />
@@ -1290,7 +1176,303 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
   )
 }
 
-function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: ChristmasEnquiryFormProps) {
+/**
+ * Out-of-season view. No dates, no prices, no Christmas enquiry route, because
+ * every one of them would be a claim we cannot honour until the next season is
+ * confirmed. The page still answers the visitor's real question.
+ */
+function ChristmasSeasonEndedView({
+  season,
+  structuredData
+}: {
+  season: ChristmasSeasonView
+  structuredData: Record<string, unknown>
+}) {
+  return (
+    <>
+      <Section background="transparent" spacing="md" className="bg-surface">
+        <Container>
+          <div className="mx-auto max-w-3xl space-y-6">
+            <Alert variant="info" title="Christmas bookings are closed for this season">
+              Our Christmas service ran {season.windowLabel} and has now finished. We are not taking Christmas bookings at the
+              moment. Next season&apos;s dates, menu and prices will be published here once they are confirmed.
+            </Alert>
+            <h2 className="text-3xl font-bold text-ink-strong">What you can book right now</h2>
+            <p className="text-base text-ink-muted">
+              The Anchor in Stanwell Moor is around seven minutes from Heathrow Terminal 5, with around 20 free parking spaces
+              and space for private parties all year round. Groups, celebrations and work gatherings are welcome outside the
+              Christmas season.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Link
+                href="/private-hire"
+                className="rounded-2xl border border-line bg-surface-sunk p-5 transition hover:border-accent"
+              >
+                <h3 className="font-semibold text-ink-strong">Private hire and function room</h3>
+                <p className="mt-2 text-sm text-ink-muted">Parties, celebrations and work gatherings all year round.</p>
+              </Link>
+              <Link
+                href="/book-table"
+                className="rounded-2xl border border-line bg-surface-sunk p-5 transition hover:border-accent"
+              >
+                <h3 className="font-semibold text-ink-strong">Book a table</h3>
+                <p className="mt-2 text-sm text-ink-muted">Everyday food and drink bookings from the regular menu.</p>
+              </Link>
+              <Link
+                href="/sunday-roast"
+                className="rounded-2xl border border-line bg-surface-sunk p-5 transition hover:border-accent"
+              >
+                <h3 className="font-semibold text-ink-strong">Sunday roast</h3>
+                <p className="mt-2 text-sm text-ink-muted">Walk in on Sundays, no booking and no pre-order needed.</p>
+              </Link>
+              <Link
+                href="/whats-on"
+                className="rounded-2xl border border-line bg-surface-sunk p-5 transition hover:border-accent"
+              >
+                <h3 className="font-semibold text-ink-strong">What&apos;s on</h3>
+                <p className="mt-2 text-sm text-ink-muted">Quiz nights, music bingo and everything else in the diary.</p>
+              </Link>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <a
+                href={CONTACT_PHONE_LINK}
+                onClick={() => trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_out_of_season' })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm font-semibold text-ink-muted transition hover:border-accent hover:text-accent-text"
+              >
+                <Icon name="phone" className="h-4 w-4" /> Call {CONTACT_PHONE}
+              </a>
+              <a
+                href={CONTACT_EMAIL_LINK}
+                onClick={() => trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_out_of_season' })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm font-semibold text-ink-muted transition hover:border-accent hover:text-accent-text"
+              >
+                <Icon name="mail" className="h-4 w-4" /> {CONTACT_EMAIL}
+              </a>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(structuredData) }}
+      />
+    </>
+  )
+}
+
+function ChristmasDishList({ items }: { items: ChristmasDishView[] }) {
+  if (items.length === 0) return null
+
+  return (
+    <ul className="mt-4 space-y-4">
+      {items.map(item => (
+        <li key={item.id} className="border-t border-line pt-4 first:border-t-0 first:pt-0">
+          <div className="flex items-start justify-between gap-4">
+            <h5 className="text-sm font-semibold text-ink-strong">{item.name}</h5>
+            {/* Per-item prices are shown without a currency symbol, per the SSOT price display policy. */}
+            {item.price && <span className="shrink-0 text-sm font-semibold text-accent-text">{item.price}</span>}
+          </div>
+          {item.description && <p className="mt-1 text-sm text-ink-muted">{item.description}</p>}
+          <p className="mt-1 text-xs text-ink-muted">
+            {item.allergenStatus === 'known'
+              ? `Allergens: ${item.allergens.join(', ')}`
+              : (item.allergenNotice || 'See menu or contact us for allergen information')}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * The Christmas menu and pricing section. Tier structure, inclusions and rules
+ * are SSOT facts and always render. Dishes and prices are live from the
+ * management database and render only when they exist, so the section is never
+ * empty and never invents a dish or a price.
+ */
+function ChristmasMenuAndPricing({
+  menu,
+  season,
+  facts,
+  onOpenForm
+}: {
+  menu: ChristmasMenuView
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
+  onOpenForm: (mode: EnquiryMode, updates?: Partial<EnquiryContext>, source?: string) => void
+}) {
+  return (
+    <Section background="transparent" spacing="md" className="bg-surface" id="christmas-menu">
+      <Container>
+        <div className="mx-auto max-w-5xl space-y-4 text-center">
+          <h2 className="text-3xl font-bold text-ink-strong">Christmas menu and prices</h2>
+          <p className="text-base text-ink-muted">
+            Choose 1, 2 or 3 courses, {season.windowLabel}. Prices are served live from our booking system, so what you see
+            here is what you pay. The full dish list is released closer to the time.
+          </p>
+        </div>
+
+        {/* Mobile: cards. Tablet and up: the same three tiers as a table. */}
+        <div className="mt-8 space-y-3 md:hidden">
+          {menu.tiers.map(tier => (
+            <article key={tier.id} className="rounded-2xl border border-line bg-surface p-5 text-left">
+              <h3 className="font-semibold text-ink-strong">{tier.name}</h3>
+              <p className="mt-2 text-sm font-semibold text-accent-text">{tierPriceLabel(tier)}</p>
+              <p className="mt-3 text-sm text-ink-muted">{tierPreOrderLabel(tier)}.</p>
+              <p className="mt-1 text-sm text-ink-muted">
+                {tier.kidsTierAvailable
+                  ? `Kids portion available${tier.kidsPriceFrom ? `, from £${tier.kidsPriceFrom} per child` : ''}.`
+                  : 'No kids portion and no kids price. Children may order this tier at the adult price.'}
+              </p>
+              {tier.dayRateVaries && (
+                <p className="mt-1 text-sm text-ink-muted">Priced differently Tuesday to Thursday and Friday to Saturday.</p>
+              )}
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 hidden overflow-hidden rounded-2xl border border-line bg-surface md:block">
+          <table className="w-full text-left text-sm text-ink-muted">
+            <thead className="bg-surface-sunk text-ink-strong text-xs uppercase tracking-wide">
+              <tr>
+                <th scope="col" className="px-4 py-3">Tier</th>
+                <th scope="col" className="px-4 py-3">Price per person</th>
+                <th scope="col" className="px-4 py-3">Booking</th>
+                <th scope="col" className="px-4 py-3">Children</th>
+              </tr>
+            </thead>
+            <tbody>
+              {menu.tiers.map(tier => (
+                <tr key={tier.id} className="border-t border-line">
+                  <th scope="row" className="px-4 py-4 text-left font-semibold text-ink-strong">{tier.name}</th>
+                  <td className="px-4 py-4 font-semibold text-accent-text">
+                    {tierPriceLabel(tier)}
+                    {tier.dayRateVaries && (
+                      <span className="block text-xs font-normal text-ink-muted">Tue-Thu and Fri-Sat priced differently</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-4">{tierPreOrderLabel(tier)}</td>
+                  <td className="px-4 py-4">
+                    {tier.kidsTierAvailable
+                      ? `Kids portion${tier.kidsPriceFrom ? `, from £${tier.kidsPriceFrom}` : ''}`
+                      : 'No kids portion or price, adult price applies'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="border-t border-line px-4 py-4 text-sm text-ink-muted">
+            Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at least {facts.minNoticeHours} hours
+            ahead, with a £{facts.depositPerPerson} per person deposit that comes off your bill. There is no kids 2 course and no
+            kids 3 course: children are welcome on those tiers at the adult price.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <Card className="h-full">
+            <div className="p-6 space-y-3">
+              <h3 className="text-lg font-semibold text-ink-strong flex items-center gap-2">
+                <Icon name="gift" className="h-5 w-5 text-red-600" />
+                What is included
+              </h3>
+              <ul className="space-y-2 text-sm text-ink-muted">
+                <li>Adults get a glass of prosecco on all three tiers, swappable for orange juice.</li>
+                <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
+                <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
+              </ul>
+            </div>
+          </Card>
+          <Card className="h-full">
+            <div className="p-6 space-y-3">
+              <h3 className="text-lg font-semibold text-ink-strong flex items-center gap-2">
+                <Icon name="utensils" className="h-5 w-5 text-red-600" />
+                Children on the Christmas menu
+              </h3>
+              <p className="text-sm text-ink-muted">
+                There is a kids 1 course, with its own portion and its own price. There is no kids 2 course and no kids 3
+                course, so no child portion and no child price exists for those tiers. Children are very welcome to order the
+                adult 2 or 3 course, and it is charged at the adult price.
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        {menu.hasLiveDishes ? (
+          <div className="mt-10 space-y-8">
+            {menu.tiers.filter(tier => tier.items.length > 0).map(tier => (
+              <div key={tier.id} className="rounded-2xl border border-line bg-surface p-6">
+                <h4 className="text-lg font-semibold text-ink-strong">{tier.name}</h4>
+                <ChristmasDishList items={tier.items} />
+              </div>
+            ))}
+            {menu.extraSections.map(section => (
+              <div key={section.id} className="rounded-2xl border border-line bg-surface p-6">
+                <h4 className="text-lg font-semibold text-ink-strong">{section.title}</h4>
+                {section.description && <p className="mt-1 text-sm text-ink-muted">{section.description}</p>}
+                <ChristmasDishList items={section.items} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <Card accent className="mx-auto mt-10 max-w-3xl">
+            <div className="p-6 space-y-3">
+              <h3 className="text-lg font-semibold text-ink-strong">The full menu is released closer to the time</h3>
+              <p className="text-sm text-ink-muted">
+                {menu.isUnavailable
+                  ? 'The dish list is temporarily unavailable here. Call us and we will read you the current Christmas menu.'
+                  : 'We are still finalising the Christmas dishes and will publish the full list here as soon as it is confirmed.'}{' '}
+                The tier structure, the booking rules and the deposit above are confirmed and will not change.
+              </p>
+              <p className="text-sm text-ink-muted">
+                Want it sent to you as soon as it lands? Send an enquiry or call{' '}
+                <a href={CONTACT_PHONE_LINK} className="font-semibold text-accent-text underline">{CONTACT_PHONE}</a>.
+              </p>
+            </div>
+          </Card>
+        )}
+
+        <div className="mt-8 flex flex-col items-center gap-3 md:flex-row md:justify-center">
+          <Button
+            variant="primary"
+            size="md"
+            className="w-full md:w-auto"
+            onClick={() => {
+              trackCtaClick({
+                id: 'christmas_menu_meal',
+                label: 'Book Christmas lunch or dinner',
+                location: 'pricing_section',
+                destination: 'enquiry_form',
+                mode: 'meal'
+              })
+              onOpenForm('meal', {}, 'pricing_section')
+            }}
+          >
+            Book lunch or dinner
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            className="w-full md:w-auto"
+            onClick={() => {
+              trackCtaClick({
+                id: 'christmas_menu_party',
+                label: 'Plan a Christmas party',
+                location: 'pricing_section',
+                destination: 'enquiry_form',
+                mode: 'party'
+              })
+              onOpenForm('party', {}, 'pricing_section')
+            }}
+          >
+            Plan a Christmas party
+          </Button>
+        </div>
+      </Container>
+    </Section>
+  )
+}
+
+function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess }: ChristmasEnquiryFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -1307,6 +1489,10 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   const xmasFormLoadedAt = useRef(Date.now())
 
   const timeOptions = getTimeOptions(context)
+  const formatOptions = useMemo(() => partyFormatOptions(facts.buffetMinimumGuests), [facts.buffetMinimumGuests])
+  const minimumGuests = context.mode === 'party' && partyFormat === 'festive_buffet'
+    ? facts.buffetMinimumGuests
+    : facts.minPartySize
 
   useEffect(() => {
     if (timeOptions.some(option => option.value === preferredTime)) return
@@ -1319,6 +1505,12 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
       setStatus('error')
       setMessage('Please complete all required fields before sending your enquiry.')
+      return
+    }
+
+    if (preferredDate < season.minEnquiryDate) {
+      setStatus('error')
+      setMessage(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
       return
     }
 
@@ -1341,6 +1533,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         form_mode: context.mode,
         form_journey: context.mode === 'meal' ? 'christmas_meal' : 'christmas_party',
         meal_service: context.mode === 'meal' ? context.service : undefined,
+        course_tier: context.mode === 'meal' ? context.courseTier : undefined,
         party_format: context.mode === 'party' ? partyFormat : undefined,
         party_size: Number.isNaN(numericPartySize) ? undefined : numericPartySize
       })
@@ -1351,6 +1544,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         body: JSON.stringify({
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
+          courseTier: context.mode === 'meal' ? context.courseTier : undefined,
           partyFormat: context.mode === 'party' ? partyFormat : undefined,
           source: context.source,
           name: name.trim(),
@@ -1359,7 +1553,6 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
           partySize: partySize.trim(),
           preferredDate,
           preferredTime,
-          extras: context.extras,
           perks: context.perks,
           notes,
           ...(xmasHoneypot ? { website: xmasHoneypot } : {}),
@@ -1397,11 +1590,11 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
       setPartyFormat('not_sure')
       setNotes('')
       setConsent(false)
-      onContextChange({ extras: [], perks: [] })
+      onContextChange({ perks: [], courseTier: 'undecided' })
     } catch (error) {
       console.error('Christmas enquiry form submission failed:', error)
       setStatus('error')
-      setMessage("Sorry, something went wrong while sending your enquiry. Please call us on 01753 682707.")
+      setMessage('Sorry, something went wrong while sending your enquiry. Please call us on 01753 682707.')
     } finally {
       setSubmitting(false)
     }
@@ -1421,7 +1614,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   return (
     <div className="rounded-2xl border border-line bg-surface p-4 sm:p-6">
       <h3 className="text-2xl font-bold text-ink-strong mb-2">Send your Christmas enquiry</h3>
-      <p className="text-sm text-ink-muted">We will reply with availability, current pricing and next steps.</p>
+      <p className="text-sm text-ink-muted">We will reply with availability, the price for your tier and next steps.</p>
       <p className="text-sm text-ink-muted mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-accent-text">{CONTACT_EMAIL}</a></p>
 
       {status === 'error' && (
@@ -1431,6 +1624,20 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
       )}
 
       <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
+        <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
+          <label htmlFor="christmas-website">Leave this field empty</label>
+          <input
+            id="christmas-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={xmasHoneypot}
+            onChange={event => setXmasHoneypot(event.target.value)}
+          />
+        </div>
+
         <fieldset>
           <legend className="mb-2 block text-sm font-medium text-ink-muted">What are you planning? *</legend>
           <div className="grid grid-cols-2 gap-2">
@@ -1455,8 +1662,13 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
 
         {context.mode === 'meal' ? (
           <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-amber-950">
-            <p className="text-sm font-semibold">Christmas lunches and dinners are pre-order only.</p>
-            <p className="mt-1 text-xs">A £10 per person non-refundable deposit secures the booking. We will confirm the pre-order deadline with you.</p>
+            <p className="text-sm font-semibold">
+              {facts.minPartySize}+ guests, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
+            </p>
+            <p className="mt-1 text-xs">
+              The 1 course is pre-book only, with no pre-order. The 2 and 3 course are pre-book and pre-order, and we will
+              confirm the deadline with you.
+            </p>
             <fieldset className="mt-4">
               <legend className="mb-2 text-sm font-medium">Which sitting would you prefer? *</legend>
               <div className="grid grid-cols-2 gap-2">
@@ -1473,6 +1685,19 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
                 ))}
               </div>
             </fieldset>
+            <div className="mt-4">
+              <label htmlFor="christmas-course-tier" className="block text-sm font-medium">How many courses?</label>
+              <select
+                id="christmas-course-tier"
+                value={context.courseTier}
+                onChange={event => onContextChange({ courseTier: event.target.value as CourseTier })}
+                className="mt-1 w-full rounded-sm border-[1.5px] border-amber-400 bg-white px-3 py-2 text-sm text-amber-950 focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              >
+                {COURSE_TIER_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
           </div>
         ) : (
           <div>
@@ -1483,7 +1708,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               onChange={event => setPartyFormat(event.target.value)}
               className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             >
-              {PARTY_FORMAT_OPTIONS.map(option => (
+              {formatOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
@@ -1536,14 +1761,19 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
             <input
               id="christmas-party-size"
               type="number"
-              min={context.mode === 'party' && partyFormat === 'festive_buffet' ? 26 : 6}
-              max={context.mode === 'meal' ? 60 : 200}
+              min={minimumGuests}
+              max={context.mode === 'meal' ? facts.maxSeated : facts.maxStanding}
               value={partySize}
               onChange={event => setPartySize(event.target.value)}
               placeholder="e.g. 18"
               className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               required
             />
+            <p className="mt-1 text-xs text-ink-muted">
+              {context.mode === 'meal'
+                ? `Christmas dinner needs ${facts.minPartySize} guests or more. Above ${facts.privateHireThreshold} it becomes private hire, so call or email us.`
+                : `Festive buffets need ${facts.buffetMinimumGuests} guests or more.`}
+            </p>
           </div>
         </div>
 
@@ -1555,12 +1785,15 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               type="date"
               value={preferredDate}
               onChange={event => setPreferredDate(event.target.value)}
-              min={CHRISTMAS_BOOKING_START}
-              max={CHRISTMAS_BOOKING_END}
+              min={season.minEnquiryDate}
+              max={season.maxEnquiryDate}
               data-native-date-time="true"
               className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               required
             />
+            <p className="mt-1 text-xs text-ink-muted">
+              Christmas service runs {season.windowLabel}. We need at least {facts.minNoticeHours} hours notice, so today is not selectable.
+            </p>
           </div>
           <div>
             <label htmlFor="christmas-preferred-time" className="block text-sm font-medium text-ink-muted">Preferred time *</label>
@@ -1577,13 +1810,6 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
           </div>
         </div>
 
-        {(context.extras.length > 0 || context.perks.length > 0) && (
-          <div className="rounded-lg border border-line bg-surface-sunk px-4 py-3 text-sm text-ink-muted">
-            <Icon name="gift" className="mr-2 inline h-4 w-4" />
-            We've noted your selected extras and offers for our reply.
-          </div>
-        )}
-
         <div>
           <label htmlFor="christmas-notes" className="block text-sm font-medium text-ink-muted">Notes / dietary requests</label>
           <textarea
@@ -1592,13 +1818,13 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
             value={notes}
             onChange={event => setNotes(event.target.value)}
             className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
-            placeholder={context.mode === 'meal' ? 'Share dietary requirements, accessibility needs or anything else we should know.' : 'Share entertainment ideas, room preferences, dietary needs or anything else we should know.'}
+            placeholder={context.mode === 'meal' ? 'Share dietary requirements, allergies, accessibility needs or anything else we should know.' : 'Share entertainment ideas, room preferences, dietary needs or anything else we should know.'}
           />
         </div>
 
         <label className="flex items-start gap-2 text-sm text-ink-muted">
           <input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} className="mt-1" required />
-          <span>I'm happy for The Anchor to contact me about this enquiry.</span>
+          <span>I am happy for The Anchor to contact me about this enquiry.</span>
         </label>
 
         <div className="flex flex-col md:flex-row items-center gap-4">
@@ -1617,7 +1843,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   )
 }
 
-function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSuccess }: ChristmasLightboxProps) {
+function ChristmasLightbox({ suppressed, context, season, facts, onContextChange, onSubmitSuccess }: ChristmasLightboxProps) {
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -1740,7 +1966,12 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
-      setError('Please fill in all fields so we can confirm current seasonal options.')
+      setError('Please fill in all fields so we can confirm availability and prices.')
+      return
+    }
+
+    if (preferredDate < season.minEnquiryDate) {
+      setError(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
       return
     }
 
@@ -1766,6 +1997,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
         body: JSON.stringify({
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
+          courseTier: context.mode === 'meal' ? context.courseTier : undefined,
           partyFormat: context.mode === 'party' ? 'not_sure' : undefined,
           source: 'lightbox',
           name: name.trim(),
@@ -1774,7 +2006,6 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
           partySize: partySize.trim(),
           preferredDate,
           preferredTime: 'Flexible',
-          extras: context.extras,
           perks: union(context.perks, ['current-pricing']),
           notes: 'Submitted via seasonal enquiry lightbox',
           ...(lbHoneypot ? { website: lbHoneypot } : {}),
@@ -1784,7 +2015,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null)
-        const errorMessage = errorData?.error || 'Sorry, we could not confirm seasonal options right now. Please call us on 01753 682707.'
+        const errorMessage = errorData?.error || 'Sorry, we could not send your enquiry right now. Please call us on 01753 682707.'
         setError(errorMessage)
         return
       }
@@ -1812,7 +2043,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
       }, 2500)
     } catch (err) {
       console.error('Christmas lightbox submission failed:', err)
-      setError("Sorry, something went wrong. Please call us on 01753 682707 and we'll confirm current seasonal options.")
+      setError('Sorry, something went wrong. Please call us on 01753 682707 and we will take your enquiry over the phone.')
     } finally {
       setSubmitting(false)
     }
@@ -1840,8 +2071,11 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
         </button>
         <div className="space-y-4">
           <Badge className="bg-red-100 text-red-700 w-fit">Christmas enquiry</Badge>
-          <h3 id="christmas-lightbox-title" className="pr-8 text-2xl font-bold text-ink-strong">Want current festive pricing for your date?</h3>
-          <p className="text-sm text-ink-muted">Share a few details and we'll confirm live menu pricing, availability and any current seasonal options.</p>
+          <h3 id="christmas-lightbox-title" className="pr-8 text-2xl font-bold text-ink-strong">Planning Christmas with us?</h3>
+          <p className="text-sm text-ink-muted">
+            Share a few details and we will confirm availability and the price for your group. {facts.minPartySize}+ guests,
+            at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
+          </p>
 
           {submitted && (
             <Alert variant="success" title="Enquiry sent" className="text-sm">
@@ -1856,6 +2090,19 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
           )}
 
           {!submitted && <form className="space-y-3" onSubmit={handleSubmit}>
+            {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
+            <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
+              <label htmlFor="christmas-lightbox-website">Leave this field empty</label>
+              <input
+                id="christmas-lightbox-website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={lbHoneypot}
+                onChange={event => setLbHoneypot(event.target.value)}
+              />
+            </div>
             <input
               type="text"
               aria-label="Full name"
@@ -1891,8 +2138,8 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               <input
                 type="number"
                 aria-label="Number of guests"
-                min={6}
-                max={context.mode === 'meal' ? 60 : 200}
+                min={facts.minPartySize}
+                max={context.mode === 'meal' ? facts.maxSeated : facts.maxStanding}
                 placeholder="Number of guests"
                 value={partySize}
                 onChange={event => setPartySize(event.target.value)}
@@ -1904,8 +2151,8 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                 aria-label="Preferred date"
                 value={preferredDate}
                 onChange={event => setPreferredDate(event.target.value)}
-                min={CHRISTMAS_BOOKING_START}
-                max={CHRISTMAS_BOOKING_END}
+                min={season.minEnquiryDate}
+                max={season.maxEnquiryDate}
                 data-native-date-time="true"
                 className="block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
                 required
@@ -1926,7 +2173,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
             </div>
             {context.mode === 'meal' && (
               <div className="rounded-lg border border-amber-300 bg-amber-50 p-3">
-                <p className="text-xs font-semibold text-amber-950">Sit-down Christmas meals are pre-order only.</p>
+                <p className="text-xs font-semibold text-amber-950">
+                  1 course is pre-book only. 2 and 3 course are pre-book and pre-order.
+                </p>
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(['lunch', 'dinner'] as MealService[]).map(service => (
                     <button

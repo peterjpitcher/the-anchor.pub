@@ -1,5 +1,11 @@
 import { christmasPartiesSchema } from '@/lib/christmas-parties-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import {
+  CHRISTMAS_DEPOSIT_PER_PERSON,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_WINDOW_END,
+  CHRISTMAS_WINDOW_START
+} from '@/lib/christmas-season'
 
 const BUSINESS_ID = 'https://www.the-anchor.pub/#business'
 const WEBSITE_ID = 'https://www.the-anchor.pub/#website'
@@ -79,18 +85,60 @@ describe('christmasPartiesSchema', () => {
     expect(services.length).toBeGreaterThan(0)
     for (const service of services) {
       expect(service['@type']).toBe('Service')
-      expect(service.description).toContain('Available from 2026-11-01 to 2026-12-23.')
+      // Owner-confirmed 21 July 2026: 10 November to 20 December 2026, the
+      // 20th inclusive. The previous 1 Nov to 23 Dec window is retired.
+      expect(service.description).toContain('Available from 2026-11-10 to 2026-12-20.')
+      expect(service.description).not.toContain('2026-11-01')
+      expect(service.description).not.toContain('2026-12-23')
       expect(service.provider).toEqual({ '@id': BUSINESS_ID })
       expect(service.url).toBe(PAGE_URL)
     }
   })
 
-  it('should state that sit-down festive meals are pre-order only', () => {
+  it('should take the window from the season helper rather than restating dates', () => {
+    const services = nodeOfType('Service').isRelatedTo as Node[]
+
+    for (const service of services) {
+      expect(service.description).toContain(
+        `Available from ${CHRISTMAS_WINDOW_START} to ${CHRISTMAS_WINDOW_END}.`
+      )
+    }
+  })
+
+  it('should state the pre-order rule per course tier, never as a blanket claim', () => {
     const services = nodeOfType('Service').isRelatedTo as Node[]
     const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
 
     expect(sitDown).toBeDefined()
-    expect(String(sitDown?.description)).toMatch(/pre-order only/i)
+    const description = String(sitDown?.description)
+
+    // 1 course is pre-book only. Only 2 and 3 course carry a pre-order.
+    expect(description).toContain('One course is pre-book only with no pre-order.')
+    expect(description).toContain('Two and three course are pre-book and pre-order.')
+    // "Pre-order only" was the retired blanket rule and is now simply wrong.
+    expect(description).not.toMatch(/pre-order only/i)
+  })
+
+  it('should state the 6 guest minimum, the 24 hour notice and the any-size deposit', () => {
+    const services = nodeOfType('Service').isRelatedTo as Node[]
+    const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
+    const description = String(sitDown?.description)
+
+    expect(description).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
+    expect(description).toContain('at least 24 hours ahead')
+    expect(description).toContain(
+      `deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size`
+    )
+  })
+
+  it('should not describe any discontinued Christmas product', () => {
+    const serialised = JSON.stringify(christmasPartiesSchema)
+
+    expect(serialised).not.toMatch(/party\s+night/i)
+    expect(serialised).not.toMatch(/trimmings\s+board/i)
+    expect(serialised).not.toMatch(/\bxl\s+board\b/i)
+    expect(serialised).not.toMatch(/add[-\s]?ons?\b/i)
+    expect(serialised).not.toMatch(/drinks?\s+bundle/i)
   })
 
   it('should serialise to valid JSON-LD with angle brackets escaped', () => {

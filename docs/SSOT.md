@@ -12,7 +12,7 @@ This file is the human-edited source. `/SSOT.json` mirrors a subset of these fac
 
 > **Strategy data lives elsewhere.** Marketing strategy (target audiences, psychographic segments, competitive landscape) is not a brand fact and lives in `docs/brand-strategy.md`, not here and not in `SSOT.json`. Do not quote competitor names or audience labels in customer-facing copy.
 
-Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaffirmed as vegan; cauliflower cheese retired). Walk-in launch shipped **2026-05-17**.
+Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaffirmed as vegan; cauliflower cheese retired). Walk-in launch shipped **2026-05-17**. Christmas 2026 offer confirmed by the owner **2026-07-21** (see §7).
 
 ---
 
@@ -169,6 +169,14 @@ No current food deal should be promoted unless it comes from the live management
 - **No gluten-free fish and chips.** Do not claim gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Guests who need gluten-free options should use the gluten-free menu/allergen guidance instead.
 - **No "real ale" positioning.** We stock bottled ales only; no handpumps. Do not market as a "real ale pub".
 
+### Allergen wording
+
+When allergen data is missing for a dish, **never render "no allergens"** or any wording that implies the dish is free from allergens. Missing data means unknown, not safe. The required fallback string is:
+
+> **See menu or contact us for allergen information**
+
+This applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and printed copy.
+
 ### Kids menu (regular)
 
 Sausage and mash · Fish fingers · Tomato pasta · Chicken goujons · Mini roasts (Sundays).
@@ -190,13 +198,46 @@ The full drinks inventory must come from POS/API before publishing. The website 
 
 ### General deposit policy
 
-- **Threshold:** Groups of 10 or more, on any day, any booking type.
-- **Amount:** £10 per person, fully deducted from the bill on the day.
-- **Smaller groups (1–9):** No deposit. No card details required at booking.
+Applies to non-Christmas bookings. Christmas has its own deposit rule, see the Christmas 2026 block below.
+
+- **9 guests or fewer:** No deposit. No card details required at booking.
+- **10 or more guests:** £10 per person, fully deducted from the bill on the day. Any day, any booking type.
+- **More than 20 guests:** This is **not a table booking**, it is private hire. Direct the enquiry to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707. See §11.
 - **Standard copy:** "Groups of 10 or more: a £10 per person deposit, fully deducted from your bill."
-- **Christmas menu exception:** All Christmas menu bookings require a £10 per person deposit **regardless of party size** (including groups under 10). The deposit secures the booking and is non-refundable. (Confirmed by owner 2026-07-07.)
-- **Christmas sit-down meals:** Christmas lunch and dinner bookings are available by pre-order only. The booking team confirms the meal-choice deadline with the customer. (Confirmed by owner 2026-07-10.)
-- **Christmas 2026 service window:** Christmas party and festive meal enquiries cover 1 November to 23 December 2026. Reconfirm dates before publishing a later season.
+
+### Christmas 2026 (owner-confirmed 21 July 2026)
+
+- **Service window:** **10 November to 20 December 2026**. The 20th is **inclusive**, a 20 December sitting is bookable. The previously published 1 November to 23 December window is superseded, see §14.
+- **Minimum party size:** **6 guests.** Every Christmas dinner booking needs 6 or more guests.
+- **Minimum notice:** **24 hours.** No same-day Christmas bookings.
+- **Deposit:** **£10 per person on every Christmas booking, regardless of party size.** Taken at booking, non-refundable, deducted from the bill.
+- **Pre-book and pre-order, by course:**
+
+| Tier | Pre-book | Pre-order |
+|---|---|---|
+| 1 course | Required | **Not** required |
+| 2 course | Required | Required |
+| 3 course | Required | Required |
+
+- **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
+- **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
+- **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
+- **Trimmings:** pigs in blankets, stuffing, brussels sprouts.
+- **Menu dishes are NOT finalised.** The only permitted wording is **"menu released closer to the time"**. Never list, guess or imply a specific Christmas dish.
+- **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
+- **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
+- **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.**
+- **The festive menu catering packages stay.** They are the real sit-down set menu. They are **not** the discontinued shared party nights, do not deactivate them.
+
+#### Christmas 2026 price structure, provenance only
+
+> These figures are the owner-confirmed structure, recorded so the management database can be seeded and audited. **They are not a publication source and not a fallback.** Every customer-facing Christmas price must be pulled live from the menu API. Do not copy these numbers into page code, JSON-LD, schemas or marketing copy.
+
+- Adult 1 course: turkey £23, pork £24, beef £25 (the Sunday roast price plus £7).
+- Kids 1 course: turkey £18, pork £19, beef £20 (the kids Sunday roast price plus £4).
+- Adult 2 course: £33.95 weekday, £36.95 weekend.
+- Adult 3 course: £36.95 weekday, £39.95 weekend.
+- The "plus £7" and "plus £4" derivations are **provenance only**. Never compute a Christmas price from a live roast price at runtime, that would create a second source of truth the booking system does not charge against.
 
 ### Booking type → kitchen dependency
 
@@ -379,6 +420,16 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 | Indoor BBQ | (live, DB) | 30 guests |
 | Chicken Goujon Sharing Tray | (live, DB) (serves ~10) | 25 guests |
 
+### Festive buffets (seasonal, minimum 30 guests)
+
+| Package | Price | Minimum |
+|---|---|---|
+| Festive Sandwich & Salad | (live, DB) | 30 guests |
+| Festive Hot Finger | (live, DB) | 30 guests |
+| Festive Premium Grazing | (live, DB) | 30 guests |
+
+The 30-guest minimum applies everywhere. Any 25-guest or 26-guest figure still showing in the management database, in `SSOT.json` or in page copy is wrong and must be corrected to 30.
+
 ### Drinks Packages
 
 | Package | Price | Minimum |
@@ -405,7 +456,9 @@ Equipment and services: TVs and sound system (no projector) · Dedicated events 
 
 Wakes / memorials · Christenings · Engagement parties · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties. (Canonical list: `SSOT.json` `private_hire.event_types`. Never "weddings" or "wedding receptions", see §14.)
 
-> **Pre-order language is allowed** for private events and Christmas parties. The 2026-05-17 walk-in change applies only to the **Sunday roast service**, it does not affect private-hire pre-ordering.
+> **Pre-order language is allowed** for private events, and for the **2-course and 3-course** Christmas tiers only. The **1-course** Christmas tier is pre-book **without** pre-order, so blanket "Christmas is pre-order only" copy is wrong, see §7. The 2026-05-17 walk-in change applies only to the **Sunday roast service**, it does not affect private-hire pre-ordering.
+
+> **Groups above 20 are private hire, not a table booking.** Route them to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707.
 
 ### Wakes, speciality
 
@@ -450,6 +503,27 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **"Red wine gravy"**, never describe our gravy as red wine gravy. Use "signature gravy" (default, contains meat stock) or "regular gravy" (vegan, available on request and default with the wellington).
 - **Sunday roast pre-order / Saturday 1pm cutoff / per-roast prepayment**, all retired with the 2026-05-17 walk-in launch. Don't reintroduce.
 - **Beef as "not on the menu"**, that older guidance is reversed; beef is now the headline roast.
+
+### Christmas (retired 2026-07-21)
+
+Remove every trace of these from copy, schema, JSON-LD and data shapes:
+
+- **Shared Christmas party nights**, discontinued. The festive menu catering packages are a sit-down set menu, not a party night; do not conflate the two.
+- **All the Trimmings Board**, discontinued.
+- **XL Board**, discontinued.
+- **Per-person Christmas add-ons**, discontinued: pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings. (Pigs in blankets and stuffing remain as **trimmings included in the meal**, they are no longer paid add-ons.)
+- **Bundle A (prosecco plus coffee and mince pie)**, discontinued.
+- **Standalone drinks bundles**, discontinued.
+- **"1 November to 23 December 2026"**, superseded. The window is 10 November to 20 December 2026 inclusive.
+- **Weekday / weekend two-price festive menu split as the whole story**, superseded by the three-tier structure (1, 2 and 3 course) in §7.
+- **"All Christmas meals are pre-order only"**, wrong. 1 course is pre-book without pre-order.
+- **Christmas bookings under 6 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
+- **A kids 2-course or 3-course price**, does not exist. Never invent one.
+- **Named Christmas dishes**, the menu is not finalised. Only "menu released closer to the time" is permitted.
+- **26-guest or 25-guest festive buffet minimums**, wrong. The minimum is 30.
+
+### Allergens
+- **"No allergens"** when allergen data is missing, never render this. Use "See menu or contact us for allergen information".
 
 ### Drinks & sport
 - **BOGOF pizza**, discontinued.

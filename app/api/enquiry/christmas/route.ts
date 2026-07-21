@@ -1,30 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server'
+import ssot from '@/SSOT.json'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { normaliseChristmasEnquiryTime } from '@/lib/christmas-enquiry'
+import {
+  CHRISTMAS_MINIMUM_NOTICE_HOURS,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_WINDOW_END,
+  CHRISTMAS_WINDOW_START,
+  getLondonIsoDate
+} from '@/lib/christmas-season'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
 const GRAPH_TOKEN_HOST = 'https://login.microsoftonline.com'
-const CHRISTMAS_BOOKING_START = '2026-11-01'
-const CHRISTMAS_BOOKING_END = '2026-12-23'
+
+// The window and the party-size rules are read from the SSOT-backed season
+// helper, so this route can never drift from the published page.
+const CHRISTMAS_BOOKING_START = CHRISTMAS_WINDOW_START
+const CHRISTMAS_BOOKING_END = CHRISTMAS_WINDOW_END
+
+const BUFFET_MINIMUM_GUESTS =
+  (ssot as unknown as { christmas_2026: { buffets: { min_guests: number } } }).christmas_2026.buffets.min_guests
+
 const VALID_MEAL_SERVICES = new Set(['lunch', 'dinner'])
+// Shared Christmas party nights were discontinued on 21 July 2026 and are no
+// longer an accepted value.
 const VALID_PARTY_FORMATS = new Set([
   'not_sure',
-  'shared_party',
   'private_space',
   'festive_buffet',
   'drinks_party',
   'entertainment'
 ])
+const VALID_COURSE_TIERS = new Set(['undecided', 'one_course', 'two_course', 'three_course'])
 
 type EnquiryMode = 'party' | 'meal'
 type MealService = 'lunch' | 'dinner'
+type CourseTier = 'undecided' | 'one_course' | 'two_course' | 'three_course'
 type LegacyEnquiryMode = 'dinner' | 'buffet'
 
 interface ChristmasEnquiryPayload {
   mode: EnquiryMode
   service?: MealService
+  courseTier?: CourseTier
   partyFormat?: string
   source?: string
   name: string
@@ -36,6 +55,35 @@ interface ChristmasEnquiryPayload {
   extras?: string[]
   perks?: string[]
   notes?: string
+}
+
+/**
+ * Earliest date we can accept, at date granularity: tomorrow in Europe/London,
+ * and never before the first day of the service window. Christmas bookings
+ * need at least 24 hours notice, so today is never acceptable.
+ */
+function earliestBookableDate(): string {
+  const today = new Date(`${getLondonIsoDate()}T00:00:00Z`)
+  today.setUTCDate(today.getUTCDate() + 1)
+  const tomorrow = today.toISOString().slice(0, 10)
+  return tomorrow > CHRISTMAS_BOOKING_START ? tomorrow : CHRISTMAS_BOOKING_START
+}
+
+const COURSE_TIER_LABELS: Record<CourseTier, string> = {
+  undecided: 'Courses not decided yet',
+  one_course: '1 course (pre-book only, no pre-order)',
+  two_course: '2 course (pre-book and pre-order)',
+  three_course: '3 course (pre-book and pre-order)'
+}
+
+function courseTierLabel(value?: CourseTier): string {
+  return COURSE_TIER_LABELS[value || 'undecided']
+}
+
+function preOrderRequirement(value?: CourseTier): string {
+  if (value === 'two_course' || value === 'three_course') return 'Yes'
+  if (value === 'one_course') return 'No, 1 course is pre-book only'
+  return 'To confirm, depends on the course tier chosen'
 }
 
 type IncomingChristmasEnquiryPayload = Omit<Partial<ChristmasEnquiryPayload>, 'mode'> & {
@@ -66,16 +114,16 @@ function formatTimeForEmail(value?: string): string {
 
 function enquiryLabel(body: ChristmasEnquiryPayload): string {
   if (body.mode === 'party') return 'Christmas party'
-  return `Sit-down Christmas ${body.service === 'lunch' ? 'lunch' : 'dinner'} (pre-order only)`
+  const sitting = body.service === 'lunch' ? 'lunch' : 'dinner'
+  return `Sit-down Christmas ${sitting} (${courseTierLabel(body.courseTier)})`
 }
 
 function partyFormatLabel(value?: string): string | undefined {
   if (!value) return undefined
   const labels: Record<string, string> = {
     not_sure: 'Not sure yet',
-    shared_party: 'Shared Christmas party night',
     private_space: 'Private space',
-    festive_buffet: 'Festive buffet (26+)',
+    festive_buffet: `Festive buffet (${BUFFET_MINIMUM_GUESTS}+)`,
     drinks_party: 'Drinks party',
     entertainment: 'Entertainment package'
   }
@@ -114,7 +162,8 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
 
   if (body.mode === 'meal') {
     textLines.push(`Meal sitting: ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}`)
-    textLines.push('Pre-order required: Yes')
+    textLines.push(`Course tier: ${courseTierLabel(body.courseTier)}`)
+    textLines.push(`Pre-order required: ${preOrderRequirement(body.courseTier)}`)
   }
 
   if (body.mode === 'party' && body.partyFormat) {
@@ -150,7 +199,8 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
 
   if (body.mode === 'meal') {
     htmlParts.push(`<p><strong>Meal sitting:</strong> ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}</p>`)
-    htmlParts.push('<p><strong>Pre-order required:</strong> Yes</p>')
+    htmlParts.push(`<p><strong>Course tier:</strong> ${escapeHtml(courseTierLabel(body.courseTier))}</p>`)
+    htmlParts.push(`<p><strong>Pre-order required:</strong> ${escapeHtml(preOrderRequirement(body.courseTier))}</p>`)
   }
 
   if (body.mode === 'party' && body.partyFormat) {
@@ -280,9 +330,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (body.courseTier && !VALID_COURSE_TIERS.has(body.courseTier)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid course selection' },
+        { status: 400 }
+      )
+    }
+
     const numericPartySize = Number.parseInt(body.partySize, 10)
     const maximumPartySize = body.mode === 'meal' ? 60 : 200
-    const minimumPartySize = body.mode === 'party' && body.partyFormat === 'festive_buffet' ? 26 : 6
+    const minimumPartySize = body.mode === 'party' && body.partyFormat === 'festive_buffet'
+      ? BUFFET_MINIMUM_GUESTS
+      : CHRISTMAS_MINIMUM_PARTY_SIZE
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
       return NextResponse.json(
         { success: false, error: `Guest numbers must be between ${minimumPartySize} and ${maximumPartySize}` },
@@ -293,6 +352,19 @@ export async function POST(request: NextRequest) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
       return NextResponse.json(
         { success: false, error: 'Please choose a date within the Christmas booking period' },
+        { status: 400 }
+      )
+    }
+
+    // Every Christmas booking needs at least 24 hours notice, so a date of
+    // today or earlier is rejected server-side as well as in the form.
+    const earliestDate = earliestBookableDate()
+    if (body.preferredDate < earliestDate) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Christmas bookings need at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice. The earliest date we can take is ${earliestDate}.`
+        },
         { status: 400 }
       )
     }
@@ -316,10 +388,14 @@ export async function POST(request: NextRequest) {
         const managementNotes = [
           body.notes?.trim(),
           `Website Christmas journey: ${enquiryLabel(enquiry)}`,
+          body.mode === 'meal' ? `Pre-order required: ${preOrderRequirement(body.courseTier)}` : undefined,
           body.mode === 'party' && body.partyFormat ? `Party style: ${partyFormatLabel(body.partyFormat)}` : undefined,
           body.source ? `Website CTA source: ${body.source}` : undefined
         ].filter((value): value is string => Boolean(value)).join('\n\n').slice(0, 2000)
 
+        // Journey, sitting, course tier and party style are sent as structured
+        // fields as well as free text, so the management app is not left having
+        // to parse a notes blob to know what was asked for.
         const managementPayload = {
           name: body.name,
           email: body.email,
@@ -328,6 +404,9 @@ export async function POST(request: NextRequest) {
           preferredDate: body.preferredDate,
           ...(managementTime ? { preferredTime: managementTime } : {}),
           notes: managementNotes,
+          enquiryMode: body.mode,
+          ...(body.mode === 'meal' ? { mealService: body.service, courseTier: body.courseTier || 'undecided' } : {}),
+          ...(body.mode === 'party' && body.partyFormat ? { partyFormat: body.partyFormat } : {}),
           extras: body.extras,
           perks: body.perks
         }

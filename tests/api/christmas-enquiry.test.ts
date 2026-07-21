@@ -21,6 +21,12 @@ function jsonResponse(body: unknown, status = 200): Response {
   })
 }
 
+// Owner-confirmed 21 July 2026: the window is 10 November to 20 December 2026,
+// the 20th inclusive. Time is frozen inside the window so the 24 hour notice
+// rule can be tested against a known "today" rather than the clock.
+const FROZEN_TODAY = '2026-11-20'
+const TOMORROW = '2026-11-21'
+
 function validPayload(overrides: Record<string, unknown> = {}) {
   return {
     mode: 'meal',
@@ -48,6 +54,8 @@ describe('POST /api/enquiry/christmas', () => {
   const originalEnv = process.env
 
   beforeEach(() => {
+    jest.useFakeTimers({ doNotFake: ['nextTick', 'setImmediate'] })
+    jest.setSystemTime(new Date(`${FROZEN_TODAY}T09:00:00Z`))
     process.env = {
       ...originalEnv,
       ANCHOR_API_BASE_URL: 'https://management.example.test/api',
@@ -64,6 +72,7 @@ describe('POST /api/enquiry/christmas', () => {
   afterEach(() => {
     process.env = originalEnv
     jest.clearAllMocks()
+    jest.useRealTimers()
   })
 
   it('creates one management record with a normalised time and no duplicate Graph email', async () => {
@@ -81,8 +90,31 @@ describe('POST /api/enquiry/christmas', () => {
     expect(init.headers['X-API-Key']).toBe('management-key')
     const forwarded = JSON.parse(String(init.body))
     expect(forwarded.preferredTime).toBe('12:30')
-    expect(forwarded.notes).toContain('Sit-down Christmas lunch (pre-order only)')
+    expect(forwarded.notes).toContain('Sit-down Christmas lunch')
     expect(forwarded.notes).toContain('Website CTA source: hero_meal')
+    // The blanket pre-order claim was retired on 21 July 2026: with no tier
+    // chosen the requirement is still open, not "Yes".
+    expect(forwarded.notes).not.toMatch(/pre-order only/i)
+    expect(forwarded.notes).toContain('Pre-order required: To confirm, depends on the course tier chosen')
+    expect(forwarded.enquiryMode).toBe('meal')
+    expect(forwarded.mealService).toBe('lunch')
+    expect(forwarded.courseTier).toBe('undecided')
+  })
+
+  it.each([
+    ['one_course', 'Sit-down Christmas lunch (1 course (pre-book only, no pre-order))', 'Pre-order required: No, 1 course is pre-book only'],
+    ['two_course', 'Sit-down Christmas lunch (2 course (pre-book and pre-order))', 'Pre-order required: Yes'],
+    ['three_course', 'Sit-down Christmas lunch (3 course (pre-book and pre-order))', 'Pre-order required: Yes'],
+  ])('sends the pre-order requirement that matches the %s tier', async (courseTier, label, requirement) => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({ success: true }, 201))
+
+    const response = await post(validPayload({ courseTier }))
+
+    expect(response.status).toBe(200)
+    const forwarded = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
+    expect(forwarded.courseTier).toBe(courseTier)
+    expect(forwarded.notes).toContain(label)
+    expect(forwarded.notes).toContain(requirement)
   })
 
   it('uses Graph email only when the management API fails', async () => {
@@ -108,15 +140,43 @@ describe('POST /api/enquiry/christmas', () => {
   it.each([
     ['invalid meal service', { service: 'brunch' }],
     ['invalid party style', { mode: 'party', service: undefined, partyFormat: 'anything' }],
+    ['a discontinued shared party night', { mode: 'party', service: undefined, partyFormat: 'shared_party' }],
+    ['an invalid course tier', { courseTier: 'four_course' }],
     ['meal over capacity', { partySize: '61' }],
-    ['buffet below minimum', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '25' }],
-    ['date outside season', { preferredDate: '2026-12-24' }],
+    ['a meal below the 6 guest minimum', { partySize: '5' }],
+    ['a buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '29' }],
+    ['a date after the window closes', { preferredDate: '2026-12-21' }],
+    ['a date before the window opens', { preferredDate: '2026-11-09' }],
+    ['today, which breaks the 24 hour notice rule', { preferredDate: FROZEN_TODAY }],
     ['invalid time', { preferredTime: 'lunchtime' }],
   ])('rejects %s before delivery', async (_label, overrides) => {
     const response = await post(validPayload(overrides))
 
     expect(response.status).toBe(400)
     expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    ['the 6 guest minimum exactly', { partySize: '6' }],
+    ['the 30 guest buffet minimum exactly', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '30' }],
+    ['tomorrow, the earliest date with 24 hours notice', { preferredDate: TOMORROW }],
+    ['20 December, the last day of the window', { preferredDate: '2026-12-20' }],
+  ])('accepts %s', async (_label, overrides) => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({ success: true }, 201))
+
+    const response = await post(validPayload(overrides))
+
+    expect(response.status).toBe(200)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('explains the 24 hour notice rule when a same-day date is sent', async () => {
+    const response = await post(validPayload({ preferredDate: FROZEN_TODAY }))
+    const result = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(result.error).toContain('at least 24 hours notice')
+    expect(result.error).toContain(TOMORROW)
   })
 
   it('keeps legacy dinner submissions compatible during rollout', async () => {
@@ -127,6 +187,9 @@ describe('POST /api/enquiry/christmas', () => {
     expect(response.status).toBe(200)
     const forwarded = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
     expect(forwarded.preferredTime).toBe('18:30')
-    expect(forwarded.notes).toContain('Sit-down Christmas dinner (pre-order only)')
+    expect(forwarded.notes).toContain('Sit-down Christmas dinner')
+    expect(forwarded.notes).not.toMatch(/pre-order only/i)
+    expect(forwarded.enquiryMode).toBe('meal')
+    expect(forwarded.mealService).toBe('dinner')
   })
 })
