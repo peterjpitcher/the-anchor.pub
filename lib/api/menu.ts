@@ -120,3 +120,28 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
   mains: [],
   sides: []
 }
+
+/** Menu code for the standard website food menu. */
+export const DEFAULT_FOOD_MENU_CODE = 'website_food'
+
+/** Menu code for the seasonal Christmas menu. */
+export const CHRISTMAS_MENU_CODE = 'christmas'
+
+/**
+ * A structurally valid, deliberately empty menu. Used so a menu that does not
+ * exist yet in the management database degrades to "nothing to show" rather
+ * than an exception, both at build time and at runtime.
+ */
+export function createEmptyMenuResponse(name: string): MenuResponse {
+  return {
+    menu: {
+      '@context': 'https://schema.org',
+      '@type': 'Menu',
+      name,
+      hasMenuSection: []
+    },
+    sections: []
+  }
+}
+
+export const FALLBACK_CHRISTMAS_MENU: MenuResponse = createEmptyMenuResponse('Christmas Menu')

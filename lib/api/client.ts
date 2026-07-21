@@ -15,7 +15,11 @@ import {
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsResponse } from './events'
 import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
-import { FALLBACK_SUNDAY_LUNCH_MENU } from './menu'
+import {
+  CHRISTMAS_MENU_CODE,
+  FALLBACK_CHRISTMAS_MENU,
+  FALLBACK_SUNDAY_LUNCH_MENU
+} from './menu'
 import type { BusinessHours, AmenitiesResponse } from './hours'
 import type { TableAvailabilityResponse, TableBookingLoadResponse, TableBookingRequest, TableBookingResponse } from './bookings'
 import type {
@@ -571,14 +575,17 @@ export class AnchorAPI {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`
-    const baseEndpoint = endpoint.split('?')[0]
+    const [baseEndpoint, endpointQuery] = endpoint.split('?')
+    // Query params are kept alongside the base path so a fallback can be
+    // chosen per menu code, not just per route.
+    const endpointParams = endpointQuery ? new URLSearchParams(endpointQuery) : undefined
     const isBuildPhase =
       typeof window === 'undefined' &&
       process.env.NEXT_PHASE === 'phase-production-build' &&
       process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
 
     if (isBuildPhase) {
-      const buildFallback = this.getFallbackResponse(baseEndpoint)
+      const buildFallback = this.getFallbackResponse(baseEndpoint, endpointParams)
       if (buildFallback) {
         if (!buildPhaseSkipLogged.has(baseEndpoint)) {
           console.warn(`[api-request] Skipping external fetch for ${baseEndpoint} during build`)
@@ -709,7 +716,7 @@ export class AnchorAPI {
         error?.code === 'NETWORK_ERROR' ||
         (typeof error?.message === 'string' && /fetch failed|network/i.test(error.message))
 
-      const fallback = this.getFallbackResponse(baseEndpoint)
+      const fallback = this.getFallbackResponse(baseEndpoint, endpointParams)
 
       // Never serve stale business hours at runtime – a network error shouldn't show wrong times
       const shouldSkipFallback = baseEndpoint === '/business/hours'
@@ -998,10 +1005,34 @@ export class AnchorAPI {
   }
 
   // Menu
-  async getMenu(): Promise<MenuResponse> {
-    return this.request<MenuResponse>('/menu', {
+  async getMenu(menuCode?: string): Promise<MenuResponse> {
+    const trimmedCode = this.asTrimmedString(menuCode)
+    const endpoint = trimmedCode
+      ? `/menu?menu=${encodeURIComponent(trimmedCode)}`
+      : '/menu'
+
+    return this.request<MenuResponse>(endpoint, {
       next: { revalidate: 0 }
     })
+  }
+
+  /**
+   * Christmas menu, live from the management database. The menu will not exist
+   * until the owner approves the Christmas menu container, so a missing or
+   * failing menu resolves to an empty menu rather than an exception. Nothing
+   * that renders this menu should ever break a build or a page.
+   */
+  async getChristmasMenu(): Promise<MenuResponse> {
+    try {
+      const response = await this.getMenu(CHRISTMAS_MENU_CODE)
+      if (response && Array.isArray(response.sections)) {
+        return response
+      }
+    } catch (error) {
+      logError('api-christmas-menu', error, { menuCode: CHRISTMAS_MENU_CODE })
+    }
+
+    return FALLBACK_CHRISTMAS_MENU
   }
 
   async getMenuSpecials(): Promise<{
@@ -1299,7 +1330,14 @@ export class AnchorAPI {
     return this.request('/business/amenities')
   }
 
-  private getFallbackResponse(endpoint: string): any | null {
+  private getFallbackResponse(endpoint: string, params?: URLSearchParams): any | null {
+    // Christmas is a seasonal menu that may not exist in the database yet, so
+    // it always has an empty fallback. The main food menu deliberately has
+    // none: it must fetch for real or fail loudly.
+    if (endpoint === '/menu' && params?.get('menu') === CHRISTMAS_MENU_CODE) {
+      return FALLBACK_CHRISTMAS_MENU
+    }
+
     if (endpoint === '/event-categories') {
       return FALLBACK_EVENT_CATEGORIES
     }

@@ -32,6 +32,12 @@ const GLUTEN_FREE_FISH_AND_CHIPS_NOTICE =
   || SSOT.do_not_use?.gluten_free_fish_and_chips
   || 'We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.'
 
+// Discontinued Christmas products. These match product wording only: pigs in
+// blankets and stuffing are legitimate trimmings inside a live dish and must
+// never trip this gate.
+const CHRISTMAS_RETIRED_PATTERN =
+  /shared party night|party night|all the trimmings|xl board|stuffing balls?\b|cauliflower cheese pot|extra roast potato|extra yorkshire pudding|extra yorkie|\bbundle a\b|drinks bundle/i
+
 const SUNDAY_RETIRED_PATTERN =
   /roasted chicken|crispy pork belly|slow-cooked lamb|lamb shank|cauliflower cheese|vegetarian wellington/i
 
@@ -81,6 +87,38 @@ export type SundayLunchPageData = {
   mains: MenuPageItem[]
   sides: MenuPageItem[]
   priceFromLabel?: string
+  unavailableReason?: string
+}
+
+/**
+ * Allergen data is either present or unknown. It is never reported as "none":
+ * an empty allergen list from the API means we have not been told, so the page
+ * must ask people to check with us.
+ */
+export type MenuAllergenStatus = 'known' | 'unknown'
+
+export const MENU_ALLERGEN_UNKNOWN_NOTICE = 'See menu or contact us for allergen information'
+
+export type ChristmasMenuItem = MenuPageItem & {
+  allergenStatus: MenuAllergenStatus
+  /** Set only when allergenStatus is 'unknown'; render this instead of a list. */
+  allergenNotice?: string
+}
+
+export type ChristmasMenuSection = {
+  id: string
+  title: string
+  description: string
+  items: ChristmasMenuItem[]
+}
+
+export type ChristmasMenuPageData = {
+  menuData: MenuData | null
+  sections: ChristmasMenuSection[]
+  items: ChristmasMenuItem[]
+  priceFromLabel?: string
+  lastUpdated?: string
+  /** Present whenever there is nothing publishable to show, and why. */
   unavailableReason?: string
 }
 
@@ -281,9 +319,13 @@ function getPriceFrom(items: MenuPageItem[]): string | undefined {
   return `from ${formatMenuPrice(Math.min(...prices))}`
 }
 
-function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined {
+function getAdultPriceFrom(items: MenuPageItem[]): string | undefined {
   const adultItems = items.filter((item) => !/^kids?\b/i.test(item.name.trim()))
   return getPriceFrom(adultItems.length > 0 ? adultItems : items)
+}
+
+function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined {
+  return getAdultPriceFrom(items)
 }
 
 function fishPagePriority(item: MenuPageItem): number {
@@ -461,6 +503,124 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
   }
 }
 
+function mapChristmasItem(item: MenuSectionItem, section: MenuSectionData): ChristmasMenuItem {
+  const mapped = mapApiItem(item, section)
+  const hasAllergenData = mapped.allergens.length > 0
+
+  return {
+    ...mapped,
+    allergenStatus: hasAllergenData ? 'known' : 'unknown',
+    ...(hasAllergenData ? {} : { allergenNotice: MENU_ALLERGEN_UNKNOWN_NOTICE })
+  }
+}
+
+function sortMenuSections(sections: MenuSectionData[]): MenuSectionData[] {
+  return [...sections].sort((a, b) => {
+    const order = (a.sort_order || 0) - (b.sort_order || 0)
+    return order !== 0 ? order : (a.name || '').localeCompare(b.name || '')
+  })
+}
+
+function buildChristmasSections(response: MenuResponse): ChristmasMenuSection[] {
+  const sections = Array.isArray(response?.sections) ? response.sections : []
+
+  return sortMenuSections(sections)
+    .map((section) => {
+      const items = sortItems(Array.isArray(section.items) ? section.items : [])
+        .filter((item) => item.is_available !== false)
+        .map((item) => mapChristmasItem(item, section))
+
+      return {
+        id: slugify(section.name || section.id),
+        title: section.name || 'Christmas Menu',
+        description: section.description || '',
+        items
+      }
+    })
+    .filter((section) => section.items.length > 0)
+}
+
+function rejectStaleChristmasMenu(sections: ChristmasMenuSection[]): string | null {
+  const items = sections.flatMap((section) => section.items)
+
+  if (items.length === 0) {
+    return 'Christmas menu returned no items.'
+  }
+
+  if (items.some((item) => /^fallback-/i.test(item.id || ''))) {
+    return 'Christmas menu returned fallback items.'
+  }
+
+  const retiredSource = [
+    ...sections.map((section) => section.title),
+    ...items.map((item) => `${item.name} ${item.description}`)
+  ]
+
+  if (retiredSource.some((value) => CHRISTMAS_RETIRED_PATTERN.test(value || ''))) {
+    return 'Christmas menu returned discontinued items.'
+  }
+
+  return null
+}
+
+function emptyChristmasMenuPageData(unavailableReason?: string): ChristmasMenuPageData {
+  return {
+    menuData: null,
+    sections: [],
+    items: [],
+    ...(unavailableReason ? { unavailableReason } : {})
+  }
+}
+
+async function fetchChristmasMenuPageData(): Promise<ChristmasMenuPageData> {
+  try {
+    // The Christmas menu will not exist in the management database until the
+    // owner approves it, so an empty menu is a normal state, not an error.
+    const response = await anchorAPI.getChristmasMenu()
+    const sections = buildChristmasSections(response)
+
+    const staleReason = rejectStaleChristmasMenu(sections)
+    if (staleReason) {
+      return emptyChristmasMenuPageData(staleReason)
+    }
+
+    const items = sections.flatMap((section) => section.items)
+    const lastUpdated =
+      (((response.menu as unknown) as Record<string, unknown>)?.lastUpdated as string | undefined)
+      || String(CURRENT_YEAR)
+
+    const menuData: MenuData = {
+      title: 'Christmas Menu',
+      description: 'Current Christmas menu at The Anchor.',
+      lastUpdated,
+      categories: sections.map((section) => ({
+        id: section.id,
+        title: section.title,
+        description: section.description,
+        sections: [
+          {
+            title: section.title,
+            description: section.description,
+            items: section.items,
+            style: 'grid' as const
+          }
+        ]
+      }))
+    }
+
+    return {
+      menuData,
+      sections,
+      items,
+      priceFromLabel: getAdultPriceFrom(items),
+      lastUpdated
+    }
+  } catch (error) {
+    console.warn('[menu-page-data] Failed to fetch Christmas menu', error)
+    return emptyChristmasMenuPageData('Christmas menu failed to load.')
+  }
+}
+
 export const getFoodMenuPageData = cache(fetchFoodMenuData)
 
 export const getPizzaMenuPageData = cache(async () => {
@@ -606,6 +766,12 @@ export const getGlutenFreeMenuPageData = cache(async () => {
 })
 
 export const getSundayLunchMenuPageData = cache(fetchSundayLunchPageData)
+
+export const getChristmasMenuPageData = cache(fetchChristmasMenuPageData)
+
+export function getMenuAllergenUnknownNotice(): string {
+  return MENU_ALLERGEN_UNKNOWN_NOTICE
+}
 
 export function getMenuUnavailableMessage(): string {
   return MENU_UNAVAILABLE_MESSAGE

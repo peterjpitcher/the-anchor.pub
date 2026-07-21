@@ -1,4 +1,11 @@
 import ssot from '@/SSOT.json'
+import {
+  CHRISTMAS_DEPOSIT_PER_PERSON,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_WINDOW_END,
+  CHRISTMAS_WINDOW_START,
+  formatChristmasWindowLabel
+} from '@/lib/christmas-season'
 
 type SsotData = {
   venue: {
@@ -7,10 +14,10 @@ type SsotData = {
       christmas_standing: number
     }
   }
-  private_hire: {
-    christmas_2026_service_window: string
-    christmas_sit_down_meals: string
-    christmas_buffets: string
+  christmas_2026: {
+    buffets: {
+      min_guests: number
+    }
   }
 }
 
@@ -20,39 +27,33 @@ const WEBSITE_ID = 'https://www.the-anchor.pub/#website'
 const HERO_IMAGE =
   'https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.jpg'
 
-const SERVICE_WINDOW_PATTERN = /^(\d{4}-\d{2}-\d{2}) to (\d{4}-\d{2}-\d{2})/
+const { venue, christmas_2026: christmas } = ssot as unknown as SsotData
 
-const { venue, private_hire: privateHire } = ssot as unknown as SsotData
+const BUFFET_MINIMUM_GUESTS = christmas.buffets.min_guests
 
-// The window is parsed rather than restated so a later season cannot be published
-// from stale copy: SSOT.json is the only place the dates live.
-function resolveServiceWindow(): { start: string, end: string } {
-  const match = SERVICE_WINDOW_PATTERN.exec(privateHire.christmas_2026_service_window)
-  if (!match) {
-    throw new Error(
-      'SSOT private_hire.christmas_2026_service_window must begin "YYYY-MM-DD to YYYY-MM-DD"'
-    )
-  }
-  return { start: match[1], end: match[2] }
-}
-
-const { start: SERVICE_WINDOW_START, end: SERVICE_WINDOW_END } = resolveServiceWindow()
+/**
+ * The window and the booking rules come from the season helper, which parses
+ * SSOT.json. Nothing here restates a date, so a later season cannot be
+ * published from stale copy in this file.
+ */
+const WINDOW_LABEL = formatChristmasWindowLabel()
 
 function enquiryService(name: string, description: string) {
   return {
     '@type': 'Service',
     name,
     serviceType: name,
-    description: `${description} Available from ${SERVICE_WINDOW_START} to ${SERVICE_WINDOW_END}.`,
+    description: `${description} Available from ${CHRISTMAS_WINDOW_START} to ${CHRISTMAS_WINDOW_END}.`,
     provider: { '@id': BUSINESS_ID },
     url: PAGE_URL,
   }
 }
 
 /**
- * Christmas markup is deliberately non-priced. SSOT holds every Christmas menu
- * rate as LIVE_FROM_DB, so publishing a figure here would guarantee drift
- * against the management database the moment a price changes.
+ * Page-level markup is deliberately non-priced. SSOT holds every Christmas
+ * menu rate as LIVE_FROM_DB, so publishing a figure here would guarantee drift
+ * against the management database the moment a price changes. Priced markup is
+ * built separately by buildChristmasMenuJsonLd, from live data only.
  */
 export const christmasPartiesSchema = {
   '@context': 'https://schema.org',
@@ -61,9 +62,9 @@ export const christmasPartiesSchema = {
       '@type': 'WebPage',
       '@id': `${PAGE_URL}#webpage`,
       url: PAGE_URL,
-      name: 'Christmas parties and festive dining near Heathrow',
+      name: 'Christmas parties and Christmas dinner near Heathrow',
       description:
-        'Plan a Christmas party at The Anchor in Stanwell Moor, or request a sit-down Christmas lunch or dinner by pre-order. Free parking, near Heathrow Airport.',
+        `Christmas dinner and Christmas parties at The Anchor in Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. Minimum ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least 24 hours notice, and a deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person on every Christmas booking.`,
       inLanguage: 'en-GB',
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': BUSINESS_ID },
@@ -76,10 +77,10 @@ export const christmasPartiesSchema = {
     {
       '@type': 'Service',
       '@id': `${PAGE_URL}#christmas-service`,
-      name: 'Christmas parties and festive dining at The Anchor',
-      serviceType: 'Christmas party venue hire and festive dining',
+      name: 'Christmas dinner and Christmas parties at The Anchor',
+      serviceType: 'Christmas dinner and Christmas party venue hire',
       description:
-        'Christmas parties and pre-order sit-down festive meals at The Anchor, Stanwell Moor, near Heathrow Airport. Menu pricing is confirmed on enquiry.',
+        `Christmas dinner and Christmas parties at The Anchor, Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. Menu prices are served live from the management system and confirmed on enquiry.`,
       provider: { '@id': BUSINESS_ID },
       areaServed: [
         { '@type': 'City', name: 'Staines-upon-Thames' },
@@ -107,9 +108,69 @@ export const christmasPartiesSchema = {
           'Christmas party',
           `Private Christmas party hire for up to ${venue.capacity.christmas_seated} seated or ${venue.capacity.christmas_standing} standing guests.`
         ),
-        enquiryService('Sit-down Christmas lunch or dinner', privateHire.christmas_sit_down_meals),
-        enquiryService('Festive buffet', privateHire.christmas_buffets)
+        enquiryService(
+          'Sit-down Christmas lunch or dinner',
+          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. One course is pre-book only with no pre-order. Two and three course are pre-book and pre-order. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
+        ),
+        enquiryService(
+          'Festive buffet',
+          `A festive buffet for ${BUFFET_MINIMUM_GUESTS} guests or more.`
+        )
       ]
     }
   ]
+}
+
+/** A live menu section, reduced to what the JSON-LD builder needs. */
+export interface ChristmasMenuJsonLdSection {
+  title: string
+  items: Array<{
+    name: string
+    description?: string
+    priceValue: number
+  }>
+}
+
+/**
+ * Priced Christmas menu markup, built only from live management-database data.
+ *
+ * Returns null when there is nothing publishable, so the page never emits an
+ * empty Menu node. An item with no usable price is published without an Offer
+ * rather than with a null, zero or invented one.
+ */
+export function buildChristmasMenuJsonLd(
+  sections: ChristmasMenuJsonLdSection[]
+): Record<string, unknown> | null {
+  const publishable = sections.filter((section) => section.items.length > 0)
+  if (publishable.length === 0) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Menu',
+    name: 'The Anchor Christmas Menu',
+    description: `Christmas menu at The Anchor, Stanwell Moor, ${WINDOW_LABEL}.`,
+    url: PAGE_URL,
+    isPartOf: { '@id': BUSINESS_ID },
+    hasMenuSection: publishable.map((section) => ({
+      '@type': 'MenuSection',
+      name: section.title,
+      hasMenuItem: section.items.map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        ...(item.description ? { description: item.description } : {}),
+        // Only ever a real, positive, live price. No price means no Offer.
+        ...(Number.isFinite(item.priceValue) && item.priceValue > 0
+          ? {
+              offers: {
+                '@type': 'Offer',
+                priceCurrency: 'GBP',
+                price: item.priceValue.toFixed(2),
+                availabilityStarts: CHRISTMAS_WINDOW_START,
+                availabilityEnds: CHRISTMAS_WINDOW_END
+              }
+            }
+          : {})
+      }))
+    }))
+  }
 }

@@ -643,6 +643,10 @@
       "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket, NOT grilled courgette, peppers, balsamic glaze",
       "gluten_free_fish_and_chips": "We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Direct guests to the gluten-free menu/allergen guidance instead."
     },
+    "allergen_display_rule": {
+      "fallback_string": "See menu or contact us for allergen information",
+      "rule": "Never render 'no allergens' or any wording implying a dish is free from allergens when allergen data is missing. Missing data means unknown, not safe. Applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and print."
+    },
     "kids_menu": [
       "Sausage and mash",
       "Fish fingers",
@@ -757,6 +761,36 @@
       "day": "Friday",
       "discounted_price_gbp": 7.5,
       "status": "DISCONTINUED as of 2026-03-22"
+    },
+    {
+      "name": "Shared Christmas Party Nights",
+      "description": "Shared/mixed-table festive party nights",
+      "status": "DISCONTINUED as of 2026-07-21. Remove from all pages, schemas, enquiry forms and data shapes. Do not confuse with the festive menu catering packages, which are the real sit-down set menu and REMAIN ACTIVE."
+    },
+    {
+      "name": "All the Trimmings Board",
+      "description": "Christmas sharing board",
+      "status": "DISCONTINUED as of 2026-07-21. Remove copy, imagery and enquiry options."
+    },
+    {
+      "name": "XL Board",
+      "description": "Christmas sharing board, large format",
+      "status": "DISCONTINUED as of 2026-07-21. Remove copy, imagery and enquiry options."
+    },
+    {
+      "name": "Christmas per-person add-ons",
+      "description": "Paid add-ons: pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings",
+      "status": "DISCONTINUED as of 2026-07-21. Pigs in blankets and stuffing remain as trimmings included in the meal, they are no longer paid add-ons."
+    },
+    {
+      "name": "Bundle A",
+      "description": "Prosecco plus coffee and mince pie bundle",
+      "status": "DISCONTINUED as of 2026-07-21. Adults now get a glass of prosecco, swappable for orange juice, included on all three Christmas tiers."
+    },
+    {
+      "name": "Standalone Christmas drinks bundles",
+      "description": "Separately purchasable festive drinks bundles",
+      "status": "DISCONTINUED as of 2026-07-21. Remove from all pages, schemas and enquiry forms."
     }
   ],
   "events": {
@@ -857,11 +891,12 @@
     "catering_buffet_from_gbp": "LIVE_FROM_DB",
     "catering_sitdown_from_gbp": "LIVE_FROM_DB",
     "christmas_menus_from_gbp": "LIVE_FROM_DB",
-    "christmas_menus_weekday_gbp": "LIVE_FROM_DB",
-    "christmas_menus_weekend_gbp": "LIVE_FROM_DB",
-    "christmas_sit_down_meals": "Lunch and dinner available by pre-order only; booking team confirms the meal-choice deadline",
-    "christmas_2026_service_window": "2026-11-01 to 2026-12-23; reconfirm before publishing a later season",
-    "christmas_buffets": "Available for 26+ guests",
+    "christmas_one_course_gbp": "LIVE_FROM_DB",
+    "christmas_two_course_gbp": "LIVE_FROM_DB",
+    "christmas_three_course_gbp": "LIVE_FROM_DB",
+    "christmas_sit_down_meals": "Minimum 6 guests and at least 24 hours notice. 1 course is pre-book only, no pre-order. 2 course and 3 course are pre-book and pre-order. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
+    "christmas_2026_service_window": "2026-11-10 to 2026-12-20 inclusive; reconfirm before publishing a later season",
+    "christmas_buffets": "Available for 30+ guests",
     "private_booking_deposit_gbp": 250,
     "catering_packages": {
       "source": "anchor-management-tools database (2026-03-22)",
@@ -905,16 +940,25 @@
       ],
       "christmas": [
         {
-          "name": "Festive Menu (weekday)",
+          "name": "Christmas Dinner (1 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 6,
-          "style": "sit-down"
+          "style": "sit-down",
+          "pre_order_required": false
         },
         {
-          "name": "Festive Menu (weekend)",
+          "name": "Christmas Dinner (2 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 6,
-          "style": "sit-down"
+          "style": "sit-down",
+          "pre_order_required": true
+        },
+        {
+          "name": "Christmas Dinner (3 course)",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 6,
+          "style": "sit-down",
+          "pre_order_required": true
         },
         {
           "name": "Festive Sandwich & Salad",
@@ -1015,6 +1059,125 @@
       }
     ],
     "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF."
+  },
+  "christmas_2026": {
+    "_confirmed": "Owner-confirmed 2026-07-21. Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
+    "service_window": {
+      "start": "2026-11-10",
+      "end": "2026-12-20",
+      "end_inclusive": true,
+      "display": "10 November to 20 December 2026",
+      "note": "The 20th is inclusive. A 20 December sitting is bookable."
+    },
+    "booking_rules": {
+      "min_party_size": 6,
+      "min_notice_hours": 24,
+      "applies_to": "Every Christmas dinner booking",
+      "same_day_bookings": false,
+      "pre_book_required_by_course": {
+        "one_course": true,
+        "two_course": true,
+        "three_course": true
+      },
+      "pre_order_required_by_course": {
+        "one_course": false,
+        "two_course": true,
+        "three_course": true
+      },
+      "pre_order_note": "1 course is pre-book only, with no pre-order. Blanket 'Christmas is pre-order only' copy is wrong."
+    },
+    "deposit": {
+      "per_person_gbp": 10,
+      "applies_regardless_of_party_size": true,
+      "taken_at_booking": true,
+      "refundable": false,
+      "deducted_from_bill": true
+    },
+    "tiers": {
+      "one_course": {
+        "adults": true,
+        "kids": true,
+        "price_source": "LIVE_FROM_DB"
+      },
+      "two_course": {
+        "adults": true,
+        "kids": false,
+        "price_source": "LIVE_FROM_DB"
+      },
+      "three_course": {
+        "adults": true,
+        "kids": false,
+        "price_source": "LIVE_FROM_DB"
+      },
+      "no_kids_multi_course": "There is NO kids 2 course and NO kids 3 course. No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier at the adult price. State this plainly wherever the tiers are listed."
+    },
+    "weekday_weekend_definition": {
+      "weekday": "Tuesday to Thursday",
+      "weekend": "Friday to Saturday"
+    },
+    "included": {
+      "adults": "A glass of prosecco on all three tiers, swappable for orange juice.",
+      "children": "A Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course."
+    },
+    "trimmings": [
+      "Pigs in blankets",
+      "Stuffing",
+      "Brussels sprouts"
+    ],
+    "menu_status": "NOT_FINALISED",
+    "menu_wording": "menu released closer to the time",
+    "menu_rule": "Never list, guess or imply a specific Christmas dish until the menu is finalised in the management database.",
+    "price_source": "LIVE_FROM_DB",
+    "price_rule": "Christmas prices come live from the management database via the menu API. Never hardcode a Christmas price in website page code, JSON-LD or schemas.",
+    "price_display": "Per-item menu prices display with no currency symbol. Christmas set-menu tier prices in prose may use the pound sign normally.",
+    "_price_provenance_DO_NOT_PUBLISH": {
+      "_warning": "Owner-confirmed structure recorded so the management database can be seeded and audited. NOT a publication source and NOT a fallback. Do not copy these numbers into page code, JSON-LD, schemas or marketing copy. Serve live prices only.",
+      "adult_one_course_gbp": {
+        "turkey": 23,
+        "pork": 24,
+        "beef": 25
+      },
+      "kids_one_course_gbp": {
+        "turkey": 18,
+        "pork": 19,
+        "beef": 20
+      },
+      "adult_two_course_gbp": {
+        "weekday": 33.95,
+        "weekend": 36.95
+      },
+      "adult_three_course_gbp": {
+        "weekday": 36.95,
+        "weekend": 39.95
+      },
+      "_derivation": "Adult 1 course is the Sunday roast price plus 7. Kids 1 course is the kids Sunday roast price plus 4. PROVENANCE ONLY: never compute a Christmas price from a live roast price at runtime, that creates a second source of truth the booking system does not charge against."
+    },
+    "buffets": {
+      "status": "ACTIVE",
+      "min_guests": 30,
+      "min_guests_rule": "30 is the minimum everywhere, no exceptions. Any 25 or 26 figure in the management database, in this file or in page copy is wrong and must be corrected to 30.",
+      "packages": [
+        "Festive Sandwich & Salad",
+        "Festive Hot Finger",
+        "Festive Premium Grazing"
+      ]
+    },
+    "festive_menu_catering_packages": "ACTIVE. These are the real sit-down set menu. They are NOT the discontinued shared party nights. Do not deactivate them.",
+    "allergen_fallback": "See menu or contact us for allergen information",
+    "allergen_rule": "Never render 'no allergens' when allergen data is missing. Missing data means unknown, not safe. Use the allergen_fallback string instead.",
+    "groups_above_20": "More than 20 guests is not a table booking, it is private hire. Route to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707.",
+    "_discontinued_2026_07_21": [
+      "Shared Christmas party nights",
+      "All the Trimmings Board",
+      "XL Board",
+      "Per-person add-ons: pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings",
+      "Bundle A (prosecco plus coffee and mince pie)",
+      "Standalone drinks bundles",
+      "The 2026-11-01 to 2026-12-23 service window",
+      "Weekday/weekend two-price festive menu as the whole structure",
+      "Blanket 'pre-order only' claims",
+      "Any kids 2-course or 3-course price"
+    ]
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",
@@ -1217,7 +1380,15 @@
     "stanwell_moor_brew": "DISCONTINUED. Remove all Stanwell Moor Brew references from pages, schemas, and blog posts.",
     "champions_league_claim": "INCORRECT. The pub does not have Sky/TNT Sports and cannot show Champions League. Fix pizza Tuesday blog post.",
     "pravha": "DISCONTINUED. No longer stocked. Remove from all pages and blog posts.",
-    "ev_charging_coming_soon": "EV charging is NOT coming soon. Remove any 'coming soon' references."
+    "ev_charging_coming_soon": "EV charging is NOT coming soon. Remove any 'coming soon' references.",
+    "christmas_discontinued_formats": "DISCONTINUED 2026-07-21, remove every trace from copy, schema and data shapes: shared Christmas party nights; All the Trimmings Board; XL Board; per-person add-ons (pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings); Bundle A (prosecco plus coffee and mince pie); standalone drinks bundles. The festive menu catering packages and the festive buffets are NOT discontinued.",
+    "christmas_window_1nov_23dec": "SUPERSEDED. The Christmas 2026 window is 10 November to 20 December 2026 inclusive. Remove every '1 November to 23 December' string from copy, constants, schema and tests.",
+    "christmas_blanket_pre_order_only": "WRONG. 1 course is pre-book only with no pre-order. Only 2 course and 3 course are pre-order. Never publish a blanket 'all Christmas meals are pre-order only' claim.",
+    "christmas_kids_multi_course_price": "DOES NOT EXIST. There is no kids 2 course and no kids 3 course, no child portion and no child price. Never invent one. Children may order the adult tiers at the adult price.",
+    "christmas_named_dishes": "The Christmas menu is NOT finalised. Never list or imply a specific Christmas dish. The only permitted wording is 'menu released closer to the time'.",
+    "christmas_sub_6_or_same_day": "Christmas bookings under 6 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",
+    "buffet_minimum_25_or_26": "WRONG. The festive buffet minimum is 30 guests everywhere. Correct any 25 or 26 figure in the management database, in this file or in page copy.",
+    "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'."
   },
   "resolved_inconsistencies": [
     {
