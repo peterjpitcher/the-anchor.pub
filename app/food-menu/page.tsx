@@ -17,9 +17,11 @@ import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/li
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { MenuAnchorNav } from '@/components/food/MenuAnchorNav'
 import {
   getFishAndChipsMenuPageData,
   getFoodMenuPageData,
+  getKidsMenuPageData,
   getMenuUnavailableMessage,
   getSundayLunchMenuPageData,
   type MenuPageItem
@@ -114,10 +116,14 @@ function isPrimaryFoodItem(item: MenuPageItem): boolean {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getFoodMenuPageData()
+  const [data, kidsData] = await Promise.all([
+    getFoodMenuPageData(),
+    getKidsMenuPageData()
+  ])
   const pricePhrase = data?.priceFromLabel ? ` Dishes ${data.priceFromLabel}.` : ''
+  const kidsPhrase = kidsData?.items.length ? ' A dedicated kids menu is included.' : ''
   const description = data
-    ? `Pub food menu in Stanwell Moor near Heathrow T5, with live dishes and prices.${pricePhrase} Free parking, Sunday roast and table booking.`
+    ? `Pub food menu in Stanwell Moor near Heathrow T5, with live dishes and prices.${pricePhrase}${kidsPhrase} Free parking, Sunday roast and table booking.`
     : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
@@ -140,8 +146,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FoodMenuPage() {
-  const [menuData, businessHours, fishData, sundayData] = await Promise.all([
+  const [menuData, kidsData, businessHours, fishData, sundayData] = await Promise.all([
     getFoodMenuPageData(),
+    getKidsMenuPageData(),
     getBusinessHours().catch(() => null),
     getFishAndChipsMenuPageData(),
     getSundayLunchMenuPageData()
@@ -158,7 +165,21 @@ export default async function FoodMenuPage() {
   }
 
   const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : ''
-  const menuSections = menuData.menuData.categories.map((category, index) => ({
+  const existingCategoryIds = new Set(menuData.menuData.categories.map(category => category.id))
+  const kidsCategories = (kidsData?.menuData.categories ?? [])
+    .filter(category => !existingCategoryIds.has(category.id))
+  const dessertIndex = menuData.menuData.categories.findIndex(category => /dessert/i.test(category.title))
+  const kidsInsertIndex = dessertIndex >= 0 ? dessertIndex : menuData.menuData.categories.length
+  const combinedCategories = [
+    ...menuData.menuData.categories.slice(0, kidsInsertIndex),
+    ...kidsCategories,
+    ...menuData.menuData.categories.slice(kidsInsertIndex)
+  ]
+  const combinedMenuData = {
+    ...menuData.menuData,
+    categories: combinedCategories
+  }
+  const menuSections = combinedCategories.map((category, index) => ({
     position: index + 1,
     name: category.title,
     url: `https://www.the-anchor.pub/food-menu#${category.id}`
@@ -166,6 +187,7 @@ export default async function FoodMenuPage() {
   const fishPreview = itemPreview(fishData?.fishItems ?? [])
   const primaryFoodPriceRange = getPriceRangeLabel(menuData.items.filter(isPrimaryFoodItem))
   const pizzaPriceFrom = getPriceFromLabel(menuData.pizzaItems)
+  const kidsPriceRange = getPriceRangeLabel(kidsData?.items ?? [])
 
   const faqItems = [
     {
@@ -186,7 +208,9 @@ export default async function FoodMenuPage() {
     },
     {
       question: "Is there a children's menu?",
-      answer: 'We have smaller portions and high chairs on request.'
+      answer: kidsData?.items.length
+        ? `Yes. Our live kids menu is included on this page${kidsPriceRange ? `, with dishes from ${kidsPriceRange}` : ''}. High chairs are available on request.`
+        : 'Yes. We have a dedicated kids menu, and high chairs are available on request.'
     },
     {
       question: 'Do you serve fish and chips?',
@@ -226,12 +250,12 @@ export default async function FoodMenuPage() {
         crumb="Food"
         kicker="Eat, Drink, Enjoy"
         title="Proper pub food, minutes from Heathrow"
-        lead="Pub classics, stone-baked pizzas, fish and chips and a proper Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
+        lead="Pub classics, stone-baked pizzas, fish and chips, a dedicated kids menu and a proper Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
         badges={
           <>
             <Badge variant="sand">{primaryFoodPriceRange ? `Food ${primaryFoodPriceRange}` : 'Live menu prices'}</Badge>
             <Badge variant="sand">{pizzaPriceFrom ? `Pizzas ${pizzaPriceFrom}` : 'Live pizza prices'}</Badge>
-            <Badge variant="sand">Dog friendly</Badge>
+            <Badge variant="sand">{kidsPriceRange ? `Kids' meals ${kidsPriceRange}` : 'Kids menu available'}</Badge>
           </>
         }
         actions={
@@ -265,9 +289,16 @@ export default async function FoodMenuPage() {
             kicker="The menu"
             script="Carved, baked, poured"
             title="Today at The Anchor"
-            lead="Everything below is the kitchen's current menu. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
+            lead="Everything below is the kitchen's current food and kids menus. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
           />
-          <FoodMenuSection menuData={menuData.menuData} />
+          <MenuAnchorNav
+            links={combinedCategories.map(category => ({
+              id: category.id,
+              label: category.title
+            }))}
+            className="mx-auto mb-10 max-w-[920px]"
+          />
+          <FoodMenuSection menuData={combinedMenuData} />
         </div>
       </section>
 
@@ -333,7 +364,7 @@ export default async function FoodMenuPage() {
               provider: { '@id': 'https://www.the-anchor.pub/#business' },
               name: 'The Anchor Food Menu',
               description: 'Current food menu near Heathrow Airport.',
-              hasMenuSection: menuData.menuData.categories.map(category => ({
+              hasMenuSection: combinedCategories.map(category => ({
                 '@type': 'MenuSection',
                 name: category.title,
                 description: category.description,

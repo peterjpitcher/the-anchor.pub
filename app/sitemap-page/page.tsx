@@ -66,6 +66,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Sunday Roast', href: '/sunday-roast' },
       { label: 'Stone-Baked Pizza', href: '/pizza-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
+      { label: 'Kids Menu', href: '/food-menu#kids' },
       { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },
       { label: 'Vegan Options', href: '/food-menu/vegan' },
       { label: 'Gluten-Aware Menu', href: '/food-menu/gluten-free' },
