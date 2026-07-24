@@ -124,6 +124,9 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
 /** Menu code for the standard website food menu. */
 export const DEFAULT_FOOD_MENU_CODE = 'website_food'
 
+/** Menu code for the separate children's menu. */
+export const KIDS_MENU_CODE = 'kids'
+
 /** Menu code for the seasonal Christmas menu. */
 export const CHRISTMAS_MENU_CODE = 'christmas'
 

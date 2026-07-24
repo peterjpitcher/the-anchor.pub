@@ -7,7 +7,8 @@ const FOOD_MENU_SECTION_DISPLAY_ORDER = new Map([
   ['burgers', 2],
   ['snack-pots', 3],
   ['light-bites', 4],
-  ['desserts', 5]
+  ['kids', 5],
+  ['desserts', 6]
 ])
 
 function slugify(value: string): string {

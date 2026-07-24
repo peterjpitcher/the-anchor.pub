@@ -7,6 +7,7 @@ import type {
   SundayLunchMenuItem,
   SundayLunchMenuResponse
 } from '@/lib/api/menu'
+import { KIDS_MENU_CODE } from '@/lib/api/menu'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
 import { sortFoodMenuSections } from '@/lib/food-menu-section-order'
 import ssot from '@/SSOT.json'
@@ -336,7 +337,11 @@ function fishPagePriority(item: MenuPageItem): number {
   return 3
 }
 
-function buildMenuData(response: MenuResponse): MenuData | null {
+function buildMenuData(
+  response: MenuResponse,
+  title = 'The Anchor Food Menu',
+  description = 'Current food menu at The Anchor.'
+): MenuData | null {
   const sections = sortFoodMenuSections(Array.isArray(response.sections) ? response.sections : [])
   if (sections.length === 0) return null
 
@@ -365,8 +370,8 @@ function buildMenuData(response: MenuResponse): MenuData | null {
   if (categories.length === 0) return null
 
   return {
-    title: 'The Anchor Food Menu',
-    description: 'Current food menu at The Anchor.',
+    title,
+    description,
     lastUpdated: (((response.menu as unknown) as Record<string, unknown>)?.lastUpdated as string | undefined) || String(CURRENT_YEAR),
     categories
   }
@@ -622,6 +627,21 @@ async function fetchChristmasMenuPageData(): Promise<ChristmasMenuPageData> {
 }
 
 export const getFoodMenuPageData = cache(fetchFoodMenuData)
+
+export const getKidsMenuPageData = cache(async (): Promise<MenuPageData | null> => {
+  try {
+    const response = await anchorAPI.getMenu(KIDS_MENU_CODE)
+    const menuData = buildMenuData(
+      response,
+      'The Anchor Kids Menu',
+      'Current children’s menu at The Anchor.'
+    )
+    return menuData ? buildMenuPageData(menuData) : null
+  } catch (error) {
+    console.warn('[menu-page-data] Failed to fetch kids menu', error)
+    return null
+  }
+})
 
 export const getPizzaMenuPageData = cache(async () => {
   const data = await fetchFoodMenuData()

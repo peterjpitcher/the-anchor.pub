@@ -18,6 +18,7 @@ describe('food menu section order', () => {
       section('Burgers', 40),
       section('Pizza', 50),
       section('Mains', 70),
+      section('Kids', 90),
       section('Desserts', 100)
     ]
 
@@ -27,6 +28,7 @@ describe('food menu section order', () => {
       'Burgers',
       'Snack Pots',
       'Light Bites',
+      'Kids',
       'Desserts'
     ])
   })

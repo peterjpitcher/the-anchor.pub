@@ -176,7 +176,7 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
       ) : (
         <div className="flex flex-col gap-12">
           {groups.map(group => (
-            <div key={group.id} id={group.id}>
+            <div key={group.id} id={group.id} className="scroll-mt-32">
               <h3 className="mb-5 font-display text-h3 text-ink-strong">{group.title}</h3>
               <Card accent>
                 <CardBody className="py-2">
