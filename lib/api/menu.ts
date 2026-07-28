@@ -40,6 +40,10 @@ export interface MenuSectionItem {
   allergens?: string[]
   is_available: boolean
   is_special?: boolean
+  /** True while the dish is inside its new-product window. Computed by the API. */
+  is_new?: boolean
+  /** Last day the New badge shows, inclusive. */
+  new_until?: string | null
   available_from?: string | null
   available_until?: string | null
   image_url?: string | null

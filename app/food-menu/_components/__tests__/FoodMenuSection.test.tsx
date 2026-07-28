@@ -64,4 +64,32 @@ describe('FoodMenuSection', () => {
     expect(screen.getByText('Fish Supper')).toBeInTheDocument()
     expect(screen.queryByText('Cheesy Pie')).not.toBeInTheDocument()
   })
+
+  it('badges a dish that is inside its new-product window', () => {
+    render(<FoodMenuSection menuData={withNewFlag(menuData, 'Fish Supper')} />)
+
+    expect(screen.getByText('New')).toBeInTheDocument()
+  })
+
+  it('shows no badge when nothing is flagged as new', () => {
+    render(<FoodMenuSection menuData={menuData} />)
+
+    expect(screen.queryByText('New')).not.toBeInTheDocument()
+  })
 })
+
+/** Returns a copy of the menu with `isNew` set on the named dish only. */
+function withNewFlag(data: MenuData, dishName: string): MenuData {
+  return {
+    ...data,
+    categories: data.categories.map(category => ({
+      ...category,
+      sections: category.sections.map(section => ({
+        ...section,
+        items: section.items.map(item =>
+          item.name === dishName ? { ...item, isNew: true } : item
+        )
+      }))
+    }))
+  }
+}
