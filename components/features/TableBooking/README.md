@@ -1,75 +1,59 @@
 # Table Booking Components
 
-A set of React components for handling table bookings at The Anchor pub.
+The customer-facing table booking flow for The Anchor. Everything in this folder is live. There is no
+longer a second, unrendered set of components sitting alongside it.
 
-## Components
+## What is here
 
-### TableBookingForm
-The main component that orchestrates the entire booking flow.
+### `ManagementTableBookingForm`
 
-```tsx
-import { TableBookingForm } from '@/components/features/TableBooking'
-
-<TableBookingForm 
-  onSuccess={(booking) => console.log('Booking confirmed:', booking)}
-/>
-```
-
-### BookingDatePicker
-Handles date, time, and party size selection with business hours validation.
-
-### AvailabilityChecker
-Checks and displays available time slots for the selected date.
-
-### CustomerDetails
-Collects customer information and special requirements.
-
-### BookingConfirmation
-Displays booking confirmation with reference number and calendar integration.
-
-## Features
-
-- **Multi-step booking flow**: Date selection → Availability check → Customer details → Confirmation
-- **Business hours validation**: Automatically checks kitchen hours
-- **Real-time availability**: Checks table availability via API
-- **Mobile responsive**: Works seamlessly on all devices
-- **Accessibility**: Full ARIA labels and keyboard navigation
-- **Error handling**: Retry logic with user-friendly error messages
-- **GTM tracking**: Integrated analytics for conversion tracking
-- **Calendar integration**: Add booking to Google Calendar
-
-## Usage Example
+**The booking form.** Rendered by `app/book-table/page.tsx`. It owns the whole journey: date, time,
+party size, food or drinks, high chairs, outside seating, customer details and submission.
 
 ```tsx
-// In a page component
-import { TableBookingForm } from '@/components/features/TableBooking'
+import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 
-export default function BookTablePage() {
-  return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Book a Table</h1>
-      <TableBookingForm 
-        onSuccess={(booking) => {
-          // Handle successful booking
-          console.log('Booking reference:', booking.booking_reference)
-        }}
-      />
-    </div>
-  )
-}
+<ManagementTableBookingForm prefill={prefill} />
 ```
 
-## API Integration
+Import it directly. There is deliberately **no barrel file**: the old one exported components that
+nothing rendered, which made it easy to spend a day editing a file that was never on screen.
 
-The components use the following API endpoints:
-- `GET /api/business/hours` - Fetch opening hours
-- `GET /api/table-bookings/availability` - Check available slots
-- `POST /api/table-bookings/create` - Create booking
+### `PayPalDepositSection`
 
-## Styling
+The deposit step, used by the form for groups that require one. Used nowhere else.
 
-Components use Tailwind CSS with the anchor-branded color palette:
-- Primary actions: Amber colors
-- Success states: Green colors
-- Error states: Red colors
-- Neutral elements: Gray colors
+### `BookTableUpcomingEventsPanel`
+
+The "what's on" panel shown beside the form on `/book-table`.
+
+## How it talks to the management API
+
+The form never calls the management API directly. It goes through this site's own routes, which hold the
+API key server-side:
+
+| Route | Purpose |
+|-------|---------|
+| `GET /api/table-bookings/availability` | Time slots for a date |
+| `POST /api/table-bookings` | Create a booking. `/api/table-bookings/create` re-exports the same handler |
+| `GET /api/table-bookings/[reference]` | Look up a booking. Requires the customer's email |
+| `POST /api/table-bookings/paypal/*` | Deposit payment |
+
+`app/api/booking/agent/route.ts` is a **separate booking channel** used by the AI agent. It creates real
+bookings and is not part of this component tree, so any change to the booking contract has to be applied
+there too or the two quietly diverge.
+
+## Two things that are easy to get wrong
+
+- The form sends **`is_outside_seating`**; the proxy forwards **`outside_seating`** to the management
+  API. The names are not symmetrical.
+- `purpose` (`food` or `drinks`) is **required** when creating a booking. It used to be coerced to
+  `food` when missing, which produced misleading service-window errors for bookings made outside kitchen
+  hours (incident AB-001).
+
+## History
+
+Six components were removed in July 2026: `TableBookingForm`, `TableBookingWithTracking`,
+`AvailabilityChecker`, `CustomerDetails`, `BookingDatePicker` and `BookingConfirmation`, along with the
+`index.tsx` barrel. No page rendered any of them. This README previously described them as the main
+flow, which is how a piece of planned work ended up aimed at a file that was never on screen.
