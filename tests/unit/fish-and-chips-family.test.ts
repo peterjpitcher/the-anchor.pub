@@ -1,4 +1,4 @@
-import { isFishAndChipsFamily } from '@/lib/menu-page-data'
+import { fishPagePriority, isFishAndChipsFamily } from '@/lib/menu-page-data'
 
 // menu-page-data reaches for React's `cache` at module scope, which is not
 // available outside a server render. Same shim the other menu-page-data tests use.
@@ -46,5 +46,43 @@ describe('isFishAndChipsFamily', () => {
   it('only matches the species at a word start, not mid-word', () => {
     expect(isFishAndChipsFamily({ name: 'Fishcake Bites' })).toBe(true)
     expect(isFishAndChipsFamily({ name: 'Rocod Salad' })).toBe(false)
+  })
+})
+
+// Item 0 of the sorted list becomes the page's Product structured data, so the
+// full headline dish must outrank the half portion.
+describe('fishPagePriority', () => {
+  const order = (names: string[]) =>
+    [...names]
+      .sort((a, b) => {
+        const p = fishPagePriority({ name: a } as never) - fishPagePriority({ name: b } as never)
+        return p !== 0 ? p : a.localeCompare(b)
+      })
+
+  it('puts the full battered cod first and the half portion second', () => {
+    expect(
+      order([
+        'Half Fish & Chips',
+        'Scampi & Chips',
+        'Beer Battered Cod & Chips',
+        'Fish Finger Wrap',
+        'Fish Fingers & Chips'
+      ])
+    ).toEqual([
+      'Beer Battered Cod & Chips',
+      'Half Fish & Chips',
+      'Scampi & Chips',
+      'Fish Finger Wrap',
+      'Fish Fingers & Chips'
+    ])
+  })
+
+  it('never promotes a half portion to the flagship slot', () => {
+    expect(fishPagePriority({ name: 'Half Beer Battered Cod & Chips' } as never)).toBe(1)
+    expect(fishPagePriority({ name: 'Half Fish & Chips' } as never)).toBe(1)
+  })
+
+  it('still honours the legacy Fish & Chips name if it ever returns', () => {
+    expect(fishPagePriority({ name: 'Fish & Chips' } as never)).toBe(0)
   })
 })
