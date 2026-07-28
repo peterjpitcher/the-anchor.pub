@@ -1,260 +1,38 @@
+import { GET, POST } from '../route'
+
 /**
- * Walk-in-launch behaviour tests for the AI agent booking endpoint.
+ * The agent endpoint was retired on 2026-07-28. This replaces the previous suite, which exercised
+ * booking creation through it.
  *
- * Spec §6, §8.1: the agent endpoint must:
- *   - Always create regular bookings (no Sunday-lunch booking_type),
- *     even when the date falls on a Sunday.
- *   - Surface the £10-per-person deposit messaging only at party_size >= 10.
- *   - NOT include any Sunday-specific copy in the deposit notice.
- *   - Pass purpose through verbatim to the management API.
+ * These tests exist to make the retirement deliberate: if someone reinstates the handlers without
+ * putting real authentication in front of them, this fails rather than quietly passing.
  */
-
-export {}
-
-const mockGetBusinessHours = jest.fn()
-const mockCreateTableBooking = jest.fn()
-
-jest.mock('@/lib/api', () => ({
-  anchorAPI: {
-    getBusinessHours: (...args: unknown[]) => mockGetBusinessHours(...args),
-    createTableBooking: (...args: unknown[]) => mockCreateTableBooking(...args)
-  }
-}))
-
-jest.mock('@/lib/spam-protection', () => ({
-  checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false })
-}))
-
-const ALWAYS_OPEN_HOURS = {
-  regularHours: {
-    monday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    tuesday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    wednesday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    thursday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    friday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    saturday: { opens: '12:00', closes: '23:00', is_closed: false, kitchen: { opens: '12:00', closes: '21:00' } },
-    sunday: { opens: '12:00', closes: '18:00', is_closed: false, kitchen: { opens: '13:00', closes: '17:30' } }
-  },
-  specialHours: []
-} as any
-
-describe('Booking Agent API - walk-in launch behaviour', () => {
-  let createAgentBooking: (request: any) => Promise<Response>
-
-  beforeEach(async () => {
-    mockGetBusinessHours.mockResolvedValue(ALWAYS_OPEN_HOURS)
-    mockCreateTableBooking.mockReset()
-
-    jest.resetModules()
-    ;({ POST: createAgentBooking } = await import('@/app/api/booking/agent/route'))
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  it('forwards bookingType=regular even for a Sunday date', async () => {
-    mockCreateTableBooking.mockResolvedValue({
-      booking_reference: 'TB-AGENT-SUN',
-      status: 'confirmed',
-      confirmation_details: {
-        date: '2026-05-24',
-        time: '13:00',
-        party_size: 2
-      }
-    })
-
-    const request = {
-      json: async () => ({
-        date: '2026-05-24', // Sunday
-        time: '13:00',
-        partySize: 2,
-        type: 'sunday_lunch', // hostile/legacy input, must be ignored
-        purpose: 'food',
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000',
-          email: 'pat@example.com'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-
-    expect(response.status).toBe(200)
-    expect(mockCreateTableBooking).toHaveBeenCalledTimes(1)
-
-    const [forwardedPayload] = mockCreateTableBooking.mock.calls[0]
-    expect(forwardedPayload.booking_type).toBe('regular')
-    expect(forwardedPayload.purpose).toBe('food')
+describe('retired booking agent endpoint', () => {
+  it('refuses POST with 410 Gone rather than creating a booking', async () => {
+    const response = await POST()
+    expect(response.status).toBe(410)
 
     const body = await response.json()
-    expect(body.booking.type).toBe('regular')
+    expect(body.success).toBe(false)
+    expect(body.error).toMatch(/retired/i)
+    // The caller is given somewhere real to go.
+    expect(body.error).toMatch(/book-table|01753/)
   })
 
-  it('omits deposit messaging at party size 9 (just below threshold)', async () => {
-    mockCreateTableBooking.mockResolvedValue({
-      booking_reference: 'TB-AGENT-9',
-      status: 'confirmed',
-      confirmation_details: { date: '2026-05-24', time: '13:00', party_size: 9 }
-    })
-
-    const request = {
-      json: async () => ({
-        date: '2026-05-24',
-        time: '13:00',
-        partySize: 9,
-        purpose: 'food',
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(200)
-    const body = await response.json()
-    expect(body.booking.specialInstructions).toBeNull()
+  it('refuses GET with 410 Gone', async () => {
+    const response = await GET()
+    expect(response.status).toBe(410)
+    expect((await response.json()).success).toBe(false)
   })
 
-  it('emits deposit messaging at party size 10 (boundary)', async () => {
-    mockCreateTableBooking.mockResolvedValue({
-      booking_reference: 'TB-AGENT-10',
-      status: 'confirmed',
-      confirmation_details: { date: '2026-05-24', time: '13:00', party_size: 10 }
-    })
-
-    const request = {
-      json: async () => ({
-        date: '2026-05-24',
-        time: '13:00',
-        partySize: 10,
-        purpose: 'food',
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(200)
-    const body = await response.json()
-    expect(typeof body.booking.specialInstructions).toBe('string')
-    expect(body.booking.specialInstructions).toContain('10 or more')
-    expect(body.booking.specialInstructions).toContain('£10 per person')
-    // Crucially: no Sunday-lunch-specific copy
-    expect(body.booking.specialInstructions).not.toMatch(/sunday roast/i)
-    expect(body.booking.specialInstructions).not.toMatch(/saturday/i)
-    expect(body.booking.specialInstructions).not.toMatch(/cutoff/i)
+  it('tells caches and clients not to keep retrying', async () => {
+    const response = await POST()
+    expect(response.headers.get('Cache-Control')).toBe('no-store')
+    expect(response.headers.get('Link')).toContain('/book-table')
   })
 
-  it('emits deposit messaging at party size 11 (above threshold)', async () => {
-    mockCreateTableBooking.mockResolvedValue({
-      booking_reference: 'TB-AGENT-11',
-      status: 'confirmed',
-      confirmation_details: { date: '2026-05-22', time: '19:00', party_size: 11 }
-    })
-
-    const request = {
-      json: async () => ({
-        date: '2026-05-22',
-        time: '19:00',
-        partySize: 11,
-        purpose: 'food',
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(200)
-    const body = await response.json()
-    expect(typeof body.booking.specialInstructions).toBe('string')
-    expect(body.booking.specialInstructions).toContain('£10 per person')
-  })
-
-  it('returns HTTP 400 when purpose is missing (AB-002)', async () => {
-    const request = {
-      json: async () => ({
-        date: '2026-05-22',
-        time: '19:00',
-        partySize: 4,
-        // purpose deliberately omitted
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(400)
-    const body = await response.json()
-    const errorText = String(body?.error?.message || body?.error || '')
-    expect(errorText).toMatch(/purpose/i)
-    expect(mockCreateTableBooking).not.toHaveBeenCalled()
-  })
-
-  it('returns HTTP 400 when purpose is invalid (AB-002)', async () => {
-    const request = {
-      json: async () => ({
-        date: '2026-05-22',
-        time: '19:00',
-        partySize: 4,
-        purpose: 'lunch', // typo / unsupported value
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(400)
-    const body = await response.json()
-    const errorText = String(body?.error?.message || body?.error || '')
-    expect(errorText).toMatch(/purpose/i)
-    expect(mockCreateTableBooking).not.toHaveBeenCalled()
-  })
-
-  it('uses neutral copy when a request falls outside the booking window (AB-003)', async () => {
-    // Force the food window to apply: 22:30 is after kitchen close 21:00, so
-    // service-window validation will reject.
-    const request = {
-      json: async () => ({
-        date: '2026-05-22',
-        time: '22:30',
-        partySize: 4,
-        purpose: 'food',
-        customer: {
-          firstName: 'Pat',
-          lastName: 'Guest',
-          phone: '07700900000'
-        }
-      })
-    } as any
-
-    const response = await createAgentBooking(request)
-    expect(response.status).toBe(400)
-    const body = await response.json()
-    const errorText = String(body?.error?.message || body?.error || '')
-    const lower = errorText.toLowerCase()
-    expect(lower).toMatch(/outside online booking hours/i)
-    expect(lower).not.toContain('food booking')
-    expect(lower).not.toContain('switch to drinks')
-    expect(lower).not.toContain('kitchen service')
-    expect(lower).not.toContain('kitchen hours')
-    expect(lower).not.toContain('drinks booking window')
-    expect(mockCreateTableBooking).not.toHaveBeenCalled()
+  it('creates nothing: the handlers take no request, so there is no path to a booking', () => {
+    expect(POST.length).toBe(0)
+    expect(GET.length).toBe(0)
   })
 })

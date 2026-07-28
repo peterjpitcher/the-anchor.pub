@@ -1,411 +1,57 @@
-import { NextRequest } from 'next/server'
-import { anchorAPI } from '@/lib/api'
-import type { TableBookingRequest } from '@/lib/api'
-import { checkSpamProtection } from '@/lib/spam-protection'
-import {
-  isTimeWithinRanges,
-  normalizeTime,
-  resolveServiceRanges,
-  type BookingPurpose,
-  type BookingType
-} from '@/lib/table-booking-service-windows'
+/**
+ * Booking assistant agent endpoint: RETIRED, 2026-07-28.
+ *
+ * This route accepted public, unauthenticated POSTs and created real table bookings at the pub,
+ * including setting high chairs and outside seating. Its only protection was the shared browser
+ * spam guard (honeypot, timing, Turnstile): no API key, no scoped client identity, no replay
+ * protection, no quota of its own.
+ *
+ * It was added around August 2025 alongside the Sunday lunch booking work, described in its own
+ * header as being "designed for GPT-5 and other AI agents". Nothing on the website linked to it,
+ * and its only mention anywhere else was one line in docs/architecture/routes.md. Asked in July 2026
+ * whether anything called it, the owner had never heard of it.
+ *
+ * So it was a live public booking channel with no known caller, no owner and no authentication,
+ * which also had to be kept in step with every change to the booking contract. Switched off rather
+ * than maintained.
+ *
+ * 410 rather than 404 on purpose: a caller that does still exist gets an unambiguous "this is gone"
+ * rather than a silence it might retry through, and it will show up in logs within days.
+ *
+ * The previous implementation is in git history, in the commit before this one. It should not come
+ * back without:
+ *   - a scoped, rotatable credential, not the browser spam guard;
+ *   - replay protection (nonce or timestamp) and idempotency;
+ *   - a per-client rate limit separate from the website's shared budget;
+ *   - an audit trail naming the calling agent on every booking;
+ *   - a kill switch that does not need a deployment.
+ */
 
-function jsonResponse(payload: unknown, status = 200): Response {
-  return new Response(JSON.stringify(payload), {
-    status,
+const GONE = {
+  success: false,
+  error:
+    'This endpoint has been retired. Table bookings are available at ' +
+    'https://www.the-anchor.pub/book-table or by calling 01753 682707.',
+} as const
+
+// Plain Response rather than NextResponse.json, matching what this file used before: the
+// latter is not available in the jsdom test environment.
+function gone(): Response {
+  return new Response(JSON.stringify(GONE), {
+    status: 410,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+      // Tell caches, and any well-behaved client, not to keep trying.
+      'Cache-Control': 'no-store',
+      Link: '<https://www.the-anchor.pub/book-table>; rel="alternate"',
+    },
   })
 }
 
-/**
- * AI Agent Booking Endpoint
- * Accepts structured JSON for direct booking creation
- * Designed for GPT-5 and other AI agents
- */
-export async function POST(request: NextRequest) {
-  try {
-    // Parse request body
-    const body = await request.json()
-
-    const spam = await checkSpamProtection(request, body)
-    if (spam.blocked) return spam.response
-
-    // Validate required fields
-    if (!body.date || !body.time || !body.partySize || !body.customer) {
-      return jsonResponse({
-        success: false,
-        error: 'Missing required fields: date, time, partySize, customer'
-      }, 400)
-    }
-
-    // AB-002: purpose is REQUIRED. Agents that received a `kitchen_open: false`
-    // slot from the GET endpoint and then POST without an explicit purpose were
-    // previously coerced to 'food', which then failed service-window
-    // validation late in the pipeline. Reject explicitly instead.
-    const purpose: BookingPurpose | undefined =
-      body.purpose === 'drinks' ? 'drinks' : body.purpose === 'food' ? 'food' : undefined
-    if (!purpose) {
-      return jsonResponse({
-        success: false,
-        error: 'Missing required field: purpose (must be "food" or "drinks")'
-      }, 400)
-    }
-
-    // Validate customer data
-    if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone) {
-      return jsonResponse({
-        success: false,
-        error: 'Missing customer fields: firstName, lastName, phone'
-      }, 400)
-    }
-
-    // Parse natural language date if needed
-    let bookingDate = body.date
-    if (isNaN(Date.parse(bookingDate))) {
-      // Try to parse natural language dates
-      bookingDate = parseNaturalDate(body.date)
-      if (!bookingDate) {
-        return jsonResponse({
-          success: false,
-          error: `Unable to parse date: ${body.date}. Please use YYYY-MM-DD format or natural language like "tomorrow" or "next Sunday"`
-        }, 400)
-      }
-    }
-
-    // Sunday-lunch as a separate booking type is retired with the walk-in launch
-    // (spec §6, §8.1). The AI-agent endpoint creates regular bookings on every
-    // day; deposit messaging below is gated on partySize >= 10 alone.
-    const bookingType: BookingType = 'regular'
-    const normalizedBookingTime = normalizeTime(String(body.time))
-
-    try {
-      const businessHours = await anchorAPI.getBusinessHours()
-      const serviceWindow = resolveServiceRanges(businessHours, bookingDate, {
-        bookingType,
-        purpose
-      })
-
-      const canBookTime =
-        !serviceWindow.closed &&
-        serviceWindow.ranges.length > 0 &&
-        isTimeWithinRanges(normalizedBookingTime, serviceWindow.ranges)
-
-      if (!canBookTime) {
-        // AB-003: customer-facing copy must be neutral, no food/drinks/kitchen
-        // wording (matches the website submit-route copy).
-        const message =
-          serviceWindow.message ||
-          'That time is outside online booking hours. Please choose another time or call 01753 682707.'
-
-        return jsonResponse({
-          success: false,
-          error: {
-            code: 'OUTSIDE_SERVICE_WINDOW',
-            message
-          }
-        }, 400)
-      }
-    } catch (error) {
-      console.error('AI agent service window check failed:', error)
-      return jsonResponse({
-        success: false,
-        error: {
-          code: 'SERVICE_WINDOW_CHECK_FAILED',
-          message: 'We could not verify service hours right now. Please try again or call 01753 682707.'
-        }
-      }, 503)
-    }
-    
-    // High chairs (0-2) and outside-seating: accept snake_case or camelCase from
-    // the agent, parse defensively, and forward via the standard booking request.
-    const rawHighChairs = body.high_chair_count ?? body.highChairCount
-    const parsedHighChairs =
-      typeof rawHighChairs === 'number' && Number.isFinite(rawHighChairs)
-        ? Math.floor(rawHighChairs)
-        : typeof rawHighChairs === 'string' && rawHighChairs.trim().length > 0
-        ? Number.parseInt(rawHighChairs.trim(), 10)
-        : 0
-    const highChairCount = Number.isFinite(parsedHighChairs)
-      ? Math.min(Math.max(parsedHighChairs, 0), 2)
-      : 0
-    const isOutsideSeating =
-      body.is_outside_seating === true || body.isOutsideSeating === true
-
-    // Create booking request
-    const bookingRequest: TableBookingRequest = {
-      booking_type: bookingType,
-      date: bookingDate,
-      time: body.time,
-      party_size: body.partySize,
-      purpose,
-      customer: {
-        first_name: body.customer.firstName,
-        last_name: body.customer.lastName,
-        email: body.customer.email,
-        mobile_number: body.customer.phone,
-        sms_opt_in: false
-      },
-      duration_minutes: body.duration || 120,
-      special_requirements: body.specialRequirements,
-      dietary_requirements: body.dietaryRequirements,
-      allergies: body.allergies,
-      celebration_type: body.occasion,
-      ...(highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
-      ...(isOutsideSeating ? { is_outside_seating: true } : {}),
-      source: 'ai_agent'
-    }
-    
-    // Create booking via API
-    const booking = await anchorAPI.createTableBooking(bookingRequest)
-    
-    // Return structured response for AI agent
-    return jsonResponse({
-      success: true,
-      booking: {
-        reference: booking.booking_reference,
-        status: booking.status,
-        date: booking.confirmation_details?.date || bookingDate,
-        time: booking.confirmation_details?.time || body.time,
-        partySize: booking.confirmation_details?.party_size || body.partySize,
-        type: bookingType,
-        purpose,
-        customer: {
-          name: `${body.customer.firstName} ${body.customer.lastName}`,
-          phone: body.customer.phone
-        },
-        ...(typeof booking.high_chairs_granted === 'number'
-          ? { highChairsGranted: booking.high_chairs_granted }
-          : {}),
-        ...(typeof booking.is_outside_seating === 'boolean'
-          ? { isOutsideSeating: booking.is_outside_seating }
-          : {}),
-        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
-        specialInstructions: body.partySize >= 10
-          ? 'Bookings of 10 or more require a £10 per person deposit, fully deducted from your bill on the day.'
-          : null
-      }
-    })
-    
-  } catch (error: unknown) {
-    console.error('AI agent booking error:', error)
-
-    // Return structured error for AI agent
-    return jsonResponse({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to create booking',
-      suggestion: 'Please verify all fields are correct or call the restaurant at 01753 682707'
-    }, 500)
-  }
+export async function POST(): Promise<Response> {
+  return gone()
 }
 
-/**
- * GET endpoint for AI agents to check availability
- */
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const date = searchParams.get('date')
-  const partySize = searchParams.get('partySize')
-  // The `type` and `purpose` query params are still accepted for backwards
-  // compatibility but are read-only no-ops on the GET path. Public availability
-  // is now combined (drinks + food) and exposes `kitchen_open` per slot
-  // (spec §6, §9). Sunday-lunch as a separate booking type is also retired.
-  void searchParams.get('type')
-  void searchParams.get('purpose')
-
-  if (!date) {
-    return jsonResponse({
-      success: false,
-      error: 'Date parameter required'
-    }, 400)
-  }
-
-  try {
-    // Parse natural language date if needed
-    let checkDate = date
-    if (isNaN(Date.parse(checkDate))) {
-      const parsedDate = parseNaturalDate(date)
-      if (!parsedDate) {
-        return jsonResponse({
-          success: false,
-          error: `Unable to parse date: ${date}`
-        }, 400)
-      }
-      checkDate = parsedDate
-    }
-
-    const isSunday = new Date(checkDate + 'T12:00:00').getDay() === 0
-    const bookingType: BookingType = 'regular'
-    const normalizedPartySize = Number.parseInt(partySize || '2', 10)
-
-    const availabilityParams = new URLSearchParams({
-      date: checkDate,
-      time: '12:00',
-      party_size: Number.isFinite(normalizedPartySize) && normalizedPartySize > 0
-        ? String(normalizedPartySize)
-        : '2'
-    })
-
-    const availabilityUrl = new URL('/api/table-bookings/availability', request.url)
-    availabilityUrl.search = availabilityParams.toString()
-
-    const availabilityResponse = await fetch(availabilityUrl.toString(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      cache: 'no-store'
-    })
-    const availabilityBody = await availabilityResponse.json().catch(() => null)
-
-    if (!availabilityResponse.ok || availabilityBody?.success === false) {
-      const errorMessage =
-        availabilityBody?.error?.message ||
-        availabilityBody?.error ||
-        `Failed to check availability (${availabilityResponse.status})`
-
-      return jsonResponse({
-        success: false,
-        error: errorMessage
-      }, availabilityResponse.status || 502)
-    }
-
-    const availability = availabilityBody?.data || availabilityBody
-
-    type UpstreamSlot = {
-      time?: string
-      available?: boolean
-      available_capacity?: number
-      kitchen_open?: boolean
-    }
-
-    const times = Array.isArray(availability?.time_slots)
-      ? (availability.time_slots as UpstreamSlot[]).map((slot) => {
-          const availableCapacity =
-            typeof slot.available_capacity === 'number'
-              ? slot.available_capacity
-              : 0
-          const entry: { time: string; available: boolean; kitchen_open?: boolean } = {
-            time: String(slot.time ?? ''),
-            available: slot.available ?? availableCapacity > 0
-          }
-          if (typeof slot.kitchen_open === 'boolean') {
-            entry.kitchen_open = slot.kitchen_open
-          }
-          return entry
-        })
-      : []
-
-    return jsonResponse({
-      success: true,
-      date: checkDate,
-      available: availability.available,
-      times,
-      isSunday,
-      bookingType,
-      message: availability.message || availability.special_notes
-    })
-
-  } catch (error: unknown) {
-    return jsonResponse({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to check availability'
-    }, 500)
-  }
-}
-
-/**
- * Parse natural language dates
- */
-function parseNaturalDate(input: string): string | null {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  
-  const lowerInput = input.toLowerCase().trim()
-  
-  // Handle relative dates
-  if (lowerInput === 'today') {
-    return today.toISOString().split('T')[0]
-  }
-  
-  if (lowerInput === 'tomorrow') {
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    return tomorrow.toISOString().split('T')[0]
-  }
-  
-  // Handle "next [day]" format
-  if (lowerInput.startsWith('next ')) {
-    const dayName = lowerInput.replace('next ', '')
-    const targetDay = getDayNumber(dayName)
-    if (targetDay !== -1) {
-      const nextDate = getNextDayOfWeek(today, targetDay)
-      return nextDate.toISOString().split('T')[0]
-    }
-  }
-  
-  // Handle "this [day]" format
-  if (lowerInput.startsWith('this ')) {
-    const dayName = lowerInput.replace('this ', '')
-    const targetDay = getDayNumber(dayName)
-    if (targetDay !== -1) {
-      const thisDate = getThisDayOfWeek(today, targetDay)
-      return thisDate.toISOString().split('T')[0]
-    }
-  }
-  
-  // Try parsing as regular date
-  const parsed = new Date(input)
-  if (!isNaN(parsed.getTime())) {
-    return parsed.toISOString().split('T')[0]
-  }
-  
-  return null
-}
-
-function getDayNumber(dayName: string): number {
-  const days: Record<string, number> = {
-    'sunday': 0,
-    'monday': 1,
-    'tuesday': 2,
-    'wednesday': 3,
-    'thursday': 4,
-    'friday': 5,
-    'saturday': 6
-  }
-  return days[dayName.toLowerCase()] ?? -1
-}
-
-function getNextDayOfWeek(from: Date, dayOfWeek: number): Date {
-  const date = new Date(from)
-  const currentDay = date.getDay()
-  const daysUntil = (dayOfWeek - currentDay + 7) % 7 || 7
-  date.setDate(date.getDate() + daysUntil)
-  return date
-}
-
-function getThisDayOfWeek(from: Date, dayOfWeek: number): Date {
-  const date = new Date(from)
-  const currentDay = date.getDay()
-  const daysUntil = (dayOfWeek - currentDay + 7) % 7
-  date.setDate(date.getDate() + daysUntil)
-  return date
-}
-
-function formatDateForDisplay(dateStr: string): string {
-  const date = new Date(dateStr + 'T12:00:00')
-  return date.toLocaleDateString('en-GB', { 
-    weekday: 'long', 
-    day: 'numeric', 
-    month: 'long' 
-  })
-}
-
-function formatTimeForDisplay(time: string): string {
-  const [hours, minutes] = time.split(':')
-  const hour = parseInt(hours)
-  const ampm = hour >= 12 ? 'PM' : 'AM'
-  const displayHour = hour % 12 || 12
-  return `${displayHour}:${minutes} ${ampm}`
+export async function GET(): Promise<Response> {
+  return gone()
 }

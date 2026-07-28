@@ -81,7 +81,7 @@ project: the-anchor-pub
 | `/api/tracking/booking-conversion` | POST | Track booking conversion event |
 | `/api/analytics` | GET, POST | Generic analytics endpoint |
 | `/api/web-vitals` | POST | Send Core Web Vitals metrics |
-| `/api/booking/agent` | GET, POST | Booking assistant agent endpoint |
+| `/api/booking/agent` | GET, POST | **RETIRED 2026-07-28.** Returns 410 Gone. Was a public, unauthenticated endpoint that created real table bookings, with no known caller |
 | `/api/booking/payment-return` | GET | Handle payment provider return URLs |
 
 ### Other Routes (8)
