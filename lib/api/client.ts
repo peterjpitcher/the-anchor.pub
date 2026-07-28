@@ -102,6 +102,14 @@ function toSlotBusynessOptions(load?: TableBookingLoadResponse | null): SlotBusy
   }
 }
 
+export interface TableAvailabilityQuery {
+  partySize?: number
+  purpose?: 'food' | 'drinks'
+  outside?: boolean
+  requiresAccessibleTable?: boolean
+  highChairCount?: number
+}
+
 export class AnchorAPI {
   private baseURL: string
   private apiKey: string
@@ -1086,7 +1094,7 @@ export class AnchorAPI {
 
     const [businessHours, bookingLoad] = await Promise.all([
       this.getBusinessHours(),
-      this.getTableBookingLoadFailOpen(params.date),
+      this.getTableBookingLoadFailOpen(params.date, { partySize: params.party_size }),
     ])
     return this.buildTableAvailabilityFromBusinessHours(businessHours, {
       ...params,
@@ -1095,20 +1103,38 @@ export class AnchorAPI {
     })
   }
 
-  async getTableBookingLoad(date: string, options: RequestInit = {}): Promise<TableBookingLoadResponse> {
+  // The availability query decides which TABLES qualify, as opposed to how many covers fit.
+  async getTableBookingLoad(
+    date: string,
+    options: RequestInit = {},
+    availability?: TableAvailabilityQuery
+  ): Promise<TableBookingLoadResponse> {
     const query = new URLSearchParams({ date })
+    // Only ask for real table availability when we know the party size: without it the
+    // management API cannot say which tables qualify, only how many covers fit.
+    if (availability?.partySize && availability.partySize > 0) {
+      query.set('party_size', String(availability.partySize))
+      query.set('purpose', availability.purpose ?? 'food')
+      if (availability.outside) query.set('outside', 'true')
+      if (availability.requiresAccessibleTable) query.set('requires_accessible_table', 'true')
+      if (availability.highChairCount) query.set('high_chair_count', String(availability.highChairCount))
+    }
     return this.request<TableBookingLoadResponse>(`/table-bookings/load?${query.toString()}`, {
       ...options,
       next: { revalidate: 0 },
     } as RequestInit & { next: { revalidate: number } })
   }
 
-  async getTableBookingLoadFailOpen(date: string, timeoutMs = 1500): Promise<TableBookingLoadResponse | null> {
+  async getTableBookingLoadFailOpen(
+    date: string,
+    availability?: TableAvailabilityQuery,
+    timeoutMs = 1500
+  ): Promise<TableBookingLoadResponse | null> {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), timeoutMs)
 
     try {
-      return await this.getTableBookingLoad(date, { signal: controller.signal })
+      return await this.getTableBookingLoad(date, { signal: controller.signal }, availability)
     } catch (error) {
       console.warn('[table-bookings] Booking load unavailable; continuing without busyness labels', {
         date,

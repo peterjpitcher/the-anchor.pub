@@ -113,12 +113,17 @@ export async function GET(request: Request) {
   const partySizeRaw = searchParams.get('party_size')
   const requestedTime = searchParams.get('time') || '19:00'
 
-  // booking_type and purpose query params are accepted for backwards compatibility
-  // with stale links/clients but are intentionally ignored: the public availability
-  // contract is now a single combined slot list with per-slot kitchen_open.
   void searchParams.get('booking_type')
-  void searchParams.get('purpose')
   const bookingType: BookingType = 'regular'
+
+  // purpose was previously read and thrown away. That was harmless while every booking was
+  // allocated the same way; it stopped being harmless the moment food and drinks started
+  // filling opposite ends of the pub. Food goes to the dining room first, drinks to the bar,
+  // so the same slot can genuinely differ between them.
+  const purpose = searchParams.get('purpose') === 'drinks' ? 'drinks' : 'food'
+  const outside = searchParams.get('outside') === 'true'
+  const requiresAccessibleTable = searchParams.get('requires_accessible_table') === 'true'
+  const highChairCount = Number.parseInt(searchParams.get('high_chair_count') || '0', 10) || 0
 
   if (!date || !partySizeRaw) {
     return createApiErrorResponse(
@@ -141,8 +146,41 @@ export async function GET(request: Request) {
   try {
     const [businessHours, bookingLoad] = await Promise.all([
       anchorAPI.getBusinessHours(),
-      anchorAPI.getTableBookingLoadFailOpen(date)
+      // Now carries `table_availability`, computed by the same picker that creates bookings.
+      anchorAPI.getTableBookingLoadFailOpen(date, {
+        partySize,
+        purpose,
+        outside,
+        requiresAccessibleTable,
+        highChairCount
+      })
     ])
+
+    // If the management API answered with real table availability, it decides. The local slot
+    // maths below never looks at tables, joins, private bookings or communal events, which is
+    // why the site could advertise a time when the pub was physically full.
+    const tableAvailability = (bookingLoad as any)?.table_availability
+
+    if (tableAvailability?.calculation_state === 'unknown') {
+      // Never fail open. We could not check, so we do not guess: the customer is told to ring
+      // rather than shown a slot nobody can stand behind.
+      return new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            date,
+            party_size: partySize,
+            calculation_state: 'unknown',
+            time_slots: [],
+            message:
+              tableAvailability.message ||
+              'We cannot check availability right now. Please give us a ring on 01753 682707.'
+          },
+          meta: { source: 'management_api', service_model: 'combined_food_drinks' }
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
     const fallback = buildCombinedAvailability(businessHours, {
       date,
       partySize,
@@ -151,12 +189,47 @@ export async function GET(request: Request) {
       bookingLoad
     })
 
+    // Overlay the authoritative answer onto the existing shape, so the form keeps rendering the
+    // same structure and only the truthfulness changes. A slot the management API has not
+    // spoken about is left exactly as it was.
+    if (Array.isArray(tableAvailability?.slots) && tableAvailability.slots.length > 0) {
+      const byTime = new Map<string, any>(
+        tableAvailability.slots.map((s: any) => [String(s.time).slice(0, 5), s])
+      )
+
+      fallback.time_slots = (fallback.time_slots || []).map((slot: any) => {
+        const real = byTime.get(String(slot.time).slice(0, 5))
+        if (!real) return slot
+        return {
+          ...slot,
+          available: real.state === 'available',
+          // The form filters on available_capacity, so it has to agree with the state or a
+          // slot could read unavailable and still be selectable.
+          available_capacity: real.state === 'available' ? Math.max(slot.available_capacity ?? 0, partySize) : 0,
+          unavailable_reason: real.public_reason ?? null,
+          unavailable_message: real.message ?? null,
+          high_chairs_remaining: real.high_chairs_remaining ?? slot.high_chairs_remaining
+        }
+      })
+
+      ;(fallback as any).calculation_state = 'complete'
+      ;(fallback as any).max_party_size_online = tableAvailability.max_party_size_online
+    }
+
+    // Above the online limit there is nothing to show; it is a private booking.
+    if (tableAvailability?.public_reason === 'too_large') {
+      fallback.time_slots = []
+      ;(fallback as any).public_reason = 'too_large'
+      ;(fallback as any).message = tableAvailability.message
+      ;(fallback as any).max_party_size_online = tableAvailability.max_party_size_online
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
         data: fallback,
         meta: {
-          source: 'schedule_fallback',
+          source: tableAvailability ? 'management_api' : 'schedule_fallback',
           service_model: 'combined_food_drinks'
         }
       }),

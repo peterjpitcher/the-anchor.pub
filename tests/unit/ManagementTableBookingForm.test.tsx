@@ -255,7 +255,10 @@ describe('ManagementTableBookingForm', () => {
     ).toBeInTheDocument()
   })
 
-  it('does not include purpose in the availability fetch URL', async () => {
+  // Reversed deliberately. This used to assert that purpose was NOT sent, which was fine while
+  // every booking was allocated the same way. It stopped being fine when food and drinks began
+  // filling opposite ends of the pub: availability cannot answer without knowing which.
+  it('sends everything that decides which tables qualify, not just the date and party size', async () => {
     const captureUrl = { ref: { current: null as string | null } }
     setupFetchMock({
       availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
@@ -269,7 +272,47 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
-    expect(captureUrl.ref.current).not.toMatch(/purpose=/)
+    expect(captureUrl.ref.current).toMatch(/purpose=food/)
+    expect(captureUrl.ref.current).toMatch(/party_size=2/)
+    expect(captureUrl.ref.current).toMatch(/requires_accessible_table=/)
+    expect(captureUrl.ref.current).toMatch(/high_chair_count=/)
+    expect(captureUrl.ref.current).toMatch(/outside=/)
+  })
+
+  it('asks for drinks availability once the guest says it is just drinks', async () => {
+    const captureUrl = { ref: { current: null as string | null } }
+    setupFetchMock({
+      availability: [{ time: '22:00', available: true, available_capacity: 4, kitchen_open: false }],
+      captureUrl
+    })
+
+    render(<ManagementTableBookingForm />)
+    fireEvent.click(screen.getByLabelText(/Just drinks/i))
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
+    expect(captureUrl.ref.current).toMatch(/purpose=drinks/)
+  })
+
+  it('asks for an accessible table when the guest needs one', async () => {
+    const captureUrl = { ref: { current: null as string | null } }
+    setupFetchMock({
+      availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+      captureUrl
+    })
+
+    render(<ManagementTableBookingForm />)
+    fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
+    expect(captureUrl.ref.current).toMatch(/requires_accessible_table=true/)
   })
 
   it('renders "Drinks & food" caption on kitchen-open slots and "Drinks only" on others', async () => {
