@@ -213,7 +213,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if (season.state === 'ended' || !season.isBookable) {
     const title = 'Christmas Parties Near Heathrow & Staines | The Anchor'
     const description =
-      'Christmas bookings at The Anchor, Stanwell Moor, are closed for this season. Private hire, function room and group bookings are available all year round, with free parking near Heathrow.'
+      'Christmas bookings at The Anchor near Heathrow are closed for this season. Private hire and group bookings run all year, with free parking.'
     return {
       title: { absolute: title },
       description,
@@ -224,8 +224,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const title = 'Christmas Party Venue Near Heathrow & Staines | The Anchor'
+  // Kept under ~155 chars so Google shows the whole snippet. Free parking is
+  // the strongest differentiator against airport-area venues, so it sits near
+  // the front rather than in the tail that used to get truncated away.
   const description =
-    `Christmas dinner and Christmas parties near Heathrow, ${windowLabel}. 1, 2 or 3 courses for ${FACTS.minPartySize}+ guests, 24 hours notice, £${FACTS.depositPerPerson}pp deposit. Free parking.`
+    `Christmas parties and dinner near Heathrow, free parking. ${windowLabel}. 1, 2 or 3 courses for groups of ${FACTS.minPartySize}+. £${FACTS.depositPerPerson}pp deposit.`
 
   return {
     title: { absolute: title },
