@@ -213,7 +213,7 @@ export default async function PlaneSpottingHeathrowPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { title: 'Under the Flight Path', description: 'On westerly operations with 27R arrivals, you are aligned with the landing path. Aircraft overhead is expected, not guaranteed.' },
-              { title: 'Photo-Friendly Garden', description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome and heaters keep winter sessions comfortable.' },
+              { title: 'Photo-Friendly Garden', description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome.' },
               { title: 'Proper Refreshments', description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
@@ -299,7 +299,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'Is there shelter if it rains?',
-            answer: 'Yes. Our heated, covered areas and indoor seating mean you can keep spotting even in showers. Staff are happy to update you on runway usage.'
+            answer: 'Yes. Our covered areas and indoor seating mean you can keep spotting even in showers. Staff are happy to update you on runway usage.'
           },
           {
             question: 'What aircraft will I see from The Anchor?',

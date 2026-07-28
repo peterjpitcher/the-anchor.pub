@@ -245,7 +245,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
                 <CardBody className="p-6">
                   <ul className="space-y-3 text-ink">
                     {[
-                      'Seating for plenty, with heated areas for cooler evenings',
+                      'Seating for plenty, indoors and out',
                       'Full food and drink service during kitchen hours',
                       'Free WiFi throughout the pub and garden',
                       'A favourite spot for plane spotting near Heathrow',

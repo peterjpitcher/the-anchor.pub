@@ -174,7 +174,7 @@ export default function AccessibilityPage() {
       {/* Internal Links / CTA */}
       <CtaBand
         title="Plan Your Visit"
-        copy="We're 7 minutes from Heathrow with free parking, step-free access and a warm welcome waiting for you."
+        copy="We're 7 minutes from Heathrow with free parking, step-free access to most areas and a warm welcome waiting for you."
       >
         <BookTableButton source="accessibility_cta" size="lg" variant="primary" />
         <Button asChild size="lg" variant="outline">

@@ -25,10 +25,10 @@ export const revalidate = 86400 // Revalidate every 24 hours
 
 export const metadata: Metadata = {
   title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden',
-  description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables, heated areas and free customer parking in Stanwell Moor.',
+  description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking in Stanwell Moor.',
   openGraph: {
     title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden | The Anchor',
-    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables, heated areas and free customer parking.',
+    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
@@ -181,7 +181,7 @@ export default async function BeerGardenPage() {
             Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
           </h2>
           <p className="text-center text-lg text-ink-muted mt-4 max-w-4xl mx-auto">
-            The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
+            The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden is fully dog-friendly with water bowls provided.
           </p>
         </Container>
       </section>
@@ -262,7 +262,6 @@ export default async function BeerGardenPage() {
                 { title: 'Spacious Seating', description: 'Multiple tables with umbrellas for sunny days' },
                 { title: 'Dog Friendly', description: 'Water bowls provided, treats available at the bar' },
                 { title: 'Food Service', description: 'Full menu available in the garden during kitchen hours' },
-                { title: 'Heated Areas', description: 'Heaters for cooler evenings' },
                 { title: 'Family Friendly', description: 'Safe enclosed space, children always welcome' }
               ].map(feature => (
                 <Card key={feature.title} accent hover>

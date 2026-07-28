@@ -58,7 +58,7 @@ export default function ChristeningsPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },
@@ -361,7 +361,7 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "Is the venue accessible for elderly guests and grandparents?",
-                        answer: "Yes. The venue is on the ground floor with step-free access and ample parking directly outside. If any guests have specific accessibility requirements, please let us know when you book and we will do our best to accommodate them."
+                        answer: "Yes. The venue is on the ground floor with step-free access to most areas and ample parking directly outside. If any guests have specific accessibility requirements, please let us know when you book and we will do our best to accommodate them."
                     },
                     {
                         question: "Can we take photographs in the garden?",

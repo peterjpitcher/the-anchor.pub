@@ -75,7 +75,7 @@ const aboutPageSchema = {
       { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Dog Friendly', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Beer Garden', value: true },
-      { '@type': 'LocationFeatureSpecification', name: 'Step-Free Access', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Step-free access to most areas', value: true },
     ],
   },
 }
@@ -295,7 +295,7 @@ export default function AboutPage() {
                       Beer Garden &amp; Plane Spotting
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      64 seats under the flight path. Heated areas, dog-friendly, full food
+                      64 seats under the flight path. Dog-friendly, full food
                       and drink service outdoors.
                     </p>
                     <p className="text-accent-text font-semibold">Explore the garden &rarr;</p>

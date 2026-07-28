@@ -73,7 +73,7 @@ export default async function WakesPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Ground Floor Access", "value": true }

@@ -352,7 +352,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is the garden available?',
-                        answer: 'Yes. Our beer garden seats 64 and is dog friendly, with heated areas, and the dining room opens onto it through French doors for warmer days.',
+                        answer: 'Yes. Our beer garden seats 64 and is dog friendly, and the dining room opens onto it through French doors for warmer days.',
                     },
                 ],
             }
@@ -712,7 +712,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
         amenityFeature: [
             { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Private Dining Room', value: true },
-            { '@type': 'LocationFeatureSpecification', name: 'Step-free access', value: true },
+            { '@type': 'LocationFeatureSpecification', name: 'Step-free access to most areas', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Catering', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Dog friendly', value: true },
         ],

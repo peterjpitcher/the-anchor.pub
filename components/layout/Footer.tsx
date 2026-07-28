@@ -128,7 +128,7 @@ const defaultContact: ContactInfo & { social?: SocialLink[] } = {
 }
 
 const defaultFeatures = [
-  'Step-Free Access',
+  'Step-Free Bar & Dining',
   'Dog Friendly',
   'Family Welcome',
   'LGBTQ+ Friendly',

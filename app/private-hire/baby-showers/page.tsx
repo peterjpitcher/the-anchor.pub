@@ -56,7 +56,7 @@ export default function BabyShowersPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Afternoon Tea Packages", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Mocktail Menu", "value": true },
