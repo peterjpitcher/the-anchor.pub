@@ -166,7 +166,7 @@ project: the-anchor-pub
 - `/api/analytics` (GET, POST) — Generic analytics relay
 - `/api/tracking/booking-conversion` (POST) — Booking conversion events
 - `/api/web-vitals` (POST) — Core Web Vitals metrics
-- `/api/booking/agent` (GET, POST) — Booking assistant agent
+- `/api/booking/agent` (GET, POST) — RETIRED 2026-07-28, returns 410 Gone
 
 **External Integrations**:
 - **Google Tag Manager** — Event tracking, conversion monitoring
