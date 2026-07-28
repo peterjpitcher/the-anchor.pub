@@ -335,10 +335,16 @@ function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined
   return getAdultPriceFrom(items)
 }
 
-function fishPagePriority(item: MenuPageItem): number {
+// Orders the fish page. Item 0 also becomes the page's Product structured data,
+// so it must be the full headline dish, never the half portion.
+//
+// Matches on shape rather than exact dish names: the previous version pinned
+// "Fish & Chips" as the flagship, so renaming that dish to "Beer Battered Cod &
+// Chips" promoted the half portion into the Product rich result.
+export function fishPagePriority(item: MenuPageItem): number {
   const name = item.name.toLowerCase()
-  if (/^fish\s*&\s*chips$/.test(name)) return 0
-  if (/^half\s+fish\s*&\s*chips$/.test(name)) return 1
+  if (/^half\b/.test(name)) return 1
+  if (/\bcod\b/.test(name) || /^fish\s*&\s*chips$/.test(name)) return 0
   if (/scampi/.test(name)) return 2
   return 3
 }
