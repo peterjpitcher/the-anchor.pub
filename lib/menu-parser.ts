@@ -12,6 +12,8 @@ export interface MenuItem {
   veganOptionAvailable?: boolean
   glutenFreeAvailable?: boolean
   special?: boolean
+  /** Dish is inside its new-product window, so it carries a New badge. */
+  isNew?: boolean
   featured?: boolean
   allergens?: string[]
 }

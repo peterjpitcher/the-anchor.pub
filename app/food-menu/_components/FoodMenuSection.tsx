@@ -189,6 +189,11 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
                           <div className="min-w-0">
                             <p className="font-sans font-medium text-ink-strong">
                               {item.name}
+                              {item.isNew && (
+                                <span className="ml-2 inline-flex items-center rounded-pill bg-anchor-gold-dark px-2 py-0.5 align-middle font-sans text-xs font-bold uppercase tracking-wide text-white">
+                                  New
+                                </span>
+                              )}
                               {item.price && (
                                 <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
                                   {item.price}

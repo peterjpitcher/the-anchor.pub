@@ -173,8 +173,13 @@ function sanitizeMenuItemDescription(description?: string | null): string {
     .trim()
 }
 
-function isFishAndChipsFamily(item: { name?: string | null }): boolean {
-  return /fish|scampi/i.test(item.name || '')
+// Matches on the species as well as the word "fish": the battered cod dishes are
+// named "Beer Battered Cod & Chips", so a name-only /fish/ test would drop them
+// from the fish and chips page and from the gluten-free exclusions below.
+// Leading word boundary only, so "Fishcake" still matches but a stray "cod"
+// inside a longer word does not.
+export function isFishAndChipsFamily(item: { name?: string | null }): boolean {
+  return /\b(?:fish|scampi|cod|haddock)/i.test(item.name || '')
 }
 
 function isLikelyVegetarian(item: MenuSectionItem | SundayLunchMenuItem): boolean {
@@ -253,6 +258,7 @@ function mapApiItem(
     glutenFree: isGlutenFree(item),
     glutenFreeAvailable: hasGlutenFreeOption(item, sectionName),
     special: item.is_special,
+    isNew: item.is_new ?? false,
     categoryId: sectionId,
     categoryTitle: sectionName,
     sectionId,
