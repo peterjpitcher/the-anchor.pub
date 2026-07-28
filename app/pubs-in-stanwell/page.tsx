@@ -68,7 +68,7 @@ export default async function PubsInStanwellPage() {
     "amenityFeature": [
       { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Dog Friendly (Garden)", "value": true }
     ]

@@ -321,7 +321,7 @@ export default async function DrinksMenuPage() {
               {[
                 {
                   title: 'The Beer Garden Experience',
-                  body: "Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.",
+                  body: "Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Covered sections mean the garden's open in most weather.",
                   note: 'Dog-friendly outdoor areas - bring your four-legged friends!'
                 },
                 {

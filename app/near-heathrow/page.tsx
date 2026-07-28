@@ -128,7 +128,6 @@ export default function NearHeathrowPage() {
               />
               <div className="flex flex-wrap gap-2">
                 <Badge variant="sand">64 seats</Badge>
-                <Badge variant="sand">Heated areas</Badge>
                 <Badge variant="sand">Plane spotting</Badge>
               </div>
               <div>

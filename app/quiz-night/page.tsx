@@ -476,7 +476,7 @@ export default async function QuizNightPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong>Food served until 9pm:</strong> pizzas, burger stacks, pies and seasonal specials.</li>
                   <li><strong>Drinks menu:</strong> draught lagers, bottled ales, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
-                  <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
+                  <li><strong>Stay comfy:</strong> plenty of parking right outside.</li>
                   <li><strong>Travelling?</strong> We’re 7 minutes from Heathrow Terminal 5 and on the 441/555 bus routes.</li>
                 </ul>
               </CardBody>
