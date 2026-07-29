@@ -79,7 +79,6 @@ const sitemapSections: SitemapSection[] = [
     title: 'Events & Entertainment',
     links: [
       { label: "What's On", href: '/whats-on' },
-      { label: 'Music Bingo & Hosted Nights', href: '/music-bingo' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Music Bingo', href: '/music-bingo' },
@@ -147,7 +146,6 @@ const sitemapSections: SitemapSection[] = [
     links: [
       { label: 'Our Pub', href: '/our-pub' },
       { label: 'Beer Garden', href: '/beer-garden' },
-      { label: 'Pub Garden', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
       { label: 'Live Sport Pub', href: '/live-sport' },
       { label: 'Pool & Darts', href: '/pool-darts-pub' },

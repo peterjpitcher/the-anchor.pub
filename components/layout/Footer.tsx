@@ -58,7 +58,6 @@ const defaultSections: FooterSection[] = [
     title: 'Private Hire',
     items: [
       { label: 'Check Availability', href: '/private-hire#enquiry' },
-      { label: 'Private Hire Overview', href: '/private-hire' },
       { label: 'Function Room Hire', href: '/private-hire' },
       { label: 'Private Parties', href: '/private-hire/milestone-birthdays' },
       { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
