@@ -83,7 +83,26 @@ function getLondonDatePartsFromInstant(value: string): DateTimeParts | null {
   return Object.values(result).every((num) => Number.isFinite(num)) ? result : null
 }
 
+// A trailing `Z` or `+/-HH:MM` means the string is a real instant, not wall time.
+const HAS_EXPLICIT_TIME_ZONE = /(?:Z|[+-]\d{2}:?\d{2})$/i
+
 export function getEventLocalDateTimeParts(value: string): DateTimeParts | null {
+  if (!value) return null
+
+  // Instants must be CONVERTED to London, never have their offset stripped.
+  //
+  // The management API sends a correct UTC instant: an event stored as 19:00 on 29 July arrives as
+  // `2026-07-29T18:00:00.000Z`, because 19:00 BST is 18:00 UTC. Stripping the `Z` and reading 18 as
+  // the wall hour showed every summer event an hour early, so Cash Bingo at 7pm displayed as 6pm on
+  // the live site. It self-corrects in winter when the offset is zero, which is why it survived:
+  // the only test covering an offset used a January date.
+  //
+  // Naive strings (`2026-01-01T19:00`, `${event.date}T${event.time}`) carry no offset and are
+  // already London wall time, so they keep the direct parse.
+  if (HAS_EXPLICIT_TIME_ZONE.test(value.trim())) {
+    return getLondonDatePartsFromInstant(value) ?? parseDateTimeParts(value)
+  }
+
   return parseDateTimeParts(value) ?? getLondonDatePartsFromInstant(value)
 }
 

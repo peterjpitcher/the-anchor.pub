@@ -26,7 +26,10 @@ describe('BookTableUpcomingEventsPanel', () => {
         id: 'evt-quiz',
         slug: 'quiz-night',
         name: 'Quiz Night',
-        startDate: '2026-05-06T19:00:00+00:00'
+        // A real UTC instant, as the management API sends it: a 7pm event in May is 18:00Z,
+        // because May is BST. This previously read 19:00+00:00 and expected 7pm, which only
+        // held while the offset was being stripped instead of applied.
+        startDate: '2026-05-06T18:00:00.000Z'
       }
     ])
 
