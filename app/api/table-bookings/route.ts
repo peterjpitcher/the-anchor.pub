@@ -41,6 +41,7 @@ type ManagementTableBookingPayload = {
   // and `high_chair_count`.
   high_chair_count?: number
   outside_seating?: boolean
+  requires_accessible_table?: boolean
   communication_consent?: CommunicationConsentPayload
 }
 
@@ -75,6 +76,7 @@ type LegacyTableBookingPayload = {
     mobile_number?: string
   }
   customer_phone?: string
+  requires_accessible_table?: boolean
   special_requirements?: string
   dietary_requirements?: string[] | string
   allergies?: string[] | string
@@ -253,6 +255,9 @@ function normaliseIncomingPayload(input: unknown): {
       // Forward to AMS using the wire key `outside_seating` (not is_outside_seating).
       ...(highChairCount && highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
       ...(outsideSeating === true ? { outside_seating: true } : {}),
+      // Forwarded verbatim: the management API expects the same name here, unlike
+      // outside seating, where the form sends is_outside_seating and this maps it.
+      ...(body.requires_accessible_table === true ? { requires_accessible_table: true } : {}),
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),

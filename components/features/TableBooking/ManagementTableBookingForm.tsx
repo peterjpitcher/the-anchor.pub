@@ -729,6 +729,32 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [notes, setNotes] = useState('')
   const [highChairCount, setHighChairCount] = useState(0)
   const [isOutsideSeating, setIsOutsideSeating] = useState(false)
+
+  // "Just drinks?" rather than a food-or-drinks question. Food is the default and is right
+  // 99.4% of the time; the toggle exists because 76 of 101 drinks bookings were made DURING
+  // kitchen hours, so the clock cannot be used to guess. Ticking it switches the house order
+  // to the bar, shortens the turn, drops out of kitchen pacing and reveals slots when the
+  // kitchen is shut.
+  const [drinksOnly, setDrinksOnly] = useState(false)
+
+  // A seating requirement, never a reason or a diagnosis. Small Bay has a step and High 4 is
+  // bar height, so this is a real filter, not a preference.
+  const [requiresAccessibleTable, setRequiresAccessibleTable] = useState(false)
+
+  // Any of these changes which TABLES qualify, so a reading taken before the change is stale.
+  // Clearing the slot rather than silently keeping it is the honest behaviour: otherwise a
+  // guest can choose a time, then say they need an accessible table, and book a slot that was
+  // never valid for them.
+  const availabilityInputsKey = `${drinksOnly}|${requiresAccessibleTable}|${highChairCount}|${isOutsideSeating}`
+  const previousAvailabilityInputs = useRef(availabilityInputsKey)
+  useEffect(() => {
+    if (previousAvailabilityInputs.current === availabilityInputsKey) return
+    previousAvailabilityInputs.current = availabilityInputsKey
+    setAvailability(null)
+    setSelectedTime('')
+    setSelectedSlotService(null)
+    setAlternativeSlots([])
+  }, [availabilityInputsKey])
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
     DEFAULT_COMMUNICATION_CONSENT_STATE
   )
@@ -1015,7 +1041,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const params = new URLSearchParams({
       date: targetDate,
       party_size: String(targetPartySize),
-      time: targetTime
+      time: targetTime,
+      // Everything that changes which TABLES qualify. Sending only the date and party size is
+      // why the site used to answer the same whether you wanted food or drinks.
+      purpose: drinksOnly ? 'drinks' : 'food',
+      outside: String(isOutsideSeating),
+      requires_accessible_table: String(requiresAccessibleTable),
+      high_chair_count: String(highChairCount)
     })
 
     const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
@@ -1494,6 +1526,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   //   4. If a matching slot exists and `kitchen_open` is `true` or `undefined`, return 'food'.
   //   5. If no matching slot can be found, return null, the caller must block submit.
   function deriveSubmitPurpose(): 'food' | 'drinks' | null {
+    // If the guest said "just drinks", that is the answer. Inferring from whether the kitchen
+    // happens to be open was wrong for 76 of 101 drinks bookings in the last six months,
+    // because most drinks bookings are made DURING kitchen hours. The inference below is kept
+    // for everyone who did not tick the box.
+    if (drinksOnly) return 'drinks'
+
     const matchService =
       selectedSlotService &&
       selectedSlotService.date === date &&
@@ -1655,6 +1693,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         // Added before the idempotency key so it varies with them (spec §10).
         ...(resolvedHighChairCount > 0 ? { high_chair_count: resolvedHighChairCount } : {}),
         ...(resolvedOutsideSeating ? { is_outside_seating: true } : {}),
+        ...(requiresAccessibleTable ? { requires_accessible_table: true } : {}),
         communication_consent: buildCommunicationConsentPayload(communicationConsent),
         ...attribution,
         // Volatile fields below, added after the idempotency key has already
@@ -2027,6 +2066,45 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
               </Badge>
             ) : null}
+
+            {/*
+              Two questions, both optional, both placed BEFORE times are shown because each
+              changes which tables qualify. Asking after a time is chosen would mean the guest
+              picks a slot that was never valid for them.
+            */}
+            <div className="space-y-3 rounded-lg border border-line bg-surface-subtle p-4">
+              <label className="flex items-start gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={drinksOnly}
+                  onChange={(event) => setDrinksOnly(event.target.checked)}
+                  className="mt-0.5 h-4 w-4"
+                />
+                <span>
+                  <span className="font-medium text-ink-strong">Just drinks</span>
+                  <span className="block text-ink-muted">
+                    We will seat you in the bar and show times when the kitchen is closed too.
+                  </span>
+                </span>
+              </label>
+
+              <label className="flex items-start gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={requiresAccessibleTable}
+                  onChange={(event) => setRequiresAccessibleTable(event.target.checked)}
+                  className="mt-0.5 h-4 w-4"
+                />
+                <span>
+                  <span className="font-medium text-ink-strong">
+                    I need an accessible table
+                  </span>
+                  <span className="block text-ink-muted">
+                    Step-free, with standard-height seating rather than bar stools.
+                  </span>
+                </span>
+              </label>
+            </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Input
