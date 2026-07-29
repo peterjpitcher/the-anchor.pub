@@ -1,6 +1,7 @@
 import {
   formatEventLocalDate,
   formatEventLocalTime,
+  getEventDateRangeUtc,
   getEventLocalIsoDate
 } from '@/lib/event-calendar'
 
@@ -54,5 +55,63 @@ describe('event calendar local formatting', () => {
   it('returns the fallback for unusable input', () => {
     expect(formatEventLocalTime('')).toBe('Time TBC')
     expect(getEventLocalIsoDate('')).toBeNull()
+  })
+})
+
+// getEventDateRangeUtc feeds Google's structured data, the .ics feed, the add-to-calendar links,
+// the homepage now/next logic and event sorting. It used to strip the offset and then convert the
+// result from London to UTC, shifting a real instant twice: 18:00Z became 17:00Z, so every summer
+// event was advertised an hour early.
+describe('getEventDateRangeUtc', () => {
+  it('leaves a UTC instant untouched during BST', () => {
+    const { start } = getEventDateRangeUtc({
+      startDate: '2026-07-29T18:00:00.000Z',
+      endDate: undefined,
+      duration: undefined
+    } as any)
+
+    expect(start.toISOString()).toBe('2026-07-29T18:00:00.000Z')
+  })
+
+  it('leaves an explicit end instant untouched', () => {
+    const { start, end } = getEventDateRangeUtc({
+      startDate: '2026-07-29T18:00:00.000Z',
+      endDate: '2026-07-29T20:30:00.000Z',
+      duration: undefined
+    } as any)
+
+    expect(start.toISOString()).toBe('2026-07-29T18:00:00.000Z')
+    expect(end.toISOString()).toBe('2026-07-29T20:30:00.000Z')
+  })
+
+  it('still converts a naive London wall time to UTC', () => {
+    // No offset, so 19:00 is London wall time. In July that is 18:00Z.
+    const { start } = getEventDateRangeUtc({
+      startDate: '2026-07-29T19:00:00',
+      endDate: undefined,
+      duration: undefined
+    } as any)
+
+    expect(start.toISOString()).toBe('2026-07-29T18:00:00.000Z')
+  })
+
+  it('converts a naive winter wall time with a zero offset', () => {
+    const { start } = getEventDateRangeUtc({
+      startDate: '2026-01-14T19:00:00',
+      endDate: undefined,
+      duration: undefined
+    } as any)
+
+    expect(start.toISOString()).toBe('2026-01-14T19:00:00.000Z')
+  })
+
+  it('applies the default duration from the true instant', () => {
+    const { start, end } = getEventDateRangeUtc({
+      startDate: '2026-07-29T18:00:00.000Z',
+      endDate: undefined,
+      duration: undefined
+    } as any)
+
+    expect(end.getTime() - start.getTime()).toBe(120 * 60 * 1000)
   })
 })

@@ -188,6 +188,20 @@ function zonedTimeToUtc(parts: DateTimeParts, timeZone: string): Date {
 }
 
 function parseEventDateUtc(value: string): Date {
+  // An instant is ALREADY absolute, so take it as-is. Converting it again shifts it twice.
+  //
+  // `2026-07-29T18:00:00.000Z` is a 7pm BST event. The old code stripped the `Z`, read 18:00 as
+  // London wall time, and converted that to UTC, producing 17:00Z: an hour earlier than the real
+  // event. That value reached Google's structured data, the .ics feed, the add-to-calendar links,
+  // the homepage now/next logic and the event sorting, so the whole site advertised summer events
+  // an hour early. See getEventLocalDateTimeParts for the display-side half of the same bug.
+  //
+  // Naive strings carry no offset, are London wall time by convention, and still need converting.
+  if (HAS_EXPLICIT_TIME_ZONE.test(value.trim())) {
+    const instant = new Date(value)
+    if (!Number.isNaN(instant.getTime())) return instant
+  }
+
   const parts = parseDateTimeParts(value)
   if (!parts) return new Date(value)
   return zonedTimeToUtc(parts, EVENT_TIME_ZONE)
