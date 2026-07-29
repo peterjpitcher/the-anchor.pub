@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { InteriorHero } from '@/components/hero'
 import { Container } from '@/components/ui'
 import { getCompetitionContent } from '@/lib/competition-content'
 import { getCompetitionStatus } from '@/lib/competition-status'
@@ -66,6 +67,14 @@ export default async function QuizNightCompetitionTermsPage() {
 
   return (
     <div className="bg-canvas">
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Competition Terms"
+        kicker={eventDateLabel}
+        title={`${competition.competitionTitle} Terms`}
+        lead="Read the competition details and full terms before entering through the designated WhatsApp group."
+      />
+
       <section className="border-b border-line bg-surface py-10 sm:py-14">
         <Container as="article">
           <Link
@@ -75,17 +84,7 @@ export default async function QuizNightCompetitionTermsPage() {
             Back to Quiz Night
           </Link>
 
-          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-accent-text">
-            {eventDateLabel}
-          </p>
-          <h1 className="mt-3 font-display text-h2 text-ink-strong">
-            {competition.competitionTitle} Terms
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-muted">
-            Read the competition details and full terms before entering through the designated WhatsApp group.
-          </p>
-
-          <div className="mt-7">
+          <div className="mt-6">
             <CompetitionStatusNotice
               openingDateTime={competition.openingDateTime}
               closingDateTime={competition.closingDateTime}
