@@ -742,18 +742,83 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [requiresAccessibleTable, setRequiresAccessibleTable] = useState(false)
 
   // Any of these changes which TABLES qualify, so a reading taken before the change is stale.
-  // Clearing the slot rather than silently keeping it is the honest behaviour: otherwise a
-  // guest can choose a time, then say they need an accessible table, and book a slot that was
-  // never valid for them.
+  // A stale slot must never be trusted: otherwise a guest can choose a time, then say they need
+  // an accessible table, and book a slot that was never valid for them.
+  //
+  // But clearing it on its own stranded them. High chairs and outside seating live on the DETAILS
+  // step, after the time has been chosen, so ticking either wiped the slot while the summary kept
+  // showing the old time. Nothing re-fetched, so Continue bounced them back to a slot list reading
+  // "No online times available" and the only way out was Back and search again. So: re-read
+  // availability with the new inputs and keep their time if it survives, and only interrupt them
+  // when it genuinely does not.
   const availabilityInputsKey = `${drinksOnly}|${requiresAccessibleTable}|${highChairCount}|${isOutsideSeating}`
   const previousAvailabilityInputs = useRef(availabilityInputsKey)
+  const [revalidatingAvailability, setRevalidatingAvailability] = useState(false)
+
   useEffect(() => {
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
     previousAvailabilityInputs.current = availabilityInputsKey
-    setAvailability(null)
-    setSelectedTime('')
-    setSelectedSlotService(null)
-    setAlternativeSlots([])
+
+    // On the find step nothing is chosen yet, so drop the stale reading and let the
+    // "Find a table" button fetch with the new inputs.
+    if (step === 'find' || !date || !selectedTime) {
+      setAvailability(null)
+      setSelectedTime('')
+      setSelectedSlotService(null)
+      setAlternativeSlots([])
+      return
+    }
+
+    const timeAtChange = selectedTime
+    const controller = new AbortController()
+    let cancelled = false
+
+    setRevalidatingAvailability(true)
+    void (async () => {
+      try {
+        const data = await fetchAvailabilityForDate(date, timeAtChange, partySize, controller.signal)
+        if (cancelled) return
+
+        setAvailability(data)
+        setAlternativeSlots([])
+
+        const stillFree = data.time_slots.some(
+          (slot) => slot.time === timeAtChange && isSlotAvailable(slot, partySize)
+        )
+        if (stillFree) {
+          setSelectedTime(timeAtChange)
+          return
+        }
+
+        // Genuinely unavailable now. Say why, and put them on the slot list, which this
+        // re-read has just filled with real alternatives.
+        setSelectedTime('')
+        setSelectedSlotService(null)
+        setStep('choose')
+        setError(
+          `${formatTimeForDisplay(timeAtChange)} is not available with those options. Please choose another time.`
+        )
+      } catch (caught) {
+        if (cancelled || (caught as Error)?.name === 'AbortError') return
+        // Never leave a stale reading on screen; fall back to making them search again.
+        setAvailability(null)
+        setSelectedTime('')
+        setSelectedSlotService(null)
+        setAlternativeSlots([])
+      } finally {
+        if (!cancelled) setRevalidatingAvailability(false)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+    // Deliberately keyed on the seating inputs alone. This effect SETS selectedTime and
+    // availability, so listing them would re-run it mid-flight and the cleanup would abort the
+    // very fetch we are waiting on. The ref guard above already limits the body to renders where
+    // the seating inputs actually changed, and the values read come from that same render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availabilityInputsKey])
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
     DEFAULT_COMMUNICATION_CONSENT_STATE
@@ -1479,6 +1544,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   function validateDetailsStep(): boolean {
+    // A re-read is in flight because they just changed high chairs or outside seating. Their time
+    // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
+    if (revalidatingAvailability) {
+      setError('Just checking that time is still free. One moment.')
+      return false
+    }
+
     if (!selectedTime) {
       setStep('choose')
       setError('Please select a time before continuing.')

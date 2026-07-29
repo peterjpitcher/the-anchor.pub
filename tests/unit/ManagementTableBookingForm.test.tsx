@@ -2006,4 +2006,68 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.queryByRole('button', { name: /9pm/i })).not.toBeInTheDocument()
     })
   })
+
+  // High chairs and outside seating live on the DETAILS step, after the time has been chosen.
+  // Changing either invalidates the availability reading. The first version of that invalidation
+  // just cleared the slot, which stranded the guest: the summary kept showing the old time, then
+  // Continue bounced them to a slot list reading "No online times available" with nothing to pick
+  // and no way to search again short of starting over.
+  describe('changing seating options after a time has been chosen', () => {
+    async function reachDetailsWith7pm(availability: AvailabilityHandler) {
+      setupFetchMock({ availability })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    }
+
+    it('lets the guest carry straight on when their time is still free outside', async () => {
+      // Free either way, so they should not be interrupted at all. Asserting that Continue still
+      // works is the point: the old code left selectedTime empty, so Continue threw them back to
+      // the slot list even though nothing was actually wrong with their booking.
+      await reachDetailsWith7pm(() => ({
+        time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      }))
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      expect(screen.queryByText('Please select a time before continuing.')).not.toBeInTheDocument()
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+
+    it('offers real alternatives when their time is not free outside', async () => {
+      // 7pm indoors, but outside only 8pm is free. They must be told why, and must be given
+      // something to pick, never an empty list.
+      await reachDetailsWith7pm((url: string) =>
+        url.includes('outside=true')
+          ? { time_slots: [{ time: '20:00', available: true, available_capacity: 4, kitchen_open: true }] }
+          : { time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }] }
+      )
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+
+      await waitFor(() =>
+        expect(screen.getByText(/is not available with those options/i)).toBeInTheDocument()
+      )
+      // The slot list carries the outside availability rather than being wiped.
+      expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument()
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+  })
 })
