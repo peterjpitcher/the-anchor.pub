@@ -25,6 +25,19 @@ export type TableBookingSubmitIntentFields = {
 }
 
 /**
+ * A fresh Idempotency-Key. Prefers a real UUID; the timestamp-plus-random
+ * fallback covers browsers where crypto.randomUUID is unavailable, including
+ * any insecure origin.
+ */
+export function createClientIdempotencyKey(prefix: string): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `${prefix}_${crypto.randomUUID()}`
+  }
+
+  return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`
+}
+
+/**
  * Stable JSON fingerprint of a submit intent. The form reuses its cached
  * Idempotency-Key while this string is unchanged, and mints a fresh one the
  * moment any field that changes what is booked changes.
