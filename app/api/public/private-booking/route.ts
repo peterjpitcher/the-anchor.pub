@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { logError } from '@/lib/error-handling'
@@ -48,8 +49,18 @@ function asPositiveInt(value: unknown): number | undefined {
     return undefined
 }
 
+// Fallback Idempotency-Key for callers that send no header of their own.
+//
+// This used to be base64url(JSON) truncated to 120 characters. 120 base64
+// characters encode only the first 90 bytes of the payload, which always fell
+// short of the guest count and the notes, and fell short of the date and time
+// too once a country code was sent or the customer had a long name. So two
+// completely different enquiries from the same person, months apart and for
+// different party sizes, collapsed onto one key and the second was replayed
+// away. Hashing the whole payload means every mapped field actually counts.
+// Matches the table-bookings proxy.
 function createIdempotencyKey(payload: unknown): string {
-    return `prv_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
+    return `prv_${createHash('sha256').update(JSON.stringify(payload)).digest('hex')}`
 }
 
 function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {

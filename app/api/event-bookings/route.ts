@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
@@ -59,9 +60,19 @@ type EventBookingPayload = {
   communication_consent?: CommunicationConsentPayload
 }
 
+// Fallback Idempotency-Key for callers that send no header of their own.
+//
+// This used to be base64url(JSON) truncated to 120 characters. 120 base64
+// characters encode only the first 90 bytes of the payload, and with a real
+// (UUID) event id that cutoff lands inside `attendee_names`: the names, the
+// ticket selection and the consent state were all silently discarded, so two
+// genuinely different bookings for the same event, number and seat count
+// collapsed onto one key and the second was replayed away. Hashing the whole
+// payload means every field listed at the call site actually counts, which is
+// the entire point of listing it. Matches the table-bookings proxy.
 function createIdempotencyKey(prefix: string, payload?: unknown): string {
   if (payload !== undefined) {
-    return `${prefix}_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
+    return `${prefix}_${createHash('sha256').update(JSON.stringify(payload)).digest('hex')}`
   }
   return `${prefix}_${crypto.randomUUID()}`
 }
