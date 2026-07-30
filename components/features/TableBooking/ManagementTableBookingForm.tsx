@@ -750,6 +750,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const previousDateRef = useRef(date)
   const availabilityControllerRef = useRef<AbortController | null>(null)
+  // Latest-wins guard for runAvailabilitySearch. Bumped by every search and by
+  // any seating-options change, so a response that no longer matches what the
+  // guest asked for is discarded instead of written to state.
+  const availabilitySearchRef = useRef(0)
   // Stale-search guard for loadNearestAlternatives. Each call captures its own
   // monotonically-increasing id; only the latest call is allowed to write to
   // alternativeSlots. Bumped by every search-input change so an in-flight
@@ -805,11 +809,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
     previousAvailabilityInputs.current = availabilityInputsKey
 
+    // Any in-flight "Find a table" search was asked about the OLD options, so
+    // its answer is worthless now. Abort it and invalidate it: it was only ever
+    // aborted by the NEXT search, so it used to resolve and drag the guest to
+    // the choose step with a time nothing had affirmed for the new options.
+    availabilityControllerRef.current?.abort()
+    availabilityControllerRef.current = null
+    availabilitySearchRef.current++
+
     // On the find step nothing is chosen yet, so drop the stale reading and let the
     // "Find a table" button fetch with the new inputs.
     if (step === 'find' || !date || !selectedTime) {
       revalidateRequestRef.current++
       setRevalidatingAvailability(false)
+      setAvailabilityLoading(false)
       setAvailability(null)
       setSelectedTime('')
       setSelectedSlotService(null)
@@ -1350,12 +1363,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       context: input.context
     })
 
+    // Latest search wins. Without this, a search still in flight when the guest
+    // changed a seating option came back and wrote its answer to state anyway,
+    // dragging them to the choose step with a time affirmed for the OLD options
+    // (the accessible-table box ticked, but the slot checked without it). The
+    // options effect bumps this ref, so a superseded response is dropped.
+    const searchId = ++availabilitySearchRef.current
+
     const availabilityData = await fetchAvailabilityForDate(
       input.targetDate,
       input.targetTime,
       input.targetPartySize,
       input.signal
     )
+
+    if (searchId !== availabilitySearchRef.current) return
 
     // Funnel: an availability check completed. Documented since the funnel
     // launched but never fired until now (spec W1).

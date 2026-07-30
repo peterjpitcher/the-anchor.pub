@@ -2232,6 +2232,134 @@ describe('ManagementTableBookingForm', () => {
       }
     })
 
+    // C3: the find-step search was only ever aborted by the NEXT search, and
+    // runAvailabilitySearch had no latest-wins guard, so a search still in
+    // flight when the guest changed a seating option resolved anyway and wrote
+    // its answer to state.
+    describe('an options change during an in-flight search', () => {
+      function deferredSearch() {
+        let release: ((value: Response) => void) | undefined
+        const promise = new Promise<Response>((resolve) => {
+          release = resolve
+        })
+        return { promise, release: release as (value: Response) => void }
+      }
+
+      function slotsResponse(times: string[]) {
+        return jsonResponse({
+          success: true,
+          data: {
+            date: '2026-07-07',
+            available: true,
+            calculation_state: 'complete',
+            time_slots: times.map((time) => ({
+              time,
+              available: true,
+              available_capacity: 8,
+              kitchen_open: true
+            }))
+          }
+        })
+      }
+
+      it('discards a search that no longer matches the accessibility requirement', async () => {
+        const pending = deferredSearch()
+        const searchUrls: string[] = []
+
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            searchUrls.push(url)
+            return pending.promise
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(searchUrls.length).toBe(1))
+        expect(searchUrls[0]).toMatch(/requires_accessible_table=false/)
+
+        // Mid-flight, the guest says they need an accessible table.
+        fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+
+        // The original answer, computed without that requirement, now lands.
+        pending.release(slotsResponse(['19:00', '19:30']))
+        await act(async () => {
+          await Promise.resolve()
+        })
+
+        // It must be thrown away: the guest stays on the find step with the box
+        // still ticked, rather than being dragged to a slot list of times that
+        // were never checked against the accessible requirement.
+        await waitFor(() =>
+          expect(screen.getByLabelText(/I need an accessible table/i)).toBeChecked()
+        )
+        expect(screen.queryByText('Choose your time')).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
+        // And the find button is usable again rather than stuck loading.
+        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
+      })
+
+      it('discards a food-scoped search when the guest switches to drinks mid-flight', async () => {
+        // The Monday shape: the in-flight food search comes back closed. If it
+        // were applied, a guest who has just ticked "Just drinks" would be shown
+        // "No online times available" on a night with drinks slots all evening.
+        const pending = deferredSearch()
+        const searchUrls: string[] = []
+
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            searchUrls.push(url)
+            return pending.promise
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(searchUrls.length).toBe(1))
+        expect(searchUrls[0]).toMatch(/purpose=food/)
+
+        fireEvent.click(screen.getByLabelText(/Just drinks/i))
+
+        pending.release(
+          jsonResponse({
+            success: true,
+            data: {
+              date: '2026-07-07',
+              available: false,
+              calculation_state: 'complete',
+              time_slots: [],
+              public_reason: 'closed',
+              message: 'We are closed then.'
+            }
+          })
+        )
+        await act(async () => {
+          await Promise.resolve()
+        })
+
+        await waitFor(() => expect(screen.getByLabelText(/Just drinks/i)).toBeChecked())
+        expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+        expect(screen.queryByText(/We are closed then/)).not.toBeInTheDocument()
+        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
+      })
+    })
+
     it('offers real alternatives when their time is not free outside', async () => {
       // 7pm indoors, but outside only 8pm is free. They must be told why, and must be given
       // something to pick, never an empty list.
