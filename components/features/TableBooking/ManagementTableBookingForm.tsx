@@ -164,6 +164,11 @@ interface ManagementTableBookingFormProps {
 
 const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
 
+// House cap on high chairs per booking. The slot's advisory remaining figure
+// never clamps the guest's request (review F06); it drives the shortfall
+// acknowledgement instead.
+const HIGH_CHAIR_HOUSE_CAP = 2
+
 const STEP_LABELS: Record<BookingStep, string> = {
   find: 'Find table',
   choose: 'Choose time',
@@ -944,24 +949,44 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     () => availableSlots.find((slot) => slot.time === selectedTime) || null,
     [availableSlots, selectedTime]
   )
-  // Chair picker upper bound: cap at min(2, remaining) when the slot reports a
-  // remaining figure; otherwise leave it at 2 and enabled (fail-open, spec D7).
-  // The server is the authoritative gate, so a missing/stale value never blocks.
-  const highChairMax = useMemo(() => {
+  // Advisory remaining count for the chosen slot; undefined when the API does
+  // not report one (treat as unknown and leave the picker enabled, spec D7).
+  const slotHighChairsRemaining = useMemo(() => {
     const remaining = selectedSlot?.high_chairs_remaining
     if (typeof remaining === 'number' && Number.isFinite(remaining)) {
-      return Math.max(0, Math.min(2, Math.floor(remaining)))
+      return Math.max(0, Math.floor(remaining))
     }
-    return 2
+    return undefined
   }, [selectedSlot])
-  // If the chosen slot reports fewer chairs than currently requested, clamp the
-  // request down so the picker never shows more than the slot can advise.
+  // The guest asked for more chairs than the chosen slot has free. The request
+  // is never silently reduced (review F06): they must explicitly acknowledge
+  // the shortfall before continuing, and the ORIGINAL request is submitted so
+  // the server can grant what it truly has at create time.
+  const highChairShortfall =
+    slotHighChairsRemaining !== undefined && highChairCount > slotHighChairsRemaining
+      ? { free: slotHighChairsRemaining, requested: highChairCount }
+      : null
+  const [highChairShortfallAcknowledged, setHighChairShortfallAcknowledged] = useState(false)
+  // Any change to the shortfall context (slot, request, or the slot's advisory
+  // figure) invalidates a previous acknowledgement.
   useEffect(() => {
-    if (highChairCount > highChairMax) {
-      trackSlotFlagShown({ chairsFree: highChairMax, chairsRequested: highChairCount })
-      setHighChairCount(highChairMax)
-    }
-  }, [highChairMax, highChairCount])
+    setHighChairShortfallAcknowledged(false)
+  }, [selectedTime, highChairCount, slotHighChairsRemaining])
+  // Analytics: the shortfall flag surfaced for this context. Primitive deps so
+  // the event fires once per context change, not on every render.
+  const highChairShortfallFree = highChairShortfall ? highChairShortfall.free : undefined
+  const highChairShortfallRequested = highChairShortfall ? highChairShortfall.requested : undefined
+  useEffect(() => {
+    if (highChairShortfallFree === undefined || highChairShortfallRequested === undefined) return
+    trackSlotFlagShown({
+      chairsFree: highChairShortfallFree,
+      chairsRequested: highChairShortfallRequested
+    })
+  }, [highChairShortfallFree, highChairShortfallRequested])
+  // With no chairs left and none requested there is nothing to pick; the copy
+  // below explains instead. A carried-over request keeps the stepper visible
+  // so the guest can still reduce it.
+  const hideHighChairPicker = slotHighChairsRemaining === 0 && highChairCount === 0
   const quieterSlots = useMemo(() => {
     if (!selectedSlot || !shouldNudgeForBusyness(selectedSlot.busyness)) return []
     const selectedMinutes = toMinutes(selectedSlot.time)
@@ -1624,6 +1649,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return false
     }
 
+    // A high-chair shortfall needs an explicit tap before the guest can carry
+    // on (review F06): information about fewer chairs is not consent to book
+    // with fewer chairs.
+    if (highChairShortfall && !highChairShortfallAcknowledged) {
+      showBookingError(
+        'high_chair_shortfall_unacknowledged',
+        highChairShortfall.free === 0
+          ? 'Please confirm you are happy to book without a high chair first.'
+          : `Please confirm you are happy to book with ${highChairShortfall.free} high chair${highChairShortfall.free === 1 ? '' : 's'} first.`
+      )
+      return false
+    }
+
     return true
   }
 
@@ -1757,9 +1795,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // record and resolves it from the phone number.
     const resolvedEmail = (isKnownCustomer ? undefined : email.trim()) || undefined
     const trimmedNotes = notes.trim()
-    // Clamp the request to the slot's advisory bound; the server re-checks and is
-    // the authoritative gate, so this only keeps the client honest.
-    const resolvedHighChairCount = Math.max(0, Math.min(highChairCount, highChairMax))
+    // Submit the ORIGINAL request, never a value clamped to the advisory
+    // remaining figure (review F06). The server re-checks atomically at create
+    // and the confirmation screen shows granted-of-requested; the shortfall
+    // acknowledgement above is the guest's consent to a possible shortfall.
+    const resolvedHighChairCount = Math.max(0, highChairCount)
     const resolvedOutsideSeating = isOutsideSeating
 
     // Build the submit-intent fingerprint from non-volatile payload fields,
@@ -2641,12 +2681,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <div>
                     <p className="text-sm font-medium text-ink-strong">High chair (for a baby)</p>
                     <p className="mt-0.5 text-xs text-ink-muted">
-                      {highChairMax === 0
-                        ? "Sorry — all our high chairs are booked for this time. If you need one, please try another time slot; you're very welcome to book here without one."
+                      {hideHighChairPicker
+                        ? "Sorry, all our high chairs are booked for this time. If you need one, please try another time slot; you're very welcome to book here without one."
                         : 'We have a limited number, reserved on a first-come basis.'}
                     </p>
                   </div>
-                  {highChairMax === 0 ? null : (
+                  {hideHighChairPicker ? null : (
                     <div className="flex items-center gap-2">
                       <Button
                         type="button"
@@ -2673,9 +2713,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         variant="outline"
                         className="h-10 w-10 min-h-0 p-0"
                         aria-label="More high chairs"
-                        disabled={highChairCount >= highChairMax}
+                        disabled={highChairCount >= HIGH_CHAIR_HOUSE_CAP}
                         onClick={() => {
-                          const next = Math.min(highChairMax, highChairCount + 1)
+                          const next = Math.min(HIGH_CHAIR_HOUSE_CAP, highChairCount + 1)
                           setHighChairCount(next)
                           trackOptionToggled({ option: 'high_chair_count', value: next, step })
                         }}
@@ -2685,6 +2725,38 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     </div>
                   )}
                 </div>
+
+                {highChairShortfall ? (
+                  <div className="rounded-md border border-anchor-gold bg-surface-raised p-3 text-sm text-ink">
+                    <p>
+                      {highChairShortfall.free === 0
+                        ? 'No high chairs are free at this time. Book anyway?'
+                        : highChairShortfall.free === 1
+                        ? 'Only 1 high chair is free at this time. Book with 1?'
+                        : `Only ${highChairShortfall.free} high chairs are free at this time. Book with ${highChairShortfall.free}?`}
+                    </p>
+                    <p className="mt-1 text-xs text-ink-muted">
+                      We&apos;ll keep your request for {highChairShortfall.requested} on the booking and do our best on the day.
+                    </p>
+                    {highChairShortfallAcknowledged ? (
+                      <p className="mt-2 text-xs font-medium text-accent-text">
+                        Thanks, that&apos;s noted for your booking.
+                      </p>
+                    ) : (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        className="mt-2 min-h-12"
+                        onClick={() => setHighChairShortfallAcknowledged(true)}
+                      >
+                        {highChairShortfall.free === 0
+                          ? 'Yes, book anyway'
+                          : `Yes, book with ${highChairShortfall.free}`}
+                      </Button>
+                    )}
+                  </div>
+                ) : null}
 
                 <label className="flex items-start gap-2 pt-1 text-sm text-ink">
                   <input

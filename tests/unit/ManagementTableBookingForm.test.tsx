@@ -2247,6 +2247,116 @@ describe('ManagementTableBookingForm', () => {
     })
   })
 
+  // T6: a high-chair request is never silently reduced (review F06). A slot
+  // that cannot cover the request needs an explicit acknowledgement tap, and
+  // the ORIGINAL request is submitted so the server can grant what it truly
+  // has; the confirmation's granted-of-requested copy remains the safety net.
+  describe('high-chair honesty (T6)', () => {
+    const chairSlots: TimeSlot[] = [
+      { time: '19:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 2 },
+      { time: '20:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 1 }
+    ]
+
+    async function reachDetailsRequestingTwoChairs(capturePayload?: {
+      ref: { current: Record<string, unknown> | null }
+    }) {
+      setupFetchMock({
+        availability: chairSlots,
+        ...(capturePayload ? { capturePayload } : {})
+      })
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      // 7pm has two chairs free, so requesting two raises no flag here.
+      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+    }
+
+    async function switchToOneChairSlot() {
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /8pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    }
+
+    it('requires an explicit acknowledgement when the chosen slot cannot cover the request', async () => {
+      await reachDetailsRequestingTwoChairs()
+      await switchToOneChairSlot()
+
+      // The request survives the slot change and the flag is shown.
+      await waitFor(() =>
+        expect(
+          screen.getByText('Only 1 high chair is free at this time. Book with 1?')
+        ).toBeInTheDocument()
+      )
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      // Blocked until the shortfall is acknowledged.
+      await waitFor(() =>
+        expect(
+          screen.getByText(/Please confirm you are happy to book with 1 high chair first/)
+        ).toBeInTheDocument()
+      )
+      expect(screen.queryByText('Review your booking')).not.toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Yes, book with 1' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+    })
+
+    it('does not ask for acknowledgement when the slot covers the request', async () => {
+      await reachDetailsRequestingTwoChairs()
+
+      expect(screen.queryByText(/Book with/)).not.toBeInTheDocument()
+      expect(screen.queryByText(/Book anyway/)).not.toBeInTheDocument()
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      // The chair clicks trigger an options-change re-read; while it is in
+      // flight the wizard politely refuses Continue. Retry until it settles,
+      // proving no acknowledgement is ever demanded on this path.
+      await waitFor(() => {
+        if (!screen.queryByText('Review your booking')) {
+          fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        }
+        expect(screen.getByText('Review your booking')).toBeInTheDocument()
+      })
+      expect(screen.queryByText(/Book with/)).not.toBeInTheDocument()
+    })
+
+    it('submits the original request, not a value clamped to the advisory count', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      await reachDetailsRequestingTwoChairs(capturePayload)
+      await switchToOneChairSlot()
+
+      await waitFor(() =>
+        expect(
+          screen.getByText('Only 1 high chair is free at this time. Book with 1?')
+        ).toBeInTheDocument()
+      )
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Yes, book with 1' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({ high_chair_count: 2 })
+    })
+  })
+
   // T3: the pre-verification lookup identifies nobody. The route returns at
   // most { known: true }, and the form must complete the known-customer flow
   // without any of the removed identity fields.
