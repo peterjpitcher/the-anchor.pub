@@ -2494,23 +2494,46 @@ describe('ManagementTableBookingForm', () => {
       expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'details' })
     })
 
-    it('fires option_toggled for the find-step toggles with the new value and step', async () => {
+    it('fires option_toggled for the find-step drinks toggle with the new value and step', async () => {
       setupFetchMock({ availability: [] })
       render(<ManagementTableBookingForm />)
 
       fireEvent.click(screen.getByLabelText(/Just drinks/i))
-      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
 
       expect(trackOptionToggled).toHaveBeenCalledWith({
         option: 'drinks_only',
         value: true,
         step: 'find'
       })
-      expect(trackOptionToggled).toHaveBeenCalledWith({
-        option: 'accessible_table',
-        value: true,
-        step: 'find'
-      })
+    })
+
+    // A step-free seating request infers a mobility impairment: special-category
+    // data under UK GDPR Article 9. Analytics-cookie consent is not Article 9
+    // explicit consent, and these events land in GA4 alongside a session id and
+    // a booking reference, so the attribute would be joinable to a named
+    // booking. It must never be tracked, by any event, on any step.
+    it('never sends the accessible-table request to analytics', async () => {
+      setupFetchMock({ availability: [] })
+      render(<ManagementTableBookingForm />)
+
+      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+
+      expect(trackOptionToggled).not.toHaveBeenCalled()
+
+      const everyAnalyticsCall = [
+        ...trackOptionToggled.mock.calls,
+        ...pushToDataLayer.mock.calls,
+        ...trackBookingStepViewed.mock.calls,
+        ...trackTableBookingFunnel.mock.calls,
+        ...trackTableBookingClick.mock.calls,
+        ...trackSlotFlagShown.mock.calls,
+        ...trackSlotInvalidated.mock.calls,
+        ...trackBookingErrorShown.mock.calls
+      ]
+      for (const call of everyAnalyticsCall) {
+        expect(JSON.stringify(call)).not.toMatch(/accessible/i)
+      }
     })
 
     it('fires option_toggled for the details-step high chair stepper and outside toggle', async () => {

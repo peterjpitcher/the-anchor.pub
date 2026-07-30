@@ -7,16 +7,32 @@
 //                                                    details_entered | submit | success | error
 //   table_booking_started / table_booking_completed  (+ sunday_roast_* variants)
 //   booking_step_viewed { step }                     wizard step becomes visible
-//   option_toggled { option, value, step }           drinks_only | accessible_table |
-//                                                    outside_seating | high_chair_count
+//   option_toggled { option, value, step }           drinks_only | outside_seating |
+//                                                    high_chair_count
 //   slot_flag_shown { chairs_free, chairs_requested }  high-chair shortfall flag shown
 //   slot_invalidated { reason }                      chosen slot lost (options_changed | availability_error)
 //   booking_error_shown { code }                     guest-visible booking error rendered
 //   purchase                                         GA4 purchase on confirmed/paid bookings
 //
-// The booking_step_viewed, option_toggled, slot_flag_shown, slot_invalidated and
-// booking_error_shown payloads must never carry personal data: no names, phone
-// numbers, notes or booking references (review F22).
+// WHAT MAY NEVER GO INTO A BOOKING ANALYTICS PAYLOAD
+//
+// 1. Anything that identifies a person: names, phone numbers, email addresses,
+//    free-text notes, booking references (review F22).
+//
+// 2. Anything that infers a health condition or other special-category data
+//    under UK GDPR Article 9. The accessible-table request is the worked
+//    example and is deliberately NOT tracked: asking for a step-free,
+//    standard-height table is a strong inference of a mobility impairment.
+//    These events reach GA4 on analytics-cookie consent, GA4 stamps a session
+//    id, and the same session already carries a booking reference on
+//    `purchase`, so the attribute would be joinable to a named booking.
+//    Analytics-cookie consent is not Article 9 explicit consent, so no
+//    consent state makes this acceptable. Do not add `accessible_table`, a
+//    dietary or allergy field, or anything similar to `option_toggled` or any
+//    other event here.
+//
+// Rule 1 alone is not enough: an attribute can carry no identifier and still
+// be the most sensitive thing in the payload. Both rules apply.
 
 import { dispatchTrackingEvent, TrackingDispatchOptions } from './tracking/dispatcher'
 import { trackMetaBookingPurchase } from './meta-pixel'
@@ -522,8 +538,12 @@ export function trackBookingStepViewed(data: { step: BookingWizardStep }) {
 
 // A booking option control changed. `value` is the new state: booleans for
 // checkboxes, the new count for the high-chair stepper.
+//
+// The union is deliberately closed and deliberately excludes the
+// accessible-table request: see rule 2 in the header. Widening it to a
+// health-adjacent attribute is a privacy regression, not a feature.
 export function trackOptionToggled(data: {
-  option: 'drinks_only' | 'accessible_table' | 'outside_seating' | 'high_chair_count'
+  option: 'drinks_only' | 'outside_seating' | 'high_chair_count'
   value: boolean | number
   step: BookingWizardStep
 }) {

@@ -2243,8 +2243,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   type="checkbox"
                   checked={requiresAccessibleTable}
                   onChange={(event) => {
+                    // Deliberately NOT tracked. A step-free seating request
+                    // infers a mobility impairment, which is special-category
+                    // data under UK GDPR Article 9, and analytics-cookie
+                    // consent is not Article 9 explicit consent. See the rules
+                    // at the top of lib/gtm-events.ts.
                     setRequiresAccessibleTable(event.target.checked)
-                    trackOptionToggled({ option: 'accessible_table', value: event.target.checked, step })
                   }}
                   className="mt-0.5 h-4 w-4"
                 />
