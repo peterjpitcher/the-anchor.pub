@@ -80,7 +80,10 @@ import {
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
 import { buildSubmitIntentFingerprint } from '@/lib/table-booking-idempotency'
-import type { SlotBookablePurpose } from '@/lib/api'
+import {
+  deriveSubmitPurpose,
+  isFoodCheckUnavailable,
+} from '@/lib/table-booking/purpose'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -744,25 +747,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // The authoritative check could not run. Distinct from "checked and full":
   // the guest gets a retry and the phone number, never guessed slots (F04).
   const availabilityUnknown = availability?.calculation_state === 'unknown'
+  // Everything the purpose rules need, gathered once. The slot caption, the
+  // review line and the submitted `purpose` all read it, which is what stops
+  // what the guest is shown drifting from what gets booked.
+  const slotPurposeContext = {
+    date,
+    selectedTime,
+    availability,
+    selectedSlotService,
+    drinksOnly
+  }
   // These times are drinks-only because we could not check food, not because
   // the kitchen is shut.
-  //
-  // Read from the SAME reading that decides the purpose, on the same date gate
-  // as resolveSlotBookablePurpose. Without that gate the two described
-  // different readings, so after choosing a nearest alternative the review step
-  // could show "we could not check food, ring us if you want to eat" directly
-  // above "Booking: Table for food", at the exact moment of commitment.
-  //
-  // The `!drinksOnly` guard is belt and braces: the route only sets the flag
-  // for a food-wanting guest, and toggling "Just drinks" refetches.
-  const foodCheckUnavailable =
-    !drinksOnly &&
-    (availability && availability.date === date
-      ? availability.food_check_unavailable === true
-      : selectedSlotService?.food_check_unavailable === true)
+  const foodCheckUnavailable = isFoodCheckUnavailable(slotPurposeContext)
   // What the review step states. null means the slot context was lost, which
   // Confirm already blocks on: it must read as unresolved, not as drinks.
-  const reviewBookingPurpose = deriveSubmitPurpose()
+  const reviewBookingPurpose = deriveSubmitPurpose(slotPurposeContext)
   const availableSlots = useMemo(
     () =>
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
@@ -1570,58 +1570,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setStep('review')
   }
 
-  // What this slot may be booked for, READ, never inferred. The route decided
-  // it where both the drinks and food answers were in hand; nothing here
-  // reconstructs that decision from opening hours or any other proxy.
-  //   1. Prefer `selectedSlotService` if it matches the current date/time.
-  //   2. Otherwise look up the slot in the current `availability.time_slots`.
-  //   3. If no matching slot can be found, return null and block submit.
-  function resolveSlotBookablePurpose(): SlotBookablePurpose | null {
-    // If anyone simplifies this pair later: THIS preference order is the
-    // load-bearing fix, not the cache re-stamp in the re-read's "still free"
-    // exit. Reverting only the re-stamp leaves the behaviour correct; reverting
-    // this brings the stale-purpose defect straight back. Remove the re-stamp
-    // if you must remove one, never this.
-    //
-    // The current reading is authoritative whenever it actually covers this
-    // date. `selectedSlotService` is only a cache, for the nearest-alternative
-    // path where the chosen time belongs to a date this reading is not about.
-    const fresh =
-      availability && availability.date === date
-        ? availability.time_slots.find((s) => s.time === selectedTime)
-        : undefined
-
-    const cached =
-      selectedSlotService &&
-      selectedSlotService.date === date &&
-      selectedSlotService.time === selectedTime
-        ? selectedSlotService
-        : null
-
-    if (fresh) {
-      // If the cache disagrees with the fresh answer it is stale, and a stale
-      // value must never win. Fail closed rather than pick a side.
-      if (cached && cached.bookable_purpose !== fresh.bookable_purpose) {
-        return 'drinks_only'
-      }
-      return fresh.bookable_purpose
-    }
-
-    return cached ? cached.bookable_purpose : null
-  }
-
-  // The management-API `purpose` field for submit.
-  function deriveSubmitPurpose(): 'food' | 'drinks' | null {
-    // If the guest said "just drinks", that is the answer. Inferring from whether the kitchen
-    // happens to be open was wrong for 76 of 101 drinks bookings in the last six months,
-    // because most drinks bookings are made DURING kitchen hours.
-    if (drinksOnly) return 'drinks'
-
-    const bookablePurpose = resolveSlotBookablePurpose()
-    if (!bookablePurpose) return null
-    return bookablePurpose === 'food_or_drinks' ? 'food' : 'drinks'
-  }
-
   // Reuse the cached idempotency key when the fingerprint matches the previous
   // submit intent; otherwise mint a new one and replace the cache entry.
   function getSubmitIntentIdempotencyKey(fingerprint: string): string {
@@ -1650,7 +1598,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
-    const purpose = deriveSubmitPurpose()
+    const purpose = deriveSubmitPurpose(slotPurposeContext)
     if (!purpose) {
       showBookingError('slot_context_lost', 'Please choose a time again before confirming.')
       setStep('choose')
@@ -2854,7 +2802,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 	                        bookingTime: selectedTime,
 	                        partySize,
 	                        bookingType,
-	                        purpose: deriveSubmitPurpose() ?? 'drinks',
+	                        purpose: deriveSubmitPurpose(slotPurposeContext) ?? 'drinks',
 	                        bookingSource,
 	                        attribution: submittedAttribution,
 	                        // Consent-gated inside PayPalDepositSection; hashed server-side.
