@@ -118,9 +118,11 @@ export function PrivateBookingInquiryForm({
             if (lookup.known) {
                 setLookupState('known')
                 setLookupDegraded(false)
-                // No prefill: the lookup returns no personal details. The
-                // submit fallback ('Guest') covers the hidden name fields and
-                // the management API matches the real record by phone number.
+                // No prefill: the lookup deliberately returns no personal
+                // details (review F10). Recognising the number is therefore
+                // only a greeting, and must NOT hide the name and email fields:
+                // nothing fills them any more, so hiding them submitted an
+                // empty enquiry.
                 setFormData((previous) => ({
                     ...previous,
                     contact_phone: phone.trim()
@@ -162,7 +164,10 @@ export function PrivateBookingInquiryForm({
             return
         }
 
-        if (!isKnownCustomer && (!formData.customer_first_name.trim() || !formData.customer_last_name?.trim())) {
+        // Applies to recognised numbers too. The lookup no longer supplies a
+        // name, so there is nothing to fall back to: an absent name is a
+        // visible validation error the guest can fix, never a placeholder.
+        if (!formData.customer_first_name.trim() || !formData.customer_last_name?.trim()) {
             setLoading(false)
             setError('Please enter your first name and last name.')
             return
@@ -173,7 +178,11 @@ export function PrivateBookingInquiryForm({
                 ...formData,
                 contact_phone: phone.trim(),
                 default_country_code: '44',
-                customer_first_name: formData.customer_first_name.trim() || 'Guest',
+                // No 'Guest' fallback. AMS stores whatever arrives verbatim and
+                // its own splitName also defaults to 'Guest', so a placeholder
+                // here becomes a customer record named Guest with no email to
+                // reply to. Validation above guarantees both names are present.
+                customer_first_name: formData.customer_first_name.trim(),
                 customer_last_name: formData.customer_last_name?.trim() || '',
                 contact_email: formData.contact_email?.trim() || '',
                 items: bookingItems,
@@ -292,7 +301,7 @@ export function PrivateBookingInquiryForm({
 
                     {isKnownCustomer && (
                         <div className="p-3 bg-anchor-green/5 text-accent rounded-lg text-sm border border-anchor-green/20">
-                            Recognised customer. You can continue with event details.
+                            Welcome back. Please fill in your details below and we will match them to your record.
                         </div>
                     )}
 
@@ -307,8 +316,12 @@ export function PrivateBookingInquiryForm({
 
                 {detailsUnlocked && (
                     <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 gap-6">
-                        {!isKnownCustomer && (
-                            <div className="space-y-4">
+                        {/* Rendered for recognised numbers too. These used to be
+                            hidden because the lookup prefilled them; it no
+                            longer returns any personal data, so hiding them
+                            filed the enquiry under a placeholder name with no
+                            email address to reply to. */}
+                        <div className="space-y-4">
                                 <h4 className="font-medium text-ink-strong border-b border-line pb-2">Personal Details</h4>
 
                                 <div>
@@ -351,8 +364,7 @@ export function PrivateBookingInquiryForm({
                                         className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
                                     />
                                 </div>
-                            </div>
-                        )}
+                        </div>
 
                         <div className="space-y-4">
                             <h4 className="font-medium text-ink-strong border-b border-line pb-2">Event Details</h4>
