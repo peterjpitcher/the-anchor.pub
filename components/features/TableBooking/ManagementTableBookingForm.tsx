@@ -19,6 +19,11 @@ import {
 } from '@/lib/table-booking-service-windows'
 import {
   pushToDataLayer,
+  trackBookingErrorShown,
+  trackBookingStepViewed,
+  trackOptionToggled,
+  trackSlotFlagShown,
+  trackSlotInvalidated,
   trackTableBookingClick,
   trackTableBookingFunnel,
 } from '@/lib/gtm-events'
@@ -792,15 +797,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         // Genuinely unavailable now. Say why, and put them on the slot list, which this
         // re-read has just filled with real alternatives.
+        trackSlotInvalidated({ reason: 'options_changed' })
         setSelectedTime('')
         setSelectedSlotService(null)
         setStep('choose')
-        setError(
+        showBookingError(
+          'slot_options_changed',
           `${formatTimeForDisplay(timeAtChange)} is not available with those options. Please choose another time.`
         )
       } catch (caught) {
         if (cancelled || (caught as Error)?.name === 'AbortError') return
         // Never leave a stale reading on screen; fall back to making them search again.
+        trackSlotInvalidated({ reason: 'availability_error' })
         setAvailability(null)
         setSelectedTime('')
         setSelectedSlotService(null)
@@ -834,6 +842,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Every guest-visible booking error also emits booking_error_shown with a
+  // stable machine code (never the message, which can carry typed-in data).
+  function showBookingError(code: string, message: string) {
+    trackBookingErrorShown({ code })
+    setError(message)
+  }
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [website, setWebsite] = useState('')
@@ -856,6 +871,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
     wizardRef.current?.scrollIntoView({ block: 'start' })
+  }, [step])
+
+  // Analytics: each wizard step counts as viewed when it becomes the current
+  // step, including the initial 'find' step on mount.
+  useEffect(() => {
+    trackBookingStepViewed({ step })
   }, [step])
 
   // Submit-intent idempotency cache. Reuse the same Idempotency-Key when the
@@ -916,6 +937,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // request down so the picker never shows more than the slot can advise.
   useEffect(() => {
     if (highChairCount > highChairMax) {
+      trackSlotFlagShown({ chairsFree: highChairMax, chairsRequested: highChairCount })
       setHighChairCount(highChairMax)
     }
   }, [highChairMax, highChairCount])
@@ -1214,6 +1236,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       input.targetPartySize,
       input.signal
     )
+
+    // Funnel: an availability check completed. Documented since the funnel
+    // launched but never fired until now (spec W1).
+    trackTableBookingFunnel({
+      step: 'availability_check',
+      partySize: input.targetPartySize,
+      bookingDate: input.targetDate,
+      bookingTime: input.targetTime,
+      source: bookingSource,
+      bookingType,
+      deviceType: getDeviceType(),
+    })
+
     const closestTime = pickClosestSlot(
       availabilityData.time_slots,
       input.targetTime,
@@ -1282,6 +1317,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       })
     } catch (availabilityFailure: unknown) {
       if (availabilityFailure instanceof Error && availabilityFailure.name === 'AbortError') return
+      trackBookingErrorShown({ code: 'availability_check_failed' })
       setAvailability(null)
       setAvailabilityError(
         (availabilityFailure instanceof Error ? availabilityFailure.message : null) ||
@@ -1526,6 +1562,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         setLookupDegraded(Boolean(lookup.lookup_degraded))
       }
     } catch (lookupFailure: any) {
+      trackBookingErrorShown({ code: 'lookup_failed' })
       setLookupState('idle')
       setLookupError(lookupFailure?.message || 'Unable to verify this number right now.')
       setLookupDegraded(false)
@@ -1547,28 +1584,28 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // A re-read is in flight because they just changed high chairs or outside seating. Their time
     // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
     if (revalidatingAvailability) {
-      setError('Just checking that time is still free. One moment.')
+      showBookingError('availability_revalidating', 'Just checking that time is still free. One moment.')
       return false
     }
 
     if (!selectedTime) {
       setStep('choose')
-      setError('Please select a time before continuing.')
+      showBookingError('no_time_selected', 'Please select a time before continuing.')
       return false
     }
 
     if (!phone.trim()) {
-      setError('Please enter your mobile number.')
+      showBookingError('phone_missing', 'Please enter your mobile number.')
       return false
     }
 
     if (!detailsUnlocked) {
-      setError('Please verify your mobile number first.')
+      showBookingError('phone_not_verified', 'Please verify your mobile number first.')
       return false
     }
 
     if (!isKnownCustomer && (!firstName.trim() || !lastName.trim())) {
-      setError('Please enter your first name and last name.')
+      showBookingError('name_missing', 'Please enter your first name and last name.')
       return false
     }
 
@@ -1585,6 +1622,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     trackTableBookingClick({
       source: 'book_table_details_complete',
       context: 'details_step'
+    })
+
+    // Funnel: guest details passed validation. Documented since the funnel
+    // launched but never fired until now (spec W1).
+    trackTableBookingFunnel({
+      step: 'details_entered',
+      partySize,
+      bookingDate: date,
+      bookingTime: selectedTime,
+      source: bookingSource,
+      bookingType,
+      deviceType: getDeviceType(),
     })
 
     setStep('review')
@@ -1675,13 +1724,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
 
     if (!policyAccepted) {
-      setError('Please confirm you understand the booking and no-show policy before continuing.')
+      showBookingError('policy_not_accepted', 'Please confirm you understand the booking and no-show policy before continuing.')
       return
     }
 
     const purpose = deriveSubmitPurpose()
     if (!purpose) {
-      setError('Please choose a time again before confirming.')
+      showBookingError('slot_context_lost', 'Please choose a time again before confirming.')
       setStep('choose')
       return
     }
@@ -1814,7 +1863,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
       if (bookingResult.state === 'blocked') {
         const blockedReason = bookingResult.blocked_reason || 'blocked'
-        setError(BLOCKED_REASON_COPY[blockedReason] || bookingResult.reason || BLOCKED_REASON_COPY.blocked)
+        showBookingError(blockedReason, BLOCKED_REASON_COPY[blockedReason] || bookingResult.reason || BLOCKED_REASON_COPY.blocked)
         setStep('choose')
         trackTableBookingFunnel({
           step: 'error',
@@ -1865,7 +1914,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       }
     } catch (submitError: any) {
       const errorMessage = submitError?.message || 'We could not process your booking right now.'
-      setError(errorMessage)
+      showBookingError('submit_failed', errorMessage)
       trackTableBookingFunnel({
         step: 'error',
         partySize,
@@ -2149,7 +2198,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <input
                   type="checkbox"
                   checked={drinksOnly}
-                  onChange={(event) => setDrinksOnly(event.target.checked)}
+                  onChange={(event) => {
+                    setDrinksOnly(event.target.checked)
+                    trackOptionToggled({ option: 'drinks_only', value: event.target.checked, step })
+                  }}
                   className="mt-0.5 h-4 w-4"
                 />
                 <span>
@@ -2164,7 +2216,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <input
                   type="checkbox"
                   checked={requiresAccessibleTable}
-                  onChange={(event) => setRequiresAccessibleTable(event.target.checked)}
+                  onChange={(event) => {
+                    setRequiresAccessibleTable(event.target.checked)
+                    trackOptionToggled({ option: 'accessible_table', value: event.target.checked, step })
+                  }}
                   className="mt-0.5 h-4 w-4"
                 />
                 <span>
@@ -2559,7 +2614,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         className="h-10 w-10 min-h-0 p-0"
                         aria-label="Fewer high chairs"
                         disabled={highChairCount <= 0}
-                        onClick={() => setHighChairCount((count) => Math.max(0, count - 1))}
+                        onClick={() => {
+                          const next = Math.max(0, highChairCount - 1)
+                          setHighChairCount(next)
+                          trackOptionToggled({ option: 'high_chair_count', value: next, step })
+                        }}
                       >
                         &#8722;
                       </Button>
@@ -2575,9 +2634,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         className="h-10 w-10 min-h-0 p-0"
                         aria-label="More high chairs"
                         disabled={highChairCount >= highChairMax}
-                        onClick={() =>
-                          setHighChairCount((count) => Math.min(highChairMax, count + 1))
-                        }
+                        onClick={() => {
+                          const next = Math.min(highChairMax, highChairCount + 1)
+                          setHighChairCount(next)
+                          trackOptionToggled({ option: 'high_chair_count', value: next, step })
+                        }}
                       >
                         +
                       </Button>
@@ -2589,7 +2650,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <input
                     type="checkbox"
                     checked={isOutsideSeating}
-                    onChange={(event) => setIsOutsideSeating(event.target.checked)}
+                    onChange={(event) => {
+                      setIsOutsideSeating(event.target.checked)
+                      trackOptionToggled({ option: 'outside_seating', value: event.target.checked, step })
+                    }}
                     className="mt-1 accent-anchor-green"
                   />
                   <span>I&apos;d like an outside table (weather permitting)</span>

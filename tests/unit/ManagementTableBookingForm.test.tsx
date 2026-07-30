@@ -8,11 +8,21 @@ import {
 const trackTableBookingFunnel = jest.fn()
 const pushToDataLayer = jest.fn()
 const trackTableBookingClick = jest.fn()
+const trackBookingStepViewed = jest.fn()
+const trackOptionToggled = jest.fn()
+const trackSlotFlagShown = jest.fn()
+const trackSlotInvalidated = jest.fn()
+const trackBookingErrorShown = jest.fn()
 
 jest.mock('@/lib/gtm-events', () => ({
   trackTableBookingClick: (...args: unknown[]) => trackTableBookingClick(...args),
   trackTableBookingFunnel: (...args: unknown[]) => trackTableBookingFunnel(...args),
   pushToDataLayer: (...args: unknown[]) => pushToDataLayer(...args),
+  trackBookingStepViewed: (...args: unknown[]) => trackBookingStepViewed(...args),
+  trackOptionToggled: (...args: unknown[]) => trackOptionToggled(...args),
+  trackSlotFlagShown: (...args: unknown[]) => trackSlotFlagShown(...args),
+  trackSlotInvalidated: (...args: unknown[]) => trackSlotInvalidated(...args),
+  trackBookingErrorShown: (...args: unknown[]) => trackBookingErrorShown(...args),
 }))
 
 jest.mock('next/navigation', () => ({
@@ -30,6 +40,7 @@ type TimeSlot = {
   available_capacity: number
   kitchen_open?: boolean
   busyness?: 'quiet' | 'filling' | 'busy'
+  high_chairs_remaining?: number
 }
 
 type AvailabilityHandler = (url: string) => {
@@ -2068,6 +2079,214 @@ describe('ManagementTableBookingForm', () => {
       // The slot list carries the outside availability rather than being wiped.
       expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument()
       expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+  })
+
+  // T1 analytics baseline: the documented-but-never-fired funnel steps now emit,
+  // and the new schema events fire with no personal data in their payloads.
+  describe('analytics baseline (T1)', () => {
+    async function searchTo7pmChoose(slots?: TimeSlot[]) {
+      setupFetchMock({
+        availability:
+          slots ?? [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      })
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    }
+
+    async function advanceTo7pmDetails() {
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    }
+
+    it('fires the availability_check funnel step once a search returns', async () => {
+      await searchTo7pmChoose()
+
+      expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+        expect.objectContaining({
+          step: 'availability_check',
+          partySize: 2,
+          bookingDate: '2026-07-07',
+          source: 'direct'
+        })
+      )
+    })
+
+    it('fires the details_entered funnel step when guest details pass validation', async () => {
+      await searchTo7pmChoose()
+      await advanceTo7pmDetails()
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+        expect.objectContaining({
+          step: 'details_entered',
+          partySize: 2,
+          bookingDate: '2026-07-07',
+          bookingTime: '19:00'
+        })
+      )
+    })
+
+    it('fires booking_step_viewed for each wizard step, starting with find on mount', async () => {
+      await searchTo7pmChoose()
+
+      expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'find' })
+      expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'choose' })
+
+      await advanceTo7pmDetails()
+      expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'details' })
+    })
+
+    it('fires option_toggled for the find-step toggles with the new value and step', async () => {
+      setupFetchMock({ availability: [] })
+      render(<ManagementTableBookingForm />)
+
+      fireEvent.click(screen.getByLabelText(/Just drinks/i))
+      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+
+      expect(trackOptionToggled).toHaveBeenCalledWith({
+        option: 'drinks_only',
+        value: true,
+        step: 'find'
+      })
+      expect(trackOptionToggled).toHaveBeenCalledWith({
+        option: 'accessible_table',
+        value: true,
+        step: 'find'
+      })
+    })
+
+    it('fires option_toggled for the details-step high chair stepper and outside toggle', async () => {
+      await searchTo7pmChoose()
+      await advanceTo7pmDetails()
+
+      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+      expect(trackOptionToggled).toHaveBeenCalledWith({
+        option: 'high_chair_count',
+        value: 1,
+        step: 'details'
+      })
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      expect(trackOptionToggled).toHaveBeenCalledWith({
+        option: 'outside_seating',
+        value: true,
+        step: 'details'
+      })
+    })
+
+    it('fires slot_flag_shown when a newly chosen slot cannot cover the requested chairs', async () => {
+      await searchTo7pmChoose([
+        { time: '19:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 2 },
+        { time: '20:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 1 }
+      ])
+      await advanceTo7pmDetails()
+
+      // Ask for two chairs against the 7pm slot (which can advise two)...
+      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+
+      // ...then go back and pick the 8pm slot, which only has one left.
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /8pm/ }))
+
+      await waitFor(() =>
+        expect(trackSlotFlagShown).toHaveBeenCalledWith({ chairsFree: 1, chairsRequested: 2 })
+      )
+    })
+
+    it('fires slot_invalidated and a machine error code when options change kill the chosen time', async () => {
+      setupFetchMock({
+        availability: (url: string) =>
+          url.includes('outside=true')
+            ? { time_slots: [{ time: '20:00', available: true, available_capacity: 4, kitchen_open: true }] }
+            : { time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }] }
+      })
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+
+      await waitFor(() =>
+        expect(screen.getByText(/is not available with those options/i)).toBeInTheDocument()
+      )
+      expect(trackSlotInvalidated).toHaveBeenCalledWith({ reason: 'options_changed' })
+      expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'slot_options_changed' })
+    })
+
+    it('fires booking_error_shown with the blocked reason when the server blocks the booking', async () => {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        bookingResponse: {
+          state: 'blocked',
+          table_booking_id: null,
+          booking_reference: null,
+          blocked_reason: 'no_table',
+          next_step_url: null,
+          hold_expires_at: null,
+          table_name: null,
+          reason: null
+        }
+      })
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() =>
+        expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'no_table' })
+      )
+    })
+
+    it('keeps personal data out of every new event payload', async () => {
+      await searchTo7pmChoose()
+      await advanceTo7pmDetails()
+
+      const personal = /07700900000|Sam|Walker/
+      const newEventCalls = [
+        ...trackBookingStepViewed.mock.calls,
+        ...trackOptionToggled.mock.calls,
+        ...trackSlotFlagShown.mock.calls,
+        ...trackSlotInvalidated.mock.calls,
+        ...trackBookingErrorShown.mock.calls
+      ]
+      expect(newEventCalls.length).toBeGreaterThan(0)
+      for (const call of newEventCalls) {
+        expect(JSON.stringify(call)).not.toMatch(personal)
+      }
     })
   })
 })

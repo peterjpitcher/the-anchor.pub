@@ -1,5 +1,22 @@
 // Google Tag Manager Event Tracking Utilities
 // Centralised event tracking for The Anchor website
+//
+// Table-booking event names (snapshot, keep in sync with GTM):
+//   table_booking_click / book_table_click           CTA and in-form click tracking
+//   table_booking_funnel                             funnel_step: view | start | availability_check |
+//                                                    details_entered | submit | success | error
+//   table_booking_started / table_booking_completed  (+ sunday_roast_* variants)
+//   booking_step_viewed { step }                     wizard step becomes visible
+//   option_toggled { option, value, step }           drinks_only | accessible_table |
+//                                                    outside_seating | high_chair_count
+//   slot_flag_shown { chairs_free, chairs_requested }  high-chair shortfall flag shown
+//   slot_invalidated { reason }                      chosen slot lost (options_changed | availability_error)
+//   booking_error_shown { code }                     guest-visible booking error rendered
+//   purchase                                         GA4 purchase on confirmed/paid bookings
+//
+// The booking_step_viewed, option_toggled, slot_flag_shown, slot_invalidated and
+// booking_error_shown payloads must never carry personal data: no names, phone
+// numbers, notes or booking references (review F22).
 
 import { dispatchTrackingEvent, TrackingDispatchOptions } from './tracking/dispatcher'
 import { trackMetaBookingPurchase } from './meta-pixel'
@@ -490,6 +507,59 @@ export function trackTableBookingFunnel(data: {
       })
     }
   }
+}
+
+export type BookingWizardStep = 'find' | 'choose' | 'details' | 'review'
+
+// A booking wizard step became visible. Fired once per step transition,
+// including the initial 'find' step on mount.
+export function trackBookingStepViewed(data: { step: BookingWizardStep }) {
+  pushToDataLayer({
+    event: 'booking_step_viewed',
+    step: data.step
+  })
+}
+
+// A booking option control changed. `value` is the new state: booleans for
+// checkboxes, the new count for the high-chair stepper.
+export function trackOptionToggled(data: {
+  option: 'drinks_only' | 'accessible_table' | 'outside_seating' | 'high_chair_count'
+  value: boolean | number
+  step: BookingWizardStep
+}) {
+  pushToDataLayer({
+    event: 'option_toggled',
+    option: data.option,
+    value: data.value,
+    step: data.step
+  })
+}
+
+// The chosen slot cannot honour the full high-chair request; the shortfall
+// flag was shown to the guest.
+export function trackSlotFlagShown(data: { chairsFree: number; chairsRequested: number }) {
+  pushToDataLayer({
+    event: 'slot_flag_shown',
+    chairs_free: data.chairsFree,
+    chairs_requested: data.chairsRequested
+  })
+}
+
+// A previously chosen slot stopped being usable before submit.
+export function trackSlotInvalidated(data: { reason: 'options_changed' | 'availability_error' }) {
+  pushToDataLayer({
+    event: 'slot_invalidated',
+    reason: data.reason
+  })
+}
+
+// A guest-visible booking error was rendered. `code` is a stable machine
+// code, never free text, so no personal data can leak through it.
+export function trackBookingErrorShown(data: { code: string }) {
+  pushToDataLayer({
+    event: 'booking_error_shown',
+    code: data.code
+  })
 }
 
 export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
