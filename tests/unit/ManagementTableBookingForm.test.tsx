@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import {
   captureBookingAttributionFromLocation,
@@ -2068,6 +2068,168 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       expect(screen.queryByText('Please select a time before continuing.')).not.toBeInTheDocument()
       expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+
+    // C2: the pending flag used to be cleared only in an async `finally` guarded
+    // by `if (!cancelled)`. A re-run set cancelled true so that clear was
+    // skipped, and if the re-run then took the effect's early return it never
+    // cleared it either. The flag stuck true for the life of the component and
+    // validateDetailsStep refused every Continue forever, with no spinner and
+    // nothing on screen to explain it.
+    it('does not block Continue forever when one options change supersedes another', async () => {
+      // The outside-seating re-read stalls once and never settles, so only the
+      // supersede path can release the flag. Everything else answers normally,
+      // including the later search, so the journey can be completed.
+      const neverSettles = new Promise<Response>(() => {})
+      let stallUsed = false
+
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        if (url.startsWith('/api/events?')) {
+          return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+        }
+        if (url.startsWith('/api/customers/lookup?')) {
+          return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+        }
+        if (url.startsWith('/api/table-bookings/availability')) {
+          if (url.includes('outside=true') && !stallUsed) {
+            stallUsed = true
+            return neverSettles
+          }
+          return Promise.resolve(
+            jsonResponse({
+              success: true,
+              data: {
+                date: '2026-07-07',
+                available: true,
+                calculation_state: 'complete',
+                time_slots: [
+                  { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+                ]
+              }
+            })
+          )
+        }
+        return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      // Options change 1: starts a re-read that never settles, and the guest can
+      // see that something is happening.
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      await waitFor(() =>
+        expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+      )
+
+      // Back to the find step, then options change 2, which takes the effect's
+      // early return and supersedes the hanging read.
+      fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+      await waitFor(() => expect(screen.getByLabelText(/Just drinks/i)).toBeInTheDocument())
+      fireEvent.click(screen.getByLabelText(/Just drinks/i))
+
+      await waitFor(() =>
+        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+      )
+
+      // The real consequence: search again, reach details, and Continue must
+      // actually work. With the flag stuck it was refused here every time, for
+      // the rest of the component's life.
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      expect(
+        screen.queryByText('Just checking that time is still free. One moment.')
+      ).not.toBeInTheDocument()
+    })
+
+    it('releases the details step when a re-read never settles, rather than hanging on it', async () => {
+      // Real timers so the component's own timeout can fire; the budget is
+      // advanced with a fake clock inside this test only.
+      jest.useFakeTimers({ now: FROZEN_NOW })
+      try {
+        let availabilityCalls = 0
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/customers/lookup?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            availabilityCalls += 1
+            if (availabilityCalls === 1) {
+              return Promise.resolve(
+                jsonResponse({
+                  success: true,
+                  data: {
+                    date: '2026-07-07',
+                    available: true,
+                    calculation_state: 'complete',
+                    time_slots: [
+                      { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+                    ]
+                  }
+                })
+              )
+            }
+            // Stalled socket: settles only when the request is aborted.
+            return new Promise<Response>((_resolve, reject) => {
+              init?.signal?.addEventListener('abort', () =>
+                reject(new DOMException('Aborted', 'AbortError'))
+              )
+            })
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+        await waitFor(() =>
+          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+        )
+
+        // Past the request budget the stalled read is abandoned.
+        await act(async () => {
+          jest.advanceTimersByTime(13_000)
+        })
+
+        await waitFor(() =>
+          expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+        )
+      } finally {
+        jest.useRealTimers()
+      }
     })
 
     it('offers real alternatives when their time is not free outside', async () => {

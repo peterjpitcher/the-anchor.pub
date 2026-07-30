@@ -171,6 +171,11 @@ const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
 // acknowledgement instead.
 const HIGH_CHAIR_HOUSE_CAP = 2
 
+// Upper bound on an availability request from the browser. The server side has
+// its own 3s-per-attempt budget with one retry, so this only has to catch a
+// connection that stalls without ever failing.
+const AVAILABILITY_REQUEST_TIMEOUT_MS = 12_000
+
 const STEP_LABELS: Record<BookingStep, string> = {
   find: 'Find table',
   choose: 'Choose time',
@@ -787,6 +792,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const availabilityInputsKey = `${drinksOnly}|${requiresAccessibleTable}|${highChairCount}|${isOutsideSeating}`
   const previousAvailabilityInputs = useRef(availabilityInputsKey)
   const [revalidatingAvailability, setRevalidatingAvailability] = useState(false)
+  // Only the LATEST re-read owns the pending flag. It used to be cleared in an
+  // async `finally` guarded by `if (!cancelled)`, so a re-run that superseded an
+  // in-flight read skipped the clear, and if that re-run then took the early
+  // return below it never cleared it either. The flag stuck true for the life of
+  // the component and validateDetailsStep refused every Continue with "Just
+  // checking that time is still free" forever, with nothing on screen to
+  // explain it.
+  const revalidateRequestRef = useRef(0)
 
   useEffect(() => {
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
@@ -795,6 +808,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // On the find step nothing is chosen yet, so drop the stale reading and let the
     // "Find a table" button fetch with the new inputs.
     if (step === 'find' || !date || !selectedTime) {
+      revalidateRequestRef.current++
+      setRevalidatingAvailability(false)
       setAvailability(null)
       setSelectedTime('')
       setSelectedSlotService(null)
@@ -805,6 +820,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const timeAtChange = selectedTime
     const controller = new AbortController()
     let cancelled = false
+    const requestId = ++revalidateRequestRef.current
 
     setRevalidatingAvailability(true)
     void (async () => {
@@ -863,7 +879,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           'We could not check that time with those options. Please try again.'
         )
       } finally {
-        if (!cancelled) setRevalidatingAvailability(false)
+        // Whoever is the latest re-read clears the flag, cancelled or not. A
+        // superseded run must never clear it (the newer one is still working)
+        // and must never leave it set (nothing else would clear it).
+        if (requestId === revalidateRequestRef.current) {
+          setRevalidatingAvailability(false)
+        }
       }
     })()
 
@@ -1209,22 +1230,49 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       high_chair_count: String(highChairCount)
     })
 
-    const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
-      cache: 'no-store',
-      signal
-    })
+    // A stalled connection used to hold this request open for as long as the
+    // socket lived, and the details step stays blocked while a re-read is in
+    // flight, so "no timeout" meant "blocked indefinitely with nothing on
+    // screen". Bound it, and make sure the timeout surfaces as a real error
+    // rather than as the AbortError that callers deliberately swallow.
+    const controller = new AbortController()
+    let timedOut = false
+    const timeoutId = setTimeout(() => {
+      timedOut = true
+      controller.abort()
+    }, AVAILABILITY_REQUEST_TIMEOUT_MS)
+    const forwardAbort = () => controller.abort()
+    if (signal?.aborted) controller.abort()
+    signal?.addEventListener('abort', forwardAbort)
 
-    const body = await response.json()
+    try {
+      const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
+        cache: 'no-store',
+        signal: controller.signal
+      })
 
-    if (!response.ok || body?.success === false) {
-      const message =
-        body?.error?.message ||
-        body?.error ||
-        'We could not check availability right now. Please try again.'
-      throw new Error(message)
+      const body = await response.json()
+
+      if (!response.ok || body?.success === false) {
+        const message =
+          body?.error?.message ||
+          body?.error ||
+          'We could not check availability right now. Please try again.'
+        throw new Error(message)
+      }
+
+      return normalizeAvailabilityResponse(body)
+    } catch (failure) {
+      if (timedOut) {
+        throw new Error(
+          'We could not check availability in time. Please try again or call us at 01753 682707.'
+        )
+      }
+      throw failure
+    } finally {
+      clearTimeout(timeoutId)
+      signal?.removeEventListener('abort', forwardAbort)
     }
-
-    return normalizeAvailabilityResponse(body)
   }
 
   async function loadNearestAlternatives(
@@ -2584,6 +2632,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <strong className="text-ink-strong">{partySize}</strong> guests on <strong className="text-ink-strong">{formatDateForDisplay(date)}</strong> at{' '}
                 <strong className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
               </p>
+              {/* Continue is refused while a re-read is in flight, so the guest
+                  has to be able to see that something is actually happening.
+                  Without this the refusal message appeared with no explanation
+                  anywhere on screen. */}
+              {revalidatingAvailability ? (
+                <p className="mt-2 text-ink-muted" aria-live="polite">
+                  Checking that time is still free with your new options...
+                </p>
+              ) : null}
             </div>
 
             <div className="rounded-md border border-line bg-surface-sunk p-4">
