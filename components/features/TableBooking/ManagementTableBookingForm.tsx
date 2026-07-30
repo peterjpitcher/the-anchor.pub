@@ -1609,6 +1609,36 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
   }
 
+  // Shown with the slot grid AND again on review, because review is where the
+  // guest actually commits. Same notice treatment as the availability-unknown
+  // panel, deliberately: this is information they need, not an alarm.
+  function renderFoodCheckNotice(context: 'grid' | 'review') {
+    return (
+      <div
+        className="space-y-2 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
+        aria-live="polite"
+      >
+        <p>
+          {context === 'review'
+            ? 'We could not check food service just now, so this booking is for drinks only.'
+            : 'We could not check food service just now, so these times are for drinks only.'}
+        </p>
+        <p>
+          If you would like to eat, give us a ring on{' '}
+          <PhoneLink
+            phone={CONTACT.phone}
+            source={`table_booking_food_check_unavailable_${context}`}
+            showIcon={false}
+            className="font-semibold underline"
+          >
+            01753 682707
+          </PhoneLink>{' '}
+          and we will sort it.
+        </p>
+      </div>
+    )
+  }
+
   function renderDateEventSuggestions(options: {
     title: string
     description: string
@@ -2504,32 +2534,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             ) : availableSlots.length > 0 ? (
               <>
-                {/* Same notice treatment as the availability-unknown panel
-                    above, deliberately: this is information the guest needs,
-                    not an alarm. Shown only when the food question genuinely
-                    went unanswered, never on a real kitchen-closed day. */}
-                {foodCheckUnavailable ? (
-                  <div
-                    className="space-y-2 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
-                    aria-live="polite"
-                  >
-                    <p>
-                      We could not check food service just now, so these times are for drinks only.
-                    </p>
-                    <p>
-                      If you would like to eat, give us a ring on{' '}
-                      <PhoneLink
-                        phone={CONTACT.phone}
-                        source="table_booking_food_check_unavailable"
-                        showIcon={false}
-                        className="font-semibold underline"
-                      >
-                        01753 682707
-                      </PhoneLink>{' '}
-                      and we will sort it.
-                    </p>
-                  </div>
-                ) : null}
+                {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
 
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
@@ -2965,6 +2970,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="mt-1 text-sm text-ink-muted">Check details, then confirm your booking.</p>
             </div>
 
+            {/* Repeated here because this is where the guest commits. Someone
+                who skimmed the grid could otherwise reach Confirm with nothing
+                on screen telling them they are booking drinks. */}
+            {foodCheckUnavailable ? renderFoodCheckNotice('review') : null}
+
             <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm">
               <dl className="space-y-2 text-ink">
                 <div className="flex justify-between gap-3">
@@ -2978,6 +2988,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium text-ink-muted">Time</dt>
                   <dd className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</dd>
+                </div>
+                {/* What is actually being booked. The guest could previously
+                    reach Confirm without this ever appearing on screen, so a
+                    drinks-only slot could be paid for by someone expecting a
+                    roast. Reads the same authoritative purpose as submit. */}
+                <div className="flex justify-between gap-3">
+                  <dt className="font-medium text-ink-muted">Booking</dt>
+                  <dd className="text-ink-strong">
+                    {deriveSubmitPurpose() === 'food' ? 'Table for food' : 'Drinks only'}
+                  </dd>
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium text-ink-muted">Mobile</dt>

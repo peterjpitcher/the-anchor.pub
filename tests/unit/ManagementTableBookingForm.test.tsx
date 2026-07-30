@@ -2813,6 +2813,29 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/table-bookings/availability')) {
             return Promise.resolve(jsonResponse({ success: true, data }))
           }
+          if (url.startsWith('/api/customers/lookup?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+          }
+          if (url === '/api/table-bookings') {
+            return Promise.resolve(
+              jsonResponse(
+                {
+                  success: true,
+                  data: {
+                    state: 'confirmed',
+                    table_booking_id: 'tb-1',
+                    booking_reference: 'TB-1',
+                    blocked_reason: null,
+                    next_step_url: null,
+                    hold_expires_at: null,
+                    table_name: 'Window 4',
+                    reason: null
+                  }
+                },
+                { status: 201 }
+              )
+            )
+          }
           return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
         })
 
@@ -2866,11 +2889,110 @@ describe('ManagementTableBookingForm', () => {
           available: true,
           calculation_state: 'complete',
           time_slots: [
-            { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+            {
+              time: '19:00',
+              available: true,
+              available_capacity: 4,
+              kitchen_open: true,
+              bookable_purpose: 'food_or_drinks'
+            }
           ]
         })
 
         expect(screen.queryByText(NOTICE)).not.toBeInTheDocument()
+      })
+
+      // Review is where the guest commits, so the warning has to survive to it.
+      async function reachReview() {
+        fireEvent.click(screen.getByRole('button', { name: /1pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      }
+
+      it('follows the guest through to the review step', async () => {
+        await searchWith({ ...drinksOnlyGrid, food_check_unavailable: true })
+        await reachReview()
+
+        expect(
+          screen.getByText(/We could not check food service just now, so this booking is for drinks only/i)
+        ).toBeInTheDocument()
+        expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
+      })
+
+      it('does not follow through to review when nothing failed', async () => {
+        await searchWith(drinksOnlyGrid)
+        await reachReview()
+
+        expect(screen.queryByText(/We could not check food service/i)).not.toBeInTheDocument()
+      })
+    })
+
+    // The guest could previously reach Confirm without ever seeing what they
+    // were actually booking, so a drinks-only slot could be paid for by someone
+    // expecting a roast.
+    describe('the review summary states what is being booked', () => {
+      async function reviewWith(slot: TimeSlot, drinksOnly = false) {
+        setupFetchMock({ availability: [slot] })
+
+        render(<ManagementTableBookingForm />)
+        if (drinksOnly) fireEvent.click(screen.getByLabelText(/Just drinks/i))
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      }
+
+      it('says "Table for food" when food was affirmed', async () => {
+        await reviewWith({
+          time: '19:00',
+          available: true,
+          available_capacity: 4,
+          bookable_purpose: 'food_or_drinks'
+        })
+
+        expect(screen.getByText('Table for food')).toBeInTheDocument()
+        expect(screen.queryByText('Drinks only')).not.toBeInTheDocument()
+      })
+
+      it('says "Drinks only" when it was not, even inside kitchen hours', async () => {
+        await reviewWith({
+          time: '19:00',
+          available: true,
+          available_capacity: 4,
+          kitchen_open: true,
+          bookable_purpose: 'drinks_only'
+        })
+
+        expect(screen.getByText('Drinks only')).toBeInTheDocument()
+        expect(screen.queryByText('Table for food')).not.toBeInTheDocument()
+      })
+
+      it('says "Drinks only" for a guest who asked for drinks only', async () => {
+        await reviewWith(
+          {
+            time: '19:00',
+            available: true,
+            available_capacity: 4,
+            bookable_purpose: 'food_or_drinks'
+          },
+          true
+        )
+
+        expect(screen.getByText('Drinks only')).toBeInTheDocument()
       })
     })
 
