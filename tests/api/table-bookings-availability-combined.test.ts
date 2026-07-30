@@ -170,23 +170,24 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(withBookingType.data.time_slots).toEqual(baseline.data.time_slots)
   })
 
-  it('stamps kitchen_open from the food answer: true while it serves, false after', async () => {
+  it('sets bookable_purpose from the food answer: food while it serves, drinks after', async () => {
     const body = await fetchSlots('date=2026-05-05&party_size=2')
     const slots = body.data.time_slots as Array<{
       time: string
-      kitchen_open?: boolean
+      bookable_purpose?: string
       available?: boolean
     }>
 
-    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
+    expect(slots.find((s) => s.time === '20:00')?.bookable_purpose).toBe('food_or_drinks')
     // Past the kitchen's last food slot the time is still bookable, for drinks.
-    expect(slots.find((s) => s.time === '22:00')?.kitchen_open).toBe(false)
+    expect(slots.find((s) => s.time === '22:00')?.bookable_purpose).toBe('drinks_only')
     expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
   })
 
   it('marks a slot drinks-only when the kitchen is at capacity for it', async () => {
-    // Inside kitchen hours, so the local window would say food is on; only the
-    // food answer knows the pacing ceiling has been hit.
+    // Inside kitchen hours, so the published window says food is on; only the
+    // food answer knows the pacing ceiling has been hit. This is the case an
+    // inferred flag could never get right.
     respondByPurpose({
       drinks: DRINKS_COMPLETE,
       food: {
@@ -200,34 +201,48 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2')
-    const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
+    const slots = body.data.time_slots as Array<{
+      time: string
+      available?: boolean
+      bookable_purpose?: string
+      kitchen_open?: boolean
+    }>
 
     expect(slots.find((s) => s.time === '19:00')?.available).toBe(true)
-    expect(slots.find((s) => s.time === '19:00')?.kitchen_open).toBe(false)
-    expect(slots.find((s) => s.time === '19:30')?.kitchen_open).toBe(true)
+    expect(slots.find((s) => s.time === '19:00')?.bookable_purpose).toBe('drinks_only')
+    expect(slots.find((s) => s.time === '19:30')?.bookable_purpose).toBe('food_or_drinks')
+    // The published kitchen window still says open at 19:00, which is precisely
+    // why nothing downstream may infer food from it.
+    expect(slots.find((s) => s.time === '19:00')?.kitchen_open).toBe(true)
   })
 
   it('fails closed to drinks when the food answer is unusable, keeping the slots', async () => {
-    // kitchen_open is not cosmetic: the form derives the SUBMITTED PURPOSE from
-    // it. Trusting the local kitchen window here would submit a FOOD booking
-    // for a time only ever affirmed for DRINKS, and create would refuse it with
+    // Losing the food call must cost the food label, never the slots and never
+    // a doomed booking: a food booking nothing affirmed would be refused with
     // slot_full once the pacing ceiling was reached, after the guest had filled
-    // in every step. Losing the food call must cost the food label, never the
-    // slots and never a doomed booking.
+    // in every step.
     respondByPurpose({ drinks: DRINKS_COMPLETE, food: null })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2')
-    const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
+    const slots = body.data.time_slots as Array<{
+      time: string
+      available?: boolean
+      bookable_purpose?: string
+      kitchen_open?: boolean
+    }>
 
     // Every drinks-affirmed time is still bookable.
     expect(slots.find((s) => s.time === '20:00')?.available).toBe(true)
     expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
 
     // But nothing claims food, including deep inside kitchen hours where the
-    // local window would have said yes.
-    expect(slots.find((s) => s.time === '13:00')?.kitchen_open).toBe(false)
-    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(false)
-    expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
+    // published window says the kitchen is serving.
+    expect(slots.find((s) => s.time === '13:00')?.bookable_purpose).toBe('drinks_only')
+    expect(slots.find((s) => s.time === '20:00')?.bookable_purpose).toBe('drinks_only')
+    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
+    expect(
+      slots.filter((s) => s.available).every((s) => s.bookable_purpose === 'drinks_only')
+    ).toBe(true)
   })
 
   // The guest must be able to tell "we could not check food" apart from "the
@@ -270,11 +285,16 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
       })
 
       const body = await fetchSlots('date=2026-05-05&party_size=2')
-      const slots = body.data.time_slots as Array<{ available?: boolean; kitchen_open?: boolean }>
+      const slots = body.data.time_slots as Array<{
+        available?: boolean
+        bookable_purpose?: string
+      }>
 
       expect(body.data.food_check_unavailable).toBeUndefined()
       // Still drinks-only, just without an apology attached.
-      expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
+      expect(
+        slots.filter((s) => s.available).every((s) => s.bookable_purpose === 'drinks_only')
+      ).toBe(true)
     })
 
     it('is NOT set for a drinks-only search', async () => {
@@ -285,6 +305,16 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
       expect(body.data.food_check_unavailable).toBeUndefined()
     })
 
+    it('always pairs with drinks-only slots, so the notice and the grid agree', async () => {
+      respondByPurpose({ drinks: DRINKS_COMPLETE, food: null })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+      const slots = body.data.time_slots as Array<{ bookable_purpose?: string }>
+
+      expect(body.data.food_check_unavailable).toBe(true)
+      expect(slots.every((s) => s.bookable_purpose === 'drinks_only')).toBe(true)
+    })
+
     it('is NOT set when both calls answer normally', async () => {
       const body = await fetchSlots('date=2026-05-05&party_size=2')
 
@@ -292,15 +322,20 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     })
   })
 
-  it('keeps the local kitchen indicator for a guest who asked for drinks only', async () => {
-    // No food call is made for them, and their submitted purpose is 'drinks'
-    // whatever the label says, so the local window stays a useful hint about
-    // whether the kitchen happens to be serving.
+  it('marks every slot drinks-only for a guest who asked for drinks only', async () => {
+    // No food call is made for them and they are booking drinks, so nothing is
+    // labelled or submitted as food. The published kitchen window still rides
+    // along as information, which is all it has ever been entitled to be.
     respondByPurpose({ drinks: DRINKS_COMPLETE })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2&purpose=drinks')
-    const slots = body.data.time_slots as Array<{ time: string; kitchen_open?: boolean }>
+    const slots = body.data.time_slots as Array<{
+      time: string
+      bookable_purpose?: string
+      kitchen_open?: boolean
+    }>
 
+    expect(slots.every((s) => s.bookable_purpose === 'drinks_only')).toBe(true)
     expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
     expect(slots.find((s) => s.time === '22:00')?.kitchen_open).toBe(false)
   })

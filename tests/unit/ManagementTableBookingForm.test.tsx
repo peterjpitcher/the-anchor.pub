@@ -39,8 +39,23 @@ type TimeSlot = {
   available: boolean
   available_capacity: number
   kitchen_open?: boolean
+  // What the route decided this slot may be booked for. Most fixtures express
+  // intent through `kitchen_open`, so the harness derives this from it unless a
+  // test sets it explicitly, which is how the anti-inference tests make the two
+  // disagree deliberately.
+  bookable_purpose?: 'food_or_drinks' | 'drinks_only'
   busyness?: 'quiet' | 'filling' | 'busy'
   high_chairs_remaining?: number
+}
+
+// The wire shape the availability route actually emits: `bookable_purpose` is
+// authoritative, `kitchen_open` rides along as informational only.
+function toWireSlot(slot: TimeSlot) {
+  return {
+    ...slot,
+    bookable_purpose:
+      slot.bookable_purpose ?? (slot.kitchen_open === false ? 'drinks_only' : 'food_or_drinks')
+  }
 }
 
 type AvailabilityHandler = (url: string) => {
@@ -104,7 +119,7 @@ function setupFetchMock(options: {
           data: {
             date: result.date ?? '',
             available: result.time_slots.some((s) => s.available),
-            time_slots: result.time_slots,
+            time_slots: result.time_slots.map(toWireSlot),
             ...(result.calculation_state ? { calculation_state: result.calculation_state } : {}),
             ...(result.message ? { message: result.message } : {})
           }
@@ -666,7 +681,8 @@ describe('ManagementTableBookingForm', () => {
                     time: '13:00',
                     available: true,
                     available_capacity: 12,
-                    kitchen_open: true
+                    kitchen_open: true,
+                    bookable_purpose: 'food_or_drinks'
                   }
                 ]
               }
@@ -2570,6 +2586,216 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
       expect(capturePayload.ref.current).toMatchObject({ purpose: 'drinks' })
+    })
+
+    // D1: the submitted purpose is READ from the slot's authoritative
+    // bookable_purpose, never inferred. These make kitchen_open and
+    // bookable_purpose disagree on purpose: if any inference path survived
+    // anywhere in the form, the proxy would win one of these.
+    describe('the submitted purpose comes from the explicit field only', () => {
+      async function bookFirstSlot(slot: TimeSlot) {
+        const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+        setupFetchMock({ availability: [slot], capturePayload })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+        fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+        await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+        return capturePayload.ref.current as Record<string, unknown>
+      }
+
+      it('books drinks when the field says drinks even though the kitchen is open', async () => {
+        // The exact shape a pacing ceiling produces: published hours say the
+        // kitchen is serving, the authoritative answer says it cannot take this
+        // booking. The old inference read kitchen_open true and submitted food.
+        const payload = await bookFirstSlot({
+          time: '19:00',
+          available: true,
+          available_capacity: 4,
+          kitchen_open: true,
+          bookable_purpose: 'drinks_only'
+        })
+
+        expect(payload.purpose).toBe('drinks')
+      })
+
+      it('labels that same slot drinks-only, so the guest sees what is booked', async () => {
+        setupFetchMock({
+          availability: [
+            {
+              time: '19:00',
+              available: true,
+              available_capacity: 4,
+              kitchen_open: true,
+              bookable_purpose: 'drinks_only'
+            }
+          ]
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+        const slotButton = screen.getByRole('button', { name: /7pm/ })
+        expect(within(slotButton).getByText(/drinks only/i)).toBeInTheDocument()
+        expect(within(slotButton).queryByText(/drinks & food/i)).not.toBeInTheDocument()
+        // The label and the submitted purpose read the same field, so the
+        // screen-reader phrase agrees too.
+        expect(slotButton.getAttribute('aria-label')).toMatch(/drinks only/i)
+      })
+
+      it('books food when the field says food even though the kitchen window is shut', async () => {
+        const payload = await bookFirstSlot({
+          time: '19:00',
+          available: true,
+          available_capacity: 4,
+          kitchen_open: false,
+          bookable_purpose: 'food_or_drinks'
+        })
+
+        expect(payload.purpose).toBe('food')
+      })
+
+      it('fails closed to drinks when the field is missing entirely', async () => {
+        // An older cached response, or a future rename. Absent must never be
+        // read as food.
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/customers/lookup?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            return Promise.resolve(
+              jsonResponse({
+                success: true,
+                data: {
+                  date: '2026-07-07',
+                  available: true,
+                  calculation_state: 'complete',
+                  // No bookable_purpose anywhere, and kitchen_open says food.
+                  time_slots: [
+                    { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+                  ]
+                }
+              })
+            )
+          }
+          if (url === '/api/table-bookings') {
+            capturedPurpose.value = JSON.parse(String(init?.body || '{}')).purpose
+            return Promise.resolve(
+              jsonResponse(
+                {
+                  success: true,
+                  data: {
+                    state: 'confirmed',
+                    table_booking_id: 'tb-1',
+                    booking_reference: 'TB-1',
+                    blocked_reason: null,
+                    next_step_url: null,
+                    hold_expires_at: null,
+                    table_name: 'Window 4',
+                    reason: null
+                  }
+                },
+                { status: 201 }
+              )
+            )
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+        const capturedPurpose: { value?: unknown } = {}
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+        // Labelled honestly on the strength of what is actually known.
+        expect(
+          within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks only/i)
+        ).toBeInTheDocument()
+
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+        fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+        await waitFor(() => expect(capturedPurpose.value).toBeDefined())
+        expect(capturedPurpose.value).toBe('drinks')
+      })
+
+      it('carries the explicit field through a nearest-alternative choice', async () => {
+        const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+        setupFetchMock({
+          availability: (url) => {
+            const params = new URL(url, 'https://t.test').searchParams
+            const date = params.get('date')
+            if (date === '2026-07-07') return { date, time_slots: [] }
+            return {
+              date: date || '',
+              time_slots: [
+                {
+                  time: '20:00',
+                  available: true,
+                  available_capacity: 6,
+                  kitchen_open: true,
+                  bookable_purpose: 'drinks_only' as const
+                }
+              ]
+            }
+          },
+          capturePayload
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+        // All three probed dates offer 8pm; take the first.
+        const alternatives = await screen.findAllByRole('button', { name: /8pm/i })
+        fireEvent.click(alternatives[0])
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+        fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+        await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+        expect(capturePayload.ref.current).toMatchObject({ purpose: 'drinks' })
+      })
     })
 
     // A silent downgrade is its own failure: someone booking Sunday lunch who

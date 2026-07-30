@@ -56,6 +56,7 @@ import {
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
 import { buildSubmitIntentFingerprint } from '@/lib/table-booking-idempotency'
+import type { SlotBookablePurpose } from '@/lib/api'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -118,7 +119,13 @@ type AvailabilitySlot = {
   available?: boolean
   available_capacity: number
   reason?: string
+  // INFORMATIONAL ONLY: the published kitchen window. Never read it to decide
+  // what gets booked or how a slot is labelled, that is `bookable_purpose`.
   kitchen_open?: boolean
+  // What this slot may be booked for, decided by the availability route where
+  // both the drinks and food answers are in hand. Normalisation fails closed,
+  // so this is always set once a response has been parsed.
+  bookable_purpose: SlotBookablePurpose
   busyness?: 'quiet' | 'filling' | 'busy'
   // High chairs still free in this slot's window (advisory; the server is the
   // authoritative gate). Absent when the API does not report it — treat as
@@ -145,7 +152,10 @@ type AvailabilityData = {
 type SelectedSlotService = {
   date: string
   time: string
-  kitchen_open?: boolean
+  // Captured at slot-select time so submit can read the authoritative purpose
+  // without re-fetching, including on the nearest-alternative path where the
+  // slot is not in the current `availability.time_slots`.
+  bookable_purpose: SlotBookablePurpose
 }
 
 type AlternativeSlot = SelectedSlotService
@@ -318,6 +328,12 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
       reason: typeof source.reason === 'string' ? source.reason : undefined,
       kitchen_open:
         typeof source.kitchen_open === 'boolean' ? source.kitchen_open : undefined,
+      // Fail closed. Only the exact string 'food_or_drinks' buys a food
+      // booking: absent, misspelled, or any other value reads as drinks only.
+      // An older cached response or a future rename therefore degrades to the
+      // safe answer instead of quietly promising food.
+      bookable_purpose:
+        source.bookable_purpose === 'food_or_drinks' ? 'food_or_drinks' : 'drinks_only',
       busyness:
         source.busyness === 'quiet' || source.busyness === 'filling' || source.busyness === 'busy'
           ? source.busyness
@@ -735,10 +751,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // visible grid; `showAllTimes` toggles the "See more times" expander.
   const [showAllTimes, setShowAllTimes] = useState(false)
   const [slotWindowAnchorTime, setSlotWindowAnchorTime] = useState(defaultRequestedTime)
-  // Captured at slot-select time so the submit step can derive `purpose`
-  // ('food' | 'drinks') from the slot's `kitchen_open` flag without re-fetching
-  // availability, covers the nearest-alternative path where the slot is not
-  // in the current `availability.time_slots`.
+  // Captured at slot-select time so the submit step can read the slot's
+  // authoritative `bookable_purpose` without re-fetching availability. Covers
+  // the nearest-alternative path, where the chosen slot is not in the current
+  // `availability.time_slots` at all.
   const [selectedSlotService, setSelectedSlotService] =
     useState<SelectedSlotService | null>(null)
 
@@ -1335,7 +1351,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           .map((slot) => ({
             date: response.date || targetDate,
             time: slot.time,
-            kitchen_open: slot.kitchen_open
+            bookable_purpose: slot.bookable_purpose
           }))
 
         alternatives.push(...slots)
@@ -1513,7 +1529,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService({
       date,
       time: slot.time,
-      kitchen_open: slot.kitchen_open
+      bookable_purpose: slot.bookable_purpose
     })
     trackTableBookingClick({
       source: 'book_table_slot_selected',
@@ -1525,13 +1541,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDate(alternative.date)
     setRequestedTime(alternative.time)
     setSelectedTime(alternative.time)
-    // Carry the alternative's kitchen_open through so submit-time purpose
-    // derivation can find the slot even though the current `availability`
-    // belongs to the originally-requested date.
+    // Carry the alternative's bookable purpose through so submit can read it
+    // even though the current `availability` belongs to the originally
+    // requested date.
     setSelectedSlotService({
       date: alternative.date,
       time: alternative.time,
-      kitchen_open: alternative.kitchen_open
+      bookable_purpose: alternative.bookable_purpose
     })
     setStep('details')
     setError(null)
@@ -1805,32 +1821,35 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setStep('review')
   }
 
-  // Derive the management-API `purpose` field from the chosen slot's
-  // `kitchen_open` flag. Strict rule (spec §8 → "Submit Purpose Derivation"):
+  // What this slot may be booked for, READ, never inferred. The route decided
+  // it where both the drinks and food answers were in hand; nothing here
+  // reconstructs that decision from opening hours or any other proxy.
   //   1. Prefer `selectedSlotService` if it matches the current date/time.
   //   2. Otherwise look up the slot in the current `availability.time_slots`.
-  //   3. If a matching slot exists and `kitchen_open === false`, return 'drinks'.
-  //   4. If a matching slot exists and `kitchen_open` is `true` or `undefined`, return 'food'.
-  //   5. If no matching slot can be found, return null, the caller must block submit.
-  function deriveSubmitPurpose(): 'food' | 'drinks' | null {
-    // If the guest said "just drinks", that is the answer. Inferring from whether the kitchen
-    // happens to be open was wrong for 76 of 101 drinks bookings in the last six months,
-    // because most drinks bookings are made DURING kitchen hours. The inference below is kept
-    // for everyone who did not tick the box.
-    if (drinksOnly) return 'drinks'
-
+  //   3. If no matching slot can be found, return null and block submit.
+  function resolveSlotBookablePurpose(): SlotBookablePurpose | null {
     const matchService =
       selectedSlotService &&
       selectedSlotService.date === date &&
       selectedSlotService.time === selectedTime
         ? selectedSlotService
         : null
-    if (matchService) {
-      return matchService.kitchen_open === false ? 'drinks' : 'food'
-    }
+    if (matchService) return matchService.bookable_purpose
+
     const slot = availability?.time_slots.find((s) => s.time === selectedTime)
-    if (!slot) return null
-    return slot.kitchen_open === false ? 'drinks' : 'food'
+    return slot ? slot.bookable_purpose : null
+  }
+
+  // The management-API `purpose` field for submit.
+  function deriveSubmitPurpose(): 'food' | 'drinks' | null {
+    // If the guest said "just drinks", that is the answer. Inferring from whether the kitchen
+    // happens to be open was wrong for 76 of 101 drinks bookings in the last six months,
+    // because most drinks bookings are made DURING kitchen hours.
+    if (drinksOnly) return 'drinks'
+
+    const bookablePurpose = resolveSlotBookablePurpose()
+    if (!bookablePurpose) return null
+    return bookablePurpose === 'food_or_drinks' ? 'food' : 'drinks'
   }
 
   // Reuse the cached idempotency key when the fingerprint matches the previous
@@ -1929,8 +1948,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // Public payload no longer carries sunday_lunch / menu_selections / booking_type.
       // The proxy at /api/table-bookings strips these defensively (spec §6, §8.1)
       // and always forwards booking_type='regular' to the management API.
-      // `purpose` is derived from the selected slot's kitchen_open flag, see
-      // deriveSubmitPurpose() above.
+      // `purpose` is read from the slot's authoritative `bookable_purpose`,
+      // see deriveSubmitPurpose() above.
       const storedAttribution = getBookingAttributionPayload()
       const attribution = {
         ...storedAttribution,
@@ -2515,11 +2534,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
                     const isSelected = selectedTime === slot.time
-                    // Combined aria-label so screen readers announce time + service
-                    // as one phrase. When `kitchen_open` is undefined (legacy
-                    // path) we default to "drinks and food" to match the visual
-                    // default.
-                    const serviceCaption = slot.kitchen_open === false ? 'drinks only' : 'drinks and food'
+                    // Label and submitted purpose both read the SAME field, so
+                    // what the guest is shown and what gets booked cannot drift
+                    // apart. Combined aria-label so screen readers announce
+                    // time and service as one phrase.
+                    const servesFood = slot.bookable_purpose === 'food_or_drinks'
+                    const serviceCaption = servesFood ? 'drinks and food' : 'drinks only'
                     const loadCaption = busynessCaption(slot.busyness)
                     return (
                       <button
@@ -2537,11 +2557,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         <span className="block text-base font-semibold">
                           {formatTimeForDisplay(slot.time)}
                         </span>
-                        {typeof slot.kitchen_open === 'boolean' ? (
-                          <span className={`mt-1 block text-xs font-normal ${isSelected ? 'text-white/80' : 'text-ink-muted'}`}>
-                            {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
-                          </span>
-                        ) : null}
+                        <span className={`mt-1 block text-xs font-normal ${isSelected ? 'text-white/80' : 'text-ink-muted'}`}>
+                          {servesFood ? 'Drinks & food' : 'Drinks only'}
+                        </span>
                         {loadCaption ? (
                           <span className={`mt-1 block text-xs font-medium ${isSelected ? 'text-white' : slot.busyness === 'busy' ? 'text-anchor-gold-dark' : 'text-ink-muted'}`}>
                             {loadCaption}
@@ -3066,7 +3084,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 	                        bookingTime: selectedTime,
 	                        partySize,
 	                        bookingType,
-	                        purpose: selectedSlotService?.kitchen_open === false ? 'drinks' : 'food',
+	                        purpose: deriveSubmitPurpose() ?? 'drinks',
 	                        bookingSource,
 	                        attribution: submittedAttribution,
 	                        // Consent-gated inside PayPalDepositSection; hashed server-side.

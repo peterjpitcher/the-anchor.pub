@@ -4,16 +4,37 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 export type SlotBusyness = 'quiet' | 'filling' | 'busy'
 
+/**
+ * What this slot can actually be booked for, decided by the availability route
+ * where both the drinks and food answers are in hand.
+ *
+ * This field exists because every alternative was an inference. `kitchen_open`
+ * comes from published opening hours and knows nothing about the kitchen's
+ * pacing ceiling, yet downstream code read `kitchen_open !== false` as "book
+ * this as food" and produced bookings the server then refused. One explicit
+ * value, decided once where the evidence actually is, is the point: consumers
+ * read it and must never re-derive it from something else.
+ *
+ * Absent or unrecognised means `drinks_only`. Never infer food.
+ */
+export type SlotBookablePurpose = 'food_or_drinks' | 'drinks_only'
+
 export interface TableAvailabilitySlot {
   time: string
   available?: boolean
   available_capacity: number
   reason?: string
   requires_prepayment?: boolean
+  // INFORMATIONAL ONLY: whether the kitchen's published hours cover this slot.
+  // It knows nothing about the pacing ceiling or the table state, so it must
+  // never decide what gets booked. Read `bookable_purpose` for that.
   kitchen_open?: boolean
+  // What this slot may be booked for. The booking form reads this and nothing
+  // else when deciding both the submitted purpose and the service label.
+  bookable_purpose?: SlotBookablePurpose
   busyness?: SlotBusyness
   // High chairs still free in this slot's window (from the AMS load read-out).
-  // Absent when the management API does not report it — treat as "unknown".
+  // Absent when the management API does not report it, so treat as "unknown".
   high_chairs_remaining?: number
 }
 

@@ -1,6 +1,7 @@
 import {
   anchorAPI,
   type BusinessHours,
+  type SlotBookablePurpose,
   type TableAvailability,
   type TableAvailabilityPublicReason,
   type TableAvailabilityResponse,
@@ -308,31 +309,30 @@ export async function GET(request: Request) {
             available: false,
             available_capacity: 0,
             unavailable_reason: 'unknown',
-            unavailable_message: null
+            unavailable_message: null,
+            bookable_purpose: 'drinks_only' as SlotBookablePurpose
           }
         }
 
-        // Does the kitchen serve this time too? The food answer knows things
-        // the local kitchen window cannot: a slot inside kitchen hours can
-        // still be at its pacing ceiling.
+        // THE decision about what this slot may be booked for, taken here
+        // because here is the only place both answers exist. Everything
+        // downstream (the service label, the submitted purpose, the
+        // food-unknown notice) reads this one value, so they cannot drift
+        // apart the way an inferred flag did.
         //
-        // This flag is NOT cosmetic. The form derives the SUBMITTED PURPOSE
-        // from it (kitchen_open !== false means a food booking), so asserting
-        // food from the local kitchen window would submit a food booking that
-        // nothing authoritative affirmed. Inside kitchen hours but over the
-        // pacing ceiling, create then refuses with slot_full after the guest
-        // has filled in every step, and every other in-hours slot still reads
-        // "Drinks & food", so retrying just repeats the refusal.
-        //
-        // So without a usable food answer we fail CLOSED to drinks, which the
-        // drinks answer did affirm. A guest who ticked "Just drinks" submits
-        // 'drinks' whatever this says, so for them the local kitchen window
-        // stays a harmless indicator of kitchen hours.
-        const kitchenOpen = foodByTime
-          ? foodByTime.get(String(slot.time).slice(0, 5))?.state === 'available'
-          : guestWantsDrinksOnly
-          ? slot.kitchen_open
-          : false
+        // Food needs a positive, authoritative affirmation: the guest has not
+        // ruled food out, we have a usable food answer, and that answer marks
+        // this exact time available. Everything else is drinks_only, which
+        // covers the kitchen being shut (empty food map), the kitchen being at
+        // its pacing ceiling (time present but unavailable) and the food call
+        // having failed outright (null map, review C1). The local kitchen
+        // window is never consulted: it knows published hours, not whether
+        // food can actually be served.
+        const bookablePurpose: SlotBookablePurpose =
+          !guestWantsDrinksOnly &&
+          foodByTime?.get(String(slot.time).slice(0, 5))?.state === 'available'
+            ? 'food_or_drinks'
+            : 'drinks_only'
 
         return {
           ...slot,
@@ -343,7 +343,11 @@ export async function GET(request: Request) {
           unavailable_reason: real.public_reason ?? null,
           unavailable_message: real.message ?? null,
           high_chairs_remaining: real.high_chairs_remaining ?? slot.high_chairs_remaining,
-          kitchen_open: kitchenOpen
+          bookable_purpose: bookablePurpose,
+          // Informational only from here on: the published kitchen window, kept
+          // for debugging and for any consumer that wants to show kitchen
+          // hours. Nothing decides a booking from it.
+          kitchen_open: slot.kitchen_open
         }
       })
     }
