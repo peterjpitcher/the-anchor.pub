@@ -65,13 +65,10 @@ import {
   getMarketingConsentSignalPayload,
   type BookingAttributionPayload,
 } from '@/lib/booking-attribution'
-import {
-  formatTimeNoSeconds,
-  getEffectiveDayHours,
-  isKitchenClosed,
-  isVenueClosed,
-} from '@/lib/hours-utils'
+import { buildBookingHoursNote } from '@/lib/table-booking/hours-note'
 import { PayPalDepositSection } from './PayPalDepositSection'
+import { BookingConfirmedCard } from './BookingConfirmedCard'
+import { BookingProgressBar } from './BookingProgressBar'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -118,76 +115,6 @@ interface ManagementTableBookingFormProps {
     time?: string
     partySize?: number
   }
-}
-
-// Numbered step indicator (spec §9): 28px circles — pending sunk/muted, active
-// gold/white, done green/white check — joined by 2px hairline bars. Labels
-// Outfit 600 text-sm; pending-step labels hide ≤640px (numbers always show).
-function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
-  const steps = STEP_ORDER.map((stepKey, index) => ({
-    key: stepKey,
-    label: STEP_LABELS[stepKey],
-    number: index + 1
-  }))
-
-  return (
-    <div
-      className="mb-2"
-      role="progressbar"
-      aria-label="Booking progress"
-      aria-valuemin={1}
-      aria-valuemax={totalSteps}
-      aria-valuenow={currentStep}
-      aria-valuetext={`Step ${currentStep} of ${totalSteps}: ${STEP_LABELS[STEP_ORDER[currentStep - 1]]}`}
-    >
-      <ol className="flex items-center" role="list">
-        {steps.map((step, index) => {
-          const isComplete = step.number < currentStep
-          const isCurrent = step.number === currentStep
-          const isPending = step.number > currentStep
-
-          return (
-            <li
-              key={step.key}
-              aria-current={isCurrent ? 'step' : undefined}
-              className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : ''}`}
-            >
-              <div className="flex min-w-0 flex-col items-center gap-1.5">
-                <span
-                  aria-hidden="true"
-                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-pill text-sm font-semibold font-sans ${
-                    isCurrent
-                      ? 'bg-anchor-gold-dark text-white'
-                      : isComplete
-                      ? 'bg-anchor-green text-white'
-                      : 'bg-surface-sunk text-ink-muted'
-                  }`}
-                >
-                  {isComplete ? <Check aria-hidden="true" className="h-4 w-4" /> : step.number}
-                </span>
-                <span
-                  className={`text-sm font-semibold font-sans leading-tight ${
-                    isCurrent ? 'text-ink-strong' : 'text-ink-muted'
-                  } ${isPending ? 'hidden sm:block' : ''}`}
-                >
-                  {step.label}
-                  {isCurrent ? (
-                    <span className="sr-only"> (current step, {currentStep} of {totalSteps})</span>
-                  ) : null}
-                </span>
-              </div>
-              {index < steps.length - 1 ? (
-                <span
-                  aria-hidden="true"
-                  className={`mx-2 h-0.5 flex-1 ${isComplete ? 'bg-anchor-green' : 'bg-line-strong'}`}
-                />
-              ) : null}
-            </li>
-          )
-        })}
-      </ol>
-    </div>
-  )
 }
 
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
@@ -621,55 +548,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // back to null while hours are still loading or the date is invalid.
   const businessHoursContext = useBusinessHoursContext()
   const businessHours = businessHoursContext?.hours ?? null
-  const hoursNote = useMemo(() => {
-    if (!businessHours || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null
-
-    const effective = getEffectiveDayHours(
-      date,
-      businessHours.regularHours,
-      businessHours.specialHours
-    )
-
-    if (isVenueClosed(effective)) {
-      return {
-        summary: "We're closed all day on this date.",
-        footer: 'Please pick another date when we’re open.'
-      }
-    }
-
-    const barRange =
-      effective.opens && effective.closes
-        ? `${formatTimeNoSeconds(effective.opens)}–${formatTimeNoSeconds(effective.closes)}`
-        : null
-
-    const kitchen = effective.kitchen
-    const kitchenIsClosed = isKitchenClosed(effective)
-    let kitchenRange: string | null = null
-    if (
-      !kitchenIsClosed &&
-      kitchen &&
-      typeof kitchen === 'object' &&
-      'opens' in kitchen &&
-      'closes' in kitchen
-    ) {
-      const k = kitchen as { opens?: string; closes?: string }
-      if (k.opens && k.closes) {
-        kitchenRange = `${formatTimeNoSeconds(k.opens)}–${formatTimeNoSeconds(k.closes)}`
-      }
-    }
-
-    const parts: string[] = []
-    if (barRange) parts.push(`Bar open ${barRange}`)
-    if (kitchenIsClosed) parts.push('Kitchen closed today')
-    else if (kitchenRange) parts.push(`Kitchen open ${kitchenRange}`)
-
-    if (parts.length === 0) return null
-
-    return {
-      summary: parts.join(' · '),
-      footer: null as string | null
-    }
-  }, [date, businessHours])
+  const hoursNote = useMemo(
+    () => buildBookingHoursNote(date, businessHours),
+    [date, businessHours]
+  )
 
   useEffect(() => {
     if (previousDateRef.current === date) {
@@ -1552,87 +1434,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   if (result?.state === 'confirmed') {
     return (
-      <div className="mx-auto max-w-[640px]">
-      <Card accent>
-        <CardBody className="space-y-6 text-center">
-          <div className="flex flex-col items-center gap-4">
-            <span
-              aria-hidden="true"
-              className="flex h-[72px] w-[72px] items-center justify-center rounded-pill bg-anchor-green text-white"
-            >
-              <Check className="h-9 w-9" />
-            </span>
-            <div>
-              <h3 className="font-display text-h3 text-ink-strong">You&apos;re all booked in, see you soon!</h3>
-              <p className="mt-2 text-sm text-ink-muted">
-                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided shortly'}</strong>. {confirmationDeliveryCopy(result.notification_channel)}
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm">
-            <dl className="space-y-2 text-ink">
-              <div className="flex justify-between gap-3">
-                <dt className="font-medium text-ink-muted">Party</dt>
-                <dd className="text-ink-strong">{partySize} {partySize === 1 ? 'guest' : 'guests'}</dd>
-              </div>
-              <div className="flex justify-between gap-3">
-                <dt className="font-medium text-ink-muted">When</dt>
-                <dd className="text-ink-strong">{formatDateForDisplay(date)}, {formatTimeForDisplay(selectedTime || requestedTime)}</dd>
-              </div>
-              {result.is_outside_seating ? (
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Seating</dt>
-                  <dd className="text-ink-strong">Outside (weather permitting)</dd>
-                </div>
-              ) : result.table_name ? (
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Table</dt>
-                  <dd className="text-ink-strong">{result.table_name}</dd>
-                </div>
-              ) : null}
-              {(result.high_chair_count ?? 0) > 0 ? (
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">High chair</dt>
-                  <dd className="text-ink-strong">
-                    {/* Unknown granted count (older API build) → assume reserved
-                        rather than falsely reporting a failure. */}
-                    {result.high_chairs_granted === undefined ||
-                    result.high_chairs_granted >= (result.high_chair_count ?? 0)
-                      ? 'Reserved'
-                      : result.high_chairs_granted > 0
-                      ? `${result.high_chairs_granted} of ${result.high_chair_count} reserved`
-                      : 'Not available for this time'}
-                  </dd>
-                </div>
-              ) : null}
-            </dl>
-          </div>
-
-          {(result.high_chair_count ?? 0) > 0 &&
-          result.high_chairs_granted !== undefined &&
-          result.high_chairs_granted < (result.high_chair_count ?? 0) ? (
-            <p className="text-left text-sm text-ink-muted">
-              {(result.high_chairs_granted ?? 0) > 0
-                ? `We could only reserve ${result.high_chairs_granted} of the ${result.high_chair_count} high chairs you asked for. `
-                : `We couldn't reserve a high chair for this time. `}
-              Give us a ring on 01753 682707 and we&apos;ll do our best to help.
-            </p>
-          ) : null}
-
-          <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm text-ink space-y-1">
-            <p className="font-semibold text-ink-strong">When you arrive:</p>
-            <p>&#x2022; Free parking right outside, no ticket needed</p>
-            <p>&#x2022; No need to check in, just head to the bar and we&apos;ll find your table</p>
-            <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
-          </div>
-
-          <Button type="button" variant="outline" size="lg" onClick={resetJourney}>
-            Book another table
-          </Button>
-        </CardBody>
-      </Card>
-      </div>
+      <BookingConfirmedCard
+        result={result}
+        partySize={partySize}
+        date={date}
+        time={selectedTime || requestedTime}
+        onBookAnother={resetJourney}
+      />
     )
   }
 
