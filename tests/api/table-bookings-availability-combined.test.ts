@@ -59,28 +59,49 @@ function makeBusinessHours(
   }
 }
 
-// Authoritative load fixture: the management API answered and its table
-// read-out marks every half-hour slot available, so the overlay confirms the
-// whole local grid. Individual tests override pieces via `overrides`.
-function makeAuthorisedLoad(overrides: Record<string, unknown> = {}): any {
+// Build an authoritative read-out spanning a real service window. The picker
+// answers separately for drinks and food and the two windows genuinely differ:
+// in production the drinks answer runs to the bar close while the food answer
+// stops one to three hours earlier, and on a kitchen-closed day the food answer
+// is empty with reason `closed` while drinks is full of slots. A fixture that
+// marked every half-hour available for both is not a shape the picker ever
+// produces, and it hid exactly that difference.
+function makeSlots(fromMinutes: number, toMinutes: number): Array<{ time: string; state: string }> {
   const slots: Array<{ time: string; state: string }> = []
-  for (let minutes = 12 * 60; minutes <= 22 * 60 + 30; minutes += 30) {
+  for (let minutes = fromMinutes; minutes <= toMinutes; minutes += 30) {
     const hh = String(Math.floor(minutes / 60)).padStart(2, '0')
     const mm = String(minutes % 60).padStart(2, '0')
     slots.push({ time: `${hh}:${mm}`, state: 'available' })
   }
+  return slots
+}
+
+function makeLoad(tableAvailability: unknown, overrides: Record<string, unknown> = {}): any {
   return {
     date: '2026-05-05',
     window_minutes: 60,
     busy_threshold_covers: 30,
     filling_threshold_covers: 20,
     bookings: [],
-    table_availability: {
-      calculation_state: 'complete',
-      slots
-    },
+    table_availability: tableAvailability,
     ...overrides
   }
+}
+
+// Bar open 12:00 to 23:00, so drinks slots run to 22:30.
+const DRINKS_COMPLETE = { calculation_state: 'complete', slots: makeSlots(12 * 60, 22 * 60 + 30) }
+// Kitchen open 12:00 to 21:00, so food slots stop at 20:30.
+const FOOD_COMPLETE = { calculation_state: 'complete', slots: makeSlots(12 * 60, 20 * 60 + 30) }
+
+// Route the mock by the purpose the route asked about, which is the whole point
+// of the two-call model. `null` stands for "that call came back with nothing".
+function respondByPurpose(answers: { drinks?: unknown; food?: unknown }) {
+  mockGetTableBookingLoadSafe.mockImplementation(
+    (_date: string, query?: { purpose?: string }) => {
+      const answer = query?.purpose === 'drinks' ? answers.drinks : answers.food
+      return Promise.resolve(answer === undefined || answer === null ? null : makeLoad(answer))
+    }
+  )
 }
 
 describe('GET /api/table-bookings/availability: combined contract', () => {
@@ -97,7 +118,7 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
         }
       })
     )
-    mockGetTableBookingLoadSafe.mockResolvedValue(makeAuthorisedLoad())
+    respondByPurpose({ drinks: DRINKS_COMPLETE, food: FOOD_COMPLETE })
 
     jest.resetModules()
     ;({ GET: getAvailability } = await import('@/app/api/table-bookings/availability/route'))
@@ -114,13 +135,30 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     return response.json()
   }
 
-  it('returns combined slots whether or not purpose is supplied', async () => {
-    const omitted = await fetchSlots('date=2026-05-05&party_size=2')
-    const food = await fetchSlots('date=2026-05-05&party_size=2&purpose=food')
-    const drinks = await fetchSlots('date=2026-05-05&party_size=2&purpose=drinks')
+  it('asks the picker about drinks and food, not just the guest intent', async () => {
+    await fetchSlots('date=2026-05-05&party_size=2')
 
-    expect(omitted.data.time_slots).toEqual(food.data.time_slots)
-    expect(omitted.data.time_slots).toEqual(drinks.data.time_slots)
+    const purposes = mockGetTableBookingLoadSafe.mock.calls.map((call) => call[1]?.purpose)
+    expect(purposes).toEqual(expect.arrayContaining(['drinks', 'food']))
+    expect(mockGetTableBookingLoadSafe).toHaveBeenCalledTimes(2)
+  })
+
+  it('asks only about drinks when the guest has ticked "Just drinks"', async () => {
+    await fetchSlots('date=2026-05-05&party_size=2&purpose=drinks')
+
+    expect(mockGetTableBookingLoadSafe).toHaveBeenCalledTimes(1)
+    expect(mockGetTableBookingLoadSafe.mock.calls[0][1]?.purpose).toBe('drinks')
+  })
+
+  it('shows every time the bar can take, not only the times the kitchen can', async () => {
+    // The food answer stops at 20:30, the drinks answer runs to 22:30. Asking
+    // only about food would have hidden the last two hours of every evening.
+    const body = await fetchSlots('date=2026-05-05&party_size=2')
+    const slots = body.data.time_slots as Array<{ time: string; available?: boolean }>
+
+    expect(slots.find((s) => s.time === '21:00')?.available).toBe(true)
+    expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
+    expect(slots.find((s) => s.time === '13:00')?.available).toBe(true)
   })
 
   it('ignores legacy booking_type query param and still returns combined slots', async () => {
@@ -132,20 +170,62 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(withBookingType.data.time_slots).toEqual(baseline.data.time_slots)
   })
 
-  it('stamps kitchen_open: true on slots before kitchen close and false after', async () => {
+  it('stamps kitchen_open from the food answer: true while it serves, false after', async () => {
     const body = await fetchSlots('date=2026-05-05&party_size=2')
-    const slots = body.data.time_slots as Array<{ time: string; kitchen_open?: boolean }>
+    const slots = body.data.time_slots as Array<{
+      time: string
+      kitchen_open?: boolean
+      available?: boolean
+    }>
 
-    const earlyEvening = slots.find((s) => s.time === '20:00')
-    const lateEvening = slots.find((s) => s.time === '22:00')
+    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
+    // Past the kitchen's last food slot the time is still bookable, for drinks.
+    expect(slots.find((s) => s.time === '22:00')?.kitchen_open).toBe(false)
+    expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
+  })
 
-    expect(earlyEvening?.kitchen_open).toBe(true)
-    expect(lateEvening?.kitchen_open).toBe(false)
+  it('marks a slot drinks-only when the kitchen is at capacity for it', async () => {
+    // Inside kitchen hours, so the local window would say food is on; only the
+    // food answer knows the pacing ceiling has been hit.
+    respondByPurpose({
+      drinks: DRINKS_COMPLETE,
+      food: {
+        calculation_state: 'complete',
+        slots: FOOD_COMPLETE.slots.map((slot) =>
+          slot.time === '19:00'
+            ? { ...slot, state: 'unavailable', public_reason: 'kitchen_full' }
+            : slot
+        )
+      }
+    })
+
+    const body = await fetchSlots('date=2026-05-05&party_size=2')
+    const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
+
+    expect(slots.find((s) => s.time === '19:00')?.available).toBe(true)
+    expect(slots.find((s) => s.time === '19:00')?.kitchen_open).toBe(false)
+    expect(slots.find((s) => s.time === '19:30')?.kitchen_open).toBe(true)
+  })
+
+  it('falls back to the local kitchen window when the food answer is unusable', async () => {
+    // Losing the food call must cost the label's precision, never the slots.
+    respondByPurpose({ drinks: DRINKS_COMPLETE, food: null })
+
+    const body = await fetchSlots('date=2026-05-05&party_size=2')
+    const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
+
+    expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
+    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
+    expect(slots.find((s) => s.time === '22:00')?.kitchen_open).toBe(false)
   })
 
   it('stamps busyness labels when load data is available', async () => {
-    mockGetTableBookingLoadSafe.mockResolvedValue(
-      makeAuthorisedLoad({ bookings: [{ time: '13:00', covers: 30 }] })
+    mockGetTableBookingLoadSafe.mockImplementation((_date: string, query?: { purpose?: string }) =>
+      Promise.resolve(
+        makeLoad(query?.purpose === 'drinks' ? DRINKS_COMPLETE : FOOD_COMPLETE, {
+          bookings: [{ time: '13:00', covers: 30 }]
+        })
+      )
     )
 
     const body = await fetchSlots('date=2026-05-05&party_size=2&time=13:00')
@@ -164,11 +244,11 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(body.data.calculation_state).toBe('complete')
   })
 
-  it('answers availability_unknown with zero slots when the load times out or fails', async () => {
+  it('answers availability_unknown with zero slots when the drinks load times out or fails', async () => {
     // getTableBookingLoadSafe resolves null after its bounded retries, the
     // exact shape a timeout produces. The route must never substitute locally
     // calculated slots (the fail-open path review F04 killed).
-    mockGetTableBookingLoadSafe.mockResolvedValue(null)
+    respondByPurpose({ drinks: null, food: FOOD_COMPLETE })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2&time=13:00')
 
@@ -179,10 +259,15 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(body.meta.source).toBe('availability_unknown')
   })
 
-  it('answers availability_unknown when the load answers without a table read-out', async () => {
-    const load = makeAuthorisedLoad()
-    delete load.table_availability
-    mockGetTableBookingLoadSafe.mockResolvedValue(load)
+  it('answers availability_unknown when the drinks load has no table read-out', async () => {
+    mockGetTableBookingLoadSafe.mockImplementation((_date: string, query?: { purpose?: string }) => {
+      if (query?.purpose === 'drinks') {
+        const load = makeLoad(DRINKS_COMPLETE)
+        delete load.table_availability
+        return Promise.resolve(load)
+      }
+      return Promise.resolve(makeLoad(FOOD_COMPLETE))
+    })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2')
 
@@ -191,14 +276,13 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
   })
 
   it('passes through an explicit unknown from the management API', async () => {
-    mockGetTableBookingLoadSafe.mockResolvedValue(
-      makeAuthorisedLoad({
-        table_availability: {
-          calculation_state: 'unknown',
-          message: 'We cannot check availability right now. Please give us a ring on 01753 682707.'
-        }
-      })
-    )
+    respondByPurpose({
+      drinks: {
+        calculation_state: 'unknown',
+        message: 'We cannot check availability right now. Please give us a ring on 01753 682707.'
+      },
+      food: FOOD_COMPLETE
+    })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2')
 
@@ -227,5 +311,67 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(message.toLowerCase()).not.toContain('drinks-only')
     expect(notes.toLowerCase()).not.toContain('food bookings')
     expect(notes.toLowerCase()).not.toContain('switch to drinks')
+  })
+
+  // The shape that made this a blocking defect, taken from live production:
+  // on a Monday the pub opens 16:00 to 22:00 with the kitchen closed all day,
+  // so check_table_availability_v06 answers `complete` with 0 slots and reason
+  // `closed` for food, and `complete` with 23 available slots for drinks.
+  describe('a day the kitchen is shut but the pub is open', () => {
+    const MONDAY_HOURS = makeBusinessHours({
+      monday: {
+        opens: '16:00:00',
+        closes: '22:00:00',
+        kitchen: { is_closed: true }
+      }
+    })
+
+    // 2026-05-04 is a Monday.
+    const MONDAY = 'date=2026-05-04&party_size=2&time=19:00'
+
+    beforeEach(() => {
+      mockGetBusinessHours.mockResolvedValue(MONDAY_HOURS)
+    })
+
+    it('shows the drinks slots instead of claiming the pub is closed', async () => {
+      respondByPurpose({
+        drinks: { calculation_state: 'complete', slots: makeSlots(16 * 60, 21 * 60 + 30) },
+        food: { calculation_state: 'complete', slots: [], public_reason: 'closed', message: 'We are closed then.' }
+      })
+
+      const body = await fetchSlots(MONDAY)
+      const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
+
+      expect(body.data.calculation_state).toBe('complete')
+      expect(slots.some((slot) => slot.available === true)).toBe(true)
+      expect(slots.find((s) => s.time === '19:00')?.available).toBe(true)
+      expect(body.data.available).toBe(true)
+
+      // Every one of them is drinks-only, and the false closed message from the
+      // food answer is nowhere near the response.
+      expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
+      expect(body.data.public_reason).toBeUndefined()
+      expect(String(body.data.message ?? '')).not.toContain('closed then')
+    })
+
+    it('still shows the closed state when the pub really is shut', async () => {
+      respondByPurpose({
+        drinks: {
+          calculation_state: 'complete',
+          slots: [],
+          public_reason: 'closed',
+          message: 'We are closed on that date.'
+        },
+        food: { calculation_state: 'complete', slots: [], public_reason: 'closed' }
+      })
+
+      const body = await fetchSlots(MONDAY)
+
+      expect(body.data.calculation_state).toBe('complete')
+      expect(body.data.time_slots).toEqual([])
+      expect(body.data.available).toBe(false)
+      expect(body.data.public_reason).toBe('closed')
+      expect(body.data.message).toBe('We are closed on that date.')
+    })
   })
 })

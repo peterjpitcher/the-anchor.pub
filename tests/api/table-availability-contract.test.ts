@@ -74,6 +74,12 @@ describe('availability contract (website side)', () => {
     jest.clearAllMocks()
   })
 
+  // The route asks the picker twice: once with purpose 'drinks' (which times
+  // exist) and once with 'food' (which of those also do food). This file is
+  // about parsing one read-out, not about the two-call model, so the same
+  // fixture answers both calls: the drinks answer drives availability and the
+  // food answer drives only the kitchen_open label. The two-call behaviour
+  // itself is covered in table-bookings-availability-combined.test.ts.
   async function fetchWith(load: unknown, query = 'date=2026-08-07&party_size=4') {
     mockGetTableBookingLoadSafe.mockResolvedValue(load)
     const response = await getAvailability(

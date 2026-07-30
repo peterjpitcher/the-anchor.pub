@@ -137,7 +137,11 @@ export async function GET(request: Request) {
   // allocated the same way; it stopped being harmless the moment food and drinks started
   // filling opposite ends of the pub. Food goes to the dining room first, drinks to the bar,
   // so the same slot can genuinely differ between them.
-  const purpose = searchParams.get('purpose') === 'drinks' ? 'drinks' : 'food'
+  //
+  // This is the guest's stated intent, NOT the question we ask the picker. See
+  // the two-call model below: asking only about food would let a food-scoped
+  // answer speak for the whole venue.
+  const guestWantsDrinksOnly = searchParams.get('purpose') === 'drinks'
   const outside = searchParams.get('outside') === 'true'
   const requiresAccessibleTable = searchParams.get('requires_accessible_table') === 'true'
   const highChairCount = Number.parseInt(searchParams.get('high_chair_count') || '0', 10) || 0
@@ -161,22 +165,52 @@ export async function GET(request: Request) {
   const partySize = parsePositiveInt(partySizeRaw, 2)
 
   try {
-    const [businessHours, bookingLoad] = await Promise.all([
+    // Two bounded questions, asked in parallel, because a food-scoped answer is
+    // not the truth about the venue.
+    //
+    // The pub is open for drinks whenever it is open at all, so the DRINKS
+    // answer is the superset and decides which times exist. The FOOD answer is
+    // a subset of it and only refines the "Drinks & food" versus "Drinks only"
+    // label, which is what the form and deriveSubmitPurpose already read.
+    //
+    // Asking only about food (the default intent) made the food answer speak
+    // for the venue. In production that is not a rounding error: on a Monday
+    // the kitchen is closed all day, so the food answer is zero slots with
+    // reason `closed` while the drinks answer is 23 available slots between
+    // 16:00 and 21:30. Every Monday would have shown "we are closed" on a day
+    // the pub is open and serving. Every other night the food answer also
+    // stops one to three hours before the bar does, which would have removed
+    // the late drinks slots.
+    //
+    // When the guest has ticked "Just drinks" there is no food question worth
+    // asking, so only one call is made.
+    const availabilityQuery = { partySize, outside, requiresAccessibleTable, highChairCount }
+
+    const [businessHours, drinksLoad, foodLoad] = await Promise.all([
       anchorAPI.getBusinessHours(),
-      // Now carries `table_availability`, computed by the same picker that creates bookings.
-      anchorAPI.getTableBookingLoadSafe(date, {
-        partySize,
-        purpose,
-        outside,
-        requiresAccessibleTable,
-        highChairCount
-      })
+      anchorAPI.getTableBookingLoadSafe(date, { ...availabilityQuery, purpose: 'drinks' }),
+      guestWantsDrinksOnly
+        ? Promise.resolve(null)
+        : anchorAPI.getTableBookingLoadSafe(date, { ...availabilityQuery, purpose: 'food' })
     ])
+
+    const bookingLoad = drinksLoad
 
     // If the management API answered with real table availability, it decides. The local slot
     // maths below never looks at tables, joins, private bookings or communal events, which is
     // why the site could advertise a time when the pub was physically full.
-    const tableAvailability: TableAvailability | null = bookingLoad?.table_availability ?? null
+    const tableAvailability: TableAvailability | null = drinksLoad?.table_availability ?? null
+
+    // Only a COMPLETE food answer may drive the label. Missing, unknown, or not
+    // asked for all fall back to the local kitchen window, which is what the
+    // grid used before any of this and is never worse than it.
+    const foodAvailability: TableAvailability | null = foodLoad?.table_availability ?? null
+    const foodByTime =
+      foodAvailability?.calculation_state === 'complete' && Array.isArray(foodAvailability.slots)
+        ? new Map<string, TableAvailabilitySlotState>(
+            foodAvailability.slots.map((slot) => [String(slot.time).slice(0, 5), slot])
+          )
+        : null
 
     if (!tableAvailability || tableAvailability.calculation_state === 'unknown') {
       // Never fail open. Whether the load timed out, failed, answered without a
@@ -226,6 +260,9 @@ export async function GET(request: Request) {
       // management API has explicitly declined to offer, which is the same
       // fail-open F04 killed. Show the no-availability state; only `unknown`
       // shows the try-again message.
+      //
+      // This is the DRINKS answer, so an empty list really does mean the venue
+      // has nothing, not merely that the kitchen is shut.
       fallback.time_slots = []
       if (tableAvailability.public_reason) {
         fallback.public_reason = tableAvailability.public_reason
@@ -257,6 +294,14 @@ export async function GET(request: Request) {
           }
         }
 
+        // Does the kitchen serve this time too? The food answer knows things
+        // the local kitchen window cannot: a slot inside kitchen hours can
+        // still be at its pacing ceiling. Without a usable food answer, keep
+        // the locally derived flag.
+        const kitchenOpen = foodByTime
+          ? foodByTime.get(String(slot.time).slice(0, 5))?.state === 'available'
+          : slot.kitchen_open
+
         return {
           ...slot,
           available: real.state === 'available',
@@ -265,7 +310,8 @@ export async function GET(request: Request) {
           available_capacity: real.state === 'available' ? Math.max(slot.available_capacity ?? 0, partySize) : 0,
           unavailable_reason: real.public_reason ?? null,
           unavailable_message: real.message ?? null,
-          high_chairs_remaining: real.high_chairs_remaining ?? slot.high_chairs_remaining
+          high_chairs_remaining: real.high_chairs_remaining ?? slot.high_chairs_remaining,
+          kitchen_open: kitchenOpen
         }
       })
     }
