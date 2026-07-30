@@ -1,4 +1,21 @@
-import { anchorAPI, type BusinessHours, type TableAvailabilityResponse, type TableBookingLoadResponse } from '@/lib/api'
+import {
+  anchorAPI,
+  type BusinessHours,
+  type TableAvailability,
+  type TableAvailabilityPublicReason,
+  type TableAvailabilityResponse,
+  type TableAvailabilitySlotState,
+  type TableBookingLoadResponse
+} from '@/lib/api'
+
+// What this route serves the browser: the long-standing website shape plus the
+// two contract fields the form now reads. `calculation_state: 'unknown'` means
+// nothing is bookable and the form must offer a retry (review F04).
+type WebsiteAvailabilityResponse = TableAvailabilityResponse & {
+  calculation_state?: 'complete' | 'unknown'
+  public_reason?: TableAvailabilityPublicReason
+  max_party_size_online?: number
+}
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import {
   buildSlotsWithKitchenState,
@@ -159,7 +176,7 @@ export async function GET(request: Request) {
     // If the management API answered with real table availability, it decides. The local slot
     // maths below never looks at tables, joins, private bookings or communal events, which is
     // why the site could advertise a time when the pub was physically full.
-    const tableAvailability = (bookingLoad as any)?.table_availability
+    const tableAvailability: TableAvailability | null = bookingLoad?.table_availability ?? null
 
     if (!tableAvailability || tableAvailability.calculation_state === 'unknown') {
       // Never fail open. Whether the load timed out, failed, answered without a
@@ -187,7 +204,7 @@ export async function GET(request: Request) {
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       )
     }
-    const fallback = buildCombinedAvailability(businessHours, {
+    const fallback: WebsiteAvailabilityResponse = buildCombinedAvailability(businessHours, {
       date,
       partySize,
       time: normalizedTime,
@@ -195,17 +212,51 @@ export async function GET(request: Request) {
       bookingLoad
     })
 
-    // Overlay the authoritative answer onto the existing shape, so the form keeps rendering the
-    // same structure and only the truthfulness changes. A slot the management API has not
-    // spoken about is left exactly as it was.
-    if (Array.isArray(tableAvailability?.slots) && tableAvailability.slots.length > 0) {
-      const byTime = new Map<string, any>(
-        tableAvailability.slots.map((s: any) => [String(s.time).slice(0, 5), s])
+    fallback.calculation_state = 'complete'
+    if (typeof tableAvailability.max_party_size_online === 'number') {
+      fallback.max_party_size_online = tableAvailability.max_party_size_online
+    }
+
+    const authoritativeSlots = Array.isArray(tableAvailability.slots) ? tableAvailability.slots : []
+
+    if (authoritativeSlots.length === 0) {
+      // A COMPLETE calculation with no slots is an answer, not a gap: the picker
+      // ran and has nothing to offer (closed, too large, or genuinely nothing
+      // free). Falling back to the local grid here would advertise times the
+      // management API has explicitly declined to offer, which is the same
+      // fail-open F04 killed. Show the no-availability state; only `unknown`
+      // shows the try-again message.
+      fallback.time_slots = []
+      if (tableAvailability.public_reason) {
+        fallback.public_reason = tableAvailability.public_reason
+      }
+      if (tableAvailability.message) {
+        fallback.message = tableAvailability.message
+      }
+    } else {
+      // Overlay the authoritative answer onto the existing shape, so the form keeps rendering the
+      // same structure and only the truthfulness changes.
+      const byTime = new Map<string, TableAvailabilitySlotState>(
+        authoritativeSlots.map((slot) => [String(slot.time).slice(0, 5), slot])
       )
 
-      fallback.time_slots = (fallback.time_slots || []).map((slot: any) => {
+      fallback.time_slots = (fallback.time_slots || []).map((slot) => {
         const real = byTime.get(String(slot.time).slice(0, 5))
-        if (!real) return slot
+
+        // A COMPLETE answer is exhaustive: a time the picker did not speak
+        // about is a time it cannot honour. Leaving such a slot bookable on
+        // local schedule maths alone was the last remnant of the fail-open,
+        // because that maths knows nothing about tables (review F04).
+        if (!real) {
+          return {
+            ...slot,
+            available: false,
+            available_capacity: 0,
+            unavailable_reason: 'unknown',
+            unavailable_message: null
+          }
+        }
+
         return {
           ...slot,
           available: real.state === 'available',
@@ -217,18 +268,14 @@ export async function GET(request: Request) {
           high_chairs_remaining: real.high_chairs_remaining ?? slot.high_chairs_remaining
         }
       })
-
-      ;(fallback as any).calculation_state = 'complete'
-      ;(fallback as any).max_party_size_online = tableAvailability.max_party_size_online
     }
 
-    // Above the online limit there is nothing to show; it is a private booking.
-    if (tableAvailability?.public_reason === 'too_large') {
-      fallback.time_slots = []
-      ;(fallback as any).public_reason = 'too_large'
-      ;(fallback as any).message = tableAvailability.message
-      ;(fallback as any).max_party_size_online = tableAvailability.max_party_size_online
-    }
+    // `available` was computed from the local grid before the overlay replaced
+    // it. Recompute so the summary flag cannot claim availability the slots
+    // themselves deny.
+    fallback.available = fallback.time_slots.some(
+      (slot) => slot.available === true || (slot.available_capacity || 0) >= partySize
+    )
 
     return new Response(
       JSON.stringify({

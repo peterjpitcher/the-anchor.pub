@@ -17,6 +17,57 @@ export interface TableAvailabilitySlot {
   high_chairs_remaining?: number
 }
 
+// Why a slot cannot be booked, in customer-safe terms. AMS never exposes an
+// internal reason here (a private booking reads as `tables_full`).
+export type TableAvailabilityPublicReason =
+  | 'tables_full'
+  | 'kitchen_full'
+  | 'outside_full'
+  | 'closed'
+  | 'too_late'
+  | 'too_large'
+  | 'unknown'
+
+// One slot of the authoritative read-out. These five keys are the whole
+// per-slot contract; anything else is drift and must be a deliberate change in
+// both repos (pinned by tests/fixtures/table-availability-contract.json).
+export interface TableAvailabilitySlotState {
+  time: string
+  state: 'available' | 'unavailable'
+  public_reason: TableAvailabilityPublicReason | null
+  message: string | null
+  high_chairs_remaining: number
+}
+
+/**
+ * The authoritative availability read-out (`data.table_availability`), built by
+ * the check_table_availability_v06 RPC in AMS and passed through untouched.
+ *
+ * `calculation_state: 'unknown'` means the check could not run: NOTHING may be
+ * treated as bookable, and the caller must say "please ring" rather than fall
+ * back to locally calculated slots (review F04). The route-level unknown
+ * fallback carries no `message`, so callers must supply their own copy.
+ *
+ * `purpose`, `outside`, `requires_accessible_table`, `max_party_size_online`
+ * and `duration_minutes` are informational echoes of the request: the website
+ * must tolerate every one of them being absent.
+ */
+export interface TableAvailability {
+  contract_version?: number
+  calculation_state: 'complete' | 'unknown'
+  date?: string
+  party_size?: number
+  slots?: TableAvailabilitySlotState[]
+  // Present on empty-slot responses.
+  public_reason?: TableAvailabilityPublicReason
+  message?: string
+  purpose?: string
+  outside?: boolean
+  requires_accessible_table?: boolean
+  max_party_size_online?: number
+  duration_minutes?: number
+}
+
 export interface TableBookingLoadResponse {
   date: string
   window_minutes: number
@@ -26,15 +77,19 @@ export interface TableBookingLoadResponse {
     time: string
     covers: number
   }>
-  // Per-slot availability read-out from the management API. Additive and
-  // optional: absent on older API builds. Carries `high_chairs_remaining`
-  // so the availability proxy can surface it per slot to the browser.
+  // Kitchen pacing read-out. PACING ONLY: it knows nothing about tables, so
+  // `remaining > 0` must never on its own be treated as bookable. Additive and
+  // optional: absent on older API builds. Carries `high_chairs_remaining` so
+  // the availability proxy can surface it per slot to the browser.
   slots?: Array<{
     time: string
     covers?: number
     remaining?: number
     high_chairs_remaining?: number
   }>
+  // The authoritative answer. Null when no party size was supplied (an older
+  // website cannot ask the question), absent on older API builds.
+  table_availability?: TableAvailability | null
 }
 
 export interface TableAvailabilityResponse {
