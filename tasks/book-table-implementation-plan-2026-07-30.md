@@ -104,7 +104,7 @@ W3-W6 structural flow, W4 preferred-time removal (blocked by F05 contract), S1-S
 | 6 | What does a guest get who says "not a Christmas dinner" in December? | **The normal menu at normal terms.** Only the Christmas dinners are pre-book, pre-order and deposit bound. This means the seasonal period model MUST support a per-period pre-order requirement. |
 | 7 | Seasonal deposit lifecycle | **Off the bill.** Refundable until 7 days before; inside 7 days, no refund. A manager may waive, with an audit record. |
 
-**Interpretation flagged for correction if wrong:** answer 7 said "non-refundable" and "I agree to the 7 day no refund window" together. Read as: refundable up to 7 days before the booking, non-refundable inside 7 days. If the intent was non-refundable from the moment it is taken, say so and the copy and refund logic change accordingly.
+**Refund window CONFIRMED by the owner 2026-07-30:** "it's available for full refund 7 days out". So: **full refund up to 7 days before the booking date; inside 7 days, no refund.** A manager may still waive, with an audit record. Guest-facing copy must state the 7-day line plainly at the point the deposit is taken.
 
 **Consequence of 1 + 6 combined, which changes the seasonal scope:** `booking_periods` needs `requires_preorder`, and Christmas needs a menu-selection step, a pre-order cutoff and fulfilment rules. That is the retired Sunday pre-order flow's shape. Scope it from that code rather than designing fresh.
 
