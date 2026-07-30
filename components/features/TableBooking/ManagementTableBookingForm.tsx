@@ -68,6 +68,7 @@ import {
   isVenueClosed,
 } from '@/lib/hours-utils'
 import { PayPalDepositSection } from './PayPalDepositSection'
+import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -476,41 +477,32 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     useState<SelectedSlotService | null>(null)
 
   const [availability, setAvailability] = useState<AvailabilityData | null>(null)
-  const [availabilityLoading, setAvailabilityLoading] = useState(false)
   const [availabilityError, setAvailabilityError] = useState<string | null>(null)
   const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
-  const [alternativesLoading, setAlternativesLoading] = useState(false)
   const [eventsByDate, setEventsByDate] = useState<Record<string, SuggestedEvent[]>>({})
   const [eventErrorsByDate, setEventErrorsByDate] = useState<Record<string, string>>({})
   const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
   const [dismissedEventDates, setDismissedEventDates] = useState<string[]>([])
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const previousDateRef = useRef(date)
-  /**
-   * The one availability request that is currently allowed to write state.
-   *
-   * Two things read availability: the "Find a table" search and the
-   * seating-options re-read. Both write the same state, so only the newest may
-   * win. This used to be tracked by three separate refs, and each new path
-   * wired up only some of them, which is how a superseded request twice came
-   * back and overwrote a newer answer (a search losing to an options change,
-   * then a re-read losing to nothing at all).
-   *
-   * One generation counter and one controller means the rule is uniform and
-   * symmetric: ANY new request supersedes whatever is in flight, whichever kind
-   * either of them is. There is no direction left to forget.
-   */
-  const availabilityRequestRef = useRef<{
-    generation: number
-    controller: AbortController | null
-    kind: 'search' | 'revalidate' | null
-  }>({ generation: 0, controller: null, kind: null })
-  // Stale-search guard for loadNearestAlternatives. Each call captures its own
-  // monotonically-increasing id; only the latest call is allowed to write to
-  // alternativeSlots. Bumped by every search-input change so an in-flight
-  // request from an abandoned search context cannot repopulate the panel.
-  const nearestAlternativesRequestRef = useRef(0)
+  // Which request may still write state, and which spinner belongs to it. All
+  // three network paths (search, options re-read, nearest-alternatives probe)
+  // are tracked in one place; see useAvailabilityRequests for why.
+  const {
+    availabilityLoading,
+    revalidating: revalidatingAvailability,
+    alternativesLoading,
+    beginAvailabilityRequest,
+    isCurrentAvailabilityRequest,
+    finishAvailabilityRequest,
+    cancelAvailabilityRequests,
+    beginAlternativesRequest,
+    isCurrentAlternativesRequest,
+    finishAlternativesRequest,
+    supersedeAlternatives,
+    resetAlternatives
+  } = useAvailabilityRequests()
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -547,50 +539,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // when it genuinely does not.
   const availabilityInputsKey = `${drinksOnly}|${requiresAccessibleTable}|${highChairCount}|${isOutsideSeating}`
   const previousAvailabilityInputs = useRef(availabilityInputsKey)
-  const [revalidatingAvailability, setRevalidatingAvailability] = useState(false)
-  // Only the LATEST re-read owns the pending flag. It used to be cleared in an
-  // async `finally` guarded by `if (!cancelled)`, so a re-run that superseded an
-  // in-flight read skipped the clear, and if that re-run then took the early
-  // return below it never cleared it either. The flag stuck true for the life of
-  // the component and validateDetailsStep refused every Continue with "Just
-  // checking that time is still free" forever, with nothing on screen to
-  // explain it.
-
-  // Supersede whatever availability request is in flight and claim the next
-  // generation. Called by BOTH the search and the re-read, which is what makes
-  // the invalidation symmetric.
-  function beginAvailabilityRequest(kind: 'search' | 'revalidate'): {
-    generation: number
-    controller: AbortController
-  } {
-    availabilityRequestRef.current.controller?.abort()
-    const controller = new AbortController()
-    const generation = availabilityRequestRef.current.generation + 1
-    availabilityRequestRef.current = { generation, controller, kind }
-    // Only the re-read shows the pending note, so anything else taking over has
-    // to clear it: the superseded re-read's own `finally` no longer owns the
-    // generation and will deliberately leave it alone.
-    if (kind !== 'revalidate') setRevalidatingAvailability(false)
-    return { generation, controller }
-  }
-
-  // Whether this request still owns the outcome, checked before writing state.
-  function isCurrentAvailabilityRequest(generation: number): boolean {
-    return availabilityRequestRef.current.generation === generation
-  }
-
-  // Supersede everything without starting anything: the options-change early
-  // return, which clears state and waits for the guest to search again.
-  function cancelAvailabilityRequests() {
-    availabilityRequestRef.current.controller?.abort()
-    availabilityRequestRef.current = {
-      generation: availabilityRequestRef.current.generation + 1,
-      controller: null,
-      kind: null
-    }
-    setRevalidatingAvailability(false)
-    setAvailabilityLoading(false)
-  }
 
   useEffect(() => {
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
@@ -612,7 +560,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     let cancelled = false
     const { generation, controller } = beginAvailabilityRequest('revalidate')
 
-    setRevalidatingAvailability(true)
     void (async () => {
       try {
         const data = await fetchAvailabilityForDate(date, timeAtChange, partySize, controller.signal)
@@ -703,9 +650,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         // superseded run must never clear it (the newer one is still working)
         // and must never leave it set: whatever superseded it already cleared
         // it, in beginAvailabilityRequest or cancelAvailabilityRequests.
-        if (isCurrentAvailabilityRequest(generation)) {
-          setRevalidatingAvailability(false)
-        }
+        finishAvailabilityRequest(generation)
       }
     })()
 
@@ -1083,8 +1028,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     targetTime: string,
     targetPartySize: number
   ) {
-    const requestId = ++nearestAlternativesRequestRef.current
-    setAlternativesLoading(true)
+    const requestId = beginAlternativesRequest()
     setAlternativeSlots([])
 
     try {
@@ -1102,7 +1046,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // Stale-search guard: if a newer search has started while these candidate
       // requests were in flight, drop this response on the floor, the newer
       // call owns the alternatives panel now.
-      if (requestId !== nearestAlternativesRequestRef.current) {
+      if (!isCurrentAlternativesRequest(requestId)) {
         return
       }
 
@@ -1132,9 +1076,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     } finally {
       // Only the latest request resets the loading flag. Earlier in-flight
       // requests must not flip the spinner off while a newer search is loading.
-      if (requestId === nearestAlternativesRequestRef.current) {
-        setAlternativesLoading(false)
-      }
+      finishAlternativesRequest(requestId)
     }
   }
 
@@ -1236,9 +1178,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailabilityError(null)
     setError(null)
     setResult(null)
-    setAvailabilityLoading(true)
     setAlternativeSlots([])
-    nearestAlternativesRequestRef.current++
+    supersedeAlternatives()
     setShowAllTimes(false)
     // A new availability search starts a new submit-intent. Drop any cached
     // idempotency key so the next Confirm cannot accidentally dedupe with a
@@ -1278,9 +1219,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     } finally {
       // Only the current search owns the spinner. A superseded one switching it
       // off would hide the fact that a newer search is still running.
-      if (isCurrentAvailabilityRequest(generation)) {
-        setAvailabilityLoading(false)
-      }
+      finishAvailabilityRequest(generation)
     }
   }
 
@@ -1367,7 +1306,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // unsubmitted edit. See codex ARCH-002.
     setShowAllTimes(false)
     setSelectedSlotService(null)
-    nearestAlternativesRequestRef.current++
+    supersedeAlternatives()
   }
 
   function handleDateChange(value: string) {
@@ -1375,7 +1314,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDate(value)
     setAvailability(null)
     setAlternativeSlots([])
-    nearestAlternativesRequestRef.current++
+    supersedeAlternatives()
     setSelectedTime('')
     setSelectedSlotService(null)
     setShowAllTimes(false)
@@ -1935,8 +1874,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailability(null)
     setAvailabilityError(null)
     setAlternativeSlots([])
-    nearestAlternativesRequestRef.current++
-    setAlternativesLoading(false)
+    resetAlternatives()
     setDismissedEventDates([])
     setSelectedSuggestedEvent(null)
     setPhone('')
@@ -2157,7 +2095,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 setPartySize(clamped)
                 setSelectedSlotService(null)
                 setShowAllTimes(false)
-                nearestAlternativesRequestRef.current++
+                supersedeAlternatives()
               }}
               onBlur={() => {
                 const parsed = Number.parseInt(partySizeDisplay, 10)
@@ -2166,7 +2104,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 setPartySizeDisplay(String(clamped))
                 setSelectedSlotService(null)
                 setShowAllTimes(false)
-                nearestAlternativesRequestRef.current++
+                supersedeAlternatives()
               }}
             />
 

@@ -1920,12 +1920,13 @@ describe('ManagementTableBookingForm', () => {
     })
   })
 
-  // Stale-search guard for nearest alternatives — the implementation lives in
-  // `loadNearestAlternatives` (request-id captured at start, checked at end) and
-  // every reset path bumps `nearestAlternativesRequestRef.current`. A runtime
-  // test was attempted but the deferred-promise scaffolding fights jsdom's
-  // async render order; correctness is provable by code inspection (see
-  // ManagementTableBookingForm.tsx: search for nearestAlternativesRequestRef).
+  // Stale-search guard for nearest alternatives. The end-to-end version below
+  // was attempted and abandoned: the deferred-promise scaffolding fights jsdom's
+  // async render order. The guard itself is no longer covered by code inspection
+  // alone. It now lives in useAvailabilityRequests (beginAlternativesRequest,
+  // isCurrentAlternativesRequest, supersedeAlternatives) and is asserted
+  // directly in tests/unit/useAvailabilityRequests.test.ts; the form wires every
+  // search-input change to supersedeAlternatives().
   describe.skip('Stale-search guard for nearest alternatives (manual QA only)', () => {
     function deferred<T>() {
       let resolveFn!: (value: T) => void
