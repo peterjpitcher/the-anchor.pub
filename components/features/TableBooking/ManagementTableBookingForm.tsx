@@ -1616,8 +1616,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return false
     }
 
-    if (!isKnownCustomer && (!firstName.trim() || !lastName.trim())) {
-      showBookingError('name_missing', 'Please enter your first name and last name.')
+    // Only the first name is required; the surname is optional end to end
+    // (spec W2 as corrected by review F09: AMS already stores an empty
+    // surname and the proxy already omits a blank one from the payload).
+    if (!isKnownCustomer && !firstName.trim()) {
+      showBookingError('name_missing', 'Please enter your first name.')
       return false
     }
 
@@ -2599,11 +2602,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   placeholder="John"
                 />
                 <Input
-                  label="Last Name"
+                  label="Last name (optional)"
                   type="text"
                   size="lg"
                   autoComplete="family-name"
-                  required
                   value={lastName}
                   onChange={(event) => setLastName(event.target.value)}
                   placeholder="Smith"

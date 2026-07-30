@@ -414,7 +414,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -464,7 +464,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -497,7 +497,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -550,7 +550,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -581,7 +581,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -767,7 +767,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Guest' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -908,7 +908,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -1263,7 +1263,7 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -1326,7 +1326,7 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
 
       const firstName = screen.getByLabelText('First Name') as HTMLInputElement
-      const lastName = screen.getByLabelText('Last Name') as HTMLInputElement
+      const lastName = screen.getByLabelText('Last name (optional)') as HTMLInputElement
       const email = screen.getByLabelText('Email (optional)') as HTMLInputElement
 
       expect(firstName.getAttribute('autocomplete')).toBe('given-name')
@@ -1413,7 +1413,7 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -1518,7 +1518,7 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: firstName } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: lastName } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: lastName } })
       if (options.notes) {
         fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), { target: { value: options.notes } })
       }
@@ -1809,7 +1809,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-        fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+        fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -1864,7 +1864,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -2062,7 +2062,7 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -2174,6 +2174,76 @@ describe('ManagementTableBookingForm', () => {
 
       expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
       expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+    })
+  })
+
+  // T5: the surname is optional on the form. AMS already accepts and stores an
+  // empty surname and the proxy already omits a blank one from the payload, so
+  // the website form rule was the only blocker (spec W2 / review F09).
+  describe('optional last name (T5)', () => {
+    async function reachDetailsAt7pm(capturePayload?: {
+      ref: { current: Record<string, unknown> | null }
+    }) {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        ...(capturePayload ? { capturePayload } : {})
+      })
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    }
+
+    it('labels the surname optional and does not mark it required', async () => {
+      await reachDetailsAt7pm()
+
+      const lastName = screen.getByLabelText('Last name (optional)') as HTMLInputElement
+      expect(lastName.required).toBe(false)
+      const firstName = screen.getByLabelText('First Name') as HTMLInputElement
+      expect(firstName.required).toBe(true)
+    })
+
+    it('completes a booking with a first name only and omits last_name from the payload', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      await reachDetailsAt7pm(capturePayload)
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      // The review summary renders the first name alone, no dangling surname.
+      expect(screen.getByText('Sam')).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      const payload = capturePayload.ref.current as Record<string, unknown>
+      expect(payload.first_name).toBe('Sam')
+      expect(payload.last_name).toBeUndefined()
+
+      // Confirmation renders cleanly without a surname.
+      await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+    })
+
+    it('asks for the first name only when no name is entered', async () => {
+      await reachDetailsAt7pm()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() =>
+        expect(screen.getByText('Please enter your first name.')).toBeInTheDocument()
+      )
+      expect(
+        screen.queryByText('Please enter your first name and last name.')
+      ).not.toBeInTheDocument()
     })
   })
 
@@ -2290,7 +2360,7 @@ describe('ManagementTableBookingForm', () => {
       await searchTo7pmChoose()
       await advanceTo7pmDetails()
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -2427,7 +2497,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
