@@ -15,19 +15,12 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 
+// The pre-verification lookup deliberately identifies nobody (review F10): the
+// route answers whether the number is known and nothing else. The management
+// API resolves known customers server-side from the phone number on submit.
 type CustomerLookupResult = {
     known: boolean
     lookup_degraded?: boolean
-    normalized_phone?: string
-    customer?: {
-        id?: string
-        first_name?: string | null
-        last_name?: string | null
-        full_name?: string | null
-        email?: string | null
-        mobile_e164?: string | null
-        mobile_number?: string | null
-    } | null
 }
 
 interface Props {
@@ -41,9 +34,7 @@ function parseLookupResponse(payload: any): CustomerLookupResult {
     const data = payload?.data || payload
     return {
         known: Boolean(data?.known),
-        lookup_degraded: Boolean(data?.lookup_degraded),
-        normalized_phone: data?.normalized_phone,
-        customer: data?.customer || null
+        lookup_degraded: Boolean(data?.lookup_degraded)
     }
 }
 
@@ -59,7 +50,6 @@ export function PrivateBookingInquiryForm({
     const [phone, setPhone] = useState(initialData?.contact_phone || '')
     const [lookupState, setLookupState] = useState<LookupState>('idle')
     const [lookupError, setLookupError] = useState<string | null>(null)
-    const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
     const [lookupDegraded, setLookupDegraded] = useState(false)
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
     const turnstileRef = useRef<TurnstileFieldRef>(null)
@@ -127,18 +117,16 @@ export function PrivateBookingInquiryForm({
 
             if (lookup.known) {
                 setLookupState('known')
-                setKnownCustomer(lookup.customer || null)
                 setLookupDegraded(false)
+                // No prefill: the lookup returns no personal details. The
+                // submit fallback ('Guest') covers the hidden name fields and
+                // the management API matches the real record by phone number.
                 setFormData((previous) => ({
                     ...previous,
-                    contact_phone: phone.trim(),
-                    customer_first_name: lookup.customer?.first_name || previous.customer_first_name || 'Guest',
-                    customer_last_name: lookup.customer?.last_name || previous.customer_last_name || '',
-                    contact_email: lookup.customer?.email || previous.contact_email || ''
+                    contact_phone: phone.trim()
                 }))
             } else {
                 setLookupState('unknown')
-                setKnownCustomer(null)
                 setLookupDegraded(Boolean(lookup.lookup_degraded))
                 setFormData((previous) => ({
                     ...previous,
@@ -155,7 +143,6 @@ export function PrivateBookingInquiryForm({
     const resetPhoneLookup = () => {
         setLookupState('idle')
         setLookupError(null)
-        setKnownCustomer(null)
         setLookupDegraded(false)
         setError(null)
         setFormData((previous) => ({
@@ -305,7 +292,7 @@ export function PrivateBookingInquiryForm({
 
                     {isKnownCustomer && (
                         <div className="p-3 bg-anchor-green/5 text-accent rounded-lg text-sm border border-anchor-green/20">
-                            Recognised customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with event details.
+                            Recognised customer. You can continue with event details.
                         </div>
                     )}
 

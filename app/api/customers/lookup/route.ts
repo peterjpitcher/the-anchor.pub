@@ -6,6 +6,15 @@ import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
+// Pre-verification lookup response. Typing a phone number is not proof of
+// possession, so this public endpoint must never identify anyone (review F10).
+// The only fact the booking flow needs is whether the number is known; the
+// upstream customer record (id, names, email, phone variants) stays server-side.
+type CustomerLookupResponse = {
+  known: boolean
+  lookup_degraded?: boolean
+}
+
 // ── Per-IP rate limiting to protect the shared upstream API key budget ───────
 const LOOKUP_RATE_LIMIT_WINDOW_MS = 60_000
 const LOOKUP_RATE_LIMIT_MAX = 6 // generous for real users, blocks automated abuse
@@ -25,13 +34,15 @@ function isLookupRateLimited(ip: string): boolean {
 }
 
 function createDegradedLookupResponse(reason: string, status = 200) {
+  const data: CustomerLookupResponse = {
+    known: false,
+    lookup_degraded: true
+  }
+
   return NextResponse.json(
     {
       success: true,
-      data: {
-        known: false,
-        lookup_degraded: true
-      },
+      data,
       meta: {
         source: 'brand_lookup_fallback',
         reason
@@ -78,7 +89,21 @@ export async function GET(request: NextRequest) {
 
     if (upstream.ok) {
       if (parsed) {
-        return NextResponse.json(parsed, { status: upstream.status })
+        // Reduce the upstream answer to the one non-identifying fact the flow
+        // needs. Never pass the upstream body through: it carries the full
+        // customer record after a phone-number-only lookup (review F10).
+        const upstreamData = ((parsed as any)?.data ?? parsed) as Record<string, unknown> | null
+        const data: CustomerLookupResponse = {
+          known: upstreamData?.known === true || Boolean(upstreamData?.customer)
+        }
+        return NextResponse.json(
+          {
+            success: true,
+            data,
+            meta: { source: 'brand_lookup' }
+          },
+          { status: 200 }
+        )
       }
       return createDegradedLookupResponse('upstream_non_json')
     }
@@ -91,12 +116,14 @@ export async function GET(request: NextRequest) {
       return createDegradedLookupResponse(`upstream_${upstream.status}`)
     }
 
-    const fallbackPayload = {
-      success: false,
-      error: getSafeUpstreamErrorMessage(rawText, 'Customer lookup failed')
-    }
-
-    return NextResponse.json(parsed ?? fallbackPayload, { status: upstream.status })
+    // Same rule on error paths: surface a safe message, never the upstream body.
+    return NextResponse.json(
+      {
+        success: false,
+        error: getSafeUpstreamErrorMessage(rawText, 'Customer lookup failed')
+      },
+      { status: upstream.status }
+    )
   } catch (error) {
     logError('api/customers/lookup', error)
     return createDegradedLookupResponse('network_error')

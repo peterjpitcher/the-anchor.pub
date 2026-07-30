@@ -60,6 +60,7 @@ function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Resp
 function setupFetchMock(options: {
   availability: AvailabilityHandler | TimeSlot[]
   bookingResponse?: { state: string; [k: string]: unknown }
+  lookupResponse?: Record<string, unknown>
   capturePayload?: { ref: { current: Record<string, unknown> | null } }
   captureUrl?: { ref: { current: string | null } }
   captureHeaders?: { ref: { current: Record<string, string> | null } }
@@ -113,7 +114,10 @@ function setupFetchMock(options: {
 
     if (url.startsWith('/api/customers/lookup?')) {
       return Promise.resolve(
-        jsonResponse({ success: true, data: { known: false, lookup_degraded: false } })
+        jsonResponse({
+          success: true,
+          data: options.lookupResponse ?? { known: false, lookup_degraded: false }
+        })
       )
     }
 
@@ -2170,6 +2174,78 @@ describe('ManagementTableBookingForm', () => {
 
       expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
       expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+    })
+  })
+
+  // T3: the pre-verification lookup identifies nobody. The route returns at
+  // most { known: true }, and the form must complete the known-customer flow
+  // without any of the removed identity fields.
+  describe('phone lookup privacy (T3)', () => {
+    it('books for a recognised number with nothing identifying in the lookup response', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        lookupResponse: { known: true },
+        capturePayload
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      // Recognised: greeting shows, but no name is echoed (we do not have one)
+      // and the personal-details inputs stay hidden.
+      await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
+      expect(screen.queryByLabelText('First Name')).not.toBeInTheDocument()
+      expect(screen.queryByLabelText(/Last Name/i)).not.toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      const payload = capturePayload.ref.current as Record<string, unknown>
+      expect(payload.phone).toBe('07700900000')
+      // The management API resolves the record by phone; the browser holds
+      // and submits no identity data for known customers.
+      expect(payload.first_name).toBeUndefined()
+      expect(payload.last_name).toBeUndefined()
+      expect(payload.email).toBeUndefined()
+      await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+    })
+
+    it('treats a legacy response with a customer record as known but uses none of it', async () => {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        lookupResponse: {
+          known: true,
+          customer: { first_name: 'Jane', last_name: 'Doe', full_name: 'Jane Doe', email: 'jane@example.com' }
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
+      // Nothing from the record is rendered or retained.
+      expect(screen.queryByText(/Jane/)).not.toBeInTheDocument()
+      expect(screen.queryByText(/jane@example.com/)).not.toBeInTheDocument()
     })
   })
 

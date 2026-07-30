@@ -61,19 +61,13 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type BookingStep = 'find' | 'choose' | 'details' | 'review'
 
+// The pre-verification lookup deliberately identifies nobody (review F10):
+// the route answers whether the number is known and nothing else. Known
+// customers keep their skip-the-details flow; the management API resolves the
+// customer record server-side from the phone number at booking time.
 type CustomerLookupResult = {
   known: boolean
   lookup_degraded?: boolean
-  normalized_phone?: string
-  customer?: {
-    id?: string
-    first_name?: string | null
-    last_name?: string | null
-    full_name?: string | null
-    email?: string | null
-    mobile_e164?: string | null
-    mobile_number?: string | null
-  } | null
 }
 
 type ManagementTableBookingResult = {
@@ -255,9 +249,7 @@ function parseLookupResponse(payload: any): CustomerLookupResult {
   const data = payload?.data || payload
   return {
     known: Boolean(data?.known),
-    lookup_degraded: Boolean(data?.lookup_degraded),
-    normalized_phone: data?.normalized_phone,
-    customer: data?.customer || null
+    lookup_degraded: Boolean(data?.lookup_degraded)
   }
 }
 
@@ -736,7 +728,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
-  const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
   const [lookupError, setLookupError] = useState<string | null>(null)
   const [lookupDegraded, setLookupDegraded] = useState(false)
 
@@ -1578,20 +1569,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
       if (lookup.known) {
         setLookupState('known')
-        setKnownCustomer(lookup.customer || null)
         setLookupDegraded(false)
-        if (lookup.customer?.first_name) {
-          setFirstName(String(lookup.customer.first_name))
-        }
-        if (lookup.customer?.last_name) {
-          setLastName(String(lookup.customer.last_name))
-        }
-        if (lookup.customer?.email) {
-          setEmail(String(lookup.customer.email))
-        }
       } else {
         setLookupState('unknown')
-        setKnownCustomer(null)
         setLookupDegraded(Boolean(lookup.lookup_degraded))
       }
     } catch (lookupFailure: any) {
@@ -1604,7 +1584,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   function resetPhoneLookup() {
     setLookupState('idle')
-    setKnownCustomer(null)
     setLookupError(null)
     setLookupDegraded(false)
     setFirstName('')
@@ -1771,7 +1750,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const trimmedPhone = phone.trim()
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
-    const resolvedEmail = (isKnownCustomer ? knownCustomer?.email : email.trim()) || undefined
+    // Known customers submit no email; the management API already holds their
+    // record and resolves it from the phone number.
+    const resolvedEmail = (isKnownCustomer ? undefined : email.trim()) || undefined
     const trimmedNotes = notes.trim()
     // Clamp the request to the slot's advisory bound; the server re-checks and is
     // the authoritative gate, so this only keeps the client honest.
@@ -1985,7 +1966,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSuggestedEvent(null)
     setPhone('')
     setLookupState('idle')
-    setKnownCustomer(null)
     setLookupError(null)
     setFirstName('')
     setLastName('')
@@ -2593,7 +2573,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
               {isKnownCustomer ? (
                 <p className="mt-3 text-sm font-medium text-accent-text">
-                  Welcome back{knownCustomer?.full_name ? `, ${knownCustomer.full_name}` : ''}. We've skipped your personal details.
+                  Welcome back. We recognise this number, so we've skipped your personal details.
                 </p>
               ) : null}
 
