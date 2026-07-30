@@ -55,7 +55,11 @@ import {
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
   requiresDeposit,
 } from '@/lib/constants'
-import { formatEventLocalTime, getEventDateRangeUtc, getEventLocalIsoDate } from '@/lib/event-calendar'
+import {
+  formatEventTimeLabel,
+  getLondonIsoDate,
+  type SuggestedEvent,
+} from '@/lib/table-booking/suggested-events'
 import {
   getBookingAttributionPayload,
   getMarketingConsentSignalPayload,
@@ -69,6 +73,7 @@ import {
 } from '@/lib/hours-utils'
 import { PayPalDepositSection } from './PayPalDepositSection'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
+import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -149,16 +154,6 @@ function confirmationDeliveryCopy(channel?: ManagementTableBookingResult['notifi
   return "We've sent confirmation details."
 }
 
-type SuggestedEvent = {
-  id: string
-  slug: string | null
-  name: string
-  startDate: string
-  shortDescription: string | null
-  seatsRemaining: number | null
-  priceLabel: string | null
-}
-
 interface ManagementTableBookingFormProps {
   prefill?: {
     date?: string
@@ -197,121 +192,6 @@ function parseLookupResponse(payload: any): CustomerLookupResult {
     known: Boolean(data?.known),
     lookup_degraded: Boolean(data?.lookup_degraded)
   }
-}
-
-function getLondonIsoDate(dateTimeValue: string): string | null {
-  return getEventLocalIsoDate(dateTimeValue)
-}
-
-function formatEventTimeLabel(dateTimeValue: string): string {
-  return formatEventLocalTime(dateTimeValue, { includeMinutesWhenZero: true })
-}
-
-function formatEventPriceLabel(value: unknown, currency?: string): string | null {
-  const parsedValue =
-    typeof value === 'number'
-      ? value
-      : typeof value === 'string'
-      ? Number.parseFloat(value)
-      : Number.NaN
-
-  if (!Number.isFinite(parsedValue) || parsedValue <= 0) return null
-
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: currency || 'GBP'
-  }).format(parsedValue)
-}
-
-function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEvent[] {
-  const root = payload?.data || payload
-  const rawEvents: unknown[] = Array.isArray(root?.events)
-    ? root.events
-    : Array.isArray(root)
-    ? root
-    : []
-
-  const normalized: SuggestedEvent[] = []
-
-  for (const rawEvent of rawEvents) {
-    if (!rawEvent || typeof rawEvent !== 'object') continue
-    const source = rawEvent as Record<string, unknown>
-
-    const id = typeof source.id === 'string' ? source.id.trim() : ''
-    if (!id) continue
-
-    const name = typeof source.name === 'string' ? source.name.trim() : ''
-    if (!name) continue
-
-    const startDate =
-      typeof source.startDate === 'string'
-        ? source.startDate
-        : typeof source.start_date === 'string'
-        ? source.start_date
-        : ''
-    if (!startDate) continue
-
-    if (getLondonIsoDate(startDate) !== targetDate) continue
-
-    const status =
-      typeof source.eventStatus === 'string'
-        ? source.eventStatus
-        : typeof source.event_status === 'string'
-        ? source.event_status
-        : ''
-
-    if (status.toLowerCase().includes('cancel')) continue
-
-    const shortDescription =
-      typeof source.shortDescription === 'string'
-        ? source.shortDescription
-        : typeof source.description === 'string'
-        ? source.description
-        : null
-    const time =
-      typeof source.time === 'string'
-        ? source.time
-        : typeof source.start_time === 'string'
-        ? source.start_time
-        : null
-
-    const offers =
-      source.offers && typeof source.offers === 'object'
-        ? (source.offers as Record<string, unknown>)
-        : null
-
-    const remainingAttendeeCapacityRaw =
-      typeof source.remainingAttendeeCapacity === 'number'
-        ? source.remainingAttendeeCapacity
-        : typeof source.remainingAttendeeCapacity === 'string'
-        ? Number.parseInt(source.remainingAttendeeCapacity, 10)
-        : typeof source.remaining_attendee_capacity === 'number'
-        ? source.remaining_attendee_capacity
-        : typeof source.remaining_attendee_capacity === 'string'
-        ? Number.parseInt(source.remaining_attendee_capacity, 10)
-        : Number.NaN
-
-    normalized.push({
-      id,
-      slug: typeof source.slug === 'string' && source.slug.trim().length > 0 ? source.slug.trim() : null,
-      name,
-      startDate,
-      shortDescription,
-      seatsRemaining: Number.isFinite(remainingAttendeeCapacityRaw)
-        ? Number(remainingAttendeeCapacityRaw)
-        : null,
-      priceLabel: formatEventPriceLabel(
-        offers?.price,
-        typeof offers?.priceCurrency === 'string' ? offers.priceCurrency : 'GBP'
-      )
-    })
-  }
-
-  return normalized.sort((left, right) => {
-    const leftTime = getEventDateRangeUtc(left).start.getTime()
-    const rightTime = getEventDateRangeUtc(right).start.getTime()
-    return leftTime - rightTime
-  })
 }
 
 // Numbered step indicator (spec §9): 28px circles — pending sunk/muted, active
@@ -477,10 +357,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [availabilityError, setAvailabilityError] = useState<string | null>(null)
   const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
-  const [eventsByDate, setEventsByDate] = useState<Record<string, SuggestedEvent[]>>({})
-  const [eventErrorsByDate, setEventErrorsByDate] = useState<Record<string, string>>({})
-  const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
-  const [dismissedEventDates, setDismissedEventDates] = useState<string[]>([])
+  const suggestedEvents = useSuggestedEvents(date)
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const previousDateRef = useRef(date)
   // Which request may still write state, and which spinner belongs to it. All
@@ -731,10 +608,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
-  const selectedDateEvents = eventsByDate[date] || []
-  const selectedDateEventsLoading = eventsLoadingDate === date
-  const selectedDateEventError = eventErrorsByDate[date] || null
-  const hideDateEventSuggestions = dismissedEventDates.includes(date)
+  const selectedDateEvents = suggestedEvents.events
+  const selectedDateEventsLoading = suggestedEvents.loading
+  const selectedDateEventError = suggestedEvents.error
+  const hideDateEventSuggestions = suggestedEvents.dismissed
   const showDateEventSuggestions = !hideDateEventSuggestions && selectedDateEvents.length > 0
 
   const currentStepIndex = STEP_ORDER.indexOf(step)
@@ -905,79 +782,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       })
   }, [result?.state, result?.booking_id, result?.deposit_amount])
 
-  useEffect(() => {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return
-    }
-
-    if (Object.prototype.hasOwnProperty.call(eventsByDate, date)) {
-      return
-    }
-
-    let cancelled = false
-
-    async function loadDateEvents() {
-      setEventsLoadingDate(date)
-      setEventErrorsByDate((previous) => {
-        const next = { ...previous }
-        delete next[date]
-        return next
-      })
-
-      try {
-        const params = new URLSearchParams({
-          from_date: date,
-          limit: '36',
-          available_only: 'true'
-        })
-
-        const response = await fetch(`/api/events?${params.toString()}`, {
-          cache: 'no-store'
-        })
-
-        const body = await response.json()
-
-        if (!response.ok || body?.success === false) {
-          throw new Error(
-            body?.error?.message ||
-              body?.error ||
-              'We could not load event suggestions right now.'
-          )
-        }
-
-        const normalized = normalizeSuggestedEvents(body, date).slice(0, 6)
-
-        if (!cancelled) {
-          setEventsByDate((previous) => ({
-            ...previous,
-            [date]: normalized
-          }))
-        }
-      } catch (eventError: any) {
-        if (!cancelled) {
-          setEventsByDate((previous) => ({
-            ...previous,
-            [date]: []
-          }))
-          setEventErrorsByDate((previous) => ({
-            ...previous,
-            [date]:
-              eventError?.message ||
-              'We could not load event suggestions right now.'
-          }))
-        }
-      } finally {
-        // Always clear this specific date's loading state, even if the effect was cleaned up.
-        setEventsLoadingDate((current) => (current === date ? null : current))
-      }
-    }
-
-    void loadDateEvents()
-
-    return () => {
-      cancelled = true
-    }
-  }, [date, eventsByDate])
 
   // Ask about a date with the seating options as they stand right now. The
   // options are read here rather than passed in because every caller means
@@ -1209,7 +1013,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const eventDate = getLondonIsoDate(event.startDate) || date
 
     // Keep focus on the selected booking path once an event is chosen.
-    dismissEventSuggestionsFor(eventDate)
+    suggestedEvents.dismissFor(eventDate)
     setSelectedSuggestedEvent(event)
     setAvailabilityError(null)
     setError(null)
@@ -1262,20 +1066,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handleBackToChoose() {
     setStep('choose')
     setError(null)
-  }
-
-  function dismissEventSuggestionsForDate() {
-    setDismissedEventDates((previous) => {
-      if (previous.includes(date)) return previous
-      return [...previous, date]
-    })
-  }
-
-  function dismissEventSuggestionsFor(targetDate: string) {
-    setDismissedEventDates((previous) => {
-      if (previous.includes(targetDate)) return previous
-      return [...previous, targetDate]
-    })
   }
 
   function handleRequestedTimeChange(value: string) {
@@ -1381,7 +1171,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           </div>
           <button
             type="button"
-            onClick={dismissEventSuggestionsForDate}
+            onClick={suggestedEvents.dismiss}
             className="text-xs font-medium text-ink-muted underline hover:text-ink"
           >
             Hide
@@ -1777,7 +1567,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailabilityError(null)
     setAlternativeSlots([])
     resetAlternatives()
-    setDismissedEventDates([])
+    suggestedEvents.resetDismissals()
     setSelectedSuggestedEvent(null)
     setPhone('')
     setLookupState('idle')
