@@ -84,11 +84,19 @@ import {
   deriveSubmitPurpose,
   isFoodCheckUnavailable,
 } from '@/lib/table-booking/purpose'
+import {
+  HIGH_CHAIR_HOUSE_CAP,
+  STEP_LABELS,
+  STEP_ORDER,
+  findDetailsStepRefusal,
+  readSlotHighChairsRemaining,
+  resolveHighChairShortfall,
+  type BookingStep,
+} from '@/lib/table-booking/journey'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
-type BookingStep = 'find' | 'choose' | 'details' | 'review'
 
 // The pre-verification lookup deliberately identifies nobody (review F10):
 // the route answers whether the number is known and nothing else. Known
@@ -157,20 +165,6 @@ interface ManagementTableBookingFormProps {
     time?: string
     partySize?: number
   }
-}
-
-const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
-
-// House cap on high chairs per booking. The slot's advisory remaining figure
-// never clamps the guest's request (review F06); it drives the shortfall
-// acknowledgement instead.
-const HIGH_CHAIR_HOUSE_CAP = 2
-
-const STEP_LABELS: Record<BookingStep, string> = {
-  find: 'Find table',
-  choose: 'Choose time',
-  details: 'Guest details',
-  review: 'Review & book'
 }
 
 const BLOCKED_REASON_COPY: Record<string, string> = {
@@ -781,23 +775,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     () => availableSlots.find((slot) => slot.time === selectedTime) || null,
     [availableSlots, selectedTime]
   )
-  // Advisory remaining count for the chosen slot; undefined when the API does
-  // not report one (treat as unknown and leave the picker enabled, spec D7).
-  const slotHighChairsRemaining = useMemo(() => {
-    const remaining = selectedSlot?.high_chairs_remaining
-    if (typeof remaining === 'number' && Number.isFinite(remaining)) {
-      return Math.max(0, Math.floor(remaining))
-    }
-    return undefined
-  }, [selectedSlot])
-  // The guest asked for more chairs than the chosen slot has free. The request
-  // is never silently reduced (review F06): they must explicitly acknowledge
-  // the shortfall before continuing, and the ORIGINAL request is submitted so
-  // the server can grant what it truly has at create time.
-  const highChairShortfall =
-    slotHighChairsRemaining !== undefined && highChairCount > slotHighChairsRemaining
-      ? { free: slotHighChairsRemaining, requested: highChairCount }
-      : null
+  const slotHighChairsRemaining = useMemo(
+    () => readSlotHighChairsRemaining(selectedSlot),
+    [selectedSlot]
+  )
+  const highChairShortfall = resolveHighChairShortfall(slotHighChairsRemaining, highChairCount)
   const [highChairShortfallAcknowledged, setHighChairShortfallAcknowledged] = useState(false)
   // Any change to the shortfall context (slot, request, or the slot's advisory
   // figure) invalidates a previous acknowledgement.
@@ -1496,51 +1478,23 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   function validateDetailsStep(): boolean {
-    // A re-read is in flight because they just changed high chairs or outside seating. Their time
-    // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
-    if (revalidatingAvailability) {
-      showBookingError('availability_revalidating', 'Just checking that time is still free. One moment.')
-      return false
-    }
+    const refusal = findDetailsStepRefusal({
+      revalidatingAvailability,
+      selectedTime,
+      phone,
+      detailsUnlocked,
+      isKnownCustomer,
+      firstName,
+      highChairShortfall,
+      highChairShortfallAcknowledged
+    })
+    if (!refusal) return true
 
-    if (!selectedTime) {
-      setStep('choose')
-      showBookingError('no_time_selected', 'Please select a time before continuing.')
-      return false
-    }
-
-    if (!phone.trim()) {
-      showBookingError('phone_missing', 'Please enter your mobile number.')
-      return false
-    }
-
-    if (!detailsUnlocked) {
-      showBookingError('phone_not_verified', 'Please verify your mobile number first.')
-      return false
-    }
-
-    // Only the first name is required; the surname is optional end to end
-    // (spec W2 as corrected by review F09: AMS already stores an empty
-    // surname and the proxy already omits a blank one from the payload).
-    if (!isKnownCustomer && !firstName.trim()) {
-      showBookingError('name_missing', 'Please enter your first name.')
-      return false
-    }
-
-    // A high-chair shortfall needs an explicit tap before the guest can carry
-    // on (review F06): information about fewer chairs is not consent to book
-    // with fewer chairs.
-    if (highChairShortfall && !highChairShortfallAcknowledged) {
-      showBookingError(
-        'high_chair_shortfall_unacknowledged',
-        highChairShortfall.free === 0
-          ? 'Please confirm you are happy to book without a high chair first.'
-          : `Please confirm you are happy to book with ${highChairShortfall.free} high chair${highChairShortfall.free === 1 ? '' : 's'} first.`
-      )
-      return false
-    }
-
-    return true
+    // The slot context is gone, so the message only makes sense on the slot
+    // list. Move them there first, exactly as the inline checks did.
+    if (refusal.returnToChoose) setStep('choose')
+    showBookingError(refusal.code, refusal.message)
+    return false
   }
 
   function handleContinueToReview() {

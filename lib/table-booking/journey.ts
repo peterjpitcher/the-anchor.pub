@@ -1,0 +1,128 @@
+import type { AvailabilitySlot } from '@/lib/table-booking/availability'
+
+/**
+ * The shape of the booking journey: what the steps are, and what has to be true
+ * before a guest may leave the details step.
+ *
+ * Every refusal here carries a stable machine code as well as its guest-facing
+ * sentence. The code is what analytics records; the sentence can contain nothing
+ * a guest typed.
+ */
+
+export type BookingStep = 'find' | 'choose' | 'details' | 'review'
+
+export const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
+
+export const STEP_LABELS: Record<BookingStep, string> = {
+  find: 'Find table',
+  choose: 'Choose time',
+  details: 'Guest details',
+  review: 'Review & book'
+}
+
+// House cap on high chairs per booking. The slot's advisory remaining figure
+// never clamps the guest's request (review F06); it drives the shortfall
+// acknowledgement instead.
+export const HIGH_CHAIR_HOUSE_CAP = 2
+
+export type HighChairShortfall = {
+  free: number
+  requested: number
+}
+
+// Advisory remaining count for the chosen slot; undefined when the API does
+// not report one (treat as unknown and leave the picker enabled, spec D7).
+export function readSlotHighChairsRemaining(
+  slot: AvailabilitySlot | null
+): number | undefined {
+  const remaining = slot?.high_chairs_remaining
+  if (typeof remaining === 'number' && Number.isFinite(remaining)) {
+    return Math.max(0, Math.floor(remaining))
+  }
+  return undefined
+}
+
+// The guest asked for more chairs than the chosen slot has free. The request
+// is never silently reduced (review F06): they must explicitly acknowledge
+// the shortfall before continuing, and the ORIGINAL request is submitted so
+// the server can grant what it truly has at create time.
+export function resolveHighChairShortfall(
+  slotHighChairsRemaining: number | undefined,
+  highChairCount: number
+): HighChairShortfall | null {
+  return slotHighChairsRemaining !== undefined && highChairCount > slotHighChairsRemaining
+    ? { free: slotHighChairsRemaining, requested: highChairCount }
+    : null
+}
+
+/**
+ * Why the guest may not leave the details step yet. `returnToChoose` means the
+ * slot context is gone and the message only makes sense on the slot list.
+ */
+export type DetailsStepRefusal = {
+  code: string
+  message: string
+  returnToChoose?: boolean
+}
+
+export type DetailsStepState = {
+  /** An options re-read is in flight, so the chosen time is not settled. */
+  revalidatingAvailability: boolean
+  selectedTime: string
+  phone: string
+  detailsUnlocked: boolean
+  isKnownCustomer: boolean
+  firstName: string
+  highChairShortfall: HighChairShortfall | null
+  highChairShortfallAcknowledged: boolean
+}
+
+/** null when the guest may continue; otherwise the reason they may not. */
+export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefusal | null {
+  // A re-read is in flight because they just changed high chairs or outside seating. Their time
+  // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
+  if (state.revalidatingAvailability) {
+    return {
+      code: 'availability_revalidating',
+      message: 'Just checking that time is still free. One moment.'
+    }
+  }
+
+  if (!state.selectedTime) {
+    return {
+      code: 'no_time_selected',
+      message: 'Please select a time before continuing.',
+      returnToChoose: true
+    }
+  }
+
+  if (!state.phone.trim()) {
+    return { code: 'phone_missing', message: 'Please enter your mobile number.' }
+  }
+
+  if (!state.detailsUnlocked) {
+    return { code: 'phone_not_verified', message: 'Please verify your mobile number first.' }
+  }
+
+  // Only the first name is required; the surname is optional end to end
+  // (spec W2 as corrected by review F09: AMS already stores an empty
+  // surname and the proxy already omits a blank one from the payload).
+  if (!state.isKnownCustomer && !state.firstName.trim()) {
+    return { code: 'name_missing', message: 'Please enter your first name.' }
+  }
+
+  // A high-chair shortfall needs an explicit tap before the guest can carry
+  // on (review F06): information about fewer chairs is not consent to book
+  // with fewer chairs.
+  if (state.highChairShortfall && !state.highChairShortfallAcknowledged) {
+    return {
+      code: 'high_chair_shortfall_unacknowledged',
+      message:
+        state.highChairShortfall.free === 0
+          ? 'Please confirm you are happy to book without a high chair first.'
+          : `Please confirm you are happy to book with ${state.highChairShortfall.free} high chair${state.highChairShortfall.free === 1 ? '' : 's'} first.`
+    }
+  }
+
+  return null
+}
