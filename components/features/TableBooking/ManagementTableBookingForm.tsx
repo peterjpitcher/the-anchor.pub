@@ -770,11 +770,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [dismissedEventDates, setDismissedEventDates] = useState<string[]>([])
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const previousDateRef = useRef(date)
-  const availabilityControllerRef = useRef<AbortController | null>(null)
-  // Latest-wins guard for runAvailabilitySearch. Bumped by every search and by
-  // any seating-options change, so a response that no longer matches what the
-  // guest asked for is discarded instead of written to state.
-  const availabilitySearchRef = useRef(0)
+  /**
+   * The one availability request that is currently allowed to write state.
+   *
+   * Two things read availability: the "Find a table" search and the
+   * seating-options re-read. Both write the same state, so only the newest may
+   * win. This used to be tracked by three separate refs, and each new path
+   * wired up only some of them, which is how a superseded request twice came
+   * back and overwrote a newer answer (a search losing to an options change,
+   * then a re-read losing to nothing at all).
+   *
+   * One generation counter and one controller means the rule is uniform and
+   * symmetric: ANY new request supersedes whatever is in flight, whichever kind
+   * either of them is. There is no direction left to forget.
+   */
+  const availabilityRequestRef = useRef<{
+    generation: number
+    controller: AbortController | null
+    kind: 'search' | 'revalidate' | null
+  }>({ generation: 0, controller: null, kind: null })
   // Stale-search guard for loadNearestAlternatives. Each call captures its own
   // monotonically-increasing id; only the latest call is allowed to write to
   // alternativeSlots. Bumped by every search-input change so an in-flight
@@ -824,26 +838,52 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // the component and validateDetailsStep refused every Continue with "Just
   // checking that time is still free" forever, with nothing on screen to
   // explain it.
-  const revalidateRequestRef = useRef(0)
+
+  // Supersede whatever availability request is in flight and claim the next
+  // generation. Called by BOTH the search and the re-read, which is what makes
+  // the invalidation symmetric.
+  function beginAvailabilityRequest(kind: 'search' | 'revalidate'): {
+    generation: number
+    controller: AbortController
+  } {
+    availabilityRequestRef.current.controller?.abort()
+    const controller = new AbortController()
+    const generation = availabilityRequestRef.current.generation + 1
+    availabilityRequestRef.current = { generation, controller, kind }
+    // Only the re-read shows the pending note, so anything else taking over has
+    // to clear it: the superseded re-read's own `finally` no longer owns the
+    // generation and will deliberately leave it alone.
+    if (kind !== 'revalidate') setRevalidatingAvailability(false)
+    return { generation, controller }
+  }
+
+  // Whether this request still owns the outcome, checked before writing state.
+  function isCurrentAvailabilityRequest(generation: number): boolean {
+    return availabilityRequestRef.current.generation === generation
+  }
+
+  // Supersede everything without starting anything: the options-change early
+  // return, which clears state and waits for the guest to search again.
+  function cancelAvailabilityRequests() {
+    availabilityRequestRef.current.controller?.abort()
+    availabilityRequestRef.current = {
+      generation: availabilityRequestRef.current.generation + 1,
+      controller: null,
+      kind: null
+    }
+    setRevalidatingAvailability(false)
+    setAvailabilityLoading(false)
+  }
 
   useEffect(() => {
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
     previousAvailabilityInputs.current = availabilityInputsKey
 
-    // Any in-flight "Find a table" search was asked about the OLD options, so
-    // its answer is worthless now. Abort it and invalidate it: it was only ever
-    // aborted by the NEXT search, so it used to resolve and drag the guest to
-    // the choose step with a time nothing had affirmed for the new options.
-    availabilityControllerRef.current?.abort()
-    availabilityControllerRef.current = null
-    availabilitySearchRef.current++
-
     // On the find step nothing is chosen yet, so drop the stale reading and let the
-    // "Find a table" button fetch with the new inputs.
+    // "Find a table" button fetch with the new inputs. Any in-flight request was
+    // asked about the OLD options, so its answer is worthless either way.
     if (step === 'find' || !date || !selectedTime) {
-      revalidateRequestRef.current++
-      setRevalidatingAvailability(false)
-      setAvailabilityLoading(false)
+      cancelAvailabilityRequests()
       setAvailability(null)
       setSelectedTime('')
       setSelectedSlotService(null)
@@ -852,15 +892,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
 
     const timeAtChange = selectedTime
-    const controller = new AbortController()
     let cancelled = false
-    const requestId = ++revalidateRequestRef.current
+    const { generation, controller } = beginAvailabilityRequest('revalidate')
 
     setRevalidatingAvailability(true)
     void (async () => {
       try {
         const data = await fetchAvailabilityForDate(date, timeAtChange, partySize, controller.signal)
-        if (cancelled) return
+        // `cancelled` covers the effect re-running; the generation covers being
+        // superseded by anything else, notably a new search. Relying on the
+        // abort alone would leave this path trusting that every runtime rejects
+        // an aborted fetch promptly, and this answer is about the OLD date and
+        // options either way.
+        if (cancelled || !isCurrentAvailabilityRequest(generation)) return
 
         // Stamp the date we asked about when the response does not echo one, so
         // provenance is always provable downstream.
@@ -925,10 +969,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           'We could not check that time with those options. Please try again.'
         )
       } finally {
-        // Whoever is the latest re-read clears the flag, cancelled or not. A
+        // Whoever is the current request clears the flag, cancelled or not. A
         // superseded run must never clear it (the newer one is still working)
-        // and must never leave it set (nothing else would clear it).
-        if (requestId === revalidateRequestRef.current) {
+        // and must never leave it set: whatever superseded it already cleared
+        // it, in beginAvailabilityRequest or cancelAvailabilityRequests.
+        if (isCurrentAvailabilityRequest(generation)) {
           setRevalidatingAvailability(false)
         }
       }
@@ -1388,6 +1433,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     targetPartySize: number
     source: string
     context: string
+    generation: number
     signal?: AbortSignal
   }) {
     if (!input.targetDate || !input.targetTime) {
@@ -1400,13 +1446,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       context: input.context
     })
 
-    // Latest search wins. Without this, a search still in flight when the guest
-    // changed a seating option came back and wrote its answer to state anyway,
-    // dragging them to the choose step with a time affirmed for the OLD options
-    // (the accessible-table box ticked, but the slot checked without it). The
-    // options effect bumps this ref, so a superseded response is dropped.
-    const searchId = ++availabilitySearchRef.current
-
     const availabilityData = await fetchAvailabilityForDate(
       input.targetDate,
       input.targetTime,
@@ -1414,7 +1453,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       input.signal
     )
 
-    if (searchId !== availabilitySearchRef.current) return
+    // Latest request wins. Without this, a search still in flight when the guest
+    // changed a seating option came back and wrote its answer to state anyway,
+    // dragging them to the choose step with a time affirmed for the OLD options
+    // (the accessible-table box ticked, but the slot checked without it).
+    if (!isCurrentAvailabilityRequest(input.generation)) return
 
     // Funnel: an availability check completed. Documented since the funnel
     // launched but never fired until now (spec W1).
@@ -1473,10 +1516,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
-    // Cancel any in-flight availability request before starting a new one.
-    availabilityControllerRef.current?.abort()
-    const controller = new AbortController()
-    availabilityControllerRef.current = controller
+    // Supersede anything in flight, a previous search OR an options re-read.
+    // The re-read half used to be missing: its controller was never reachable
+    // from here, so a re-read could resolve after this search and overwrite it
+    // with an answer for a different date and different options.
+    const { generation, controller } = beginAvailabilityRequest('search')
 
     setAvailabilityError(null)
     setError(null)
@@ -1497,6 +1541,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         targetPartySize: clampedSize,
         source: 'book_table_find_table',
         context: 'availability_first',
+        generation,
         signal: controller.signal
       })
     } catch (availabilityFailure: unknown) {
@@ -1872,6 +1917,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   //   2. Otherwise look up the slot in the current `availability.time_slots`.
   //   3. If no matching slot can be found, return null and block submit.
   function resolveSlotBookablePurpose(): SlotBookablePurpose | null {
+    // If anyone simplifies this pair later: THIS preference order is the
+    // load-bearing fix, not the cache re-stamp in the re-read's "still free"
+    // exit. Reverting only the re-stamp leaves the behaviour correct; reverting
+    // this brings the stale-purpose defect straight back. Remove the re-stamp
+    // if you must remove one, never this.
+    //
     // The current reading is authoritative whenever it actually covers this
     // date. `selectedSlotService` is only a cache, for the nearest-alternative
     // path where the chosen time belongs to a date this reading is not about.

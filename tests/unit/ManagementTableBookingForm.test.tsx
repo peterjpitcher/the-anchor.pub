@@ -2261,21 +2261,26 @@ describe('ManagementTableBookingForm', () => {
         return { promise, release: release as (value: Response) => void }
       }
 
-      function slotsResponse(times: string[]) {
+      function slotsResponseFor(date: string, times: string[]) {
         return jsonResponse({
           success: true,
           data: {
-            date: '2026-07-07',
+            date,
             available: true,
             calculation_state: 'complete',
             time_slots: times.map((time) => ({
               time,
               available: true,
               available_capacity: 8,
-              kitchen_open: true
+              kitchen_open: true,
+              bookable_purpose: 'food_or_drinks'
             }))
           }
         })
+      }
+
+      function slotsResponse(times: string[]) {
+        return slotsResponseFor('2026-07-07', times)
       }
 
       it('discards a search that no longer matches the accessibility requirement', async () => {
@@ -2321,6 +2326,82 @@ describe('ManagementTableBookingForm', () => {
         expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
         // And the find button is usable again rather than stuck loading.
         expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
+      })
+
+      // F1, the other direction. The options effect always aborted an in-flight
+      // SEARCH, but a new search never aborted an in-flight RE-READ: the
+      // re-read's controller was local to the effect and unreachable from
+      // handleFindTable, so the invalidation only ran one way. A re-read could
+      // therefore resolve after a newer search and overwrite it with an answer
+      // for a different date and different options.
+      it('discards an options re-read that a newer search has superseded', async () => {
+        const staleReRead = deferredSearch()
+        // Only the FIRST outside=true request is the re-read we hold open; the
+        // guest still has the box ticked afterwards, so later searches with the
+        // same option must answer normally.
+        let reReadHeld = false
+
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/customers/lookup?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            if (url.includes('outside=true') && !reReadHeld) {
+              reReadHeld = true
+              return staleReRead.promise
+            }
+            const date = new URL(url, 'https://t.test').searchParams.get('date')
+            return Promise.resolve(
+              slotsResponseFor(
+                date || '',
+                date === '2026-07-09' ? ['20:00'] : ['19:00']
+              )
+            )
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+        // Start the re-read and leave it hanging.
+        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+        await waitFor(() =>
+          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+        )
+
+        // The guest goes back and searches a different date entirely.
+        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+        await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-09' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
+
+        // Now the abandoned re-read finally answers, for the OLD date.
+        staleReRead.release(slotsResponseFor('2026-07-07', ['19:00']))
+        await act(async () => {
+          await Promise.resolve()
+        })
+
+        // The newer search still owns the screen.
+        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
+        expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
+        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
       })
 
       it('discards a food-scoped search when the guest switches to drinks mid-flight', async () => {
