@@ -1,13 +1,22 @@
 # Book a Table: full implementation spec, both applications
 
 Date: 2026-07-30
-Status: ready to build. All owner decisions taken, see the decision log.
+**Status: ready for contract discovery and non-payment preparation. The main flow, seasonal migration and payment release are blocked by the decisions and findings in the developer review.**
+
+A technical review on 2026-07-30 raised 41 findings against this document, several of them P0, so the original "ready to build" status was wrong. Read the review and the plan before implementing anything here.
+
 Repos: `OJ-The-Anchor.pub` (the website, guest-facing) and `OJ-AnchorManagementTools` (AMS, the management system that owns availability, bookings, settings and staff screens).
 
-Sources, superseded by this document where they disagree:
+### Normative references
+
+These govern. Where they disagree with the body of this document, THEY win:
+- `tasks/book-table-full-spec-developer-review-2026-07-30.md`, the review. Its findings amend the sections they name. Known corrections already applied in the plan: A1 is verification not build (F09), Sunday lunch pre-order is RETIRED in code and its requirements here are stale (F02), the availability contract described in §2/W3/A3 does not exist as one shape (F03), and a `NEXT_PUBLIC_*` flag is not an instant rollback (F19).
+- `tasks/book-table-implementation-plan-2026-07-30.md`, the plan. Its phase order supersedes §9 ship order, and its Phase 1 is the only work cleared to proceed.
+
+Superseded sources, retained for history only, do not implement from them:
 - `tasks/book-table-flow-simplification-spec-2026-07-29.md` (the parent spec)
 - `tasks/book-table-options-and-seasonal-addendum-2026-07-29.md` (the addendum)
-- The clickable prototype approved by the owner on 2026-07-30 ("It's beautifully simple")
+- The clickable prototype approved by the owner on 2026-07-30 ("It's beautifully simple"), published at https://claude.ai/code/artifact/33dbe81a-110f-4e30-9d14-68be215a46b4
 
 ---
 
