@@ -19,6 +19,26 @@ import { ManagementTableBookingForm } from '@/components/features/TableBooking/M
 Import it directly. There is deliberately **no barrel file**: the old one exported components that
 nothing rendered, which made it easy to spend a day editing a file that was never on screen.
 
+The form is the wizard and its state. The rules it applies live outside it, so each can be read and
+tested on its own:
+
+| Module | Owns |
+|--------|------|
+| `useAvailabilityRequests` | Which in-flight request may still write state, and which spinner belongs to it. All three network paths (search, options re-read, nearest-alternatives probe) are tracked here |
+| `useSuggestedEvents` | The per-date cache, loader and dismissals for the "events on this date" panel |
+| `BookingProgressBar`, `BookingConfirmedCard` | The two screens that read nothing but what they render |
+| `lib/table-booking/availability` | The reading's shape, its normalisation (fails closed on `bookable_purpose`), the availability predicates, and the fetch |
+| `lib/table-booking/purpose` | What a slot may be booked for. Read, never inferred. The slot caption, the review line and the submitted `purpose` all come from here |
+| `lib/table-booking/journey` | Step vocabulary, high-chair cap and shortfall, and the details-step refusals |
+| `lib/table-booking/submission` | The create-booking payload, the result shape and the blocked-reason copy |
+| `lib/table-booking/formatting` | London-aware date/time parsing and display |
+| `lib/table-booking/suggested-events` | The event shape and response normalisation |
+| `lib/table-booking/hours-note` | The advisory bar/kitchen summary. Decides nothing |
+
+Three older siblings predate that folder and still sit flat in `lib/`:
+`table-booking-idempotency`, `table-booking-slot-window` and `table-booking-service-windows`. They are
+imported by API routes as well, so they were left where they are.
+
 ### `PayPalDepositSection`
 
 The deposit step, used by the form for groups that require one. Used nowhere else.
