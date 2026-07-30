@@ -15,6 +15,12 @@ type WebsiteAvailabilityResponse = TableAvailabilityResponse & {
   calculation_state?: 'complete' | 'unknown'
   public_reason?: TableAvailabilityPublicReason
   max_party_size_online?: number
+  // The food question went unanswered, so this grid is labelled and submitted
+  // as drinks even though the guest may want to eat. Deliberately distinct from
+  // a genuine kitchen-closed day: this means information is MISSING, not that
+  // the kitchen is shut, and the guest is told so rather than quietly
+  // downgraded into arriving expecting a roast.
+  food_check_unavailable?: boolean
 }
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import {
@@ -270,6 +276,19 @@ export async function GET(request: Request) {
         fallback.message = tableAvailability.message
       }
     } else {
+      // There is a grid to show, and the food question went unanswered for a
+      // guest who has not ruled food out. Say so alongside the grid rather than
+      // letting "Drinks only" imply the kitchen is shut.
+      //
+      // A kitchen-closed day does NOT land here. The picker answers it as
+      // `complete` with an empty slots ARRAY, which makes foodByTime an empty
+      // Map, not null. An empty map means "asked, and there is no food"; null
+      // means "could not ask". Only the second is worth apologising for, and
+      // the guest can tell the two apart.
+      if (!guestWantsDrinksOnly && foodByTime === null) {
+        fallback.food_check_unavailable = true
+      }
+
       // Overlay the authoritative answer onto the existing shape, so the form keeps rendering the
       // same structure and only the truthfulness changes.
       const byTime = new Map<string, TableAvailabilitySlotState>(

@@ -2572,6 +2572,82 @@ describe('ManagementTableBookingForm', () => {
       expect(capturePayload.ref.current).toMatchObject({ purpose: 'drinks' })
     })
 
+    // A silent downgrade is its own failure: someone booking Sunday lunch who
+    // sees "Drinks only" at 1pm may book anyway and arrive expecting a roast.
+    // The slots stay bookable, but the guest is told why they read drinks-only.
+    describe('the food-check notice', () => {
+      const NOTICE = /We could not check food service just now/i
+
+      async function searchWith(data: Record<string, unknown>, drinksOnly = false) {
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            return Promise.resolve(jsonResponse({ success: true, data }))
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        if (drinksOnly) fireEvent.click(screen.getByLabelText(/Just drinks/i))
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      }
+
+      const drinksOnlyGrid = {
+        date: '2026-07-07',
+        available: true,
+        calculation_state: 'complete',
+        time_slots: [
+          { time: '13:00', available: true, available_capacity: 4, kitchen_open: false },
+          { time: '19:00', available: true, available_capacity: 4, kitchen_open: false }
+        ]
+      }
+
+      it('appears with the grid when the food answer was unusable', async () => {
+        await searchWith({ ...drinksOnlyGrid, food_check_unavailable: true })
+
+        expect(screen.getByText(NOTICE)).toBeInTheDocument()
+        expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
+        // The times are still there to book.
+        expect(screen.getByRole('button', { name: /1pm/ })).toBeInTheDocument()
+        expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
+      })
+
+      it('does not appear on a kitchen-closed day', async () => {
+        // The same drinks-only grid without the flag: the kitchen is genuinely
+        // shut and the pub has nothing to apologise for.
+        await searchWith(drinksOnlyGrid)
+
+        expect(screen.queryByText(NOTICE)).not.toBeInTheDocument()
+        expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
+      })
+
+      it('does not appear for a drinks-only search', async () => {
+        await searchWith({ ...drinksOnlyGrid, food_check_unavailable: true }, true)
+
+        expect(screen.queryByText(NOTICE)).not.toBeInTheDocument()
+      })
+
+      it('does not appear when both calls answered normally', async () => {
+        await searchWith({
+          date: '2026-07-07',
+          available: true,
+          calculation_state: 'complete',
+          time_slots: [
+            { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+          ]
+        })
+
+        expect(screen.queryByText(NOTICE)).not.toBeInTheDocument()
+      })
+    })
+
     it('explains a kitchen pacing refusal instead of the generic blocked line', async () => {
       // slot_full is a real management API answer the website never mapped, so
       // a genuine pacing refusal used to read "This slot is not available for

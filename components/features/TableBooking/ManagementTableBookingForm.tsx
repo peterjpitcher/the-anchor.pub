@@ -136,6 +136,10 @@ type AvailabilityData = {
   // timed out). The form must offer a retry and the phone number, and must
   // never present locally guessed slots as bookable (review F04).
   calculation_state?: 'complete' | 'unknown'
+  // These times are drinks only because the food question could not be checked,
+  // NOT because the kitchen is shut. Never set on a genuine kitchen-closed day,
+  // where drinks only is simply the truth and there is nothing to explain.
+  food_check_unavailable?: boolean
 }
 
 type SelectedSlotService = {
@@ -337,7 +341,8 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     time_slots: calculationState === 'unknown' ? [] : timeSlots,
     message: typeof data?.message === 'string' ? data.message : undefined,
     special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined,
-    ...(calculationState ? { calculation_state: calculationState } : {})
+    ...(calculationState ? { calculation_state: calculationState } : {}),
+    ...(data?.food_check_unavailable === true ? { food_check_unavailable: true } : {})
   }
 }
 
@@ -991,6 +996,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // The authoritative check could not run. Distinct from "checked and full":
   // the guest gets a retry and the phone number, never guessed slots (F04).
   const availabilityUnknown = availability?.calculation_state === 'unknown'
+  // The grid is drinks-only because we could not check food, not because the
+  // kitchen is shut. The `!drinksOnly` guard is belt and braces: the route only
+  // sets the flag for a food-wanting guest, and toggling "Just drinks" refetches.
+  const foodCheckUnavailable = availability?.food_check_unavailable === true && !drinksOnly
   const availableSlots = useMemo(
     () =>
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
@@ -2476,6 +2485,33 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             ) : availableSlots.length > 0 ? (
               <>
+                {/* Same notice treatment as the availability-unknown panel
+                    above, deliberately: this is information the guest needs,
+                    not an alarm. Shown only when the food question genuinely
+                    went unanswered, never on a real kitchen-closed day. */}
+                {foodCheckUnavailable ? (
+                  <div
+                    className="space-y-2 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
+                    aria-live="polite"
+                  >
+                    <p>
+                      We could not check food service just now, so these times are for drinks only.
+                    </p>
+                    <p>
+                      If you would like to eat, give us a ring on{' '}
+                      <PhoneLink
+                        phone={CONTACT.phone}
+                        source="table_booking_food_check_unavailable"
+                        showIcon={false}
+                        className="font-semibold underline"
+                      >
+                        01753 682707
+                      </PhoneLink>{' '}
+                      and we will sort it.
+                    </p>
+                  </div>
+                ) : null}
+
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
                     const isSelected = selectedTime === slot.time

@@ -230,6 +230,68 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
   })
 
+  // The guest must be able to tell "we could not check food" apart from "the
+  // kitchen is shut". Both produce drinks-only slots; only the first is missing
+  // information, and only the first is worth telling them about.
+  describe('food_check_unavailable', () => {
+    it('is set when the food answer is unusable and the guest wants food', async () => {
+      respondByPurpose({ drinks: DRINKS_COMPLETE, food: null })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+
+      expect(body.data.food_check_unavailable).toBe(true)
+    })
+
+    it('is set when the food answer comes back unknown', async () => {
+      respondByPurpose({ drinks: DRINKS_COMPLETE, food: { calculation_state: 'unknown' } })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+
+      expect(body.data.food_check_unavailable).toBe(true)
+    })
+
+    it('is set when the food answer has a malformed slots field', async () => {
+      respondByPurpose({
+        drinks: DRINKS_COMPLETE,
+        food: { calculation_state: 'complete', slots: 'not an array' }
+      })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+
+      expect(body.data.food_check_unavailable).toBe(true)
+    })
+
+    it('is NOT set on a kitchen-closed day, where drinks only is simply the truth', async () => {
+      // The Monday shape. The picker was asked and it answered: complete, with
+      // an empty slots array. Nothing failed, so there is nothing to explain.
+      respondByPurpose({
+        drinks: DRINKS_COMPLETE,
+        food: { calculation_state: 'complete', slots: [], public_reason: 'closed' }
+      })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+      const slots = body.data.time_slots as Array<{ available?: boolean; kitchen_open?: boolean }>
+
+      expect(body.data.food_check_unavailable).toBeUndefined()
+      // Still drinks-only, just without an apology attached.
+      expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
+    })
+
+    it('is NOT set for a drinks-only search', async () => {
+      respondByPurpose({ drinks: DRINKS_COMPLETE })
+
+      const body = await fetchSlots('date=2026-05-05&party_size=2&purpose=drinks')
+
+      expect(body.data.food_check_unavailable).toBeUndefined()
+    })
+
+    it('is NOT set when both calls answer normally', async () => {
+      const body = await fetchSlots('date=2026-05-05&party_size=2')
+
+      expect(body.data.food_check_unavailable).toBeUndefined()
+    })
+  })
+
   it('keeps the local kitchen indicator for a guest who asked for drinks only', async () => {
     // No food call is made for them, and their submitted purpose is 'drinks'
     // whatever the label says, so the local window stays a useful hint about
