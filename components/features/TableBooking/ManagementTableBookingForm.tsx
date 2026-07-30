@@ -55,6 +55,7 @@ import {
   buildCommunicationConsentPayload,
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
+import { buildSubmitIntentFingerprint } from '@/lib/table-booking-idempotency'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -1720,39 +1721,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return slot.kitchen_open === false ? 'drinks' : 'food'
   }
 
-  // Build a stable JSON fingerprint of the meaningful submit-intent fields.
-  // Volatile anti-bot / telemetry fields (`_t`, `turnstile_token`, `website`)
-  // are deliberately excluded, see spec §13.2.
-  function buildSubmitIntentFingerprint(input: {
-    phone: string
-    firstName?: string
-    lastName?: string
-    email?: string
-    date: string
-    time: string
-    partySize: number
-    purpose: 'food' | 'drinks'
-    notes?: string
-    highChairCount: number
-    isOutsideSeating: boolean
-    communicationConsent: CommunicationConsentState
-  }): string {
-    return JSON.stringify({
-      phone: input.phone.trim(),
-      firstName: input.firstName?.trim() || '',
-      lastName: input.lastName?.trim() || '',
-      email: input.email?.trim() || '',
-      date: input.date,
-      time: input.time,
-      partySize: input.partySize,
-      purpose: input.purpose,
-      notes: input.notes?.trim() || '',
-      highChairCount: input.highChairCount,
-      isOutsideSeating: input.isOutsideSeating,
-      communicationConsent: input.communicationConsent
-    })
-  }
-
   // Reuse the cached idempotency key when the fingerprint matches the previous
   // submit intent; otherwise mint a new one and replace the cache entry.
   function getSubmitIntentIdempotencyKey(fingerprint: string): string {
@@ -1805,8 +1773,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // Build the submit-intent fingerprint from non-volatile payload fields,
     // then look up (or mint) the idempotency key. This guarantees that a retry
     // of the same booking intent reuses the key, while a changed slot or guest
-    // detail forces a new key. High-chair/outside are included so a booking that
-    // differs only in those fields gets its own key. See spec §13.2, §10.
+    // detail forces a new key. High-chair, outside and accessibility are all
+    // included so a booking that differs only in those fields gets its own key.
+    // See spec §13.2, §10 and review F18.
     const idempotencyFingerprint = buildSubmitIntentFingerprint({
       phone: trimmedPhone,
       firstName: resolvedFirstName,
@@ -1819,6 +1788,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       notes: trimmedNotes,
       highChairCount: resolvedHighChairCount,
       isOutsideSeating: resolvedOutsideSeating,
+      requiresAccessibleTable,
       communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)

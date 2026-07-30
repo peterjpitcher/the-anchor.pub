@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { NextRequest } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
@@ -93,9 +94,19 @@ function mergeNotes(...parts: Array<string | undefined>): string | undefined {
   return merged.join('\n')
 }
 
+// Fallback Idempotency-Key for callers that send no header of their own.
+//
+// This used to be base64url(JSON) truncated to 120 characters. 120 base64
+// characters encode only the first 90 bytes of the payload, which fell inside
+// `purpose`: every field after it (chairs, outside seating, accessibility,
+// consent) was silently discarded, so two genuinely different bookings from
+// the same number, date, time and purpose collapsed onto one key and the
+// second was replayed away. Hashing the whole payload means every field that
+// changes what is booked changes the key, which is the entire point of
+// listing them (review F18).
 function createIdempotencyKey(prefix: string, payload?: unknown): string {
   if (payload !== undefined) {
-    return `${prefix}_${Buffer.from(JSON.stringify(payload)).toString('base64url').slice(0, 120)}`
+    return `${prefix}_${createHash('sha256').update(JSON.stringify(payload)).digest('hex')}`
   }
 
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -490,6 +501,12 @@ export async function POST(request: NextRequest) {
         // requests differing only in chairs/outside are not collapsed.
         high_chair_count: normalized.payload.high_chair_count ?? null,
         outside_seating: normalized.payload.outside_seating ?? null,
+        // Accessibility varies the key ONLY when requested, matching the AMS
+        // request hash (review F18). JSON.stringify drops undefined entries,
+        // so absent-or-false leaves the payload byte-identical to a request
+        // that predates the field.
+        requires_accessible_table:
+          normalized.payload.requires_accessible_table === true ? true : undefined,
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 
