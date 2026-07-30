@@ -156,6 +156,10 @@ type SelectedSlotService = {
   // without re-fetching, including on the nearest-alternative path where the
   // slot is not in the current `availability.time_slots`.
   bookable_purpose: SlotBookablePurpose
+  // Whether THIS slot's reading had a failed food check. Carried alongside the
+  // purpose because on the alternative path the current `availability` belongs
+  // to a different date, so it cannot answer for this slot.
+  food_check_unavailable: boolean
 }
 
 type AlternativeSlot = SelectedSlotService
@@ -939,7 +943,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           setSelectedSlotService({
             date,
             time: timeAtChange,
-            bookable_purpose: freshSlot.bookable_purpose
+            bookable_purpose: freshSlot.bookable_purpose,
+            food_check_unavailable: data.food_check_unavailable === true
           })
           return
         }
@@ -955,7 +960,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           `${formatTimeForDisplay(timeAtChange)} is not available with those options. Please choose another time.`
         )
       } catch (caught) {
-        if (cancelled || (caught as Error)?.name === 'AbortError') return
+        // The generation check matters as much here as on the success path.
+        // abort() on an already-settled fetch is a no-op, so an error that had
+        // already arrived surfaces as a plain Error rather than an AbortError,
+        // and our own timeout throws a plain Error by design. Without this a
+        // superseded failure would write an unknown reading stamped with a date
+        // the guest had already left.
+        if (
+          cancelled ||
+          (caught as Error)?.name === 'AbortError' ||
+          !isCurrentAvailabilityRequest(generation)
+        ) {
+          return
+        }
         // Never leave a stale reading on screen, and never let the failure read
         // as "no tables" either: the re-read did not answer, so availability is
         // unknown and the guest gets the retry state, not a false full-house.
@@ -1069,10 +1086,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // The authoritative check could not run. Distinct from "checked and full":
   // the guest gets a retry and the phone number, never guessed slots (F04).
   const availabilityUnknown = availability?.calculation_state === 'unknown'
-  // The grid is drinks-only because we could not check food, not because the
-  // kitchen is shut. The `!drinksOnly` guard is belt and braces: the route only
-  // sets the flag for a food-wanting guest, and toggling "Just drinks" refetches.
-  const foodCheckUnavailable = availability?.food_check_unavailable === true && !drinksOnly
+  // These times are drinks-only because we could not check food, not because
+  // the kitchen is shut.
+  //
+  // Read from the SAME reading that decides the purpose, on the same date gate
+  // as resolveSlotBookablePurpose. Without that gate the two described
+  // different readings, so after choosing a nearest alternative the review step
+  // could show "we could not check food, ring us if you want to eat" directly
+  // above "Booking: Table for food", at the exact moment of commitment.
+  //
+  // The `!drinksOnly` guard is belt and braces: the route only sets the flag
+  // for a food-wanting guest, and toggling "Just drinks" refetches.
+  const foodCheckUnavailable =
+    !drinksOnly &&
+    (availability && availability.date === date
+      ? availability.food_check_unavailable === true
+      : selectedSlotService?.food_check_unavailable === true)
+  // What the review step states. null means the slot context was lost, which
+  // Confirm already blocks on: it must read as unresolved, not as drinks.
+  const reviewBookingPurpose = deriveSubmitPurpose()
   const availableSlots = useMemo(
     () =>
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
@@ -1408,7 +1440,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           .map((slot) => ({
             date: response.date || targetDate,
             time: slot.time,
-            bookable_purpose: slot.bookable_purpose
+            bookable_purpose: slot.bookable_purpose,
+            // Each candidate date has its own food answer, so the flag travels
+            // with the slot rather than being read off the current reading.
+            food_check_unavailable: response.food_check_unavailable === true
           }))
 
         alternatives.push(...slots)
@@ -1546,6 +1581,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       })
     } catch (availabilityFailure: unknown) {
       if (availabilityFailure instanceof Error && availabilityFailure.name === 'AbortError') return
+      // Same reasoning as the re-read's catch: a settled-then-superseded
+      // failure is not an AbortError, and must not write state on top of a
+      // newer answer.
+      if (!isCurrentAvailabilityRequest(generation)) return
       trackBookingErrorShown({ code: 'availability_check_failed' })
       // A failed check means availability is UNKNOWN, never "no tables".
       // Clearing it to null used to drop the choose step out of the unknown
@@ -1561,7 +1600,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           'We could not check availability right now. Please try again or call us at 01753 682707.'
       )
     } finally {
-      setAvailabilityLoading(false)
+      // Only the current search owns the spinner. A superseded one switching it
+      // off would hide the fact that a newer search is still running.
+      if (isCurrentAvailabilityRequest(generation)) {
+        setAvailabilityLoading(false)
+      }
     }
   }
 
@@ -1588,7 +1631,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService({
       date,
       time: slot.time,
-      bookable_purpose: slot.bookable_purpose
+      bookable_purpose: slot.bookable_purpose,
+      food_check_unavailable: availability?.food_check_unavailable === true
     })
     trackTableBookingClick({
       source: 'book_table_slot_selected',
@@ -1606,7 +1650,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService({
       date: alternative.date,
       time: alternative.time,
-      bookable_purpose: alternative.bookable_purpose
+      bookable_purpose: alternative.bookable_purpose,
+      food_check_unavailable: alternative.food_check_unavailable
     })
     setStep('details')
     setError(null)
@@ -2578,6 +2623,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="text-sm text-ink-muted">Checking available times...</p>
             ) : null}
 
+            {/* Deliberately outside the slot-list branch so this renders on
+                exactly the same condition as its twin on the review step. It
+                used to sit inside the "there are slots" branch, so the two
+                could disagree about whether the guest had been told. */}
+            {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
+
             {availabilityUnknown ? (
               <div
                 className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
@@ -2614,8 +2665,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             ) : availableSlots.length > 0 ? (
               <>
-                {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
-
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
                     const isSelected = selectedTime === slot.time
@@ -3076,7 +3125,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium text-ink-muted">Booking</dt>
                   <dd className="text-ink-strong">
-                    {deriveSubmitPurpose() === 'food' ? 'Table for food' : 'Drinks only'}
+                    {/* null means the slot context was lost, which Confirm
+                        blocks on anyway. Say that rather than stating a booking
+                        type nothing stands behind. */}
+                    {reviewBookingPurpose === 'food'
+                      ? 'Table for food'
+                      : reviewBookingPurpose === 'drinks'
+                      ? 'Drinks only'
+                      : 'Please choose your time again'}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-3">

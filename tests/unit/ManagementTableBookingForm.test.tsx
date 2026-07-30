@@ -3125,6 +3125,120 @@ describe('ManagementTableBookingForm', () => {
 
         expect(screen.queryByText(/We could not check food service/i)).not.toBeInTheDocument()
       })
+
+      // G1: the notice read the current reading without the date gate that
+      // resolveSlotBookablePurpose has, so after choosing a nearest alternative
+      // the two described different readings. Worst case the guest saw "we
+      // could not check food, ring us if you want to eat" directly above
+      // "Booking: Table for food", at the moment of commitment, having seen no
+      // notice at all on the choose step.
+      describe('after choosing a nearest alternative', () => {
+        function mockAlternativeJourney(options: {
+          searchedFoodCheckFailed: boolean
+          alternativeFoodCheckFailed: boolean
+        }) {
+          ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+            const url = typeof input === 'string' ? input : input.toString()
+            if (url.startsWith('/api/events?')) {
+              return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+            }
+            if (url.startsWith('/api/customers/lookup?')) {
+              return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+            }
+            if (url.startsWith('/api/table-bookings/availability')) {
+              const date = new URL(url, 'https://t.test').searchParams.get('date') || ''
+              // The searched date has nothing; the probed dates offer 8pm.
+              if (date === '2026-07-07') {
+                return Promise.resolve(
+                  jsonResponse({
+                    success: true,
+                    data: {
+                      date,
+                      available: false,
+                      calculation_state: 'complete',
+                      time_slots: [],
+                      ...(options.searchedFoodCheckFailed ? { food_check_unavailable: true } : {})
+                    }
+                  })
+                )
+              }
+              return Promise.resolve(
+                jsonResponse({
+                  success: true,
+                  data: {
+                    date,
+                    available: true,
+                    calculation_state: 'complete',
+                    time_slots: [
+                      {
+                        time: '20:00',
+                        available: true,
+                        available_capacity: 6,
+                        bookable_purpose: options.alternativeFoodCheckFailed
+                          ? 'drinks_only'
+                          : 'food_or_drinks'
+                      }
+                    ],
+                    ...(options.alternativeFoodCheckFailed
+                      ? { food_check_unavailable: true }
+                      : {})
+                  }
+                })
+              )
+            }
+            return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+          })
+        }
+
+        async function bookTheAlternative() {
+          render(<ManagementTableBookingForm />)
+          fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+          fireEvent.blur(screen.getByLabelText('Party Size'))
+          fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+          fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+          await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+          const alternatives = await screen.findAllByRole('button', { name: /8pm/i })
+          fireEvent.click(alternatives[0])
+          fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+          fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+          await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+          fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+          fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+          await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+        }
+
+        it('does not warn about a food check that failed on the date they left', async () => {
+          mockAlternativeJourney({
+            searchedFoodCheckFailed: true,
+            alternativeFoodCheckFailed: false
+          })
+          await bookTheAlternative()
+
+          // The alternative's own reading checked food fine, so review says food
+          // and must not contradict itself with the notice.
+          expect(screen.getByText('Table for food')).toBeInTheDocument()
+          expect(screen.queryByText(/We could not check food service/i)).not.toBeInTheDocument()
+        })
+
+        it('does warn when the alternative is the date whose food check failed', async () => {
+          mockAlternativeJourney({
+            searchedFoodCheckFailed: false,
+            alternativeFoodCheckFailed: true
+          })
+          await bookTheAlternative()
+
+          // The mirror case: drinks-only for a reason the guest is entitled to
+          // know, with a way to put it right.
+          expect(screen.getByText('Drinks only')).toBeInTheDocument()
+          expect(
+            screen.getByText(
+              /We could not check food service just now, so this booking is for drinks only/i
+            )
+          ).toBeInTheDocument()
+          expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
+        })
+      })
     })
 
     // The guest could previously reach Confirm without ever seeing what they
