@@ -330,6 +330,19 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
   }
 }
 
+// The client-side equivalent of the route's `availability_unknown` answer, for
+// when the request never completed at all (network failure, 5xx). "We could not
+// check" and "there is nothing free" are different answers to the guest, and
+// only one of them is true here.
+function unknownAvailability(targetDate: string): AvailabilityData {
+  return {
+    date: targetDate,
+    available: false,
+    time_slots: [],
+    calculation_state: 'unknown'
+  }
+}
+
 function isSlotAvailable(slot: AvailabilitySlot, partySize: number): boolean {
   if (typeof slot.available === 'boolean') {
     return slot.available && slot.available_capacity >= partySize
@@ -831,12 +844,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         )
       } catch (caught) {
         if (cancelled || (caught as Error)?.name === 'AbortError') return
-        // Never leave a stale reading on screen; fall back to making them search again.
+        // Never leave a stale reading on screen, and never let the failure read
+        // as "no tables" either: the re-read did not answer, so availability is
+        // unknown and the guest gets the retry state, not a false full-house.
         trackSlotInvalidated({ reason: 'availability_error' })
-        setAvailability(null)
+        setAvailability(unknownAvailability(date))
         setSelectedTime('')
         setSelectedSlotService(null)
         setAlternativeSlots([])
+        setStep('choose')
+        setAvailabilityError(
+          'We could not check that time with those options. Please try again.'
+        )
       } finally {
         if (!cancelled) setRevalidatingAvailability(false)
       }
@@ -1368,7 +1387,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     } catch (availabilityFailure: unknown) {
       if (availabilityFailure instanceof Error && availabilityFailure.name === 'AbortError') return
       trackBookingErrorShown({ code: 'availability_check_failed' })
-      setAvailability(null)
+      // A failed check means availability is UNKNOWN, never "no tables".
+      // Clearing it to null used to drop the choose step out of the unknown
+      // state, taking the retry button and the phone number with it and
+      // falling through to "No online times available": one tap turned "we
+      // could not check" into a confident, wrong "the pub is full" with no way
+      // back. Hold the unknown state so the retry affordance survives.
+      setAvailability(unknownAvailability(date))
+      setSelectedTime('')
+      setSelectedSlotService(null)
       setAvailabilityError(
         (availabilityFailure instanceof Error ? availabilityFailure.message : null) ||
           'We could not check availability right now. Please try again or call us at 01753 682707.'
@@ -2338,8 +2365,17 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : null}
 
             {availabilityUnknown ? (
-              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
+              <div
+                className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
+                aria-live="polite"
+              >
                 <p className="font-semibold text-ink-strong">We could not check live availability</p>
+                {/* The reason, when we have one. Without this a failed retry
+                    looked identical to the first failure and the guest had no
+                    idea anything had happened. */}
+                {availability?.message || availabilityError ? (
+                  <p>{availability?.message || availabilityError}</p>
+                ) : null}
                 <p>
                   Please try again in a moment. If it keeps happening, give us a ring on{' '}
                   <PhoneLink

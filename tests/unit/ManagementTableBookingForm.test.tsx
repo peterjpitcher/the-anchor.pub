@@ -2163,6 +2163,81 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
     })
 
+    // The retry used to destroy itself: a throwing retry set availability to
+    // null, which dropped the choose step out of the unknown state, removed the
+    // retry button and the phone number, and fell through to "No online times
+    // available". One tap turned "we could not check" into a confident, wrong
+    // "the pub is full", with no way back and the real reason never shown.
+    it('survives a retry that throws, keeping the retry button and the phone number', async () => {
+      let call = 0
+      setupFetchMock({
+        availability: () => {
+          call += 1
+          if (call === 1) return { time_slots: [], calculation_state: 'unknown' }
+          throw new Error('Network request failed')
+        }
+      })
+
+      await searchOn()
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+
+      await waitFor(() => expect(call).toBe(2))
+      // The unknown state and both recovery routes survive.
+      await waitFor(() =>
+        expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+      )
+      expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
+      expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
+      // The reason is surfaced rather than swallowed.
+      expect(screen.getByText(/Network request failed/)).toBeInTheDocument()
+      // And it never claims the pub is full.
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+      expect(screen.queryByText(/couldn't find an online slot/i)).not.toBeInTheDocument()
+    })
+
+    it('survives a retry that 503s, without claiming there is no availability', async () => {
+      let call = 0
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        if (url.startsWith('/api/events?')) {
+          return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+        }
+        if (url.startsWith('/api/table-bookings/availability')) {
+          call += 1
+          if (call === 1) {
+            return Promise.resolve(
+              jsonResponse({
+                success: true,
+                data: { date: '', available: false, time_slots: [], calculation_state: 'unknown' }
+              })
+            )
+          }
+          // The availability route's own outer catch.
+          return Promise.resolve(
+            jsonResponse(
+              { success: false, error: "We couldn't check table availability right now." },
+              { status: 503 }
+            )
+          )
+        }
+        return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+      })
+
+      await searchOn()
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+
+      await waitFor(() => expect(call).toBe(2))
+      await waitFor(() =>
+        expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
+      )
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+
     it('a normal load is unchanged: slots render and the journey continues', async () => {
       setupFetchMock({
         availability: [
