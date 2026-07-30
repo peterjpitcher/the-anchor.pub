@@ -2255,10 +2255,19 @@ describe('ManagementTableBookingForm', () => {
     describe('an options change during an in-flight search', () => {
       function deferredSearch() {
         let release: ((value: Response) => void) | undefined
-        const promise = new Promise<Response>((resolve) => {
+        let fail: ((reason: unknown) => void) | undefined
+        const promise = new Promise<Response>((resolve, reject) => {
           release = resolve
+          fail = reject
         })
-        return { promise, release: release as (value: Response) => void }
+        // Swallow the unhandled rejection when a test rejects a promise the
+        // component has already stopped awaiting; the assertions cover it.
+        promise.catch(() => undefined)
+        return {
+          promise,
+          release: release as (value: Response) => void,
+          reject: fail as (reason: unknown) => void
+        }
       }
 
       function slotsResponseFor(date: string, times: string[]) {
@@ -2402,6 +2411,124 @@ describe('ManagementTableBookingForm', () => {
         await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
         expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
         expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+      })
+
+      // G2: the generation check was on the success paths only. abort() on an
+      // already-settled fetch is a no-op, so an error that had already arrived
+      // surfaces as a plain Error rather than an AbortError, and the form's own
+      // timeout throws a plain Error by design. Both catch blocks therefore
+      // wrote state unconditionally, and a superseded FAILURE could overwrite a
+      // newer answer.
+      it('discards a re-read that FAILS after a newer search has taken over', async () => {
+        const staleReRead = deferredSearch()
+        let reReadHeld = false
+
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/customers/lookup?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            if (url.includes('outside=true') && !reReadHeld) {
+              reReadHeld = true
+              return staleReRead.promise
+            }
+            const date = new URL(url, 'https://t.test').searchParams.get('date')
+            return Promise.resolve(
+              slotsResponseFor(date || '', date === '2026-07-09' ? ['20:00'] : ['19:00'])
+            )
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+        await waitFor(() =>
+          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+        )
+
+        // A newer search on a different date takes over.
+        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
+        await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-09' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
+
+        // The abandoned re-read now FAILS. Not an AbortError, because it had
+        // already settled by the time anything aborted it.
+        staleReRead.reject(new Error('Network request failed'))
+        await act(async () => {
+          await Promise.resolve()
+        })
+
+        // The newer search still owns the screen: no unknown reading stamped
+        // with the date the guest already left, and no error about it.
+        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
+        expect(
+          screen.queryByText(/We could not check that time with those options/i)
+        ).not.toBeInTheDocument()
+        expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+      })
+
+      it('discards a search that FAILS after an options change has taken over', async () => {
+        const staleSearch = deferredSearch()
+        let firstSearchHeld = false
+
+        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+          const url = typeof input === 'string' ? input : input.toString()
+          if (url.startsWith('/api/events?')) {
+            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
+          }
+          if (url.startsWith('/api/table-bookings/availability')) {
+            if (!firstSearchHeld) {
+              firstSearchHeld = true
+              return staleSearch.promise
+            }
+            return Promise.resolve(slotsResponseFor('2026-07-07', ['19:00']))
+          }
+          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+        })
+
+        render(<ManagementTableBookingForm />)
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect((global as any).fetch).toHaveBeenCalled())
+
+        // Mid-flight the guest changes an option, which supersedes the search.
+        fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+
+        // The superseded search then fails.
+        staleSearch.reject(new Error('Network request failed'))
+        await act(async () => {
+          await Promise.resolve()
+        })
+
+        // It must not paint its failure over the state the options change left,
+        // nor strand the guest on an error about a search they abandoned.
+        await waitFor(() =>
+          expect(screen.getByLabelText(/I need an accessible table/i)).toBeChecked()
+        )
+        expect(screen.queryByText('Choose your time')).not.toBeInTheDocument()
+        expect(screen.queryByText(/Network request failed/)).not.toBeInTheDocument()
+        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
       })
 
       it('discards a food-scoped search when the guest switches to drinks mid-flight', async () => {
