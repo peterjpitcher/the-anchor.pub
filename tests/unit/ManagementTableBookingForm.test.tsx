@@ -46,6 +46,8 @@ type TimeSlot = {
 type AvailabilityHandler = (url: string) => {
   date?: string
   time_slots: TimeSlot[]
+  calculation_state?: 'complete' | 'unknown'
+  message?: string
 } | null
 
 function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Response {
@@ -79,7 +81,7 @@ function setupFetchMock(options: {
 
     if (url.startsWith('/api/table-bookings/availability')) {
       if (options.captureUrl) options.captureUrl.ref.current = url
-      let result: { date?: string; time_slots: TimeSlot[] } | null
+      let result: ReturnType<AvailabilityHandler>
       if (typeof options.availability === 'function') {
         result = options.availability(url)
       } else {
@@ -101,7 +103,9 @@ function setupFetchMock(options: {
           data: {
             date: result.date ?? '',
             available: result.time_slots.some((s) => s.available),
-            time_slots: result.time_slots
+            time_slots: result.time_slots,
+            ...(result.calculation_state ? { calculation_state: result.calculation_state } : {}),
+            ...(result.message ? { message: result.message } : {})
           }
         })
       )
@@ -2079,6 +2083,93 @@ describe('ManagementTableBookingForm', () => {
       // The slot list carries the outside availability rather than being wiped.
       expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument()
       expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+    })
+  })
+
+  // T2: availability never fails open. When the authoritative check cannot run,
+  // the route answers calculation_state 'unknown' and the form must show a
+  // retry state with the phone number, never locally guessed bookable slots.
+  describe('availability unknown state (T2)', () => {
+    async function searchOn(date = '2026-07-07') {
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    }
+
+    it('shows the retry state with the phone number and zero bookable slots', async () => {
+      setupFetchMock({
+        availability: () => ({ time_slots: [], calculation_state: 'unknown' })
+      })
+
+      await searchOn()
+
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
+      expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
+      // Never the checked-and-full journey: no waitlist, no alternatives probes.
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+      expect(screen.queryByText('Nearest alternatives')).not.toBeInTheDocument()
+      expect(screen.queryByText(/Finding nearby options/i)).not.toBeInTheDocument()
+    })
+
+    it('never renders locally guessed slots as bookable when the check is unknown', async () => {
+      // A malfunctioning upstream could return slots alongside the unknown
+      // marker; the form must trust the marker and drop the slots.
+      setupFetchMock({
+        availability: () => ({
+          calculation_state: 'unknown',
+          time_slots: [
+            { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+          ]
+        })
+      })
+
+      await searchOn()
+
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
+    })
+
+    it('Try again re-runs the search and recovers once the checker answers', async () => {
+      let call = 0
+      setupFetchMock({
+        availability: () => {
+          call += 1
+          if (call === 1) {
+            return { time_slots: [], calculation_state: 'unknown' }
+          }
+          return {
+            calculation_state: 'complete',
+            time_slots: [
+              { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+            ]
+          }
+        }
+      })
+
+      await searchOn()
+      expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+
+      await waitFor(() => expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument())
+      expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+    })
+
+    it('a normal load is unchanged: slots render and the journey continues', async () => {
+      setupFetchMock({
+        availability: [
+          { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+        ]
+      })
+
+      await searchOn()
+
+      expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
+      expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
     })
   })
 

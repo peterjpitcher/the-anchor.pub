@@ -1094,7 +1094,7 @@ export class AnchorAPI {
 
     const [businessHours, bookingLoad] = await Promise.all([
       this.getBusinessHours(),
-      this.getTableBookingLoadFailOpen(params.date, { partySize: params.party_size }),
+      this.getTableBookingLoadSafe(params.date, { partySize: params.party_size }),
     ])
     return this.buildTableAvailabilityFromBusinessHours(businessHours, {
       ...params,
@@ -1125,25 +1125,35 @@ export class AnchorAPI {
     } as RequestInit & { next: { revalidate: number } })
   }
 
-  async getTableBookingLoadFailOpen(
+  // Load read-out with a bounded wait: 3 seconds per attempt, one retry, then
+  // null. A null result means availability is UNKNOWN, never "assume free".
+  // Callers must not present locally guessed slots as bookable on the back of
+  // a null here; the availability route answers `calculation_state: 'unknown'`
+  // instead (review F04).
+  async getTableBookingLoadSafe(
     date: string,
     availability?: TableAvailabilityQuery,
-    timeoutMs = 1500
+    timeoutMs = 3000
   ): Promise<TableBookingLoadResponse | null> {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), timeoutMs)
+    const maxAttempts = 2
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), timeoutMs)
 
-    try {
-      return await this.getTableBookingLoad(date, { signal: controller.signal }, availability)
-    } catch (error) {
-      console.warn('[table-bookings] Booking load unavailable; continuing without busyness labels', {
-        date,
-        error: error instanceof Error ? error.message : String((error as any)?.message || error),
-      })
-      return null
-    } finally {
-      clearTimeout(timeout)
+      try {
+        return await this.getTableBookingLoad(date, { signal: controller.signal }, availability)
+      } catch (error) {
+        console.warn('[table-bookings] Booking load attempt failed', {
+          date,
+          attempt,
+          error: error instanceof Error ? error.message : String((error as any)?.message || error),
+        })
+      } finally {
+        clearTimeout(timeout)
+      }
     }
+
+    return null
   }
 
   async createTableBooking(

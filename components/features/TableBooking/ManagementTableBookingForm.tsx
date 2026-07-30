@@ -136,6 +136,10 @@ type AvailabilityData = {
   time_slots: AvailabilitySlot[]
   message?: string
   special_notes?: string
+  // 'unknown' means the authoritative check could not run (AMS load missing or
+  // timed out). The form must offer a retry and the phone number, and must
+  // never present locally guessed slots as bookable (review F04).
+  calculation_state?: 'complete' | 'unknown'
 }
 
 type SelectedSlotService = {
@@ -311,12 +315,20 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     })
   }
 
+  const calculationState =
+    data?.calculation_state === 'unknown'
+      ? 'unknown'
+      : data?.calculation_state === 'complete'
+      ? 'complete'
+      : undefined
+
   return {
     date: typeof data?.date === 'string' ? data.date : '',
     available: Boolean(data?.available) || timeSlots.some((slot) => slot.available === true),
-    time_slots: timeSlots,
+    time_slots: calculationState === 'unknown' ? [] : timeSlots,
     message: typeof data?.message === 'string' ? data.message : undefined,
-    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined
+    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined,
+    ...(calculationState ? { calculation_state: calculationState } : {})
   }
 }
 
@@ -787,6 +799,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         setAvailability(data)
         setAlternativeSlots([])
 
+        if (data.calculation_state === 'unknown') {
+          // The re-read could not check live availability, so neither the old
+          // reading nor the chosen time can be trusted. Put them on the choose
+          // step's retry state rather than claiming the time has gone.
+          trackSlotInvalidated({ reason: 'availability_error' })
+          setSelectedTime('')
+          setSelectedSlotService(null)
+          setStep('choose')
+          showBookingError(
+            'availability_unknown',
+            'We could not check that time with those options. Please try again.'
+          )
+          return
+        }
+
         const stillFree = data.time_slots.some(
           (slot) => slot.time === timeAtChange && isSlotAvailable(slot, partySize)
         )
@@ -905,6 +932,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const showDateEventSuggestions = !hideDateEventSuggestions && selectedDateEvents.length > 0
 
   const currentStepIndex = STEP_ORDER.indexOf(step)
+  // The authoritative check could not run. Distinct from "checked and full":
+  // the guest gets a retry and the phone number, never guessed slots (F04).
+  const availabilityUnknown = availability?.calculation_state === 'unknown'
   const availableSlots = useMemo(
     () =>
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
@@ -1267,7 +1297,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService(null)
     setStep('choose')
 
-    if (!closestTime) {
+    if (!closestTime && availabilityData.calculation_state !== 'unknown') {
+      // No point probing nearby dates while the checker itself is unavailable;
+      // those probes would come back unknown too. The choose step shows the
+      // retry state instead.
       void loadNearestAlternatives(input.targetDate, input.targetTime, input.targetPartySize)
     }
   }
@@ -2307,7 +2340,32 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="text-sm text-ink-muted">Checking available times...</p>
             ) : null}
 
-            {availableSlots.length > 0 ? (
+            {availabilityUnknown ? (
+              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
+                <p className="font-semibold text-ink-strong">We could not check live availability</p>
+                <p>
+                  Please try again in a moment. If it keeps happening, give us a ring on{' '}
+                  <PhoneLink
+                    phone={CONTACT.phone}
+                    source="table_booking_availability_unknown"
+                    showIcon={false}
+                    className="font-semibold underline"
+                  >
+                    01753 682707
+                  </PhoneLink>{' '}
+                  and we will book you in.
+                </p>
+                <Button
+                  type="button"
+                  variant="primary"
+                  className="w-full sm:w-auto min-h-12"
+                  loading={availabilityLoading}
+                  onClick={() => void handleFindTable()}
+                >
+                  Try again
+                </Button>
+              </div>
+            ) : availableSlots.length > 0 ? (
               <>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
@@ -2410,7 +2468,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 highlight: availableSlots.length === 0
               })}
 
-            {availableSlots.length === 0 && (
+            {availableSlots.length === 0 && !availabilityUnknown && (
               <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
                 <p className="text-sm font-semibold text-ink-strong">Nearest alternatives</p>
 

@@ -147,7 +147,7 @@ export async function GET(request: Request) {
     const [businessHours, bookingLoad] = await Promise.all([
       anchorAPI.getBusinessHours(),
       // Now carries `table_availability`, computed by the same picker that creates bookings.
-      anchorAPI.getTableBookingLoadFailOpen(date, {
+      anchorAPI.getTableBookingLoadSafe(date, {
         partySize,
         purpose,
         outside,
@@ -161,9 +161,11 @@ export async function GET(request: Request) {
     // why the site could advertise a time when the pub was physically full.
     const tableAvailability = (bookingLoad as any)?.table_availability
 
-    if (tableAvailability?.calculation_state === 'unknown') {
-      // Never fail open. We could not check, so we do not guess: the customer is told to ring
-      // rather than shown a slot nobody can stand behind.
+    if (!tableAvailability || tableAvailability.calculation_state === 'unknown') {
+      // Never fail open. Whether the load timed out, failed, answered without a
+      // table read-out, or answered "unknown": we could not check, so we do not
+      // guess. The customer is offered a retry and the phone number rather than
+      // a locally calculated slot nobody can stand behind (review F04).
       return new Response(
         JSON.stringify({
           success: true,
@@ -171,12 +173,16 @@ export async function GET(request: Request) {
             date,
             party_size: partySize,
             calculation_state: 'unknown',
+            available: false,
             time_slots: [],
             message:
-              tableAvailability.message ||
-              'We cannot check availability right now. Please give us a ring on 01753 682707.'
+              tableAvailability?.message ||
+              'We could not check live availability just now. Please try again, or give us a ring on 01753 682707.'
           },
-          meta: { source: 'management_api', service_model: 'combined_food_drinks' }
+          meta: {
+            source: tableAvailability ? 'management_api' : 'availability_unknown',
+            service_model: 'combined_food_drinks'
+          }
         }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       )
@@ -229,7 +235,9 @@ export async function GET(request: Request) {
         success: true,
         data: fallback,
         meta: {
-          source: tableAvailability ? 'management_api' : 'schedule_fallback',
+          // Reaching here requires table_availability, so the answer is always
+          // the management API's; the local grid only shapes the response.
+          source: 'management_api',
           service_model: 'combined_food_drinks'
         }
       }),
