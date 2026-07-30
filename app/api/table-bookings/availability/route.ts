@@ -201,9 +201,8 @@ export async function GET(request: Request) {
     // why the site could advertise a time when the pub was physically full.
     const tableAvailability: TableAvailability | null = drinksLoad?.table_availability ?? null
 
-    // Only a COMPLETE food answer may drive the label. Missing, unknown, or not
-    // asked for all fall back to the local kitchen window, which is what the
-    // grid used before any of this and is never worse than it.
+    // Only a COMPLETE food answer may drive the label. See the fail-closed
+    // fallback below for what happens when there is not one.
     const foodAvailability: TableAvailability | null = foodLoad?.table_availability ?? null
     const foodByTime =
       foodAvailability?.calculation_state === 'complete' && Array.isArray(foodAvailability.slots)
@@ -296,11 +295,25 @@ export async function GET(request: Request) {
 
         // Does the kitchen serve this time too? The food answer knows things
         // the local kitchen window cannot: a slot inside kitchen hours can
-        // still be at its pacing ceiling. Without a usable food answer, keep
-        // the locally derived flag.
+        // still be at its pacing ceiling.
+        //
+        // This flag is NOT cosmetic. The form derives the SUBMITTED PURPOSE
+        // from it (kitchen_open !== false means a food booking), so asserting
+        // food from the local kitchen window would submit a food booking that
+        // nothing authoritative affirmed. Inside kitchen hours but over the
+        // pacing ceiling, create then refuses with slot_full after the guest
+        // has filled in every step, and every other in-hours slot still reads
+        // "Drinks & food", so retrying just repeats the refusal.
+        //
+        // So without a usable food answer we fail CLOSED to drinks, which the
+        // drinks answer did affirm. A guest who ticked "Just drinks" submits
+        // 'drinks' whatever this says, so for them the local kitchen window
+        // stays a harmless indicator of kitchen hours.
         const kitchenOpen = foodByTime
           ? foodByTime.get(String(slot.time).slice(0, 5))?.state === 'available'
-          : slot.kitchen_open
+          : guestWantsDrinksOnly
+          ? slot.kitchen_open
+          : false
 
         return {
           ...slot,

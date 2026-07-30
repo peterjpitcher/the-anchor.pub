@@ -207,14 +207,38 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     expect(slots.find((s) => s.time === '19:30')?.kitchen_open).toBe(true)
   })
 
-  it('falls back to the local kitchen window when the food answer is unusable', async () => {
-    // Losing the food call must cost the label's precision, never the slots.
+  it('fails closed to drinks when the food answer is unusable, keeping the slots', async () => {
+    // kitchen_open is not cosmetic: the form derives the SUBMITTED PURPOSE from
+    // it. Trusting the local kitchen window here would submit a FOOD booking
+    // for a time only ever affirmed for DRINKS, and create would refuse it with
+    // slot_full once the pacing ceiling was reached, after the guest had filled
+    // in every step. Losing the food call must cost the food label, never the
+    // slots and never a doomed booking.
     respondByPurpose({ drinks: DRINKS_COMPLETE, food: null })
 
     const body = await fetchSlots('date=2026-05-05&party_size=2')
     const slots = body.data.time_slots as Array<{ time: string; available?: boolean; kitchen_open?: boolean }>
 
+    // Every drinks-affirmed time is still bookable.
+    expect(slots.find((s) => s.time === '20:00')?.available).toBe(true)
     expect(slots.find((s) => s.time === '22:00')?.available).toBe(true)
+
+    // But nothing claims food, including deep inside kitchen hours where the
+    // local window would have said yes.
+    expect(slots.find((s) => s.time === '13:00')?.kitchen_open).toBe(false)
+    expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(false)
+    expect(slots.filter((s) => s.available).every((s) => s.kitchen_open === false)).toBe(true)
+  })
+
+  it('keeps the local kitchen indicator for a guest who asked for drinks only', async () => {
+    // No food call is made for them, and their submitted purpose is 'drinks'
+    // whatever the label says, so the local window stays a useful hint about
+    // whether the kitchen happens to be serving.
+    respondByPurpose({ drinks: DRINKS_COMPLETE })
+
+    const body = await fetchSlots('date=2026-05-05&party_size=2&purpose=drinks')
+    const slots = body.data.time_slots as Array<{ time: string; kitchen_open?: boolean }>
+
     expect(slots.find((s) => s.time === '20:00')?.kitchen_open).toBe(true)
     expect(slots.find((s) => s.time === '22:00')?.kitchen_open).toBe(false)
   })

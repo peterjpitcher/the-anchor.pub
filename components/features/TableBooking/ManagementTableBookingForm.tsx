@@ -84,6 +84,7 @@ type ManagementTableBookingResult = {
     | 'too_large_party'
     | 'customer_conflict'
     | 'in_past'
+    | 'slot_full'
     | 'blocked'
     | null
   next_step_url: string | null
@@ -185,6 +186,11 @@ const BLOCKED_REASON_COPY: Record<string, string> = {
   too_large_party: 'For larger groups, please call us so we can arrange your booking.',
   customer_conflict: 'You already have a nearby booking. Please call us if you need help changing it.',
   in_past: 'That booking time is in the past. Please choose a future date and time.',
+  // The kitchen's pacing ceiling for that arrival window, not the tables. The
+  // management API has always been able to answer slot_full and the website had
+  // no copy for it, so a genuine pacing refusal fell through to the generic
+  // line below and told the guest nothing they could act on.
+  slot_full: 'Our kitchen is fully booked around that time. Please try a slightly earlier or later slot, or give us a ring on 01753 682707.',
   blocked: 'This slot is not available for online booking right now.'
 }
 

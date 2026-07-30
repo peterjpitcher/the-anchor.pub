@@ -2238,6 +2238,96 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
     })
 
+    // C1: when the food call is unusable the route fails closed to drinks by
+    // sending kitchen_open false. The form must then submit a DRINKS booking,
+    // because that is all the drinks answer affirmed. Submitting food would be
+    // refused at create with slot_full once the kitchen's pacing ceiling was
+    // reached, after the guest had completed every step.
+    it('submits a drinks booking for a slot the route could not affirm for food', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        // Deep inside kitchen hours, so the local kitchen window would have
+        // claimed food. Only the authoritative food answer can say that, and in
+        // this scenario it never arrived.
+        availability: [
+          { time: '19:00', available: true, available_capacity: 4, kitchen_open: false }
+        ],
+        capturePayload
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      // The guest sees the honest label rather than "Drinks & food".
+      expect(
+        within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks only/i)
+      ).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({ purpose: 'drinks' })
+    })
+
+    it('explains a kitchen pacing refusal instead of the generic blocked line', async () => {
+      // slot_full is a real management API answer the website never mapped, so
+      // a genuine pacing refusal used to read "This slot is not available for
+      // online booking right now", which tells the guest nothing to act on.
+      setupFetchMock({
+        availability: [
+          { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
+        ],
+        bookingResponse: {
+          state: 'blocked',
+          table_booking_id: null,
+          booking_reference: null,
+          blocked_reason: 'slot_full',
+          next_step_url: null,
+          hold_expires_at: null,
+          table_name: null,
+          reason: null
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() =>
+        expect(screen.getByText(/kitchen is fully booked around that time/i)).toBeInTheDocument()
+      )
+      expect(
+        screen.queryByText('This slot is not available for online booking right now.')
+      ).not.toBeInTheDocument()
+      expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'slot_full' })
+    })
+
     it('a normal load is unchanged: slots render and the journey continues', async () => {
       setupFetchMock({
         availability: [
