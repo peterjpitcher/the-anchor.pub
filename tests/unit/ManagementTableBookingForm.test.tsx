@@ -2376,6 +2376,120 @@ describe('ManagementTableBookingForm', () => {
       })
     })
 
+    // E2: the re-read's "still free" exit kept the chosen TIME but not the
+    // purpose, so selectedSlotService went on holding a bookable_purpose
+    // captured under the OLD options. resolveSlotBookablePurpose read that
+    // cache first, so a stale value beat the answer the picker had just given
+    // and the guest could be booked for a purpose the fresh answer denied.
+    it('takes the purpose from the fresh answer when options change under a chosen time', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        availability: (url) => ({
+          date: '2026-07-07',
+          time_slots: [
+            {
+              time: '19:00',
+              available: true,
+              available_capacity: 4,
+              // Food before the guest asked for an outside table; the fresh
+              // answer withdraws food but keeps the time bookable for drinks.
+              bookable_purpose: url.includes('outside=true') ? 'drinks_only' : 'food_or_drinks'
+            }
+          ]
+        }),
+        capturePayload
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      // Chosen while the answer still said food.
+      expect(
+        within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks & food/i)
+      ).toBeInTheDocument()
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      // Now ask for an outside table. The time survives, the food does not.
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      await waitFor(() =>
+        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+      )
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+
+      // The review summary already tells the truth.
+      expect(screen.getByText('Drinks only')).toBeInTheDocument()
+      expect(screen.queryByText('Table for food')).not.toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({
+        purpose: 'drinks',
+        is_outside_seating: true
+      })
+    })
+
+    it('keeps food when the fresh answer still affirms it', async () => {
+      // The same journey where nothing about food changed must not be
+      // downgraded: failing closed has to answer a disagreement, not be a
+      // blanket penalty for changing an option.
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        availability: () => ({
+          date: '2026-07-07',
+          time_slots: [
+            {
+              time: '19:00',
+              available: true,
+              available_capacity: 4,
+              bookable_purpose: 'food_or_drinks' as const
+            }
+          ]
+        }),
+        capturePayload
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      await waitFor(() =>
+        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+      )
+
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      expect(screen.getByText('Table for food')).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({ purpose: 'food' })
+    })
+
     it('offers real alternatives when their time is not free outside', async () => {
       // 7pm indoors, but outside only 8pm is free. They must be told why, and must be given
       // something to pick, never an empty list.

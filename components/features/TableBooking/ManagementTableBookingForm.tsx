@@ -862,7 +862,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         const data = await fetchAvailabilityForDate(date, timeAtChange, partySize, controller.signal)
         if (cancelled) return
 
-        setAvailability(data)
+        // Stamp the date we asked about when the response does not echo one, so
+        // provenance is always provable downstream.
+        setAvailability({ ...data, date: data.date || date })
         setAlternativeSlots([])
 
         if (data.calculation_state === 'unknown') {
@@ -880,11 +882,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           return
         }
 
-        const stillFree = data.time_slots.some(
+        const freshSlot = data.time_slots.find(
           (slot) => slot.time === timeAtChange && isSlotAvailable(slot, partySize)
         )
-        if (stillFree) {
+        if (freshSlot) {
           setSelectedTime(timeAtChange)
+          // Re-stamp the cached slot from the FRESH answer. Keeping the time
+          // but not the purpose left this exit holding a bookable_purpose
+          // captured under the old options, and resolveSlotBookablePurpose
+          // reads the cache first, so the stale value beat the answer the
+          // picker had just given.
+          setSelectedSlotService({
+            date,
+            time: timeAtChange,
+            bookable_purpose: freshSlot.bookable_purpose
+          })
           return
         }
 
@@ -1428,7 +1440,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // slot selections may move `requestedTime`, but the visible window stays put.
     setSlotWindowAnchorTime(input.targetTime)
     setShowAllTimes(false)
-    setAvailability(availabilityData)
+    // Stamp the date we asked about when the response does not echo one, so
+    // resolveSlotBookablePurpose can prove which date this reading covers.
+    setAvailability({ ...availabilityData, date: availabilityData.date || input.targetDate })
     setSelectedTime(closestTime || '')
     // A new availability response invalidates the previous slot selection.
     setSelectedSlotService(null)
@@ -1858,16 +1872,31 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   //   2. Otherwise look up the slot in the current `availability.time_slots`.
   //   3. If no matching slot can be found, return null and block submit.
   function resolveSlotBookablePurpose(): SlotBookablePurpose | null {
-    const matchService =
+    // The current reading is authoritative whenever it actually covers this
+    // date. `selectedSlotService` is only a cache, for the nearest-alternative
+    // path where the chosen time belongs to a date this reading is not about.
+    const fresh =
+      availability && availability.date === date
+        ? availability.time_slots.find((s) => s.time === selectedTime)
+        : undefined
+
+    const cached =
       selectedSlotService &&
       selectedSlotService.date === date &&
       selectedSlotService.time === selectedTime
         ? selectedSlotService
         : null
-    if (matchService) return matchService.bookable_purpose
 
-    const slot = availability?.time_slots.find((s) => s.time === selectedTime)
-    return slot ? slot.bookable_purpose : null
+    if (fresh) {
+      // If the cache disagrees with the fresh answer it is stale, and a stale
+      // value must never win. Fail closed rather than pick a side.
+      if (cached && cached.bookable_purpose !== fresh.bookable_purpose) {
+        return 'drinks_only'
+      }
+      return fresh.bookable_purpose
+    }
+
+    return cached ? cached.bookable_purpose : null
   }
 
   // The management-API `purpose` field for submit.
