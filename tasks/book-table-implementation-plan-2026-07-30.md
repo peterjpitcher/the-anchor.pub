@@ -104,6 +104,17 @@ W3-W6 structural flow, W4 preferred-time removal (blocked by F05 contract), S1-S
 | 6 | What does a guest get who says "not a Christmas dinner" in December? | **The normal menu at normal terms.** Only the Christmas dinners are pre-book, pre-order and deposit bound. This means the seasonal period model MUST support a per-period pre-order requirement. |
 | 7 | Seasonal deposit lifecycle | **Off the bill.** Refundable until 7 days before; inside 7 days, no refund. A manager may waive, with an audit record. |
 
+## Seasonal answers, 2026-07-30 evening (binding)
+
+| Q | Owner's answer | How it is implemented |
+|---|---|---|
+| Switch deposit collection on unsupervised? | **Yes** | The charge setting defaults ON. Made safe instead by seeding the Christmas period **INACTIVE**, so nobody can be charged until the owner activates it. NOTE: the question was asked with a "no" recommendation, so "yes" is read as "switch it on". Flagged to the owner; correct if wrong. |
+| Christmas menu | **Published in October** | Pre-order mechanism built with an EMPTY menu the owner fills in via settings. A period that requires a pre-order but has no items is treated as not yet bookable, never shown as an empty menu. |
+| Christmas deposit | **£10 per head** | Seeded on the inactive Christmas period, 10 Nov to 20 Dec 2026. |
+| Old flow deletion | **Owner's recommendation requested** | New flow ships ON behind the runtime flag, old path RETAINED for one week, deleted in a follow-up once proven. Honours both "all at once" and "clean up unused code", in the safe order. |
+
+**Deposit collision worth knowing:** £10 per head is exactly the existing groups-of-10-or-more rate, so for a party of 12 inside a Christmas period both rules yield £120. The "largest wins, never stack" tie-break is a no-op at these numbers, which means a double-charge bug would be invisible without a deliberate test. One is required.
+
 **Refund window CONFIRMED by the owner 2026-07-30:** "it's available for full refund 7 days out". So: **full refund up to 7 days before the booking date; inside 7 days, no refund.** A manager may still waive, with an audit record. Guest-facing copy must state the 7-day line plainly at the point the deposit is taken.
 
 **Consequence of 1 + 6 combined, which changes the seasonal scope:** `booking_periods` needs `requires_preorder`, and Christmas needs a menu-selection step, a pre-order cutoff and fulfilment rules. That is the retired Sunday pre-order flow's shape. Scope it from that code rather than designing fresh.
