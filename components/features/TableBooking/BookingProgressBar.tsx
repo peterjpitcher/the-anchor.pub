@@ -1,22 +1,30 @@
 'use client'
 
 import { Check } from 'lucide-react'
-import { STEP_LABELS, STEP_ORDER } from '@/lib/table-booking/journey'
+import { STEP_LABELS, STEP_ORDER, type BookingStep } from '@/lib/table-booking/journey'
 
 // Numbered step indicator (spec §9): 28px circles, pending sunk/muted, active
 // gold/white, done green/white check, joined by 2px hairline bars. Labels
 // Outfit 600 text-sm; pending-step labels hide at 640px and below (numbers
 // always show).
+//
+// `stepKeys` and `stepLabels` default to the four-step journey. The two-screen
+// flow passes its own pair; nothing else about the bar changes.
 export function BookingProgressBar({
   currentStep,
-  totalSteps
+  totalSteps,
+  stepKeys = STEP_ORDER,
+  stepLabels = STEP_LABELS
 }: {
   currentStep: number
   totalSteps: number
+  stepKeys?: BookingStep[]
+  stepLabels?: Partial<Record<BookingStep, string>>
 }) {
-  const steps = STEP_ORDER.map((stepKey, index) => ({
+  const labelFor = (stepKey: BookingStep): string => stepLabels[stepKey] ?? STEP_LABELS[stepKey]
+  const steps = stepKeys.map((stepKey, index) => ({
     key: stepKey,
-    label: STEP_LABELS[stepKey],
+    label: labelFor(stepKey),
     number: index + 1
   }))
 
@@ -28,7 +36,7 @@ export function BookingProgressBar({
       aria-valuemin={1}
       aria-valuemax={totalSteps}
       aria-valuenow={currentStep}
-      aria-valuetext={`Step ${currentStep} of ${totalSteps}: ${STEP_LABELS[STEP_ORDER[currentStep - 1]]}`}
+      aria-valuetext={`Step ${currentStep} of ${totalSteps}: ${labelFor(stepKeys[currentStep - 1])}`}
     >
       <ol className="flex items-center" role="list">
         {steps.map((step, index) => {

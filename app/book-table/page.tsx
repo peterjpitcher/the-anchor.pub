@@ -13,6 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { isWebsiteUiFlagEnabled } from '@/lib/flags'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import {
@@ -81,9 +82,13 @@ function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
 }
 
 export default async function BookPage({ searchParams }: BookTablePageProps) {
-  const [foodMenu, sundayMenu] = await Promise.all([
+  const [foodMenu, sundayMenu, twoScreenFlow] = await Promise.all([
     getFoodMenuPageData(),
-    getSundayLunchMenuPageData()
+    getSundayLunchMenuPageData(),
+    // The approved two-screen booking journey, behind the runtime flag AMS
+    // holds. Read server-side, cached for 60 seconds, and OFF in every failure
+    // mode, so turning it off is a settings change rather than a deploy.
+    isWebsiteUiFlagEnabled('booking_options_step1')
   ])
   const previewItems = itemPreview(foodMenu?.items ?? [])
   // sunday_lunch, mothers_day, and purpose query params are silently ignored.
@@ -184,7 +189,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <LaunchAnnouncement variant="banner" />
               <RegretReduction variant="booking" />
             </div>
-            <ManagementTableBookingForm prefill={prefill} />
+            <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} />
             <p className="mx-auto mt-4 max-w-[640px] text-center text-sm text-ink-muted">
               Prefer to talk to us? Call{' '}
               <PhoneLink

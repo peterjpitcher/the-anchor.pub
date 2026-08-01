@@ -81,6 +81,19 @@ export type AvailabilityQuery = {
 // connection that stalls without ever failing.
 export const AVAILABILITY_REQUEST_TIMEOUT_MS = 12_000
 
+/**
+ * The anchor sent as `time` when the guest was never asked for one (spec D7:
+ * the Preferred Time field is deleted).
+ *
+ * Availability is a question about a DAY. The route validates `time` and echoes
+ * it back, but never filters slots by it: the whole day's grid comes from the
+ * management API's read-out for that date. So a fixed midday anchor asks the
+ * same question the old flow asked, without inventing a preference the guest
+ * never expressed, and without the old default's habit of drifting to 11:30pm
+ * late in the evening.
+ */
+export const NEUTRAL_AVAILABILITY_ANCHOR_TIME = '12:00'
+
 export function normalizeAvailabilityResponse(payload: any): AvailabilityData {
   const data = payload?.data || payload
   const rawSlots: unknown[] = Array.isArray(data?.time_slots) ? data.time_slots : []

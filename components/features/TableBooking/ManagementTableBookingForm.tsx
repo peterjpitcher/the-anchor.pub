@@ -27,6 +27,7 @@ import {
   toTimeInputValue,
 } from '@/lib/table-booking/formatting'
 import {
+  NEUTRAL_AVAILABILITY_ANCHOR_TIME,
   busynessAdvisory,
   busynessCaption,
   fetchAvailability,
@@ -40,6 +41,12 @@ import {
   type AvailabilitySlot,
   type SelectedSlotService,
 } from '@/lib/table-booking/availability'
+import { groupSlotsForDisplay } from '@/lib/table-booking/slot-groups'
+import {
+  BOOKING_HORIZON_MESSAGE,
+  isBeyondBookingHorizon,
+  maxBookingIsoDate,
+} from '@/lib/table-booking/horizon'
 import {
   pushToDataLayer,
   trackBookingErrorShown,
@@ -69,6 +76,9 @@ import { buildBookingHoursNote } from '@/lib/table-booking/hours-note'
 import { PayPalDepositSection } from './PayPalDepositSection'
 import { BookingConfirmedCard } from './BookingConfirmedCard'
 import { BookingProgressBar } from './BookingProgressBar'
+import { BookingSummaryCard } from './BookingSummaryCard'
+import { SlotPickerGrid } from './SlotPickerGrid'
+import { TableRefinements } from './TableRefinements'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -101,6 +111,8 @@ import {
   HIGH_CHAIR_HOUSE_CAP,
   STEP_LABELS,
   STEP_ORDER,
+  TWO_SCREEN_STEP_LABELS,
+  TWO_SCREEN_STEP_ORDER,
   findDetailsStepRefusal,
   readSlotHighChairsRemaining,
   resolveHighChairShortfall,
@@ -115,9 +127,19 @@ interface ManagementTableBookingFormProps {
     time?: string
     partySize?: number
   }
+  /**
+   * The approved two-screen journey (spec D1). Off by default and set from the
+   * runtime `booking_options_step1` flag by the page, which reads it server-side
+   * and defaults to off whenever AMS cannot be reached. The four-step path below
+   * stays until the new one is proven in production, and is then deleted.
+   */
+  twoScreenFlow?: boolean
 }
 
-export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
+export function ManagementTableBookingForm({
+  prefill,
+  twoScreenFlow = false
+}: ManagementTableBookingFormProps) {
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
   // (Retained because the LaunchAnnouncement, hold-expiry and other time-derived
   // surfaces benefit from a periodic tick; the legacy Sunday-lunch / Mother's-Day
@@ -188,6 +210,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const defaultPartySize = Math.min(Math.max(prefill?.partySize || 2, 1), 20)
 
   const [step, setStep] = useState<BookingStep>('find')
+  // In the two-screen flow the slot grid lives on `find`, so everything that
+  // used to send the guest back to the `choose` step sends them here instead.
+  const slotsStep: BookingStep = twoScreenFlow ? 'find' : 'choose'
+  const stepKeys = twoScreenFlow ? TWO_SCREEN_STEP_ORDER : STEP_ORDER
+  const stepLabels = twoScreenFlow ? TWO_SCREEN_STEP_LABELS : STEP_LABELS
 
   const [partySize, setPartySize] = useState(defaultPartySize)
   const [partySizeDisplay, setPartySizeDisplay] = useState(String(defaultPartySize))
@@ -208,6 +235,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   const [availability, setAvailability] = useState<AvailabilityData | null>(null)
   const [availabilityError, setAvailabilityError] = useState<string | null>(null)
+  // Two-screen flow only: the chosen time stopped qualifying after a refinement
+  // changed. Rendered inline above the grid, naming the time and the reason
+  // (spec §3.5), rather than in the red "booking not completed" alert: nothing
+  // has failed, the guest simply needs to pick again.
+  const [slotDroppedNotice, setSlotDroppedNotice] = useState<string | null>(null)
   const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
   const suggestedEvents = useSuggestedEvents(date)
@@ -271,15 +303,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
     previousAvailabilityInputs.current = availabilityInputsKey
 
+    // Two-screen flow: the refinements sit directly above the grid, so a change
+    // has to re-filter that grid in place (spec §3.5). Once a search has run,
+    // re-read with the new inputs whether or not a time is chosen; the grid the
+    // guest is looking at must never be answering the previous question.
+    const refilterGridInPlace = twoScreenFlow && availability !== null && Boolean(date)
+
     // On the find step nothing is chosen yet, so drop the stale reading and let the
     // "Find a table" button fetch with the new inputs. Any in-flight request was
     // asked about the OLD options, so its answer is worthless either way.
-    if (step === 'find' || !date || !selectedTime) {
+    if (!refilterGridInPlace && (step === 'find' || !date || !selectedTime)) {
       cancelAvailabilityRequests()
       setAvailability(null)
       setSelectedTime('')
       setSelectedSlotService(null)
       setAlternativeSlots([])
+      setSlotDroppedNotice(null)
       return
     }
 
@@ -289,7 +328,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     void (async () => {
       try {
-        const data = await fetchAvailabilityForDate(date, timeAtChange, partySize, controller.signal)
+        const data = await fetchAvailabilityForDate(
+          date,
+          // With no time chosen yet (two-screen flow, refinement changed before
+          // the guest picked) there is no time to anchor on, so ask about the
+          // day the same way the search does.
+          timeAtChange || NEUTRAL_AVAILABILITY_ANCHOR_TIME,
+          partySize,
+          controller.signal
+        )
         // `cancelled` covers the effect re-running; the generation covers being
         // superseded by anything else, notably a new search. Relying on the
         // abort alone would leave this path trusting that every runtime rejects
@@ -304,13 +351,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         if (data.calculation_state === 'unknown') {
           // The re-read could not check live availability, so neither the old
-          // reading nor the chosen time can be trusted. Put them on the choose
-          // step's retry state rather than claiming the time has gone.
+          // reading nor the chosen time can be trusted. Put them on the slot
+          // list's retry state rather than claiming the time has gone.
           trackSlotInvalidated({ reason: 'availability_error' })
           setSelectedTime('')
           setSelectedSlotService(null)
-          setStep('choose')
-          showBookingError(
+          setStep(slotsStep)
+          reportSlotDropped(
             'availability_unknown',
             'We could not check that time with those options. Please try again.'
           )
@@ -322,6 +369,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         )
         if (freshSlot) {
           setSelectedTime(timeAtChange)
+          setSlotDroppedNotice(null)
           // Re-stamp the cached slot from the FRESH answer. Keeping the time
           // but not the purpose left this exit holding a bookable_purpose
           // captured under the old options, and resolveSlotBookablePurpose
@@ -336,13 +384,29 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           return
         }
 
+        // Nothing was chosen when this started, so nothing was lost: the fresh
+        // grid simply replaces the old one. Only reachable in the two-screen
+        // flow, where a refinement can change before a time is picked.
+        //
+        // The clear is not redundant. A guest can tap a time while this is in
+        // flight, and that tap lands on the grid that answered the PREVIOUS
+        // question. Keeping it would leave a chosen time no current answer
+        // stands behind, so it goes and they pick again from what is now on
+        // screen.
+        if (!timeAtChange) {
+          setSelectedTime('')
+          setSelectedSlotService(null)
+          setSlotDroppedNotice(null)
+          return
+        }
+
         // Genuinely unavailable now. Say why, and put them on the slot list, which this
         // re-read has just filled with real alternatives.
         trackSlotInvalidated({ reason: 'options_changed' })
         setSelectedTime('')
         setSelectedSlotService(null)
-        setStep('choose')
-        showBookingError(
+        setStep(slotsStep)
+        reportSlotDropped(
           'slot_options_changed',
           `${formatTimeForDisplay(timeAtChange)} is not available with those options. Please choose another time.`
         )
@@ -368,7 +432,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         setSelectedTime('')
         setSelectedSlotService(null)
         setAlternativeSlots([])
-        setStep('choose')
+        setStep(slotsStep)
         setAvailabilityError(
           'We could not check that time with those options. Please try again.'
         )
@@ -411,6 +475,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function showBookingError(code: string, message: string) {
     trackBookingErrorShown({ code })
     setError(message)
+  }
+
+  // The chosen time stopped qualifying. In the two-screen flow the guest is
+  // already looking at the grid, so this is an inline note beside it rather
+  // than a red failure banner: the same machine code is recorded either way.
+  function reportSlotDropped(code: string, message: string) {
+    if (!twoScreenFlow) {
+      showBookingError(code, message)
+      return
+    }
+    trackBookingErrorShown({ code })
+    setSlotDroppedNotice(message)
   }
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileFieldRef>(null)
@@ -467,7 +543,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const hideDateEventSuggestions = suggestedEvents.dismissed
   const showDateEventSuggestions = !hideDateEventSuggestions && selectedDateEvents.length > 0
 
-  const currentStepIndex = STEP_ORDER.indexOf(step)
+  const currentStepIndex = stepKeys.indexOf(step)
   // The authoritative check could not run. Distinct from "checked and full":
   // the guest gets a retry and the phone number, never guessed slots (F04).
   const availabilityUnknown = availability?.calculation_state === 'unknown'
@@ -541,6 +617,37 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [availableSlots, selectedSlot])
   const quieterTimeLabel = formatTimeList(quieterSlots.map((slot) => formatTimeForDisplay(slot.time)))
   const selectedSlotAdvisory = busynessAdvisory(selectedSlot)
+
+  // Two-screen flow: the whole day, grouped Lunch and Evening, with the
+  // high-chair rules applied for display only (spec D4, D7).
+  const groupedSlots = useMemo(
+    () =>
+      groupSlotsForDisplay(availability?.time_slots || [], {
+        partySize,
+        highChairCount
+      }),
+    [availability?.time_slots, partySize, highChairCount]
+  )
+  // Every time was hidden because the guest asked for chairs and none are free
+  // anywhere on this date. Say so and offer the way out, rather than leaving an
+  // empty grid that looks like the pub is full.
+  const allTimesHiddenForHighChairs =
+    groupedSlots.hiddenForHighChairs > 0 && groupedSlots.selectableTimes.length === 0
+
+  // Two-screen flow: the shortfall flag is printed on the slot button the guest
+  // taps and restated in the summary they confirm from, so tapping it IS the
+  // explicit acknowledgement the four-step flow had to ask for separately
+  // (review F06). The request submitted is still the original number.
+  useEffect(() => {
+    if (!twoScreenFlow || !selectedTime) return
+    if (highChairShortfallFree === undefined) return
+    setHighChairShortfallAcknowledged(true)
+  }, [twoScreenFlow, selectedTime, highChairShortfallFree, highChairShortfallRequested])
+
+  // Twelve months, the owner's cap on how far ahead we take online bookings.
+  // The `max` below is a courtesy for the date picker; the website proxies
+  // enforce the same rule server-side, which is where it actually binds.
+  const maxBookingDate = useMemo(() => maxBookingIsoDate(today), [today])
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
   // field on the Find step. Pulls from the global BusinessHoursProvider
@@ -725,18 +832,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
 
     setDate(input.targetDate)
-    setRequestedTime(input.targetTime)
-    // Pin the slot-window anchor at the originally-requested time. Subsequent
-    // slot selections may move `requestedTime`, but the visible window stays put.
-    setSlotWindowAnchorTime(input.targetTime)
-    setShowAllTimes(false)
+    if (!twoScreenFlow) {
+      setRequestedTime(input.targetTime)
+      // Pin the slot-window anchor at the originally-requested time. Subsequent
+      // slot selections may move `requestedTime`, but the visible window stays put.
+      setSlotWindowAnchorTime(input.targetTime)
+      setShowAllTimes(false)
+    }
     // Stamp the date we asked about when the response does not echo one, so
     // resolveSlotBookablePurpose can prove which date this reading covers.
     setAvailability({ ...availabilityData, date: availabilityData.date || input.targetDate })
-    setSelectedTime(closestTime || '')
+    // Two-screen flow: nothing is pre-selected. The guest was never asked for a
+    // preferred time, so choosing one for them would put a time on the summary
+    // they never picked. `closestTime` is still computed, because "there is no
+    // closest slot" is exactly "there is nothing free" below.
+    setSelectedTime(twoScreenFlow ? '' : closestTime || '')
+    setSlotDroppedNotice(null)
     // A new availability response invalidates the previous slot selection.
     setSelectedSlotService(null)
-    setStep('choose')
+    setStep(slotsStep)
 
     if (!closestTime && availabilityData.calculation_state !== 'unknown') {
       // No point probing nearby dates while the checker itself is unavailable;
@@ -763,6 +877,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
+    // Twelve months ahead, no further (owner decision 4). Checked here so the
+    // guest is told immediately, and again in the proxies so it holds for any
+    // caller that never saw this form.
+    if (isBeyondBookingHorizon(date, today)) {
+      setDateError(BOOKING_HORIZON_MESSAGE)
+      return
+    }
+
     // Supersede anything in flight, a previous search OR an options re-read.
     // The re-read half used to be missing: its controller was never reachable
     // from here, so a re-read could resolve after this search and overwrite it
@@ -775,6 +897,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAlternativeSlots([])
     supersedeAlternatives()
     setShowAllTimes(false)
+    setSlotDroppedNotice(null)
     // A new availability search starts a new submit-intent. Drop any cached
     // idempotency key so the next Confirm cannot accidentally dedupe with a
     // pre-search booking attempt. See spec §13.2.
@@ -783,7 +906,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     try {
       await runAvailabilitySearch({
         targetDate: date,
-        targetTime: requestedTime,
+        // Two-screen flow: the guest was never asked for a preferred time
+        // (spec D7), so the request carries a neutral anchor for the day.
+        targetTime: twoScreenFlow ? NEUTRAL_AVAILABILITY_ANCHOR_TIME : requestedTime,
         targetPartySize: clampedSize,
         source: 'book_table_find_table',
         context: 'availability_first',
@@ -837,6 +962,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handleSlotSelect(slot: AvailabilitySlot) {
     setSelectedTime(slot.time)
     setRequestedTime(slot.time)
+    setSlotDroppedNotice(null)
     setSelectedSlotService({
       date,
       time: slot.time,
@@ -872,7 +998,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   function handleBackToChoose() {
-    setStep('choose')
+    setStep(slotsStep)
     setError(null)
   }
 
@@ -898,11 +1024,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedTime('')
     setSelectedSlotService(null)
     setShowAllTimes(false)
+    setSlotDroppedNotice(null)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       // Past-date validation runs in Europe/London. Do not parse value with
       // `new Date(...)` for booking validation, that re-introduces the
       // browser-local timezone bug on travellers outside the UK.
-      setDateError(isPastLondonDate(value) ? 'Please select a future date' : null)
+      setDateError(
+        isPastLondonDate(value)
+          ? 'Please select a future date'
+          : isBeyondBookingHorizon(value, today)
+          ? BOOKING_HORIZON_MESSAGE
+          : null
+      )
     } else {
       setDateError(null)
     }
@@ -935,6 +1068,134 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           and we will sort it.
         </p>
       </div>
+    )
+  }
+
+  // The deposit step for bookings that take one. The four-step flow renders it
+  // from the review screen and the two-screen flow from the details screen,
+  // which is the same moment in the journey: the booking exists, the deposit
+  // has not been paid, and nothing else may happen until it is.
+  function renderPendingPayment() {
+    if (result?.state !== 'pending_payment') return null
+
+    return (
+      <>
+        {paymentState === 'confirmed' ? (
+          <Alert variant="success" title="Deposit paid, booking confirmed!">
+            <p>Your deposit has been received. Your table is now secured.</p>
+            {result.booking_reference ? (
+              <p className="mt-1">Booking reference: <strong>{result.booking_reference}</strong></p>
+            ) : null}
+          </Alert>
+        ) : paymentState === 'error' && !paypalOrderId ? (
+          <Alert variant="warning" title="We couldn't open the PayPal payment automatically">
+            <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
+            <p className="mt-2">Two ways to finish your booking:</p>
+            <ul className="mt-2 list-disc space-y-1 pl-6">
+              <li>
+                Call us on{' '}
+                <PhoneLink phone={CONTACT.phone} source="table_booking_payment_error" showIcon={false} className="font-semibold underline">
+                  01753 682707
+                </PhoneLink>{' '}
+                we'll take payment over the phone.
+              </li>
+              {result?.fallback_payment_url ? (
+                <li>
+                  Or open the secure payment link we've sent to your phone, or{' '}
+                  <a
+                    href={result.fallback_payment_url}
+                    className="font-semibold underline"
+                    rel="noopener noreferrer"
+                  >
+                    click here to complete your deposit
+                  </a>
+                  .
+                </li>
+              ) : (
+                <li>Or check your phone, we've sent you a secure payment link by SMS.</li>
+              )}
+            </ul>
+            <p className="mt-2 text-xs">
+              Your {isOutsideSeating ? 'booking' : 'table'} is held while you complete payment.
+            </p>
+          </Alert>
+        ) : paypalOrderId && bookingIdForPayment ? (
+          <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
+            {holdExpiry && (
+              <p className="text-sm text-ink font-medium">
+                Your {isOutsideSeating ? 'booking' : 'table'} is held until {holdExpiry}. Complete payment to confirm your booking.
+              </p>
+            )}
+            {paymentState === 'error' && paymentError && (
+              <Alert variant="error" title="Payment error">
+                <p>{paymentError}</p>
+              </Alert>
+            )}
+             <PayPalDepositSection
+               bookingId={bookingIdForPayment}
+               orderId={paypalOrderId}
+               depositAmount={depositAmountForPayment}
+               conversionPayload={{
+                 bookingReference: result.booking_reference,
+                 depositAmount: depositAmountForPayment,
+                 bookingDate: date,
+                 bookingTime: selectedTime,
+                 partySize,
+                 bookingType,
+                 purpose: deriveSubmitPurpose(slotPurposeContext) ?? 'drinks',
+                 bookingSource,
+                 attribution: submittedAttribution,
+                 // Consent-gated inside PayPalDepositSection; hashed server-side.
+                 email: email.trim() || null,
+                 phone: phone.trim() || null,
+               }}
+               bookingSummary={[
+                 date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
+                 selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
+                 partySize ? `${partySize} guests` : null,
+                 isOutsideSeating ? 'Outside / patio' : null,
+                 highChairCount > 0 ? `${highChairCount} high chair${highChairCount === 1 ? '' : 's'}` : null
+               ].filter(Boolean).join(' · ')}
+               onSuccess={() => {
+                 setPaymentState('confirmed')
+                 const transactionId = result.booking_reference || bookingIdForPayment || undefined
+                 trackTableBookingFunnel({
+                   step: 'success',
+                   partySize,
+                   bookingDate: date,
+                   bookingTime: selectedTime,
+                   bookingReference: transactionId,
+                   bookingType,
+                   source: bookingSource,
+                   deviceType: getDeviceType(),
+                   value: depositAmountForPayment,
+                 })
+                 if (transactionId) {
+                   pushToDataLayer({
+                     event: 'purchase',
+                     transaction_id: transactionId,
+                     value: depositAmountForPayment,
+                     currency: 'GBP',
+                     booking_source: bookingSource,
+                   })
+                 }
+               }}
+               onError={(msg) => {
+                 setPaymentError(msg)
+                 setPaymentState('error')
+              }}
+            />
+          </div>
+        ) : (
+          <p className="text-sm text-ink-muted">Setting up payment…</p>
+        )}
+
+        {paymentState !== 'confirmed' && (
+          <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto" onClick={resetJourney}>
+            Start a new booking
+          </Button>
+        )}
+      </>
     )
   }
 
@@ -1095,6 +1356,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return false
   }
 
+  // Funnel: guest details passed validation. Documented since the funnel
+  // launched but never fired until the analytics baseline (spec W1). The
+  // four-step flow reaches this on the way to review; the two-screen flow has
+  // no review, so it fires at the same moment, inside Confirm.
+  function trackDetailsEntered() {
+    trackTableBookingFunnel({
+      step: 'details_entered',
+      partySize,
+      bookingDate: date,
+      bookingTime: selectedTime,
+      source: bookingSource,
+      bookingType,
+      deviceType: getDeviceType(),
+    })
+  }
+
   function handleContinueToReview() {
     setError(null)
 
@@ -1107,17 +1384,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       context: 'details_step'
     })
 
-    // Funnel: guest details passed validation. Documented since the funnel
-    // launched but never fired until now (spec W1).
-    trackTableBookingFunnel({
-      step: 'details_entered',
-      partySize,
-      bookingDate: date,
-      bookingTime: selectedTime,
-      source: bookingSource,
-      bookingType,
-      deviceType: getDeviceType(),
-    })
+    trackDetailsEntered()
 
     setStep('review')
   }
@@ -1145,6 +1412,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
+    // The two-screen flow confirms straight from the details screen, so this is
+    // where its details pass validation.
+    if (twoScreenFlow) {
+      trackDetailsEntered()
+    }
+
     if (!policyAccepted) {
       showBookingError('policy_not_accepted', 'Please confirm you understand the booking and no-show policy before continuing.')
       return
@@ -1153,7 +1426,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const purpose = deriveSubmitPurpose(slotPurposeContext)
     if (!purpose) {
       showBookingError('slot_context_lost', 'Please choose a time again before confirming.')
-      setStep('choose')
+      setStep(slotsStep)
       return
     }
 
@@ -1279,7 +1552,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       if (bookingResult.state === 'blocked') {
         const blockedReason = bookingResult.blocked_reason || 'blocked'
         showBookingError(blockedReason, BLOCKED_REASON_COPY[blockedReason] || bookingResult.reason || BLOCKED_REASON_COPY.blocked)
-        setStep('choose')
+        setStep(slotsStep)
         trackTableBookingFunnel({
           step: 'error',
           partySize,
@@ -1360,6 +1633,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService(null)
     setAvailability(null)
     setAvailabilityError(null)
+    setSlotDroppedNotice(null)
     setAlternativeSlots([])
     resetAlternatives()
     suggestedEvents.resetDismissals()
@@ -1449,7 +1723,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     <div ref={wizardRef} className="mx-auto max-w-[640px]">
     <Card accent>
       <CardBody className="space-y-6">
-        <BookingProgressBar currentStep={currentStepIndex + 1} totalSteps={STEP_ORDER.length} />
+        <BookingProgressBar
+          currentStep={currentStepIndex + 1}
+          totalSteps={stepKeys.length}
+          stepKeys={stepKeys}
+          stepLabels={stepLabels}
+        />
 
         {error && (
           <Alert variant="error" title="Booking not completed">
@@ -1460,7 +1739,356 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           </Alert>
         )}
 
-        {step === 'find' && (
+        {step === 'find' && twoScreenFlow && (
+          <div className="space-y-5">
+            <form
+              className="space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault()
+                void handleFindTable()
+              }}
+            >
+              <div>
+                <h3 className="font-display text-h4 text-ink-strong">Find a table</h3>
+                <p className="mt-1 text-sm text-ink-muted">
+                  Tell us how many of you there are and when. We will show every time we can take.
+                </p>
+              </div>
+
+              {hoursNote ? (
+                <div className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink">
+                  <p className="font-semibold text-ink-strong">{formatDateForDisplay(date)}</p>
+                  <p className="mt-1">{hoursNote.summary}</p>
+                  {hoursNote.footer ? (
+                    <p className="mt-2 text-xs text-ink-muted">{hoursNote.footer}</p>
+                  ) : null}
+                </div>
+              ) : null}
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Input
+                  label="Party size"
+                  type="number"
+                  size="lg"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  min={1}
+                  max={20}
+                  required
+                  value={partySizeDisplay}
+                  onChange={(event) => {
+                    markFunnelStart()
+                    const raw = event.target.value
+                    setPartySizeDisplay(raw)
+                    if (raw === '') return
+                    const parsed = Number.parseInt(raw, 10)
+                    if (Number.isNaN(parsed)) return
+                    const clamped = Math.min(Math.max(parsed, 1), 20)
+                    setPartySize(clamped)
+                    setSelectedSlotService(null)
+                    supersedeAlternatives()
+                  }}
+                  onBlur={() => {
+                    const parsed = Number.parseInt(partySizeDisplay, 10)
+                    const clamped = !Number.isFinite(parsed) || parsed < 1 ? 1 : Math.min(parsed, 20)
+                    setPartySize(clamped)
+                    setPartySizeDisplay(String(clamped))
+                    setSelectedSlotService(null)
+                    supersedeAlternatives()
+                  }}
+                />
+
+                <Input
+                  label="Date"
+                  type="date"
+                  size="lg"
+                  min={today}
+                  max={maxBookingDate || undefined}
+                  required
+                  value={date}
+                  onChange={(event) => handleDateChange(event.target.value)}
+                  error={dateError || undefined}
+                />
+              </div>
+
+              {requiresGroupDeposit ? (
+                <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
+                  Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
+                </Badge>
+              ) : null}
+
+              <div
+                className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink"
+                aria-live="polite"
+              >
+                <p className="font-medium text-ink-strong">{aircraftOverheadNote.message}</p>
+                <p className="mt-1 text-xs text-ink-muted">{aircraftOverheadNote.caveat}</p>
+              </div>
+
+              {availabilityError && (
+                <Alert variant="warning">
+                  <p>{availabilityError}</p>
+                </Alert>
+              )}
+
+              <Button
+                type="submit"
+                fullWidth
+                size="lg"
+                loading={availabilityLoading}
+                icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
+                iconPosition="right"
+              >
+                Find a table
+              </Button>
+            </form>
+
+            {availability ? (
+              <div className="space-y-4 border-t border-line pt-5">
+                {/* Every question that changes which TABLES qualify, directly
+                    above the times it filters (spec D2). Nothing here may ever
+                    move to screen 2. */}
+                <TableRefinements
+                  drinksOnly={drinksOnly}
+                  onDrinksOnlyChange={(value) => {
+                    setDrinksOnly(value)
+                    trackOptionToggled({ option: 'drinks_only', value, step })
+                  }}
+                  isOutsideSeating={isOutsideSeating}
+                  onOutsideSeatingChange={(value) => {
+                    setIsOutsideSeating(value)
+                    trackOptionToggled({ option: 'outside_seating', value, step })
+                  }}
+                  requiresAccessibleTable={requiresAccessibleTable}
+                  // Deliberately untracked, see TableRefinements and the rules
+                  // at the top of lib/gtm-events.ts.
+                  onRequiresAccessibleTableChange={setRequiresAccessibleTable}
+                  highChairCount={highChairCount}
+                  onHighChairCountChange={(value) => {
+                    setHighChairCount(value)
+                    trackOptionToggled({ option: 'high_chair_count', value, step })
+                  }}
+                />
+
+                <div>
+                  <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
+                  <p className="mt-1 text-sm text-ink-muted">
+                    {formatDateForDisplay(date)} for {partySize}{' '}
+                    {partySize === 1 ? 'guest' : 'guests'}.
+                  </p>
+                </div>
+
+                {revalidatingAvailability ? (
+                  <p className="text-sm text-ink-muted" aria-live="polite">
+                    Checking which times still work with your options...
+                  </p>
+                ) : null}
+
+                {slotDroppedNotice ? (
+                  <div
+                    className="rounded-md border border-anchor-gold bg-surface-raised p-4 text-sm text-ink"
+                    aria-live="polite"
+                  >
+                    <p>{slotDroppedNotice}</p>
+                  </div>
+                ) : null}
+
+                {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
+
+                {availabilityUnknown ? (
+                  <div
+                    className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
+                    aria-live="polite"
+                  >
+                    <p className="font-semibold text-ink-strong">We could not check live availability</p>
+                    {availability?.message || availabilityError ? (
+                      <p>{availability?.message || availabilityError}</p>
+                    ) : null}
+                    <p>
+                      Please try again in a moment. If it keeps happening, give us a ring on{' '}
+                      <PhoneLink
+                        phone={CONTACT.phone}
+                        source="table_booking_availability_unknown"
+                        showIcon={false}
+                        className="font-semibold underline"
+                      >
+                        01753 682707
+                      </PhoneLink>{' '}
+                      and we will book you in.
+                    </p>
+                    <Button
+                      type="button"
+                      variant="primary"
+                      className="w-full sm:w-auto min-h-12"
+                      loading={availabilityLoading}
+                      onClick={() => void handleFindTable()}
+                    >
+                      Try again
+                    </Button>
+                  </div>
+                ) : groupedSlots.selectableTimes.length > 0 ? (
+                  <>
+                    <SlotPickerGrid
+                      grouped={groupedSlots}
+                      selectedTime={selectedTime}
+                      onSelect={handleSlotSelect}
+                    />
+
+                    {groupedSlots.hiddenForHighChairs > 0 ? (
+                      <p className="text-sm text-ink-muted">
+                        Some times are not shown because every high chair is taken then. Set high
+                        chairs to 0 to see them.
+                      </p>
+                    ) : null}
+
+                    {selectedSlotAdvisory ? (
+                      <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
+                        <p>{selectedSlotAdvisory}</p>
+                        {quieterTimeLabel ? (
+                          <p className="mt-2">{quieterTimeLabel} may be a smoother option.</p>
+                        ) : null}
+                        {quieterSlots.length > 0 ? (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {quieterSlots.map((slot) => (
+                              <button
+                                key={slot.time}
+                                type="button"
+                                onClick={() => handleSlotSelect(slot)}
+                                className="min-h-12 rounded-pill border border-line-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-anchor-gold"
+                              >
+                                {formatTimeForDisplay(slot.time)}
+                              </button>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </>
+                ) : allTimesHiddenForHighChairs ? (
+                  <Alert variant="warning" title="No high chairs left on this date">
+                    <p>
+                      Every time on {formatDateForDisplay(date)} has its high chairs taken. Set high
+                      chairs to 0 to see the times we can offer, try another date, or give us a ring
+                      on{' '}
+                      <PhoneLink
+                        phone={CONTACT.phone}
+                        source="table_booking_no_high_chairs"
+                        showIcon={false}
+                        className="font-semibold underline"
+                      >
+                        01753 682707
+                      </PhoneLink>
+                      .
+                    </p>
+                  </Alert>
+                ) : (
+                  <Alert variant="warning" title="No online times available">
+                    <p>
+                      {availability?.message ||
+                        `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
+                    </p>
+                    {availability?.special_notes ? (
+                      <p className="mt-2">{availability.special_notes}</p>
+                    ) : null}
+                    {!drinksOnly ? (
+                      <p className="mt-2">
+                        If you only want drinks, tick &quot;Just drinks, no food&quot; above and we
+                        will show the bar times too.
+                      </p>
+                    ) : null}
+                  </Alert>
+                )}
+
+                {(showDateEventSuggestions || selectedDateEventsLoading) &&
+                  renderDateEventSuggestions({
+                    title:
+                      groupedSlots.selectableTimes.length === 0
+                        ? 'There are events on this date'
+                        : 'Also happening on this date',
+                    description:
+                      groupedSlots.selectableTimes.length === 0
+                        ? 'If table times are limited, you can switch to one of these events right away.'
+                        : 'You can continue with your table booking, or switch to an event if that suits your plans better.',
+                    context:
+                      groupedSlots.selectableTimes.length === 0
+                        ? 'find_step_no_availability'
+                        : 'find_step_with_availability',
+                    highlight: groupedSlots.selectableTimes.length === 0
+                  })}
+
+                {groupedSlots.selectableTimes.length === 0 &&
+                !availabilityUnknown &&
+                !allTimesHiddenForHighChairs ? (
+                  <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
+                    <p className="text-sm font-semibold text-ink-strong">Nearest alternatives</p>
+
+                    {alternativesLoading ? (
+                      <p className="text-sm text-ink-muted">Finding nearby options...</p>
+                    ) : alternativeSlots.length > 0 ? (
+                      <div className="space-y-2">
+                        {alternativeSlots.map((option) => (
+                          <button
+                            key={`${option.date}-${option.time}`}
+                            type="button"
+                            onClick={() => handleChooseAlternative(option)}
+                            className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
+                          >
+                            <span className="font-medium text-ink">
+                              {formatDateForDisplay(option.date)}
+                            </span>
+                            <span className="text-accent-text font-semibold">
+                              {formatTimeForDisplay(option.time)}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-ink-muted">No nearby online alternatives were found.</p>
+                    )}
+
+                    <div className="rounded-sm border border-line bg-surface-raised p-3 text-sm text-ink">
+                      <p className="font-semibold text-ink-strong">Join waitlist</p>
+                      <p className="mt-1">Call us and we&apos;ll add you to the waitlist for cancellations.</p>
+                      <div className="mt-2">
+                        <PhoneButton
+                          phone={CONTACT.phone}
+                          source="table_booking_waitlist"
+                          size="sm"
+                          variant="outline"
+                          className="min-h-12"
+                        >
+                          Join waitlist by phone
+                        </PhoneButton>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {selectedTime ? (
+                  <Button
+                    type="button"
+                    variant="primary"
+                    size="lg"
+                    fullWidth
+                    icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
+                    iconPosition="right"
+                    disabled={revalidatingAvailability}
+                    onClick={() => {
+                      setStep('details')
+                      setError(null)
+                    }}
+                  >
+                    {selectedSlot && shouldNudgeForBusyness(selectedSlot.busyness)
+                      ? `Book ${formatTimeForDisplay(selectedSlot.time)} anyway`
+                      : `Continue with ${formatTimeForDisplay(selectedTime)}`}
+                  </Button>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        )}
+
+        {step === 'find' && !twoScreenFlow && (
           <form
             className="space-y-4"
             onSubmit={(event) => {
@@ -1862,7 +2490,253 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           </div>
         )}
 
-        {step === 'details' && (
+        {step === 'details' && twoScreenFlow && (
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-display text-h4 text-ink-strong">Your details</h3>
+              <p className="mt-1 text-sm text-ink-muted">
+                Last thing. We need a mobile number so we can confirm your table.
+              </p>
+            </div>
+
+            {/* Everything they are about to book, stated once, here (spec D8).
+                There is deliberately nothing on this screen that changes which
+                tables qualify: those questions were all answered on screen 1. */}
+            <BookingSummaryCard
+              partySize={partySize}
+              date={date}
+              time={selectedTime || requestedTime}
+              bookingPurpose={reviewBookingPurpose}
+              isOutsideSeating={isOutsideSeating}
+              requiresAccessibleTable={requiresAccessibleTable}
+              highChairCount={highChairCount}
+              highChairsFreeAtSlot={highChairShortfall?.free}
+              depositAmount={requiresGroupDeposit ? groupDepositAmount : 0}
+              depositNote={LARGE_GROUP_DEPOSIT_POLICY_COPY}
+            />
+
+            {/* Repeated from the grid because this is where the guest commits.
+                Someone who skimmed the times could otherwise reach Confirm with
+                nothing on screen telling them they are booking drinks. */}
+            {foodCheckUnavailable ? renderFoodCheckNotice('review') : null}
+
+            {selectedSlotAdvisory ? (
+              <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
+                <p className="font-semibold text-ink-strong">Worth knowing before you confirm</p>
+                <p className="mt-1">{selectedSlotAdvisory}</p>
+              </div>
+            ) : null}
+
+            <div className="rounded-md border border-line bg-surface-sunk p-4">
+              <Input
+                label="Mobile Number"
+                type="tel"
+                size="lg"
+                inputMode="tel"
+                autoComplete="tel"
+                required
+                value={phone}
+                disabled={detailsUnlocked}
+                onChange={(event) => {
+                  markFunnelStart()
+                  setPhone(event.target.value)
+                }}
+                placeholder="07xxx xxxxxx"
+                helperText="We only use this for booking confirmation and reminders."
+              />
+
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                {!detailsUnlocked ? (
+                  <Button
+                    type="button"
+                    size="md"
+                    className="w-full sm:w-auto min-h-12"
+                    loading={lookupState === 'loading'}
+                    onClick={handlePhoneLookup}
+                  >
+                    Continue
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    size="md"
+                    variant="outline"
+                    className="w-full sm:w-auto min-h-12"
+                    onClick={resetPhoneLookup}
+                  >
+                    Use Different Number
+                  </Button>
+                )}
+              </div>
+
+              {lookupError ? <p className="mt-3 text-sm text-anchor-danger">{lookupError}</p> : null}
+
+              {isKnownCustomer ? (
+                <p className="mt-3 text-sm font-medium text-accent-text">
+                  Welcome back. We recognise this number, so we&apos;ve skipped your personal details.
+                </p>
+              ) : null}
+
+              {lookupState === 'unknown' ? (
+                <p className="mt-3 text-sm font-medium text-ink">
+                  {lookupDegraded
+                    ? 'We could not verify this number right now. Please continue by entering your details below.'
+                    : 'New customer detected. Please complete your details below.'}
+                </p>
+              ) : null}
+            </div>
+
+            {detailsUnlocked && !isKnownCustomer ? (
+              <div className="grid gap-4 md:grid-cols-2">
+                <Input
+                  label="First Name"
+                  type="text"
+                  size="lg"
+                  autoComplete="given-name"
+                  required
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                  placeholder="John"
+                />
+                <Input
+                  label="Last name (optional)"
+                  type="text"
+                  size="lg"
+                  autoComplete="family-name"
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                  placeholder="Smith"
+                />
+                <div className="md:col-span-2">
+                  <Input
+                    label="Email (optional)"
+                    type="email"
+                    size="lg"
+                    inputMode="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="name@example.com"
+                  />
+                </div>
+              </div>
+            ) : null}
+
+            {detailsUnlocked ? (
+              <Textarea
+                label="Notes (optional)"
+                value={notes}
+                onChange={(event) => setNotes(event.target.value)}
+                placeholder="Special requests, dietary needs, occasion details..."
+                rows={3}
+              />
+            ) : null}
+
+            {detailsUnlocked ? (
+              <CommunicationConsentFields
+                value={communicationConsent}
+                onChange={setCommunicationConsent}
+              />
+            ) : null}
+
+            <p className="text-sm text-ink-muted">
+              Plans changed?{' '}
+              <PhoneLink
+                phone={CONTACT.phone}
+                source="table_booking_change"
+                showIcon={false}
+                className="font-semibold underline"
+              >
+                A quick call to 01753 682707
+              </PhoneLink>{' '}
+              lets us offer your table to someone else. Thanks for letting us know.
+            </p>
+
+            {result?.state === 'pending_payment' ? (
+              renderPendingPayment()
+            ) : (
+              <>
+                {/* Honeypot, hidden from real users, filled by bots */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    top: '-9999px',
+                    opacity: 0,
+                    height: 0,
+                    overflow: 'hidden'
+                  }}
+                >
+                  <label htmlFor="website-two-screen">Website</label>
+                  <input
+                    id="website-two-screen"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+
+                {detailsUnlocked && TURNSTILE_SITE_KEY && (
+                  <TurnstileField
+                    id="table-booking-turnstile"
+                    turnstileRef={turnstileRef}
+                    onTokenChange={setTurnstileToken}
+                  />
+                )}
+
+                {detailsUnlocked ? (
+                  <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
+                    <input
+                      type="checkbox"
+                      checked={policyAccepted}
+                      onChange={(event) => setPolicyAccepted(event.target.checked)}
+                      className="mt-1 accent-anchor-green"
+                    />
+                    <span>
+                      I understand The Anchor&apos;s booking and no-show policy, and I agree to continue.
+                    </span>
+                  </label>
+                ) : null}
+
+                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="w-full sm:w-auto min-h-12"
+                    icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
+                    iconPosition="left"
+                    onClick={handleBackToChoose}
+                    disabled={loading}
+                  >
+                    Back
+                  </Button>
+
+                  {detailsUnlocked ? (
+                    <Button
+                      type="button"
+                      variant="primary"
+                      size="lg"
+                      className="w-full sm:w-auto"
+                      loading={loading}
+                      disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+                      icon={<Check aria-hidden="true" className="h-4 w-4" />}
+                      iconPosition="right"
+                      onClick={handleConfirmBooking}
+                    >
+                      {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
+                    </Button>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {step === 'details' && !twoScreenFlow && (
           <div className="space-y-4">
             <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
               <p>
@@ -2204,123 +3078,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             </p>
 
             {result?.state === 'pending_payment' ? (
-              <>
-                {paymentState === 'confirmed' ? (
-                  <Alert variant="success" title="Deposit paid, booking confirmed!">
-                    <p>Your deposit has been received. Your table is now secured.</p>
-                    {result.booking_reference ? (
-                      <p className="mt-1">Booking reference: <strong>{result.booking_reference}</strong></p>
-                    ) : null}
-                  </Alert>
-                ) : paymentState === 'error' && !paypalOrderId ? (
-                  <Alert variant="warning" title="We couldn't open the PayPal payment automatically">
-                    <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
-                    <p className="mt-2">Two ways to finish your booking:</p>
-                    <ul className="mt-2 list-disc space-y-1 pl-6">
-                      <li>
-                        Call us on{' '}
-                        <PhoneLink phone={CONTACT.phone} source="table_booking_payment_error" showIcon={false} className="font-semibold underline">
-                          01753 682707
-                        </PhoneLink>{' '}
-                        we'll take payment over the phone.
-                      </li>
-                      {result?.fallback_payment_url ? (
-                        <li>
-                          Or open the secure payment link we've sent to your phone, or{' '}
-                          <a
-                            href={result.fallback_payment_url}
-                            className="font-semibold underline"
-                            rel="noopener noreferrer"
-                          >
-                            click here to complete your deposit
-                          </a>
-                          .
-                        </li>
-                      ) : (
-                        <li>Or check your phone, we've sent you a secure payment link by SMS.</li>
-                      )}
-                    </ul>
-                    <p className="mt-2 text-xs">
-                      Your {isOutsideSeating ? 'booking' : 'table'} is held while you complete payment.
-                    </p>
-                  </Alert>
-                ) : paypalOrderId && bookingIdForPayment ? (
-                  <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
-                    {holdExpiry && (
-                      <p className="text-sm text-ink font-medium">
-                        Your {isOutsideSeating ? 'booking' : 'table'} is held until {holdExpiry}. Complete payment to confirm your booking.
-                      </p>
-                    )}
-                    {paymentState === 'error' && paymentError && (
-                      <Alert variant="error" title="Payment error">
-                        <p>{paymentError}</p>
-                      </Alert>
-                    )}
-	                    <PayPalDepositSection
-	                      bookingId={bookingIdForPayment}
-	                      orderId={paypalOrderId}
-	                      depositAmount={depositAmountForPayment}
-	                      conversionPayload={{
-	                        bookingReference: result.booking_reference,
-	                        depositAmount: depositAmountForPayment,
-	                        bookingDate: date,
-	                        bookingTime: selectedTime,
-	                        partySize,
-	                        bookingType,
-	                        purpose: deriveSubmitPurpose(slotPurposeContext) ?? 'drinks',
-	                        bookingSource,
-	                        attribution: submittedAttribution,
-	                        // Consent-gated inside PayPalDepositSection; hashed server-side.
-	                        email: email.trim() || null,
-	                        phone: phone.trim() || null,
-	                      }}
-	                      bookingSummary={[
-	                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
-	                        selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
-	                        partySize ? `${partySize} guests` : null,
-	                        isOutsideSeating ? 'Outside / patio' : null,
-	                        highChairCount > 0 ? `${highChairCount} high chair${highChairCount === 1 ? '' : 's'}` : null
-	                      ].filter(Boolean).join(' · ')}
-	                      onSuccess={() => {
-	                        setPaymentState('confirmed')
-	                        const transactionId = result.booking_reference || bookingIdForPayment || undefined
-	                        trackTableBookingFunnel({
-	                          step: 'success',
-	                          partySize,
-	                          bookingDate: date,
-	                          bookingTime: selectedTime,
-	                          bookingReference: transactionId,
-	                          bookingType,
-	                          source: bookingSource,
-	                          deviceType: getDeviceType(),
-	                          value: depositAmountForPayment,
-	                        })
-	                        if (transactionId) {
-	                          pushToDataLayer({
-	                            event: 'purchase',
-	                            transaction_id: transactionId,
-	                            value: depositAmountForPayment,
-	                            currency: 'GBP',
-	                            booking_source: bookingSource,
-	                          })
-	                        }
-	                      }}
-	                      onError={(msg) => {
-	                        setPaymentError(msg)
-	                        setPaymentState('error')
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <p className="text-sm text-ink-muted">Setting up payment…</p>
-                )}
-
-                {paymentState !== 'confirmed' && (
-                  <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto" onClick={resetJourney}>
-                    Start a new booking
-                  </Button>
-                )}
-              </>
+              renderPendingPayment()
             ) : (
               <>
                 {/* Honeypot, hidden from real users, filled by bots */}

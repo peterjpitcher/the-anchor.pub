@@ -20,6 +20,23 @@ export const STEP_LABELS: Record<BookingStep, string> = {
   review: 'Review & book'
 }
 
+/**
+ * The approved two-screen journey (spec D1, D7, D8): find a table and its time
+ * on one surface, then details and confirm on the next. `choose` and `review`
+ * are gone: the slot grid lives on `find`, and the review summary is an inline
+ * card on `details`.
+ *
+ * The four-step vocabulary above stays until the old path is deleted, so both
+ * can be rendered from the same state while the runtime flag decides which the
+ * guest sees.
+ */
+export const TWO_SCREEN_STEP_ORDER: BookingStep[] = ['find', 'details']
+
+export const TWO_SCREEN_STEP_LABELS: Record<'find' | 'details', string> = {
+  find: 'Find a table',
+  details: 'Your details'
+}
+
 // House cap on high chairs per booking. The slot's advisory remaining figure
 // never clamps the guest's request (review F06); it drives the shortfall
 // acknowledgement instead.

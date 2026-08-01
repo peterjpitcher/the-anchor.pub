@@ -13,11 +13,32 @@ party size, food or drinks, high chairs, outside seating, customer details and s
 ```tsx
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 
-<ManagementTableBookingForm prefill={prefill} />
+<ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} />
 ```
 
 Import it directly. There is deliberately **no barrel file**: the old one exported components that
 nothing rendered, which made it easy to spend a day editing a file that was never on screen.
+
+#### Two journeys, one runtime flag
+
+`twoScreenFlow` selects the approved two-screen journey. The page reads it from AMS through
+`lib/flags.ts` (`booking_options_step1`), server-side, cached for 60 seconds, OFF in every failure
+mode. `/book-table` is server-rendered on demand, so switching the flag off in AMS rolls every guest
+back with no deploy.
+
+| | Flag off (four steps) | Flag on (two screens) |
+|---|---|---|
+| Steps | find, choose, details, review | find (search and times), details |
+| Table options | drinks and step-free on `find`; chairs and outside on `details` | all four on `find`, directly above the grid |
+| High chairs | plus/minus stepper, shortfall acknowledged on `details` | 0/1/2 segmented control, shortfall flagged on the slot itself |
+| Times | seven-slot window anchored on Preferred Time | every time, grouped Lunch and Evening |
+| Preferred Time | required input | deleted; the request carries a neutral midday anchor |
+| Summary | its own review step | inline card on `details` |
+
+Both paths run off the same state, the same fetches and the same submit, so a rollback loses nothing.
+**The four-step path exists only until the two-screen one is proven in production, then it goes.**
+Its suite is `tests/unit/ManagementTableBookingForm.test.tsx`; the two-screen suite is
+`tests/unit/ManagementTableBookingForm.twoScreen.test.tsx`.
 
 The form is the wizard and its state. The rules it applies live outside it, so each can be read and
 tested on its own:
@@ -27,9 +48,14 @@ tested on its own:
 | `useAvailabilityRequests` | Which in-flight request may still write state, and which spinner belongs to it. All three network paths (search, options re-read, nearest-alternatives probe) are tracked here |
 | `useSuggestedEvents` | The per-date cache, loader and dismissals for the "events on this date" panel |
 | `BookingProgressBar`, `BookingConfirmedCard` | The two screens that read nothing but what they render |
+| `TableRefinements` | The "Anything that changes the table?" group, and the owner-approved step-free copy exported as one constant so it cannot drift |
+| `SlotPickerGrid` | The Lunch and Evening grid. Renders what it is handed, decides nothing |
+| `BookingSummaryCard` | What the guest is about to book, restated on screen 2 |
 | `lib/table-booking/availability` | The reading's shape, its normalisation (fails closed on `bookable_purpose`), the availability predicates, and the fetch |
 | `lib/table-booking/purpose` | What a slot may be booked for. Read, never inferred. The slot caption, the review line and the submitted `purpose` all come from here |
-| `lib/table-booking/journey` | Step vocabulary, high-chair cap and shortfall, and the details-step refusals |
+| `lib/table-booking/journey` | Step vocabulary (both journeys), high-chair cap and shortfall, and the details-step refusals |
+| `lib/table-booking/slot-groups` | Lunch/Evening grouping and the high-chair display rules. Can only make an affirmed slot less available, never more |
+| `lib/table-booking/horizon` | How far ahead we take bookings (12 months). Shared by the form and both website proxies |
 | `lib/table-booking/submission` | The create-booking payload, the result shape and the blocked-reason copy |
 | `lib/table-booking/formatting` | London-aware date/time parsing and display |
 | `lib/table-booking/suggested-events` | The event shape and response normalisation |
@@ -70,6 +96,9 @@ there too or the two quietly diverge.
 - `purpose` (`food` or `drinks`) is **required** when creating a booking. It used to be coerced to
   `food` when missing, which produced misleading service-window errors for bookings made outside kitchen
   hours (incident AB-001).
+- The 12-month booking horizon is enforced in **three** places on purpose: the date input's `max`, the
+  form's own check, and both proxies. Only the last of those actually binds; the first two exist so the
+  guest hears about it before they wait for a round trip.
 
 ## History
 
