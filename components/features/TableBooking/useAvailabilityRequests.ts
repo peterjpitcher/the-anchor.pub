@@ -28,6 +28,14 @@ import { useCallback, useRef, useState } from 'react'
  * probe (the panel is about the old date) but does not abort an availability
  * search. Folding them into one counter would silently change that.
  *
+ * Separate, but not independent. Starting ANY availability request supersedes
+ * the alternatives too, automatically, because a probe in flight is answering
+ * the previous question: its slots were affirmed for the party size and options
+ * that have just changed. That used to be each caller's job, and the third
+ * caller forgot, so a probe launched before a refinement came back and offered
+ * inside tables to a guest who had just asked for an outside one. It happens
+ * here now, once, where no new call site can miss it.
+ *
  * The pending flags live here too. "Only the current request clears its own
  * spinner" is the same invariant as "only the current request writes state", and
  * splitting them across two files is what let the re-read flag stick true
@@ -104,6 +112,9 @@ export function useAvailabilityRequests(): AvailabilityRequests {
       const controller = new AbortController()
       const generation = availabilityRequestRef.current.generation + 1
       availabilityRequestRef.current = { generation, controller, kind }
+      // A probe in flight was asked the previous question. Whatever it answers
+      // is about options the guest has just left behind, so it loses the panel.
+      alternativesRequestRef.current += 1
 
       if (kind === 'revalidate') {
         setRevalidating(true)
@@ -141,6 +152,9 @@ export function useAvailabilityRequests(): AvailabilityRequests {
       controller: null,
       kind: null
     }
+    // Same reasoning as beginAvailabilityRequest: the question has changed, so
+    // any probe still in flight has lost the panel.
+    alternativesRequestRef.current += 1
     setRevalidating(false)
     setAvailabilityLoading(false)
   }, [])
