@@ -116,12 +116,16 @@ export function useAvailabilityRequests(): AvailabilityRequests {
       // is about options the guest has just left behind, so it loses the panel.
       alternativesRequestRef.current += 1
 
+      // Symmetric on purpose. Whichever kind starts, the OTHER kind's pending
+      // flag is cleared, because the request that owned it has just been
+      // superseded and can no longer clear it itself: its own
+      // finishAvailabilityRequest returns early on the generation mismatch.
+      // Clearing in one direction only left a search that a re-read overtook
+      // marked as loading for good, with "Find a table" disabled and no way out.
       if (kind === 'revalidate') {
+        setAvailabilityLoading(false)
         setRevalidating(true)
       } else {
-        // Only the re-read shows the pending note, so anything else taking over
-        // has to clear it: the superseded re-read's own finish no longer owns
-        // the generation and will deliberately leave it alone.
         setRevalidating(false)
         setAvailabilityLoading(true)
       }
