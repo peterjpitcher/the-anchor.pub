@@ -566,7 +566,12 @@ export function trackSlotFlagShown(data: { chairsFree: number; chairsRequested: 
 }
 
 // A previously chosen slot stopped being usable before submit.
-export function trackSlotInvalidated(data: { reason: 'options_changed' | 'availability_error' }) {
+export function trackSlotInvalidated(data: {
+  // `high_chair_shortfall`: the time survived the change, but now has fewer
+  // chairs free than the guest asked for. They have agreed to no such thing, so
+  // it goes back to the grid to be chosen again with the count on it.
+  reason: 'options_changed' | 'availability_error' | 'high_chair_shortfall'
+}) {
   pushToDataLayer({
     event: 'slot_invalidated',
     reason: data.reason

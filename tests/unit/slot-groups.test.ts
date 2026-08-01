@@ -14,13 +14,17 @@ function slot(overrides: Partial<AvailabilitySlot> & { time: string }): Availabi
   }
 }
 
+// Every context below carries `hideWhenNoHighChairFree: true`, the two-screen
+// flow's policy, because these tests describe the grid the guest actually sees.
+// The rule itself, including the four-step flow's policy, is covered in
+// tests/unit/slot-selection.test.ts.
 describe('groupSlotsForDisplay', () => {
   it('splits the day at 5pm, so every time lands in exactly one heading', () => {
     expect(EVENING_START_MINUTES).toBe(17 * 60)
 
     const grouped = groupSlotsForDisplay(
       [slot({ time: '12:00' }), slot({ time: '16:30' }), slot({ time: '17:00' }), slot({ time: '21:00' })],
-      { partySize: 2, highChairCount: 0 }
+      { partySize: 2, highChairCount: 0, hideWhenNoHighChairFree: true }
     )
 
     expect(grouped.lunch.map((entry) => entry.slot.time)).toEqual(['12:00', '16:30'])
@@ -32,7 +36,7 @@ describe('groupSlotsForDisplay', () => {
     // grid that silently shrinks reads as a broken page.
     const grouped = groupSlotsForDisplay(
       [slot({ time: '13:00' }), slot({ time: '13:30', available: false, available_capacity: 0 })],
-      { partySize: 2, highChairCount: 0 }
+      { partySize: 2, highChairCount: 0, hideWhenNoHighChairFree: true }
     )
 
     expect(grouped.lunch.map((entry) => entry.state)).toEqual(['available', 'unavailable'])
@@ -42,7 +46,8 @@ describe('groupSlotsForDisplay', () => {
   it('never lets a party-size shortfall read as bookable', () => {
     const grouped = groupSlotsForDisplay([slot({ time: '13:00', available_capacity: 2 })], {
       partySize: 6,
-      highChairCount: 0
+      highChairCount: 0,
+      hideWhenNoHighChairFree: true
     })
 
     expect(grouped.lunch[0].state).toBe('unavailable')
@@ -53,7 +58,8 @@ describe('groupSlotsForDisplay', () => {
     it('flags a shortfall and keeps the time tappable', () => {
       const grouped = groupSlotsForDisplay([slot({ time: '13:00', high_chairs_remaining: 1 })], {
         partySize: 2,
-        highChairCount: 2
+        highChairCount: 2,
+        hideWhenNoHighChairFree: true
       })
 
       expect(grouped.lunch[0].state).toBe('available')
@@ -65,7 +71,7 @@ describe('groupSlotsForDisplay', () => {
     it('hides a time only when no chair is free and chairs were asked for', () => {
       const grouped = groupSlotsForDisplay(
         [slot({ time: '13:00', high_chairs_remaining: 0 }), slot({ time: '14:00', high_chairs_remaining: 2 })],
-        { partySize: 2, highChairCount: 1 }
+        { partySize: 2, highChairCount: 1, hideWhenNoHighChairFree: true }
       )
 
       expect(grouped.lunch.map((entry) => entry.slot.time)).toEqual(['14:00'])
@@ -75,7 +81,7 @@ describe('groupSlotsForDisplay', () => {
     it('keeps every time when no chairs were asked for', () => {
       const grouped = groupSlotsForDisplay(
         [slot({ time: '13:00', high_chairs_remaining: 0 }), slot({ time: '14:00', high_chairs_remaining: 2 })],
-        { partySize: 2, highChairCount: 0 }
+        { partySize: 2, highChairCount: 0, hideWhenNoHighChairFree: true }
       )
 
       expect(grouped.lunch).toHaveLength(2)
@@ -86,7 +92,8 @@ describe('groupSlotsForDisplay', () => {
     it('does not flag a time that covers the request', () => {
       const grouped = groupSlotsForDisplay([slot({ time: '13:00', high_chairs_remaining: 2 })], {
         partySize: 2,
-        highChairCount: 2
+        highChairCount: 2,
+        hideWhenNoHighChairFree: true
       })
 
       expect(grouped.lunch[0].highChairsFree).toBeUndefined()
@@ -97,7 +104,8 @@ describe('groupSlotsForDisplay', () => {
       // take away a table the pub can actually seat.
       const grouped = groupSlotsForDisplay([slot({ time: '13:00' })], {
         partySize: 2,
-        highChairCount: 2
+        highChairCount: 2,
+        hideWhenNoHighChairFree: true
       })
 
       expect(grouped.lunch[0].state).toBe('available')
@@ -110,7 +118,7 @@ describe('groupSlotsForDisplay', () => {
       // that has no tables free at all.
       const grouped = groupSlotsForDisplay(
         [slot({ time: '13:00', available: false, available_capacity: 0, high_chairs_remaining: 0 })],
-        { partySize: 2, highChairCount: 1 }
+        { partySize: 2, highChairCount: 1, hideWhenNoHighChairFree: true }
       )
 
       expect(grouped.hiddenForHighChairs).toBe(0)

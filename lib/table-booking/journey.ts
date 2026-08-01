@@ -47,6 +47,43 @@ export type HighChairShortfall = {
   requested: number
 }
 
+/**
+ * A guest's consent to ONE specific shortfall, at one time.
+ *
+ * Consent used to be a boolean with an effect that reset it whenever the
+ * context changed. That is two mechanisms for one idea, and the two-screen flow
+ * added a third that SET it whenever a shortfall appeared, handing out consent
+ * for a shortfall the guest had never been shown (review F06: knowing there are
+ * fewer chairs is not agreeing to book with fewer chairs).
+ *
+ * Recording what was consented to instead makes it self-invalidating. Nothing
+ * has to remember to clear it, because a consent for a different time, a
+ * different request or a different number of free chairs simply does not match.
+ */
+export type HighChairConsent = {
+  time: string
+  free: number
+  requested: number
+}
+
+/**
+ * Has this exact shortfall been agreed to? No shortfall means there is nothing
+ * to agree to, which reads as satisfied.
+ */
+export function isHighChairShortfallAcknowledged(
+  consent: HighChairConsent | null,
+  time: string,
+  shortfall: HighChairShortfall | null
+): boolean {
+  if (!shortfall) return true
+  return Boolean(
+    consent &&
+      consent.time === time &&
+      consent.free === shortfall.free &&
+      consent.requested === shortfall.requested
+  )
+}
+
 // Advisory remaining count for the chosen slot; undefined when the API does
 // not report one (treat as unknown and leave the picker enabled, spec D7).
 export function readSlotHighChairsRemaining(
@@ -92,6 +129,15 @@ export type DetailsStepState = {
   firstName: string
   highChairShortfall: HighChairShortfall | null
   highChairShortfallAcknowledged: boolean
+  /**
+   * The current reading covers the chosen time and `judgeSlot` refuses it.
+   *
+   * False when the reading cannot speak for the slot at all, which is the
+   * nearest-alternative path: that slot belongs to another date, and the
+   * reading on screen is about this one. A reading that was never asked about a
+   * slot has no standing to refuse it.
+   */
+  selectionRefusedByReading: boolean
 }
 
 /** null when the guest may continue; otherwise the reason they may not. */
@@ -109,6 +155,18 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
     return {
       code: 'no_time_selected',
       message: 'Please select a time before continuing.',
+      returnToChoose: true
+    }
+  }
+
+  // The last line of defence, using the same rule the grid and the
+  // re-validation use. Reaching here means something moved after the time was
+  // chosen, so send them back to the times rather than book against an answer
+  // that no longer stands.
+  if (state.selectionRefusedByReading) {
+    return {
+      code: 'slot_no_longer_selectable',
+      message: 'That time is no longer available with your options. Please choose another.',
       returnToChoose: true
     }
   }

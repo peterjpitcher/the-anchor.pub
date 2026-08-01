@@ -32,8 +32,6 @@ import {
   busynessCaption,
   fetchAvailability,
   isQuieterSlot,
-  isSlotAvailable,
-  pickClosestSlot,
   shouldNudgeForBusyness,
   unknownAvailability,
   type AlternativeSlot,
@@ -42,6 +40,13 @@ import {
   type SelectedSlotService,
 } from '@/lib/table-booking/availability'
 import { groupSlotsForDisplay } from '@/lib/table-booking/slot-groups'
+import {
+  judgeSlot,
+  judgeTime,
+  pickClosestSelectableSlot,
+  selectableSlots,
+  type SlotSelectionContext,
+} from '@/lib/table-booking/selection'
 import {
   BOOKING_HORIZON_MESSAGE,
   isBeyondBookingHorizon,
@@ -114,12 +119,38 @@ import {
   TWO_SCREEN_STEP_LABELS,
   TWO_SCREEN_STEP_ORDER,
   findDetailsStepRefusal,
+  isHighChairShortfallAcknowledged,
   readSlotHighChairsRemaining,
   resolveHighChairShortfall,
   type BookingStep,
+  type HighChairConsent,
 } from '@/lib/table-booking/journey'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+
+/**
+ * Everything a reading depends on, as one comparable value.
+ *
+ * Built by a function rather than written inline twice, because "Find a table"
+ * has to record the inputs it is about to ask with. Without that the search's
+ * own `setPartySize` would look like a change nobody had accounted for, and the
+ * invalidation effect would cancel the very search that caused it.
+ */
+function buildAvailabilityInputsKey(input: {
+  partySize: number
+  drinksOnly: boolean
+  requiresAccessibleTable: boolean
+  highChairCount: number
+  isOutsideSeating: boolean
+}): string {
+  return [
+    input.partySize,
+    input.drinksOnly,
+    input.requiresAccessibleTable,
+    input.highChairCount,
+    input.isOutsideSeating
+  ].join('|')
+}
 
 interface ManagementTableBookingFormProps {
   prefill?: {
@@ -286,6 +317,21 @@ export function ManagementTableBookingForm({
   // bar height, so this is a real filter, not a preference.
   const [requiresAccessibleTable, setRequiresAccessibleTable] = useState(false)
 
+  // Everything the answer depends on, gathered in one place for the one rule
+  // that reads it. Every consumer of "may this time be chosen" takes this exact
+  // object, so they cannot disagree about what was asked.
+  const slotSelectionContext: SlotSelectionContext = useMemo(
+    () => ({
+      partySize,
+      highChairCount,
+      // Owner decision D4 hides a time with no chair free, and the guest can
+      // set chairs back to 0 to see it. The four-step flow has no way to show a
+      // hidden time, so it offers "book anyway" on its details step instead.
+      hideWhenNoHighChairFree: twoScreenFlow
+    }),
+    [partySize, highChairCount, twoScreenFlow]
+  )
+
   // Any of these changes which TABLES qualify, so a reading taken before the change is stale.
   // A stale slot must never be trusted: otherwise a guest can choose a time, then say they need
   // an accessible table, and book a slot that was never valid for them.
@@ -296,7 +342,21 @@ export function ManagementTableBookingForm({
   // "No online times available" and the only way out was Back and search again. So: re-read
   // availability with the new inputs and keep their time if it survives, and only interrupt them
   // when it genuinely does not.
-  const availabilityInputsKey = `${drinksOnly}|${requiresAccessibleTable}|${highChairCount}|${isOutsideSeating}`
+  //
+  // PARTY SIZE BELONGS HERE. It was left out because in the four-step flow it
+  // lived on a different screen from the grid, so it could not change under an
+  // answer. The two-screen flow rightly puts them together, and without this a
+  // guest could search for two, choose a time, change to eight, and book that
+  // time with nothing re-checked and nothing on screen to say so. The route
+  // reports capacity from the local schedule (50 for the drinks range), so the
+  // client-side filter cannot catch it either: only asking again can.
+  const availabilityInputsKey = buildAvailabilityInputsKey({
+    partySize,
+    drinksOnly,
+    requiresAccessibleTable,
+    highChairCount,
+    isOutsideSeating
+  })
   const previousAvailabilityInputs = useRef(availabilityInputsKey)
 
   useEffect(() => {
@@ -364,10 +424,40 @@ export function ManagementTableBookingForm({
           return
         }
 
-        const freshSlot = data.time_slots.find(
-          (slot) => slot.time === timeAtChange && isSlotAvailable(slot, partySize)
-        )
-        if (freshSlot) {
+        // The refinement has left this date with nothing on it. Any probe from
+        // before the change has already lost the panel (beginAvailabilityRequest
+        // supersedes it), so ask again with what the guest now wants rather than
+        // leaving them looking at an empty panel.
+        if (selectableSlots(data.time_slots, slotSelectionContext).length === 0) {
+          void loadNearestAlternatives(
+            date,
+            timeAtChange || NEUTRAL_AVAILABILITY_ANCHOR_TIME,
+            partySize
+          )
+        }
+
+        // The SAME rule the grid applies. These two used to disagree: the grid
+        // hid a time with no high chair free while this asked only about
+        // capacity, so the guest kept a selection that was not on screen.
+        const freshVerdict = judgeTime(data.time_slots, timeAtChange, slotSelectionContext)
+        const freshSlot = freshVerdict.selectable
+          ? data.time_slots.find((slot) => slot.time === timeAtChange)
+          : undefined
+
+        // A shortfall that appeared underneath them is not something they have
+        // agreed to. In the two-screen flow consent is given by tapping the
+        // slot while the count is printed on it, so send them back to do that
+        // rather than carry a time they chose when no chairs were in play. The
+        // four-step flow keeps its own acknowledgement on the details step.
+        const shortfallNeedsFreshConsent =
+          twoScreenFlow &&
+          freshVerdict.highChairsFree !== undefined &&
+          !isHighChairShortfallAcknowledged(highChairConsent, timeAtChange, {
+            free: freshVerdict.highChairsFree,
+            requested: highChairCount
+          })
+
+        if (freshSlot && !shortfallNeedsFreshConsent) {
           setSelectedTime(timeAtChange)
           setSlotDroppedNotice(null)
           // Re-stamp the cached slot from the FRESH answer. Keeping the time
@@ -381,6 +471,20 @@ export function ManagementTableBookingForm({
             bookable_purpose: freshSlot.bookable_purpose,
             food_check_unavailable: data.food_check_unavailable === true
           })
+          return
+        }
+
+        if (shortfallNeedsFreshConsent && freshVerdict.highChairsFree !== undefined) {
+          trackSlotInvalidated({ reason: 'high_chair_shortfall' })
+          setSelectedTime('')
+          setSelectedSlotService(null)
+          setStep(slotsStep)
+          reportSlotDropped(
+            'slot_high_chair_shortfall',
+            `${formatTimeForDisplay(timeAtChange)} now has only ${freshVerdict.highChairsFree} high chair${
+              freshVerdict.highChairsFree === 1 ? '' : 's'
+            } free. Tap it again if that suits you, or choose another time.`
+          )
           return
         }
 
@@ -563,10 +667,11 @@ export function ManagementTableBookingForm({
   // What the review step states. null means the slot context was lost, which
   // Confirm already blocks on: it must read as unresolved, not as drinks.
   const reviewBookingPurpose = deriveSubmitPurpose(slotPurposeContext)
+  // Every time the guest may currently choose, by the one rule. Everything that
+  // asks "can they have this slot" reads from here or from `judgeTime`.
   const availableSlots = useMemo(
-    () =>
-      (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
-    [availability?.time_slots, partySize]
+    () => selectableSlots(availability?.time_slots || [], slotSelectionContext),
+    [availability?.time_slots, slotSelectionContext]
   )
   // Visible step-2 slots: by default a 7-slot window centred on the search-time
   // anchor, expanded to the full list when the customer taps "See more times".
@@ -586,12 +691,16 @@ export function ManagementTableBookingForm({
     [selectedSlot]
   )
   const highChairShortfall = resolveHighChairShortfall(slotHighChairsRemaining, highChairCount)
-  const [highChairShortfallAcknowledged, setHighChairShortfallAcknowledged] = useState(false)
-  // Any change to the shortfall context (slot, request, or the slot's advisory
-  // figure) invalidates a previous acknowledgement.
-  useEffect(() => {
-    setHighChairShortfallAcknowledged(false)
-  }, [selectedTime, highChairCount, slotHighChairsRemaining])
+  // What the guest agreed to, not merely that they agreed to something. A
+  // consent recorded for a different time, request or free count does not match
+  // the shortfall in front of them, so it reads as unacknowledged with nothing
+  // needing to remember to clear it. See HighChairConsent in journey.ts.
+  const [highChairConsent, setHighChairConsent] = useState<HighChairConsent | null>(null)
+  const highChairShortfallAcknowledged = isHighChairShortfallAcknowledged(
+    highChairConsent,
+    selectedTime,
+    highChairShortfall
+  )
   // Analytics: the shortfall flag surfaced for this context. Primitive deps so
   // the event fires once per context change, not on every render.
   const highChairShortfallFree = highChairShortfall ? highChairShortfall.free : undefined
@@ -618,15 +727,11 @@ export function ManagementTableBookingForm({
   const quieterTimeLabel = formatTimeList(quieterSlots.map((slot) => formatTimeForDisplay(slot.time)))
   const selectedSlotAdvisory = busynessAdvisory(selectedSlot)
 
-  // Two-screen flow: the whole day, grouped Lunch and Evening, with the
-  // high-chair rules applied for display only (spec D4, D7).
+  // Two-screen flow: the whole day, grouped Lunch and Evening. The grid decides
+  // nothing on its own; it reads the same verdict everything else reads.
   const groupedSlots = useMemo(
-    () =>
-      groupSlotsForDisplay(availability?.time_slots || [], {
-        partySize,
-        highChairCount
-      }),
-    [availability?.time_slots, partySize, highChairCount]
+    () => groupSlotsForDisplay(availability?.time_slots || [], slotSelectionContext),
+    [availability?.time_slots, slotSelectionContext]
   )
   // Every time was hidden because the guest asked for chairs and none are free
   // anywhere on this date. Say so and offer the way out, rather than leaving an
@@ -634,15 +739,23 @@ export function ManagementTableBookingForm({
   const allTimesHiddenForHighChairs =
     groupedSlots.hiddenForHighChairs > 0 && groupedSlots.selectableTimes.length === 0
 
-  // Two-screen flow: the shortfall flag is printed on the slot button the guest
-  // taps and restated in the summary they confirm from, so tapping it IS the
-  // explicit acknowledgement the four-step flow had to ask for separately
-  // (review F06). The request submitted is still the original number.
-  useEffect(() => {
-    if (!twoScreenFlow || !selectedTime) return
-    if (highChairShortfallFree === undefined) return
-    setHighChairShortfallAcknowledged(true)
-  }, [twoScreenFlow, selectedTime, highChairShortfallFree, highChairShortfallRequested])
+  // THE gate on carrying a time forward, by the same rule the grid uses. Not
+  // `selectedTime` on its own: a time can stop qualifying under the guest while
+  // it is still stored, and a Continue button that reads only the stored value
+  // will happily carry them off a grid that no longer shows it.
+  const selectedTimeVerdict = useMemo(
+    () => judgeTime(availability?.time_slots || [], selectedTime, slotSelectionContext),
+    [availability?.time_slots, selectedTime, slotSelectionContext]
+  )
+  // Whether the reading on screen has any standing to judge the chosen slot.
+  // On the nearest-alternative path it does not: that slot belongs to another
+  // date, and a reading never asked about a slot cannot refuse it.
+  const readingCoversSelection =
+    Boolean(selectedTime) &&
+    Boolean(availability) &&
+    (selectedSlotService?.date ?? date) === (availability?.date || date)
+  const selectionRefusedByReading = readingCoversSelection && !selectedTimeVerdict.selectable
+  const hasUsableSelection = Boolean(selectedTime) && !selectionRefusedByReading
 
   // Twelve months, the owner's cap on how far ahead we take online bookings.
   // The `max` below is a courtesy for the date picker; the website proxies
@@ -755,8 +868,19 @@ export function ManagementTableBookingForm({
       for (const response of candidateResponses) {
         if (!response) continue
 
+        // The same rule again, with the party size this probe actually asked
+        // about. A shortfall is deliberately excluded rather than flagged:
+        // these are offered as one-tap buttons with no grid to print a count
+        // on, so an unconsented shortfall could otherwise be booked unseen.
+        const probeContext: SlotSelectionContext = {
+          ...slotSelectionContext,
+          partySize: targetPartySize
+        }
         const slots = response.time_slots
-          .filter((slot) => isSlotAvailable(slot, targetPartySize))
+          .filter((slot) => {
+            const verdict = judgeSlot(slot, probeContext)
+            return verdict.selectable && verdict.highChairsFree === undefined
+          })
           .slice(0, 2)
           .map((slot) => ({
             date: response.date || targetDate,
@@ -825,10 +949,14 @@ export function ManagementTableBookingForm({
       deviceType: getDeviceType(),
     })
 
-    const closestTime = pickClosestSlot(
+    // The same rule again, with the party size this search actually asked
+    // about. `null` doubles as the "there is nothing on this date" signal
+    // below, so it has to agree with the grid or the two disagree about
+    // whether the date is empty.
+    const closestTime = pickClosestSelectableSlot(
       availabilityData.time_slots,
       input.targetTime,
-      input.targetPartySize
+      { ...slotSelectionContext, partySize: input.targetPartySize }
     )
 
     setDate(input.targetDate)
@@ -868,6 +996,17 @@ export function ManagementTableBookingForm({
     const clampedSize = (!Number.isFinite(parsedSize) || parsedSize < 1) ? 1 : Math.min(parsedSize, 20)
     setPartySize(clampedSize)
     setPartySizeDisplay(String(clampedSize))
+    // Account for that party size here, because this search is about to ask
+    // with it. Without this the invalidation effect would see a size it had not
+    // accounted for, decide the reading was stale, and cancel the very search
+    // that set it.
+    previousAvailabilityInputs.current = buildAvailabilityInputsKey({
+      partySize: clampedSize,
+      drinksOnly,
+      requiresAccessibleTable,
+      highChairCount,
+      isOutsideSeating
+    })
 
     // Reject past dates before hitting the API. Compared as YYYY-MM-DD strings
     // against Europe/London today, the customer's browser-local clock is
@@ -960,6 +1099,19 @@ export function ManagementTableBookingForm({
   }
 
   function handleSlotSelect(slot: AvailabilitySlot) {
+    const verdict = judgeSlot(slot, slotSelectionContext)
+
+    // Consent to a high-chair shortfall is given HERE, in the two-screen flow,
+    // because here the count is printed on the button being tapped and read out
+    // in its aria-label. Tapping it is therefore an informed choice. The
+    // four-step grid shows no such flag, so tapping there consents to nothing
+    // and its details step asks separately (review F06).
+    setHighChairConsent(
+      twoScreenFlow && verdict.highChairsFree !== undefined
+        ? { time: slot.time, free: verdict.highChairsFree, requested: highChairCount }
+        : null
+    )
+
     setSelectedTime(slot.time)
     setRequestedTime(slot.time)
     setSlotDroppedNotice(null)
@@ -1345,7 +1497,8 @@ export function ManagementTableBookingForm({
       isKnownCustomer,
       firstName,
       highChairShortfall,
-      highChairShortfallAcknowledged
+      highChairShortfallAcknowledged,
+      selectionRefusedByReading
     })
     if (!refusal) return true
 
@@ -1646,6 +1799,7 @@ export function ManagementTableBookingForm({
     setEmail('')
     setNotes('')
     setHighChairCount(0)
+    setHighChairConsent(null)
     setIsOutsideSeating(false)
     setPolicyAccepted(false)
     setError(null)
@@ -1778,22 +1932,20 @@ export function ManagementTableBookingForm({
                   value={partySizeDisplay}
                   onChange={(event) => {
                     markFunnelStart()
-                    const raw = event.target.value
-                    setPartySizeDisplay(raw)
-                    if (raw === '') return
-                    const parsed = Number.parseInt(raw, 10)
-                    if (Number.isNaN(parsed)) return
-                    const clamped = Math.min(Math.max(parsed, 1), 20)
-                    setPartySize(clamped)
-                    setSelectedSlotService(null)
-                    supersedeAlternatives()
+                    // Typing only. Party size invalidates the reading, so
+                    // committing it per character would fire a search per
+                    // digit: "12" would ask about 1, then 12. It settles on
+                    // blur, or when "Find a table" reads the typed value.
+                    setPartySizeDisplay(event.target.value)
                   }}
                   onBlur={() => {
                     const parsed = Number.parseInt(partySizeDisplay, 10)
                     const clamped = !Number.isFinite(parsed) || parsed < 1 ? 1 : Math.min(parsed, 20)
-                    setPartySize(clamped)
                     setPartySizeDisplay(String(clamped))
-                    setSelectedSlotService(null)
+                    if (clamped === partySize) return
+                    // A settled change. The invalidation effect re-reads with
+                    // it and keeps the chosen time only if it survives.
+                    setPartySize(clamped)
                     supersedeAlternatives()
                   }}
                 />
@@ -2064,7 +2216,11 @@ export function ManagementTableBookingForm({
                   </div>
                 ) : null}
 
-                {selectedTime ? (
+                {/* Gated on the rule, not on the stored time. A refinement or a
+                    party-size change can take the chosen time off the grid, and
+                    a button reading only `selectedTime` would carry the guest
+                    forward on a slot that is no longer shown. */}
+                {hasUsableSelection ? (
                   <Button
                     type="button"
                     variant="primary"
@@ -2468,7 +2624,8 @@ export function ManagementTableBookingForm({
                 Back
               </Button>
 
-              {selectedTime ? (
+              {/* The same gate as the two-screen grid, for the same reason. */}
+              {hasUsableSelection ? (
                 <Button
                   type="button"
                   variant="primary"
@@ -2922,7 +3079,7 @@ export function ManagementTableBookingForm({
                     <p className="mt-1 text-xs text-ink-muted">
                       We&apos;ll keep your request for {highChairShortfall.requested} on the booking and do our best on the day.
                     </p>
-                    {highChairShortfallAcknowledged ? (
+                    {highChairShortfall && highChairShortfallAcknowledged ? (
                       <p className="mt-2 text-xs font-medium text-accent-text">
                         Thanks, that&apos;s noted for your booking.
                       </p>
@@ -2932,7 +3089,13 @@ export function ManagementTableBookingForm({
                         size="sm"
                         variant="outline"
                         className="mt-2 min-h-12"
-                        onClick={() => setHighChairShortfallAcknowledged(true)}
+                        onClick={() =>
+                          setHighChairConsent({
+                            time: selectedTime,
+                            free: highChairShortfall.free,
+                            requested: highChairShortfall.requested
+                          })
+                        }
                       >
                         {highChairShortfall.free === 0
                           ? 'Yes, book anyway'

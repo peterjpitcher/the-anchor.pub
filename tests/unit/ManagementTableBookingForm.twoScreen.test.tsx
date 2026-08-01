@@ -226,6 +226,80 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     jest.clearAllMocks()
   })
 
+  // Party size sits on the same screen as the grid now, which is what makes
+  // this reachable at all: in the four-step flow they were never on screen
+  // together, so a change could not leave a stale answer on display.
+  describe('changing party size after the search', () => {
+    it('re-reads with the new size instead of re-labelling the old answer', async () => {
+      const captureUrls = { ref: { current: [] as string[] } }
+      setupFetchMock({ availability: DAY_SLOTS, captureUrls })
+      renderTwoScreen()
+      await findATable()
+
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '8' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
+
+      await waitFor(() => expect(captureUrls.ref.current).toHaveLength(2))
+      const reread = new URL(captureUrls.ref.current[1], 'https://www.the-anchor.pub')
+      expect(reread.searchParams.get('party_size')).toBe('8')
+    })
+
+    it('does not fire a search per keystroke', async () => {
+      const captureUrls = { ref: { current: [] as string[] } }
+      setupFetchMock({ availability: DAY_SLOTS, captureUrls })
+      renderTwoScreen()
+      await findATable()
+
+      const input = screen.getByLabelText('Party size')
+      fireEvent.change(input, { target: { value: '1' } })
+      fireEvent.change(input, { target: { value: '12' } })
+      fireEvent.change(input, { target: { value: '2' } })
+
+      // Nothing is settled until they leave the field.
+      expect(captureUrls.ref.current).toHaveLength(1)
+    })
+
+    it('never carries a time affirmed for the old size over to the new one', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        availability: (url) =>
+          url.includes('party_size=8')
+            ? { time_slots: [{ time: '18:00', available: true, available_capacity: 8, kitchen_open: true }] }
+            : { time_slots: DAY_SLOTS },
+        capturePayload
+      })
+      renderTwoScreen()
+      await findATable()
+
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      expect(screen.getByRole('button', { name: 'Continue with 1pm' })).toBeInTheDocument()
+
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '8' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
+
+      await waitFor(() => {
+        expect(screen.queryByRole('button', { name: /^Continue with/ })).not.toBeInTheDocument()
+      })
+      expect(screen.queryByRole('button', { name: /^1pm,/ })).not.toBeInTheDocument()
+      expect(capturePayload.ref.current).toBeNull()
+    })
+
+    it('keeps the time when the new size still fits it', async () => {
+      setupFetchMock({ availability: DAY_SLOTS })
+      renderTwoScreen()
+      await findATable()
+
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
+
+      await waitFor(() => {
+        expect(screen.getByText(/for 4 guests/)).toBeInTheDocument()
+      })
+      expect(screen.getByRole('button', { name: 'Continue with 1pm' })).toBeInTheDocument()
+    })
+  })
+
   describe('screen 1: find a table', () => {
     it('asks for party size and date only, and no preferred time', () => {
       setupFetchMock({ availability: DAY_SLOTS })
@@ -465,6 +539,54 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.getByText(/Set high chairs to 0 to see them/)).toBeInTheDocument()
     })
 
+    it('takes the selection and the Continue button with the time it hides', async () => {
+      // The grid hides a time with no chair free, so the re-validation has to
+      // agree with it. A rule that only checks capacity leaves the guest on a
+      // time that is not on screen, with Continue still lit.
+      setupFetchMock({
+        availability: [
+          { time: '13:00', available: true, available_capacity: 8, kitchen_open: true, high_chairs_remaining: 0 },
+          { time: '18:00', available: true, available_capacity: 8, kitchen_open: true, high_chairs_remaining: 2 }
+        ]
+      })
+      renderTwoScreen()
+      await findATable()
+
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      expect(screen.getByRole('button', { name: 'Continue with 1pm' })).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('radio', { name: '1 high chair' }))
+
+      await waitFor(() => {
+        expect(screen.queryByRole('button', { name: /^1pm,/ })).not.toBeInTheDocument()
+      })
+      expect(screen.queryByRole('button', { name: /^Continue with/ })).not.toBeInTheDocument()
+    })
+
+    it('does not read a shortfall that appeared afterwards as consent to it', async () => {
+      // They tapped 1pm when no chairs were in play. The shortfall arrived
+      // underneath them, so they have consented to nothing: the time goes back
+      // and they choose again with the flag in front of them.
+      setupFetchMock({ availability: SHORTFALL_SLOTS })
+      renderTwoScreen()
+      await findATable()
+
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      fireEvent.click(screen.getByRole('radio', { name: '2 high chairs' }))
+
+      await waitFor(() => {
+        expect(screen.queryByRole('button', { name: /^Continue with/ })).not.toBeInTheDocument()
+      })
+      expect(
+        screen.getByText(/1pm now has only 1 high chair free/)
+      ).toBeInTheDocument()
+
+      // The time is still offered, flagged, and tapping it is the consent.
+      const flagged = screen.getByRole('button', { name: /^1pm,.*1 high chair free/ })
+      fireEvent.click(flagged)
+      expect(screen.getByRole('button', { name: 'Continue with 1pm' })).toBeInTheDocument()
+    })
+
     it('never strands a guest whose chairs have taken every time away', async () => {
       setupFetchMock({
         availability: [
@@ -643,6 +765,58 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       // Still the accessible answer, not the outside-only one that landed late.
       expect(screen.queryByRole('button', { name: /^1pm,/ })).not.toBeInTheDocument()
       expect(screen.getByRole('button', { name: /^6pm,/ })).toBeInTheDocument()
+    })
+  })
+
+  describe('the nearest-alternatives panel', () => {
+    it('discards a probe that a refinement has already outdated', async () => {
+      // The probes went out asking about INSIDE tables. By the time they land
+      // the guest has asked for an outside one, so their answers were affirmed
+      // for a question nobody is asking any more.
+      const releases: Array<() => void> = []
+      setupFetchMock({ availability: [] })
+      const realFetch = (global as any).fetch as jest.Mock
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        const isProbe =
+          url.startsWith('/api/table-bookings/availability') && !url.includes(`date=${BOOKING_DATE}`)
+        if (isProbe && !url.includes('outside=true')) {
+          return new Promise<Response>((resolve) => {
+            releases.push(() =>
+              resolve(
+                jsonResponse({
+                  success: true,
+                  data: {
+                    date: '2026-07-08',
+                    available: true,
+                    time_slots: [
+                      toWireSlot({ time: '19:00', available: true, available_capacity: 8, kitchen_open: true })
+                    ]
+                  }
+                })
+              )
+            )
+          })
+        }
+        return realFetch(input, init)
+      })
+
+      renderTwoScreen()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await screen.findByText('No online times available')
+      await waitFor(() => expect(releases.length).toBeGreaterThan(0))
+
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
+
+      await act(async () => {
+        releases.forEach((release) => release())
+        await Promise.resolve()
+      })
+
+      await waitFor(() => {
+        expect(screen.getByText('No nearby online alternatives were found.')).toBeInTheDocument()
+      })
+      expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
     })
   })
 

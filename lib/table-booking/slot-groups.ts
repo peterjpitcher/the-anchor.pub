@@ -1,33 +1,25 @@
-import { isSlotAvailable, type AvailabilitySlot } from '@/lib/table-booking/availability'
-import { readSlotHighChairsRemaining } from '@/lib/table-booking/journey'
+import type { AvailabilitySlot } from '@/lib/table-booking/availability'
+import { judgeSlot, type SlotSelectionContext } from '@/lib/table-booking/selection'
 import { toMinutes } from '@/lib/table-booking/formatting'
 
 /**
- * How the slot grid on screen 1 is laid out and what each slot looks like once
- * the guest's refinements are applied.
+ * How the slot grid on screen 1 is laid out.
  *
- * This module decides PRESENTATION only. It can turn an available slot into one
- * that is greyed out or hidden, never the other way round: nothing here can
- * make a slot the availability route declined look bookable. That direction is
- * the whole safety property, so read every rule below as "which affirmed slots
- * do we still offer".
+ * This module decides LAYOUT only. Whether a time may be chosen is decided in
+ * one place, `judgeSlot`, and read here. The grid used to carry its own copy of
+ * the high-chair rule, which is how it came to disagree with the re-validation
+ * about which times were still valid: the grid hid a time while the
+ * re-validation kept it selected, Continue and all.
  */
 
 // Lunch runs up to 5pm, evening from 5pm. A single boundary keeps the two
 // headings unambiguous: every slot lands in exactly one of them.
 export const EVENING_START_MINUTES = 17 * 60
 
-export type SlotDisplayState = 'available' | 'unavailable'
-
 export type DisplaySlot = {
   slot: AvailabilitySlot
-  state: SlotDisplayState
-  /**
-   * Set only when the guest asked for high chairs and this time has fewer free
-   * than they asked for, but more than none. The slot stays tappable and
-   * carries the flag (owner decision D4): a chair shortfall is information, not
-   * a reason to take the time away.
-   */
+  state: 'available' | 'unavailable'
+  /** Chairs free when short of the request, straight from the verdict. */
   highChairsFree?: number
 }
 
@@ -35,32 +27,18 @@ export type GroupedSlots = {
   lunch: DisplaySlot[]
   evening: DisplaySlot[]
   /**
-   * Times dropped because the guest asked for high chairs and this time has
-   * none free at all. The only case where a chair question hides a time (D4),
-   * counted so the grid can explain the gap instead of silently shrinking.
+   * Times the rule hid because the guest asked for high chairs and none are
+   * free then. Counted so the grid can explain the gap instead of silently
+   * shrinking.
    */
   hiddenForHighChairs: number
   /** Times the guest can actually tap, across both groups. */
   selectableTimes: string[]
 }
 
-export type SlotGroupingOptions = {
-  partySize: number
-  highChairCount: number
-}
-
-/**
- * Split the day's slots into Lunch and Evening and apply the refinements that
- * are answered locally.
- *
- * Party size and the four table options are all sent to the availability route,
- * so `slot.available` already reflects them. The one thing left to apply here is
- * the high-chair rule, because the advisory `high_chairs_remaining` is a count
- * rather than a yes/no and D4 asks for three different outcomes from it.
- */
 export function groupSlotsForDisplay(
   slots: AvailabilitySlot[],
-  options: SlotGroupingOptions
+  context: SlotSelectionContext
 ): GroupedSlots {
   const lunch: DisplaySlot[] = []
   const evening: DisplaySlot[] = []
@@ -68,30 +46,20 @@ export function groupSlotsForDisplay(
   let hiddenForHighChairs = 0
 
   for (const slot of slots) {
-    const available = isSlotAvailable(slot, options.partySize)
-    const chairsFree = readSlotHighChairsRemaining(slot)
+    const verdict = judgeSlot(slot, context)
 
-    // Hide only a time the guest could otherwise have booked. Hiding one that
-    // is already greyed out would inflate the "no high chairs anywhere" count
-    // and tell them the chairs are the problem when the tables are.
-    if (available && options.highChairCount > 0 && chairsFree === 0) {
+    if (verdict.display === 'hide') {
       hiddenForHighChairs += 1
       continue
     }
 
-    const shortfall =
-      available &&
-      options.highChairCount > 0 &&
-      chairsFree !== undefined &&
-      chairsFree < options.highChairCount
-
     const display: DisplaySlot = {
       slot,
-      state: available ? 'available' : 'unavailable',
-      ...(shortfall ? { highChairsFree: chairsFree } : {})
+      state: verdict.selectable ? 'available' : 'unavailable',
+      ...(verdict.highChairsFree !== undefined ? { highChairsFree: verdict.highChairsFree } : {})
     }
 
-    if (available) selectableTimes.push(slot.time)
+    if (verdict.selectable) selectableTimes.push(slot.time)
     if (toMinutes(slot.time) < EVENING_START_MINUTES) {
       lunch.push(display)
     } else {
