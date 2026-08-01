@@ -102,6 +102,58 @@ describe('Table Booking Route - Party Size Validation', () => {
     // Must not reach the management API
     expect((global.fetch as jest.Mock)).not.toHaveBeenCalled()
   })
+
+  // Owner decision 4. The form puts `max` on its date input, but a browser
+  // attribute is not a control: this is the check that actually binds, for any
+  // caller at all.
+  it('rejects a date more than twelve months ahead, before it reaches AMS', async () => {
+    const { maxBookingIsoDate } = await import('@/lib/table-booking/horizon')
+    const { londonNowParts } = await import('@/lib/table-booking-service-windows')
+    const { addDays } = await import('@/lib/table-booking/formatting')
+    const beyondHorizon = addDays(maxBookingIsoDate(londonNowParts().isoDate), 1)
+
+    const request = {
+      json: async () => ({
+        phone: '07700900000',
+        date: beyondHorizon,
+        time: '19:00',
+        party_size: 4,
+        purpose: 'food'
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createTableBooking(request)
+
+    expect(response.status).toBe(400)
+    const data = await response.json()
+    expect(String(data.error)).toMatch(/12 months/i)
+    expect((global.fetch as jest.Mock)).not.toHaveBeenCalled()
+  })
+
+  it('does not refuse the last date inside the horizon', async () => {
+    const { maxBookingIsoDate } = await import('@/lib/table-booking/horizon')
+    const { londonNowParts } = await import('@/lib/table-booking-service-windows')
+    const lastAllowed = maxBookingIsoDate(londonNowParts().isoDate)
+
+    const request = {
+      json: async () => ({
+        phone: '07700900000',
+        date: lastAllowed,
+        time: '19:00',
+        party_size: 4,
+        purpose: 'food'
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createTableBooking(request)
+    const data = await response.json()
+
+    // It may still be refused for other reasons (service windows, upstream),
+    // but never for the horizon.
+    expect(String(data?.error ?? '')).not.toMatch(/12 months/i)
+  })
 })
 
 // Type checks for API integration

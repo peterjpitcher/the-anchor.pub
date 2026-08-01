@@ -6,9 +6,11 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 import {
   isTimeWithinRanges,
+  londonNowParts,
   normalizeTime,
   resolveServiceRanges
 } from '@/lib/table-booking-service-windows'
+import { BOOKING_HORIZON_MESSAGE, isBeyondBookingHorizon } from '@/lib/table-booking/horizon'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
@@ -312,6 +314,13 @@ function copyOptionalStrings<T extends string>(body: Record<string, unknown>, ke
 function validatePayload(payload: ManagementTableBookingPayload): string | null {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(payload.date)) {
     return 'Date must use YYYY-MM-DD format'
+  }
+
+  // Twelve months, no further (owner decision 4). Enforced on create as well as
+  // on availability, because a booking can be POSTed here without ever having
+  // asked what was free.
+  if (isBeyondBookingHorizon(payload.date, londonNowParts().isoDate)) {
+    return BOOKING_HORIZON_MESSAGE
   }
 
   if (!/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(payload.time)) {

@@ -135,6 +135,43 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     return response.json()
   }
 
+  // Owner decision 4. The form sets `max` on its date input; this is where the
+  // cap actually binds, for any caller at all.
+  describe('the twelve-month booking horizon', () => {
+    it('refuses a date past the horizon without asking the picker', async () => {
+      const { maxBookingIsoDate } = await import('@/lib/table-booking/horizon')
+      const { londonNowParts } = await import('@/lib/table-booking-service-windows')
+      const { addDays } = await import('@/lib/table-booking/formatting')
+      const beyondHorizon = addDays(maxBookingIsoDate(londonNowParts().isoDate), 1)
+
+      const response = await getAvailability(
+        new Request(
+          `https://www.the-anchor.pub/api/table-bookings/availability?date=${beyondHorizon}&party_size=2`
+        )
+      )
+
+      expect(response.status).toBe(400)
+      const body = await response.json()
+      expect(String(body.error)).toMatch(/12 months/i)
+      expect(mockGetTableBookingLoadSafe).not.toHaveBeenCalled()
+    })
+
+    it('still answers for the last date inside the horizon', async () => {
+      const { maxBookingIsoDate } = await import('@/lib/table-booking/horizon')
+      const { londonNowParts } = await import('@/lib/table-booking-service-windows')
+      const lastAllowed = maxBookingIsoDate(londonNowParts().isoDate)
+
+      const response = await getAvailability(
+        new Request(
+          `https://www.the-anchor.pub/api/table-bookings/availability?date=${lastAllowed}&party_size=2`
+        )
+      )
+
+      expect(response.status).toBe(200)
+      expect(mockGetTableBookingLoadSafe).toHaveBeenCalled()
+    })
+  })
+
   it('asks the picker about drinks and food, not just the guest intent', async () => {
     await fetchSlots('date=2026-05-05&party_size=2')
 

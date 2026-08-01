@@ -34,6 +34,7 @@ import {
   type BookingType,
   type SlotBusynessOptions
 } from '@/lib/table-booking-service-windows'
+import { BOOKING_HORIZON_MESSAGE, isBeyondBookingHorizon } from '@/lib/table-booking/horizon'
 
 function parsePositiveInt(value: string | null, fallback: number): number {
   if (!value) return fallback
@@ -162,6 +163,13 @@ export async function GET(request: Request) {
 
   if (!isValidIsoDate(date)) {
     return createApiErrorResponse('Date must use YYYY-MM-DD format', 400)
+  }
+
+  // Twelve months, no further (owner decision 4). The form sets `max` on its
+  // date input, but that is a courtesy to the picker and nothing more: this is
+  // where the cap actually binds, for any caller at all.
+  if (isBeyondBookingHorizon(date, londonNowParts().isoDate)) {
+    return createApiErrorResponse(BOOKING_HORIZON_MESSAGE, 400)
   }
 
   const normalizedTime = normalizeTime(requestedTime)
