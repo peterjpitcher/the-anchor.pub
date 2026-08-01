@@ -193,9 +193,12 @@ describe('there is exactly one selection rule', () => {
       'groupSlotsForDisplay(currentReading?.time_slots || [], slotSelectionContext)'
     )
     expect(form).toContain('judgeSlot(slot, probeContext)')
-    // Which asks the rule about chairs outright rather than inferring it from a
-    // missing field, an inference that read backwards.
-    expect(form).toContain('verdict.selectable && verdict.coversHighChairRequest')
+    // The alternatives panel inherits the flow's chair policy through the
+    // context and asks the rule one question. It carried its own extra chair
+    // condition for a while, and that condition withheld every short time on
+    // the four-step path, where the next screen offers to book exactly those.
+    expect(form).toContain('.filter(({ verdict }) => verdict.selectable)')
+    expect(form).not.toContain('coversHighChairRequest')
     // The re-validation after an options or party-size change.
     expect(form).toContain('judgeTime(data.time_slots, timeAtChange, slotSelectionContext)')
     // The Continue gate and the submit guard both read the same verdict.

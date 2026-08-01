@@ -769,6 +769,37 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
   })
 
   describe('the nearest-alternatives panel', () => {
+    it('hides a time with no chair free and offers a short one, flagged', async () => {
+      // The same D4 rule the grid applies, because it is the same rule: this
+      // flow hides a time with nothing free (the guest can set chairs back to
+      // 0 to see it) and offers a partial shortfall with the count on it.
+      setupFetchMock({
+        availability: (url) =>
+          url.includes(`date=${BOOKING_DATE}`)
+            ? { date: BOOKING_DATE, time_slots: [] }
+            : url.includes('date=2026-07-08')
+            ? {
+                date: '2026-07-08',
+                time_slots: [
+                  { time: '18:00', available: true, available_capacity: 20, kitchen_open: true, high_chairs_remaining: 1 },
+                  { time: '19:00', available: true, available_capacity: 20, kitchen_open: true, high_chairs_remaining: 0 }
+                ]
+              }
+            : { time_slots: [] }
+      })
+      renderTwoScreen()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await screen.findByText('No online times available')
+      fireEvent.click(screen.getByRole('radio', { name: '2 high chairs' }))
+
+      const flagged = await screen.findByRole('button', {
+        name: /Wednesday, July 8, 2026, 6pm, 1 high chair free/
+      })
+      expect(flagged).toHaveTextContent('1 high chair free')
+      expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
+    })
+
     it('discards a probe that a refinement has already outdated', async () => {
       // The probes went out asking about INSIDE tables. By the time they land
       // the guest has asked for an outside one, so their answers were affirmed

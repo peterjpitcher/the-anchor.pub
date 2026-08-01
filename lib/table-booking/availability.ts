@@ -59,7 +59,13 @@ export type SelectedSlotService = {
   food_check_unavailable: boolean
 }
 
-export type AlternativeSlot = SelectedSlotService
+export type AlternativeSlot = SelectedSlotService & {
+  // Chairs free at this time when fewer than the guest asked for. Carried so
+  // the panel can print the shortfall on the button rather than letting them
+  // tap through to a booking with fewer chairs than they asked for and no
+  // sign of it anywhere.
+  highChairsFree?: number
+}
 
 /**
  * Everything that changes which TABLES qualify for a booking. Sending only the

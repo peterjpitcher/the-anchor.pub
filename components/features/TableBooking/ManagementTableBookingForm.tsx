@@ -39,7 +39,7 @@ import {
   type AvailabilitySlot,
   type SelectedSlotService,
 } from '@/lib/table-booking/availability'
-import { groupSlotsForDisplay } from '@/lib/table-booking/slot-groups'
+import { groupSlotsForDisplay, highChairFlagLabel } from '@/lib/table-booking/slot-groups'
 import {
   judgeSlot,
   judgeTime,
@@ -892,29 +892,38 @@ export function ManagementTableBookingForm({
       for (const response of candidateResponses) {
         if (!response) continue
 
-        // The same rule again, with the party size this probe actually asked
-        // about. These are one-tap buttons with nowhere to print a chair count,
-        // so a time that cannot cover the request is not offered at all. Ask
-        // the rule that question outright: reading it off `highChairsFree`
-        // being absent had the exclusion backwards, withholding the times with
-        // one chair free and offering the ones with none.
+        // The same rule, on the same chair policy the rest of the flow already
+        // runs on: `probeContext` carries the current `hideWhenNoHighChairFree`,
+        // so this panel asks only whether a time is selectable and inherits the
+        // answer.
+        //
+        // Deliberately no second condition. One that also demanded the chairs
+        // be covered in full withheld every short time on the four-step path,
+        // where the details step the guest is sent to next openly offers "no
+        // high chairs are free at this time, book anyway?". A panel that will
+        // not show a time the very next screen offers to book is its own kind
+        // of wrong.
         const probeContext: SlotSelectionContext = {
           ...slotSelectionContext,
           partySize: targetPartySize
         }
         const slots = response.time_slots
-          .filter((slot) => {
-            const verdict = judgeSlot(slot, probeContext)
-            return verdict.selectable && verdict.coversHighChairRequest
-          })
+          .map((slot) => ({ slot, verdict: judgeSlot(slot, probeContext) }))
+          .filter(({ verdict }) => verdict.selectable)
           .slice(0, 2)
-          .map((slot) => ({
+          .map(({ slot, verdict }) => ({
             date: response.date || targetDate,
             time: slot.time,
             bookable_purpose: slot.bookable_purpose,
             // Each candidate date has its own food answer, so the flag travels
             // with the slot rather than being read off the current reading.
-            food_check_unavailable: response.food_check_unavailable === true
+            food_check_unavailable: response.food_check_unavailable === true,
+            // Carried so the two-screen panel can print the shortfall on the
+            // button, the way its grid does. Nobody should tap through to a
+            // booking whose chair shortfall they were never shown.
+            ...(verdict.highChairsFree !== undefined
+              ? { highChairsFree: verdict.highChairsFree }
+              : {})
           }))
 
         alternatives.push(...slots)
@@ -2213,13 +2222,30 @@ export function ManagementTableBookingForm({
                             // Taking one of these now would move the guest to the details
                             // step under an answer that is already being superseded.
                             disabled={revalidatingAvailability}
-                            className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
+                            // Same shortfall flag the grid prints, for the same
+                            // reason: this button books a table, so a chair
+                            // shortfall has to be on it before it is tapped.
+                            aria-label={[
+                              formatDateForDisplay(option.date),
+                              formatTimeForDisplay(option.time),
+                              ...(option.highChairsFree !== undefined
+                                ? [highChairFlagLabel(option.highChairsFree)]
+                                : [])
+                            ].join(', ')}
+                            className="flex min-h-12 w-full items-center justify-between gap-3 rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
                           >
                             <span className="font-medium text-ink">
                               {formatDateForDisplay(option.date)}
                             </span>
-                            <span className="text-accent-text font-semibold">
-                              {formatTimeForDisplay(option.time)}
+                            <span className="flex items-baseline gap-2">
+                              {option.highChairsFree !== undefined ? (
+                                <span className="text-xs font-medium text-anchor-gold-dark">
+                                  {highChairFlagLabel(option.highChairsFree)}
+                                </span>
+                              ) : null}
+                              <span className="text-accent-text font-semibold">
+                                {formatTimeForDisplay(option.time)}
+                              </span>
                             </span>
                           </button>
                         ))}

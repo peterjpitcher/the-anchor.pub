@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
 
@@ -185,10 +185,11 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
   })
 
   describe('the nearest-alternatives panel', () => {
-    it('offers a time that can cover the chairs and withholds one that cannot', async () => {
-      // A slot with one chair free covers a request for one. A slot with none
-      // free covers nothing. The panel has no room to print a count, so a time
-      // that cannot cover the request is simply not offered.
+    it('still offers times that are short on chairs, as this flow always has', async () => {
+      // This flow's own details step offers "no high chairs are free at this
+      // time, book anyway?", so it is plainly willing to book a time with none
+      // free. A panel that will not even show such a time contradicts the very
+      // screen it sends the guest to next.
       setupFetchMock((url) => {
         const date = url.searchParams.get('date')
         const chairs = Number.parseInt(url.searchParams.get('high_chair_count') || '0', 10)
@@ -197,19 +198,18 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
             ? { time_slots: [] }
             : {
                 time_slots: [
-                  { time: '20:00', available: true, available_capacity: 8, kitchen_open: true, high_chairs_remaining: 2 }
+                  { time: '20:00', available: true, available_capacity: 20, kitchen_open: true, high_chairs_remaining: 2 }
                 ]
               }
         }
-        if (date === '2026-07-08') {
-          return {
-            time_slots: [
-              { time: '18:00', available: true, available_capacity: 8, kitchen_open: true, high_chairs_remaining: 0 },
-              { time: '19:00', available: true, available_capacity: 8, kitchen_open: true, high_chairs_remaining: 2 }
-            ]
-          }
+        // Each of the three days that follow: one time with a chair free, one
+        // with none.
+        return {
+          time_slots: [
+            { time: '18:00', available: true, available_capacity: 20, kitchen_open: true, high_chairs_remaining: 1 },
+            { time: '19:00', available: true, available_capacity: 20, kitchen_open: true, high_chairs_remaining: 0 }
+          ]
         }
-        return { time_slots: [] }
       })
       render(<ManagementTableBookingForm prefill={{ date: '2026-07-07' }} />)
 
@@ -219,11 +219,18 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
 
       // The re-read empties 7 July, which sends them back to the times with the
       // alternatives panel.
-      await screen.findByText('Nearest alternatives')
+      const heading = await screen.findByText('Nearest alternatives')
+      const panel = heading.parentElement as HTMLElement
+
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: /7pm/ })).toBeInTheDocument()
+        expect(within(panel).getAllByRole('button', { name: /pm$/ })).toHaveLength(6)
       })
-      expect(screen.queryByRole('button', { name: /6pm/ })).not.toBeInTheDocument()
+      const offered = within(panel)
+        .getAllByRole('button', { name: /pm$/ })
+        .map((button) => button.textContent ?? '')
+      expect(offered.filter((label) => label.includes('6pm'))).toHaveLength(3)
+      expect(offered.filter((label) => label.includes('7pm'))).toHaveLength(3)
+      expect(screen.queryByText('No nearby online alternatives were found.')).not.toBeInTheDocument()
     })
   })
 
