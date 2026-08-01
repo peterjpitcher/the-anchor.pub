@@ -818,6 +818,131 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       })
       expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
     })
+
+    it('cannot be taken while a re-read is about to replace it', async () => {
+      // Tapping one moves the guest to the details step. Doing that under an
+      // answer already being superseded lets the re-read void their time while
+      // they sit on a screen that still shows it.
+      let releaseReread: (() => void) | null = null
+      setupFetchMock({
+        availability: (url) =>
+          url.includes('date=2026-07-08')
+            ? {
+                date: '2026-07-08',
+                time_slots: [
+                  { time: '19:00', available: true, available_capacity: 8, kitchen_open: true }
+                ]
+              }
+            : { date: BOOKING_DATE, time_slots: [] }
+      })
+      const realFetch = (global as any).fetch as jest.Mock
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        if (url.includes('outside=true') && url.includes(`date=${BOOKING_DATE}`)) {
+          return new Promise<Response>((resolve) => {
+            releaseReread = () => resolve(realFetch(input, init) as unknown as Response)
+          })
+        }
+        return realFetch(input, init)
+      })
+
+      renderTwoScreen()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      const alternative = await screen.findByRole('button', { name: /7pm/ })
+
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
+      await waitFor(() => expect(releaseReread).not.toBeNull())
+
+      expect(alternative).toBeDisabled()
+    })
+  })
+
+  describe('two availability requests overtaking each other', () => {
+    it('leaves Find a table usable when a re-read supersedes a search', async () => {
+      // Only the superseded request could clear its own pending flag, and it is
+      // no longer allowed to, so whichever request takes over has to clear it.
+      let releaseSecondSearch: (() => void) | null = null
+      setupFetchMock({ availability: DAY_SLOTS })
+      const realFetch = (global as any).fetch as jest.Mock
+      let searchCount = 0
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        if (url.startsWith('/api/table-bookings/availability')) {
+          searchCount += 1
+          if (searchCount === 2) {
+            return new Promise<Response>((resolve) => {
+              releaseSecondSearch = () => resolve(realFetch(input, init) as unknown as Response)
+            })
+          }
+        }
+        return realFetch(input, init)
+      })
+
+      renderTwoScreen()
+      await findATable()
+
+      // A second search, held in flight, then a refinement overtakes it.
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(releaseSecondSearch).not.toBeNull())
+      fireEvent.click(screen.getByLabelText(/Just drinks, no food/))
+
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
+      })
+    })
+  })
+
+  describe('a reading belongs to one date', () => {
+    function setupAlternativeSearch(capturePayload?: {
+      ref: { current: Record<string, unknown> | null }
+    }) {
+      setupFetchMock({
+        availability: (url) =>
+          url.includes('date=2026-07-08')
+            ? {
+                date: '2026-07-08',
+                time_slots: [
+                  { time: '19:00', available: true, available_capacity: 8, kitchen_open: true }
+                ]
+              }
+            : { date: BOOKING_DATE, time_slots: [] },
+        ...(capturePayload ? { capturePayload } : {})
+      })
+    }
+
+    it('never presents one date’s reading under another date', async () => {
+      setupAlternativeSearch()
+      renderTwoScreen()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await screen.findByText('No online times available')
+      fireEvent.click(await screen.findByRole('button', { name: /7pm/ }))
+      await screen.findByRole('heading', { name: 'Your details' })
+
+      // Back to the times. The reading in hand is 7 July's; the date on screen
+      // is now 8 July, and it has no standing to say anything about that day.
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      await screen.findByRole('heading', { name: 'Find a table' })
+
+      expect(screen.queryByRole('heading', { name: 'Choose your time' })).not.toBeInTheDocument()
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /^7pm,/ })).not.toBeInTheDocument()
+    })
+
+    it('still books the alternative it was chosen for', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupAlternativeSearch(capturePayload)
+      renderTwoScreen()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await screen.findByText('No online times available')
+      fireEvent.click(await screen.findByRole('button', { name: /7pm/ }))
+      await screen.findByRole('heading', { name: 'Your details' })
+
+      await verifyPhoneAndFillName()
+      fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({ date: '2026-07-08', time: '19:00' })
+    })
   })
 
   describe('screen 2: your details', () => {

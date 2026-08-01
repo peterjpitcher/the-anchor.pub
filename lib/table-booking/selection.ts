@@ -45,34 +45,73 @@ export type SlotVerdict = {
   selectable: boolean
   display: SlotDisplay
   /**
-   * Set only when the guest asked for high chairs and this time has fewer free
-   * than they asked for, but more than none. The time is still offered, with
+   * Does this time have at least as many high chairs free as were asked for?
+   *
+   * True when none were asked for, and true when the count is unknown, because
+   * unknown is not a refusal anywhere else in this rule either.
+   *
+   * Stated outright rather than left to be inferred from `highChairsFree` being
+   * absent. That inference reads backwards exactly where it matters: absent
+   * means "no figure worth printing", which is true both of a time that covers
+   * the request AND of a time with nothing free at all. A filter written on it
+   * therefore offered the times with no chairs and withheld the ones with some.
+   * Same lesson as never inferring what a slot may be booked for from
+   * `kitchen_open`: say what you mean, do not leave it to be deduced.
+   */
+  coversHighChairRequest: boolean
+  /**
+   * The figure to print, set only when chairs were asked for and this time has
+   * fewer free than that but more than none. The time is still offered, with
    * the count on it (D4): a shortfall is information, not a refusal.
    */
   highChairsFree?: number
 }
 
-const REFUSED_GREY: SlotVerdict = { selectable: false, display: 'grey' }
-const REFUSED_HIDDEN: SlotVerdict = { selectable: false, display: 'hide' }
+const REFUSED_GREY: SlotVerdict = {
+  selectable: false,
+  display: 'grey',
+  // Refused on capacity, so the chairs were never the objection.
+  coversHighChairRequest: true
+}
+const REFUSED_HIDDEN: SlotVerdict = {
+  selectable: false,
+  display: 'hide',
+  coversHighChairRequest: false
+}
+const OFFERED: SlotVerdict = { selectable: true, display: 'offer', coversHighChairRequest: true }
+// A time the reading never mentioned, or no time at all. Refused, but not over
+// chairs, so nothing may read a chair verdict out of this.
+const REFUSED_UNKNOWN_TIME: SlotVerdict = {
+  selectable: false,
+  display: 'hide',
+  coversHighChairRequest: true
+}
 
 export function judgeSlot(slot: AvailabilitySlot, context: SlotSelectionContext): SlotVerdict {
   // The authoritative answer first. Everything below can only narrow it.
   if (!isSlotAvailable(slot, context.partySize)) return REFUSED_GREY
 
-  if (context.highChairCount <= 0) return { selectable: true, display: 'offer' }
+  if (context.highChairCount <= 0) return OFFERED
 
   const chairsFree = readSlotHighChairsRemaining(slot)
   // Absent means the API did not report a figure, which is unknown rather than
   // zero. Refusing on a missing field would take away a table the pub can seat.
-  if (chairsFree === undefined) return { selectable: true, display: 'offer' }
+  if (chairsFree === undefined) return OFFERED
 
   if (chairsFree === 0) {
-    return context.hideWhenNoHighChairFree ? REFUSED_HIDDEN : { selectable: true, display: 'offer' }
+    return context.hideWhenNoHighChairFree
+      ? REFUSED_HIDDEN
+      : { selectable: true, display: 'offer', coversHighChairRequest: false }
   }
 
   return chairsFree < context.highChairCount
-    ? { selectable: true, display: 'offer', highChairsFree: chairsFree }
-    : { selectable: true, display: 'offer' }
+    ? {
+        selectable: true,
+        display: 'offer',
+        coversHighChairRequest: false,
+        highChairsFree: chairsFree
+      }
+    : OFFERED
 }
 
 /**
@@ -85,9 +124,11 @@ export function judgeTime(
   time: string,
   context: SlotSelectionContext
 ): SlotVerdict {
-  if (!time) return REFUSED_HIDDEN
+  // No time, or a time nobody affirmed. Neither is a chair problem, so this
+  // refusal says nothing about chairs.
+  if (!time) return REFUSED_UNKNOWN_TIME
   const slot = slots.find((candidate) => candidate.time === time)
-  return slot ? judgeSlot(slot, context) : REFUSED_HIDDEN
+  return slot ? judgeSlot(slot, context) : REFUSED_UNKNOWN_TIME
 }
 
 /** Every time the guest may currently choose, in the order the reading gave them. */

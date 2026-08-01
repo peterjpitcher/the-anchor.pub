@@ -452,7 +452,7 @@ export function ManagementTableBookingForm({
         const shortfallNeedsFreshConsent =
           twoScreenFlow &&
           freshVerdict.highChairsFree !== undefined &&
-          !isHighChairShortfallAcknowledged(highChairConsent, timeAtChange, {
+          !isHighChairShortfallAcknowledged(highChairConsent, date, timeAtChange, {
             free: freshVerdict.highChairsFree,
             requested: highChairCount
           })
@@ -492,15 +492,21 @@ export function ManagementTableBookingForm({
         // grid simply replaces the old one. Only reachable in the two-screen
         // flow, where a refinement can change before a time is picked.
         //
-        // The clear is not redundant. A guest can tap a time while this is in
-        // flight, and that tap lands on the grid that answered the PREVIOUS
+        // The clear is not redundant. A guest can choose a time while this is in
+        // flight, and that choice lands on the grid that answered the PREVIOUS
         // question. Keeping it would leave a chosen time no current answer
         // stands behind, so it goes and they pick again from what is now on
         // screen.
+        //
+        // And they are put back on the grid rather than assumed to be there.
+        // Choosing a nearest alternative moves them to the details step, so
+        // this branch could void the time they were about to book while they
+        // sat on a screen that still showed it.
         if (!timeAtChange) {
           setSelectedTime('')
           setSelectedSlotService(null)
           setSlotDroppedNotice(null)
+          setStep(slotsStep)
           return
         }
 
@@ -648,9 +654,6 @@ export function ManagementTableBookingForm({
   const showDateEventSuggestions = !hideDateEventSuggestions && selectedDateEvents.length > 0
 
   const currentStepIndex = stepKeys.indexOf(step)
-  // The authoritative check could not run. Distinct from "checked and full":
-  // the guest gets a retry and the phone number, never guessed slots (F04).
-  const availabilityUnknown = availability?.calculation_state === 'unknown'
   // Everything the purpose rules need, gathered once. The slot caption, the
   // review line and the submitted `purpose` all read it, which is what stops
   // what the guest is shown drifting from what gets booked.
@@ -667,11 +670,33 @@ export function ManagementTableBookingForm({
   // What the review step states. null means the slot context was lost, which
   // Confirm already blocks on: it must read as unresolved, not as drinks.
   const reviewBookingPurpose = deriveSubmitPurpose(slotPurposeContext)
+  /**
+   * The reading, but only when it is about the date now on screen.
+   *
+   * A reading answers for ONE date and carries that date with it. Choosing a
+   * nearest alternative moves the guest to another day while this reading still
+   * holds the old one, and a re-read that started before the move writes the
+   * old day's slots back into it. Rendering that under the new date's heading
+   * offered times affirmed for a different day, and one of them got booked.
+   *
+   * Applied once, here, so no call site has to remember: when the dates do not
+   * agree there is no reading, and the grid, the verdicts and the alternatives
+   * all follow from that.
+   */
+  const currentReading = useMemo(
+    () => (availability && (availability.date || date) === date ? availability : null),
+    [availability, date]
+  )
+
+  // The authoritative check could not run. Distinct from "checked and full":
+  // the guest gets a retry and the phone number, never guessed slots (F04).
+  const availabilityUnknown = currentReading?.calculation_state === 'unknown'
+
   // Every time the guest may currently choose, by the one rule. Everything that
   // asks "can they have this slot" reads from here or from `judgeTime`.
   const availableSlots = useMemo(
-    () => selectableSlots(availability?.time_slots || [], slotSelectionContext),
-    [availability?.time_slots, slotSelectionContext]
+    () => selectableSlots(currentReading?.time_slots || [], slotSelectionContext),
+    [currentReading?.time_slots, slotSelectionContext]
   )
   // Visible step-2 slots: by default a 7-slot window centred on the search-time
   // anchor, expanded to the full list when the customer taps "See more times".
@@ -698,6 +723,7 @@ export function ManagementTableBookingForm({
   const [highChairConsent, setHighChairConsent] = useState<HighChairConsent | null>(null)
   const highChairShortfallAcknowledged = isHighChairShortfallAcknowledged(
     highChairConsent,
+    date,
     selectedTime,
     highChairShortfall
   )
@@ -730,8 +756,8 @@ export function ManagementTableBookingForm({
   // Two-screen flow: the whole day, grouped Lunch and Evening. The grid decides
   // nothing on its own; it reads the same verdict everything else reads.
   const groupedSlots = useMemo(
-    () => groupSlotsForDisplay(availability?.time_slots || [], slotSelectionContext),
-    [availability?.time_slots, slotSelectionContext]
+    () => groupSlotsForDisplay(currentReading?.time_slots || [], slotSelectionContext),
+    [currentReading?.time_slots, slotSelectionContext]
   )
   // Every time was hidden because the guest asked for chairs and none are free
   // anywhere on this date. Say so and offer the way out, rather than leaving an
@@ -744,16 +770,14 @@ export function ManagementTableBookingForm({
   // it is still stored, and a Continue button that reads only the stored value
   // will happily carry them off a grid that no longer shows it.
   const selectedTimeVerdict = useMemo(
-    () => judgeTime(availability?.time_slots || [], selectedTime, slotSelectionContext),
-    [availability?.time_slots, selectedTime, slotSelectionContext]
+    () => judgeTime(currentReading?.time_slots || [], selectedTime, slotSelectionContext),
+    [currentReading?.time_slots, selectedTime, slotSelectionContext]
   )
   // Whether the reading on screen has any standing to judge the chosen slot.
   // On the nearest-alternative path it does not: that slot belongs to another
-  // date, and a reading never asked about a slot cannot refuse it.
-  const readingCoversSelection =
-    Boolean(selectedTime) &&
-    Boolean(availability) &&
-    (selectedSlotService?.date ?? date) === (availability?.date || date)
+  // date, and `currentReading` is already null there, so a reading that was
+  // never asked about a slot cannot refuse it.
+  const readingCoversSelection = Boolean(selectedTime) && Boolean(currentReading)
   const selectionRefusedByReading = readingCoversSelection && !selectedTimeVerdict.selectable
   const hasUsableSelection = Boolean(selectedTime) && !selectionRefusedByReading
 
@@ -869,9 +893,11 @@ export function ManagementTableBookingForm({
         if (!response) continue
 
         // The same rule again, with the party size this probe actually asked
-        // about. A shortfall is deliberately excluded rather than flagged:
-        // these are offered as one-tap buttons with no grid to print a count
-        // on, so an unconsented shortfall could otherwise be booked unseen.
+        // about. These are one-tap buttons with nowhere to print a chair count,
+        // so a time that cannot cover the request is not offered at all. Ask
+        // the rule that question outright: reading it off `highChairsFree`
+        // being absent had the exclusion backwards, withholding the times with
+        // one chair free and offering the ones with none.
         const probeContext: SlotSelectionContext = {
           ...slotSelectionContext,
           partySize: targetPartySize
@@ -879,7 +905,7 @@ export function ManagementTableBookingForm({
         const slots = response.time_slots
           .filter((slot) => {
             const verdict = judgeSlot(slot, probeContext)
-            return verdict.selectable && verdict.highChairsFree === undefined
+            return verdict.selectable && verdict.coversHighChairRequest
           })
           .slice(0, 2)
           .map((slot) => ({
@@ -1108,7 +1134,7 @@ export function ManagementTableBookingForm({
     // and its details step asks separately (review F06).
     setHighChairConsent(
       twoScreenFlow && verdict.highChairsFree !== undefined
-        ? { time: slot.time, free: verdict.highChairsFree, requested: highChairCount }
+        ? { date, time: slot.time, free: verdict.highChairsFree, requested: highChairCount }
         : null
     )
 
@@ -1504,7 +1530,7 @@ export function ManagementTableBookingForm({
 
     // The slot context is gone, so the message only makes sense on the slot
     // list. Move them there first, exactly as the inline checks did.
-    if (refusal.returnToChoose) setStep('choose')
+    if (refusal.returnToChoose) setStep(slotsStep)
     showBookingError(refusal.code, refusal.message)
     return false
   }
@@ -1995,7 +2021,7 @@ export function ManagementTableBookingForm({
               </Button>
             </form>
 
-            {availability ? (
+            {currentReading ? (
               <div className="space-y-4 border-t border-line pt-5">
                 {/* Every question that changes which TABLES qualify, directly
                     above the times it filters (spec D2). Nothing here may ever
@@ -2053,8 +2079,8 @@ export function ManagementTableBookingForm({
                     aria-live="polite"
                   >
                     <p className="font-semibold text-ink-strong">We could not check live availability</p>
-                    {availability?.message || availabilityError ? (
-                      <p>{availability?.message || availabilityError}</p>
+                    {currentReading?.message || availabilityError ? (
+                      <p>{currentReading?.message || availabilityError}</p>
                     ) : null}
                     <p>
                       Please try again in a moment. If it keeps happening, give us a ring on{' '}
@@ -2136,11 +2162,11 @@ export function ManagementTableBookingForm({
                 ) : (
                   <Alert variant="warning" title="No online times available">
                     <p>
-                      {availability?.message ||
+                      {currentReading?.message ||
                         `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
                     </p>
-                    {availability?.special_notes ? (
-                      <p className="mt-2">{availability.special_notes}</p>
+                    {currentReading?.special_notes ? (
+                      <p className="mt-2">{currentReading.special_notes}</p>
                     ) : null}
                     {!drinksOnly ? (
                       <p className="mt-2">
@@ -2183,6 +2209,10 @@ export function ManagementTableBookingForm({
                             key={`${option.date}-${option.time}`}
                             type="button"
                             onClick={() => handleChooseAlternative(option)}
+                            // A re-read is in flight, so this panel is about to be replaced.
+                            // Taking one of these now would move the guest to the details
+                            // step under an answer that is already being superseded.
+                            disabled={revalidatingAvailability}
                             className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
                           >
                             <span className="font-medium text-ink">
@@ -2449,8 +2479,8 @@ export function ManagementTableBookingForm({
                 {/* The reason, when we have one. Without this a failed retry
                     looked identical to the first failure and the guest had no
                     idea anything had happened. */}
-                {availability?.message || availabilityError ? (
-                  <p>{availability?.message || availabilityError}</p>
+                {currentReading?.message || availabilityError ? (
+                  <p>{currentReading?.message || availabilityError}</p>
                 ) : null}
                 <p>
                   Please try again in a moment. If it keeps happening, give us a ring on{' '}
@@ -2554,10 +2584,10 @@ export function ManagementTableBookingForm({
             ) : (
               <Alert variant="warning" title="No online times available">
                 <p>
-                  {availability?.message ||
+                  {currentReading?.message ||
                     `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
                 </p>
-                {availability?.special_notes ? <p className="mt-2">{availability.special_notes}</p> : null}
+                {currentReading?.special_notes ? <p className="mt-2">{currentReading.special_notes}</p> : null}
               </Alert>
             )}
 
@@ -2589,6 +2619,10 @@ export function ManagementTableBookingForm({
                         key={`${option.date}-${option.time}`}
                         type="button"
                         onClick={() => handleChooseAlternative(option)}
+                        // A re-read is in flight, so this panel is about to be replaced.
+                        // Taking one of these now would move the guest to the details
+                        // step under an answer that is already being superseded.
+                        disabled={revalidatingAvailability}
                         className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
                       >
                         <span className="font-medium text-ink">{formatDateForDisplay(option.date)}</span>
@@ -3091,6 +3125,7 @@ export function ManagementTableBookingForm({
                         className="mt-2 min-h-12"
                         onClick={() =>
                           setHighChairConsent({
+                            date,
                             time: selectedTime,
                             free: highChairShortfall.free,
                             requested: highChairShortfall.requested

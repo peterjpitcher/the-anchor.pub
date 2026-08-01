@@ -48,7 +48,7 @@ export type HighChairShortfall = {
 }
 
 /**
- * A guest's consent to ONE specific shortfall, at one time.
+ * A guest's consent to ONE specific shortfall, on one date, at one time.
  *
  * Consent used to be a boolean with an effect that reset it whenever the
  * context changed. That is two mechanisms for one idea, and the two-screen flow
@@ -57,10 +57,15 @@ export type HighChairShortfall = {
  * fewer chairs is not agreeing to book with fewer chairs).
  *
  * Recording what was consented to instead makes it self-invalidating. Nothing
- * has to remember to clear it, because a consent for a different time, a
- * different request or a different number of free chairs simply does not match.
+ * has to remember to clear it, because a consent for a different date, time,
+ * request or number of free chairs simply does not match.
  */
 export type HighChairConsent = {
+  // The date belongs here as much as the time does. Without it, agreeing to one
+  // free chair at 8pm on the Tuesday was spent on 8pm on the Wednesday: the
+  // guest went back, changed the date, searched again, and a fresh shortfall on
+  // a day nobody had shown them counted as already agreed to.
+  date: string
   time: string
   free: number
   requested: number
@@ -72,12 +77,14 @@ export type HighChairConsent = {
  */
 export function isHighChairShortfallAcknowledged(
   consent: HighChairConsent | null,
+  date: string,
   time: string,
   shortfall: HighChairShortfall | null
 ): boolean {
   if (!shortfall) return true
   return Boolean(
     consent &&
+      consent.date === date &&
       consent.time === time &&
       consent.free === shortfall.free &&
       consent.requested === shortfall.requested

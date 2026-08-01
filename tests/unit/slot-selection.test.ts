@@ -26,21 +26,24 @@ describe('judgeSlot: the one rule', () => {
   it('refuses what the availability route refused', () => {
     expect(judgeSlot(slot({ time: '13:00', available: false, available_capacity: 0 }), context())).toEqual({
       selectable: false,
-      display: 'grey'
+      display: 'grey',
+      coversHighChairRequest: true
     })
   })
 
   it('refuses a slot too small for the party', () => {
     expect(judgeSlot(slot({ time: '13:00', available_capacity: 2 }), context({ partySize: 6 }))).toEqual({
       selectable: false,
-      display: 'grey'
+      display: 'grey',
+      coversHighChairRequest: true
     })
   })
 
   it('offers an affirmed slot when no chairs are in play', () => {
     expect(judgeSlot(slot({ time: '13:00', high_chairs_remaining: 0 }), context())).toEqual({
       selectable: true,
-      display: 'offer'
+      display: 'offer',
+      coversHighChairRequest: true
     })
   })
 
@@ -48,27 +51,28 @@ describe('judgeSlot: the one rule', () => {
     it('offers a short slot with the count on it, never hides it (D4)', () => {
       expect(
         judgeSlot(slot({ time: '13:00', high_chairs_remaining: 1 }), context({ highChairCount: 2 }))
-      ).toEqual({ selectable: true, display: 'offer', highChairsFree: 1 })
+      ).toEqual({ selectable: true, display: 'offer', coversHighChairRequest: false, highChairsFree: 1 })
     })
 
     it('does not flag a slot that covers the request', () => {
       expect(
         judgeSlot(slot({ time: '13:00', high_chairs_remaining: 2 }), context({ highChairCount: 2 }))
-      ).toEqual({ selectable: true, display: 'offer' })
+      ).toEqual({ selectable: true, display: 'offer', coversHighChairRequest: true })
     })
 
     it('treats a missing count as unknown, not as zero', () => {
       // Refusing on an absent field would take away a table the pub can seat.
       expect(judgeSlot(slot({ time: '13:00' }), context({ highChairCount: 2 }))).toEqual({
         selectable: true,
-        display: 'offer'
+        display: 'offer',
+        coversHighChairRequest: true
       })
     })
 
     it('hides a chairless slot for the two-screen flow, which can offer 0 chairs instead', () => {
       expect(
         judgeSlot(slot({ time: '13:00', high_chairs_remaining: 0 }), context({ highChairCount: 1 }))
-      ).toEqual({ selectable: false, display: 'hide' })
+      ).toEqual({ selectable: false, display: 'hide', coversHighChairRequest: false })
     })
 
     it('keeps it for the four-step flow, which asks "book anyway?" instead', () => {
@@ -77,7 +81,14 @@ describe('judgeSlot: the one rule', () => {
           slot({ time: '13:00', high_chairs_remaining: 0 }),
           context({ highChairCount: 1, hideWhenNoHighChairFree: false })
         )
-      ).toEqual({ selectable: true, display: 'offer' })
+      ).toEqual({
+        selectable: true,
+        display: 'offer',
+        // The live four-step policy: a time with no chair free is still
+        // offered there, but it plainly does not cover the request, and
+        // anything that needs a time which CAN cover it must ask this field.
+        coversHighChairRequest: false
+      })
     })
   })
 })
@@ -87,7 +98,13 @@ describe('judgeTime', () => {
 
   it('refuses a time the reading never mentioned', () => {
     // A complete answer is exhaustive, so silence about a time refuses it.
-    expect(judgeTime(slots, '14:00', context())).toEqual({ selectable: false, display: 'hide' })
+    expect(judgeTime(slots, '14:00', context())).toEqual({
+      selectable: false,
+      display: 'hide',
+      // Refused, but not over chairs: nothing may read a chair verdict from a
+      // time the reading never mentioned.
+      coversHighChairRequest: true
+    })
   })
 
   it('refuses an empty time', () => {
@@ -172,14 +189,30 @@ describe('there is exactly one selection rule', () => {
     const form = read('components/features/TableBooking/ManagementTableBookingForm.tsx')
 
     // The grid and the alternatives builder.
-    expect(form).toContain('groupSlotsForDisplay(availability?.time_slots || [], slotSelectionContext)')
+    expect(form).toContain(
+      'groupSlotsForDisplay(currentReading?.time_slots || [], slotSelectionContext)'
+    )
     expect(form).toContain('judgeSlot(slot, probeContext)')
+    // Which asks the rule about chairs outright rather than inferring it from a
+    // missing field, an inference that read backwards.
+    expect(form).toContain('verdict.selectable && verdict.coversHighChairRequest')
     // The re-validation after an options or party-size change.
     expect(form).toContain('judgeTime(data.time_slots, timeAtChange, slotSelectionContext)')
     // The Continue gate and the submit guard both read the same verdict.
     expect(form).toContain('const selectionRefusedByReading = readingCoversSelection')
     expect(form).toContain('hasUsableSelection')
     expect(form).toContain('selectionRefusedByReading\n    })')
+  })
+
+  it('checks a reading against the date on screen in one place', () => {
+    // A reading answers for one date and carries it. Choosing a nearest
+    // alternative moves the guest to another day while this reading still holds
+    // the old one, and a slot from it got booked under the new date.
+    const form = read('components/features/TableBooking/ManagementTableBookingForm.tsx')
+    expect(form).toContain('const currentReading = useMemo(')
+    expect(form).toContain('(availability.date || date) === date')
+    // And nothing reads the raw slots around it.
+    expect(form).not.toContain('availability?.time_slots')
   })
 
   it('keeps party size in the key that invalidates a reading', () => {
