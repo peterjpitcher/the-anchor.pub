@@ -24,9 +24,16 @@ import { useCallback, useRef, useState } from 'react'
  * how the first two went wrong: a second mechanism, in a second place, that a
  * new code path can forget. It lives here now. It is deliberately a SEPARATE
  * generation rather than a share of the availability one, because the two are
- * superseded by different events: typing a new date invalidates an alternatives
- * probe (the panel is about the old date) but does not abort an availability
- * search. Folding them into one counter would silently change that.
+ * superseded by different events: a refinement change invalidates an
+ * alternatives probe without necessarily aborting an availability search.
+ * Folding them into one counter would silently change that.
+ *
+ * A DATE change supersedes both, and the caller must say so by calling
+ * `cancelAvailabilityRequests`. This used to only clear the alternatives, on the
+ * reasoning that a date change "does not abort an availability search". That was
+ * wrong: the date is the question, so a search still in flight is answering the
+ * previous one, and its answer landing afterwards repopulated the grid under a
+ * date the guest had already left.
  *
  * Separate, but not independent. Starting ANY availability request supersedes
  * the alternatives too, automatically, because a probe in flight is answering

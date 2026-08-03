@@ -784,6 +784,18 @@ export function ManagementTableBookingForm({
   // Twelve months, the owner's cap on how far ahead we take online bookings.
   // The `max` below is a courtesy for the date picker; the website proxies
   // enforce the same rule server-side, which is where it actually binds.
+  // Alternatives offered for the SAME date as the failed search. The nearest-
+  // alternatives probe and the grid do not ask the identical question, so the
+  // probe can legitimately surface times on this date that the grid's judge
+  // rejects. When that happens the empty state must not call the date closed
+  // while those very times are printed directly beneath it: a guest who chose
+  // one, then pressed Back, was told there were no online times for a date whose
+  // times were listed below the notice.
+  const sameDateAlternatives = useMemo(
+    () => alternativeSlots.filter((option) => option.date === date),
+    [alternativeSlots, date]
+  )
+
   const maxBookingDate = useMemo(() => maxBookingIsoDate(today), [today])
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
@@ -1205,6 +1217,14 @@ export function ManagementTableBookingForm({
   function handleDateChange(value: string) {
     markFunnelStart()
     setDate(value)
+    // The date IS the question. Any search still in flight was asked about the
+    // previous one, so it must lose the right to write state here and not merely
+    // be dropped from view: clearing `availability` alone left a slow answer for
+    // the old date free to land afterwards and repopulate the grid under the new
+    // one. `currentReading` hid the worst of it by matching on date, but the
+    // pending spinner and the alternatives panel still belonged to the old
+    // question. Supersede, then clear.
+    cancelAvailabilityRequests()
     setAvailability(null)
     setAlternativeSlots([])
     supersedeAlternatives()
@@ -2169,10 +2189,19 @@ export function ManagementTableBookingForm({
                     </p>
                   </Alert>
                 ) : (
-                  <Alert variant="warning" title="No online times available">
+                  <Alert
+                    variant="warning"
+                    title={
+                      sameDateAlternatives.length > 0
+                        ? 'That time is not available online'
+                        : 'No online times available'
+                    }
+                  >
                     <p>
-                      {currentReading?.message ||
-                        `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
+                      {sameDateAlternatives.length > 0
+                        ? 'Other times on this date are still open. Pick one of the times below, or join the waitlist.'
+                        : currentReading?.message ||
+                          `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
                     </p>
                     {currentReading?.special_notes ? (
                       <p className="mt-2">{currentReading.special_notes}</p>
