@@ -19,7 +19,7 @@ function slot(overrides: Partial<AvailabilitySlot> & { time: string }): Availabi
 }
 
 function context(overrides: Partial<SlotSelectionContext> = {}): SlotSelectionContext {
-  return { partySize: 2, highChairCount: 0, hideWhenNoHighChairFree: true, ...overrides }
+  return { partySize: 2, highChairCount: 0, hideWhenNoHighChairFree: true, requiresFoodService: false, ...overrides }
 }
 
 describe('judgeSlot: the one rule', () => {
@@ -79,7 +79,7 @@ describe('judgeSlot: the one rule', () => {
       expect(
         judgeSlot(
           slot({ time: '13:00', high_chairs_remaining: 0 }),
-          context({ highChairCount: 1, hideWhenNoHighChairFree: false })
+          context({ highChairCount: 1, hideWhenNoHighChairFree: false, requiresFoodService: false })
         )
       ).toEqual({
         selectable: true,
@@ -224,5 +224,30 @@ describe('there is exactly one selection rule', () => {
     const form = read('components/features/TableBooking/ManagementTableBookingForm.tsx')
     expect(form).toContain('function buildAvailabilityInputsKey')
     expect(form).toMatch(/buildAvailabilityInputsKey\(\{\s*\n\s*partySize,/)
+  })
+})
+
+describe('judgeSlot: a seasonal meal needs the kitchen', () => {
+  it('hides a drinks-only time once the guest has accepted a seasonal period', () => {
+    // The bar opens on days and hours the kitchen does not, so a kitchen-closed
+    // date still offers drinks times. Without this rule a guest could answer
+    // "yes, Christmas dinner" and then book one of them, reserving a Christmas
+    // lunch for a service that does not exist.
+    const drinksOnly = slot({ time: '20:00', bookable_purpose: 'drinks_only' })
+
+    expect(judgeSlot(drinksOnly, context({ requiresFoodService: true })).selectable).toBe(false)
+    expect(judgeSlot(drinksOnly, context({ requiresFoodService: true })).display).toBe('hide')
+  })
+
+  it('still offers a time the kitchen can serve', () => {
+    const foodTime = slot({ time: '13:00', bookable_purpose: 'food_or_drinks' })
+
+    expect(judgeSlot(foodTime, context({ requiresFoodService: true })).selectable).toBe(true)
+  })
+
+  it('leaves drinks-only times alone when no seasonal period was accepted', () => {
+    const drinksOnly = slot({ time: '20:00', bookable_purpose: 'drinks_only' })
+
+    expect(judgeSlot(drinksOnly, context({ requiresFoodService: false })).selectable).toBe(true)
   })
 })

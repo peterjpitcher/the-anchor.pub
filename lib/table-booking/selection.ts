@@ -35,6 +35,22 @@ export type SlotSelectionContext = {
    * details step. Deleted along with the rest of the four-step path.
    */
   hideWhenNoHighChairFree: boolean
+  /**
+   * Whether the guest needs a time the KITCHEN can serve.
+   *
+   * True when they have accepted a seasonal period: a Christmas lunch is a meal,
+   * and a meal cannot be served on a day or at an hour the kitchen is shut.
+   *
+   * Without this a guest could accept "yes, Christmas dinner" and then pick one
+   * of the drinks-only times the bar offers on a kitchen-closed day, booking a
+   * Christmas lunch for a service that does not exist. The seasonal question and
+   * the slot grid were answering two different questions.
+   *
+   * Read from `bookable_purpose`, which is the one field that says what a slot
+   * may be booked for. Never inferred from `kitchen_open`, which knows nothing
+   * about the pacing ceiling or the table state.
+   */
+  requiresFoodService: boolean
 }
 
 /** How the grid should treat a slot. `hide` means it is not rendered at all. */
@@ -90,6 +106,12 @@ const REFUSED_UNKNOWN_TIME: SlotVerdict = {
 export function judgeSlot(slot: AvailabilitySlot, context: SlotSelectionContext): SlotVerdict {
   // The authoritative answer first. Everything below can only narrow it.
   if (!isSlotAvailable(slot, context.partySize)) return REFUSED_GREY
+
+  // A seasonal meal needs the kitchen. Hidden rather than greyed, because there
+  // is nothing the guest can change on this screen to make the kitchen open.
+  if (context.requiresFoodService && slot.bookable_purpose !== 'food_or_drinks') {
+    return REFUSED_HIDDEN
+  }
 
   if (context.highChairCount <= 0) return OFFERED
 

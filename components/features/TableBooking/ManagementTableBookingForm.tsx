@@ -319,6 +319,52 @@ export function ManagementTableBookingForm({
   // bar height, so this is a real filter, not a preference.
   const [requiresAccessibleTable, setRequiresAccessibleTable] = useState(false)
 
+  // The seasonal period for the date and party on screen, and the guest's
+  // answer. The hook keys the answer to the period id AND the date, so moving
+  // either forgets it rather than carrying an acceptance the guest never gave
+  // for the date they have landed on.
+  const seasonal = useBookingPeriod(date, partySize)
+
+  // The question must be ANSWERED before a time can be taken forward, because
+  // the answer decides both the menu and the deposit. An unanswered live period
+  // would otherwise submit as though the guest had declined.
+  const seasonalAnswerRequired = Boolean(seasonal.period?.bookable) && seasonal.answer === null
+
+  /*
+   * A seasonal meal needs the kitchen.
+   *
+   * The bar opens on days and at hours the kitchen does not, and the availability
+   * route correctly reports those as drinks-only times. Without this a guest
+   * could answer "yes, Christmas dinner" and then pick one of those times,
+   * booking a Christmas lunch into a service that does not exist: the seasonal
+   * question and the slot grid were answering two different questions.
+   *
+   * Feeds `slotSelectionContext`, so it narrows the ONE rule every consumer
+   * reads rather than filtering the grid separately and disagreeing with the
+   * Continue gate and the submit guard.
+   */
+  const seasonalRequiresFoodService = seasonal.answer === true
+
+  /*
+   * NOT COLLECTED YET: the per-guest pre-order.
+   *
+   * AMS has nowhere to put it. The seasonal migration created `booking_periods`
+   * and `booking_period_menu_items`, which are the menu to SHOW, but no table
+   * for a guest's choices, and the public create route's schema has no menu
+   * field at all. The retired Sunday-lunch shape wrote to `table_booking_items`
+   * through an RPC the seasonal path does not call.
+   *
+   * So collecting choices here would take a guest through a dish-by-dish picker
+   * and then drop every answer on the floor, which is worse than not asking:
+   * they would arrive believing the kitchen had their order. `SeasonalPreorderPicker`
+   * is built and ready to wire the moment an intake exists.
+   *
+   * This is not a regression. AMS marks a pre-order period `bookable: false`
+   * until its menu is published, and staff taking a Christmas booking through
+   * the FOH `christmas` purpose have no pre-order intake either, so choices are
+   * already handled off-system.
+   */
+
   // Everything the answer depends on, gathered in one place for the one rule
   // that reads it. Every consumer of "may this time be chosen" takes this exact
   // object, so they cannot disagree about what was asked.
@@ -329,9 +375,12 @@ export function ManagementTableBookingForm({
       // Owner decision D4 hides a time with no chair free, and the guest can
       // set chairs back to 0 to see it. The four-step flow has no way to show a
       // hidden time, so it offers "book anyway" on its details step instead.
-      hideWhenNoHighChairFree: twoScreenFlow
+      hideWhenNoHighChairFree: twoScreenFlow,
+      // A seasonal meal needs the kitchen open, so accepting the period narrows
+      // the grid to times the kitchen can actually serve.
+      requiresFoodService: seasonalRequiresFoodService
     }),
-    [partySize, highChairCount, twoScreenFlow]
+    [partySize, highChairCount, twoScreenFlow, seasonalRequiresFoodService]
   )
 
   // Any of these changes which TABLES qualify, so a reading taken before the change is stale.
@@ -786,36 +835,14 @@ export function ManagementTableBookingForm({
   // Twelve months, the owner's cap on how far ahead we take online bookings.
   // The `max` below is a courtesy for the date picker; the website proxies
   // enforce the same rule server-side, which is where it actually binds.
-  // The seasonal period for the date and party on screen, and the guest's
-  // answer. The hook keys the answer to the period id AND the date, so moving
-  // either forgets it rather than carrying an acceptance the guest never gave
-  // for the date they have landed on.
-  const seasonal = useBookingPeriod(date, partySize)
-
-  // The question must be ANSWERED before a time can be taken forward, because
-  // the answer decides both the menu and the deposit. An unanswered live period
-  // would otherwise submit as though the guest had declined.
-  const seasonalAnswerRequired = Boolean(seasonal.period?.bookable) && seasonal.answer === null
-
-  /*
-   * NOT COLLECTED YET: the per-guest pre-order.
-   *
-   * AMS has nowhere to put it. The seasonal migration created `booking_periods`
-   * and `booking_period_menu_items`, which are the menu to SHOW, but no table
-   * for a guest's choices, and the public create route's schema has no menu
-   * field at all. The retired Sunday-lunch shape wrote to `table_booking_items`
-   * through an RPC the seasonal path does not call.
-   *
-   * So collecting choices here would take a guest through a dish-by-dish picker
-   * and then drop every answer on the floor, which is worse than not asking:
-   * they would arrive believing the kitchen had their order. `SeasonalPreorderPicker`
-   * is built and ready to wire the moment an intake exists.
-   *
-   * This is not a regression. AMS marks a pre-order period `bookable: false`
-   * until its menu is published, and staff taking a Christmas booking through
-   * the FOH `christmas` purpose have no pre-order intake either, so choices are
-   * already handled off-system.
-   */
+  // Times this date offers that the kitchen cannot serve. Only meaningful once
+  // the guest has accepted a seasonal period, which is what hid them.
+  const seasonalHiddenDrinksTimes = useMemo(() => {
+    if (!seasonalRequiresFoodService) return 0
+    return (currentReading?.time_slots || []).filter(
+      (slot) => slot.bookable_purpose !== 'food_or_drinks'
+    ).length
+  }, [seasonalRequiresFoodService, currentReading?.time_slots])
 
   // Alternatives offered for the SAME date as the failed search. The nearest-
   // alternatives probe and the grid do not ask the identical question, so the
@@ -2128,6 +2155,30 @@ export function ManagementTableBookingForm({
                     answer={seasonal.answer}
                     onAnswer={seasonal.setAnswer}
                   />
+                ) : null}
+
+                {/* Kitchen hours, stated rather than left as an unexplained
+                    shorter list, with a way through for anyone who wants a time
+                    we cannot offer online. */}
+                {seasonalRequiresFoodService && seasonalHiddenDrinksTimes > 0 ? (
+                  <div
+                    className="rounded-md border border-line bg-surface-sunk p-3 text-sm text-ink"
+                    aria-live="polite"
+                  >
+                    <p>
+                      These are the times our kitchen can serve on this date. If you would like a
+                      different time, please call us on{' '}
+                      <PhoneLink
+                        phone={CONTACT.phone}
+                        source="table_booking_seasonal_kitchen_hours"
+                        showIcon={false}
+                        className="font-semibold underline"
+                      >
+                        01753 682707
+                      </PhoneLink>{' '}
+                      and we will check what we can do.
+                    </p>
+                  </div>
                 ) : null}
 
                 <div>
