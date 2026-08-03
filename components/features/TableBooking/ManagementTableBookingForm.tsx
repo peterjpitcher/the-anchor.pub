@@ -85,6 +85,9 @@ import { BookingSummaryCard } from './BookingSummaryCard'
 import { SlotPickerGrid } from './SlotPickerGrid'
 import { TableRefinements } from './TableRefinements'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
+import { useBookingPeriod } from './useBookingPeriod'
+import { SeasonalPeriodQuestion } from './SeasonalPeriodQuestion'
+import { SeasonalPreorderPicker, type PreorderChoice } from './SeasonalPreorderPicker'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -784,6 +787,34 @@ export function ManagementTableBookingForm({
   // Twelve months, the owner's cap on how far ahead we take online bookings.
   // The `max` below is a courtesy for the date picker; the website proxies
   // enforce the same rule server-side, which is where it actually binds.
+  // The seasonal period for the date and party on screen, and the guest's
+  // answer. The hook keys the answer to the period id AND the date, so moving
+  // either forgets it rather than carrying an acceptance the guest never gave
+  // for the date they have landed on.
+  const seasonal = useBookingPeriod(date, partySize)
+  const [preorderChoices, setPreorderChoices] = useState<PreorderChoice[]>([])
+
+  // A pre-order is owed when the guest accepted a period that requires one.
+  // Saying no never owes a pre-order: that books the normal menu.
+  const seasonalPreorderRequired = Boolean(
+    seasonal.period?.bookable && seasonal.period.requires_preorder && seasonal.answer === true
+  )
+  const seasonalPreorderComplete =
+    !seasonalPreorderRequired ||
+    (preorderChoices.length === partySize &&
+      preorderChoices.every((choice) => Boolean(choice.itemId)))
+
+  // The question must be ANSWERED before a time can be taken forward, because
+  // the answer decides both the menu and the deposit. An unanswered live period
+  // would otherwise submit as though the guest had declined.
+  const seasonalAnswerRequired = Boolean(seasonal.period?.bookable) && seasonal.answer === null
+
+  // Forget stale choices whenever the question they belonged to changes. Keyed
+  // on the same facts the answer is keyed on, for the same reason.
+  useEffect(() => {
+    setPreorderChoices([])
+  }, [seasonal.period?.id, date, partySize, seasonal.answer])
+
   // Alternatives offered for the SAME date as the failed search. The nearest-
   // alternatives probe and the grid do not ask the identical question, so the
   // probe can legitimately surface times on this date that the grid's judge
@@ -1717,6 +1748,13 @@ export function ManagementTableBookingForm({
         isOutsideSeating: resolvedOutsideSeating,
         requiresAccessibleTable,
         communicationConsent,
+        // Only sent when the guest was actually asked. `seasonal.answer` is
+        // already keyed to the period and the date on screen, so a stale
+        // acceptance for a date they have left cannot reach the server.
+        seasonalAnswer:
+          seasonal.period && seasonal.answer !== null
+            ? { periodId: seasonal.period.id, accepted: seasonal.answer }
+            : null,
         attribution,
         turnstileToken,
         website,
@@ -2077,6 +2115,28 @@ export function ManagementTableBookingForm({
                   }}
                 />
 
+                {/* The seasonal question sits ABOVE the times, because the
+                    answer changes both the menu and the price of the slot
+                    underneath it. Absent for most of the year: no live period
+                    means nothing renders and the journey is unchanged. */}
+                {seasonal.period ? (
+                  <SeasonalPeriodQuestion
+                    period={seasonal.period}
+                    deposit={seasonal.deposit}
+                    answer={seasonal.answer}
+                    onAnswer={seasonal.setAnswer}
+                  />
+                ) : null}
+
+                {seasonalPreorderRequired && seasonal.period ? (
+                  <SeasonalPreorderPicker
+                    partySize={partySize}
+                    menu={seasonal.period.menu}
+                    choices={preorderChoices}
+                    onChange={setPreorderChoices}
+                  />
+                ) : null}
+
                 <div>
                   <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
                   <p className="mt-1 text-sm text-ink-muted">
@@ -2313,7 +2373,11 @@ export function ManagementTableBookingForm({
                     fullWidth
                     icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
                     iconPosition="right"
-                    disabled={revalidatingAvailability}
+                    disabled={
+                      revalidatingAvailability ||
+                      seasonalAnswerRequired ||
+                      !seasonalPreorderComplete
+                    }
                     onClick={() => {
                       setStep('details')
                       setError(null)
@@ -2323,6 +2387,20 @@ export function ManagementTableBookingForm({
                       ? `Book ${formatTimeForDisplay(selectedSlot.time)} anyway`
                       : `Continue with ${formatTimeForDisplay(selectedTime)}`}
                   </Button>
+                ) : null}
+
+                {/* Say WHY Continue is unavailable. A disabled button with no
+                    explanation is how a guest decides the site is broken and
+                    rings instead. */}
+                {hasUsableSelection && seasonalAnswerRequired ? (
+                  <p className="text-sm text-ink-muted" aria-live="polite">
+                    Please answer the question above before continuing.
+                  </p>
+                ) : null}
+                {hasUsableSelection && !seasonalAnswerRequired && !seasonalPreorderComplete ? (
+                  <p className="text-sm text-ink-muted" aria-live="polite">
+                    Please choose a dish for each guest before continuing.
+                  </p>
                 ) : null}
               </div>
             ) : null}

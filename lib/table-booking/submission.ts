@@ -107,6 +107,11 @@ export type TableBookingSubmitInput = {
   isOutsideSeating: boolean
   requiresAccessibleTable: boolean
   communicationConsent: CommunicationConsentState
+  /**
+   * The seasonal period the guest was shown and what they answered, or null when
+   * no period applied. Never a deposit figure: AMS prices that.
+   */
+  seasonalAnswer: { periodId: string; accepted: boolean } | null
   attribution: BookingAttributionPayload & Record<string, unknown>
   /** Volatile: excluded from the submit-intent fingerprint by construction. */
   turnstileToken: string | null
@@ -142,6 +147,16 @@ export function buildTableBookingPayload(
     ...(input.highChairCount > 0 ? { high_chair_count: input.highChairCount } : {}),
     ...(input.isOutsideSeating ? { is_outside_seating: true } : {}),
     ...(input.requiresAccessibleTable ? { requires_accessible_table: true } : {}),
+    // The seasonal answer sits ABOVE the volatile section on purpose, so it is
+    // part of the submit-intent fingerprint. It changes what the guest is
+    // charged, so a guest who answers yes, goes back, then answers no must not
+    // reuse the idempotency key of the booking they already abandoned.
+    ...(input.seasonalAnswer
+      ? {
+          booking_period_id: input.seasonalAnswer.periodId,
+          booking_period_answer: input.seasonalAnswer.accepted
+        }
+      : {}),
     communication_consent: buildCommunicationConsentPayload(input.communicationConsent),
     ...input.attribution,
     // Volatile fields below, added after the idempotency key has already
