@@ -414,4 +414,92 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     // Must not have reached the management API
     expect(calls).toHaveLength(0)
   })
+
+  describe('the seasonal period answer', () => {
+    const seasonalBooking = {
+      phone: '07700900000',
+      date: '2026-12-12',
+      time: '19:00',
+      party_size: 4,
+      purpose: 'food' as const
+    }
+
+    it('forwards the period id and a yes answer as a pair', async () => {
+      const calls = installUpstreamFetch()
+      const POST = await getPostHandler()
+
+      const res = await POST(
+        buildRequest({
+          ...seasonalBooking,
+          booking_period_id: '11111111-2222-3333-4444-555555555555',
+          booking_period_answer: true
+        }) as any
+      )
+
+      expect(res.status).toBe(201)
+      const forwarded = JSON.parse(String(calls[0].init.body))
+      expect(forwarded.booking_period_id).toBe('11111111-2222-3333-4444-555555555555')
+      expect(forwarded.booking_period_answer).toBe(true)
+    })
+
+    it('forwards a NO answer rather than dropping it', async () => {
+      // `false` is a real answer: it books the normal menu at normal terms. A
+      // truthiness test here would silently discard it, and the server would
+      // then see a booking that was never asked the question at all.
+      const calls = installUpstreamFetch()
+      const POST = await getPostHandler()
+
+      const res = await POST(
+        buildRequest({
+          ...seasonalBooking,
+          booking_period_id: '11111111-2222-3333-4444-555555555555',
+          booking_period_answer: false
+        }) as any
+      )
+
+      expect(res.status).toBe(201)
+      const forwarded = JSON.parse(String(calls[0].init.body))
+      expect(forwarded.booking_period_id).toBe('11111111-2222-3333-4444-555555555555')
+      expect(forwarded.booking_period_answer).toBe(false)
+    })
+
+    it('sends neither field when only one of the pair is present', async () => {
+      const calls = installUpstreamFetch()
+      const POST = await getPostHandler()
+
+      const res = await POST(
+        buildRequest({
+          ...seasonalBooking,
+          booking_period_id: '11111111-2222-3333-4444-555555555555'
+        }) as any
+      )
+
+      expect(res.status).toBe(201)
+      const forwarded = JSON.parse(String(calls[0].init.body))
+      expect(forwarded.booking_period_id).toBeUndefined()
+      expect(forwarded.booking_period_answer).toBeUndefined()
+    })
+
+    it('never forwards a deposit figure supplied by the caller', async () => {
+      // The browser has no say in what a guest is charged. AMS prices the
+      // deposit from the stored period row; anything sent here is ignored.
+      const calls = installUpstreamFetch()
+      const POST = await getPostHandler()
+
+      const res = await POST(
+        buildRequest({
+          ...seasonalBooking,
+          booking_period_id: '11111111-2222-3333-4444-555555555555',
+          booking_period_answer: true,
+          deposit_amount: 0,
+          deposit: 0
+        }) as any
+      )
+
+      expect(res.status).toBe(201)
+      const forwarded = JSON.parse(String(calls[0].init.body))
+      expect(forwarded.deposit_amount).toBeUndefined()
+      expect(forwarded.deposit).toBeUndefined()
+    })
+  })
 })

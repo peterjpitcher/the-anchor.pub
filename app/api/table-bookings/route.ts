@@ -243,6 +243,21 @@ function normaliseIncomingPayload(input: unknown): {
   // notes is strictly the user's free-text. Sunday-lunch pre-order menu_selections
   // are no longer supported on the public path (spec §6, §8.1), Sundays are
   // regular food bookings now.
+  // The seasonal answer, forwarded as an inseparable pair. An id without an
+  // answer would leave the server to guess what the guest was asked; an answer
+  // without an id names no period. `false` is a real answer ("no thanks, the
+  // normal menu"), so this tests the TYPE and never the truthiness.
+  //
+  // Note what is NOT forwarded: any deposit figure. The guest's browser has no
+  // say in what they are charged. AMS re-reads the live period for the date,
+  // refuses an id naming a different one, and prices it server-side.
+  const bookingPeriodId = asTrimmedString(body.booking_period_id)
+  const bookingPeriodAnswer = asOptionalBoolean(body.booking_period_answer)
+  const seasonalAnswer =
+    bookingPeriodId && typeof bookingPeriodAnswer === 'boolean'
+      ? { booking_period_id: bookingPeriodId, booking_period_answer: bookingPeriodAnswer }
+      : null
+
   const userNote =
     asTrimmedString(body.special_requirements) || asTrimmedString(body.notes)
   const occasionNote = asTrimmedString((body as LegacyTableBookingPayload).celebration_type)
@@ -271,6 +286,7 @@ function normaliseIncomingPayload(input: unknown): {
       // Forwarded verbatim: the management API expects the same name here, unlike
       // outside seating, where the form sends is_outside_seating and this maps it.
       ...(body.requires_accessible_table === true ? { requires_accessible_table: true } : {}),
+      ...(seasonalAnswer ?? {}),
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),

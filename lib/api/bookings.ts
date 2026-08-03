@@ -129,6 +129,99 @@ export interface TableAvailabilityResponse {
   remaining_capacity?: number
 }
 
+/**
+ * A seasonal booking period (Christmas, Mother's Day, Easter...) as AMS reports it
+ * for one date. Mirrors GET /api/table-bookings/periods exactly.
+ *
+ * The whole shape is READ-ONLY to this codebase. Every figure in it, and every
+ * word of refund wording, is computed on the management server from the stored
+ * period row. The website must never compute, round, or restate a deposit: AMS
+ * once quoted GBP 30 while the create path charged GBP 0, and the only defence
+ * that holds is having no second implementation to disagree with.
+ */
+export interface BookingPeriodMenuItem {
+  id: string
+  course: string
+  name: string
+  description: string | null
+  price_gbp: number | null
+  allergens: string[] | null
+}
+
+/**
+ * One priced answer. `required` says a deposit is owed under the rules;
+ * `amount` is what to take. `refund_policy` is guest-facing wording and is
+ * displayed verbatim, never paraphrased.
+ */
+export interface BookingPeriodDepositTerms {
+  required: boolean
+  amount: number
+  rule: string | null
+  basis: string | null
+  rate: number | null
+  reason: string | null
+  refund_cutoff_days: number | null
+  refund_policy: string | null
+}
+
+export interface BookingPeriodDeposit {
+  party_size: number
+  /**
+   * The kill switch. False means a deposit is still owed under the rules but AMS
+   * is not taking money right now, so no payment step may be presented.
+   */
+  collect: boolean
+  /** Priced for a guest who answers YES. Null when the period cannot be accepted. */
+  if_accepted: BookingPeriodDepositTerms | null
+  /** Why YES is unavailable, when it is. */
+  if_accepted_rejection: { code: string; message: string } | null
+  /** Priced for a guest who answers NO: the normal menu at normal terms. */
+  if_declined: BookingPeriodDepositTerms | null
+}
+
+export interface BookingPeriod {
+  id: string
+  code: string
+  period_kind: string
+  name: string
+  /** The yes/no question to put to the guest, in the owner's words. */
+  guest_question: string
+  guest_blurb: string | null
+  starts_on: string
+  ends_on: string
+  requires_preorder: boolean
+  preorder_cutoff_days: number | null
+  deposit_basis: string | null
+  deposit_amount: number | null
+  refund_cutoff_days: number | null
+  min_party_size: number | null
+  max_party_size: number | null
+  min_notice_hours: number | null
+  /**
+   * False means a live period that cannot currently be booked, with
+   * `not_bookable_message` explaining why in plain words. The common cause is a
+   * period that needs a pre-order whose menu has not been published yet. Show
+   * the message and do NOT offer the period; never show an empty menu.
+   */
+  bookable: boolean
+  not_bookable_reason: string | null
+  not_bookable_message: string | null
+  /** Empty unless the period is bookable AND requires a pre-order. */
+  menu: BookingPeriodMenuItem[]
+}
+
+export interface BookingPeriodResponse {
+  date: string
+  /**
+   * Null when no period is live for this date. That is the normal case for most
+   * of the year, and it is also what an INACTIVE period looks like: the endpoint
+   * never mentions one, so the guest journey is unchanged.
+   */
+  period: BookingPeriod | null
+  /** Present only when a party size was supplied. */
+  deposit: BookingPeriodDeposit | null
+}
+
 export interface TableBookingRequest {
   // Required fields
   booking_type: 'regular' | 'sunday_lunch'
@@ -136,6 +229,17 @@ export interface TableBookingRequest {
   time: string
   party_size: number
   purpose?: 'food' | 'drinks'
+  /**
+   * The seasonal period the guest was shown, and what they answered. Both are
+   * ADVISORY: the database re-reads whichever live period covers the date and
+   * refuses an id naming a different one, so neither can pick a cheaper season
+   * or conjure a deposit. Answering false is a supported answer that books the
+   * normal menu at normal terms.
+   *
+   * There is deliberately no deposit field here. The server prices it.
+   */
+  booking_period_id?: string
+  booking_period_answer?: boolean
   customer: {
     first_name: string
     last_name: string

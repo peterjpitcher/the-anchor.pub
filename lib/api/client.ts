@@ -21,7 +21,7 @@ import {
   FALLBACK_SUNDAY_LUNCH_MENU
 } from './menu'
 import type { BusinessHours, AmenitiesResponse } from './hours'
-import type { TableAvailabilityResponse, TableBookingLoadResponse, TableBookingRequest, TableBookingResponse } from './bookings'
+import type { BookingPeriodResponse, TableAvailabilityResponse, TableBookingLoadResponse, TableBookingRequest, TableBookingResponse } from './bookings'
 import type {
   ParkingRateCard,
   ParkingAvailabilitySlot,
@@ -60,6 +60,12 @@ type ManagementTableBookingPayload = {
   // AMS management API wire key for the outside flag (the form/proxy inbound key
   // is `is_outside_seating`; the management endpoint expects `outside_seating`).
   outside_seating?: boolean
+  // The seasonal period the guest was shown and what they answered. Advisory
+  // only: the database re-reads the live period for the date and refuses an id
+  // naming a different one. Note there is no deposit key here and there must
+  // never be one, because the server prices it.
+  booking_period_id?: string
+  booking_period_answer?: boolean
 }
 
 type ManagementTableBookingResult = {
@@ -261,6 +267,14 @@ export class AnchorAPI {
       : 0
     const isOutsideSeating = (data as any).is_outside_seating === true
 
+    // The seasonal answer. Sent only as a pair: an id with no answer would leave
+    // the server to guess what the guest was asked, and an answer with no id
+    // names no period. `false` is a real answer and must survive, so this tests
+    // the type and never the truthiness.
+    const bookingPeriodId = this.asTrimmedString((data as any).booking_period_id)
+    const bookingPeriodAnswer = (data as any).booking_period_answer
+    const hasPeriodAnswer = bookingPeriodId && typeof bookingPeriodAnswer === 'boolean'
+
     return {
       phone,
       ...(firstName ? { first_name: firstName } : {}),
@@ -274,7 +288,13 @@ export class AnchorAPI {
       ...(data.booking_type === 'sunday_lunch' ? { sunday_lunch: true } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
       ...(highChairCount > 0 ? { high_chair_count: highChairCount } : {}),
-      ...(isOutsideSeating ? { outside_seating: true } : {})
+      ...(isOutsideSeating ? { outside_seating: true } : {}),
+      ...(hasPeriodAnswer
+        ? {
+            booking_period_id: bookingPeriodId,
+            booking_period_answer: bookingPeriodAnswer as boolean
+          }
+        : {})
     }
   }
 
@@ -1144,6 +1164,63 @@ export class AnchorAPI {
         return await this.getTableBookingLoad(date, { signal: controller.signal }, availability)
       } catch (error) {
         console.warn('[table-bookings] Booking load attempt failed', {
+          date,
+          attempt,
+          error: error instanceof Error ? error.message : String((error as any)?.message || error),
+        })
+      } finally {
+        clearTimeout(timeout)
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * The seasonal period that applies to a date, if any.
+   *
+   * `party_size` is optional and only changes whether `deposit` comes back. Ask
+   * WITH it whenever the party size is known, because the deposit is the part
+   * the guest has to be told before they commit.
+   */
+  async getBookingPeriod(
+    date: string,
+    partySize?: number,
+    options: RequestInit = {}
+  ): Promise<BookingPeriodResponse> {
+    const query = new URLSearchParams({ date })
+    if (typeof partySize === 'number' && Number.isFinite(partySize) && partySize > 0) {
+      query.set('party_size', String(partySize))
+    }
+    return this.request<BookingPeriodResponse>(`/table-bookings/periods?${query.toString()}`, {
+      ...options,
+      next: { revalidate: 0 },
+    } as RequestInit & { next: { revalidate: number } })
+  }
+
+  /**
+   * Period read with a bounded wait, and null on any failure.
+   *
+   * Null means "we could not ask", and the ONLY safe reading of it is to leave
+   * the guest on the ordinary journey: no question, no menu, no deposit. That is
+   * the same outcome as a date with no period, which is what most of the year
+   * looks like anyway. Failing the other way would either invent a charge or
+   * block an ordinary booking because a seasonal lookup timed out.
+   */
+  async getBookingPeriodSafe(
+    date: string,
+    partySize?: number,
+    timeoutMs = 3000
+  ): Promise<BookingPeriodResponse | null> {
+    const maxAttempts = 2
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), timeoutMs)
+
+      try {
+        return await this.getBookingPeriod(date, partySize, { signal: controller.signal })
+      } catch (error) {
+        console.warn('[table-bookings] Booking period lookup failed', {
           date,
           attempt,
           error: error instanceof Error ? error.message : String((error as any)?.message || error),
