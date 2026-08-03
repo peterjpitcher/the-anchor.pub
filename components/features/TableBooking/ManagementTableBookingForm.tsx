@@ -87,7 +87,6 @@ import { TableRefinements } from './TableRefinements'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { useBookingPeriod } from './useBookingPeriod'
 import { SeasonalPeriodQuestion } from './SeasonalPeriodQuestion'
-import { SeasonalPreorderPicker, type PreorderChoice } from './SeasonalPreorderPicker'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -792,28 +791,31 @@ export function ManagementTableBookingForm({
   // either forgets it rather than carrying an acceptance the guest never gave
   // for the date they have landed on.
   const seasonal = useBookingPeriod(date, partySize)
-  const [preorderChoices, setPreorderChoices] = useState<PreorderChoice[]>([])
-
-  // A pre-order is owed when the guest accepted a period that requires one.
-  // Saying no never owes a pre-order: that books the normal menu.
-  const seasonalPreorderRequired = Boolean(
-    seasonal.period?.bookable && seasonal.period.requires_preorder && seasonal.answer === true
-  )
-  const seasonalPreorderComplete =
-    !seasonalPreorderRequired ||
-    (preorderChoices.length === partySize &&
-      preorderChoices.every((choice) => Boolean(choice.itemId)))
 
   // The question must be ANSWERED before a time can be taken forward, because
   // the answer decides both the menu and the deposit. An unanswered live period
   // would otherwise submit as though the guest had declined.
   const seasonalAnswerRequired = Boolean(seasonal.period?.bookable) && seasonal.answer === null
 
-  // Forget stale choices whenever the question they belonged to changes. Keyed
-  // on the same facts the answer is keyed on, for the same reason.
-  useEffect(() => {
-    setPreorderChoices([])
-  }, [seasonal.period?.id, date, partySize, seasonal.answer])
+  /*
+   * NOT COLLECTED YET: the per-guest pre-order.
+   *
+   * AMS has nowhere to put it. The seasonal migration created `booking_periods`
+   * and `booking_period_menu_items`, which are the menu to SHOW, but no table
+   * for a guest's choices, and the public create route's schema has no menu
+   * field at all. The retired Sunday-lunch shape wrote to `table_booking_items`
+   * through an RPC the seasonal path does not call.
+   *
+   * So collecting choices here would take a guest through a dish-by-dish picker
+   * and then drop every answer on the floor, which is worse than not asking:
+   * they would arrive believing the kitchen had their order. `SeasonalPreorderPicker`
+   * is built and ready to wire the moment an intake exists.
+   *
+   * This is not a regression. AMS marks a pre-order period `bookable: false`
+   * until its menu is published, and staff taking a Christmas booking through
+   * the FOH `christmas` purpose have no pre-order intake either, so choices are
+   * already handled off-system.
+   */
 
   // Alternatives offered for the SAME date as the failed search. The nearest-
   // alternatives probe and the grid do not ask the identical question, so the
@@ -2128,15 +2130,6 @@ export function ManagementTableBookingForm({
                   />
                 ) : null}
 
-                {seasonalPreorderRequired && seasonal.period ? (
-                  <SeasonalPreorderPicker
-                    partySize={partySize}
-                    menu={seasonal.period.menu}
-                    choices={preorderChoices}
-                    onChange={setPreorderChoices}
-                  />
-                ) : null}
-
                 <div>
                   <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
                   <p className="mt-1 text-sm text-ink-muted">
@@ -2373,11 +2366,7 @@ export function ManagementTableBookingForm({
                     fullWidth
                     icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
                     iconPosition="right"
-                    disabled={
-                      revalidatingAvailability ||
-                      seasonalAnswerRequired ||
-                      !seasonalPreorderComplete
-                    }
+                    disabled={revalidatingAvailability || seasonalAnswerRequired}
                     onClick={() => {
                       setStep('details')
                       setError(null)
@@ -2395,11 +2384,6 @@ export function ManagementTableBookingForm({
                 {hasUsableSelection && seasonalAnswerRequired ? (
                   <p className="text-sm text-ink-muted" aria-live="polite">
                     Please answer the question above before continuing.
-                  </p>
-                ) : null}
-                {hasUsableSelection && !seasonalAnswerRequired && !seasonalPreorderComplete ? (
-                  <p className="text-sm text-ink-muted" aria-live="polite">
-                    Please choose a dish for each guest before continuing.
                   </p>
                 ) : null}
               </div>
