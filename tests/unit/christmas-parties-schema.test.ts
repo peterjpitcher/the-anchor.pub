@@ -105,18 +105,21 @@ describe('christmasPartiesSchema', () => {
     }
   })
 
-  it('should state the pre-order rule per course tier, never as a blanket claim', () => {
+  it('should state that courses are chosen per person, never as a whole-table tier', () => {
     const services = nodeOfType('Service').isRelatedTo as Node[]
     const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
 
     expect(sitDown).toBeDefined()
     const description = String(sitDown?.description)
 
-    // 1 course is pre-book only. Only 2 and 3 course carry a pre-order.
-    expect(description).toContain('One course is pre-book only with no pre-order.')
-    expect(description).toContain('Two and three course are pre-book and pre-order.')
-    // "Pre-order only" was the retired blanket rule and is now simply wrong.
+    // Owner-confirmed 2026-08-04: a main each, starter and dessert optional.
+    expect(description).toContain('Courses are chosen per person, not for the whole table.')
+    expect(description).toContain('Every guest chooses a main.')
+    expect(description).toContain('A starter and a dessert are optional')
+    // Both retired claims: the blanket "pre-order only" rule, and the tier rule
+    // that replaced it, which said one course carried no pre-order at all.
     expect(description).not.toMatch(/pre-order only/i)
+    expect(description).not.toMatch(/pre-book only/i)
   })
 
   it('should state the 6 guest minimum, the 24 hour notice and the any-size deposit', () => {

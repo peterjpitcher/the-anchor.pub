@@ -92,20 +92,22 @@ describe('POST /api/enquiry/christmas', () => {
     expect(forwarded.preferredTime).toBe('12:30')
     expect(forwarded.notes).toContain('Sit-down Christmas lunch')
     expect(forwarded.notes).toContain('Website CTA source: hero_meal')
-    // The blanket pre-order claim was retired on 21 July 2026: with no tier
-    // chosen the requirement is still open, not "Yes".
+    // Owner-confirmed 2026-08-04: courses are per person, so every sit-down
+    // booking pre-orders and the answer no longer depends on a table-wide tier.
     expect(forwarded.notes).not.toMatch(/pre-order only/i)
-    expect(forwarded.notes).toContain('Pre-order required: To confirm, depends on the course tier chosen')
+    expect(forwarded.notes).toContain('Pre-order required: Yes, per person. A main for every guest, starter and dessert optional.')
     expect(forwarded.enquiryMode).toBe('meal')
     expect(forwarded.mealService).toBe('lunch')
     expect(forwarded.courseTier).toBe('undecided')
   })
 
+  // The expected course count is a steer for the kitchen. It never changes the
+  // pre-order answer, because every guest chooses a main in advance regardless.
   it.each([
-    ['one_course', 'Sit-down Christmas lunch (1 course (pre-book only, no pre-order))', 'Pre-order required: No, 1 course is pre-book only'],
-    ['two_course', 'Sit-down Christmas lunch (2 course (pre-book and pre-order))', 'Pre-order required: Yes'],
-    ['three_course', 'Sit-down Christmas lunch (3 course (pre-book and pre-order))', 'Pre-order required: Yes'],
-  ])('sends the pre-order requirement that matches the %s tier', async (courseTier, label, requirement) => {
+    ['one_course', 'Sit-down Christmas lunch (Mostly 1 course per guest)'],
+    ['two_course', 'Sit-down Christmas lunch (Mostly 2 courses per guest)'],
+    ['three_course', 'Sit-down Christmas lunch (Mostly 3 courses per guest)'],
+  ])('describes %s as a per-guest expectation, and still requires a pre-order', async (courseTier, label) => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({ success: true }, 201))
 
     const response = await post(validPayload({ courseTier }))
@@ -114,7 +116,9 @@ describe('POST /api/enquiry/christmas', () => {
     const forwarded = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
     expect(forwarded.courseTier).toBe(courseTier)
     expect(forwarded.notes).toContain(label)
-    expect(forwarded.notes).toContain(requirement)
+    expect(forwarded.notes).toContain('Pre-order required: Yes, per person. A main for every guest, starter and dessert optional.')
+    // The retired rule said one course carried no pre-order at all.
+    expect(forwarded.notes).not.toMatch(/pre-book only/i)
   })
 
   it('uses Graph email only when the management API fails', async () => {

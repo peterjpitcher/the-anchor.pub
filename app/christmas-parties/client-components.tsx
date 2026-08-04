@@ -27,7 +27,11 @@ const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
 export type EnquiryMode = 'party' | 'meal'
 export type MealService = 'lunch' | 'dinner'
 
-/** Which course tier the enquirer wants. 'undecided' is a legitimate answer. */
+/**
+ * Roughly how many courses the enquirer expects each guest to have. Courses are
+ * chosen per person at pre-order, so this is a planning steer for the kitchen
+ * rather than a commitment for the table. 'undecided' is a legitimate answer.
+ */
 export type CourseTier = 'undecided' | 'one_course' | 'two_course' | 'three_course'
 
 export type ChristmasTierId = 'one_course' | 'two_course' | 'three_course'
@@ -45,11 +49,9 @@ export interface ChristmasDishView {
 
 export interface ChristmasTierView {
   id: ChristmasTierId
-  /** Customer-facing tier name, for example "2 course". */
+  /** Customer-facing name for the price point, for example "2 course". */
   name: string
   courseCount: 1 | 2 | 3
-  /** True when every guest must choose their dishes in advance. */
-  preOrderRequired: boolean
   /** True only where a child portion and child price actually exist. */
   kidsTierAvailable: boolean
   /** Lowest live adult price for the tier, symbol-free. Empty when nothing is priced yet. */
@@ -185,11 +187,13 @@ const PARTY_TIME_OPTIONS: TimeOption[] = [
 /** Shared Christmas party nights were discontinued on 21 July 2026 and are not listed. */
 const PARTY_FORMAT_VALUES = ['not_sure', 'private_space', 'festive_buffet', 'drinks_party', 'entertainment'] as const
 
+// Guests pick their own courses at pre-order, so this asks what the group
+// expects rather than committing the table to one course count.
 const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
   { value: 'undecided', label: 'Not decided yet' },
-  { value: 'one_course', label: '1 course' },
-  { value: 'two_course', label: '2 course' },
-  { value: 'three_course', label: '3 course' }
+  { value: 'one_course', label: 'Mostly 1 course each' },
+  { value: 'two_course', label: 'Mostly 2 courses each' },
+  { value: 'three_course', label: 'Mostly 3 courses each' }
 ]
 
 const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
@@ -231,10 +235,6 @@ function partyFormatOptions(buffetMinimumGuests: number): Array<{ value: string,
   return PARTY_FORMAT_VALUES.map(value => ({ value, label: labels[value] }))
 }
 
-function tierPreOrderLabel(tier: ChristmasTierView): string {
-  return tier.preOrderRequired ? 'Pre-book and pre-order' : 'Pre-book only, no pre-order'
-}
-
 function tierPriceLabel(tier: ChristmasTierView): string {
   return tier.priceFrom ? `From £${tier.priceFrom} per person` : 'Confirmed on enquiry'
 }
@@ -259,7 +259,7 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'Do we have to pre-order our meals?',
-      answer: 'It depends on the tier. The 1 course is pre-book only, so there is no pre-order at all. The 2 course and 3 course are pre-book and pre-order, so every guest chooses their dishes in advance and we confirm the deadline with your booking.'
+      answer: 'Yes, and everyone chooses for themselves. Courses are picked per person, not for the whole table. Every guest chooses a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. We confirm the deadline for choices with your booking.'
     },
     {
       question: 'Is there a kids 2 course or 3 course?',
@@ -267,7 +267,7 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'What is included in the price?',
-      answer: 'Adults get a glass of prosecco on all three tiers, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
+      answer: 'Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
     },
     {
       question: 'What is on the Christmas menu?',
@@ -287,11 +287,11 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'How much does a Christmas party cost?',
-      answer: 'Christmas dinner is priced per person by tier and shown live on this page. Buffet and room setup costs vary by date and party size, so call us on 01753 682707 for a quote tailored to your group.'
+      answer: 'Christmas dinner is priced per person by how many courses that guest has, and the prices are shown live on this page. Buffet and room setup costs vary by date and party size, so call us on 01753 682707 for a quote tailored to your group.'
     },
     {
       question: 'How can we keep the cost of our Christmas party down?',
-      answer: 'Pick a Tuesday to Thursday date, choose the 1 course tier, agree a bar-tab limit up front and book early for the best choice of sittings. Free parking outside the ULEZ also saves your guests money compared with venues closer to London.'
+      answer: 'Pick a Tuesday to Thursday date, keep it to one course each, agree a bar-tab limit up front and book early for the best choice of sittings. Because everyone chooses for themselves, guests who want more can add a starter or a dessert without the whole table paying for it. Free parking outside the ULEZ also saves your guests money compared with venues closer to London.'
     },
     {
       question: 'Are you close to Heathrow and Staines?',
@@ -495,9 +495,10 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
               Heathrow Terminal 5. Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at
               least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit that comes off
-              your bill. Choose 1, 2 or 3 courses. The 1 course is pre-book only. The 2 and 3 course are pre-book and
-              pre-order. Festive buffets are available for {facts.buffetMinimumGuests} guests or more. The full dish list
-              is released closer to the time.
+              your bill. Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional,
+              so guests at the same table can have different numbers of courses. Choices come to us in advance. Festive
+              buffets are available for {facts.buffetMinimumGuests} guests or more. The full dish list is released closer
+              to the time.
             </p>
             <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
@@ -558,8 +559,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                     <Badge className="w-fit bg-amber-100 text-amber-900">{facts.minPartySize}+ guests</Badge>
                   </div>
                   <p className="mt-3 text-sm text-ink-muted">
-                    Book the sit-down Christmas menu for lunch or dinner, at 1, 2 or 3 courses. The 1 course is pre-book only.
-                    The 2 and 3 course are pre-book and pre-order, so every guest chooses their dishes in advance.
+                    Book the sit-down Christmas menu for lunch or dinner. Each guest picks 1, 2 or 3 courses for themselves
+                    and chooses their dishes in advance, so nobody is tied to what the rest of the table is having.
                   </p>
                   <p className="mt-3 text-sm font-semibold text-accent-text">
                     {facts.minPartySize} guests or more, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
@@ -617,11 +618,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">1 course is pre-book only.</strong> No pre-order. Your group chooses at the table on the day.</span>
+                  <span><strong className="text-ink-strong">Courses are chosen per person.</strong> Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">2 and 3 course are pre-book and pre-order.</strong> Every guest chooses their dishes in advance, and we confirm the pre-order deadline with your booking.</span>
+                  <span><strong className="text-ink-strong">Choices come to us in advance.</strong> Every guest pre-orders their dishes, and we confirm the deadline with your booking.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -637,15 +638,15 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         <Container>
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div className="space-y-6">
-              <Badge className="bg-red-100 text-red-700 w-fit">1, 2 or 3 courses</Badge>
+              <Badge className="bg-red-100 text-red-700 w-fit">1, 2 or 3 courses each</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Sit-down Christmas lunch or dinner</h2>
               <p className="text-base sm:text-lg text-ink-muted">
                 Choose a lunchtime or evening sitting for your group. When you enquire, we will confirm availability for your
-                date, the price for your tier and what happens next.
+                date, the prices and what happens next.
               </p>
               <p className="text-sm text-accent-text font-semibold">
-                The 1 course is pre-book only, with no pre-order. The 2 and 3 course are pre-book and pre-order, and we will
-                confirm the deadline for meal choices and dietary requirements.
+                Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional. Every guest
+                pre-orders, and we will confirm the deadline for meal choices and dietary requirements.
               </p>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
@@ -663,7 +664,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">1. Choose your sitting</h3>
-                <p className="text-sm text-ink-muted">Tell us lunch or dinner, your date, your guest count and how many courses you want.</p>
+                <p className="text-sm text-ink-muted">Tell us lunch or dinner, your date, your guest count and roughly how many courses each guest wants.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -675,7 +676,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">3. Send your pre-order</h3>
-                <p className="text-sm text-ink-muted">2 and 3 course only. Return meal choices and dietary requirements by the deadline the team confirms. The 1 course needs no pre-order.</p>
+                <p className="text-sm text-ink-muted">Return each guest&apos;s courses and any dietary requirements by the deadline the team confirms. A main for everyone, starter and dessert optional.</p>
               </div>
             </Card>
           </Grid>
@@ -908,7 +909,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">One clear pre-order process</strong>, on the 2 and 3 course we will explain how to collect meal choices and confirm them with the team. The 1 course needs none.</span>
+                    <span><strong className="text-ink-strong">One clear pre-order process</strong>, we will explain how to collect each guest&apos;s courses and confirm them with the team. Nobody has to make the whole table order the same way.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
@@ -925,7 +926,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 <div className="space-y-4">
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Small team dinner ({facts.minPartySize} to 20)</h4>
-                    <p className="text-sm text-ink-muted">Private dining room with the sit-down Christmas menu at 1, 2 or 3 courses. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
+                    <p className="text-sm text-ink-muted">Private dining room with the sit-down Christmas menu, each guest choosing 1, 2 or 3 courses. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
@@ -1120,7 +1121,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div ref={enquiryRef} className="max-w-md mx-auto text-center">
             <p className="text-ink-muted mb-6">
               Tell us whether you are planning a Christmas party or a sit-down Christmas lunch or dinner. We will confirm
-              availability, the price for your tier and the next steps.
+              availability, the prices and the next steps.
             </p>
             <Button
               size="lg"
@@ -1308,18 +1309,17 @@ function ChristmasMenuAndPricing({
         <div className="mx-auto max-w-5xl space-y-4 text-center">
           <h2 className="text-3xl font-bold text-ink-strong">Christmas menu and prices</h2>
           <p className="text-base text-ink-muted">
-            Choose 1, 2 or 3 courses, {season.windowLabel}. Prices are served live from our booking system, so what you see
-            here is what you pay. The full dish list is released closer to the time.
+            Each guest chooses 1, 2 or 3 courses for themselves, {season.windowLabel}. Prices are served live from our
+            booking system, so what you see here is what you pay. The full dish list is released closer to the time.
           </p>
         </div>
 
-        {/* Mobile: cards. Tablet and up: the same three tiers as a table. */}
+        {/* Mobile: cards. Tablet and up: the same three price points as a table. */}
         <div className="mt-8 space-y-3 md:hidden">
           {menu.tiers.map(tier => (
             <article key={tier.id} className="rounded-2xl border border-line bg-surface p-5 text-left">
               <h3 className="font-semibold text-ink-strong">{tier.name}</h3>
               <p className="mt-2 text-sm font-semibold text-accent-text">{tierPriceLabel(tier)}</p>
-              <p className="mt-3 text-sm text-ink-muted">{tierPreOrderLabel(tier)}.</p>
               <p className="mt-1 text-sm text-ink-muted">
                 {tier.kidsTierAvailable
                   ? `Kids portion available${tier.kidsPriceFrom ? `, from £${tier.kidsPriceFrom} per child` : ''}.`
@@ -1335,9 +1335,8 @@ function ChristmasMenuAndPricing({
           <table className="w-full text-left text-sm text-ink-muted">
             <thead className="bg-surface-sunk text-ink-strong text-xs uppercase tracking-wide">
               <tr>
-                <th scope="col" className="px-4 py-3">Tier</th>
+                <th scope="col" className="px-4 py-3">Courses per guest</th>
                 <th scope="col" className="px-4 py-3">Price per person</th>
-                <th scope="col" className="px-4 py-3">Booking</th>
                 <th scope="col" className="px-4 py-3">Children</th>
               </tr>
             </thead>
@@ -1351,7 +1350,6 @@ function ChristmasMenuAndPricing({
                       <span className="block text-xs font-normal text-ink-muted">Tue-Thu and Fri-Sat priced differently</span>
                     )}
                   </td>
-                  <td className="px-4 py-4">{tierPreOrderLabel(tier)}</td>
                   <td className="px-4 py-4">
                     {tier.kidsTierAvailable
                       ? `Kids portion${tier.kidsPriceFrom ? `, from £${tier.kidsPriceFrom}` : ''}`
@@ -1362,9 +1360,10 @@ function ChristmasMenuAndPricing({
             </tbody>
           </table>
           <p className="border-t border-line px-4 py-4 text-sm text-ink-muted">
-            Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at least {facts.minNoticeHours} hours
-            ahead, with a £{facts.depositPerPerson} per person deposit that comes off your bill. There is no kids 2 course and no
-            kids 3 course: children are welcome on those tiers at the adult price.
+            Each guest picks their own number of courses and pays that rate, so one person can have three courses while the
+            next has a main on its own. Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at
+            least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit that comes off your
+            bill. There is no kids 2 course and no kids 3 course: children are welcome on those tiers at the adult price.
           </p>
         </div>
 
@@ -1376,7 +1375,7 @@ function ChristmasMenuAndPricing({
                 What is included
               </h3>
               <ul className="space-y-2 text-sm text-ink-muted">
-                <li>Adults get a glass of prosecco on all three tiers, swappable for orange juice.</li>
+                <li>Adults get a glass of prosecco whichever courses they choose, swappable for orange juice.</li>
                 <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
                 <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
               </ul>
@@ -1614,7 +1613,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   return (
     <div className="rounded-2xl border border-line bg-surface p-4 sm:p-6">
       <h3 className="text-2xl font-bold text-ink-strong mb-2">Send your Christmas enquiry</h3>
-      <p className="text-sm text-ink-muted">We will reply with availability, the price for your tier and next steps.</p>
+      <p className="text-sm text-ink-muted">We will reply with availability, the prices and next steps.</p>
       <p className="text-sm text-ink-muted mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-accent-text">{CONTACT_EMAIL}</a></p>
 
       {status === 'error' && (
@@ -1666,8 +1665,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               {facts.minPartySize}+ guests, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
             </p>
             <p className="mt-1 text-xs">
-              The 1 course is pre-book only, with no pre-order. The 2 and 3 course are pre-book and pre-order, and we will
-              confirm the deadline with you.
+              Courses are chosen per person: a main for every guest, with a starter and a dessert optional. Every guest
+              pre-orders, and we will confirm the deadline with you.
             </p>
             <fieldset className="mt-4">
               <legend className="mb-2 text-sm font-medium">Which sitting would you prefer? *</legend>
@@ -1686,7 +1685,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               </div>
             </fieldset>
             <div className="mt-4">
-              <label htmlFor="christmas-course-tier" className="block text-sm font-medium">How many courses?</label>
+              <label htmlFor="christmas-course-tier" className="block text-sm font-medium">How many courses per guest?</label>
+              <p className="mt-1 text-xs">A steer for the kitchen, not a commitment. Each guest picks their own courses when you pre-order.</p>
               <select
                 id="christmas-course-tier"
                 value={context.courseTier}
@@ -2174,7 +2174,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
             {context.mode === 'meal' && (
               <div className="rounded-lg border border-amber-300 bg-amber-50 p-3">
                 <p className="text-xs font-semibold text-amber-950">
-                  1 course is pre-book only. 2 and 3 course are pre-book and pre-order.
+                  Courses are chosen per person. A main each, starter and dessert optional.
                 </p>
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(['lunch', 'dinner'] as MealService[]).map(service => (

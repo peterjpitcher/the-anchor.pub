@@ -69,19 +69,19 @@ const TIER_DEFINITIONS: Array<{
   id: ChristmasTierId
   name: string
   courseCount: 1 | 2 | 3
-  preOrderRequired: boolean
   kidsTierAvailable: boolean
   dayRateVaries: boolean
   pattern: RegExp
 }> = [
-  // Owner-confirmed 2026-07-21: 1 course is pre-book only and is the only tier
-  // with a kids portion. 2 and 3 course are pre-book and pre-order, adults only
-  // as a priced tier, and priced differently Tue-Thu versus Fri-Sat.
+  // Owner-confirmed 2026-08-04: courses are chosen per person, so these are
+  // price points a guest picks for themselves, not tiers the table commits to.
+  // Every guest pre-orders a main whichever they pick. 1 course is the only
+  // price point with a kids portion. 2 and 3 course are adults only as a priced
+  // point, and priced differently Tue-Thu versus Fri-Sat.
   {
     id: 'one_course',
     name: '1 course',
     courseCount: 1,
-    preOrderRequired: false,
     kidsTierAvailable: true,
     dayRateVaries: false,
     pattern: /\b(?:1|one)[\s_-]*course\b/i
@@ -90,7 +90,6 @@ const TIER_DEFINITIONS: Array<{
     id: 'two_course',
     name: '2 course',
     courseCount: 2,
-    preOrderRequired: true,
     kidsTierAvailable: false,
     dayRateVaries: true,
     pattern: /\b(?:2|two)[\s_-]*course\b/i
@@ -99,7 +98,6 @@ const TIER_DEFINITIONS: Array<{
     id: 'three_course',
     name: '3 course',
     courseCount: 3,
-    preOrderRequired: true,
     kidsTierAvailable: false,
     dayRateVaries: true,
     pattern: /\b(?:3|three)[\s_-]*course\b/i
@@ -142,12 +140,12 @@ function toDishViews(section: ChristmasMenuSection): ChristmasDishView[] {
 }
 
 /**
- * Fold the live Christmas menu into the three confirmed course tiers.
+ * Fold the live Christmas menu into the three confirmed course price points.
  *
- * The tier structure, the pre-order rules and the kids rule are SSOT facts and
- * always render. Dishes and prices only ever come from the management database,
- * so a tier with no live data simply says "confirmed on enquiry" rather than
- * showing a zero, a guess or an empty block.
+ * The structure and the kids rule are SSOT facts and always render. Dishes and
+ * prices only ever come from the management database, so a price point with no
+ * live data simply says "confirmed on enquiry" rather than showing a zero, a
+ * guess or an empty block.
  */
 function buildMenuView(sections: ChristmasMenuSection[], isUnavailable: boolean): ChristmasMenuView {
   const claimed = new Set<string>()
@@ -163,7 +161,6 @@ function buildMenuView(sections: ChristmasMenuSection[], isUnavailable: boolean)
       id: definition.id,
       name: definition.name,
       courseCount: definition.courseCount,
-      preOrderRequired: definition.preOrderRequired,
       kidsTierAvailable: definition.kidsTierAvailable,
       dayRateVaries: definition.dayRateVaries,
       priceFrom: lowestPrice(rawItems, false),
@@ -228,19 +225,19 @@ export async function generateMetadata(): Promise<Metadata> {
   // the strongest differentiator against airport-area venues, so it sits near
   // the front rather than in the tail that used to get truncated away.
   const description =
-    `Christmas parties and dinner near Heathrow, free parking. ${windowLabel}. 1, 2 or 3 courses for groups of ${FACTS.minPartySize}+. £${FACTS.depositPerPerson}pp deposit.`
+    `Christmas parties and dinner near Heathrow, free parking. ${windowLabel}. Each guest picks 1, 2 or 3 courses. Groups of ${FACTS.minPartySize}+, £${FACTS.depositPerPerson}pp deposit.`
 
   return {
     title: { absolute: title },
     description,
     openGraph: {
       title: 'Christmas Dinner & Christmas Parties Near Heathrow | The Anchor',
-      description: `Book Christmas dinner at The Anchor, ${windowLabel}. 1, 2 or 3 courses for groups of ${FACTS.minPartySize} or more. Free parking, seven minutes from Heathrow Terminal 5.`,
+      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking, seven minutes from Heathrow Terminal 5.`,
       images: [{ url: HERO_IMAGE, width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
     },
     twitter: getTwitterMetadata({
       title: 'Christmas Dinner & Christmas Parties Near Heathrow | The Anchor',
-      description: `Book Christmas dinner at The Anchor, ${windowLabel}. 1, 2 or 3 courses for groups of ${FACTS.minPartySize} or more. Free parking near Heathrow.`,
+      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking near Heathrow.`,
       images: [HERO_IMAGE]
     }),
     alternates: { canonical: './' }

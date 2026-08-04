@@ -894,7 +894,7 @@
     "christmas_one_course_gbp": "LIVE_FROM_DB",
     "christmas_two_course_gbp": "LIVE_FROM_DB",
     "christmas_three_course_gbp": "LIVE_FROM_DB",
-    "christmas_sit_down_meals": "Minimum 6 guests and at least 24 hours notice. 1 course is pre-book only, no pre-order. 2 course and 3 course are pre-book and pre-order. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
+    "christmas_sit_down_meals": "Minimum 6 guests and at least 24 hours notice. Every Christmas booking is pre-booked, and courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
     "christmas_2026_service_window": "2026-11-10 to 2026-12-20 inclusive; reconfirm before publishing a later season",
     "christmas_buffets": "Available for 30+ guests",
     "private_booking_deposit_gbp": 250,
@@ -1084,7 +1084,7 @@
         "two_course": true,
         "three_course": true
       },
-      "pre_order_note": "1 course is pre-book only, with no pre-order. Blanket 'Christmas is pre-order only' copy is wrong."
+      "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired."
     },
     "deposit": {
       "per_person_gbp": 10,
@@ -1383,7 +1383,7 @@
     "ev_charging_coming_soon": "EV charging is NOT coming soon. Remove any 'coming soon' references.",
     "christmas_discontinued_formats": "DISCONTINUED 2026-07-21, remove every trace from copy, schema and data shapes: shared Christmas party nights; All the Trimmings Board; XL Board; per-person add-ons (pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings); Bundle A (prosecco plus coffee and mince pie); standalone drinks bundles. The festive menu catering packages and the festive buffets are NOT discontinued.",
     "christmas_window_1nov_23dec": "SUPERSEDED. The Christmas 2026 window is 10 November to 20 December 2026 inclusive. Remove every '1 November to 23 December' string from copy, constants, schema and tests.",
-    "christmas_blanket_pre_order_only": "WRONG. 1 course is pre-book only with no pre-order. Only 2 course and 3 course are pre-order. Never publish a blanket 'all Christmas meals are pre-order only' claim.",
+    "christmas_blanket_pre_order_only": "SUPERSEDED 2026-08-04. Courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Never publish whole-table course copy such as '1 course is pre-book only, no pre-order' in copy, constants, schema or tests.",
     "christmas_kids_multi_course_price": "DOES NOT EXIST. There is no kids 2 course and no kids 3 course, no child portion and no child price. Never invent one. Children may order the adult tiers at the adult price.",
     "christmas_named_dishes": "The Christmas menu is NOT finalised. Never list or imply a specific Christmas dish. The only permitted wording is 'menu released closer to the time'.",
     "christmas_sub_6_or_same_day": "Christmas bookings under 6 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",

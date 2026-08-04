@@ -23,17 +23,19 @@ describe('/christmas-parties booking journeys', () => {
     expect(heroSource).toContain('Plan a Christmas party')
     expect(heroSource).toContain('Book lunch or dinner')
     expect(pageSource).toContain('Christmas parties near Heathrow, Staines and Surrey')
-    // The meal journey is now sold on the three course tiers rather than on a
-    // blanket pre-order rule, which was retired on 21 July 2026.
-    expect(pageSource).toContain('1, 2 or 3 courses')
+    // The meal journey is sold on courses chosen per guest. The blanket
+    // pre-order rule went on 21 July 2026, and the whole-table course tier it
+    // was replaced by went on 4 August 2026.
+    expect(pageSource).toContain('Each guest picks 1, 2 or 3 courses')
     expect(pageSource).not.toMatch(/pre-order only/i)
+    expect(pageSource).not.toMatch(/courses for groups of/i)
   })
 
   it('captures lunch and dinner with suitable machine-readable times', () => {
     expect(clientSource).toContain("export type MealService = 'lunch' | 'dinner'")
     expect(clientSource).toContain("{ value: '12:00', label: '12:00 pm' }")
     expect(clientSource).toContain("{ value: '18:30', label: '6:30 pm' }")
-    expect(clientSource).toContain('1 course is pre-book only. 2 and 3 course are pre-book and pre-order.')
+    expect(clientSource).toContain('Courses are chosen per person. A main each, starter and dessert optional.')
   })
 
   it('bounds both enquiry date pickers by the season, not by hardcoded dates', () => {
@@ -51,13 +53,26 @@ describe('/christmas-parties booking journeys', () => {
     expect(clientSource).not.toContain('2026-12-23')
   })
 
-  it('captures the course tier so the pre-order rule can be applied per booking', () => {
+  it('captures the expected course count per guest, and keeps the wire values stable', () => {
+    // The stored values are unchanged so the management app keeps reading the
+    // enquiry it already understands. Only the wording moved to per person.
     expect(clientSource).toContain("export type CourseTier = 'undecided' | 'one_course' | 'two_course' | 'three_course'")
     expect(clientSource).toContain('courseTier: event.target.value as CourseTier')
+    expect(clientSource).toContain('How many courses per guest?')
     expect(apiSource).toContain('const VALID_COURSE_TIERS')
-    expect(apiSource).toContain("one_course: '1 course (pre-book only, no pre-order)'")
-    expect(apiSource).toContain("two_course: '2 course (pre-book and pre-order)'")
-    expect(apiSource).toContain("three_course: '3 course (pre-book and pre-order)'")
+    expect(apiSource).toContain("one_course: 'Mostly 1 course per guest'")
+    expect(apiSource).toContain("two_course: 'Mostly 2 courses per guest'")
+    expect(apiSource).toContain("three_course: 'Mostly 3 courses per guest'")
+  })
+
+  it('asks for a pre-order on every sit-down booking, whatever the courses', () => {
+    // Owner-confirmed 2026-08-04: a main per guest is always captured, so the
+    // old "one course needs no pre-order" branch no longer exists.
+    expect(apiSource).toContain(
+      "'Yes, per person. A main for every guest, starter and dessert optional.'"
+    )
+    expect(stripComments(apiSource)).not.toMatch(/pre-book only/i)
+    expect(stripComments(clientSource)).not.toMatch(/pre-book only/i)
   })
 
   it('does not accept discontinued party formats', () => {

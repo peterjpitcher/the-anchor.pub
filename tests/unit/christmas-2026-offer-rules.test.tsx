@@ -93,13 +93,16 @@ describe('Christmas 2026 booking rules', () => {
     expect(text).not.toMatch(/no deposit/i)
   })
 
-  it('describes pre-order per course tier and never as a blanket rule', () => {
+  it('describes courses as a per-person choice, with only the main required', () => {
     const text = renderPage()
 
-    expect(text).toContain('The 1 course is pre-book only')
-    expect(text).toContain('The 2 and 3 course are pre-book and pre-order')
-    expect(text).not.toMatch(/all sit-down christmas lunches and dinners are pre-order only/i)
-    expect(text).not.toMatch(/christmas is pre-order only/i)
+    expect(text).toContain('Courses are chosen per person')
+    expect(text).toMatch(/every guest chooses a main/i)
+    expect(text).toMatch(/a starter and a dessert are optional/i)
+    expect(text).toMatch(/different numbers of courses/i)
+    // Two retired rules, both of which the page used to publish as fact.
+    expect(text).not.toMatch(/pre-order only/i)
+    expect(text).not.toMatch(/pre-book only/i)
   })
 
   it('says plainly that no kids 2 course or 3 course exists', () => {
@@ -133,8 +136,8 @@ describe('Christmas 2026 booking rules', () => {
 
     expect(schemaJson).toContain('6 guests or more')
     expect(schemaJson).toContain('at least 24 hours ahead')
-    expect(schemaJson).toContain('One course is pre-book only with no pre-order.')
-    expect(schemaJson).toContain('Two and three course are pre-book and pre-order.')
+    expect(schemaJson).toContain('Courses are chosen per person, not for the whole table.')
+    expect(schemaJson).toContain('Every guest chooses a main.')
     expect(schemaJson).toMatch(/deposit of 10 pounds per person applies to every Christmas booking, whatever the party size/i)
   })
 })
@@ -180,7 +183,6 @@ describe('Christmas 2026 menu and price handling', () => {
         id: 'one_course',
         name: '1 course',
         courseCount: 1,
-        preOrderRequired: false,
         kidsTierAvailable: true,
         priceFrom: '23',
         kidsPriceFrom: '18',

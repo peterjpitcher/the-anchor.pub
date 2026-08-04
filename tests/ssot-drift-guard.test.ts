@@ -157,14 +157,18 @@ describe('SSOT drift guard — private hire policy', () => {
     expect(mdPlain).toContain('no projector')
   })
 
-  it('keeps Christmas pre-order rules course-conditional, never blanket', () => {
-    // 1 course is pre-book WITHOUT pre-order (owner-confirmed 2026-07-21), so the
-    // old blanket "pre-order only" claim must not come back.
+  it('states the per-person course rule, never a whole-table one', () => {
+    // Courses are chosen per person (owner-confirmed 2026-08-04): a main each,
+    // starter and dessert optional. Both the retired whole-table course promise
+    // and the older blanket "pre-order only" claim must stay out.
     expect(ssot.private_hire.christmas_sit_down_meals).toContain(
-      '1 course is pre-book only, no pre-order',
+      'courses are chosen per person',
     )
     expect(ssot.private_hire.christmas_sit_down_meals).toContain(
-      '2 course and 3 course are pre-book and pre-order',
+      'every guest has a main, a starter and a dessert are optional',
+    )
+    expect(ssot.private_hire.christmas_sit_down_meals).not.toContain(
+      'pre-book only',
     )
     expect(mdPlain).not.toContain(
       'Christmas lunch and dinner bookings are available by pre-order only',

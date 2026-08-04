@@ -110,7 +110,7 @@ export const christmasPartiesSchema = {
         ),
         enquiryService(
           'Sit-down Christmas lunch or dinner',
-          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. One course is pre-book only with no pre-order. Two and three course are pre-book and pre-order. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
+          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us in advance and we confirm the deadline with the booking. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
         ),
         enquiryService(
           'Festive buffet',

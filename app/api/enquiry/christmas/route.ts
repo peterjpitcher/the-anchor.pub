@@ -69,22 +69,23 @@ function earliestBookableDate(): string {
   return tomorrow > CHRISTMAS_BOOKING_START ? tomorrow : CHRISTMAS_BOOKING_START
 }
 
+// Owner-confirmed 2026-08-04: courses are chosen per person, so the answer here
+// is what the group expects on average, not what the table has committed to.
 const COURSE_TIER_LABELS: Record<CourseTier, string> = {
   undecided: 'Courses not decided yet',
-  one_course: '1 course (pre-book only, no pre-order)',
-  two_course: '2 course (pre-book and pre-order)',
-  three_course: '3 course (pre-book and pre-order)'
+  one_course: 'Mostly 1 course per guest',
+  two_course: 'Mostly 2 courses per guest',
+  three_course: 'Mostly 3 courses per guest'
 }
 
 function courseTierLabel(value?: CourseTier): string {
   return COURSE_TIER_LABELS[value || 'undecided']
 }
 
-function preOrderRequirement(value?: CourseTier): string {
-  if (value === 'two_course' || value === 'three_course') return 'Yes'
-  if (value === 'one_course') return 'No, 1 course is pre-book only'
-  return 'To confirm, depends on the course tier chosen'
-}
+// Every sit-down Christmas booking now pre-orders, whatever the guests choose,
+// because a main per cover is captured in advance in all cases.
+const PRE_ORDER_REQUIREMENT =
+  'Yes, per person. A main for every guest, starter and dessert optional.'
 
 type IncomingChristmasEnquiryPayload = Omit<Partial<ChristmasEnquiryPayload>, 'mode'> & {
   mode?: EnquiryMode | LegacyEnquiryMode
@@ -162,8 +163,8 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
 
   if (body.mode === 'meal') {
     textLines.push(`Meal sitting: ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}`)
-    textLines.push(`Course tier: ${courseTierLabel(body.courseTier)}`)
-    textLines.push(`Pre-order required: ${preOrderRequirement(body.courseTier)}`)
+    textLines.push(`Courses expected: ${courseTierLabel(body.courseTier)}`)
+    textLines.push(`Pre-order required: ${PRE_ORDER_REQUIREMENT}`)
   }
 
   if (body.mode === 'party' && body.partyFormat) {
@@ -199,8 +200,8 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
 
   if (body.mode === 'meal') {
     htmlParts.push(`<p><strong>Meal sitting:</strong> ${body.service === 'lunch' ? 'Lunch' : 'Dinner'}</p>`)
-    htmlParts.push(`<p><strong>Course tier:</strong> ${escapeHtml(courseTierLabel(body.courseTier))}</p>`)
-    htmlParts.push(`<p><strong>Pre-order required:</strong> ${escapeHtml(preOrderRequirement(body.courseTier))}</p>`)
+    htmlParts.push(`<p><strong>Courses expected:</strong> ${escapeHtml(courseTierLabel(body.courseTier))}</p>`)
+    htmlParts.push(`<p><strong>Pre-order required:</strong> ${escapeHtml(PRE_ORDER_REQUIREMENT)}</p>`)
   }
 
   if (body.mode === 'party' && body.partyFormat) {
@@ -388,14 +389,16 @@ export async function POST(request: NextRequest) {
         const managementNotes = [
           body.notes?.trim(),
           `Website Christmas journey: ${enquiryLabel(enquiry)}`,
-          body.mode === 'meal' ? `Pre-order required: ${preOrderRequirement(body.courseTier)}` : undefined,
+          body.mode === 'meal' ? `Pre-order required: ${PRE_ORDER_REQUIREMENT}` : undefined,
           body.mode === 'party' && body.partyFormat ? `Party style: ${partyFormatLabel(body.partyFormat)}` : undefined,
           body.source ? `Website CTA source: ${body.source}` : undefined
         ].filter((value): value is string => Boolean(value)).join('\n\n').slice(0, 2000)
 
-        // Journey, sitting, course tier and party style are sent as structured
-        // fields as well as free text, so the management app is not left having
-        // to parse a notes blob to know what was asked for.
+        // Journey, sitting, expected course count and party style are sent as
+        // structured fields as well as free text, so the management app is not
+        // left having to parse a notes blob to know what was asked for. The
+        // courseTier key and its values are unchanged so the management app
+        // keeps reading the enquiry it already understands.
         const managementPayload = {
           name: body.name,
           email: body.email,
