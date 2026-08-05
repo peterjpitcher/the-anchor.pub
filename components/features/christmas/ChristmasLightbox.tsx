@@ -177,7 +177,8 @@ export function ChristmasLightbox() {
                     <div className="space-y-2">
                         <h3 className="text-2xl text-ink-strong">Ask for Current Christmas Pricing</h3>
                         <p className="text-ink-muted">
-                            Book your Christmas party early to secure the best dates. Pay your deposit by <strong className="text-ink-strong">October 1st</strong> to claim your discount.
+                            Book your Christmas party early to secure the best dates. A deposit
+                            secures your booking and comes off your final bill.
                         </p>
                     </div>
 
