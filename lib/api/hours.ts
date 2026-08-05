@@ -224,3 +224,19 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
     return null
   }
 }
+
+/**
+ * Cached hours for server-rendering the seven-day table, so crawlers and no-JS
+ * clients read real times instead of a loading placeholder while the page stays
+ * on ISR. Do not read `currentStatus` from this: it is stale by design. Live
+ * open/closed state comes from the client provider.
+ */
+export async function getBusinessHoursSnapshot(): Promise<BusinessHours | null> {
+  const { anchorAPI } = await import('./client')
+  try {
+    return await anchorAPI.getBusinessHoursSnapshot()
+  } catch (error) {
+    logError('api-business-hours-snapshot', error)
+    return null
+  }
+}

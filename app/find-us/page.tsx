@@ -4,6 +4,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CtaBand } from '@/components/CtaBand'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { WeekHours } from '@/components/WeekHours'
+import { getBusinessHoursSnapshot } from '@/lib/api'
 import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -41,7 +42,11 @@ export const metadata: Metadata = {
   }
 }
 
-export default function FindUsPage() {
+export default async function FindUsPage() {
+  // Server-fetched so the seven-day table is in the initial HTML, not a loading
+  // placeholder. Cached snapshot, so this page stays static.
+  const businessHours = await getBusinessHoursSnapshot()
+
   const howToFromHeathrowSchema = generateHowToDirectionsSchema(
     "Heathrow Terminal 5",
     "The Anchor",
@@ -195,7 +200,7 @@ export default function FindUsPage() {
             <div id="opening-hours" className="mt-8 scroll-mt-24">
               <h2 className="mb-4 font-display text-h3 text-ink-strong">Opening hours &amp; flight path</h2>
               <SpeakableContent selector="opening-hours" priority="high">
-                <WeekHours />
+                <WeekHours initialHours={businessHours} />
               </SpeakableContent>
             </div>
           </div>

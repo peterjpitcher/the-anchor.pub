@@ -3,6 +3,7 @@ import { Button, SectionHeading, Card, CardBody, Container } from '@/components/
 import { CtaBand } from '@/components/CtaBand'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { WeekHours } from '@/components/WeekHours'
+import { getBusinessHoursSnapshot } from '@/lib/api'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -77,7 +78,11 @@ const localBusinessSchema = {
   "url": "https://www.the-anchor.pub/heathrow-hotels-pub"
 }
 
-export default function HeathrowHotelsPubPage() {
+export default async function HeathrowHotelsPubPage() {
+  // Server-fetched so the seven-day table is in the initial HTML, not a loading
+  // placeholder. Cached snapshot, so this page stays static.
+  const businessHours = await getBusinessHoursSnapshot()
+
   const directionsSchema = generateHowToDirectionsSchema(
     'Heathrow Hotels',
     'The Anchor - Heathrow Pub & Dining',
@@ -556,7 +561,7 @@ export default function HeathrowHotelsPubPage() {
             />
             <Card accent>
               <CardBody>
-                <WeekHours />
+                <WeekHours initialHours={businessHours} />
               </CardBody>
             </Card>
             <p className="mt-4 text-ink-muted text-center">

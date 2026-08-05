@@ -4,6 +4,7 @@ import { DateTime } from 'luxon'
 import { Plane } from 'lucide-react'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { CONTACT_INFO } from '@/lib/error-handling'
+import type { BusinessHours } from '@/lib/api'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import {
   STATIC_BAR_HOURS_SUMMARY,
@@ -15,6 +16,13 @@ import { getPlaneSpottingWindowForDate } from '@/lib/heathrow-runway-alternation
 interface WeekHoursProps {
   showKitchen?: boolean
   className?: string
+  /**
+   * Server-fetched hours snapshot. Supplying this puts the seven-day table in the
+   * initial HTML, so crawlers, AI assistants and no-JS clients read real times
+   * instead of the "loading" fallback. The client provider still takes over on
+   * hydration, so live data always wins.
+   */
+  initialHours?: BusinessHours | null
 }
 
 const FOOTER_NOTE =
@@ -42,12 +50,26 @@ const dayOrder = [
  * Only the presentation differs — this is the redesign DS layout, not the legacy
  * green-surface markup.
  */
-export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps) {
+export function WeekHours({
+  showKitchen = true,
+  className = '',
+  initialHours = null
+}: WeekHoursProps) {
   const context = useBusinessHoursContext()
-  const { hours, loading, error } = context || { hours: null, loading: true, error: null }
+  const {
+    hours: liveHours,
+    loading,
+    error
+  } = context || { hours: null, loading: true, error: null }
+
+  // Live client data wins as soon as it arrives; the server snapshot covers SSR
+  // and any client fetch failure. Only live data may drive the open/closed badge,
+  // because the snapshot is regenerated hourly and its currentStatus goes stale.
+  const hours = liveHours ?? initialHours
+  const isLive = Boolean(liveHours)
 
   // --- Loading state (static fallback, contact path stays visible) ---
-  if (loading) {
+  if (loading && !hours) {
     return (
       <div className={`rounded-md border border-line bg-surface p-4 ${className}`}>
         <p className="text-sm font-semibold text-ink">Opening hours</p>
@@ -59,7 +81,9 @@ export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps
   }
 
   // --- Error state (static fallback + contact path) ---
-  if (error || !hours) {
+  // A usable snapshot beats an error box, so this only fires when we have no data
+  // from either source.
+  if (!hours) {
     const errorMessage = error?.message || `We couldn't load our opening hours right now.`
     return (
       <div className={`rounded-md border border-anchor-danger/30 bg-anchor-danger/[0.08] p-4 ${className}`}>
@@ -207,15 +231,19 @@ export function WeekHours({ showKitchen = true, className = '' }: WeekHoursProps
 
   return (
     <div className={`rounded-md border border-line bg-surface p-5 ${className}`}>
-      {/* Header: open/closed badge + status text */}
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <Badge variant={isOpenNow ? 'success' : 'danger'} dot>
-          {isOpenNow ? 'Open now' : 'Closed now'}
-        </Badge>
-        <span className="text-sm text-ink-muted">
-          {isOpenNow ? 'The bar is open — come on in.' : 'See this week’s hours below.'}
-        </span>
-      </div>
+      {/* Header: open/closed badge + status text. Rendered only from live client
+          data, never from the hourly server snapshot, so a stale "Open now" is
+          never published to a crawler. */}
+      {isLive && (
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <Badge variant={isOpenNow ? 'success' : 'danger'} dot>
+            {isOpenNow ? 'Open now' : 'Closed now'}
+          </Badge>
+          <span className="text-sm text-ink-muted">
+            {isOpenNow ? 'The bar is open, come on in.' : 'See this week’s hours below.'}
+          </span>
+        </div>
+      )}
 
       {/* 2-column day list (1-col under 640px) */}
       <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-md sm:grid-cols-2">

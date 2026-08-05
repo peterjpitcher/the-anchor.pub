@@ -10,7 +10,7 @@ import { CtaBand } from '@/components/CtaBand'
 import { WeekHours } from '@/components/WeekHours'
 import { UpcomingEvents } from '@/components/events/UpcomingEvents'
 import { EventSchema } from '@/components/seo/EventSchema'
-import { getUpcomingEvents } from '@/lib/api'
+import { getBusinessHoursSnapshot, getUpcomingEvents } from '@/lib/api'
 
 import { HomeHero } from './_components/HomeHero'
 import { HomeFaq } from './_components/HomeFaq'
@@ -170,10 +170,14 @@ function UpcomingEventsSkeleton() {
   )
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   const seasonalImage = getSeasonalHomepageImage()
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
+  // Fetched on the server so the seven-day table ships in the initial HTML rather
+  // than the "loading" fallback. The cached snapshot keeps this page on ISR;
+  // returns null on failure, which WeekHours handles.
+  const businessHours = await getBusinessHoursSnapshot()
 
   return (
     <>
@@ -400,7 +404,7 @@ export default function HomePage() {
             <CardBody>
               <h3 className="font-display text-h4 text-ink-strong">Opening hours &amp; flight path</h3>
               <div className="mt-4">
-                <WeekHours />
+                <WeekHours initialHours={businessHours} />
               </div>
             </CardBody>
           </Card>

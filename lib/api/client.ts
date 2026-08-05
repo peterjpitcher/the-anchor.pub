@@ -35,6 +35,16 @@ import type {
 import { FALLBACK_PARKING_RATES } from './parking'
 import type { MenuItem } from './menu'
 
+/**
+ * How stale a menu price may be, in seconds.
+ *
+ * Menu prices are live from the management database, and an uncached fetch used
+ * to force every menu page to server-render on each request. This is the agreed
+ * compromise: short enough that a till price change reaches the site quickly,
+ * long enough that the menu pages can be statically regenerated. Keep it small.
+ */
+const MENU_PRICE_REVALIDATE_SECONDS = 300
+
 // Use internal API routes to avoid CORS issues and keep API key secure
 const API_BASE_URL = typeof window === 'undefined'
   ? getManagementApiBaseUrl()  // Server-side: normalize env var and ensure /api suffix
@@ -1039,8 +1049,11 @@ export class AnchorAPI {
       ? `/menu?menu=${encodeURIComponent(trimmedCode)}`
       : '/menu'
 
+    // Short cache, deliberately short. Prices stay live from the management DB,
+    // but an uncached fetch forced every menu page to render per request. Five
+    // minutes is the agreed ceiling on how stale a price may be.
     return this.request<MenuResponse>(endpoint, {
-      next: { revalidate: 0 }
+      next: { revalidate: MENU_PRICE_REVALIDATE_SECONDS }
     })
   }
 
@@ -1400,7 +1413,7 @@ export class AnchorAPI {
 
     try {
       const payload = await this.request<unknown>('/menu/sunday-lunch', {
-        next: { revalidate: 0 }
+        next: { revalidate: MENU_PRICE_REVALIDATE_SECONDS }
       })
       const candidate = this.unwrapSuccessData<SundayLunchMenuResponse>(payload) || (payload as SundayLunchMenuResponse)
       if (candidate && Array.isArray(candidate.mains) && Array.isArray(candidate.sides)) {
@@ -1435,6 +1448,26 @@ export class AnchorAPI {
     const data = await this.request<BusinessHours>('/business/hours', {
       // Never cache business hours: currentStatus/closesIn/opensIn are time-sensitive.
       next: { revalidate: 0 }
+    })
+    return data
+  }
+
+  /**
+   * Cacheable hours, for server-rendered weekly tables only.
+   *
+   * The uncached `getBusinessHours()` above forces the whole route to render
+   * dynamically, which is too high a price on static marketing pages. This
+   * variant is cached so those pages stay on ISR and still ship real times in
+   * their initial HTML.
+   *
+   * The trade-off: `currentStatus` / `closesIn` / `opensIn` are stale here and
+   * must NOT be used for live open/closed state. The client provider owns that.
+   * The regular and special hours themselves change rarely, so the weekly table
+   * is safe to cache.
+   */
+  async getBusinessHoursSnapshot(revalidateSeconds = 3600): Promise<BusinessHours> {
+    const data = await this.request<BusinessHours>('/business/hours', {
+      next: { revalidate: revalidateSeconds }
     })
     return data
   }
