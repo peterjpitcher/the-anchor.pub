@@ -10,7 +10,7 @@ import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
+import { getBusinessHoursSnapshot, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
@@ -149,7 +149,10 @@ export default async function FoodMenuPage() {
   const [menuData, kidsData, businessHours, fishData, sundayData] = await Promise.all([
     getFoodMenuPageData(),
     getKidsMenuPageData(),
-    getBusinessHours().catch(() => null),
+    // Snapshot, not the live fetch: these hours only feed the FAQ text and the
+    // schema openingHoursSpecification, never currentStatus, so caching them
+    // keeps this page static.
+    getBusinessHoursSnapshot().catch(() => null),
     getFishAndChipsMenuPageData(),
     getSundayLunchMenuPageData()
   ])
@@ -198,7 +201,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Where can I view your food menu or pub menu online?',
-      answer: 'You can view the full live food menu on this page. Use the filters for vegetarian, vegan and gluten-free options, then book a table when you are ready.'
+      answer: 'You can view the full live food menu on this page. Use the filters for vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options, then book a table when you are ready.'
     },
     {
       question: 'Do you serve Sunday roast at The Anchor?',
@@ -220,7 +223,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Do you cater for dietary requirements?',
-      answer: 'Yes. Use the live filters on this page for vegetarian, vegan and gluten-free options, and ask the bar team for allergen guidance before ordering.'
+      answer: 'Yes. Use the live filters on this page for vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options, and ask the bar team for allergen guidance before ordering.'
     },
     {
       question: 'Can I book a table for food?',

@@ -190,7 +190,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     ],
                 },
                 packagesHeading: 'Catering for the gathering',
-                packagesIntro: 'We offer buffets, afternoon teas and unlimited tea and coffee, with vegetarian, vegan and gluten-free options for mixed groups. There is no room hire charge for wakes, and we will give you a clear, tailored quote when you call.',
+                packagesIntro: 'We offer buffets, afternoon teas and unlimited tea and coffee, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options for mixed groups. There is no room hire charge for wakes, and we will give you a clear, tailored quote when you call.',
                 faqs: [
                     {
                         question: `How far is The Anchor from ${name}?`,
@@ -222,7 +222,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We regularly cater for mixed groups and can provide vegetarian, vegan, gluten-free and nut-free options. Please tell us when you book and we will look after everyone.',
+                        answer: 'Yes. We regularly cater for mixed groups and can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options. Please tell us when you book and we will look after everyone.',
                     },
                 ],
             }
@@ -275,7 +275,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for a mix of adults and children?',
-                        answer: 'Absolutely. We offer buffets, afternoon teas and sit-down meals, with a children\'s menu and vegetarian, vegan and gluten-free options. Let us know your numbers when you book.',
+                        answer: 'Absolutely. We offer buffets, afternoon teas and sit-down meals, with a children\'s menu and vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your numbers when you book.',
                     },
                     {
                         question: 'How many guests can you host?',
@@ -413,7 +413,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We can provide vegetarian, vegan, gluten-free and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
+                        answer: 'Yes. We can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
                     },
                     {
                         question: 'Is a deposit required?',
@@ -478,7 +478,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you provide a working lunch?',
-                        answer: 'Yes. We offer working lunches and finger buffets through to sit-down meals, with vegetarian, vegan and gluten-free options. Let us know your requirements when you book.',
+                        answer: 'Yes. We offer working lunches and finger buffets through to sit-down meals, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your requirements when you book.',
                     },
                     {
                         question: 'Is a deposit required?',
@@ -543,7 +543,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for a large group?',
-                        answer: 'Yes. We offer buffets, sharing platters and sit-down meals for larger groups, with vegetarian, vegan and gluten-free options. Let us know your numbers when you book.',
+                        answer: 'Yes. We offer buffets, sharing platters and sit-down meals for larger groups, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your numbers when you book.',
                     },
                     {
                         question: 'Is a deposit required?',
@@ -606,7 +606,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We can provide vegetarian, vegan, gluten-free and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
+                        answer: 'Yes. We can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
                     },
                     {
                         question: 'Is the venue dog friendly?',
@@ -842,7 +842,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     </p>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                            { title: 'Catering', description: 'Buffets, afternoon teas, or sit-down meals tailored to your requirements, with vegetarian, vegan and gluten-free options.' },
+                            { title: 'Catering', description: 'Buffets, afternoon teas, or sit-down meals tailored to your requirements, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options.' },
                             { title: 'Refreshments', description: 'Unlimited tea and coffee, welcome drinks and a full bar service. Drink choices are confirmed when you book.' },
                             { title: 'Planning', description: 'A dedicated events coordinator handles the setup, layout and timings so you can enjoy the day.' },
                         ].map((feature) => (

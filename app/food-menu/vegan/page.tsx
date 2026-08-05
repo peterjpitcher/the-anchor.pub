@@ -185,7 +185,7 @@ export default async function VeganMenuPage() {
             </Link>
             <span className="text-ink-muted">|</span>
             <Link href="/food-menu/gluten-free" className="font-semibold text-accent-text hover:underline">
-              Gluten-Free Menu
+              NGCI Menu
             </Link>
             <span className="text-ink-muted">|</span>
             <Link href="/book-table" className="font-semibold text-accent-text hover:underline">

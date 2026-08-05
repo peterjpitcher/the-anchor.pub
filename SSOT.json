@@ -468,7 +468,7 @@
       },
       {
         "name": "Stone-Baked Pizza",
-        "note": "12-inch, hand-stretched. Gluten-free bases available on request.",
+        "note": "12-inch, hand-stretched. NGCI bases available on request.",
         "items": [
           {
             "name": "Rustic Classic",
@@ -641,7 +641,8 @@
       "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
       "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
       "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket, NOT grilled courgette, peppers, balsamic glaze",
-      "gluten_free_fish_and_chips": "We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Direct guests to the gluten-free menu/allergen guidance instead."
+      "gluten_free_fish_and_chips": "We do not offer NGCI fish and chips. There is no NGCI batter, no NGCI fried or grilled fish, and no separate fryer. Please see the NGCI options on this page or ask the team about allergens before ordering.",
+      "ngci_not_gluten_free": "Never claim a dish, base, gravy or menu is 'gluten-free'. That is a regulated term meaning below 20 ppm, which a single shared kitchen cannot guarantee. Use NGCI (No Gluten Containing Ingredients), spelled out on first use, always with the cross-contamination caveat. The /food-menu/gluten-free URL and meta description keep the search phrase; the visible label does not. Machine tokens (dietary_flags gluten_free, the API dietary-menu parameter, the GTM filter value) are not copy and never change."
     },
     "allergen_display_rule": {
       "fallback_string": "See menu or contact us for allergen information",
@@ -1374,8 +1375,10 @@
     "wellington_vegetarian_phrasing": "Wellington is VEGAN, not vegetarian. Do NOT describe the wellington as 'vegetarian' in customer-facing copy or schemas.",
     "sunday_roast_pre_order_pre_pay": "Pre-order, Saturday-1pm cutoff and per-roast prepayment are RETIRED post-2026-05-17 walk-in launch. Do not reintroduce in copy, JSON-LD, or booking flows.",
     "old_menu_items": "Lamb Shank (main) and Speck Ham & Parmesan pizza are removed. Do not list them. Stacks are back on the menu (prices LIVE from the management DB, never quote a figure here).",
-    "gluten_free_fish_and_chips": "Do NOT claim gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.",
+    "gluten_free_fish_and_chips": "Do NOT claim NGCI (or gluten-free) fish and chips, batter, fried fish, grilled fish, or a dedicated fryer for fish and chips.",
+    "gluten_free_as_a_claim": "Do NOT describe any dish, base, gravy or menu as 'gluten-free'. It is a regulated claim (below 20 ppm) that a single shared kitchen cannot support. Use NGCI (No Gluten Containing Ingredients) with the cross-contamination caveat. Exception: the /food-menu/gluten-free URL and meta description keep the search phrase.",
     "info_email": "info@theanchorpub.co.uk is legacy, use manager@the-anchor.pub",
+    "mulled_wine": "NOT SOLD (owner-confirmed 2026-08-05). Never list mulled wine on a drinks menu, festive page, blog post or in seasonal copy. Use 'winter warmers', 'festive drinks' or 'seasonal cocktails' instead.",
     "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
     "stanwell_moor_brew": "DISCONTINUED. Remove all Stanwell Moor Brew references from pages, schemas, and blog posts.",
     "champions_league_claim": "INCORRECT. The pub does not have Sky/TNT Sports and cannot show Champions League. Fix pizza Tuesday blog post.",

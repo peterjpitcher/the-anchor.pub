@@ -1012,18 +1012,6 @@
  "description": "Italy - Fine bubbles with apple and pear flavours. Light, fresh and perfect for celebrations or Sunday brunch."
  }
  ]
- },
- {
- "title": "Seasonal Special",
- "style": "grid",
- "description": "Limited-time warmers and seasonal serves appear here when the weather calls for something different.",
- "items": [
- {
- "name": "Mulled Wine",
- "price": "175ml",
- "description": "Our secret recipe of red wine gently warmed with cinnamon, cloves and orange. Christmas in a glass."
- }
- ]
  }
  ]
  },

@@ -150,7 +150,7 @@ British, Pizza, Pub Food, Sunday Roast.
 | Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live, DB) |
 | Lasagne | (live, DB) |
 | Mac and Cheese | (live, DB) (vegetarian) |
-| Stone-baked pizzas | (live, DB) (12-inch, hand-stretched, gluten-free bases available) |
+| Stone-baked pizzas | (live, DB) (12-inch, hand-stretched, NGCI bases available) |
 | Kids menu | from (live, DB) |
 | Wraps | from (live, DB) |
 | Chips | (live, DB) |
@@ -166,8 +166,19 @@ No current food deal should be promoted unless it comes from the live management
 
 - **No breakfast service.**
 - **No delivery.** Takeaway by phone for collection only.
-- **No gluten-free fish and chips.** Do not claim gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Guests who need gluten-free options should use the gluten-free menu/allergen guidance instead.
+- **No gluten-free fish and chips.** Do not claim gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Guests avoiding gluten should use the NGCI menu/allergen guidance instead.
 - **No "real ale" positioning.** We stock bottled ales only; no handpumps. Do not market as a "real ale pub".
+
+### NGCI, never "gluten-free"
+
+**"Gluten-free" is a regulated claim.** It legally means verified below 20 ppm, which needs controls a single shared kitchen cannot provide. We prepare everything in one kitchen and cannot guarantee zero cross-contamination, so we must not make that claim about any dish, base, gravy or menu.
+
+**The correct term is NGCI (No Gluten Containing Ingredients).** Spell it out on first use on a page, then NGCI thereafter. Always pair it with the cross-contamination caveat.
+
+- **Customer-facing copy, headings, dish descriptions and JSON-LD:** NGCI only. Never "gluten-free" as a bare claim.
+- **Search-facing text is the one exception.** The `/food-menu/gluten-free` URL and the meta description keep the phrase "gluten free", because that is what guests actually search for. The visible on-page label is still NGCI. Do not change that URL, it holds the ranking.
+- **Internal identifiers are not copy and do not change.** The `gluten_free` value in `menu_dishes.dietary_flags`, the `gluten-free` parameter on the management API's dietary-menu endpoint, and the `gluten_free` GTM filter value are all machine tokens. Renaming them breaks the website filter and the API contract.
+- **Still true:** no NGCI fish and chips, no NGCI batter, no dedicated fryer. See the bullet above.
 
 ### Allergen wording
 
@@ -524,8 +535,10 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
 ### Allergens
 - **"No allergens"** when allergen data is missing, never render this. Use "See menu or contact us for allergen information".
+- **"Gluten-free"** as a claim about any dish, base, gravy or menu. It is a regulated term meaning below 20 ppm, which a single shared kitchen cannot guarantee. Use **NGCI (No Gluten Containing Ingredients)** with the cross-contamination caveat. The `/food-menu/gluten-free` URL and meta description keep the search phrase; the visible label does not. See §5.
 
 ### Drinks & sport
+- **Mulled wine**, we do not sell it. Owner-confirmed 5 August 2026. Never list it on a drinks menu, a festive page, a blog post or in seasonal copy. "Winter warmers", "festive drinks" or "seasonal cocktails" are the safe alternatives. Dated recaps of past events may keep a historical mention; forward-looking copy may not.
 - **BOGOF pizza**, discontinued.
 - **Stanwell Moor Brew**, discontinued.
 - **Pravha beer**, no longer stocked.

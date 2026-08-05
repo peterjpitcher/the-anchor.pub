@@ -4,7 +4,7 @@ slug: christmas-market
 description: >-
   Visit The Anchor's Christmas Market in Stanwell Moor, just 7 minutes from
   Heathrow Airport. Festive market with local artisan stalls, live piano music,
-  mulled wine, and Christmas treats. Perfect holiday shopping near Terminal 5.
+  and Christmas treats. Perfect holiday shopping near Terminal 5.
   December community event.
 date: '2023-11-17'
 oldUrl: >-
@@ -16,7 +16,6 @@ keywords:
   - christmas shopping near airport
   - artisan market staines
   - the anchor christmas event
-  - mulled wine near me
   - holiday market terminal 5
   - local christmas crafts
 tags:
@@ -98,7 +97,6 @@ Our carefully curated **Christmas shopping** experience features:
 No **Christmas market near Heathrow** is complete without seasonal treats:
 
 #### Festive Bar Specials
-- **Mulled wine** - Traditional spiced warmth
 - **Bailey's hot chocolate** - Indulgent winter treat
 - **Christmas cocktails** - Seasonal creations
 - **Winter warmers** - Hot toddies and more
@@ -225,7 +223,7 @@ While entry is free, consider:
 
 ## Create Christmas Memories
 
-Our **Christmas market near Heathrow** offers more than shopping - it's about community, tradition, and festive magic. Whether you're buying unique gifts, enjoying mulled wine with friends, or introducing visitors to a British Christmas market, The Anchor provides the perfect setting.
+Our **Christmas market near Heathrow** offers more than shopping - it's about community, tradition, and festive magic. Whether you're buying unique gifts, enjoying a festive drink with friends, or introducing visitors to a British Christmas market, The Anchor provides the perfect setting.
 
 Join us each December for a festive experience that captures the true spirit of Christmas, just minutes from the airport but worlds away from the commercial rush.
 

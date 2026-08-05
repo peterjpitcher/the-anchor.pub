@@ -53,7 +53,7 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 **Cozy Features:**
 - **Real fires** keeping you warm
 - **Hot food** including warming soups and stews
-- **Mulled wine** and winter warmers
+- **Winter warmers** behind the bar
 - **Covered areas** for smokers
 - **Free parking** - no cold walks from car parks
 - **Dog-friendly** - bring your four-legged friends

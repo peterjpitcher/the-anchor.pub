@@ -85,12 +85,10 @@ Planning your **Christmas party near Heathrow Airport**? We offer flexible packa
 - Festive pie selection
 - Christmas pudding
 - Seasonal cocktails
-- Mulled wine & cider
 - Special dietary options
 
 **Drinks Offers:**
 - 2-for-1 festive cocktails
-- Mulled wine by the jug
 - Christmas beer selection
 - Seasonal spirits promotion
 - Non-alcoholic options

@@ -50,7 +50,7 @@ When it's time to bid farewell to a colleague, The Anchor ensures your leaving d
 
   
 
-As the season of merriment approaches, The Anchor transforms into the ideal venue for Christmas company celebrations. Our festive food and drink packages range from traditional turkey dinners to mulled wine and mince pies. Our cosy interior and warm atmosphere are just what you need to immerse your team in the holiday spirit, and we can comfortably accommodate groups of various sizes.
+As the season of merriment approaches, The Anchor transforms into the ideal venue for Christmas company celebrations. Our festive food and drink packages range from traditional turkey dinners to festive drinks and mince pies. Our cosy interior and warm atmosphere are just what you need to immerse your team in the holiday spirit, and we can comfortably accommodate groups of various sizes.
 
 [
 

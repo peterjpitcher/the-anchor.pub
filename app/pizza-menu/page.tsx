@@ -183,9 +183,9 @@ export default async function PizzaMenuPage() {
       <FAQAccordionWithSchema
         faqs={[
           {
-            question: 'Do you do gluten-free bases?',
+            question: 'Do you do gluten free bases?',
             answer: gfAvailable
-              ? 'Some pizzas have change options in the live menu. Please ask at the bar when ordering and tell us about any allergies.'
+              ? 'We offer NGCI bases, meaning No Gluten Containing Ingredients. We do not call them gluten-free, because pizzas are prepared in one shared kitchen. Please ask at the bar when ordering and tell us about any allergies.'
               : 'Please ask at the bar for the latest pizza allergen guidance.'
           },
           {

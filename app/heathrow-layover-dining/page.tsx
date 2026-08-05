@@ -53,7 +53,7 @@ const faqItems = [
   },
   {
     question: 'Do you cater for dietary requirements and quick service?',
-    answer: 'Absolutely. We have vegetarian, vegan, and gluten-free options across the menu. Mention dietary needs and flight times when booking so we can prepare dishes quickly.'
+    answer: 'Absolutely. We have vegetarian, vegan, and NGCI (No Gluten Containing Ingredients) options across the menu. Mention dietary needs and flight times when booking so we can prepare dishes quickly.'
   },
   {
     question: 'How do I reach The Anchor from Heathrow terminals?',

@@ -184,7 +184,7 @@ export default async function FishAndChipsPage() {
 
           <Card accent className="mx-auto mt-8 max-w-2xl">
             <CardBody>
-              <h2 className="mb-2 text-h4 text-ink-strong">Gluten-Free Fish and Chips</h2>
+              <h2 className="mb-2 text-h4 text-ink-strong">Do We Do Gluten Free Fish and Chips?</h2>
               <p className="text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>
             </CardBody>
           </Card>
@@ -200,7 +200,7 @@ export default async function FishAndChipsPage() {
               : 'Please call us for the current fish and chip dishes if the menu is temporarily unavailable online.'
           },
           {
-            question: 'Do you offer gluten-free fish and chips?',
+            question: 'Do you offer gluten free fish and chips?',
             answer: getGlutenFreeFishAndChipsNotice()
           },
           {
@@ -225,8 +225,8 @@ export default async function FishAndChipsPage() {
           },
           {
             href: '/food-menu/gluten-free',
-            title: 'Gluten-Free Menu',
-            description: 'See current gluten-free and gluten-free-option dishes.',
+            title: 'NGCI Menu',
+            description: 'See current NGCI and NGCI-on-request dishes.',
           },
         ]}
       />

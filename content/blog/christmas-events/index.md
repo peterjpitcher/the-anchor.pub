@@ -74,7 +74,7 @@ Belt out your favourite festive tunes at our legendary Christmas karaoke session
 Our annual **Christmas market** transforms our garden into a festive shopping paradise:
 - **Local artisan stalls** - unique gifts and decorations
 - **Live piano music** creating magical atmosphere
-- **Mulled wine & festive drinks** to keep you warm
+- **Festive drinks** to keep you warm
 - **Traditional mince pies** made fresh daily
 - **Ample parking** available
 

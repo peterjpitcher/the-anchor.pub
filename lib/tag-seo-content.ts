@@ -78,7 +78,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Pub Food Stanwell Moor | Restaurant Near Heathrow | The Anchor Menu',
     metaDescription: 'Enjoy delicious pub food at The Anchor Stanwell Moor. Fresh ingredients, dietary options, Sunday roasts & more. We\'re 7 minutes from Heathrow Airport.',
     heroContent: 'Savor exceptional pub food at The Anchor Stanwell Moor, where traditional favourites meet modern culinary excellence. Our chefs use fresh, locally-sourced ingredients to create memorable dining experiences.',
-    introContent: 'The Anchor\'s kitchen serves up the perfect blend of traditional pub classics and contemporary dishes during kitchen hours. From our famous Sunday roasts to stone-baked pizzas, beer-battered fish and chips to gourmet burgers, every dish is prepared with care using the finest ingredients. We accommodate all dietary requirements with vegetarian, vegan, and gluten-free options available throughout our menu.',
+    introContent: 'The Anchor\'s kitchen serves up the perfect blend of traditional pub classics and contemporary dishes during kitchen hours. From our famous Sunday roasts to stone-baked pizzas, beer-battered fish and chips to gourmet burgers, every dish is prepared with care using the finest ingredients. We accommodate all dietary requirements with vegetarian, vegan, and NGCI (No Gluten Containing Ingredients) options available throughout our menu.',
     valueProposition: 'Whether you\'re joining us for a quick lunch, romantic dinner, or Sunday family gathering, The Anchor delivers exceptional food in a warm, welcoming atmosphere. Book your table today and taste why we\'re Stanwell Moor\'s favourite dining destination.',
     keywords: ['pub food stanwell moor', 'restaurant near heathrow', 'sunday roast stanwell moor', 'dining near airport', 'best food TW19']
   },
@@ -123,7 +123,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Christmas Pub Stanwell Moor | Festive Menu & Events Near Heathrow',
     metaDescription: 'Celebrate Christmas at The Anchor Stanwell Moor. Festive menu, Christmas parties, seasonal events & bookings. Perfect venue - we\'re 7 minutes from Heathrow.',
     heroContent: 'Make your Christmas magical at The Anchor Stanwell Moor. From intimate festive dinners to spectacular party nights, we\'re your perfect Christmas venue near Heathrow.',
-    introContent: 'Christmas at The Anchor is truly special. Our pub transforms into a winter wonderland complete with twinkling lights, festive decorations, and the warmest atmosphere in Stanwell Moor. Our specially crafted Christmas menu features all the traditional favourites alongside creative festive dishes, while our bar offers mulled wine, seasonal cocktails, and winter warmers.',
+    introContent: 'Christmas at The Anchor is truly special. Our pub transforms into a winter wonderland complete with twinkling lights, festive decorations, and the warmest atmosphere in Stanwell Moor. Our specially crafted Christmas menu features all the traditional favourites alongside creative festive dishes, while our bar offers seasonal cocktails and winter warmers.',
     valueProposition: 'Book your Christmas celebration early to avoid disappointment. Whether it\'s an office party, family gathering, or festive night out with friends, we\'ll make your Christmas unforgettable. Contact us today to discuss your requirements.',
     keywords: ['christmas pub stanwell moor', 'festive menu heathrow', 'christmas party venue surrey', 'xmas events TW19', 'holiday dining stanwell moor']
   },
@@ -478,7 +478,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Festive Events Stanwell Moor | Seasonal Celebrations at The Anchor',
     metaDescription: 'Festive celebrations at The Anchor Stanwell Moor. Christmas, New Year, seasonal events & special menus. Book your festive party near Heathrow.',
     heroContent: 'The Anchor sparkles with festive magic throughout the holiday season, creating unforgettable celebrations in the heart of Stanwell Moor.',
-    introContent: 'When festive season arrives, The Anchor transforms into a wonderland of celebration. Twinkling lights, seasonal decorations, and a warm, jovial atmosphere set the stage for perfect festive gatherings. Our special festive menus feature all the seasonal favourites, while our bar offers warming winter cocktails, mulled wine, and festive spirits to keep the celebrations flowing.',
+    introContent: 'When festive season arrives, The Anchor transforms into a wonderland of celebration. Twinkling lights, seasonal decorations, and a warm, jovial atmosphere set the stage for perfect festive gatherings. Our special festive menus feature all the seasonal favourites, while our bar offers warming winter cocktails and festive spirits to keep the celebrations flowing.',
     valueProposition: 'Whether planning an office party, family gathering, or festive night out with friends, The Anchor delivers the perfect festive experience. Book early to secure your preferred dates.',
     keywords: ['festive events stanwell moor', 'christmas celebrations heathrow', 'seasonal party surrey', 'festive venue TW19', 'holiday events stanwell moor']
   },
@@ -544,7 +544,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Festive Menu Stanwell Moor | Christmas Menu at The Anchor',
     metaDescription: 'Festive dining at The Anchor Stanwell Moor. Christmas menu, seasonal dishes, party bookings available. Reserve your festive meal near Heathrow.',
     heroContent: 'Indulge in our spectacular festive menu at The Anchor, where traditional favourites meet creative seasonal dishes in a celebration of flavour.',
-    introContent: 'Our festive menu is the culmination of months of planning and preparation. Each dish celebrates the season\'s finest ingredients - from perfectly roasted turkeys with all the trimmings to innovative vegetarian and vegan festive options. Rich Christmas puddings, mince pies, and seasonal desserts provide the perfect ending, while our festive drinks menu features warming mulled wine and seasonal cocktails.',
+    introContent: 'Our festive menu is the culmination of months of planning and preparation. Each dish celebrates the season\'s finest ingredients - from perfectly roasted turkeys with all the trimmings to innovative vegetarian and vegan festive options. Rich Christmas puddings, mince pies, and seasonal desserts provide the perfect ending, while our festive drinks menu features warming seasonal cocktails.',
     valueProposition: 'Make your festive dining memorable with our carefully crafted menu. Available for parties of all sizes - book early as spaces fill quickly during the festive season.',
     keywords: ['festive menu stanwell moor', 'christmas dinner heathrow', 'seasonal menu surrey', 'holiday dining TW19', 'xmas menu stanwell moor']
   },
@@ -555,7 +555,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'December Events Stanwell Moor | Christmas at The Anchor',
     metaDescription: 'December at The Anchor Stanwell Moor. Christmas parties, New Year\'s Eve, festive events & seasonal atmosphere. Book December events near Heathrow.',
     heroContent: 'December at The Anchor is pure magic - from twinkling Christmas lights to New Year\'s Eve celebrations, it\'s the most wonderful time of the year.',
-    introContent: 'The festive spirit takes over The Anchor throughout December. Our pub becomes a Christmas wonderland with decorations and the scent of mulled wine filling the air. Office parties, family gatherings, and friends\'s reunions fill our calendar, while Christmas Eve brings the community together for festive drinks. New Year\'s Eve caps off the month with our spectacular countdown party featuring a special DJ.',
+    introContent: 'The festive spirit takes over The Anchor throughout December. Our pub becomes a Christmas wonderland with decorations and the buzz of the season filling the air. Office parties, family gatherings, and friends\'s reunions fill our calendar, while Christmas Eve brings the community together for festive drinks. New Year\'s Eve caps off the month with our spectacular countdown party featuring a special DJ.',
     valueProposition: 'December books up fast at The Anchor - secure your Christmas party dates and New Year\'s Eve tickets early to avoid disappointment.',
     keywords: ['december events stanwell moor', 'christmas parties heathrow', 'new years eve surrey', 'december dining TW19', 'xmas events stanwell moor']
   },

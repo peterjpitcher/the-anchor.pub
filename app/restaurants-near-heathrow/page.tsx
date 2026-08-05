@@ -429,7 +429,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Stone-Baked Pizzas</h3>
-                  <p className="text-ink-muted">Hand-stretched 12-inch bases, rich tomato sauce and generous toppings, made to order. Gluten-free bases available.</p>
+                  <p className="text-ink-muted">Hand-stretched 12-inch bases, rich tomato sauce and generous toppings, made to order. NGCI bases available.</p>
                 </CardBody>
               </Card>
               <Card accent hover>

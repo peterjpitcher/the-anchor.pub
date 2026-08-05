@@ -29,20 +29,23 @@ function joinItemNames(items: MenuPageItem[]): string {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getGlutenFreeMenuPageData()
   const filteredCount = data ? data.glutenFreeItems.length + data.glutenFreeOptionItems.length : 0
+  // The metadata deliberately keeps the phrase "gluten free": it is what guests
+  // search for, and the SSOT allows it on search-facing surfaces only. The
+  // visible on-page label is NGCI, because we cannot make the regulated claim.
   const description = data
-    ? `Gluten-aware pub food near Heathrow from The Anchor's live menu. ${filteredCount} current dishes with allergen details. Free parking, 7 minutes from Terminal 5.`
-    : 'Gluten-aware pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
+    ? `NGCI pub food near Heathrow, our gluten free options from The Anchor's live menu. ${filteredCount} current dishes with allergen details. Free parking, 7 minutes from Terminal 5.`
+    : 'NGCI pub food near Heathrow, our gluten free options at The Anchor. Current dishes from the latest kitchen menu.'
 
   return {
-    title: 'Gluten-Free Pub Food Near Heathrow',
+    title: 'NGCI Pub Food, Gluten Free Options Near Heathrow',
     description,
     openGraph: {
-      title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',
+      title: 'NGCI Menu, Gluten Free Options | The Anchor, Stanwell Moor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     },
     twitter: getTwitterMetadata({
-      title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',
+      title: 'NGCI Menu, Gluten Free Options | The Anchor, Stanwell Moor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     }),
@@ -60,19 +63,24 @@ export default async function GlutenFreeMenuPage() {
 
   const faqItems = [
     {
-      question: 'Does The Anchor have gluten-free options?',
+      question: 'Does The Anchor have gluten free options?',
       answer: data
-        ? `This page lists ${totalGfItems} current dishes with no gluten allergen listed or possible changes on request. Please check with the team before ordering.`
+        ? `We list ${totalGfItems} current dishes as NGCI, meaning No Gluten Containing Ingredients. We do not call them gluten-free, because everything is prepared in one kitchen and we cannot guarantee zero cross-contamination. Please check with the team before ordering.`
         : getMenuUnavailableMessage(),
     },
     {
-      question: 'What gluten-free dishes are currently listed?',
+      question: 'What is NGCI, and why not just say gluten-free?',
+      answer:
+        'NGCI means No Gluten Containing Ingredients. "Gluten-free" is a regulated term meaning the food has been verified below 20 parts per million, which needs a separate preparation area we do not have. NGCI is the honest description of what we can offer.',
+    },
+    {
+      question: 'What NGCI dishes are currently listed?',
       answer: data
         ? `The current filtered list includes ${joinItemNames([...naturallyGf, ...gfoItems])}. Check the live menu sections for descriptions, prices and allergens.`
         : getMenuUnavailableMessage(),
     },
     {
-      question: 'Do you offer gluten-free fish and chips?',
+      question: 'Do you offer gluten free fish and chips?',
       answer: getGlutenFreeFishAndChipsNotice(),
     },
     {
@@ -80,7 +88,7 @@ export default async function GlutenFreeMenuPage() {
       answer: 'Our dishes are prepared in one kitchen, so we cannot guarantee no cross-contamination. Please inform us of any allergies when ordering and we will do our best to accommodate you.',
     },
     {
-      question: 'Do you charge extra for gluten-free?',
+      question: 'Do you charge extra for NGCI dishes?',
       answer: 'Please check the current item prices on this page or ask at the bar before ordering.',
     },
   ]
@@ -89,21 +97,24 @@ export default async function GlutenFreeMenuPage() {
     <>
       <InteriorHero
         image="/images/page-headers/food-menu/food-menu.jpg"
-        crumb="Gluten-Free"
-        title="Gluten-Free Pub Food"
-        lead="Current dishes with allergen details from the latest kitchen menu."
+        crumb="NGCI"
+        title="NGCI Pub Food"
+        lead="No Gluten Containing Ingredients. Current dishes with allergen details from the latest kitchen menu."
       />
 
       <section className="bg-canvas py-section-y">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <SectionHeading
-              title="Gluten-Free Pub Food at The Anchor"
+              title="NGCI Pub Food at The Anchor"
               lead="Current dishes with allergen details from the live menu."
             />
             <p className="text-ink-muted">
-              We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.
+              NGCI stands for No Gluten Containing Ingredients. We use it rather than
+              &ldquo;gluten-free&rdquo; because that is a regulated term, and every dish here is
+              prepared in one shared kitchen where we cannot guarantee zero cross-contamination.
             </p>
+            <p className="mt-4 text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>
           </div>
           <div className="mt-8">
             <DietaryMenuNav />
@@ -241,8 +252,8 @@ export default async function GlutenFreeMenuPage() {
             '@context': 'https://schema.org',
             '@type': 'Menu',
             '@id': 'https://www.the-anchor.pub/food-menu/gluten-free#menu',
-            name: 'Gluten-Aware Menu at The Anchor',
-            description: 'Pub food with allergen details at The Anchor near Heathrow.',
+            name: 'NGCI Menu at The Anchor',
+            description: 'Pub food with No Gluten Containing Ingredients and allergen details at The Anchor near Heathrow. Prepared in a shared kitchen, so zero cross-contamination cannot be guaranteed.',
             url: 'https://www.the-anchor.pub/food-menu/gluten-free',
             isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
           }),

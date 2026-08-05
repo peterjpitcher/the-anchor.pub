@@ -31,7 +31,7 @@ const MENU_UNAVAILABLE_MESSAGE = 'Menu temporarily unavailable. Please call us o
 const GLUTEN_FREE_FISH_AND_CHIPS_NOTICE =
   SSOT.food?.copy_corrections?.gluten_free_fish_and_chips
   || SSOT.do_not_use?.gluten_free_fish_and_chips
-  || 'We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.'
+  || 'We do not offer NGCI fish and chips. There is no NGCI batter, no NGCI fried or grilled fish, and no separate fryer.'
 
 // Discontinued Christmas products. These match product wording only: pigs in
 // blankets and stuffing are legitimate trimmings inside a live dish and must
@@ -211,7 +211,13 @@ function isGlutenFree(item: MenuSectionItem | SundayLunchMenuItem): boolean {
 function hasGlutenFreeOption(item: MenuSectionItem | SundayLunchMenuItem, sectionName: string): boolean {
   if (isGlutenFree(item)) return false
   if (isFishAndChipsFamily(item)) return false
-  return /pizza|garlic bread/i.test(sectionName) || /gluten-free base|gluten free base/i.test(itemText(item))
+  // Accepts the NGCI wording and the legacy "gluten-free base" phrasing: the
+  // management DB descriptions were migrated to NGCI, but this must keep working
+  // if an older description is restored or a new dish is written either way.
+  return (
+    /pizza|garlic bread/i.test(sectionName) ||
+    /ngci base|gluten-free base|gluten free base/i.test(itemText(item))
+  )
 }
 
 function formatMenuPrice(price: number | string | undefined): string {
@@ -789,8 +795,8 @@ export const getGlutenFreeMenuPageData = cache(async () => {
 
   const menuData = {
     ...data.menuData,
-    title: 'Gluten-Free Menu',
-    description: 'Current gluten-free and gluten-free-option menu items at The Anchor.',
+    title: 'NGCI Menu',
+    description: 'Current NGCI and NGCI-on-request menu items at The Anchor. No Gluten Containing Ingredients, prepared in a shared kitchen.',
     categories
   }
 

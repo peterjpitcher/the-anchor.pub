@@ -81,7 +81,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow', description: 'A proper chippy tea near Heathrow' },
       { label: 'Kids Menu', href: '/food-menu#kids', description: 'Children’s dishes and current prices' },
       { label: 'Vegetarian & Vegan', href: '/food-menu/vegan', description: 'Plant-based dishes and vegan options' },
-      { label: 'Gluten-free options', href: '/food-menu/gluten-free', description: 'Gluten-free choices and allergen guidance' },
+      { label: 'NGCI options', href: '/food-menu/gluten-free', description: 'No Gluten Containing Ingredients, and allergen guidance' },
       { label: 'Drinks Menu', href: '/drinks', description: 'Draught pints, cocktails, wine and soft drinks' }
     ]
   },
