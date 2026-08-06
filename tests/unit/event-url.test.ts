@@ -34,43 +34,45 @@ describe('getEventWebsitePath', () => {
     expect(result).toBe('/events/quiz-night-april-2026')
   })
 
-  // event.url fallback — non-event paths rejected
+  // event.url fallback, non-event paths rejected.
+  // The fallback is /whats-on, not /events: there is no /events index route, so
+  // the old fallback pointed every unusable event at a 404.
   it('rejects event.url pointing to a category page', () => {
     const result = getEventWebsitePath(makeSource({
       url: 'https://www.the-anchor.pub/quiz-night'
     }))
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
   it('rejects event.url pointing to /whats-on', () => {
     const result = getEventWebsitePath(makeSource({
       url: 'https://www.the-anchor.pub/whats-on'
     }))
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
   it('rejects event.url from an external origin', () => {
     const result = getEventWebsitePath(makeSource({
       url: 'https://tickets.example.com/event/123'
     }))
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
   it('rejects bare string event.url resolved to root-level path', () => {
     const result = getEventWebsitePath(makeSource({ url: 'summer-quiz' }))
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
   it('rejects category page URL with trailing slash', () => {
     const result = getEventWebsitePath(makeSource({
       url: 'https://www.the-anchor.pub/quiz-night/'
     }))
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
-  it('falls through to /events when slug, id, and url are all empty', () => {
+  it('falls through to /whats-on when slug, id, and url are all empty', () => {
     const result = getEventWebsitePath(makeSource())
-    expect(result).toBe('/events')
+    expect(result).toBe('/whats-on')
   })
 
   it('treats whitespace-only slug and id as empty', () => {

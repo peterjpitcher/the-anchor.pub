@@ -3,7 +3,7 @@ import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
-import { PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { CANCELLED_INDEX_DAYS, isDiscontinuedFormatEvent } from '@/lib/event-seo-strategy'
 import { isRetiredEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
@@ -294,10 +294,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const eventDate = Date.parse(event.startDate)
       const daysSince = (nowMs - eventDate) / (1000 * 60 * 60 * 24)
 
-      // Exclude stale past events (30+ days old)
-      if (daysSince > PAST_EVENT_REDIRECT_DAYS) return false
+      // Past events stay listed. They remain live and indexed, so excluding
+      // them from the sitemap would just slow down how often Google recrawls
+      // the very pages this policy exists to let accumulate.
 
-      // Exclude cancelled events older than 7 days
+      // Formats the SSOT says are discontinued are noindex, so they must not
+      // be listed here either.
+      if (isDiscontinuedFormatEvent(event)) return false
+
+      // Cancelled events are the exception: nothing happened, so there is no
+      // content worth ranking, and they go noindex after 7 days.
       const status = event.event_status || event.eventStatus || ''
       const isCancelled = status.toLowerCase().includes('cancelled')
       if (isCancelled && daysSince > CANCELLED_INDEX_DAYS) return false

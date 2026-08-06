@@ -2,6 +2,7 @@
 
 import { CalendarDays, Car, Clock, PoundSterling, type LucideIcon } from 'lucide-react'
 import type { Event } from '@/lib/api'
+import type { EventFactsVariant } from '@/lib/event-presentation'
 import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 
@@ -15,24 +16,29 @@ type EventBookingFactsStripProps = {
   event: Event
   eventDate: string
   eventTime: string
+  /** 'historic' switches the labels to past tense for an event that has been and gone. */
+  variant?: EventFactsVariant
 }
 
 export function EventBookingFactsStrip({
   event,
   eventDate,
-  eventTime
+  eventTime,
+  variant = 'live'
 }: EventBookingFactsStripProps) {
+  const isHistoric = variant === 'historic'
   const compactDate = formatEventLocalDate(event.startDate, {
     weekday: 'short',
     day: 'numeric',
     month: 'short'
   })
-  const priceLabel = getEventPriceLabel(event) || 'Check booking step'
+  const priceLabel =
+    getEventPriceLabel(event) || (isHistoric ? 'See event details' : 'Check booking step')
 
   const facts: Fact[] = [
-    { label: 'Date', value: compactDate || eventDate, Icon: CalendarDays },
-    { label: 'Price', value: priceLabel, Icon: PoundSterling },
-    { label: 'Start', value: eventTime, Icon: Clock },
+    { label: isHistoric ? 'Took place' : 'Date', value: compactDate || eventDate, Icon: CalendarDays },
+    { label: isHistoric ? 'Entry was' : 'Price', value: priceLabel, Icon: PoundSterling },
+    { label: isHistoric ? 'Started' : 'Start', value: eventTime, Icon: Clock },
     { label: 'Parking', value: 'Free parking, 20 spaces', Icon: Car }
   ]
 

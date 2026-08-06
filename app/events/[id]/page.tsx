@@ -12,6 +12,7 @@ import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEven
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { getEventWebsitePath } from '@/lib/event-url'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
@@ -34,8 +35,10 @@ import {
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
-import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventPresentation } from '@/lib/event-presentation'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
+import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
 
@@ -43,7 +46,11 @@ type Props = {
   params: { id: string }
 }
 
-function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEvent: boolean): {
+function getStatusNotice(
+  status: ReturnType<typeof normalizeEventStatus>,
+  pastEvent: boolean,
+  eventDate?: string
+): {
   variant: 'info' | 'warning'
   title: string
   message: string
@@ -84,7 +91,9 @@ function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEv
     return {
       variant: 'info',
       title: 'This event has ended',
-      message: 'Browse our upcoming events for the latest listings.'
+      message: eventDate
+        ? `It took place on ${eventDate}. See below for the next dates.`
+        : 'See below for the next dates.'
     }
   }
 
@@ -217,13 +226,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       event.description ||
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`
     
-    // Determine if event should be noindexed
+    // Past events stay indexed indefinitely so each night's content can
+    // accumulate. Only a long-cancelled event is noindexed: nothing happened,
+    // so there is nothing worth ranking.
     const eventDate = Date.parse(event.startDate)
     const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
     const eventStatus = normalizeEventStatus(event)
     const shouldNoindex =
-      (daysSinceEvent > PAST_EVENT_REDIRECT_DAYS) ||
-      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS)
+      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS) ||
+      // SSOT: discontinued formats must not be promoted. Page stays live for
+      // anyone holding the link, but out of search.
+      isDiscontinuedFormatEvent(event)
 
     // Merge keyword arrays
     const keywords = [
@@ -296,28 +309,28 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect('/whats-on')
   }
 
-  // Event lifecycle SEO strategy, redirect stale past events to next upcoming event
+  // Past events are never redirected. The page stays live and indexed so its
+  // content keeps accumulating; the route into the next date is the on-page
+  // link built below, not a 301.
   const isPastEvent = isEventInPast(event)
-  if (isPastEvent) {
-    // Only look up the next event for past (non-cancelled) events.
-    // Cancelled events never redirect, they render with a cancelled banner.
-    let nextEvent = null
-    if (event.category?.id && normalizeEventStatus(event) !== 'cancelled') {
-      try {
-        const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
-        const validUpcoming = upcoming.filter(e => !isFallbackEvent(e) && e.id !== params.id)
-        nextEvent = validUpcoming[0] || null
-      } catch {
-        nextEvent = null
-      }
-    }
+  const seoStrategy = getEventSeoStrategy(event)
 
-    const seoStrategy = getEventSeoStrategy(event, nextEvent)
-
-    if (seoStrategy.redirect) {
-      permanentRedirect(seoStrategy.redirect)
+  // The next date in this category, used to point visitors (and link equity)
+  // at the live event. Display only, it never changes what URL is served.
+  let nextInCategory: Event | null = null
+  if (isPastEvent && event.category?.id && status !== 'cancelled') {
+    try {
+      const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
+      nextInCategory = upcoming.find((e) => e.id !== event.id) || null
+    } catch {
+      nextInCategory = null
     }
   }
+
+  // Single source of truth for which booking surfaces render. Also drives the
+  // JSON-LD via buildEventSchema, so the page and the schema cannot disagree
+  // about whether this event is over.
+  const presentation = getEventPresentation(event)
 
   const bookingBlockReason = getEventBookingBlockReason(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
@@ -328,11 +341,18 @@ export default async function EventPage({ params }: Props) {
     : bookingClosedByCutoff
       ? SALES_CLOSED_COPY
       : null
-  // The online booking form is hidden whenever a block reason OR the cutoff applies.
-  const bookingFormSuppressed = Boolean(bookingBlockReason) || bookingClosedByCutoff
-  const statusNotice = getStatusNotice(status, isPastEvent)
+  const bookingFormSuppressed = !presentation.showBookingForm
+  // A discontinued format has no category page worth sending people to, so it
+  // points at the format that replaced it rather than a generic listing.
+  const discontinuedReplacement = getDiscontinuedFormatReplacement(event)
+  const categoryPageUrl = discontinuedReplacement?.href ?? getCategoryPageUrl(event.category?.slug)
+  const categoryPageLabel =
+    discontinuedReplacement?.label ?? `All ${event.category?.name} dates`
+  const nextEventHref = nextInCategory ? getEventWebsitePath(nextInCategory) : null
+  const nextEventDate = nextInCategory ? formatEventDate(nextInCategory.startDate) : null
 
   const eventDate = formatEventDate(event.startDate)
+  const statusNotice = getStatusNotice(status, isPastEvent, eventDate)
   const eventTime = formatEventTime(event.startDate)
   const headerDoorTime = formatDoorTime(event.doorTime)
   const eventBookingCopy = getEventBookingCopy(event)
@@ -426,7 +446,9 @@ export default async function EventPage({ params }: Props) {
     { label: 'Doors open', value: doorsTime },
     { label: 'Last entry', value: lastEntryTime },
     { label: 'Duration', value: durationLabel },
-    { label: 'Status', value: statusLabel },
+    // "Scheduled" on a night that has already happened reads as though it is
+    // still going ahead. "Cancelled" is still worth showing.
+    ...(presentation.showStatusRow ? [{ label: 'Status', value: statusLabel }] : []),
     { label: 'Booking type', value: bookingModeLabel },
     { label: 'Event type', value: event.event_type },
     { label: 'Category', value: event.category?.name },
@@ -451,6 +473,13 @@ export default async function EventPage({ params }: Props) {
             <div className="mx-auto max-w-6xl">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>
                 <p>{statusNotice.message}</p>
+                {nextEventHref && (
+                  <p className="mt-2">
+                    <Link href={nextEventHref} className="font-semibold underline">
+                      Next {event.category?.name || 'event'}: {nextEventDate}
+                    </Link>
+                  </p>
+                )}
               </Alert>
             </div>
           </Container>
@@ -486,6 +515,7 @@ export default async function EventPage({ params }: Props) {
               event={event}
               eventDate={eventDate}
               eventTime={eventTime}
+              variant={presentation.factsVariant}
             />
           </div>
         </Container>
@@ -534,15 +564,17 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
-                <Card accent className="mb-6 hidden lg:mb-8 lg:block">
-                  <CardBody className="p-4">
-                    <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
-                    <div className="mt-3 space-y-2 text-sm text-ink-muted">
-                      <p>{eventBookingCopy.policy}</p>
-                      <p>{eventBookingCopy.foodPrompt}</p>
-                    </div>
-                  </CardBody>
-                </Card>
+                {presentation.showBookingPolicy && (
+                  <Card accent className="mb-6 hidden lg:mb-8 lg:block">
+                    <CardBody className="p-4">
+                      <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
+                      <div className="mt-3 space-y-2 text-sm text-ink-muted">
+                        <p>{eventBookingCopy.policy}</p>
+                        <p>{eventBookingCopy.foodPrompt}</p>
+                      </div>
+                    </CardBody>
+                  </Card>
+                )}
 
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
@@ -616,14 +648,16 @@ export default async function EventPage({ params }: Props) {
                     )}
                   </div>
 
-                  <div className="mb-6 hidden lg:block">
-                    <EventSecondaryActions
-                      event={event}
-                      source="event_page_sidebar_actions"
-                      className="justify-start"
-                      size="sm"
-                    />
-                  </div>
+                  {presentation.showShareButton && (
+                    <div className="mb-6 hidden lg:block">
+                      <EventSecondaryActions
+                        event={event}
+                        source="event_page_sidebar_actions"
+                        className="justify-start"
+                        size="sm"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -679,8 +713,11 @@ export default async function EventPage({ params }: Props) {
                 </div>
               )}
 
-              {/* FAQs */}
-              {((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
+              {/* FAQs. Overwhelmingly booking questions, so they are hidden once
+                  the event is over rather than telling visitors how to book a
+                  night that has already happened. */}
+              {presentation.showBookingFaqs &&
+                ((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
                 <div>
                   <h2 className="text-xl md:text-2xl text-accent-text mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
@@ -730,36 +767,72 @@ export default async function EventPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <CtaBand
-        title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
-        copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
-      >
-        {mothersDayBookingFlow ? (
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
-          </Button>
-        ) : bookingFormSuppressed ? null : (
-          <EventBookingButton
-            event={event}
-            className="w-full sm:w-auto"
-            fullWidth={false}
-            size="lg"
-            label={bookingCtaLabel}
-            customHref="#event-booking"
-            source={`event_page_cta_${params.id}`}
-          />
-        )}
-        <PhoneButton
-          phone="01753682707"
-          source={`event_page_${params.id}`}
-          variant="outline"
-          size="lg"
-          className="w-full sm:w-auto"
+      {/* CTA Section. Once the event is over the booking band is replaced with a
+          route into the next one rather than an invitation to book a date that
+          has already passed. */}
+      {presentation.showBookingCtaBand ? (
+        <CtaBand
+          title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
+          copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
         >
-          Call: 01753 682707
-        </PhoneButton>
-      </CtaBand>
+          {mothersDayBookingFlow ? (
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
+            </Button>
+          ) : bookingFormSuppressed ? null : (
+            <EventBookingButton
+              event={event}
+              className="w-full sm:w-auto"
+              fullWidth={false}
+              size="lg"
+              label={bookingCtaLabel}
+              customHref="#event-booking"
+              source={`event_page_cta_${params.id}`}
+            />
+          )}
+          <PhoneButton
+            phone="01753682707"
+            source={`event_page_${params.id}`}
+            variant="outline"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            Call: 01753 682707
+          </PhoneButton>
+        </CtaBand>
+      ) : (
+        <CtaBand
+          title="Looking for the next one?"
+          copy={
+            discontinuedReplacement
+              ? discontinuedReplacement.copy
+              : nextEventDate && event.category?.name
+                ? `This night has finished. The next ${event.category.name} is ${nextEventDate}.`
+                : event.category?.name
+                  ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
+                  : 'This night has finished. Browse everything coming up at The Anchor.'
+          }
+        >
+          {nextEventHref ? (
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={nextEventHref}>Book the next one</Link>
+            </Button>
+          ) : null}
+          {categoryPageUrl !== '/whats-on' && (
+            <Button
+              asChild
+              variant={nextEventHref ? 'outline' : 'primary'}
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              <Link href={categoryPageUrl}>{categoryPageLabel}</Link>
+            </Button>
+          )}
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+            <Link href="/whats-on">See what&rsquo;s on</Link>
+          </Button>
+        </CtaBand>
+      )}
     </>
   )
 }

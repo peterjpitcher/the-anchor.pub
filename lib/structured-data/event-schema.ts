@@ -3,6 +3,7 @@ import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { getSchemaEventStatus, getSchemaOfferAvailability, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
+import { getEventPresentation } from '@/lib/event-presentation'
 
 
 const SITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -72,6 +73,14 @@ function sanitiseMainEntityOfPage(
 }
 
 export function buildEventSchema(event: Event) {
+  // Same resolver the page uses, so the markup cannot advertise tickets for a
+  // night the page itself says has ended. schema.org has no "completed" event
+  // status (the enumeration is Scheduled / Cancelled / Postponed / Rescheduled
+  // / MovedOnline), so `startDate` in the past is what tells a crawler the
+  // event is over. What must not happen is pairing that past date with a live
+  // offer, a reserve action or remaining capacity.
+  const presentation = getEventPresentation(event)
+  const isBookable = presentation.includeSchemaOffers
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   const eventImage = event.image?.[0] || event.heroImageUrl || event.thumbnailImageUrl || DEFAULT_EVENT_IMAGE
   const bookingUrl =
@@ -177,7 +186,7 @@ export function buildEventSchema(event: Event) {
           name: 'The Anchor Entertainment',
           url: 'https://www.the-anchor.pub'
         },
-    offers,
+    ...(isBookable && { offers }),
     image: Array.isArray(event.image) && event.image.length > 0 ? event.image : [eventImage],
     ...(event.thumbnailImageUrl && { thumbnailUrl: event.thumbnailImageUrl }),
     organizer:
@@ -190,22 +199,25 @@ export function buildEventSchema(event: Event) {
     ...(event.maximumAttendeeCapacity && {
       maximumAttendeeCapacity: event.maximumAttendeeCapacity
     }),
-    ...(event.remainingAttendeeCapacity !== undefined && {
-      remainingAttendeeCapacity: event.remainingAttendeeCapacity
-    }),
+    ...(isBookable &&
+      event.remainingAttendeeCapacity !== undefined && {
+        remainingAttendeeCapacity: event.remainingAttendeeCapacity
+      }),
     url: eventUrl,
     ...(event.mainEntityOfPage && { mainEntityOfPage: sanitiseMainEntityOfPage(event.mainEntityOfPage, eventUrl) }),
-    potentialAction: sanitisePotentialAction(event.potentialAction) ?? {
-      '@type': 'ReserveAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: eventUrl,
-        actionPlatform: [
-          'https://schema.org/DesktopWebPlatform',
-          'https://schema.org/MobileWebPlatform'
-        ]
+    ...(isBookable && {
+      potentialAction: sanitisePotentialAction(event.potentialAction) ?? {
+        '@type': 'ReserveAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: eventUrl,
+          actionPlatform: [
+            'https://schema.org/DesktopWebPlatform',
+            'https://schema.org/MobileWebPlatform'
+          ]
+        }
       }
-    },
+    }),
     ...(event.highlights && event.highlights.length > 0 && {
       subjectOf: {
         '@type': 'CreativeWork',

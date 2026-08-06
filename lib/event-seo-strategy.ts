@@ -1,8 +1,84 @@
 import type { Event } from '@/lib/api/events'
 import { normalizeEventStatus, isEventInPast } from '@/lib/event-lifecycle'
 
-export const PAST_EVENT_REDIRECT_DAYS = 30
+/**
+ * How long a past event counts as "recent" for presentation purposes: the
+ * /whats-on recent archive, and the wording on the event page itself.
+ *
+ * This is NOT an indexability threshold. Past events stay indexed indefinitely.
+ * It was previously named PAST_EVENT_REDIRECT_DAYS, when crossing it retired
+ * the page.
+ *
+ * Single source of truth: lib/api/events.ts imports this rather than declaring
+ * its own 30, so the listing window and the page wording cannot drift apart.
+ */
+export const RECENT_EVENT_WINDOW_DAYS = 30
 export const CANCELLED_INDEX_DAYS = 7
+
+/**
+ * Formats the SSOT says are discontinued and must not be promoted.
+ *
+ * Keeping past events indexed is good for formats that still run: each night
+ * adds to what the site can rank for. It is not good for a format that has
+ * stopped, because the page can start ranking and bring people in for
+ * something they cannot come to.
+ *
+ * docs/SSOT.md §"Nikki's Games Night": "Do not promote Nikki hosted/games
+ * nights as a recurring format. Nikki currently hosts Music Bingo only."
+ *
+ * Open mic is the other retired format, handled separately by isRetiredEvent()
+ * because it has a genuine replacement page and 301s to /live-music. A games
+ * night has no equivalent, so the page stays live for anyone with the link and
+ * is simply kept out of search (policy case E).
+ */
+const DISCONTINUED_FORMATS: ReadonlyArray<{
+  token: string
+  /** Where to send anyone who lands on the page anyway. */
+  replacement: string
+  replacementLabel: string
+  /** Must be supportable by docs/SSOT.md, it is customer-facing copy. */
+  replacementCopy: string
+}> = [
+  {
+    token: 'games night',
+    replacement: '/music-bingo',
+    replacementLabel: 'See Music Bingo dates',
+    // SSOT: "Nikki currently hosts Music Bingo only."
+    replacementCopy: 'This night is no longer running. Nikki hosts Music Bingo now.',
+  },
+]
+
+function discontinuedHaystack(event: Partial<Pick<Event, 'name' | 'slug'>>): string {
+  return `${event.name ?? ''} ${event.slug ?? ''}`
+    .toLowerCase()
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+}
+
+export function isDiscontinuedFormatEvent(
+  event: Partial<Pick<Event, 'name' | 'slug'>>
+): boolean {
+  const haystack = discontinuedHaystack(event)
+  return DISCONTINUED_FORMATS.some((format) => haystack.includes(format.token))
+}
+
+/**
+ * Where a discontinued-format page should send its visitors, and what to call
+ * that link. Null when the event is not a discontinued format.
+ *
+ * The page has no useful category page of its own, so falling back to
+ * /whats-on would drop someone interested in a Nikki night onto a generic
+ * listing. Music Bingo is the format she actually hosts now.
+ */
+export function getDiscontinuedFormatReplacement(
+  event: Partial<Pick<Event, 'name' | 'slug'>>
+): { href: string; label: string; copy: string } | null {
+  const haystack = discontinuedHaystack(event)
+  const match = DISCONTINUED_FORMATS.find((format) => haystack.includes(format.token))
+  return match
+    ? { href: match.replacement, label: match.replacementLabel, copy: match.replacementCopy }
+    : null
+}
 
 /**
  * Map category slugs to their actual top-level page routes.
@@ -24,40 +100,62 @@ export function getCategoryPageUrl(categorySlug: string | undefined | null): str
 export interface EventSeoStrategy {
   /** Whether the page should be indexed by search engines */
   index: boolean
-  /** If set, 301 redirect to this URL instead of rendering the page */
-  redirect?: string
   /** Whether to show the "event ended" banner */
   showEndedBanner: boolean
-  /** Stage: active, recent, stale */
-  stage: 'active' | 'recent' | 'stale'
+  /**
+   * Presentation stage only. `archived` does not mean retired: the page is
+   * still live and still indexed.
+   */
+  stage: 'active' | 'recent' | 'archived'
 }
 
 /**
  * Determine the SEO strategy for an event page based on its lifecycle stage.
  *
+ * Past events are kept live and indexed indefinitely. An event page is only
+ * live for a couple of months before the night itself, which is not long
+ * enough to earn rankings; retiring it at 30 days threw that away every month
+ * and the category page had to start from scratch each time. Keeping the URL
+ * lets each night accumulate, and the pages are not near-duplicates: every
+ * night carries its own theme, name and highlights.
+ *
+ * The route into the next date is an on-page link, not a redirect. A redirect
+ * would delete the very content this policy exists to keep.
+ *
+ * Cancelled events are the one exception. Nothing happened on the night, so
+ * there is no content worth ranking, and they drop out after
+ * CANCELLED_INDEX_DAYS.
+ *
  * @param event - The event to evaluate
- * @param nextEventInCategory - The next upcoming event in the same category (if any).
- *   Must NOT be synthetic/fallback data. Pass null if lookup failed or returned fallback.
  */
 export function getEventSeoStrategy(
-  event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'>,
-  nextEventInCategory: Pick<Event, 'slug' | 'id'> | null
+  event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'> &
+    Partial<Pick<Event, 'name' | 'slug'>>
 ): EventSeoStrategy {
   const status = normalizeEventStatus(event)
   const isPast = isEventInPast(event)
 
-  // Cancelled events: index for 7 days, then noindex.
-  // Note: cancelled events never redirect, the page renders with a cancelled banner.
+  // Discontinued formats stay reachable but out of search, whatever their date.
+  // Keeping them indexed would rank a night nobody can attend.
+  if (isDiscontinuedFormatEvent(event)) {
+    return {
+      index: false,
+      showEndedBanner: isPast,
+      stage: isPast ? 'archived' : 'active',
+    }
+  }
+
+  // Cancelled events: index for 7 days, then noindex. Never redirect, the page
+  // renders with a cancelled banner.
   if (status === 'cancelled') {
     // We can't reliably know when it was cancelled from the event data,
     // so use the event date as proxy, noindex if event date was >7 days ago.
-    // Threshold uses `>` to align with generateMetadata() and app/sitemap.ts.
     const eventDate = Date.parse(event.startDate)
     const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
     return {
       index: daysSinceEvent <= CANCELLED_INDEX_DAYS,
       showEndedBanner: true,
-      stage: 'stale',
+      stage: 'archived',
     }
   }
 
@@ -66,31 +164,16 @@ export function getEventSeoStrategy(
     return { index: true, showEndedBanner: false, stage: 'active' }
   }
 
-  // Recently past (0-30 days). Threshold uses `<=` to align with
-  // generateMetadata() and app/sitemap.ts which both use `>`.
+  // Past events stay indexed. `recent` vs `archived` only changes presentation
+  // and how prominently the page is surfaced in listings, never indexability.
   const eventDate = Date.parse(event.startDate)
   const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
 
-  if (daysSinceEvent <= PAST_EVENT_REDIRECT_DAYS) {
-    return { index: true, showEndedBanner: true, stage: 'recent' }
+  return {
+    index: true,
+    showEndedBanner: true,
+    stage: daysSinceEvent <= RECENT_EVENT_WINDOW_DAYS ? 'recent' : 'archived',
   }
-
-  // Stale past (30+ days), redirect if we have a next event, noindex otherwise
-  if (nextEventInCategory) {
-    const segment = nextEventInCategory.slug || nextEventInCategory.id
-    return {
-      index: false,
-      redirect: `/events/${segment}`,
-      showEndedBanner: true,
-      stage: 'stale',
-    }
-  }
-
-  // Stale past, no next event, noindex but keep the page visible so users
-  // who arrive from event listings can still see event details and book future events.
-  // Category pages (/quiz-night, /music-bingo etc.) are standalone SEO assets and
-  // should not receive redirects from individual event pages.
-  return { index: false, showEndedBanner: true, stage: 'stale' }
 }
 
 /**
@@ -127,11 +210,3 @@ export function getSchemaOfferAvailability(
   }
 }
 
-/**
- * Check if an event appears to be synthetic/fallback data from the API client.
- * Returns true if the event should NOT be trusted for redirect decisions.
- */
-export function isFallbackEvent(event: Pick<Event, 'id' | 'name'>): boolean {
-  // The API client generates fallback events with specific markers
-  return !event.id || event.id === 'fallback' || event.name === 'Upcoming Event'
-}

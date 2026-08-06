@@ -1,11 +1,19 @@
 import { buildEventSchema } from '@/lib/structured-data/event-schema'
 import { CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
 
+// These tests cover offer and action sanitisation, which only applies to an
+// event that is still bookable. The date must therefore stay in the future.
+// It was previously hardcoded to 2026-06-01, which silently became a past date
+// and made every assertion here depend on when the suite was run.
+const ONE_DAY_MS = 24 * 60 * 60 * 1000
+const futureStart = new Date(Date.now() + 30 * ONE_DAY_MS)
+const futureEnd = new Date(futureStart.getTime() + 3 * 60 * 60 * 1000)
+
 const minimalEvent = {
   id: 'test-1',
   name: 'Test Event',
-  startDate: '2026-06-01T19:00:00Z',
-  endDate: '2026-06-01T22:00:00Z',
+  startDate: futureStart.toISOString(),
+  endDate: futureEnd.toISOString(),
   offers: { price: '5', priceCurrency: 'GBP' }
 } as any
 
