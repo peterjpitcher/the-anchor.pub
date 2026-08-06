@@ -2,7 +2,7 @@
 
 **Owner:** SEO + Engineering, The Anchor website (`OJ-The-Anchor.pub`)
 **Audience:** any developer changing routes, redirects, event lifecycle, blog tags, or one-off pages.
-**Last reviewed:** 2026-04-30
+**Last reviewed:** 2026-08-06
 
 This document codifies how URLs are retired on this site. It exists because GSC
 "Redirect error", "Page with redirect", and "Crawled - currently not indexed"
@@ -55,12 +55,34 @@ Driven by `lib/event-seo-strategy.ts` (function `getEventSeoStrategy`). Behaviou
 | Active (future, not cancelled) | Render, indexable, no banner. | Default branch in `getEventSeoStrategy`. |
 | Cancelled, ≤ 7 days since event date | Render with cancelled banner, indexable. | `CANCELLED_INDEX_DAYS = 7`. |
 | Cancelled, > 7 days since event date | Render with cancelled banner, `noindex`. (E) | Same. |
-| Recent past (≤ 30 days), not cancelled | Render with "ended" banner, still indexable. | `PAST_EVENT_REDIRECT_DAYS = 30`. |
-| Stale past (> 30 days), next event in same category | 301 to next event in category. (A) | `permanentRedirect(seoStrategy.redirect)` in `app/events/[id]/page.tsx`. |
-| Stale past (> 30 days), no next event in category | Render with "ended" banner, `noindex`. (E) | Page stays visible to anyone arriving from a deep link or stale category landing. |
+| Recent past (≤ 30 days), not cancelled | Render with "ended" banner, still indexable, every booking surface off. | `PAST_EVENT_REDIRECT_DAYS = 30`, plus `getEventPresentation`. |
+| Stale past (> 30 days) | 301 to the permanent category page (`/music-bingo`, `/quiz-night`, `/cash-bingo`, `/karaoke`, `/live-music`), or `/whats-on` when the event has no mapped category. (B) | `getCategoryPageUrl(event.category?.slug)` inside `getEventSeoStrategy`; `permanentRedirect` in `app/events/[id]/page.tsx`. |
 | Draft (`event_status === 'draft'`) | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
 | API returns 404 / fetch throws | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
 | Slug differs from canonical segment | 301 to canonical segment. (A) | `getEventCanonicalSegment` check. |
+
+**Rationale for redirecting stale events to the category page, not the next event (changed 2026-08-06)**
+
+Until August 2026 a stale event 301'd to the next upcoming event in the same
+category, and the code carried a comment saying category pages "should not
+receive redirects from individual event pages". Both were wrong.
+
+The destination moved every month. July's music bingo pointed at September's,
+and once September's went stale it pointed at November's. At any single moment
+that is one hop, so the `redirect-loops` test never caught it, but a permanent
+redirect whose target keeps changing never lets Google consolidate anything:
+signals land on a URL that is itself about to be retired.
+
+The category page is the stable topical equivalent, and case B in the matrix
+above already gives "retired event → category page" as its worked example. The
+worry about category pages receiving redirects was unfounded. Receiving a
+topically-matched 301 does not harm a destination page. The soft-404 risk
+Google warns about applies to mass redirects to an irrelevant destination, such
+as everything to `/`, not to a music bingo night redirecting to the music bingo
+hub.
+
+Redirecting is now unconditional at 30 days, so behaviour is deterministic and
+no per-request lookup of "what is on next" is needed.
 
 **Rationale for blanket 301 → /whats-on on draft / missing events**
 

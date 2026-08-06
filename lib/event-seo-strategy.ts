@@ -35,13 +35,18 @@ export interface EventSeoStrategy {
 /**
  * Determine the SEO strategy for an event page based on its lifecycle stage.
  *
+ * A stale event redirects to its permanent category page, never to the next
+ * dated event. Pointing July's music bingo at September's looks like case A
+ * (a close replacement) but the destination moves every month: Google
+ * consolidates signals onto September's URL, which next month points somewhere
+ * else again. A permanent redirect whose target keeps changing never settles.
+ * The category page is the stable equivalent, and is exactly the example the
+ * URL lifecycle policy gives for case B ("retired event -> category page").
+ *
  * @param event - The event to evaluate
- * @param nextEventInCategory - The next upcoming event in the same category (if any).
- *   Must NOT be synthetic/fallback data. Pass null if lookup failed or returned fallback.
  */
 export function getEventSeoStrategy(
-  event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'>,
-  nextEventInCategory: Pick<Event, 'slug' | 'id'> | null
+  event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'>
 ): EventSeoStrategy {
   const status = normalizeEventStatus(event)
   const isPast = isEventInPast(event)
@@ -75,22 +80,16 @@ export function getEventSeoStrategy(
     return { index: true, showEndedBanner: true, stage: 'recent' }
   }
 
-  // Stale past (30+ days), redirect if we have a next event, noindex otherwise
-  if (nextEventInCategory) {
-    const segment = nextEventInCategory.slug || nextEventInCategory.id
-    return {
-      index: false,
-      redirect: `/events/${segment}`,
-      showEndedBanner: true,
-      stage: 'stale',
-    }
+  // Stale past (30+ days): 301 to the permanent category page, or /whats-on
+  // when the event has no category. Unconditional, so the destination is
+  // deterministic and stable rather than depending on what happens to be
+  // scheduled next.
+  return {
+    index: false,
+    redirect: getCategoryPageUrl(event.category?.slug),
+    showEndedBanner: true,
+    stage: 'stale',
   }
-
-  // Stale past, no next event, noindex but keep the page visible so users
-  // who arrive from event listings can still see event details and book future events.
-  // Category pages (/quiz-night, /music-bingo etc.) are standalone SEO assets and
-  // should not receive redirects from individual event pages.
-  return { index: false, showEndedBanner: true, stage: 'stale' }
 }
 
 /**
@@ -127,11 +126,3 @@ export function getSchemaOfferAvailability(
   }
 }
 
-/**
- * Check if an event appears to be synthetic/fallback data from the API client.
- * Returns true if the event should NOT be trusted for redirect decisions.
- */
-export function isFallbackEvent(event: Pick<Event, 'id' | 'name'>): boolean {
-  // The API client generates fallback events with specific markers
-  return !event.id || event.id === 'fallback' || event.name === 'Upcoming Event'
-}

@@ -2,6 +2,7 @@ import type { Event } from '@/lib/api'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 const EVENT_PATH_PREFIX = '/events'
+const EVENTS_LISTING_PATH = '/whats-on'
 
 type EventUrlSource = Pick<Event, 'slug' | 'id' | 'url'>
 
@@ -47,10 +48,13 @@ export function getEventWebsitePath(event: EventUrlSource): string {
     if (resolved.startsWith('/events/') && resolved.length > '/events/'.length) {
       return resolved
     }
-    // Fall through to default /events listing page
+    // Fall through to the events listing below
   }
 
-  return EVENT_PATH_PREFIX
+  // There is no /events index route, so it returns 404. An event with no slug,
+  // no id and no usable url has nothing to link to; send visitors to the
+  // listing page that does exist.
+  return EVENTS_LISTING_PATH
 }
 
 export function getEventWebsiteUrl(event: EventUrlSource, options?: { absolute?: boolean }): string {

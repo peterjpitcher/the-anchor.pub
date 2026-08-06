@@ -34,9 +34,9 @@ import {
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
-import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy, getCategoryPageUrl, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
-import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
+import { isRetiredEvent } from '@/lib/api/events'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
 
@@ -303,23 +303,12 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect('/whats-on')
   }
 
-  // Event lifecycle SEO strategy, redirect stale past events to next upcoming event
+  // Event lifecycle SEO strategy: a stale past event 301s to its permanent
+  // category page. The destination no longer depends on what happens to be
+  // scheduled next, so there is no per-request lookup here any more.
   const isPastEvent = isEventInPast(event)
   if (isPastEvent) {
-    // Only look up the next event for past (non-cancelled) events.
-    // Cancelled events never redirect, they render with a cancelled banner.
-    let nextEvent = null
-    if (event.category?.id && normalizeEventStatus(event) !== 'cancelled') {
-      try {
-        const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
-        const validUpcoming = upcoming.filter(e => !isFallbackEvent(e) && e.id !== params.id)
-        nextEvent = validUpcoming[0] || null
-      } catch {
-        nextEvent = null
-      }
-    }
-
-    const seoStrategy = getEventSeoStrategy(event, nextEvent)
+    const seoStrategy = getEventSeoStrategy(event)
 
     if (seoStrategy.redirect) {
       permanentRedirect(seoStrategy.redirect)
