@@ -35,6 +35,7 @@ import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventPresentation } from '@/lib/event-presentation'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
@@ -43,7 +44,11 @@ type Props = {
   params: { id: string }
 }
 
-function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEvent: boolean): {
+function getStatusNotice(
+  status: ReturnType<typeof normalizeEventStatus>,
+  pastEvent: boolean,
+  eventDate?: string
+): {
   variant: 'info' | 'warning'
   title: string
   message: string
@@ -84,7 +89,9 @@ function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEv
     return {
       variant: 'info',
       title: 'This event has ended',
-      message: 'Browse our upcoming events for the latest listings.'
+      message: eventDate
+        ? `It took place on ${eventDate}. See below for the next dates.`
+        : 'See below for the next dates.'
     }
   }
 
@@ -319,6 +326,11 @@ export default async function EventPage({ params }: Props) {
     }
   }
 
+  // Single source of truth for which booking surfaces render. Also drives the
+  // JSON-LD via buildEventSchema, so the page and the schema cannot disagree
+  // about whether this event is over.
+  const presentation = getEventPresentation(event)
+
   const bookingBlockReason = getEventBookingBlockReason(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
   // surfaced when nothing more specific (cancelled / sold out / past) applies.
@@ -328,11 +340,11 @@ export default async function EventPage({ params }: Props) {
     : bookingClosedByCutoff
       ? SALES_CLOSED_COPY
       : null
-  // The online booking form is hidden whenever a block reason OR the cutoff applies.
-  const bookingFormSuppressed = Boolean(bookingBlockReason) || bookingClosedByCutoff
-  const statusNotice = getStatusNotice(status, isPastEvent)
+  const bookingFormSuppressed = !presentation.showBookingForm
+  const categoryPageUrl = getCategoryPageUrl(event.category?.slug)
 
   const eventDate = formatEventDate(event.startDate)
+  const statusNotice = getStatusNotice(status, isPastEvent, eventDate)
   const eventTime = formatEventTime(event.startDate)
   const headerDoorTime = formatDoorTime(event.doorTime)
   const eventBookingCopy = getEventBookingCopy(event)
@@ -426,7 +438,9 @@ export default async function EventPage({ params }: Props) {
     { label: 'Doors open', value: doorsTime },
     { label: 'Last entry', value: lastEntryTime },
     { label: 'Duration', value: durationLabel },
-    { label: 'Status', value: statusLabel },
+    // "Scheduled" on a night that has already happened reads as though it is
+    // still going ahead. "Cancelled" is still worth showing.
+    ...(presentation.showStatusRow ? [{ label: 'Status', value: statusLabel }] : []),
     { label: 'Booking type', value: bookingModeLabel },
     { label: 'Event type', value: event.event_type },
     { label: 'Category', value: event.category?.name },
@@ -486,6 +500,7 @@ export default async function EventPage({ params }: Props) {
               event={event}
               eventDate={eventDate}
               eventTime={eventTime}
+              variant={presentation.factsVariant}
             />
           </div>
         </Container>
@@ -534,15 +549,17 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
-                <Card accent className="mb-6 hidden lg:mb-8 lg:block">
-                  <CardBody className="p-4">
-                    <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
-                    <div className="mt-3 space-y-2 text-sm text-ink-muted">
-                      <p>{eventBookingCopy.policy}</p>
-                      <p>{eventBookingCopy.foodPrompt}</p>
-                    </div>
-                  </CardBody>
-                </Card>
+                {presentation.showBookingPolicy && (
+                  <Card accent className="mb-6 hidden lg:mb-8 lg:block">
+                    <CardBody className="p-4">
+                      <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
+                      <div className="mt-3 space-y-2 text-sm text-ink-muted">
+                        <p>{eventBookingCopy.policy}</p>
+                        <p>{eventBookingCopy.foodPrompt}</p>
+                      </div>
+                    </CardBody>
+                  </Card>
+                )}
 
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
@@ -616,14 +633,16 @@ export default async function EventPage({ params }: Props) {
                     )}
                   </div>
 
-                  <div className="mb-6 hidden lg:block">
-                    <EventSecondaryActions
-                      event={event}
-                      source="event_page_sidebar_actions"
-                      className="justify-start"
-                      size="sm"
-                    />
-                  </div>
+                  {presentation.showShareButton && (
+                    <div className="mb-6 hidden lg:block">
+                      <EventSecondaryActions
+                        event={event}
+                        source="event_page_sidebar_actions"
+                        className="justify-start"
+                        size="sm"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -679,8 +698,11 @@ export default async function EventPage({ params }: Props) {
                 </div>
               )}
 
-              {/* FAQs */}
-              {((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
+              {/* FAQs. Overwhelmingly booking questions, so they are hidden once
+                  the event is over rather than telling visitors how to book a
+                  night that has already happened. */}
+              {presentation.showBookingFaqs &&
+                ((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
                 <div>
                   <h2 className="text-xl md:text-2xl text-accent-text mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
@@ -730,36 +752,60 @@ export default async function EventPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <CtaBand
-        title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
-        copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
-      >
-        {mothersDayBookingFlow ? (
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
-          </Button>
-        ) : bookingFormSuppressed ? null : (
-          <EventBookingButton
-            event={event}
-            className="w-full sm:w-auto"
-            fullWidth={false}
-            size="lg"
-            label={bookingCtaLabel}
-            customHref="#event-booking"
-            source={`event_page_cta_${params.id}`}
-          />
-        )}
-        <PhoneButton
-          phone="01753682707"
-          source={`event_page_${params.id}`}
-          variant="outline"
-          size="lg"
-          className="w-full sm:w-auto"
+      {/* CTA Section. Once the event is over the booking band is replaced with a
+          route into the next one rather than an invitation to book a date that
+          has already passed. */}
+      {presentation.showBookingCtaBand ? (
+        <CtaBand
+          title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
+          copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
         >
-          Call: 01753 682707
-        </PhoneButton>
-      </CtaBand>
+          {mothersDayBookingFlow ? (
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
+            </Button>
+          ) : bookingFormSuppressed ? null : (
+            <EventBookingButton
+              event={event}
+              className="w-full sm:w-auto"
+              fullWidth={false}
+              size="lg"
+              label={bookingCtaLabel}
+              customHref="#event-booking"
+              source={`event_page_cta_${params.id}`}
+            />
+          )}
+          <PhoneButton
+            phone="01753682707"
+            source={`event_page_${params.id}`}
+            variant="outline"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            Call: 01753 682707
+          </PhoneButton>
+        </CtaBand>
+      ) : (
+        <CtaBand
+          title="Looking for the next one?"
+          copy={
+            event.category?.name
+              ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
+              : 'This night has finished. Browse everything coming up at The Anchor.'
+          }
+        >
+          {categoryPageUrl !== '/whats-on' && (
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={categoryPageUrl}>
+                All {event.category?.name} dates
+              </Link>
+            </Button>
+          )}
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+            <Link href="/whats-on">See what&rsquo;s on</Link>
+          </Button>
+        </CtaBand>
+      )}
     </>
   )
 }
