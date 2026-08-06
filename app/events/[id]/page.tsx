@@ -12,6 +12,7 @@ import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEven
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { getEventWebsitePath } from '@/lib/event-url'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
@@ -34,9 +35,10 @@ import {
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
-import { getEventSeoStrategy, getCategoryPageUrl, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
-import { isRetiredEvent } from '@/lib/api/events'
+import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
+import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
 
@@ -224,13 +226,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       event.description ||
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`
     
-    // Determine if event should be noindexed
+    // Past events stay indexed indefinitely so each night's content can
+    // accumulate. Only a long-cancelled event is noindexed: nothing happened,
+    // so there is nothing worth ranking.
     const eventDate = Date.parse(event.startDate)
     const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
     const eventStatus = normalizeEventStatus(event)
     const shouldNoindex =
-      (daysSinceEvent > PAST_EVENT_REDIRECT_DAYS) ||
-      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS)
+      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS) ||
+      // SSOT: discontinued formats must not be promoted. Page stays live for
+      // anyone holding the link, but out of search.
+      isDiscontinuedFormatEvent(event)
 
     // Merge keyword arrays
     const keywords = [
@@ -303,15 +309,21 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect('/whats-on')
   }
 
-  // Event lifecycle SEO strategy: a stale past event 301s to its permanent
-  // category page. The destination no longer depends on what happens to be
-  // scheduled next, so there is no per-request lookup here any more.
+  // Past events are never redirected. The page stays live and indexed so its
+  // content keeps accumulating; the route into the next date is the on-page
+  // link built below, not a 301.
   const isPastEvent = isEventInPast(event)
-  if (isPastEvent) {
-    const seoStrategy = getEventSeoStrategy(event)
+  const seoStrategy = getEventSeoStrategy(event)
 
-    if (seoStrategy.redirect) {
-      permanentRedirect(seoStrategy.redirect)
+  // The next date in this category, used to point visitors (and link equity)
+  // at the live event. Display only, it never changes what URL is served.
+  let nextInCategory: Event | null = null
+  if (isPastEvent && event.category?.id && status !== 'cancelled') {
+    try {
+      const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
+      nextInCategory = upcoming.find((e) => e.id !== event.id) || null
+    } catch {
+      nextInCategory = null
     }
   }
 
@@ -331,6 +343,8 @@ export default async function EventPage({ params }: Props) {
       : null
   const bookingFormSuppressed = !presentation.showBookingForm
   const categoryPageUrl = getCategoryPageUrl(event.category?.slug)
+  const nextEventHref = nextInCategory ? getEventWebsitePath(nextInCategory) : null
+  const nextEventDate = nextInCategory ? formatEventDate(nextInCategory.startDate) : null
 
   const eventDate = formatEventDate(event.startDate)
   const statusNotice = getStatusNotice(status, isPastEvent, eventDate)
@@ -454,6 +468,13 @@ export default async function EventPage({ params }: Props) {
             <div className="mx-auto max-w-6xl">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>
                 <p>{statusNotice.message}</p>
+                {nextEventHref && (
+                  <p className="mt-2">
+                    <Link href={nextEventHref} className="font-semibold underline">
+                      Next {event.category?.name || 'event'}: {nextEventDate}
+                    </Link>
+                  </p>
+                )}
               </Alert>
             </div>
           </Container>
@@ -778,13 +799,25 @@ export default async function EventPage({ params }: Props) {
         <CtaBand
           title="Looking for the next one?"
           copy={
-            event.category?.name
-              ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
-              : 'This night has finished. Browse everything coming up at The Anchor.'
+            nextEventDate && event.category?.name
+              ? `This night has finished. The next ${event.category.name} is ${nextEventDate}.`
+              : event.category?.name
+                ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
+                : 'This night has finished. Browse everything coming up at The Anchor.'
           }
         >
-          {categoryPageUrl !== '/whats-on' && (
+          {nextEventHref ? (
             <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={nextEventHref}>Book the next one</Link>
+            </Button>
+          ) : null}
+          {categoryPageUrl !== '/whats-on' && (
+            <Button
+              asChild
+              variant={nextEventHref ? 'outline' : 'primary'}
+              size="lg"
+              className="w-full sm:w-auto"
+            >
               <Link href={categoryPageUrl}>
                 All {event.category?.name} dates
               </Link>

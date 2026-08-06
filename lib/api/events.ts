@@ -4,6 +4,7 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { logError } from '@/lib/error-handling'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 import { dedupeUpcomingEvents } from '@/lib/event-normalization'
+import { RECENT_EVENT_WINDOW_DAYS } from '@/lib/event-seo-strategy'
 
 /**
  * A purchasable ticket type on an event (e.g. Adult / Child / Concession, or
@@ -590,7 +591,9 @@ export function hasLimitedAvailability(event: Event): boolean {
 
 // Standalone helpers that use the singleton (imported lazily to avoid circulars)
 const MAX_EVENTS_LIMIT = 100
-const RECENT_EVENT_DEFAULT_DAYS = 30
+// Shared with the event page's own "recent" wording. Previously a separate 30
+// declared here, which had to agree with the one in event-seo-strategy by hand.
+const RECENT_EVENT_DEFAULT_DAYS = RECENT_EVENT_WINDOW_DAYS
 
 export async function getUpcomingEvents(limit: number = 10, daysLookahead?: number): Promise<Event[]> {
   // Import lazily to avoid circular dependency with client.ts

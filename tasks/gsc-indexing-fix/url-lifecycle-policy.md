@@ -55,34 +55,51 @@ Driven by `lib/event-seo-strategy.ts` (function `getEventSeoStrategy`). Behaviou
 | Active (future, not cancelled) | Render, indexable, no banner. | Default branch in `getEventSeoStrategy`. |
 | Cancelled, ≤ 7 days since event date | Render with cancelled banner, indexable. | `CANCELLED_INDEX_DAYS = 7`. |
 | Cancelled, > 7 days since event date | Render with cancelled banner, `noindex`. (E) | Same. |
-| Recent past (≤ 30 days), not cancelled | Render with "ended" banner, still indexable, every booking surface off. | `PAST_EVENT_REDIRECT_DAYS = 30`, plus `getEventPresentation`. |
-| Stale past (> 30 days) | 301 to the permanent category page (`/music-bingo`, `/quiz-night`, `/cash-bingo`, `/karaoke`, `/live-music`), or `/whats-on` when the event has no mapped category. (B) | `getCategoryPageUrl(event.category?.slug)` inside `getEventSeoStrategy`; `permanentRedirect` in `app/events/[id]/page.tsx`. |
+| Past, not cancelled, **any age** | Render with "ended" banner, **indexable, kept indefinitely, never redirected**, every booking surface off, prominent link to the next date in the category. | `getEventSeoStrategy` returns `index: true` for all past events; `getEventPresentation` switches the booking surfaces off; `nextInCategory` in `app/events/[id]/page.tsx` builds the link. |
+| Past, ≤ 30 days vs > 30 days | Presentation only (`stage: 'recent'` vs `'archived'`). Controls the /whats-on recent archive and page wording. **Never indexability.** | `RECENT_EVENT_WINDOW_DAYS = 30`, also imported by `lib/api/events.ts` so the listing window cannot drift. |
 | Draft (`event_status === 'draft'`) | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
 | API returns 404 / fetch throws | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
 | Slug differs from canonical segment | 301 to canonical segment. (A) | `getEventCanonicalSegment` check. |
 
-**Rationale for redirecting stale events to the category page, not the next event (changed 2026-08-06)**
+**Rationale for keeping past events live and indexed (owner decision, 2026-08-06)**
 
-Until August 2026 a stale event 301'd to the next upcoming event in the same
-category, and the code carried a comment saying category pages "should not
-receive redirects from individual event pages". Both were wrong.
+Past events used to retire at 30 days: `noindex` plus a 301 to the next event
+in the category. That is now removed. Past event pages stay live, stay indexed,
+and are never redirected, at any age.
 
-The destination moved every month. July's music bingo pointed at September's,
-and once September's went stale it pointed at November's. At any single moment
-that is one hop, so the `redirect-loops` test never caught it, but a permanent
-redirect whose target keeps changing never lets Google consolidate anything:
-signals land on a URL that is itself about to be retired.
+The reason is dwell time, not tidiness. An event page goes up a few weeks
+before the night and used to be gone 30 days after it, so it was live for
+roughly two months total. That is not long enough for a page to earn rankings.
+Every month the site threw away the page it had just built and the category
+page started from scratch again. Keeping the URL lets each night accumulate.
 
-The category page is the stable topical equivalent, and case B in the matrix
-above already gives "retired event → category page" as its worked example. The
-worry about category pages receiving redirects was unfounded. Receiving a
-topically-matched 301 does not harm a destination page. The soft-404 risk
-Google warns about applies to mass redirects to an irrelevant destination, such
-as everything to `/`, not to a music bingo night redirecting to the music bingo
-hub.
+The usual objection is thin or duplicate content across many near-identical
+event pages. Checked against the live data before making this change, and it
+does not apply here: the six past Music Bingo nights carry six distinct names,
+themes and highlight sets ("Cowboys & Queens Country Music Bingo" and so on).
+They are genuinely different pages, not a template repeated.
 
-Redirecting is now unconditional at 30 days, so behaviour is deterministic and
-no per-request lookup of "what is on next" is needed.
+Two things make this safe, and both must stay true:
+
+1. **An ended page must not look like a live sales page.** `getEventPresentation`
+   switches off the booking form, the booking policy card, booking FAQs, the
+   "Ready to book" CTA, the share button and the status row, and flips the
+   facts strip to past tense. A page that is indexed forever and still says
+   "Book now" for a night in 2026 is worse than no page.
+2. **Its markup must not advertise tickets.** `buildEventSchema` omits `offers`,
+   `potentialAction` and `remainingAttendeeCapacity` once an event is over.
+
+**Routing visitors to the next date is an on-page link, never a redirect.** A
+redirect would delete the content this policy exists to keep. Past event pages
+carry the next date in the ended banner and in the closing CTA, plus links to
+the permanent category page and `/whats-on`.
+
+Past events are also listed in `sitemap.xml`. Excluding them would slow how
+often Google recrawls the pages this policy exists to let accumulate.
+
+Cancelled events are the one exception and still drop out after
+`CANCELLED_INDEX_DAYS`. Nothing happened on the night, so there is no content
+worth ranking.
 
 **Rationale for blanket 301 → /whats-on on draft / missing events**
 
