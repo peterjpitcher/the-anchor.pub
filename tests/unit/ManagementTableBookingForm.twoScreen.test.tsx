@@ -1041,6 +1041,33 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       })
     })
 
+    // The confirmation card is returned BEFORE the wizard element, so the
+    // step-change scroll effect cannot reach it: `wizardRef` has unmounted and
+    // confirming is not a step change anyway. Without its own scroll the guest
+    // keeps the position they had at the Confirm button, at the bottom of the
+    // details screen, and the short card that replaces it leaves them looking at
+    // the page footer instead of their booking reference.
+    it('scrolls the confirmation into view instead of leaving the guest at the bottom', async () => {
+      const scrollIntoView = jest.fn()
+      const original = (Element.prototype as unknown as { scrollIntoView?: unknown }).scrollIntoView
+      ;(Element.prototype as unknown as { scrollIntoView: unknown }).scrollIntoView = scrollIntoView
+
+      try {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+        await verifyPhoneAndFillName()
+
+        // Only the scroll caused by confirming should count.
+        scrollIntoView.mockClear()
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        expect(await screen.findByText(/all booked in/i)).toBeInTheDocument()
+        expect(scrollIntoView).toHaveBeenCalledWith({ block: 'start' })
+      } finally {
+        ;(Element.prototype as unknown as { scrollIntoView?: unknown }).scrollIntoView = original
+      }
+    })
+
     it('sends the guest back to the times, not to a step that no longer exists', async () => {
       setupFetchMock({ availability: DAY_SLOTS })
       await reachDetails()

@@ -673,6 +673,25 @@ export function ManagementTableBookingForm({
     wizardRef.current?.scrollIntoView({ block: 'start' })
   }, [step])
 
+  // Confirming a booking is not a step change, so the effect above never fires
+  // for it. Worse, the confirmation card is returned BEFORE the wizard element,
+  // so `wizardRef` has already unmounted by the time it renders. Without this
+  // the guest keeps the scroll position they had at the Confirm button, which
+  // is the bottom of a long review screen, and the short confirmation card that
+  // replaces it leaves them looking at the page footer instead of their
+  // booking reference.
+  //
+  // Two confirmation surfaces, one effect. The deposit path for groups of 10 or
+  // more confirms in place inside the wizard, so it has no card of its own and
+  // falls back to the wizard root.
+  const confirmationRef = useRef<HTMLDivElement>(null)
+  const confirmationShown = result?.state === 'confirmed' || paymentState === 'confirmed'
+
+  useEffect(() => {
+    if (!confirmationShown) return
+    ;(confirmationRef.current ?? wizardRef.current)?.scrollIntoView({ block: 'start' })
+  }, [confirmationShown])
+
   // Analytics: each wizard step counts as viewed when it becomes the current
   // step, including the initial 'find' step on mount.
   useEffect(() => {
@@ -1984,13 +2003,15 @@ export function ManagementTableBookingForm({
 
   if (result?.state === 'confirmed') {
     return (
-      <BookingConfirmedCard
-        result={result}
-        partySize={partySize}
-        date={date}
-        time={selectedTime || requestedTime}
-        onBookAnother={resetJourney}
-      />
+      <div ref={confirmationRef}>
+        <BookingConfirmedCard
+          result={result}
+          partySize={partySize}
+          date={date}
+          time={selectedTime || requestedTime}
+          onBookAnother={resetJourney}
+        />
+      </div>
     )
   }
 
@@ -2528,7 +2549,7 @@ export function ManagementTableBookingForm({
                 <span>
                   <span className="font-medium text-ink-strong">Just drinks</span>
                   <span className="block text-ink-muted">
-                    We will seat you in the bar and show times when the kitchen is closed too.
+                    We will seat you in the bar, and your table will not be held for food.
                   </span>
                 </span>
               </label>

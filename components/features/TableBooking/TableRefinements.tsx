@@ -64,6 +64,15 @@ export function TableRefinements({
         Anything that changes the table?
       </legend>
 
+      {/*
+        This box does NOT reveal extra times. The availability route always builds
+        the grid from the DRINKS answer, for everyone, because the pub is open for
+        drinks whenever it is open at all. Kitchen-closed times are already on
+        screen either way, captioned "Drinks only" per slot. Ticking it changes
+        what the booking IS: bar seating, a shorter turn, and out of kitchen
+        pacing. The copy claimed it revealed kitchen-closed times until 2026-08-06,
+        which was never true.
+      */}
       <label className="flex min-h-11 items-start gap-3 py-1 text-sm">
         <input
           type="checkbox"
@@ -74,11 +83,20 @@ export function TableRefinements({
         <span>
           <span className="font-medium text-ink-strong">Just drinks, no food</span>
           <span className="block text-ink-muted">
-            We will seat you in the bar and show times when the kitchen is closed too.
+            We will seat you in the bar, and your table will not be held for food.
           </span>
         </span>
       </label>
 
+      {/*
+        An outside booking holds a GARDEN table and nothing else. It is skipped by
+        inside-table allocation entirely, and a database constraint forbids pinning
+        one to an inside table, so there is no wet-weather table held in reserve.
+        Every one of the outside bookings on record has zero inside-table
+        assignments. The copy said "and a table inside if it does not" until
+        2026-08-06, which promised something the system has never done. Do not put
+        that promise back unless outside bookings start holding an inside table too.
+      */}
       <label className="flex min-h-11 items-start gap-3 py-1 text-sm">
         <input
           type="checkbox"
@@ -89,7 +107,8 @@ export function TableRefinements({
         <span>
           <span className="font-medium text-ink-strong">Outside table, weather permitting</span>
           <span className="block text-ink-muted">
-            The garden if the weather holds, and a table inside if it does not.
+            We will reserve you a table in the garden. If the weather turns we will find you a
+            spot inside if we can, so it is worth ringing us on the day.
           </span>
         </span>
       </label>
