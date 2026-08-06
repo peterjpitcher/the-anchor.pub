@@ -31,16 +31,53 @@ export const CANCELLED_INDEX_DAYS = 7
  * night has no equivalent, so the page stays live for anyone with the link and
  * is simply kept out of search (policy case E).
  */
-const DISCONTINUED_FORMAT_TOKENS = ['games night']
+const DISCONTINUED_FORMATS: ReadonlyArray<{
+  token: string
+  /** Where to send anyone who lands on the page anyway. */
+  replacement: string
+  replacementLabel: string
+  /** Must be supportable by docs/SSOT.md, it is customer-facing copy. */
+  replacementCopy: string
+}> = [
+  {
+    token: 'games night',
+    replacement: '/music-bingo',
+    replacementLabel: 'See Music Bingo dates',
+    // SSOT: "Nikki currently hosts Music Bingo only."
+    replacementCopy: 'This night is no longer running. Nikki hosts Music Bingo now.',
+  },
+]
+
+function discontinuedHaystack(event: Partial<Pick<Event, 'name' | 'slug'>>): string {
+  return `${event.name ?? ''} ${event.slug ?? ''}`
+    .toLowerCase()
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+}
 
 export function isDiscontinuedFormatEvent(
   event: Partial<Pick<Event, 'name' | 'slug'>>
 ): boolean {
-  const haystack = `${event.name ?? ''} ${event.slug ?? ''}`
-    .toLowerCase()
-    .replace(/[-_]+/g, ' ')
-    .replace(/\s+/g, ' ')
-  return DISCONTINUED_FORMAT_TOKENS.some((token) => haystack.includes(token))
+  const haystack = discontinuedHaystack(event)
+  return DISCONTINUED_FORMATS.some((format) => haystack.includes(format.token))
+}
+
+/**
+ * Where a discontinued-format page should send its visitors, and what to call
+ * that link. Null when the event is not a discontinued format.
+ *
+ * The page has no useful category page of its own, so falling back to
+ * /whats-on would drop someone interested in a Nikki night onto a generic
+ * listing. Music Bingo is the format she actually hosts now.
+ */
+export function getDiscontinuedFormatReplacement(
+  event: Partial<Pick<Event, 'name' | 'slug'>>
+): { href: string; label: string; copy: string } | null {
+  const haystack = discontinuedHaystack(event)
+  const match = DISCONTINUED_FORMATS.find((format) => haystack.includes(format.token))
+  return match
+    ? { href: match.replacement, label: match.replacementLabel, copy: match.replacementCopy }
+    : null
 }
 
 /**

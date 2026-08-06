@@ -35,7 +35,7 @@ import {
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
-import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
@@ -342,7 +342,12 @@ export default async function EventPage({ params }: Props) {
       ? SALES_CLOSED_COPY
       : null
   const bookingFormSuppressed = !presentation.showBookingForm
-  const categoryPageUrl = getCategoryPageUrl(event.category?.slug)
+  // A discontinued format has no category page worth sending people to, so it
+  // points at the format that replaced it rather than a generic listing.
+  const discontinuedReplacement = getDiscontinuedFormatReplacement(event)
+  const categoryPageUrl = discontinuedReplacement?.href ?? getCategoryPageUrl(event.category?.slug)
+  const categoryPageLabel =
+    discontinuedReplacement?.label ?? `All ${event.category?.name} dates`
   const nextEventHref = nextInCategory ? getEventWebsitePath(nextInCategory) : null
   const nextEventDate = nextInCategory ? formatEventDate(nextInCategory.startDate) : null
 
@@ -799,11 +804,13 @@ export default async function EventPage({ params }: Props) {
         <CtaBand
           title="Looking for the next one?"
           copy={
-            nextEventDate && event.category?.name
-              ? `This night has finished. The next ${event.category.name} is ${nextEventDate}.`
-              : event.category?.name
-                ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
-                : 'This night has finished. Browse everything coming up at The Anchor.'
+            discontinuedReplacement
+              ? discontinuedReplacement.copy
+              : nextEventDate && event.category?.name
+                ? `This night has finished. The next ${event.category.name} is ${nextEventDate}.`
+                : event.category?.name
+                  ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
+                  : 'This night has finished. Browse everything coming up at The Anchor.'
           }
         >
           {nextEventHref ? (
@@ -818,9 +825,7 @@ export default async function EventPage({ params }: Props) {
               size="lg"
               className="w-full sm:w-auto"
             >
-              <Link href={categoryPageUrl}>
-                All {event.category?.name} dates
-              </Link>
+              <Link href={categoryPageUrl}>{categoryPageLabel}</Link>
             </Button>
           )}
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">

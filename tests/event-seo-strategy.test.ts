@@ -16,6 +16,7 @@
 
 import {
   getEventSeoStrategy,
+  getDiscontinuedFormatReplacement,
   RECENT_EVENT_WINDOW_DAYS,
   CANCELLED_INDEX_DAYS,
 } from '@/lib/event-seo-strategy'
@@ -156,6 +157,20 @@ describe('getEventSeoStrategy', () => {
         slug: 'nikki-s-games-night-school-sports-day-special-2025-07-25',
       })
       expect(result.index).toBe(false)
+    })
+
+    it('points a games night at Music Bingo, not a generic listing', () => {
+      const replacement = getDiscontinuedFormatReplacement({
+        name: "Nikki's Games Night, Blankety Blank Special",
+      })
+      expect(replacement?.href).toBe('/music-bingo')
+      expect(replacement?.label).toBe('See Music Bingo dates')
+      // SSOT: "Nikki currently hosts Music Bingo only."
+      expect(replacement?.copy).toContain('Music Bingo')
+    })
+
+    it('returns no replacement for an event that still runs', () => {
+      expect(getDiscontinuedFormatReplacement({ name: 'Music Bingo' })).toBeNull()
     })
 
     it('keeps the page renderable, it is noindex not a redirect', () => {
