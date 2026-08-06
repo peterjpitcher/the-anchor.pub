@@ -34,26 +34,56 @@ evidence onto five permanent pages, not in maintaining hundreds of thin ones.
 
 So the data model needs nothing new. This is a display and aggregation job.
 
-## Open question to resolve first
+## API feasibility: resolved 2026-08-06
 
-**How much event history does the management API actually return?**
+Checked against the live management API server-side. All good:
 
-`app/api/events/route.ts` (the public proxy) appears to return upcoming events
-only: a local call with `from_date=2025-01-01` returned just the two upcoming
-events. The server-side client does better, since `app/sitemap.ts` calls
-`anchorAPI.getEvents({ from_date: '2000-01-01' })` and the live sitemap has
-included past dates. What is not known is whether the API returns months of
-history or only a short tail.
+- **16 months of history available.** 58 past events, oldest 2025-03-28.
+- **`category_id` filters past events fine.** One call with
+  `category_id=<id>&from_date=2000-01-01` returned 6 past music bingo nights
+  (Feb, Mar, Apr, May, Jun, Jul 2026). No management-app change needed for the
+  fetch.
+- **The public `/api/events` proxy returns upcoming events only.** Use the
+  server-side `anchorAPI` client, as `app/sitemap.ts` does, not the proxy.
+- **The list endpoint returns a lightweight projection.** `category`,
+  `short_description`, `long_description`, `performer_name` and the hero image
+  fields all come back null there even when set. `highlights` and `image` do
+  come through. If the block needs anything beyond those, it needs a per-event
+  detail fetch.
 
-Check this before designing anything else. Roughly:
+## Blocker: the source fields cannot be filled in
 
-```
-anchorAPI.getEvents({ from_date: '2025-01-01', status: 'scheduled', limit: 100 })
-```
+`previous_event_summary` and `attendance_note` **have no input anywhere in the
+management app.** Verified 2026-08-06:
 
-called server-side, then count how many results predate today. If the answer is
-"only a few weeks", this task needs a management-app change first and should be
-re-scoped.
+- The columns exist (added by
+  `supabase/migrations/20260528000000_event_seo_keyword_engine.sql`, 28 May 2026).
+- `src/services/events.ts` validates them (300 and 200 char limits).
+- `src/app/actions/events.ts:321-322` would save them if the form posted them.
+- `src/app/api/events/route.ts:188-189` serves them to this website.
+- **Zero `.tsx` files reference either field.** No textarea, no label, nothing.
+- **0 of 58 past events have either populated**, which follows.
+
+The columns were created by the SEO keyword engine migration and the form input
+was never built. So the question is not "will staff keep these filled in", it is
+"someone has to build the field first", and that work is in
+`OJ-AnchorManagementTools`, not here.
+
+## What is actually populated on past events today
+
+| Field | Populated |
+|---|---|
+| `highlights` | 46 / 58 |
+| `image` | set on the sample checked |
+| `image_alt_text` | 17 / 58 |
+| `previous_event_summary` | 0 / 58 |
+| `attendance_note` | 0 / 58 |
+| `performer_name` | 0 / 58 (null in the list projection) |
+
+This supports a **reduced version buildable today with no management-app
+change**: poster, date and `highlights` from the last three nights in the
+category. It is weaker evidence than a written recap, but it is real, it is
+already there, and it needs no new staff habit.
 
 ## Proposed work
 
@@ -85,18 +115,21 @@ re-scoped.
 - **Event images are square.** Use `aspect-square` containers.
 - **Prices are live from the DB**, never hardcoded, if any price is shown.
 
-## Dependency on staff behaviour
+## Two ways to sequence this
 
-This only works if `previous_event_summary` and `attendance_note` are actually
-filled in after each event in the management app. Today they are populated
-inconsistently. Two options, in preference order:
+**Option A, ship the reduced version now.** Poster, date and `highlights` from
+the last three nights in the category. No management-app change, no new staff
+habit, works with today's data. Weaker than a written recap but real.
 
-1. Make them a prompt in the management app's post-event flow. Better, because
-   the content then exists for both layers.
-2. Accept partial coverage and let the block render from whatever exists.
+**Option B, build the management-app field first.** Add
+`previous_event_summary` and `attendance_note` textareas to the event form in
+`OJ-AnchorManagementTools`. The server action, validation and API already
+handle them, so it is genuinely just the form input plus a place to put it.
+Then this task renders the fuller block. Needs staff to write a line after each
+event, so it only pays off if that becomes habit.
 
-If neither happens, this task produces an empty component and should not be
-built.
+A and B compose: build A, and the component picks up recap text later if B ever
+lands. Recommend A first.
 
 ## Explicitly out of scope
 
