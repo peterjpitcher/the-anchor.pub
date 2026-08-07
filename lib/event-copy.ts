@@ -39,6 +39,49 @@ export function getDisplayableFaqs<T extends FaqLike>(faqs: T[], hasEnded: boole
   return faqs.filter((faq) => !BOOKING_QUESTION_PATTERN.test(faq.name || ''))
 }
 
+/**
+ * Whether a piece of stored copy reads as an invitation to attend.
+ *
+ * Event copy is written to sell tickets, so on a night that has passed it turns
+ * into "Join us for Music Bingo on June 12th! Get ready for big tunes" sitting
+ * under a banner that says the event has ended. Used to decide whether stored
+ * copy can be reused as-is on an ended page, or whether to fall back to a plain
+ * past-tense line.
+ */
+function readsAsInvitation(text: string): boolean {
+  return /\b(get ready|join us|book (your|now|online)|don'?t miss|grab your|secure your|coming up|see you (there|then)|this (friday|saturday|sunday|monday|tuesday|wednesday|thursday))\b/i.test(
+    text,
+  )
+}
+
+/**
+ * The lead paragraph in the page hero.
+ *
+ * This is the largest text on the page after the title, so it is the worst
+ * place for the wrong tense. An upcoming event gets its booking statement; an
+ * ended one keeps its stored summary only when that summary is not an
+ * invitation, and otherwise gets a plain past-tense line.
+ */
+export function getEventHeroLead(
+  event: Pick<
+    Event,
+    'name' | 'startDate' | 'event_status' | 'eventStatus' | 'category' | 'shortDescription' | 'brief' | 'bookings_enabled' | 'booking_cutoff_at'
+  >,
+  liveStatement: string
+): string | undefined {
+  const { hasEnded } = getEventPresentation(event)
+  const summary = event.shortDescription || event.brief || null
+
+  if (!hasEnded) return liveStatement
+
+  if (summary && !readsAsInvitation(summary)) {
+    return summary.length > 160 ? `${summary.substring(0, 157).trimEnd()}…` : summary
+  }
+
+  const date = eventDateLabel(event)
+  return `${event.name} took place at The Anchor${date ? ` on ${date}` : ''}.`
+}
+
 function eventDateLabel(event: Pick<Event, 'startDate'>): string {
   return (
     formatEventLocalDate(event.startDate, {
@@ -93,13 +136,7 @@ export function getEventSchemaDescription(
   const stored =
     event.longDescription || event.about || event.description || event.shortDescription
 
-  // Stored copy is kept on an upcoming event, and on an ended one only when it
-  // does not read as an invitation. "Get ready for a massive night" on a night
-  // eight weeks gone is the same defect as the meta description had.
-  const readsAsInvitation =
-    /\b(get ready|join us|book (your|now|online)|don'?t miss|grab your|secure your|coming up|this (friday|saturday|sunday|monday|tuesday|wednesday|thursday))\b/i
-
-  if (stored && !(hasEnded && readsAsInvitation.test(stored))) return stored
+  if (stored && !(hasEnded && readsAsInvitation(stored))) return stored
 
   if (hasEnded) {
     const date = eventDateLabel(event)
