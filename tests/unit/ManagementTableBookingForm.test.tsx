@@ -6,10 +6,14 @@ import {
 } from '@/lib/booking-attribution'
 
 /**
- * Held relative to whenever the suite runs. This was the literal
- * '2026-07-10T11:30:00.000Z', which would have aged past the 90 day
- * ATTRIBUTION_TTL_DAYS window in October 2026 and started dropping the UTM
- * fields this test asserts on.
+ * Capture time for the attribution assertions below.
+ *
+ * Unlike ManagementEventBookingForm.test.tsx and booking-attribution.test.ts,
+ * this suite already freezes Date at FROZEN_NOW, so the 90 day
+ * ATTRIBUTION_TTL_DAYS check is measured against that fixed point rather than
+ * the wall clock. The previous literal '2026-07-10T11:30:00.000Z' was never
+ * going to expire here. Kept relative only so the value stops reading like a
+ * date somebody has to maintain.
  */
 const ATTRIBUTION_CAPTURED_AT = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
 
