@@ -6,6 +6,23 @@ import {
 } from '@/lib/booking-attribution'
 import { setConsentStatus } from '@/lib/cookies'
 
+/**
+ * Capture times held relative to whenever the suite runs.
+ *
+ * These were the literals '2026-05-10T10:00:00.000Z' and
+ * '2026-05-11T11:00:00.000Z'. Attribution has a 90 day TTL
+ * (ATTRIBUTION_TTL_DAYS in lib/booking-attribution.ts), so those fixtures were
+ * two days from ageing out, at which point getBookingAttributionPayload would
+ * start returning nothing and these tests would fail for a reason that has
+ * nothing to do with the behaviour under test.
+ *
+ * FIRST_SEEN stays older than LATER_SEEN so the "keeps first landing context
+ * while updating latest campaign params" case still exercises real ordering.
+ */
+const DAY_MS = 24 * 60 * 60 * 1000
+const FIRST_SEEN = new Date(Date.now() - 5 * DAY_MS)
+const LATER_SEEN = new Date(Date.now() - 4 * DAY_MS)
+
 describe('booking attribution persistence', () => {
   beforeEach(() => {
     clearBookingAttributionForTest()
@@ -30,7 +47,7 @@ describe('booking attribution persistence', () => {
       '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&utm_content=ad-1&fbclid=fb-123&gclid=g-123&short_code=ma83ed9d&email=jane@example.com&phone=07700900000',
     )
 
-    const payload = captureBookingAttributionFromLocation(new Date('2026-05-10T10:00:00.000Z'))
+    const payload = captureBookingAttributionFromLocation(FIRST_SEEN)
 
     expect(payload).toMatchObject({
       source_url: 'http://localhost/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&utm_content=ad-1&fbclid=fb-123&gclid=g-123&short_code=ma83ed9d',
@@ -42,8 +59,8 @@ describe('booking attribution persistence', () => {
       fbclid: 'fb-123',
       gclid: 'g-123',
       short_code: 'ma83ed9d',
-      attribution_captured_at: '2026-05-10T10:00:00.000Z',
-      attribution_updated_at: '2026-05-10T10:00:00.000Z',
+      attribution_captured_at: FIRST_SEEN.toISOString(),
+      attribution_updated_at: FIRST_SEEN.toISOString(),
     })
     expect(JSON.stringify(payload)).not.toMatch(/jane@example\.com|07700900000|email|phone/)
     expect(window.localStorage.getItem('anchor-booking-attribution')).toContain('music-bingo')
@@ -51,24 +68,24 @@ describe('booking attribution persistence', () => {
 
   it('keeps first landing context while updating latest campaign params', () => {
     window.history.pushState({}, '', '/events/quiz-night?utm_campaign=quiz-night&fbclid=fb-first')
-    captureBookingAttributionFromLocation(new Date('2026-05-10T10:00:00.000Z'))
+    captureBookingAttributionFromLocation(FIRST_SEEN)
 
     window.history.pushState({}, '', '/book-table?utm_campaign=sunday-lunch&gclid=g-latest')
-    const latestPayload = captureBookingAttributionFromLocation(new Date('2026-05-11T11:00:00.000Z'))
+    const latestPayload = captureBookingAttributionFromLocation(LATER_SEEN)
 
     expect(latestPayload).toMatchObject({
       source_url: 'http://localhost/events/quiz-night?utm_campaign=quiz-night&fbclid=fb-first',
       landing_path: '/events/quiz-night',
       utm_campaign: 'sunday-lunch',
       gclid: 'g-latest',
-      attribution_captured_at: '2026-05-10T10:00:00.000Z',
-      attribution_updated_at: '2026-05-11T11:00:00.000Z',
+      attribution_captured_at: FIRST_SEEN.toISOString(),
+      attribution_updated_at: LATER_SEEN.toISOString(),
     })
   })
 
   it('returns stored attribution after visitors navigate away from campaign URLs', () => {
     window.history.pushState({}, '', '/events/quiz-night?utm_campaign=quiz-night&short_code=ma-quiz')
-    captureBookingAttributionFromLocation(new Date('2026-05-10T10:00:00.000Z'))
+    captureBookingAttributionFromLocation(FIRST_SEEN)
 
     window.history.pushState({}, '', '/book-table')
 
