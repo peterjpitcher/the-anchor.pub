@@ -12,6 +12,18 @@ jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingFunnelStep: jest.fn()
 }))
 
+/**
+ * Attribution capture time, held five days back from whenever the suite runs.
+ *
+ * This was previously the literal '2026-05-08T18:30:00.000Z'. Attribution has a
+ * 90 day TTL (ATTRIBUTION_TTL_DAYS in lib/booking-attribution.ts), so on
+ * 2026-08-06 that fixture aged out and the test started failing: the UTM fields
+ * were dropped on read and utm_source came back undefined. Keeping the fixture
+ * relative to now means the test exercises live attribution forever, instead of
+ * silently becoming an expiry test and then a failure.
+ */
+const CAPTURED_AT = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+
 describe('ManagementEventBookingForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -223,7 +235,7 @@ describe('ManagementEventBookingForm', () => {
       '',
       '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&gclid=g-123&short_code=ma-bingo&email=jane@example.com',
     )
-    captureBookingAttributionFromLocation(new Date('2026-05-08T18:30:00.000Z'))
+    captureBookingAttributionFromLocation(CAPTURED_AT)
     window.history.pushState({}, '', '/events/music-bingo')
 
     render(
@@ -278,7 +290,7 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.utm_campaign).toBe('music-bingo')
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-bingo')
-    expect(payload.attribution_captured_at).toBe('2026-05-08T18:30:00.000Z')
+    expect(payload.attribution_captured_at).toBe(CAPTURED_AT.toISOString())
     expect(payload.email).toBeUndefined()
     expect(JSON.stringify(payload)).not.toContain('jane@example.com')
     expect(payload.communication_consent).toEqual(

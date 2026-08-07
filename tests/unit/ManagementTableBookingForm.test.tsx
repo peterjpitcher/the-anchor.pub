@@ -5,6 +5,14 @@ import {
   clearBookingAttributionForTest,
 } from '@/lib/booking-attribution'
 
+/**
+ * Held relative to whenever the suite runs. This was the literal
+ * '2026-07-10T11:30:00.000Z', which would have aged past the 90 day
+ * ATTRIBUTION_TTL_DAYS window in October 2026 and started dropping the UTM
+ * fields this test asserts on.
+ */
+const ATTRIBUTION_CAPTURED_AT = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+
 const trackTableBookingFunnel = jest.fn()
 const pushToDataLayer = jest.fn()
 const trackTableBookingClick = jest.fn()
@@ -763,7 +771,7 @@ describe('ManagementTableBookingForm', () => {
       '',
       '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=deposit-table&fbclid=fb-123&gclid=g-123&short_code=ma-table&email=jane@example.com',
     )
-    captureBookingAttributionFromLocation(new Date('2026-07-10T11:30:00.000Z'))
+    captureBookingAttributionFromLocation(ATTRIBUTION_CAPTURED_AT)
     window.history.pushState({}, '', '/book-table')
 
     render(<ManagementTableBookingForm />)
@@ -816,7 +824,7 @@ describe('ManagementTableBookingForm', () => {
     expect(payload.fbclid).toBe('fb-123')
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-table')
-    expect(payload.attribution_captured_at).toBe('2026-07-10T11:30:00.000Z')
+    expect(payload.attribution_captured_at).toBe(ATTRIBUTION_CAPTURED_AT.toISOString())
     expect(payload.email).toBeUndefined()
     expect(JSON.stringify(payload)).not.toContain('jane@example.com')
     expect(payload.communication_consent).toEqual(

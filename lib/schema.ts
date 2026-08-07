@@ -185,15 +185,32 @@ export const webSiteSchema = {
 
 export const restaurantSchema = localBusinessSchema
 
+/**
+ * Horizon for our open-ended recurring event series.
+ *
+ * These series have no planned end, but schema.org consumers expect a concrete
+ * endDate, and a hardcoded one silently rots: the previous "2026-12-31" would
+ * have told Google the quiz and bingo series had finished from 1 January 2027,
+ * with nothing in the deploy pipeline to catch it. Rolling to 31 December of
+ * next year keeps the horizon between 12 and 24 months out at all times and
+ * removes the annual manual bump.
+ *
+ * The value changes once a year, on 1 January, so it is stable for crawlers.
+ * `tests/unit/schema.test.ts` asserts it stays at least 90 days out.
+ */
+function rollingSeriesEndDate(now: Date = new Date()): string {
+  return `${now.getUTCFullYear() + 1}-12-31`
+}
+
 // Event Series Schemas for Regular Events
 export const quizNightEventSeries = {
   "@context": "https://schema.org",
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#quiz-night-series",
   "name": "Monthly Quiz Night at The Anchor",
-  "description": "Test your knowledge at our popular monthly quiz night. 3 entry, teams up to 6, great prizes including a 25 bar voucher for winners.",
+  "description": "Test your knowledge at our popular monthly quiz night. £3 per person, teams up to 6, with a £25 bar tab for the winners.",
   "startDate": "2024-01-01",
-  "endDate": "2026-12-31",
+  "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
@@ -244,9 +261,9 @@ export const bingoEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#bingo-series",
   "name": "Monthly Cash Bingo Night",
-  "description": "Monthly bingo night with 10 per book entry. 10 games with various prizes including drinks, chocolate, vouchers, and cash jackpot on the last game.",
+  "description": "Monthly bingo night, £10 per book, cash only. 10 games with various prizes including drinks, chocolate, vouchers, and a cash jackpot on the last game.",
   "startDate": "2024-01-01",
-  "endDate": "2026-12-31",
+  "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
@@ -296,7 +313,7 @@ export const liveMusicEventSeries = {
   "name": "Live at The Anchor, Live Music Nights",
   "description": "Regular live music nights at The Anchor, Stanwell Moor, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from Heathrow T5.",
   "startDate": "2024-01-01",
-  "endDate": "2026-12-31",
+  "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
