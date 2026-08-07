@@ -299,7 +299,7 @@ export default async function WhatsOnPage() {
             <SectionHeading
               kicker="Recent events"
               title="From the recent event archive"
-              lead="Recently finished event pages stay linked here while the next dates are promoted."
+              lead="A look back at recent nights. Every event page stays online, so you can see what one of our nights is actually like before booking the next."
             />
 
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -48,16 +48,129 @@ const DISCONTINUED_FORMATS: ReadonlyArray<{
   },
 ]
 
-function discontinuedHaystack(event: Partial<Pick<Event, 'name' | 'slug'>>): string {
-  return `${event.name ?? ''} ${event.slug ?? ''}`
+/**
+ * Claims docs/SSOT.md §14 verifies as factually false about the venue.
+ *
+ * Keeping past events indexed means event copy written months ago now competes
+ * in search indefinitely. Several past events carry facility claims the SSOT
+ * marks "verified NO", so this guard keeps those pages out of the index until
+ * the copy is corrected in the management app.
+ *
+ * Deliberately narrow: only unambiguous, verified-false statements of fact,
+ * where a false positive merely costs one page its ranking. Judgement calls
+ * such as unsubstantiated "best" superlatives, retired roast pre-order wording
+ * and forward-looking mulled wine are NOT here. They need a human editing the
+ * source copy, and over-broad pattern matching would quietly deindex good
+ * pages. (The SSOT expressly permits a historical mulled wine mention in a
+ * dated recap, which is exactly what a past event page is.)
+ *
+ * This is a safety net, not a fix. The copy lives in the management database.
+ */
+const BANNED_FACTUAL_CLAIMS: ReadonlyArray<{ pattern: RegExp; claim: string }> = [
+  { pattern: /accessible\s+toilet/i, claim: 'accessible toilet (SSOT: verified NO)' },
+  { pattern: /\bgluten[-\s]?free\b/i, claim: 'gluten-free (SSOT: regulated term, use NGCI)' },
+  { pattern: /baby[-\s]?changing/i, claim: 'baby changing (SSOT: verified NO)' },
+  { pattern: /air[-\s]?condition(ed|ing)|climate[-\s]?controlled/i, claim: 'air conditioning (SSOT: verified NO)' },
+  { pattern: /wedding\s+reception/i, claim: 'wedding receptions (SSOT: not offered)' },
+  { pattern: /champions\s+league/i, claim: 'Champions League (SSOT: cannot show, no Sky/TNT)' },
+  { pattern: /\b(sky|tnt)\s+sports\b/i, claim: 'Sky/TNT Sports (SSOT: terrestrial only)' },
+]
+
+type BannedClaimFields = Partial<
+  Pick<Event, 'name' | 'description' | 'shortDescription' | 'longDescription' | 'about' | 'highlights'>
+>
+
+/**
+ * Deliberately excludes `accessibility_notes`.
+ *
+ * That field is populated from the event-category template in the management
+ * app, and the template currently asserts an accessible toilet, which the SSOT
+ * verifies as NO. Because it is a template, the string is on upcoming events
+ * too, so treating it as a noindex trigger would deindex the pub's live
+ * listings, which is a worse outcome than the claim itself.
+ *
+ * A single structured field can simply be withheld instead. See
+ * getSafeAccessibilityNotes below. Prose fields cannot: a banned claim woven
+ * into a paragraph cannot be safely rewritten by a regex, so those do trigger
+ * noindex until a human corrects the copy at source.
+ */
+function bannedClaimHaystack(event: BannedClaimFields): string {
+  return [
+    event.name,
+    event.description,
+    event.shortDescription,
+    event.longDescription,
+    event.about,
+    Array.isArray(event.highlights) ? event.highlights.join(' ') : '',
+  ]
+    .filter((v): v is string => typeof v === 'string')
+    .join(' ')
+}
+
+/**
+ * Accessibility notes to display, or null when they carry a claim the SSOT
+ * verifies as false.
+ *
+ * Withholding beats rendering here. A wrong accessibility statement is worse
+ * than no statement: someone with mobility needs could plan a visit around it.
+ * The /find-us page and a phone call remain the accurate route.
+ */
+export function getSafeAccessibilityNotes(
+  event: Partial<Pick<Event, 'accessibility_notes'>>
+): string | null {
+  const notes = typeof event.accessibility_notes === 'string' ? event.accessibility_notes.trim() : ''
+  if (!notes) return null
+  const carriesBannedClaim = BANNED_FACTUAL_CLAIMS.some(({ pattern }) => pattern.test(notes))
+  return carriesBannedClaim ? null : notes
+}
+
+/** Which banned claims an event's copy contains. Empty when it is clean. */
+export function getBannedClaims(event: BannedClaimFields): string[] {
+  const haystack = bannedClaimHaystack(event)
+  if (!haystack.trim()) return []
+  return BANNED_FACTUAL_CLAIMS.filter(({ pattern }) => pattern.test(haystack)).map(
+    ({ claim }) => claim,
+  )
+}
+
+export function hasBannedClaim(event: BannedClaimFields): boolean {
+  return getBannedClaims(event).length > 0
+}
+
+type DiscontinuedFields = Partial<
+  Pick<Event, 'name' | 'slug' | 'description' | 'shortDescription' | 'keywords' | 'highlights' | 'category'>
+>
+
+function flattenText(value: unknown): string {
+  if (Array.isArray(value)) return value.join(' ')
+  return typeof value === 'string' ? value : ''
+}
+
+/**
+ * The format signal is not always in the title. "Sleigh That Tune" is a Nikki
+ * games night with no giveaway in its name or slug, so a name-only check
+ * shipped it straight into the index. Category, keywords, highlights and the
+ * descriptions all carry the signal in practice.
+ */
+function discontinuedHaystack(event: DiscontinuedFields): string {
+  return [
+    event.name,
+    event.slug,
+    event.description,
+    event.shortDescription,
+    flattenText(event.keywords),
+    flattenText(event.highlights),
+    event.category?.name,
+    event.category?.slug,
+  ]
+    .map(flattenText)
+    .join(' ')
     .toLowerCase()
     .replace(/[-_]+/g, ' ')
     .replace(/\s+/g, ' ')
 }
 
-export function isDiscontinuedFormatEvent(
-  event: Partial<Pick<Event, 'name' | 'slug'>>
-): boolean {
+export function isDiscontinuedFormatEvent(event: DiscontinuedFields): boolean {
   const haystack = discontinuedHaystack(event)
   return DISCONTINUED_FORMATS.some((format) => haystack.includes(format.token))
 }
@@ -71,7 +184,7 @@ export function isDiscontinuedFormatEvent(
  * listing. Music Bingo is the format she actually hosts now.
  */
 export function getDiscontinuedFormatReplacement(
-  event: Partial<Pick<Event, 'name' | 'slug'>>
+  event: DiscontinuedFields
 ): { href: string; label: string; copy: string } | null {
   const haystack = discontinuedHaystack(event)
   const match = DISCONTINUED_FORMATS.find((format) => haystack.includes(format.token))
@@ -130,14 +243,17 @@ export interface EventSeoStrategy {
  */
 export function getEventSeoStrategy(
   event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'> &
-    Partial<Pick<Event, 'name' | 'slug'>>
+    DiscontinuedFields &
+    BannedClaimFields
 ): EventSeoStrategy {
   const status = normalizeEventStatus(event)
   const isPast = isEventInPast(event)
 
-  // Discontinued formats stay reachable but out of search, whatever their date.
-  // Keeping them indexed would rank a night nobody can attend.
-  if (isDiscontinuedFormatEvent(event)) {
+  // Discontinued formats, and any event whose copy carries a claim the SSOT
+  // verifies as false, stay reachable but out of search whatever their date.
+  // Keeping them indexed would rank a night nobody can attend, or advertise
+  // facilities the pub does not have.
+  if (isDiscontinuedFormatEvent(event) || hasBannedClaim(event)) {
     return {
       index: false,
       showEndedBanner: isPast,

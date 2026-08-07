@@ -16,6 +16,7 @@
 
 import {
   getEventSeoStrategy,
+  getBannedClaims,
   getDiscontinuedFormatReplacement,
   RECENT_EVENT_WINDOW_DAYS,
   CANCELLED_INDEX_DAYS,
@@ -182,6 +183,86 @@ describe('getEventSeoStrategy', () => {
       }) as unknown as Record<string, unknown>
       expect(result.redirect).toBeUndefined()
       expect(result.showEndedBanner).toBe(true)
+    })
+  })
+
+  describe('SSOT banned claims', () => {
+    // Keeping past events indexed means copy written months ago competes in
+    // search indefinitely. docs/SSOT.md §14 verifies these as false.
+    it.each([
+      ['accessible toilet', 'We have an accessible toilet on site.'],
+      ['gluten-free', 'Gluten-free options available on request.'],
+      ['baby changing', 'Baby changing facilities available.'],
+      ['air conditioning', 'Enjoy our air conditioned function room.'],
+      ['wedding receptions', 'Perfect for your wedding reception.'],
+      ['Champions League', 'Watch the Champions League with us.'],
+    ])('noindexes an event whose copy claims %s', (_label, description) => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(20),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Quiz Night',
+        description,
+      })
+      expect(result.index).toBe(false)
+    })
+
+    it('reports which claim was found, so the copy can be corrected at source', () => {
+      const claims = getBannedClaims({
+        name: 'Tasting Night',
+        description: 'Gluten-free options and an accessible toilet.',
+      })
+      expect(claims).toHaveLength(2)
+      expect(claims.join(' ')).toContain('gluten-free')
+      expect(claims.join(' ')).toContain('accessible toilet')
+    })
+
+    it('leaves clean copy indexed', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(20),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Quiz Night',
+        description: 'Four rounds of trivia, teams up to six, £3 per person.',
+      })
+      expect(result.index).toBe(true)
+      expect(getBannedClaims({ description: 'Four rounds of trivia.' })).toEqual([])
+    })
+
+    it('keeps the page live, it is noindex not a redirect or a 404', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(20),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Quiz Night',
+        description: 'We have an accessible toilet.',
+      }) as unknown as Record<string, unknown>
+      expect(result.redirect).toBeUndefined()
+    })
+  })
+
+  describe('discontinued formats hidden outside the title', () => {
+    it('catches a games night named "Sleigh That Tune" via its description', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Sleigh That Tune',
+        slug: 'sleigh-that-tune-2025-12-18',
+        description: "Nikki's games night, festive edition.",
+      })
+      expect(result.index).toBe(false)
+    })
+
+    it('catches it via category name when the copy is silent', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Sleigh That Tune',
+        category: { id: 'c9', slug: 'games-night', name: 'Games Night', color: '#000' },
+      })
+      expect(result.index).toBe(false)
     })
   })
 

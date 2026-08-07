@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og'
 import { anchorAPI, formatEventTime } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { getEventPresentation } from '@/lib/event-presentation'
 
 export const runtime = 'nodejs'
 
@@ -20,12 +21,18 @@ export default async function OpenGraphImage({ params }: { params: { id: string 
   let timeLabel = ''
   let categoryLabel = 'Live event'
   let priceLabel = ''
+  let hasEnded = false
 
   try {
     const event = await anchorAPI.getEvent(params.id)
     title = event.name || title
     categoryLabel = event.category?.name || categoryLabel
-    priceLabel = getEventPriceLabel(event) || ''
+    // Same resolver as the page and the JSON-LD. A shared link to a night that
+    // has already happened must not look like an advert for one that has not:
+    // the price and start time are booking facts, not historical ones.
+    hasEnded = getEventPresentation(event).hasEnded
+
+    priceLabel = hasEnded ? '' : getEventPriceLabel(event) || ''
 
     const start = getEventDateRangeUtc(event).start
     if (!Number.isNaN(start.getTime())) {
@@ -33,15 +40,18 @@ export default async function OpenGraphImage({ params }: { params: { id: string 
         weekday: 'short',
         day: 'numeric',
         month: 'short',
+        ...(hasEnded ? { year: 'numeric' as const } : {}),
         timeZone: LONDON_TIME_ZONE
       })
     }
-    timeLabel = formatEventTime(event.startDate)
+    timeLabel = hasEnded ? '' : formatEventTime(event.startDate)
   } catch {
     // fall back to defaults
   }
 
-  const metaLine = [dateLabel, timeLabel].filter(Boolean).join(' • ')
+  const metaLine = [hasEnded ? 'Event ended' : null, dateLabel, timeLabel]
+    .filter(Boolean)
+    .join(' • ')
 
   return new ImageResponse(
     (
