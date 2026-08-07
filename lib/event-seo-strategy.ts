@@ -108,6 +108,27 @@ function bannedClaimHaystack(event: BannedClaimFields): string {
 }
 
 /**
+ * True when the matched phrase is being denied rather than asserted.
+ *
+ * The corrected accessibility copy reads "We do not currently have an
+ * accessible toilet", which contains the banned phrase while saying exactly the
+ * right thing. Suppressing that would hide the honest statement and leave
+ * visitors with nothing, which is the opposite of the point. Only an
+ * unqualified assertion should be withheld.
+ */
+function isNegatedClaim(text: string, pattern: RegExp): boolean {
+  const match = pattern.exec(text)
+  if (!match) return false
+  // Look back over the words immediately before the phrase, not the whole
+  // string: "we have an accessible toilet, but no baby changing" must not read
+  // as a denial of the toilet.
+  const preceding = text.slice(Math.max(0, match.index - 60), match.index)
+  return /\b(no|not|don'?t|doesn'?t|without|lack|lacks|unable to offer|cannot offer)\b[^.!?]*$/i.test(
+    preceding,
+  )
+}
+
+/**
  * Accessibility notes to display, or null when they carry a claim the SSOT
  * verifies as false.
  *
@@ -120,7 +141,9 @@ export function getSafeAccessibilityNotes(
 ): string | null {
   const notes = typeof event.accessibility_notes === 'string' ? event.accessibility_notes.trim() : ''
   if (!notes) return null
-  const carriesBannedClaim = BANNED_FACTUAL_CLAIMS.some(({ pattern }) => pattern.test(notes))
+  const carriesBannedClaim = BANNED_FACTUAL_CLAIMS.some(
+    ({ pattern }) => pattern.test(notes) && !isNegatedClaim(notes, pattern),
+  )
   return carriesBannedClaim ? null : notes
 }
 
