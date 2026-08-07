@@ -65,12 +65,29 @@ describe('availability contract (website side)', () => {
   let getAvailability: (request: Request) => Promise<Response>
 
   beforeEach(async () => {
+    // The fixture is a capture of one moment, and it records that moment as
+    // `scenario.now`. Pin the clock to it.
+    //
+    // Without this the suite is a time bomb. `scenario.date` is 2026-08-07,
+    // and the availability route applies a same-day cutoff when the requested
+    // date equals London-today: app/api/table-bookings/availability/route.ts
+    // drops every slot less than an hour out. So on 2026-08-07 itself, from
+    // roughly 17:00 London, the 18:00 and 20:00 slots these tests assert on
+    // simply vanish and three tests go red, for reasons that have nothing to
+    // do with the contract being tested.
+    //
+    // Deriving the time from the fixture rather than repeating a literal means
+    // the pin cannot drift when the fixture is next recaptured.
+    jest.useFakeTimers({ doNotFake: ['nextTick', 'queueMicrotask'] })
+    jest.setSystemTime(new Date(contract.scenario.now))
+
     mockGetBusinessHours.mockResolvedValue(FRIDAY_HOURS)
     jest.resetModules()
     ;({ GET: getAvailability } = await import('@/app/api/table-bookings/availability/route'))
   })
 
   afterEach(() => {
+    jest.useRealTimers()
     jest.clearAllMocks()
   })
 
@@ -80,7 +97,7 @@ describe('availability contract (website side)', () => {
   // fixture answers both calls: the drinks answer drives availability and the
   // food answer drives only the kitchen_open label. The two-call behaviour
   // itself is covered in table-bookings-availability-combined.test.ts.
-  async function fetchWith(load: unknown, query = 'date=2026-08-07&party_size=4') {
+  async function fetchWith(load: unknown, query = `date=${contract.scenario.date}&party_size=4`) {
     mockGetTableBookingLoadSafe.mockResolvedValue(load)
     const response = await getAvailability(
       new Request(`https://www.the-anchor.pub/api/table-bookings/availability?${query}`)
@@ -282,14 +299,14 @@ describe('availability contract (website side)', () => {
         loadWith({
           contract_version: 1,
           calculation_state: 'complete',
-          date: '2026-08-07',
+          date: contract.scenario.date,
           party_size: 30,
           slots: [],
           public_reason: 'too_large',
           message: 'For parties that size, please give us a ring on 01753 682707.',
           max_party_size_online: 20
         }),
-        'date=2026-08-07&party_size=30'
+        `date=${contract.scenario.date}&party_size=30`
       )
 
       expect(body.data.time_slots).toEqual([])
