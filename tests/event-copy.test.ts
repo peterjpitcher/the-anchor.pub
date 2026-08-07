@@ -10,6 +10,7 @@ import {
   getEventMetaDescription,
   getEventSchemaDescription,
   getDisplayableFaqs,
+  getEventHeroLead,
 } from '@/lib/event-copy'
 import type { Event } from '@/lib/api'
 
@@ -87,6 +88,47 @@ describe('getEventSchemaDescription', () => {
     expect(
       getEventSchemaDescription(makeEvent({ startDate: new Date(Date.now() - 5 * DAY).toISOString() })).length,
     ).toBeGreaterThan(0)
+  })
+})
+
+describe('getEventHeroLead', () => {
+  const LIVE = 'Reserve a table for Friday 14 August. No payment now, pay £5 on arrival.'
+
+  it('uses the booking statement while the event is upcoming', () => {
+    expect(getEventHeroLead(makeEvent(), LIVE)).toBe(LIVE)
+  })
+
+  it('never leaves an invitation in the hero of an ended event', () => {
+    // This was live on /events/music-bingo-2026-06-12: the largest text on the
+    // page said "Join us for Music Bingo on June 12th! Get ready for big
+    // tunes", directly under a banner saying the event had ended.
+    const lead = getEventHeroLead(
+      makeEvent({
+        startDate: new Date(Date.now() - 30 * DAY).toISOString(),
+        shortDescription:
+          'Join us for Music Bingo at The Anchor on June 12th! Get ready for big tunes, laughs, and a fun night out.',
+      }),
+      LIVE,
+    )
+    expect(lead).not.toMatch(/join us|get ready/i)
+    expect(lead).toContain('took place at The Anchor')
+  })
+
+  it('keeps a neutral stored summary on an ended event', () => {
+    const neutral = 'A music bingo night hosted by Nikki Manfadge, with two rounds and prizes.'
+    const lead = getEventHeroLead(
+      makeEvent({ startDate: new Date(Date.now() - 30 * DAY).toISOString(), shortDescription: neutral }),
+      LIVE,
+    )
+    expect(lead).toBe(neutral)
+  })
+
+  it('falls back to a past-tense line when there is no summary at all', () => {
+    const lead = getEventHeroLead(
+      makeEvent({ startDate: new Date(Date.now() - 30 * DAY).toISOString() }),
+      LIVE,
+    )
+    expect(lead).toContain('Music Bingo took place at The Anchor')
   })
 })
 

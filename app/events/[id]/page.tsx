@@ -37,7 +37,7 @@ import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
-import { getEventMetaDescription, getDisplayableFaqs } from '@/lib/event-copy'
+import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -401,14 +401,12 @@ export default async function EventPage({ params }: Props) {
     `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
   ).toString('base64')}`
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
-  const rawHeroDescription = event.shortDescription || event.brief || null
-  const eventSummary = rawHeroDescription
-    ? rawHeroDescription.length > 160
-      ? rawHeroDescription.substring(0, 157).trimEnd() + '…'
-      : rawHeroDescription
-    : undefined
+  // The lead is the largest text after the title, so it is the worst place for
+  // the wrong tense. An ended event used to fall straight back to its stored
+  // summary, which is sales copy: "Join us for Music Bingo on June 12th! Get
+  // ready for big tunes" sat directly under a banner saying it had ended.
   const heroDescription = bookingFormSuppressed
-    ? eventSummary
+    ? getEventHeroLead(event, getEventBookingHeroStatement(event))
     : getEventBookingHeroStatement(event)
   const heroTags = [
     ...(event.category?.name ? [{ label: event.category.name, variant: 'primary' as const }] : []),
