@@ -324,7 +324,16 @@ export default async function WhatsOnPage() {
               ))}
             </div>
 
-            <div className="mt-8 text-center">
+            {/* The strip above only reaches the last 30 days. Without this link
+                the rest of the archive is orphaned: measured at 3 of 39 past
+                events reachable by clicking, which is why those pages could not
+                build the authority that keeping them was meant to build. */}
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link href="/whats-on/archive">
+                <Button variant="outline" size="md">
+                  Browse all past events
+                </Button>
+              </Link>
               <Link href="/whats-on#upcoming-events">
                 <Button variant="outline" size="md">
                   See this month&apos;s events

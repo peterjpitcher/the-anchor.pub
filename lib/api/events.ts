@@ -671,6 +671,57 @@ export async function getRecentEvents(
   }
 }
 
+/**
+ * Every past event, newest first, with no day window.
+ *
+ * getRecentEvents caps daysBack at 90 and is built for the short "recent
+ * nights" strip. Past event pages are now kept live and indexed indefinitely,
+ * so they need a listing that reaches all of them: without one they are
+ * orphans, reachable only from Google, and an orphan page cannot accumulate
+ * the authority that keeping it was meant to build. Measured before this
+ * existed: 3 of 39 past events were reachable by clicking.
+ *
+ * Applies the same exclusions as the sitemap, so the archive never links to a
+ * page we are telling search engines to ignore.
+ */
+export async function getPastEvents(limit: number = 200): Promise<Event[]> {
+  const { anchorAPI } = await import('./client')
+  const { getEventSeoStrategy } = await import('@/lib/event-seo-strategy')
+  try {
+    const safeLimit = Math.min(Math.max(Math.floor(limit), 1), 500)
+    const collected = new Map<string, Event>()
+
+    // Page backwards through the whole history rather than guessing a window.
+    for (let page = 0; page < 5; page += 1) {
+      const response = await anchorAPI.getEvents({
+        from_date: '2000-01-01',
+        limit: MAX_EVENTS_LIMIT,
+        offset: page * MAX_EVENTS_LIMIT,
+        status: 'scheduled,rescheduled,postponed,sold_out',
+      })
+      const batch = response.events || []
+      for (const event of batch) {
+        const key = `${event.id || event.slug || ''}`.trim()
+        if (key) collected.set(key, event)
+      }
+      if (batch.length < MAX_EVENTS_LIMIT) break
+    }
+
+    const nowMs = Date.now()
+    return removeRetiredEvents(Array.from(collected.values()))
+      .filter(event => {
+        const startMs = Date.parse(event.startDate)
+        return Number.isFinite(startMs) && startMs < nowMs
+      })
+      .filter(event => getEventSeoStrategy(event).index)
+      .sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate))
+      .slice(0, safeLimit)
+  } catch (error) {
+    logError('api-past-events', error, { limit })
+    return []
+  }
+}
+
 export async function getUpcomingEventsByCategory(
   categoryId: string,
   limit: number = 10,

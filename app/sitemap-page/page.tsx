@@ -8,7 +8,7 @@ import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
-import { formatEventDate, getRecentEvents, type Event } from '@/lib/api'
+import { formatEventDate, getPastEvents, type Event } from '@/lib/api'
 
 type SitemapLink = {
   label: string
@@ -196,7 +196,7 @@ function buildRecentEventSection(events: Event[]): SitemapSection | null {
   if (events.length === 0) return null
 
   return {
-    title: 'Recent Event Archive',
+    title: 'Past Events',
     links: events.map((event) => ({
       label: `${event.name} - ${formatEventDate(event.startDate)}`,
       href: `/events/${event.slug || event.id}`,
@@ -205,7 +205,10 @@ function buildRecentEventSection(events: Event[]): SitemapSection | null {
 }
 
 export default async function SitemapPage() {
-  const recentEvents = await getRecentEvents(12).catch(() => [] as Event[])
+  // Every past event, not just the last twelve. These pages are kept live and
+  // indexed so their content can accumulate, which only works if something
+  // links to them: 3 of 39 were reachable by clicking before this.
+  const recentEvents = await getPastEvents().catch(() => [] as Event[])
   const recentEventSection = buildRecentEventSection(recentEvents)
   const sections = recentEventSection
     ? [...sitemapSections.slice(0, 4), recentEventSection, ...sitemapSections.slice(4)]
