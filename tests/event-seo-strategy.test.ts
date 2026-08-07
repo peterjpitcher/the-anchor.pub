@@ -17,6 +17,7 @@
 import {
   getEventSeoStrategy,
   getBannedClaims,
+  getSafeAccessibilityNotes,
   getDiscontinuedFormatReplacement,
   RECENT_EVENT_WINDOW_DAYS,
   CANCELLED_INDEX_DAYS,
@@ -238,6 +239,46 @@ describe('getEventSeoStrategy', () => {
         description: 'We have an accessible toilet.',
       }) as unknown as Record<string, unknown>
       expect(result.redirect).toBeUndefined()
+    })
+  })
+
+  describe('accessibility notes', () => {
+    // The event-category template asserts an accessible toilet; the SSOT says
+    // we do not have one. That single field is withheld rather than the page
+    // being deindexed, because the same string is on upcoming events too.
+    it('withholds notes that assert a facility we do not have', () => {
+      expect(
+        getSafeAccessibilityNotes({
+          accessibility_notes:
+            'The Anchor offers step-free access throughout the ground floor with an accessible toilet.',
+        }),
+      ).toBeNull()
+    })
+
+    it('keeps the corrected notes, which deny the same facility', () => {
+      // The honest wording contains the banned phrase while saying the right
+      // thing. Suppressing it would leave visitors with nothing at all.
+      const corrected =
+        'The bar and dining area are step-free from the level car park. We do not currently have an accessible toilet. Please call 01753 682707 to discuss specific access needs.'
+      expect(getSafeAccessibilityNotes({ accessibility_notes: corrected })).toBe(corrected)
+    })
+
+    it('still withholds an assertion that sits alongside an unrelated denial', () => {
+      expect(
+        getSafeAccessibilityNotes({
+          accessibility_notes: 'We have an accessible toilet, but no baby changing facilities.',
+        }),
+      ).toBeNull()
+    })
+
+    it('returns null for empty or missing notes', () => {
+      expect(getSafeAccessibilityNotes({ accessibility_notes: '  ' })).toBeNull()
+      expect(getSafeAccessibilityNotes({})).toBeNull()
+    })
+
+    it('keeps ordinary notes untouched', () => {
+      const plain = 'Step-free access from the car park. Assistance dogs welcome.'
+      expect(getSafeAccessibilityNotes({ accessibility_notes: plain })).toBe(plain)
     })
   })
 
