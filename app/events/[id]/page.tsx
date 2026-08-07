@@ -35,8 +35,9 @@ import {
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
-import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
+import { getEventMetaDescription, getDisplayableFaqs } from '@/lib/event-copy'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -71,6 +72,20 @@ function getStatusNotice(
     }
   }
 
+  // Asked before rescheduled and sold_out: a night that sold out and has since
+  // happened is over, and "call us to check cancellations" would be nonsense.
+  // Cancelled and postponed stay above this, because those nights never took
+  // place, so "It took place on <date>" would be false for them.
+  if (pastEvent) {
+    return {
+      variant: 'info',
+      title: 'This event has ended',
+      message: eventDate
+        ? `It took place on ${eventDate}. See below for the next dates.`
+        : 'See below for the next dates.'
+    }
+  }
+
   if (status === 'rescheduled') {
     return {
       variant: 'info',
@@ -84,16 +99,6 @@ function getStatusNotice(
       variant: 'info',
       title: 'This event is currently sold out',
       message: 'Call us to check cancellations or alternative options.'
-    }
-  }
-
-  if (pastEvent) {
-    return {
-      variant: 'info',
-      title: 'This event has ended',
-      message: eventDate
-        ? `It took place on ${eventDate}. See below for the next dates.`
-        : 'See below for the next dates.'
     }
   }
 
@@ -220,23 +225,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const canonical = `/events/${event.slug || params.id}`
     const ogImage = `${canonical}/opengraph-image`
-    const description =
-      event.metaDescription ||
-      event.shortDescription ||
-      event.description ||
-      `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`
-    
-    // Past events stay indexed indefinitely so each night's content can
-    // accumulate. Only a long-cancelled event is noindexed: nothing happened,
-    // so there is nothing worth ranking.
-    const eventDate = Date.parse(event.startDate)
-    const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
-    const eventStatus = normalizeEventStatus(event)
-    const shouldNoindex =
-      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS) ||
-      // SSOT: discontinued formats must not be promoted. Page stays live for
-      // anyone holding the link, but out of search.
-      isDiscontinuedFormatEvent(event)
+    // Past events never inherit their sales copy. That text was written to sell
+    // tickets and is future tense, so on a night that has passed it produces a
+    // search result inviting people to book a date months gone.
+    const description = getEventMetaDescription(
+      event,
+      `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`,
+    )
+
+    // Indexability comes from getEventSeoStrategy, the same function the page
+    // body and app/sitemap.ts use. It previously lived here as its own copy of
+    // the rule, which is how the head and the sitemap were free to disagree.
+    const shouldNoindex = !getEventSeoStrategy(event).index
 
     // Merge keyword arrays
     const keywords = [
@@ -255,7 +255,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
       openGraph: {
         title: event.metaTitle || event.name,
-        description: event.shortDescription || event.description || `Event at The Anchor - ${formatEventDate(event.startDate)}`,
+        // Same resolver as the head description, so a shared link cannot
+        // advertise a night that has already happened.
+        description: getEventMetaDescription(
+          event,
+          `Event at The Anchor - ${formatEventDate(event.startDate)}`,
+        ),
         url: canonical,
         siteName: 'The Anchor',
         images: [
@@ -348,6 +353,11 @@ export default async function EventPage({ params }: Props) {
   const categoryPageUrl = discontinuedReplacement?.href ?? getCategoryPageUrl(event.category?.slug)
   const categoryPageLabel =
     discontinuedReplacement?.label ?? `All ${event.category?.name} dates`
+  const safeAccessibilityNotes = getSafeAccessibilityNotes(event)
+  const displayedFaqs = getDisplayableFaqs(
+    event.faq || event.faqPage?.mainEntity || [],
+    presentation.hasEnded,
+  )
   const nextEventHref = nextInCategory ? getEventWebsitePath(nextInCategory) : null
   const nextEventDate = nextInCategory ? formatEventDate(nextInCategory.startDate) : null
 
@@ -405,7 +415,10 @@ export default async function EventPage({ params }: Props) {
     { label: eventDate, variant: 'default' as const },
     { label: eventTime, variant: 'default' as const },
     ...(headerDoorTime ? [{ label: headerDoorTime, variant: 'default' as const }] : []),
-    ...(status !== 'scheduled'
+    // Gated on the same flag as the status row in the details list, so the hero
+    // cannot say "Status: Sold Out" on a night the rest of the page treats as
+    // finished.
+    ...(presentation.showStatusRow && status !== 'scheduled'
       ? [{ label: `Status: ${statusLabel}`, variant: 'warning' as const }]
       : [])
   ]
@@ -465,6 +478,7 @@ export default async function EventPage({ params }: Props) {
         eventDate={event.startDate}
         eventCategory={event.category?.name}
         eventPrice={event.offers?.price ? parseFloat(event.offers.price) : undefined}
+        hasEnded={presentation.hasEnded}
       />
 
       {statusNotice ? (
@@ -705,23 +719,24 @@ export default async function EventPage({ params }: Props) {
                 </CardBody>
               </Card>
 
-              {/* Accessibility */}
-              {event.accessibility_notes && (
+              {/* Accessibility. Withheld entirely when the stored notes carry a
+                  claim the SSOT verifies as false, because a wrong accessibility
+                  statement is worse than none: someone could plan a visit on it. */}
+              {safeAccessibilityNotes && (
                 <div className="p-3 rounded-md bg-surface-sunk border border-line">
                   <p className="text-xs font-medium text-accent-text mb-1">Accessibility</p>
-                  <p className="text-sm text-ink-muted">{event.accessibility_notes}</p>
+                  <p className="text-sm text-ink-muted">{safeAccessibilityNotes}</p>
                 </div>
               )}
 
-              {/* FAQs. Overwhelmingly booking questions, so they are hidden once
-                  the event is over rather than telling visitors how to book a
-                  night that has already happened. */}
-              {presentation.showBookingFaqs &&
-                ((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
+              {/* FAQs. On an ended event the booking questions go, but the rest
+                  stay: they are often the only unique prose on the page, and
+                  past pages are kept precisely so that content can accumulate. */}
+              {displayedFaqs.length > 0 && (
                 <div>
                   <h2 className="text-xl md:text-2xl text-accent-text mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
-                    {(event.faq || event.faqPage?.mainEntity || []).map((faq, index) => (
+                    {displayedFaqs.map((faq, index) => (
                       <Card key={index} accent>
                         <CardBody className="p-4 md:p-6">
                           <h3 className="font-semibold text-base md:text-lg text-accent-text mb-2">{faq.name}</h3>

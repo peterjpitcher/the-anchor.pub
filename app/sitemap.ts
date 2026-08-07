@@ -3,7 +3,7 @@ import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
-import { CANCELLED_INDEX_DAYS, isDiscontinuedFormatEvent } from '@/lib/event-seo-strategy'
+import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
 import { isRetiredEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
@@ -109,12 +109,9 @@ const DATES = {
   may2026: new Date('2026-05-12'),      // Recruitment pages
   may2026Late: new Date('2026-05-21'), // History page
   jul2026: new Date('2026-07-10'),      // Christmas page and booking journey refresh
+  jul2026Early: new Date('2026-07-07'), // Anniversary parties content remediation
+  jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
 } as const
-
-// Pages we want Google to recrawl promptly report a rolling lastModified
-// anchored to the most recent sitemap regeneration (revalidated hourly). Using
-// a frozen constant told crawlers nothing had changed and slowed re-indexing.
-const RECENTLY_UPDATED = new Date()
 
 type StaticRoute = { path: string; lastModified: Date }
 
@@ -140,13 +137,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/mothers-day', lastModified: DATES.seoOverhaul },
     { path: '/valentines-day', lastModified: DATES.seoOverhaul },
     { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
-    { path: '/easter-sunday', lastModified: RECENTLY_UPDATED },
+    { path: '/easter-sunday', lastModified: DATES.jul2026Late },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
     { path: '/halloween', lastModified: DATES.seoOverhaul },
     // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends
     // are now 301-redirected (see config/redirects/additional-redirects.json)
     // and their route dirs deleted, so they are intentionally omitted here.
-    { path: '/sunday-roast', lastModified: RECENTLY_UPDATED },
+    { path: '/sunday-roast', lastModified: DATES.jul2026Late },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
@@ -176,7 +173,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/anniversary-parties', lastModified: RECENTLY_UPDATED },
+    { path: '/private-hire/anniversary-parties', lastModified: DATES.jul2026Early },
     { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
@@ -294,21 +291,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const eventDate = Date.parse(event.startDate)
       const daysSince = (nowMs - eventDate) / (1000 * 60 * 60 * 24)
 
-      // Past events stay listed. They remain live and indexed, so excluding
-      // them from the sitemap would just slow down how often Google recrawls
-      // the very pages this policy exists to let accumulate.
-
-      // Formats the SSOT says are discontinued are noindex, so they must not
-      // be listed here either.
-      if (isDiscontinuedFormatEvent(event)) return false
-
-      // Cancelled events are the exception: nothing happened, so there is no
-      // content worth ranking, and they go noindex after 7 days.
-      const status = event.event_status || event.eventStatus || ''
-      const isCancelled = status.toLowerCase().includes('cancelled')
-      if (isCancelled && daysSince > CANCELLED_INDEX_DAYS) return false
-
-      return true
+      // One rule, one place. getEventSeoStrategy decides indexability for the
+      // page head and the page body; the sitemap must not carry its own copy of
+      // it, or the two drift and we list pages we are telling Google to ignore.
+      //
+      // Caveat: this runs on the events LIST payload, which is a lighter
+      // projection than the detail record. It omits long_description, so a
+      // banned claim living only there is invisible here and the URL can still
+      // be listed. The page itself fetches the detail record and returns
+      // noindex, which is authoritative, so the URL drops out on crawl rather
+      // than never being listed. Fetching 55 detail records to build a sitemap
+      // is not worth that tidiness.
+      //
+      // Past events stay listed: they remain live and indexed, so excluding
+      // them would only slow how often Google recrawls the very pages this
+      // policy exists to let accumulate.
+      return getEventSeoStrategy(event).index
     })
     .map((event) => ({
       url: `${baseUrl}${getEventWebsitePath(event)}`,

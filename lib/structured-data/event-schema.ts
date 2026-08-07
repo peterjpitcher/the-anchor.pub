@@ -2,8 +2,9 @@ import { Event, getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { getSchemaEventStatus, getSchemaOfferAvailability, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
+import { getSchemaEventStatus, getSchemaOfferAvailability, getSafeAccessibilityNotes, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
+import { getEventSchemaDescription } from '@/lib/event-copy'
 
 
 const SITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -149,12 +150,7 @@ export function buildEventSchema(event: Event) {
     '@id': eventUrl,
     identifier: event.identifier || event.id,
     name: event.name,
-    description:
-      event.longDescription ||
-      event.about ||
-      event.description ||
-      event.shortDescription ||
-      `Join us for ${event.name} at The Anchor in Stanwell Moor. Experience great food, drinks and entertainment in a welcoming atmosphere.`,
+    description: getEventSchemaDescription(event),
     ...(event.shortDescription && { disambiguatingDescription: event.shortDescription }),
     ...(event.keywords && {
       keywords: Array.isArray(event.keywords) ? event.keywords.join(', ') : event.keywords
@@ -241,8 +237,11 @@ export function buildEventSchema(event: Event) {
   }
 
   // Conditionally add accessibility feature from event data
-  if (event.accessibility_notes) {
-    schema.accessibilityFeature = [event.accessibility_notes]
+  // Same suppression as the visible page: never assert an accessibility
+  // feature the SSOT verifies we do not have.
+  const safeAccessibilityNotes = getSafeAccessibilityNotes(event)
+  if (safeAccessibilityNotes) {
+    schema.accessibilityFeature = [safeAccessibilityNotes]
   }
 
   return schema
