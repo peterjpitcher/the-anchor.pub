@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  GUEST_COMPACT_CONSENT_NOTICE,
   GUEST_MARKETING_EMAIL_LABEL,
   GUEST_MARKETING_SMS_LABEL,
   GUEST_MARKETING_WHATSAPP_LABEL,
@@ -12,11 +13,35 @@ import {
 type CommunicationConsentFieldsProps = {
   value: CommunicationConsentState
   onChange: (next: CommunicationConsentState) => void
+  /**
+   * 'checkboxes' (default) asks for explicit consent per channel. Keep it on
+   * journeys where soft opt-in does not obviously apply, such as parking and
+   * private hire enquiries.
+   *
+   * 'compact' renders a single line of small print instead, for event bookings
+   * where PECR soft opt-in already permits inviting a past guest to the next
+   * similar night. See GUEST_COMPACT_CONSENT_NOTICE for the reasoning.
+   */
+  variant?: 'checkboxes' | 'compact'
 }
 
-export function CommunicationConsentFields({ value, onChange }: CommunicationConsentFieldsProps) {
+export function CommunicationConsentFields({
+  value,
+  onChange,
+  variant = 'checkboxes',
+}: CommunicationConsentFieldsProps) {
   const update = (key: keyof CommunicationConsentState, checked: boolean) => {
     onChange({ ...value, [key]: checked })
+  }
+
+  if (variant === 'compact') {
+    // No inputs, so no consent flags are set here. Reach is governed by the
+    // absence of marketing_sms_opted_out_at, not by a tick, which keeps the
+    // stored record honest: we never claim someone said yes when they were
+    // simply never asked.
+    return (
+      <p className="text-xs leading-relaxed text-ink-muted">{GUEST_COMPACT_CONSENT_NOTICE}</p>
+    )
   }
 
   return (

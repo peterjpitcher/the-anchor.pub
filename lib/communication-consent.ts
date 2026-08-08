@@ -14,6 +14,20 @@ export const GUEST_MARKETING_SMS_LABEL =
 export const GUEST_WHATSAPP_SERVICE_LABEL = 'Send booking updates by WhatsApp.'
 export const GUEST_MARKETING_WHATSAPP_LABEL = 'Send me WhatsApp event and offer updates.'
 
+// Compact notice for the event booking form. Four tick boxes on a £5 bingo
+// booking cost more conversions than the explicit consent was worth, and the
+// venue does not need that consent to invite a past guest to its next event:
+// UK PECR soft opt-in covers marketing your own similar services to someone whose
+// details you took during a booking, provided they are given a simple way to
+// refuse. This notice is that simple way, and `marketing_sms_opted_out_at`
+// (set by the NOEVENTS keyword in the management app) is what honours it.
+//
+// Deliberately no WhatsApp here. WhatsApp business messaging needs explicit
+// opt-in under Meta's own platform rules, which soft opt-in does not satisfy, so
+// it is simply not offered at booking time rather than quietly assumed.
+export const GUEST_COMPACT_CONSENT_NOTICE =
+  'We will use your phone and email to manage this booking, and to text you about upcoming quiz nights, bingo and live music. Reply NOEVENTS to any message to stop event texts.'
+
 export type CommunicationConsentPayload = {
   service_contact_notice_shown: boolean
   marketing_email_opt_in: boolean
