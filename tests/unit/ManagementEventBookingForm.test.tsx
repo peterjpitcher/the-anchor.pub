@@ -99,16 +99,52 @@ describe('ManagementEventBookingForm', () => {
     // The 'Planning to eat before the event' tickbox has been removed
     expect(screen.queryByRole('checkbox', { name: /Planning to eat/i })).not.toBeInTheDocument()
     expect(screen.queryByText('Not a food pre-order.')).not.toBeInTheDocument()
-    // Paid multi-ticket bookings collect a real name per ticket
-    expect(screen.getByText('Who are the tickets for?')).toBeInTheDocument()
-    expect(screen.getByText(/photo ID matching their ticket on the night/i)).toBeInTheDocument()
-    expect(screen.getByLabelText('Ticket 2 name')).toBeInTheDocument()
+    // Pay-on-the-night events must not ask for a name per ticket. This is a £3
+    // quiz paid at the door, so the booker's own details are all we need.
+    expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Ticket 2 name')).not.toBeInTheDocument()
+    // The photo ID warning belongs to prepaid ticketing and was never intended
+    // for a village pub quiz night. It must not appear anywhere.
+    expect(screen.queryByText(/photo ID/i)).not.toBeInTheDocument()
     expect(screen.getByText('No payment now. Reserve seats online and pay £3 per person on arrival.')).toBeInTheDocument()
     expect(screen.queryByText('18 seats currently available.')).not.toBeInTheDocument()
     expect(screen.queryByText('How many seats should we hold?')).not.toBeInTheDocument()
     expect(screen.queryByText('Want to eat before the event?')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
+  })
+
+  // Regression guard. Collecting a name per guest used to be gated on "does this
+  // event have a price", which caught every cash_only night. Booking a £5 bingo
+  // for four then meant typing three friends' full legal names before the submit
+  // button would enable. Every upcoming event is free or cash_only, so this fired
+  // on all of them. Only prepaid events, where seats are paid for up front, have
+  // any reason to ask.
+  it('keeps the submit button enabled on a cash_only event without any guest names', async () => {
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          name: 'Cash Bingo',
+          slug: 'cash-bingo',
+          startDate: '2026-09-02T19:00:00+01:00',
+          time: '19:00',
+          price_per_seat: 5,
+          payment_mode: 'cash_only'
+        }}
+      />
+    )
+
+    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+
+    expect(screen.queryByLabelText('Ticket 2 name')).not.toBeInTheDocument()
+    expect(screen.queryByText(/photo ID/i)).not.toBeInTheDocument()
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Reserve my seats' })).not.toBeDisabled()
+    )
   })
 
   it('displays an inline error message on POLICY_VIOLATION instead of redirecting', async () => {
@@ -183,7 +219,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('First name')).not.toBeInTheDocument()
   })
 
-  it('submits per-ticket names and omits food fields', async () => {
+  it('submits per-ticket names on a prepaid event and omits food fields', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
 
@@ -247,6 +283,9 @@ describe('ManagementEventBookingForm', () => {
           startDate: '2026-05-08T20:00:00+01:00',
           time: '20:00',
           price_per_seat: 6,
+          // Per-ticket names are collected on prepaid events only. Without this
+          // the form treats it as pay-on-the-night and asks for the booker alone.
+          payment_mode: 'prepaid',
           category: {
             id: 'cat-bingo',
             name: 'Bingo',
@@ -374,8 +413,8 @@ describe('ManagementEventBookingForm', () => {
     await waitFor(() => expect(screen.getByRole('radio', { name: /Standing/i })).toBeChecked())
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '3' } })
-    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
-    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
+    // No per-ticket names here: this is a pay-on-the-night event, so the booker's
+    // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -389,7 +428,9 @@ describe('ManagementEventBookingForm', () => {
 
     expect(payload.seats).toBe(3)
     expect(payload.seating_preference).toBe('standing')
-    expect(payload.attendee_names).toEqual(['Jane Guest', 'Al Two', 'Bo Three'])
+    // Pay-on-the-night, so no per-guest names are collected and the field is
+    // omitted from the payload rather than sent empty.
+    expect(payload.attendee_names).toBeUndefined()
     expect(payload.event_price).toBe(10)
     expect(payload.event_value).toBe(30)
   })
@@ -458,9 +499,8 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
-    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
-    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
-    fireEvent.change(screen.getByLabelText('Ticket 4 name'), { target: { value: 'Cy Four' } })
+    // No per-ticket names here: this is a pay-on-the-night event, so the booker's
+    // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })

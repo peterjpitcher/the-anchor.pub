@@ -480,7 +480,10 @@ export default async function EventPage({ params }: Props) {
       />
 
       {statusNotice ? (
-        <section className="pt-4 bg-canvas">
+        // Symmetric vertical padding. This was pt-4 with no bottom padding, which
+        // left the notice flush against the hero below it with nothing to separate
+        // the two. The scale matches the main content section further down.
+        <section className="bg-canvas py-4 sm:py-6">
           <Container>
             <div className="mx-auto max-w-6xl">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>

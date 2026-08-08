@@ -104,6 +104,23 @@ function hasOnlineDiscountSignal(event: EventBookingPaymentSource): boolean {
   return event.payment_mode === 'prepaid' || /prepaid|pre-pay|online|payment_link/.test(text)
 }
 
+/**
+ * True only when money is taken before the night.
+ *
+ * Deliberately strict: it reads `payment_mode` and nothing else. The fuzzy
+ * signals above sniff the event name and category, which is fine for choosing
+ * reassurance copy but far too loose to gate booking friction. An event merely
+ * called "... Ticket Night" must not start demanding a name per seat.
+ *
+ * The live payment modes are `free`, `cash_only` and `prepaid`. Only the last of
+ * those takes payment up front, so only the last justifies collecting a name for
+ * every guest.
+ */
+export function isPrepaidEvent(event: EventBookingPaymentSource): boolean {
+  const mode = typeof event.payment_mode === 'string' ? event.payment_mode.trim().toLowerCase() : ''
+  return mode === 'prepaid'
+}
+
 export function getEventUnitPrice(event: EventBookingPaymentSource): number | null {
   // Multi-type events: ticket-type prices are already the final (post-discount)
   // charge, so the discount must not be re-applied — return the lowest directly.

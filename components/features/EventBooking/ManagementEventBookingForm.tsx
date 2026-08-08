@@ -10,7 +10,7 @@ import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBooki
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
-import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney } from '@/lib/event-booking-experience'
+import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney, isPrepaidEvent } from '@/lib/event-booking-experience'
 import {
   areSelectionNamesComplete,
   buildTicketSelections,
@@ -20,6 +20,7 @@ import {
   isSelectionOverCapacity,
 } from '@/lib/event-ticket-selection'
 import { PhoneLink } from '@/components/PhoneLink'
+import { cn } from '@/lib/utils'
 import { CONTACT } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
@@ -204,12 +205,19 @@ export function ManagementEventBookingForm({
   // prices AND is not communal (communal keeps its seated/standing chooser).
   const ticketTypes = getEventTicketTypes(event)
   const isMultiTypeEvent = !isCommunalEvent && hasMultipleTicketPrices(event)
-  // Paid events require a name for every ticket (booker is ticket 1).
+  // Prepaid events require a name for every ticket (booker is ticket 1), so the
+  // team knows who is coming against seats that are already paid for.
+  //
+  // This used to key off "is there a price", which caught every cash_only night
+  // too. That meant someone booking a £5 bingo for four had to know and type
+  // three friends' full names before the submit button would enable, on a phone,
+  // for a night they pay for at the door. Every upcoming event is free or
+  // cash_only, so that friction was firing on all of them and earning nothing.
   const eventUnitPrice = getEventUnitPrice(event)
   const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
   // Single-type name collection is skipped entirely in the multi-type flow,
   // which collects a name per seat under each type instead.
-  const collectsAttendeeNames = !isMultiTypeEvent && isPaidEvent && seats > 1
+  const collectsAttendeeNames = !isMultiTypeEvent && isPrepaidEvent(event) && seats > 1
   const requiredAdditionalAttendeeCount = Math.max(0, seats - 1)
   // Multi-type derived state.
   const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
@@ -252,8 +260,10 @@ export function ManagementEventBookingForm({
   }, [isCommunalEvent, seatedDisabled, seatingPreference, standingDisabled])
 
   // Keep the additional-attendee inputs in step with the seat count (tickets 2..N).
+  // Only prepaid events collect them, so everything else clears the array and the
+  // submit gate below never waits on names that are not being asked for.
   useEffect(() => {
-    if (!isPaidEvent) {
+    if (!collectsAttendeeNames) {
       setAdditionalAttendeeNames((prev) => (prev.length === 0 ? prev : []))
       return
     }
@@ -264,7 +274,7 @@ export function ManagementEventBookingForm({
       while (next.length < needed) next.push('')
       return next
     })
-  }, [isPaidEvent, seats])
+  }, [collectsAttendeeNames, seats])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -391,19 +401,22 @@ export function ManagementEventBookingForm({
         ? ticketSelections.flatMap((line) => line.attendee_names)
         : null
     } else {
-      // Booker is ticket 1; collect a name for every remaining ticket on paid events.
+      // Booker is ticket 1; collect a name for every remaining ticket, but only on
+      // prepaid events where the seats are paid for before the night.
       const additionalNamesForSubmit = Array.from(
         { length: Math.max(0, clampedSeats - 1) },
         (_, index) => (additionalAttendeeNames[index] ?? '').trim()
       )
 
-      if (isPaidEvent && additionalNamesForSubmit.some((name) => name.length === 0)) {
+      if (collectsAttendeeNames && additionalNamesForSubmit.some((name) => name.length === 0)) {
         setLoading(false)
         setError('Please enter a name for every ticket.')
         return
       }
 
-      attendeeNames = isPaidEvent
+      // Still send the booker's own name on any prepaid event, including a
+      // single-seat booking where no additional names were collected.
+      attendeeNames = isPrepaidEvent(event)
         ? [`${resolvedFirstName} ${resolvedLastName}`.trim(), ...additionalNamesForSubmit]
         : null
     }
@@ -805,29 +818,59 @@ export function ManagementEventBookingForm({
               ) : null}
             </fieldset>
           ) : (
-            <Input
-              label="Seats"
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              required
-              value={seatsDisplay}
-              onChange={(event) => {
-                const raw = event.target.value
-                if (raw !== '' && !/^\d+$/.test(raw)) return
-                setSeatsDisplay(raw)
-                if (raw === '') return
-                const parsed = Number.parseInt(raw, 10)
-                if (Number.isNaN(parsed)) return
-                setSeats(Math.min(Math.max(parsed, 1), 20))
-              }}
-              onBlur={() => {
-                const parsed = Number.parseInt(seatsDisplay, 10)
-                const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
-                setSeats(clamped)
-                setSeatsDisplay(String(clamped))
-              }}
-            />
+            <div className="space-y-2">
+              {/* Quick picks first, so the common sizes are one tap and never open
+                  a keyboard. Average booking here is three to four seats, so 1 to 6
+                  covers nearly everything; the field below still takes any number
+                  up to 20 for the rare larger group. */}
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Choose number of seats">
+                {[1, 2, 3, 4, 5, 6].map((count) => {
+                  const selected = seats === count && seatsDisplay === String(count)
+                  return (
+                    <button
+                      key={count}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => {
+                        setSeats(count)
+                        setSeatsDisplay(String(count))
+                      }}
+                      className={cn(
+                        'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors',
+                        selected
+                          ? 'border-accent bg-accent text-white'
+                          : 'border-line bg-surface text-ink hover:border-accent'
+                      )}
+                    >
+                      {count}
+                    </button>
+                  )
+                })}
+              </div>
+              <Input
+                label="Seats"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                required
+                value={seatsDisplay}
+                onChange={(event) => {
+                  const raw = event.target.value
+                  if (raw !== '' && !/^\d+$/.test(raw)) return
+                  setSeatsDisplay(raw)
+                  if (raw === '') return
+                  const parsed = Number.parseInt(raw, 10)
+                  if (Number.isNaN(parsed)) return
+                  setSeats(Math.min(Math.max(parsed, 1), 20))
+                }}
+                onBlur={() => {
+                  const parsed = Number.parseInt(seatsDisplay, 10)
+                  const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
+                  setSeats(clamped)
+                  setSeatsDisplay(String(clamped))
+                }}
+              />
+            </div>
           )}
 
           {isCommunalEvent ? (
@@ -898,10 +941,7 @@ export function ManagementEventBookingForm({
               <legend className="px-1 text-sm font-semibold text-ink">Who are the tickets for?</legend>
               <div className="space-y-1.5 px-1">
                 <p className="text-xs leading-relaxed text-ink-muted">
-                  Ticket 1 is you. Add the full name for each of the other {requiredAdditionalAttendeeCount} {requiredAdditionalAttendeeCount === 1 ? 'ticket' : 'tickets'}.
-                </p>
-                <p className="text-xs font-semibold leading-relaxed text-ink">
-                  Please use each guest’s real name — everyone will need photo ID matching their ticket on the night.
+                  Ticket 1 is you. Add a first name for each of the other {requiredAdditionalAttendeeCount} {requiredAdditionalAttendeeCount === 1 ? 'ticket' : 'tickets'}, so we know who to expect.
                 </p>
               </div>
               <div className="space-y-2.5">
@@ -928,8 +968,8 @@ export function ManagementEventBookingForm({
           {isMultiTypeEvent && multiTypeTotalSeats > 0 ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Who are the tickets for?</legend>
-              <p className="px-1 text-xs font-semibold leading-relaxed text-ink">
-                Please use each guest’s real name — everyone will need photo ID matching their ticket on the night.
+              <p className="px-1 text-xs leading-relaxed text-ink-muted">
+                Add a first name for each ticket, so we know who to expect.
               </p>
               <div className="space-y-4">
                 {multiTypeBreakdown.lines.map((line) => (
@@ -992,6 +1032,7 @@ export function ManagementEventBookingForm({
           <CommunicationConsentFields
             value={communicationConsent}
             onChange={setCommunicationConsent}
+            variant="compact"
           />
 
           {/* Honeypot, hidden from real users, filled by bots */}
