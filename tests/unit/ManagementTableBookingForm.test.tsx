@@ -692,7 +692,7 @@ describe('ManagementTableBookingForm', () => {
                   {
                     time: '13:00',
                     available: true,
-                    available_capacity: 12,
+                    available_capacity: 20,
                     kitchen_open: true,
                     bookable_purpose: 'food_or_drinks'
                   }
@@ -724,7 +724,7 @@ describe('ManagementTableBookingForm', () => {
 
       if (url === '/api/table-bookings') {
         submittedPayload = JSON.parse(String(init?.body || '{}'))
-        // Simulate a 10+ booking where the management API set up the booking
+        // Simulate a 15+ booking where the management API set up the booking
         // and the payment is required, but inline PayPal failed to set up,
         // so the response surfaces a fallback_payment_url for the customer.
         return Promise.resolve(
@@ -736,7 +736,7 @@ describe('ManagementTableBookingForm', () => {
                 table_booking_id: 'tb-pending-recovery',
                 booking_reference: 'TB-PENDING-RECOVERY',
                 booking_id: 'tb-pending-recovery',
-                deposit_amount: 100,
+                deposit_amount: 150,
                 payment_required: true,
                 fallback_payment_url: 'https://pay.example.com/secure-link',
                 blocked_reason: null,
@@ -780,7 +780,10 @@ describe('ManagementTableBookingForm', () => {
 
     render(<ManagementTableBookingForm />)
 
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
+    // Fifteen, because that is where the deposit starts since 2026-08-09. A party of ten
+    // no longer reaches the PayPal step at all, so testing the PayPal recovery state with
+    // ten would silently stop testing anything.
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '15' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-10' } })
 

@@ -211,10 +211,12 @@ The full drinks inventory must come from POS/API before publishing. The website 
 
 Applies to non-Christmas bookings. Christmas has its own deposit rule, see the Christmas 2026 block below.
 
-- **9 guests or fewer:** No deposit. No card details required at booking.
-- **10 or more guests:** £10 per person, fully deducted from the bill on the day. Any day, any booking type.
+- **14 guests or fewer:** No deposit. No card details required at booking.
+- **15 or more guests:** £10 per person, fully deducted from the bill on the day. Any day, any booking type.
 - **More than 20 guests:** This is **not a table booking**, it is private hire. Direct the enquiry to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707. See §11.
-- **Standard copy:** "Groups of 10 or more: a £10 per person deposit, fully deducted from your bill."
+- **Standard copy:** "Groups of 15 or more: a £10 per person deposit, fully deducted from your bill."
+
+**Changed 9 August 2026.** The threshold was 10 guests until this date. A party of ten is an ordinary family Sunday, and putting a payment screen in front of them was the most likely reason the pub took only two bookings of ten or more in ninety days. The per-person rate is unchanged, and the Christmas rule below is unaffected.
 
 ### Christmas 2026 (owner-confirmed 21 July 2026)
 

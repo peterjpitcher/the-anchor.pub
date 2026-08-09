@@ -424,7 +424,7 @@ export default function Terminal5Page() {
                   <li>T5 security is typically quieter before 6am and after 8pm</li>
                   <li>The Anchor is popular with BA cabin crew - we know the flight schedules!</li>
                   <li>We can store luggage for short periods if you&apos;re between flights</li>
-                  <li>Our Sunday roast is famous among T5 staff - walk in 1pm-6pm or book ahead (groups of 10+ pay a £10 per person deposit)</li>
+                  <li>Our Sunday roast is famous among T5 staff - walk in 1pm-6pm or book ahead (groups of 15+ pay a £10 per person deposit)</li>
                 </ul>
               </CardBody>
             </Card>
@@ -498,7 +498,7 @@ export default function Terminal5Page() {
 	                  </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-accent-text"></span>
-		                    <span>Sunday roasts that locals queue for - walk in 1pm-6pm or book ahead (groups of 10+ pay a £10 per person deposit)</span>
+		                    <span>Sunday roasts that locals queue for - walk in 1pm-6pm or book ahead (groups of 15+ pay a £10 per person deposit)</span>
 		                  </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>

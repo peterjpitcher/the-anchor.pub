@@ -16,6 +16,6 @@ describe('Sunday roast availability copy', () => {
 
     expect(content.status).toBe('live')
     expect(content.availabilityLong).toContain('Sunday roast served Sundays, 1pm to 6pm.')
-    expect(content.availabilityLong).toContain('Groups of 10 or more')
+    expect(content.availabilityLong).toContain('Groups of 15 or more')
   })
 })

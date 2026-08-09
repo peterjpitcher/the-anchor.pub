@@ -274,7 +274,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Do you require a deposit?",
-                        answer: "Yes, we ask for a £250 deposit to secure your date. It is fully deducted from the final bill, so it is not an extra cost, just a commitment to the booking. Groups of 10 or more pay a £10 per person deposit, also deducted from the bill."
+                        answer: "Yes, we ask for a £250 deposit to secure your date. It is fully deducted from the final bill, so it is not an extra cost, just a commitment to the booking. Groups of 15 or more pay a £10 per person deposit, also deducted from the bill."
                     },
                     {
                         question: "Can we bring an anniversary cake?",

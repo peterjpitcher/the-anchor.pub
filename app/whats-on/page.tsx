@@ -368,7 +368,7 @@ export default async function WhatsOnPage() {
       {/* 5. CtaBand (§7.3.5) */}
       <CtaBand
         title="Bringing a group?"
-        copy="Groups of 10 or more pay a £10 per person deposit, deducted from your bill. Book a table for the night, or enquire about private hire for the whole room."
+        copy="Groups of 15 or more pay a £10 per person deposit, deducted from your bill. Book a table for the night, or enquire about private hire for the whole room."
         primary={
           <Link href="/book-table?source=whats_on_footer">
             <Button variant="primary" size="lg">

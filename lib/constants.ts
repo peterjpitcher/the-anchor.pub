@@ -57,7 +57,7 @@ export const HEATHROW_TIMES = {
 // (it owns the booking row in the database). The website trusts the
 // management API's response after booking creation. See spec §7.3.
 export const LARGE_GROUP_DEPOSIT_PER_PERSON_GBP = 10
-export const LARGE_GROUP_DEPOSIT_THRESHOLD = 10
+export const LARGE_GROUP_DEPOSIT_THRESHOLD = 15
 
 export function requiresDeposit(partySize: number): boolean {
   return partySize >= LARGE_GROUP_DEPOSIT_THRESHOLD
@@ -71,7 +71,7 @@ export function computeLargeGroupDepositAmount(partySize: number): number {
 }
 
 export const LARGE_GROUP_DEPOSIT_POLICY_COPY =
-  "Groups of 10 or more: we'll take a £10 per person deposit, fully deducted from your bill on the day."
+  "Groups of 15 or more: we'll take a £10 per person deposit, fully deducted from your bill on the day."
 
 // Walk-in launch banner timestamps (BST). Used by <LaunchAnnouncement>.
 // - STARTS_AT: start of 17 May 2026 BST (banner switches from pre-launch

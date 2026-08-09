@@ -23,16 +23,16 @@ describe('Large-group deposit helpers', () => {
       expect(requiresDeposit(1)).toBe(false)
     })
 
-    it('returns false at party size 9 (just below threshold)', () => {
-      expect(requiresDeposit(9)).toBe(false)
+    it('returns false at party size 14 (just below threshold)', () => {
+      expect(requiresDeposit(14)).toBe(false)
     })
 
-    it('returns true at party size 10 (the boundary)', () => {
-      expect(requiresDeposit(10)).toBe(true)
+    it('returns true at party size 15 (the boundary)', () => {
+      expect(requiresDeposit(15)).toBe(true)
     })
 
-    it('returns true at party size 11 (just above threshold)', () => {
-      expect(requiresDeposit(11)).toBe(true)
+    it('returns true at party size 16 (just above threshold)', () => {
+      expect(requiresDeposit(16)).toBe(true)
     })
 
     it('returns true at party size 50', () => {
@@ -50,16 +50,16 @@ describe('Large-group deposit helpers', () => {
       expect(computeLargeGroupDepositAmount(1)).toBe(0)
     })
 
-    it('returns 0 at party size 9 (below threshold)', () => {
-      expect(computeLargeGroupDepositAmount(9)).toBe(0)
+    it('returns 0 at party size 14 (below threshold)', () => {
+      expect(computeLargeGroupDepositAmount(14)).toBe(0)
     })
 
-    it('returns £100 at party size 10 (boundary; £10 per person)', () => {
-      expect(computeLargeGroupDepositAmount(10)).toBe(100)
+    it('returns £150 at party size 15 (boundary; £10 per person)', () => {
+      expect(computeLargeGroupDepositAmount(15)).toBe(150)
     })
 
-    it('returns £110 at party size 11', () => {
-      expect(computeLargeGroupDepositAmount(11)).toBe(110)
+    it('returns £160 at party size 16', () => {
+      expect(computeLargeGroupDepositAmount(16)).toBe(160)
     })
 
     it('returns £500 at party size 50', () => {

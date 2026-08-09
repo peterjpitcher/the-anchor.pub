@@ -204,13 +204,13 @@ export default function NearHeathrowPage() {
                 {
                   question: "Do you serve Sunday roast near Heathrow?",
                   answer: sunday.isLive
-                    ? "Yes. Our Sunday roast is served every Sunday from 1pm to 6pm, just 7 minutes from Terminal 5. Walk-ins are welcome the whole way through, with the last seating at 5:30pm, and you can see the full line-up and live prices on our Sunday roast page. For groups of 10 or more we ask for a small deposit per person, which comes off your bill."
+                    ? "Yes. Our Sunday roast is served every Sunday from 1pm to 6pm, just 7 minutes from Terminal 5. Walk-ins are welcome the whole way through, with the last seating at 5:30pm, and you can see the full line-up and live prices on our Sunday roast page. For groups of 15 or more we ask for a small deposit per person, which comes off your bill."
                     : `Yes. Our Sunday roast is served every Sunday from 1pm to 6pm, just 7 minutes from Terminal 5. ${sunday.availabilityLong} You can see the full line-up and live prices on our Sunday roast page.`
                 },
                 {
                   question: "Can I book a table at The Anchor?",
                   answer: sunday.isLive
-                    ? "Yes, you can book a table online or by calling us on 01753 682707. Walk-ins are always welcome, and Sunday roast needs no booking at all. We recommend booking ahead for groups, and groups of 10 or more are arranged over the phone."
+                    ? "Yes, you can book a table online or by calling us on 01753 682707. Walk-ins are always welcome, and Sunday roast needs no booking at all. We recommend booking ahead for groups: you can book online for up to 20 guests, and anything larger is private hire."
                     : `Yes, you can book a table online or by calling us on 01753 682707. ${sunday.availabilityLong} Booking is recommended for larger groups.`
                 }
               ]}
