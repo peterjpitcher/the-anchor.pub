@@ -6,6 +6,11 @@ const ATTRIBUTION_TTL_DAYS = 90
 const ATTRIBUTION_TTL_MS = ATTRIBUTION_TTL_DAYS * 24 * 60 * 60 * 1000
 const FBC_COOKIE_NAME = '_fbc'
 const FBP_COOKIE_NAME = '_fbp'
+// Meta's own `_fbc` cookie lives for 90 days, but the Pixel refreshes its expiry
+// on every page view, so a returning visitor can carry one indefinitely. Never
+// send a click older than that lifetime: it cannot attribute anything, and it
+// makes an organic booking look like an ad conversion.
+const FBC_MAX_AGE_MS = ATTRIBUTION_TTL_MS
 
 const PARAM_LIMITS: Record<AttributionParam, number> = {
   utm_source: 160,
@@ -19,6 +24,7 @@ const PARAM_LIMITS: Record<AttributionParam, number> = {
 }
 
 const ATTRIBUTION_PARAMS = Object.keys(PARAM_LIMITS) as AttributionParam[]
+const CLICK_ID_PARAMS: AttributionParam[] = ['fbclid', 'gclid']
 
 type AttributionParam =
   | 'utm_source'
@@ -43,6 +49,10 @@ interface StoredBookingAttribution {
   first: StoredAttributionEntry
   latest: StoredAttributionEntry
   expiresAt: string
+  // When `latest.params.fbclid` was first observed, which is the click time Meta
+  // expects inside `fbc`. Held separately because `latest.capturedAt` advances on
+  // every later campaign navigation while the click ID itself does not.
+  fbclidCapturedAt?: string
 }
 
 export interface BookingAttributionPayload {
@@ -58,6 +68,7 @@ export interface BookingAttributionPayload {
   short_code?: string
   attribution_captured_at?: string
   attribution_updated_at?: string
+  fbclid_captured_at?: string
   meta_consent_granted?: boolean
   fbp?: string
   fbc?: string
@@ -81,12 +92,15 @@ export function captureBookingAttributionFromLocation(now = new Date()): Booking
   // params, or when there's no prior record at all (so a purely organic first
   // session still stores a valid entry capturing its landing_path).
   const currentHasParams = Object.keys(current.params).length > 0
-  const latest = existing && !currentHasParams ? existing.latest : current
+  const latest = existing && !currentHasParams
+    ? existing.latest
+    : carryClickIdsForward(current, existing?.latest)
 
   const stored: StoredBookingAttribution = {
     first: existing?.first ?? current,
     latest,
     expiresAt: new Date(now.getTime() + ATTRIBUTION_TTL_MS).toISOString(),
+    fbclidCapturedAt: resolveFbclidCapturedAt(existing, latest, now),
   }
 
   writeStoredAttribution(stored)
@@ -108,11 +122,18 @@ export function getMarketingConsentSignalPayload(fbclid?: string | null): Bookin
     return { meta_consent_granted: false }
   }
 
-  const resolvedFbclid = fbclid ?? getBookingAttributionPayload().fbclid ?? currentFbclid()
+  const attribution = getBookingAttributionPayload()
+  const resolvedFbclid = fbclid ?? attribution.fbclid ?? currentFbclid()
+  // Only trust the stored click time when it belongs to the click ID we are about
+  // to send. A caller passing a different fbclid is reading it live off the URL.
+  const fbclidCapturedAt = resolvedFbclid === attribution.fbclid
+    ? attribution.fbclid_captured_at
+    : undefined
+
   return removeUndefined({
     meta_consent_granted: true,
     fbp: sanitizeSignal(readCookieValue(FBP_COOKIE_NAME), 500),
-    fbc: sanitizeSignal(readCookieValue(FBC_COOKIE_NAME) ?? buildFbcFromFbclid(resolvedFbclid), 500),
+    fbc: sanitizeSignal(resolveFbc(resolvedFbclid, fbclidCapturedAt), 500),
     client_user_agent: sanitizeSignal(window.navigator?.userAgent, 500),
   })
 }
@@ -152,6 +173,45 @@ function readAttributionFromUrl(urlValue: string, now: Date): StoredAttributionE
   }
 }
 
+/**
+ * Click IDs must survive a later campaign click that carries only UTMs. Arriving
+ * via a second short link (an SMS, an organic post) used to wipe the Meta click ID
+ * the ad brought in, leaving the booking unattributable. Meta's own `_fbc` cookie
+ * behaves this way too: it persists until a *new* click ID replaces it.
+ */
+function carryClickIdsForward(
+  current: StoredAttributionEntry,
+  previous: StoredAttributionEntry | undefined,
+): StoredAttributionEntry {
+  if (!previous) return current
+
+  const params: AttributionParams = { ...current.params }
+  let carried = false
+  for (const key of CLICK_ID_PARAMS) {
+    if (params[key] || !previous.params[key]) continue
+    params[key] = previous.params[key]
+    carried = true
+  }
+
+  return carried ? { ...current, params } : current
+}
+
+/**
+ * The click time Meta wants inside `fbc` is when the fbclid was seen, not when the
+ * booking was submitted. Only restamp when the click ID actually changes.
+ */
+function resolveFbclidCapturedAt(
+  existing: StoredBookingAttribution | null,
+  latest: StoredAttributionEntry,
+  now: Date,
+): string | undefined {
+  if (!latest.params.fbclid) return undefined
+  if (existing?.latest.params.fbclid !== latest.params.fbclid) return now.toISOString()
+  // Unchanged click ID. Records written before this field existed fall back to the
+  // entry's own capture time, which is the closest thing they hold to a click time.
+  return existing.fbclidCapturedAt ?? existing.latest.capturedAt
+}
+
 function sanitizeParam(key: AttributionParam, value: string | null): string | undefined {
   const trimmed = value?.trim()
   if (!trimmed) return undefined
@@ -182,6 +242,7 @@ function parseStoredAttribution(value: string | null): StoredBookingAttribution 
       first: parsed.first,
       latest: parsed.latest,
       expiresAt: parsed.expiresAt,
+      fbclidCapturedAt: typeof parsed.fbclidCapturedAt === 'string' ? parsed.fbclidCapturedAt : undefined,
     }
   } catch {
     return null
@@ -247,10 +308,47 @@ function currentFbclid() {
   }
 }
 
-function buildFbcFromFbclid(fbclid: string | null | undefined) {
-  const value = sanitizeSignal(fbclid, 500)
-  if (!value) return undefined
-  return `fb.1.${Date.now()}.${value}`
+/**
+ * Resolve the `fb.<subdomainIndex>.<clickTimeMs>.<fbclid>` value Meta expects.
+ *
+ * The Pixel writes `_fbc` with the true click time, so it wins whenever it holds
+ * the same click ID we captured. It must NOT win when it holds a different one:
+ * that cookie is a leftover from an earlier visit, and the click we captured this
+ * time is the one that brought the booking in. The Pixel only writes `_fbc` when
+ * it loads on a URL still carrying `fbclid`, which the consent banner routinely
+ * prevents, so the reconstructed value is the normal path rather than the edge case.
+ */
+function resolveFbc(fbclid: string | null | undefined, fbclidCapturedAt: string | undefined) {
+  const captured = sanitizeSignal(fbclid, 500)
+  const cookie = parseFbcCookie(readCookieValue(FBC_COOKIE_NAME))
+
+  if (captured) {
+    if (cookie?.fbclid === captured) return cookie.value
+    // Subdomain index 1 matches where the Pixel sets `_fbc` for this site: the
+    // registrable domain the-anchor.pub, one level below the public suffix.
+    return `fb.1.${resolveClickTimeMs(fbclidCapturedAt)}.${captured}`
+  }
+
+  if (cookie && Date.now() - cookie.createdAt <= FBC_MAX_AGE_MS) return cookie.value
+  return undefined
+}
+
+function parseFbcCookie(value: string | null) {
+  const trimmed = value?.trim()
+  if (!trimmed) return null
+
+  const match = trimmed.match(/^fb\.\d+\.(\d+)\.(.+)$/)
+  if (!match) return null
+
+  const createdAt = Number(match[1])
+  if (!Number.isFinite(createdAt) || createdAt <= 0) return null
+
+  return { value: trimmed, createdAt, fbclid: match[2] }
+}
+
+function resolveClickTimeMs(fbclidCapturedAt: string | undefined) {
+  const parsed = fbclidCapturedAt ? Date.parse(fbclidCapturedAt) : Number.NaN
+  return Number.isFinite(parsed) ? parsed : Date.now()
 }
 
 function sanitizeSignal(value: string | null | undefined, max: number) {
@@ -273,6 +371,7 @@ function storedToPayload(stored: StoredBookingAttribution): BookingAttributionPa
     short_code: latest.short_code,
     attribution_captured_at: stored.first.capturedAt,
     attribution_updated_at: stored.latest.capturedAt,
+    fbclid_captured_at: latest.fbclid ? stored.fbclidCapturedAt ?? stored.latest.capturedAt : undefined,
   })
 }
 

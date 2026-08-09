@@ -92,12 +92,44 @@ constraint requiring a name, price, date or named prize.
 
 ---
 
-## Worth fixing separately
+## The `fbc` gap: investigated 9 August 2026, not a bug
 
-Only **5 of 87** recorded conversions carry `fbc`, the click identifier that ties
-a booking back to the ad that caused it. Without it Meta cannot attribute a
-booking even when the event is sent. Worth investigating whether `fbclid` is
-being captured and persisted reliably on landing.
+The original note here asked whether `fbclid` was being captured and persisted
+reliably. It is. The low `fbc` count is a conversion problem, not a tracking one.
+
+Checked against `booking_conversion_events` (91 rows, 7 July to 8 August), the
+management short-link database, and a live probe of the ad short links:
+
+- **Only 4 of 91 conversions ever carried an `fbclid`**, because barely any paid
+  click becomes an online booking. Every paid click that did convert had its
+  `fbclid` captured: 4 out of 4.
+- July and August produced roughly **1,209 human paid-social link clicks** (2,670
+  total less 1,461 bots) against those 4 bookings. August alone: 592 paid clicks,
+  23 bookings, zero carrying an `fbclid`.
+- The short links pass `fbclid` through cleanly in a single 307 hop, verified live.
+- Of the 4 `fbclid` bookings, 3 had no marketing consent, so `fbc` was correctly
+  withheld. That is the banner working, and it stays.
+- Of the 5 bookings that did carry `fbc`, only **one** is a real ad attribution.
+  The other four carried the same `_fbc` cookie dated 13 January 2026, read six
+  months later on organic Facebook bookings. Far outside any Meta attribution
+  window, so it attributed nothing.
+
+**Read the real figure as 1 in 91, not 5 in 87.** It reinforces the main change
+above: there is nowhere near enough booking volume to feed conversion optimisation,
+and judging these campaigns on online bookings will keep understating them.
+
+Three genuine defects were found alongside this and fixed in `lib/booking-attribution.ts`:
+
+1. A stale `_fbc` cookie beat a freshly captured `fbclid`. The captured click now
+   wins when the two disagree, and a cookie older than Meta's own 90 day `_fbc`
+   lifetime is dropped rather than sent.
+2. `fbc` was stamped with the booking time instead of the click time. The click
+   time is now stored when the `fbclid` is first seen and used verbatim.
+3. `fbclid` was read only from the most recent campaign URL, so arriving via a
+   second link carrying only UTMs wiped it. Click IDs now carry forward.
+
+None of these touch consent gating. None will move the headline number much: they
+improve the quality of the few ad-attributed bookings that exist.
 
 ---
 
