@@ -1,4 +1,12 @@
-export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v1'
+// Bumped to v2 on 2026-08-09, when the table booking form moved to the compact notice
+// and that notice began covering EMAIL as well as SMS. The version is the record of what
+// a guest was actually shown, so it has to move whenever the words do, or a later dispute
+// is settled against wording that guest never saw.
+//
+// Both the client payload and the server sanitiser read this same constant
+// (lib/communication-consent-server.ts pins it with z.literal), so there is exactly one
+// place to change and no way for the two to drift.
+export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v2'
 
 export const GUEST_SERVICE_CONTACT_NOTICE =
   'We will use your phone and email to manage this booking, including confirmations, reminders, payment links, waitlist updates, and changes.'
@@ -27,6 +35,25 @@ export const GUEST_MARKETING_WHATSAPP_LABEL = 'Send me WhatsApp event and offer 
 // it is simply not offered at booking time rather than quietly assumed.
 export const GUEST_COMPACT_CONSENT_NOTICE =
   'We will use your phone and email to manage this booking, and to text you about upcoming quiz nights, bingo and live music. Reply NOEVENTS to any message to stop event texts.'
+
+// The table-booking version of the same notice, which also covers EMAIL.
+//
+// A sibling constant rather than an edit to the one above, because that one is the record
+// of what event bookers were shown and changing it would rewrite history for consents
+// already stored against it.
+//
+// Two refusal routes are named because there are genuinely two, and a notice that offers
+// only one is not the "simple way to refuse" that soft opt-in requires. NOEVENTS stops
+// texts and is honoured by `marketing_sms_opted_out_at`; the unsubscribe link stops email
+// and is honoured by `marketing_email_opted_out_at`, via /api/unsubscribe in the
+// management app. Neither touches booking confirmations, and the notice says so, because
+// the commonest reason a guest will not give an email address is fear of losing the
+// confirmation for the table they are in the middle of booking.
+//
+// Still deliberately no WhatsApp. Meta's platform rules require explicit opt-in, which
+// soft opt-in does not satisfy, so it is not offered at booking time rather than assumed.
+export const GUEST_TABLE_COMPACT_CONSENT_NOTICE =
+  'We will use your phone and email to manage this booking, and to let you know about upcoming quiz nights, bingo and live music. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
 
 export type CommunicationConsentPayload = {
   service_contact_notice_shown: boolean

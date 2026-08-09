@@ -134,6 +134,12 @@ export type DetailsStepState = {
   detailsUnlocked: boolean
   isKnownCustomer: boolean
   firstName: string
+  /**
+   * Optional, and stays optional. Validated only when the guest typed something, because
+   * a typo silently becomes an undeliverable address in the marketing list and there is
+   * no bounce to notice it until a campaign goes out months later.
+   */
+  email: string
   highChairShortfall: HighChairShortfall | null
   highChairShortfallAcknowledged: boolean
   /**
@@ -148,6 +154,17 @@ export type DetailsStepState = {
 }
 
 /** null when the guest may continue; otherwise the reason they may not. */
+/**
+ * Loose shape check: something, an @, something, a dot, something, and no spaces.
+ *
+ * Deliberately not one of the long RFC-shaped regexes. Those reject real addresses, and a
+ * guest who is told their own working email is invalid abandons the booking, which costs
+ * far more than accepting an odd-looking address that turns out to be fine.
+ */
+function isPlausibleEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)
+}
+
 export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefusal | null {
   // A re-read is in flight because they just changed high chairs or outside seating. Their time
   // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
@@ -191,6 +208,19 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
   // surname and the proxy already omits a blank one from the payload).
   if (!state.isKnownCustomer && !state.firstName.trim()) {
     return { code: 'name_missing', message: 'Please enter your first name.' }
+  }
+
+  // Email is optional, so an empty box is fine and always has been. A typed one is
+  // checked, because until now anything at all was accepted: "jane@gmail" and
+  // "jane.gmail.com" both sailed through, went to the management app, and became a
+  // permanently undeliverable address on the marketing list. Nobody finds out until a
+  // campaign bounces months later, and by then the guest is long gone.
+  //
+  // The shape check is deliberately loose. Anything stricter starts rejecting real
+  // addresses, and the cost of a false rejection here (a guest abandons the booking) is
+  // far higher than the cost of letting an odd-but-valid address through.
+  if (state.email.trim() && !isPlausibleEmail(state.email.trim())) {
+    return { code: 'email_invalid', message: 'That email address does not look right. Please check it, or clear the box.' }
   }
 
   // A high-chair shortfall needs an explicit tap before the guest can carry

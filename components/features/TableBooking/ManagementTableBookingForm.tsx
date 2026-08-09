@@ -95,6 +95,7 @@ import { getAircraftOverheadNotePartsForDateTime } from '@/lib/heathrow-runway-a
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
+  GUEST_TABLE_COMPACT_CONSENT_NOTICE,
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
 import {
@@ -1630,6 +1631,7 @@ export function ManagementTableBookingForm({
       detailsUnlocked,
       isKnownCustomer,
       firstName,
+      email,
       highChairShortfall,
       highChairShortfallAcknowledged,
       selectionRefusedByReading
@@ -2997,6 +2999,7 @@ export function ManagementTableBookingForm({
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@example.com"
+                    hint="So we can email your confirmation."
                   />
                 </div>
               </div>
@@ -3016,6 +3019,8 @@ export function ManagementTableBookingForm({
               <CommunicationConsentFields
                 value={communicationConsent}
                 onChange={setCommunicationConsent}
+                variant="compact"
+                notice={GUEST_TABLE_COMPACT_CONSENT_NOTICE}
               />
             ) : null}
 
@@ -3224,6 +3229,7 @@ export function ManagementTableBookingForm({
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@example.com"
+                    hint="So we can email your confirmation."
                   />
                 </div>
               </div>
@@ -3348,6 +3354,8 @@ export function ManagementTableBookingForm({
               <CommunicationConsentFields
                 value={communicationConsent}
                 onChange={setCommunicationConsent}
+                variant="compact"
+                notice={GUEST_TABLE_COMPACT_CONSENT_NOTICE}
               />
             ) : null}
 

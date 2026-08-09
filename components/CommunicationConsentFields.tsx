@@ -23,12 +23,19 @@ type CommunicationConsentFieldsProps = {
    * similar night. See GUEST_COMPACT_CONSENT_NOTICE for the reasoning.
    */
   variant?: 'checkboxes' | 'compact'
+  /**
+   * Overrides the compact notice wording. Table bookings pass
+   * GUEST_TABLE_COMPACT_CONSENT_NOTICE, which covers email as well as SMS and names the
+   * unsubscribe link. Ignored by the 'checkboxes' variant.
+   */
+  notice?: string
 }
 
 export function CommunicationConsentFields({
   value,
   onChange,
   variant = 'checkboxes',
+  notice,
 }: CommunicationConsentFieldsProps) {
   const update = (key: keyof CommunicationConsentState, checked: boolean) => {
     onChange({ ...value, [key]: checked })
@@ -40,7 +47,9 @@ export function CommunicationConsentFields({
     // stored record honest: we never claim someone said yes when they were
     // simply never asked.
     return (
-      <p className="text-xs leading-relaxed text-ink-muted">{GUEST_COMPACT_CONSENT_NOTICE}</p>
+      <p className="text-xs leading-relaxed text-ink-muted">
+        {notice ?? GUEST_COMPACT_CONSENT_NOTICE}
+      </p>
     )
   }
 
