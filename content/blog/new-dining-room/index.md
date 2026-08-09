@@ -162,17 +162,13 @@ We acknowledge that the transformation journey might bring a bit of hustle and b
 
   
 
-Stay tuned for regular updates on our progress! We invite you to join us on this journey by following us on social media. For the latest news straight from The Anchor, connect with us on Facebook, Instagram, Twitter, and LinkedIn. Links to our profiles are conveniently listed below for your ease:
+Stay tuned for regular updates on our progress! We invite you to join us on this journey by following us on social media. For the latest news straight from The Anchor, connect with us on Facebook and Instagram. Links to our profiles are conveniently listed below for your ease:
 
   
 
 *   **Facebook:** [https://www.facebook.com/theanchorpubsm](https://www.facebook.com/theanchorpubsm)
     
 *   **Instagram:** [https://www.instagram.com/theanchor.pub/](https://www.instagram.com/theanchor.pub/)
-    
-*   **Twitter:** [https://twitter.com/TheAnchor\_Pub](https://twitter.com/TheAnchor_Pub)
-    
-*   **LinkedIn:** [https://www.linkedin.com/company/102814641](https://www.linkedin.com/company/102814641)  
     
 
 As we eagerly anticipate the completion of the new Dining Room, we extend a hearty invitation to our esteemed guests, old and new. Prepare to be charmed by the warmth of The Anchor, as we continue to serve you with the same love and cheer that has been our trademark for years. Here's to new beginnings, here's to The Anchor, your home away from home!

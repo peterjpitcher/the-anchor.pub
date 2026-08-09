@@ -290,7 +290,11 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 > The canonical amenities list (with full wording) is `SSOT.json` `venue.amenities`. The summary below is for quick human reference; reconcile to the JSON if they ever differ.
 
-Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under Heathrow flight path) · Pool table · Darts · Jukebox · Live sport on terrestrial TV · Luggage storage · Private event space / function room · Dog friendly · Board games · Community notice board.
+Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under Heathrow flight path) · Pool table · Darts · Fruit machine · Jukebox · Table service · Space to dance · Live sport on terrestrial TV · Luggage storage · Private event space / function room · Dog friendly · Board games · Community notice board.
+
+**Table service:** food is brought to tables. Owner-confirmed 8 August 2026.
+
+**Fruit machine and dancing:** the pub has a fruit machine, and there is space for guests to dance. Owner-confirmed 8 August 2026. Both are recorded here because the matching Google Business Profile attributes ("Has arcade games", "Has dancing") are set to Yes and were previously flagged as unsupported.
 
 ### Things The Anchor does NOT have
 
