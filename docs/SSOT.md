@@ -415,6 +415,7 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 ### Retired entertainment formats
 
 - **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/live-music`.
+- **Drag cabaret is discontinued.** Do not list, promote, or link to drag cabaret nights, and do not target drag cabaret or drag show keywords. **Music Bingo is the only drag night.** (Owner-confirmed, 9 Aug 2026.) The retired `/whats-on/drag-shows` route redirects to `/whats-on`, and past "Drag Cabaret & Karaoke" event pages stay live but out of search. Music Bingo copy may still refer to its drag host.
 
 ## 11. Private Hire
 
