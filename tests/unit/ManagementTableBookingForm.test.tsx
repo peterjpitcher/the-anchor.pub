@@ -1,4 +1,5 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import {
   captureBookingAttributionFromLocation,
@@ -841,7 +842,7 @@ describe('ManagementTableBookingForm', () => {
         marketing_sms_opt_in: false,
         whatsapp_opt_in: false,
         marketing_whatsapp_opt_in: false,
-        consent_text_version: 'guest-comms-consent-v1'
+        consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION
       })
     )
   })
