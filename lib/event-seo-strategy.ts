@@ -26,6 +26,16 @@ export const CANCELLED_INDEX_DAYS = 7
  * docs/SSOT.md §"Nikki's Games Night": "Do not promote Nikki hosted/games
  * nights as a recurring format. Nikki currently hosts Music Bingo only."
  *
+ * docs/SSOT.md §"Retired entertainment formats": drag cabaret has stopped, and
+ * Music Bingo is now the only drag night. The three past "Drag Cabaret &
+ * Karaoke" events already fall out of the index because they sit under the
+ * "Nikki's Games Night" category, but that is incidental: the token below is
+ * what actually encodes the policy, so a new drag cabaret event filed under a
+ * karaoke category cannot quietly start ranking.
+ *
+ * Deliberately 'drag cabaret', not 'drag'. Music Bingo copy refers to its drag
+ * host and must stay indexable.
+ *
  * Open mic is the other retired format, handled separately by isRetiredEvent()
  * because it has a genuine replacement page and 301s to /live-music. A games
  * night has no equivalent, so the page stays live for anyone with the link and
@@ -45,6 +55,13 @@ const DISCONTINUED_FORMATS: ReadonlyArray<{
     replacementLabel: 'See Music Bingo dates',
     // SSOT: "Nikki currently hosts Music Bingo only."
     replacementCopy: 'This night is no longer running. Nikki hosts Music Bingo now.',
+  },
+  {
+    token: 'drag cabaret',
+    replacement: '/music-bingo',
+    replacementLabel: 'See Music Bingo dates',
+    // SSOT: "Music Bingo is the only drag night."
+    replacementCopy: 'This night is no longer running. Music Bingo is our drag night now.',
   },
 ]
 

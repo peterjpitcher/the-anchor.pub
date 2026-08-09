@@ -175,6 +175,43 @@ describe('getEventSeoStrategy', () => {
       expect(getDiscontinuedFormatReplacement({ name: 'Music Bingo' })).toBeNull()
     })
 
+    // docs/SSOT.md §"Retired entertainment formats": drag cabaret is
+    // discontinued and Music Bingo is the only drag night (owner-confirmed,
+    // 9 Aug 2026). The live records happen to sit under the "Nikki's Games
+    // Night" category, so this proves the name alone is enough.
+    it('noindexes a drag cabaret night on its name alone', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(400),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Drag Cabaret & Karaoke',
+        slug: 'drag-cabaret-karaoke-may--2025',
+        category: { id: 'c1', slug: 'karaoke-night', name: 'Karaoke Night', color: '#000' },
+      })
+      expect(result.index).toBe(false)
+    })
+
+    it('points a drag cabaret night at Music Bingo', () => {
+      const replacement = getDiscontinuedFormatReplacement({ name: 'Drag Cabaret & Karaoke' })
+      expect(replacement?.href).toBe('/music-bingo')
+      expect(replacement?.copy).toContain('Music Bingo')
+    })
+
+    // 'drag cabaret', not 'drag'. Music Bingo copy refers to its drag host and
+    // must stay indexable, so the narrower token is load-bearing.
+    it('keeps a music bingo night indexable when its copy mentions a drag host', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(400),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: "Nikki's Karaoke Night",
+        slug: 'nikkis-karaoke-night-2025-08-22',
+        description: 'Hosted by drag performer Nikki Manfadge.',
+      })
+      expect(result.index).toBe(true)
+      expect(getDiscontinuedFormatReplacement({ name: "Nikki's Karaoke Night" })).toBeNull()
+    })
+
     it('keeps the page renderable, it is noindex not a redirect', () => {
       const result = getEventSeoStrategy({
         startDate: isoDaysAgo(200),
