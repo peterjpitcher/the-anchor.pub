@@ -11,7 +11,6 @@ keywords:
   - christening reception venue
 tags:
   - private-hire
-  - christenings
   - guides
 featured: false
 hero: "hero.jpg"

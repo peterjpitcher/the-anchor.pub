@@ -12,7 +12,6 @@ keywords:
   - leaving party venue
 tags:
   - private-hire
-  - work-events
   - guides
 featured: false
 hero: "hero.jpg"

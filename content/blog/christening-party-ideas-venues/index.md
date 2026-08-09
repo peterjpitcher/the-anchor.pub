@@ -13,7 +13,6 @@ keywords:
   - naming ceremony venue
 tags:
   - private-hire
-  - christenings
   - guides
 featured: false
 hero: "hero.jpg"

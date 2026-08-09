@@ -12,7 +12,6 @@ keywords:
   - gender reveal party planning
 tags:
   - private-hire
-  - gender-reveal
   - guides
 featured: false
 hero: "hero.jpg"

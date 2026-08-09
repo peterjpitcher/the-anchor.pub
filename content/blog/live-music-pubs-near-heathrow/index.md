@@ -11,8 +11,7 @@ keywords:
   - live bands heathrow
   - live music staines
 tags:
-  - entertainment
-  - live-music
+  - events
   - guides
 featured: false
 images: []
