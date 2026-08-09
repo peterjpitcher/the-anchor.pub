@@ -19,6 +19,11 @@ const customJestConfig = {
     '**/__tests__/**/*.test.[jt]s?(x)',
     '**/?(*.)+(spec|test).[jt]s?(x)'
   ],
+  // Git worktrees live under .claude/worktrees/ and contain full checkouts of this
+  // repo. Without this, a bare `npx jest` also collects their tests, so stale or
+  // in-progress branches produce phantom failures that mask real regressions.
+  // next/jest appends these to its own defaults (/node_modules/ and <rootDir>/.next/).
+  testPathIgnorePatterns: ['/\\.claude/worktrees/'],
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
