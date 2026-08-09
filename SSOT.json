@@ -133,8 +133,7 @@
       "facebook": "https://www.facebook.com/theanchorpubsm/",
       "instagram": "https://www.instagram.com/theanchor.pub/",
       "whatpub": "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor",
-      "twitter": "https://twitter.com/TheAnchor_Pub",
-      "linkedin": "https://linkedin.com/company/102814641"
+      "_no_twitter_or_linkedin": "Owner-confirmed 8 August 2026: The Anchor has no X/Twitter or LinkedIn account. Do not add them to sameAs, footers, blog posts or the Google Business Profile. Facebook and Instagram are the only social accounts."
     },
     "schema_org": {
       "types": [
@@ -228,7 +227,10 @@
       "Beer garden (under Heathrow flight path)",
       "Pool table",
       "Darts",
+      "Fruit machine",
       "Jukebox",
+      "Table service (food is brought to tables)",
+      "Space to dance",
       "Live sports on TV (terrestrial only: BBC/ITV/Channel 4)",
       "Luggage storage",
       "Private event space / function room",
