@@ -17,7 +17,7 @@ keywords:
   - christmas buffet
 tags:
   - seasonal
-  - food
+  - food-and-drink
 featured: false
 noindex: false
 hero: "hero.jpg"

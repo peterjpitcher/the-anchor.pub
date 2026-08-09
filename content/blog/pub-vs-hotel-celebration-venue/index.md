@@ -12,7 +12,6 @@ keywords:
   - celebration venue near heathrow
 tags:
   - private-hire
-  - comparison
   - guides
 featured: false
 hero: "hero.jpg"

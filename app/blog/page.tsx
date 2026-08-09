@@ -7,21 +7,35 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { InteriorHero } from '@/components/hero'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
-export const metadata: Metadata = {
-  title: 'Blog | Heathrow Travel Tips, Pub Events & Local Guides',
-  description: 'Read The Anchor blog for Heathrow Terminal 5 travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
-  openGraph: {
-    title: 'The Anchor Blog - News, Events & Guides',
-    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Heathrow Terminal 5.',
-    images: [BLOG_FALLBACK_IMAGE],
-  },
-  twitter: getTwitterMetadata({
-    title: 'The Anchor Blog - News, Events & Guides',
-    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Terminal 5.',
-    images: [BLOG_FALLBACK_IMAGE]
-  }),
-  alternates: {
-    canonical: '/blog'
+// Each paginated page must canonicalise to itself. Pointing page 2+ at /blog
+// tells Google those pages are duplicates of page one, which hides every older
+// post from discovery. See Google's pagination guidance.
+export function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { page?: string }
+}): Metadata {
+  const currentPage = Number(searchParams.page) || 1
+  const isFirstPage = currentPage <= 1
+  const canonical = isFirstPage ? '/blog' : `/blog?page=${currentPage}`
+  const titleSuffix = isFirstPage ? '' : ` - Page ${currentPage}`
+
+  return {
+    title: `Blog${titleSuffix} | Heathrow Travel Tips, Pub Events & Local Guides`,
+    description: 'Read The Anchor blog for Heathrow Terminal 5 travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
+    openGraph: {
+      title: `The Anchor Blog - News, Events & Guides${titleSuffix}`,
+      description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Heathrow Terminal 5.',
+      images: [BLOG_FALLBACK_IMAGE],
+    },
+    twitter: getTwitterMetadata({
+      title: `The Anchor Blog - News, Events & Guides${titleSuffix}`,
+      description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Terminal 5.',
+      images: [BLOG_FALLBACK_IMAGE]
+    }),
+    alternates: {
+      canonical
+    }
   }
 }
 

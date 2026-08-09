@@ -15,7 +15,6 @@ keywords:
   - funeral tea near heathrow
 tags:
   - private-hire
-  - wakes
   - guides
 featured: false
 hero: "hero.jpg"

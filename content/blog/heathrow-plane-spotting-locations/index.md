@@ -10,10 +10,8 @@ keywords:
   - where to watch planes land at heathrow
   - heathrow aviation viewing
 tags:
-  - things-to-do
   - guides
   - heathrow
-  - plane-spotting
 featured: true
 hero: "hero.jpg"
 images: []
