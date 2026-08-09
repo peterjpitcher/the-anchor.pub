@@ -439,7 +439,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Is there a deposit required?',
-            answer: 'A £10 per person deposit is required for groups of 10 or more. This is fully deductible from your final bill on the day. No deposit required for smaller groups.'
+            answer: 'A £10 per person deposit is required for groups of 15 or more. This is fully deductible from your final bill on the day. No deposit required for smaller groups.'
           },
           {
             question: 'Can I book for a special occasion?',

@@ -62,7 +62,7 @@ function getSundayLunchFaqs() {
   return [
     {
       question: 'Do I need to book a table for Sunday roast?',
-      answer: 'No. Walk in any time between 1pm and 6pm and order at the table. Booking is only recommended for groups of 10 or more, or for busy afternoons.'
+      answer: 'No. Walk in any time between 1pm and 6pm and order at the table. Booking is only recommended for groups of 15 or more, or for busy afternoons.'
     },
     {
       question: 'What time is Sunday roast served at The Anchor?',

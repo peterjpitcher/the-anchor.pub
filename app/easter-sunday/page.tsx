@@ -71,7 +71,7 @@ export default function EasterSundayPage() {
     {
       question: 'Do I need to book for Easter Sunday?',
       answer:
-        'Walk-ins are welcome the whole way through, from 1pm to 6pm, with no pre-order needed. Booking is recommended for groups, as Easter Sunday is a busy one. Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
+        'Walk-ins are welcome the whole way through, from 1pm to 6pm, with no pre-order needed. Booking is recommended for groups, as Easter Sunday is a busy one. Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
     },
     {
       question: 'Is The Anchor family-friendly at Easter?',
@@ -203,7 +203,7 @@ export default function EasterSundayPage() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
-                    <span>Groups of 10 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
+                    <span>Groups of 15 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>

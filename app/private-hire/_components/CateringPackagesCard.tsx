@@ -36,7 +36,7 @@ export async function CateringPackagesCard() {
           </p>
         )}
         <p className="mt-6 text-sm text-ink-muted">
-          Minimum 30 guests on buffet packages unless stated. Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
+          Minimum 30 guests on buffet packages unless stated. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
         </p>
       </CardBody>
     </Card>

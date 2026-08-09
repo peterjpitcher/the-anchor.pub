@@ -225,9 +225,13 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     )
   })
 
-  it('general deposit thresholds are 9-or-fewer free, 10+ paid, 20+ private hire', () => {
-    expect(mdPlain).toContain('9 guests or fewer: No deposit')
-    expect(mdPlain).toContain('10 or more guests: £10 per person')
+  it('general deposit thresholds are 14-or-fewer free, 15+ paid, 20+ private hire', () => {
+    // Raised from 10 to 15 on 2026-08-09. The management app carries the same number in
+    // LARGE_GROUP_DEPOSIT_THRESHOLD and in resolve_table_booking_deposit; if this test is
+    // ever edited, that pair has to move with it or the site quotes a rule the till does
+    // not charge.
+    expect(mdPlain).toContain('14 guests or fewer: No deposit')
+    expect(mdPlain).toContain('15 or more guests: £10 per person')
     expect(mdPlain).toContain(
       'More than 20 guests: This is not a table booking, it is private hire',
     )

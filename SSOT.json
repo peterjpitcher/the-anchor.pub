@@ -716,11 +716,11 @@
       "wellington_upgrade": "Wellington customers can upgrade for free to the signature gravy on request, note the upgrade makes the dish non-vegan."
     },
     "booking_policy": {
-      "_walk_in_launch_2026_05_17": "Sunday walk-in launch shipped 2026-05-17. Pre-order and Saturday-1pm cutoff are RETIRED. Advance booking is no longer required for any party size; deposit only applies for groups of 10+ on any day, any booking type.",
+      "_walk_in_launch_2026_05_17": "Sunday walk-in launch shipped 2026-05-17. Pre-order and Saturday-1pm cutoff are RETIRED. Advance booking is no longer required for any party size; deposit only applies for groups of 15+ on any day, any booking type (threshold raised from 10 on 2026-08-09).",
       "pre_order_required": false,
       "advance_booking_required": false,
       "walk_ins_welcome": true,
-      "deposit_per_person_gbp_for_groups_of_10_or_more": "LIVE_FROM_DB",
+      "deposit_per_person_gbp_for_groups_of_15_or_more": "LIVE_FROM_DB",
       "deposit_deducted": true,
       "regular_menu_also_available": "Yes",
       "max_online_party_size": 20,

@@ -205,7 +205,7 @@ export default function WindsorPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Famous Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit.</div>
+                    <div><strong>Famous Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 15+ pay a £10 per person deposit.</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>

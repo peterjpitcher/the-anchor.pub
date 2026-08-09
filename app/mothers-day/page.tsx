@@ -150,7 +150,7 @@ export default function MothersDayPage() {
       question: 'Do I need to book for Mother’s Day?',
       answer:
         `Walk-ins are welcome on Mother’s Day Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended, especially for groups, since Mother’s Day always books up quickly. ` +
-        `Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
+        `Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
     },
     {
       question: 'Are there set sittings?',
@@ -416,7 +416,7 @@ export default function MothersDayPage() {
                       </li>
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
-                        <span>Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</span>
+                        <span>Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>

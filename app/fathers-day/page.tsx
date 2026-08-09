@@ -70,7 +70,7 @@ export default function FathersDayPage() {
       question: "Do I need to book for Father's Day?",
       answer:
         "Walk-ins are welcome on Father's Day Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended, especially for groups, since it's one of our busiest Sundays. " +
-        "Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
+        "Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
     },
     {
       question: "Where to take dad for Sunday roast near Heathrow?",
@@ -184,7 +184,7 @@ export default function FathersDayPage() {
               Current dishes and prices are listed on the Sunday roast menu.
               We serve from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>,
               last table at <span className="font-semibold text-ink">{FATHERS_DAY_LAST_BOOKING}</span>.
-              Walk in or book ahead, deposits only apply to groups of 10 or more.
+              Walk in or book ahead, deposits only apply to groups of 15 or more.
             </p>
 
             <Card accent>
@@ -327,7 +327,7 @@ export default function FathersDayPage() {
       {/* Booking CTA */}
       <CtaBand
         title="Book Dad's table"
-        copy={`Father's Day lunch is on ${FATHERS_DAY_LABEL}. Serving ${FATHERS_DAY_SERVICE_WINDOW} (last booking ${FATHERS_DAY_LAST_BOOKING}). Walk in or book ahead, deposits only apply to groups of 10 or more.`}
+        copy={`Father's Day lunch is on ${FATHERS_DAY_LABEL}. Serving ${FATHERS_DAY_SERVICE_WINDOW} (last booking ${FATHERS_DAY_LAST_BOOKING}). Walk in or book ahead, deposits only apply to groups of 15 or more.`}
         primary={
           <BookTableButton
             source="fathers_day_cta"

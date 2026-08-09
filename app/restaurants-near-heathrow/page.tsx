@@ -652,7 +652,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Do you take reservations?",
-            answer: "Yes, we take both reservations and walk-ins. You can book online or call 01753 682707. Groups of 10 or more can book any day with a £10 per person deposit, which comes straight off your final bill."
+            answer: "Yes, we take both reservations and walk-ins. You can book online or call 01753 682707. Groups of 15 or more can book any day with a £10 per person deposit, which comes straight off your final bill."
           },
           {
             question: "Can I get a takeaway if I am in a hurry?",

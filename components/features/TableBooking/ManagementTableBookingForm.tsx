@@ -681,7 +681,7 @@ export function ManagementTableBookingForm({
   // replaces it leaves them looking at the page footer instead of their
   // booking reference.
   //
-  // Two confirmation surfaces, one effect. The deposit path for groups of 10 or
+  // Two confirmation surfaces, one effect. The deposit path for groups of 15 or
   // more confirms in place inside the wizard, so it has no card of its own and
   // falls back to the wizard root.
   const confirmationRef = useRef<HTMLDivElement>(null)
@@ -2108,7 +2108,7 @@ export function ManagementTableBookingForm({
 
               {requiresGroupDeposit ? (
                 <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
-                  Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
+                  Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
                 </Badge>
               ) : null}
 
@@ -2526,7 +2526,7 @@ export function ManagementTableBookingForm({
 
             {requiresGroupDeposit ? (
               <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
-                Groups of 10 or more: a £10 per person deposit, fully deducted from your bill.
+                Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
               </Badge>
             ) : null}
 

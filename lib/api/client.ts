@@ -362,7 +362,7 @@ export class AnchorAPI {
     const bookingReference = result.booking_reference || result.table_booking_id || bookingId
     const pendingPayment = result.state === 'pending_payment'
     const requiresNextStep = pendingPayment
-    // Deposit is £10/person for groups of 10+ (large-group policy)
+    // Deposit is £10/person for groups of 15+ (large-group policy)
     const depositAmount = pendingPayment ? computeLargeGroupDepositAmount(Number(originalRequest.party_size || 1)) : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'
