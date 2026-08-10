@@ -1,5 +1,6 @@
 import { canUseCookieCategory } from '../cookies'
 import { getBookingAttributionPayload } from '../booking-attribution'
+import { getGa4Identity } from './ga4-identity'
 
 /**
  * Conversion events that should carry booking-attribution context
@@ -153,8 +154,15 @@ export function dispatchTrackingEvent(
     if (payload.page_title === undefined && pageTitle) {
       payload.page_title = pageTitle
     }
+    // `page_referrer` is GA4's reserved parameter name. A plain `referrer` key
+    // arrives as an ordinary custom parameter and GA4 ignores it for source
+    // attribution, so send both: the reserved name for GA4, the original for
+    // any GTM tag or downstream consumer still reading `referrer`.
     if (payload.referrer === undefined && referrer) {
       payload.referrer = referrer
+    }
+    if (payload.page_referrer === undefined && referrer) {
+      payload.page_referrer = referrer
     }
   }
 
@@ -192,8 +200,19 @@ export function dispatchTrackingEvent(
 
   if (sendToApi) {
     attachFlushListeners()
+
+    // Attach the GA4 client and session ids read from the first-party cookies.
+    // The server route forwards these to the Measurement Protocol so the event
+    // joins the real browser session. Without session_id every session-scoped
+    // dimension in GA4 (landing page, source, channel) resolves to "(not set)".
+    // Either field may legitimately be missing, for example in the moment
+    // between a visitor accepting cookies and the Google tag writing them; the
+    // server decides what to do in that case and must never invent an identity.
+    const ga4Identity = getGa4Identity()
+
     apiQueue.push({
       ...dataLayerPayload,
+      ...ga4Identity,
       timestamp,
       userAgent: navigator.userAgent
     })

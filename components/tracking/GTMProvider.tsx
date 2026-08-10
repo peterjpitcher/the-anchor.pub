@@ -25,9 +25,15 @@ export function GTMProvider({ gtmId, children }: GTMProviderProps) {
     const handleConsentUpdate = () => {
       const consent = getConsentStatus()
       if (consent && window.gtag) {
+        // The update must carry the same key set as the default in
+        // app/layout.tsx. Google treats any key omitted from an update as
+        // unchanged, so a missing ad_user_data here would silently leave the
+        // visitor's advertising choice stuck at the denied default.
         window.gtag('consent', 'update', {
           'analytics_storage': consent.analytics ? 'granted' : 'denied',
           'ad_storage': consent.marketing ? 'granted' : 'denied',
+          'ad_user_data': consent.marketing ? 'granted' : 'denied',
+          'ad_personalization': consent.marketing ? 'granted' : 'denied',
           'personalization_storage': consent.preferences ? 'granted' : 'denied'
         })
       }

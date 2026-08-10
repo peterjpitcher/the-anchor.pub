@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
   title: {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
-    template: '%s | The Anchor Stanwell Moor'
+    template: '%s | The Anchor'
   },
   description: 'The Anchor, Stanwell Moor. Traditional pub around 7 mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.',
   authors: [{ name: 'The Anchor' }],
@@ -201,6 +201,8 @@ function gtag(){dataLayer.push(arguments);}
       gtag('consent','default',{
         'analytics_storage':p.analytics?'granted':'denied',
         'ad_storage':p.marketing?'granted':'denied',
+        'ad_user_data':p.marketing?'granted':'denied',
+        'ad_personalization':p.marketing?'granted':'denied',
         'personalization_storage':p.preferences?'granted':'denied',
         'functionality_storage':'granted',
         'security_storage':'granted'
@@ -211,6 +213,8 @@ function gtag(){dataLayer.push(arguments);}
   gtag('consent','default',{
     'analytics_storage':'denied',
     'ad_storage':'denied',
+    'ad_user_data':'denied',
+    'ad_personalization':'denied',
     'personalization_storage':'denied',
     'functionality_storage':'granted',
     'security_storage':'granted',
