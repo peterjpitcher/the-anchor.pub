@@ -88,6 +88,58 @@ Weekly GBP posts (events, Sunday roast, Christmas from September), photo uploads
 4. New content indexed and ranking (GSC page filter per new piece)
 5. GBP: calls, directions, website clicks
 
+---
+
+# EXECUTION RECORD, overnight 10 to 11 August 2026
+
+Branch `feat/growth-plan-aug-2026`, 7 commits, not pushed. Typecheck, lint, 130 test suites (1,441 tests) and a production build of 313 pages all pass.
+
+## What changed against the plan
+
+Three of the plan's assumptions were wrong and were corrected during execution. Recording them so the plan is not treated as gospel next time.
+
+1. **The GA4 defect was not what the plan guessed.** The plan blamed the July CAPI work or the tap-to-confirm SMS flow. The real cause is that `app/api/analytics/route.ts` forwards every custom event to GA4's Measurement Protocol without a `session_id`, so GA4 records those events at user scope only, they belong to no session, and every session-scoped dimension resolves to "(not set)". The proof is a natural experiment already in the code: `trackPhoneCallClick` pushes `phone_call_click` and `call_click` on the same click in the same millisecond, only `call_click` carries `sendToApi`, and GA4 shows call_click 42 against phone_call_click zero. The same correlation holds perfectly across all 13 custom events in both directions.
+
+2. **Event hub pages already existed.** The plan said to create evergreen hubs for quiz night, music bingo and cash bingo. They already exist at /quiz-night, /music-bingo, /cash-bingo and /karaoke, they rank well (quiz night best position 1.1), and the category is simply tiny: all four together earned 124 clicks in 16 months. Downgraded to a light touch, not a workstream.
+
+3. **The programmatic local pages are not a metadata problem.** I initially flagged 59,616 impressions at 0.86% as a large fixable pool. Reading the code showed the town pages are hand-written, 460 to 530 lines each, with already-specific titles. At average positions of 8 to 20 that click-through rate is roughly normal. It is a ranking problem, not a defect. No bulk rewrite done.
+
+## Delivered
+
+**Measurement (commit c04070ce)**
+- New `lib/tracking/ga4-identity.ts` reads the GA4 first-party cookies in the browser and attaches `client_id` and `session_id` to forwarded events. Both `_ga_` cookie formats handled.
+- Removed the `randomUUID()` fallback that minted a new GA4 user on every batch arriving without a `_ga` cookie. Batches without a real identity are now dropped.
+- Added `engagement_time_msec` and `timestamp_micros`; added `page_referrer` (GA4's reserved name) alongside `referrer`.
+- Stopped forwarding `cookie_consent_update` server side. A visitor clicking "Reject all" was having their page path, title, referrer, device type and user agent sent to Google. This was also the largest phantom-user source.
+- `non_personalized_ads` and the Measurement Protocol consent block now derive from the visitor's real marketing choice instead of being hardcoded.
+- Added `ad_user_data` and `ad_personalization` to the Consent Mode defaults and update, required since March 2024.
+- 8 new tests lock the behaviour in, including that we no longer invent client ids.
+
+**GA4 admin, done directly in the console**
+- Registered three event-scoped custom dimensions: Landing Path (`landing_path`), Booking Type (`booking_type`), Funnel Step (`funnel_step`). `landing_path` was already being sent on every conversion and was invisible purely because it was unregistered. GA4's own parameter picker offered it, which confirms the data is arriving. Custom dimensions are not retroactive, so these populate from 10 August onwards.
+
+**Titles and descriptions (commit 686bff62)**
+- Root template shortened from " | The Anchor Stanwell Moor" to " | The Anchor", reclaiming 14 characters on every page site-wide. " | Blog" dropped from blog titles, another 7.
+- Ten high-value pages rewritten to render at 60 characters or fewer with descriptions at 160 or fewer. /private-hire's description was 293 characters.
+- Homepage now contains the brand name, which it previously did not, and leads its description with the street address as the disambiguator against the other pubs called The Anchor.
+- /whats-on H1 fixed (it matched neither its title nor any query it ranked for). /food-menu's "Dishes from 4." stranded-number snippet fixed by rephrasing rather than adding a currency symbol.
+
+**Christmas page (commit b488a345)**
+- Fixed the garbled snippet: menu sections now carry self-contained lead prose so Google has coherent text to lift instead of stitching dish names and bare prices.
+- Description rewritten to lead with the offer rather than the date window, group minimum and deposit, which read as barriers in a search result.
+- Positioning made explicit against hotel packages. Hero CTAs are now real anchors, so the phone and email links exist above the fold in markup.
+
+**Linking and corporate (commit 34a425f5)**, **booking paths (3388518e)**, **content (89b1a7ac)**
+- Christmas cluster added to the organic search map; Christmas branch added to the blog cluster router (slugs containing "party" were routing to private hire).
+- /corporate-events rebuilt for office Christmas intent. Unverifiable claims removed: VAT invoicing, dedicated event restrooms, blackout options, a guaranteed two-hour reply, a £20 to £40 daily parking saving. M25 J14 corrected from 3 minutes to 2.
+- Contextual booking paths added inside the body of the four highest-traffic posts, matched to reader intent.
+- Four new Christmas guides published, fact-checked against the SSOT by a dedicated gate that caught an undocumented buffet pricing model, two false ULEZ claims, an implied allergen service, an invented kitchen rationale and a contradictory group-size boundary.
+- **Two live posts were correcting**: christmas-party-ideas-for-work advertised "shared party nights with DJ, dance floor" and "full AV setup with space to dance"; christmas-venue offered a DJ, karaoke setup, casino tables, a photo booth, drink deals, a late bar and decorations. Shared party nights were discontinued 21 July 2026 and none of the rest is documented. Both now say plainly what we do and do not do.
+
+## Known limitation, needs an owner decision
+
+The site now carries several Christmas posts targeting adjacent queries (the four new ones plus christmas-party-ideas-for-work, office-christmas-party-planning-guide, christmas-party-food-ideas, christmas-venue, christmas-party-venues-heathrow-2026, cheap-christmas-parties-heathrow). The old ones each earn 0 to 1 clicks per 16 months. Consolidating them would concentrate the signal, but it means redirecting live URLs, which is not something to do unattended.
+
 ## Decisions recorded
 - Revenue priority (owner, 10 Aug): day-to-day table bookings, Christmas parties, private hire, hosted events attendance, parking last
 - Parking: grow but not a priority (owner, 10 Aug)
