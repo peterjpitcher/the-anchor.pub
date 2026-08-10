@@ -72,7 +72,9 @@ There's a decent cafe on site, but if you want a proper meal before or after, yo
 
 Here's the thing about airport food: it's expensive, it's bland, and it comes in a plastic container. If your flight isn't until the evening, there's absolutely no reason to eat at the terminal. A proper pub lunch 10 minutes from the airport is cheaper, better, and infinitely more relaxing.
 
-[The Anchor in Stanwell Moor](/food-menu) is the closest traditional pub to Heathrow, seven minutes from Terminal 5, and does proper British pub food. Fish and chips, pies, burgers, pizzas. Mains from £11. They've got [free parking for about 20 cars](/near-heathrow), they're fine with luggage, and if you tell them your flight time they'll pace the service so you're not rushing.
+[The Anchor in Stanwell Moor](/restaurants-near-heathrow) is the closest traditional pub to Heathrow, seven minutes from Terminal 5, and does proper British pub food. Fish and chips, pies, burgers and stone-baked pizzas, all priced live on the [food menu](/food-menu). They've got [20 free parking spaces](/near-heathrow), they're fine with luggage, and if you tell them your flight time they'll pace the service so you're not rushing.
+
+If you are working to a departure time, [book a table](/book-table) before you set off or call 01753 682707, and the table is waiting when you arrive.
 
 Other options include The Swan in Staines (15 minutes) and various spots along the Bath Road hotel strip in Hayes. But for convenience and quality combined, starting close to the airport makes sense.
 
@@ -124,7 +126,9 @@ This is different from dedicated plane spotting, it's more about the atmosphere.
 
 The Anchor's garden in Stanwell Moor has 64 seats, is heated for cooler evenings, and is fully dog-friendly. There's a full food and drink service during kitchen hours, so you don't need to go inside to order. It's outside the ULEZ zone too, so no congestion charge worries.
 
-On a warm summer evening, a few pints in the garden watching the 6pm rush of long-haul departures is genuinely one of the best free experiences near Heathrow.
+On a warm summer evening, a few pints in the garden watching the 6pm rush of long-haul departures is one of the better free things to do near Heathrow.
+
+The garden fills up quickly once the sun is out, so [book a garden table](/book-table) if you want your spot held. Walk-ins are welcome too, and dogs are welcome throughout.
 
 ---
 
@@ -212,11 +216,11 @@ Absolutely. If you've got 3+ hours between flights, you can comfortably get to W
 
 ### What can families do near Heathrow?
 
-Legoland and Thorpe Park are the obvious choices for a full day. For something shorter, plane spotting with kids at a beer garden near the flight path is free and endlessly entertaining for young aviation fans.
+Legoland and Thorpe Park are the obvious choices for a full day. For something shorter, plane spotting with kids at a beer garden near the flight path is free and endlessly entertaining for young aviation fans. The Anchor's [beer garden](/beer-garden) has high chairs, children are welcome at all hours, and you can [book a table](/book-table) if you would rather not chance it on a sunny weekend.
 
 ### Where can I eat near Heathrow that isn't airport food?
 
-Several excellent pubs and restaurants are within 15 minutes of the terminals. [The Anchor in Stanwell Moor](/restaurants-near-heathrow) is the closest traditional pub (7 mins from T5), with mains from £11 and free parking. See our guide to [restaurants near Heathrow](/restaurants-near-heathrow) for more options.
+Several excellent pubs and restaurants are within 15 minutes of the terminals. [The Anchor in Stanwell Moor](/restaurants-near-heathrow) is the closest traditional pub (7 mins from T5), with free parking and prices live on the [food menu](/food-menu). You can [book a table](/book-table) or call 01753 682707. See our guide to [restaurants near Heathrow](/restaurants-near-heathrow) for more options.
 
 ### Is there parking near these attractions?
 
@@ -225,3 +229,7 @@ Most attractions have their own parking. For pub visits near the airport, The An
 ---
 
 Whatever you've got planned, whether it's killing time before a late flight or making a proper day of it, there's more to the Heathrow area than departure lounges and motorway services. Get out, explore, and you might be surprised by what's on the doorstep of the world's busiest international airport.
+
+---
+
+*The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Free parking, dog friendly, seven minutes from Terminal 5. [Book a table](/book-table) | [Food menu](/food-menu) | [How to find us](/find-us) | 01753 682707*
