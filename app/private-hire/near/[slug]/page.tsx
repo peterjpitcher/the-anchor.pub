@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 // the FAQ all vary by what kind of place the landmark is. Every fact used here
 // is grounded in docs/SSOT.md (capacity 10+ to 150; dining room seats 26; 250
 // venue max; 20 free parking spaces; £250 private deposit; £10pp deposit for
-// groups of 10+; TVs and a sound system, no projector; dedicated events
+// groups of 15+; TVs and a sound system, no projector; dedicated events
 // coordinator; ~7 minutes from Heathrow Terminal 5; outside the ULEZ;
 // dog-friendly garden). No food or drink prices are quoted (those are live).
 // Distances come only from the landmark dataset, never invented door-to-door.
@@ -287,7 +287,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit. Call us to confirm the details.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit. Call us to confirm the details.',
                     },
                 ],
             }
@@ -348,7 +348,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
                     },
                     {
                         question: 'Is the garden available?',
@@ -417,7 +417,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
                     },
                 ],
             }
@@ -482,7 +482,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
                     },
                 ],
             }
@@ -547,7 +547,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
                     },
                 ],
             }
@@ -614,7 +614,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: 'For groups of ten or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
+                        answer: 'For groups of 15 or more, a deposit of £10 per person applies and is fully deducted from your final bill on the day. Smaller groups can book without a deposit.',
                     },
                 ],
             }

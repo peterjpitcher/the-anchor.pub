@@ -77,7 +77,7 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 - **Walk-ins:** Welcome the whole window. Last seating is 5:30pm.
 - **Booking:** Strongly recommended for groups and peak slots, but not required.
 - **Max online party size:** 20. Larger groups must call.
-- **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 10+) applies on any day, any booking type, see §7.
+- **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 15+) applies on any day, any booking type, see §7.
 
 ### Current menu
 

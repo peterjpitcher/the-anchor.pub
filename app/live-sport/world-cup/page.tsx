@@ -291,7 +291,7 @@ export default async function WorldCupPage() {
                 <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                   <li>Book any showing match now</li>
                   <li>No deposits for groups under 15</li>
-                  <li>Groups of 10+: £10 per person deposit, deducted from your bill</li>
+                  <li>Groups of 15+: £10 per person deposit, deducted from your bill</li>
                   <li>Large groups: book early for the best tables</li>
                   <li>Tables are held until kick-off, then released</li>
                 </ul>
