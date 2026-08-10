@@ -22,7 +22,12 @@ describe('/christmas-parties booking journeys', () => {
     expect(heroSource).toContain("type ChristmasHeroMode = 'party' | 'meal'")
     expect(heroSource).toContain('Plan a Christmas party')
     expect(heroSource).toContain('Book lunch or dinner')
-    expect(pageSource).toContain('Christmas parties near Heathrow, Staines and Surrey')
+    // The H1 must name both journeys, because a visitor who wants a sit-down
+    // Christmas dinner bounces off a heading that only sells parties. The exact
+    // wording is marketing copy and is free to change; naming both is the rule.
+    const h1 = pageSource.match(/title="(Christmas[^"]*)"/)?.[1] ?? ''
+    expect(h1).toMatch(/Christmas parties/i)
+    expect(h1).toMatch(/Christmas dinner/i)
     // The meal journey is sold on courses chosen per guest. The blanket
     // pre-order rule went on 21 July 2026, and the whole-table course tier it
     // was replaced by went on 4 August 2026.

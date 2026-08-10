@@ -220,12 +220,16 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   }
 
-  const title = 'Christmas Party Venue Near Heathrow & Staines | The Anchor'
-  // Kept under ~155 chars so Google shows the whole snippet. Free parking is
-  // the strongest differentiator against airport-area venues, so it sits near
-  // the front rather than in the tail that used to get truncated away.
+  // 57 characters including the suffix, so the whole thing renders in the SERP.
+  // Staines leads because that is the only cluster already sitting on page one.
+  const title = 'Christmas Party Venue Near Staines & Heathrow | The Anchor'
+  // Under 155 chars, and deliberately free of the booking conditions. Every
+  // rival on these queries is a hotel package, so the snippet sells the
+  // opposite: a real pub, your own table, and parking that costs nothing. The
+  // window, the group minimum and the deposit are on the page, not in here,
+  // because in a search result they read as barriers rather than as reasons.
   const description =
-    `Christmas parties and dinner near Heathrow, free parking. ${windowLabel}. Each guest picks 1, 2 or 3 courses. Groups of ${FACTS.minPartySize}+, £${FACTS.depositPerPerson}pp deposit.`
+    'Christmas parties and Christmas dinner in a proper village pub near Staines and Heathrow. Your own table, not a hotel function room, and free parking.'
 
   return {
     title: { absolute: title },
@@ -267,7 +271,10 @@ export default async function ChristmasPartiesPage() {
 
   const heroLead = seasonEnded
     ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
-    : `A village pub Christmas seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces. Christmas dinner runs ${season.windowLabel} for groups of ${FACTS.minPartySize} or more, with at least ${FACTS.minNoticeHours} hours notice and a £${FACTS.depositPerPerson} per person deposit.`
+    // Deliberately short so the booking buttons stay above the fold on a phone.
+    // The window, the group minimum, the notice and the deposit all sit in the
+    // banner and the summary block immediately below, so nothing is lost.
+    : 'A proper village pub Christmas rather than a hotel function room. Eight minutes from Staines, seven from Heathrow Terminal 5, with around 20 free parking spaces.'
 
   return (
     <>
@@ -287,7 +294,7 @@ export default async function ChristmasPartiesPage() {
         image={HERO_IMAGE}
         crumb="Christmas Parties"
         kicker={seasonEnded ? 'The Anchor, Stanwell Moor' : 'Christmas 2026'}
-        title="Christmas parties near Heathrow, Staines and Surrey"
+        title="Christmas parties and Christmas dinner near Staines and Heathrow"
         lead={heroLead}
         actions={
           seasonEnded ? (
@@ -310,19 +317,32 @@ export default async function ChristmasPartiesPage() {
         title="More Christmas Party Planning"
         links={[
           {
+            href: '/blog/christmas-party-planning-checklist-for-organisers',
+            title: 'Christmas Party Checklist for Organisers',
+            description: 'The decisions in the order they need making, starting with headcount because it changes everything else.',
+          },
+          {
+            href: '/blog/work-christmas-party-ideas-near-heathrow',
+            title: 'Work Christmas Party Ideas Near Heathrow',
+            description: 'A straight guide to formats, group sizes and the bits that usually catch organisers out.',
+          },
+          {
+            href: '/blog/festive-buffet-ideas-for-large-groups-near-heathrow',
+            title: 'Festive Buffet or Sit-Down for a Large Group',
+            description: 'How each format actually works on the night, and the 30-guest buffet minimum that often decides it.',
+          },
+          {
+            href: '/blog/christmas-dinner-or-party-night-which-suits-your-group',
+            title: 'Christmas Dinner or Party Night?',
+            description: 'An honest comparison with the hotel party nights, including when they are the better booking.',
+          },
+          // Kept deliberately. tests/seo-indexing.test.ts guards this link so the
+          // older guide is not orphaned while it is still live. If that post is
+          // ever consolidated into the newer checklist above, update the guard.
+          {
             href: '/blog/office-christmas-party-planning-guide',
             title: 'Office Christmas Party Planning Guide',
-            description: 'A step-by-step guide for organisers, from setting the date to collecting meal choices.',
-          },
-          {
-            href: '/blog/christmas-party-food-ideas',
-            title: 'Christmas Party Food Ideas',
-            description: 'Sit-down, buffet and sharing options to suit your group and budget.',
-          },
-          {
-            href: '/private-hire',
-            title: 'Private Hire at The Anchor',
-            description: 'Function room and venue hire for celebrations all year round.',
+            description: 'Our earlier step-by-step guide for organisers, from setting the date to collecting meal choices.',
           },
         ]}
       />

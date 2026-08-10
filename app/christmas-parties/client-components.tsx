@@ -239,11 +239,35 @@ function tierPriceLabel(tier: ChristmasTierView): string {
   return tier.priceFrom ? `From £${tier.priceFrom} per person` : 'Confirmed on enquiry'
 }
 
+/**
+ * Every answer here is traceable to docs/SSOT.md or SSOT.json. Questions the
+ * SSOT cannot answer (pre-order deadline, Christmas dietary options, corporate
+ * invoicing, Christmas Day and Boxing Day) are deliberately absent rather than
+ * guessed at, and are logged as owner questions instead.
+ */
 function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
   return [
     {
-      question: 'What dates can we book Christmas dinner for?',
+      // Deliberately avoids the retired product name, even as a denial: the
+      // discontinued-products guard bans the phrase outright, in either sense.
+      question: 'Will we be sharing a room with other groups at Christmas?',
+      answer: 'No. We do not run the kind of mixed festive event where several companies are seated together for one big sitting. Every Christmas booking here is your own group and nobody else: a sit-down Christmas lunch or dinner, a festive buffet, or a private space we set up for you.'
+    },
+    {
+      question: 'Is there a Christmas party venue near Staines?',
+      answer: `Yes. The Anchor is in Stanwell Moor, around eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site. Christmas layouts here hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing, so it works for a small team dinner or a full-venue party.`
+    },
+    {
+      question: 'Can we hold a work Christmas do near Heathrow Airport?',
+      answer: 'Yes, and plenty do. We are around seven minutes from Terminal 5, around eleven from Terminal 2 and two minutes from M25 Junction 14, traffic dependent. That makes us a practical meeting point for airport teams, business parks and hotel staff who are coming from different directions.'
+    },
+    {
+      question: 'What dates can we take a Christmas booking for?',
       answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. Popular Friday and Saturday dates go first, so enquire early.`
+    },
+    {
+      question: 'How do we book Christmas at The Anchor?',
+      answer: `Send us an enquiry from this page or call ${CONTACT_PHONE}. Christmas dinner needs ${facts.minPartySize} guests or more and at least ${facts.minNoticeHours} hours notice, and every Christmas booking takes a £${facts.depositPerPerson} per person deposit that comes off your bill. More than ${facts.privateHireThreshold} guests is private hire, so email ${CONTACT_EMAIL} for those.`
     },
     {
       question: 'Is there a minimum group size for Christmas dinner?',
@@ -280,6 +304,10 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     {
       question: 'Do you do festive buffets?',
       answer: `Yes. Festive buffets are available for ${facts.buffetMinimumGuests} guests or more, and they suit standing receptions, quiz nights and team gatherings. Ask us to confirm the current selection and service timings for your date.`
+    },
+    {
+      question: 'What Christmas buffet food do you serve?',
+      answer: `There are three festive buffet packages: Festive Sandwich and Salad, Festive Hot Finger and Festive Premium Grazing. All three need ${facts.buffetMinimumGuests} guests or more. The dish list is released closer to the time, so ask us and we will send the current selection for your date.`
     },
     {
       question: 'What if our group is bigger than 20?',
@@ -319,7 +347,7 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'Do you offer corporate Christmas party packages near Heathrow?',
-      answer: "We do. Ask about VAT invoicing and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
+      answer: "We do. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
     },
     {
       question: 'Where is The Anchor for Christmas party guests?',
@@ -342,44 +370,55 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'shield' as const,
     title: 'Outside the ULEZ Zone',
-    description: 'The pub is outside the ULEZ boundary and has around 20 free parking spaces. Guests should check their own route and current charging rules.'
+    description: 'The pub sits outside the ULEZ boundary, so a night here does not come with a daily charge on top. Guests should check their own route and the current rules.'
   },
   {
-    icon: 'users' as const,
+    icon: 'home' as const,
     title: 'Private Spaces for Every Size',
     description: 'Choose an intimate dining room, the main bar for a larger group, or ask about full venue hire. Christmas layouts can host up to 60 seated or 200 standing.'
   },
   {
     icon: 'heart' as const,
-    title: 'A Proper Village Pub Christmas',
-    description: 'A village pub setting with warm hospitality, candlelit tables and space for a relaxed meal or lively party.'
+    title: 'A Village Pub, Not a Hotel Ballroom',
+    description: 'A proper village pub rather than a function room in an airport hotel. Warm, low-ceilinged and familiar, with space for a relaxed meal or a lively party.'
+  },
+  {
+    icon: 'users' as const,
+    title: 'Your Own Table, Your Own Group',
+    description: 'You are never seated among strangers at one big mixed festive sitting. Every Christmas booking here is your group and nobody else, at your own table.'
   },
   {
     icon: 'briefcase' as const,
     title: 'Easy for Organisers',
-    description: 'One clear contact for your booking, one deposit rule and a written confirmation of what your group is getting. Ask about VAT invoicing when you enquire.'
+    description: 'One clear contact for your booking, one deposit rule and a written confirmation of what your group is getting. Ask us about billing when you enquire.'
   }
 ]
 
+/**
+ * These are things a group can ask us to arrange, not scheduled Christmas
+ * events. Nothing here is advertised as running on a fixed date, because no
+ * Christmas entertainment is confirmed in the SSOT. Keep the wording in the
+ * "ask us" form unless and until the owner confirms a published line-up.
+ */
 const PARTY_IDEAS = [
   {
-    title: 'Quiz Night Christmas Special',
-    description: 'Ask whether a festive quiz can be arranged for your date, with food before or after.',
+    title: 'Ask about adding a quiz',
+    description: 'We run quiz nights through the year. Ask whether a quiz can be arranged around your Christmas booking, with food before or after.',
     ideal: 'Groups that enjoy friendly competition'
   },
   {
-    title: 'Music Bingo Christmas Edition',
-    description: 'Ask about a Christmas music bingo session and the formats available for your group.',
+    title: 'Ask about music bingo',
+    description: 'Music bingo is one of our regular formats. Ask what could be arranged for your group and your date.',
     ideal: 'Mixed groups who want something different and inclusive'
   },
   {
-    title: 'Karaoke Christmas Party',
-    description: 'Ask about a karaoke setup, suitable space and available finishing time for your date.',
+    title: 'Ask about karaoke',
+    description: 'Ask about a karaoke setup, a suitable space and the finishing time available on your date.',
     ideal: 'Office groups and friend circles who are not afraid of the mic'
   },
   {
-    title: 'Live Band Christmas Celebration',
-    description: 'Ask about hiring a live band or acoustic act for your party. We can discuss the performance area, suitable setup and available finishing time for your chosen date.',
+    title: 'Ask about live music',
+    description: 'Ask about hiring a live band or an acoustic act for your party. We will talk through the performance area, the setup and the finishing time available on your chosen date.',
     ideal: 'Groups looking for live entertainment'
   }
 ]
@@ -477,9 +516,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="flex flex-col items-center justify-center gap-2 text-center md:flex-row md:gap-4">
             <Icon name="sparkles" className="h-5 w-5 shrink-0" />
             <p className="text-sm md:text-base font-semibold">
+              {/* Leads with the offer and the reason to choose us. The conditions
+                  still appear, in the tail, where they inform rather than deter. */}
               {season.state === 'active'
-                ? `Christmas dinner is being served now, ${season.windowLabel}. ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice, £${facts.depositPerPerson} per person deposit.`
-                : `Christmas dinner ${season.windowLabel}. ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice, £${facts.depositPerPerson} per person deposit.`}
+                ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
+                : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
             </p>
           </div>
         </Container>
@@ -601,7 +642,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <div className="mx-auto max-w-3xl space-y-6">
-            <h2 className="text-3xl font-bold text-ink-strong text-center">Christmas booking rules</h2>
+            <h2 className="text-3xl font-bold text-ink-strong text-center">Christmas booking near Heathrow and Staines: the rules in full</h2>
             <div className="rounded-2xl border-2 border-red-600/30 bg-surface p-6 md:p-8">
               <ul className="space-y-4 text-sm md:text-base text-ink-muted">
                 <li className="flex items-start gap-3">
@@ -720,11 +761,19 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-ink-strong">Festive buffets for {facts.buffetMinimumGuests} or more guests</h2>
+            <h2 className="text-3xl font-bold text-ink-strong">Christmas buffet food for {facts.buffetMinimumGuests} or more guests</h2>
+            {/* Self-contained prose, immediately under the heading. Search engines
+                were previously stitching a snippet out of live menu fragments for
+                buffet queries, because there was no readable paragraph to lift. */}
             <p className="text-ink-muted">
-              A festive buffet works well for a standing reception, a quiz night or a team gathering. There are three festive
-              buffet packages, and the minimum is {facts.buffetMinimumGuests} guests on all of them. Ask us to confirm the current
-              selection, pricing and service timings for your date.
+              A Christmas buffet is our answer to a big group that wants to stand up, move around and talk to everyone rather
+              than sit through a set meal. There are three festive buffet packages, Festive Sandwich &amp; Salad, Festive Hot
+              Finger and Festive Premium Grazing, and every one of them needs at least {facts.buffetMinimumGuests} guests. They
+              suit office parties, standing receptions and team gatherings near Heathrow and Staines.
+            </p>
+            <p className="text-sm text-ink-muted">
+              Tell us your date and your numbers and we will send the current selection for each package, along with pricing
+              and service timings. The full dish list is released closer to the time.
             </p>
           </div>
 
@@ -793,7 +842,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
       <Section background="transparent" spacing="sm" className="bg-surface">
         <Container>
           <div className="mx-auto max-w-4xl space-y-4 text-center">
-            <h2 className="text-2xl font-bold text-ink-strong">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
+            <h2 className="text-2xl font-bold text-ink-strong">Christmas party venues near Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-ink-muted">
               The Anchor is around seven minutes from Heathrow Terminal 5, eleven minutes from Terminal 2 and eight minutes from
               Staines-upon-Thames, traffic dependent. Airport teams, local offices, families and friends can meet here without
@@ -863,9 +912,14 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Why book your Christmas party at The Anchor?</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Whether you are planning a staff Christmas party for airport colleagues, a festive lunch for the team or a
-                Friday-night Christmas do with friends from Staines, The Anchor offers a traditional pub setting close to
-                Heathrow with free parking and flexible spaces.
+                Most Christmas venues around Heathrow are hotels, and a hotel Christmas party is a big shared room, a set
+                package and a disco you did not choose. If that is what your group wants, book one. We are the other thing: a
+                village pub that has been here since 1751, where your group gets its own table and its own evening.
+              </p>
+              <p className="text-base text-ink-muted max-w-3xl mx-auto">
+                That suits a staff Christmas party for airport colleagues, a festive lunch for the team, or a Friday-night
+                Christmas do with friends from Staines. You get a proper pub close to Heathrow, free parking on site and
+                spaces we shape around your group rather than a package you pick off a list.
               </p>
             </div>
             <Grid cols={3} gap="md">
@@ -888,11 +942,12 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
-              <h2 className="text-3xl font-bold text-ink-strong">Office Christmas party venue near Heathrow</h2>
+              <h2 className="text-3xl font-bold text-ink-strong">Work Christmas do and office Christmas party near Heathrow</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
                 Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that is
-                actually good, and a bill that will not make finance wince. We have been hosting office Christmas parties for
-                Heathrow businesses, Poyle teams and Surrey offices for years.
+                actually good, and a bill that will not make finance wince. Whether your team calls it the work Christmas do
+                or the office Christmas party, we take it as one booking with one contact. We have been hosting office
+                Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -905,7 +960,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Corporate billing</strong>, ask about VAT invoices, deposit invoicing and agreed bar-tab options for your booking.</span>
+                    <span><strong className="text-ink-strong">Billing sorted before you commit</strong>, ask us how payment and any agreed bar tab would work for your booking and we will confirm it in writing.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
@@ -930,7 +985,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
-                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Add a quiz or Music Bingo for a memorable works Christmas do.</p>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask whether a quiz or music bingo can be arranged for your works Christmas do.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
@@ -947,10 +1002,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         <Container>
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-ink-strong">Christmas party ideas at The Anchor</h2>
+              <h2 className="text-3xl font-bold text-ink-strong">Christmas party ideas near Heathrow and Staines</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Not every Christmas do needs to be a standard sit-down meal. We can shape the celebration around your group.
-                Here are a few ideas to discuss when you enquire.
+                Not every Christmas do needs to be a standard sit-down meal. None of the below is a fixed event you buy a
+                ticket for, they are things we can look at arranging around your booking. Raise them when you enquire and we
+                will tell you honestly what is possible on your date.
               </p>
             </div>
             <Grid cols={2} gap="md">
@@ -1020,7 +1076,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
           <FAQAccordionWithSchema
-            title="Christmas Party FAQs"
+            title="Christmas party and Christmas dinner FAQs"
             faqs={faqItems}
             className="bg-surface"
           />
@@ -1398,16 +1454,30 @@ function ChristmasMenuAndPricing({
 
         {menu.hasLiveDishes ? (
           <div className="mt-10 space-y-8">
+            {/* Live dish data needs readable prose around it. Without a sentence
+                between the heading and the list, a search engine lifts dish
+                names, bare prices and half descriptions into one garbled
+                snippet, which is exactly what was happening on this page. */}
+            <p className="mx-auto max-w-3xl text-center text-base text-ink-muted">
+              Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come
+              straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.
+              Tell us your choices in advance and we will confirm the deadline with your booking.
+            </p>
             {menu.tiers.filter(tier => tier.items.length > 0).map(tier => (
               <div key={tier.id} className="rounded-2xl border border-line bg-surface p-6">
                 <h4 className="text-lg font-semibold text-ink-strong">{tier.name}</h4>
+                <p className="mt-1 text-sm text-ink-muted">
+                  Dishes a guest can choose on the {tier.name}, each with its own price per person.
+                </p>
                 <ChristmasDishList items={tier.items} />
               </div>
             ))}
             {menu.extraSections.map(section => (
               <div key={section.id} className="rounded-2xl border border-line bg-surface p-6">
                 <h4 className="text-lg font-semibold text-ink-strong">{section.title}</h4>
-                {section.description && <p className="mt-1 text-sm text-ink-muted">{section.description}</p>}
+                <p className="mt-1 text-sm text-ink-muted">
+                  {section.description || `Dishes from our ${section.title.toLowerCase()} selection, each priced per person.`}
+                </p>
                 <ChristmasDishList items={section.items} />
               </div>
             ))}

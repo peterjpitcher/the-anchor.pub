@@ -67,10 +67,16 @@ export function ChristmasHeroPrimaryCta() {
   )
 }
 
+/**
+ * Real anchors rather than script-driven buttons, so there is always a working
+ * route to book above the fold: for a crawler, for a no-JS visitor, and for
+ * anyone whose tracking script fails to load.
+ */
 export function ChristmasHeroSecondaryCta() {
   return (
     <div className="grid w-full grid-cols-2 gap-3 md:flex md:justify-center">
       <Button
+        asChild
         variant="primary"
         size="lg"
         className="min-w-0 w-full md:w-auto"
@@ -82,14 +88,16 @@ export function ChristmasHeroSecondaryCta() {
             destination: 'phone'
           })
           trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_hero' })
-          window.location.href = CONTACT_PHONE_LINK
         }}
       >
-        <Icon name="phone" className="mr-2 h-4 w-4" />
-        <span className="sm:hidden">Call us</span>
-        <span className="hidden sm:inline">Call {CONTACT_PHONE}</span>
+        <a href={CONTACT_PHONE_LINK}>
+          <Icon name="phone" className="mr-2 h-4 w-4" />
+          <span className="sm:hidden">Call us</span>
+          <span className="hidden sm:inline">Call {CONTACT_PHONE}</span>
+        </a>
       </Button>
       <Button
+        asChild
         variant="primary"
         size="lg"
         className="min-w-0 w-full md:w-auto"
@@ -101,10 +109,11 @@ export function ChristmasHeroSecondaryCta() {
             destination: 'email'
           })
           trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_hero' })
-          window.location.href = CONTACT_EMAIL_LINK
         }}
       >
-        <Icon name="mail" className="mr-2 h-4 w-4" /> Email us
+        <a href={CONTACT_EMAIL_LINK}>
+          <Icon name="mail" className="mr-2 h-4 w-4" /> Email us
+        </a>
       </Button>
     </div>
   )
