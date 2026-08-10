@@ -7,6 +7,7 @@ export type OrganicSearchClusterKey =
   | 'localPub'
   | 'events'
   | 'privateRooms'
+  | 'christmas'
   | 'workspace'
 
 export type OrganicSearchLink = {
@@ -248,6 +249,40 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
         label: 'Corporate events',
         description: 'Team meals, work events and airport business gatherings.',
         anchor: 'corporate event venue near Heathrow'
+      }
+    ]
+  },
+  christmas: {
+    key: 'christmas',
+    label: 'Christmas parties near Heathrow',
+    targetIntent: 'Organisers planning a work or family Christmas meal near Heathrow, Staines and Stanwell Moor.',
+    primaryRoute: '/christmas-parties',
+    primaryAnchor: 'Christmas party venue near Heathrow',
+    successEvents: ['christmas_enquiry', 'table_booking_started', 'call_clicked'],
+    supportingRoutes: [
+      {
+        href: '/corporate-events',
+        label: 'Work Christmas parties',
+        description: 'Office parties, team meals and business events around 7 minutes from Terminal 5.',
+        anchor: 'work Christmas party venue near Heathrow'
+      },
+      {
+        href: '/private-hire',
+        label: 'Private hire',
+        description: 'Hire the dining room or beer garden for a festive gathering, 10 to 150 guests.',
+        anchor: 'private room hire for a Christmas party'
+      },
+      {
+        href: '/food-menu',
+        label: 'Everyday menu',
+        description: 'The regular pub menu with live prices, for visits outside the festive service window.',
+        anchor: 'pub food near Heathrow all year round'
+      },
+      {
+        href: '/whats-on',
+        label: "What's on",
+        description: 'Live listings for quiz nights, Music Bingo and everything else in the diary.',
+        anchor: "what's on at The Anchor this season"
       }
     ]
   },

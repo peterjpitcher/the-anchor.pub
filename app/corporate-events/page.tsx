@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ssot from '@/SSOT.json'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -11,26 +12,46 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
+import {
+  CHRISTMAS_DEPOSIT_PER_PERSON,
+  CHRISTMAS_MINIMUM_NOTICE_HOURS,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  formatChristmasWindowLabel
+} from '@/lib/christmas-season'
+
+const OG_DESCRIPTION = 'Work events, team meals and office Christmas parties near Heathrow. Private hire and free parking, around 7 minutes from Terminal 5.'
 
 export const metadata: Metadata = {
-  title: 'Corporate Events Near Heathrow Terminal 5',
-  description: 'Corporate events 7 minutes from Heathrow Terminal 5. Private rooms, AV, VAT invoicing and free parking at The Anchor. A pub setting, not a hotel function room.',
+  title: 'Corporate & Christmas Parties Near Heathrow',
+  description: 'A real pub for work events near Heathrow, not a hotel function room. Meetings, team meals and office Christmas parties, 7 minutes from Terminal 5, free parking.',
   openGraph: {
     title: 'Corporate Event Venue Near Heathrow | The Anchor',
-    description: 'Corporate event venue near Heathrow with private rooms, team building space, and free parking 7 minutes from Terminal 5.',
+    description: OG_DESCRIPTION,
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Corporate Event Venue Near Heathrow | The Anchor',
-    description: 'Corporate event venue near Heathrow with private rooms, team building space, and free parking 7 minutes from Terminal 5.',
+    description: OG_DESCRIPTION,
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
     canonical: '/corporate-events'
   }
 }
+
+/**
+ * Christmas capacity and the festive buffet minimum are read from the SSOT
+ * rather than restated, so this page cannot drift from the Christmas hub.
+ */
+type SsotCorporateFacts = {
+  venue: { capacity: { christmas_seated: number, christmas_standing: number } }
+  christmas_2026: { buffets: { min_guests: number } }
+}
+
+const { venue: SSOT_VENUE, christmas_2026: SSOT_CHRISTMAS } = ssot as unknown as SsotCorporateFacts
 
 
 export default function CorporateEventsPage() {
@@ -41,12 +62,12 @@ export default function CorporateEventsPage() {
         image="/images/page-headers/corporate-events/corporate-events.jpg"
         crumb="Corporate Events"
         title="Corporate Event Venue Near Heathrow"
-        lead="Private hire for 10+ to 150 guests, with larger corporate events by enquiry. Around 7 minutes from Terminal 5, traffic dependent, with free parking."
+        lead="Meetings, team days and office Christmas parties for 10+ to 150 guests, with larger corporate events by enquiry. Around 7 minutes from Terminal 5, traffic dependent, with free parking."
         badges={
           <>
             <Badge variant="sand">Around 7 mins from Heathrow</Badge>
             <Badge variant="sand">Free Parking</Badge>
-            <Badge variant="sand">AV Equipment</Badge>
+            <Badge variant="sand">TVs &amp; Sound System</Badge>
             <Badge variant="sand">Outside ULEZ</Badge>
           </>
         }
@@ -75,10 +96,10 @@ export default function CorporateEventsPage() {
               seo={{ structured: true, speakable: true }}
               className="text-ink-strong mb-4"
             >
-              Corporate Event Venue Near Heathrow: Business Events at The Anchor
+              Corporate Events and Office Christmas Parties Near Heathrow
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Planning a corporate event near Heathrow? Professional meeting rooms for 10+ to 150 guests, with larger events by enquiry, around 7 minutes from Terminal 5, traffic dependent.
+              Planning a work event near Heathrow? The Anchor hosts meetings, training days, team meals and office Christmas parties for 10+ to 150 guests, with larger events by enquiry. We are around 7 minutes from Terminal 5, traffic dependent, and this is a proper village pub rather than a hotel function room, so your team gets its own space instead of sharing a ballroom with three other companies.
             </p>
           </div>
         </Container>
@@ -94,7 +115,7 @@ export default function CorporateEventsPage() {
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Heathrow Proximity", description: "Around 7 minutes from T5, traffic dependent, useful for international teams and clients" },
-              { title: "Free Parking", description: "20 spaces on-site - saves significantly compared to city venues" },
+              { title: "Free Parking", description: "20 free spaces on site, no fees and no time limit while you are with us" },
               { title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs" },
               { title: "Flexible Spaces", description: "Configure private hire for 10+ to 150 guests; larger events by enquiry" },
             ].map(feature => (
@@ -112,7 +133,7 @@ export default function CorporateEventsPage() {
               <p className="mb-4 text-ink-muted">Strategic advantages for your corporate events:</p>
               <ul className="space-y-2 text-ink-muted">
                 <li><strong className="text-ink-strong">Outside ULEZ zone</strong> - no charges for attendees</li>
-                <li><strong className="text-ink-strong">M25 Junction 14</strong> - 3 minutes away</li>
+                <li><strong className="text-ink-strong">M25 Junction 14</strong> - 2 minutes away</li>
                 <li><strong className="text-ink-strong">Heathrow hotels</strong> - 5-10 minutes for overnight guests</li>
                 <li><strong className="text-ink-strong">Central location</strong> - accessible from London &amp; Surrey</li>
               </ul>
@@ -121,9 +142,9 @@ export default function CorporateEventsPage() {
               <h3 className="font-display text-h4 text-ink-strong mb-4">Professional Service</h3>
               <p className="mb-4 text-ink-muted">Everything you need for successful business events:</p>
               <ul className="space-y-2 text-ink-muted">
-                <li><strong className="text-ink-strong">Dedicated event coordinator</strong> for seamless planning</li>
+                <li><strong className="text-ink-strong">Dedicated events coordinator</strong> for seamless planning</li>
                 <li><strong className="text-ink-strong">Professional catering</strong> from coffee mornings to formal dinners</li>
-                <li><strong className="text-ink-strong">Tech support</strong> for presentations and video calls</li>
+                <li><strong className="text-ink-strong">TVs and a sound system</strong> for presentations, with free WiFi throughout</li>
                 <li><strong className="text-ink-strong">Flexible timings</strong> - early starts and late finishes available</li>
               </ul>
             </CardBody></Card>
@@ -188,12 +209,77 @@ export default function CorporateEventsPage() {
                 </ul>
                 <ul className="space-y-1">
                   <li>• Recruitment assessment centres</li>
+                  <li>• Office Christmas parties and festive team lunches</li>
                   <li>• Company milestone celebrations</li>
                   <li>• Retirement parties</li>
                   <li>• Long service awards</li>
                 </ul>
               </div>
             </CardBody></Card>
+          </div>
+        </Container>
+      </section>
+
+      {/* Office Christmas Parties */}
+      <section id="christmas" className="py-section-y bg-canvas">
+        <Container>
+          <SectionHeading
+            title="Office Christmas Parties Near Heathrow"
+            lead="A work Christmas do in a village pub, not a hotel function room"
+          />
+          <div className="mx-auto max-w-4xl">
+            <p className="mb-6 text-lg text-ink-muted">
+              Most office Christmas parties near Heathrow end up in a hotel ballroom, sharing the room, the playlist and the bar
+              with two or three other companies. The Anchor works the other way round. Your team gets its own table in a proper
+              village pub around 7 minutes from Terminal 5, traffic dependent, with 20 free parking spaces on site and no ULEZ
+              charge to reach us. It suits a lunchtime team meal, an evening work Christmas do, or a full private hire of the
+              dining room or beer garden.
+            </p>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <Card accent><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">How Christmas bookings work</h3>
+                <ul className="space-y-2 text-ink-muted">
+                  <li><strong className="text-ink-strong">Festive service runs {formatChristmasWindowLabel()}</strong></li>
+                  <li><strong className="text-ink-strong">Minimum {CHRISTMAS_MINIMUM_PARTY_SIZE} guests</strong> on every Christmas booking</li>
+                  <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
+                  <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
+                  <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, so give us a call</li>
+                </ul>
+              </CardBody></Card>
+              <Card accent><CardBody>
+                <h3 className="font-display text-h4 text-ink-strong mb-4">What your team gets</h3>
+                <ul className="space-y-2 text-ink-muted">
+                  <li><strong className="text-ink-strong">A festive set menu</strong> at one, two or three courses</li>
+                  <li><strong className="text-ink-strong">A glass of prosecco</strong> for every adult, swappable for orange juice</li>
+                  <li><strong className="text-ink-strong">Festive buffets</strong> for parties of {SSOT_CHRISTMAS.buffets.min_guests} guests or more</li>
+                  <li><strong className="text-ink-strong">Room for {SSOT_VENUE.capacity.christmas_seated} seated</strong> or {SSOT_VENUE.capacity.christmas_standing} standing at Christmas</li>
+                  <li><strong className="text-ink-strong">The menu is released closer to the time</strong>, with prices shown live on the Christmas page</li>
+                </ul>
+              </CardBody></Card>
+            </div>
+            <p className="mt-8 text-lg text-ink-muted">
+              Dates, courses and the deposit are all set out on our{' '}
+              <Link href="/christmas-parties" className="font-semibold text-accent-text underline">
+                work Christmas party venue near Heathrow
+              </Link>{' '}
+              page. If you are still at the planning stage, the{' '}
+              <Link href="/blog/office-christmas-party-planning-guide" className="font-semibold text-accent-text underline">
+                office Christmas party planning guide
+              </Link>{' '}
+              walks an organiser through setting the date, gathering meal choices and handling dietary requirements.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
+                <Link href="/christmas-parties" className="w-full sm:w-auto">
+                  See Christmas Booking Dates
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" fullWidth className="sm:w-auto">
+                <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
+                  Talk to Us About Your Work Party
+                </Link>
+              </Button>
+            </div>
           </div>
         </Container>
       </section>
@@ -214,7 +300,7 @@ export default function CorporateEventsPage() {
                   <li><strong className="text-ink-strong">Flexible timing</strong> - Half day, full day, or evening sessions</li>
                   <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for 10+ to 150 attendees, with larger events by enquiry</li>
                   <li><strong className="text-ink-strong">Custom catering</strong> - From coffee breaks to formal dinners</li>
-                  <li><strong className="text-ink-strong">Professional support</strong> - AV equipment and dedicated coordinator</li>
+                  <li><strong className="text-ink-strong">Professional support</strong> - TVs, sound system and a dedicated events coordinator</li>
                   <li><strong className="text-ink-strong">Transparent pricing</strong> - Clear quotes with no hidden fees</li>
                 </ul>
               </CardBody></Card>
@@ -277,7 +363,7 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Technology &amp; Equipment</h3>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">High-speed WiFi</strong><p className="text-sm">Reliable connection for video calls and presentations</p></li>
-                  <li><strong className="text-ink-strong">Presentation Equipment</strong><p className="text-sm">TVs, sound system, laptop connections and WiFi</p></li>
+                  <li><strong className="text-ink-strong">Presentation Equipment</strong><p className="text-sm">TVs and a sound system for slides and speeches; we do not have a projector</p></li>
                   <li><strong className="text-ink-strong">Power Access</strong><p className="text-sm">Multiple power points for devices</p></li>
                   <li><strong className="text-ink-strong">Audio System</strong><p className="text-sm">Microphone and speakers for larger groups</p></li>
                 </ul>
@@ -286,9 +372,9 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Comfort &amp; Convenience</h3>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">Heating</strong><p className="text-sm">A warm, comfortable space through the cooler months</p></li>
-                  <li><strong className="text-ink-strong">Natural Light</strong><p className="text-sm">Bright spaces with blackout options available</p></li>
+                  <li><strong className="text-ink-strong">Natural Light</strong><p className="text-sm">The dining room has French doors opening onto the beer garden</p></li>
                   <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step-free bar and dining area; garden ramp on request; no accessible toilet</p></li>
-                  <li><strong className="text-ink-strong">Private Facilities</strong><p className="text-sm">Dedicated restrooms for your event</p></li>
+                  <li><strong className="text-ink-strong">Table Service</strong><p className="text-sm">Food is brought to your tables rather than collected from the bar</p></li>
                 </ul>
               </CardBody></Card>
             </div>
@@ -334,7 +420,7 @@ export default function CorporateEventsPage() {
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Transport Links</h3>
                 <ul className="space-y-2 text-ink-muted text-left">
-                  <li><strong className="text-ink-strong">M25 Junction 14:</strong> 3 mins</li>
+                  <li><strong className="text-ink-strong">M25 Junction 14:</strong> 2 mins</li>
                   <li><strong className="text-ink-strong">Heathrow T5:</strong> 7 mins</li>
                   <li><strong className="text-ink-strong">Staines Station:</strong> 10 mins</li>
                   <li><strong className="text-ink-strong">Local Bus Routes:</strong> Regular service</li>
@@ -348,11 +434,11 @@ export default function CorporateEventsPage() {
               <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
                 <div>
                   <strong className="text-ink-strong">No ULEZ Charges</strong>
-                  <p className="text-sm">Save £12.50 per attendee</p>
+                  <p className="text-sm">Around £12.50 a day saved per attendee against a London venue</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Free Parking</strong>
-                  <p className="text-sm">Save £20-40 per day</p>
+                  <p className="text-sm">20 free spaces on site, with no fees and no time limit</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Flexible Venue Pricing</strong>
@@ -414,7 +500,23 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What technology and equipment do you provide for business meetings?",
-            answer: "We provide high-speed WiFi, TVs, a sound system with microphones, and multiple power points throughout our spaces. We can also discuss additional AV requirements in advance."
+            answer: "We provide free WiFi throughout the pub and beer garden, TVs, a sound system with microphones, and multiple power points throughout our spaces. We do not have a projector, so tell us what you plan to show and we will talk it through before you book."
+          },
+          {
+            question: "Can we hold our office Christmas party at The Anchor?",
+            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
+          },
+          {
+            question: "How many people can you seat for a work Christmas party?",
+            answer: `At Christmas we seat ${SSOT_VENUE.capacity.christmas_seated} guests, or host up to ${SSOT_VENUE.capacity.christmas_standing} standing. You can take the dining room, the beer garden or the whole venue depending on the size of your team, and a festive buffet is available for parties of ${SSOT_CHRISTMAS.buffets.min_guests} guests or more.`
+          },
+          {
+            question: "What is on the Christmas menu for work parties?",
+            answer: "The festive set menu runs at one, two or three courses, and every adult gets a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered so the kitchen can prepare for your group. The dishes are released closer to the time, and prices are always shown live on the Christmas parties page."
+          },
+          {
+            question: "How is a work Christmas do here different from a hotel party night?",
+            answer: "Hotel party nights near Heathrow usually put several companies in one function room with a shared bar and a DJ. We are a village pub around 7 minutes from Terminal 5, so your team gets its own table or its own room, free parking for everyone, and no ULEZ charge to reach us."
           },
           {
             question: "Can you accommodate different types of corporate events?",
@@ -442,6 +544,13 @@ export default function CorporateEventsPage() {
           }
         ]}
         className="bg-canvas"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="christmas"
+        currentPath="/corporate-events"
+        title="Planning a work Christmas party?"
+        intro="Compare the festive set menu, private room hire and what else is on at The Anchor near Heathrow."
       />
 
       {/* CTA Section */}
@@ -474,7 +583,7 @@ export default function CorporateEventsPage() {
           </Button>
         </div>
         <p className="mt-8 text-lg text-anchor-cream-text/85">
-          <strong>Quick Response Guaranteed.</strong> We understand business moves fast. We will respond to your enquiry within 2 hours during business hours.
+          <strong>We know business moves fast.</strong> Call, WhatsApp or email and our events coordinator will come back to you with a tailored quote.
         </p>
       </CtaBand>
     </>

@@ -36,9 +36,9 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
     description: 'Spooky pub nights, costumes and seasonal parties.',
   },
   {
-    label: 'Christmas Parties',
+    label: 'Christmas Parties and Festive Menus',
     href: '/christmas-parties',
-    description: 'Festive lunches, work parties and private Christmas events.',
+    description: 'Festive set menus, work parties and private Christmas bookings.',
   },
   {
     label: "New Year's Eve",
