@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import {
   Modal,
   ModalBody,
@@ -117,8 +118,10 @@ export function TimedBookingPrompt({
             : `${sunday.availabilityLong} We are 7 minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
         </p>
         <p className="mt-3 text-sm text-ink-muted leading-relaxed">
-          Larger group? Parties of ten or more take a £10-per-person deposit
-          on booking, fully deducted from the bill on the day.
+          {/* Reads the shared constant rather than restating the rule. This paragraph
+              spelled the threshold as the word "ten", which is why it survived the
+              search that moved every other mention from 10 to 15. */}
+          Larger group? {LARGE_GROUP_DEPOSIT_POLICY_COPY}
         </p>
       </ModalBody>
       <ModalFooter>

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { hasUserConsented } from '@/lib/cookies'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
+import { QuickBookSheet } from '@/components/features/TableBooking/QuickBookSheet'
 import {
   trackTableBookingClick,
   trackMenuView,
@@ -55,6 +56,7 @@ export function StickyCtas() {
   const [visible, setVisible] = useState(false)
   const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
+  const [quickBookOpen, setQuickBookOpen] = useState(false)
 
   // The bar used to hide itself entirely while the cookie banner was up, because both are
   // pinned to the bottom of the viewport and would have overlapped. The cost of that was
@@ -181,19 +183,20 @@ export function StickyCtas() {
             Christmas enquiry
           </Button>
         ) : (
+          // Opens the quick-book sheet in place rather than navigating. The full form is
+          // still one tap away from inside the sheet, carrying whatever has been chosen,
+          // so nothing is lost for a booking that needs the longer questions.
           <Button
-            asChild
             variant="primary"
             size="md"
             className="flex-1 lg:flex-none"
             tabIndex={showStickyCtas ? undefined : -1}
+            onClick={() => {
+              trackTableBookingClick('sticky_global')
+              setQuickBookOpen(true)
+            }}
           >
-            <Link
-              href="/book-table"
-              onClick={() => trackTableBookingClick('sticky_global')}
-            >
-              Book a table
-            </Link>
+            Book a table
           </Button>
         )}
 
@@ -231,6 +234,12 @@ export function StickyCtas() {
           <MessageCircle className="h-5 w-5" aria-hidden />
         </a>
       </div>
+
+      <QuickBookSheet
+        open={quickBookOpen}
+        onClose={() => setQuickBookOpen(false)}
+        source="sticky_global"
+      />
     </div>
   )
 }
