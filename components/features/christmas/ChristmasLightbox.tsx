@@ -16,9 +16,38 @@ const SUPPRESSION_DAYS = 365
 const CAMPAIGN_START = new Date('2026-08-01T00:00:00').getTime()
 const CAMPAIGN_END = new Date('2026-12-15T23:59:59').getTime()
 
+/**
+ * Routes where the lightbox must never fire.
+ *
+ * /christmas-parties is the obvious one: it advertises the thing you are already reading.
+ *
+ * The booking routes matter more. Interrupting somebody who is part-way through choosing
+ * a time and typing their phone number is the single worst moment to cover the screen: it
+ * costs a booking that was already most of the way to done, in exchange for a click
+ * through to an enquiry form. The lightbox also sets its suppression key the moment it
+ * opens, so a guest interrupted mid-booking has additionally burned the one showing they
+ * were going to get all season.
+ *
+ * Prefix matching, because these journeys have sub-steps and query strings, and an exact
+ * match would let the modal reappear one step into the flow.
+ */
+const SUPPRESSED_ROUTE_PREFIXES = [
+    '/christmas-parties',
+    '/book-table',
+    '/book-event',
+    '/booking-confirmation',
+] as const
+
+export function isLightboxSuppressedRoute(pathname: string | null): boolean {
+    if (!pathname) return false
+    return SUPPRESSED_ROUTE_PREFIXES.some(
+        (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+    )
+}
+
 export function ChristmasLightbox() {
     const pathname = usePathname()
-    const isChristmasPage = pathname === '/christmas-parties'
+    const isSuppressedRoute = isLightboxSuppressedRoute(pathname)
     const [isOpen, setIsOpen] = useState(false)
     const [hasINTERACTED, setHasINTERACTED] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
@@ -29,7 +58,7 @@ export function ChristmasLightbox() {
 
     const checkSuppression = useCallback(() => {
         if (typeof window === 'undefined') return true
-        if (isChristmasPage) return true
+        if (isSuppressedRoute) return true
 
         // Check date range
         const now = Date.now()
@@ -40,7 +69,7 @@ export function ChristmasLightbox() {
 
         // If seen, suppress for the rest of the season
         return true
-    }, [isChristmasPage])
+    }, [isSuppressedRoute])
 
 	    const triggerLightbox = useCallback((trigger?: 'timer' | 'exit_intent') => {
 	        if (checkSuppression() || hasINTERACTED) return

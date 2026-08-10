@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { 
   hasUserConsented, 
@@ -13,11 +13,55 @@ import {
 import { trackCookieConsent } from '@/lib/gtm-events';
 import { Button } from '@/components/ui';
 
+/**
+ * Published so the sticky Book a table bar can sit directly above this banner instead of
+ * hiding until it is dismissed. Both are pinned to the bottom of the viewport, so without
+ * a shared measurement one has to give way, and until now it was the booking button: a
+ * first-time visitor could not see it at all until they answered the cookie prompt.
+ *
+ * A CSS variable rather than React state because the two components have no common
+ * ancestor that re-renders, and the height is genuinely a layout fact rather than
+ * application state. Measured rather than hardcoded because the banner wraps to two lines
+ * on narrow screens and grows again when the preferences panel opens.
+ */
+const BANNER_HEIGHT_VAR = '--cookie-banner-height';
+
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [consent, setConsent] = useState<CookieConsent | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const bannerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const clear = () => root.style.setProperty(BANNER_HEIGHT_VAR, '0px');
+
+    if (!showBanner) {
+      clear();
+      return;
+    }
+
+    const node = bannerRef.current;
+    if (!node) return;
+
+    const publish = () => {
+      root.style.setProperty(BANNER_HEIGHT_VAR, `${node.offsetHeight}px`);
+    };
+    publish();
+
+    // The banner changes height when it wraps or when preferences expand, and the sticky
+    // bar has to move with it rather than overlap it halfway through a transition.
+    const observer = new ResizeObserver(publish);
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      // Always reset on unmount. Leaving a stale height would push the sticky bar up off
+      // the bottom of the screen on every subsequent page with no banner in sight.
+      clear();
+    };
+  }, [showBanner, showPreferences]);
 
   useEffect(() => {
     // Check if user has already consented
@@ -68,7 +112,12 @@ export default function CookieBanner() {
   return (
     <>
       {/* Main Banner - Mobile-optimized with collapsible design */}
-      <div className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[80] animate-slide-up safe-area-inset-bottom">
+      {/* z-[90] keeps the banner above the sticky CTA bar (z-[80]), which now sits directly
+          on top of it rather than waiting for it to be dismissed. */}
+      <div
+        ref={bannerRef}
+        className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"
+      >
         <div className="max-w-7xl mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
           {/* Mobile: Compact single-line design */}
           <div className="sm:hidden">

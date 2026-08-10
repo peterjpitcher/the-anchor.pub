@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { hasUserConsented } from '@/lib/cookies'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
 import {
@@ -13,7 +14,6 @@ import {
   trackStickyCtaShown,
   trackCtaClick
 } from '@/lib/gtm-events'
-import { hasUserConsented } from '@/lib/cookies'
 
 // StickyCtas (spec §5.4): the single global sticky CTA bar that replaces every
 // page-level/floating CTA. Fixed to the bottom, full width, revealed only once the
@@ -55,7 +55,15 @@ export function StickyCtas() {
   const [visible, setVisible] = useState(false)
   const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
-  const showStickyCtas = visible && !cookieBannerVisible
+
+  // The bar used to hide itself entirely while the cookie banner was up, because both are
+  // pinned to the bottom of the viewport and would have overlapped. The cost of that was
+  // silent and large: a first-time visitor, the exact person most in need of an obvious
+  // way to book, could not see the button at all until they answered a cookie prompt.
+  //
+  // The banner is still tracked, but now only to position this bar on top of it rather
+  // than to suppress it. No consent is required to render a link.
+  const showStickyCtas = visible
   const heroHeightRef = useRef<number>(HERO_FALLBACK_HEIGHT)
   const visibleSinceRef = useRef<number | null>(null)
   const deviceTypeRef = useRef<DeviceType>('unknown')
@@ -134,8 +142,18 @@ export function StickyCtas() {
   return (
     <div
       aria-hidden={!showStickyCtas}
-      className="fixed inset-x-0 bottom-0 z-[80] border-t border-line bg-[rgba(255,255,255,0.96)] py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] backdrop-blur transition-transform duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
+      className="fixed inset-x-0 z-[80] border-t border-line bg-[rgba(255,255,255,0.96)] py-3 backdrop-blur transition-[transform,bottom] duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
       style={{
+        // Rides on top of the cookie banner while it is up, then drops back to the bottom
+        // edge once it is dismissed. Defaults to 0px so every page with no banner renders
+        // exactly as before.
+        bottom: cookieBannerVisible ? 'var(--cookie-banner-height, 0px)' : 0,
+        // The safe-area inset belongs to whichever element actually touches the bottom
+        // edge, which is the banner whenever there is one. Keeping it here as well would
+        // open a phantom gap inside the bar on notched phones.
+        paddingBottom: cookieBannerVisible
+          ? '0.75rem'
+          : 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
         transform: showStickyCtas ? 'translateY(0)' : 'translateY(125%)',
         boxShadow: '0 -6px 24px rgba(26,26,26,0.10)'
       }}
