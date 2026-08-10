@@ -156,11 +156,11 @@ The Anchor is a proper pub in Stanwell Moor, about seven minutes from Heathrow T
 Here's what we can do for your office christmas party:
 
 - **Sit-down Christmas dinners** with current pricing confirmed when you enquire
-- **Shared party nights** with DJ, dance floor, and festive menu
-- **Quiz nights and music bingo**, we run these regularly, so the equipment and hosts are already sorted
-- **Karaoke and live entertainment**, full AV setup with space to dance
+- **Festive buffets** for groups of 30 or more
 - **Private and semi-private dining** for groups from 10+ to 150
-- **Buffet options** for more relaxed celebrations
+- **Free parking**, 20 spaces on site, and we sit outside the ULEZ zone
+
+One thing we do not do, and it is worth saying plainly: we stopped running shared Christmas party nights. There is no DJ, no dance floor and no ticketed night where you share a room with other companies. If that is what your team wants, an airport hotel will serve you better than we will. What we offer instead is your own table in a proper village pub.
 
 We're not a faceless function room. We're a village pub that happens to be really, really good at hosting parties. Our christmas party venue spaces book up fast, especially Fridays and Saturdays in December, so if you're reading this and thinking "that could work," it's worth getting in touch sooner rather than later.
 

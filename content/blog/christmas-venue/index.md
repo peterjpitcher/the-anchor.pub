@@ -73,11 +73,10 @@ Our **Christmas party packages** cater to all needs:
 
 **Friends & Groups:**
 - Festive get-togethers
-- Christmas quiz nights
-- Party night packages
-- Drink deals available
-- Late bar options
-- Photo-worthy decorations
+- Your own table, not a shared party night
+- Festive buffets for groups of 30 or more
+- Free parking, 20 spaces on site
+- Dog friendly throughout
 
 ## Our Festive Menu
 
@@ -152,17 +151,9 @@ Book our **private areas** for intimate celebrations:
 
 ### Make Your Party Memorable
 
-Add entertainment to your celebration:
+We run quiz nights, music bingo, cash bingo, karaoke and live music through the year as our own regular events, and you are very welcome to book a table around one of them. See [what is on](/whats-on) for the current dates.
 
-**Available Options:**
-- Christmas quiz master
-- Background music/DJ
-- Karaoke setup
-- Casino tables
-- Photo booth
-- Live acoustic music
-
-We can arrange entertainment to suit your party style and budget.
+What we do not do is sell an entertainment package bolted onto a Christmas booking. There is no DJ, no dance floor and no shared party night. If you want something specific for your group, ask us and we will tell you honestly whether it is possible.
 
 ## Booking Information
 
