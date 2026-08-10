@@ -118,6 +118,16 @@ function getBlogOrganicSearchCluster(slug: string, tags: string[]): OrganicSearc
   if (lowerSlug.includes('plane') || tagSet.has('plane-spotting')) return 'planeSpotting'
   if (lowerSlug.includes('parking') || tagSet.has('parking')) return 'heathrowParking'
   if (lowerSlug.includes('beer-garden')) return 'beerGarden'
+  // Christmas has to be tested before the dining, events and party branches
+  // below, because slugs like work-christmas-party-ideas-near-heathrow contain
+  // "party" and would otherwise be routed to the private hire cluster.
+  if (
+    lowerSlug.includes('christmas') ||
+    lowerSlug.includes('xmas') ||
+    lowerSlug.includes('festive')
+  ) {
+    return 'christmas'
+  }
   if (
     lowerSlug.includes('restaurant') ||
     lowerSlug.includes('where-to-eat') ||
@@ -166,7 +176,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const ogImageAlt = post.ogImageAlt || post.title
 
   return {
-    title: `${post.title} | Blog`,
+    title: post.title,
     description: post.description,
     alternates: {
       canonical: `/blog/${params.slug}`

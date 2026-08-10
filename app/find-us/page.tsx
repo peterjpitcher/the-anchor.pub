@@ -25,8 +25,8 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: { absolute: 'The Anchor Directions | TW19 6AQ, Near Heathrow T5' },
-  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow T5 with free customer parking, taxi and bus details.',
+  title: { absolute: 'Find The Anchor | TW19 6AQ, 7 Mins from Heathrow T5' },
+  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. 7 mins from Heathrow T5, 2 mins from M25 J14, 20 free parking spaces. Buses 441, 442, 555.',
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
