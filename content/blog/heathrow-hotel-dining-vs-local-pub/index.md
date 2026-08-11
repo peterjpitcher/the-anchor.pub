@@ -72,7 +72,7 @@ See exactly what you'll pay on [our live food menu](/food-menu).
 - Genuine atmosphere, local regulars, real conversations possible
 - Far more interesting if you're visiting the UK and want to understand British culture
 - Beer garden (weather permitting)
-- Regular events: quiz nights, music bingo, karaoke
+- Regular events: quiz nights and music bingo, plus one-off nights when they are listed
 - The kind of evening you'll actually remember
 
 **Cons:**
