@@ -24,7 +24,6 @@ ogImage: "IMG_0247.jpeg"
 ogImageAlt: "Guests singing together during karaoke at The Anchor in Stanwell Moor"
 images:
   - "IMG_8603.jpeg"
-  - "IMG_0522.jpeg"
   - "IMG_0036.jpeg"
   - "IMG_0247.jpeg"
   - "IMG_0254.jpeg"
@@ -43,7 +42,6 @@ images:
   - "IMG_3686.jpeg"
 imageAlts:
   - "Guest holding a £10 note during a community bingo night at The Anchor"
-  - "Live acoustic musician performing at The Anchor in Stanwell Moor"
   - "Guests chatting around tables during a busy evening at The Anchor"
   - "Guests singing together during karaoke night at The Anchor"
   - "Bingo winner smiling and holding a cash prize at The Anchor"
@@ -208,7 +206,7 @@ A chance to switch off, catch up, and start the weekend properly.
 
 ### Saturday: bring your people
 
-Lunch with friends, family popping in, enjoying the garden when the weather plays ball, and then live music or karaoke when it’s time to celebrate.
+Lunch with friends, family popping in, enjoying the garden when the weather plays ball, and a proper night out when there’s something in the diary.
 
 ### Sunday: the “everyone together” day
 
@@ -218,7 +216,7 @@ For many people, Sunday roast isn’t just food, it’s a weekly reset. A shared
 
 ## Why we’re saying this now
 
-We can promote quiz nights, bingo, karaoke, live music, Sunday roasts and private parties all day long, and we do.
+We can promote quiz nights, music bingo, cash bingo, Sunday roasts and private parties all day long, and we do.
 
 But the real issue isn’t “does the pub have enough going on?”
 
@@ -241,7 +239,7 @@ Pick one option, whatever fits your life right now:
 
 1) **Come in for one drink** with one person you like  
 2) **Book a table** for a midweek meal or Sunday roast  
-3) **Choose one event** (quiz/bingo/karaoke/live music) and bring a friend or neighbour  
+3) **Choose one event** (quiz night, music bingo or cash bingo) and bring a friend or neighbour  
 
 Small actions. Real impact.
 
@@ -275,7 +273,7 @@ Our week includes food-led days and drink-led days. Kitchen times can vary, so t
 
 ### What events do you run?
 
-We host regular community events including quiz nights, bingo (including cash bingo), karaoke, and live music. We aim to have something happening most weeks.
+We host regular community events including quiz nights, music bingo and cash bingo. We aim to have something happening most weeks.
 
 ### Do I need to book?
 

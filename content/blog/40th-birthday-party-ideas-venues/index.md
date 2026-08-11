@@ -83,8 +83,6 @@ At 40, your tolerance for enforced fun has dropped to approximately zero. Nobody
 
 **Quiz about the guest of honour.** Write 20 questions about yourself. Hand out answer sheets. Run it between the starter and the main. Short answers, nothing too personal, and include a few that even your partner might get wrong. Prize for the winner. Prize for last place. Done in 15 minutes.
 
-**Live music.** The Anchor hosts live music regularly, local bands, acoustic sets, tribute acts, with free entry. For a private event, having a band or acoustic musician sets the atmosphere without requiring anything from your guests except showing up and having a drink.
-
 ### What doesn't work
 
 **Organised dance routines.** You're 40. Your knees have opinions now.

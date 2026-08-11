@@ -150,7 +150,7 @@ export default function AboutPage() {
 
               <p>
                 But for all that, we&apos;re still a village pub at heart. We have our regulars
-                who prop up the bar every week. We run quiz nights, music bingo, karaoke when listed, and live music.
+                who prop up the bar every week. We run quiz nights, music bingo, cash bingo and karaoke when listed.
                 The kids play in the garden while the dogs snooze under the tables. The kitchen
                 turns out honest British food, nothing fussy, just good ingredients
                 cooked well. That&apos;s what we&apos;ve been doing since George II was on the
@@ -263,7 +263,7 @@ export default function AboutPage() {
                       Weekly Events
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Quiz nights, music bingo with Nikki, karaoke when listed, live music, and more.
+                      Quiz nights, music bingo with Nikki, cash bingo and karaoke when listed.
                       There&apos;s always something on.
                     </p>
                     <p className="text-accent-text font-semibold">See what&apos;s on &rarr;</p>

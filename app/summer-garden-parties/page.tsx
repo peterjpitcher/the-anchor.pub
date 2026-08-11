@@ -60,7 +60,7 @@ export default function SummerGardenPartiesPage() {
                             lead="More than just a few sausages on the grill."
                         />
 
-                        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+                        <div className="grid gap-5 sm:grid-cols-2 mb-8">
                             <Card accent hover>
                                 <CardBody>
                                     <h3 className="text-lg font-semibold text-ink-strong mb-2">Chef&apos;s BBQ</h3>
@@ -71,12 +71,6 @@ export default function SummerGardenPartiesPage() {
                                 <CardBody>
                                     <h3 className="text-lg font-semibold text-ink-strong mb-2">Outdoor Service</h3>
                                     <p className="text-ink-muted">For large events, we can set up an outdoor bottle bar so drinks are never far away.</p>
-                                </CardBody>
-                            </Card>
-                            <Card accent hover>
-                                <CardBody>
-                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Live Music</h3>
-                                    <p className="text-ink-muted">Subject to license conditions, acoustic music can be the perfect backdrop to your afternoon.</p>
                                 </CardBody>
                             </Card>
                         </div>

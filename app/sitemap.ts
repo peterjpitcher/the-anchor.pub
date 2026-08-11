@@ -156,7 +156,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/cash-bingo', lastModified: DATES.apr2026 },
     { path: '/music-bingo', lastModified: DATES.apr2026 },
     { path: '/karaoke', lastModified: DATES.apr2026 },
-    { path: '/live-music', lastModified: DATES.launch },
     { path: '/live-sport', lastModified: DATES.apr2026 },
     { path: '/live-sport/six-nations', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/f1', lastModified: DATES.seoOverhaul },

@@ -107,8 +107,16 @@ describe('the consent notice tells the guest both ways out', () => {
   })
 
   it('moved the consent text version, because the wording moved', () => {
-    // The version is the record of what a guest was shown. Leaving it at v1 while the
-    // words change settles a later dispute against wording that guest never saw.
-    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v2')
+    // The version is the record of what a guest was shown. Leaving it at an old value
+    // while the words change settles a later dispute against wording that guest never saw.
+    // Moved to v3 on 2026-08-11, when live music was dropped from every notice because it
+    // is discontinued in full. Bump this pin deliberately whenever the notices change.
+    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v3')
+  })
+
+  it('no longer offers a guest texts about live music', () => {
+    // Live music is discontinued in full, so naming it in a standing consent label was
+    // promising a guest updates about a night that will never happen again.
+    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).not.toMatch(/live music/i)
   })
 })

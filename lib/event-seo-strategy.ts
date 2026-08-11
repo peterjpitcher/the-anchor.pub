@@ -36,10 +36,17 @@ export const CANCELLED_INDEX_DAYS = 7
  * Deliberately 'drag cabaret', not 'drag'. Music Bingo copy refers to its drag
  * host and must stay indexable.
  *
+ * docs/SSOT.md §"Live Music, DISCONTINUED" (owner-confirmed 11 August 2026):
+ * live music has stopped in full, no bands, no acoustic sets, no tribute acts.
+ * Past live music pages are the clearest case this list exists for, because
+ * "live music near Heathrow" is exactly the sort of query they can win and
+ * exactly the visit nobody can now make. Deliberately 'live music' only, not
+ * 'band' or 'acoustic': those words turn up in copy for nights that still run.
+ *
  * Open mic is the other retired format, handled separately by isRetiredEvent()
- * because it has a genuine replacement page and 301s to /live-music. A games
- * night has no equivalent, so the page stays live for anyone with the link and
- * is simply kept out of search (policy case E).
+ * because that route 301s rather than staying live. A games night has no
+ * equivalent, so the page stays live for anyone with the link and is simply
+ * kept out of search (policy case E).
  */
 const DISCONTINUED_FORMATS: ReadonlyArray<{
   token: string
@@ -62,6 +69,16 @@ const DISCONTINUED_FORMATS: ReadonlyArray<{
     replacementLabel: 'See Music Bingo dates',
     // SSOT: "Music Bingo is the only drag night."
     replacementCopy: 'This night is no longer running. Music Bingo is our drag night now.',
+  },
+  {
+    token: 'live music',
+    // No equivalent format replaced it, so this is the one case that genuinely
+    // points at the general listing rather than a like-for-like night.
+    replacement: '/whats-on',
+    replacementLabel: 'See what is on',
+    // SSOT: "Live music is discontinued in full." Says what stopped and stops
+    // there, because nothing took its place.
+    replacementCopy: 'This night is no longer running. We no longer host live music.',
   },
 ]
 
@@ -236,13 +253,17 @@ export function getDiscontinuedFormatReplacement(
 /**
  * Map category slugs to their actual top-level page routes.
  * The site uses top-level category pages, NOT /whats-on/[category].
+ *
+ * No 'live-music' entry. The format is discontinued and /live-music is retired
+ * (docs/SSOT.md §"Live Music, DISCONTINUED"), so anything still filed under
+ * that category falls through to /whats-on rather than being linked into a
+ * redirect to a page that no longer sells the thing it names.
  */
 export const CATEGORY_ROUTES: Record<string, string> = {
   'quiz-night': '/quiz-night',
   'cash-bingo': '/cash-bingo',
   'music-bingo': '/music-bingo',
   'karaoke': '/karaoke',
-  'live-music': '/live-music',
 }
 
 export function getCategoryPageUrl(categorySlug: string | undefined | null): string {

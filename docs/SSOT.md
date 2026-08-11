@@ -66,7 +66,7 @@ Only ever use the API for opening hours in case they have to change. No hardcode
 
 > Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
 >
-> Last orders are 15 minutes before the bar closes and 30 minutes before the kitchen closes. Do not claim late food on live music nights unless the event record or live kitchen hours explicitly confirms it.
+> Last orders are 15 minutes before the bar closes and 30 minutes before the kitchen closes. Do not claim late food on any event night unless the event record or live kitchen hours explicitly confirms it.
 
 ## 4. Sunday Roast, operational claims
 
@@ -385,21 +385,25 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Capacity 90. Host: Nikki Manfadge.
 - Private nights available on request.
 
-### Live Music
+### Live Music, DISCONTINUED
 
-- Local bands, acoustic sets, tribute acts.
-- Always free entry.
-- Start ~8:30pm · End ~11:30pm.
-- 18+ after 9pm.
-- Capacity 150.
-- Use live kitchen hours or the event record. Do not claim kitchen open until midnight by default.
+- **Live music is discontinued in full.** (Owner-confirmed, 11 August 2026.) No live bands, no acoustic sets, no tribute acts, no solo performers. This is not a seasonal pause, the format has stopped.
+- Do not list, promote, schedule or link to live music. Do not target live music keywords. Do not describe The Anchor as a live music venue or a music pub.
+- The `/live-music` route is retired and redirects to `/whats-on`. The `live-music-pubs-near-heathrow` blog post is retired and redirects to `/whats-on`.
+- Previously published details (local bands, acoustic sets, tribute acts, free entry, 8:30pm start, capacity 150) are **superseded and must not be restored**.
 
 ### Karaoke
 
-- Occasional, only promote when listed or confirmed. Do not assume every Friday.
+- Occasional, only promote when listed or confirmed. Do not assume every Friday. (Re-confirmed 11 August 2026: karaoke nights do still run occasionally.)
 - Free entry.
 - Capacity 50.
 - Use event listing for host and song-count details.
+
+### DJ
+
+- **Occasional only.** A DJ is booked in from time to time. (Owner-confirmed, 11 August 2026.)
+- Same rule as karaoke: only promote a DJ when a specific event record lists one. Never imply a resident DJ, a regular DJ night, or a DJ as part of any package.
+- **Never offer a DJ as part of a Christmas booking.** See the Christmas 2026 entertainment rule.
 
 ### Curry Club
 
@@ -418,7 +422,8 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 ### Retired entertainment formats
 
-- **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/live-music`.
+- **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/whats-on`.
+- **Live music is discontinued.** (Owner-confirmed, 11 Aug 2026.) Do not list, promote, schedule or link to live music, live bands, acoustic sets, tribute acts or solo performers. Do not target live music keywords or call The Anchor a live music venue or music pub. `/live-music` and `/blog/live-music-pubs-near-heathrow` are retired and redirect to `/whats-on`. Karaoke and a DJ still happen occasionally, but only promote either when a specific event record lists it.
 - **Drag cabaret is discontinued.** Do not list, promote, or link to drag cabaret nights, and do not target drag cabaret or drag show keywords. **Music Bingo is the only drag night.** (Owner-confirmed, 9 Aug 2026.) The retired `/whats-on/drag-shows` route redirects to `/whats-on`, and past "Drag Cabaret & Karaoke" event pages stay live but out of search. Music Bingo copy may still refer to its drag host.
 
 ## 11. Private Hire

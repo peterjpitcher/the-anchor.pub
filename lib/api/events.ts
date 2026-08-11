@@ -262,22 +262,15 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       default_start_time: '19:30',
       default_capacity: 80,
       event_count: 0
-    },
-    {
-      id: 'live-music',
-      name: 'Live Music',
-      slug: 'live-music',
-      description: 'Acoustic sets, tribute nights, and live bands.',
-      color: '#22c55e',
-      icon: '',
-      is_active: true,
-      default_start_time: '20:00',
-      default_capacity: 100,
-      event_count: 0
     }
+    // No live music category. Live music is discontinued in full
+    // (docs/SSOT.md §"Live Music, DISCONTINUED", owner-confirmed 11 August
+    // 2026). This list is what the site falls back to when the management API
+    // is unreachable, so an entry here would advertise the format on exactly
+    // the days we cannot check whether anything is actually on.
   ],
   meta: {
-    total: 3,
+    total: 2,
     lastUpdated: '2024-01-01T00:00:00.000Z'
   }
 }

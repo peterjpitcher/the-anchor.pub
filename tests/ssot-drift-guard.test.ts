@@ -136,7 +136,9 @@ describe('SSOT drift guard — booking policy', () => {
   it('kitchen hours are live-source only', () => {
     expect(ssot.food.kitchen_hours._source).toBe('LIVE_FROM_MANAGEMENT_API')
     expect(ssot.food.kitchen_hours.policy).toContain('Do not hardcode')
-    expect(ssot.food.kitchen_hours.live_music_nights).toContain(
+    // Renamed from live_music_nights to event_nights on 2026-08-11 when live
+    // music was discontinued. The rule itself still applies to any event night.
+    expect(ssot.food.kitchen_hours.event_nights).toContain(
       'Do not claim late food service',
     )
     expect(mdPlain).toContain('Only ever use the API')

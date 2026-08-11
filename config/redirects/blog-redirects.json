@@ -175,6 +175,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/live-music-pubs-near-heathrow",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/blog/monthly-music-bingo-nights-great-food-prizes-and-f",
     "destination": "/blog/music-bingo-nights",
     "permanent": true
