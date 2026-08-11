@@ -74,7 +74,6 @@ const defaultSections: FooterSection[] = [
       { label: 'Music Bingo', href: '/music-bingo' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
-      { label: 'Live Music', href: '/live-music' },
       { label: 'Live Sport Pub', href: '/live-sport' }
     ]
   },

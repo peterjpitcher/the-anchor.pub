@@ -1,3 +1,4 @@
+import { getEventRemainingCapacity } from '@/lib/api'
 import {
   formatEventLocalTime,
   getEventDateRangeUtc,
@@ -101,16 +102,11 @@ export function normalizeSuggestedEvents(payload: any, targetDate: string): Sugg
         ? (source.offers as Record<string, unknown>)
         : null
 
-    const remainingAttendeeCapacityRaw =
-      typeof source.remainingAttendeeCapacity === 'number'
-        ? source.remainingAttendeeCapacity
-        : typeof source.remainingAttendeeCapacity === 'string'
-        ? Number.parseInt(source.remainingAttendeeCapacity, 10)
-        : typeof source.remaining_attendee_capacity === 'number'
-        ? source.remaining_attendee_capacity
-        : typeof source.remaining_attendee_capacity === 'string'
-        ? Number.parseInt(source.remaining_attendee_capacity, 10)
-        : Number.NaN
+    // Every spelling of the count, not just remainingAttendeeCapacity: the
+    // /api/events response carries it as snake_case total_remaining /
+    // seats_remaining, so reading one name left this panel with no seat count
+    // at all. getEventRemainingCapacity does the validation on each candidate.
+    const seatsRemaining = getEventRemainingCapacity(source)
 
     normalized.push({
       id,
@@ -118,9 +114,7 @@ export function normalizeSuggestedEvents(payload: any, targetDate: string): Sugg
       name,
       startDate,
       shortDescription,
-      seatsRemaining: Number.isFinite(remainingAttendeeCapacityRaw)
-        ? Number(remainingAttendeeCapacityRaw)
-        : null,
+      seatsRemaining,
       priceLabel: formatEventPriceLabel(
         offers?.price,
         typeof offers?.priceCurrency === 'string' ? offers.priceCurrency : 'GBP'

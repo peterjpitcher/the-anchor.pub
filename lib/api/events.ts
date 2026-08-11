@@ -262,22 +262,15 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       default_start_time: '19:30',
       default_capacity: 80,
       event_count: 0
-    },
-    {
-      id: 'live-music',
-      name: 'Live Music',
-      slug: 'live-music',
-      description: 'Acoustic sets, tribute nights, and live bands.',
-      color: '#22c55e',
-      icon: '',
-      is_active: true,
-      default_start_time: '20:00',
-      default_capacity: 100,
-      event_count: 0
     }
+    // No live music category. Live music is discontinued in full
+    // (docs/SSOT.md §"Live Music, DISCONTINUED", owner-confirmed 11 August
+    // 2026). This list is what the site falls back to when the management API
+    // is unreachable, so an entry here would advertise the format on exactly
+    // the days we cannot check whether anything is actually on.
   ],
   meta: {
-    total: 3,
+    total: 2,
     lastUpdated: '2024-01-01T00:00:00.000Z'
   }
 }
@@ -509,8 +502,55 @@ export function getLowestTicketTypePrice(event: EventTicketTypeSource): number |
   return types.reduce((min, type) => (type.price < min ? type.price : min), types[0].price)
 }
 
+/**
+ * Anything that might carry a "places left" number. Values are `unknown`
+ * because these arrive straight off the wire in some call sites (the booking
+ * page's suggested-events panel reads a raw payload), and each candidate is
+ * validated below rather than trusted.
+ */
+export type EventCapacitySource = {
+  total_remaining?: unknown
+  seats_remaining?: unknown
+  remainingAttendeeCapacity?: unknown
+  remaining_attendee_capacity?: unknown
+}
+
+/**
+ * Places still available on an event, whatever the management API called the
+ * field, or null when none of them carry a usable number.
+ *
+ * Three spellings exist. The capacity snapshot behind /events emits snake_case
+ * `total_remaining` and `seats_remaining` (the same number: the snapshot
+ * function assigns seats_remaining := total_remaining in both booking modes),
+ * while `remainingAttendeeCapacity` is the schema.org spelling. Reading only
+ * the schema.org one is how every scarcity readout on the site went quiet when
+ * the list response stopped carrying it, so read all of them and depend on no
+ * single spelling.
+ *
+ * lib/event-booking-experience.ts keeps a booking-mode-aware variant for the
+ * booking flow itself. The two agree, for the seats_remaining := total_remaining
+ * reason above.
+ */
+export function getEventRemainingCapacity(source: EventCapacitySource): number | null {
+  const candidates = [
+    source.total_remaining,
+    source.seats_remaining,
+    source.remainingAttendeeCapacity,
+    source.remaining_attendee_capacity
+  ]
+
+  for (const candidate of candidates) {
+    const parsed = typeof candidate === 'string' ? Number.parseInt(candidate, 10) : candidate
+    if (typeof parsed === 'number' && Number.isFinite(parsed) && parsed >= 0) {
+      return Math.floor(parsed)
+    }
+  }
+
+  return null
+}
+
 export function isEventSoldOut(event: Event): boolean {
-  return event.remainingAttendeeCapacity === 0 ||
+  return getEventRemainingCapacity(event) === 0 ||
     event.offers?.availability === 'https://schema.org/SoldOut'
 }
 
@@ -585,8 +625,9 @@ export function formatEventDuration(duration: string | null | undefined): string
 
 // Helper to check if event has limited availability
 export function hasLimitedAvailability(event: Event): boolean {
+  const remaining = getEventRemainingCapacity(event)
   return event.offers?.availability === 'https://schema.org/LimitedAvailability' ||
-    (event.remainingAttendeeCapacity !== undefined && event.remainingAttendeeCapacity < 10)
+    (remaining !== null && remaining < 10)
 }
 
 // Standalone helpers that use the singleton (imported lazily to avoid circulars)

@@ -1387,29 +1387,17 @@ export class AnchorAPI {
     })
   }
 
+  /**
+   * The Sunday roast menu.
+   *
+   * One path, deliberately. There used to be a browser-only branch calling
+   * `/table-bookings/menu/sunday-lunch`, an endpoint neither this site nor the management
+   * API has ever served: it 404'd, a registered fallback swallowed the 404, and the caller
+   * was handed an empty menu that looked like a real answer. `/menu/sunday-lunch` is the
+   * route the management API actually serves.
+   */
   async getSundayLunchMenu(date?: string): Promise<SundayLunchMenuResponse> {
     const menuDate = this.asTrimmedString(date) || this.getLondonIsoDate()
-    const query = date ? `?date=${encodeURIComponent(date)}` : ''
-
-    if (typeof window !== 'undefined') {
-      try {
-        const payload = await this.request<unknown>(`/table-bookings/menu/sunday-lunch${query}`)
-        const candidate = this.unwrapSuccessData<SundayLunchMenuResponse>(payload) || (payload as SundayLunchMenuResponse)
-        if (candidate && Array.isArray(candidate.mains) && Array.isArray(candidate.sides)) {
-          return {
-            ...candidate,
-            menu_date: candidate.menu_date || menuDate
-          }
-        }
-      } catch (error) {
-        logError('api-sunday-lunch-menu-client', error)
-      }
-
-      return {
-        ...FALLBACK_SUNDAY_LUNCH_MENU,
-        menu_date: menuDate
-      }
-    }
 
     try {
       const payload = await this.request<unknown>('/menu/sunday-lunch', {
@@ -1492,9 +1480,9 @@ export class AnchorAPI {
       return FALLBACK_PARKING_RATES
     }
 
-    if (endpoint === '/table-bookings/menu/sunday-lunch') {
-      return FALLBACK_SUNDAY_LUNCH_MENU
-    }
+    // No entry for the Sunday lunch menu: getSundayLunchMenu owns its own recovery
+    // (real menu, then the Sunday sections of the main menu, then the empty fallback),
+    // and a silent fallback here only ever hid a request that could not have worked.
 
     if (endpoint === '/events' || endpoint === '/events/') {
       return createFallbackEventsResponse()

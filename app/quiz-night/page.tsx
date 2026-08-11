@@ -546,7 +546,7 @@ export default async function QuizNightPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
             <p className="text-ink-muted">
-              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-accent-text font-semibold hover:text-accent-text transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-accent-text font-semibold hover:text-accent-text transition">live music evenings</Link> featuring local bands and acoustic acts.
+              Not a quiz night? No problem. Play along at our monthly <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge, chase the jackpot at <Link href="/cash-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">cash prize bingo</Link>, or grab the mic at a <Link href="/karaoke" className="text-accent-text font-semibold hover:text-accent-text transition">karaoke night</Link> when one is listed.
             </p>
           </div>
         </Container>

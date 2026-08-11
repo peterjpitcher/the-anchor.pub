@@ -252,34 +252,13 @@ export const staticEvents = {
     maximumAttendeeCapacity: 90
   }),
 
-  liveMusic: createRecurringEvent({
-    id: 'live-music-events',
-    slug: 'live-music',
-    name: 'Live Music at The Anchor',
-    description: 'Live bands, acoustic sets and local talent. Free entry and great atmosphere.',
-    longDescription: 'Experience the best live music near Heathrow at The Anchor. From acoustic soloists to full party bands, we host regular live music nights that get the pub jumping. Enjoy great tunes, cold pints, and a proper pub atmosphere. Entry is always free!',
-    shortDescription: 'Live bands & acoustic sets. Free entry.',
-    image: [
-      '/images/events/live-music/the-anchor-live-music-band.jpg'
-    ],
-    price: '0',
-    duration: 'PT3H',
-    category: {
-      id: 'live-music',
-      name: 'Live Music',
-      slug: 'live-music',
-      color: '#22c55e',
-      icon: ''
-    },
-    performer: {
-      name: 'Various Artists',
-      type: 'MusicGroup'
-    },
-    startTime: '20:30',
-    endTime: '23:30',
-    maximumAttendeeCapacity: 150
-  }),
-
+  // No live music entry. Live music is discontinued in full (docs/SSOT.md
+  // §"Live Music, DISCONTINUED", owner-confirmed 11 August 2026). Do not
+  // reinstate it, and do not restore the superseded details it carried
+  // (free entry, 8:30pm start, capacity 150).
+  //
+  // Karaoke below is occasional, not a fixed night. Only surface it where a
+  // specific event record backs it up.
   karaoke: createRecurringEvent({
     id: 'monthly-karaoke',
     slug: 'karaoke',

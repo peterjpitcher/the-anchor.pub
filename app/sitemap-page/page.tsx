@@ -83,8 +83,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Music Bingo', href: '/music-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
-      { label: 'Live Music', href: '/live-music' },
-
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'F1 Racing', href: '/live-sport/f1' },
       { label: 'Boxing Nights', href: '/live-sport/boxing' },

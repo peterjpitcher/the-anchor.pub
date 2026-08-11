@@ -100,7 +100,7 @@ export default function SafetyAndRespectPage() {
             <SectionHeading title="Our events" align="left" />
             <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
-                We run a full events programme, quiz nights, cash bingo, music bingo, live music and listed one-off nights. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
+                We run a full events programme, quiz nights, cash bingo, music bingo and listed one-off nights. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
               </p>
               <p>
                 Check our <Link href="/whats-on" className="text-accent-text font-semibold hover:text-accent transition">what's on page</Link> for upcoming events.
@@ -128,7 +128,7 @@ export default function SafetyAndRespectPage() {
           },
           {
             question: 'Are your events suitable for everyone?',
-            answer: "Our events, quiz nights, music bingo, cash bingo, live music and listed one-off nights, are aimed at adults and designed to be fun for everyone. We check the room, not who's in it."
+            answer: "Our events, quiz nights, music bingo, cash bingo and listed one-off nights, are aimed at adults and designed to be fun for everyone. We check the room, not who's in it."
           },
           {
             question: 'Do you have a harassment policy?',

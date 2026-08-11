@@ -45,7 +45,7 @@ const primaryFacts = [
   ['Family policy', 'Families are welcome for food, Sunday roast, private hire and hosted events.'],
   ['Accessibility', 'Step-free access is available to most areas. There is currently no accessible toilet.'],
   ['Private hire capacity', `${PRIVATE_HIRE_CAPACITY_SUMMARY}. Larger events are by enquiry.`],
-  ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke, live music and sport.'],
+  ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke when listed, and terrestrial live sport.'],
   ['Areas served', 'Stanwell Moor, Staines, Heathrow, Ashford, Colnbrook, Bedfont and nearby Surrey villages.'],
   ['Heathrow distance', `${HEATHROW_TIMES.terminal5} minutes by car from Heathrow Terminal 5, with other terminals usually within ${HEATHROW_TIMES.range}.`],
   ['Google rating', 'Use an approved live source. Do not hardcode rating or review count.'],

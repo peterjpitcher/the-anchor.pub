@@ -281,7 +281,7 @@
   },
   {
     "source": "/blog/tag/live-music",
-    "destination": "/live-music",
+    "destination": "/blog/tag/events",
     "permanent": true
   },
   {

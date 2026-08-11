@@ -67,7 +67,10 @@ const barStaffRole: CareerRole = {
     'Maintaining bar cleanliness and hygiene standards',
     'Stock rotation and cellar tasks',
     'Simple food service from the kitchen',
-    'Occasional event support for quiz nights, live music and karaoke',
+    // Live music removed 2026-08-11, discontinued in full (docs/SSOT.md).
+    // Karaoke stays because it genuinely still runs, and "occasional" is
+    // exactly how the SSOT describes it.
+    'Occasional event support for quiz nights and karaoke',
   ],
   training: [
     'Level 2 Food Hygiene certificate',
@@ -82,7 +85,7 @@ const barStaffRole: CareerRole = {
     '',
     'Hours: 4 to 16 hours per week, part-time and permanent. Shifts are on a rota basis: Fridays 4pm to midnight, Saturdays 12pm to 6pm or 6pm to midnight, Sundays 12pm to 5pm, with occasional weekday cover.',
     '',
-    'Key duties: serving draught beer, wine, spirits and mixed drinks; processing cash and card payments; maintaining bar cleanliness and hygiene standards; stock rotation and cellar tasks; simple food service from the kitchen; occasional event support for quiz nights, live music and karaoke.',
+    'Key duties: serving draught beer, wine, spirits and mixed drinks; processing cash and card payments; maintaining bar cleanliness and hygiene standards; stock rotation and cellar tasks; simple food service from the kitchen; occasional event support for quiz nights and karaoke.',
     '',
     'Requirements: minimum 1 year experience in a pub or bar environment, confident serving customers solo during quieter periods, right to work in the UK, reliable transport to and from TW19 6AQ including for late finishes, available to work weekends on a regular basis.',
     '',

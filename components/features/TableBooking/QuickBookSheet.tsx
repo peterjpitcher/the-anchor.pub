@@ -15,6 +15,7 @@ import {
 import {
   DEFAULT_PARTY_SIZE,
   QUICK_BOOK_MAX_PARTY,
+  buildQuickBookIntentFingerprint,
   buildQuickBookPayload,
   defaultQuickBookState,
   findQuickBookRefusal,
@@ -24,6 +25,7 @@ import {
   selectableSlots,
   type QuickBookState,
 } from '@/lib/table-booking/quick-book'
+import { createClientIdempotencyKey } from '@/lib/table-booking-idempotency'
 import {
   trackTableBookingClick,
   trackFormStart,
@@ -70,6 +72,19 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const dateChoices = useMemo(() => quickDateChoices(), [])
   const phoneRef = useRef<HTMLInputElement | null>(null)
   const startedRef = useRef(false)
+  // The Idempotency-Key currently standing for this submit intent, held with the
+  // fingerprint it was minted for. Same as the full form's cache: a double tap reuses the
+  // key and cannot book twice, while a genuine change mints a fresh one.
+  const submitIntentKeyRef = useRef<{ fingerprint: string; key: string } | null>(null)
+
+  const idempotencyKeyFor = useCallback((fingerprint: string): string => {
+    if (submitIntentKeyRef.current?.fingerprint === fingerprint) {
+      return submitIntentKeyRef.current.key
+    }
+    const key = createClientIdempotencyKey('tbl_quick')
+    submitIntentKeyRef.current = { fingerprint, key }
+    return key
+  }, [])
 
   // A fresh sheet every time it opens. Reopening after a booking and finding the previous
   // guest's phone number still in the box is alarming on a shared family phone.
@@ -84,6 +99,9 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setFieldError(null)
     setReference(null)
     startedRef.current = false
+    // A closed sheet has no submit intent left to retry, so the next one starts on a
+    // fresh key rather than risking a replay of whatever the last guest submitted.
+    submitIntentKeyRef.current = null
   }, [open])
 
   useEffect(() => {
@@ -199,8 +217,11 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
         headers: {
           'Content-Type': 'application/json',
           // Scoped to this attempt's actual content, so a double tap cannot create two
-          // bookings but a genuine retry after a change still can.
-          'Idempotency-Key': `quickbook-${payload.phone}-${payload.date}-${payload.time}-${payload.party_size}`,
+          // bookings but a genuine retry after a change still can. The fingerprint covers
+          // the WHOLE payload, matching the fields the management API hashes, so changing
+          // an answer and resubmitting mints a new key instead of colliding with the old
+          // one and coming back as a raw 409.
+          'Idempotency-Key': idempotencyKeyFor(buildQuickBookIntentFingerprint(payload)),
         },
         body: JSON.stringify(payload),
       })
@@ -217,6 +238,9 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
         )
       }
 
+      // Booked. Defence in depth: drop the key so a hypothetical second submit of the
+      // identical payload mints a new one rather than replaying the booking just made.
+      submitIntentKeyRef.current = null
       setReference(data?.booking_reference || null)
       setPhase('done')
       trackFormComplete({ formName: 'quick_book_sheet', formLocation: source })
@@ -231,7 +255,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     } finally {
       setSubmitting(false)
     }
-  }, [firstName, phone, selectedTime, slots, source, state])
+  }, [firstName, idempotencyKeyFor, phone, selectedTime, slots, source, state])
 
   return (
     <StickyDrawer

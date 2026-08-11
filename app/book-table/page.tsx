@@ -375,7 +375,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <Section background="gray" spacing="md" container containerSize="lg" className="border-b border-line">
         <SectionHeading
           title="Events are a bonus, food booking comes first"
-          subtitle="If you are booking around quiz, bingo or live music, reserve food early and then choose your event."
+          subtitle="If you are booking around a quiz night or bingo, reserve food early and then choose your event."
           align="center"
         />
         <div className="mx-auto max-w-3xl">

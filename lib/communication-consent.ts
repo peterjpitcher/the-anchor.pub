@@ -3,22 +3,35 @@
 // a guest was actually shown, so it has to move whenever the words do, or a later dispute
 // is settled against wording that guest never saw.
 //
+// Bumped to v3 on 2026-08-11, when live music was dropped from every notice below.
+// Live music is discontinued in full (docs/SSOT.md §"Live Music, DISCONTINUED"), so
+// naming it was promising a guest texts about a night that will never happen again.
+// Narrowing what we name does not invalidate a v2 consent, quiz and bingo were already
+// covered by it, so nobody needs re-consenting. The bump exists purely so the stored
+// version still points at the words that guest actually read.
+//
 // Both the client payload and the server sanitiser read this same constant
 // (lib/communication-consent-server.ts pins it with z.literal), so there is exactly one
 // place to change and no way for the two to drift.
-export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v2'
+export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v3'
 
 export const GUEST_SERVICE_CONTACT_NOTICE =
   'We will use your phone and email to manage this booking, including confirmations, reminders, payment links, waitlist updates, and changes.'
 
-// Naming the actual nights ("quiz, bingo and live music") rather than the generic
-// "events and offers" gives the guest something concrete to say yes to. The old
+// Naming the actual nights ("quiz nights, music bingo and cash bingo") rather than the
+// generic "events and offers" gives the guest something concrete to say yes to. The old
 // wording read as a mailing list and was ticked by 1 of 71 guests, which left the
 // venue with almost nobody it was allowed to invite to its own events.
+//
+// Only formats that actually still run may be named here. Live music was removed on
+// 2026-08-11 because it is discontinued in full (docs/SSOT.md §"Live Music,
+// DISCONTINUED"). Karaoke and the occasional DJ are deliberately not named either:
+// both are occasional and only promotable where a specific event record lists them,
+// which a standing consent label cannot guarantee.
 export const GUEST_MARKETING_EMAIL_LABEL =
-  'Email me when quiz nights, bingo and live music are coming up.'
+  'Email me when quiz nights, music bingo and cash bingo are coming up.'
 export const GUEST_MARKETING_SMS_LABEL =
-  'Text me when quiz nights, bingo and live music are coming up.'
+  'Text me when quiz nights, music bingo and cash bingo are coming up.'
 export const GUEST_WHATSAPP_SERVICE_LABEL = 'Send booking updates by WhatsApp.'
 export const GUEST_MARKETING_WHATSAPP_LABEL = 'Send me WhatsApp event and offer updates.'
 
@@ -34,7 +47,7 @@ export const GUEST_MARKETING_WHATSAPP_LABEL = 'Send me WhatsApp event and offer 
 // opt-in under Meta's own platform rules, which soft opt-in does not satisfy, so
 // it is simply not offered at booking time rather than quietly assumed.
 export const GUEST_COMPACT_CONSENT_NOTICE =
-  'We will use your phone and email to manage this booking, and to text you about upcoming quiz nights, bingo and live music. Reply NOEVENTS to any message to stop event texts.'
+  'We will use your phone and email to manage this booking, and to text you about upcoming quiz nights, music bingo and cash bingo. Reply NOEVENTS to any message to stop event texts.'
 
 // The table-booking version of the same notice, which also covers EMAIL.
 //
@@ -53,7 +66,7 @@ export const GUEST_COMPACT_CONSENT_NOTICE =
 // Still deliberately no WhatsApp. Meta's platform rules require explicit opt-in, which
 // soft opt-in does not satisfy, so it is not offered at booking time rather than assumed.
 export const GUEST_TABLE_COMPACT_CONSENT_NOTICE =
-  'We will use your phone and email to manage this booking, and to let you know about upcoming quiz nights, bingo and live music. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
+  'We will use your phone and email to manage this booking, and to let you know about upcoming quiz nights, music bingo and cash bingo. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
 
 export type CommunicationConsentPayload = {
   service_contact_notice_shown: boolean

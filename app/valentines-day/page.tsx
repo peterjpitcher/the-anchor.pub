@@ -25,8 +25,8 @@ const VALENTINES_DAY_BOOKING_URL =
 // by the management API (this page reads live events). Use this manual block
 // only for owner-confirmed extras the API does not carry, and it stays empty by
 // default so the page reads completely with nothing set. Never invent a set
-// menu, prosecco offer, performer or theme, the brief is explicit that those
-// must be API-confirmed.
+// menu, prosecco offer or theme, the brief is explicit that those must be
+// API-confirmed. Live music is discontinued, so never surface a performer here.
 const VALENTINES_DYNAMIC: SeasonalDynamicFields = {}
 
 type ValentinesEventResult = {
@@ -153,7 +153,6 @@ export async function generateMetadata(): Promise<Metadata> {
         timeZone: 'Europe/London'
       })
     : `14 February ${targetYear}`
-  const performerName = event?.performer?.name
   const proseccoOffer = event?.highlights?.find((highlight) => /prosecco/i.test(highlight))
 
   const title = event?.metaTitle
@@ -167,7 +166,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : event
     ? [
         `Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19).`,
-        performerName ? `Live music from ${performerName}.` : 'Good food, proper drinks and a warm welcome.',
+        'Good food, proper drinks and a warm welcome.',
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
@@ -210,7 +209,6 @@ export default async function ValentinesDayPage() {
   const eventDate = event ? formatEventDate(event.startDate) : `14 February ${targetYear}`
   const eventTime = event ? formatEventTime(event.startDate) : 'Evening'
   const eventPageUrl = event ? `/events/${event.slug || event.id}` : '/whats-on'
-  const performerName = event?.performer?.name
   const proseccoOffer = event?.highlights?.find((highlight) => /prosecco/i.test(highlight)) || null
 
   const aboutText = event?.about ? normaliseWhitespace(event.about) : ''
@@ -219,9 +217,6 @@ export default async function ValentinesDayPage() {
     : null
   const lateMenuRange = aboutText
     ? extractTimeRange(aboutText, /late menu[\s\S]*?available from\s+(\d{1,2}:\d{2}\s*(?:AM|PM))\s+to\s+(\d{1,2}:\d{2}\s*(?:AM|PM))/i)
-    : null
-  const musicRange = aboutText
-    ? extractTimeRange(aboutText, /music kicks off at\s+(\d{1,2}:\d{2}\s*(?:AM|PM))[\s\S]*?runs until\s+(\d{1,2}:\d{2}\s*(?:AM|PM))/i)
     : null
   const partyUntilMidnight = aboutText ? /until midnight/i.test(aboutText) : false
 
@@ -264,9 +259,9 @@ export default async function ValentinesDayPage() {
             : 'Our full menu is served earlier in the evening. Book your table to dine.'
         },
         {
-          question: 'What time does the live music start?',
-          answer: musicRange
-            ? `Live music runs ${formatTimeRange(musicRange)}${partyUntilMidnight ? ', followed by party tunes until midnight.' : '.'}`
+          question: 'What time does the night run until?',
+          answer: partyUntilMidnight
+            ? `The event is listed for ${eventTime}, with party tunes until midnight.`
             : `The event is listed for ${eventTime}. Check the event details for the latest running order.`
         },
         {
@@ -306,7 +301,7 @@ export default async function ValentinesDayPage() {
         crumb="Valentine's & Galentine's"
         kicker={eventDate}
         title="Valentine's and Galentine's at The Anchor"
-        lead={`${event?.description || "Good food, proper drinks and a relaxed night out with the people you love spending time with. Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19)."} ${performerName ? `Live music from ${performerName}. ` : ''}Free parking • Seven minutes from Heathrow Terminal 5`}
+        lead={`${event?.description || "Good food, proper drinks and a relaxed night out with the people you love spending time with. Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19)."} Free parking • Seven minutes from Heathrow Terminal 5`}
       />
 
       <section className="py-section-y bg-surface">
@@ -407,11 +402,6 @@ export default async function ValentinesDayPage() {
                       <Badge variant="success">
                         {isFreeEntry ? 'Free entry' : 'Booking recommended'}
                       </Badge>
-                      {performerName ? (
-                        <Badge variant="green">
-                          {`Live music: ${performerName}`}
-                        </Badge>
-                      ) : null}
                       <Badge variant="green">
                         Dinner bookings recommended
                       </Badge>
@@ -443,7 +433,7 @@ export default async function ValentinesDayPage() {
                       </Link>
                     </div>
 
-                    {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
+                    {(dinnerRange || lateMenuRange || partyUntilMidnight) && (
                       <div className="mt-6 rounded-md bg-surface-sunk p-5 border border-line">
                         <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">
                           Timings at a glance
@@ -453,12 +443,6 @@ export default async function ValentinesDayPage() {
                             <div className="flex items-start justify-between gap-6">
                               <dt className="font-semibold text-ink-strong">Full menu</dt>
                               <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
-                            </div>
-                          )}
-                          {musicRange && (
-                            <div className="flex items-start justify-between gap-6">
-                              <dt className="font-semibold text-ink-strong">Live music</dt>
-                              <dd className="text-right">{formatTimeRange(musicRange)}</dd>
                             </div>
                           )}
                           {lateMenuRange && (

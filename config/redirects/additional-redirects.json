@@ -106,23 +106,28 @@
     "permanent": true
   },
   {
+    "source": "/live-music",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/open-mic",
-    "destination": "/live-music",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/events/open-mic-night-live-at-the-anchor",
-    "destination": "/live-music",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/events/open-mic-night-live-at-the-anchor-2026-04-25",
-    "destination": "/live-music",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/events/live-at-the-anchor-open-mic-night-2026-04-25",
-    "destination": "/live-music",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -157,7 +162,7 @@
   },
   {
     "source": "/blog/tag/LiveMusic",
-    "destination": "/live-music",
+    "destination": "/blog/tag/events",
     "permanent": true
   },
   {
