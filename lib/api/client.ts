@@ -1158,20 +1158,30 @@ export class AnchorAPI {
     } as RequestInit & { next: { revalidate: number } })
   }
 
-  // Load read-out with a bounded wait: 3 seconds per attempt, one retry, then
-  // null. A null result means availability is UNKNOWN, never "assume free".
-  // Callers must not present locally guessed slots as bookable on the back of
-  // a null here; the availability route answers `calculation_state: 'unknown'`
-  // instead (review F04).
+  // Load read-out with a bounded wait, then null. A null result means
+  // availability is UNKNOWN, never "assume free". Callers must not present
+  // locally guessed slots as bookable on the back of a null here; the
+  // availability route answers `calculation_state: 'unknown'` instead
+  // (review F04).
+  //
+  // The retry deliberately waits longer and backs off first. Both attempts used
+  // to be 3 seconds fired back to back, which covered a slow response but NOT a
+  // cold start: when the management API redeploys, its first request pays the
+  // serverless boot plus several database round trips, comfortably past 3
+  // seconds, and the retry landed inside the same cold window. Every guest on
+  // the booking page during a deploy was told we could not check availability,
+  // on an API that was working. Warm, this call measures around 1.2 seconds, so
+  // the first attempt still fails fast when something is genuinely wrong.
   async getTableBookingLoadSafe(
     date: string,
     availability?: TableAvailabilityQuery,
     timeoutMs = 3000
   ): Promise<TableBookingLoadResponse | null> {
-    const maxAttempts = 2
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const attemptTimeouts = [timeoutMs, Math.max(timeoutMs, 6000)]
+
+    for (let attempt = 1; attempt <= attemptTimeouts.length; attempt++) {
       const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), timeoutMs)
+      const timeout = setTimeout(() => controller.abort(), attemptTimeouts[attempt - 1])
 
       try {
         return await this.getTableBookingLoad(date, { signal: controller.signal }, availability)
@@ -1179,10 +1189,17 @@ export class AnchorAPI {
         console.warn('[table-bookings] Booking load attempt failed', {
           date,
           attempt,
+          timeoutMs: attemptTimeouts[attempt - 1],
           error: error instanceof Error ? error.message : String((error as any)?.message || error),
         })
       } finally {
         clearTimeout(timeout)
+      }
+
+      // Give a cold instance a moment to finish booting before asking again.
+      // Retrying immediately just burns the second attempt on the same boot.
+      if (attempt < attemptTimeouts.length) {
+        await new Promise((resolve) => setTimeout(resolve, 500))
       }
     }
 
