@@ -1,8 +1,35 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
+import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventWebsitePath } from '@/lib/event-url'
 import type { Event } from '@/lib/api'
+
+/**
+ * Stands in for the poster on events that have no artwork of their own.
+ *
+ * The tile grid stretches every card to the tallest, so simply omitting the
+ * image left a short body floating in a card sized by its neighbour's poster.
+ * This fills the same square with the date instead, which keeps the row even
+ * without reintroducing a stock photo.
+ */
+function EventDatePanel({ startDate }: { startDate: string }) {
+  const weekday = formatEventLocalDate(startDate, { weekday: 'long' })
+  const day = formatEventLocalDate(startDate, { day: 'numeric' })
+  const month = formatEventLocalDate(startDate, { month: 'long' })
+
+  return (
+    <div className="flex aspect-square w-full flex-col items-center justify-center gap-1 border-b border-line bg-surface-sunk px-4 text-center">
+      <span className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-accent-text">
+        {weekday}
+      </span>
+      <span className="font-display text-h2 leading-none text-ink-strong">{day}</span>
+      <span className="font-sans text-sm font-medium uppercase tracking-[0.14em] text-ink-muted">
+        {month}
+      </span>
+    </div>
+  )
+}
 
 interface RelatedEventsProps {
   currentEventId: string
@@ -65,11 +92,11 @@ export default async function RelatedEvents({
                 href={href}
                 className="group block overflow-hidden rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
               >
-                {/* Thumbnail with category badge overlay. Artwork-less events
-                    drop the whole block rather than show a stock photo, so the
-                    badge moves inline into the body below. */}
-                {imageSrc && (
-                  <div className="relative aspect-square w-full overflow-hidden">
+                {/* Poster, or the date panel when the event has no artwork.
+                    Either way the square is filled, so cards in the same row
+                    stay the same height. The category badge overlays both. */}
+                <div className="relative aspect-square w-full overflow-hidden">
+                  {imageSrc ? (
                     <Image
                       src={imageSrc}
                       alt={altText}
@@ -77,25 +104,12 @@ export default async function RelatedEvents({
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    {event.category && (
-                      <span
-                        className="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold rounded-full"
-                        style={{
-                          backgroundColor: `${event.category.color}cc`,
-                          color: '#ffffff',
-                        }}
-                      >
-                        {event.category.name}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                {/* Card body */}
-                <div className="p-4">
-                  {!imageSrc && event.category && (
+                  ) : (
+                    <EventDatePanel startDate={event.startDate} />
+                  )}
+                  {event.category && (
                     <span
-                      className="mb-2 inline-block px-2 py-0.5 text-xs font-semibold rounded-full"
+                      className="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold rounded-full"
                       style={{
                         backgroundColor: `${event.category.color}cc`,
                         color: '#ffffff',
@@ -104,6 +118,10 @@ export default async function RelatedEvents({
                       {event.category.name}
                     </span>
                   )}
+                </div>
+
+                {/* Card body */}
+                <div className="p-4">
                   <p className="text-accent-text text-sm font-medium mb-1">
                     {formatEventDate(event.startDate)} · {formatEventTime(event.startDate)}
                   </p>
