@@ -27,7 +27,7 @@ We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits direct
 
 Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close runway 27L arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for easterly arrivals and King George VI Reservoir for wider landscape views.
 
-If you want comfort, toilets, food and parking, start with [The Anchor beer garden](/beer-garden). If you want the pure photographer's spot, start with Myrtle Avenue and plan your facilities separately.
+If you want comfort, toilets, food and parking, start with [The Anchor beer garden](/beer-garden), and [book a garden table](/book-table) if you are coming at a weekend. Parking is free and there are 64 seats outside, but the good ones go early on a sunny day. If you want the pure photographer's spot, start with Myrtle Avenue and plan your facilities separately.
 
 ## Quick Comparison: All 7 Locations at a Glance
 
@@ -52,10 +52,10 @@ The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath t
 What makes this different from every other location on this list: you are sitting at a pub table with a pint of Moretti and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
 
 **Facilities:**
-- Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-roast) (walk in or book ahead, from £16)
+- Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-roast), served Sundays 1pm to 6pm with walk-ins welcome
 - Draught lagers, bottled ales, wines, spirits, and soft drinks
 - Free WiFi for Flightradar24 tracking
-- Heated covered areas for year-round spotting
+- Heated areas for spotting in the cooler months
 - Indoor seating when the weather turns
 - Toilets, power sockets for charging
 - Dog-friendly with water bowls provided
@@ -66,7 +66,7 @@ What makes this different from every other location on this list: you are sittin
 
 **Photography notes:** Morning light is excellent here, as the sun illuminates the underside of aircraft approaching from the east. A 200--400mm lens fills the frame comfortably. Even a decent smartphone camera will get you recognisable shots -- the planes really are that close.
 
-**Best times:** The morning rush from 06:00 to 09:00 brings long-haul arrivals from Asia and the Middle East. The afternoon wave from 16:00 to 20:00 delivers transatlantic traffic. The pub kitchen is open Tuesday to Saturday for lunch and dinner (closed Mondays), and Sundays from 13:00 for roast dinners.
+**Best times:** The morning rush from 06:00 to 09:00 brings long-haul arrivals from Asia and the Middle East. The afternoon wave from 16:00 to 20:00 delivers transatlantic traffic. Our current bar and kitchen hours are live on the site, so check before you set off. If you are planning a full session around one of those peaks, [book a garden table](/book-table) and you will not lose the view to a busy afternoon.
 
 **Our honest take:** Factor in the bias -- this is our pub. But the combination of views, food, drink, shelter, and free parking is unmatched at any other Heathrow spotting location.
 
@@ -213,7 +213,7 @@ The morning rush between 06:00 and 09:00 is exceptional, with a wall of long-hau
 
 ### Can I go plane spotting at Heathrow with children?
 
-Absolutely. The Anchor beer garden is particularly well suited for families -- there is food, drink, toilets, and a safe enclosed space, plus the planes are frequent enough to keep children entertained. Myrtle Avenue and roadside spots are less practical with small children due to the lack of facilities and proximity to traffic.
+Absolutely. The Anchor beer garden is particularly well suited for families -- there is food, drink, toilets, and a safe enclosed space, plus the planes are frequent enough to keep children entertained. High chairs are available and children are welcome at all hours. Booking is not required, but a garden table is worth reserving on a sunny weekend, so [book one here](/book-table) or call 01753 682707. Myrtle Avenue and roadside spots are less practical with small children due to the lack of facilities and proximity to traffic.
 
 ### What planes can I see at Heathrow?
 
@@ -227,4 +227,4 @@ The full range of commercial aircraft: Airbus A380 (Emirates, BA, Qantas), Boein
 
 **The Anchor** is open seven days a week in Stanwell Moor, seven minutes from Heathrow Terminal 5. Free parking, dog-friendly, full food and drinks menu. Whether you are a seasoned spotter or watching your first A380, you are welcome.
 
-[Book a table](/book-table) | [Get directions](https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ) | Call us: [01753 682707](tel:+441753682707)
+[Book a table](/book-table) | [Get directions](/find-us) | Call us on **01753 682707**

@@ -66,11 +66,11 @@ Full disclosure: this is us. We're writing this guide, so take what follows with
 
 The Anchor sits in Stanwell Moor, about seven minutes from Terminal 5 by car. It's a proper village pub with a full kitchen, a beer garden that happens to sit under the Heathrow flight path (which, depending on your outlook, is either a nuisance or brilliant plane-spotting territory), and free parking.
 
-**What it costs:** Check the live menu for current prices. Sunday roast is walk-in friendly, with booking recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
+**What it costs:** Check the [live food menu](/food-menu) for current prices. Sunday roast is walk-in friendly, served 1pm to 6pm, with booking recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
 
 **What you get that you won't find at the airport:** A log fire in winter. A beer garden in summer. Dogs welcome. Bottled beers alongside draught lagers and ciders. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
 
-**Practical details:** Free car park, current bar and kitchen hours live on our website, about seven minutes from Terminal 5 via the A3044. We're at 01753 682707 or manager@the-anchor.pub if you want to check availability.
+**Practical details:** Free car park (20 spaces), current bar and kitchen hours live on our website, about seven minutes from Terminal 5 via the A3044. [Directions are here](/find-us), you can [book a table](/book-table) in about a minute, or call 01753 682707 if you would rather check availability first. Email manager@the-anchor.pub for anything larger.
 
 ### The Three Magpies, Bath Road
 
@@ -100,10 +100,12 @@ That said, if you're already through security with an hour to kill, Plane Food o
 
 The right choice depends on your situation. We just think more people should know that the local option exists.
 
+If the local option is the one you fancy, [book a table at The Anchor](/book-table) or call 01753 682707. Bring your luggage, bring the dog, and park for free while you eat.
+
 ## Practical Tips for Heathrow Diners
 
 - **Factor in travel time.** If you're heading to a local pub, allow 20 minutes each way plus an hour for the meal itself. Budget 90 minutes minimum from leaving the terminal to getting back.
-- **Best times to eat locally.** Weekday lunchtimes are quietest at most pubs. Friday and Saturday evenings get busy, book ahead. Sunday roast at The Anchor is walk-in friendly, with booking recommended for peak slots.
+- **Best times to eat locally.** Weekday lunchtimes are quietest at most pubs. Friday and Saturday evenings get busy, so [book ahead](/book-table). Sunday roast at The Anchor is walk-in friendly, served 1pm to 6pm, with booking recommended for peak slots.
 - **Between flights?** If you're transiting through Heathrow with a long layover, it's perfectly feasible to leave the airport, eat locally, and return. You'll clear security again, so keep that in mind.
 - **Check kitchen hours.** Most local pubs stop serving food by 9pm on weeknights. Some, including The Anchor, don't serve food on Mondays. Ring ahead if you're arriving late.
 - **Luggage.** If you're arriving with bags, most local pubs will happily let you stash them by your table. It's not a formal luggage storage service, but nobody minds.
@@ -132,4 +134,8 @@ The Anchor welcomes dogs in the bar area and beer garden. Several other local pu
 
 ### Do I need to book a table at local pubs near Heathrow?
 
-For weekday lunches, you can usually walk in. For weekend evenings and Sunday roast peak slots, booking ahead is strongly recommended. You can book a table at The Anchor through our website or by calling 01753 682707.
+For weekday lunches, you can usually walk in. For weekend evenings and Sunday roast peak slots, booking ahead is strongly recommended. You can [book a table at The Anchor](/book-table) in about a minute, or call 01753 682707.
+
+---
+
+*The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Free parking, dog friendly, seven minutes from Terminal 5. [Book a table](/book-table) | [Food menu](/food-menu) | [How to find us](/find-us) | 01753 682707*

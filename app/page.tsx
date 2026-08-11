@@ -24,14 +24,28 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalHomepageImage, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
+import {
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  formatChristmasWindowLabel,
+  getChristmasSeasonStatus
+} from '@/lib/christmas-season'
 
 // Revalidate every hour so live status, hours and events stay fresh.
 export const revalidate = 60 * 60
 
+// How early the Christmas link appears, in days before the service window opens.
+// Party organisers start looking in late summer, so the link needs to be live
+// through the run-up, but it must disappear once the season is over rather than
+// sitting on the homepage all spring.
+const CHRISTMAS_LINK_LEAD_DAYS = 120
+
 export const metadata: Metadata = {
-  title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
+  // Absolute on purpose. This title already leads with the brand, so letting the
+  // root layout append " | The Anchor" would render the name twice and push the
+  // whole thing to 68 characters. Absolute keeps it at 54 and reads cleanly.
+  title: { absolute: 'The Anchor Pub, Stanwell Moor | 7 Mins from Heathrow T5' },
   description:
-    'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Book a table for pub classics, pizzas, Sunday roasts and free customer parking.',
+    'The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Pub food, Sunday roast, beer garden and free parking, 7 mins from Heathrow T5. Book a table.',
   alternates: {
     canonical: '/'
   },
@@ -53,7 +67,7 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
+    title: 'The Anchor Pub, Stanwell Moor | 7 Mins from Heathrow T5',
     description:
       'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us.',
     images: [DEFAULT_OG_IMAGE]
@@ -179,6 +193,10 @@ export default async function HomePage() {
   // returns null on failure, which WeekHours handles.
   const businessHours = await getBusinessHoursSnapshot()
 
+  const christmas = getChristmasSeasonStatus()
+  const showChristmasLink =
+    christmas.isBookable && christmas.daysUntilWindowStart <= CHRISTMAS_LINK_LEAD_DAYS
+
   return (
     <>
       <DeferredHomepageTrackers />
@@ -246,6 +264,18 @@ export default async function HomePage() {
               </Button>
             </Link>
           </div>
+          {showChristmasLink && (
+            <p className="mx-auto mt-6 max-w-[720px] text-center text-ink-muted">
+              Looking further ahead? Festive service runs {formatChristmasWindowLabel()}, and our{' '}
+              <Link
+                href="/christmas-parties"
+                className="font-semibold text-accent-text hover:underline"
+              >
+                Christmas party venue near Heathrow
+              </Link>{' '}
+              takes group bookings from {CHRISTMAS_MINIMUM_PARTY_SIZE} guests up.
+            </p>
+          )}
         </div>
       </section>
 

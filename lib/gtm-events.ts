@@ -953,12 +953,19 @@ export function trackCookieConsent(data: {
   marketing: boolean
   preferences: boolean
 }) {
+  // sendToApi is deliberately false. This event fires with requireConsent:false
+  // so GTM can react to the consent decision, but forwarding it server-side to
+  // Google meant a visitor who clicked "Reject all" still had their page path,
+  // page title, referrer, device type and user agent sent to Google Analytics.
+  // It was also the single largest source of phantom GA4 users: a rejecting
+  // visitor never gets a _ga cookie, so every rejection minted a brand-new
+  // identity with no session. Keep the dataLayer push, drop the server hit.
   pushToDataLayer({
     event: 'cookie_consent_update',
     consent_analytics: data.analytics,
     consent_marketing: data.marketing,
     consent_preferences: data.preferences
-  }, { requireConsent: false, sendToApi: true })
+  }, { requireConsent: false, sendToApi: false })
 }
 
 export type ModalCloseReason =

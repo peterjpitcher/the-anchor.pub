@@ -459,7 +459,11 @@ describe('orphan-page internal linking guards', () => {
     const christmasPage = fs.readFileSync(path.join(process.cwd(), 'app', 'christmas-parties', 'page.tsx'), 'utf8')
 
     expect(fishPage).toContain('/blog/fish-chips-guide')
-    expect(christmasPage).toContain('/blog/office-christmas-party-planning-guide')
+    // `/blog/office-christmas-party-planning-guide` was consolidated into the
+    // newer organiser checklist (Aug 2026) and is now a 301 source, so the
+    // guard follows the link to the post that replaced it. The intent is
+    // unchanged: keep the commercial Christmas post linked from its hub.
+    expect(christmasPage).toContain('/blog/christmas-party-planning-checklist-for-organisers')
   })
 })
 

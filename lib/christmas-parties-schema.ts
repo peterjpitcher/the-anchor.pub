@@ -18,6 +18,9 @@ type SsotData = {
     buffets: {
       min_guests: number
     }
+    booking_rules?: {
+      pre_order_deadline_days?: number
+    }
   }
 }
 
@@ -30,6 +33,20 @@ const HERO_IMAGE =
 const { venue, christmas_2026: christmas } = ssot as unknown as SsotData
 
 const BUFFET_MINIMUM_GUESTS = christmas.buffets.min_guests
+
+/**
+ * Owner-confirmed 11 August 2026: pre-orders for the 2 and 3 course tiers are
+ * due seven days before the booking date. Read from SSOT.json so the number
+ * cannot drift, with the owner-confirmed value as the fallback.
+ */
+const PRE_ORDER_DEADLINE_DAYS = christmas.booking_rules?.pre_order_deadline_days ?? 7
+
+/**
+ * Owner-confirmed 11 August 2026. Organisers choose a date before anything
+ * else, so the days are stated rather than left to be inferred from the window.
+ */
+const DAYS_AVAILABLE =
+  'Sittings run Tuesday to Saturday, plus Sunday sittings from 1pm to 6pm. Mondays are not available, the kitchen is closed.'
 
 /**
  * The window and the booking rules come from the season helper, which parses
@@ -62,9 +79,9 @@ export const christmasPartiesSchema = {
       '@type': 'WebPage',
       '@id': `${PAGE_URL}#webpage`,
       url: PAGE_URL,
-      name: 'Christmas parties and Christmas dinner near Heathrow',
+      name: 'Christmas parties and Christmas dinner near Staines and Heathrow',
       description:
-        `Christmas dinner and Christmas parties at The Anchor in Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. Minimum ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least 24 hours notice, and a deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person on every Christmas booking.`,
+        `Christmas dinner and Christmas parties at The Anchor in Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. ${DAYS_AVAILABLE} Minimum ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least 24 hours notice, and a deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person on every Christmas booking.`,
       inLanguage: 'en-GB',
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': BUSINESS_ID },
@@ -80,12 +97,20 @@ export const christmasPartiesSchema = {
       name: 'Christmas dinner and Christmas parties at The Anchor',
       serviceType: 'Christmas dinner and Christmas party venue hire',
       description:
-        `Christmas dinner and Christmas parties at The Anchor, Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. Menu prices are served live from the management system and confirmed on enquiry.`,
+        `Christmas dinner and Christmas parties at The Anchor, a village pub in Stanwell Moor near Heathrow Airport, ${WINDOW_LABEL}. ${DAYS_AVAILABLE} Every Christmas booking is a private group booking rather than a mixed sitting seated with other companies, with free on-site parking. Menu prices are served live from the management system and confirmed on enquiry.`,
       provider: { '@id': BUSINESS_ID },
+      // The full SSOT areas-served list (§13), primary then secondary, so the
+      // markup matches the towns the page actually serves rather than a subset.
       areaServed: [
+        { '@type': 'City', name: 'Stanwell Moor' },
+        { '@type': 'City', name: 'Stanwell' },
         { '@type': 'City', name: 'Staines-upon-Thames' },
         { '@type': 'City', name: 'Ashford' },
+        { '@type': 'City', name: 'Feltham' },
+        { '@type': 'City', name: 'Sunbury' },
+        { '@type': 'City', name: 'Egham' },
         { '@type': 'City', name: 'Windsor' },
+        { '@type': 'City', name: 'Colnbrook' },
         { '@type': 'Place', name: 'Heathrow Airport' }
       ],
       audience: [
@@ -110,7 +135,7 @@ export const christmasPartiesSchema = {
         ),
         enquiryService(
           'Sit-down Christmas lunch or dinner',
-          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us in advance and we confirm the deadline with the booking. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
+          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm, and never on a Monday. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us ${PRE_ORDER_DEADLINE_DAYS} days before the booking date. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
         ),
         enquiryService(
           'Festive buffet',
@@ -149,6 +174,7 @@ export function buildChristmasMenuJsonLd(
     '@type': 'Menu',
     name: 'The Anchor Christmas Menu',
     description: `Christmas menu at The Anchor, Stanwell Moor, ${WINDOW_LABEL}.`,
+    inLanguage: 'en-GB',
     url: PAGE_URL,
     isPartOf: { '@id': BUSINESS_ID },
     hasMenuSection: publishable.map((section) => ({

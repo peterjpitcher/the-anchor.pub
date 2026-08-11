@@ -22,6 +22,8 @@ A 4-8 hour layover at Heathrow is too long to sit in Costa but too short for cen
 
 Whether you're connecting between long-haul flights or waiting for a delayed departure, stepping outside the terminal can turn dead time into one of the better parts of your trip. Here's how to make the most of it.
 
+**Short on time?** The Anchor is seven minutes from Terminal 5, with free parking, luggage storage and a beer garden under the flight path, so the whole round trip fits inside two hours. [Book a table](/book-table) before you leave the terminal, or call 01753 682707.
+
 ## Before You Leave the Terminal
 
 A few bits of planning will save you stress on the return.
@@ -64,6 +66,8 @@ Bring a flight tracking app like Flightradar24 and you can identify every aircra
 
 This is the lowest-effort option on the list, a taxi there, a pint or two in [the beer garden](/beer-garden), and a taxi back. Total time: under two hours including travel. Perfect if you're too tired for sightseeing but too restless to sit in the terminal.
 
+One thing worth checking: arrivals come overhead roughly every 90 seconds at peak times, but the pattern alternates weekly, so one week planes land overhead until 3pm and the next week from 3pm onwards. [Book a garden table](/book-table) and your seat is held whichever week you land in.
+
 ## Option 4: Staines-upon-Thames Riverside Walk (2-3 Hours)
 
 Staines-upon-Thames is a pleasant market town about 15 minutes from Heathrow by taxi or bus. It won't make any "must-see" travel lists, but that's part of the appeal, it's a normal English town with a genuinely lovely riverside.
@@ -103,7 +107,7 @@ Allow 20-30 minutes to get back to the airport from anywhere in the local area. 
 
 A practical tip: pre-book your return Uber whilst you're still on your way out. Check the app, note the typical wait times for the area, and set a reminder on your phone for when you need to order the car back. Scrambling for transport when you're already running late is the one thing that turns a brilliant layover into a stressful one.
 
-If you're at The Anchor or anywhere in Stanwell Moor, the taxi back to Terminal 5 is seven minutes in normal traffic. Even Terminals 2 and 3 are only 12-15 minutes away.
+If you're at [The Anchor](/near-heathrow/terminal-5) or anywhere in Stanwell Moor, the taxi back to Terminal 5 is seven minutes in normal traffic. Even Terminals 2 and 3 are only 12-15 minutes away. [Directions and parking details are here](/find-us) if you are driving yourself.
 
 ## Frequently Asked Questions
 
@@ -126,3 +130,7 @@ Yes. Heathrow Left Luggage operates in all terminals. Prices start around £10 p
 ### How far is Windsor from Heathrow?
 
 About 10 miles, or 20 minutes by taxi. You can also take the train from Heathrow Terminal 5 to Windsor & Eton Central via Slough, it takes around 30 minutes and costs a few pounds. Windsor is comfortably the best "proper tourist attraction" you can reach from Heathrow in a short layover.
+
+---
+
+*The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes from Terminal 5, free parking, dog friendly. [Book a table](/book-table) | [Food menu](/food-menu) | 01753 682707*

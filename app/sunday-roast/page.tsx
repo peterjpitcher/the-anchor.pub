@@ -37,18 +37,21 @@ export async function generateMetadata(): Promise<Metadata> {
     ? 'Proper Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey, pies and a vegan option.'
     : 'Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.'
 
-  const title = 'Sunday Roast Near Heathrow | The Anchor Pub, Stanwell Moor'
+  // Rendered title is this plus the root layout suffix, so keep it short enough
+  // that " | The Anchor" still fits inside Google's ~60 character cut-off.
+  const title = 'Sunday Roast Near Heathrow, Walk-Ins Welcome'
+  const socialTitle = 'Sunday Roast Near Heathrow, Walk-Ins Welcome | The Anchor'
 
   return {
     title,
     description,
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     },
     twitter: getTwitterMetadata({
-      title,
+      title: socialTitle,
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),

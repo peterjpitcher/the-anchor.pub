@@ -26,10 +26,20 @@ import {
   getSundayLunchMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+import {
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  formatChristmasWindowLabel,
+  getChristmasSeasonStatus
+} from '@/lib/christmas-season'
 import { FoodMenuSection } from './_components/FoodMenuSection'
 import { SundayRoastFeature } from './_components/SundayRoastFeature'
 
 export const revalidate = 3600
+
+// How early the Christmas link appears, in days before the service window opens.
+// Festive dinner runs on its own menu, so readers of the everyday menu need
+// pointing at it through the run-up, and not at all once the season has passed.
+const CHRISTMAS_LINK_LEAD_DAYS = 120
 
 function buildKitchenSchedule(hours: BusinessHours): string {
   const schedule: Record<string, string> = {}
@@ -116,14 +126,12 @@ function isPrimaryFoodItem(item: MenuPageItem): boolean {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [data, kidsData] = await Promise.all([
-    getFoodMenuPageData(),
-    getKidsMenuPageData()
-  ])
-  const pricePhrase = data?.priceFromLabel ? ` Dishes ${data.priceFromLabel}.` : ''
-  const kidsPhrase = kidsData?.items.length ? ' A dedicated kids menu is included.' : ''
+  const data = await getFoodMenuPageData()
+  // No price phrase here on purpose. The menu formatter strips currency symbols
+  // (deliberate, owner-confirmed), which left a bare number stranded in the
+  // search snippet as "Dishes from 4". Named dishes sell the click instead.
   const description = data
-    ? `Pub food menu in Stanwell Moor near Heathrow T5, with live dishes and prices.${pricePhrase}${kidsPhrase} Free parking, Sunday roast and table booking.`
+    ? 'Pub food menu near Heathrow T5 with live prices. Burgers, stone-baked pizzas, pies and fish and chips. Free parking and table booking in Stanwell Moor.'
     : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
@@ -191,6 +199,10 @@ export default async function FoodMenuPage() {
   const primaryFoodPriceRange = getPriceRangeLabel(menuData.items.filter(isPrimaryFoodItem))
   const pizzaPriceFrom = getPriceFromLabel(menuData.pizzaItems)
   const kidsPriceRange = getPriceRangeLabel(kidsData?.items ?? [])
+
+  const christmas = getChristmasSeasonStatus()
+  const showChristmasLink =
+    christmas.isBookable && christmas.daysUntilWindowStart <= CHRISTMAS_LINK_LEAD_DAYS
 
   const faqItems = [
     {
@@ -294,6 +306,19 @@ export default async function FoodMenuPage() {
             title="Today at The Anchor"
             lead="Everything below is the kitchen's current food and kids menus. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
           />
+          {showChristmasLink && (
+            <p className="mx-auto mb-10 max-w-[920px] text-center text-ink-muted">
+              Booking a group over Christmas? Festive service runs {formatChristmasWindowLabel()} on a
+              separate menu, released closer to the time. See our{' '}
+              <Link
+                href="/christmas-parties"
+                className="font-semibold text-accent-text hover:underline"
+              >
+                festive set menus and Christmas booking dates
+              </Link>{' '}
+              for parties of {CHRISTMAS_MINIMUM_PARTY_SIZE} or more.
+            </p>
+          )}
           <MenuAnchorNav
             links={combinedCategories.map(category => ({
               id: category.id,

@@ -145,14 +145,15 @@ const privateHireFaqs = [
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages)
-    const buffetPhrase = fromPrice ? `Buffets from ${fromPrice}pp` : 'Current buffet packages'
-    const desc = `Function room hire near Heathrow and Staines with free parking and flexible private spaces. Wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} ${buffetPhrase}, and a dedicated events team.`
+    // Kept under 160 characters so the whole line survives in the search result.
+    const buffetPhrase = fromPrice ? ` Buffets from ${fromPrice}pp.` : ''
+    const desc = `Function room hire near Heathrow and Staines for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. Wakes, parties, meetings and family events, with free parking.${buffetPhrase}`
 
     const title = 'Function Room Hire Near Heathrow & Staines'
 
     return {
         title,
-        description: `${desc} The Anchor, Stanwell Moor.`,
+        description: desc,
         openGraph: {
             title,
             description: desc,

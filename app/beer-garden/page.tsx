@@ -20,20 +20,32 @@ import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
+import {
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  formatChristmasWindowLabel,
+  getChristmasSeasonStatus
+} from '@/lib/christmas-season'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
+// How early the Christmas card appears, in days before the service window opens.
+// Garden readers are planning a visit, so the festive option is worth showing
+// through the run-up, then removing so no stale link is left behind.
+const CHRISTMAS_LINK_LEAD_DAYS = 120
+
 export const metadata: Metadata = {
-  title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden',
-  description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking in Stanwell Moor.',
+  // Short enough that the root layout's " | The Anchor" suffix still fits inside
+  // Google's ~60 character cut-off.
+  title: 'Beer Garden Near Heathrow | Plane Spotting Pub',
+  description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
   openGraph: {
-    title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden | The Anchor',
-    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking.',
+    title: 'Beer Garden Near Heathrow | Plane Spotting Pub | The Anchor',
+    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden | The Anchor',
-    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking.',
+    title: 'Beer Garden Near Heathrow | Plane Spotting Pub | The Anchor',
+    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg']
   }),
   alternates: {
@@ -44,6 +56,9 @@ export const metadata: Metadata = {
 export default async function BeerGardenPage() {
   const businessHours = await getBusinessHours()
   const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+  const christmas = getChristmasSeasonStatus()
+  const showChristmasLink =
+    christmas.isBookable && christmas.daysUntilWindowStart <= CHRISTMAS_LINK_LEAD_DAYS
   const planeSpottingSchema = {
     "@context": "https://schema.org",
     "@type": "TouristAttraction",
@@ -378,6 +393,13 @@ export default async function BeerGardenPage() {
           { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
           { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
+          ...(showChristmasLink
+            ? [{
+                href: '/christmas-parties',
+                title: 'Book a Christmas Meal Near Heathrow',
+                description: `Festive lunches and dinners indoors, ${formatChristmasWindowLabel()}, for groups of ${CHRISTMAS_MINIMUM_PARTY_SIZE} or more`
+              }]
+            : []),
         ]}
       />
 

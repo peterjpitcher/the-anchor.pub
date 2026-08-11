@@ -21,16 +21,18 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: "Pub Quiz, Bingo & Live Music Near Heathrow",
-  description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free. Free parking, 7 mins from T5.",
+  // Short enough that the root layout's " | The Anchor" suffix still fits inside
+  // Google's ~60 character cut-off.
+  title: "Quiz, Bingo & Live Music Near Heathrow",
+  description: "Quiz nights, cash bingo, music bingo and free live music at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5. See the dates.",
   openGraph: {
-    title: "Pub Quiz, Bingo & Live Music Near Heathrow | The Anchor",
-    description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free, with free parking.",
+    title: "Quiz, Bingo & Live Music Near Heathrow | The Anchor",
+    description: "Quiz nights, cash bingo, music bingo and free live music at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "Pub Quiz, Bingo & Live Music Near Heathrow | The Anchor",
-    description: "What's on at The Anchor, Stanwell Moor: pub quiz, cash bingo, music bingo and free live music nights. Entry from £3 or free, with free parking.",
+    title: "Quiz, Bingo & Live Music Near Heathrow | The Anchor",
+    description: "Quiz nights, cash bingo, music bingo and free live music at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
@@ -183,7 +185,7 @@ export default async function WhatsOnPage() {
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="What's On"
         kicker="What's on"
-        title="Always something happening"
+        title="What's On at The Anchor"
         lead="Quiz nights, Music Bingo, cash bingo, karaoke and live music in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and reserve your table."
         badges={
           <>
