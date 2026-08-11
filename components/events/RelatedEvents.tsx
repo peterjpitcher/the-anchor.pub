@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import type { Event } from '@/lib/api'
 
 interface RelatedEventsProps {
@@ -56,7 +55,7 @@ export default async function RelatedEvents({
               (event.image && event.image[0]) ||
               event.heroImageUrl ||
               event.thumbnailImageUrl ||
-              DEFAULT_EVENT_IMAGE
+              null
             const altText =
               event.image_alt_text || `${event.name} at The Anchor`
 
@@ -66,18 +65,37 @@ export default async function RelatedEvents({
                 href={href}
                 className="group block overflow-hidden rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
               >
-                {/* Thumbnail with category badge overlay */}
-                <div className="relative aspect-square w-full overflow-hidden">
-                  <Image
-                    src={imageSrc}
-                    alt={altText}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {event.category && (
+                {/* Thumbnail with category badge overlay. Artwork-less events
+                    drop the whole block rather than show a stock photo, so the
+                    badge moves inline into the body below. */}
+                {imageSrc && (
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src={imageSrc}
+                      alt={altText}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    {event.category && (
+                      <span
+                        className="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold rounded-full"
+                        style={{
+                          backgroundColor: `${event.category.color}cc`,
+                          color: '#ffffff',
+                        }}
+                      >
+                        {event.category.name}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Card body */}
+                <div className="p-4">
+                  {!imageSrc && event.category && (
                     <span
-                      className="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold rounded-full"
+                      className="mb-2 inline-block px-2 py-0.5 text-xs font-semibold rounded-full"
                       style={{
                         backgroundColor: `${event.category.color}cc`,
                         color: '#ffffff',
@@ -86,10 +104,6 @@ export default async function RelatedEvents({
                       {event.category.name}
                     </span>
                   )}
-                </div>
-
-                {/* Card body */}
-                <div className="p-4">
                   <p className="text-accent-text text-sm font-medium mb-1">
                     {formatEventDate(event.startDate)} · {formatEventTime(event.startDate)}
                   </p>

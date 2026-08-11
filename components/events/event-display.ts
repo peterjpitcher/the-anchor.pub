@@ -10,7 +10,6 @@ import type { Event } from '@/lib/api'
 import { isEventFree } from '@/lib/api'
 import { getEventLocalIsoDate } from '@/lib/event-calendar'
 import { nowInLondonComponents } from '@/lib/time-london'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 
 /** Capacity threshold below which a "n tables left" badge is shown (spec §6.2). */
@@ -79,14 +78,20 @@ export function getCategoryChipStyle(event: Event): CSSProperties | null {
   }
 }
 
-/** Poster/thumbnail source with the canonical event fallback (spec §6.2). */
-export function getEventImage(event: Event): string {
+/**
+ * Poster/thumbnail source, or null when the event has no artwork of its own.
+ *
+ * Deliberately has no stock fallback. Standing in a generic pub photo made every
+ * artwork-less event look like it had a poster, which is worse than showing none:
+ * callers are expected to drop the image slot entirely when this returns null.
+ */
+export function getEventImage(event: Event): string | null {
   const candidate =
     event.image?.find((src) => typeof src === 'string' && src.trim().length > 0) ||
     event.posterImageUrl ||
     event.heroImageUrl ||
     event.thumbnailImageUrl
-  return candidate && candidate.trim().length > 0 ? candidate : DEFAULT_EVENT_IMAGE
+  return candidate && candidate.trim().length > 0 ? candidate : null
 }
 
 /** Internal event detail page path. */
