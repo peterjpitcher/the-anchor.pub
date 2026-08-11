@@ -132,7 +132,7 @@ const FAQS = [
     {
         question: 'When is karaoke night?',
         answer:
-            'Karaoke is on Fridays from 8pm to 11pm, hosted by Nikki Manfadge. Check the upcoming dates below or our What\'s On page to confirm the next session.'
+            'Karaoke runs occasionally rather than to a fixed weekly slot, so there is no standing Friday night. Check the upcoming dates below or our What\'s On page for the next confirmed session.'
     },
     {
         question: 'Do I have to pay to sing?',
@@ -312,7 +312,7 @@ export default async function KaraokePage() {
                         Karaoke Pub Near Heathrow, Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
-                        Ready to unleash your inner rock star? The Anchor&rsquo;s karaoke nights are legendary in Stanwell Moor. Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. One of the best things to do near Heathrow on a Friday night, it&rsquo;s the perfect place to let loose. {heroDescription}
+                        Ready to unleash your inner rock star? Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Karaoke runs occasionally rather than every week, so check the dates below before you set off. {heroDescription}
                     </p>
                 </Container>
             </section>
@@ -462,7 +462,7 @@ export default async function KaraokePage() {
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
                         <p className="text-ink-muted">
-                            Looking for more entertainment near Heathrow? Catch a gig at our <Link href="/live-music" className="text-accent-text font-semibold hover:text-accent-text transition">live music nights</Link> featuring local bands and acoustic sessions, or rally your team for our monthly <Link href="/quiz-night" className="text-accent-text font-semibold hover:text-accent-text transition">pub quiz night</Link> with a £25 bar tab up for grabs.
+                            Looking for more entertainment near Heathrow? Rally your team for our monthly <Link href="/quiz-night" className="text-accent-text font-semibold hover:text-accent-text transition">pub quiz night</Link> with a £25 bar tab up for grabs, or play along at <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge.
                         </p>
                     </div>
                 </Container>

@@ -753,7 +753,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Mexican Culture Stanwell Moor | Mexican Heritage at The Anchor',
     metaDescription: 'Experience Mexican culture at The Anchor Stanwell Moor. Traditional celebrations, authentic food, cultural events. Mexican heritage near Heathrow.',
     heroContent: 'The Anchor celebrates the rich tapestry of Mexican culture through authentic food, traditional celebrations, and vibrant events throughout the year.',
-    introContent: 'Our celebration of Mexican culture goes beyond just food and drinks. The Anchor hosts authentic cultural events including Day of the Dead celebrations, Cinco de Mayo festivities, traditional music nights, and educational cultural experiences. We work with local Mexican communities to ensure authenticity while creating inclusive events that welcome everyone to experience and appreciate Mexican heritage.',
+    introContent: 'Our celebration of Mexican culture goes beyond just food and drinks. The Anchor marks occasions such as Day of the Dead and Cinco de Mayo with themed food and drinks, and we work with our community to keep them authentic and open to everyone.',
     valueProposition: 'Immerse yourself in Mexican culture without leaving Stanwell Moor - The Anchor brings authentic experiences that educate, entertain, and unite our diverse community.',
     keywords: ['mexican culture stanwell moor', 'cultural events heathrow', 'mexican heritage surrey', 'cultural celebration TW19', 'mexican traditions stanwell moor']
   },
