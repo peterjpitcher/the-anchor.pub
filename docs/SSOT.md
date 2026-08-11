@@ -234,7 +234,7 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 
 - **Pre-order deadline:** **7 days before the booking date** for the 2 and 3 course tiers. (Owner-confirmed, 11 August 2026.) State this plainly rather than hedging with "confirmed with your booking".
 - **Days available:** Tuesday to Saturday sittings, plus **Sunday sittings from 1pm to 6pm**. **Mondays are not available** for Christmas bookings, the kitchen is closed. (Owner-confirmed, 11 August 2026.)
-- **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. There is **no Christmas karaoke** and **no live band**. Do not advertise a DJ, a dance floor, a shared party night, or any entertainment package bolted onto a Christmas booking. (Owner-confirmed, 11 August 2026.)
+- **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
 - **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
@@ -394,16 +394,17 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Karaoke
 
-- Occasional, only promote when listed or confirmed. Do not assume every Friday. (Re-confirmed 11 August 2026: karaoke nights do still run occasionally.)
+- **Not a regular feature in 2026.** Karaoke happens occasionally, nothing more. Only promote it when a specific event record lists it. Never imply a weekly, monthly or Friday slot. (Owner-confirmed, 11 August 2026.)
+- **Not hosted by Nikki Manfadge.** Nikki hosts Music Bingo. Karaoke has no fixed host. Take the host from the event record, or name nobody. (Owner-confirmed, 11 August 2026.)
 - Free entry.
 - Capacity 50.
-- Use event listing for host and song-count details.
+- Do not publish a recurring EventSeries schema for karaoke. Individual nights get their own Event schema when listed.
 
 ### DJ
 
-- **Occasional only.** A DJ is booked in from time to time. (Owner-confirmed, 11 August 2026.)
-- Same rule as karaoke: only promote a DJ when a specific event record lists one. Never imply a resident DJ, a regular DJ night, or a DJ as part of any package.
-- **Never offer a DJ as part of a Christmas booking.** See the Christmas 2026 entertainment rule.
+- **A DJ is booked in from time to time**, and is **confirmed for Halloween and New Year's Eve**. (Owner-confirmed, 11 August 2026.)
+- **A DJ can be arranged for a Christmas booking on request.** It is not included by default and is not part of a package, so never advertise it as included. Offer it as something a group can ask for. (Owner-confirmed, 11 August 2026.)
+- Outside those cases, only promote a DJ when a specific event record lists one. Never imply a resident DJ or a regular DJ night.
 
 ### Curry Club
 
