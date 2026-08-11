@@ -101,6 +101,12 @@ export interface ChristmasFactsView {
   maxStanding: number
   /** Above this, it stops being a table booking and becomes private hire. */
   privateHireThreshold: number
+  /**
+   * Days before the booking date that pre-orders are due, from SSOT.json.
+   * Optional so existing callers keep compiling; the fallback is the same
+   * owner-confirmed number.
+   */
+  preOrderDeadlineDays?: number
 }
 
 interface EnquiryContext {
@@ -198,6 +204,34 @@ const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
 
 const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
 
+/**
+ * Owner-confirmed 11 August 2026. Christmas sittings run Tuesday to Saturday,
+ * with a Sunday sitting from 1pm to 6pm. Monday is never available because the
+ * kitchen is closed that day. Organisers choose a date before anything else, so
+ * this is repeated wherever a date is asked for rather than buried in the FAQs.
+ */
+const DAYS_AVAILABLE_SUMMARY =
+  'Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no Monday sittings, the kitchen is closed.'
+
+/**
+ * Fallback for the pre-order deadline, used only if a caller renders the page
+ * without passing the SSOT value through. Owner-confirmed 11 August 2026.
+ */
+const PRE_ORDER_DEADLINE_DAYS_FALLBACK = 7
+
+function preOrderDeadlineDays(facts: ChristmasFactsView): number {
+  return facts.preOrderDeadlineDays ?? PRE_ORDER_DEADLINE_DAYS_FALLBACK
+}
+
+/** True when an ISO date falls on a Monday, the one day Christmas cannot be served. */
+function isMondayIsoDate(isoDate: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return false
+  return new Date(`${isoDate}T12:00:00Z`).getUTCDay() === 1
+}
+
+const MONDAY_UNAVAILABLE_MESSAGE =
+  'We cannot serve Christmas dinner on a Monday, the kitchen is closed. Please choose a date from Tuesday to Saturday, or a Sunday between 1pm and 6pm.'
+
 const getTimeOptions = (context: EnquiryContext): TimeOption[] => {
   if (context.mode === 'party') return PARTY_TIME_OPTIONS
   return context.service === 'lunch' ? LUNCH_TIME_OPTIONS : DINNER_TIME_OPTIONS
@@ -230,7 +264,10 @@ function partyFormatOptions(buffetMinimumGuests: number): Array<{ value: string,
     private_space: 'Private space',
     festive_buffet: `Festive buffet (${buffetMinimumGuests}+)`,
     drinks_party: 'Drinks party',
-    entertainment: 'Entertainment package'
+    // Owner-confirmed 11 August 2026: the Christmas quiz is the only festive
+    // entertainment. This option must never read as a package sold on top of a
+    // booking, and never as karaoke, a live band or a DJ.
+    entertainment: 'Christmas quiz'
   }
   return PARTY_FORMAT_VALUES.map(value => ({ value, label: labels[value] }))
 }
@@ -241,11 +278,15 @@ function tierPriceLabel(tier: ChristmasTierView): string {
 
 /**
  * Every answer here is traceable to docs/SSOT.md or SSOT.json. Questions the
- * SSOT cannot answer (pre-order deadline, Christmas dietary options, corporate
- * invoicing, Christmas Day and Boxing Day) are deliberately absent rather than
- * guessed at, and are logged as owner questions instead.
+ * SSOT cannot answer (Christmas dietary options, Christmas Day and Boxing Day)
+ * are deliberately absent rather than guessed at, and are logged as owner
+ * questions instead. The days available, the pre-order deadline and the
+ * Christmas entertainment were confirmed on 11 August 2026 and are now answered
+ * plainly rather than hedged.
  */
 function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
+  const deadlineDays = preOrderDeadlineDays(facts)
+
   return [
     {
       // Deliberately avoids the retired product name, even as a denial: the
@@ -263,7 +304,15 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'What dates can we take a Christmas booking for?',
-      answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. Popular Friday and Saturday dates go first, so enquire early.`
+      answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. ${DAYS_AVAILABLE_SUMMARY} Popular Friday and Saturday dates go first, so enquire early.`
+    },
+    {
+      question: 'Which days of the week can we book Christmas dinner?',
+      answer: 'Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget.'
+    },
+    {
+      question: 'Can we book a Christmas meal on a Monday?',
+      answer: 'No. The kitchen is closed on Mondays, so there is no Christmas sitting that day at any time of year. The nearest alternatives are a Tuesday sitting or the Sunday before, which runs from 1pm to 6pm.'
     },
     {
       question: 'How do we book Christmas at The Anchor?',
@@ -283,7 +332,11 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'Do we have to pre-order our meals?',
-      answer: 'Yes, and everyone chooses for themselves. Courses are picked per person, not for the whole table. Every guest chooses a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. We confirm the deadline for choices with your booking.'
+      answer: `Yes, and everyone chooses for themselves. Courses are picked per person, not for the whole table. Every guest chooses a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Send your choices to us ${deadlineDays} days before your booking date.`
+    },
+    {
+      question: 'When is the Christmas pre-order deadline?',
+      answer: `${deadlineDays} days before your booking date. That is the deadline for the 2 and 3 course choices, and it is when we need any dietary requirements too, so the kitchen can order to your numbers.`
     },
     {
       question: 'Is there a kids 2 course or 3 course?',
@@ -330,8 +383,8 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
       answer: `Ask about exclusive hire when you enquire. Availability depends on your date, guest numbers, layout and planned entertainment. Christmas layouts can host up to ${facts.maxSeated} seated or ${facts.maxStanding} standing.`
     },
     {
-      question: 'What entertainment can we have?',
-      answer: 'Ask about playlists, DJs, live music, quizzes or karaoke. We will confirm what is suitable for your date, room and finishing time.'
+      question: 'What Christmas entertainment do you run?',
+      answer: 'A Christmas quiz. That is the festive entertainment we put on, so ask about it when you enquire and we will tell you what is running around your date. There is no Christmas karaoke and no Christmas live band, and we do not sell an entertainment package on top of your booking. If your group wants a big production, a hotel will suit you better than we will.'
     },
     {
       question: 'Is parking available?',
@@ -395,33 +448,44 @@ const WHY_BOOK_REASONS = [
 ]
 
 /**
- * These are things a group can ask us to arrange, not scheduled Christmas
- * events. Nothing here is advertised as running on a fixed date, because no
- * Christmas entertainment is confirmed in the SSOT. Keep the wording in the
- * "ask us" form unless and until the owner confirms a published line-up.
+ * The formats a Christmas booking here can actually take.
+ *
+ * Owner-confirmed 11 August 2026: the Christmas quiz is the only festive
+ * entertainment, there is no Christmas karaoke and no live band. The karaoke
+ * and live band entries were removed on that date and must not come back.
+ * Music bingo is a year-round format with no Christmas edition, so it is not
+ * listed here as a Christmas event either. Never add a DJ, a dance floor or an
+ * entertainment package sold on top of a booking.
  */
-const PARTY_IDEAS = [
-  {
-    title: 'Ask about adding a quiz',
-    description: 'We run quiz nights through the year. Ask whether a quiz can be arranged around your Christmas booking, with food before or after.',
-    ideal: 'Groups that enjoy friendly competition'
-  },
-  {
-    title: 'Ask about music bingo',
-    description: 'Music bingo is one of our regular formats. Ask what could be arranged for your group and your date.',
-    ideal: 'Mixed groups who want something different and inclusive'
-  },
-  {
-    title: 'Ask about karaoke',
-    description: 'Ask about a karaoke setup, a suitable space and the finishing time available on your date.',
-    ideal: 'Office groups and friend circles who are not afraid of the mic'
-  },
-  {
-    title: 'Ask about live music',
-    description: 'Ask about hiring a live band or an acoustic act for your party. We will talk through the performance area, the setup and the finishing time available on your chosen date.',
-    ideal: 'Groups looking for live entertainment'
-  }
-]
+function buildPartyIdeas(facts: ChristmasFactsView) {
+  return [
+    {
+      title: 'The Christmas quiz',
+      description: 'Our Christmas quiz is the festive entertainment we run, and it is the one thing here you can build a night around. Ask when you enquire and we will tell you what is on around your date, with food before or after.',
+      ideal: 'Groups that enjoy friendly competition'
+    },
+    {
+      title: 'A sit-down Christmas lunch or dinner',
+      description: `The one most groups book: your own table, a lunchtime or evening sitting, and 1, 2 or 3 courses chosen by each guest. Tuesday to Saturday, or a Sunday between 1pm and 6pm, for ${facts.minPartySize} guests or more.`,
+      ideal: 'Teams and families who want to sit down and eat together'
+    },
+    {
+      title: 'A festive buffet',
+      description: `A festive buffet for ${facts.buffetMinimumGuests} guests or more, so people can move around and talk to everyone instead of being fixed to one seat for the evening.`,
+      ideal: 'Larger, more informal gatherings'
+    },
+    {
+      title: 'Drinks only, no food',
+      description: `An area of the pub for your group and an agreed bar tab. The ${facts.minPartySize}-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks-only booking.`,
+      ideal: 'Teams who want a couple of hours after work'
+    },
+    {
+      title: 'A private space, or the whole pub',
+      description: `The dining room for a smaller group, the main bar for a bigger one, or ask about exclusive hire. Christmas layouts hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing.`,
+      ideal: 'Groups who want the room to themselves'
+    }
+  ]
+}
 
 export function ChristmasPartiesPageClient({ structuredData, menu, season, facts }: ChristmasPartiesPageClientProps) {
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
@@ -431,6 +495,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
   const seasonEnded = season.state === 'ended' || !season.isBookable
   const faqItems = useMemo(() => buildFaqItems(season, facts), [season, facts])
+  const partyIdeas = useMemo(() => buildPartyIdeas(facts), [facts])
+  const deadlineDays = preOrderDeadlineDays(facts)
 
   useEffect(() => {
     setFormSubmitted(getLocalStorage(ENQUIRY_STORAGE_KEYS.submitted) === 'true')
@@ -534,17 +600,19 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <h2 className="text-3xl font-bold text-ink-strong">Christmas at The Anchor, in short</h2>
             <p className="text-base text-ink-muted">
               We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
-              Heathrow Terminal 5. Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at
-              least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit that comes off
-              your bill. Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional,
-              so guests at the same table can have different numbers of courses. Choices come to us in advance. Festive
-              buffets are available for {facts.buffetMinimumGuests} guests or more. The full dish list is released closer
-              to the time.
+              Heathrow Terminal 5. {DAYS_AVAILABLE_SUMMARY} Every Christmas dinner booking is for {facts.minPartySize} guests
+              or more, booked at least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit
+              that comes off your bill. Everyone chooses their own courses: a main for each guest, with a starter and a
+              dessert optional, so guests at the same table can have different numbers of courses. Choices come to us{' '}
+              {deadlineDays} days before your booking date. Festive buffets are available for {facts.buffetMinimumGuests}{' '}
+              guests or more. The full dish list is released closer to the time.
             </p>
             <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Days</strong>Tuesday to Saturday, plus Sunday 1pm to 6pm. No Mondays</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySize} guests or more</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Notice</strong>At least {facts.minNoticeHours} hours, no same-day bookings</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Pre-order</strong>Choices due {deadlineDays} days before your date</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person, every booking, any size</li>
             </ul>
           </div>
@@ -568,8 +636,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   <Icon name="gift" className="h-8 w-8 text-red-600" />
                   <h3 className="mt-4 text-2xl font-semibold text-ink-strong">Plan a Christmas party</h3>
                   <p className="mt-3 text-sm text-ink-muted">
-                    Tell us about your group, preferred date and party style. Choose a private space, a drinks party, entertainment,
-                    or a festive buffet for {facts.buffetMinimumGuests} or more guests.
+                    Tell us about your group, preferred date and party style. Choose a private space, a drinks-only booking,
+                    our Christmas quiz, or a festive buffet for {facts.buffetMinimumGuests} or more guests.
                   </p>
                   <p className="mt-3 text-sm font-semibold text-accent-text">Christmas capacity: up to {facts.maxSeated} seated or {facts.maxStanding} standing.</p>
                   <Button
@@ -650,6 +718,10 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   <span><strong className="text-ink-strong">{facts.minPartySize} guests or more.</strong> Every Christmas dinner booking needs at least {facts.minPartySize} guests. Smaller groups are welcome from the regular menu.</span>
                 </li>
                 <li className="flex items-start gap-3">
+                  <Icon name="calendar" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <span><strong className="text-ink-strong">Tuesday to Saturday, plus Sunday 1pm to 6pm.</strong> There are no Monday sittings at Christmas, the kitchen is closed on Mondays. Pick your day before anything else, because it sets everything that follows.</span>
+                </li>
+                <li className="flex items-start gap-3">
                   <Icon name="clock" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
                   <span><strong className="text-ink-strong">At least {facts.minNoticeHours} hours notice.</strong> We cannot take same-day Christmas bookings. The kitchen orders and preps to your numbers.</span>
                 </li>
@@ -663,7 +735,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">Choices come to us in advance.</strong> Every guest pre-orders their dishes, and we confirm the deadline with your booking.</span>
+                  <span><strong className="text-ink-strong">Pre-orders are due {deadlineDays} days before your date.</strong> Every guest pre-orders their dishes, and the 2 and 3 course choices have to be with us {deadlineDays} days before the booking. Send any dietary requirements at the same time.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -682,12 +754,13 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <Badge className="bg-red-100 text-red-700 w-fit">1, 2 or 3 courses each</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Sit-down Christmas lunch or dinner</h2>
               <p className="text-base sm:text-lg text-ink-muted">
-                Choose a lunchtime or evening sitting for your group. When you enquire, we will confirm availability for your
-                date, the prices and what happens next.
+                Choose a lunchtime or evening sitting for your group, Tuesday to Saturday, or a Sunday sitting between 1pm and
+                6pm. There are no Monday sittings, the kitchen is closed. When you enquire, we will confirm availability for
+                your date, the prices and what happens next.
               </p>
               <p className="text-sm text-accent-text font-semibold">
                 Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional. Every guest
-                pre-orders, and we will confirm the deadline for meal choices and dietary requirements.
+                pre-orders, and meal choices and dietary requirements are due {deadlineDays} days before your booking date.
               </p>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
@@ -705,7 +778,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">1. Choose your sitting</h3>
-                <p className="text-sm text-ink-muted">Tell us lunch or dinner, your date, your guest count and roughly how many courses each guest wants.</p>
+                <p className="text-sm text-ink-muted">Tell us lunch or dinner, your date, your guest count and roughly how many courses each guest wants. Any day Tuesday to Saturday, or a Sunday between 1pm and 6pm.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -717,7 +790,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">3. Send your pre-order</h3>
-                <p className="text-sm text-ink-muted">Return each guest&apos;s courses and any dietary requirements by the deadline the team confirms. A main for everyone, starter and dessert optional.</p>
+                <p className="text-sm text-ink-muted">Return each guest&apos;s courses and any dietary requirements {deadlineDays} days before your booking date. A main for everyone, starter and dessert optional.</p>
               </div>
             </Card>
           </Grid>
@@ -985,7 +1058,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
-                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask whether a quiz or music bingo can be arranged for your works Christmas do.</p>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our Christmas quiz if your team wants more than a meal.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
@@ -1004,13 +1077,13 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Christmas party ideas near Heathrow and Staines</h2>
               <p className="text-base text-ink-muted max-w-3xl mx-auto">
-                Not every Christmas do needs to be a standard sit-down meal. None of the below is a fixed event you buy a
-                ticket for, they are things we can look at arranging around your booking. Raise them when you enquire and we
-                will tell you honestly what is possible on your date.
+                Not every Christmas do needs to be a standard sit-down meal. These are the formats we actually run, so
+                nothing here is a maybe. Tell us which one fits your group when you enquire and we will confirm what is
+                possible on your date.
               </p>
             </div>
             <Grid cols={2} gap="md">
-              {PARTY_IDEAS.map(idea => (
+              {partyIdeas.map(idea => (
                 <Card key={idea.title} className="h-full">
                   <div className="p-6 space-y-3">
                     <h3 className="text-lg font-semibold text-ink-strong">{idea.title}</h3>
@@ -1461,7 +1534,7 @@ function ChristmasMenuAndPricing({
             <p className="mx-auto max-w-3xl text-center text-base text-ink-muted">
               Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come
               straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.
-              Tell us your choices in advance and we will confirm the deadline with your booking.
+              Send us everyone&apos;s choices {preOrderDeadlineDays(facts)} days before your booking date.
             </p>
             {menu.tiers.filter(tier => tier.items.length > 0).map(tier => (
               <div key={tier.id} className="rounded-2xl border border-line bg-surface p-6">
@@ -1580,6 +1653,14 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
     if (preferredDate < season.minEnquiryDate) {
       setStatus('error')
       setMessage(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
+      return
+    }
+
+    // The kitchen is closed on Mondays, so a Monday enquiry can never be served.
+    // Catching it here is kinder than letting someone wait for a reply that says no.
+    if (isMondayIsoDate(preferredDate)) {
+      setStatus('error')
+      setMessage(MONDAY_UNAVAILABLE_MESSAGE)
       return
     }
 
@@ -1736,7 +1817,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             </p>
             <p className="mt-1 text-xs">
               Courses are chosen per person: a main for every guest, with a starter and a dessert optional. Every guest
-              pre-orders, and we will confirm the deadline with you.
+              pre-orders, and choices are due {preOrderDeadlineDays(facts)} days before your booking date.
             </p>
             <fieldset className="mt-4">
               <legend className="mb-2 text-sm font-medium">Which sitting would you prefer? *</legend>
@@ -1862,7 +1943,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               required
             />
             <p className="mt-1 text-xs text-ink-muted">
-              Christmas service runs {season.windowLabel}. We need at least {facts.minNoticeHours} hours notice, so today is not selectable.
+              Christmas service runs {season.windowLabel}, Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no
+              Monday sittings. We need at least {facts.minNoticeHours} hours notice, so today is not selectable.
             </p>
           </div>
           <div>
@@ -2042,6 +2124,13 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
 
     if (preferredDate < season.minEnquiryDate) {
       setError(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
+      return
+    }
+
+    // No Monday sittings: the kitchen is closed. Stop it here rather than
+    // taking an enquiry we already know we cannot fulfil.
+    if (isMondayIsoDate(preferredDate)) {
+      setError(MONDAY_UNAVAILABLE_MESSAGE)
       return
     }
 

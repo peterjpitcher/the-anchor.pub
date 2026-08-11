@@ -26,7 +26,7 @@ const OG_DESCRIPTION = 'Work events, team meals and office Christmas parties nea
 
 export const metadata: Metadata = {
   title: 'Corporate & Christmas Parties Near Heathrow',
-  description: 'A real pub for work events near Heathrow, not a hotel function room. Meetings, team meals and office Christmas parties, 7 minutes from Terminal 5, free parking.',
+  description: 'A real pub for work events near Heathrow, not a hotel function room. Team meals and office Christmas parties, VAT invoices and free parking, 7 mins from T5.',
   openGraph: {
     title: 'Corporate Event Venue Near Heathrow | The Anchor',
     description: OG_DESCRIPTION,
@@ -146,6 +146,7 @@ export default function CorporateEventsPage() {
                 <li><strong className="text-ink-strong">Professional catering</strong> from coffee mornings to formal dinners</li>
                 <li><strong className="text-ink-strong">TVs and a sound system</strong> for presentations, with free WiFi throughout</li>
                 <li><strong className="text-ink-strong">Flexible timings</strong> - early starts and late finishes available</li>
+                <li><strong className="text-ink-strong">VAT invoices</strong> for corporate bookings, so expenses are straightforward</li>
               </ul>
             </CardBody></Card>
           </div>
@@ -241,8 +242,10 @@ export default function CorporateEventsPage() {
                 <ul className="space-y-2 text-ink-muted">
                   <li><strong className="text-ink-strong">Festive service runs {formatChristmasWindowLabel()}</strong></li>
                   <li><strong className="text-ink-strong">Minimum {CHRISTMAS_MINIMUM_PARTY_SIZE} guests</strong> on every Christmas booking</li>
+                  <li><strong className="text-ink-strong">Sittings Tuesday to Saturday</strong>, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed</li>
                   <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
                   <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
+                  <li><strong className="text-ink-strong">Meal choices 7 days ahead</strong> for the two and three course tiers</li>
                   <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, so give us a call</li>
                 </ul>
               </CardBody></Card>
@@ -263,10 +266,10 @@ export default function CorporateEventsPage() {
                 work Christmas party venue near Heathrow
               </Link>{' '}
               page. If you are still at the planning stage, the{' '}
-              <Link href="/blog/office-christmas-party-planning-guide" className="font-semibold text-accent-text underline">
-                office Christmas party planning guide
+              <Link href="/blog/christmas-party-planning-checklist-for-organisers" className="font-semibold text-accent-text underline">
+                Christmas party checklist for organisers
               </Link>{' '}
-              walks an organiser through setting the date, gathering meal choices and handling dietary requirements.
+              walks through the decisions in order: headcount first, then the date, the deposit and the allergen question.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
@@ -312,6 +315,7 @@ export default function CorporateEventsPage() {
                   <li><strong className="text-ink-strong">Weekday rates</strong> - More competitive for daytime events</li>
                   <li><strong className="text-ink-strong">Bespoke quotes</strong> - Based on your specific requirements</li>
                   <li><strong className="text-ink-strong">All-inclusive options</strong> - Know your total cost upfront</li>
+                  <li><strong className="text-ink-strong">VAT invoices</strong> - Issued for corporate bookings, so your finance team gets what it needs for the books</li>
                 </ul>
               </CardBody></Card>
             </div>
@@ -504,7 +508,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "Can we hold our office Christmas party at The Anchor?",
-            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
+            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
           },
           {
             question: "How many people can you seat for a work Christmas party?",
@@ -512,7 +516,11 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What is on the Christmas menu for work parties?",
-            answer: "The festive set menu runs at one, two or three courses, and every adult gets a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered so the kitchen can prepare for your group. The dishes are released closer to the time, and prices are always shown live on the Christmas parties page."
+            answer: "The festive set menu runs at one, two or three courses, and every adult gets a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order. The dishes are released closer to the time, and prices are always shown live on the Christmas parties page."
+          },
+          {
+            question: "Can you provide a VAT invoice for our company?",
+            answer: "Yes. We can issue a VAT invoice for corporate bookings. Tell our events coordinator the company name and address you need on it, and we will send it over after your event."
           },
           {
             question: "How is a work Christmas do here different from a hotel party night?",

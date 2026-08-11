@@ -232,6 +232,10 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 | 2 course | Required | Required |
 | 3 course | Required | Required |
 
+- **Pre-order deadline:** **7 days before the booking date** for the 2 and 3 course tiers. (Owner-confirmed, 11 August 2026.) State this plainly rather than hedging with "confirmed with your booking".
+- **Days available:** Tuesday to Saturday sittings, plus **Sunday sittings from 1pm to 6pm**. **Mondays are not available** for Christmas bookings, the kitchen is closed. (Owner-confirmed, 11 August 2026.)
+- **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. There is **no Christmas karaoke** and **no live band**. Do not advertise a DJ, a dance floor, a shared party night, or any entertainment package bolted onto a Christmas booking. (Owner-confirmed, 11 August 2026.)
+
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
 - **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.

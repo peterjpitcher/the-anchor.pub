@@ -41,10 +41,10 @@ So get a rough number first. Not a perfect one, nobody has that in October. A co
 | # | Decision | Why it comes first | What it locks in |
 |---|---|---|---|
 | 1 | Rough headcount | Decides table booking, private hire, or nothing at all | Format, contact route, whether a buffet is even possible |
-| 2 | Date and day of week | Weekday and weekend are priced differently | Your budget per head |
+| 2 | Date and day of week | Not every day is available, and weekday and weekend are priced differently | Your budget per head |
 | 3 | Format and course count | Chosen per person, so it is not one decision, it is everyone's | Whether you need pre-orders |
 | 4 | Deposit collection | Nothing is held until it is paid | The booking itself |
-| 5 | Pre-orders | The kitchen works to your numbers | What actually arrives on the day |
+| 5 | Pre-orders, 7 days before the booking | The kitchen works to your numbers | What actually arrives on the day |
 | 6 | Day-of logistics | Cheap to sort now, expensive to sort at 7pm | A calm evening |
 
 Each row depends on the one above it. Do row 4 before row 1 and you will be refunding somebody.
@@ -52,6 +52,8 @@ Each row depends on the one above it. Do row 4 before row 1 and you will be refu
 ## Pick the date, and give yourself notice
 
 Our Christmas service runs from 10 November to 20 December 2026, and the 20th is bookable. Outside that window it is our normal menu, perfectly nice but not the festive one.
+
+**Check the day of the week before you send the poll round.** Christmas sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. **Mondays are not available**, because the kitchen is closed. Half the reason a date poll has to be run twice is that the winning date turns out to be a Monday.
 
 **Weekday and weekend are priced differently.** For us, weekday means Tuesday to Thursday and weekend means Friday to Saturday. If your group is price sensitive, that single choice moves your budget more than anything else. Prices sit on the [Christmas bookings page](/christmas-parties), pulled from our live system, so what you see is what you pay.
 
@@ -68,6 +70,8 @@ Here is the bit most checklists skip. On our Christmas menu, guests pick 1, 2 or
 | 3 courses | Required | Required |
 
 If anyone is on two or three courses, you are collecting their choices in advance. If everyone is on one course, you are not. Ask early, because "we'll decide on the night" is only true for one of those tiers.
+
+**Pre-orders are due seven days before your booking date.** That is a real date, so put it in your calendar the moment you book. Work backwards: booking on Friday 11 December means choices with us by Friday 4 December, which means asking your group in the last week of November, because a fortnight of chasing is what it actually takes. Set your own internal deadline a few days ahead of ours and you will never be the one apologising to a kitchen.
 
 On children: there is no kids two-course or three-course option, and no child price for those tiers. Children can order the adult two or three course tier, at the adult price. There is a kids version of the one-course option. Better you know now than budget for child prices that do not exist.
 
@@ -122,7 +126,7 @@ Six. Every Christmas dinner booking with us needs at least 6 guests. Above 20 it
 
 ### Does everyone have to have the same number of courses?
 
-No. Courses are chosen per person, so one table can mix one, two and three course guests. Anyone on two or three courses needs to pre-order, and that deadline is confirmed with your booking.
+No. Courses are chosen per person, so one table can mix one, two and three course guests. Anyone on two or three courses needs to pre-order, and those choices are due seven days before your booking date.
 
 ### Can children have a two or three course Christmas meal?
 
@@ -130,4 +134,4 @@ They can order the adult two or three course tier, charged at the adult price. T
 
 ### Is this a Christmas party night with entertainment?
 
-No. We do not run shared party nights. It is a sit-down festive meal at your own table, for your own group. If you want a DJ and a dancefloor, an airport hotel will serve you better, and we would rather say so than sell you the wrong evening.
+No. We do not run shared party nights. It is a sit-down festive meal at your own table, for your own group. If you want a DJ and a dancefloor, an airport hotel will serve you better, and we would rather say so than sell you the wrong evening. The one thing worth asking us about is our Christmas quiz, which runs in the December diary. It is not part of a Christmas booking, but a group can pick a date around it.

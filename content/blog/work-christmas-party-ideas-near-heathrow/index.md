@@ -27,7 +27,7 @@ We take Christmas bookings at The Anchor in Stanwell Moor, seven minutes from Te
 
 Search near the airport and a lot of what comes back is a hotel party night: a shared ballroom, a ticket price per head, entertainment laid on, and other companies in the room with you. That is a real format and plenty of teams love it.
 
-It is not what we do. We stopped running shared party nights, and we do not put on a DJ, a disco or a Christmas entertainment programme. We give you your own table in a village pub with a festive set menu, then leave you to your evening. If you are still weighing those two products against each other, we have compared them properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
+It is not what we do. We stopped running shared party nights, and we do not put on a DJ, a disco or a Christmas entertainment programme. We give you your own table in a village pub with a festive set menu, then leave you to your evening. The one exception worth knowing about is our Christmas quiz, which runs in the December diary. It is not bolted onto your booking, but if your team would rather have something to do than a dance floor, ask us when it falls and pick your date around it. If you are still weighing those two products against each other, we have compared them properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
 
 So the sorting question is this:
 
@@ -53,6 +53,8 @@ Our Christmas capacity is 60 seated and 200 standing, so a large team is doable.
 
 Every Christmas booking needs at least 24 hours' notice, and the service window runs from 10 November to 20 December 2026. The popular slots go early, so book far sooner than that.
 
+One more thing to settle before the date poll goes out: sittings run **Tuesday to Saturday, plus Sunday from 1pm to 6pm**. **We cannot do Mondays**, because the kitchen is closed. Take Mondays off your shortlist now rather than after twenty people have voted for one.
+
 ## Sit-down meal or buffet: the number decides it for you
 
 Organisers agonise over this. Usually the minimum makes the decision for them.
@@ -70,7 +72,7 @@ On our festive menu that is not a table decision. Each guest picks 1, 2 or 3 cou
 The practical detail:
 
 - **1 course** needs a pre-book but **no pre-order**. Handy for the colleague who confirms at the last minute.
-- **2 and 3 courses** need a pre-order. That deadline is confirmed with your booking.
+- **2 and 3 courses** need a pre-order, and choices are due **seven days before your booking date**. Count back from your date and give your team an internal deadline earlier than ours.
 - There is **no kids 2 or 3 course tier**, and no child price at those tiers. Children can order the adult 2 or 3 course at the adult price.
 - **Adults get a glass of prosecco** on all three tiers, swappable for orange juice. **Children get a Fruit Shoot or a small soft drink** with the 1 course.
 - **Trimmings included:** pigs in blankets, stuffing and brussels sprouts.
@@ -101,7 +103,7 @@ Put that in the calendar invite, not just the postcode. Our [directions page](/f
 - **Booking the format before asking the team.** Send two lines: big night out, or good dinner? You get an answer and cover for the decision.
 - **Assuming a buffet is available.** Under 30 people, it is not.
 - **Treating a group of 25 as a table booking.** Over 20 is private hire, and the earlier that starts, the more choice you have.
-- **Leaving the pre-order to the last week.** Chasing 18 people for a course choice in mid-December is nobody's idea of festive.
+- **Leaving the pre-order to the last week.** You do not have a last week. Choices are due seven days out, so the chasing has to start earlier than feels necessary.
 - **One person fronting the whole bill.** Sort the money before the night, not while wearing a paper hat.
 
 If you want those in the order you should actually tackle them, rather than as a list of warnings, use the [Christmas party planning checklist](/blog/christmas-party-planning-checklist-for-organisers). If your do is really a client event or a team gathering with a working element, our [corporate events page](/corporate-events) is the better starting point, and the [food menu](/food-menu) shows what we do the rest of the year.
@@ -116,7 +118,7 @@ At least 6. Up to 20 is a standard table booking. Above 20 becomes private hire,
 
 ### Do you run shared Christmas party nights with a DJ?
 
-No. We stopped running shared party nights, and we do not put on a DJ or a Christmas entertainment programme. You get your own table and a festive set menu in a village pub. If your team wants a dance floor, an airport hotel party night will suit them better than we will.
+No. We stopped running shared party nights, and we do not put on a DJ or a Christmas entertainment programme. You get your own table and a festive set menu in a village pub. We do run a Christmas quiz in December, which any group is welcome to book around, but it is a separate thing rather than part of a Christmas booking. If your team wants a dance floor, an airport hotel party night will suit them better than we will.
 
 ### How does the deposit work?
 
@@ -124,8 +126,8 @@ Every Christmas booking takes a £10 per person deposit at booking, regardless o
 
 ### Do we all have to have the same number of courses?
 
-No. Each guest chooses 1, 2 or 3 courses individually. The 2 and 3 course options need a pre-order, with the deadline confirmed when you book; 1 course needs no pre-order. There is no kids 2 or 3 course tier, so children ordering those tiers pay the adult price.
+No. Each guest chooses 1, 2 or 3 courses individually. The 2 and 3 course options need a pre-order, due seven days before your booking date; 1 course needs no pre-order. There is no kids 2 or 3 course tier, so children ordering those tiers pay the adult price.
 
 ### When can we come, and what is on the menu?
 
-The festive service window runs from 10 November to 20 December 2026, and the 20th is included. Bookings need at least 24 hours' notice. The menu is released closer to the time, and prices are live from our system, so ask us when you enquire.
+The festive service window runs from 10 November to 20 December 2026, and the 20th is included. Sittings are Tuesday to Saturday, plus Sunday from 1pm to 6pm, and there are no Monday sittings because the kitchen is closed. Bookings need at least 24 hours' notice. The menu is released closer to the time, and prices are live from our system, so ask us when you enquire.

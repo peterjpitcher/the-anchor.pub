@@ -70,6 +70,21 @@
     "permanent": true
   },
   {
+    "source": "/blog/christmas-party-food-ideas",
+    "destination": "/blog/festive-buffet-ideas-for-large-groups-near-heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-party-ideas-for-work",
+    "destination": "/blog/work-christmas-party-ideas-near-heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-venue",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
     "source": "/blog/creations-by-lee-jewellery-event-at-the-anchor-exc",
     "destination": "/blog/jewellery-event",
     "permanent": true
@@ -170,6 +185,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/office-christmas-party-planning-guide",
+    "destination": "/blog/christmas-party-planning-checklist-for-organisers",
+    "permanent": true
+  },
+  {
     "source": "/blog/pancake-day-fun-stanwell-moor-village-staines-the-",
     "destination": "/blog/pancake-day-celebration",
     "permanent": true
@@ -226,7 +246,7 @@
   },
   {
     "source": "/blog/the-anchor-christmas-2023-your-perfect-festive-ven",
-    "destination": "/blog/christmas-venue",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -676,7 +696,7 @@
   },
   {
     "source": "/post/the-anchor-christmas-2023-your-perfect-festive-ven",
-    "destination": "/blog/christmas-venue",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {

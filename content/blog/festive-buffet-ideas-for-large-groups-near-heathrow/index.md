@@ -37,7 +37,7 @@ If the point is that people who rarely see each other get to move around and spe
 | Room capacity | Much higher, because nobody needs a chair | Limited by covers |
 | Timing | Loose, people eat when they want | Structured around courses |
 | Late arrivals | Absorbed easily | Awkward, they miss a course |
-| Ordering admin | One decision for the whole group | Per person, and pre-order for 2 and 3 courses |
+| Ordering admin | One decision for the whole group | Per person, and 2 and 3 courses pre-order 7 days ahead |
 | Group minimum | 30 guests, no exceptions | 6 guests |
 | Budgeting | One package for the group | Varies with how many courses each person takes |
 
@@ -71,11 +71,11 @@ All three festive buffets need **30 guests**. Everywhere, no exceptions, no roun
 
 We know that is annoying if you have 24. It is a hard floor rather than a starting position, so it is worth checking your number against it before you plan anything around a buffet.
 
-If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, with the deadline confirmed when you book. The 1 course tier is pre-book only, no pre-order. Adults get a glass of prosecco on all three tiers, swappable for orange juice.
+If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults get a glass of prosecco on all three tiers, swappable for orange juice.
 
 A few practical things worth knowing before you enquire:
 
-- The festive window runs **10 November to 20 December 2026**, and the 20th is bookable.
+- The festive window runs **10 November to 20 December 2026**, and the 20th is bookable. Within it, sittings run **Tuesday to Saturday, plus Sunday from 1pm to 6pm**. There are **no Monday sittings**, the kitchen is closed. Worth knowing before you go looking for a date that suits forty people.
 - Every Christmas booking takes a **£10 per person deposit**, whatever the party size. Non-refundable, and it comes straight off your bill on the day.
 - We need **24 hours' notice** minimum. No same-day Christmas bookings.
 - **More than 20 guests is not a table booking, it is private hire.** Email manager@the-anchor.pub, call 01753 682707, or WhatsApp the same number, and a person will talk it through with you.
@@ -88,7 +88,7 @@ Parking is the one that matters most at this size. We have 20 free spaces on sit
 
 If your group is coming off shift or off a flight, the numbers are short: 7 minutes from Terminal 5, 11 from Terminals 2 and 3, 12 from Terminal 4, 8 from Staines and 2 minutes from Junction 14 of the M25. We are outside the ULEZ zone. Dogs are welcome throughout, on a lead and off the furniture.
 
-One thing to be clear about before you enquire: we are a village pub, not a party-night venue. There is no DJ, no party night and no entertainment programme laid on for Christmas. If your group wants the big organised night, an airport hotel will serve you better, and we set out that choice properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
+One thing to be clear about before you enquire: we are a village pub, not a party-night venue. There is no DJ, no party night and no entertainment package attached to a Christmas booking. We do run a Christmas quiz in December, and a group that wants a bit of structure to the evening can ask us when it is on and book around it. If your group wants the big organised night, an airport hotel will serve you better, and we set out that choice properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
 
 ## How to actually decide
 
@@ -124,4 +124,4 @@ No. Anything over 20 guests is private hire, not a table booking. Email manager@
 
 ### Is there entertainment at Christmas?
 
-No. We are a pub rather than a party-night venue, so there is no DJ or organised entertainment as part of a Christmas booking. If a big organised party night is what your group wants, an airport hotel will suit you better than we will.
+Nothing attached to your booking. We are a pub rather than a party-night venue, so there is no DJ and no entertainment package bundled in. Our Christmas quiz does run in December, and you are welcome to plan a date around it. If a big organised party night is what your group wants, an airport hotel will suit you better than we will.

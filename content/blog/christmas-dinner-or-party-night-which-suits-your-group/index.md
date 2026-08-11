@@ -36,11 +36,11 @@ If your group wants to sit down together, eat a Christmas dinner, talk without s
 | Who shares the room | Other groups you have never met, often several hundred people | Your group at your own table, in a pub with regulars in the bar |
 | Cost structure | One fixed price per head, drinks usually extra | Each person picks 1, 2 or 3 courses and pays for what they order, plus drinks |
 | What is included | A set menu plus entertainment | The meal, the trimmings, and a glass of prosecco for adults, swappable for orange juice |
-| Entertainment | The main event | None. No DJ, no live act, no party night. That is deliberate |
+| Entertainment | The main event | Not part of the booking. No DJ, no live act, no party night. A Christmas quiz runs in the diary if you want one |
 | Noise | Loud by design. Hard to talk once the music starts | Pub busy. No dance floor, so a table of eight can actually hear each other |
 | Group size that works | Small groups joining a shared room, or large groups filling tables | Minimum 6. Up to 20 as a table booking, above that it is private hire |
 | Travel and parking | Check parking charges and how people get home before you commit | 20 free spaces on site, no fees, no time limit |
-| Organising effort | Low. Pick a date, pay per head, turn up | Book, pay the deposit, and pre-order if anyone wants 2 or 3 courses |
+| Organising effort | Low. Pick a date, pay per head, turn up | Book, pay the deposit, and pre-order 7 days ahead if anyone wants 2 or 3 courses |
 
 ## Who a hotel party night genuinely suits
 
@@ -70,11 +70,11 @@ The room is warm and busy rather than hushed, and the noise is people talking ra
 
 ## How ours actually works
 
-- **When:** 10 November to 20 December 2026, and the 20th is included.
+- **When:** 10 November to 20 December 2026, and the 20th is included. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no Monday sittings, because the kitchen is closed on Mondays.
 - **Group size:** minimum 6 guests on every Christmas dinner booking. More than 20 guests is [private hire](/private-hire) rather than a table booking.
 - **Notice:** at least 24 hours. We cannot take same-day Christmas bookings.
 - **Deposit:** £10 per person on every Christmas booking whatever the size. Taken at booking, non-refundable, and it comes straight off your bill on the day.
-- **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, with the deadline confirmed when you book. The 1 course tier is pre-book only, no pre-order.
+- **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, and choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order, which is the flexible option if your group decides late.
 - **Children:** there is no kids 2-course or 3-course tier and no child price for those. Children may order the adult 2 or 3 course tier at the adult price. The 1 course does have a kids version.
 - **Prices:** live from our booking system, and they differ between Tuesday to Thursday and Friday to Saturday. We will not print a number here that might be stale by the time you read it.
 - **The menu:** released closer to the time. See menu or contact us for allergen information.
@@ -92,7 +92,7 @@ Once you know which one you are booking, the order you do things in matters more
 
 ### Does The Anchor do Christmas party nights?
 
-No. We do not run shared Christmas party nights any more. What we do is a sit-down festive set menu for your own group, with 1, 2 or 3 courses chosen per person. If you want a shared party night with entertainment, a hotel package is the right call, and we would rather you booked the thing you actually want.
+No. We do not run shared Christmas party nights any more. What we do is a sit-down festive set menu for your own group, with 1, 2 or 3 courses chosen per person. There is one thing in the December diary worth asking about: our Christmas quiz. It is not part of a Christmas booking, but a group can choose a date around it. If you want a shared party night with entertainment laid on, a hotel package is the right call, and we would rather you booked the thing you actually want.
 
 ### What is the smallest group you take for Christmas dinner?
 
@@ -100,7 +100,7 @@ Six guests, and we need at least 24 hours' notice, so no same-day bookings.
 
 ### Do we all have to have the same number of courses?
 
-No, and that is one of the real differences from a fixed package. Each person picks their own tier: 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, with the deadline confirmed when you book.
+No, and that is one of the real differences from a fixed package. Each person picks their own tier: 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, due seven days before your booking date.
 
 ### Is there a deposit?
 
@@ -116,4 +116,4 @@ Terminal 5 is about 7 minutes by car (3.8 miles), Terminals 2 and 3 about 11 min
 
 ### When can we book Christmas dinner?
 
-Our festive service runs from 10 November to 20 December 2026, with the 20th included. Details and enquiries are on the [Christmas bookings page](/christmas-parties), or call 01753 682707.
+Our festive service runs from 10 November to 20 December 2026, with the 20th included. You can book Tuesday to Saturday, and on Sunday between 1pm and 6pm. Mondays are not available, as the kitchen is closed. Details and enquiries are on the [Christmas bookings page](/christmas-parties), or call 01753 682707.

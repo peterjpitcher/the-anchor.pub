@@ -282,6 +282,11 @@
       "American Express",
       "Contactless"
     ],
+    "corporate_invoicing": {
+      "vat_invoice_available": true,
+      "note": "VAT invoices can be issued for corporate bookings. Purchase orders, split billing and payment terms remain undocumented, do not claim them.",
+      "_confirmed": "Owner-confirmed 11 August 2026"
+    },
     "currency": "GBP",
     "price_range": "££"
   },
@@ -1087,7 +1092,26 @@
         "two_course": true,
         "three_course": true
       },
-      "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired."
+      "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired.",
+      "pre_order_deadline_days": 7,
+      "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'."
+    },
+    "days_available": {
+      "weekday_sittings": "Tuesday to Thursday",
+      "weekend_sittings": "Friday and Saturday",
+      "sunday": "Available, 1pm to 6pm",
+      "monday": "Not available, the kitchen is closed on Mondays",
+      "_confirmed": "Owner-confirmed 11 August 2026"
+    },
+    "entertainment": {
+      "christmas_quiz": true,
+      "karaoke": false,
+      "live_band": false,
+      "dj": false,
+      "dance_floor": false,
+      "shared_party_night": false,
+      "rule": "A Christmas quiz runs and may be promoted. Never advertise Christmas karaoke, a live band, a DJ, a dance floor, a shared party night, or any entertainment package bolted onto a Christmas booking.",
+      "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "deposit": {
       "per_person_gbp": 10,

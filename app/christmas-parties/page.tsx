@@ -41,6 +41,7 @@ type SsotChristmasFacts = {
   christmas_2026: {
     buffets: { min_guests: number }
     groups_above_20: string
+    booking_rules?: { pre_order_deadline_days?: number }
   }
 }
 
@@ -62,7 +63,11 @@ const FACTS: ChristmasFactsView = {
   buffetMinimumGuests: christmasSsot.buffets.min_guests,
   maxSeated: venue.capacity.christmas_seated,
   maxStanding: venue.capacity.christmas_standing,
-  privateHireThreshold: resolvePrivateHireThreshold()
+  privateHireThreshold: resolvePrivateHireThreshold(),
+  // Owner-confirmed 11 August 2026: pre-orders for the 2 and 3 course tiers are
+  // due seven days before the booking date. Read from the SSOT so the page and
+  // the JSON-LD quote one number.
+  preOrderDeadlineDays: christmasSsot.booking_rules?.pre_order_deadline_days ?? 7
 }
 
 const TIER_DEFINITIONS: Array<{
@@ -316,6 +321,10 @@ export default async function ChristmasPartiesPage() {
       <InternalLinkingSection
         title="More Christmas Party Planning"
         links={[
+          // Kept deliberately. tests/seo-indexing.test.ts guards this link so the
+          // organiser checklist is not orphaned. It absorbed the retired
+          // /blog/office-christmas-party-planning-guide post (301'd Aug 2026),
+          // so if this link ever moves, update the guard rather than dropping it.
           {
             href: '/blog/christmas-party-planning-checklist-for-organisers',
             title: 'Christmas Party Checklist for Organisers',
@@ -335,14 +344,6 @@ export default async function ChristmasPartiesPage() {
             href: '/blog/christmas-dinner-or-party-night-which-suits-your-group',
             title: 'Christmas Dinner or Party Night?',
             description: 'An honest comparison with the hotel party nights, including when they are the better booking.',
-          },
-          // Kept deliberately. tests/seo-indexing.test.ts guards this link so the
-          // older guide is not orphaned while it is still live. If that post is
-          // ever consolidated into the newer checklist above, update the guard.
-          {
-            href: '/blog/office-christmas-party-planning-guide',
-            title: 'Office Christmas Party Planning Guide',
-            description: 'Our earlier step-by-step guide for organisers, from setting the date to collecting meal choices.',
           },
         ]}
       />
