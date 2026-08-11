@@ -83,6 +83,39 @@ describe('buildSubmitIntentFingerprint', () => {
     expect(buildSubmitIntentFingerprint({ ...baseIntent, notes: 'Window seat' })).not.toBe(base)
   })
 
+  it('changes when the seasonal answer changes, so a flipped Christmas answer is not a 409', () => {
+    // The seasonal answer changes the menu, the deposit and the refund terms, so AMS
+    // hashes it. Leaving it out of the fingerprint meant a guest who answered yes, went
+    // back and answered no resubmitted on the same key with a different hash.
+    const accepted = buildSubmitIntentFingerprint({
+      ...baseIntent,
+      bookingPeriodId: 'christmas-2026',
+      bookingPeriodAnswer: true
+    })
+    const declined = buildSubmitIntentFingerprint({
+      ...baseIntent,
+      bookingPeriodId: 'christmas-2026',
+      bookingPeriodAnswer: false
+    })
+
+    expect(accepted).not.toBe(declined)
+    expect(accepted).not.toBe(buildSubmitIntentFingerprint(baseIntent))
+    expect(declined).not.toBe(buildSubmitIntentFingerprint(baseIntent))
+  })
+
+  it('is byte-identical to the pre-seasonal fingerprint when no period applies', () => {
+    // Eleven months of the year there is no live period, and a booking already in flight
+    // when this deploys must keep its key and replay rather than mint a second booking.
+    expect(buildSubmitIntentFingerprint(baseIntent)).toBe(PRE_ACCESSIBILITY_FINGERPRINT)
+    expect(
+      buildSubmitIntentFingerprint({
+        ...baseIntent,
+        bookingPeriodId: undefined,
+        bookingPeriodAnswer: undefined
+      })
+    ).toBe(PRE_ACCESSIBILITY_FINGERPRINT)
+  })
+
   it('trims the free-text fields so whitespace alone is not a new intent', () => {
     expect(
       buildSubmitIntentFingerprint({

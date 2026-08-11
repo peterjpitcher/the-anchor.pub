@@ -7,7 +7,7 @@
 
 import type { CSSProperties } from 'react'
 import type { Event } from '@/lib/api'
-import { isEventFree } from '@/lib/api'
+import { getEventRemainingCapacity, isEventFree } from '@/lib/api'
 import { getEventLocalIsoDate } from '@/lib/event-calendar'
 import { nowInLondonComponents } from '@/lib/time-london'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
@@ -59,8 +59,11 @@ export function getEventPriceText(event: Event): string | null {
  * event is full / not low.
  */
 export function getLowCapacityCount(event: Event): number | null {
-  const remaining = event.remainingAttendeeCapacity
-  if (typeof remaining !== 'number' || !Number.isFinite(remaining)) return null
+  // Read via the shared resolver, not event.remainingAttendeeCapacity alone:
+  // the management API's list response carries the count under snake_case
+  // names, so a single-spelling read silently returns null for every event.
+  const remaining = getEventRemainingCapacity(event)
+  if (remaining === null) return null
   if (remaining <= 0 || remaining >= LOW_CAPACITY_THRESHOLD) return null
   return remaining
 }

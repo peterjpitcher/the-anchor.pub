@@ -58,7 +58,10 @@ describe('POST /api/parking/payment/create-order', () => {
     expect(data.booking_id).toBe('booking-abc')
     expect(mockCreateOrder).toHaveBeenCalledWith(
       expect.objectContaining({ vehicle: expect.objectContaining({ registration: 'AB12CDE' }) }),
-      Buffer.from('+447700900001|AB12CDE|2026-04-01T08:00:00+01:00|null').toString('base64')
+      // end_at is part of the key now: AMS's request hash includes it, so leaving
+      // it out meant changing only the departure time reused the key with a
+      // different payload and 409'd the guest out for 24 hours.
+      Buffer.from('+447700900001|AB12CDE|2026-04-01T08:00:00+01:00|2026-04-08T18:00:00+01:00|null').toString('base64')
     )
   })
 

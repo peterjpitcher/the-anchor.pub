@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getUpcomingEvents, type Event } from '@/lib/api'
+import { getEventRemainingCapacity, getUpcomingEvents, type Event } from '@/lib/api'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { isMothersDayEvent } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
@@ -42,10 +42,10 @@ export async function BookTableUpcomingEventsPanel() {
           <div className="mt-4 space-y-3">
             {upcomingEvents.map((event, index) => {
               const priceLabel = getEventPriceLabel(event)
-              const seatsRemaining =
-                typeof event.remainingAttendeeCapacity === 'number'
-                  ? event.remainingAttendeeCapacity
-                  : null
+              // Whatever spelling the management API used for the count. Reading
+              // remainingAttendeeCapacity alone dropped the "n seats left" line
+              // from every event in this panel.
+              const seatsRemaining = getEventRemainingCapacity(event)
 
               return (
                 <div

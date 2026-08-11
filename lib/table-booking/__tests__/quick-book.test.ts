@@ -1,6 +1,7 @@
 import {
   DEFAULT_PARTY_SIZE,
   QUICK_BOOK_MAX_PARTY,
+  buildQuickBookIntentFingerprint,
   buildQuickBookPayload,
   defaultQuickBookState,
   findQuickBookRefusal,
@@ -10,6 +11,7 @@ import {
   resolveEmptyState,
   resolveSubmitPurpose,
   selectableSlots,
+  type QuickBookSubmission,
 } from '../quick-book'
 import type { AvailabilityData, AvailabilitySlot } from '../availability'
 
@@ -236,5 +238,59 @@ describe('the submitted payload', () => {
       firstName: 'Jane',
     })
     expect(payload.purpose).toBe('drinks')
+  })
+
+  it('sends the dialling code as digits, not an ISO country code', () => {
+    // 'GB' here 400d every single booking from the sticky button: /api/table-bookings and
+    // the management API both validate this field against exactly this pattern.
+    const payload = buildQuickBookPayload({
+      state: { partySize: 2, date: '2026-08-12', purpose: 'food' },
+      time: '19:00',
+      slotPurpose: 'food_or_drinks',
+      phone: '07700900000',
+      firstName: 'Jane',
+    })
+
+    expect(payload.default_country_code).toMatch(/^\d{1,4}$/)
+    expect(payload.default_country_code).toBe('44')
+  })
+})
+
+describe('the submit-intent fingerprint', () => {
+  const submission: QuickBookSubmission = {
+    state: { partySize: 2, date: '2026-08-12', purpose: 'food' },
+    time: '19:00',
+    slotPurpose: 'food_or_drinks',
+    phone: '07700900000',
+    firstName: 'Jane',
+  }
+
+  const fingerprintOf = (overrides: Partial<QuickBookSubmission> = {}) =>
+    buildQuickBookIntentFingerprint(buildQuickBookPayload({ ...submission, ...overrides }))
+
+  it('is stable for an unchanged intent, so a double tap cannot book twice', () => {
+    expect(fingerprintOf()).toBe(fingerprintOf())
+  })
+
+  it('changes when the guest changes their answer, so the retry is not a 409', () => {
+    // The bug this exists to prevent: refused for food, switched to drinks, resubmitted at
+    // the same time. The old key named only phone, date, time and party size, so it stayed
+    // identical while the management API's request hash changed, and the guest was shown a
+    // raw IDEMPOTENCY_KEY_CONFLICT.
+    expect(fingerprintOf({ slotPurpose: 'drinks_only' })).not.toBe(fingerprintOf())
+  })
+
+  it('varies with every field the payload carries', () => {
+    const base = fingerprintOf()
+
+    expect(fingerprintOf({ state: { ...submission.state, partySize: 4 } })).not.toBe(base)
+    expect(fingerprintOf({ state: { ...submission.state, date: '2026-08-13' } })).not.toBe(base)
+    expect(fingerprintOf({ time: '19:30' })).not.toBe(base)
+    expect(fingerprintOf({ phone: '07700900001' })).not.toBe(base)
+    expect(fingerprintOf({ firstName: 'Sam' })).not.toBe(base)
+  })
+
+  it('ignores whitespace, which is not a different booking', () => {
+    expect(fingerprintOf({ phone: '  07700900000 ', firstName: ' Jane ' })).toBe(fingerprintOf())
   })
 })

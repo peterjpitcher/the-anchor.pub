@@ -21,6 +21,12 @@ export type TableBookingSubmitIntentFields = {
   highChairCount: number
   isOutsideSeating: boolean
   requiresAccessibleTable?: boolean
+  /**
+   * The seasonal period the guest was shown and what they answered, or absent when no
+   * period applied. Sent as a pair or not at all, matching the payload builder.
+   */
+  bookingPeriodId?: string
+  bookingPeriodAnswer?: boolean
   communicationConsent: CommunicationConsentState
 }
 
@@ -61,6 +67,16 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     // absent-or-false flag produces byte-for-byte the fingerprint this form
     // produced before the field existed: a guest mid-journey across a deploy
     // keeps their key and replays cleanly instead of minting a second booking.
-    requiresAccessibleTable: input.requiresAccessibleTable === true ? true : undefined
+    requiresAccessibleTable: input.requiresAccessibleTable === true ? true : undefined,
+    // The seasonal answer changes the menu, the deposit and the refund terms, so AMS
+    // hashes it and a guest who flips their Christmas answer and resubmits would send
+    // the same key with a different hash and be answered 409. Same
+    // undefined-when-absent handling as accessibility above, so the eleven months of
+    // the year with no live period keep the pre-change fingerprint byte for byte.
+    // `false` is a real answer ("no thanks, the normal menu"), so this tests the TYPE
+    // and never the truthiness.
+    bookingPeriodId: input.bookingPeriodId?.trim() || undefined,
+    bookingPeriodAnswer:
+      typeof input.bookingPeriodAnswer === 'boolean' ? input.bookingPeriodAnswer : undefined
   })
 }

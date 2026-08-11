@@ -1752,6 +1752,12 @@ export function ManagementTableBookingForm({
       highChairCount: resolvedHighChairCount,
       isOutsideSeating: resolvedOutsideSeating,
       requiresAccessibleTable,
+      // The seasonal answer changes the AMS request hash, so it has to change
+      // ours too. Without it, a guest who changes their Christmas menu answer
+      // and resubmits reuses the key with a different payload and AMS answers
+      // 409 IDEMPOTENCY_KEY_CONFLICT.
+      bookingPeriodId: seasonal.period && seasonal.answer !== null ? seasonal.period.id : undefined,
+      bookingPeriodAnswer: seasonal.answer !== null ? seasonal.answer : undefined,
       communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
