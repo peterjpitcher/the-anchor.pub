@@ -95,6 +95,9 @@ Getting there is the bit organisers underestimate, and it is quietly what decide
 - **From the terminals:** Terminal 5 is 7 minutes, Terminals 2 and 3 are 11 minutes, Terminal 4 is 12 minutes. Staines is 8 minutes, M25 Junction 14 is 2 minutes.
 - **Buses:** routes 441, 442 and 555.
 - **ULEZ:** we are outside the zone, so nobody has to check their car against it before saying yes.
+- **Access:** the car park, the bar and the dining area are all step-free, and assistance dogs are always welcome. There are steps down to the beer garden from the bar, and we can put a ramp out if you ask ahead. We do not have an accessible toilet, and that is worth knowing before you book rather than on the night.
+
+Ask your team about access needs at the same time you ask about dietary ones. People will not always volunteer it, and it is a much easier conversation in September than in December. If you want to talk through what someone's visit would actually look like, ring 01753 682707.
 
 Put that in the calendar invite, not just the postcode. Our [directions page](/find-us) has the detail to paste in. We are on Horton Road, Stanwell Moor, Surrey TW19 6AQ.
 

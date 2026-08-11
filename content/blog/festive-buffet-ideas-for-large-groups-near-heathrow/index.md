@@ -88,6 +88,8 @@ Parking is the one that matters most at this size. We have 20 free spaces on sit
 
 If your group is coming off shift or off a flight, the numbers are short: 7 minutes from Terminal 5, 11 from Terminals 2 and 3, 12 from Terminal 4, 8 from Staines and 2 minutes from Junction 14 of the M25. We are outside the ULEZ zone. Dogs are welcome throughout, on a lead and off the furniture.
 
+Access is worth settling before you commit forty people to a date. The car park, the bar and the dining area are step-free, and assistance dogs are always welcome. There are steps from the bar down to the beer garden, with a ramp available if you ask ahead. We do not have an accessible toilet. There is a format question in here too: a standing buffet asks a lot more of people than a seated meal does, so if anyone in your group would struggle to stand for a couple of hours, seat them or go seated altogether rather than waiting for them to raise it.
+
 One thing to be clear about before you enquire: we are a village pub, not a party-night venue. There is no DJ, no party night and no entertainment package attached to a Christmas booking. We do run a Christmas quiz in December, and a group that wants a bit of structure to the evening can ask us when it is on and book around it. If your group wants the big organised night, an airport hotel will serve you better, and we set out that choice properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
 
 ## How to actually decide

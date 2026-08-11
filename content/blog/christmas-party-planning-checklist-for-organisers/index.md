@@ -92,11 +92,13 @@ What works instead:
 
 Because the deposit is non-refundable, book the number you are confident about, not the optimistic one.
 
-## Ask the allergen question early, and ask it properly
+## Ask the allergen and access questions early, and ask them properly
 
 Collect any allergen or dietary questions in the same message as the deposit. One message, both questions. Chasing this separately in December is miserable, and it is the item most likely to still be open the week of the booking.
 
 Then put them to the venue in writing, with names attached, rather than mentioning them on the phone and hoping. Our position is deliberately plain: **see menu or contact us for allergen information**. The Christmas menu is not finalised, so we are not going to tell you in August what it does and does not contain. Once it is out, ring 01753 682707 with the specifics and you will get a straight answer rather than a reassuring one.
+
+Put access needs in that same message. It is the same job and the same awkwardness, so do it once and do it early. Here is our honest position: the car park, the bar and the dining area are step-free, and assistance dogs are always welcome. The beer garden has steps down from the bar, and we can put a ramp out if you tell us in advance. We do not have an accessible toilet. That last one is the reason to ask your group in September rather than assume, because it is a genuine reason to book somewhere else and nobody should discover it on the night.
 
 ## The day itself
 

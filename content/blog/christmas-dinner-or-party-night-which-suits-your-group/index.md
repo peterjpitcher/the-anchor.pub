@@ -68,6 +68,8 @@ You get your own table. The food comes to you, the trimmings come with it (pigs 
 
 The room is warm and busy rather than hushed, and the noise is people talking rather than amplified music. If that sounds underwhelming, that is a useful signal: you probably want the party night. Plenty of groups read it and think, yes, that is exactly it.
 
+Access belongs in an honest comparison too. The car park, the bar and the dining area are step-free, and assistance dogs are always welcome. The beer garden has steps down from the bar, though we can put a ramp out if you ask ahead. What we do not have is an accessible toilet, and a modern hotel will. If someone in your group needs one, that on its own is a good reason to book the hotel, and we would rather tell you in August than have you find out in December.
+
 ## How ours actually works
 
 - **When:** 10 November to 20 December 2026, and the 20th is included. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no Monday sittings, because the kitchen is closed on Mondays.
