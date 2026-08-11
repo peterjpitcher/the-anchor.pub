@@ -71,7 +71,7 @@ export interface FeaturedEventProps {
  * The headline upcoming event (spec §6.2). Restyle over the existing event
  * logic: labels come from EventBookingButton/getEventBookingCopy, sold-out and
  * low-capacity badges from isEventSoldOut / remainingAttendeeCapacity, image
- * via the DEFAULT_EVENT_IMAGE fallback.
+ * via getEventImage, which yields null when the event has no artwork.
  */
 export function FeaturedEvent({ event, className }: FeaturedEventProps) {
   const CategoryIcon = getCategoryIcon(event)
@@ -87,25 +87,31 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
     month: 'long'
   })
   const timeLabel = formatEventLocalTime(event.startDate)
+  const imageSrc = getEventImage(event)
 
   return (
     <Card accent className={cn('overflow-hidden', className)}>
-      <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr]">
+      {/* Without artwork the poster track is dropped, not left empty, so the
+          body spans the full card rather than sitting in a 1fr column beside a
+          340px gap. */}
+      <div className={cn('grid grid-cols-1', imageSrc && 'lg:grid-cols-[340px_1fr]')}>
         {/* Poster: event artwork is always 1:1, so keep it square and uncropped
             at every breakpoint (full-width below lg, 340px in its column at
             lg+). self-center is load-bearing: without it the grid's default
             vertical stretch overrides the ratio, stretching the box to the row
             height and computing width from it, which crops the art and
             overflows the 340px track into the card body. */}
-        <div className="relative aspect-square lg:self-center">
-          <Image
-            src={getEventImage(event)}
-            alt={event.image_alt_text || event.name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 340px"
-            className="object-cover"
-          />
-        </div>
+        {imageSrc && (
+          <div className="relative aspect-square lg:self-center">
+            <Image
+              src={imageSrc}
+              alt={event.image_alt_text || event.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 340px"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <CardBody className="flex flex-col gap-4 lg:gap-3">
           {/* Badge row */}

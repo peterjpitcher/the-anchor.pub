@@ -27,6 +27,7 @@ export function EventListItem({ event, className }: EventListItemProps) {
   const soldOut = isEventSoldOut(event)
   const lowCapacity = soldOut ? null : getLowCapacityCount(event)
   const detailHref = getEventDetailHref(event)
+  const imageSrc = getEventImage(event)
   const dateLine = `${formatEventLocalDate(event.startDate, {
     weekday: 'short',
     day: 'numeric',
@@ -36,16 +37,19 @@ export function EventListItem({ event, className }: EventListItemProps) {
   return (
     <Card hover accent className={cn('h-full', className)}>
       <div className="flex h-full gap-4 p-4">
-        {/* Thumb: 92px below 640px, 120px from sm up */}
-        <div className="relative h-[92px] w-[92px] flex-shrink-0 overflow-hidden rounded-sm sm:h-[120px] sm:w-[120px]">
-          <Image
-            src={getEventImage(event)}
-            alt={event.image_alt_text || event.name}
-            fill
-            sizes="120px"
-            className="object-cover"
-          />
-        </div>
+        {/* Thumb: 92px below 640px, 120px from sm up. Dropped entirely when the
+            event has no artwork, so the text simply fills the row. */}
+        {imageSrc && (
+          <div className="relative h-[92px] w-[92px] flex-shrink-0 overflow-hidden rounded-sm sm:h-[120px] sm:w-[120px]">
+            <Image
+              src={imageSrc}
+              alt={event.image_alt_text || event.name}
+              fill
+              sizes="120px"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <div className="flex flex-wrap items-center gap-2">
