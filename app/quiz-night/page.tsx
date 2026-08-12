@@ -250,8 +250,8 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 	                </p>
               </div>
 
-              <div className="w-full lg:w-64 space-y-3">
-                <EventBookingButton event={event} className="w-full" source="quiz_night_event_card" />
+              <div className="w-full space-y-3 lg:w-64 lg:shrink-0">
+                <EventBookingButton event={event} className="w-full lg:px-6" source="quiz_night_event_card" />
               </div>
             </CardBody>
           </Card>
