@@ -362,7 +362,7 @@ export default async function WorldCupPage() {
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
               <SectionHeading title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
-              <div className="prose text-ink-muted">
+              <div className="prose text-ink-muted max-w-none">
                 <p>
                   Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
                 </p>

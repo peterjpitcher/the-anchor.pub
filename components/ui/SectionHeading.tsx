@@ -68,13 +68,13 @@ export function SectionHeading({
       <h2 className="font-display text-h2 text-ink-strong">{title}</h2>
 
       {resolvedLead && (
-        <p className={cn('font-sans text-xl leading-relaxed text-ink-muted max-w-[56ch]', constrain)}>
+        <p className={cn('font-sans text-xl leading-relaxed text-ink-muted', constrain)}>
           {resolvedLead}
         </p>
       )}
 
       {secondaryLead && (
-        <p className={cn('font-sans text-base text-ink-muted max-w-[56ch]', constrain)}>{secondaryLead}</p>
+        <p className={cn('font-sans text-base text-ink-muted', constrain)}>{secondaryLead}</p>
       )}
     </div>
   )

@@ -77,7 +77,7 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
 
       {/* Content */}
       <div className="container relative z-[2]">
-        <div className="mx-auto flex max-w-[880px] flex-col items-center gap-5 py-16 text-center">
+        <div className="flex flex-col items-center gap-5 py-16 text-center">
           {/* White wordmark */}
           <Image
             src="/images/branding/the-anchor-pub-logo-white-transparent.png"
@@ -107,7 +107,7 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
           </p>
 
           {/* Lead */}
-          <p className="max-w-[54ch] text-lg text-anchor-cream-text/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
+          <p className="text-lg text-anchor-cream-text/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
             {copy.lead}
           </p>
 

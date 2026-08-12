@@ -194,7 +194,7 @@ export function Footer({
   }
 
   const brandColumn = (
-    <div className="max-w-[34ch]">
+    <div>
       {businessInfo.logo && (
         <Image
           src={businessInfo.logo}

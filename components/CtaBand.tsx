@@ -40,7 +40,7 @@ export function CtaBand({ title, copy, primary, secondary, children, className }
         <div className="mx-auto flex flex-col items-center gap-5 text-center">
           <h2 className="font-display text-h2 text-ink-strong">{title}</h2>
           {copy ? (
-            <p className="max-w-[50ch] text-lg text-ink-muted">{copy}</p>
+            <p className="text-lg text-ink-muted">{copy}</p>
           ) : null}
           {actions ? (
             <div className="flex flex-wrap items-center justify-center gap-3">{actions}</div>

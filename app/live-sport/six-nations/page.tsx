@@ -175,7 +175,7 @@ export default function SixNationsPage() {
                                 subtitle="Fuel for the match"
                                 className="text-left mb-6"
                             />
-                            <div className="prose text-ink-muted mb-6">
+                            <div className="prose text-ink-muted mb-6 max-w-none">
                                 <p>
                                     Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
                                 </p>

@@ -103,7 +103,7 @@ export function VenueTourTeaser({
               Interactive venue tour
             </p>
             <h2 className="font-display text-h2 text-ink-strong">{title}</h2>
-            <p className="mt-4 max-w-[48ch] text-lg leading-relaxed text-ink-muted">{copy}</p>
+            <p className="mt-4 text-lg leading-relaxed text-ink-muted">{copy}</p>
 
             <div className="mt-6">
               {mode === 'expand' ? (

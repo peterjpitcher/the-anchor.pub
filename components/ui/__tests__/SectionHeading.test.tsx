@@ -19,7 +19,10 @@ describe('SectionHeading', () => {
 
     const lead = screen.getByText('Pub classics')
     expect(lead).toHaveClass('text-ink-muted')
-    expect(lead).toHaveClass('max-w-[56ch]')
+    // The lead used to cap at 56ch. It no longer sets any width of its own:
+    // page width is decided once, by .container in globals.css. A capped lead
+    // sat visibly narrower than the cards beneath it on nearly every page.
+    expect(lead.className).not.toMatch(/max-w-/)
   })
 
   it('keeps the custom h2 size alongside the colour token (tailwind-merge fix)', () => {

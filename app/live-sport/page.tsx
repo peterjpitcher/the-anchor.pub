@@ -281,7 +281,7 @@ export default async function LiveSportPage() {
             <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
-                    <div className="prose mx-auto">
+                    <div className="prose mx-auto max-w-none">
                         <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>

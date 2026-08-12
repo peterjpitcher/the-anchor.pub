@@ -104,7 +104,7 @@ export function HomeFaq() {
                 hidden={!isOpen}
                 className="px-6 pb-5"
               >
-                <p className="max-w-[70ch] text-lg text-ink-muted">{faq.answer}</p>
+                <p className="text-lg text-ink-muted">{faq.answer}</p>
               </div>
             </div>
           )
