@@ -4,6 +4,7 @@ import { Star } from 'lucide-react'
 import { Button, Badge } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { BookTableButton } from '@/components/BookTableButton'
+import { HeroFrost } from '@/components/seasonal/HeroFrost'
 
 // HomeHero — the homepage's special hero (redesign spec §7.1). This is the ONLY
 // non-InteriorHero hero on the site. A full-bleed photographic hero with a green
@@ -61,6 +62,10 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: Ho
         className="absolute inset-0 z-[1]"
         style={{ backgroundImage: 'var(--grain)', opacity: 0.06 }}
       />
+
+      {/* Seasonal frost. Invisible outside 1 Nov to 31 Dec: its opacity comes
+          from --winter-frost, which the root layout only emits in season. */}
+      <HeroFrost />
 
       {/* Content */}
       <div className="container relative z-[2]">

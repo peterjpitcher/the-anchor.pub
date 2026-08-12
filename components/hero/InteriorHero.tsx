@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { HeroFrost } from '@/components/seasonal/HeroFrost'
 
 export interface InteriorHeroProps {
   /** Full-bleed background image src (decorative). */
@@ -71,6 +72,10 @@ export function InteriorHero({
         aria-hidden
         className="absolute inset-0 z-[1] opacity-[0.06] bg-[var(--grain)]"
       />
+
+      {/* Seasonal frost. Invisible outside 1 Nov to 31 Dec: its opacity comes
+          from --winter-frost, which the root layout only emits in season. */}
+      <HeroFrost />
 
       {/* Content — bottom-left, capped at 760px inside the 1280 container. */}
       <div className="container relative z-[2] w-full">
