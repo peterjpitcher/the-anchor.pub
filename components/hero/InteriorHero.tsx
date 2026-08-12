@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { HeroFrost } from '@/components/seasonal/HeroFrost'
 
 export interface InteriorHeroProps {
   /** Full-bleed background image src (decorative). */
@@ -72,10 +73,14 @@ export function InteriorHero({
         className="absolute inset-0 z-[1] opacity-[0.06] bg-[var(--grain)]"
       />
 
+      {/* Seasonal frost. Invisible outside 1 Nov to 31 Dec: its opacity comes
+          from --winter-frost, which the root layout only emits in season. */}
+      <HeroFrost />
+
       {/* Content — bottom-left, capped at 760px inside the 1280 container. */}
       <div className="container relative z-[2] w-full">
         <div
-          className="flex max-w-[760px] flex-col gap-4"
+          className="flex flex-col gap-4"
           style={{ paddingBlock: 'clamp(2.5rem, 6vw, 4.5rem)' } as CSSProperties}
         >
           <nav aria-label="Breadcrumb" className="text-xs text-anchor-cream-text/[0.72]">
@@ -97,7 +102,7 @@ export function InteriorHero({
           <h1 className="font-display text-h1 text-anchor-cream-text">{title}</h1>
 
           {lead && (
-            <p className="max-w-[54ch] text-xl text-anchor-cream-text/90">{lead}</p>
+            <p className="text-xl text-anchor-cream-text/90">{lead}</p>
           )}
 
           {badges && <div className="flex flex-wrap gap-2">{badges}</div>}

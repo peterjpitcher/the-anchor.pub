@@ -17,7 +17,7 @@ export function GoogleMapEmbed({
     const encodedQuery = encodeURIComponent(query)
 
     return (
-        <div className={cn("w-full overflow-hidden rounded-2xl shadow-md border border-gray-200", className)}>
+        <div className={cn("w-full overflow-hidden rounded-2xl shadow-md border border-line", className)}>
             <iframe
                 width="100%"
                 height={height}

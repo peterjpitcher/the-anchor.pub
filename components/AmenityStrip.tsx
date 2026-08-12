@@ -30,7 +30,10 @@ export interface AmenityStripProps {
 export function AmenityStrip({ items = DEFAULT_ITEMS, className }: AmenityStripProps) {
   return (
     <section
-      className={`theme-dark bg-anchor-green${className ? ` ${className}` : ''}`}
+      // Core green in normal months. In the dark season it drops to the raised
+      // green so it sits under a dark hero instead of becoming the brightest
+      // band on the page, which is also what lifts its sublines above 4.5:1.
+      className={`theme-dark bg-anchor-green [.theme-dark_&]:bg-anchor-green-raised [.theme-dark_&]:border-t [.theme-dark_&]:border-line-gold${className ? ` ${className}` : ''}`}
       aria-label="Amenities"
     >
       <div className="container">

@@ -174,7 +174,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       </Section>
 
       {/* CTA Section */}
-      <Section className="theme-dark bg-anchor-green text-ink-inverse">
+      <Section className="theme-dark bg-anchor-green [.theme-dark_&]:bg-anchor-green-raised text-ink-inverse">
         <Container className="text-center">
           <h2 className="text-3xl mb-8 text-anchor-cream-text">
             Visit The Anchor Today

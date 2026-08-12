@@ -292,7 +292,7 @@ export function WeekHours({
                 key={isoDate || day}
                 aria-label={ariaSummary}
                 className={`flex items-start justify-between gap-3 px-4 py-3 max-[360px]:flex-col max-[360px]:gap-1 ${
-                  isToday ? 'bg-anchor-sand text-ink' : 'bg-surface'
+                  isToday ? 'bg-tile text-ink' : 'bg-surface'
                 }`}
               >
                 {/* Left: day + date sub */}

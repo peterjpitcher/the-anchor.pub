@@ -16,7 +16,9 @@ describe('Badge', () => {
     const cases: Array<[Parameters<typeof Badge>[0]['variant'], string]> = [
       ['green', 'bg-anchor-green'],
       ['gold', 'bg-anchor-gold'],
-      ['sand', 'bg-anchor-sand'],
+      // The sand variant is theme-aware: warm cream on light, gold at low
+      // opacity on the dark season's green. Both live behind --tile.
+      ['sand', 'bg-tile'],
       ['outline', 'border-line-strong'],
       ['success', 'text-anchor-success'],
       ['danger', 'text-anchor-danger']
