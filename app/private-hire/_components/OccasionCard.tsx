@@ -20,7 +20,7 @@ export function OccasionCard({ href, icon: Icon, title, description }: OccasionC
         <CardBody className="flex h-full flex-col gap-3">
           <span
             aria-hidden
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xs bg-anchor-sand text-anchor-green"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xs bg-tile text-tile-ink"
           >
             <Icon className="h-6 w-6" strokeWidth={1.75} />
           </span>

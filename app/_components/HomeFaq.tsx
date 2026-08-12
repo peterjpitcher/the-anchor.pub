@@ -88,7 +88,7 @@ export function HomeFaq() {
                 onClick={() => toggle(index)}
                 aria-expanded={isOpen}
                 aria-controls={`home-faq-answer-${index}`}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-anchor-sand/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
               >
                 <h3 className="font-display text-h4 text-ink-strong">{faq.question}</h3>
                 <Plus

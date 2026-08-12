@@ -14,7 +14,7 @@ const badgeVariants = cva(
         // bg --anchor-gold, white text
         gold: 'bg-anchor-gold text-white',
         // bg --anchor-sand, green text — amenities, dietary flags, categories
-        sand: 'bg-anchor-sand text-anchor-green',
+        sand: 'bg-tile text-tile-ink',
         // transparent, 1.5px solid --border-strong, text --text
         outline: 'border-[1.5px] border-line-strong bg-transparent text-ink',
         // light: bg rgba(0,107,69,.12) text --anchor-success; dark override per spec

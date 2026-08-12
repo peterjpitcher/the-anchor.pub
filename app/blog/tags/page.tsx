@@ -89,7 +89,7 @@ export default async function AllTagsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="theme-dark bg-anchor-green py-section-y">
+      <section className="theme-dark bg-anchor-green [.theme-dark_&]:bg-anchor-green-raised py-section-y">
         <Container className="text-center text-anchor-cream-text">
           <h2 className="text-h2 text-anchor-cream-text mb-8">
             Stay Updated

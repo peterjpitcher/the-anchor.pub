@@ -46,7 +46,7 @@ export function PricingCard({
       </div>
 
       {savings && (
-        <div className="inline-block bg-anchor-sand text-anchor-green text-sm font-semibold px-3 py-1 rounded-pill">
+        <div className="inline-block bg-tile text-tile-ink text-sm font-semibold px-3 py-1 rounded-pill">
           Save {savings}
         </div>
       )}

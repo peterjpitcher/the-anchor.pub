@@ -57,7 +57,7 @@ export function CompetitionStatusNotice({
     return (
       <aside
         aria-live="polite"
-        className="rounded-md border border-anchor-danger/30 bg-red-50 p-4 text-red-950 sm:p-5"
+        className="rounded-md border border-anchor-danger/30 bg-anchor-danger/[0.08] p-4 text-ink sm:p-5"
       >
         <p className="font-semibold">Competition now closed</p>
         <p className="mt-1 text-sm leading-relaxed">{closedMessage}</p>
@@ -69,7 +69,7 @@ export function CompetitionStatusNotice({
     return (
       <aside
         aria-live="polite"
-        className="rounded-md border border-line-gold bg-anchor-sand p-4 text-ink-strong sm:p-5"
+        className="rounded-md border border-line-gold bg-tile p-4 text-ink-strong sm:p-5"
       >
         <p className="font-semibold">Competition not yet open</p>
         <p className="mt-1 text-sm leading-relaxed">

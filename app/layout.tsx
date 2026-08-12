@@ -17,6 +17,7 @@ import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
+import { getSeasonalSkin, getSeasonalSkinStyle } from '@/lib/winter-season'
 import {
   PRIVATE_HIRE_2026_PROMO_ENABLED,
   PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
@@ -154,8 +155,23 @@ export default function RootLayout({
     }
   ]
 
+  // Seasonal skin. A pure function of the London date (lib/winter-season.ts):
+  // dark surfaces 1 Sep to 31 Mar, lights and frost 1 Nov to 31 Dec. Setting
+  // theme-dark here flips every semantic token in globals.css in one place, so
+  // no page or component needs to know the season exists.
+  const skin = getSeasonalSkin()
+
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${script.variable}`}>
+    <html
+      lang="en"
+      // `theme-dark` rather than only data-theme: the codebase already styles
+      // dark surfaces with `[.theme-dark_&]:` variants (Badge, Button), and
+      // those would silently not fire against an attribute selector. One
+      // mechanism, so every existing dark-aware component keeps working.
+      className={`${display.variable} ${body.variable} ${script.variable}${skin.dark ? ' theme-dark' : ''}`}
+      data-season={skin.stage}
+      style={getSeasonalSkinStyle(skin)}
+    >
       <head>
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
@@ -253,6 +269,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
                     promoCtaButtons={promoCtaButtons}
+                    /* The wordmark is an image, so it cannot follow the CSS
+                       theme the way every other header colour does. */
+                    logo={
+                      skin.dark
+                        ? {
+                            src: '/images/branding/the-anchor-pub-logo-white-transparent.png',
+                            alt: 'The Anchor logo'
+                          }
+                        : undefined
+                    }
                   />
                 </header>
               </ErrorBoundary>
