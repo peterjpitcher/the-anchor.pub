@@ -6,6 +6,36 @@ Written 12 August 2026. All "current state" claims below were verified against t
 
 ---
 
+## 0. Progress
+
+Branch `feat/game-night-conversion-template`, two commits, not pushed. Updated 12 August 2026.
+
+**Done and verified** (typecheck, lint, 1619 tests, production build, checked in the browser against live event data):
+- 0.1 shared template: `lib/game-nights/` configs plus `components/features/GameNight/`. All four pages migrated.
+- 0.2 `section_view` on the booking form, the objections and the dates list (the three that matter, not literally every section).
+- 0.3 `ScrollDepthTracker` on all four pages.
+- 0.4 `cta_click` carrying position, so `hero` and `closing_band` are comparable under one `cta_id`.
+- 1.1 hero CTA on all four. Previously there was none.
+- 1.2 next date in the CTA label and the booking header.
+- 1.3 at-a-glance chips in every hero.
+- 1.4 inline booking with a date switcher, reusing `ManagementEventBookingForm`.
+- 1.7 pay-on-arrival reassurance beside the form.
+- 1.11 solo and small-group reassurance (quiz).
+- 1.12 cash-only warning, now the first chip and the first objection (cash bingo).
+- Bonus: extracted one shared `getGameNightEvents()`, replacing four copies of the category lookup.
+- Bonus: fixed an SSOT drift, music bingo claimed "Five rounds" where the SSOT says two games.
+
+**Partly done:**
+- 1.5 waitlist fallback: inherited from the booking form, and sold-out dates stay selectable so it can engage. Not yet proven against a genuinely sold-out date.
+- 1.6 CTA labels: the hero and closing band are fixed. The per-date labels inside the dates list still come from `lib/event-booking-copy.ts`, so "Book seated or standing tickets" is still there. That file is shared with the event detail pages, so changing it needs its own pass.
+- 1.10 hero images: now parameterised per game and pointed at the most apt interior shot instead of the building exterior, which is better but still not the game. Awaiting the shoot. One line per config to swap.
+
+**Not started:** 0.5, 0.6, 0.7, 0.8, 1.8, 1.9, and all of Waves 2, 3 and 4.
+
+**Unverified:** the mobile fold. The preview pane stopped hydrating, so 375px measurements came from pre-hydration markup and cannot be trusted. Needs a real device check before spend.
+
+---
+
 ## 1. The headline problem
 
 The page you have to advertise to cannot take a booking.
