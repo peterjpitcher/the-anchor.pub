@@ -72,7 +72,7 @@ export function EventArtworkHero({
 
       <div className="container relative z-[2] w-full">
         <div
-          className="flex max-w-[760px] flex-col gap-4"
+          className="flex flex-col gap-4"
           style={{ paddingBlock: 'clamp(1.75rem, 4vw, 3rem)' } as CSSProperties}
         >
           <nav aria-label="Breadcrumb" className="text-xs text-anchor-cream-text/[0.72]">
@@ -87,7 +87,7 @@ export function EventArtworkHero({
 
           <h1 className="font-display text-h1 text-anchor-cream-text">{title}</h1>
 
-          {lead && <p className="max-w-[54ch] text-xl text-anchor-cream-text/90">{lead}</p>}
+          {lead && <p className="text-xl text-anchor-cream-text/90">{lead}</p>}
 
           {badges && <div className="flex flex-wrap gap-2">{badges}</div>}
 
