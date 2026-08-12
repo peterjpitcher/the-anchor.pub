@@ -195,6 +195,13 @@
   --anchor-success: #006b45;
   --anchor-danger: #b1372f;
 
+  /* Theme-aware status colours. The two raw values above are tuned for cream
+     and fall to 2.4:1 on the dark season's surfaces, which matters because
+     these carry the live "Closed now" / "Open" state in the header. Tailwind's
+     anchor-success / anchor-danger map to these, so call sites need no change. */
+  --status-success: var(--anchor-success);
+  --status-danger: var(--anchor-danger);
+
   /* ---- Semantic aliases — LIGHT (default) ---- */
   --bg: var(--anchor-cream);
   --surface: var(--anchor-white);
@@ -216,6 +223,22 @@
   --focus-ring: var(--anchor-gold-dark);
   --link: var(--anchor-green);
   --link-hover: var(--anchor-gold-dark);
+
+  /* Sticky header surface. Translucent because the bar sits over the hero and
+     keeps its backdrop-blur. Its own token so the header follows the theme
+     instead of hardcoding a colour the dark season cannot override. */
+  --header-surface: rgba(250, 248, 243, 0.9);
+  /* The utility strip above it (hours, phone, parking, seasonal links). */
+  --header-strip-surface: var(--surface);
+
+  /* Warm accent tile: icon medallions, "today" highlights, sand badges.
+     Was hardcoded to --anchor-sand, which is a light cream and turned into
+     bright blocks once the dark season flipped the page underneath it. */
+  --tile: var(--anchor-sand);
+  --tile-ink: var(--anchor-green);
+
+  /* Sticky bottom CTA bar. Translucent over whatever it floats above. */
+  --sticky-cta-surface: rgba(255, 255, 255, 0.96);
 
   /* ---- Typography ---- */
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -310,7 +333,13 @@
   --surface-inverse: var(--anchor-cream);
   --text: var(--anchor-cream-text);
   --text-strong: var(--anchor-cream-text);
-  --text-muted: var(--anchor-sage);
+  /* Lighter than --anchor-sage #7a8b7f, which the design brief specifies but
+     which only reaches 4.07:1 on green-card and 2.62:1 on green. That was
+     survivable while dark surfaces were a handful of sections; with the dark
+     season covering the whole site it would have put most body copy below AA.
+     This value clears 4.5:1 on all three dark surfaces:
+       green-deep #0c1d11 6.7:1 · green-raised #132318 6.3:1 · green-card #172d1e 5.6:1 */
+  --text-muted: #94a396;
   --text-on-green: var(--anchor-cream-text);
   --text-on-gold: var(--anchor-charcoal);
   --text-inverse: var(--anchor-charcoal);
@@ -323,6 +352,24 @@
   --focus-ring: var(--anchor-gold-bright);
   --link: var(--anchor-gold-bright);
   --link-hover: var(--anchor-cream-text);
+
+  /* Core brand green, not the near-black green-deep the rest of the dark
+     surface uses. Owner's call: the header should read as The Anchor's green,
+     and the lighter band also separates the bar from the page behind it. */
+  --header-surface: rgba(0, 81, 49, 0.92);
+  /* Matched to the bar so the whole header block reads as one green band,
+     rather than a near-black strip sitting above a green one. */
+  --header-strip-surface: var(--anchor-green);
+
+  /* Gold at low opacity over dark green, per the winter design brief. */
+  --tile: rgba(201, 160, 32, 0.16);
+  --tile-ink: var(--anchor-gold-bright);
+
+  --sticky-cta-surface: rgba(19, 35, 24, 0.96);
+
+  /* Lifted for dark surfaces: 8.5:1 and 5.6:1 on green-card respectively. */
+  --status-success: #6ddaa1;
+  --status-danger: #ef8078;
 }
 
 * {

@@ -829,7 +829,7 @@ export function PrivateBookingCalculator({
 
             {/* Footer Total — deliberate dark green CTA band */}
             <div className={cn(
-                'theme-dark bg-anchor-green border-t border-line-gold',
+                'theme-dark bg-anchor-green [.theme-dark_&]:bg-anchor-green-raised border-t border-line-gold',
                 compact
                     ? 'p-4 flex items-center justify-between gap-3'
                     : 'p-8 flex flex-col md:flex-row items-center justify-between gap-6'

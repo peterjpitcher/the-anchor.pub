@@ -424,7 +424,7 @@ export function Navigation({
   return (
     <>
       {/* ============================ Utility strip (desktop) ============================ */}
-      <div className="hidden border-b border-line bg-surface lg:block">
+      <div className="hidden border-b border-line bg-[var(--header-strip-surface)] lg:block">
         <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-2">
           <div className="min-w-0">{statusComponent}</div>
 
@@ -473,7 +473,7 @@ export function Navigation({
       {/* ================================ Main header bar ================================ */}
       <nav
         className={cn(
-          'sticky top-0 z-[60] border-b border-line bg-[rgba(250,248,243,0.9)] backdrop-blur-md',
+          'sticky top-0 z-[60] border-b border-line bg-[var(--header-surface)] backdrop-blur-md',
           className
         )}
         role="navigation"

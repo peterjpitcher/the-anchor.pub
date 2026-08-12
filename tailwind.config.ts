@@ -21,7 +21,8 @@ const config: Config = {
           gold: { DEFAULT: '#a57626', dark: '#8b6914', bright: '#c9a020' },
           sage: '#7a8b7f', charcoal: '#1a1a1a', cream: '#faf8f3',
           'cream-text': '#f0e6c6', sand: '#f5e6d3', grey: '#6f6a61',
-          success: '#006b45', danger: '#b1372f',
+          // Theme-aware: these two lift on dark surfaces (see globals.css).
+          success: 'var(--status-success)', danger: 'var(--status-danger)',
         },
         // Semantic (theme-aware — re-map under .theme-dark automatically)
         canvas: 'var(--bg)',
@@ -29,6 +30,8 @@ const config: Config = {
         ink: { DEFAULT: 'var(--text)', strong: 'var(--text-strong)', muted: 'var(--text-muted)', inverse: 'var(--text-inverse)', 'on-green': 'var(--text-on-green)', 'on-gold': 'var(--text-on-gold)' },
         accent: { DEFAULT: 'var(--accent)', text: 'var(--accent-text)' },
         line: { DEFAULT: 'var(--border)', strong: 'var(--border-strong)', gold: 'var(--border-gold)' },
+        // Warm accent tile (icon medallions, sand badges, "today" highlight).
+        tile: { DEFAULT: 'var(--tile)', ink: 'var(--tile-ink)' },
       },
       fontFamily: {
         display: ['var(--font-display)', 'Times New Roman', 'serif'],

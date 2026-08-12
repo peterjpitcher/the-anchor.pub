@@ -228,7 +228,7 @@ export default async function HomePage() {
                   <CardBody className="flex flex-1 flex-col">
                     <span
                       aria-hidden
-                      className="flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-anchor-sand text-anchor-green"
+                      className="flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-tile text-tile-ink"
                     >
                       <Icon size={26} strokeWidth={1.75} />
                     </span>
@@ -293,7 +293,7 @@ export default async function HomePage() {
                 <CardBody className="flex h-full flex-col text-center">
                   <span
                     aria-hidden
-                    className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-anchor-sand text-anchor-green"
+                    className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-pill bg-tile text-tile-ink"
                   >
                     <Icon size={26} strokeWidth={1.75} />
                   </span>

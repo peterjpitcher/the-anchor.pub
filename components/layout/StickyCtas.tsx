@@ -144,7 +144,7 @@ export function StickyCtas() {
   return (
     <div
       aria-hidden={!showStickyCtas}
-      className="fixed inset-x-0 z-[80] border-t border-line bg-[rgba(255,255,255,0.96)] py-3 backdrop-blur transition-[transform,bottom] duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
+      className="fixed inset-x-0 z-[80] border-t border-line bg-[var(--sticky-cta-surface)] py-3 backdrop-blur transition-[transform,bottom] duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
       style={{
         // Rides on top of the cookie banner while it is up, then drops back to the bottom
         // edge once it is dismissed. Defaults to 0px so every page with no banner renders
