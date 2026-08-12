@@ -24,6 +24,7 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalHomepageImage, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
+import { getCurrentMonthlyHomepageCopy } from '@/lib/monthly-copy'
 import {
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel,
@@ -188,6 +189,10 @@ export default async function HomePage() {
   const seasonalImage = getSeasonalHomepageImage()
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
+  // Twelve copy sets, one per London month, so the homepage keeps feeling
+  // current even in the middle of the long dark window. Independent of the
+  // skin: changing one must not drag the other with it.
+  const monthlyCopy = getCurrentMonthlyHomepageCopy()
   // Fetched on the server so the seven-day table ships in the initial HTML rather
   // than the "loading" fallback. The cached snapshot keeps this page on ISR;
   // returns null on failure, which WeekHours handles.
@@ -208,6 +213,7 @@ export default async function HomePage() {
         image={seasonalImage.src}
         imageAlt={seasonalAltText}
         focal={`${focal.x}% ${focal.yDesktop}%`}
+        copy={monthlyCopy}
       />
 
       {/* 2 — Amenity strip */}
@@ -308,8 +314,8 @@ export default async function HomePage() {
 
       {/* 6 — CTA band */}
       <CtaBand
-        title="Ready to visit?"
-        copy="Walk-ins are always welcome, but booking guarantees your spot."
+        title={monthlyCopy.bandTitle}
+        copy={monthlyCopy.bandCopy}
         primary={<BookTableButton source="homepage_cta_band" variant="primary" size="lg">Book a table</BookTableButton>}
         secondary={
           <Link href="/food-menu">
