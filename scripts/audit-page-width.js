@@ -34,6 +34,15 @@ const BANNED = /(?:^|(?<=[\s"'`]))(?:(?:sm|md|lg|xl|2xl|max-sm|max-md|max-lg|max
 const BANNED_ARBITRARY = /(?:^|(?<=[\s"'`]))(?:(?:sm|md|lg|xl|2xl):)?max-w-\[(\d+)px\](?=[\s"'`]|$)/g;
 const MIN_ARBITRARY_PX = 600;
 
+// Character measures (max-w-[56ch] and friends). These were the last thing
+// still narrowing page content: SectionHeading capped every section lead at
+// 56ch and CtaBand at 50ch, on nearly every page, so the copy sat visibly
+// narrower than the cards underneath it. The owner chose one width over
+// typographic measure, twice, so they are banned outright.
+// `prose-` variants are exempt: those size images inside article bodies, not
+// the page.
+const BANNED_CH = /(?<!prose-)(?:^|(?<=[\s"'`]))(?:(?:sm|md|lg|xl|2xl):)?max-w-\[\d+ch\](?=[\s"'`]|$)/;
+
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
@@ -55,7 +64,7 @@ for (const dir of SCAN_DIRS) {
     if (ALLOWLIST.has(rel)) continue;
 
     fs.readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
-      if (BANNED.test(line)) {
+      if (BANNED.test(line) || BANNED_CH.test(line)) {
         failures.push(`${rel}:${i + 1}  ${line.trim().slice(0, 100)}`);
         return;
       }

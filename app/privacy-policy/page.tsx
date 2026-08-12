@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
           <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
-          <div className="prose prose-lg">
+          <div className="prose prose-lg max-w-none">
           <p className="lead">
             Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
