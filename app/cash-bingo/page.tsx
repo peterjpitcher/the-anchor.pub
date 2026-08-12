@@ -1,8 +1,5 @@
-import Image from 'next/image'
-import { getEventHeroImage } from '@/lib/event-image'
 import { Metadata } from 'next'
 import {
-  Badge,
   Button,
   Container,
   Card,
@@ -20,16 +17,16 @@ import { CONTACT } from '@/lib/constants'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   getEventCategories,
   getUpcomingEventsByCategory,
   formatEventDate,
   formatEventTime,
-  formatDoorTime,
+  formatDoorClockTime,
   type Event,
   type EventCategory
 } from '@/lib/api'
-import { getEventWebsiteUrl } from '@/lib/event-url'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -158,83 +155,29 @@ const FAQS = [
 ]
 
 function BingoEventCards({ events }: { events: Event[] }) {
-  if (!events.length) {
-    return (
-      <Card accent>
-      <CardBody className="text-center">
-        <p className="text-lg font-semibold text-accent-text mb-2">New cash bingo dates are loading soon</p>
-        <p className="text-ink-muted">
-          We’re finalising the next jackpot night. Call 01753 682707 and we’ll text you as soon as books go on sale.
-        </p>
-      </CardBody>
-      </Card>
-    )
-  }
-
   return (
-    <div className="space-y-6">
-      {events.map((event, index) => {
-        const doorTime = formatDoorTime(event.doorTime)
-        const startTime = formatEventTime(event.startDate)
-        const isDraft = (event.eventStatus || '').toLowerCase().includes('draft')
-        const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
-        const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-        const eventUrl = getEventWebsiteUrl(event)
-        const imageSrc = getEventHeroImage(event)
-
-        return (
-          <Card key={event.id} hover accent className="overflow-hidden">
-            <div className="border-b border-line bg-surface-sunk px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xs uppercase tracking-wide text-ink-muted">Monthly cash bingo</p>
-                  {isTentative && (
-                    <Badge variant="outline">Tentative</Badge>
-                  )}
-                </div>
-                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong hover:text-accent-text transition">
-                  {event.name}
-                </Link>
-                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
-              </div>
-	              <div className="text-right">
-	                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
-	                <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:00pm'} • £10 cash book</p>
-	              </div>
-            </div>
-            <CardBody className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
-              {imageSrc && (
-                <Link href={eventUrl} className="w-full lg:w-48">
-                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-sm">
-                    <Image
-                      src={imageSrc}
-                      alt={`${event.name} cash bingo night at The Anchor`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 192px"
-                      loading={index < 2 ? 'eager' : 'lazy'}
-                    />
-                  </div>
-                </Link>
-              )}
-
-              <div className="flex-1 space-y-4">
-                {event.description && (
-                  <p className="text-ink-muted leading-relaxed">{event.description}</p>
-                )}
-	                <p className="text-sm text-ink-muted">
-	                  £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20, and two extra calls, each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
-	                </p>
-              </div>
-
-              <div className="w-full space-y-3 lg:w-64 lg:shrink-0">
-                <EventBookingButton event={event} className="w-full lg:px-6" source="cash_bingo_event_card" />
-              </div>
-            </CardBody>
-          </Card>
-        )
-      })}
-    </div>
+    <EventDateCards
+      events={events}
+      eyebrow="Monthly cash bingo"
+      bookingSource="cash_bingo_event_card"
+      imageAltSuffix="cash bingo night at The Anchor"
+      renderMeta={(_event, doorTime) => (
+        <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:00pm'} • £10 cash book</p>
+      )}
+      renderDetails={() => (
+        <p className="text-sm text-ink-muted">
+          £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20, and two extra calls, each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
+        </p>
+      )}
+      emptyState={
+        <>
+          <p className="text-lg font-semibold text-accent-text mb-2">New cash bingo dates are loading soon</p>
+          <p className="text-ink-muted">
+            We’re finalising the next jackpot night. Call 01753 682707 and we’ll text you as soon as books go on sale.
+          </p>
+        </>
+      }
+    />
   )
 }
 
@@ -243,7 +186,7 @@ export default async function CashBingoPage() {
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
-  const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
+  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
 	  const heroDescription = nextEvent
 	    ? `Doors ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`

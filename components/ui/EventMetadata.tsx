@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { formatEventDate, formatEventTime, formatDoorTime, formatPrice, type Event } from '@/lib/api'
+import { formatEventDate, formatEventTime, formatDoorClockTime, formatPrice, type Event } from '@/lib/api'
 
 interface EventMetadataProps {
   event: Partial<Event>
@@ -51,7 +51,7 @@ export function EventMetadata({
   }
 
   if (showDoorTime && event.doorTime) {
-    const doorTimeText = formatDoorTime(event.doorTime)
+    const doorTimeText = formatDoorClockTime(event.doorTime)
     if (doorTimeText) {
       metadata.push({
         icon: '',

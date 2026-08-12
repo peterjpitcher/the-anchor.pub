@@ -599,11 +599,21 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
   return event.description
 }
 
-// Helper to format door time
-export function formatDoorTime(doorTimeString: string | null | undefined): string | null {
+// Helper to format door time as a bare clock time, e.g. "6:30pm".
+// Use this wherever the caller renders its own "Doors" label, otherwise the
+// label is printed twice ("Doors Doors: 6:30pm").
+export function formatDoorClockTime(doorTimeString: string | null | undefined): string | null {
   if (!doorTimeString) return null
 
-  return 'Doors: ' + formatEventLocalTime(doorTimeString)
+  return formatEventLocalTime(doorTimeString)
+}
+
+// Helper to format door time as a self-describing label, e.g. "Doors: 6:30pm".
+// Only for standalone use (badges, metadata rows with no label of their own).
+export function formatDoorTime(doorTimeString: string | null | undefined): string | null {
+  const clockTime = formatDoorClockTime(doorTimeString)
+
+  return clockTime ? `Doors: ${clockTime}` : null
 }
 
 // Helper to format event duration
