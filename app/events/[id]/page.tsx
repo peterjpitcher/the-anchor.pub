@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
-import { getEventHeroImage, getEventSquareImage, getEventImage } from '@/lib/event-image'
+import { getEventHeroImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
-import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
 import { Button, Container, Card, CardBody, Alert, Badge } from '@/components/ui'
@@ -412,14 +411,7 @@ export default async function EventPage({ params }: Props) {
   // Drives the hero's shape, so a square-only event is not letterboxed into a
   // 16:9 frame it was never drawn for.
   const heroArtworkIsWide = Boolean(event.landscapeImageUrl?.trim())
-  // The square card in the left column further down. It is an aspect-square
-  // container with object-cover, so handing it the landscape crops the sides
-  // straight back off again.
-  const eventSquareSrc = getEventSquareImage(event)
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
-  const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
-  ).toString('base64')}`
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
   // The lead is the largest text after the title, so it is the worst place for
   // the wrong tense. An ended event used to fall straight back to its stored
@@ -598,22 +590,15 @@ export default async function EventPage({ params }: Props) {
           <div className="mx-auto">
             {/* Main Content Grid */}
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
-              {/* Left Column - Event Image and Details */}
+              {/* Left Column - Event Details.
+                  The square artwork card that used to sit here has gone. It
+                  earned its place when the hero was a photograph of the pub,
+                  but EventArtworkHero now shows the artwork clean at the top,
+                  so this was the same design a second time, 400px further
+                  down, and only on desktop because it was hidden below lg.
+                  The square image is still used for listing cards
+                  (RelatedEvents), the countdown banner and event schema. */}
               <div className="order-2 lg:order-1">
-                {eventSquareSrc && (
-                  <div className="relative mx-auto mb-6 hidden aspect-square max-w-md overflow-hidden rounded-2xl shadow-lg lg:block lg:max-w-none">
-                    <Image
-                      src={eventSquareSrc}
-                      alt={imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="420px"
-                      placeholder="blur"
-                      blurDataURL={blurDataURL}
-                    />
-                  </div>
-                )}
-
                 <EventHighlights highlights={event.highlights} compact />
 
                 <details className="mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
