@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Event } from '@/lib/api'
 import { isEventSoldOut } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
@@ -35,7 +36,12 @@ export function EventListItem({ event, className }: EventListItemProps) {
   })} · ${formatEventLocalTime(event.startDate)}`
 
   return (
-    <Card hover accent className={cn('h-full', className)}>
+    <Card hover accent className={cn('group relative h-full cursor-pointer', className)}>
+      <Link
+        href={detailHref}
+        aria-label={`View ${event.name} details`}
+        className="absolute inset-0 z-10 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-anchor-gold"
+      />
       <div className="flex h-full gap-4 p-4">
         {/* Thumb: 92px below 640px, 120px from sm up. Dropped entirely when the
             event has no artwork, so the text simply fills the row. */}
@@ -65,12 +71,9 @@ export function EventListItem({ event, className }: EventListItemProps) {
             ) : null}
           </div>
 
-          <a
-            href={detailHref}
-            className="font-display text-h4 text-ink-strong transition-colors hover:text-accent-text focus:outline-none focus-visible:text-accent-text"
-          >
+          <h3 className="font-display text-h4 text-ink-strong transition-colors group-hover:text-accent-text">
             {event.name}
-          </a>
+          </h3>
 
           {event.shortDescription && (
             <p className="line-clamp-2 text-sm text-ink-muted">
@@ -78,13 +81,13 @@ export function EventListItem({ event, className }: EventListItemProps) {
             </p>
           )}
 
-          <div className="mt-auto pt-1">
+          <div className="pointer-events-none relative z-20 mt-auto pt-1">
             <EventBookingButton
               event={event}
               size="sm"
               fullWidth={false}
               source="event_list_item"
-              className="whitespace-normal max-[640px]:w-full"
+              className="pointer-events-auto whitespace-normal max-[640px]:w-full"
             />
           </div>
         </div>

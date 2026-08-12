@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { Button, type ButtonProps } from '@/components/ui'
 import { trackSocialClick } from '@/lib/gtm-events'
+import { withDailyShareMarker } from '@/lib/share-url'
 
 type ShareButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
   title: string
@@ -10,6 +11,7 @@ type ShareButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
   text?: string
   source: string
   label?: string
+  refreshPreviewDaily?: boolean
 }
 
 export function ShareButton({
@@ -18,6 +20,7 @@ export function ShareButton({
   text,
   source,
   label = 'Share',
+  refreshPreviewDaily = false,
   ...buttonProps
 }: ShareButtonProps) {
   const [didCopy, setDidCopy] = useState(false)
@@ -31,17 +34,19 @@ export function ShareButton({
   }
 
   const handleShare = async () => {
+    const shareUrl = refreshPreviewDaily ? withDailyShareMarker(url) : url
+
     trackSocialClick({
       platform: 'share',
       source,
-      url,
+      url: shareUrl,
       label: 'share',
       title
     })
 
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
-        await navigator.share({ title, text, url })
+        await navigator.share({ title, text, url: shareUrl })
         return
       } catch {
         // Fall back to clipboard if the user cancels or the share fails
@@ -50,7 +55,7 @@ export function ShareButton({
 
     if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
       try {
-        await navigator.clipboard.writeText(url)
+        await navigator.clipboard.writeText(shareUrl)
         setDidCopy(true)
         resetCopyState()
         return
@@ -60,7 +65,7 @@ export function ShareButton({
     }
 
     if (typeof window !== 'undefined') {
-      window.open(url, '_blank', 'noopener,noreferrer')
+      window.open(shareUrl, '_blank', 'noopener,noreferrer')
     }
   }
 

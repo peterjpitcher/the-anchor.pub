@@ -63,6 +63,18 @@ const script = Clicker_Script({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
+  manifest: '/manifest.json?v=anchor-2',
+  icons: {
+    icon: [
+      { url: '/favicon.ico?v=anchor-2', sizes: 'any' },
+      { url: '/icon.svg?v=anchor-2', type: 'image/svg+xml' },
+      { url: '/favicon.png?v=anchor-2', sizes: '48x48', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico?v=anchor-2',
+    apple: [
+      { url: '/apple-touch-icon.png?v=anchor-2', sizes: '180x180', type: 'image/png' }
+    ]
+  },
   title: {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor'
@@ -178,12 +190,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-
-        {/* Favicons and manifest */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
 
         {/* Meta tags */}
         <meta name="theme-color" content="#005131" />

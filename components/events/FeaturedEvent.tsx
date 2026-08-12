@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   CalendarDays,
   Clock,
@@ -90,7 +91,12 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
   const imageSrc = getEventImage(event)
 
   return (
-    <Card accent className={cn('overflow-hidden', className)}>
+    <Card hover accent className={cn('group relative cursor-pointer overflow-hidden', className)}>
+      <Link
+        href={detailHref}
+        aria-label={`View ${event.name} details`}
+        className="absolute inset-0 z-10 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-anchor-gold"
+      />
       {/* Without artwork the poster track is dropped, not left empty, so the
           body spans the full card rather than sitting in a 1fr column beside a
           340px gap. */}
@@ -138,7 +144,9 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
           </div>
 
           {/* Name */}
-          <h3 className="font-display text-h3 text-ink-strong">{event.name}</h3>
+          <h3 className="font-display text-h3 text-ink-strong transition-colors group-hover:text-accent-text">
+            {event.name}
+          </h3>
 
           {/* Short description (gold, 600) */}
           {event.shortDescription && (
@@ -164,16 +172,16 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
 
           {/* Actions: md buttons so both fit one row at lg+, keeping the
               content column no taller than the 340px square poster. */}
-          <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+          <div className="pointer-events-none relative z-20 mt-auto flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
             <EventBookingButton
               event={event}
               size="md"
               fullWidth={false}
               source="featured_event"
-              className="whitespace-normal sm:w-auto"
+              className="pointer-events-auto whitespace-normal sm:w-auto"
             />
             <Button asChild variant="outline" size="md">
-              <a href={detailHref}>View details</a>
+              <Link href={detailHref} className="pointer-events-auto">View details</Link>
             </Button>
           </div>
         </CardBody>

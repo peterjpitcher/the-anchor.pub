@@ -80,11 +80,11 @@ const nextConfig = {
       },
       // Add cache headers for static files (production only)
       {
-        source: '/favicon.ico',
+        source: '/:icon(favicon.ico|favicon.png|icon.svg|apple-touch-icon.png|icon-192.png|icon-512.png)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=604800, stale-while-revalidate=86400',
           },
           {
             key: 'X-Robots-Tag',

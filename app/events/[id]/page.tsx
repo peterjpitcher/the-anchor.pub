@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getEventHeroImage, getEventSquareImage } from '@/lib/event-image'
+import { getEventHeroImage, getEventSquareImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -40,6 +40,7 @@ import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
+import { getEventSocialCopy } from '@/lib/event-social-copy'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -226,13 +227,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const canonical = `/events/${event.slug || params.id}`
-    const ogImage = `${canonical}/opengraph-image`
+    const eventImage = getEventImage(event)
+    const imageVersion = event.updated_at
+      ? `2-${encodeURIComponent(event.updated_at)}`
+      : '2'
+    const ogImage = eventImage
+      ? `${canonical}/social-image?v=${imageVersion}`
+      : `${canonical}/opengraph-image`
+    const imageAlt = `${event.name} at The Anchor`
     // Past events never inherit their sales copy. That text was written to sell
     // tickets and is future tense, so on a night that has passed it produces a
     // search result inviting people to book a date months gone.
     const description = getEventMetaDescription(
       event,
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`,
+    )
+    const socialCopy = getEventSocialCopy(event)
+    const socialTitle = socialCopy?.title || event.metaTitle || event.name
+    const socialDescription = socialCopy?.description || getEventMetaDescription(
+      event,
+      `Event at The Anchor, ${formatEventDate(event.startDate)}`,
     )
 
     // Indexability comes from getEventSeoStrategy, the same function the page
@@ -256,28 +270,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         canonical,
       },
       openGraph: {
-        title: event.metaTitle || event.name,
-        // Same resolver as the head description, so a shared link cannot
-        // advertise a night that has already happened.
-        description: getEventMetaDescription(
-          event,
-          `Event at The Anchor - ${formatEventDate(event.startDate)}`,
-        ),
+        title: socialTitle,
+        description: socialDescription,
         url: canonical,
         siteName: 'The Anchor',
-        images: [
-          {
-            url: ogImage,
-            width: 1200,
-            height: 630,
-            alt: `${event.name} at The Anchor`
-          }
-        ],
+        images: [{
+          url: ogImage,
+          width: 1200,
+          height: eventImage ? 1200 : 630,
+          alt: imageAlt,
+          type: eventImage ? 'image/jpeg' : 'image/png'
+        }],
         type: 'website',
       },
       twitter: getTwitterMetadata({
-        title: event.metaTitle || event.name,
-        description,
+        title: socialTitle,
+        description: socialDescription,
         images: [ogImage]
       })
     }
