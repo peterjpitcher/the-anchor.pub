@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
-import { getEventHeroImage, getEventSquareImage } from '@/lib/event-image'
+import { getEventHeroImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
-import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
 import { Button, Container, Card, CardBody, Alert, Badge } from '@/components/ui'
@@ -40,6 +39,7 @@ import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
+import { getEventSocialCopy } from '@/lib/event-social-copy'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -226,13 +226,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const canonical = `/events/${event.slug || params.id}`
-    const ogImage = `${canonical}/opengraph-image`
+    const eventImage = getEventImage(event)
+    const imageVersion = event.updated_at
+      ? `2-${encodeURIComponent(event.updated_at)}`
+      : '2'
+    const ogImage = eventImage
+      ? `${canonical}/social-image?v=${imageVersion}`
+      : `${canonical}/opengraph-image`
+    const imageAlt = `${event.name} at The Anchor`
     // Past events never inherit their sales copy. That text was written to sell
     // tickets and is future tense, so on a night that has passed it produces a
     // search result inviting people to book a date months gone.
     const description = getEventMetaDescription(
       event,
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`,
+    )
+    const socialCopy = getEventSocialCopy(event)
+    const socialTitle = socialCopy?.title || event.metaTitle || event.name
+    const socialDescription = socialCopy?.description || getEventMetaDescription(
+      event,
+      `Event at The Anchor, ${formatEventDate(event.startDate)}`,
     )
 
     // Indexability comes from getEventSeoStrategy, the same function the page
@@ -256,28 +269,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         canonical,
       },
       openGraph: {
-        title: event.metaTitle || event.name,
-        // Same resolver as the head description, so a shared link cannot
-        // advertise a night that has already happened.
-        description: getEventMetaDescription(
-          event,
-          `Event at The Anchor - ${formatEventDate(event.startDate)}`,
-        ),
+        title: socialTitle,
+        description: socialDescription,
         url: canonical,
         siteName: 'The Anchor',
-        images: [
-          {
-            url: ogImage,
-            width: 1200,
-            height: 630,
-            alt: `${event.name} at The Anchor`
-          }
-        ],
+        images: [{
+          url: ogImage,
+          width: 1200,
+          height: eventImage ? 1200 : 630,
+          alt: imageAlt,
+          type: eventImage ? 'image/jpeg' : 'image/png'
+        }],
         type: 'website',
       },
       twitter: getTwitterMetadata({
-        title: event.metaTitle || event.name,
-        description,
+        title: socialTitle,
+        description: socialDescription,
         images: [ogImage]
       })
     }
@@ -404,14 +411,7 @@ export default async function EventPage({ params }: Props) {
   // Drives the hero's shape, so a square-only event is not letterboxed into a
   // 16:9 frame it was never drawn for.
   const heroArtworkIsWide = Boolean(event.landscapeImageUrl?.trim())
-  // The square card in the left column further down. It is an aspect-square
-  // container with object-cover, so handing it the landscape crops the sides
-  // straight back off again.
-  const eventSquareSrc = getEventSquareImage(event)
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
-  const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
-  ).toString('base64')}`
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
   // The lead is the largest text after the title, so it is the worst place for
   // the wrong tense. An ended event used to fall straight back to its stored
@@ -590,22 +590,15 @@ export default async function EventPage({ params }: Props) {
           <div className="mx-auto">
             {/* Main Content Grid */}
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
-              {/* Left Column - Event Image and Details */}
+              {/* Left Column - Event Details.
+                  The square artwork card that used to sit here has gone. It
+                  earned its place when the hero was a photograph of the pub,
+                  but EventArtworkHero now shows the artwork clean at the top,
+                  so this was the same design a second time, 400px further
+                  down, and only on desktop because it was hidden below lg.
+                  The square image is still used for listing cards
+                  (RelatedEvents), the countdown banner and event schema. */}
               <div className="order-2 lg:order-1">
-                {eventSquareSrc && (
-                  <div className="relative mx-auto mb-6 hidden aspect-square max-w-md overflow-hidden rounded-2xl shadow-lg lg:block lg:max-w-none">
-                    <Image
-                      src={eventSquareSrc}
-                      alt={imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="420px"
-                      placeholder="blur"
-                      blurDataURL={blurDataURL}
-                    />
-                  </div>
-                )}
-
                 <EventHighlights highlights={event.highlights} compact />
 
                 <details className="mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
