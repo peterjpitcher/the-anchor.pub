@@ -1,31 +1,26 @@
 import { Metadata } from 'next'
-import {
-  Badge,
-  Button,
-  Container,
-  Card,
-  CardBody,
-  Grid,
-  GridItem,
-  SectionHeading
-} from '@/components/ui'
+import { Badge, Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import { EventBookingButton } from '@/components/EventBookingButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
-import { RegretReduction } from '@/components/psychology'
+import {
+  GameNightBooking,
+  GameNightCtaActions,
+  GameNightFacts,
+  GameNightObjections,
+  buildGameNightCtaLabel
+} from '@/components/features/GameNight'
+import { quizNight } from '@/lib/game-nights'
+import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import {
   getEventCategories,
   getUpcomingEventsByCategory,
-  formatEventDate,
   formatEventTime,
   formatDoorClockTime,
   type Event,
@@ -56,10 +51,7 @@ export const metadata: Metadata = {
   }
 }
 
-const QUIZ_CATEGORY = {
-  name: 'Pub Quiz Night',
-  slug: 'quiz-night-stanwell-moor'
-}
+const QUIZ_CATEGORY = quizNight.category
 
 const normalizeCategoryValue = (value?: string | null) =>
   value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
@@ -211,7 +203,6 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 export default async function QuizNightPage() {
   const events = await getQuizEvents()
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
@@ -219,17 +210,25 @@ export default async function QuizNightPage() {
 	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`
 	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.'
 
-  // Extract ISO date (YYYY-MM-DD) from startDate for booking URL prefill
-  const nextEventIsoDate = nextEvent ? nextEvent.startDate.slice(0, 10) : null
-  const bookingHref = nextEventIsoDate ? `/book-table?date=${nextEventIsoDate}` : '/book-table'
-
   return (
     <>
+      <ScrollDepthTracker />
+
       <InteriorHero
-        image="/images/page-headers/home/page-headers-homepage.jpg"
-        crumb="Quiz Night"
-        title="Pub Quiz Night at The Anchor Near Heathrow"
-        lead="Monthly pub quiz near Heathrow and Staines. Trivia rounds, seasonal themes, £25 bar tab for the winners and a proper pub quiz atmosphere."
+        image={quizNight.hero.image}
+        focal={quizNight.hero.focal}
+        crumb={quizNight.hero.crumb}
+        title={quizNight.hero.title}
+        lead={quizNight.hero.lead}
+        badges={<GameNightFacts facts={quizNight.facts} />}
+        actions={
+          <GameNightCtaActions
+            gameSlug={quizNight.slug}
+            label={buildGameNightCtaLabel(quizNight, nextEvent)}
+            hasBookableDate={Boolean(nextEvent)}
+            location="hero"
+          />
+        }
       />
 
       {/* Definitive answer for featured snippets */}
@@ -243,29 +242,15 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next quiz night</p>
-                <h2 className="text-h3 text-ink-strong">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                <p className="text-accent-text font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-                {nextEvent?.longDescription && (
-                  <p className="text-ink-muted whitespace-pre-line">{nextEvent.longDescription}</p>
-                )}
-                <div className="space-y-3">
-                  {nextEvent && (
-                    <RegretReduction variant="booking" className="mb-4" />
-                  )}
-                  {nextEvent ? (
-                    <EventBookingButton event={nextEvent} className="w-full" source="quiz_night_next_event" />
-                  ) : (
-                    <PhoneButton phone={CONTACT.phone} source="quiz-night_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
-                      Call {CONTACT.phone}
-                    </PhoneButton>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <SectionViewTracker sectionId="quiz_night_booking">
+              <GameNightBooking
+                events={events}
+                gameName={quizNight.name}
+                gameSlug={quizNight.slug}
+                bookingNote={quizNight.bookingNote}
+              />
+            </SectionViewTracker>
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How the night runs</h3>
@@ -282,6 +267,10 @@ export default async function QuizNightPage() {
               </CardBody>
             </Card>
           </div>
+
+          <SectionViewTracker sectionId="quiz_night_objections" className="mt-10">
+            <GameNightObjections objections={quizNight.objections} gameName={quizNight.name} />
+          </SectionViewTracker>
         </Container>
       </section>
 
@@ -303,7 +292,9 @@ export default async function QuizNightPage() {
             <p className="text-ink-muted text-center mb-8">
               We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
             </p>
-            <QuizNightEvents events={events} />
+            <SectionViewTracker sectionId="quiz_night_dates">
+              <QuizNightEvents events={events} />
+            </SectionViewTracker>
           </div>
         </Container>
       </section>
@@ -505,17 +496,14 @@ export default async function QuizNightPage() {
       <CtaBand
         title="Ready to play for the tab?"
         copy="Reserve your spot or call the bar team and we’ll make sure your table’s ready."
-        primary={
-          <BookTableButton source="quiz_night_cta_bottom" variant="primary" size="lg" className="w-full sm:w-auto">
-            Book Your Team Table
-          </BookTableButton>
-        }
-        secondary={
-          <PhoneButton phone="01753 682707" source="quiz_night_cta_bottom" variant="outline" size="lg" className="w-full sm:w-auto">
-            Call to reserve: 01753 682707
-          </PhoneButton>
-        }
-      />
+      >
+        <GameNightCtaActions
+          gameSlug={quizNight.slug}
+          label={buildGameNightCtaLabel(quizNight, nextEvent)}
+          hasBookableDate={Boolean(nextEvent)}
+          location="closing_band"
+        />
+      </CtaBand>
 
       <InternalLinkingSection
         title="Plan your night out"
