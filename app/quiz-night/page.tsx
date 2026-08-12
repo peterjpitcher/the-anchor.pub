@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import { getEventHeroImage } from '@/lib/event-image'
 import { Metadata } from 'next'
 import {
   Badge,
@@ -22,17 +20,17 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { BookTableButton } from '@/components/BookTableButton'
+import { EventDateCards } from '@/components/features/EventDateCards'
 import { RegretReduction } from '@/components/psychology'
 import {
   getEventCategories,
   getUpcomingEventsByCategory,
   formatEventDate,
   formatEventTime,
-  formatDoorTime,
+  formatDoorClockTime,
   type Event,
   type EventCategory
 } from '@/lib/api'
-import { getEventWebsiteUrl } from '@/lib/event-url'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -175,89 +173,38 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
 }
 
 function QuizNightEvents({ events }: { events: Event[] }) {
-  if (!events.length) {
-    return (
-      <Card accent>
-        <CardBody className="text-center">
+  return (
+    <EventDateCards
+      events={events}
+      eyebrow="Monthly quiz night"
+      bookingSource="quiz_night_event_card"
+      imageAltSuffix="quiz night at The Anchor"
+      renderMeta={(_event, doorTime) => (
+        <>
+          <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'}</p>
+          <p className="text-xs text-ink-muted">£3 per player</p>
+        </>
+      )}
+      renderDetails={() => (
+        <>
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <Badge variant="success">£25 bar tab for winners</Badge>
+            <Badge variant="sand">Bottle of wine for second-from-last</Badge>
+          </div>
+          <p className="text-sm text-ink-muted">
+            £3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
+          </p>
+        </>
+      )}
+      emptyState={
+        <>
           <p className="text-lg font-semibold text-accent-text mb-2">New quiz dates are loading soon</p>
           <p className="text-ink-muted">
             Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
           </p>
-        </CardBody>
-      </Card>
-    )
-  }
-
-  return (
-    <div className="space-y-6">
-      {events.map((event, index) => {
-        const doorTime = formatDoorTime(event.doorTime)
-        const startTime = formatEventTime(event.startDate)
-        const isDraft = (event.eventStatus || '').toLowerCase().includes('draft')
-        const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
-        const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-        const eventUrl = getEventWebsiteUrl(event)
-        const imageSrc = getEventHeroImage(event)
-
-        return (
-          <Card key={event.id} hover accent className="overflow-hidden">
-            <div className="border-b border-line bg-surface-sunk px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-xs uppercase tracking-wide text-ink-muted">Monthly quiz night</p>
-                  {isTentative && (
-                    <Badge variant="outline">Tentative</Badge>
-                  )}
-                </div>
-                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong hover:text-accent-text transition">
-                  {event.name}
-                </Link>
-                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
-              </div>
-	              <div className="text-right">
-	                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
-	                <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'}</p>
-	                <p className="text-xs text-ink-muted">£3 per player</p>
-	              </div>
-            </div>
-
-            <CardBody className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
-              {imageSrc && (
-                <Link href={eventUrl} className="w-full lg:w-48">
-                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-sm">
-                    <Image
-                      src={imageSrc}
-                      alt={`${event.name} quiz night at The Anchor`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 192px"
-                      loading={index < 2 ? 'eager' : 'lazy'}
-                    />
-                  </div>
-                </Link>
-              )}
-
-              <div className="flex-1 space-y-4">
-                {event.description && (
-                  <p className="text-ink-muted leading-relaxed">{event.description}</p>
-                )}
-	                <div className="flex flex-wrap items-center gap-3 text-sm">
-	                  <Badge variant="success">£25 bar tab for winners</Badge>
-                  <Badge variant="sand">Bottle of wine for second-from-last</Badge>
-                </div>
-	                <p className="text-sm text-ink-muted">
-	                  £3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
-	                </p>
-              </div>
-
-              <div className="w-full space-y-3 lg:w-64 lg:shrink-0">
-                <EventBookingButton event={event} className="w-full lg:px-6" source="quiz_night_event_card" />
-              </div>
-            </CardBody>
-          </Card>
-        )
-      })}
-    </div>
+        </>
+      }
+    />
   )
 }
 
@@ -266,7 +213,7 @@ export default async function QuizNightPage() {
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
-  const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
+  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
 	  const heroDescription = nextEvent
 	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`

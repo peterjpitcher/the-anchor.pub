@@ -1,9 +1,6 @@
 
-import Image from 'next/image'
-import { getEventHeroImage } from '@/lib/event-image'
 import { Metadata } from 'next'
 import {
-    Badge,
     Button,
     Container,
     Card,
@@ -21,16 +18,15 @@ import { HeroBadge } from '@/components/HeroBadge'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { EventDateCards } from '@/components/features/EventDateCards'
 import {
     getEventCategories,
     getUpcomingEventsByCategory,
     formatEventDate,
     formatEventTime,
-    formatDoorTime,
     type Event,
     type EventCategory
 } from '@/lib/api'
-import { getEventWebsiteUrl } from '@/lib/event-url'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -163,80 +159,27 @@ const FAQS = [
 ]
 
 function KaraokeEventCards({ events }: { events: Event[] }) {
-    if (!events.length) {
-        return (
-            <Card accent><CardBody className="text-center">
-                <p className="text-lg font-semibold text-accent-text mb-2">Next karaoke dates coming soon</p>
-                <p className="text-ink-muted">
-                    We're tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
-                </p>
-            </CardBody></Card>
-        )
-    }
-
     return (
-        <div className="space-y-6">
-            {events.map((event, index) => {
-                const doorTime = formatDoorTime(event.doorTime)
-                const startTime = formatEventTime(event.startDate)
-                const isTentative = new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000 || (event.eventStatus || '').toLowerCase().includes('draft')
-                const eventUrl = getEventWebsiteUrl(event)
-                const imageSrc = getEventHeroImage(event)
-
-                return (
-                    <Card key={event.id} hover accent className="overflow-hidden">
-                        <div className="border-b border-line bg-surface-sunk px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-                            <div className="min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <p className="text-xs uppercase tracking-wide text-ink-muted">Karaoke Night</p>
-                                    {isTentative && (
-                                        <Badge variant="outline">Tentative</Badge>
-                                    )}
-                                </div>
-                                <Link href={eventUrl} className="block text-xl font-semibold text-ink-strong hover:text-accent-text transition">
-                                    {event.name}
-                                </Link>
-                                <p className="text-sm text-ink-muted line-clamp-1">{formatEventDate(event.startDate)}</p>
-                            </div>
-                            <div className="text-right">
-                                <p className="text-lg font-semibold text-ink-strong">{startTime}</p>
-                                <p className="text-xs text-ink-muted">Free Entry</p>
-                            </div>
-                        </div>
-
-                        <CardBody className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
-                            {imageSrc && (
-                                <Link href={eventUrl} className="w-full lg:w-48">
-                                    <div className="relative aspect-square rounded-xl overflow-hidden shadow-sm">
-                                        <Image
-                                            src={imageSrc}
-                                            alt={`${event.name} at The Anchor`}
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 1024px) 100vw, 192px"
-                                            loading={index < 2 ? 'eager' : 'lazy'}
-                                        />
-                                    </div>
-                                </Link>
-                            )}
-
-                            <div className="flex-1 space-y-4">
-                                {event.description && (
-                                    <p className="text-ink-muted leading-relaxed">{event.description}</p>
-                                )}
-                                <p className="text-sm text-ink-muted">
-                                    Grab the mic and show us what you've got. Check the event listing for host, timings and song details.
-                                </p>
-                            </div>
-
-                            <div className="w-full lg:w-64 space-y-3">
-                                <EventBookingButton event={event} className="w-full" source="karaoke_event_card" />
-                            </div>
-                        </CardBody>
-                    </Card>
-                )
-            })}
-        </div>
+        <EventDateCards
+            events={events}
+            eyebrow="Karaoke Night"
+            bookingSource="karaoke_event_card"
+            imageAltSuffix="at The Anchor"
+            renderMeta={() => <p className="text-xs text-ink-muted">Free Entry</p>}
+            renderDetails={() => (
+                <p className="text-sm text-ink-muted">
+                    Grab the mic and show us what you've got. Check the event listing for host, timings and song details.
+                </p>
+            )}
+            emptyState={
+                <>
+                    <p className="text-lg font-semibold text-accent-text mb-2">Next karaoke dates coming soon</p>
+                    <p className="text-ink-muted">
+                        We're tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
+                    </p>
+                </>
+            }
+        />
     )
 }
 

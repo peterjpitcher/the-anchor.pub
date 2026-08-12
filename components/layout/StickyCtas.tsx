@@ -200,10 +200,14 @@ export function StickyCtas() {
           </Button>
         )}
 
+        {/* The label is screen-reader-only below sm, but the button kept its full
+            md padding, so on a 390px phone the four controls needed 418px and the
+            WhatsApp button was clipped off the right edge. */}
         <Button
           asChild
           variant="outline"
           size="md"
+          className="shrink-0 max-sm:h-12 max-sm:w-12 max-sm:px-0"
           icon={<Utensils className="h-5 w-5" aria-hidden />}
           tabIndex={showStickyCtas ? undefined : -1}
         >
