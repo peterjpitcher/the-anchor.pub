@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { getEventHeroImage } from '@/lib/event-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
@@ -395,7 +396,7 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Reserve your Mother’s Day table online. Booking ahead is recommended because this Sunday fills quickly.'
-  const eventImageSrc = event.heroImageUrl || event.image?.[0] || null
+  const eventImageSrc = getEventHeroImage(event)
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
   const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`

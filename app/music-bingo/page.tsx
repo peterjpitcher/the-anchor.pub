@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { getEventHeroImage } from '@/lib/event-image'
 import { Metadata } from 'next'
 import {
   Badge,
@@ -208,7 +209,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
         const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
         const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
         const eventUrl = getEventWebsiteUrl(event)
-        const imageSrc = event.heroImageUrl || event.image?.[0] || null
+        const imageSrc = getEventHeroImage(event)
         const entryLabel = getEntryLabel(event)
 
         return (

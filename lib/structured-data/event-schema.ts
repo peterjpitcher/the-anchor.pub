@@ -1,4 +1,5 @@
 import { Event, getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
+import { getEventSquareImage } from '@/lib/event-image'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
@@ -83,7 +84,7 @@ export function buildEventSchema(event: Event) {
   const presentation = getEventPresentation(event)
   const isBookable = presentation.includeSchemaOffers
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
-  const eventImage = event.image?.[0] || event.heroImageUrl || event.thumbnailImageUrl || DEFAULT_EVENT_IMAGE
+  const eventImage = getEventSquareImage(event) || DEFAULT_EVENT_IMAGE
   const bookingUrl =
     sanitiseSchemaUrl(event.bookingUrl, '') ||
     sanitiseSchemaUrl(event.offers?.url, '') ||

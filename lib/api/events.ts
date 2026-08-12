@@ -81,9 +81,14 @@ export interface Event {
   }
   image?: string[]
   video?: string[] // New field: event video URLs
-  heroImageUrl?: string | null // Legacy field
-  thumbnailImageUrl?: string | null // Legacy field
-  posterImageUrl?: string | null // Legacy field
+  heroImageUrl?: string | null // Legacy field, holds the square
+  thumbnailImageUrl?: string | null // Legacy field, holds the square
+  posterImageUrl?: string | null // Legacy field, holds the square. Never a print poster
+  // Variant artwork. Absent on older API responses, so every consumer falls
+  // back. The management API never sends the story or the A4 print poster.
+  squareImageUrl?: string | null // 1:1, cards and listings
+  landscapeImageUrl?: string | null // 16:9, page heroes
+  socialImageUrl?: string | null // 1.91:1, link previews and Facebook covers
   galleryImages?: string[] // Legacy field
   promoVideoUrl?: string | null // Legacy field
   highlightVideos?: string[] // Legacy field

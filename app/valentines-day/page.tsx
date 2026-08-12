@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getEventHeroImage, getEventSocialImage } from '@/lib/event-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { cache } from 'react'
@@ -179,7 +180,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const socialImages = [
     DEFAULT_PAGE_HEADER_IMAGE,
-    event?.image?.[0]
+    event ? getEventSocialImage(event) : null
   ].filter((value): value is string => typeof value === 'string' && value.length > 0)
 
   return {
@@ -206,7 +207,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ValentinesDayPage() {
   const { event, targetYear } = await getValentinesEvent()
 
-  const heroImage = event?.image?.[0] || DEFAULT_EVENT_IMAGE
+  const heroImage = (event ? getEventHeroImage(event) : null) || DEFAULT_EVENT_IMAGE
   const eventDate = event ? formatEventDate(event.startDate) : `14 February ${targetYear}`
   const eventTime = event ? formatEventTime(event.startDate) : 'Evening'
   const eventPageUrl = event ? `/events/${event.slug || event.id}` : '/whats-on'

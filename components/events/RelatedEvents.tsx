@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { getEventSquareImage } from '@/lib/event-image'
 import Link from 'next/link'
 import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { formatEventLocalDate } from '@/lib/event-calendar'
@@ -78,11 +79,9 @@ export default async function RelatedEvents({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {related.map((event) => {
             const href = getEventWebsitePath(event)
-            const imageSrc =
-              (event.image && event.image[0]) ||
-              event.heroImageUrl ||
-              event.thumbnailImageUrl ||
-              null
+            // The slot below is aspect-square with object-cover, so it must be
+            // given the square. A landscape here loses its edges.
+            const imageSrc = getEventSquareImage(event)
             const altText =
               event.image_alt_text || `${event.name} at The Anchor`
 

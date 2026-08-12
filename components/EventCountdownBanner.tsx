@@ -1,5 +1,6 @@
 'use client'
 
+import { getEventSquareImage } from '@/lib/event-image'
 import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -282,7 +283,7 @@ export function EventCountdownBanner() {
     })
   }
 
-  const imageSrc = event.heroImageUrl || event.thumbnailImageUrl || event.posterImageUrl || event.image?.[0]
+  const imageSrc = getEventSquareImage(event)
   const weekday = getWeekday(eventDate)
   const timeString = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 
