@@ -142,30 +142,17 @@ export default function RootLayout({
       variant: 'outline' as const,
       startsOn: '2026-06-11',
       endsOn: '2026-07-19'
+    },
+    {
+      label: 'Christmas 2026',
+      href: '/christmas-parties',
+      external: false,
+      variant: 'outline' as const,
+      startsOn: '2026-11-10',
+      endsOn: '2026-12-20',
+      leadDays: 101
     }
   ]
-
-  const tertiaryCtaButton = (() => {
-    // Six Nations ends March 15th 2026
-    if (now < new Date('2026-03-16')) { // Using 16th to include the full day of 15th
-      return {
-        label: 'Six Nations 2026',
-        href: '/live-sport/six-nations',
-        external: false,
-        variant: 'outline' as const
-      }
-    }
-    // Show Christmas from August 1st 2026
-    if (now >= new Date('2026-08-01')) {
-      return {
-        label: 'Christmas 2026',
-        href: '/christmas-parties',
-        external: false,
-        variant: 'outline' as const
-      }
-    }
-    return null
-  })()
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${script.variable}`}>
@@ -266,7 +253,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
                     promoCtaButtons={promoCtaButtons}
-                    tertiaryCtaButton={tertiaryCtaButton}
                   />
                 </header>
               </ErrorBoundary>
