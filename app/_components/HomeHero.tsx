@@ -5,6 +5,7 @@ import { Button, Badge } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroFrost } from '@/components/seasonal/HeroFrost'
+import type { MonthlyHomepageCopy } from '@/lib/monthly-copy'
 
 // HomeHero — the homepage's special hero (redesign spec §7.1). This is the ONLY
 // non-InteriorHero hero on the site. A full-bleed photographic hero with a green
@@ -25,9 +26,16 @@ interface HomeHeroProps {
   focal?: string
   /** Optional low-quality blur placeholder. */
   blurDataURL?: string
+  /**
+   * This month's copy, from lib/monthly-copy.ts. Passed in rather than read
+   * here so the hero stays presentational and the copy stays unit-testable on
+   * its own. The H1 is deliberately absent: "Eat, Drink, Enjoy." is the brand
+   * motto (SSOT section 1) and never changes.
+   */
+  copy: MonthlyHomepageCopy
 }
 
-export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: HomeHeroProps) {
+export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy }: HomeHeroProps) {
   return (
     <section
       className="theme-dark relative flex items-center justify-center overflow-hidden bg-anchor-green-deep"
@@ -95,28 +103,36 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: Ho
             className="font-script leading-none text-anchor-gold-bright"
             style={{ fontSize: 'calc(clamp(1.75rem, 3vw, 2.75rem) * 1.2)' }}
           >
-            Where everyone&apos;s welcome
+            {copy.script}
           </p>
 
           {/* Lead */}
           <p className="max-w-[54ch] text-lg text-anchor-cream-text/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
-            A proper village pub in Stanwell Moor, 7 minutes from Heathrow Terminal 5.
-            Pub classics, stone-baked pizzas, a beer garden under the flight path and
-            free customer parking.
+            {copy.lead}
           </p>
 
           {/* Actions */}
           <div className="flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center">
-            <BookTableButton
-              source="homepage_hero"
-              variant="primary"
-              size="lg"
-              fullWidth
-              className="sm:w-auto"
-            />
-            <Link href="/food-menu" className="w-full sm:w-auto">
+            {copy.primaryHref ? (
+              <Link href={copy.primaryHref} className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
+                  {copy.primaryCta}
+                </Button>
+              </Link>
+            ) : (
+              <BookTableButton
+                source="homepage_hero"
+                variant="primary"
+                size="lg"
+                fullWidth
+                className="sm:w-auto"
+              >
+                {copy.primaryCta}
+              </BookTableButton>
+            )}
+            <Link href={copy.secondaryHref} className="w-full sm:w-auto">
               <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
-                View food menu
+                {copy.secondaryCta}
               </Button>
             </Link>
           </div>
@@ -138,10 +154,11 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL }: Ho
 
           {/* Amenity chips */}
           <div className="flex flex-wrap justify-center gap-2">
-            <Badge variant="sand">Free parking</Badge>
-            <Badge variant="sand">Dog friendly</Badge>
-            <Badge variant="sand">Beer garden</Badge>
-            <Badge variant="sand">7 mins from T5</Badge>
+            {copy.badges.map((badge) => (
+              <Badge key={badge} variant="sand">
+                {badge}
+              </Badge>
+            ))}
           </div>
         </div>
       </div>
