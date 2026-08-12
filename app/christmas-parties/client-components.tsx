@@ -80,6 +80,25 @@ export interface ChristmasMenuView {
   isUnavailable: boolean
 }
 
+/** One course of the pre-order menu: the dishes a guest actually picks from. */
+export interface ChristmasCourseGroupView {
+  course: string
+  title: string
+  items: ChristmasDishView[]
+}
+
+/**
+ * The dishes a guest chooses at pre-order, as opposed to the course-tier prices
+ * above them. These come from the Christmas booking period, which is the same
+ * list the booking form builds a pre-order from, so the page and the booking
+ * journey can never disagree about what is on the menu.
+ */
+export interface ChristmasCourseChoicesView {
+  groups: ChristmasCourseGroupView[]
+  /** Days before the booking date that choices are due. */
+  preorderCutoffDays: number | null
+}
+
 export interface ChristmasSeasonView {
   state: 'upcoming' | 'active' | 'ended'
   /** For example "10 November to 20 December 2026". */
@@ -130,6 +149,8 @@ interface ChristmasPartiesPageClientProps {
   menu: ChristmasMenuView
   season: ChristmasSeasonView
   facts: ChristmasFactsView
+  /** Null whenever the dish list cannot be shown, which keeps the old copy. */
+  courseChoices?: ChristmasCourseChoicesView | null
 }
 
 interface ChristmasEnquiryFormProps {
@@ -284,8 +305,31 @@ function tierPriceLabel(tier: ChristmasTierView): string {
  * Christmas entertainment were confirmed on 11 August 2026 and are now answered
  * plainly rather than hedged.
  */
-function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
+function buildFaqItems(
+  season: ChristmasSeasonView,
+  facts: ChristmasFactsView,
+  courseChoices?: ChristmasCourseChoicesView | null
+) {
   const deadlineDays = preOrderDeadlineDays(facts)
+
+  /**
+   * The menu answer, built from the live dish list when there is one. Naming the
+   * dishes matters twice over: a visitor comparing venues can see the food
+   * without asking, and the FAQ answer stops telling search engines the menu is
+   * unpublished while the same page lists it.
+   */
+  const menuAnswer = (() => {
+    const groups = courseChoices?.groups.filter(group => group.course !== 'addon') ?? []
+    if (groups.length === 0) {
+      return 'The full menu is released closer to the time. Prices come straight from our booking system, so what you see here is always the current price. Ask us and we will send the menu as soon as it is confirmed.'
+    }
+
+    const courses = groups
+      .map(group => `${group.title}: ${group.items.map(item => item.name).join(', ')}.`)
+      .join(' ')
+
+    return `${courses} Each guest picks their own courses, and choices come to us ${courseChoices?.preorderCutoffDays ?? deadlineDays} days before your booking date. Prices come straight from our booking system, so what you see on this page is always the current price.`
+  })()
 
   return [
     {
@@ -348,7 +392,7 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'What is on the Christmas menu?',
-      answer: 'The full menu is released closer to the time. Prices come straight from our booking system, so what you see here is always the current price. Ask us and we will send the menu as soon as it is confirmed.'
+      answer: menuAnswer
     },
     {
       question: 'How do you handle allergies and dietary requirements?',
@@ -490,14 +534,14 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
   ]
 }
 
-export function ChristmasPartiesPageClient({ structuredData, menu, season, facts }: ChristmasPartiesPageClientProps) {
+export function ChristmasPartiesPageClient({ structuredData, menu, season, facts, courseChoices = null }: ChristmasPartiesPageClientProps) {
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const enquiryRef = useRef<HTMLDivElement | null>(null)
 
   const seasonEnded = season.state === 'ended' || !season.isBookable
-  const faqItems = useMemo(() => buildFaqItems(season, facts), [season, facts])
+  const faqItems = useMemo(() => buildFaqItems(season, facts, courseChoices), [season, facts, courseChoices])
   const partyIdeas = useMemo(() => buildPartyIdeas(facts), [facts])
   const deadlineDays = preOrderDeadlineDays(facts)
 
@@ -608,7 +652,10 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               that comes off your bill. Everyone chooses their own courses: a main for each guest, with a starter and a
               dessert optional, so guests at the same table can have different numbers of courses. Choices come to us{' '}
               {deadlineDays} days before your booking date. Festive buffets are available for {facts.buffetMinimumGuests}{' '}
-              guests or more. The full dish list is released closer to the time.
+              guests or more.{' '}
+              {courseChoices && courseChoices.groups.length > 0
+                ? <>The full Christmas dinner menu is <a href="#christmas-menu" className="font-semibold text-accent-text underline">on this page</a>; the festive buffet selection is confirmed for your date when you enquire.</>
+                : 'The full dish list is released closer to the time.'}
             </p>
             <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
@@ -705,6 +752,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         menu={menu}
         season={season}
         facts={facts}
+        courseChoices={courseChoices}
         onOpenForm={handleOpenForm}
       />
 
@@ -1428,13 +1476,17 @@ function ChristmasMenuAndPricing({
   menu,
   season,
   facts,
+  courseChoices,
   onOpenForm
 }: {
   menu: ChristmasMenuView
   season: ChristmasSeasonView
   facts: ChristmasFactsView
+  courseChoices?: ChristmasCourseChoicesView | null
   onOpenForm: (mode: EnquiryMode, updates?: Partial<EnquiryContext>, source?: string) => void
 }) {
+  const hasCourseChoices = Boolean(courseChoices && courseChoices.groups.length > 0)
+
   return (
     <Section background="transparent" spacing="md" className="bg-surface" id="christmas-menu">
       <Container>
@@ -1442,7 +1494,10 @@ function ChristmasMenuAndPricing({
           <h2 className="text-3xl font-bold text-ink-strong">Christmas menu and prices</h2>
           <p className="text-base text-ink-muted">
             Each guest chooses 1, 2 or 3 courses for themselves, {season.windowLabel}. Prices are served live from our
-            booking system, so what you see here is what you pay. The full dish list is released closer to the time.
+            booking system, so what you see here is what you pay.{' '}
+            {hasCourseChoices
+              ? 'The full dish list is below.'
+              : 'The full dish list is released closer to the time.'}
           </p>
         </div>
 
@@ -1528,6 +1583,27 @@ function ChristmasMenuAndPricing({
           </Card>
         </div>
 
+        {hasCourseChoices && courseChoices && (
+          <div className="mt-10 space-y-6">
+            <div className="mx-auto space-y-3 text-center">
+              <h3 className="text-2xl font-bold text-ink-strong">What is on the Christmas menu</h3>
+              <p className="text-base text-ink-muted">
+                These are the dishes each guest picks from. A main is the 1 course; add a starter, a dessert, or both, and
+                everyone at the table can choose differently. We need everyone&apos;s choices{' '}
+                {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {courseChoices.groups.map(group => (
+                <div key={group.course} className="rounded-2xl border border-line bg-surface p-6">
+                  <h4 className="text-lg font-semibold text-ink-strong">{group.title}</h4>
+                  <ChristmasDishList items={group.items} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {menu.hasLiveDishes ? (
           <div className="mt-10 space-y-8">
             {/* Live dish data needs readable prose around it. Without a sentence
@@ -1535,11 +1611,20 @@ function ChristmasMenuAndPricing({
                 names, bare prices and half descriptions into one garbled
                 snippet, which is exactly what was happening on this page. */}
             <p className="mx-auto text-center text-base text-ink-muted">
-              Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come
-              straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.
+              {hasCourseChoices
+                ? 'The 1 course is priced per dish, so the figure beside a main is the figure that guest pays. The 2 and 3 course are priced per guest in the table above, and those guests choose from the same starters, mains and desserts.'
+                : 'Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.'}{' '}
               Send us everyone&apos;s choices {preOrderDeadlineDays(facts)} days before your booking date.
             </p>
-            {menu.tiers.filter(tier => tier.items.length > 0).map(tier => (
+            {/* Once the real dish list is on the page, the multi-course tiers hold
+                nothing but a priced placeholder row per service window. Those read
+                as dishes, and their stock description contradicts the menu sitting
+                directly above them, so they are dropped and the tier table above
+                carries their prices instead. */}
+            {menu.tiers
+              .filter(tier => tier.items.length > 0)
+              .filter(tier => !hasCourseChoices || tier.courseCount === 1)
+              .map(tier => (
               <div key={tier.id} className="rounded-2xl border border-line bg-surface p-6">
                 <h4 className="text-lg font-semibold text-ink-strong">{tier.name}</h4>
                 <p className="mt-1 text-sm text-ink-muted">
@@ -1558,7 +1643,7 @@ function ChristmasMenuAndPricing({
               </div>
             ))}
           </div>
-        ) : (
+        ) : hasCourseChoices ? null : (
           <Card accent className="mx-auto mt-10">
             <div className="p-6 space-y-3">
               <h3 className="text-lg font-semibold text-ink-strong">The full menu is released closer to the time</h3>

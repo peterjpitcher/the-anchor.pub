@@ -1237,6 +1237,46 @@ export class AnchorAPI {
    * looks like anyway. Failing the other way would either invent a charge or
    * block an ordinary booking because a seasonal lookup timed out.
    */
+  /**
+   * The same read, but cacheable, for pages rather than the booking form.
+   *
+   * `getBookingPeriod` pins `revalidate: 0` because the booking form is pricing a
+   * real booking and must never act on a stale deposit. A marketing page is
+   * doing something different: describing the season. Rendering it per request
+   * for data that changes a few times a season would cost every visitor a round
+   * trip to the management API, so it gets its own cached entry point instead of
+   * quietly loosening the one the booking form depends on.
+   */
+  async getBookingPeriodCached(
+    date: string,
+    partySize?: number,
+    revalidateSeconds = 3600,
+    timeoutMs = 3000
+  ): Promise<BookingPeriodResponse | null> {
+    const query = new URLSearchParams({ date })
+    if (typeof partySize === 'number' && Number.isFinite(partySize) && partySize > 0) {
+      query.set('party_size', String(partySize))
+    }
+
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), timeoutMs)
+
+    try {
+      return await this.request<BookingPeriodResponse>(`/table-bookings/periods?${query.toString()}`, {
+        signal: controller.signal,
+        next: { revalidate: revalidateSeconds },
+      } as RequestInit & { next: { revalidate: number } })
+    } catch (error) {
+      console.warn('[table-bookings] Cached booking period lookup failed', {
+        date,
+        error: error instanceof Error ? error.message : String((error as any)?.message || error),
+      })
+      return null
+    } finally {
+      clearTimeout(timeout)
+    }
+  }
+
   async getBookingPeriodSafe(
     date: string,
     partySize?: number,
