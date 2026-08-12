@@ -14,10 +14,9 @@ import type { GameNightConfig } from './types'
 export const cashBingo: GameNightConfig = {
   slug: 'cash-bingo',
   name: 'cash bingo',
-  category: {
-    name: 'Cash Bingo',
-    slug: 'cash-bingo'
-  },
+  // The management app calls this category "Bingo Night", not "Cash Bingo". Get
+  // this wrong and the page silently lists no dates at all.
+  categories: [{ name: 'Bingo Night', slug: 'bingo-night' }],
 
   hero: {
     // Interim, same as the other game pages: the room rather than the night.

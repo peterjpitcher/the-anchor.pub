@@ -6,6 +6,7 @@ import { karaoke } from './karaoke'
 
 export type { GameNightConfig, GameNightFact, GameNightObjection } from './types'
 export { quizNight, cashBingo, musicBingo, karaoke }
+export { getGameNightEvents } from './events'
 
 /** Every hosted-game category page, keyed by route segment. */
 export const GAME_NIGHTS: Record<GameNightConfig['slug'], GameNightConfig> = {

@@ -1,36 +1,27 @@
 
 import { Metadata } from 'next'
-import {
-    Button,
-    Container,
-    Card,
-    CardBody,
-    Grid,
-    GridItem,
-} from '@/components/ui'
+import { Button, Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import { EventBookingButton } from '@/components/EventBookingButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
-    getEventCategories,
-    getUpcomingEventsByCategory,
-    formatEventDate,
-    formatEventTime,
-    type Event,
-    type EventCategory
-} from '@/lib/api'
+    GameNightBooking,
+    GameNightCtaActions,
+    GameNightFacts,
+    GameNightObjections,
+    buildGameNightCtaLabel
+} from '@/components/features/GameNight'
+import { karaoke, getGameNightEvents } from '@/lib/game-nights'
+import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
+import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
-import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
@@ -53,54 +44,9 @@ export const metadata: Metadata = {
     }
 }
 
-const KARAOKE_CATEGORIES = [
-    {
-        name: 'Karaoke',
-        slug: 'karaoke-night'
-    },
-    {
-        // Legacy category matcher only. Nikki Manfadge does NOT host karaoke
-        // (owner-confirmed 11 August 2026), she hosts Music Bingo. This entry is
-        // kept so any older event still filed under this category in the
-        // management app is still found and listed, rather than silently
-        // disappearing from the page. Do not use this name in new copy, and
-        // retire the category in the management app when convenient.
-        name: "Nikki's Karaoke Night",
-        slug: 'nikkis-karaoke-night'
-    }
-]
-
-const normalizeCategoryValue = (value?: string | null) =>
-    value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
-
-function getCategoryIdsByLabels(categories: EventCategory[], labels: typeof KARAOKE_CATEGORIES) {
-    return labels
-        .map(label => {
-            const targetName = normalizeCategoryValue(label.name)
-            const targetSlug = normalizeCategoryValue(label.slug)
-
-            return categories.find(category => {
-                const categoryName = normalizeCategoryValue(category.name)
-                const categorySlug = normalizeCategoryValue(category.slug)
-                return categoryName === targetName || categorySlug === targetSlug
-            })?.id
-        })
-        .filter((id): id is string => Boolean(id))
-}
-
-async function getKaraokeEvents() {
-    const categories = await getEventCategories()
-    const categoryIds = getCategoryIdsByLabels(categories, KARAOKE_CATEGORIES)
-    if (!categoryIds.length) return []
-
-    const eventSets = await Promise.all(
-        categoryIds.map(categoryId => getUpcomingEventsByCategory(categoryId, 60, 365))
-    )
-    const events = eventSets.flat()
-    const uniqueEvents = Array.from(new Map(events.map(event => [event.id, event])).values())
-
-    return uniqueEvents.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-}
+// Category lookup, fetching, de-duplication and sorting all live in
+// lib/game-nights/events.ts, shared by the four game pages. Karaoke's two
+// categories (including the legacy one) are declared in lib/game-nights/karaoke.ts.
 
 const WHY_LOVE_IT = [
     {
@@ -184,7 +130,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function KaraokePage() {
-    const events = await getKaraokeEvents()
+    const events = await getGameNightEvents(karaoke)
     const nextEvent = events[0]
     const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
     const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:00pm approx'
@@ -206,11 +152,23 @@ export default async function KaraokePage() {
               * events system whenever one is actually listed, which is the honest
               * place for it. Do not reinstate a recurring series here.
               */}
+            <ScrollDepthTracker />
+
             <InteriorHero
-                image="/images/page-headers/home/page-headers-homepage.jpg"
-                crumb="Karaoke"
-                title="Karaoke Nights at The Anchor"
-                lead="The stage is yours. Join us near Heathrow for karaoke nights when they are listed or confirmed. Free entry."
+                image={karaoke.hero.image}
+                focal={karaoke.hero.focal}
+                crumb={karaoke.hero.crumb}
+                title={karaoke.hero.title}
+                lead={karaoke.hero.lead}
+                badges={<GameNightFacts facts={karaoke.facts} />}
+                actions={
+                    <GameNightCtaActions
+                        gameSlug={karaoke.slug}
+                        label={buildGameNightCtaLabel(karaoke, nextEvent)}
+                        hasBookableDate={Boolean(nextEvent)}
+                        location="hero"
+                    />
+                }
             />
 
             <section className="bg-surface-sunk py-section-y">
@@ -232,29 +190,15 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface-sunk">
         <Container>
-                    <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-                        <Card accent>
-                            <CardBody className="space-y-4">
-                                <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next karaoke night</p>
-                                <h2 className="text-h3 text-ink-strong">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                                <p className="text-accent-text font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-                                <p className="text-ink-muted whitespace-pre-line">
-                                    Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
-                                </p>
-                                <div className="space-y-3">
-                                    {nextEvent && (
-                                        <RegretReduction variant="booking" className="mb-4" />
-                                    )}
-                                    {nextEvent ? (
-                                        <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
-                                    ) : (
-                                        <PhoneButton phone={CONTACT.phone} source="karaoke_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
-                                            Call {CONTACT.phone}
-                                        </PhoneButton>
-                                    )}
-                                </div>
-                            </CardBody>
-                        </Card>
+                    <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+                        <SectionViewTracker sectionId="karaoke_booking">
+                            <GameNightBooking
+                                events={events}
+                                gameName={karaoke.name}
+                                gameSlug={karaoke.slug}
+                                bookingNote={karaoke.bookingNote}
+                            />
+                        </SectionViewTracker>
                         <Card accent>
                             <CardBody className="space-y-4">
                                 <h3 className="text-h4 text-ink-strong">How it works</h3>
@@ -270,6 +214,10 @@ export default async function KaraokePage() {
                             </CardBody>
                         </Card>
                     </div>
+
+                    <SectionViewTracker sectionId="karaoke_objections" className="mt-10">
+                        <GameNightObjections objections={karaoke.objections} gameName={karaoke.name} />
+                    </SectionViewTracker>
                 </Container>
             </section>
 
@@ -280,7 +228,9 @@ export default async function KaraokePage() {
                         <p className="text-ink-muted text-center mb-8">
                             Mic check, one two! Here's when you can next take the stage. For updates, check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-accent-text hover:text-accent-text font-semibold">Facebook page</Link>.
                         </p>
-                        <KaraokeEventCards events={events} />
+                        <SectionViewTracker sectionId="karaoke_dates">
+                            <KaraokeEventCards events={events} />
+                        </SectionViewTracker>
                     </div>
                 </Container>
             </section>
@@ -418,18 +368,15 @@ export default async function KaraokePage() {
 
             <CtaBand
                 title="Ready to take the stage?"
-                copy="Reserve your spot or call the bar team, we'll make sure your table is ready."
-                primary={
-                    <BookTableButton source="karaoke_cta_bottom" variant="primary" size="lg" className="w-full sm:w-auto">
-                        Book Your Table
-                    </BookTableButton>
-                }
-                secondary={
-                    <PhoneButton phone="01753 682707" source="karaoke_cta_bottom" variant="outline" size="lg" className="w-full sm:w-auto">
-                        Call: 01753 682707
-                    </PhoneButton>
-                }
-            />
+                copy="Entry is free. Booking just means there is a table waiting when you get here."
+            >
+                <GameNightCtaActions
+                    gameSlug={karaoke.slug}
+                    label={buildGameNightCtaLabel(karaoke, nextEvent)}
+                    hasBookableDate={Boolean(nextEvent)}
+                    location="closing_band"
+                />
+            </CtaBand>
 
             {events.map(event => (
                 <EventSchema key={`event-schema-${event.id}`} event={event} />

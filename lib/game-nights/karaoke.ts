@@ -19,10 +19,19 @@ import type { GameNightConfig } from './types'
 export const karaoke: GameNightConfig = {
   slug: 'karaoke',
   name: 'karaoke',
-  category: {
-    name: 'Karaoke',
-    slug: 'karaoke'
-  },
+  categories: [
+    { name: 'Karaoke', slug: 'karaoke-night' },
+    {
+      // Legacy category matcher only. Nikki Manfadge does NOT host karaoke
+      // (owner-confirmed 11 August 2026), she hosts Music Bingo. This entry is
+      // kept so any older event still filed under this category in the
+      // management app is still found and listed, rather than silently
+      // disappearing from the page. Do not use this name in new copy, and
+      // retire the category in the management app when convenient.
+      name: "Nikki's Karaoke Night",
+      slug: 'nikkis-karaoke-night'
+    }
+  ],
 
   hero: {
     // Interim, the bar rather than the night. Swap when a real karaoke photo

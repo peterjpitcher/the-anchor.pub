@@ -18,10 +18,7 @@ import type { GameNightConfig } from './types'
 export const musicBingo: GameNightConfig = {
   slug: 'music-bingo',
   name: 'music bingo',
-  category: {
-    name: 'Music Bingo',
-    slug: 'music-bingo'
-  },
+  categories: [{ name: 'Music Bingo', slug: 'music-bingo' }],
 
   hero: {
     // Interim, the bar rather than the night. The one photo of Nikki in the

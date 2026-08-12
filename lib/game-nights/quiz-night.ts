@@ -10,10 +10,7 @@ import type { GameNightConfig } from './types'
 export const quizNight: GameNightConfig = {
   slug: 'quiz-night',
   name: 'quiz night',
-  category: {
-    name: 'Pub Quiz Night',
-    slug: 'quiz-night-stanwell-moor'
-  },
+  categories: [{ name: 'Pub Quiz Night', slug: 'quiz-night-stanwell-moor' }],
 
   hero: {
     // Interim. The dining room is where teams actually sit, so it beats the

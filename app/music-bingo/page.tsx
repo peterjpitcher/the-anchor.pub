@@ -1,37 +1,31 @@
 import { Metadata } from 'next'
-import {
-  Button,
-  Container,
-  Card,
-  CardBody,
-  Grid,
-  GridItem
-} from '@/components/ui'
+import { Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { BookTableButton } from '@/components/BookTableButton'
-import { EventBookingButton } from '@/components/EventBookingButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
-import { RegretReduction } from '@/components/psychology'
 import {
-  getEventCategories,
-  getUpcomingEventsByCategory,
-  formatEventDate,
+  GameNightBooking,
+  GameNightCtaActions,
+  GameNightFacts,
+  GameNightObjections,
+  buildGameNightCtaLabel
+} from '@/components/features/GameNight'
+import { musicBingo, getGameNightEvents } from '@/lib/game-nights'
+import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
+import {
   formatEventTime,
   formatDoorClockTime,
   getLowestTicketTypePrice,
   hasMultipleTicketPrices,
-  type Event,
-  type EventCategory
+  type Event
 } from '@/lib/api'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -57,33 +51,8 @@ export const metadata: Metadata = {
   }
 }
 
-const MUSIC_BINGO_CATEGORY = {
-  name: 'Music Bingo',
-  slug: 'music-bingo'
-}
-
-const normalizeCategoryValue = (value?: string | null) =>
-  value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
-
-function getCategoryIdByLabel(categories: EventCategory[], label: typeof MUSIC_BINGO_CATEGORY) {
-  const targetName = normalizeCategoryValue(label.name)
-  const targetSlug = normalizeCategoryValue(label.slug)
-
-  return categories.find(category => {
-    const categoryName = normalizeCategoryValue(category.name)
-    const categorySlug = normalizeCategoryValue(category.slug)
-    return categoryName === targetName || categorySlug === targetSlug
-  })?.id
-}
-
-async function getMusicBingoEvents() {
-  const categories = await getEventCategories()
-  const categoryId = getCategoryIdByLabel(categories, MUSIC_BINGO_CATEGORY)
-  if (!categoryId) return []
-
-  const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
-  return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-}
+// Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
+// shared by the four game pages.
 
 const WHY_LOVE_IT = [
   {
@@ -195,8 +164,8 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
-          Five rounds of song snippets, singalong prompts, and shout-outs. Grab your card, spot the track, and
-          celebrate every line win.
+          Two games of song snippets with interactive music rounds and quizzes between them. Grab your card,
+          spot the track, and celebrate every line win.
         </p>
       )}
       emptyState={
@@ -212,9 +181,8 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function MusicBingoPage() {
-  const events = await getMusicBingoEvents()
+  const events = await getGameNightEvents(musicBingo)
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
   const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
@@ -272,11 +240,23 @@ export default async function MusicBingoPage() {
           }
         }) }}
       />
+      <ScrollDepthTracker />
+
       <InteriorHero
-        image="/images/page-headers/home/page-headers-homepage.jpg"
-        crumb="Music Bingo"
-        title="Music Bingo Nights at The Anchor"
-        lead="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
+        image={musicBingo.hero.image}
+        focal={musicBingo.hero.focal}
+        crumb={musicBingo.hero.crumb}
+        title={musicBingo.hero.title}
+        lead={musicBingo.hero.lead}
+        badges={<GameNightFacts facts={musicBingo.facts} />}
+        actions={
+          <GameNightCtaActions
+            gameSlug={musicBingo.slug}
+            label={buildGameNightCtaLabel(musicBingo, nextEvent)}
+            hasBookableDate={Boolean(nextEvent)}
+            location="hero"
+          />
+        }
       />
 
       <section className="py-section-y bg-surface">
@@ -293,45 +273,26 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-stretch">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <p className="text-sm font-semibold uppercase tracking-wide text-accent-text">Next Music Bingo</p>
-                <h2 className="text-h3 text-ink-strong">
-                  {nextEvent ? nextEvent.name : 'Next date to be confirmed'}
-                </h2>
-                <p className="font-semibold text-accent-text">
-                  {nextEvent ? `${nextEventDate} - ${nextEventTime}` : 'Check back for the next date'}
-                </p>
-                {nextEvent?.longDescription && (
-                  <p className="whitespace-pre-line text-ink-muted">{nextEvent.longDescription}</p>
-                )}
-                <p className="text-sm text-ink-muted">
-                  Hosted by Nikki Manfadge with singalong prompts, themed rounds, and prizes for quick ears and bold
-                  voices.
-                </p>
-                <div className="space-y-3">
-                  {nextEvent && (
-                    <RegretReduction variant="booking" className="mb-4" />
-                  )}
-                  {nextEvent ? (
-                    <EventBookingButton event={nextEvent} className="w-full" source="music_bingo_next_event" />
-                  ) : (
-                    <PhoneButton phone={CONTACT.phone} source="music-bingo_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
-                      Call {CONTACT.phone}
-                    </PhoneButton>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
+            <SectionViewTracker sectionId="music_bingo_booking">
+              <GameNightBooking
+                events={events}
+                gameName={musicBingo.name}
+                gameSlug={musicBingo.slug}
+                bookingNote={musicBingo.bookingNote}
+              />
+            </SectionViewTracker>
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How Music Bingo runs</h3>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong>Doors {doorTime}</strong> - arrive early, grab drinks, and collect your bingo card.</li>
-                  <li><strong>{nextEventTime}</strong> - warm-up round begins with chart favourites and classics.</li>
-                  <li><strong>Five rounds</strong> - quick-fire clips, theme rounds, and bonus singalong moments.</li>
-                  <li><strong>Breaks between rounds</strong> - order food, top up drinks, and compare answers.</li>
+                  <li><strong>{nextEventTime}</strong> - first game begins with chart favourites and classics.</li>
+                  {/* Two games, not five rounds: docs/SSOT.md §10 says "Two games
+                      with interactive music games and quizzes too". The page used
+                      to claim five rounds, which the SSOT does not support. */}
+                  <li><strong>Two games</strong> - song clips instead of numbers, with interactive music games and quizzes between them.</li>
+                  <li><strong>Breaks between games</strong> - order food, top up drinks, and compare answers.</li>
                   <li><strong>Finale</strong> - last card of the night with the headline prize.</li>
                 </ul>
                 <p className="text-sm text-ink-muted">
@@ -340,6 +301,10 @@ export default async function MusicBingoPage() {
               </CardBody>
             </Card>
           </div>
+
+          <SectionViewTracker sectionId="music_bingo_objections" className="mt-10">
+            <GameNightObjections objections={musicBingo.objections} gameName={musicBingo.name} />
+          </SectionViewTracker>
         </Container>
       </section>
 
@@ -354,7 +319,9 @@ export default async function MusicBingoPage() {
               </Link>{' '}
               or call 01753 682707.
             </p>
-            <MusicBingoEventCards events={events} />
+            <SectionViewTracker sectionId="music_bingo_dates">
+              <MusicBingoEventCards events={events} />
+            </SectionViewTracker>
           </div>
         </Container>
       </section>
@@ -531,18 +498,15 @@ export default async function MusicBingoPage() {
 
       <CtaBand
         title="Ready to sing for the prizes?"
-        copy="Book your table or call the bar team and we will make sure your seats are ready."
-        primary={
-          <BookTableButton source="music_bingo_cta_bottom" variant="primary" size="lg" className="w-full sm:w-auto">
-            Book Music Bingo
-          </BookTableButton>
-        }
-        secondary={
-          <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-            <Link href="#music-bingo-dates">Upcoming dates</Link>
-          </Button>
-        }
-      />
+        copy="Music bingo sells out, so book your table rather than turning up on the night."
+      >
+        <GameNightCtaActions
+          gameSlug={musicBingo.slug}
+          label={buildGameNightCtaLabel(musicBingo, nextEvent)}
+          hasBookableDate={Boolean(nextEvent)}
+          location="closing_band"
+        />
+      </CtaBand>
 
       <section className="py-section-y bg-surface-sunk">
         <Container>

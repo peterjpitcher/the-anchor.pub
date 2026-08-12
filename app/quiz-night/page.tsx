@@ -15,17 +15,10 @@ import {
   GameNightObjections,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { quizNight } from '@/lib/game-nights'
+import { quizNight, getGameNightEvents } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
-import {
-  getEventCategories,
-  getUpcomingEventsByCategory,
-  formatEventTime,
-  formatDoorClockTime,
-  type Event,
-  type EventCategory
-} from '@/lib/api'
+import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -51,30 +44,8 @@ export const metadata: Metadata = {
   }
 }
 
-const QUIZ_CATEGORY = quizNight.category
-
-const normalizeCategoryValue = (value?: string | null) =>
-  value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
-
-function getCategoryIdByLabel(categories: EventCategory[], label: typeof QUIZ_CATEGORY) {
-  const targetName = normalizeCategoryValue(label.name)
-  const targetSlug = normalizeCategoryValue(label.slug)
-
-  return categories.find(category => {
-    const categoryName = normalizeCategoryValue(category.name)
-    const categorySlug = normalizeCategoryValue(category.slug)
-    return categoryName === targetName || categorySlug === targetSlug
-  })?.id
-}
-
-async function getQuizEvents() {
-  const categories = await getEventCategories()
-  const categoryId = getCategoryIdByLabel(categories, QUIZ_CATEGORY)
-  if (!categoryId) return []
-
-  const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
-  return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-}
+// Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
+// shared by the four game pages.
 
 const WHY_LOVE_IT = [
   {
@@ -201,7 +172,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const events = await getQuizEvents()
+  const events = await getGameNightEvents(quizNight)
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'

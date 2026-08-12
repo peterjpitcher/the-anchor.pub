@@ -34,8 +34,12 @@ export interface GameNightConfig {
    * e.g. "quiz night" in "Book your table for quiz night".
    */
   name: string
-  /** Category lookup against the management API. Name or slug may match. */
-  category: { name: string; slug: string }
+  /**
+   * Management API categories whose events belong on this page. Name or slug may
+   * match, and more than one is allowed: karaoke needs a legacy category as well
+   * as its current one so older events stay listed rather than vanishing.
+   */
+  categories: Array<{ name: string; slug: string }>
 
   hero: {
     /** Per-game hero image. Must show the game, not the building. */
