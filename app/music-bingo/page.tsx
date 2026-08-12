@@ -259,8 +259,8 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
                 </p>
               </div>
 
-              <div className="w-full space-y-3 lg:w-64">
-                <EventBookingButton event={event} className="w-full" source="music_bingo_event_card" />
+              <div className="w-full space-y-3 lg:w-64 lg:shrink-0">
+                <EventBookingButton event={event} className="w-full lg:px-6" source="music_bingo_event_card" />
               </div>
             </CardBody>
           </Card>
