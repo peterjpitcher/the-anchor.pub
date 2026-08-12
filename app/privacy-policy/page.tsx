@@ -38,10 +38,10 @@ export default function PrivacyPolicyPage() {
         title="Privacy & Cookie Policy"
         lead="Your privacy matters to us"
       />
-      
+
       <section className="py-section-y bg-canvas">
-        <Container size="md">
-        <div className="max-w-4xl mx-auto">
+        <Container>
+        <div className="mx-auto">
           <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
           </p>
 
           <h3>Types of Cookies We Use</h3>
-          
+
           <h4>Necessary Cookies</h4>
           <p>
             These cookies are essential for the website to function properly. They enable basic functions like page navigation and access to secure areas of the website. The website cannot function properly without these cookies.
@@ -177,13 +177,13 @@ export default function PrivacyPolicyPage() {
             If you have any questions about this Privacy Policy or our privacy practices, please contact us:
           </p>
           <address className="not-italic">
-            <strong>The Anchor</strong><br />
-            Horton Road<br />
-            Stanwell Moor<br />
-            Surrey<br />
-            TW19 6AQ<br />
-            <br />
-            Email: <EmailLink email="manager@the-anchor.pub" source="privacy_policy" /><br />
+            <strong>The Anchor</strong><br/>
+            Horton Road<br/>
+            Stanwell Moor<br/>
+            Surrey<br/>
+            TW19 6AQ<br/>
+            <br/>
+            Email: <EmailLink email="manager@the-anchor.pub" source="privacy_policy" /><br/>
             Phone: <PhoneLink phone="01753 682707" source="privacy_policy" />
           </address>
 

@@ -43,7 +43,7 @@ export default function CoachParkingPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4">
                             The Perfect Stop for Tour Groups
                         </PageTitle>
@@ -56,7 +56,7 @@ export default function CoachParkingPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+                    <div className="grid md:grid-cols-2 gap-12 items-center mx-auto">
                         <div className="order-2 md:order-1">
                             <SectionHeading
                                 title="Driver Perks"
@@ -100,7 +100,7 @@ export default function CoachParkingPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Group Dining Options"
                             lead="We can tailor a menu to suit your budget and time constraints."

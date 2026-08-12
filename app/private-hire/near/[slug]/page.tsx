@@ -780,7 +780,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="font-display text-h2 text-ink-strong mb-6">
                             Why Choose The Anchor?
                         </h2>
@@ -804,9 +804,9 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             {/* Occasion-specific narrative: the main per-landmark unique copy. */}
             <section className="py-section-y bg-surface">
-                <Container size="md">
+                <Container>
                     <SectionHeading title={angle.narrative.heading} />
-                    <div className="max-w-3xl mx-auto space-y-4 text-ink-muted">
+                    <div className="mx-auto space-y-4 text-ink-muted">
                         {angle.narrative.paragraphs.map((para, i) => (
                             <p key={i}>{para}</p>
                         ))}
@@ -821,7 +821,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                         title={`Just ${landmark.distance} Away`}
                         script="Easy to find, easy to park"
                     />
-                    <div className="max-w-5xl mx-auto h-[400px] rounded-md overflow-hidden shadow-md">
+                    <div className="mx-auto h-[400px] rounded-md overflow-hidden shadow-md">
                         <GoogleMapEmbed query={`The Anchor Stanwell Moor near ${landmark.name}`} />
                     </div>
                     <div className="text-center mt-6">
@@ -837,7 +837,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
             <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading title={angle.packagesHeading} />
-                    <p className="max-w-3xl mx-auto text-center text-ink-muted mb-8">
+                    <p className="mx-auto text-center text-ink-muted mb-8">
                         {angle.packagesIntro}
                     </p>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

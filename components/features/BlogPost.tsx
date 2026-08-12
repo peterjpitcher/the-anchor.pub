@@ -47,13 +47,13 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         </div>
-        
+
         <Container className="relative z-10 pb-12">
-          <div className="max-w-4xl">
+          <div>
             <div className="flex flex-wrap gap-2 mb-4">
               {post.tags.map(tag => (
-                <Badge 
-                  key={tag} 
+                <Badge
+                  key={tag}
                   variant="green"
                   className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
                 >
@@ -69,10 +69,10 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
             <div className="flex items-center gap-4 text-white/90">
               <span>{post.author}</span>
               <span>•</span>
-              <time>{new Date(post.date).toLocaleDateString('en-GB', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+              <time>{new Date(post.date).toLocaleDateString('en-GB', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}</time>
             </div>
           </div>
@@ -124,60 +124,9 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       {/* Content */}
       <article className="bg-canvas">
         <Section>
-          <Container size="md">
+          <Container>
             <div
-              className="
-                prose prose-lg lg:prose-xl max-w-none
-
-                /* Headings */
-                prose-headings:font-display
-                prose-headings:text-ink-strong
-                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
-                prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3
-
-                /* Paragraphs */
-                prose-p:text-ink prose-p:leading-relaxed
-                prose-p:mb-6
-
-                /* Links */
-                prose-a:text-accent-text prose-a:font-semibold
-                prose-a:no-underline hover:prose-a:underline
-                prose-a:transition-colours hover:prose-a:text-anchor-gold
-
-                /* Strong/Bold */
-                prose-strong:text-ink-strong prose-strong:font-bold
-
-                /* Lists */
-                prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
-                prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
-                prose-li:text-ink prose-li:mb-2
-
-                /* Images */
-                prose-img:rounded-lg prose-img:shadow-lg
-                prose-img:my-8 prose-img:w-full
-                prose-figure:my-8
-
-                /* Blockquotes */
-                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold-dark
-                prose-blockquote:pl-6 prose-blockquote:italic
-                prose-blockquote:text-ink-muted prose-blockquote:my-8
-
-                /* Code */
-                prose-code:bg-surface-sunk prose-code:px-2 prose-code:py-1
-                prose-code:rounded prose-code:text-sm
-                prose-pre:bg-gray-900 prose-pre:text-gray-100
-
-                /* Tables */
-                prose-table:my-8
-                prose-th:bg-anchor-green prose-th:text-white
-                prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-line
-                prose-td:px-6 prose-td:py-3
-
-                /* HR */
-                prose-hr:border-line prose-hr:my-12
-              "
+              className="prose prose-lg lg:prose-xl max-w-none /* Headings */ prose-headings:font-display prose-headings:text-ink-strong prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 /* Paragraphs */ prose-p:text-ink prose-p:leading-relaxed prose-p:mb-6 /* Links */ prose-a:text-accent-text prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-a:transition-colours hover:prose-a:text-anchor-gold /* Strong/Bold */ prose-strong:text-ink-strong prose-strong:font-bold /* Lists */ prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-ink prose-li:mb-2 /* Images */ prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8 prose-img:w-full prose-figure:my-8 /* Blockquotes */ prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold-dark prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-ink-muted prose-blockquote:my-8 /* Code */ prose-code:bg-surface-sunk prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 /* Tables */ prose-table:my-8 prose-th:bg-anchor-green prose-th:text-white prose-th:font-semibold prose-th:px-6 prose-th:py-3 prose-td:border prose-td:border-line prose-td:px-6 prose-td:py-3 /* HR */ prose-hr:border-line prose-hr:my-12"
               dangerouslySetInnerHTML={{ __html: post.htmlContent || '' }}
             />
           </Container>
@@ -186,7 +135,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
 
       {/* Share Section */}
       <Section spacing="sm" className="bg-surface-sunk">
-        <Container size="md" className="text-center">
+        <Container className="text-center">
           <p className="text-ink-muted mb-4">Enjoyed this article? Share it with your friends!</p>
           <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
         </Container>
@@ -194,7 +143,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
 
       {/* Navigation */}
       <Section className="bg-canvas">
-        <Container size="lg">
+        <Container>
           <Grid cols={2} gap="md">
             {prevPost && (
               <Link href={`/blog/${prevPost.slug}`} className="group">
@@ -230,7 +179,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
           <h2 className="text-3xl mb-8 text-anchor-cream-text">
             Visit The Anchor Today
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 mx-auto">
             Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

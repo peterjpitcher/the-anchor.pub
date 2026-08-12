@@ -251,8 +251,8 @@ export default function MothersDayPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+        <Container>
+          <div className="mx-auto grid items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
             <Card accent className="overflow-hidden">
               <div className="relative aspect-[3/4] bg-surface-sunk">
                 <Image
@@ -531,8 +531,8 @@ export default function MothersDayPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-6xl space-y-8">
+        <Container>
+          <div className="mx-auto space-y-8">
             <div className="text-center space-y-3">
               <h2 className="text-h3 text-ink-strong">Photos</h2>
               <p className="text-ink-muted">
@@ -560,8 +560,8 @@ export default function MothersDayPage() {
       </section>
 
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+        <Container>
+          <div className="mx-auto grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">Where we are</h2>
               <p className="text-ink-muted leading-relaxed">

@@ -41,7 +41,7 @@ export default function SummerGardenPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4">
                             The Best Beer Garden Around
                         </PageTitle>
@@ -54,7 +54,7 @@ export default function SummerGardenPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Summer Party Packages"
                             lead="More than just a few sausages on the grill."
@@ -75,7 +75,7 @@ export default function SummerGardenPartiesPage() {
                             </Card>
                         </div>
 
-                        <Card accent className="max-w-2xl mx-auto mt-8">
+                        <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="text-lg font-semibold text-ink-strong mb-2">Weather Policy</h3>
                                 <p className="text-ink-muted">We can&apos;t control the British weather! If it rains, we will do our absolute best to move your party indoors or under our covered patio areas.</p>
@@ -87,7 +87,7 @@ export default function SummerGardenPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading title="Perfect for..." />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <Card>

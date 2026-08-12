@@ -20,7 +20,7 @@ export function HeathrowFoodBestFor({
   return (
     <section className="bg-surface-sunk py-10 border-y border-line">
       <Container>
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto">
           <h2 className="text-center text-2xl text-ink-strong">
             {title}
           </h2>

@@ -79,11 +79,11 @@ export default function FamilyDiningPage() {
         lead="Fresh air, good food, and plenty of space for the kids to run around"
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Family-Friendly Pub & Restaurant Near Heathrow Airport"
                             lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment."
@@ -94,7 +94,7 @@ export default function FamilyDiningPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Everything for an easier layover"
                             title="Why Families Love Us"
@@ -120,7 +120,7 @@ export default function FamilyDiningPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <Card accent className="max-w-3xl mx-auto">
+                    <Card accent className="mx-auto">
                         <CardBody className="p-8">
                             <h2 className="font-display text-h3 text-center text-ink-strong mb-6">Facilities for Little Ones</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

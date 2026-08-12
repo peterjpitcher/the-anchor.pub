@@ -190,7 +190,7 @@ export default async function SundayRoastPage() {
           <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
-          <p className="mt-4 text-center text-lg text-ink-muted max-w-3xl mx-auto">
+          <p className="mt-4 text-center text-lg text-ink-muted mx-auto">
             The Anchor serves a proper Sunday roast every Sunday from 1pm to 6pm, seven minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
           </p>
           <ul
@@ -225,7 +225,7 @@ export default async function SundayRoastPage() {
           {sundayMenu.menuData ? (
             <FoodMenuSection menuData={sundayMenu.menuData} showFilters={false} />
           ) : (
-            <Card accent className="mx-auto max-w-3xl">
+            <Card accent className="mx-auto">
               <CardBody>
                 <h2 className="mb-2 text-h4 text-ink-strong">Sunday menu temporarily unavailable</h2>
                 <p className="text-ink-muted">
@@ -253,7 +253,7 @@ export default async function SundayRoastPage() {
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <h2 className="mb-4 text-h3 text-ink-strong">
               Vegan, and Tell Us About Allergies
             </h2>
@@ -269,7 +269,7 @@ export default async function SundayRoastPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <h2 className="mb-4 text-h3 text-ink-strong">
               No Booking, No Pre-Order, No Fuss
             </h2>
@@ -279,7 +279,7 @@ export default async function SundayRoastPage() {
             <p className="mb-6 leading-relaxed text-ink-muted">
               Since May 2026, the roast is walk-in all the way through. Turn up between 1pm and 6pm (last tables seated at 5:30pm) and we will cook it fresh. No Saturday cut-off, no deposit per plate, no pre-order form. Changed your mind about pork on the drive over? Order beef instead. Booking is still a good idea for bigger tables or a busy afternoon, but for two or four people it is genuinely never required.
             </p>
-            <SundayLunchHowItWorks />
+            <SundayLunchHowItWorks/>
             <ul className="mt-6 space-y-2 text-base text-ink-muted">
               <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm.</li>
               <li>&bull; Walk-ins are welcome. Booking guarantees your spot, especially for larger parties.</li>
@@ -312,7 +312,7 @@ export default async function SundayRoastPage() {
       <SectionViewTracker sectionId="carvery_comparison">
         <section className="bg-surface py-section-y">
           <div className="container">
-            <div className="mx-auto max-w-4xl">
+            <div className="mx-auto">
               <h2 className="mb-4 text-h3 text-ink-strong">
                 Sunday Roast or Carvery? What to Expect Near Heathrow
               </h2>
@@ -393,7 +393,7 @@ export default async function SundayRoastPage() {
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <h2 className="mb-4 text-h3 text-ink-strong">
               Big Tables, Groups and Booking
             </h2>
@@ -430,7 +430,7 @@ export default async function SundayRoastPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <h2 className="mb-3 text-h3 text-ink-strong">
               Sunday Roast Between Flights
             </h2>
@@ -466,7 +466,7 @@ export default async function SundayRoastPage() {
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto text-center">
             <h2 className="mb-3 text-h3 text-ink-strong">
               Fresh Roasts, Made to Order
             </h2>
@@ -524,10 +524,10 @@ export default async function SundayRoastPage() {
         </div>
       </section>
 
-      <ScrollProgressBookingTooltip />
-      <ExitIntentBookingModal />
-      <TimedBookingPrompt />
-      <DeferredHomepageTrackers />
+      <ScrollProgressBookingTooltip/>
+      <ExitIntentBookingModal/>
+      <TimedBookingPrompt/>
+      <DeferredHomepageTrackers/>
       <MenuPageTracker menuType="sunday_lunch" />
     </>
   )

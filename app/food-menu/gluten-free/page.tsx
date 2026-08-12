@@ -104,7 +104,7 @@ export default async function GlutenFreeMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="NGCI Pub Food at The Anchor"
               lead="Current dishes with allergen details from the live menu."
@@ -117,7 +117,7 @@ export default async function GlutenFreeMenuPage() {
             <p className="mt-4 text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>
           </div>
           <div className="mt-8">
-            <DietaryMenuNav />
+            <DietaryMenuNav/>
           </div>
         </div>
       </section>
@@ -150,7 +150,7 @@ export default async function GlutenFreeMenuPage() {
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <SectionHeading
               align="left"
               title="What to Tell Us When Ordering"
@@ -165,7 +165,7 @@ export default async function GlutenFreeMenuPage() {
 
       <section className="bg-surface-sunk py-section-y">
         <div className="container">
-          <Card accent className="mx-auto max-w-4xl">
+          <Card accent className="mx-auto">
             <CardBody>
               <h2 className="mb-2 text-h4 text-ink-strong">Allergen Information</h2>
               <p className="text-ink-muted">
@@ -178,7 +178,7 @@ export default async function GlutenFreeMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto text-center">
             <h2 className="mb-2 text-h3 text-ink-strong">Kitchen Hours</h2>
             <p className="text-ink-muted">
               These options are available during regular kitchen hours. See the{' '}

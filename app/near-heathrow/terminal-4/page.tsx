@@ -58,12 +58,12 @@ export default function Terminal4Page() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Quick Summary */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
+          <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="font-display text-h3 text-ink-strong mb-3">Snapshot For Terminal 4 Guests</h2>
             <p className="text-ink-muted mb-4">
               Searching for pubs near Heathrow Terminal 4? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
@@ -108,7 +108,7 @@ export default function Terminal4Page() {
       {/* Food & Drink Highlights */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Eat & Drink Before You Fly"
               subtitle="Reserve a table so your food and drinks are waiting when you arrive."
@@ -196,7 +196,7 @@ export default function Terminal4Page() {
       {/* Quick Info Cards */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
               { title: '10 mins', description: 'by car' },
               { title: 'Free', description: 'parking' },
@@ -217,12 +217,12 @@ export default function Terminal4Page() {
       {/* Detailed Directions */}
       <section id="directions" className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Get Here from Terminal 4"
               align="center"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
@@ -329,12 +329,12 @@ export default function Terminal4Page() {
       {/* Why Visit */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Terminal 4 Travellers Choose The Anchor"
               align="center"
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: "SkyTeam Alliance Hub", content: "Terminal 4 hosts Air France, KLM, and other SkyTeam partners, plus many Middle Eastern and Asian carriers. Experience British culture before your journey." },
@@ -357,7 +357,7 @@ export default function Terminal4Page() {
       {/* Live Flight Information */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Live Terminal 4 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
@@ -371,16 +371,16 @@ export default function Terminal4Page() {
       {/* Terminal 4 Specific Info */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Terminal 4 Travel Tips"
               align="center"
             />
-            
+
             <div className="mb-8">
               <FlightDelayWidget terminal="4" />
             </div>
-            
+
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
               <h3 className="font-display text-h3 text-ink-strong mb-4">Airlines & Destinations</h3>
               <div className="grid md:grid-cols-2 gap-6">
@@ -426,18 +426,18 @@ export default function Terminal4Page() {
       {/* Hotel Guest Section */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Staying Near Terminal 4?"
               subtitle="Escape your hotel for a genuine British pub experience"
               align="center"
             />
-            
+
             <div className="mb-12">
-              <p className="text-center text-lg text-ink-muted max-w-3xl mx-auto">
-                If you're staying at one of the Terminal 4 hotels, The Anchor offers 
-                the perfect escape from hotel dining. Experience a real British family 
-                pub where locals gather - a refreshing change from the international 
+              <p className="text-center text-lg text-ink-muted mx-auto">
+                If you're staying at one of the Terminal 4 hotels, The Anchor offers
+                the perfect escape from hotel dining. Experience a real British family
+                pub where locals gather - a refreshing change from the international
                 atmosphere of airport hotels.
               </p>
             </div>
@@ -519,9 +519,9 @@ export default function Terminal4Page() {
             </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 text-center">
-              <p className="text-lg mb-4 max-w-2xl mx-auto text-ink-muted">
-                Take a break from the hustle and bustle of airport life. 
-                The Anchor offers a peaceful village pub atmosphere where you can 
+              <p className="text-lg mb-4 mx-auto text-ink-muted">
+                Take a break from the hustle and bustle of airport life.
+                The Anchor offers a peaceful village pub atmosphere where you can
                 relax, enjoy great food, and experience genuine British hospitality.
               </p>
               <BookTableButton
@@ -529,7 +529,7 @@ export default function Terminal4Page() {
                 context="heathrow_terminal_4_hotels"
                 variant="outline"
                 size="lg"
-                className=""
+
               >
                 Book Your Table Online
               </BookTableButton>
@@ -557,7 +557,7 @@ export default function Terminal4Page() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 4?",

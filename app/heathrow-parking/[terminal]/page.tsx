@@ -159,7 +159,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <SectionHeading
               title={`Terminal ${terminalNumber} parking quick facts`}
               lead={`Travellers searching for ${terminal.airportIntent} often see high on-airport prices. The Anchor gives you a lower-cost alternative while keeping transfer times predictable.`}
@@ -190,7 +190,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <Card accent>
               <CardBody className="p-6 md:p-8">
                 <h2 className="font-display text-h2 text-ink-strong">
@@ -224,7 +224,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <SectionHeading title="Compare other Heathrow terminal parking guides" />
             <div className="grid gap-6 md:grid-cols-3">
               {relatedGuides.map(([slug, item]) => (

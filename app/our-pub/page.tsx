@@ -100,8 +100,8 @@ export default function OurPubPage() {
 
       {/* Interactive venue map */}
       <section className="border-b border-line bg-canvas py-section-y">
-        <Container size="xl">
-          <div className="mx-auto max-w-7xl">
+        <Container>
+          <div className="mx-auto">
             <div className="mb-8 text-center">
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent-text">
                 Interactive venue map
@@ -109,7 +109,7 @@ export default function OurPubPage() {
               <h2 className="font-display text-h2 text-ink-strong">
                 Explore The Anchor
               </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-ink-muted">
+              <p className="mx-auto mt-3 text-ink-muted">
                 Select a hire space or open a photo marker to look around the pub.
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function OurPubPage() {
       {/* Intro */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <p className="text-center text-lg md:text-xl text-ink max-w-3xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
             the plane-spotting garden, the 18&nbsp;gins behind the bar. But honestly?
             It&apos;s better to just show you. Here&apos;s a look around our pub in
@@ -137,7 +137,7 @@ export default function OurPubPage() {
       {/* ── The Bar ── */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               Our Bar
             </h2>
@@ -188,7 +188,7 @@ export default function OurPubPage() {
       {/* ── The Dining Room ── */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               The Dining Room
             </h2>
@@ -266,7 +266,7 @@ export default function OurPubPage() {
       {/* ── The Garden ── */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               The Garden
             </h2>
@@ -318,7 +318,7 @@ export default function OurPubPage() {
       {/* ── Where the Action Happens ── */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               Where the Action Happens
             </h2>
@@ -361,7 +361,7 @@ export default function OurPubPage() {
       {/* ── Pool, Games & a Quiet Corner ── */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               Pool, Games &amp; a Quiet Corner
             </h2>

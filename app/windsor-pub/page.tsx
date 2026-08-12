@@ -121,7 +121,7 @@ export default function WindsorPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -141,7 +141,7 @@ export default function WindsorPubPage() {
       {/* Welcome Section */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Windsor's Favourite Traditional Pub Experience"
               lead="Just a 15-minute drive from Windsor Castle, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
@@ -168,7 +168,7 @@ export default function WindsorPubPage() {
       {/* Why Windsor Residents Choose Us */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Windsor Residents Love The Anchor"
             />
@@ -234,7 +234,7 @@ export default function WindsorPubPage() {
       {/* Popular with Windsor Groups */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Popular with Windsor Groups"
             />
@@ -284,7 +284,7 @@ export default function WindsorPubPage() {
       {/* Getting Here from Windsor */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Getting to The Anchor from Windsor"
             />
@@ -350,7 +350,7 @@ export default function WindsorPubPage() {
       {/* Windsor Connection */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Windsor to The Anchor - Why We're Worth the Trip"
             />
@@ -404,7 +404,7 @@ export default function WindsorPubPage() {
       {/* Local Knowledge Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="A Local&rsquo;s Guide: Windsor to The Anchor"
             />
@@ -429,11 +429,11 @@ export default function WindsorPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
             <p className="mt-4 text-ink-muted">
               Kitchen closes earlier - check times for food service
             </p>

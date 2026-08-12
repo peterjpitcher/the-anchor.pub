@@ -132,7 +132,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* Intro */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="A Pub on the Moor Since at Least 1751"
               subtitle="Nearly three centuries of pouring pints and welcoming strangers"
@@ -169,7 +169,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* Auctions, Blacksmiths and Working Village Life */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Auctions, Blacksmiths and Working Village Life"
               subtitle="Long before anyone dreamed of building an airport next door"
@@ -202,13 +202,13 @@ export default function HistoryPage(): React.JSX.Element {
       {/* The Publicans of The Anchor */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Publicans of The Anchor"
               subtitle="The families who called this pub home"
             />
 
-            <div className="max-w-2xl mx-auto mb-10">
+            <div className="mx-auto mb-10">
               <div className="relative w-full overflow-hidden rounded-md border border-line">
                 <Image
                   src="/images/history/the-anchor-c1910.png"
@@ -254,7 +254,7 @@ export default function HistoryPage(): React.JSX.Element {
             </div>
 
             {/* Timeline */}
-            <div className="mt-12 max-w-3xl mx-auto">
+            <div className="mt-12 mx-auto">
               <h3 className="text-xl text-ink-strong mb-8 text-center">
                 Known Publicans and Key Dates
               </h3>
@@ -299,7 +299,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* Sarah Cooper and Family Memory */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Sarah Cooper, Family Memory and the Loss of Harry Cooper"
               subtitle="A family address, a wartime loss and memories passed down"
@@ -360,7 +360,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* The Eeles Family */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Eeles Family and Village Memories"
               subtitle="Football, families and the village local"
@@ -428,7 +428,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* Lal's Prayer */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Lal&apos;s Prayer"
               subtitle="Written by Lal Eeles, landlady of The Anchor"
@@ -500,7 +500,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* The Anchor in the 1950s and Changing Village */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Buses, Heathrow and a Changing Village"
               subtitle="From a horse-powered moor to the world's busiest flight path"
@@ -536,7 +536,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* The Anchor Today */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Anchor Today"
               subtitle="A village pub in the shadow of the world's busiest airport"
@@ -623,7 +623,7 @@ export default function HistoryPage(): React.JSX.Element {
       {/* Share Your Memories */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Share Your Memories of The Anchor"
               subtitle="Help us tell the full story"

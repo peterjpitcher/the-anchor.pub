@@ -44,7 +44,7 @@ export default function Terminal2Page() {
           { name: 'Terminal 2', url: '/near-heathrow/terminal-2' }
         ]}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/near-heathrow-terminal-2/heathrow-airport-view.jpg"
@@ -58,7 +58,7 @@ export default function Terminal2Page() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Google Rating Strip */}
       <section className="py-section-y bg-surface">
@@ -94,7 +94,7 @@ export default function Terminal2Page() {
       {/* Food & Drink Highlights */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Eat & Drink Before or After Terminal 2"
               subtitle="Pre-book so your table, roast or pizza order is ready when you arrive."
@@ -166,7 +166,7 @@ export default function Terminal2Page() {
       {/* Quick Info Cards */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
               { title: '15 mins', description: 'by car' },
               { title: 'Free', description: 'parking' },
@@ -186,7 +186,7 @@ export default function Terminal2Page() {
 
       {/* Detailed Directions */}
       <section id="directions" className="py-section-y bg-surface">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="How to Get Here from Terminal 2"
               align="center"
@@ -296,12 +296,12 @@ export default function Terminal2Page() {
 
       {/* Why Visit */}
       <section className="py-section-y bg-canvas">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="Why Terminal 2 Travellers Choose The Anchor"
               align="center"
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: 'Star Alliance Hub', content: 'Terminal 2 hosts Star Alliance carriers including Lufthansa, United, Air Canada, and Singapore Airlines. Enjoy authentic British hospitality before your international journey.' },
@@ -325,7 +325,7 @@ export default function Terminal2Page() {
 
       {/* Live Flight Information */}
       <section className="py-section-y bg-canvas">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="Live Terminal 2 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
@@ -337,7 +337,7 @@ export default function Terminal2Page() {
 
       {/* Terminal 2 Specific Info */}
       <section className="py-section-y bg-surface">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="Terminal 2 Travel Tips"
               align="center"
@@ -389,7 +389,7 @@ export default function Terminal2Page() {
 
       {/* Perfect for Terminal 2 Travellers */}
       <section className="py-section-y bg-surface">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="Your Perfect Stop Near Terminal 2"
               align="center"
@@ -400,15 +400,15 @@ export default function Terminal2Page() {
                 Looking for pubs near Heathrow Terminal 2? Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines
                 operating from T2, The Anchor provides the perfect escape from the airport bustle.
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-2xl font-bold text-accent-text mb-4">Before Your Flight</h3>
                   <p className="mb-4 text-ink-muted">
-                    Instead of paying premium prices for average food at the terminal, enjoy a proper meal 
-                    at The Anchor. Our traditional British menu offers everything from classic pub favourites 
-                    to fish and chips, all at local pub prices during kitchen hours. With Terminal 2's 
-                    recommendation to arrive 3 hours early for international flights, you'll have plenty 
+                    Instead of paying premium prices for average food at the terminal, enjoy a proper meal
+                    at The Anchor. Our traditional British menu offers everything from classic pub favourites
+                    to fish and chips, all at local pub prices during kitchen hours. With Terminal 2's
+                    recommendation to arrive 3 hours early for international flights, you'll have plenty
                     of time to relax in our beer garden or cozy interior before heading to the gate.
                   </p>
                   <p className="text-ink-muted">
@@ -421,9 +421,9 @@ export default function Terminal2Page() {
                 <div>
                   <h3 className="text-2xl font-bold text-accent-text mb-4">Meeting Arrivals</h3>
 	                  <p className="mb-4 text-ink-muted">
-	                    Terminal 2's short-stay car park charges £6.90 for just 30 minutes - that's more 
-	                    than a pint costs at The Anchor! When collecting passengers, wait comfortably with 
-	                    us instead. Use our free WiFi to track their flight, enjoy a drink or meal, and 
+	                    Terminal 2's short-stay car park charges £6.90 for just 30 minutes - that's more
+	                    than a pint costs at The Anchor! When collecting passengers, wait comfortably with
+	                    us instead. Use our free WiFi to track their flight, enjoy a drink or meal, and
 	                    only head to the terminal when they've cleared customs.
 	                  </p>
                   <p className="text-ink-muted">
@@ -438,9 +438,9 @@ export default function Terminal2Page() {
             <div className="bg-surface border border-line rounded-md shadow-sm p-8">
               <h3 className="text-2xl font-bold text-accent-text mb-4 text-center">Local Knowledge</h3>
               <p className="text-ink-muted mb-4">
-                As Stanwell Moor's village pub, we've been serving Terminal 2 travelers since the 
-                Queen opened it in 2014. Our staff know the flight patterns, the best times to 
-                travel to avoid traffic, and can even recommend the quickest security lanes based 
+                As Stanwell Moor's village pub, we've been serving Terminal 2 travelers since the
+                Queen opened it in 2014. Our staff know the flight patterns, the best times to
+                travel to avoid traffic, and can even recommend the quickest security lanes based
                 on the time of day. We're not just a pub - we're part of your journey.
               </p>
               <p className="text-ink-muted">
@@ -454,7 +454,7 @@ export default function Terminal2Page() {
 
       {/* Hotel Guest Section */}
       <section className="py-section-y bg-canvas">
-        <Container size="md">
+        <Container>
             <SectionHeading
               title="Staying Near Terminal 2?"
               subtitle="Escape your hotel for a genuine British pub experience"
@@ -462,10 +462,10 @@ export default function Terminal2Page() {
             />
 
             <div className="mb-12">
-              <p className="text-center text-lg text-ink-muted max-w-3xl mx-auto">
-                If you're staying at one of the Terminal 2 hotels, The Anchor offers 
-                the perfect escape from hotel dining. Experience a real British family 
-                pub where locals gather - a refreshing change from the international 
+              <p className="text-center text-lg text-ink-muted mx-auto">
+                If you're staying at one of the Terminal 2 hotels, The Anchor offers
+                the perfect escape from hotel dining. Experience a real British family
+                pub where locals gather - a refreshing change from the international
                 atmosphere of airport hotels.
               </p>
             </div>
@@ -547,7 +547,7 @@ export default function Terminal2Page() {
             </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 text-center">
-              <p className="text-lg mb-4 max-w-2xl mx-auto text-ink-muted">
+              <p className="text-lg mb-4 mx-auto text-ink-muted">
                 Take a break from the hustle and bustle of airport life.
                 The Anchor offers a peaceful village pub atmosphere where you can
                 relax, enjoy great food, and experience genuine British hospitality.
@@ -572,7 +572,7 @@ export default function Terminal2Page() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 2?",

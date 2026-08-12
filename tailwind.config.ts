@@ -8,8 +8,11 @@ const config: Config = {
     './lib/**/*.{js,ts,jsx,tsx}',
     './utils/**/*.{js,ts,jsx,tsx}',
   ],
+  // Tailwind's own .container is switched off. The single .container rule lives
+  // in app/globals.css, driven by --container-max / --container-pad, so page
+  // width has exactly one definition site-wide.
+  corePlugins: { container: false },
   theme: {
-    container: { center: true, padding: '1rem', screens: { '2xl': '1280px' } },
     extend: {
       colors: {
         // Raw brand palette (fixed across themes)

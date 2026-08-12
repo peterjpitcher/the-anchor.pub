@@ -90,7 +90,7 @@ export default function RetirementPartiesPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Retirement Party & Leaving Do Venue Near Heathrow
                         </PageTitle>
@@ -103,7 +103,7 @@ export default function RetirementPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Stress-Free Planning for Organizers"
                         />
@@ -128,7 +128,7 @@ export default function RetirementPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Daytime or Evening?"
                         />
@@ -157,8 +157,8 @@ export default function RetirementPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-2xl mx-auto">
-                        <CateringPackagesCard />
+                    <div className="mx-auto">
+                        <CateringPackagesCard/>
                     </div>
                 </Container>
             </section>

@@ -87,8 +87,8 @@ export default function HalloweenPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-12">
+        <Container>
+          <div className="mx-auto space-y-12">
             {/* The fancy-dress disco */}
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">
@@ -208,8 +208,8 @@ export default function HalloweenPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-6xl space-y-8">
+        <Container>
+          <div className="mx-auto space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
                 <h2 className="text-h3 text-ink-strong">

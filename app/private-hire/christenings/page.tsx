@@ -125,7 +125,7 @@ export default function ChristeningsPage() {
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Christening & Naming Ceremony Venue Near Heathrow
                     </PageTitle>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <p className="text-lg text-ink-muted mb-8">
                             After the service, gather everyone together for a relaxed celebration at The Anchor. We offer flexible spaces where the adults can relax and the children have room to be themselves.
                         </p>
@@ -153,7 +153,7 @@ export default function ChristeningsPage() {
                         title="Menu Options"
                         lead="From Sunday Roasts to Finger Buffets"
                     />
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-4xl mx-auto">
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mx-auto">
                         {[
                             { title: "Relaxed Buffet", content: "Our most popular option for christenings. A spread of hot and cold favourites that allows guests to mingle and eat at their own pace. Catering packages available upon request." },
                             { title: "Sunday Roast", content: "If your christening is on a Sunday, why not book a large area for our famous Sunday Roast? Walk in or book ahead, and call us for large groups so we can keep service smooth." },
@@ -221,7 +221,7 @@ export default function ChristeningsPage() {
                         title="Planning Your Christening Reception"
                         lead="A simple step-by-step guide"
                     />
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <ol className="space-y-6">
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">1</span>
@@ -258,7 +258,7 @@ export default function ChristeningsPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="font-display text-h3 text-ink-strong mb-4">Also Planning a Baby Shower or Gender Reveal?</h2>
                         <p className="text-ink-muted mb-6">
                             The Anchor is equally well suited for baby showers and gender reveals. Explore our dedicated pages for more details on packages and ideas.
@@ -287,7 +287,7 @@ export default function ChristeningsPage() {
                         title="After the Service"
                         lead="From church to celebration in minutes"
                     />
-                    <div className="max-w-3xl mx-auto space-y-4 text-ink-muted">
+                    <div className="mx-auto space-y-4 text-ink-muted">
                         <p>
                             One of the biggest advantages of choosing The Anchor as your christening venue is our proximity to local churches. Whether your ceremony is at St Mary the Virgin in Stanwell, St Mary&apos;s in Staines, or any of the churches across the Spelthorne area, we are just a short drive away. Most families arrive at The Anchor within 10 to 15 minutes of the service finishing.
                         </p>
@@ -310,8 +310,8 @@ export default function ChristeningsPage() {
                         title="Christening Party Packages"
                         lead="Flexible catering to suit every family and budget"
                     />
-                    <div className="max-w-2xl mx-auto space-y-6">
-                        <CateringPackagesCard />
+                    <div className="mx-auto space-y-6">
+                        <CateringPackagesCard/>
 
                         <p className="text-ink-muted text-sm">
                             Sunday roasts are also available for Sunday christenings, priced &agrave; la carte from our menu.

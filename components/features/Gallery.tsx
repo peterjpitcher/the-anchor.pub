@@ -33,8 +33,8 @@ interface GalleryProps {
   onImageClick?: (image: GalleryImage, index: number) => void
 }
 
-export function Gallery({ 
-  images, 
+export function Gallery({
+  images,
   columns = 3,
   gap = 'md',
   showCaptions = true,
@@ -49,15 +49,15 @@ export function Gallery({
   const previousOpen = useRef(false)
   const engaged = useRef(false)
   const lastCloseReason = useRef<ModalCloseReason | null>(null)
-  
+
   // Get unique categories
   const categories = Array.from(new Set(images.map(img => img.category).filter(Boolean))) as string[]
-  
+
   // Filter images by category
-  const filteredImages = selectedCategory 
+  const filteredImages = selectedCategory
     ? images.filter(img => img.category === selectedCategory)
     : images
-  
+
   const handleImageClick = useCallback((image: GalleryImage, index: number) => {
     if (onImageClick) {
       onImageClick(image, index)
@@ -67,7 +67,7 @@ export function Gallery({
       setLightboxIndex(index)
     }
   }, [onImageClick])
-  
+
   const handleLightboxClose = useCallback(() => {
     setLightboxImage(null)
     setLightboxIndex(-1)
@@ -77,17 +77,17 @@ export function Gallery({
     lastCloseReason.current = reason
     handleLightboxClose()
   }, [handleLightboxClose])
-  
+
   const handleLightboxNavigation = useCallback((direction: 'prev' | 'next') => {
     const currentImages = filteredImages
     let newIndex = lightboxIndex
-    
+
     if (direction === 'prev') {
       newIndex = lightboxIndex > 0 ? lightboxIndex - 1 : currentImages.length - 1
     } else {
       newIndex = lightboxIndex < currentImages.length - 1 ? lightboxIndex + 1 : 0
     }
-    
+
     if (!engaged.current) {
       engaged.current = true
       trackModalEngage({
@@ -138,11 +138,11 @@ export function Gallery({
       lastCloseReason.current = null
     }
   }, [lightboxImage, lightboxIndex])
-  
+
   // Keyboard navigation for lightbox
   useEffect(() => {
     if (!lightboxImage) return
-    
+
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'Escape':
@@ -156,11 +156,11 @@ export function Gallery({
           break
       }
     }
-    
+
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [handleLightboxNavigation, lightboxImage, requestClose])
-  
+
   // Prevent body scroll when lightbox is open
   useEffect(() => {
     if (lightboxImage) {
@@ -168,12 +168,12 @@ export function Gallery({
     } else {
       document.body.style.overflow = ''
     }
-    
+
     return () => {
       document.body.style.overflow = ''
     }
   }, [lightboxImage])
-  
+
   return (
     <>
       <div className={className}>
@@ -202,7 +202,7 @@ export function Gallery({
             })}
           </div>
         )}
-        
+
         {/* Image Grid */}
         <Grid cols={columns} gap={gap}>
           {filteredImages.map((image, index) => (
@@ -224,7 +224,7 @@ export function Gallery({
                     loading={index < 4 ? "eager" : "lazy"}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colours duration-300" />
-                  
+
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-anchor-charcoal/90 backdrop-blur-sm rounded-full p-3">
@@ -233,7 +233,7 @@ export function Gallery({
                       </svg>
                     </div>
                   </div>
-                  
+
                   {/* Category Badge */}
                   {image.category && (
                     <div className="absolute top-2 left-2">
@@ -243,7 +243,7 @@ export function Gallery({
                     </div>
                   )}
                 </div>
-                
+
                 {/* Caption */}
                 {showCaptions && image.caption && (
                   <div className="p-4 bg-surface">
@@ -255,10 +255,10 @@ export function Gallery({
           ))}
         </Grid>
       </div>
-      
+
       {/* Lightbox */}
       {lightboxImage && (
-        <div 
+        <div
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => requestClose('backdrop_click')}
           role="dialog"
@@ -277,7 +277,7 @@ export function Gallery({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-          
+
           <button
             onClick={(e) => {
               e.stopPropagation()
@@ -290,7 +290,7 @@ export function Gallery({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          
+
           <button
             onClick={(e) => {
               e.stopPropagation()
@@ -303,9 +303,9 @@ export function Gallery({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          
-          <div 
-            className="relative max-w-7xl max-h-[90vh] flex items-center justify-center"
+
+          <div
+            className="relative max-h-[90vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -316,14 +316,14 @@ export function Gallery({
               className="max-w-full max-h-[90vh] w-auto h-auto object-contain"
               loading="eager"
             />
-            
+
             {lightboxImage.caption && (
               <div className="absolute bottom-0 left-0 right-0 bg-black/70 backdrop-blur-sm p-4">
                 <p className="text-white text-center">{lightboxImage.caption}</p>
               </div>
             )}
           </div>
-          
+
           {/* Image counter */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">
             {lightboxIndex + 1} / {filteredImages.length}

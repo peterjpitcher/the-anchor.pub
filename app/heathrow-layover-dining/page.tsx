@@ -64,7 +64,7 @@ const faqItems = [
 export default function HeathrowLayoverDiningPage() {
   return (
     <>
-      <SpeakableSchema />
+      <SpeakableSchema/>
 
       <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
@@ -73,14 +73,14 @@ export default function HeathrowLayoverDiningPage() {
         lead="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       <section className="py-section-y bg-canvas">
         <Container>
           <h2 className="text-center font-display text-h2 text-ink-strong">
             Heathrow Layover Dining at The Anchor
           </h2>
-          <SpeakableContent className="mt-6 text-lg text-ink-muted text-center max-w-3xl mx-auto">
+          <SpeakableContent className="mt-6 text-lg text-ink-muted text-center mx-auto">
             Plan a stress-free Heathrow layover meal. The Anchor serves Sunday roasts, stone-baked pizzas, and pub classics with free parking, fast service, and reliable travel times back to your terminal.
           </SpeakableContent>
         </Container>

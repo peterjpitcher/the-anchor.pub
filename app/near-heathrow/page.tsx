@@ -59,7 +59,7 @@ export default function NearHeathrowPage() {
           { name: 'Near Heathrow', url: '/near-heathrow' }
         ]}
       />
-      <SpeakableSchema />
+      <SpeakableSchema/>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
@@ -93,7 +93,7 @@ export default function NearHeathrowPage() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Why stop: feature split: reasons list (left) + dark journey-times card (right). */}
       <section className="bg-canvas py-section-y">
@@ -107,9 +107,9 @@ export default function NearHeathrowPage() {
                 lead="Skip the terminal queues and the terminal prices. The Anchor is a traditional village pub minutes from every Heathrow terminal, with free parking and room to relax before you fly or while you wait for arrivals. We are a highly rated independent pub near Heathrow, around 7 minutes from Terminal 5, traffic dependent."
                 className="mb-0"
               />
-              <WhyStopList />
+              <WhyStopList/>
             </div>
-            <JourneyTimesCard />
+            <JourneyTimesCard/>
           </div>
         </div>
       </section>
@@ -161,7 +161,7 @@ export default function NearHeathrowPage() {
       {/* FAQ Section */}
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <FAQAccordionWithSchema
               title="Pub near Heathrow: your questions answered"
               faqs={[

@@ -39,8 +39,8 @@ export function OrganicSearchClusterLinks({
   return (
     <Section className={`bg-surface-sunk border-y border-line ${className}`}>
       <Container>
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
+        <div className="mx-auto">
+          <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-accent-text">
               {seoCluster.label}
             </p>

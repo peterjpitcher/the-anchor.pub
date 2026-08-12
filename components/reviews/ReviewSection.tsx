@@ -31,7 +31,7 @@ export function ReviewSection({
   return (
     <section className={`py-section-y ${bgClasses[background]} ${className}`}>
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="mx-auto">
           {(title || subtitle) && (
             <div className="text-center mb-12">
               {title && (
@@ -40,13 +40,13 @@ export function ReviewSection({
                 </h2>
               )}
               {subtitle && (
-                <p className="text-lg max-w-3xl mx-auto text-ink-muted">
+                <p className="text-lg mx-auto text-ink-muted">
                   {subtitle}
                 </p>
               )}
             </div>
           )}
-          <GoogleReviews 
+          <GoogleReviews
             layout={layout}
             filter={filter}
             showTitle={false}

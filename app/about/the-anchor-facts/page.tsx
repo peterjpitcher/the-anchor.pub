@@ -145,7 +145,7 @@ export default function AnchorFactsPage() {
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent-text">
               Source of truth
             </p>
@@ -172,7 +172,7 @@ export default function AnchorFactsPage() {
 
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <dl className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2">
+          <dl className="mx-auto grid gap-4 md:grid-cols-2">
             {primaryFacts.map(([label, value]) => (
               <div key={label} className="rounded-md border border-line bg-surface-sunk p-5">
                 <dt className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-text">
@@ -189,7 +189,7 @@ export default function AnchorFactsPage() {
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+          <div className="mx-auto grid gap-8 md:grid-cols-2">
             <div>
               <h2 className="text-2xl text-ink-strong">Primary Links</h2>
               <ul className="mt-5 space-y-3">

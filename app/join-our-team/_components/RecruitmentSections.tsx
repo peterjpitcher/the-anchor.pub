@@ -88,7 +88,7 @@ export function BulletListSection({
   return (
     <div className={className}>
       <h2 className="text-3xl text-ink-strong">{title}</h2>
-      {intro ? <p className="mt-4 max-w-3xl text-ink-muted">{intro}</p> : null}
+      {intro ? <p className="mt-4 text-ink-muted">{intro}</p> : null}
       <ul className="mt-6 grid gap-3 md:grid-cols-2">
         {items.map((item) => (
           <li key={item} className="flex gap-3 rounded-md border border-line bg-surface p-4 shadow-sm">
@@ -140,11 +140,11 @@ export function LocationTransportSection() {
         </p>
         <address className="mt-5 not-italic text-ink">
           <strong className="text-ink-strong">The Anchor</strong>
-          <br />
+          <br/>
           Horton Road
-          <br />
+          <br/>
           Stanwell Moor Village
-          <br />
+          <br/>
           TW19 6AQ
         </address>
         <p className="mt-5 text-ink-muted">

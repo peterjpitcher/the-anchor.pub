@@ -130,7 +130,7 @@ export default async function FishAndChipsPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Fish and Chips Near Heathrow"
               lead="Current dish names, descriptions and prices are shown here when available online."
@@ -147,7 +147,7 @@ export default async function FishAndChipsPage() {
           />
 
           {fishItems.length > 0 ? (
-            <div className="mx-auto grid max-w-3xl gap-6 text-left md:grid-cols-2">
+            <div className="mx-auto grid gap-6 text-left md:grid-cols-2">
               {fishItems.map((item) => {
                 const allergens = getMenuItemAllergens(item)
                 return (
@@ -174,7 +174,7 @@ export default async function FishAndChipsPage() {
               })}
             </div>
           ) : (
-            <Card accent className="mx-auto max-w-2xl">
+            <Card accent className="mx-auto">
               <CardBody>
                 <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
                 <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>
@@ -182,7 +182,7 @@ export default async function FishAndChipsPage() {
             </Card>
           )}
 
-          <Card accent className="mx-auto mt-8 max-w-2xl">
+          <Card accent className="mx-auto mt-8">
             <CardBody>
               <h2 className="mb-2 text-h4 text-ink-strong">Do We Do Gluten Free Fish and Chips?</h2>
               <p className="text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>

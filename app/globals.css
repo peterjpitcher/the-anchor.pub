@@ -94,6 +94,25 @@
 }
 
 @layer components {
+  /* The one page-width rule on the site. Tailwind's own container core plugin
+     is disabled in tailwind.config.ts so this is the only .container that
+     exists, which is what stops the header, sections and cards drifting apart
+     the way they did before (five competing widths on a single page). */
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+
+  /* A container inside a container is a composition accident, not an intent to
+     inset. Left alone it double-pads to 1216px and the section stops lining up
+     with the header. Neutralise the inner one so nesting is always harmless. */
+  .container .container {
+    max-width: none;
+    padding-inline: 0;
+  }
+
   /* DEPRECATED — remove in redesign Phase 6 (replace with py-section-y) */
   /* Standard section spacing used throughout the site */
   .section-spacing {
@@ -230,8 +249,13 @@
   --space-4: 1rem;     --space-5: 1.5rem;  --space-6: 2rem;
   --space-7: 3rem;     --space-8: 4rem;    --space-9: 6rem;
   --section-y: clamp(2.5rem, 6vw, 4.5rem);
+  /* ---- Page width: the single source of truth ----
+     Every page-content wrapper resolves to 1280 - (2 x 16) = 1248px of content
+     at desktop, and the full viewport minus 16px gutters below that. Changing
+     these two values re-flows the entire site. Nothing else may set a page
+     width: see the .container rule in @layer components. */
   --container-max: 1280px;
-  --container-pad: clamp(1rem, 4vw, 2.5rem);
+  --container-pad: 1rem;
 
   /* ---- Radii — four shapes only ---- */
   --radius-xs: 3px;     /* dark cards */

@@ -89,7 +89,7 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
@@ -102,7 +102,7 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why Couples Choose Us"
                             lead="We take the stress out of planning so you can focus on showing off the ring."
@@ -128,7 +128,7 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="What's Included"
                             lead="Everything you need for your engagement party, nothing you don't."
@@ -160,7 +160,7 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why a Pub Engagement Party?"
                             lead="More atmosphere, less hassle, and you'll actually enjoy it."
@@ -196,7 +196,7 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Tailored to You"
                         />
@@ -231,15 +231,15 @@ export default function EngagementPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-2xl mx-auto">
-                        <CateringPackagesCard />
+                    <div className="mx-auto">
+                        <CateringPackagesCard/>
                     </div>
                 </Container>
             </section>
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading title="Ready to start planning?" />
                         <p className="text-lg text-ink-muted mb-8">
                             Get in touch with our team to check availability and discuss your ideas. We recommend booking at least 4 weeks in advance for Friday/Saturday slots.

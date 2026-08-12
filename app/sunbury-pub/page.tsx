@@ -102,7 +102,7 @@ export default function SunburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle
                             seo={{
                                 structured: true,
@@ -121,7 +121,7 @@ export default function SunburyPubPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Worth the Trip from Sunbury-on-Thames"
                             lead="Discover why we are a favourite destination for Sunbury families and foodies."
@@ -147,7 +147,7 @@ export default function SunburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="A Great Venue for Sunbury Celebrations"
                         />
@@ -185,7 +185,7 @@ export default function SunburyPubPage() {
             {/* Local Knowledge Section */}
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why Sunbury Residents Make the Trip"
                         />
@@ -209,11 +209,11 @@ export default function SunburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-2xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
-                        <BusinessHours />
+                        <BusinessHours/>
                     </div>
                 </Container>
             </section>

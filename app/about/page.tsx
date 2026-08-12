@@ -116,7 +116,7 @@ export default function AboutPage() {
       {/* Our Story */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Our Story"
               lead="Nearly three centuries of pouring pints and welcoming strangers"
@@ -169,7 +169,7 @@ export default function AboutPage() {
             lead="A few reasons people keep coming back"
           />
 
-          <div className="grid gap-6 lg:grid-cols-3 sm:grid-cols-2 max-w-6xl mx-auto">
+          <div className="grid gap-6 lg:grid-cols-3 sm:grid-cols-2 mx-auto">
             {[
               {
                 title: 'Under the Flight Path',
@@ -216,7 +216,7 @@ export default function AboutPage() {
       {/* What We Do */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What We Do"
               lead="Good food, good drink, good company"
@@ -342,7 +342,7 @@ export default function AboutPage() {
       {/* Awards & Recognition */}
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Awards &amp; Recognition"
             />
@@ -430,7 +430,7 @@ export default function AboutPage() {
       {/* Hiring Callout */}
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <p className="text-lg text-ink leading-relaxed">
               Interested in joining our team? We are looking for experienced bar staff and kitchen
               team members.{' '}

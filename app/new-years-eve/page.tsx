@@ -95,8 +95,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* See in the New Year */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               See in the new year with a proper local party
             </h2>
@@ -133,8 +133,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* Why The Anchor for NYE */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Why The Anchor for New Year&apos;s Eve
             </h2>
@@ -187,8 +187,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* Food & Drink */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Food &amp; drink
             </h2>
@@ -236,8 +236,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* Practical Details */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Practical details
             </h2>
@@ -299,8 +299,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* Near Heathrow */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Better than the hotel bar
             </h2>
@@ -347,8 +347,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       {/* Where we are */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-6xl space-y-8">
+        <Container>
+          <div className="mx-auto space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
                 <h2 className="text-h3 text-ink-strong">Where we are</h2>

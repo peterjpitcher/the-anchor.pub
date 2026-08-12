@@ -7,26 +7,16 @@ describe('Container', () => {
     expect(screen.getByText('Container content')).toBeInTheDocument()
   })
 
-  it('applies size classes correctly', () => {
-    const { rerender } = render(<Container size="sm">Small</Container>)
-    expect(screen.getByText('Small')).toHaveClass('max-w-3xl')
-
-    rerender(<Container size="lg">Large</Container>)
-    expect(screen.getByText('Large')).toHaveClass('max-w-7xl')
-
-    rerender(<Container size="full">Full</Container>)
-    expect(screen.getByText('Full')).toHaveClass('max-w-full')
-  })
-
-  it('applies padding classes correctly', () => {
-    const { rerender } = render(<Container padding="none">No padding</Container>)
-    expect(screen.getByText('No padding').className).not.toMatch(/\bpx-\d/)
-
-    rerender(<Container padding="sm">Small padding</Container>)
-    expect(screen.getByText('Small padding')).toHaveClass('px-4', 'sm:px-6')
-
-    rerender(<Container padding="lg">Large padding</Container>)
-    expect(screen.getByText('Large padding')).toHaveClass('px-6', 'sm:px-8', 'lg:px-12')
+  // Page width has one definition: the .container rule in app/globals.css,
+  // driven by --container-max / --container-pad. The component must not add a
+  // max-width or a padding of its own, or it drifts away from the header the
+  // way it used to (1216px of content against the header's 1248px).
+  it('applies the shared container class and nothing else that sets width', () => {
+    render(<Container>Content</Container>)
+    const el = screen.getByText('Content')
+    expect(el).toHaveClass('container')
+    expect(el.className).not.toMatch(/\bmax-w-/)
+    expect(el.className).not.toMatch(/(^|\s|:)px-/)
   })
 
   it('renders as different HTML elements', () => {
@@ -70,11 +60,11 @@ describe('Section', () => {
     expect(screen.getByText('Large spacing')).toHaveClass('py-12', 'md:py-14', 'lg:py-16')
   })
 
-  it('inherits Container props', () => {
-    render(<Section size="xl" padding="lg">Section</Section>)
+  it('inherits the single container width from Container', () => {
+    render(<Section>Section</Section>)
     const section = screen.getByText('Section')
-    expect(section).toHaveClass('max-w-[1440px]')
-    expect(section).toHaveClass('px-6')
+    expect(section).toHaveClass('container')
+    expect(section.className).not.toMatch(/\bmax-w-/)
   })
 
   it('combines spacing and custom className', () => {

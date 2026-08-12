@@ -1973,7 +1973,7 @@ export function ManagementTableBookingForm({
     const selectedEventTimeLabel = formatEventTimeLabel(selectedSuggestedEvent.startDate)
 
     return (
-      <div className="mx-auto max-w-[640px] space-y-4">
+      <div className="mx-auto space-y-4">
         <Card accent>
           <CardBody className="space-y-3 p-6">
             <h3 className="font-display text-h4 text-ink-strong">Event booking</h3>
@@ -2025,7 +2025,7 @@ export function ManagementTableBookingForm({
 
 
   return (
-    <div ref={wizardRef} className="mx-auto max-w-[640px]">
+    <div ref={wizardRef} className="mx-auto">
     <Card accent>
       <CardBody className="space-y-6">
         <BookingProgressBar

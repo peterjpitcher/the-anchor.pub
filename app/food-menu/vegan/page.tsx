@@ -97,7 +97,7 @@ export default async function VeganMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Vegan Pub Food Near Heathrow"
               lead="Current vegan and vegan-option dishes."
@@ -107,7 +107,7 @@ export default async function VeganMenuPage() {
             </p>
           </div>
           <div className="mt-8">
-            <DietaryMenuNav />
+            <DietaryMenuNav/>
           </div>
         </div>
       </section>
@@ -145,7 +145,7 @@ export default async function VeganMenuPage() {
 
       <section className="bg-surface-sunk py-section-y">
         <div className="container">
-          <Card accent className="mx-auto max-w-4xl">
+          <Card accent className="mx-auto">
             <CardBody>
               <h2 className="mb-2 text-h4 text-ink-strong">Allergen Information</h2>
               <p className="text-ink-muted">
@@ -158,7 +158,7 @@ export default async function VeganMenuPage() {
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto text-center">
             <h2 className="mb-2 text-h3 text-ink-strong">Kitchen Hours</h2>
             <p className="text-ink-muted">
               Vegan options are available during regular kitchen hours. See the{' '}

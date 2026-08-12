@@ -26,7 +26,7 @@ export function PrivateBookingSection({
   return (
     <>
       <section id={id} className="scroll-mt-24 border-y py-12 bg-surface-sunk border-line" data-sticky-cta-guard="true">
-        <Container size="md">
+        <Container>
           <SectionHeading title={title} subtitle={subtitle} />
           {showVenueTourLink ? (
             <p className="text-center text-sm text-ink-muted -mt-4 mb-6">

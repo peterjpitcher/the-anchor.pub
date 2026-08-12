@@ -45,7 +45,7 @@ export default function Terminal3Page() {
           { name: 'Terminal 3', url: '/near-heathrow/terminal-3' }
         ]}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/near-heathrow-terminal-3/heathrow-airport-view.jpg"
@@ -59,12 +59,12 @@ export default function Terminal3Page() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Quick Summary */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
+          <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="text-2xl font-bold text-accent-text mb-3">Key Info For Terminal 3 Travellers</h2>
             <p className="text-ink-muted mb-4">
               One of the best pubs near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
@@ -125,7 +125,7 @@ export default function Terminal3Page() {
       {/* Food & Drink Highlights */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Eat & Drink Before Your Terminal 3 Flight"
               subtitle="Pre-book to enjoy Sunday roast, stone-baked pizzas or a quick meal before departures."
@@ -197,7 +197,7 @@ export default function Terminal3Page() {
       {/* Quick Info Cards */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
               { title: '15 mins', description: 'by car' },
               { title: 'Free', description: 'parking' },
@@ -218,12 +218,12 @@ export default function Terminal3Page() {
       {/* Detailed Directions */}
       <section id="directions" className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Get Here from Terminal 3"
               align="center"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
@@ -330,12 +330,12 @@ export default function Terminal3Page() {
       {/* Why Visit */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Terminal 3 Travellers Choose The Anchor"
               align="center"
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: "Global Airlines Hub", content: "Terminal 3 hosts Virgin Atlantic, Emirates, Delta, and many Asian carriers. Whether flying to New York, Dubai, or Tokyo, start with a taste of Britain." },
@@ -358,7 +358,7 @@ export default function Terminal3Page() {
       {/* Live Flight Information */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Live Terminal 3 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
@@ -372,16 +372,16 @@ export default function Terminal3Page() {
       {/* Terminal 3 Specific Info */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Terminal 3 Travel Tips"
               align="center"
             />
-            
+
             <div className="mb-8">
               <FlightDelayWidget terminal="3" />
             </div>
-            
+
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
               <h3 className="font-display text-h3 text-ink-strong mb-4">Airlines & Routes</h3>
               <div className="grid md:grid-cols-2 gap-6">
@@ -425,18 +425,18 @@ export default function Terminal3Page() {
       {/* Hotel Guest Section */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Staying Near Terminal 3?"
               subtitle="Escape your hotel for a genuine British pub experience"
               align="center"
             />
-            
+
             <div className="mb-12">
-              <p className="text-center text-lg text-ink-muted max-w-3xl mx-auto">
-                If you're staying at one of the Terminal 3 hotels, The Anchor offers 
-                the perfect escape from hotel dining. Experience a real British family 
-                pub where locals gather - a refreshing change from the international 
+              <p className="text-center text-lg text-ink-muted mx-auto">
+                If you're staying at one of the Terminal 3 hotels, The Anchor offers
+                the perfect escape from hotel dining. Experience a real British family
+                pub where locals gather - a refreshing change from the international
                 atmosphere of airport hotels.
               </p>
             </div>
@@ -518,9 +518,9 @@ export default function Terminal3Page() {
             </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 text-center">
-              <p className="text-lg mb-4 max-w-2xl mx-auto text-ink-muted">
-                Take a break from the hustle and bustle of airport life. 
-                The Anchor offers a peaceful village pub atmosphere where you can 
+              <p className="text-lg mb-4 mx-auto text-ink-muted">
+                Take a break from the hustle and bustle of airport life.
+                The Anchor offers a peaceful village pub atmosphere where you can
                 relax, enjoy great food, and experience genuine British hospitality.
               </p>
               <BookTableButton
@@ -555,7 +555,7 @@ export default function Terminal3Page() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 3?",

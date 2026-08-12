@@ -78,7 +78,7 @@ export function HomeFaq() {
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(faqSchema) }}
       />
 
-      <div className="mx-auto max-w-[920px] space-y-3">
+      <div className="mx-auto space-y-3">
         {FAQS.map((faq, index) => {
           const isOpen = openIndex === index
           return (

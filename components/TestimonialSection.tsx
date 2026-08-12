@@ -102,7 +102,7 @@ export function TestimonialSection({
 
     return (
       <section className={cn('py-10 md:py-12', className)}>
-        <div className="max-w-2xl mx-auto text-center px-4">
+        <div className="mx-auto text-center px-4">
           <blockquote className="text-2xl text-ink italic leading-relaxed">
             &ldquo;{review.quote}&rdquo;
           </blockquote>
@@ -132,7 +132,7 @@ export function TestimonialSection({
   // Full variant (default) — heading + grid
   return (
     <section className={cn(testimonialSectionVariants({ variant }), className)}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={title} subtitle={subtitle} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review, index) => (

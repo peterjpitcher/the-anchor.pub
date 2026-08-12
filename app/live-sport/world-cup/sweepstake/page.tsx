@@ -115,7 +115,7 @@ export default function WorldCupSweepstakePage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             {[
               { label: 'World champions', value: 'Spain' },
               { label: 'Prize winners', value: WINNER_COUNT.toString() },
@@ -140,7 +140,7 @@ export default function WorldCupSweepstakePage() {
             subtitle="The tournament is over and every prize in the £240 pot has been decided."
           />
 
-          <div className="mx-auto max-w-6xl space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {MAIN_WINNERS.map((winner) => (
                 <article
@@ -200,7 +200,7 @@ export default function WorldCupSweepstakePage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-3xl rounded-xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
+          <div className="mx-auto rounded-xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
             <SectionHeading
               eyebrow="Final Result Sheet"
               title="Keep a Copy"

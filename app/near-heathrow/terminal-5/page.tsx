@@ -59,12 +59,12 @@ export default function Terminal5Page() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Quick Summary */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
+          <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="font-display text-h3 text-ink-strong mb-3">Essential Details at a Glance</h2>
             <p className="text-ink-muted mb-4">
               Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
@@ -113,7 +113,7 @@ export default function Terminal5Page() {
             title="Need Food Near Terminal 5?"
             subtitle="Book ahead so your meal is ready when you arrive, proper pub food, no queues."
           />
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 mx-auto">
             <div className="bg-surface border border-line rounded-md shadow-sm p-6">
               <h3 className="text-lg font-semibold text-accent-text mb-2">Sunday Roast (Sun 1–6pm)</h3>
               <p className="text-sm text-ink-muted mb-4">
@@ -192,7 +192,7 @@ export default function Terminal5Page() {
       {/* Quick Info Cards */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
               { title: '7 mins', description: 'by car' },
               { title: 'Free', description: 'parking' },
@@ -220,12 +220,12 @@ export default function Terminal5Page() {
       {/* Detailed Directions */}
       <section id="directions" className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Get Here from Terminal 5"
               align="center"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {/* By Car */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
@@ -341,13 +341,13 @@ export default function Terminal5Page() {
       {/* Why Visit */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Terminal 5 Travellers Choose The Anchor"
               subtitle="British Airways crews and Sofitel/Hilton guests love our authentic pub"
               align="center"
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: 'Perfect for BA Travellers', content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away." },
@@ -370,7 +370,7 @@ export default function Terminal5Page() {
       {/* Live Flight Information */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Live Terminal 5 Flight Information"
               subtitle="Check flight times while you enjoy your meal or drink"
@@ -384,12 +384,12 @@ export default function Terminal5Page() {
       {/* Terminal 5 Specific Info */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Terminal 5 Travel Tips"
               align="center"
             />
-            
+
             <div className="mb-8">
               <FlightDelayWidget terminal="5" />
             </div>
@@ -435,17 +435,17 @@ export default function Terminal5Page() {
       {/* Hotel Guest Section */}
       <section className="py-section-y bg-canvas">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Staying at a Terminal 5 Hotel?"
               subtitle="Escape the hotel restaurant for an authentic British pub experience"
               align="center"
             />
-            
+
             <div className="mb-12">
-              <p className="text-center text-lg text-ink-muted max-w-3xl mx-auto">
-                If you're staying at the Sofitel, Hilton Garden Inn, or any T5 hotel, 
-                The Anchor offers the perfect escape from generic hotel dining. 
+              <p className="text-center text-lg text-ink-muted mx-auto">
+                If you're staying at the Sofitel, Hilton Garden Inn, or any T5 hotel,
+                The Anchor offers the perfect escape from generic hotel dining.
                 Experience a real British family pub where locals have gathered for over 250 years.
               </p>
             </div>
@@ -484,7 +484,7 @@ export default function Terminal5Page() {
                   Hilton T5 Guests
                 </h3>
                 <p className="text-ink-muted mb-4">
-                  Why settle for another chain restaurant meal? Your Hilton is just 
+                  Why settle for another chain restaurant meal? Your Hilton is just
                   7 minutes from genuine British hospitality.
                 </p>
                 <ul className="space-y-2 text-ink-muted mb-6">
@@ -541,7 +541,7 @@ export default function Terminal5Page() {
               <h3 className="font-display text-h3 text-ink-strong mb-4">
                 Experience Real British Pub Culture
               </h3>
-              <p className="text-lg text-ink mb-6 max-w-2xl mx-auto">
+              <p className="text-lg text-ink mb-6 mx-auto">
                 The Anchor has been serving locals and travelers for over 250 years.
                 Step away from the international hotel scene and discover authentic
                 British hospitality, traditional ales, and home-cooked food in a
@@ -551,7 +551,7 @@ export default function Terminal5Page() {
 
             <div className="mt-12 text-center">
               <p className="text-ink-muted mb-6">
-                Join the savvy travelers who've discovered there's more to Heathrow 
+                Join the savvy travelers who've discovered there's more to Heathrow
                 dining than airport chains and hotel restaurants.
               </p>
               <BookTableButton
@@ -586,7 +586,7 @@ export default function Terminal5Page() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 5?",
@@ -753,7 +753,7 @@ export default function Terminal5Page() {
                   "description": "7 minutes drive, FREE parking available"
                 },
 	                {
-	                  "@type": "Vehicle", 
+	                  "@type": "Vehicle",
 	                  "name": "Taxi",
 	                  "description": "£20-25 fixed fare, 7 minutes"
 	                },

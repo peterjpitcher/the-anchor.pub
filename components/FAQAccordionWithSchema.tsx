@@ -17,9 +17,9 @@ interface FAQAccordionWithSchemaProps {
   renderSchema?: boolean
 }
 
-export function FAQAccordionWithSchema({ 
-  title = "Frequently Asked Questions", 
-  faqs, 
+export function FAQAccordionWithSchema({
+  title = "Frequently Asked Questions",
+  faqs,
   className = "",
   renderSchema = true
 }: FAQAccordionWithSchemaProps) {
@@ -59,10 +59,10 @@ export function FAQAccordionWithSchema({
           dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(faqSchema) }}
         />
       )}
-      
+
       <section className={cn('py-section-y bg-canvas', className)}>
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h2 text-ink-strong mb-8 text-center">
               {title}
             </h2>

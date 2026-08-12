@@ -34,7 +34,7 @@ export interface SundayLunchMenuListProps {
 export function SundayLunchMenuList({ items }: SundayLunchMenuListProps): ReactNode {
   return (
     <ul
-      className="mt-8 mx-auto max-w-3xl divide-y divide-line rounded-lg border border-line bg-surface-sunk px-4"
+      className="mt-8 mx-auto divide-y divide-line rounded-lg border border-line bg-surface-sunk px-4"
       aria-label="Sunday roast menu"
     >
       {items.map((item) => (

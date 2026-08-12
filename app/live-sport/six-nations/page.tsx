@@ -94,7 +94,7 @@ export default function SixNationsPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema]) }}
             />
 
-            <SixNationsLightbox />
+            <SixNationsLightbox/>
 
                         <InteriorHero
               image="/images/page-headers/home/page-headers-homepage.jpg"
@@ -105,7 +105,7 @@ export default function SixNationsPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center mb-12">
+                    <div className="mx-auto text-center mb-12">
                         <PageTitle className="text-accent-text mb-4">
                             Six Nations Pub Near Me, Live Rugby in Stanwell Moor
                         </PageTitle>
@@ -154,12 +154,12 @@ export default function SixNationsPage() {
                         subtitle="All times GMT. Matches shown live on BBC or ITV."
                     />
 
-                    <div className="max-w-5xl mx-auto">
-                        <SixNationsFixtures />
+                    <div className="mx-auto">
+                        <SixNationsFixtures/>
                     </div>
 
                     <div className="mt-12">
-                        <Alert variant="warning" title="Book Early for Big Games" className="max-w-2xl mx-auto">
+                        <Alert variant="warning" title="Book Early for Big Games" className="mx-auto">
                             <p>England matches and 'Super Saturday' (14th March) fill up fast. We strongly recommend booking your table at least a week in advance to guarantee a spot.</p>
                         </Alert>
                     </div>
@@ -184,7 +184,7 @@ export default function SixNationsPage() {
                                 </p>
                                 <div className="mt-4">
                                     <strong className="text-ink-strong">Current Opening Hours:</strong>
-                                    <BusinessHours />
+                                    <BusinessHours/>
                                 </div>
                             </div>
                             <div className="flex gap-4">
@@ -244,7 +244,7 @@ export default function SixNationsPage() {
                                 answer: "We are located in Stanwell Moor, just a 7-minute drive from Terminal 5, making us the perfect stopover for rugby fans travelling through the airport."
                             }
                         ]}
-                        className="max-w-3xl mx-auto"
+                        className="mx-auto"
                     />
                 </Container>
             </section>

@@ -42,11 +42,11 @@ export default function PubGardenPage() {
         lead="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Al Fresco Living"
                             lead="We're lucky to have one of the largest pub gardens in the area. Far enough from the main road to be peaceful, but close enough to the bar for a quick refill. It's the perfect spot for a lazy Sunday afternoon or a post-work pint."
@@ -57,7 +57,7 @@ export default function PubGardenPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="More than just a few benches"
                             title="Garden Features"
@@ -78,7 +78,7 @@ export default function PubGardenPage() {
                             ))}
                         </div>
 
-                        <Card accent className="max-w-2xl mx-auto mt-8">
+                        <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-2">Dog Friendly</h3>
                                 <p className="text-ink-muted">Our garden is a paradise for pooches. Water bowls are always available.</p>

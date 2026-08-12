@@ -173,7 +173,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         }
       />
 
-      <Section background="white" spacing="xs" container containerSize="md" className="text-center border-b border-line">
+      <Section background="white" spacing="xs" container className="text-center border-b border-line">
         <PageTitle className="text-ink-strong" seo={{ structured: true, speakable: true }}>
           Reserve Your Table Online
         </PageTitle>
@@ -182,7 +182,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
       </Section>
 
-      <Section id="booking-form" background="gray" spacing="sm" container containerSize="lg">
+      <Section id="booking-form" background="gray" spacing="sm" container>
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">
@@ -190,7 +190,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <RegretReduction variant="booking" />
             </div>
             <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} />
-            <p className="mx-auto mt-4 max-w-[640px] text-center text-sm text-ink-muted">
+            <p className="mx-auto mt-4 text-center text-sm text-ink-muted">
               Prefer to talk to us? Call{' '}
               <PhoneLink
                 phone={CONTACT.phone}
@@ -274,7 +274,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </div>
       </Section>
 
-      <Section background="white" spacing="sm" container containerSize="md" className="border-b border-line">
+      <Section background="white" spacing="sm" container className="border-b border-line">
         <h2 className="text-2xl font-bold text-accent-text mb-4">Accessibility</h2>
         <p className="text-ink-muted mb-3">
           Step-free access to the bar and dining area. There are steps from the bar to the beer
@@ -290,7 +290,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       </Section>
 
       {/* What to Expect section */}
-      <Section background="gray" spacing="lg" container containerSize="lg">
+      <Section background="gray" spacing="lg" container>
         <SectionHeading
           title="What to Expect When You Dine With Us"
           subtitle="Good food, a warm welcome, and no fuss."
@@ -336,13 +336,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       </Section>
 
       {/* Signature Dishes Preview */}
-      <Section background="white" spacing="md" container containerSize="md" className="border-b border-line">
+      <Section background="white" spacing="md" container className="border-b border-line">
         <SectionHeading
           title="A Taste of What&rsquo;s on the Menu"
           subtitle="A live sample from the current food menu."
           align="center"
         />
-        <div className="space-y-4 max-w-2xl mx-auto">
+        <div className="space-y-4 mx-auto">
           {previewItems.length > 0 ? (
             previewItems.map((item) => (
               <div key={item.id} className="py-3 border-b border-line last:border-b-0">
@@ -372,14 +372,14 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
       </Section>
 
-      <Section background="gray" spacing="md" container containerSize="lg" className="border-b border-line">
+      <Section background="gray" spacing="md" container className="border-b border-line">
         <SectionHeading
           title="Events are a bonus, food booking comes first"
           subtitle="If you are booking around a quiz night or bingo, reserve food early and then choose your event."
           align="center"
         />
-        <div className="mx-auto max-w-3xl">
-          <BookTableUpcomingEventsPanel />
+        <div className="mx-auto">
+          <BookTableUpcomingEventsPanel/>
         </div>
       </Section>
 
@@ -403,13 +403,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       />
 
       {/* Getting Here */}
-      <Section background="white" spacing="md" container containerSize="md" className="border-b border-line">
+      <Section background="white" spacing="md" container className="border-b border-line">
         <SectionHeading
           title="Getting Here"
           subtitle="Easy to find, plenty of parking, and closer than you think."
           align="center"
         />
-        <div className="max-w-2xl mx-auto">
+        <div className="mx-auto">
           <div className="prose max-w-none text-ink-muted space-y-4">
             <p>
               The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.

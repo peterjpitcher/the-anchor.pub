@@ -147,7 +147,7 @@ export default async function DrinksMenuPage() {
         menuType="drinks"
         specialOffers={[]}
       />
-      <ScrollDepthTracker />
+      <ScrollDepthTracker/>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([
@@ -189,12 +189,12 @@ export default async function DrinksMenuPage() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Page Title */}
       <section className="bg-canvas py-section-y" id="menu">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{ structured: true, speakable: true }}
               className="mb-4 text-ink-strong"
@@ -250,7 +250,7 @@ export default async function DrinksMenuPage() {
             title="Bar Team Favourites"
             lead="A few easy places to start if you are not sure what to order first."
           />
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             {[
               {
                 title: 'Birra Moretti & Stella Artois',
@@ -279,7 +279,7 @@ export default async function DrinksMenuPage() {
       {/* Your Local After Landing */}
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <SectionHeading
               title="Your Local After Landing - Just 5 Minutes from Heathrow"
             />
@@ -313,7 +313,7 @@ export default async function DrinksMenuPage() {
       {/* Why The Anchor for Drinks */}
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <SectionHeading
               title="Stanwell Moor's Premier Drinks Destination"
             />
@@ -356,7 +356,7 @@ export default async function DrinksMenuPage() {
       {/* Seasonal Highlights */}
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Drinks for Every Season"
             />
@@ -419,7 +419,7 @@ export default async function DrinksMenuPage() {
         <div className="container">
           <InternalLinkingSection
             links={commonLinkGroups.dining}
-            className="mx-auto max-w-5xl"
+            className="mx-auto"
           />
         </div>
       </section>

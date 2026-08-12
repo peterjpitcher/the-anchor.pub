@@ -164,7 +164,7 @@ export default function ReviewsPage() {
       {/* Rating Summary */}
       <div className="bg-canvas py-8 border-b border-line">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <Card accent className="inline-flex flex-col items-center gap-3 p-6">
               <div className="text-h3 text-ink-strong">
                 Google reviews
@@ -184,7 +184,7 @@ export default function ReviewsPage() {
             title="Guest Reviews"
             lead="What people are saying about The Anchor"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
             {reviewHighlights.map((review, index) => (
               <Card
                 key={index}
@@ -214,7 +214,7 @@ export default function ReviewsPage() {
       {/* Leave a Review CTA */}
       <div className="bg-canvas py-section-y border-b border-line">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Enjoyed Your Visit?"
               lead="We'd love to hear from you. Leaving a Google review helps other guests find us."

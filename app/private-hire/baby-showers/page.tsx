@@ -123,7 +123,7 @@ export default function BabyShowersPage() {
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Baby Shower Venue Near Ashford Hospital & Heathrow
                     </PageTitle>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <p className="text-lg text-ink-muted mb-8">
                             Treat the mum-to-be to a relaxing afternoon of good food and laughter. Our bright and airy spaces are perfect for afternoon tea, games, and opening gifts.
                         </p>
@@ -147,7 +147,7 @@ export default function BabyShowersPage() {
                         title="Food & Drink"
                         lead="Our most popular baby shower options"
                     />
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <p className="text-ink-muted text-center mb-6">
                             From classic afternoon tea to relaxed buffets, we have a range of catering packages to suit your baby shower. Our bar team can also prepare a selection of alcohol-free cocktails so the mum-to-be never feels left out.
                         </p>
@@ -164,7 +164,7 @@ export default function BabyShowersPage() {
                         title="Games & Activities"
                         lead="Make the afternoon one to remember"
                     />
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <p className="text-ink-muted text-center mb-6">
                             We have plenty of space to accommodate all the baby shower classics. Bring your own game kits or improvise, our team will make sure you have room to set everything up.
                         </p>
@@ -218,8 +218,8 @@ export default function BabyShowersPage() {
                         title="Baby Shower Catering Packages"
                         lead="Treat the mum-to-be to something special"
                     />
-                    <div className="max-w-2xl mx-auto space-y-8">
-                        <CateringPackagesCard />
+                    <div className="mx-auto space-y-8">
+                        <CateringPackagesCard/>
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
@@ -236,7 +236,7 @@ export default function BabyShowersPage() {
                         title="Decorations & Styling"
                         lead="Make the space your own"
                     />
-                    <div className="max-w-3xl mx-auto mb-8 space-y-4 text-ink-muted">
+                    <div className="mx-auto mb-8 space-y-4 text-ink-muted">
                         <p>
                             Whether you are going for an Instagram-worthy baby shower venue or something more understated, we provide a blank canvas for you to decorate as you wish. Our reserved area has plenty of wall space for banners and backdrops, and we can arrange tables to create a dedicated gift area, game zone, and photo corner.
                         </p>
@@ -276,7 +276,7 @@ export default function BabyShowersPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="font-display text-h3 text-ink-strong mb-4">Planning a Christening or Gender Reveal Too?</h2>
                         <p className="text-ink-muted mb-6">
                             The Anchor hosts the full range of family celebrations. If you are also planning a christening reception or a gender reveal party, take a look at our dedicated pages.

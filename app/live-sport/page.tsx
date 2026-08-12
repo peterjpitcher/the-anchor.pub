@@ -117,7 +117,7 @@ export default async function LiveSportPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-accent-text mb-4">
                             Never Miss a Moment
                         </PageTitle>
@@ -130,7 +130,7 @@ export default async function LiveSportPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="The Viewing Experience"
                             subtitle="We take sport seriously."
@@ -167,7 +167,7 @@ export default async function LiveSportPage() {
 
             <section className="py-section-y bg-surface-sunk" id="schedule">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
                             <Card accent className="h-full">
@@ -213,7 +213,7 @@ export default async function LiveSportPage() {
                             </Card>
                         </div>
 
-                        <Alert variant="info" title="Specific Requests?" className="max-w-2xl mx-auto mt-8">
+                        <Alert variant="info" title="Specific Requests?" className="mx-auto mt-8">
                             <p>Want to watch a specific game shown on BBC, ITV, or Channel 4? Just ask the bar staff! If we have a screen free, we'll happily put it on for you. Please remember we cannot show games exclusive to Sky or TNT.</p>
                         </Alert>
                     </div>
@@ -222,7 +222,7 @@ export default async function LiveSportPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <Card accent className="mx-auto max-w-2xl">
+                    <Card accent className="mx-auto">
                         <CardBody className="p-8 text-center">
                             <h2 className="text-xl text-accent-text">World Cup 2026</h2>
                             <p className="mt-3 text-sm text-ink-muted">
@@ -281,7 +281,7 @@ export default async function LiveSportPage() {
             <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
-                    <div className="prose max-w-3xl mx-auto">
+                    <div className="prose mx-auto">
                         <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>

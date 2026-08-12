@@ -136,7 +136,7 @@ export default async function StanwellPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -156,7 +156,7 @@ export default async function StanwellPubPage() {
       {/* Welcome Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Welcome to Your Local Stanwell Pub"
               lead="Located in the heart of Stanwell Moor, The Anchor has been serving the Stanwell community for generations. We're more than just a pub - we're where neighbours become friends and visitors become regulars."
@@ -183,7 +183,7 @@ export default async function StanwellPubPage() {
       {/* Why Stanwell Residents Choose Us */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Stanwell Residents Choose The Anchor"
             />
@@ -265,7 +265,7 @@ export default async function StanwellPubPage() {
       {/* Local Favourites */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Stanwell's Favourite Pub Food"
             />
@@ -321,7 +321,7 @@ export default async function StanwellPubPage() {
       {/* Location & Directions */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Getting to The Anchor from Stanwell"
             />
@@ -381,7 +381,7 @@ export default async function StanwellPubPage() {
       {/* Stanwell Community */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Part of the Stanwell Community"
             />
@@ -421,7 +421,7 @@ export default async function StanwellPubPage() {
       {/* Stanwell Heritage & Walking */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Stanwell Heritage & the Village Local"
               className="text-center mb-8"
@@ -457,11 +457,11 @@ export default async function StanwellPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Stanwell Pub Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
           </div>
         </Container>
       </section>

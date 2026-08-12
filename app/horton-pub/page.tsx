@@ -102,7 +102,7 @@ export default function HortonPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle
                             seo={{
                                 structured: true,
@@ -121,7 +121,7 @@ export default function HortonPubPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="A Proper Village Pub for Horton Residents"
                             lead="Whether you're walking over for a pint or driving over for Sunday roast, we are Horton's local choice for great food and entertainment."
@@ -147,7 +147,7 @@ export default function HortonPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why Horton Locals Choose The Anchor"
                         />
@@ -199,7 +199,7 @@ export default function HortonPubPage() {
             {/* Local Knowledge Section */}
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Next Village Over, Practically Your Local"
                         />
@@ -223,11 +223,11 @@ export default function HortonPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-2xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
-                        <BusinessHours />
+                        <BusinessHours/>
                         <p className="mt-4 text-ink-muted">
                             Kitchen closes earlier - check times for food service
                         </p>

@@ -289,7 +289,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EventPage({ params }: Props) {
   let event
-  
+
   try {
     event = await anchorAPI.getEvent(params.id)
   } catch {
@@ -466,11 +466,11 @@ export default async function EventPage({ params }: Props) {
     { label: 'Performer', value: event.performer?.name || event.performer_name },
     { label: 'Price', value: priceLabel }
   ]
-  
+
   return (
     <>
       <EventSchema event={event} />
-      <EventPageTracker 
+      <EventPageTracker
         eventId={event.id}
         eventName={event.name}
         eventDate={event.startDate}
@@ -485,7 +485,7 @@ export default async function EventPage({ params }: Props) {
         // the two. The scale matches the main content section further down.
         <section className="bg-canvas py-4 sm:py-6">
           <Container>
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>
                 <p>{statusNotice.message}</p>
                 {nextEventHref && (
@@ -525,7 +525,7 @@ export default async function EventPage({ params }: Props) {
 
       <section className="bg-canvas">
         <Container>
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             <EventBookingFactsStrip
               event={event}
               eventDate={eventDate}
@@ -539,7 +539,7 @@ export default async function EventPage({ params }: Props) {
       {/* Event Details - Mobile First */}
       <section className="bg-canvas py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             {/* Main Content Grid */}
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
               {/* Left Column - Event Image and Details */}
@@ -676,7 +676,7 @@ export default async function EventPage({ params }: Props) {
                 </div>
               </div>
             </div>
-            
+
             {/* Full Width Sections */}
             <div className="mt-6 space-y-5 md:mt-8 md:space-y-8">
               {/* Location */}
@@ -748,7 +748,7 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 </div>
               )}
-              
+
               {/* Videos */}
               {event.video && event.video.length > 0 && (
                 <div>
@@ -773,7 +773,7 @@ export default async function EventPage({ params }: Props) {
             </div>
           </div>
           {/* Related Events */}
-          <div className="max-w-6xl mx-auto mt-8">
+          <div className="mx-auto mt-8">
             <RelatedEvents
               currentEventId={event.id}
               categoryId={event.category?.id}

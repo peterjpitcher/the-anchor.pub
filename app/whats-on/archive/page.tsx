@@ -77,7 +77,7 @@ export default async function EventArchivePage() {
       <section className="bg-canvas py-section-y">
         <Container>
           {groups.length === 0 ? (
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto text-center">
               <p className="text-ink-muted">
                 We could not load the event archive just now. Please{' '}
                 <Link href="/whats-on" className="font-semibold underline">
@@ -94,7 +94,7 @@ export default async function EventArchivePage() {
                 lead="Listed newest first. Every page shows the theme, the host and what the night involved."
               />
 
-              <div className="mx-auto max-w-4xl space-y-10">
+              <div className="mx-auto space-y-10">
                 {groups.map((group) => (
                   <div key={group.label}>
                     <h2 className="mb-4 border-b border-line pb-2 text-h4 text-ink-strong">

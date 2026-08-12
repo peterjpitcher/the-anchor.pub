@@ -45,7 +45,6 @@ export interface SectionProps
     VariantProps<typeof sectionVariants> {
   as?: 'section' | 'div' | 'article'
   container?: boolean
-  containerSize?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
 }
 
 export const Section = forwardRef<HTMLElement, SectionProps>(
@@ -55,25 +54,15 @@ export const Section = forwardRef<HTMLElement, SectionProps>(
     spacing,
     minHeight,
     container = false,
-    containerSize,
     className,
     children,
     testId,
-    ...props 
+    ...props
   }, ref) => {
+    // One width. The `containerSize` prop is gone: it used to layer four more
+    // max-widths and a competing padding scale on top of `.container`.
     const sectionContent = container ? (
-      <div className={cn(
-        'mx-auto w-full',
-        containerSize === 'sm' && 'max-w-3xl',
-        containerSize === 'md' && 'max-w-5xl',
-        containerSize === 'lg' && 'max-w-7xl',
-        containerSize === 'xl' && 'max-w-[1440px]',
-        containerSize === 'full' && 'max-w-full',
-        !containerSize && 'max-w-7xl',
-        'px-4 sm:px-6 lg:px-8'
-      )}>
-        {children}
-      </div>
+      <div className="container w-full">{children}</div>
     ) : children
 
     return (
@@ -96,7 +85,7 @@ Section.displayName = 'Section'
 
 // Common section patterns as compound components
 export const PageSection = forwardRef<HTMLElement, SectionProps>((props, ref) => (
-  <Section ref={ref} container containerSize="lg" {...props} />
+  <Section ref={ref} container {...props} />
 ))
 PageSection.displayName = 'PageSection'
 
@@ -106,6 +95,6 @@ export const HeroSection = forwardRef<HTMLElement, SectionProps>((props, ref) =>
 HeroSection.displayName = 'HeroSection'
 
 export const CTASection = forwardRef<HTMLElement, SectionProps>((props, ref) => (
-  <Section ref={ref} background="dark" container containerSize="md" {...props} />
+  <Section ref={ref} background="dark" container {...props} />
 ))
 CTASection.displayName = 'CTASection'

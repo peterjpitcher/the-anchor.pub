@@ -28,7 +28,7 @@ function formatMenuPrice(price: string): string {
 export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: MenuDisplayProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-  
+
   // Memoize schema generation to prevent re-creation on every render
   const menuSchema = useMemo(() => ({
     "@context": "https://schema.org",
@@ -40,7 +40,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
       "@type": "MenuSection",
       "name": category.title,
       "description": category.description,
-      "hasMenuItem": category.sections.flatMap(section => 
+      "hasMenuItem": category.sections.flatMap(section =>
         section.items.map(item => ({
           "@type": "MenuItem",
           "name": item.name,
@@ -60,13 +60,13 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
   const handleKeyboardNavigation = (e: React.KeyboardEvent) => {
     const menuItems = menuRef.current?.querySelectorAll('[data-menu-item]')
     if (!menuItems || menuItems.length === 0) return
-    
+
     const currentIndex = Array.from(menuItems).findIndex(
       item => item.getAttribute('data-item-id') === focusedItem
     )
-    
+
     let nextIndex = currentIndex
-    
+
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault()
@@ -87,7 +87,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
       default:
         return
     }
-    
+
     const nextItem = menuItems[nextIndex] as HTMLElement
     nextItem.focus()
     setFocusedItem(nextItem.getAttribute('data-item-id'))
@@ -100,11 +100,11 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuSchema) }}
       />
-      
+
       {/* Kitchen Hours */}
       {menuData.kitchenHours && (
         <Section spacing="sm" className="bg-anchor-gold-dark/10">
-          <Container size="md" className="text-center">
+          <Container className="text-center">
             <Alert variant="info" icon={false} className="inline-block">
               <p className="text-lg font-semibold">
                 Kitchen Hours: {Object.entries(menuData.kitchenHours).map(([day, hours], index) => (
@@ -123,9 +123,9 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
       )}
 
       {/* Menu Categories */}
-      <div 
+      <div
         ref={menuRef}
-        itemScope 
+        itemScope
         itemType="https://schema.org/Menu"
         onKeyDown={handleKeyboardNavigation}
         role="region"
@@ -139,7 +139,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
             itemScope
             itemType="https://schema.org/MenuSection"
           >
-            <Container size="lg">
+            <Container>
               <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl text-ink-strong mb-4" itemProp="name">
                   {category.emoji && <span className="mr-2">{category.emoji}</span>}
@@ -175,7 +175,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
                     <Grid cols={2} gap="md" role="list">
                       {section.items.map((item, itemIndex) => (
                         <GridItem key={itemIndex}>
-                          <MenuItemCard 
+                          <MenuItemCard
                             item={item}
                             itemId={`${category.id}-${sectionIndex}-${itemIndex}`}
                             isFocused={focusedItem === `${category.id}-${sectionIndex}-${itemIndex}`}
@@ -188,12 +188,12 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
 
                   {/* List Style */}
                   {section.style === 'list' && (
-                    <Card className="max-w-4xl mx-auto">
+                    <Card className="mx-auto">
                       <CardBody>
-                        <Grid cols={2} gap="sm" role="list" className="max-w-2xl mx-auto">
+                        <Grid cols={2} gap="sm" role="list" className="mx-auto">
                           {section.items.map((item, itemIndex) => (
                             <GridItem key={itemIndex}>
-                              <MenuItemList 
+                              <MenuItemList
                                 item={item}
                                 itemId={`${category.id}-${sectionIndex}-${itemIndex}`}
                                 isFocused={focusedItem === `${category.id}-${sectionIndex}-${itemIndex}`}
@@ -215,7 +215,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
         <Section className="bg-surface-sunk">
-          <Container size="md">
+          <Container>
             <Alert variant="warning" className="text-center">
               <h3 className="text-xl font-bold mb-2">
                 {menuData.responsibleDrinking.title}
@@ -286,7 +286,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
       className={`p-2 rounded-lg transition-colours ${
         isFocused ? 'bg-accent/10' : 'hover:bg-surface-sunk'
       }`}
-      itemScope 
+      itemScope
       itemType="https://schema.org/MenuItem"
       role="listitem"
       // Removed tabIndex to improve keyboard navigation

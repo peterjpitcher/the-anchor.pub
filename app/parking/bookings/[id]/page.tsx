@@ -85,7 +85,7 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
   return (
     <main className="min-h-screen bg-canvas py-section-y">
       <Container>
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto">
           <Card accent>
             <CardBody className="p-8">
               <div className="flex flex-col gap-4">

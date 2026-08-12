@@ -19,7 +19,7 @@ export interface DietaryItemListProps {
  */
 export function DietaryItemList({ items, badge, optionFlag, optionNote }: DietaryItemListProps) {
   return (
-    <Card accent className="mx-auto max-w-3xl">
+    <Card accent className="mx-auto">
       <CardBody className="py-2">
         <ul className="divide-y divide-line">
           {items.map(item => {

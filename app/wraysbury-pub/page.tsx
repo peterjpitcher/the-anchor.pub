@@ -109,7 +109,7 @@ export default function WraysburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle
                             seo={{
                                 structured: true,
@@ -128,7 +128,7 @@ export default function WraysburyPubPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Wraysbury Residents Visit The Anchor"
                             lead="We're a popular choice for Wraysbury locals looking for great value and something different."
@@ -154,7 +154,7 @@ export default function WraysburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Events & Private Hire near Wraysbury"
                         />
@@ -203,7 +203,7 @@ export default function WraysburyPubPage() {
             {/* Local Knowledge Section */}
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Your Local Beyond the Village"
                         />
@@ -227,11 +227,11 @@ export default function WraysburyPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-2xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
-                        <BusinessHours />
+                        <BusinessHours/>
                     </div>
                 </Container>
             </section>

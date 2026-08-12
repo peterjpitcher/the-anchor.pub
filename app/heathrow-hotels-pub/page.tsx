@@ -109,7 +109,7 @@ export default async function HeathrowHotelsPubPage() {
           { name: 'Pub Near Heathrow Hotels', url: '/heathrow-hotels-pub' }
         ]}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/hotel-near-heathrow/find-us.jpg"
@@ -124,12 +124,12 @@ export default async function HeathrowHotelsPubPage() {
         }
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Page Title */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <h2 className="font-display text-h2 text-ink-strong mb-4">
               Heathrow Hotels Pub - Traditional Pub Near Heathrow Hotels
             </h2>
@@ -143,12 +143,12 @@ export default async function HeathrowHotelsPubPage() {
       {/* Welcome Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="The Perfect Escape from Hotel Dining"
               subtitle="Tired of overpriced hotel restaurants and room service? The Anchor offers authentic British pub atmosphere, honest prices, and proper portions - just a short taxi or drive from any Heathrow hotel."
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
                 { title: 'Great Value', description: 'Honest pub pricing with current menu prices' },
@@ -170,7 +170,7 @@ export default async function HeathrowHotelsPubPage() {
       {/* Hotel Distances */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Minutes from Major Heathrow Hotels"
             />
@@ -254,11 +254,11 @@ export default async function HeathrowHotelsPubPage() {
       {/* Why Hotel Guests Choose Us */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Heathrow Hotel Guests Love The Anchor"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
                 <h3 className="font-display text-h3 text-ink-strong mb-4">Escape Hotel Life</h3>
@@ -289,7 +289,7 @@ export default async function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div>
                 <h3 className="font-display text-h3 text-ink-strong mb-4">Perfect for Travellers</h3>
                 <ul className="space-y-3">
@@ -320,7 +320,7 @@ export default async function HeathrowHotelsPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <Card accent className="text-center">
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Outside ULEZ Zone</h3>
@@ -336,11 +336,11 @@ export default async function HeathrowHotelsPubPage() {
       {/* Hotel Guest Favourites */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Hotel Guest Favourites"
             />
-            
+
 	            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               <Card accent hover>
                 <CardBody>
@@ -361,7 +361,7 @@ export default async function HeathrowHotelsPubPage() {
                 </CardBody>
               </Card>
             </div>
-            
+
             <Card accent>
               <CardBody className="p-8">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Business Travellers Love Us</h3>
@@ -392,11 +392,11 @@ export default async function HeathrowHotelsPubPage() {
       {/* Transport Options */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Getting Here from Your Hotel"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-6">
 	              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
 	                <h3 className="font-display text-h4 text-ink-strong mb-3"> By Taxi</h3>
@@ -407,7 +407,7 @@ export default async function HeathrowHotelsPubPage() {
 	                  <li>• Return taxi easily arranged</li>
 	                </ul>
 	              </div>
-              
+
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3"> Rental Car</h3>
                 <ul className="space-y-2 text-ink-muted">
@@ -417,7 +417,7 @@ export default async function HeathrowHotelsPubPage() {
                   <li>• Outside ULEZ zone</li>
                 </ul>
               </div>
-              
+
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3"> Public Transport</h3>
                 <ul className="space-y-2 text-ink-muted">
@@ -428,10 +428,10 @@ export default async function HeathrowHotelsPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="mt-8 text-center">
               <p className="text-lg text-ink-muted mb-4">
-                Most hotel guests say the short journey is absolutely worth it for the authentic 
+                Most hotel guests say the short journey is absolutely worth it for the authentic
                 experience and massive savings compared to hotel dining!
               </p>
               <Link href="/find-us">
@@ -447,11 +447,11 @@ export default async function HeathrowHotelsPubPage() {
       {/* Special Times */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Special Times at The Anchor"
             />
-            
+
             <div className="max-w-md mx-auto mb-8">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Early Evening Dining</h3>
@@ -460,7 +460,7 @@ export default async function HeathrowHotelsPubPage() {
                 <p className="text-sm mt-2">Quieter atmosphere for jet-lagged guests</p>
               </div>
             </div>
-            
+
             <p className="text-lg text-ink-muted">
               Kitchen closes at 9pm Tuesday-Friday, 7pm Saturday, 5pm Sunday
             </p>
@@ -471,12 +471,12 @@ export default async function HeathrowHotelsPubPage() {
       {/* Corporate Events for Airport Hotels */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Corporate Venue for Heathrow Business"
               subtitle="Perfect for airline crews, airport staff events, and international teams"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Ideal for Airport Companies</h3>
@@ -499,7 +499,7 @@ export default async function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Popular Airport Events</h3>
                 <div className="space-y-4">
@@ -522,7 +522,7 @@ export default async function HeathrowHotelsPubPage() {
                 </div>
               </div>
             </div>
-            
+
             <Card accent>
               <CardBody className="text-center">
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Perfect for Airport Companies</h3>
@@ -555,7 +555,7 @@ export default async function HeathrowHotelsPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-2xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Opening Hours"
             />
@@ -579,7 +579,7 @@ export default async function HeathrowHotelsPubPage() {
       />
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
 	          {
 	            question: "How far is The Anchor from Heathrow hotels?",

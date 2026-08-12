@@ -40,12 +40,12 @@ export default async function DogFriendlyPage() {
         lead="We're not just dog tolerant, we're dog friendly. Bring your best friend along for a pint."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             {/* Definitive answer for featured snippets */}
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <p className="text-center text-lg md:text-xl text-ink max-w-4xl mx-auto leading-relaxed">
+                    <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
                         The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor, welcoming dogs in both our bar area and beer garden. We provide water bowls and dog treats for four-legged visitors.
                     </p>
                 </Container>
@@ -53,7 +53,7 @@ export default async function DogFriendlyPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Dog-Friendly Pub Near Heathrow, Paws Welcome"
                             lead="A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are."
@@ -64,7 +64,7 @@ export default async function DogFriendlyPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Very Important Pups"
                             title="VIP Treatment"
@@ -85,7 +85,7 @@ export default async function DogFriendlyPage() {
                             ))}
                         </div>
 
-                        <Card accent className="max-w-2xl mx-auto mt-8">
+                        <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-2">House Rules</h3>
                                 <p className="text-ink-muted">We ask that dogs are kept on a lead at all times and are not allowed on the furniture. This keeps everyone safe and comfortable.</p>

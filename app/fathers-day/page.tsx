@@ -169,8 +169,8 @@ export default function FathersDayPage() {
 
       {/* Treat Dad, Father's Day pub lunch */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <LaunchAnnouncement variant="banner" />
             <h2 className="text-h3 text-ink-strong">
               Treat Dad to a Proper Father&rsquo;s Day Pub Lunch
@@ -228,8 +228,8 @@ export default function FathersDayPage() {
 
       {/* Where to take dad for Sunday roast */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Where to Take Dad for Sunday Roast Near Heathrow
             </h2>
@@ -256,8 +256,8 @@ export default function FathersDayPage() {
 
       {/* The Beer Garden */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               The Beer Garden
             </h2>
@@ -283,8 +283,8 @@ export default function FathersDayPage() {
 
       {/* Gift Idea */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Not Sure What to Get?
             </h2>
@@ -355,8 +355,8 @@ export default function FathersDayPage() {
 
       {/* Where we are */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-start">
+        <Container>
+          <div className="mx-auto grid gap-10 lg:grid-cols-2 lg:items-start">
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">Where we are</h2>
               <p className="text-ink-muted leading-relaxed">

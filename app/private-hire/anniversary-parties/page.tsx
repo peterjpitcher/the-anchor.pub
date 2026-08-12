@@ -89,7 +89,7 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Anniversary Party Venue Near Heathrow &amp; Staines
                         </PageTitle>
@@ -102,7 +102,7 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why Celebrate Your Anniversary Here"
                             lead="We take the planning off your plate so the day feels like a celebration, not a project."
@@ -128,7 +128,7 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="What's Included"
                             lead="Everything you need for your anniversary celebration, nothing you don't."
@@ -160,7 +160,7 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why a Pub Anniversary Party?"
                             lead="More warmth, less hassle, and a day you will actually enjoy."
@@ -196,7 +196,7 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Tailored to Your Anniversary"
                         />
@@ -231,15 +231,15 @@ export default function AnniversaryPartiesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-2xl mx-auto">
-                        <CateringPackagesCard />
+                    <div className="mx-auto">
+                        <CateringPackagesCard/>
                     </div>
                 </Container>
             </section>
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading title="Ready to start planning?" />
                         <p className="text-lg text-ink-muted mb-8">
                             Get in touch with our team to check availability and talk through your ideas. We recommend booking at least 4 weeks in advance for Friday and Saturday dates.

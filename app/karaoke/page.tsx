@@ -280,7 +280,7 @@ export default async function KaraokePage() {
                     <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
                         Karaoke Pub Near Heathrow, Sing Your Way to Stardom
                     </PageTitle>
-                    <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
+                    <p className="text-lg text-ink-muted text-center mx-auto">
                         Ready to unleash your inner rock star? Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Karaoke runs occasionally rather than every week, so check the dates below before you set off. {heroDescription}
                     </p>
                 </Container>
@@ -288,7 +288,7 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface-sunk">
         <Container>
-                    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+                    <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
                         <Card accent>
                             <CardBody className="space-y-4">
                                 <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next karaoke night</p>
@@ -331,7 +331,7 @@ export default async function KaraokePage() {
 
             <section id="karaoke-dates" className="py-section-y bg-surface">
         <Container>
-                    <div className="max-w-5xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming Karaoke Nights</h2>
                         <p className="text-ink-muted text-center mb-8">
                             Mic check, one two! Here's when you can next take the stage. For updates, check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-accent-text hover:text-accent-text font-semibold">Facebook page</Link>.
@@ -343,7 +343,7 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface">
         <Container>
-                    <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+                    <div className="mx-auto grid gap-6 md:grid-cols-3">
                         <Card accent>
                             <CardBody>
                                 <h3 className="text-xl font-semibold text-accent-text mb-2">Pre-Show Fuel</h3>
@@ -405,7 +405,7 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface-sunk">
         <Container>
-                    <div className="max-w-6xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="text-h2 text-ink-strong mb-8 text-center">
                             Why our karaoke nights hit the high notes
                         </h2>
@@ -428,7 +428,7 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface">
         <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
                         <p className="text-ink-muted">
                             Looking for more entertainment near Heathrow? Rally your team for our monthly <Link href="/quiz-night" className="text-accent-text font-semibold hover:text-accent-text transition">pub quiz night</Link> with a £25 bar tab up for grabs, or play along at <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge.
@@ -441,7 +441,7 @@ export default async function KaraokePage() {
 
             <section className="py-section-y bg-surface-sunk">
         <Container>
-                    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+                    <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
                         <div>
                             <h2 className="text-h4 text-ink-strong mb-3">Find us</h2>
                             <p className="text-ink-muted mb-4">

@@ -42,7 +42,7 @@ export default function BoxingPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-accent-text mb-4">
                             Ringside Seats
                         </PageTitle>
@@ -55,7 +55,7 @@ export default function BoxingPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Fight Night Ready"
                             subtitle="No need to pay the PPV fee yourself."
@@ -87,7 +87,7 @@ export default function BoxingPage() {
                             ))}
                         </Grid>
 
-                        <Alert variant="warning" title="Ticketed Events" className="max-w-2xl mx-auto mt-8">
+                        <Alert variant="warning" title="Ticketed Events" className="mx-auto mt-8">
                             <p>For massive world title fights, we sometimes operate a ticket-only policy to control numbers and ensure everyone gets served. Check our social media for specific event details.</p>
                         </Alert>
                     </div>

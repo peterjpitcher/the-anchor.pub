@@ -31,7 +31,7 @@ export default function AccessibilityPage() {
       {/* Intro */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <p className="text-lg text-ink-muted leading-relaxed">
               We want everyone to enjoy visiting The Anchor. This page gives you honest, practical
               information about our facilities so you can plan your visit with confidence. If you
@@ -44,7 +44,7 @@ export default function AccessibilityPage() {
       {/* What's Step-Free */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="What's step-free" align="left" />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
@@ -72,7 +72,7 @@ export default function AccessibilityPage() {
       {/* Accessible Toilet */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Accessible toilet" align="left" />
             <Card>
               <CardBody>
@@ -91,7 +91,7 @@ export default function AccessibilityPage() {
       {/* Getting Here */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Getting here" align="left" />
             <div className="space-y-4">
               <Card>
@@ -124,7 +124,7 @@ export default function AccessibilityPage() {
       {/* Call Ahead */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Call ahead" align="left" />
             <p className="text-ink-muted leading-relaxed mb-6">
               If you&apos;d like to talk through your visit before you come, what to expect, where

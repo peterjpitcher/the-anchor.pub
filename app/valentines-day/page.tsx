@@ -305,8 +305,8 @@ export default async function ValentinesDayPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+        <Container>
+          <div className="mx-auto grid items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
             <Card accent className="overflow-hidden">
               <div className="relative aspect-[3/4] bg-surface-sunk">
                 <Image
@@ -532,8 +532,8 @@ export default async function ValentinesDayPage() {
       />
 
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-6xl space-y-8">
+        <Container>
+          <div className="mx-auto space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
                 <h2 className="text-h3 text-ink-strong">Where we are</h2>

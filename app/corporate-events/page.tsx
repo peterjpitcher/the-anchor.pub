@@ -91,7 +91,7 @@ export default function CorporateEventsPage() {
       {/* Page Title */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{ structured: true, speakable: true }}
               className="text-ink-strong mb-4"
@@ -157,7 +157,7 @@ export default function CorporateEventsPage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <SectionHeading title="Corporate Event Solutions" lead="From board meetings to company celebrations" />
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mx-auto">
             <Card accent className="h-full"><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-3">Business Meetings</h3>
               <p className="text-ink-muted mb-4">
@@ -198,7 +198,7 @@ export default function CorporateEventsPage() {
               </ul>
             </CardBody></Card>
           </div>
-          <div className="mt-12 max-w-4xl mx-auto">
+          <div className="mt-12 mx-auto">
             <Card><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-3">Also Perfect For:</h3>
               <div className="grid md:grid-cols-2 gap-4 text-ink-muted">
@@ -228,7 +228,7 @@ export default function CorporateEventsPage() {
             title="Office Christmas Parties Near Heathrow"
             lead="A work Christmas do in a village pub, not a hotel function room"
           />
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <p className="mb-6 text-lg text-ink-muted">
               Most office Christmas parties near Heathrow end up in a hotel ballroom, sharing the room, the playlist and the bar
               with two or three other companies. The Anchor works the other way round. Your team gets its own table in a proper
@@ -294,7 +294,7 @@ export default function CorporateEventsPage() {
             title="Tailored Corporate Event Solutions"
             lead="Flexible venue hire pricing designed around your specific needs"
           />
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">What We Offer</h3>
@@ -361,7 +361,7 @@ export default function CorporateEventsPage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <SectionHeading title="Professional Facilities" lead="Everything you need for productive business events" />
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Technology &amp; Equipment</h3>
@@ -407,7 +407,7 @@ export default function CorporateEventsPage() {
       {/* Location Advantages */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading title="Strategic Location for Business" />
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <Card><CardBody>
@@ -456,7 +456,7 @@ export default function CorporateEventsPage() {
 
       <div className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <div className="mb-6">
               <ValueProofStrip variant="private-hire" />
             </div>

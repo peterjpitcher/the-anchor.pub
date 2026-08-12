@@ -121,7 +121,7 @@ export default async function RestaurantsNearHeathrowPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
       />
-      
+
       {/* Hero Section */}
       <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
@@ -130,7 +130,7 @@ export default async function RestaurantsNearHeathrowPage() {
         lead="A proper sit-down British pub minutes from Heathrow. Home-cooked food, free parking, a beer garden under the flight path, and Sunday roasts you can walk straight into."
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Page Title for SEO */}
       <section className="py-section-y bg-canvas">
@@ -144,7 +144,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Definitive Answer Paragraph */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="mx-auto space-y-4">
             <p className="text-lg leading-relaxed text-ink-muted">
               The Anchor is a traditional British pub and restaurant in Stanwell Moor, near Heathrow Airport. We are 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals, so if you are searching for restaurants near Heathrow before a flight, after landing or during a layover, you can be sitting down to a home-cooked meal in minutes. There is free parking on site, a beer garden under the flight path, and a calmer setting than anything you will find inside the terminal.
             </p>
@@ -168,7 +168,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Comparison Table */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How Eating Near Heathrow Compares"
               subtitle="Parking, travel time and atmosphere at a glance"
@@ -226,7 +226,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Outside vs Inside the Airport */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Should You Stay Inside the Airport or Leave?"
               subtitle="A quick guide to help you decide"
@@ -263,7 +263,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Transport from Each Terminal */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Get to The Anchor from Each Terminal"
               subtitle="Quick directions by car, taxi or rideshare"
@@ -339,7 +339,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Why Choose Us Over Airport Dining */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Travellers Choose The Anchor Over Airport Restaurants"
               subtitle="Home-cooked food, free parking and a calmer table, just minutes from every terminal"
@@ -372,7 +372,7 @@ export default async function RestaurantsNearHeathrowPage() {
             </div>
 
             {/* Distance to Terminals */}
-            <Card accent className="max-w-4xl mx-auto">
+            <Card accent className="mx-auto">
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-3 text-center">A Quick Drive from Every Terminal</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -407,7 +407,7 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Menu Highlights */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Traditional British Pub Menu"
               subtitle="Home-cooked food made fresh to order, never reheated under a heat lamp"
@@ -466,11 +466,11 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Perfect For Section */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Perfect Restaurant for Every Occasion"
             />
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Card accent>
               <CardBody>
@@ -528,12 +528,12 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Restaurant Opening Hours"
               subtitle="Kitchen hours for fresh-cooked meals"
             />
-            
+
             <div className="bg-surface border border-line rounded-md shadow-sm p-8">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -560,7 +560,7 @@ export default async function RestaurantsNearHeathrowPage() {
                     Sunday: Regular menu available without pre-order
                   </p>
                 </div>
-                
+
                 <div>
                   <h3 className="font-bold text-lg mb-4 text-ink-strong">Bar Hours</h3>
                   <ul className="space-y-2">
@@ -598,12 +598,12 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Customer Reviews */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What Diners Say About Our Restaurant"
               subtitle="Real reviews from Google"
             />
-            <GoogleReviews 
+            <GoogleReviews
               layout="grid"
               showTitle={false}
             />

@@ -3,32 +3,19 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import type { BaseComponentProps, WithChildren } from '../types'
 
-const containerVariants = cva(
-  'container mx-auto w-full',
-  {
-    variants: {
-      size: {
-        sm: 'max-w-3xl',
-        md: 'max-w-5xl',
-        lg: 'max-w-7xl',
-        xl: 'max-w-[1440px]',
-        full: 'max-w-full'
-      },
-      padding: {
-        none: '',
-        sm: 'px-4 sm:px-6',
-        md: 'px-4 sm:px-6 lg:px-8',
-        lg: 'px-6 sm:px-8 lg:px-12'
-      }
-    },
-    defaultVariants: {
-      size: 'lg',
-      padding: 'md'
-    }
-  }
-)
+/**
+ * One width, no variants.
+ *
+ * This used to carry `size` (max-w-3xl / 5xl / 7xl / 1440px) and `padding`
+ * (px-4 / px-6 / px-8) props on top of the `.container` class. Because the
+ * padding utility beat the container's own, every section rendered 32px
+ * narrower than the header, and the size prop layered four more widths on top.
+ * Both props are gone: `.container` in app/globals.css is the only thing that
+ * decides page width now.
+ */
+const containerVariants = cva('container w-full')
 
-export interface ContainerProps 
+export interface ContainerProps
   extends BaseComponentProps,
     WithChildren,
     Omit<HTMLAttributes<HTMLDivElement>, 'className'>,
@@ -37,19 +24,17 @@ export interface ContainerProps
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ 
+  ({
     as: Component = 'div',
     className,
-    size,
-    padding,
     children,
     testId,
-    ...props 
+    ...props
   }, ref) => {
     return (
       <Component
         ref={ref}
-        className={cn(containerVariants({ size, padding }), className)}
+        className={cn(containerVariants(), className)}
         data-testid={testId}
         {...props}
       >

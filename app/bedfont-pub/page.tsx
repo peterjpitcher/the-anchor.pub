@@ -98,7 +98,7 @@ export default function BedfontPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -118,7 +118,7 @@ export default function BedfontPubPage() {
       {/* Distance & Benefits */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Anchor - Bedfont's Best Kept Secret"
               lead="Your nearest proper British pub - just 5 minutes from both East and West Bedfont"
@@ -170,7 +170,7 @@ export default function BedfontPubPage() {
       {/* Directions */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Easy to Find from Bedfont"
             />
@@ -213,7 +213,7 @@ export default function BedfontPubPage() {
       {/* Local Features */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Perfect for Bedfont Locals"
             />
@@ -278,7 +278,7 @@ export default function BedfontPubPage() {
       {/* Local Knowledge Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Bedfont&rsquo;s Proper Local, Just Round the Corner"
             />
@@ -303,11 +303,11 @@ export default function BedfontPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
           </div>
         </Container>
       </section>
