@@ -258,6 +258,17 @@ function normaliseIncomingPayload(input: unknown): {
       ? { booking_period_id: bookingPeriodId, booking_period_answer: bookingPeriodAnswer }
       : null
 
+  // What each guest is eating. Only ever forwarded alongside an accepted
+  // seasonal answer: without one there is no period, so AMS would have no menu
+  // to validate the ids against and would reject the lot.
+  //
+  // Dish ids are passed through as opaque strings and are NOT trusted here. AMS
+  // checks every one against the booking's own period before writing it, which
+  // is the only place that check can be made safely.
+  const preorder = seasonalAnswer?.booking_period_answer === true
+    ? toPreorderEntries(body.preorder)
+    : []
+
   const userNote =
     asTrimmedString(body.special_requirements) || asTrimmedString(body.notes)
   const occasionNote = asTrimmedString((body as LegacyTableBookingPayload).celebration_type)
@@ -287,10 +298,48 @@ function normaliseIncomingPayload(input: unknown): {
       // outside seating, where the form sends is_outside_seating and this maps it.
       ...(body.requires_accessible_table === true ? { requires_accessible_table: true } : {}),
       ...(seasonalAnswer ?? {}),
+      ...(preorder.length > 0 ? { preorder } : {}),
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),
   }
+}
+
+/**
+ * The pre-order, reshaped to the AMS wire format and stripped of anything else.
+ *
+ * Array POSITION is the seat, so entries are never reordered or filtered: a
+ * dropped entry would shift every guest after it onto someone else's dinner.
+ * An entry that names no dish at all is still forwarded as an empty seat, which
+ * AMS records as "not chosen yet" rather than silently renumbering the table.
+ */
+function toPreorderEntries(value: unknown): Array<Record<string, unknown>> {
+  if (!Array.isArray(value)) return []
+
+  return value.slice(0, 20).map((raw) => {
+    const entry = (raw ?? {}) as Record<string, unknown>
+    const addons = Array.isArray(entry.addon_menu_item_ids)
+      ? entry.addon_menu_item_ids
+          .map((id) => asTrimmedString(id))
+          .filter((id): id is string => Boolean(id))
+          .slice(0, 10)
+      : []
+
+    return {
+      ...(asTrimmedString(entry.guest_name) ? { guest_name: asTrimmedString(entry.guest_name) } : {}),
+      ...(asTrimmedString(entry.dietary_note) ? { dietary_note: asTrimmedString(entry.dietary_note) } : {}),
+      ...(asTrimmedString(entry.starter_menu_item_id)
+        ? { starter_menu_item_id: asTrimmedString(entry.starter_menu_item_id) }
+        : {}),
+      ...(asTrimmedString(entry.main_menu_item_id)
+        ? { main_menu_item_id: asTrimmedString(entry.main_menu_item_id) }
+        : {}),
+      ...(asTrimmedString(entry.dessert_menu_item_id)
+        ? { dessert_menu_item_id: asTrimmedString(entry.dessert_menu_item_id) }
+        : {}),
+      ...(addons.length > 0 ? { addon_menu_item_ids: addons } : {})
+    }
+  })
 }
 
 function normaliseAttribution(body: Record<string, unknown>): BookingAttributionPayload {

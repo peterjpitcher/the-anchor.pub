@@ -92,6 +92,17 @@ export function confirmationDeliveryCopy(
   return "We've sent confirmation details."
 }
 
+/**
+ * One seat's meal choices, on the wire exactly as the management API takes them.
+ * Position in the array is the seat, so entries are never sorted or filtered.
+ */
+export type TableBookingPreorderEntry = {
+  starter_menu_item_id?: string
+  main_menu_item_id?: string
+  dessert_menu_item_id?: string
+  addon_menu_item_ids?: string[]
+}
+
 export type TableBookingSubmitInput = {
   phone: string
   firstName: string
@@ -112,6 +123,11 @@ export type TableBookingSubmitInput = {
    * no period applied. Never a deposit figure: AMS prices that.
    */
   seasonalAnswer: { periodId: string; accepted: boolean } | null
+  /**
+   * What each guest is eating, in seat order. Empty when the period needs no
+   * pre-order or the guest declined it.
+   */
+  preorder?: TableBookingPreorderEntry[]
   attribution: BookingAttributionPayload & Record<string, unknown>
   /** Volatile: excluded from the submit-intent fingerprint by construction. */
   turnstileToken: string | null
@@ -157,6 +173,12 @@ export function buildTableBookingPayload(
           booking_period_answer: input.seasonalAnswer.accepted
         }
       : {}),
+    // Also above the volatile section, and for the same reason as the seasonal
+    // answer: changing what a guest is eating changes the booking, so a guest
+    // who edits a dish must not reuse the idempotency key of the one they
+    // abandoned. AMS hashes this field too, so both ends agree on what a retry
+    // means.
+    ...((input.preorder?.length ?? 0) > 0 ? { preorder: input.preorder } : {}),
     communication_consent: buildCommunicationConsentPayload(input.communicationConsent),
     ...input.attribution,
     // Volatile fields below, added after the idempotency key has already
