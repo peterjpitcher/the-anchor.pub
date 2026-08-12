@@ -69,7 +69,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
 
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <h2 className="text-3xl text-ink-strong">{role.aboutTitle}</h2>
             <div className="mt-5 space-y-4 text-ink-muted">
               {role.about.map((paragraph) => (
@@ -111,7 +111,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <StandardsPledge />
+          <StandardsPledge/>
         </Container>
       </section>
 
@@ -134,9 +134,9 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="mx-auto max-w-4xl rounded-md border border-line border-t-[3px] border-t-anchor-gold bg-surface p-6 text-center shadow-sm">
+          <div className="mx-auto rounded-md border border-line border-t-[3px] border-t-anchor-gold bg-surface p-6 text-center shadow-sm">
             <h2 className="text-3xl text-ink-strong">What you can expect from us</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-ink-muted">{role.expectationIntro}</p>
+            <p className="mx-auto mt-4 text-ink-muted">{role.expectationIntro}</p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href={`/join-our-team?role=${role.slug}#apply`}>
@@ -157,7 +157,7 @@ export function RecruitmentRoleBody({ role }: { role: RecruitmentRolePageContent
 
       <section className="py-section-y bg-surface border-b border-line">
         <Container>
-          <LocationTransportSection />
+          <LocationTransportSection/>
         </Container>
       </section>
     </>

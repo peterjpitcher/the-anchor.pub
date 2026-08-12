@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { 
-  hasUserConsented, 
-  acceptAllCookies, 
-  rejectAllCookies, 
+import {
+  hasUserConsented,
+  acceptAllCookies,
+  rejectAllCookies,
   setConsentStatus,
   getConsentStatus,
-  type CookieConsent 
+  type CookieConsent
 } from '@/lib/cookies';
 import { trackCookieConsent } from '@/lib/gtm-events';
 import { Button } from '@/components/ui';
@@ -67,7 +67,7 @@ export default function CookieBanner() {
     // Check if user has already consented
     const hasConsented = hasUserConsented();
     const currentConsent = getConsentStatus();
-    
+
     if (!hasConsented) {
       // Small delay to prevent banner from flashing on page load
       const timer = setTimeout(() => {
@@ -75,7 +75,7 @@ export default function CookieBanner() {
       }, 1000);
       return () => clearTimeout(timer);
     }
-    
+
     setConsent(currentConsent);
   }, []);
 
@@ -118,7 +118,7 @@ export default function CookieBanner() {
         ref={bannerRef}
         className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"
       >
-        <div className="max-w-7xl mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
+        <div className="mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
           {/* Mobile: Compact single-line design */}
           <div className="sm:hidden">
             <div className="flex items-center justify-between gap-2">
@@ -160,7 +160,7 @@ export default function CookieBanner() {
               </div>
             </div>
           </div>
-          
+
           {/* Desktop: Full design */}
           <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex-1 text-sm text-ink">
@@ -172,7 +172,7 @@ export default function CookieBanner() {
                 </Link>
               </p>
             </div>
-            
+
             <div className="flex items-center gap-2 flex-shrink-0">
               {/* Reject button - Equal prominence as per ICO guidelines */}
               <Button
@@ -183,7 +183,7 @@ export default function CookieBanner() {
               >
                 Reject All
               </Button>
-              
+
               {/* Preferences button */}
               <Button
                 onClick={() => setShowPreferences(true)}
@@ -193,7 +193,7 @@ export default function CookieBanner() {
               >
                 Preferences
               </Button>
-              
+
               {/* Accept button - Equal prominence */}
               <Button
                 onClick={handleAcceptAll}
@@ -211,7 +211,7 @@ export default function CookieBanner() {
       {/* Preferences Modal */}
       {showPreferences && (
         <div className="fixed inset-0 bg-black/70 z-[90] flex items-end sm:items-center justify-center sm:p-4">
-          <div className="bg-surface border border-line rounded-t-md sm:rounded-md shadow-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
+          <div className="bg-surface border border-line rounded-t-md sm:rounded-md shadow-lg w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
             <div className="sticky top-0 bg-surface border-b border-line p-4 sm:p-6 flex items-center justify-between">
               <h2 className="text-lg sm:text-2xl font-bold text-ink-strong">Cookie Preferences</h2>
               <button
@@ -326,15 +326,15 @@ export default function CookieBanner() {
             transform: translateY(0);
           }
         }
-        
+
         .animate-slide-up {
           animation: slide-up 0.3s ease-out;
         }
-        
+
         .safe-area-inset-bottom {
           padding-bottom: env(safe-area-inset-bottom, 0);
         }
-        
+
         @media (max-width: 640px) {
           .fixed.bottom-0 {
             bottom: env(safe-area-inset-bottom, 0);

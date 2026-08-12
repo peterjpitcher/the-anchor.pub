@@ -39,10 +39,10 @@ export function GoogleReviews({
 
   const fetchReviews = async () => {
     const params = new URLSearchParams()
-    
+
     try {
       setLoading(true)
-      
+
       if (filter?.minRating) params.append('minRating', filter.minRating.toString())
       if (filter?.keywords) params.append('keywords', filter.keywords.join(','))
       if (filter?.limit) params.append('limit', filter.limit.toString())
@@ -59,9 +59,9 @@ export function GoogleReviews({
       setRating(typeof data.rating === 'number' ? data.rating : null)
       setTotalReviews(typeof data.totalReviews === 'number' ? data.totalReviews : null)
     } catch (err) {
-      logError('google-reviews-fetch', err, { 
+      logError('google-reviews-fetch', err, {
         filter,
-        params: params.toString() 
+        params: params.toString()
       })
       setError(err instanceof Error ? err.message : 'Failed to load reviews')
     } finally {
@@ -95,11 +95,11 @@ export function GoogleReviews({
       {layout === 'badge' && (
         <ReviewsBadge rating={rating} totalReviews={totalReviews} />
       )}
-      
+
       {layout === 'carousel' && (
         <ReviewsCarousel reviews={reviews} />
       )}
-      
+
       {layout === 'grid' && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review, index) => (
@@ -107,17 +107,17 @@ export function GoogleReviews({
           ))}
         </div>
       )}
-      
+
       {layout === 'list' && (
-        <div className="space-y-4 max-w-4xl mx-auto">
+        <div className="space-y-4 mx-auto">
           {reviews.map((review, index) => (
             <ReviewCard key={index} review={review} variant="horizontal" index={index} />
           ))}
         </div>
       )}
-      
+
       <div className="text-center mt-8">
-        <a 
+        <a
           href="https://g.page/theanchorpubsm?share"
           target="_blank"
           rel="noopener noreferrer"

@@ -206,7 +206,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         />
         <section className="bg-canvas py-section-y">
           <div className="container">
-            <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+            <div className="mx-auto flex flex-col items-center gap-6 text-center">
               <PageTitle className="text-ink-strong" seo={{ structured: true }}>
                 Manager&apos;s Special at The Anchor
               </PageTitle>
@@ -232,7 +232,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
         <section className="bg-surface py-section-y" id="why">
           <div className="container">
-            <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
+            <div className="mx-auto grid gap-10 md:grid-cols-2 md:gap-12">
               <div>
                 <h2 className="text-h3 text-ink-strong">Why we do it</h2>
                 <p className="mt-4 text-lg text-ink-muted">
@@ -406,7 +406,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           >
             {promotionMonthName}&apos;s Product of the Month: {spirit.name}
           </PageTitle>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-lg text-ink-muted">
+          <p className="mx-auto mt-4 text-center text-lg text-ink-muted">
             The Manager&apos;s Special is not just a discount sticker on a bottle. Each month we pick one spirit, explain what makes it interesting, and give you a simple way to try it properly at the bar.
           </p>
         </div>
@@ -414,7 +414,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
       <section className="bg-surface py-section-y">
         <div className="container">
-          <div id="details" className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
+          <div id="details" className="mx-auto grid gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
             <div className="space-y-6">
               <div className="overflow-hidden rounded-md border border-line bg-surface p-3 shadow-lg">
                 <div className="relative aspect-square overflow-hidden rounded-sm bg-surface-sunk">
@@ -503,7 +503,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             <SectionHeading
               align="left"
               kicker="Tasting guide"
@@ -560,7 +560,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
       <section className="bg-surface py-section-y" id="why">
         <div className="container">
-          <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
+          <div className="mx-auto grid gap-10 md:grid-cols-2 md:gap-12">
             <div>
               <h2 className="text-h3 text-ink-strong">Why we do it</h2>
               <p className="mt-4 text-lg text-ink-muted">

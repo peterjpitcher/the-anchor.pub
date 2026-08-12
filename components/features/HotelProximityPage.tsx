@@ -86,7 +86,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Intro */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="mb-4">
               {`Pub Near ${hotelName}`}
             </PageTitle>
@@ -103,7 +103,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Key facts */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               { title: 'A Few Minutes', description: `A short taxi or drive from ${hotelName}` },
               { title: '7 Mins from T5', description: 'Around 7 minutes by car from Terminal 5' },
@@ -124,7 +124,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Skip the hotel restaurant */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title={`Skip the Hotel Restaurant Near ${shortName}`}
               lead={`After a long journey it is tempting to eat where you are staying, but the ${hotelName} restaurant is not your only option. The Anchor is a short hop away and gives you a proper pub dinner instead of room service.`}
@@ -187,7 +187,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Food: Sunday roast + live menu */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Sunday Roast and the Full Menu"
               lead={
@@ -235,7 +235,7 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Beer garden */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="A Dog-Friendly Beer Garden Under the Flight Path"
               lead="One thing no airport hotel can offer: a proper beer garden right under the Heathrow flight path, where you can watch the planes come in over a pint."
@@ -279,9 +279,9 @@ export function HotelProximityPage({ hotelName, shortName, slug, brandNote }: Ho
       {/* Opening hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading title="Opening Hours" />
-            <BusinessHours />
+            <BusinessHours/>
             <Card accent className="mt-6 text-left">
               <CardBody className="p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Early flight, or a free evening?</h3>

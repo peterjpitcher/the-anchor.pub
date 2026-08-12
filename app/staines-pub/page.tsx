@@ -121,7 +121,7 @@ export default function StainesPubPage() {
       {/* Quick Summary */}
       <section className="py-section-y bg-surface">
         <Container>
-          <Card accent className="max-w-5xl mx-auto">
+          <Card accent className="mx-auto">
             <CardBody className="p-6">
               <h2 className="font-display text-h3 text-ink-strong mb-3">Why We&apos;re One of the Best Pubs Near Staines-upon-Thames</h2>
               <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
@@ -162,7 +162,7 @@ export default function StainesPubPage() {
       {/* Why Choose The Anchor */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Locals Choose Us Over Other Pubs in Staines"
               lead="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
@@ -228,7 +228,7 @@ export default function StainesPubPage() {
       {/* Journey from Staines */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Getting Here from Staines"
               className="text-center mb-12"
@@ -277,7 +277,7 @@ export default function StainesPubPage() {
       {/* What's On This Week */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What's On at Your Staines Local"
               className="text-center mb-12"
@@ -323,7 +323,7 @@ export default function StainesPubPage() {
       {/* Event Venue Section */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Popular Venue for Staines Events"
               lead="Host your special occasion at The Anchor - just 8 minutes from Staines"
@@ -414,12 +414,12 @@ export default function StainesPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-2xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Opening Hours"
               className="text-center mb-8"
             />
-            <BusinessHours />
+            <BusinessHours/>
           </div>
         </Container>
       </section>
@@ -427,7 +427,7 @@ export default function StainesPubPage() {
       {/* Why Staines Residents Choose The Anchor Over the High Street */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="A Different Night Out from the Pubs in Staines"
               className="text-center mb-8"

@@ -327,7 +327,7 @@ export default async function HeathrowParkingPage() {
 
       <section className="py-section-y bg-canvas" id="book-parking">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-6">
+          <div className="mx-auto space-y-6">
             <SectionHeading
               kicker="Book online"
               title="Reserve & Pay for Heathrow Parking in Four Steps"
@@ -340,7 +340,7 @@ export default async function HeathrowParkingPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <SectionHeading
               title="Cheap Heathrow Parking Without Hidden Fees"
               lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all point to the same problem: official car parks keep getting pricier. Our Stanwell Moor car park keeps costs simple, publishes prices upfront and still delivers CCTV, lighting and 24/7 access.</>}
@@ -392,7 +392,7 @@ export default async function HeathrowParkingPage() {
           <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
             Cheap Heathrow Parking, Long Stay &amp; Short Stay from £15/day
           </PageTitle>
-          <p className="mx-auto mt-4 max-w-4xl text-center text-lg text-ink-muted">
+          <p className="mx-auto mt-4 text-center text-lg text-ink-muted">
             Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi or the 442 bus for a five to ten minute ride to any Heathrow terminal.
           </p>
         </Container>
@@ -400,7 +400,7 @@ export default async function HeathrowParkingPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <SectionHeading
               title="Heathrow Airport Car Parking for Every Terminal"
               lead="If you are searching for parking Heathrow airport, Heathrow airport car parking, or parking near Heathrow, The Anchor keeps you close to Terminals 2, 3, 4 and 5 without the on-airport queues."
@@ -429,7 +429,7 @@ export default async function HeathrowParkingPage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <SectionHeading title="How you get from The Anchor to Heathrow" />
             <Card accent>
               <CardBody className="p-6">
@@ -578,7 +578,7 @@ export default async function HeathrowParkingPage() {
 
       <section className="py-section-y bg-surface" id="parking-terms">
         <Container>
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <h2 className="font-display text-h2 text-ink-strong text-center">Parking Terms &amp; Conditions</h2>
             <p className="mt-2 text-sm text-ink-muted text-center">Last updated March 2026</p>
             <div className="mt-8 space-y-6 text-sm text-ink-muted">

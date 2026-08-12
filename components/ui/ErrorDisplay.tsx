@@ -50,9 +50,9 @@ export function ErrorDisplay({
 
   return (
     <div className={cn(baseClasses[variant], className)} role="alert">
-      <div className="max-w-2xl mx-auto">
+      <div className="mx-auto">
         <p className="text-anchor-danger mb-4 text-base font-medium">{message}</p>
-        
+
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           {onRetry && (
             <button
@@ -63,7 +63,7 @@ export function ErrorDisplay({
               Try Again
             </button>
           )}
-          
+
           {showContactInfo && (
             <p className="text-ink-muted text-sm">
               Still having issues?{' '}
@@ -87,7 +87,7 @@ export function ErrorDisplay({
             >
               {detailsExpanded ? 'Hide' : 'Show'} technical details
             </button>
-            
+
             {detailsExpanded && (
               <pre
                 id="error-details"

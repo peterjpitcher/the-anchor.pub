@@ -40,7 +40,7 @@ export default function BabyGuinnessPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <article className="mx-auto max-w-4xl">
+          <article className="mx-auto">
             <h2 className="mb-6 text-h2 text-ink-strong">
               Baby Guinness Shot at The Anchor - Heathrow Pub & Dining&apos;s Favourite Party Starter
             </h2>

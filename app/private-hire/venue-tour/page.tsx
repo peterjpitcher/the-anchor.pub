@@ -60,7 +60,7 @@ export default function VenueTourPage({ searchParams }: VenueTourPageProps) {
       />
 
       <section id="venue-map" className="scroll-mt-6 bg-canvas py-section-y">
-        <Container size="xl">
+        <Container>
           <SectionHeading
             kicker="Explore the venue"
             script="Take a look around"

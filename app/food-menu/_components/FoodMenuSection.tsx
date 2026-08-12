@@ -98,7 +98,7 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
   }, [menuData, filter, selectedAllergens])
 
   return (
-    <div className="mx-auto w-full max-w-[920px]">
+    <div className="mx-auto w-full">
       {showFilters && (
         <div className="mb-10 space-y-5">
           <div className="flex flex-wrap justify-center gap-3" role="group" aria-label="Dietary filters">

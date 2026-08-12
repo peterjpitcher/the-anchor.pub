@@ -27,11 +27,11 @@ function normalizeTagSlug(tag: string): string {
 export async function generateStaticParams() {
   const posts = await getIndexableBlogPosts()
   const allTags = new Set<string>()
-  
+
   posts.forEach(post => {
     post.tags.forEach(tag => allTags.add(tag))
   })
-  
+
   return Array.from(allTags)
     .filter(tag => !redirectSourceTags.has(tag))
     .map(tag => ({
@@ -42,7 +42,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
   const tag = normalizeTagSlug(params.tag)
   const seoContent = getTagSEOContent(tag)
-  
+
   return {
     title: seoContent.metaTitle,
     description: seoContent.metaDescription,
@@ -69,24 +69,24 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const tag = normalizeTagSlug(params.tag)
   const allPosts = await getIndexableBlogPosts()
-  const taggedPosts = allPosts.filter(post => 
+  const taggedPosts = allPosts.filter(post =>
     post.tags.map(t => normalizeTagSlug(t)).includes(tag)
   )
-  
+
   if (taggedPosts.length === 0) {
     permanentRedirect('/blog/tags')
   }
-  
+
   const seoContent = getTagSEOContent(tag)
   const displayName = seoContent.name
   const description = seoContent.description
-  
+
   // Get all unique tags for the tag cloud
   const allTags = new Set<string>()
   allPosts.forEach(post => {
     post.tags.forEach(t => allTags.add(t))
   })
-  
+
   return (
     <>
       {/* Hero Section */}
@@ -99,7 +99,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
       {/* SEO Content Section */}
       <section className="py-section-y bg-canvas border-b border-line">
-        <Container size="md">
+        <Container>
           <p className="text-lg text-ink leading-relaxed mb-6">
             {seoContent.introContent}
           </p>
@@ -158,7 +158,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
       {/* Tag Cloud */}
       <section className="py-section-y bg-canvas border-b border-line">
-        <Container size="md" className="text-center">
+        <Container className="text-center">
           <h2 className="text-h2 text-ink-strong mb-8">
             Explore More Topics
           </h2>
@@ -182,11 +182,11 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
       {/* CTA Section */}
       <section className="theme-dark bg-anchor-green py-section-y">
-        <Container size="md" className="text-center text-anchor-cream-text">
+        <Container className="text-center text-anchor-cream-text">
           <h2 className="text-h2 text-anchor-cream-text mb-8">
             Visit The Anchor Today
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+          <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
             Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

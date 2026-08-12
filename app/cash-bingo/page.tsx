@@ -263,7 +263,7 @@ export default async function CashBingoPage() {
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
             Cash Bingo Night & Bingo Games: Stanwell Moor & Heathrow
           </PageTitle>
-          <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
+          <p className="text-lg text-ink-muted text-center mx-auto">
             Searching for cash bingo games near Heathrow? If you're after things to do near Heathrow, our bingo nights are a local favourite. Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
           <div className="flex justify-center mt-4">
@@ -274,7 +274,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
             <Card accent>
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next cash bingo night</p>
@@ -317,7 +317,7 @@ export default async function CashBingoPage() {
 
       <section id="bingo-dates" className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming cash bingo dates</h2>
             <p className="text-ink-muted text-center mb-8">
               We’ve listed confirmed bingo nights below. For the very latest schedule, including bonus specials, visit our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707.
@@ -329,7 +329,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent>
               <CardBody>
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Sunday Roast Bingo Weekends</h3>
@@ -346,7 +346,7 @@ export default async function CashBingoPage() {
                     Book Sunday Roast
                   </BookTableButton>
                   <Link href="/sunday-roast" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Sunday roast menu 
+                    Sunday roast menu
                   </Link>
                 </div>
               </CardBody>
@@ -368,7 +368,7 @@ export default async function CashBingoPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu#pizza" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    View pizza menu 
+                    View pizza menu
                   </Link>
                 </div>
               </CardBody>
@@ -389,7 +389,7 @@ export default async function CashBingoPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Browse food & drinks 
+                    Browse food & drinks
                   </Link>
                 </div>
               </CardBody>
@@ -400,7 +400,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h2 text-ink-strong mb-8 text-center">
               Why everyone loves cash bingo at The Anchor
             </h2>
@@ -423,7 +423,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-4xl mx-auto text-ink-muted space-y-4">
+          <div className="mx-auto text-ink-muted space-y-4">
             <h2 className="text-h3 text-ink-strong text-center">What’s up for grabs?</h2>
 	            <p>
 	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20, and two additional calls, each month it survives, so loyal dabbers see the prize get juicier and easier to win.
@@ -434,9 +434,9 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong text-center mb-6">Tips for playing bingo for cash</h2>
-            <p className="text-ink-muted text-center max-w-3xl mx-auto mb-6">
+            <p className="text-ink-muted text-center mx-auto mb-6">
               Looking to “play bingo for cash” like a pro? These quick-fire tips from our regulars help you stay sharp and give the snowball your best shot.
             </p>
             <div className="grid md:grid-cols-2 gap-4">
@@ -481,7 +481,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <h2 className="text-h4 text-ink-strong mb-3">Prefer music bingo?</h2>
             <p className="text-ink-muted mb-4">
               We also run <Link href="/music-bingo" className="text-accent-text hover:text-accent-text font-semibold">Music Bingo</Link>, a separate event where you mark off songs instead of numbers. Same pub, different buzz. Check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On</Link> for upcoming dates of both.
@@ -507,7 +507,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
             <div>
               <h2 className="text-h4 text-ink-strong mb-3">Find us</h2>
               <p className="text-ink-muted mb-4">

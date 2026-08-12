@@ -95,7 +95,7 @@ export default function EghamPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -115,7 +115,7 @@ export default function EghamPubPage() {
       {/* Distance & Benefits */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Egham's Favourite Surrey Escape"
               lead="Worth the short drive for a proper traditional pub experience"
@@ -167,7 +167,7 @@ export default function EghamPubPage() {
       {/* Directions */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Find Us from Egham"
             />
@@ -242,7 +242,7 @@ export default function EghamPubPage() {
       {/* Student & Local Offers */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Perfect for Egham Groups"
             />
@@ -289,7 +289,7 @@ export default function EghamPubPage() {
       {/* Local Knowledge Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="From Egham to The Anchor, Worth Every Mile"
             />
@@ -314,11 +314,11 @@ export default function EghamPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
           </div>
         </Container>
       </section>

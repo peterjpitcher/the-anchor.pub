@@ -118,7 +118,7 @@ export default function FelthamPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -138,7 +138,7 @@ export default function FelthamPubPage() {
       {/* Distance & Benefits */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Feltham's Favourite Village Escape"
               lead="Escape the hustle of Feltham High Street for a proper traditional pub experience"
@@ -198,7 +198,7 @@ export default function FelthamPubPage() {
       {/* Directions */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How to Find Us from Feltham"
             />
@@ -241,7 +241,7 @@ export default function FelthamPubPage() {
       {/* Special Offers for Feltham */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Perfect for Feltham Groups"
             />
@@ -276,7 +276,7 @@ export default function FelthamPubPage() {
       {/* Event Venue for Feltham */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Private Events for Feltham Residents"
               lead="The perfect venue just 10 minutes from Feltham"
@@ -373,7 +373,7 @@ export default function FelthamPubPage() {
       {/* Feltham Workers & Weekend Escape */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="The Feltham Workers' Local"
               className="text-center mb-8"
@@ -409,11 +409,11 @@ export default function FelthamPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
           </div>
         </Container>
       </section>

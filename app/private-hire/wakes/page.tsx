@@ -139,7 +139,7 @@ export default async function WakesPage() {
             />
 
             <section className="py-section-y bg-canvas">
-                <Container size="md">
+                <Container>
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Wake Venue & Funeral Receptions Near Heathrow
                     </PageTitle>
@@ -172,7 +172,7 @@ export default async function WakesPage() {
                         title="Private Spaces"
                         lead="Choose the right space for your gathering"
                     />
-                    <Card accent className="max-w-2xl mx-auto text-center">
+                    <Card accent className="mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
                             <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities. There is no room hire charge for wakes, and a private entrance area is available.</p>
@@ -187,7 +187,7 @@ export default async function WakesPage() {
                         title="Wake Reception Packages"
                         lead="Flexible catering for any gathering size"
                     />
-                    <div className="max-w-3xl mx-auto mb-8 space-y-4 text-ink-muted">
+                    <div className="mx-auto mb-8 space-y-4 text-ink-muted">
                         <p>We offer a range of buffet and tea &amp; coffee packages to suit your needs and budget. Use our calculator below to get an instant indication of costs for your gathering, or call us to discuss your requirements.</p>
                         <p>All packages include use of our private dining room, dedicated staff, free parking, and setup and cleardown. We can also arrange flowers, photos, and order of service display.</p>
                         <p>Guests who choose to stay on after the reception are welcome to order from <Link href="/food-menu" className="text-accent-text hover:underline">our full food menu</Link> at their leisure.</p>
@@ -227,7 +227,7 @@ export default async function WakesPage() {
                         title="What to Expect on the Day"
                         lead="We take care of the details so you can focus on being together"
                     />
-                    <div className="max-w-3xl mx-auto space-y-4 text-ink-muted">
+                    <div className="mx-auto space-y-4 text-ink-muted">
                         <p>
                             Organising a wake reception can feel overwhelming, especially during such a difficult time. At The Anchor, we have hosted hundreds of funeral receptions and wakes over the years, and our experienced team knows exactly how to make the day run smoothly. Here is what you can expect when you choose us as your wake venue.
                         </p>
@@ -256,7 +256,7 @@ export default async function WakesPage() {
                         title="Celebration of Life"
                         lead="A modern, uplifting alternative to the traditional wake"
                     />
-                    <div className="max-w-3xl mx-auto mb-8 space-y-4 text-ink-muted">
+                    <div className="mx-auto mb-8 space-y-4 text-ink-muted">
                         <p>
                             More and more families are choosing to hold a celebration of life rather than a traditional wake. A celebration of life venue focuses on remembering the person you loved through happy memories, shared laughter, and personal tributes, rather than a sombre, formal gathering.
                         </p>
@@ -282,8 +282,8 @@ export default async function WakesPage() {
                         title="Funeral Tea Packages"
                         lead="Simple, honest pricing with no hidden charges"
                     />
-                    <div className="max-w-2xl mx-auto space-y-8">
-                        <CateringPackagesCard />
+                    <div className="mx-auto space-y-8">
+                        <CateringPackagesCard/>
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
@@ -312,7 +312,7 @@ export default async function WakesPage() {
                         title="Planning a Wake, Step by Step"
                         lead="A simple guide to arranging a funeral reception at The Anchor"
                     />
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <ol className="space-y-6">
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">1</span>
@@ -349,7 +349,7 @@ export default async function WakesPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">Near Slough Crematorium</h2>
                         <p className="text-ink-muted mb-4">
                             Slough Cemetery and Crematorium on Stoke Road is around 15 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
@@ -366,7 +366,7 @@ export default async function WakesPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">Near Staines Cemetery</h2>
                         <p className="text-ink-muted mb-4">
                             Staines Cemetery on London Road is approximately 8 minutes from The Anchor, making it one of the most convenient wake venues for families gathering after a burial or committal service in Staines-upon-Thames. The route along the B378 is direct and avoids the busiest parts of the town centre.

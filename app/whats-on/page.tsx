@@ -108,8 +108,8 @@ export default async function WhatsOnPage() {
           { name: "What's On", url: '/whats-on' }
         ]}
       />
-      <SpeakableSchema />
-      <ScrollDepthTracker />
+      <SpeakableSchema/>
+      <ScrollDepthTracker/>
 
       {/* Per-event JSON-LD: preserved from the previous events listing, which
           emitted an EventSchema for each upcoming event. UpcomingEvents itself
@@ -211,7 +211,7 @@ export default async function WhatsOnPage() {
       />
 
       {/* 2. AmenityStrip (§7.3.2) */}
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* 3. Next up (§7.3.3): cream, live events from the management API. */}
       <section id="upcoming-events" className="bg-canvas py-section-y">
@@ -224,7 +224,7 @@ export default async function WhatsOnPage() {
           />
 
           <SpeakableContent selector="events-list" priority="high">
-            <div id="events-list" className="mx-auto max-w-5xl">
+            <div id="events-list" className="mx-auto">
               <UpcomingEvents
                 events={upcomingEvents}
                 emptyState={
@@ -250,7 +250,7 @@ export default async function WhatsOnPage() {
             lead="The nights that come round every month. See each event page for the next date and to reserve a table."
           />
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-3">
             {REGULAR_NIGHTS.map((night) => (
               <RegularEventCard
                 key={night.title}
@@ -276,7 +276,7 @@ export default async function WhatsOnPage() {
             lead="Guides for the seasonal pub dates near Heathrow, from bank holiday weekends to New Year's Eve."
           />
 
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {seasonalOccasionLinks.map((link) => (
               <Link key={link.href} href={link.href} className="group block h-full">
                 <Card hover accent className="h-full p-6">
@@ -304,7 +304,7 @@ export default async function WhatsOnPage() {
               lead="A look back at recent nights. Every event page stays online, so you can see what one of our nights is actually like before booking the next."
             />
 
-            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {recentEvents.map((event) => (
                 <Link
                   key={event.id || event.slug}

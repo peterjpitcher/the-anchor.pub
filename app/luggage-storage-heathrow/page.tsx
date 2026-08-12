@@ -70,11 +70,11 @@ export default function LuggageStoragePage() {
         lead="Visiting before or after a flight? Bring your luggage with you, we have plenty of space."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Hours to Kill Before Your Flight? Bring Your Bags to The Anchor"
                             lead="Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor and bring your luggage with you, we have plenty of space, and you're very welcome. Enjoy a few hours of proper British hospitality before you fly."
@@ -85,7 +85,7 @@ export default function LuggageStoragePage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Simple, just bring your bags along"
                             title="How It Works"
@@ -106,7 +106,7 @@ export default function LuggageStoragePage() {
                             ))}
                         </div>
 
-                        <Card accent className="max-w-2xl mx-auto mt-8">
+                        <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-2">Good to Know</h3>
                                 <p className="text-ink-muted">{`We can easily accommodate standard suitcases and cabin bags. If you have oversized items, please call us first on ${CONTACT.phone} and we'll do our best to help.`}</p>
@@ -118,7 +118,7 @@ export default function LuggageStoragePage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Why Wait at the Airport?"
                         />

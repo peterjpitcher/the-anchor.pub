@@ -288,7 +288,7 @@ export default async function QuizNightPage() {
       {/* Definitive answer for featured snippets */}
       <section className="bg-surface-sunk border-b border-line py-section-y">
         <Container>
-          <p className="text-center text-lg md:text-xl text-ink-muted max-w-4xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink-muted mx-auto leading-relaxed">
             The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
           </p>
         </Container>
@@ -296,7 +296,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
             <Card accent>
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next quiz night</p>
@@ -343,7 +343,7 @@ export default async function QuizNightPage() {
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
             Pub Quiz Night Near Heathrow &amp; Staines: Monthly at The Anchor
           </PageTitle>
-          <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
+          <p className="text-lg text-ink-muted text-center mx-auto">
             Looking for a pub quiz in Staines, Stanwell Moor or near Heathrow? Once a month we turn The Anchor into a trivia night for locals, airport crews and anyone who fancies a proper pub quiz in Surrey. {heroDescription}
           </p>
         </Container>
@@ -351,7 +351,7 @@ export default async function QuizNightPage() {
 
       <section id="quiz-dates" className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming quiz night dates</h2>
             <p className="text-ink-muted text-center mb-8">
               We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
@@ -363,7 +363,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent>
               <CardBody>
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Eat Before You Quiz</h3>
@@ -434,7 +434,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h2 text-ink-strong mb-8 text-center">
               Why everyone loves The Anchor quiz night
             </h2>
@@ -457,7 +457,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
 	            <h2 className="text-h3 text-ink-strong text-center mb-6">Prizes & bragging rights</h2>
 	            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 	              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
@@ -470,7 +470,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">Make a night of it</h3>
@@ -499,9 +499,9 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong text-center mb-6">Quiz team tips for the win</h2>
-	            <p className="text-ink-muted text-center max-w-3xl mx-auto mb-6">
+	            <p className="text-ink-muted text-center mx-auto mb-6">
 	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
 	            </p>
             <div className="grid md:grid-cols-2 gap-4">
@@ -544,7 +544,7 @@ export default async function QuizNightPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
             <p className="text-ink-muted">
               Not a quiz night? No problem. Play along at our monthly <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge, chase the jackpot at <Link href="/cash-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">cash prize bingo</Link>, or grab the mic at a <Link href="/karaoke" className="text-accent-text font-semibold hover:text-accent-text transition">karaoke night</Link> when one is listed.

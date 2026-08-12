@@ -164,7 +164,7 @@ async function HomeUpcomingEvents() {
       <UpcomingEvents
         events={events}
         emptyState={
-          <Card accent className="mx-auto max-w-[720px]">
+          <Card accent className="mx-auto">
             <CardBody className="text-center">
               <h3 className="font-display text-h4 text-ink-strong">More events coming soon</h3>
               <p className="mt-2 text-ink-muted">
@@ -180,7 +180,7 @@ async function HomeUpcomingEvents() {
 
 function UpcomingEventsSkeleton() {
   return (
-    <div className="mx-auto h-[280px] max-w-[920px] animate-pulse rounded-md border border-line bg-surface-sunk" />
+    <div className="mx-auto h-[280px] animate-pulse rounded-md border border-line bg-surface-sunk" />
   )
 }
 
@@ -199,8 +199,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <DeferredHomepageTrackers />
-      <SpeakableSchema />
+      <DeferredHomepageTrackers/>
+      <SpeakableSchema/>
       <JsonLd data={[parkingFacilitySchema]} />
 
       {/* 1 — Home hero (the only special hero, spec §7.1) */}
@@ -211,7 +211,7 @@ export default async function HomePage() {
       />
 
       {/* 2 — Amenity strip */}
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* 3 — Path cards */}
       <section className="bg-canvas py-section-y">
@@ -254,8 +254,8 @@ export default async function HomePage() {
             title="Coming up at The Anchor"
             lead="Live from our events calendar, here is what is next at the pub."
           />
-          <Suspense fallback={<UpcomingEventsSkeleton />}>
-            <HomeUpcomingEvents />
+          <Suspense fallback={<UpcomingEventsSkeleton/>}>
+            <HomeUpcomingEvents/>
           </Suspense>
           <div className="mt-10 flex justify-center">
             <Link href="/whats-on">
@@ -265,7 +265,7 @@ export default async function HomePage() {
             </Link>
           </div>
           {showChristmasLink && (
-            <p className="mx-auto mt-6 max-w-[720px] text-center text-ink-muted">
+            <p className="mx-auto mt-6 text-center text-ink-muted">
               Looking further ahead? Festive service runs {formatChristmasWindowLabel()}, and our{' '}
               <Link
                 href="/christmas-parties"
@@ -359,7 +359,7 @@ export default async function HomePage() {
             kicker="Good to know"
             title="Frequently asked questions"
           />
-          <HomeFaq />
+          <HomeFaq/>
         </div>
       </section>
 
@@ -378,9 +378,9 @@ export default async function HomePage() {
               <CardBody className="flex h-full flex-col">
                 <h3 className="font-display text-h4 text-ink-strong">Find us here</h3>
                 <address className="mt-3 not-italic leading-relaxed text-ink-muted">
-                  The Anchor<br />
-                  Horton Road<br />
-                  Stanwell Moor<br />
+                  The Anchor<br/>
+                  Horton Road<br/>
+                  Stanwell Moor<br/>
                   Surrey TW19 6AQ
                 </address>
 

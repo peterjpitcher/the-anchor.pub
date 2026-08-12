@@ -283,7 +283,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 }
             />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             {/* Occasions */}
             <section className="bg-canvas py-section-y">
@@ -337,13 +337,13 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                             </div>
                         </div>
 
-                        <CateringPackagesCard />
+                        <CateringPackagesCard/>
                     </div>
                 </Container>
             </section>
 
             <section className="bg-canvas py-section-y">
-                <Container size="xl">
+                <Container>
                     <SectionHeading
                         kicker="Explore the venue"
                         script="Take a look around"
@@ -433,7 +433,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                         lead="Find the most relevant private-hire page for your ceremony, workplace, sports club or family gathering."
                     />
 
-                    <div className="mx-auto max-w-6xl space-y-10">
+                    <div className="mx-auto space-y-10">
                         {landmarkGroups.map((group) => {
                             const groupLandmarks = landmarks.filter((landmark) => group.types.includes(landmark.type))
 
@@ -491,7 +491,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
             {/* FAQs */}
             <section className="bg-surface py-section-y">
                 <Container>
-                    <div className="mx-auto max-w-4xl">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Questions"
                             title="Private hire FAQs"
@@ -504,7 +504,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
             {/* Accessibility */}
             <section className="bg-canvas py-section-y">
                 <Container>
-                    <div className="mx-auto max-w-4xl">
+                    <div className="mx-auto">
                         <h2 className="mb-4 font-display text-h3 text-ink-strong">Accessibility</h2>
                         <p className="mb-3 text-ink-muted">
                             The bar and dining area are step-free. The beer garden has steps from the bar, with a ramp available on request.

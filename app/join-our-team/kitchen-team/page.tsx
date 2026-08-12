@@ -80,7 +80,7 @@ export default function KitchenTeamRecruitmentPage() {
 
       <section className="bg-surface-sunk border-b border-line py-8">
         <Container>
-          <Card accent className="max-w-4xl p-6">
+          <Card accent className="p-6">
             <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <RoleFact label="Pay" value="£12.71 per hour base rate" />
               <RoleFact label="Hours" value="Part-time, mainly evenings and weekends" />

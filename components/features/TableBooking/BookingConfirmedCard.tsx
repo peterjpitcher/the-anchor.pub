@@ -35,7 +35,7 @@ export function BookingConfirmedCard({
   const grantedHighChairs = result.high_chairs_granted
 
   return (
-    <div className="mx-auto max-w-[640px]">
+    <div className="mx-auto">
       <Card accent>
         <CardBody className="space-y-6 text-center">
           <div className="flex flex-col items-center gap-4">

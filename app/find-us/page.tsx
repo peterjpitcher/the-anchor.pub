@@ -69,7 +69,7 @@ export default async function FindUsPage() {
           { name: 'Find Us', url: '/find-us' }
         ]}
       />
-      <SpeakableSchema />
+      <SpeakableSchema/>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
@@ -89,15 +89,15 @@ export default async function FindUsPage() {
         lead="Easy to find, hard to leave!"
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Page introduction and quick facts */}
       <section className="bg-canvas py-section-y">
         <Container>
-          <h2 className="mx-auto max-w-4xl text-center font-display text-h2 text-ink-strong">
+          <h2 className="mx-auto text-center font-display text-h2 text-ink-strong">
             Find The Anchor - FREE Parking & Easy Directions from Heathrow
           </h2>
-          <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 min-[380px]:grid-cols-2 lg:grid-cols-5">
+          <div className="mx-auto mt-8 grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 lg:grid-cols-5">
             {[
               { title: 'Stanwell Moor', sub: 'Surrey TW19 6AQ' },
               { title: 'Bus Routes', sub: '441, 442, 555' },
@@ -123,7 +123,7 @@ export default async function FindUsPage() {
       {/* Find Us block (spec §7.1): address card + map + WeekHours */}
       <section id="visit-us" className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch">
               {/* Address card */}
               <Card accent className="h-full">
@@ -210,7 +210,7 @@ export default async function FindUsPage() {
       {/* Heathrow Terminal Directions */}
       <section className="bg-canvas py-section-y">
         <Container>
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             <SectionHeading
               title="Heathrow Terminal to Pub in Under 12 Minutes"
               lead="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
@@ -268,7 +268,7 @@ export default async function FindUsPage() {
             title="Directions from Popular Locations"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">From M25</h3>
@@ -356,7 +356,7 @@ export default async function FindUsPage() {
       {/* Parking Information */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="FREE Parking for Patrons - 20 Spaces Available!"
               lead="Complimentary parking while you're enjoying our food and drinks"
@@ -394,7 +394,7 @@ export default async function FindUsPage() {
       {/* Book Your Visit Section */}
       <section className="bg-canvas py-section-y">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <h2 className="font-display text-h2 text-ink-strong mb-2">Found us? Book your visit</h2>
             <p className="text-ink-muted text-lg mb-8">Reserve your table now and enjoy The Anchor experience</p>
 
@@ -454,7 +454,7 @@ export default async function FindUsPage() {
       {/* Facilities */}
       <section className="bg-surface py-section-y">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Our Facilities"
             />

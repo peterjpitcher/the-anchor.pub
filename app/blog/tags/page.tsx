@@ -90,11 +90,11 @@ export default async function AllTagsPage() {
 
       {/* CTA Section */}
       <section className="theme-dark bg-anchor-green py-section-y">
-        <Container size="md" className="text-center text-anchor-cream-text">
+        <Container className="text-center text-anchor-cream-text">
           <h2 className="text-h2 text-anchor-cream-text mb-8">
             Stay Updated
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+          <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
             Don&apos;t miss our latest stories, events, and special offers
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -101,7 +101,7 @@ export default function LongfordPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle
                             seo={{
                                 structured: true,
@@ -120,7 +120,7 @@ export default function LongfordPubPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Travellers Choose The Anchor"
                             lead="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
@@ -146,7 +146,7 @@ export default function LongfordPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Getting Here is Easy"
                         />
@@ -188,7 +188,7 @@ export default function LongfordPubPage() {
             {/* Local Knowledge Section */}
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Longford Neighbours, You Know the Planes, Now Enjoy Them with a Pint"
                         />
@@ -212,11 +212,11 @@ export default function LongfordPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-2xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
-                        <BusinessHours />
+                        <BusinessHours/>
                         <p className="mt-4 text-ink-muted">
                             Kitchen closes earlier - check times for food service
                         </p>

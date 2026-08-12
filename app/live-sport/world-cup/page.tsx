@@ -159,11 +159,11 @@ export default async function WorldCupPage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl border border-line bg-surface p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto flex flex-col gap-5 rounded-xl border border-line bg-surface p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent-text">World Cup Sweep</p>
               <h2 className="mt-2 text-h4 text-ink-strong">Sweep Winners Are Confirmed</h2>
-              <p className="mt-2 max-w-2xl text-sm text-ink-muted">
+              <p className="mt-2 text-sm text-ink-muted">
                 Spain took the title, Tom won the £100 top prize, and all 13 prize winners are now listed.
               </p>
             </div>
@@ -183,11 +183,11 @@ export default async function WorldCupPage() {
             subtitle="World Cup 2026 screenings, showing status, and table booking links."
           />
 
-          <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-ink-muted">
+          <p className="mx-auto mb-8 text-center text-sm text-ink-muted">
             Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links.
           </p>
 
-          <Alert variant="info" className="mx-auto mb-10 max-w-5xl" title="How this fixtures list works">
+          <Alert variant="info" className="mx-auto mb-10" title="How this fixtures list works">
             <div className="space-y-3 text-sm">
               <p>
                 By default you'll see <strong>Showing Only</strong> matches.
@@ -208,18 +208,18 @@ export default async function WorldCupPage() {
             </div>
           </Alert>
 
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             {matches.length > 0 ? (
               <WorldCup2026Fixtures matches={matches} />
             ) : (
-              <Alert variant="warning" title="Fixtures temporarily unavailable" className="mx-auto max-w-2xl">
+              <Alert variant="warning" title="Fixtures temporarily unavailable" className="mx-auto">
                 <p>We're having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date.</p>
               </Alert>
             )}
           </div>
 
           <div className="mt-12">
-            <Alert variant="warning" title="Book Early for Knockouts" className="mx-auto max-w-2xl">
+            <Alert variant="warning" title="Book Early for Knockouts" className="mx-auto">
               <p>The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view.</p>
             </Alert>
           </div>
@@ -228,13 +228,13 @@ export default async function WorldCupPage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl border border-line bg-surface-sunk p-8">
+          <div className="mx-auto rounded-2xl border border-line bg-surface-sunk p-8">
             <SectionHeading
               title="England World Cup Fixtures at The Anchor"
               subtitle="England fixtures, screenings and table bookings near Heathrow."
             />
             {englandMatches.length > 0 ? (
-              <div className="mx-auto mt-8 max-w-3xl space-y-3">
+              <div className="mx-auto mt-8 space-y-3">
                 <p className="text-center text-sm text-ink-muted">
                   England are in Group L alongside Croatia, Ghana and Panama.
                 </p>
@@ -254,7 +254,7 @@ export default async function WorldCupPage() {
                 </div>
               </div>
             ) : (
-              <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-ink-muted">
+              <p className="mx-auto mt-6 text-center text-sm text-ink-muted">
                 England's World Cup 2026 fixtures will be highlighted here once confirmed. For now, use the full World
                 Cup 2026 schedule below for UK kick-off times, showing status, and table booking links.
               </p>
@@ -265,7 +265,7 @@ export default async function WorldCupPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             <div className="grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
                 <h2 className="text-lg font-semibold text-accent-text">What We're Showing</h2>
@@ -418,7 +418,7 @@ export default async function WorldCupPage() {
             title="Watch Live Sport Near Heathrow"
             subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
           />
-          <div className="mx-auto max-w-5xl rounded-2xl border border-line bg-surface-sunk p-8">
+          <div className="mx-auto rounded-2xl border border-line bg-surface-sunk p-8">
             <p className="text-center text-sm text-ink-muted">
               The Anchor is in Stanwell Moor, just off the M25 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking for {PARKING.capacity} cars makes us easy to reach from Staines, Ashford, Feltham, Egham, Colnbrook, and Windsor.
             </p>
@@ -515,7 +515,7 @@ export default async function WorldCupPage() {
                 answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
-            className="mx-auto max-w-3xl"
+            className="mx-auto"
           />
         </Container>
       </section>

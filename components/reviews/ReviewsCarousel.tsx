@@ -10,10 +10,10 @@ interface ReviewsCarouselProps {
   interval?: number
 }
 
-export function ReviewsCarousel({ 
-  reviews, 
+export function ReviewsCarousel({
+  reviews,
   autoPlay = true,
-  interval = 5000 
+  interval = 5000
 }: ReviewsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -64,7 +64,7 @@ export function ReviewsCarousel({
 
   return (
     <div
-      className="relative max-w-4xl mx-auto"
+      className="relative mx-auto"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
@@ -75,7 +75,7 @@ export function ReviewsCarousel({
       }}
     >
       <div className="overflow-hidden">
-        <div 
+        <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
@@ -86,7 +86,7 @@ export function ReviewsCarousel({
           ))}
         </div>
       </div>
-      
+
       {reviews.length > 1 && (
         <>
           <button
@@ -98,7 +98,7 @@ export function ReviewsCarousel({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          
+
           <button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-surface/90 hover:bg-surface-sunk border border-line rounded-md p-2 shadow-md text-ink transition-colors"
@@ -108,7 +108,7 @@ export function ReviewsCarousel({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          
+
           <div className="flex justify-center gap-2 mt-4">
             {reviews.map((_, index) => (
               <button

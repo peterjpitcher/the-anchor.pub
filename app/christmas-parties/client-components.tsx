@@ -599,7 +599,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           answer engine or a hurried organiser needs, above the fold-ish. */}
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-5">
+          <div className="mx-auto space-y-5">
             <h2 className="text-3xl font-bold text-ink-strong">Christmas at The Anchor, in short</h2>
             <p className="text-base text-ink-muted">
               We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
@@ -624,11 +624,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <div className="mx-auto max-w-5xl space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="space-y-3 text-center">
               <Badge className="mx-auto w-fit bg-red-100 text-red-700">Christmas 2026 bookings</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">What would you like to book?</h2>
-              <p className="mx-auto max-w-3xl text-base text-ink-muted">
+              <p className="mx-auto text-base text-ink-muted">
                 Choose the option that fits your plans. We will confirm availability, prices and the next steps when we reply.
               </p>
             </div>
@@ -712,7 +712,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           five facts every organiser is caught out by. */}
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-6">
+          <div className="mx-auto space-y-6">
             <h2 className="text-3xl font-bold text-ink-strong text-center">Christmas booking near Heathrow and Staines: the rules in full</h2>
             <div className="rounded-2xl border-2 border-red-600/30 bg-surface p-6 md:p-8">
               <ul className="space-y-4 text-sm md:text-base text-ink-muted">
@@ -847,7 +847,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <div className="max-w-4xl mx-auto text-center space-y-6">
+          <div className="mx-auto text-center space-y-6">
             <h2 className="text-3xl font-bold text-ink-strong">Christmas buffet food for {facts.buffetMinimumGuests} or more guests</h2>
             {/* Self-contained prose, immediately under the heading. Search engines
                 were previously stitching a snippet out of live menu fragments for
@@ -939,7 +939,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="sm" className="bg-surface">
         <Container>
-          <div className="mx-auto max-w-4xl space-y-4 text-center">
+          <div className="mx-auto space-y-4 text-center">
             <h2 className="text-2xl font-bold text-ink-strong">Christmas party venues near Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-ink-muted">
               The Anchor is around seven minutes from Heathrow Terminal 5, eleven minutes from Terminal 2 and eight minutes from
@@ -1006,15 +1006,15 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Why book your Christmas party at The Anchor?</h2>
-              <p className="text-base text-ink-muted max-w-3xl mx-auto">
+              <p className="text-base text-ink-muted mx-auto">
                 Most Christmas venues around Heathrow are hotels, and a hotel Christmas party is a big shared room, a set
                 package and a disco you did not choose. If that is what your group wants, book one. We are the other thing: a
                 village pub that has been here since 1751, where your group gets its own table and its own evening.
               </p>
-              <p className="text-base text-ink-muted max-w-3xl mx-auto">
+              <p className="text-base text-ink-muted mx-auto">
                 That suits a staff Christmas party for airport colleagues, a festive lunch for the team, or a Friday-night
                 Christmas do with friends from Staines. You get a proper pub close to Heathrow, free parking on site and
                 spaces we shape around your group rather than a package you pick off a list.
@@ -1037,11 +1037,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="text-center space-y-4">
               <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Work Christmas do and office Christmas party near Heathrow</h2>
-              <p className="text-base text-ink-muted max-w-3xl mx-auto">
+              <p className="text-base text-ink-muted mx-auto">
                 Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that is
                 actually good, and a bill that will not make finance wince. Whether your team calls it the work Christmas do
                 or the office Christmas party, we take it as one booking with one contact. We have been hosting office
@@ -1107,10 +1107,10 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-ink-strong">Christmas party ideas near Heathrow and Staines</h2>
-              <p className="text-base text-ink-muted max-w-3xl mx-auto">
+              <p className="text-base text-ink-muted mx-auto">
                 Not every Christmas do needs to be a standard sit-down meal. These are the formats we actually run, so
                 nothing here is a maybe. Tell us which one fits your group when you enquire and we will confirm what is
                 possible on your date.
@@ -1138,7 +1138,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="sm" className="bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <div className="rounded-2xl border-2 border-red-600/30 bg-red-50/5 p-8 text-center space-y-4">
               <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
               <h2 className="text-2xl font-bold text-ink-strong">Book early, December dates fill fast</h2>
@@ -1194,7 +1194,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         <Container>
           <div className="text-center space-y-8">
             <h2 className="text-4xl font-bold text-accent-text">Ready to plan your Christmas at The Anchor?</h2>
-            <p className="text-lg text-ink-muted max-w-2xl mx-auto">
+            <p className="text-lg text-ink-muted mx-auto">
               Send your enquiry and the team will reply with availability and next steps. Need a quicker answer? Call us.
             </p>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -1273,7 +1273,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" className="py-16 bg-canvas" id="christmas-enquiry" data-sticky-cta-guard="true">
         <Container>
-          <div className="max-w-3xl mx-auto mb-6">
+          <div className="mx-auto mb-6">
             <div className="mb-6">
               <ValueProofStrip variant="private-hire" />
             </div>
@@ -1356,7 +1356,7 @@ function ChristmasSeasonEndedView({
     <>
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-6">
+          <div className="mx-auto space-y-6">
             <Alert variant="info" title="Christmas bookings are closed for this season">
               Our Christmas service ran {season.windowLabel} and has now finished. We are not taking Christmas bookings at the
               moment. Next season&apos;s dates, menu and prices will be published here once they are confirmed.
@@ -1469,7 +1469,7 @@ function ChristmasMenuAndPricing({
   return (
     <Section background="transparent" spacing="md" className="bg-surface" id="christmas-menu">
       <Container>
-        <div className="mx-auto max-w-5xl space-y-4 text-center">
+        <div className="mx-auto space-y-4 text-center">
           <h2 className="text-3xl font-bold text-ink-strong">Christmas menu and prices</h2>
           <p className="text-base text-ink-muted">
             Each guest chooses 1, 2 or 3 courses for themselves, {season.windowLabel}. Prices are served live from our
@@ -1565,7 +1565,7 @@ function ChristmasMenuAndPricing({
                 between the heading and the list, a search engine lifts dish
                 names, bare prices and half descriptions into one garbled
                 snippet, which is exactly what was happening on this page. */}
-            <p className="mx-auto max-w-3xl text-center text-base text-ink-muted">
+            <p className="mx-auto text-center text-base text-ink-muted">
               Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come
               straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.
               Send us everyone&apos;s choices {preOrderDeadlineDays(facts)} days before your booking date.
@@ -1590,7 +1590,7 @@ function ChristmasMenuAndPricing({
             ))}
           </div>
         ) : (
-          <Card accent className="mx-auto mt-10 max-w-3xl">
+          <Card accent className="mx-auto mt-10">
             <div className="p-6 space-y-3">
               <h3 className="text-lg font-semibold text-ink-strong">The full menu is released closer to the time</h3>
               <p className="text-sm text-ink-muted">

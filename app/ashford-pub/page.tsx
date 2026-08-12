@@ -117,7 +117,7 @@ export default function AshfordPubPage() {
       {/* Page Title */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -137,7 +137,7 @@ export default function AshfordPubPage() {
       {/* Welcome Section */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Ashford's Favourite Traditional Pub Experience"
               lead="Just a 10-minute drive from Ashford, The Anchor offers the perfect escape from busy town life. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
@@ -164,7 +164,7 @@ export default function AshfordPubPage() {
       {/* Why Ashford Residents Choose Us */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why Ashford Residents Love The Anchor"
             />
@@ -226,7 +226,7 @@ export default function AshfordPubPage() {
       {/* Popular with Ashford Groups */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Popular with Ashford Groups"
             />
@@ -279,7 +279,7 @@ export default function AshfordPubPage() {
       {/* Event Venue for Ashford */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Event Venue for Ashford Celebrations"
               lead="Just 10 minutes from Ashford with free parking"
@@ -376,7 +376,7 @@ export default function AshfordPubPage() {
       {/* Getting Here from Ashford */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Getting to The Anchor from Ashford"
             />
@@ -437,7 +437,7 @@ export default function AshfordPubPage() {
       {/* Local Connections */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Ashford to The Anchor - Local Connections"
             />
@@ -490,7 +490,7 @@ export default function AshfordPubPage() {
       {/* Ashford Local Knowledge */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Just Beyond the Dual Carriageway"
               className="text-center mb-8"
@@ -525,11 +525,11 @@ export default function AshfordPubPage() {
       {/* Opening Hours */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Opening Hours"
             />
-            <BusinessHours />
+            <BusinessHours/>
             <p className="mt-4 text-ink-muted">
               Kitchen closes earlier - check times for food service
             </p>

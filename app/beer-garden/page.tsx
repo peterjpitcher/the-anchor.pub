@@ -117,12 +117,12 @@ export default async function BeerGardenPage() {
         lead="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* Definitive answer for featured snippets */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <p className="text-center text-lg md:text-xl text-ink max-w-4xl mx-auto leading-relaxed">
+          <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
             The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s expected 27R arrivals path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
           </p>
         </Container>
@@ -141,7 +141,7 @@ export default async function BeerGardenPage() {
       {/* Grab Food & Deals */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent hover>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast (Sundays 1–6pm)</h3>
@@ -195,7 +195,7 @@ export default async function BeerGardenPage() {
           <h2 className="text-center font-display text-h2 text-ink-strong">
             Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
           </h2>
-          <p className="text-center text-lg text-ink-muted mt-4 max-w-4xl mx-auto">
+          <p className="text-center text-lg text-ink-muted mt-4 mx-auto">
             The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden is fully dog-friendly with water bowls provided.
           </p>
         </Container>
@@ -204,7 +204,7 @@ export default async function BeerGardenPage() {
       {/* Plane Spotting Paradise */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Outdoor Pub Garden Near Heathrow Airport"
             />
@@ -237,8 +237,8 @@ export default async function BeerGardenPage() {
                   </div>
                   <div className="bg-surface-sunk rounded-sm p-4 border border-line">
                     <p className="text-sm text-ink-muted">
-                      <strong className="text-ink-strong">Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br />
-                      <strong className="text-ink-strong">Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br />
+                      <strong className="text-ink-strong">Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br/>
+                      <strong className="text-ink-strong">Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br/>
                       <strong className="text-ink-strong">Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
                     </p>
                   </div>
@@ -252,7 +252,7 @@ export default async function BeerGardenPage() {
       {/* Customer Reviews */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <h2 className="font-display text-h2 text-ink-strong text-center mb-8">
               What Visitors Say About Our Beer Garden
             </h2>
@@ -267,7 +267,7 @@ export default async function BeerGardenPage() {
       {/* Beer Garden Features */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Our Unique Beer Garden"
             />
@@ -294,7 +294,7 @@ export default async function BeerGardenPage() {
       {/* Accessibility */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <h2 className="font-display text-h2 text-ink-strong mb-4">Accessibility</h2>
             <p className="text-ink-muted mb-3">
               Step-free access to the bar and dining area. The beer garden has steps, but a ramp is available on request.
@@ -313,7 +313,7 @@ export default async function BeerGardenPage() {
       {/* Plane Spotting Tips */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Plane Spotting Tips for Visitors"
             />

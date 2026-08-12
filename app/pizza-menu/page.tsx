@@ -132,7 +132,7 @@ export default async function PizzaMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto text-center">
             <SectionHeading
               title="Pizza Near Heathrow"
               lead="If a pizza name, description or price changes, this page follows that update."
@@ -170,7 +170,7 @@ export default async function PizzaMenuPage() {
           {data && pizzaItems.length > 0 ? (
             <FoodMenuSection menuData={data.menuData} showFilters={false} />
           ) : (
-            <Card accent className="mx-auto max-w-2xl">
+            <Card accent className="mx-auto">
               <CardBody>
                 <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
                 <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>

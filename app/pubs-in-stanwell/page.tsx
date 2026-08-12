@@ -103,7 +103,7 @@ export default async function PubsInStanwellPage() {
       {/* Why We're Stanwell's Favourite Local */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Why The Anchor is Stanwell Moor's Favourite Village Pub"
               lead="A proper local at the heart of Stanwell Moor"
@@ -152,7 +152,7 @@ export default async function PubsInStanwellPage() {
             </div>
 
             {/* Location Benefits */}
-            <Card accent className="max-w-4xl mx-auto">
+            <Card accent className="mx-auto">
               <CardBody className="p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Perfectly Located in Stanwell Moor</h3>
                 <p className="text-ink-muted mb-3">
@@ -184,7 +184,7 @@ export default async function PubsInStanwellPage() {
       {/* What We Offer */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Everything You Want from Your Local Pub"
               lead="Great food, drinks, atmosphere and more"
@@ -216,7 +216,7 @@ export default async function PubsInStanwellPage() {
       {/* Compare to Other Pubs */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-5xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="How We Compare to Other Local Pubs"
               lead="Why locals choose The Anchor"
@@ -284,7 +284,7 @@ export default async function PubsInStanwellPage() {
       {/* Weekly Schedule */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="Something Special Every Day"
               lead="Our weekly lineup of food and events"
@@ -314,7 +314,7 @@ export default async function PubsInStanwellPage() {
       {/* Local Knowledge Section */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="A Local&rsquo;s Guide to Stanwell Moor"
             />
@@ -339,7 +339,7 @@ export default async function PubsInStanwellPage() {
       {/* Customer Reviews */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What Stanwell Locals Say About Us"
             />

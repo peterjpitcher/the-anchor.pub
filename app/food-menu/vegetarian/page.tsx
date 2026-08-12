@@ -98,7 +98,7 @@ export default async function VegetarianMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <SectionHeading
               align="left"
               title="Vegetarian Pub Food Near Heathrow"
@@ -114,7 +114,7 @@ export default async function VegetarianMenuPage() {
             </ul>
           </div>
           <div className="mt-8">
-            <DietaryMenuNav />
+            <DietaryMenuNav/>
           </div>
         </div>
       </section>
@@ -128,7 +128,7 @@ export default async function VegetarianMenuPage() {
           {data ? (
             <FoodMenuSection menuData={data.menuData} showFilters={false} />
           ) : (
-            <Card accent className="mx-auto max-w-4xl">
+            <Card accent className="mx-auto">
               <CardBody>
                 <h2 className="mb-2 text-h4 text-ink-strong">Menu temporarily unavailable</h2>
                 <p className="text-ink-muted">{getMenuUnavailableMessage()}</p>
@@ -140,7 +140,7 @@ export default async function VegetarianMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto">
             <SectionHeading
               align="left"
               title="Vegetarian Dining Near Heathrow Airport"
@@ -185,7 +185,7 @@ export default async function VegetarianMenuPage() {
 
       <section className="bg-surface-sunk py-section-y">
         <div className="container">
-          <Card accent className="mx-auto max-w-4xl">
+          <Card accent className="mx-auto">
             <CardBody>
               <h2 className="mb-2 text-h4 text-ink-strong">Allergen Information</h2>
               <p className="text-ink-muted">
@@ -215,7 +215,7 @@ export default async function VegetarianMenuPage() {
 
       <section className="bg-canvas py-section-y">
         <div className="container">
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <h2 className="mb-6 text-h3 text-ink-strong">Explore More</h2>
             <div className="flex flex-wrap justify-center gap-3">
               <Link href="/food-menu" className="inline-flex min-h-[44px] items-center rounded-pill border-[1.5px] border-line-strong bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-anchor-gold-dark">

@@ -28,7 +28,7 @@ export default function SafetyAndRespectPage() {
       {/* Intro */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <p className="text-lg text-ink-muted leading-relaxed">
               We're the kind of pub where you can walk in on your own or with a group, whatever your background, and feel at ease. That's not accidental, it's how we run things.
             </p>
@@ -39,7 +39,7 @@ export default function SafetyAndRespectPage() {
       {/* Everyone's welcome */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Everyone's welcome" align="left" />
             <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
@@ -59,7 +59,7 @@ export default function SafetyAndRespectPage() {
       {/* Our standards */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Our standards" align="left" />
             <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
@@ -79,7 +79,7 @@ export default function SafetyAndRespectPage() {
       {/* If something doesn't feel right */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="If something doesn't feel right" align="left" />
             <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>
@@ -96,7 +96,7 @@ export default function SafetyAndRespectPage() {
       {/* Our events */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading title="Our events" align="left" />
             <div className="space-y-4 text-ink-muted leading-relaxed">
               <p>

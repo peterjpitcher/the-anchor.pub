@@ -161,8 +161,8 @@ export default function EasterSundayPage() {
 
       {/* Easter Sunday roast */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <LaunchAnnouncement variant="banner" />
             <h2 className="text-h3 text-ink-strong">
               A proper Easter Sunday roast
@@ -245,8 +245,8 @@ export default function EasterSundayPage() {
 
       {/* Family Easter near Heathrow */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               A family Easter Sunday near Heathrow Terminal 5
             </h2>
@@ -302,8 +302,8 @@ export default function EasterSundayPage() {
 
       {/* Easter weekend opening hours (migrated from the former /easter weekend page) */}
       <section className="py-section-y bg-surface-sunk">
-        <Container size="lg">
-          <div className="mx-auto max-w-4xl space-y-6">
+        <Container>
+          <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
               Easter weekend opening hours
             </h2>
@@ -346,8 +346,8 @@ export default function EasterSundayPage() {
 
       {/* Where we are */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-start">
+        <Container>
+          <div className="mx-auto grid gap-10 lg:grid-cols-2 lg:items-start">
             <div className="space-y-4">
               <h2 className="text-h3 text-ink-strong">Where we are</h2>
               <p className="text-ink-muted leading-relaxed">

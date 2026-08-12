@@ -66,7 +66,7 @@ export function VisitPlannerPanel({
       aria-labelledby="visit-planner-heading"
       className={cn('py-section-y bg-surface border-y border-line', className)}
     >
-      <div className="mx-auto w-full max-w-3xl px-4">
+      <div className="mx-auto w-full px-4">
         <div className="rounded-md border border-line bg-canvas p-6 shadow-sm sm:p-8">
           <div className="flex items-start gap-3">
             <span

@@ -91,7 +91,7 @@ export default function GenderRevealPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Gender Reveal Party Venue Near Heathrow
                         </PageTitle>
@@ -104,7 +104,7 @@ export default function GenderRevealPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="A Venue Designed for Celebrations"
                         />
@@ -130,7 +130,7 @@ export default function GenderRevealPage() {
             <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading title="Venue Layout Options" />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 mb-8">
+                    <div className="mx-auto grid md:grid-cols-2 gap-8 mb-8">
                         <Card><CardBody>
                             <h3 className="font-display text-h4 mb-3 text-ink-strong">Garden Reveal</h3>
                             <p className="text-ink-muted mb-4">
@@ -155,7 +155,7 @@ export default function GenderRevealPage() {
                         </CardBody></Card>
                     </div>
 
-                    <Card accent className="max-w-4xl mx-auto"><CardBody>
+                    <Card accent className="mx-auto"><CardBody>
                         <h3 className="font-display text-h4 text-ink-strong mb-3">Weather Contingency</h3>
                         <p className="text-ink-muted">
                             We always plan for the British weather. If you are hoping for a garden reveal but conditions are poor on the day, we will switch seamlessly to our indoor backup plan. We discuss your preferred reveal method and backup option at the time of booking so that nothing is left to chance.
@@ -167,7 +167,7 @@ export default function GenderRevealPage() {
             <section className="py-section-y bg-surface">
                 <Container>
                     <SectionHeading title="Photo and Video Setup" />
-                    <div className="max-w-3xl mx-auto">
+                    <div className="mx-auto">
                         <p className="text-ink-muted text-center mb-6">
                             The reveal moment deserves to be captured perfectly. Here is what we provide and what you should plan to bring.
                         </p>
@@ -197,7 +197,7 @@ export default function GenderRevealPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                    <div className="mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
                             <h3 className="font-display text-h3 mb-4 text-pink-600">The "It's a Girl" Package</h3>
                             <p className="mb-4 text-ink-muted">Thinking pink? We can help you set up the area with pink napkins, allow space for pink balloon arches, and assist with the coordination of the reveal.</p>
@@ -223,8 +223,8 @@ export default function GenderRevealPage() {
                         title="Gender Reveal Party Packages"
                         lead="Food, drinks, and the big moment, all taken care of"
                     />
-                    <div className="max-w-2xl mx-auto space-y-8">
-                        <CateringPackagesCard />
+                    <div className="mx-auto space-y-8">
+                        <CateringPackagesCard/>
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
@@ -241,7 +241,7 @@ export default function GenderRevealPage() {
                         title="Reveal Ideas & Inspiration"
                         lead="Creative ways to share the big news"
                     />
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <div className="grid md:grid-cols-2 gap-6 mb-8">
                             <Card><CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-3">Outdoor Reveal Ideas</h3>
@@ -284,7 +284,7 @@ export default function GenderRevealPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="font-display text-h3 text-ink-strong mb-4">Also Considering a Baby Shower?</h2>
                         <p className="text-ink-muted mb-6">
                             Many families combine their gender reveal with a baby shower celebration. Take a look at our baby shower page for afternoon tea packages, mocktail ideas, and games inspiration.

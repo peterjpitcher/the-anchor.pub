@@ -89,7 +89,7 @@ export default function MilestoneBirthdaysPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Birthday Party Venue Near Heathrow &amp; Staines: 21st, 30th, 40th, 50th
                         </PageTitle>
@@ -102,7 +102,7 @@ export default function MilestoneBirthdaysPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Everything You Need for a Great Bash"
                         />
@@ -127,7 +127,7 @@ export default function MilestoneBirthdaysPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-5xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="font-display text-h2 text-center mb-12 text-ink-strong">Choose Your Party Style</h2>
 
                         <div className="grid md:grid-cols-3 gap-6">
@@ -161,7 +161,7 @@ export default function MilestoneBirthdaysPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <h2 className="font-display text-h2 text-center mb-8 text-ink-strong">Birthday Party Venue by Age</h2>
                         <div className="space-y-8">
                             <div className="space-y-3">
@@ -201,15 +201,15 @@ export default function MilestoneBirthdaysPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="max-w-2xl mx-auto">
-                        <CateringPackagesCard />
+                    <div className="mx-auto">
+                        <CateringPackagesCard/>
                     </div>
                 </Container>
             </section>
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <Card accent className="max-w-3xl mx-auto text-center">
+                    <Card accent className="mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h3 mb-4 text-ink-strong">Planning a Surprise Party?</h3>
                             <p className="text-ink-muted mb-6">

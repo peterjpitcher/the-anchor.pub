@@ -173,7 +173,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
 
       <section className="bg-surface-sunk border-b border-line py-8">
         <Container>
-          <Card accent className="max-w-4xl p-6">
+          <Card accent className="p-6">
             <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <RecruitmentFact label="Current roles" value="Bar Staff and Kitchen Team" />
               <RecruitmentFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
@@ -186,7 +186,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <div className="mb-8 max-w-4xl space-y-4 text-ink-muted">
+          <div className="mb-8 space-y-4 text-ink-muted">
             <p>
               You will be working in a proper local pub with regular customers, busy event nights, Sunday
               roasts, private bookings and a small team that expects people to turn up, work properly and take
@@ -203,8 +203,8 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
 
       <section id="current-roles" className="py-section-y bg-surface border-b border-line">
         <Container>
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-8 max-w-3xl">
+          <div className="mx-auto">
+            <div className="mb-8">
               <h2 className="text-3xl text-ink-strong">Current roles</h2>
               <p className="mt-3 text-ink-muted">
                 We are recruiting for part-time pub jobs near Heathrow, including bar staff jobs in Stanwell
@@ -242,9 +242,9 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
               />
             </div>
             <div className="space-y-6">
-              <PayNotice />
-              <StandardsPledge />
-              <RecruitmentImageStrip />
+              <PayNotice/>
+              <StandardsPledge/>
+              <RecruitmentImageStrip/>
             </div>
           </div>
         </Container>
@@ -314,7 +314,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
 
       <section id="apply" className="py-section-y bg-surface border-b border-line scroll-mt-28">
         <Container>
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto">
             <RecruitmentApplicationForm
               initialRole={initialRole}
               postingOptions={dynamicPostings.map((posting) => ({
@@ -329,7 +329,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
 
       <section className="py-section-y bg-canvas border-b border-line">
         <Container>
-          <LocationTransportSection />
+          <LocationTransportSection/>
         </Container>
       </section>
 

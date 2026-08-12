@@ -42,11 +42,11 @@ export default function PreFlightDiningPage() {
         lead="Authentic British food. Draught Beer. 5 Minutes from Terminal 5."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Plane Food Can Wait"
                             lead="You're about to spend hours on a plane. Why start that journey hungry or disappointed by an overpriced terminal sandwich? Stop at The Anchor for a hearty, cooked-to-order meal that will keep you satisfied halfway across the Atlantic."
@@ -57,7 +57,7 @@ export default function PreFlightDiningPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="A taste of Britain before you leave"
                             title="British Classics Done Right"
@@ -84,7 +84,7 @@ export default function PreFlightDiningPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div>
                             <h2 className="font-display text-h3 mb-4 text-ink-strong">Timing is Everything</h2>
                             <p className="mb-4 text-ink-muted">

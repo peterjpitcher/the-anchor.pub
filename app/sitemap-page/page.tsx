@@ -233,7 +233,7 @@ export default async function SitemapPage() {
 
       {/* Sitemap Links */}
       <section className="py-section-y bg-surface">
-        <Container size="lg">
+        <Container>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sections.map((section) => (
             <Card key={section.title} accent>

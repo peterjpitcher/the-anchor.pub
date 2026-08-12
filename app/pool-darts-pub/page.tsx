@@ -42,11 +42,11 @@ export default function PoolAndDartsPage() {
         lead="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Check current opening hours before visiting."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">
                             A Pub with Pool Table, Darts & Great Beer
                         </h2>
@@ -62,7 +62,7 @@ export default function PoolAndDartsPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Kept level so the cloth plays true"
                             title="Play Pool at The Anchor"
@@ -105,7 +105,7 @@ export default function PoolAndDartsPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="A frame, a pint, somewhere to enjoy both"
                             title="More Than Just Pub Games"
@@ -150,7 +150,7 @@ export default function PoolAndDartsPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             kicker="We'd love to put a team together"
                             title="Fancy Playing Competitively?"

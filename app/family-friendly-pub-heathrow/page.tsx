@@ -40,11 +40,11 @@ export default function FamilyFriendlyPage() {
         lead="Good food that kids actually eat. Relaxed atmosphere for parents. The perfect family pit stop."
       />
 
-            <AmenityStrip />
+            <AmenityStrip/>
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Family-Friendly Pub Near Heathrow"
                             lead="We know eating out with kids can sometimes be stressful. At The Anchor, we aim to make it easy. We have plenty of space, staff who are great with little ones, and a menu that keeps everyone happy."
@@ -55,7 +55,7 @@ export default function FamilyFriendlyPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             kicker="Happy kids mean happy parents"
                             title="For The Little Ones"
@@ -75,7 +75,7 @@ export default function FamilyFriendlyPage() {
                             ))}
                         </div>
 
-                        <Card accent className="max-w-2xl mx-auto mt-8">
+                        <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-4 text-center">Baby Facilities</h3>
                                 <ul className="grid sm:grid-cols-2 gap-4 text-ink">

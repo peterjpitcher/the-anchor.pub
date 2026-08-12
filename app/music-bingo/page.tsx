@@ -343,7 +343,7 @@ export default async function MusicBingoPage() {
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
             Music Bingo Near Heathrow - Stanwell Moor, Staines and Surrey
           </PageTitle>
-          <p className="mx-auto max-w-3xl text-center text-lg text-ink-muted">
+          <p className="mx-auto text-center text-lg text-ink-muted">
             Looking for a music bingo night near Heathrow that feels like a proper local? It's one of the best things to do near Heathrow for a fun evening out. We swap bingo numbers for
             song clips, hand out prizes every round, and keep the atmosphere warm and welcoming. {heroDescription}
           </p>
@@ -352,7 +352,7 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-stretch">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-stretch">
             <Card accent>
               <CardBody className="space-y-4">
                 <p className="text-sm font-semibold uppercase tracking-wide text-accent-text">Next Music Bingo</p>
@@ -404,7 +404,7 @@ export default async function MusicBingoPage() {
 
       <section id="music-bingo-dates" className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming Music Bingo dates</h2>
             <p className="mb-8 text-center text-ink-muted">
               We list confirmed Music Bingo dates below. For the very latest schedule, check the{' '}
@@ -420,7 +420,7 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent>
               <CardBody>
                 <h3 className="mb-2 text-xl font-semibold text-accent-text">Sunday Roast Music Bingo Warm-Up</h3>
@@ -491,7 +491,7 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto">
             <h2 className="mb-8 text-center text-h2 text-ink-strong">
               Why everyone loves Music Bingo at The Anchor
             </h2>
@@ -514,7 +514,7 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-start">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How to play Music Bingo</h3>
@@ -543,9 +543,9 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">Tips for a winning card</h2>
-            <p className="mx-auto mb-6 max-w-3xl text-center text-ink-muted">
+            <p className="mx-auto mb-6 text-center text-ink-muted">
               Whether you are new to music bingo or a seasoned singalong legend, these tips keep your ears sharp.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
@@ -605,7 +605,7 @@ export default async function MusicBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-start">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
             <div>
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">

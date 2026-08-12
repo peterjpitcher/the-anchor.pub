@@ -99,7 +99,7 @@ export default async function BlogPage({
       {/* Page Title */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <PageTitle
               seo={{
                 structured: true,
@@ -120,7 +120,7 @@ export default async function BlogPage({
       {currentPage === 1 && (
         <section className="py-section-y bg-surface-sunk">
           <Container>
-            <div className="max-w-6xl mx-auto">
+            <div className="mx-auto">
               <h2 className="text-h3 text-ink-strong mb-8 text-center">
                 Browse by Topic
               </h2>
@@ -162,7 +162,7 @@ export default async function BlogPage({
       {featuredPost && currentPage === 1 && (
         <section className="py-section-y bg-surface">
           <Container>
-            <div className="max-w-6xl mx-auto">
+            <div className="mx-auto">
               <h2 className="text-h3 text-ink-strong mb-8">Featured Story</h2>
               <Card hover accent>
                 <div className="grid md:grid-cols-2 gap-0 overflow-hidden">
@@ -223,7 +223,7 @@ export default async function BlogPage({
       {/* Other Posts */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             <h2 className="text-h3 text-ink-strong mb-8">
               {currentPage === 1 ? 'Latest Stories' : 'All Stories'}
             </h2>
@@ -371,7 +371,7 @@ export default async function BlogPage({
           <h2 className="text-h2 text-anchor-cream-text mb-8">
             Stay Connected
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+          <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
             Don&apos;t miss out on our latest news and events. Visit us for the full experience!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

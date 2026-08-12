@@ -62,7 +62,7 @@ export function VenueTourTeaser({
   }
 
   return (
-    <div className={cn('mx-auto max-w-6xl', className)} data-venue-tour="teaser">
+    <div className={cn('mx-auto ', className)} data-venue-tour="teaser">
       <div className="overflow-hidden rounded-md border border-line bg-surface shadow-md">
         <div className="grid items-stretch lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex items-center overflow-hidden bg-surface-sunk">

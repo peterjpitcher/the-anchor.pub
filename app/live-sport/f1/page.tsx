@@ -42,7 +42,7 @@ export default function F1Page() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle className="text-accent-text mb-4">
                             The Fast Lane
                         </PageTitle>
@@ -55,7 +55,7 @@ export default function F1Page() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Race Day Essentials"
                             subtitle="We've got the setup to match the speed."
@@ -87,7 +87,7 @@ export default function F1Page() {
                             ))}
                         </Grid>
 
-                        <Alert variant="info" title="Global Timings" className="max-w-2xl mx-auto mt-8">
+                        <Alert variant="info" title="Global Timings" className="mx-auto mt-8">
                             <p>We show all races that fall within our opening hours. For early morning races (Australia/Japan), please check our social media to see if we're opening early.</p>
                         </Alert>
                     </div>

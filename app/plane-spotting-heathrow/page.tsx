@@ -91,7 +91,7 @@ export default async function PlaneSpottingHeathrowPage() {
         lead="Plan a spotting visit from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
       />
 
-      <AmenityStrip />
+      <AmenityStrip/>
 
       <section className="py-section-y bg-canvas">
         <Container>
@@ -105,7 +105,7 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <section className="py-section-y bg-surface">
         <Container>
-          <p className="mx-auto max-w-4xl text-center text-lg text-ink-muted">
+          <p className="mx-auto text-center text-lg text-ink-muted">
             Looking for a Heathrow viewing area with food and shelter? The Anchor is the commercial landing page for visiting our beer garden. For a full comparison of every spotting location, use our dedicated Heathrow plane spotting locations guide.
           </p>
           <div className="mt-4 flex justify-center">
@@ -130,7 +130,7 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
+          <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent hover>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast Before/After Spotting</h3>
@@ -233,7 +233,7 @@ export default async function PlaneSpottingHeathrowPage() {
             title="Plan Your Heathrow Plane Watching Trip"
             lead="Make the most of every arrival with timings, transport and kit tips."
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto">
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Best Times to Visit</h3>

@@ -45,7 +45,7 @@ export default function SustainabilityPage() {
       {/* Intro */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center">
             <p className="text-lg text-ink-muted leading-relaxed">
               We take our environmental responsibilities seriously, not because it&rsquo;s a marketing opportunity,
               but because it&rsquo;s the right thing to do. Here&rsquo;s what we&rsquo;re doing, what it means in practice,
@@ -58,7 +58,7 @@ export default function SustainabilityPage() {
       {/* BII Sustainability Champion */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="BII Sustainability Champion"
               align="left"
@@ -84,7 +84,7 @@ export default function SustainabilityPage() {
       {/* What We Do */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What we do"
               lead="Three technologies that make a practical difference"
@@ -163,7 +163,7 @@ export default function SustainabilityPage() {
       {/* In the Community */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="In the community"
               align="left"
@@ -190,7 +190,7 @@ export default function SustainabilityPage() {
       {/* What We're Not Claiming */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What we're not claiming"
               align="left"
@@ -211,7 +211,7 @@ export default function SustainabilityPage() {
       {/* What You'll Notice */}
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto">
             <SectionHeading
               title="What you'll notice as a guest"
               align="left"

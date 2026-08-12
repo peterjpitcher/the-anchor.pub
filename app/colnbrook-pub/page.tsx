@@ -101,7 +101,7 @@ export default function ColnbrookPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <PageTitle
                             seo={{
                                 structured: true,
@@ -120,7 +120,7 @@ export default function ColnbrookPubPage() {
 
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Perfect for After-Work Drinks & Team Lunches"
                             lead="Avoid the airport traffic and unwind in a proper pub."
@@ -146,7 +146,7 @@ export default function ColnbrookPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="Corporate & Team Events"
                         />
@@ -184,7 +184,7 @@ export default function ColnbrookPubPage() {
             {/* Colnbrook & Poyle Local Knowledge */}
             <section className="py-section-y bg-surface">
                 <Container>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="mx-auto">
                         <SectionHeading
                             title="The Closest Proper Pub to Poyle & Colnbrook"
                             className="text-center mb-8"
@@ -222,11 +222,11 @@ export default function ColnbrookPubPage() {
 
             <section className="py-section-y bg-canvas">
                 <Container>
-                    <div className="max-w-2xl mx-auto text-center">
+                    <div className="mx-auto text-center">
                         <SectionHeading
                             title="Opening Hours"
                         />
-                        <BusinessHours />
+                        <BusinessHours/>
                     </div>
                 </Container>
             </section>

@@ -255,9 +255,9 @@ export default async function FoodMenuPage() {
           { name: 'Food Menu', url: '/food-menu' }
         ]}
       />
-      <SpeakableSchema />
+      <SpeakableSchema/>
       <MenuPageTracker menuType="food" specialOffers={[]} />
-      <ScrollDepthTracker />
+      <ScrollDepthTracker/>
 
       {/* 1. Hero (§7.2.1): kitchen-closed days are never hardcoded; hours are API-only. */}
       <InteriorHero
@@ -295,7 +295,7 @@ export default async function FoodMenuPage() {
       />
 
       {/* 2. AmenityStrip (§7.2.2) */}
-      <AmenityStrip />
+      <AmenityStrip/>
 
       {/* 3. Menu (§7.2.3): cream, live menu data, dietary filter chips. */}
       <section id="menu" className="bg-canvas py-section-y">
@@ -307,7 +307,7 @@ export default async function FoodMenuPage() {
             lead="Everything below is the kitchen's current food and kids menus. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
           />
           {showChristmasLink && (
-            <p className="mx-auto mb-10 max-w-[920px] text-center text-ink-muted">
+            <p className="mx-auto mb-10 text-center text-ink-muted">
               Booking a group over Christmas? Festive service runs {formatChristmasWindowLabel()} on a
               separate menu, released closer to the time. See our{' '}
               <Link
@@ -324,7 +324,7 @@ export default async function FoodMenuPage() {
               id: category.id,
               label: category.title
             }))}
-            className="mx-auto mb-10 max-w-[920px]"
+            className="mx-auto mb-10"
           />
           <FoodMenuSection menuData={combinedMenuData} />
         </div>

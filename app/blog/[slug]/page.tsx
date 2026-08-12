@@ -165,7 +165,7 @@ function getBlogOrganicSearchCluster(slug: string, tags: string[]): OrganicSearc
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogPost(params.slug)
-  
+
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -227,7 +227,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const nextPost = currentIndex < navigationPosts.length - 1 ? navigationPosts[currentIndex + 1] : null
 
   // Distribute images throughout content only if images array has items
-  const contentWithImages = post.images && post.images.length > 0 
+  const contentWithImages = post.images && post.images.length > 0
     ? distributeImages(post.htmlContent || '', post.images, post.slug, post.imageAlts)
     : post.htmlContent || ''
 
@@ -360,7 +360,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           )
         }}
       />
-      <ScrollDepthTracker />
+      <ScrollDepthTracker/>
       {organicSearchCluster === 'planeSpotting' ? (
         <PlaneSpottingBookingPrompt source="blog_plane_spotting_prompt" />
       ) : null}
@@ -394,32 +394,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
       {/* Content */}
       <article className="py-section-y bg-canvas">
-        <Container size="md">
-          <div className="prose prose-lg lg:prose-xl max-w-[70ch] mx-auto
-                prose-headings:font-display prose-headings:font-normal prose-headings:text-ink-strong
-                prose-h2:text-h3 prose-h2:mt-12 prose-h2:mb-6
-                prose-h3:text-h4 prose-h3:mt-10 prose-h3:mb-4
-                prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3
-                prose-p:text-ink prose-p:leading-relaxed prose-p:mb-6
-                prose-a:text-accent-text prose-a:font-semibold prose-a:no-underline
-                hover:prose-a:underline prose-a:transition-colors hover:prose-a:text-link-hover
-                prose-strong:text-ink-strong prose-strong:font-semibold
-                prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
-                prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
-                prose-li:text-ink prose-li:mb-2
-                prose-img:rounded-md prose-img:shadow-sm prose-img:ring-1 prose-img:ring-line
-                prose-img:my-8 prose-img:w-full prose-img:max-w-full prose-img:mx-auto
-                sm:prose-img:max-w-xl lg:prose-img:max-w-[420px] xl:prose-img:max-w-[460px]
-                prose-figure:my-8 prose-figure:mx-auto prose-figure:max-w-full
-                sm:prose-figure:max-w-xl lg:prose-figure:max-w-[420px] xl:prose-figure:max-w-[460px]
-                prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold prose-blockquote:pl-6
-                prose-blockquote:italic prose-blockquote:text-ink-muted prose-blockquote:my-8
-                prose-code:bg-surface-sunk prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-surface-sunk prose-pre:text-ink
-                prose-table:my-8 prose-th:bg-surface-sunk prose-th:text-ink-strong
-                prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-line prose-td:px-6 prose-td:py-3 prose-td:text-ink
-                prose-hr:border-line prose-hr:my-12">
+        <Container>
+          <div className="prose prose-lg lg:prose-xl max-w-[70ch] mx-auto prose-headings:font-display prose-headings:font-normal prose-headings:text-ink-strong prose-h2:text-h3 prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-h4 prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-ink prose-p:leading-relaxed prose-p:mb-6 prose-a:text-accent-text prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-a:transition-colors hover:prose-a:text-link-hover prose-strong:text-ink-strong prose-strong:font-semibold prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6 prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-ink prose-li:mb-2 prose-img:rounded-md prose-img:shadow-sm prose-img:ring-1 prose-img:ring-line prose-img:my-8 prose-img:w-full prose-img:max-w-full prose-img:mx-auto sm:prose-img:max-w-xl lg:prose-img:max-w-[420px] xl:prose-img:max-w-[460px] prose-figure:my-8 prose-figure:mx-auto prose-figure:max-w-full sm:prose-figure:max-w-xl lg:prose-figure:max-w-[420px] xl:prose-figure:max-w-[460px] prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-ink-muted prose-blockquote:my-8 prose-code:bg-surface-sunk prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-pre:bg-surface-sunk prose-pre:text-ink prose-table:my-8 prose-th:bg-surface-sunk prose-th:text-ink-strong prose-th:font-semibold prose-th:px-6 prose-th:py-3 prose-td:border prose-td:border-line prose-td:px-6 prose-td:py-3 prose-td:text-ink prose-hr:border-line prose-hr:my-12">
             <div dangerouslySetInnerHTML={{ __html: contentWithImages }} />
           </div>
         </Container>
@@ -436,7 +412,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       {/* Heathrow / Plane-Spotting Booking CTA, only shown for relevant posts */}
       {showHeathrowCta && (
         <section className="py-section-y bg-surface border-y border-line">
-          <Container size="md">
+          <Container>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <div className="flex-1">
                 <h2 className="font-display text-h4 text-ink-strong mb-2">
@@ -466,7 +442,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
       {/* Share Section */}
       <section className="py-section-y bg-surface-sunk border-b border-line">
-        <Container size="md">
+        <Container>
           <div className="text-center">
             <p className="text-ink-muted mb-4">Enjoyed this article? Share it with your friends!</p>
             <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
@@ -518,11 +494,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
       {/* CTA Section */}
       <section className="theme-dark bg-anchor-green py-section-y">
-        <Container size="md" className="text-center text-anchor-cream-text">
+        <Container className="text-center text-anchor-cream-text">
           <h2 className="text-h2 text-anchor-cream-text mb-8">
             Visit The Anchor Today
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-anchor-cream-text/85">
+          <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
             Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
