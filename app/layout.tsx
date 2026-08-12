@@ -18,6 +18,7 @@ import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvi
 import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalSkin, getSeasonalSkinStyle } from '@/lib/winter-season'
+import { getHeaderPromoCtas } from '@/lib/header-promos'
 import { IcicleLights } from '@/components/seasonal/IcicleLights'
 import {
   PRIVATE_HIRE_2026_PROMO_ENABLED,
@@ -132,41 +133,12 @@ export default function RootLayout({
   const now = new Date()
   const privateHirePromoActive =
     PRIVATE_HIRE_2026_PROMO_ENABLED && now.getTime() < PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
-  const promoCtaButtons = [
-    {
-      label: "Valentine's Day",
-      href: '/valentines-day',
-      external: false,
-      variant: 'outline' as const,
-      startsOn: '2026-02-14',
-      endsOn: '2026-02-14'
-    },
-    {
-      label: "Mother's Day",
-      href: '/mothers-day',
-      external: false,
-      variant: 'outline' as const,
-      startsOn: '2026-03-15',
-      endsOn: '2026-03-15'
-    },
-    {
-      label: 'World Cup 2026',
-      href: '/live-sport/world-cup',
-      external: false,
-      variant: 'outline' as const,
-      startsOn: '2026-06-11',
-      endsOn: '2026-07-19'
-    },
-    {
-      label: 'Christmas 2026',
-      href: '/christmas-parties',
-      external: false,
-      variant: 'outline' as const,
-      startsOn: '2026-11-10',
-      endsOn: '2026-12-20',
-      leadDays: 101
-    }
-  ]
+  // Date-windowed header links, computed from the London year so they renew
+  // themselves. These used to be 2026 literals, which meant every one of them
+  // would have gone dark on 1 January 2027. The World Cup entry has been
+  // removed rather than left: its window closed on 19 July 2026, so it could
+  // never display again and was just dead config.
+  const promoCtaButtons = getHeaderPromoCtas()
 
   // Seasonal skin. A pure function of the London date (lib/winter-season.ts):
   // dark surfaces 1 Sep to 31 Mar, lights and frost 1 Nov to 31 Dec. Setting
