@@ -27,6 +27,8 @@ import {
 const DEFAULT_IMAGE = '/images/page-headers/home/page-headers-homepage.jpg'
 const seasonalSrc = (season: string) =>
   `/images/page-headers/home/seasonal/${season}/page-headers-homepage.jpg`
+const monthlySrc = (month: string) =>
+  `/images/page-headers/home/monthly/${month}/page-headers-homepage.jpg`
 
 // Noon UTC is safe across both GMT and BST — London is never more than one hour
 // ahead, so 12:00 UTC never crosses a day boundary. (See lib/time-london.ts.)
@@ -141,32 +143,39 @@ describe('getSeasonalHomepageImage', () => {
   })
 
   describe('date-based season mapping', () => {
-    // [label, date, expected season, expected asset season]
+    // [label, date, expected season, expected monthly folder]
+    //
+    // The `season` field still drives alt text and the focal point, but the
+    // src no longer comes from it: all twelve monthly photos are now supplied,
+    // so getMonthlyHomepageImagePath wins and the seasonal/ assets are only a
+    // fallback for a month that has not been shot yet. Note November 12 is
+    // where December's photo takes over, matching the date the christmas
+    // seasonal asset has always switched on.
     const cases: Array<[string, Date, SeasonalImage['season'], string]> = [
-      ['January 1 (winter lower boundary)', utcNoon(2026, 0, 1), 'winter', 'winter'],
-      ['February 28 (winter)', utcNoon(2026, 1, 28), 'winter', 'winter'],
-      ['February 29 in a leap year (winter upper boundary)', utcNoon(2024, 1, 29), 'winter', 'winter'],
-      ['March 1 (spring lower boundary)', utcNoon(2026, 2, 1), 'spring', 'spring'],
-      ['May 31 (spring upper boundary)', utcNoon(2026, 4, 31), 'spring', 'spring'],
-      ['June 1 (summer lower boundary)', utcNoon(2026, 5, 1), 'summer', 'summer'],
-      ['August 31 (summer upper boundary)', utcNoon(2026, 7, 31), 'summer', 'summer'],
-      ['September 1 (autumn lower boundary)', utcNoon(2026, 8, 1), 'autumn', 'autumn'],
-      ['September 30 (autumn upper boundary)', utcNoon(2026, 8, 30), 'autumn', 'autumn'],
-      ['October 1 (halloween lower boundary)', utcNoon(2026, 9, 1), 'halloween', 'halloween'],
-      ['October 31 (halloween upper boundary)', utcNoon(2026, 9, 31), 'halloween', 'halloween'],
+      ['January 1 (winter lower boundary)', utcNoon(2026, 0, 1), 'winter', 'january'],
+      ['February 28 (winter)', utcNoon(2026, 1, 28), 'winter', 'february'],
+      ['February 29 in a leap year (winter upper boundary)', utcNoon(2024, 1, 29), 'winter', 'february'],
+      ['March 1 (spring lower boundary)', utcNoon(2026, 2, 1), 'spring', 'march'],
+      ['May 31 (spring upper boundary)', utcNoon(2026, 4, 31), 'spring', 'may'],
+      ['June 1 (summer lower boundary)', utcNoon(2026, 5, 1), 'summer', 'june'],
+      ['August 31 (summer upper boundary)', utcNoon(2026, 7, 31), 'summer', 'august'],
+      ['September 1 (autumn lower boundary)', utcNoon(2026, 8, 1), 'autumn', 'september'],
+      ['September 30 (autumn upper boundary)', utcNoon(2026, 8, 30), 'autumn', 'september'],
+      ['October 1 (halloween lower boundary)', utcNoon(2026, 9, 1), 'halloween', 'october'],
+      ['October 31 (halloween upper boundary)', utcNoon(2026, 9, 31), 'halloween', 'october'],
       // Remembrance keeps its own season label but reuses the autumn asset.
-      ['November 1 (remembrance lower boundary)', utcNoon(2026, 10, 1), 'remembrance', 'autumn'],
-      ['November 11 (remembrance upper boundary)', utcNoon(2026, 10, 11), 'remembrance', 'autumn'],
-      ['November 12 (remembrance to christmas crossover)', utcNoon(2026, 10, 12), 'christmas', 'christmas'],
-      ['December 1 (christmas)', utcNoon(2026, 11, 1), 'christmas', 'christmas'],
-      ['December 31 (christmas upper boundary)', utcNoon(2026, 11, 31), 'christmas', 'christmas'],
+      ['November 1 (remembrance lower boundary)', utcNoon(2026, 10, 1), 'remembrance', 'november'],
+      ['November 11 (remembrance upper boundary)', utcNoon(2026, 10, 11), 'remembrance', 'november'],
+      ['November 12 (remembrance to christmas crossover)', utcNoon(2026, 10, 12), 'christmas', 'december'],
+      ['December 1 (christmas)', utcNoon(2026, 11, 1), 'christmas', 'december'],
+      ['December 31 (christmas upper boundary)', utcNoon(2026, 11, 31), 'christmas', 'december'],
     ]
 
     // Default jsdom env: window present -> validation short-circuits to true,
-    // so the seasonal asset path is always returned.
-    it.each(cases)('should resolve %s', (_label, date, season, assetSeason) => {
+    // so the resolved asset path is always returned.
+    it.each(cases)('should resolve %s', (_label, date, season, monthFolder) => {
       expect(getSeasonalHomepageImage(date)).toEqual({
-        src: seasonalSrc(assetSeason),
+        src: monthlySrc(monthFolder),
         season,
         fallback: DEFAULT_IMAGE,
       })
@@ -196,7 +205,7 @@ describe('getSeasonalHomepageImage', () => {
       expect(warnSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           '[Seasonal Image] Falling back to default header image. Missing asset at ' +
-            seasonalSrc('winter')
+            monthlySrc('january')
         )
       )
       expect(result.src).toBe(DEFAULT_IMAGE)
@@ -213,7 +222,7 @@ describe('getSeasonalHomepageImage', () => {
       // window short-circuit means fs is never consulted.
       expect(existsSpy).not.toHaveBeenCalled()
       expect(result).toEqual({
-        src: seasonalSrc('autumn'),
+        src: monthlySrc('september'),
         season: 'autumn',
         fallback: DEFAULT_IMAGE,
       })
@@ -228,7 +237,7 @@ describe('getSeasonalHomepageImage', () => {
 
       expect(existsSpy).not.toHaveBeenCalled()
       expect(result).toEqual({
-        src: seasonalSrc('halloween'),
+        src: monthlySrc('october'),
         season: 'halloween',
         fallback: DEFAULT_IMAGE,
       })
@@ -245,9 +254,9 @@ describe('getSeasonalHomepageImage', () => {
       const result = getSeasonalHomepageImage(utcNoon(2026, 6, 1))
 
       expect(logSpy).toHaveBeenCalledWith(
-        '[Seasonal Image] Serving summer image: ' + seasonalSrc('summer')
+        '[Seasonal Image] Serving summer image: ' + monthlySrc('july')
       )
-      expect(result.src).toBe(seasonalSrc('summer'))
+      expect(result.src).toBe(monthlySrc('july'))
     })
 
     it('should NOT log the serving message under jsdom even with SEASONAL_IMAGE_LOGS="true"', () => {

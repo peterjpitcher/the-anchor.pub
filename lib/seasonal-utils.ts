@@ -25,7 +25,10 @@ export type MonthFolder = (typeof MONTH_FOLDERS)[number]
  * commit as its image file, never before: `validateSeasonalImage()` short-
  * circuits to true in production, so a listed-but-missing file would 404 live.
  */
-export const AVAILABLE_MONTHLY_HEROES: readonly MonthFolder[] = []
+export const AVAILABLE_MONTHLY_HEROES: readonly MonthFolder[] = [
+  'january', 'february', 'march', 'april', 'may', 'june',
+  'july', 'august', 'september', 'october', 'november', 'december'
+]
 
 /**
  * The month folder whose photo should be showing on a given London date.
