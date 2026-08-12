@@ -27,9 +27,26 @@ export type MonthFolder = (typeof MONTH_FOLDERS)[number]
  */
 export const AVAILABLE_MONTHLY_HEROES: readonly MonthFolder[] = []
 
-/** Monthly hero path for a 1-12 month number, or null if no photo exists yet. */
-export function getMonthlyHomepageImagePath(month: number): string | null {
-  const folder = MONTH_FOLDERS[month - 1]
+/**
+ * The month folder whose photo should be showing on a given London date.
+ *
+ * Every month switches on its 1st, with one exception the owner set on
+ * 12 August 2026: **December's photo comes in early, on 12 November.** That is
+ * the same date the seasonal christmas asset has always switched on, so the
+ * two stay in step, and it gives the Christmas shot the full run-up rather
+ * than only the last three weeks of the year.
+ *
+ * The consequence is that November's own photo only shows from the 1st to the
+ * 11th, which is the Remembrance window.
+ */
+export function resolveMonthlyHeroFolder(month: number, day: number): MonthFolder | null {
+  if (month === 11 && day >= 12) return 'december'
+  return MONTH_FOLDERS[month - 1] ?? null
+}
+
+/** Monthly hero path for a London date, or null if that month has no photo yet. */
+export function getMonthlyHomepageImagePath(month: number, day: number): string | null {
+  const folder = resolveMonthlyHeroFolder(month, day)
   if (!folder || !AVAILABLE_MONTHLY_HEROES.includes(folder)) return null
   return `/images/page-headers/home/monthly/${folder}/page-headers-homepage.jpg`
 }
@@ -103,7 +120,7 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
   const imageSeason = season === 'remembrance' ? 'autumn' : season
   // A supplied monthly photo wins; otherwise fall back to the season's asset.
   imagePath =
-    getMonthlyHomepageImagePath(month) ??
+    getMonthlyHomepageImagePath(month, day) ??
     `/images/page-headers/home/seasonal/${imageSeason}/page-headers-homepage.jpg`
 
   if (!validateSeasonalImage(imagePath)) {
