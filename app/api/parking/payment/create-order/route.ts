@@ -45,9 +45,23 @@ export async function POST(request: NextRequest) {
 
   // Derive an idempotency key from the booking fingerprint so duplicate button
   // clicks don't create duplicate bookings.
+  //
+  // The fingerprint must be built from exactly the fields the management API
+  // hashes the payload with (start_at, end_at, mobile_number, registration,
+  // communication_consent, see src/app/api/parking/bookings/route.ts). Anything
+  // it hashes that we leave out reuses one key for two different payloads, and
+  // the API answers 409 IDEMPOTENCY_KEY_CONFLICT for 24 hours: end_at was
+  // missing here, so a guest who corrected only their departure time and
+  // pressed PayPal again was locked out of booking at all.
+  //
+  // Registration is normalised the same way the API normalises it before
+  // hashing, for the mirror-image reason: re-typing "AB12 CDE" as "ab12cde" is
+  // the same booking to the API, so it must not mint a second key and create a
+  // second booking.
   const communicationConsent = sanitizeCommunicationConsent(parsed.data.communication_consent)
+  const registrationFingerprint = parsed.data.vehicle.registration.replace(/\s+/g, '').toUpperCase()
   const idempotencyKey = Buffer.from(
-    `${parsed.data.customer.mobile_number}|${parsed.data.vehicle.registration}|${parsed.data.start_at}|${communicationConsentIdempotencyPart(communicationConsent)}`
+    `${parsed.data.customer.mobile_number}|${registrationFingerprint}|${parsed.data.start_at}|${parsed.data.end_at}|${communicationConsentIdempotencyPart(communicationConsent)}`
   ).toString('base64')
 
   try {

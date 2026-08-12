@@ -4,6 +4,10 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { Container } from '@/components/ui'
+// Read the version from the constant rather than restating it, so the policy
+// cannot drift from the wording actually recorded against a guest's consent.
+// It had been stuck at v1 while the code moved to v3.
+import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy & Cookie Policy',
@@ -94,7 +98,7 @@ export default function PrivacyPolicyPage() {
             <li>Comply with legal obligations</li>
           </ul>
           <p>
-            Guest communication consent is recorded against the wording version guest-comms-consent-v1. Marketing consent is optional, unchecked by default, and recorded separately for email, SMS, and WhatsApp. Clicking a WhatsApp contact link does not by itself opt you in to WhatsApp messages or marketing.
+            Guest communication consent is recorded against the wording version {GUEST_COMMS_CONSENT_TEXT_VERSION}. Marketing consent is optional, unchecked by default, and recorded separately for email, SMS, and WhatsApp. Clicking a WhatsApp contact link does not by itself opt you in to WhatsApp messages or marketing.
           </p>
 
           <h2>5. Cookie Policy</h2>

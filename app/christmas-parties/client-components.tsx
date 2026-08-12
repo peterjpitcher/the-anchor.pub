@@ -384,7 +384,7 @@ function buildFaqItems(season: ChristmasSeasonView, facts: ChristmasFactsView) {
     },
     {
       question: 'What Christmas entertainment do you run?',
-      answer: 'A Christmas quiz. That is the festive entertainment we put on, so ask about it when you enquire and we will tell you what is running around your date. There is no Christmas karaoke and no Christmas live band, and we do not sell an entertainment package on top of your booking. If your group wants a big production, a hotel will suit you better than we will.'
+      answer: 'A Christmas quiz, and we can arrange a DJ if your group wants one. Ask when you enquire and we will tell you what is running around your date. A DJ is not included as standard, it is something you request. There is no Christmas karaoke and no Christmas live band. If your group wants a full production with a dance floor and a ticketed room of strangers, a hotel will suit you better than we will.'
     },
     {
       question: 'Is parking available?',
@@ -450,12 +450,15 @@ const WHY_BOOK_REASONS = [
 /**
  * The formats a Christmas booking here can actually take.
  *
- * Owner-confirmed 11 August 2026: the Christmas quiz is the only festive
- * entertainment, there is no Christmas karaoke and no live band. The karaoke
- * and live band entries were removed on that date and must not come back.
- * Music bingo is a year-round format with no Christmas edition, so it is not
- * listed here as a Christmas event either. Never add a DJ, a dance floor or an
- * entertainment package sold on top of a booking.
+ * Owner-confirmed 11 August 2026: the Christmas quiz is the festive
+ * entertainment we put on, and a DJ can be arranged ON REQUEST. There is no
+ * Christmas karaoke and no live band, and those entries were removed on that
+ * date and must not come back. Music bingo is a year-round format with no
+ * Christmas edition, so it is not listed here as a Christmas event either.
+ *
+ * A DJ must never be presented as included, as a package, or as a scheduled
+ * part of the evening. It is something a group asks for. Never add a dance
+ * floor or a shared party night.
  */
 function buildPartyIdeas(facts: ChristmasFactsView) {
   return [

@@ -29,6 +29,9 @@ type SpecialDay = {
   status?: 'modified' | 'closed';
   note?: string;
   reason?: string;
+  // The management API has always sent `status`, and sends `is_kitchen_closed`
+  // on every entry. `is_closed` is newer, so both are treated as optional and
+  // the code below still resolves correctly when only `status` arrives.
   is_closed?: boolean;
   is_kitchen_closed?: boolean;
 };
@@ -49,16 +52,28 @@ export function getEffectiveDayHours(
 
   if (!special) return base;
 
-  // Special hours override regular hours completely when present
+  // A special-hours entry is an exception for one date, so its closure flags
+  // replace the regular day's rather than being combined with them. Reading the
+  // regular day here meant an exception could not open anything the regular day
+  // had shut: a bank holiday that opens a normally-closed day rendered as
+  // closed, and a day with the bar open but the kitchen deliberately shut
+  // inherited the wrong kitchen state from the weekday it happens to fall on.
+  const venueClosed = special.is_closed ?? special.status === 'closed';
+
+  // Prefer the exception's own kitchen flag. Still treat a missing kitchen
+  // window as closed, because the venue being open says nothing about the
+  // kitchen and an advertised service with no times is worse than none.
+  const kitchenClosed =
+    special.is_kitchen_closed === true || venueClosed || special.kitchen == null;
+
+  // Times fall back to the regular day: an exception that only records a
+  // closure or a note carries no times of its own.
   return {
     opens: special.opens ?? base.opens ?? null,
     closes: special.closes ?? base.closes ?? null,
     kitchen: special.kitchen ?? null,
-    is_closed: special.status === 'closed' ? true : base.is_closed ?? false,
-    // No explicit flag in specials: if kitchen is null, treat as closed
-    is_kitchen_closed:
-      (special.kitchen == null) ||
-      (base.is_kitchen_closed ?? false),
+    is_closed: venueClosed,
+    is_kitchen_closed: kitchenClosed,
   };
 }
 

@@ -325,7 +325,7 @@
       "last_orders": "Last kitchen orders are 30 minutes before the kitchen closes.",
       "monday_default": "Kitchen usually closed on Mondays unless a special-hours record explicitly opens it.",
       "sunday_roast": "Sunday roast service is 1pm to 6pm; use live data for exceptions.",
-      "live_music_nights": "Do not claim late food service on live music nights unless the event record or live kitchen hours explicitly confirms it."
+      "event_nights": "Do not claim late food service on any event night unless the event record or live kitchen hours explicitly confirms it."
     },
     "menu_url": "https://www.the-anchor.pub/food-menu",
     "menu_categories": [
@@ -844,16 +844,23 @@
       "private_nights": "Available on request"
     },
     "live_music": {
-      "description": "Local bands, acoustic sets, tribute acts; usually weekends or special events.",
-      "entry": "Always free",
-      "typical_start": "8:30pm",
-      "end": "~11:30pm",
-      "age_restriction": "18+ after 9pm",
-      "capacity": 150,
-      "kitchen": "Use live kitchen hours or the event record. Do not claim kitchen open until midnight by default."
+      "status": "DISCONTINUED",
+      "_confirmed": "Owner-confirmed 11 August 2026",
+      "rule": "Live music is discontinued in full: no live bands, no acoustic sets, no tribute acts, no solo performers. Do not list, promote, schedule or link to live music, do not target live music keywords, and never describe The Anchor as a live music venue or a music pub.",
+      "retired_routes": [
+        "/live-music redirects to /whats-on",
+        "/blog/live-music-pubs-near-heathrow redirects to /whats-on"
+      ],
+      "superseded_details": "The previously published details (local bands, acoustic sets, tribute acts, always free entry, 8:30pm start, 11:30pm end, 18+ after 9pm, capacity 150) are superseded and must not be restored."
+    },
+    "dj": {
+      "schedule": "Booked in from time to time. Confirmed for Halloween and New Year's Eve.",
+      "christmas": "Can be arranged for a Christmas booking ON REQUEST. Not included by default and not part of a package, so never advertise it as included.",
+      "_confirmed": "Owner-confirmed 11 August 2026",
+      "rule": "Outside Halloween, New Year's Eve and on-request Christmas bookings, only promote a DJ when a specific event record lists one. Never imply a resident DJ or a regular DJ night."
     },
     "karaoke": {
-      "schedule": "Occasional, only promote when listed or confirmed",
+      "schedule": "Not a regular feature in 2026. Occasional only, promote solely when a specific event record lists it. Never imply a weekly, monthly or Friday slot.",
       "entry": "Free",
       "capacity": 50,
       "catalogue": "Use event listing if song-count detail is needed",
@@ -861,7 +868,9 @@
         "Free entry when listed",
         "Solo singers, duets and group singalongs welcome"
       ],
-      "host": "Use event listing; do not assume Nikki Manfadge or a fixed Friday schedule."
+      "host": "No fixed host. NOT hosted by Nikki Manfadge, who hosts Music Bingo. Take the host from the event record or name nobody.",
+      "schema_rule": "Do not publish a recurring EventSeries for karaoke. Individual nights get their own Event schema when listed.",
+      "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "nikkis_games_night": {
       "schedule": "Discontinued unless reintroduced in event listings",
@@ -884,7 +893,7 @@
       "format": "Expert-led sessions"
     },
     "retired_event_formats": {
-      "open_mic": "Discontinued. Do not list, promote, or link to open mic nights. The retired /open-mic route redirects to /live-music."
+      "open_mic": "Discontinued. Do not list, promote, or link to open mic nights. The retired /open-mic route redirects to /whats-on."
     }
   },
   "private_hire": {
@@ -1107,10 +1116,10 @@
       "christmas_quiz": true,
       "karaoke": false,
       "live_band": false,
-      "dj": false,
+      "dj": "ON_REQUEST",
       "dance_floor": false,
       "shared_party_night": false,
-      "rule": "A Christmas quiz runs and may be promoted. Never advertise Christmas karaoke, a live band, a DJ, a dance floor, a shared party night, or any entertainment package bolted onto a Christmas booking.",
+      "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "deposit": {

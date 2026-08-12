@@ -6,6 +6,7 @@ export type AnchorEventType =
   | 'quiz'
   | 'music_bingo'
   | 'cash_bingo'
+  /** Discontinued format. Recognised so it can be suppressed, never promoted. */
   | 'live_music'
   | 'karaoke'
   | 'sport'
@@ -56,7 +57,22 @@ export function getEventType(event: Pick<Event, 'name' | 'slug' | 'category'>): 
   if (joined.includes('cash bingo') || (joined.includes('bingo') && !joined.includes('music'))) return 'cash_bingo'
   if (joined.includes('quiz') || joined.includes('trivia')) return 'quiz'
   if (joined.includes('karaoke')) return 'karaoke'
-  if (joined.includes('live music') || joined.includes('band') || joined.includes('acoustic')) return 'live_music'
+  // Kept on purpose, even though live music is discontinued in full
+  // (docs/SSOT.md §"Live Music, DISCONTINUED", owner-confirmed 11 August 2026).
+  //
+  // This function classifies whatever the management API returns, and this repo
+  // does not control that data. Deleting the branch would not remove a stale
+  // live music record, it would make one arrive as 'other' and lose the single
+  // label that says what it is. Classifying is not promoting: the gate that
+  // keeps such an event out of search is isDiscontinuedFormatEvent() in
+  // lib/event-seo-strategy.ts, and nothing renders off this type.
+  //
+  // If you add a consumer for 'live_music', it may only recognise or suppress.
+  // It must never list, link to or advertise the format.
+  //
+  // Word boundaries on band/acoustic because the old bare substring check also
+  // matched 'abandoned' and 'wristband'.
+  if (joined.includes('live music') || /\b(bands?|acoustic)\b/.test(joined)) return 'live_music'
   if (joined.includes('sport') || joined.includes('football') || joined.includes('rugby') || joined.includes('f1')) return 'sport'
 
   return 'other'

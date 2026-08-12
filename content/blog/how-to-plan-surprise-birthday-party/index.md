@@ -140,7 +140,7 @@ Beyond the logistics, here are ideas that elevate a surprise party from "nice ev
 
 **An activity round.** If the group is up for it, a quick round of a game works brilliantly. "Two truths and a lie" about the birthday person, a quiz about their life, or even a bingo card with things guests might say during the evening ("remember that time in Benidorm?").
 
-**Live music or a surprise performer.** Some pubs host live music regularly. Time your party with a music night for built-in entertainment, or arrange a singer to perform a couple of the birthday person's favourite songs.
+**A surprise performer.** Arrange a singer to perform a couple of the birthday person's favourite songs, or book a DJ for the last hour if your venue allows it. Check with the venue first, not every pub can host one.
 
 ## Why a Pub Works Better Than a Restaurant or Hired Hall
 

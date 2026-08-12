@@ -37,7 +37,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Karaoke Near Heathrow | Free Entry When Listed',
@@ -64,6 +63,12 @@ const KARAOKE_CATEGORIES = [
         slug: 'karaoke-night'
     },
     {
+        // Legacy category matcher only. Nikki Manfadge does NOT host karaoke
+        // (owner-confirmed 11 August 2026), she hosts Music Bingo. This entry is
+        // kept so any older event still filed under this category in the
+        // management app is still found and listed, rather than silently
+        // disappearing from the page. Do not use this name in new copy, and
+        // retire the category in the management app when convenient.
         name: "Nikki's Karaoke Night",
         slug: 'nikkis-karaoke-night'
     }
@@ -119,8 +124,8 @@ const WHY_LOVE_IT = [
     },
     {
         icon: '',
-        title: 'Hosted by Nikki Manfadge',
-        body: 'Nikki keeps the energy high, the queue moving, and the crowd singing along. Duets with Nikki, lip sync battles, props and costumes provided.'
+        title: 'A proper host on the night',
+        body: 'Whoever is hosting keeps the energy high, the queue moving and the crowd singing along. Check the event listing to see who is on.'
     },
     {
         icon: '',
@@ -133,7 +138,7 @@ const FAQS = [
     {
         question: 'When is karaoke night?',
         answer:
-            'Karaoke is on Fridays from 8pm to 11pm, hosted by Nikki Manfadge. Check the upcoming dates below or our What\'s On page to confirm the next session.'
+            'Karaoke runs occasionally rather than to a fixed weekly slot, so there is no standing Friday night. Check the upcoming dates below or our What\'s On page for the next confirmed session.'
     },
     {
         question: 'Do I have to pay to sing?',
@@ -247,53 +252,17 @@ export default async function KaraokePage() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
-                    "@context": "https://schema.org",
-                    "@type": "EventSeries",
-                    "@id": "https://www.the-anchor.pub/#karaoke-series",
-                    "name": "Karaoke Nights at The Anchor",
-                    "description": "Karaoke nights when listed or confirmed. Free entry, free parking, around 7 mins from Heathrow T5, traffic dependent.",
-                    "startDate": "2024-01-01",
-                    "endDate": "2026-12-31",
-                    "eventSchedule": {
-                        "@type": "Schedule",
-                        "repeatFrequency": "P1M",
-                        "startTime": "20:00:00",
-                        "endTime": "23:00:00",
-                        "scheduleTimezone": "Europe/London"
-                    },
-                    "location": {
-                        "@type": "Place",
-                        "name": "The Anchor",
-                        "address": {
-                            "@type": "PostalAddress",
-                            "streetAddress": "Horton Road",
-                            "addressLocality": "Stanwell Moor",
-                            "addressRegion": "Surrey",
-                            "postalCode": "TW19 6AQ",
-                            "addressCountry": "GB"
-                        }
-                    },
-                    "offers": {
-                        "@type": "Offer",
-                        "price": "0",
-                        "priceCurrency": "GBP",
-                        "availability": "https://schema.org/InStock",
-                        "description": "Free entry"
-                    },
-                    "performer": {
-                        "@type": "Person",
-                        "name": "Nikki Manfadge",
-                        "jobTitle": "Entertainment Host",
-                        "worksFor": { "@id": "https://www.the-anchor.pub/#organization" }
-                    },
-                    "organizer": {
-                        "@id": "https://www.the-anchor.pub/#organization"
-                    }
-                }) }}
-            />
+            {/*
+              * No EventSeries schema here on purpose. Owner-confirmed 11 August 2026:
+              * karaoke is not a regular feature this year and has no fixed host. The
+              * schema previously declared a monthly series ("repeatFrequency": "P1M")
+              * running to 2026-12-31 with Nikki Manfadge as the performer, none of
+              * which is true. Nikki hosts Music Bingo, not karaoke.
+              *
+              * Individual karaoke nights still get their own Event schema from the
+              * events system whenever one is actually listed, which is the honest
+              * place for it. Do not reinstate a recurring series here.
+              */}
             <InteriorHero
                 image="/images/page-headers/home/page-headers-homepage.jpg"
                 crumb="Karaoke"
@@ -313,7 +282,7 @@ export default async function KaraokePage() {
                         Karaoke Pub Near Heathrow, Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-ink-muted text-center max-w-3xl mx-auto">
-                        Ready to unleash your inner rock star? The Anchor&rsquo;s karaoke nights are legendary in Stanwell Moor. Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. One of the best things to do near Heathrow on a Friday night, it&rsquo;s the perfect place to let loose. {heroDescription}
+                        Ready to unleash your inner rock star? Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Karaoke runs occasionally rather than every week, so check the dates below before you set off. {heroDescription}
                     </p>
                 </Container>
             </section>
@@ -463,7 +432,7 @@ export default async function KaraokePage() {
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
                         <p className="text-ink-muted">
-                            Looking for more entertainment near Heathrow? Catch a gig at our <Link href="/live-music" className="text-accent-text font-semibold hover:text-accent-text transition">live music nights</Link> featuring local bands and acoustic sessions, or rally your team for our monthly <Link href="/quiz-night" className="text-accent-text font-semibold hover:text-accent-text transition">pub quiz night</Link> with a £25 bar tab up for grabs.
+                            Looking for more entertainment near Heathrow? Rally your team for our monthly <Link href="/quiz-night" className="text-accent-text font-semibold hover:text-accent-text transition">pub quiz night</Link> with a £25 bar tab up for grabs, or play along at <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge.
                         </p>
                     </div>
                 </Container>

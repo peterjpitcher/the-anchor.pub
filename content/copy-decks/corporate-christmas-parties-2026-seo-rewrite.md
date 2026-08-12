@@ -1,5 +1,15 @@
 # Corporate Christmas Parties Page, SEO Copy Rewrite 2026
 
+> **SUPERSEDED, DO NOT APPLY. Added 11 August 2026.**
+>
+> This deck was written on 2026-04-11 and predates several owner decisions. It contains copy that now breaks the SSOT and must not be pasted into any page:
+>
+> - "Bring a DJ, book a live band, or let us set up karaoke" and any "Live Band Christmas Celebration". **Live music is discontinued in full** (11 Aug 2026). Karaoke and a DJ happen only occasionally and are never offered as part of a Christmas booking.
+> - **Shared Christmas party nights were discontinued on 21 July 2026.**
+> - Any "late bar until midnight" claim. Not documented in the SSOT.
+>
+> Read `docs/SSOT.md` before reusing anything here. The live pages at `/christmas-parties` and `/corporate-events` are already correct; this file is kept for history only.
+
 > **Status:** Ready for review
 > **Target page:** `/corporate-christmas-parties`
 > **Keyword coverage:** 13/13 target keywords placed naturally

@@ -188,7 +188,7 @@ export default function PoolAndDartsPage() {
                     },
                     {
                         question: "What other pub games do you have?",
-                        answer: "Alongside pool and darts, we have a jukebox and board games. For organised entertainment, we run quiz nights, cash bingo, music bingo, karaoke, and live music throughout the month."
+                        answer: "Alongside pool and darts, we have a jukebox and board games. For organised entertainment, we run quiz nights, cash bingo and music bingo throughout the month. Check what's on for the current dates."
                     },
                     {
                         question: "Do you have a darts or pool league I can join?",

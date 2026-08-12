@@ -14,7 +14,7 @@ export const revalidate = 60 * 60 // 1 hour
 export const metadata: Metadata = {
   title: 'Past Events',
   description:
-    'Every quiz night, music bingo, cash bingo and live music night we have hosted at The Anchor in Stanwell Moor. Browse past nights to see what one is like before booking the next.',
+    'Every quiz night, music bingo and cash bingo we have hosted at The Anchor in Stanwell Moor. Browse past nights to see what one is like before booking the next.',
   alternates: { canonical: './' },
   // A navigation surface, not a search landing page, so it follows the same
   // rule as the blog tag archives in tasks/gsc-indexing-fix/url-lifecycle-policy.md

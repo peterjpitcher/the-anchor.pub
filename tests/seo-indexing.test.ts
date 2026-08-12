@@ -345,11 +345,24 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     )
   })
 
-  it('redirects the retired open-mic page to live music', () => {
+  it('redirects the retired open-mic page to the events hub', () => {
+    // Open mic used to land on /live-music. Live music is now discontinued in
+    // full and that route is retired too (docs/SSOT.md §"Live Music,
+    // DISCONTINUED", owner-confirmed 11 August 2026), so the hop goes straight
+    // to /whats-on rather than through a page that no longer exists.
     const rule = lookupRedirect('/open-mic')
     expect(rule).toBeDefined()
-    expect(rule!.destination).toBe('/live-music')
+    expect(rule!.destination).toBe('/whats-on')
     expect(getRedirectStatus(rule!)).toBe(301)
+  })
+
+  it('redirects the retired live-music page and post to the events hub', () => {
+    for (const source of ['/live-music', '/blog/live-music-pubs-near-heathrow']) {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe('/whats-on')
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
   })
 
   it('does not include pattern-based sources (those stay in next.config.js)', () => {

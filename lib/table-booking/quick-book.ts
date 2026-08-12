@@ -230,7 +230,21 @@ export function findQuickBookRefusal(input: {
   return null
 }
 
-export function buildQuickBookPayload(submission: QuickBookSubmission) {
+/**
+ * The create-booking request body. Fixed shape, no optional keys, which is what lets
+ * buildQuickBookIntentFingerprint below treat its JSON as stable.
+ */
+export type QuickBookPayload = {
+  phone: string
+  date: string
+  time: string
+  party_size: number
+  purpose: QuickBookPurpose
+  first_name: string
+  default_country_code: string
+}
+
+export function buildQuickBookPayload(submission: QuickBookSubmission): QuickBookPayload {
   return {
     phone: submission.phone.trim(),
     date: submission.state.date,
@@ -240,6 +254,28 @@ export function buildQuickBookPayload(submission: QuickBookSubmission) {
     // resolveSubmitPurpose for why that difference matters.
     purpose: resolveSubmitPurpose(submission.slotPurpose, submission.state.purpose),
     first_name: submission.firstName.trim(),
-    default_country_code: 'GB',
+    // Dialling-code DIGITS, never an ISO country code. Both /api/table-bookings and the
+    // management API validate this against /^\d{1,4}$/, so 'GB' was refused with a 400
+    // before the request ever left the site: every booking from this sheet failed. The
+    // full form in lib/table-booking/submission.ts has always sent '44'.
+    default_country_code: '44',
   }
+}
+
+/**
+ * The submit intent, as one stable string.
+ *
+ * The management API hashes every field that changes what is booked, and answers 409
+ * IDEMPOTENCY_KEY_CONFLICT when a key it has already seen arrives with a different hash.
+ * The key this sheet used to send named only phone, date, time and party size, so a guest
+ * refused for food who switched to drinks and resubmitted at the same time sent the same
+ * key with a changed hash and was shown a raw conflict error. Fingerprinting the WHOLE
+ * payload keeps the two ends agreeing on what "the same booking" means, the way the full
+ * form's buildSubmitIntentFingerprint already does.
+ *
+ * The payload has no optional keys, so JSON.stringify is stable by construction: the same
+ * intent always produces the same string, and any change produces a different one.
+ */
+export function buildQuickBookIntentFingerprint(payload: QuickBookPayload): string {
+  return JSON.stringify(payload)
 }

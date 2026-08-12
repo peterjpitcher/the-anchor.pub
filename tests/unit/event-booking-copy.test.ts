@@ -59,7 +59,7 @@ describe('getEventBookingCopy', () => {
   it('handles free entry as a table-hold message', () => {
     expect(
       getEventBookingReassurance({
-        name: 'Free Live Music',
+        name: 'Free Karaoke Night',
         is_free: true,
         offers: { price: '0' }
       })

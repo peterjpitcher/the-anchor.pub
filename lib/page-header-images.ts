@@ -34,7 +34,7 @@ const PAGE_HEADER_FOLDER_ALIASES: Record<string, string> = {
 // Descriptive alt text for each page header
 const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'home': 'The Anchor pub entrance with warm lighting and traditional British pub signage',
-  'whats-on': 'Collage of hosted nights, quiz nights, and live music posters glowing under stage lights at The Anchor',
+  'whats-on': 'Collage of hosted event night posters glowing under stage lights at The Anchor',
   'food-menu': 'Signature Anchor dishes including Sunday roast, gourmet burgers, and small plates styled on a wooden table',
   'book-table': 'The Anchor food menu dishes ready for guests booking a table near Heathrow',
   'fish-and-chips-heathrow': 'Beer-battered fish and chips served as part of The Anchor food menu near Heathrow',

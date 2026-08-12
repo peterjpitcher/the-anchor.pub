@@ -212,10 +212,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const event = await anchorAPI.getEvent(params.id)
     if (isRetiredEvent(event)) {
       return {
-        title: 'Live Music at The Anchor',
-        description: 'See the latest live music events at The Anchor.',
+        title: "What's On at The Anchor",
+        description: 'See the latest events at The Anchor.',
         alternates: {
-          canonical: '/live-music',
+          canonical: '/whats-on',
         },
         robots: {
           index: false,
@@ -298,7 +298,7 @@ export default async function EventPage({ params }: Props) {
   }
 
   if (isRetiredEvent(event)) {
-    permanentRedirect('/live-music')
+    permanentRedirect('/whats-on')
   }
 
   const canonicalSegment = getEventCanonicalSegment(event)
