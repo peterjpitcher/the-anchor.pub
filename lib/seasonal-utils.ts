@@ -7,9 +7,44 @@ export interface SeasonalImage {
   objectPosition?: string
 }
 
+/** Folder names for the twelve monthly hero photos, indexed 1-12 by month. */
+export const MONTH_FOLDERS = [
+  'january', 'february', 'march', 'april', 'may', 'june',
+  'july', 'august', 'september', 'october', 'november', 'december'
+] as const
+
+export type MonthFolder = (typeof MONTH_FOLDERS)[number]
+
 /**
- * Determines the current season based on London date and returns appropriate image path
- * Date ranges:
+ * Months that have a committed hero photo at
+ * `public/images/page-headers/home/monthly/<month>/page-headers-homepage.jpg`.
+ *
+ * The monthly rotation takes priority over the seasonal one below. Any month
+ * NOT listed here falls back to its season's asset, so the site stays correct
+ * while the twelve photos are produced. Add a month to this list in the same
+ * commit as its image file, never before: `validateSeasonalImage()` short-
+ * circuits to true in production, so a listed-but-missing file would 404 live.
+ */
+export const AVAILABLE_MONTHLY_HEROES: readonly MonthFolder[] = []
+
+/** Monthly hero path for a 1-12 month number, or null if no photo exists yet. */
+export function getMonthlyHomepageImagePath(month: number): string | null {
+  const folder = MONTH_FOLDERS[month - 1]
+  if (!folder || !AVAILABLE_MONTHLY_HEROES.includes(folder)) return null
+  return `/images/page-headers/home/monthly/${folder}/page-headers-homepage.jpg`
+}
+
+/**
+ * Determines the current homepage hero photo from the London date.
+ *
+ * Resolution order:
+ * 1. `NEXT_PUBLIC_FORCE_SEASON` override (preview deploys)
+ * 2. The month's photo, if one is listed in AVAILABLE_MONTHLY_HEROES
+ * 3. The season's photo, per the ranges below
+ * 4. The default header image
+ *
+ * Season ranges (used for alt text and focal point in every case, and for the
+ * photo itself until all twelve monthly images have landed):
  * - Winter: Jan 1 - Feb 28/29
  * - Spring: Mar 1 - May 31
  * - Summer: Jun 1 - Aug 31
@@ -66,7 +101,10 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
 
   // Remembrance reuses the autumn asset while swapping hero copy
   const imageSeason = season === 'remembrance' ? 'autumn' : season
-  imagePath = `/images/page-headers/home/seasonal/${imageSeason}/page-headers-homepage.jpg`
+  // A supplied monthly photo wins; otherwise fall back to the season's asset.
+  imagePath =
+    getMonthlyHomepageImagePath(month) ??
+    `/images/page-headers/home/seasonal/${imageSeason}/page-headers-homepage.jpg`
 
   if (!validateSeasonalImage(imagePath)) {
     if (typeof window === 'undefined' && process.env.NODE_ENV !== 'production') {
