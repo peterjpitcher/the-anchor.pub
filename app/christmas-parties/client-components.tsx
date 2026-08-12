@@ -766,15 +766,26 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 pre-orders, and meal choices and dietary requirements are due {deadlineDays} days before your booking date.
               </p>
             </div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
-                alt="A table laid for Christmas dinner at The Anchor near Heathrow"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority={false}
-              />
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line">
+                <Image
+                  src="/images/page-headers/christmas-parties/2026/christmas-dinner-guests-v2.webp"
+                  alt="Friends and family sharing Christmas dinner beside a decorated tree in The Anchor dining room"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                />
+              </div>
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line lg:aspect-[16/7]">
+                <Image
+                  src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
+                  alt="A table laid with crackers, candles and festive greenery for Christmas dinner"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                  priority={false}
+                />
+              </div>
             </div>
           </div>
           <Grid cols={3} gap="md" className="mt-8">
@@ -879,14 +890,25 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           </Grid>
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/events/christmas/christmas-buffet-table.jpg"
-                alt="Festive buffet spread for Heathrow Christmas parties at The Anchor"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+            <div className="grid w-full gap-3 md:w-1/2">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line">
+                <Image
+                  src="/images/page-headers/christmas-parties/2026/christmas-buffet-guests-v2.webp"
+                  alt="A group of friends and colleagues enjoying a festive buffet beside a Christmas tree"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="relative aspect-[16/7] w-full overflow-hidden rounded-2xl border border-line">
+                <Image
+                  src="/images/events/christmas/christmas-buffet-table.jpg"
+                  alt="A festive table set for a Christmas party at The Anchor"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
             </div>
             <div className="md:w-1/2 space-y-4 text-left">
               <h3 className="text-2xl font-bold text-ink-strong">Ready to feed a crowd?</h3>
@@ -1025,6 +1047,15 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 or the office Christmas party, we take it as one booking with one contact. We have been hosting office
                 Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
               </p>
+            </div>
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line md:aspect-[2/1]">
+              <Image
+                src="/images/page-headers/christmas-parties/2026/christmas-office-party-v2.webp"
+                alt="Colleagues talking over drinks beside the Christmas tree in The Anchor bar"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 1024px"
+              />
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div className="space-y-5">

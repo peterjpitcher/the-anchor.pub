@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { getEventHeroImage, getEventSquareImage } from '@/lib/event-image'
+import { EventArtworkHero } from '@/components/events/EventArtworkHero'
 import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
@@ -396,8 +397,13 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Reserve your Mother’s Day table online. Booking ahead is recommended because this Sunday fills quickly.'
-  // The wide, full-bleed hero backdrop.
+  // The event's own artwork for the hero, landscape first. Null when the event
+  // has none, which is what decides between the artwork hero and InteriorHero.
   const eventImageSrc = getEventHeroImage(event)
+  const hasOwnArtwork = Boolean(eventImageSrc)
+  // Drives the hero's shape, so a square-only event is not letterboxed into a
+  // 16:9 frame it was never drawn for.
+  const heroArtworkIsWide = Boolean(event.landscapeImageUrl?.trim())
   // The square card in the left column further down. It is an aspect-square
   // container with object-cover, so handing it the landscape crops the sides
   // straight back off again.
@@ -416,8 +422,16 @@ export default async function EventPage({ params }: Props) {
     : getEventBookingHeroStatement(event)
   const heroTags = [
     ...(event.category?.name ? [{ label: event.category.name, variant: 'primary' as const }] : []),
-    { label: eventDate, variant: 'default' as const },
-    { label: eventTime, variant: 'default' as const },
+    // Designed artwork already carries the date and start time as part of the
+    // design, and the facts strip immediately below repeats both again. Saying
+    // it three times makes all three look cheap, so the badges stand down.
+    // Doors is kept either way: it is in neither the artwork nor the strip.
+    ...(hasOwnArtwork
+      ? []
+      : [
+          { label: eventDate, variant: 'default' as const },
+          { label: eventTime, variant: 'default' as const }
+        ]),
     ...(headerDoorTime ? [{ label: headerDoorTime, variant: 'default' as const }] : []),
     // Gated on the same flag as the status row in the details list, so the hero
     // cannot say "Status: Sold Out" on a night the rest of the page treats as
@@ -506,28 +520,56 @@ export default async function EventPage({ params }: Props) {
           </Container>
         </section>
       ) : null}
-      <InteriorHero
-        image={eventImageSrc || DEFAULT_PAGE_HEADER_IMAGE}
-        focal="center"
-        crumb={event.category?.name ?? "What's On"}
-        title={event.name}
-        lead={heroDescription}
-        badges={
-          <>
-            {heroTags.map((tag) => (
-              <Badge key={tag.label} variant="sand">
-                {tag.label}
-              </Badge>
-            ))}
-          </>
-        }
-        actions={
-          <>
-            {heroPrimaryCta}
-            {heroSecondaryCta}
-          </>
-        }
-      />
+      {/* Designed artwork is shown clean and unscrimmed; events without their own
+          artwork keep the standard photographic interior hero. */}
+      {hasOwnArtwork && eventImageSrc ? (
+        <EventArtworkHero
+          image={eventImageSrc}
+          imageAlt={imageAlt}
+          wide={heroArtworkIsWide}
+          crumb={event.category?.name ?? "What's On"}
+          title={event.name}
+          lead={heroDescription}
+          badges={
+            <>
+              {heroTags.map((tag) => (
+                <Badge key={tag.label} variant="sand">
+                  {tag.label}
+                </Badge>
+              ))}
+            </>
+          }
+          actions={
+            <>
+              {heroPrimaryCta}
+              {heroSecondaryCta}
+            </>
+          }
+        />
+      ) : (
+        <InteriorHero
+          image={DEFAULT_PAGE_HEADER_IMAGE}
+          focal="center"
+          crumb={event.category?.name ?? "What's On"}
+          title={event.name}
+          lead={heroDescription}
+          badges={
+            <>
+              {heroTags.map((tag) => (
+                <Badge key={tag.label} variant="sand">
+                  {tag.label}
+                </Badge>
+              ))}
+            </>
+          }
+          actions={
+            <>
+              {heroPrimaryCta}
+              {heroSecondaryCta}
+            </>
+          }
+        />
+      )}
 
       <section className="bg-canvas">
         <Container>
