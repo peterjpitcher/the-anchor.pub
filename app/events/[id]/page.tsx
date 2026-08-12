@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getEventHeroImage } from '@/lib/event-image'
+import { getEventHeroImage, getEventSquareImage } from '@/lib/event-image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { permanentRedirect } from 'next/navigation'
@@ -396,7 +396,12 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Reserve your Mother’s Day table online. Booking ahead is recommended because this Sunday fills quickly.'
+  // The wide, full-bleed hero backdrop.
   const eventImageSrc = getEventHeroImage(event)
+  // The square card in the left column further down. It is an aspect-square
+  // container with object-cover, so handing it the landscape crops the sides
+  // straight back off again.
+  const eventSquareSrc = getEventSquareImage(event)
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
   const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
@@ -545,10 +550,10 @@ export default async function EventPage({ params }: Props) {
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
               {/* Left Column - Event Image and Details */}
               <div className="order-2 lg:order-1">
-                {eventImageSrc && (
+                {eventSquareSrc && (
                   <div className="relative mx-auto mb-6 hidden aspect-square max-w-md overflow-hidden rounded-2xl shadow-lg lg:block lg:max-w-none">
                     <Image
-                      src={eventImageSrc}
+                      src={eventSquareSrc}
                       alt={imageAlt}
                       fill
                       className="object-cover"
