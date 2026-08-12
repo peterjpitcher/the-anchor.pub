@@ -18,6 +18,7 @@ import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvi
 import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalSkin, getSeasonalSkinStyle } from '@/lib/winter-season'
+import { IcicleLights } from '@/components/seasonal/IcicleLights'
 import {
   PRIVATE_HIRE_2026_PROMO_ENABLED,
   PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
@@ -280,6 +281,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         : undefined
                     }
                   />
+                  {/* Hangs below the bar and over the top of the hero photo.
+                      Only requested in season, so April to October pays
+                      nothing for it. */}
+                  {skin.stage === 'festive' && <IcicleLights />}
                 </header>
               </ErrorBoundary>
               <main id="main-content" role="main">
