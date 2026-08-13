@@ -239,8 +239,8 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
 - **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
-- **Trimmings:** pigs in blankets, stuffing, brussels sprouts.
-- **Menu dishes are NOT finalised.** The only permitted wording is **"menu released closer to the time"**. Never list, guess or imply a specific Christmas dish.
+- **Trimmings:** pigs in blankets, stuffing, brussels sprouts, **Yorkshire pudding, mashed potato and peas**. (Yorkshire pudding, mash and peas owner-confirmed, 13 August 2026.)
+- **Menu dishes ARE published.** (Owner-confirmed, 13 August 2026.) The dish list lives on the Christmas booking period in the management database and reaches the website through `/table-bookings/periods`, which is the same source the booking form builds a pre-order from. Publish the dishes the API returns and nothing else: the old "menu released closer to the time" wording is retired, and inventing or padding the list is still forbidden. If the API returns no menu, say nothing rather than guessing.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
 - **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
 - **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.**

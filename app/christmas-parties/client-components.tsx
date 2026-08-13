@@ -223,7 +223,9 @@ const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
   { value: 'three_course', label: 'Mostly 3 courses each' }
 ]
 
-const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
+// Owner-confirmed 13 August 2026: the Yorkshire pudding, mashed potato and peas
+// are part of the plate, they are not extras. Mirrors SSOT.json christmas_2026.trimmings.
+const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts', 'Yorkshire pudding', 'Mashed potato', 'Peas']
 
 /**
  * Owner-confirmed 11 August 2026. Christmas sittings run Tuesday to Saturday,
@@ -388,7 +390,7 @@ function buildFaqItems(
     },
     {
       question: 'What is included in the price?',
-      answer: 'Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
+      answer: `Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are ${TRIMMINGS.join(', ').toLowerCase()}.`
     },
     {
       question: 'What is on the Christmas menu?',
@@ -816,8 +818,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
-                alt="A table laid for Christmas dinner at The Anchor near Heathrow"
+                src="/images/page-headers/christmas-parties/2026/christmas-dinner-table.jpg"
+                alt="Christmas dinner plated with a Yorkshire pudding, pigs in blankets and stuffing, on a table laid for a group at The Anchor near Heathrow"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -1203,6 +1205,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             title="Christmas party and Christmas dinner FAQs"
             faqs={faqItems}
             className="bg-surface"
+            // This page sets its own heading scale rather than using
+            // SectionHeading, so the FAQ heading matches its neighbours here.
+            titleClassName="text-3xl font-bold"
           />
         </Container>
       </Section>

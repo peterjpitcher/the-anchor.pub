@@ -309,7 +309,7 @@ export default async function FoodMenuPage() {
           {showChristmasLink && (
             <p className="mx-auto mb-10 text-center text-ink-muted">
               Booking a group over Christmas? Festive service runs {formatChristmasWindowLabel()} on a
-              separate menu, released closer to the time. See our{' '}
+              separate menu. See our{' '}
               <Link
                 href="/christmas-parties"
                 className="font-semibold text-accent-text hover:underline"

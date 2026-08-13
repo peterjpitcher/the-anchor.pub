@@ -1078,7 +1078,7 @@
     "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF."
   },
   "christmas_2026": {
-    "_confirmed": "Owner-confirmed 2026-07-21. Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
+    "_confirmed": "Owner-confirmed 2026-07-21, updated 2026-08-13 (menu published; Yorkshire pudding, mashed potato and peas added to trimmings). Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
     "service_window": {
       "start": "2026-11-10",
       "end": "2026-12-20",
@@ -1158,11 +1158,14 @@
     "trimmings": [
       "Pigs in blankets",
       "Stuffing",
-      "Brussels sprouts"
+      "Brussels sprouts",
+      "Yorkshire pudding",
+      "Mashed potato",
+      "Peas"
     ],
-    "menu_status": "NOT_FINALISED",
-    "menu_wording": "menu released closer to the time",
-    "menu_rule": "Never list, guess or imply a specific Christmas dish until the menu is finalised in the management database.",
+    "menu_status": "PUBLISHED",
+    "menu_wording": "the full dish list is on the page",
+    "menu_rule": "Publish exactly the dishes the management API returns for the Christmas booking period (/table-bookings/periods). Never list, guess, pad or imply a dish the API did not return. If it returns no menu, say nothing about dishes.",
     "price_source": "LIVE_FROM_DB",
     "price_rule": "Christmas prices come live from the management database via the menu API. Never hardcode a Christmas price in website page code, JSON-LD or schemas.",
     "price_display": "Per-item menu prices display with no currency symbol. Christmas set-menu tier prices in prose may use the pound sign normally.",

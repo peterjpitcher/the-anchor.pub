@@ -15,13 +15,25 @@ interface FAQAccordionWithSchemaProps {
   faqs: FAQItem[]
   className?: string
   renderSchema?: boolean
+  /**
+   * Type scale for the section heading. Defaults to the design-system `text-h2`,
+   * which is what all but one host page wants.
+   *
+   * The exception is a page that sets its own heading scale rather than using
+   * `SectionHeading`. On those, the token heading renders around 52px next to
+   * the page's own 30px headings and reads as a rendering fault. Passing the
+   * host page's own scale here keeps one page consistent without restyling the
+   * 80-plus pages that are already correct.
+   */
+  titleClassName?: string
 }
 
 export function FAQAccordionWithSchema({
   title = "Frequently Asked Questions",
   faqs,
   className = "",
-  renderSchema = true
+  renderSchema = true,
+  titleClassName = "text-h2"
 }: FAQAccordionWithSchemaProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
@@ -63,7 +75,7 @@ export function FAQAccordionWithSchema({
       <section className={cn('py-section-y bg-canvas', className)}>
         <div className="container mx-auto px-4">
           <div className="mx-auto">
-            <h2 className="text-h2 text-ink-strong mb-8 text-center">
+            <h2 className={cn(titleClassName, 'text-ink-strong mb-8 text-center')}>
               {title}
             </h2>
 
@@ -108,7 +120,12 @@ export function FAQAccordionWithSchema({
                       openIndex === index ? 'pb-5' : ''
                     }`}
                     style={{
-                      maxHeight: openIndex === index ? '500px' : '0',
+                      // Headroom, not a layout value: the open panel stops at its
+                      // own content height, and this only has to be larger than
+                      // the tallest answer or the rest is silently cut off. 500px
+                      // was under a long answer on a narrow phone, which clipped
+                      // it mid-sentence with nothing to indicate more was there.
+                      maxHeight: openIndex === index ? '1500px' : '0',
                     }}
                     aria-hidden={openIndex !== index}
                   >
