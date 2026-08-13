@@ -1614,6 +1614,9 @@ function ChristmasMenuAndPricing({
                 everyone at the table can choose differently. We need everyone&apos;s choices{' '}
                 {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date.
               </p>
+              <p className="text-base text-ink-muted">
+                Every main comes with the trimmings: {TRIMMINGS.join(', ').toLowerCase()}.
+              </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {courseChoices.groups.map(group => (
