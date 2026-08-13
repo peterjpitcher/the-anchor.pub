@@ -223,9 +223,22 @@ const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
   { value: 'three_course', label: 'Mostly 3 courses each' }
 ]
 
-// Owner-confirmed 13 August 2026: the Yorkshire pudding, mashed potato and peas
-// are part of the plate, they are not extras. Mirrors SSOT.json christmas_2026.trimmings.
-const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts', 'Yorkshire pudding', 'Mashed potato', 'Peas']
+// Owner-confirmed 13 August 2026: the Yorkshire pudding, roast potatoes, mashed
+// potato and peas are part of the plate, they are not extras. Mirrors
+// SSOT.json christmas_2026.trimmings.
+//
+// The vegan Vegetable Wellington is the documented exception and takes no
+// Yorkshire pudding and no pigs in blankets, so this list describes the meat
+// plates. The Wellington's own dish description carries its vegan wording.
+const TRIMMINGS = [
+  'Pigs in blankets',
+  'Stuffing',
+  'Brussels sprouts',
+  'Yorkshire pudding',
+  'Roast potatoes',
+  'Mashed potato',
+  'Peas'
+]
 
 /**
  * Owner-confirmed 11 August 2026. Christmas sittings run Tuesday to Saturday,
@@ -1570,6 +1583,10 @@ function ChristmasMenuAndPricing({
                 <li>Adults get a glass of prosecco whichever courses they choose, swappable for orange juice.</li>
                 <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
                 <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
+                <li>
+                  The Vegetable Wellington is vegan, so it comes with vegan trimmings and vegan gravy, without the
+                  Yorkshire pudding or the pigs in blankets.
+                </li>
               </ul>
             </div>
           </Card>

@@ -304,9 +304,24 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
       'Stuffing',
       'Brussels sprouts',
       'Yorkshire pudding',
+      'Roast potatoes',
       'Mashed potato',
       'Peas',
     ])
+  })
+
+  it('the vegan Wellington is excepted from the meat trimmings', () => {
+    // A Yorkshire pudding contains egg and milk and a pig in a blanket is pork,
+    // so the full trimmings list must never be applied to the vegan main. The
+    // Sunday roast already encodes this rule; Christmas has to agree with it.
+    expect(xmas.trimmings_vegan_exception).toContain('no Yorkshire pudding')
+    expect(xmas.trimmings_vegan_exception).toContain('no pigs in blankets')
+    expect(mdPlain).toContain('The Vegetable Wellington is the exception')
+
+    const wellington = ssot.sunday_roast.options.find((o: { name: string }) =>
+      /wellington/i.test(o.name)
+    )
+    expect(wellington.yorkshire_pudding).toBe(false)
   })
 
   it('Christmas prices are live-sourced, never hardcoded in the shipped shape', () => {

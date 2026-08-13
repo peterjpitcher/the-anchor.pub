@@ -174,7 +174,7 @@ describe('Christmas 2026 discontinued products', () => {
     // mash and peas joined the list on 13 August 2026, owner-confirmed.
     expect(text).toMatch(/festive buffet/i)
     expect(text).toContain(
-      'Trimmings: pigs in blankets, stuffing, brussels sprouts, yorkshire pudding, mashed potato, peas.'
+      'Trimmings: pigs in blankets, stuffing, brussels sprouts, yorkshire pudding, roast potatoes, mashed potato, peas.'
     )
   })
 })
