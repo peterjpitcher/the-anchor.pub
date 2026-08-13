@@ -3,6 +3,7 @@ import ssot from '@/SSOT.json'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import {
   ChristmasPartiesPageClient,
+  type ChristmasCourseChoicesView,
   type ChristmasDishView,
   type ChristmasFactsView,
   type ChristmasMenuSectionView,
@@ -18,7 +19,8 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { buildChristmasMenuJsonLd, christmasPartiesSchema } from '@/lib/christmas-parties-schema'
-import { getChristmasMenuPageData, type ChristmasMenuSection } from '@/lib/menu-page-data'
+import { getChristmasMenuPageData, MENU_ALLERGEN_UNKNOWN_NOTICE, type ChristmasMenuSection } from '@/lib/menu-page-data'
+import { getChristmasPreorderMenu, type ChristmasPreorderMenu } from '@/lib/christmas-preorder-menu'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
@@ -253,26 +255,88 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+/**
+ * The pre-order dish list, mapped onto the same view type the priced menu uses
+ * so both render through one dish component.
+ *
+ * These dishes carry no per-dish price: the course tier is what is priced, and
+ * the tier prices are already on the page. Only a genuine extra such as the
+ * cheeseboard has a price of its own, and it is passed through symbol-free to
+ * match the SSOT price display policy.
+ */
+function buildCourseChoicesView(source: ChristmasPreorderMenu | null): ChristmasCourseChoicesView | null {
+  if (!source || source.groups.length === 0) return null
+
+  return {
+    preorderCutoffDays: source.preorderCutoffDays,
+    groups: source.groups.map(group => ({
+      course: group.course,
+      title: group.title,
+      items: group.items.map((item): ChristmasDishView => {
+        const allergens = Array.isArray(item.allergens) ? item.allergens : []
+
+        return {
+          id: item.id,
+          name: item.name,
+          description: item.description || '',
+          price: typeof item.price_gbp === 'number' ? item.price_gbp.toFixed(2) : '',
+          allergens,
+          allergenStatus: allergens.length > 0 ? 'known' : 'unknown',
+          allergenNotice: MENU_ALLERGEN_UNKNOWN_NOTICE
+        }
+      })
+    }))
+  }
+}
+
 export default async function ChristmasPartiesPage() {
   const season = buildSeasonView()
-  const christmasMenu = await getChristmasMenuPageData()
+  // Both menu reads are independent, so they run together rather than in series.
+  const [christmasMenu, preorderMenu] = await Promise.all([
+    getChristmasMenuPageData(),
+    getChristmasPreorderMenu()
+  ])
   const menu = buildMenuView(christmasMenu.sections, Boolean(christmasMenu.unavailableReason))
+  const courseChoices = buildCourseChoicesView(preorderMenu)
   const seasonEnded = season.state === 'ended' || !season.isBookable
 
   // Priced markup is only ever built from live data, and only in season. It
   // returns null when there is nothing to publish, so no empty Menu node ships.
+  // The tier sections carry the prices; the course sections carry the dishes.
+  // Both belong in one Menu node, otherwise the markup describes prices for food
+  // it never names. Course dishes are unpriced at dish level, and the builder
+  // publishes an item without an Offer rather than inventing a price for it.
+  const multiCourseTierPatterns = TIER_DEFINITIONS
+    .filter(tier => tier.courseCount > 1)
+    .map(tier => tier.pattern)
+
   const menuJsonLd = seasonEnded
     ? null
-    : buildChristmasMenuJsonLd(
-      christmasMenu.sections.map(section => ({
+    : buildChristmasMenuJsonLd([
+      ...christmasMenu.sections
+        // The multi-course tier sections hold one priced placeholder row per
+        // service window, not dishes, and their stock description says the menu
+        // is unpublished. Publishing that alongside the real dish list would
+        // hand an answer engine a direct contradiction, so they are dropped
+        // from the markup exactly as they are dropped from the page.
+        .filter(section => !(courseChoices && multiCourseTierPatterns.some(pattern => pattern.test(section.title))))
+        .map(section => ({
         title: section.title,
         items: section.items.map(item => ({
           name: item.name,
           description: item.description,
           priceValue: item.priceValue
         }))
+      })),
+      ...(courseChoices?.groups ?? []).map(group => ({
+        title: group.title,
+        items: group.items.map(item => ({
+          name: item.name,
+          description: item.description,
+          priceValue: Number.parseFloat(item.price) || 0
+        }))
       }))
-    )
+    ])
 
   const heroLead = seasonEnded
     ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
@@ -317,6 +381,7 @@ export default async function ChristmasPartiesPage() {
         menu={menu}
         season={season}
         facts={FACTS}
+        courseChoices={seasonEnded ? null : courseChoices}
       />
       <InternalLinkingSection
         title="More Christmas Party Planning"

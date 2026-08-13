@@ -1,4 +1,5 @@
 import type { CommunicationConsentState } from '@/lib/communication-consent'
+import type { TableBookingPreorderEntry } from '@/lib/table-booking/submission'
 
 /**
  * The booking fields that define a distinct submit intent on the website.
@@ -27,6 +28,8 @@ export type TableBookingSubmitIntentFields = {
    */
   bookingPeriodId?: string
   bookingPeriodAnswer?: boolean
+  /** What each guest is eating, in seat order. Absent when none was collected. */
+  preorder?: TableBookingPreorderEntry[]
   communicationConsent: CommunicationConsentState
 }
 
@@ -77,6 +80,20 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     // and never the truthiness.
     bookingPeriodId: input.bookingPeriodId?.trim() || undefined,
     bookingPeriodAnswer:
-      typeof input.bookingPeriodAnswer === 'boolean' ? input.bookingPeriodAnswer : undefined
+      typeof input.bookingPeriodAnswer === 'boolean' ? input.bookingPeriodAnswer : undefined,
+    // AMS hashes the pre-order for the same reason it hashes the seasonal
+    // answer, so this has to match or a guest who corrects a dish and resubmits
+    // sends the old key with a new payload and is answered 409. Seat ORDER is
+    // preserved because position is the seat; add-on tick order is not
+    // meaningful and is sorted, exactly as AMS does it. Absent and empty both
+    // produce the pre-change fingerprint byte for byte.
+    preorder: input.preorder?.length
+      ? input.preorder.map((entry) => ({
+          starter: entry.starter_menu_item_id || null,
+          main: entry.main_menu_item_id || null,
+          dessert: entry.dessert_menu_item_id || null,
+          addons: [...new Set(entry.addon_menu_item_ids ?? [])].sort()
+        }))
+      : undefined
   })
 }

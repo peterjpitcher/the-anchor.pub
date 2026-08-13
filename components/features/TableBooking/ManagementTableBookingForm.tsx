@@ -87,6 +87,12 @@ import { TableRefinements } from './TableRefinements'
 import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { useBookingPeriod } from './useBookingPeriod'
 import { SeasonalPeriodQuestion } from './SeasonalPeriodQuestion'
+import {
+  SeasonalPreorderPicker,
+  preorderGuestsMissingMain,
+  resizePreorderChoices,
+  type PreorderChoice
+} from './SeasonalPreorderPicker'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -347,24 +353,62 @@ export function ManagementTableBookingForm({
   const seasonalRequiresFoodService = seasonal.answer === true
 
   /*
-   * NOT COLLECTED YET: the per-guest pre-order.
+   * The per-guest pre-order.
    *
-   * AMS has nowhere to put it. The seasonal migration created `booking_periods`
-   * and `booking_period_menu_items`, which are the menu to SHOW, but no table
-   * for a guest's choices, and the public create route's schema has no menu
-   * field at all. The retired Sunday-lunch shape wrote to `table_booking_items`
-   * through an RPC the seasonal path does not call.
+   * Collected here and sent with the booking, which AMS accepts as of the
+   * `preorder` field on POST /api/table-bookings. Every dish id is re-validated
+   * against the booking's own period server-side, so nothing chosen here can
+   * attach another season's menu.
    *
-   * So collecting choices here would take a guest through a dish-by-dish picker
-   * and then drop every answer on the floor, which is worse than not asking:
-   * they would arrive believing the kitchen had their order. `SeasonalPreorderPicker`
-   * is built and ready to wire the moment an intake exists.
-   *
-   * This is not a regression. AMS marks a pre-order period `bookable: false`
-   * until its menu is published, and staff taking a Christmas booking through
-   * the FOH `christmas` purpose have no pre-order intake either, so choices are
-   * already handled off-system.
+   * Only asked when the guest has ACCEPTED a period that requires a pre-order.
+   * Answering no books the normal menu at normal terms and needs no choices.
    */
+  const [preorderChoices, setPreorderChoices] = useState<PreorderChoice[]>([])
+
+  const seasonalMenu = seasonal.period?.menu ?? []
+  const preorderRequired =
+    seasonal.answer === true &&
+    Boolean(seasonal.period?.requires_preorder) &&
+    seasonalMenu.length > 0
+
+  /*
+   * Choices belong to one period on one date. Anything that changes which menu
+   * is on offer clears them, so a dish chosen for a December sitting cannot
+   * follow the guest to a date where it is not served. AMS would refuse those
+   * ids anyway; clearing them means the guest sees that happen in the form
+   * rather than as an error after they have paid a deposit.
+   */
+  const preorderMenuKey = `${seasonal.period?.id ?? ''}|${date}`
+  const lastPreorderMenuKey = useRef(preorderMenuKey)
+  useEffect(() => {
+    if (lastPreorderMenuKey.current === preorderMenuKey) return
+    lastPreorderMenuKey.current = preorderMenuKey
+    setPreorderChoices([])
+  }, [preorderMenuKey])
+
+  const preorderIncompleteGuests = preorderRequired
+    ? preorderGuestsMissingMain(preorderChoices, partySize)
+    : []
+  const preorderSatisfied = !preorderRequired || preorderIncompleteGuests.length === 0
+
+  /**
+   * The wire form of the pre-order, built once.
+   *
+   * The idempotency fingerprint and the request body both need it, and they
+   * MUST agree: a fingerprint built from different data than the payload would
+   * either reuse a key for a changed booking or mint a new one for an identical
+   * retry, and both end in a duplicate or a 409.
+   */
+  const preorderPayloadEntries = useMemo(
+    () =>
+      resizePreorderChoices(preorderChoices, partySize).map((choice) => ({
+        ...(choice.starterId ? { starter_menu_item_id: choice.starterId } : {}),
+        ...(choice.mainId ? { main_menu_item_id: choice.mainId } : {}),
+        ...(choice.dessertId ? { dessert_menu_item_id: choice.dessertId } : {}),
+        ...(choice.addonIds.length > 0 ? { addon_menu_item_ids: choice.addonIds } : {})
+      })),
+    [preorderChoices, partySize]
+  )
 
   // Everything the answer depends on, gathered in one place for the one rule
   // that reads it. Every consumer of "may this time be chosen" takes this exact
@@ -1758,6 +1802,9 @@ export function ManagementTableBookingForm({
       // 409 IDEMPOTENCY_KEY_CONFLICT.
       bookingPeriodId: seasonal.period && seasonal.answer !== null ? seasonal.period.id : undefined,
       bookingPeriodAnswer: seasonal.answer !== null ? seasonal.answer : undefined,
+      // Built the same way as the payload below, from the same source, so a
+      // changed dish mints a new key rather than replaying the old booking.
+      preorder: preorderRequired ? preorderPayloadEntries : undefined,
       communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
@@ -1811,6 +1858,11 @@ export function ManagementTableBookingForm({
           seasonal.period && seasonal.answer !== null
             ? { periodId: seasonal.period.id, accepted: seasonal.answer }
             : null,
+        // Seat order, one entry per guest, only when the guest accepted a period
+        // that needs one. Sent even for a seat with just a main: the array index
+        // IS the seat, so skipping a sparse entry would move every later guest
+        // onto someone else's dinner.
+        preorder: preorderRequired ? preorderPayloadEntries : undefined,
         attribution,
         turnstileToken,
         website,
@@ -2186,6 +2238,20 @@ export function ManagementTableBookingForm({
                   />
                 ) : null}
 
+                {/* Directly under the question that triggers it, because the
+                    choices only exist as a consequence of answering yes. */}
+                {preorderRequired ? (
+                  <div className="mt-4">
+                    <SeasonalPreorderPicker
+                      partySize={partySize}
+                      menu={seasonalMenu}
+                      choices={preorderChoices}
+                      preorderCutoffDays={seasonal.period?.preorder_cutoff_days ?? null}
+                      onChange={setPreorderChoices}
+                    />
+                  </div>
+                ) : null}
+
                 {/* Kitchen hours, stated rather than left as an unexplained
                     shorter list, with a way through for anyone who wants a time
                     we cannot offer online. */}
@@ -2446,7 +2512,7 @@ export function ManagementTableBookingForm({
                     fullWidth
                     icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
                     iconPosition="right"
-                    disabled={revalidatingAvailability || seasonalAnswerRequired}
+                    disabled={revalidatingAvailability || seasonalAnswerRequired || !preorderSatisfied}
                     onClick={() => {
                       setStep('details')
                       setError(null)
@@ -2464,6 +2530,17 @@ export function ManagementTableBookingForm({
                 {hasUsableSelection && seasonalAnswerRequired ? (
                   <p className="text-sm text-ink-muted" aria-live="polite">
                     Please answer the question above before continuing.
+                  </p>
+                ) : null}
+
+                {/* Names the guests, not just "the form is incomplete": on a
+                    table of twelve, "choose a main for guest 9" is the
+                    difference between a fix and a hunt. */}
+                {hasUsableSelection && !seasonalAnswerRequired && !preorderSatisfied ? (
+                  <p className="text-sm text-ink-muted" aria-live="polite">
+                    {preorderIncompleteGuests.length === 1
+                      ? `Please choose a main for guest ${preorderIncompleteGuests[0]} before continuing.`
+                      : `Please choose a main for guests ${preorderIncompleteGuests.join(', ')} before continuing.`}
                   </p>
                 ) : null}
               </div>
