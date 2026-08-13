@@ -88,19 +88,19 @@ export function FAQAccordionWithSchema({
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-2 py-4 text-left flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-inset"
+                    className="w-full px-2 py-5 text-left flex items-center justify-between gap-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-inset"
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
                     {/*
-                      text-lg, not the text-h4 token this used to carry. At h4 a
-                      question rendered up to 24px in the display face, six pixels
-                      under the section heading above it and in the same face and
-                      colour, so a stack of them read as a wall of headings rather
-                      than a list you can scan. The face stays for brand; only the
-                      scale drops, which is what restores the hierarchy.
+                      text-h4 is the site's scale for the display face: 272 uses
+                      against two for text-lg. Shrinking it below the scale put
+                      the questions at a size that appears nowhere else, which
+                      read as off rather than as tidier. Hierarchy against the
+                      heading is handled by the answer size and row rhythm, not
+                      by taking the display face somewhere it is never used.
                     */}
-                    <h3 className="font-display text-lg text-ink-strong pr-4">
+                    <h3 className="font-display text-h4 text-ink-strong pr-4">
                       {faq.question}
                     </h3>
                     <svg
@@ -137,9 +137,7 @@ export function FAQAccordionWithSchema({
                     }}
                     aria-hidden={openIndex !== index}
                   >
-                    {/* One step under the question, so an open row reads as an
-                        answer to it rather than as a second heading. */}
-                    <p className="text-base text-ink-muted">
+                    <p className="text-lg text-ink-muted">
                       {faq.answer}
                     </p>
                   </div>
