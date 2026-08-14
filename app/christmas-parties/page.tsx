@@ -36,7 +36,11 @@ import {
 // regenerated hourly rather than frozen at build time.
 export const revalidate = 3600
 
-const HERO_IMAGE = '/images/page-headers/christmas-parties/2026/hero-table.jpg'
+// New path, not an overwrite of hero-table.jpg. Everything under public/ is
+// served `immutable, max-age=31536000`, so replacing a file in place leaves the
+// CDN and every returning visitor on the old bytes for a year. Replacing this
+// image means giving it a new name.
+const HERO_IMAGE = '/images/page-headers/christmas-parties/2026/hero-table-wide.jpg'
 
 type SsotChristmasFacts = {
   venue: { capacity: { christmas_seated: number, christmas_standing: number } }
