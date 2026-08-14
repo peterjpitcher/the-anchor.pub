@@ -22,9 +22,10 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 // year's specifics (confirmed date, a special menu, a one-off offer), populate
 // EASTER_SUNDAY_DYNAMIC below, nothing else needs to change.
 //
-// Easter Sunday 2027 falls on 4 April 2027 (owner-confirmed rolling target).
-const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
-const EASTER_SUNDAY_DATE = '2027-04-04'
+// Easter Sunday 2027 falls on Sunday 28 March 2027. Easter is set by the
+// ecclesiastical calendar, not by us, so this date is fixed, not a choice.
+const EASTER_SUNDAY_LABEL = 'Sunday 28 March 2027'
+const EASTER_SUNDAY_DATE = '2027-03-28'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm to 6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
 const EASTER_BOOKING_URL = '/book-table'

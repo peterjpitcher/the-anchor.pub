@@ -94,7 +94,7 @@ export default function MilestoneBirthdaysPage() {
                             Birthday Party Venue Near Heathrow &amp; Staines: 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10+ to 150 guests, buffets from &pound;9.95pp, and free parking. Pricing discussed on enquiry, you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
+                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10+ to 150 guests, buffet packages, and free parking. Pricing discussed on enquiry, you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
                         </p>
                     </div>
                 </Container>

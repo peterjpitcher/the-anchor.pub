@@ -204,8 +204,8 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
         secondaryCta: 'Christmas enquiry',
         secondaryHref: '/christmas-parties',
         badges: ['Festive menu', `Groups from ${minParty}`, 'Free parking', 'Dog friendly'],
-        bandTitle: 'Christmas is on at The Anchor',
-        bandCopy: 'The doors stay open right through to New Year.'
+        bandTitle: 'See the year out with us',
+        bandCopy: 'We would love to see you in before New Year, so come and raise one with us.'
       }
     default:
       // Unreachable for a real London month, but a bad input must never blank

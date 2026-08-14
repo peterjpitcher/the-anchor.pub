@@ -211,7 +211,7 @@ export default async function M25Junction14PubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-green-500 text-xl"></span>
                     <div>
-                      <strong>The Anchor:</strong> Full meals from 9.99
+                      <strong>The Anchor:</strong> A full pub menu, not a wrapped sandwich
                     </div>
                   </li>
                   <li className="flex items-start gap-3">

@@ -340,7 +340,7 @@ export default function Terminal3Page() {
               {[
                 { title: "Global Airlines Hub", content: "Terminal 3 hosts Virgin Atlantic, Emirates, Delta, and many Asian carriers. Whether flying to New York, Dubai, or Tokyo, start with a taste of Britain." },
                 { title: "Family-Friendly Space", content: "Traveling with children? We offer a dedicated kids menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants!" },
-                { title: "Value for Money", content: "A family meal at T3 can cost over £60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!" },
+                { title: "Value for Money", content: "Proper pub portions, a table you are not rushed out of, and free parking for as long as you are with us. We are outside the ULEZ zone too, so there is no charge for driving here." },
                 { title: "Perfect for Arrivals", content: "Meeting someone from a long-haul flight? Wait comfortably with us instead of the crowded arrivals hall. Track flights on our free WiFi." }
               ].map(box => (
                 <Card key={box.title} accent>

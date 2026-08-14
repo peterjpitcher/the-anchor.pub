@@ -19,6 +19,7 @@ import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
 import { getDrinksHeroImage } from '@/lib/drinks-hero-image'
+import { getMenuUnavailableMessage } from '@/lib/menu-page-data'
 import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
 
 export const dynamic = 'force-dynamic'
@@ -50,7 +51,7 @@ export default async function DrinksMenuPage() {
   if (!menuData) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-canvas">
-        <p className="text-xl text-ink-muted">Menu temporarily unavailable. Please call us on 01753 682707.</p>
+        <p className="text-xl text-ink-muted">{getMenuUnavailableMessage()}</p>
       </div>
     )
   }
@@ -281,7 +282,7 @@ export default async function DrinksMenuPage() {
         <div className="container">
           <div className="mx-auto">
             <SectionHeading
-              title="Your Local After Landing - Just 5 Minutes from Heathrow"
+              title="Your Local After Landing, 7 Minutes from Terminal 5"
             />
             <div className="grid gap-6 md:grid-cols-3">
               {[
@@ -295,7 +296,7 @@ export default async function DrinksMenuPage() {
                 },
                 {
                   title: "Traveller's Rest",
-                  body: "Just landed or about to fly? We're your local. Quick taxi from all terminals, open late, proper British welcome."
+                  body: "Just landed or about to fly? We're your local. A quick taxi from every terminal (7 to 12 minutes), free parking if you drive, and a proper British welcome."
                 }
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -315,19 +316,19 @@ export default async function DrinksMenuPage() {
         <div className="container">
           <div className="mx-auto">
             <SectionHeading
-              title="Stanwell Moor's Premier Drinks Destination"
+              title="Why Drink With Us in Stanwell Moor"
             />
             <div className="grid gap-6 md:grid-cols-2">
               {[
                 {
                   title: 'The Beer Garden Experience',
-                  body: "Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Covered sections mean the garden's open in most weather.",
-                  note: 'Dog-friendly outdoor areas - bring your four-legged friends!'
+                  body: "Sixty-four seats directly under the Heathrow flight path, with a plane over your head roughly every 90 seconds at peak. Heated areas keep the garden usable when the evening turns cool.",
+                  note: 'Dog-friendly outdoor areas, so bring your four-legged friends.'
                 },
                 {
                   title: 'Sports & Atmosphere',
                   body: 'Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.',
-                  note: 'Big matches get busy - arrive early for the best seats!'
+                  note: 'Big matches get busy, so arrive early for a good seat.'
                 },
                 {
                   title: 'Local Institution',
@@ -337,7 +338,7 @@ export default async function DrinksMenuPage() {
                 {
                   title: 'Quality & Choice',
                   body: 'From draught beers to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.',
-                  note: "Can't see your favourite? Just ask - we might have it!"
+                  note: "Can't see your favourite? Just ask, we might have it."
                 }
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -429,7 +430,7 @@ export default async function DrinksMenuPage() {
         faqs={[
           {
             question: "What beers are on tap at The Anchor?",
-            answer: "We have a fantastic selection of draught beers including Birra Moretti, Guinness, Stella Artois, Aspall Cider, Inch's Apple Cider, Fosters and Carlsberg. Our draught selection offers something for every taste, from crisp lagers to rich stouts."
+            answer: "Our draught line-up includes Birra Moretti, Guinness, Stella Artois, Aspall Cider, Inch's Apple Cider, Fosters and Carlsberg, so it runs from crisp lagers through to rich stouts."
           },
           {
             question: "Do you serve cocktails at The Anchor?",
@@ -437,11 +438,11 @@ export default async function DrinksMenuPage() {
           },
           {
             question: "Where can I find well-kept draught beer near Heathrow?",
-            answer: "The Anchor is just 7 minutes from Heathrow and offers an excellent selection of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden."
+            answer: "The Anchor is just 7 minutes from Heathrow Terminal 5, and 7 to 12 minutes from the other terminals, with a proper choice of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden."
           },
           {
             question: "Do you have non-alcoholic drink options?",
-            answer: "Absolutely! We offer a full range of soft drinks, mocktails, premium coffee, tea, and non-alcoholic beers. We ensure everyone can enjoy their visit regardless of whether they're drinking alcohol."
+            answer: "Yes. We offer a full range of soft drinks, mocktails, coffee, tea, and non-alcoholic beers, so everyone can enjoy their visit whether they're drinking alcohol or not."
           },
           {
             question: "Can I book the bar area for a private drinks party?",
