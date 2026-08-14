@@ -1,5 +1,5 @@
 import { Badge, Card, CardBody } from '@/components/ui'
-import { formatMenuAllergenList, getMenuItemAllergens } from '@/lib/menu-allergens'
+import { formatMenuAllergenLine, getMenuItemAllergens } from '@/lib/menu-allergens'
 import type { MenuPageItem } from '@/lib/menu-page-data'
 
 export interface DietaryItemListProps {
@@ -44,7 +44,7 @@ export function DietaryItemList({ items, badge, optionFlag, optionNote }: Dietar
                   )}
                   <p className="mt-1 text-xs text-ink-muted">{item.categoryTitle}</p>
                   <p className="mt-2 text-xs text-ink-muted">
-                    Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                    {formatMenuAllergenLine(allergens)}
                   </p>
                 </div>
               </li>

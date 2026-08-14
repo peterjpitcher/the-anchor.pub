@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
-import { formatMenuAllergenList, getMenuItemAllergens } from '@/lib/menu-allergens'
+import { formatMenuAllergenLine, getMenuItemAllergens } from '@/lib/menu-allergens'
 import type { MenuPageItem } from '@/lib/menu-page-data'
 
 interface SundayRoastFeatureProps {
@@ -71,7 +71,7 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
                         )}
                       </p>
                       <p className="mt-2 text-xs text-ink-muted">
-                        Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                        {formatMenuAllergenLine(allergens)}
                       </p>
                     </li>
                   )

@@ -10,7 +10,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { formatMenuAllergenList, getMenuItemAllergens } from '@/lib/menu-allergens'
+import { formatMenuAllergenLine, getMenuItemAllergens } from '@/lib/menu-allergens'
 import {
   getFishAndChipsMenuPageData,
   getGlutenFreeFishAndChipsNotice,
@@ -166,7 +166,7 @@ export default async function FishAndChipsPage() {
                       )}
                       <p className="mb-3 text-xs text-ink-muted">{item.categoryTitle}</p>
                       <Badge variant="outline">
-                        Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                        {formatMenuAllergenLine(allergens)}
                       </Badge>
                     </CardBody>
                   </Card>
