@@ -223,7 +223,22 @@ const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
   { value: 'three_course', label: 'Mostly 3 courses each' }
 ]
 
-const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
+// Owner-confirmed 13 August 2026: the Yorkshire pudding, roast potatoes, mashed
+// potato and peas are part of the plate, they are not extras. Mirrors
+// SSOT.json christmas_2026.trimmings.
+//
+// The vegan Vegetable Wellington is the documented exception and takes no
+// Yorkshire pudding and no pigs in blankets, so this list describes the meat
+// plates. The Wellington's own dish description carries its vegan wording.
+const TRIMMINGS = [
+  'Pigs in blankets',
+  'Stuffing',
+  'Brussels sprouts',
+  'Yorkshire pudding',
+  'Roast potatoes',
+  'Mashed potato',
+  'Peas'
+]
 
 /**
  * Owner-confirmed 11 August 2026. Christmas sittings run Tuesday to Saturday,
@@ -388,7 +403,7 @@ function buildFaqItems(
     },
     {
       question: 'What is included in the price?',
-      answer: 'Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
+      answer: `Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are ${TRIMMINGS.join(', ').toLowerCase()}.`
     },
     {
       question: 'What is on the Christmas menu?',
@@ -816,8 +831,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
-                alt="A table laid for Christmas dinner at The Anchor near Heathrow"
+                src="/images/page-headers/christmas-parties/2026/christmas-dinner-table.jpg"
+                alt="Christmas dinner plated with a Yorkshire pudding, pigs in blankets and stuffing, on a table laid for a group at The Anchor near Heathrow"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -1197,15 +1212,23 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface-sunk">
-        <Container>
-          <FAQAccordionWithSchema
-            title="Christmas party and Christmas dinner FAQs"
-            faqs={faqItems}
-            className="bg-surface"
-          />
-        </Container>
-      </Section>
+      {/*
+        Mounted bare, never inside Section/Container. The component is a
+        self-contained full-bleed section: it brings its own py-section-y and
+        its own .container. This page was the only one of the 20-plus FAQ pages
+        that wrapped it, which stacked two lots of section padding and trapped
+        the component's background inside the 1248px container as a floating
+        card. That was the "huge text and odd padding": the type was the site's
+        normal scale sitting in a broken frame.
+      */}
+      <FAQAccordionWithSchema
+        title="Christmas party and Christmas dinner FAQs"
+        faqs={faqItems}
+        className="bg-surface-sunk"
+        // This page sets its own heading scale rather than using
+        // SectionHeading, so the FAQ heading matches its neighbours here.
+        titleClassName="text-3xl font-bold"
+      />
 
       <Section className="py-20 bg-surface-sunk border-t border-line">
         <Container>
@@ -1565,6 +1588,10 @@ function ChristmasMenuAndPricing({
                 <li>Adults get a glass of prosecco whichever courses they choose, swappable for orange juice.</li>
                 <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
                 <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
+                <li>
+                  The Vegetable Wellington is vegan, so it comes with vegan trimmings and vegan gravy, without the
+                  Yorkshire pudding or the pigs in blankets.
+                </li>
               </ul>
             </div>
           </Card>
@@ -1591,6 +1618,9 @@ function ChristmasMenuAndPricing({
                 These are the dishes each guest picks from. A main is the 1 course; add a starter, a dessert, or both, and
                 everyone at the table can choose differently. We need everyone&apos;s choices{' '}
                 {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date.
+              </p>
+              <p className="text-base text-ink-muted">
+                Every main comes with the trimmings: {TRIMMINGS.join(', ').toLowerCase()}.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
