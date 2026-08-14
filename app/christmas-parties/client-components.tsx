@@ -1212,18 +1212,23 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface-sunk">
-        <Container>
-          <FAQAccordionWithSchema
-            title="Christmas party and Christmas dinner FAQs"
-            faqs={faqItems}
-            className="bg-surface"
-            // This page sets its own heading scale rather than using
-            // SectionHeading, so the FAQ heading matches its neighbours here.
-            titleClassName="text-3xl font-bold"
-          />
-        </Container>
-      </Section>
+      {/*
+        Mounted bare, never inside Section/Container. The component is a
+        self-contained full-bleed section: it brings its own py-section-y and
+        its own .container. This page was the only one of the 20-plus FAQ pages
+        that wrapped it, which stacked two lots of section padding and trapped
+        the component's background inside the 1248px container as a floating
+        card. That was the "huge text and odd padding": the type was the site's
+        normal scale sitting in a broken frame.
+      */}
+      <FAQAccordionWithSchema
+        title="Christmas party and Christmas dinner FAQs"
+        faqs={faqItems}
+        className="bg-surface-sunk"
+        // This page sets its own heading scale rather than using
+        // SectionHeading, so the FAQ heading matches its neighbours here.
+        titleClassName="text-3xl font-bold"
+      />
 
       <Section className="py-20 bg-surface-sunk border-t border-line">
         <Container>
