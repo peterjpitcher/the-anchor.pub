@@ -27,6 +27,14 @@ const ALLOWLIST = new Map([
   ['components/ui/overlays/StickyDrawer.tsx', 'drawer sizing, not page width'],
   ['components/hero/InteriorHero.tsx', 'hero text column sits on a photo, not a page surface'],
   ['app/_components/HomeHero.tsx', 'hero text column sits on a photo, not a page surface'],
+  // Owner-approved 13 August 2026, after measuring the rendered result: at the
+  // full container an FAQ answer ran ~180 characters a line. The cap is on the
+  // answer paragraph ONLY. The section, the rows, the questions and the
+  // dividers all still measure one page width, so this does not reopen the
+  // narrow-copy-under-wide-cards problem that closed the rule in the first
+  // place: there are no cards here, and nothing beside the paragraph to sit
+  // narrower than.
+  ['components/FAQAccordionWithSchema.tsx', 'answer reading measure; rows and dividers stay page width'],
 ]);
 
 // Caps that mean "page content", i.e. the ones that used to fight .container.

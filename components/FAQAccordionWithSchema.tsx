@@ -137,7 +137,25 @@ export function FAQAccordionWithSchema({
                     }}
                     aria-hidden={openIndex !== index}
                   >
-                    <p className="text-lg text-ink-muted">
+                    {/*
+                      A real reading measure, and the one deliberate exception to
+                      the one-width standard (allowlisted in
+                      scripts/audit-page-width.js, owner-approved 13 August 2026).
+
+                      At the full container an answer ran about 180 characters a
+                      line, roughly two and a half times what is comfortable to
+                      read, and the eye loses the line it is on when it returns to
+                      the left edge. The row, the question and the divider all
+                      stay full width, so the section still measures as one page
+                      width; only the paragraph inside it is capped.
+                    */}
+                    {/*
+                      54ch, not the ~70 the target measure suggests: the `ch`
+                      unit is the width of "0", and this body face carries a
+                      narrow zero, so 70ch measured 95 characters on screen.
+                      This value was set from the rendered line, not the token.
+                    */}
+                    <p className="text-lg text-ink-muted max-w-[54ch]">
                       {faq.answer}
                     </p>
                   </div>
