@@ -307,6 +307,8 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 ### Capacity
 
+> **Capacities are owner-confirmed as coming from the management app, and those are the only true numbers.** The table below mirrors them (and `SSOT.json` `venue.capacity`). Never invent or round a capacity in page copy: if a figure is not below, it is wrong. Owner-confirmed 15 August 2026.
+
 | Space | Capacity |
 |---|---|
 | Whole venue, exclusive hire | 119 seated / 300 standing |
@@ -322,6 +324,9 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 - **20 free spaces** on site. (This is the correct number.)
 - No fees, no time limit while visiting.
+- **No number plate registration.** We do not ask guests to register a vehicle, and no page may say we do. Owner-confirmed 15 August 2026.
+- **No free-parking time cap.** Never state a two or three hour limit for guests using the pub. Owner-confirmed 15 August 2026.
+- **Leaving a car for longer** (for example while flying) is the separate **paid** airport parking product, not guest parking. Keep the two clearly distinct in copy.
 - Level surface, close to entrance. CCTV and floodlit.
 - Additional parking available nearby.
 

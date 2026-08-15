@@ -216,7 +216,7 @@ export default function EngagementPartiesPage() {
                             <Card accent><CardBody className="space-y-4">
                                 <h3 className="font-display text-h4 text-ink-strong">Full Party Mode</h3>
                                 <p className="text-ink-muted">
-                                    Want to invite everyone? Our function area can host up to 100 guests. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
+                                    Want to invite everyone? Our dining room holds up to 50 standing, and exclusive hire of the whole pub covers up to 300. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
                                 </p>
                                 <ul className="list-disc pl-5 text-ink-muted space-y-2">
                                     <li>Capacity for 30-100 guests</li>
