@@ -111,6 +111,7 @@ const DATES = {
   jul2026: new Date('2026-07-10'),      // Christmas page and booking journey refresh
   jul2026Early: new Date('2026-07-07'), // Anniversary parties content remediation
   jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
+  aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -168,7 +169,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/book-table', lastModified: DATES.apr2026 },
     { path: '/private-hire', lastModified: DATES.jul2026 },
     { path: '/corporate-events', lastModified: DATES.seoOverhaul },
-    { path: '/christmas-parties', lastModified: DATES.jul2026 },
+    { path: '/christmas-parties', lastModified: DATES.aug2026Christmas },
     { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
