@@ -27,13 +27,44 @@ const VALID_MEAL_SERVICES = new Set(['lunch', 'dinner'])
 // Shared Christmas party nights were discontinued on 21 July 2026 and are no
 // longer an accepted value.
 const VALID_PARTY_FORMATS = new Set([
+  // The three party styles offered from 15 August 2026, owner-worded: the two
+  // food-and-drink styles are standing/buffet occasions, not a second sit-down
+  // journey, and the team firms up the details on the phone anyway.
+  'sit_down_dinner',
+  'buffet_party',
+  'drinks_party',
+  // Legacy values still arriving from bundles cached before the change. A
+  // guest mid-enquiry on an old bundle must not be rejected, so these stay
+  // accepted and keep their original labels below.
   'not_sure',
   'private_space',
   'festive_buffet',
-  'drinks_party',
   'entertainment'
 ])
 const VALID_COURSE_TIERS = new Set(['undecided', 'one_course', 'two_course', 'three_course'])
+
+// These enquiries are worth four figures each, so the management call gets
+// three attempts with short backoff before the email fallback takes over.
+// Idempotency (one key per submission) makes the retries duplicate-safe.
+const MANAGEMENT_ATTEMPTS = 3
+const MANAGEMENT_TIMEOUT_MS = 8000
+const MANAGEMENT_RETRY_DELAYS_MS = [600, 1500]
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+/**
+ * A per-request timeout signal where the runtime provides one. Vercel's Node
+ * runtime always does; the jsdom test environment does not, and a thrown
+ * TypeError here would be indistinguishable from a network failure and would
+ * send every test down the retry path.
+ */
+function requestTimeoutSignal(ms: number): AbortSignal | undefined {
+  return typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function'
+    ? AbortSignal.timeout(ms)
+    : undefined
+}
 
 type EnquiryMode = 'party' | 'meal'
 type MealService = 'lunch' | 'dinner'
@@ -97,7 +128,7 @@ function normaliseIncomingPayload(body: IncomingChristmasEnquiryPayload): Partia
   }
 
   if (body.mode === 'buffet') {
-    return { ...body, mode: 'party', partyFormat: body.partyFormat || 'festive_buffet' }
+    return { ...body, mode: 'party', partyFormat: body.partyFormat || 'buffet_party' }
   }
 
   return body as Partial<ChristmasEnquiryPayload>
@@ -122,10 +153,15 @@ function enquiryLabel(body: ChristmasEnquiryPayload): string {
 function partyFormatLabel(value?: string): string | undefined {
   if (!value) return undefined
   const labels: Record<string, string> = {
+    // Current options, 15 August 2026.
+    sit_down_dinner: 'Sit-down Christmas dinner',
+    buffet_party: `Standing party with festive buffet (${BUFFET_MINIMUM_GUESTS}+)`,
+    drinks_party: 'Drinks-only party',
+    // Legacy options, kept so an old bundle's submission is still labelled
+    // exactly as the guest saw it.
     not_sure: 'Not sure yet',
     private_space: 'Private space',
     festive_buffet: `Festive buffet (${BUFFET_MINIMUM_GUESTS}+)`,
-    drinks_party: 'Drinks party',
     entertainment: 'Entertainment package'
   }
   return labels[value] || value
@@ -140,16 +176,38 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#39;')
 }
 
-function buildEmailContent(body: ChristmasEnquiryPayload) {
+function buildEmailContent(
+  body: ChristmasEnquiryPayload,
+  options?: {
+    /**
+     * Why the management app did not take this enquiry. When set, the email
+     * is the ONLY record of the enquiry, so the subject and the opening line
+     * say so unmissably instead of looking like a routine notification.
+     */
+    managementFailureDetail?: string | null
+  }
+) {
   const extras = (body.extras || []).filter(Boolean)
   const perks = (body.perks || []).filter(Boolean)
   const preferredDate = body.preferredDate || 'Date TBC'
   const preferredTime = formatTimeForEmail(body.preferredTime)
   const label = enquiryLabel(body)
+  const managementFailureDetail = options?.managementFailureDetail || null
 
-  const subject = `${label} enquiry - ${body.partySize} guests - ${preferredDate}`
+  const subject = managementFailureDetail
+    ? `ACTION NEEDED, not in the system: ${label} enquiry - ${body.partySize} guests - ${preferredDate}`
+    : `${label} enquiry - ${body.partySize} guests - ${preferredDate}`
 
   const textLines = [
+    ...(managementFailureDetail
+      ? [
+          'THIS ENQUIRY IS NOT IN THE MANAGEMENT SYSTEM.',
+          'Saving it to /private-bookings failed after every retry, so this email is the only record.',
+          'Please add it by hand, then reply to the guest as normal.',
+          `Technical detail: ${managementFailureDetail}`,
+          ''
+        ]
+      : []),
     'New Christmas enquiry',
     '',
     `Name: ${body.name}`,
@@ -188,6 +246,14 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
   const textContent = `${textLines.join('\n')}\n`
 
   const htmlParts = [
+    ...(managementFailureDetail
+      ? [
+          '<p style="background:#b91c1c;color:#ffffff;padding:12px 16px;font-weight:bold;">' +
+            'THIS ENQUIRY IS NOT IN THE MANAGEMENT SYSTEM. Saving it to /private-bookings failed after every retry, ' +
+            'so this email is the only record. Please add it by hand, then reply to the guest as normal.</p>',
+          `<p><strong>Technical detail:</strong> ${escapeHtml(managementFailureDetail)}</p>`
+        ]
+      : []),
     '<h2>New Christmas enquiry</h2>',
     `<p><strong>Name:</strong> ${escapeHtml(body.name)}</p>`,
     `<p><strong>Email:</strong> ${escapeHtml(body.email)}</p>`,
@@ -339,8 +405,11 @@ export async function POST(request: NextRequest) {
     }
 
     const numericPartySize = Number.parseInt(body.partySize, 10)
-    const maximumPartySize = body.mode === 'meal' ? 60 : 200
-    const minimumPartySize = body.mode === 'party' && body.partyFormat === 'festive_buffet'
+    // Sit-down capacity is 60 at Christmas whichever journey it arrives by, so
+    // a party-style sit-down dinner carries the same cap as the meal journey.
+    const maximumPartySize = body.mode === 'meal' || body.partyFormat === 'sit_down_dinner' ? 60 : 200
+    const isBuffetFormat = body.partyFormat === 'buffet_party' || body.partyFormat === 'festive_buffet'
+    const minimumPartySize = body.mode === 'party' && isBuffetFormat
       ? BUFFET_MINIMUM_GUESTS
       : CHRISTMAS_MINIMUM_PARTY_SIZE
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
@@ -381,6 +450,12 @@ export async function POST(request: NextRequest) {
     const managementApiBaseUrl = getManagementApiBaseUrl()
     const managementKey = process.env.ANCHOR_API_KEY
     let managementForwarded = false
+    // Why the enquiry is not in the management system, for the fallback email.
+    // Stays null on success; is always set on any path that skips or fails the
+    // management call, so the email can never claim less than the truth.
+    let managementFailureDetail: string | null = managementKey
+      ? null
+      : 'ANCHOR_API_KEY is not configured, so the management app was never called.'
 
     if (managementKey) {
       try {
@@ -414,21 +489,59 @@ export async function POST(request: NextRequest) {
           perks: body.perks
         }
 
-        const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-API-Key': managementKey
-          },
-          body: JSON.stringify(managementPayload)
-        })
+        // One idempotency key for the whole submission, reused on every retry.
+        // The management route claims the key before writing and releases it on
+        // failure, so a retry can never create a duplicate booking: an ambiguous
+        // timeout that actually committed replays the stored 201 instead.
+        const idempotencyKey =
+          typeof crypto !== 'undefined' && 'randomUUID' in crypto
+            ? crypto.randomUUID()
+            : `xmas-${Date.now()}-${Math.random().toString(36).slice(2)}`
 
-        if (!mgmtResponse.ok) {
-          console.error('Failed to create booking in management app:', await mgmtResponse.text())
-        } else {
-          managementForwarded = true
+        for (let attempt = 1; attempt <= MANAGEMENT_ATTEMPTS && !managementForwarded; attempt++) {
+          try {
+            const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': managementKey,
+                'Idempotency-Key': idempotencyKey
+              },
+              body: JSON.stringify(managementPayload),
+              signal: requestTimeoutSignal(MANAGEMENT_TIMEOUT_MS)
+            })
+
+            if (mgmtResponse.ok) {
+              managementForwarded = true
+              managementFailureDetail = null
+              break
+            }
+
+            const errorText = await mgmtResponse.text().catch(() => '')
+            managementFailureDetail = `HTTP ${mgmtResponse.status} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}: ${errorText.slice(0, 300)}`
+
+            // 5xx may heal on retry. 429 is asking us to retry. 409 means our
+            // own earlier attempt still holds the idempotency claim, so waiting
+            // and retrying resolves to either its stored success or a clean run.
+            // Any other 4xx is a payload problem and retrying cannot fix it.
+            const retryable = mgmtResponse.status >= 500 || mgmtResponse.status === 429 || mgmtResponse.status === 409
+            if (!retryable) break
+          } catch (requestError) {
+            const message = requestError instanceof Error ? requestError.message : String(requestError)
+            managementFailureDetail = `${message} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}`
+          }
+
+          if (attempt < MANAGEMENT_ATTEMPTS) {
+            await sleep(MANAGEMENT_RETRY_DELAYS_MS[attempt - 1] ?? 1000)
+          }
+        }
+
+        if (!managementForwarded) {
+          console.error('Christmas enquiry could not be stored in the management app after retries:', managementFailureDetail)
         }
       } catch (dbError) {
+        const message = dbError instanceof Error ? dbError.message : String(dbError)
+        managementFailureDetail = managementFailureDetail || `Unexpected error before the management call: ${message}`
         console.error('Error contacting management app:', dbError)
       }
     }
@@ -443,7 +556,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const { subject, htmlContent, textContent } = buildEmailContent(enquiry)
+      const { subject, htmlContent, textContent } = buildEmailContent(enquiry, { managementFailureDetail })
       const accessToken = await getMicrosoftGraphToken()
 
       await sendMicrosoftGraphEmail(accessToken, {
