@@ -229,7 +229,10 @@ const PARTY_TIME_OPTIONS: TimeOption[] = [
 ]
 
 /** Shared Christmas party nights were discontinued on 21 July 2026 and are not listed. */
-const PARTY_FORMAT_VALUES = ['not_sure', 'private_space', 'festive_buffet', 'drinks_party', 'entertainment'] as const
+// The three party styles, owner-worded 15 August 2026. The two food styles are
+// standing/buffet occasions rather than a second sit-down journey, and the
+// exact shape of the night is agreed on the phone: the dropdown is a steer.
+const PARTY_FORMAT_VALUES = ['sit_down_dinner', 'buffet_party', 'drinks_party'] as const
 
 // Guests pick their own courses at pre-order, so this asks what the group
 // expects rather than committing the table to one course count.
@@ -313,14 +316,9 @@ const getLocalStorage = (key: string) => {
 
 function partyFormatOptions(buffetMinimumGuests: number): Array<{ value: string, label: string }> {
   const labels: Record<(typeof PARTY_FORMAT_VALUES)[number], string> = {
-    not_sure: 'Not sure yet',
-    private_space: 'Private space',
-    festive_buffet: `Festive buffet (${buffetMinimumGuests}+)`,
-    drinks_party: 'Drinks party',
-    // Owner-confirmed 11 August 2026: the Christmas quiz is the only festive
-    // entertainment. This option must never read as a package sold on top of a
-    // booking, and never as karaoke, a live band or a DJ.
-    entertainment: 'Christmas quiz'
+    sit_down_dinner: 'Sit-down Christmas dinner',
+    buffet_party: `Standing party with festive buffet (${buffetMinimumGuests}+)`,
+    drinks_party: 'Drinks-only party'
   }
   return PARTY_FORMAT_VALUES.map(value => ({ value, label: labels[value] }))
 }
@@ -1866,7 +1864,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   const [partySize, setPartySize] = useState('')
   const [preferredDate, setPreferredDate] = useState('')
   const [preferredTime, setPreferredTime] = useState('18:00')
-  const [partyFormat, setPartyFormat] = useState('not_sure')
+  const [partyFormat, setPartyFormat] = useState('')
   const [notes, setNotes] = useState('')
   const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -1877,7 +1875,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
 
   const timeOptions = getTimeOptions(context)
   const formatOptions = useMemo(() => partyFormatOptions(facts.buffetMinimumGuests), [facts.buffetMinimumGuests])
-  const minimumGuests = context.mode === 'party' && partyFormat === 'festive_buffet'
+  const minimumGuests = context.mode === 'party' && partyFormat === 'buffet_party'
     ? facts.buffetMinimumGuests
     : facts.minPartySize
 
@@ -1940,7 +1938,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
-          partyFormat: context.mode === 'party' ? partyFormat : undefined,
+          partyFormat: context.mode === 'party' && partyFormat ? partyFormat : undefined,
           source: context.source,
           name: name.trim(),
           email: email.trim(),
@@ -1982,7 +1980,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
       setPartySize('')
       setPreferredDate('')
       setPreferredTime(context.mode === 'meal' && context.service === 'lunch' ? '12:00' : '18:00')
-      setPartyFormat('not_sure')
+      setPartyFormat('')
       setNotes('')
       setConsent(false)
       onContextChange({ perks: [], courseTier: 'undecided' })
@@ -2104,6 +2102,10 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setPartyFormat(event.target.value)}
               className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             >
+              {/* An empty default rather than pre-selecting a style: a wrong
+                  pre-selection misroutes the kitchen conversation, and the
+                  style is optional because the team firms it up on the call. */}
+              <option value="">Choose a party style</option>
               {formatOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
@@ -2391,7 +2393,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         form_mode: context.mode,
         form_journey: context.mode === 'meal' ? 'christmas_meal' : 'christmas_party',
         meal_service: context.mode === 'meal' ? context.service : undefined,
-        party_format: context.mode === 'party' ? 'not_sure' : undefined,
+        party_format: undefined,
         party_size: Number.isNaN(numericPartySize) ? undefined : numericPartySize
       })
 
@@ -2402,7 +2404,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
-          partyFormat: context.mode === 'party' ? 'not_sure' : undefined,
+          partyFormat: undefined,
           source: 'lightbox',
           name: name.trim(),
           email: email.trim(),
@@ -2431,7 +2433,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         mode: context.mode,
         journey: context.mode === 'meal' ? 'christmas_meal' : 'christmas_party',
         meal_service: context.mode === 'meal' ? context.service : undefined,
-        party_format: context.mode === 'party' ? 'not_sure' : undefined,
+        party_format: undefined,
         party_size: Number.isNaN(numericPartySize) ? undefined : numericPartySize
       })
       setSubmitted(true)

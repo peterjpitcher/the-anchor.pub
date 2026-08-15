@@ -121,23 +121,85 @@ describe('POST /api/enquiry/christmas', () => {
     expect(forwarded.notes).not.toMatch(/pre-book only/i)
   })
 
-  it('uses Graph email only when the management API fails', async () => {
+  it('retries a transient management failure under one idempotency key, then succeeds without email', async () => {
     ;(global.fetch as jest.Mock)
-      .mockResolvedValueOnce(jsonResponse({ error: 'unavailable' }, 500))
+      .mockResolvedValueOnce(jsonResponse({ error: 'blip' }, 500))
+      .mockResolvedValueOnce(jsonResponse({ success: true }, 201))
+
+    const responsePromise = post(validPayload({ mode: 'party', service: undefined, partyFormat: 'buffet_party', partySize: '35' }))
+    await jest.runAllTimersAsync()
+    const response = await responsePromise
+    const result = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(result).toEqual({ success: true, delivery: 'management' })
+    // Two management calls, no Graph token, no email.
+    expect(global.fetch).toHaveBeenCalledTimes(2)
+
+    const calls = (global.fetch as jest.Mock).mock.calls
+    expect(calls[0][0]).toBe('https://management.example.test/api/external/create-booking')
+    expect(calls[1][0]).toBe('https://management.example.test/api/external/create-booking')
+    // The whole point of the key: both attempts carry the SAME one, so the
+    // management side can never create two bookings from one submission.
+    const keyA = calls[0][1].headers['Idempotency-Key']
+    const keyB = calls[1][1].headers['Idempotency-Key']
+    expect(keyA).toBeTruthy()
+    expect(keyA).toBe(keyB)
+
+    const forwarded = JSON.parse(String(calls[1][1].body))
+    expect(forwarded.notes).toContain('Standing party with festive buffet (30+)')
+  })
+
+  it('does not retry a validation rejection from the management API', async () => {
+    ;(global.fetch as jest.Mock)
+      .mockResolvedValueOnce(jsonResponse({ error: 'bad payload' }, 400))
       .mockResolvedValueOnce(jsonResponse({ access_token: 'graph-token' }))
       .mockResolvedValueOnce(new Response(null, { status: 202 }))
 
-    const response = await post(validPayload({ mode: 'party', service: undefined, partyFormat: 'private_space' }))
+    const responsePromise = post(validPayload())
+    await jest.runAllTimersAsync()
+    const response = await responsePromise
     const result = await response.json()
 
     expect(response.status).toBe(200)
     expect(result).toEqual({ success: true, delivery: 'email_fallback' })
-    expect(global.fetch).toHaveBeenCalledTimes(3)
+    // One management call only: a 400 cannot heal on retry.
+    const managementCalls = (global.fetch as jest.Mock).mock.calls
+      .filter(([url]) => String(url).includes('/external/create-booking'))
+    expect(managementCalls).toHaveLength(1)
+  })
 
-    const [sendUrl, sendInit] = (global.fetch as jest.Mock).mock.calls[2]
+  it('falls back to an unmissable ACTION NEEDED email when every retry fails', async () => {
+    ;(global.fetch as jest.Mock)
+      .mockResolvedValueOnce(jsonResponse({ error: 'down' }, 500))
+      .mockResolvedValueOnce(jsonResponse({ error: 'down' }, 500))
+      .mockResolvedValueOnce(jsonResponse({ error: 'down' }, 500))
+      .mockResolvedValueOnce(jsonResponse({ access_token: 'graph-token' }))
+      .mockResolvedValueOnce(new Response(null, { status: 202 }))
+
+    const responsePromise = post(validPayload({ mode: 'party', service: undefined, partyFormat: 'private_space' }))
+    await jest.runAllTimersAsync()
+    const response = await responsePromise
+    const result = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(result).toEqual({ success: true, delivery: 'email_fallback' })
+    // Three management attempts, then token, then send.
+    expect(global.fetch).toHaveBeenCalledTimes(5)
+
+    const managementCalls = (global.fetch as jest.Mock).mock.calls.slice(0, 3)
+    const keys = new Set(managementCalls.map(([, init]) => init.headers['Idempotency-Key']))
+    expect(keys.size).toBe(1)
+
+    const [sendUrl, sendInit] = (global.fetch as jest.Mock).mock.calls[4]
     expect(sendUrl).toContain('/sendMail')
     const email = JSON.parse(String(sendInit.body))
+    // The email must say plainly that it is the only record of the enquiry.
+    expect(email.message.subject).toContain('ACTION NEEDED')
     expect(email.message.subject).toContain('Christmas party enquiry')
+    expect(email.message.body.content).toMatch(/not in the management system/i)
+    expect(email.message.body.content).toContain('HTTP 500')
+    // Legacy party format from a cached bundle still labels correctly.
     expect(email.message.body.content).toContain('Private space')
   })
 
@@ -148,7 +210,9 @@ describe('POST /api/enquiry/christmas', () => {
     ['an invalid course tier', { courseTier: 'four_course' }],
     ['meal over capacity', { partySize: '61' }],
     ['a meal below the 6 guest minimum', { partySize: '5' }],
-    ['a buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '29' }],
+    ['a buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'buffet_party', partySize: '29' }],
+    ['a legacy-valued buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '29' }],
+    ['a party-style sit-down dinner above the 60 seat capacity', { mode: 'party', service: undefined, partyFormat: 'sit_down_dinner', partySize: '61' }],
     ['a date after the window closes', { preferredDate: '2026-12-21' }],
     ['a date before the window opens', { preferredDate: '2026-11-09' }],
     ['today, which breaks the 24 hour notice rule', { preferredDate: FROZEN_TODAY }],
@@ -162,7 +226,10 @@ describe('POST /api/enquiry/christmas', () => {
 
   it.each([
     ['the 6 guest minimum exactly', { partySize: '6' }],
-    ['the 30 guest buffet minimum exactly', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '30' }],
+    ['the 30 guest buffet minimum exactly', { mode: 'party', service: undefined, partyFormat: 'buffet_party', partySize: '30' }],
+    ['a drinks-only party at the 6 guest minimum', { mode: 'party', service: undefined, partyFormat: 'drinks_party', partySize: '6' }],
+    ['a party-style sit-down dinner at the 60 seat capacity', { mode: 'party', service: undefined, partyFormat: 'sit_down_dinner', partySize: '60' }],
+    ['a party with no style chosen yet', { mode: 'party', service: undefined, partyFormat: undefined }],
     ['tomorrow, the earliest date with 24 hours notice', { preferredDate: TOMORROW }],
     ['20 December, the last day of the window', { preferredDate: '2026-12-20' }],
   ])('accepts %s', async (_label, overrides) => {
