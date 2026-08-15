@@ -3,6 +3,7 @@ import ssot from '@/SSOT.json'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import {
   ChristmasPartiesPageClient,
+  type ChristmasBuffetView,
   type ChristmasCourseChoicesView,
   type ChristmasDishView,
   type ChristmasFactsView,
@@ -21,6 +22,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { buildChristmasMenuJsonLd, christmasPartiesSchema } from '@/lib/christmas-parties-schema'
 import { getChristmasMenuPageData, MENU_ALLERGEN_UNKNOWN_NOTICE, type ChristmasMenuSection } from '@/lib/menu-page-data'
 import { getChristmasPreorderMenu, type ChristmasPreorderMenu } from '@/lib/christmas-preorder-menu'
+import { getCateringData, type CateringPackage } from '@/lib/api/catering-packages'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
@@ -293,13 +295,41 @@ function buildCourseChoicesView(source: ChristmasPreorderMenu | null): Christmas
   }
 }
 
+/**
+ * The festive buffet packages, priced live from the catering source.
+ *
+ * Matched on a "Festive" name prefix rather than a hardcoded list, so
+ * activating or retiring one in the management app is the only step needed:
+ * the sit-down "Festive Menu" packages are excluded because they are the set
+ * menu, not a buffet, and are retired. Returns [] when none are active, which
+ * hides the cards rather than advertising something nobody can book.
+ */
+function buildBuffetView(packages: CateringPackage[]): ChristmasBuffetView[] {
+  return packages
+    .filter(pkg =>
+      /^festive/i.test(pkg.name) &&
+      pkg.servingStyle === 'buffet' &&
+      pkg.costPerHead > 0
+    )
+    .sort((a, b) => a.costPerHead - b.costPerHead)
+    .map(pkg => ({
+      name: pkg.name,
+      // Symbol-free from the source; the page adds the £, per the price policy.
+      pricePerHead: pkg.costPerHead.toFixed(2).replace(/\.00$/, ''),
+      minimumGuests: pkg.minimumGuests,
+      description: pkg.guestDescription || pkg.summary || ''
+    }))
+}
+
 export default async function ChristmasPartiesPage() {
   const season = buildSeasonView()
-  // Both menu reads are independent, so they run together rather than in series.
-  const [christmasMenu, preorderMenu] = await Promise.all([
+  // All three reads are independent, so they run together rather than in series.
+  const [christmasMenu, preorderMenu, catering] = await Promise.all([
     getChristmasMenuPageData(),
-    getChristmasPreorderMenu()
+    getChristmasPreorderMenu(),
+    getCateringData().catch(() => ({ foodPackages: [] as CateringPackage[] }))
   ])
+  const buffets = buildBuffetView(catering.foodPackages)
   const menu = buildMenuView(christmasMenu.sections, Boolean(christmasMenu.unavailableReason))
   const courseChoices = buildCourseChoicesView(preorderMenu)
   const seasonEnded = season.state === 'ended' || !season.isBookable
@@ -399,6 +429,7 @@ export default async function ChristmasPartiesPage() {
         season={season}
         facts={FACTS}
         courseChoices={seasonEnded ? null : courseChoices}
+        buffets={seasonEnded ? [] : buffets}
       />
       <InternalLinkingSection
         title="More Christmas Party Planning"

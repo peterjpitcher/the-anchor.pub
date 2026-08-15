@@ -82,6 +82,19 @@ export interface ChristmasMenuView {
   isUnavailable: boolean
 }
 
+/**
+ * One festive buffet package, priced live from the management database.
+ * Empty when none are active, which hides the section rather than advertising
+ * a package nobody can book.
+ */
+export interface ChristmasBuffetView {
+  name: string
+  /** Per head, symbol-free, as the catering source supplies it. */
+  pricePerHead: string
+  minimumGuests: number
+  description: string
+}
+
 /** One course of the pre-order menu: the dishes a guest actually picks from. */
 export interface ChristmasCourseGroupView {
   course: string
@@ -153,6 +166,8 @@ interface ChristmasPartiesPageClientProps {
   facts: ChristmasFactsView
   /** Null whenever the dish list cannot be shown, which keeps the old copy. */
   courseChoices?: ChristmasCourseChoicesView | null
+  /** Live festive buffet packages. Empty hides the buffet cards entirely. */
+  buffets?: ChristmasBuffetView[]
 }
 
 interface ChristmasEnquiryFormProps {
@@ -551,7 +566,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
   ]
 }
 
-export function ChristmasPartiesPageClient({ structuredData, menu, season, facts, courseChoices = null }: ChristmasPartiesPageClientProps) {
+export function ChristmasPartiesPageClient({ structuredData, menu, season, facts, courseChoices = null, buffets = [] }: ChristmasPartiesPageClientProps) {
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -887,8 +902,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/page-headers/christmas-parties/2026/christmas-dinner-table.jpg"
-                alt="Christmas dinner plated with a Yorkshire pudding, pigs in blankets and stuffing, on a table laid for a group at The Anchor near Heathrow"
+                src="/images/page-headers/christmas-parties/2026/christmas-table-laid-2026.jpg"
+                alt="A table laid for a group Christmas dinner, with plated roasts, crackers, candles and a Christmas tree behind"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -972,26 +987,24 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </p>
           </div>
 
+          {/*
+            Names, descriptions and per-head prices all come live from the
+            catering packages in the management database, never hardcoded: the
+            SSOT price policy forbids writing a food price into page code, and
+            these three were activated on 15 August 2026. If a package is
+            deactivated it simply stops appearing, rather than advertising
+            something nobody can book.
+          */}
           <Grid cols={3} gap="md" className="mt-10">
-            {[
-              {
-                title: 'Festive Sandwich & Salad',
-                description: `A cold festive buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and dietary alternatives.`
-              },
-              {
-                title: 'Festive Hot Finger',
-                description: `A hot finger buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and service details.`
-              },
-              {
-                title: 'Festive Premium Grazing',
-                description: `A premium grazing spread for ${facts.buffetMinimumGuests} guests or more. Tell us the style of party and we will confirm what is available.`
-              }
-            ].map(tier => (
-              <Card key={tier.title} className="h-full">
+            {buffets.map(buffet => (
+              <Card key={buffet.name} className="h-full">
                 <div className="p-6 space-y-3">
                   <Badge className="bg-red-100 text-red-700 w-fit">Festive buffet</Badge>
-                  <h3 className="text-lg font-semibold text-ink-strong">{tier.title}</h3>
-                  <p className="text-sm text-ink-muted">{tier.description}</p>
+                  <h3 className="text-lg font-semibold text-ink-strong">{buffet.name}</h3>
+                  <p className="text-sm font-semibold text-accent-text">
+                    £{buffet.pricePerHead} per person &middot; {buffet.minimumGuests} guests or more
+                  </p>
+                  <p className="text-sm text-ink-muted">{buffet.description}</p>
                 </div>
               </Card>
             ))}
@@ -1000,8 +1013,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/events/christmas/festive-party-table-2026.jpg"
-                alt="A long table laid for a Christmas party with crackers, candles and festive runners at The Anchor near Heathrow"
+                src="/images/events/christmas/festive-party-table-2026-v2.jpg"
+                alt="A long table laid for a Christmas party with crackers, candles, glassware and a festive runner"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
