@@ -12,6 +12,12 @@ import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
+
+// Daily regeneration so the seasonal Christmas cross-link appears and removes
+// itself on time. The page was fully static before, which would have frozen
+// the season gate at whatever the last deploy happened to see.
+export const revalidate = 86400
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
@@ -345,6 +351,8 @@ export default async function WhatsOnPage() {
           </Container>
         </section>
       )}
+
+      <ChristmasCrossLink hook="Alongside the regular events, Christmas dinner and festive get-togethers are open to book." />
 
       {/* Internal links (preserved for SEO; A4). */}
       <section className="bg-canvas py-section-y">

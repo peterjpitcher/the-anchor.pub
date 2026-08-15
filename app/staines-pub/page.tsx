@@ -13,6 +13,12 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
+
+// Daily regeneration so the seasonal Christmas cross-link appears and removes
+// itself on time. The page was fully static before, which would have frozen
+// the season gate at whatever the last deploy happened to see.
+export const revalidate = 86400
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
@@ -458,6 +464,8 @@ export default function StainesPubPage() {
           </div>
         </Container>
       </section>
+
+      <ChristmasCrossLink hook="We are eight minutes from Staines with free parking, and Christmas bookings are open." />
 
       <InternalLinkingSection
         title="More To Explore Near Staines"
