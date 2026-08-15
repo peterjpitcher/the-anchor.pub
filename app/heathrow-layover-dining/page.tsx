@@ -49,7 +49,7 @@ const faqItems = [
   },
   {
     question: 'Is there free parking for layover guests?',
-    answer: 'Layover guests receive three hours free parking. Register your number plate at the bar on arrival. Need longer? Let us know and we can extend it or advise on our overnight parking option.'
+    answer: 'Yes. Parking is free for as long as you are using the pub, with nothing to register and no time limit. If you want to leave the car for longer and fly out, that is our separate paid airport parking, so just ask the team and we will sort it.'
   },
   {
     question: 'Do you cater for dietary requirements and quick service?',
@@ -132,7 +132,7 @@ export default function HeathrowLayoverDiningPage() {
             {[
               { title: 'In & Out in 90 Minutes', description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.' },
               { title: 'Full Menu, All Day', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
-              { title: 'Free Parking & Easy Transfers', description: 'Register your car for three hours free. Need a cab back? We’ll organise one with our trusted local partners.' },
+              { title: 'Free Parking & Easy Transfers', description: 'Park free for as long as you are with us, no registering and no time limit. Need a cab back? We’ll organise one with our trusted local partners.' },
               { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
               { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
               { title: 'Perfect for Crew & Families', description: 'Airline staff, business travellers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }

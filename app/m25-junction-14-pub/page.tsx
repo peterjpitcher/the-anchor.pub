@@ -112,7 +112,7 @@ export default async function M25Junction14PubPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="M25 Junction 14"
         title="Your M25 Junction 14 Pit Stop"
-        lead="Just off the motorway, real food at real prices"
+        lead="Just 2 minutes from the motorway, real food at real prices"
         actions={
           <BookTableButton source="m25_junction_14_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -133,7 +133,7 @@ export default async function M25Junction14PubPage() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
               <div className="flex items-start gap-2">
-                <span>A short diversion from Junction 14 via A3113 and Horton Road</span>
+                <span>2 minutes from Junction 14 via A3113 and Horton Road</span>
               </div>
               <div className="flex items-start gap-2">
                 <span>Free parking for cars, vans and minibuses while you dine</span>
@@ -157,7 +157,7 @@ export default async function M25Junction14PubPage() {
               Junction 14 M25 Pub - Traditional British Pub Near M25
             </h2>
             <p className="text-lg text-ink-muted">
-              The smart alternative to motorway services, just off Junction 14
+              The smart alternative to motorway services, just 2 minutes from Junction 14
             </p>
           </div>
         </Container>
@@ -169,12 +169,12 @@ export default async function M25Junction14PubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="The Smart Alternative to Service Stations"
-              subtitle="Why settle for motorway services when a proper British pub is just off Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
+              subtitle="Why settle for motorway services when a proper British pub is just 2 minutes from Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Just Off J14', description: 'Quick detour from M25 Junction 14' },
+                { title: '2 Minutes', description: 'Quick detour from M25 Junction 14' },
                 { title: 'Half Price', description: 'Compared to motorway services' },
                 { title: 'Free Parking', description: '20 spaces, easy access' }
               ].map(feature => (
@@ -367,7 +367,7 @@ export default async function M25Junction14PubPage() {
                   </li>
                 </ol>
                 <p className="mt-4 text-sm text-ink-muted">
-                  <strong>Total time:</strong> a short hop from the motorway
+                  <strong>Total time:</strong> 2 minutes from motorway
                 </p>
               </div>
 
@@ -535,7 +535,7 @@ export default async function M25Junction14PubPage() {
         faqs={[
           {
             question: "How far is The Anchor from M25 Junction 14?",
-            answer: "We're just off M25 Junction 14. Exit at J14, follow A3113 for 1 mile, turn right onto Horton Road, and we're 0.5 miles on your left. Much quicker than queuing at motorway services!"
+            answer: "We're just 2 minutes from M25 Junction 14. Exit at J14, follow A3113 for 1 mile, turn right onto Horton Road, and we're 0.5 miles on your left. Much quicker than queuing at motorway services!"
           },
           {
             question: "Is it worth leaving the M25 for food at The Anchor?",
@@ -564,7 +564,7 @@ export default async function M25Junction14PubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Make The Smart M25 Stop"
-        copy="Real food, real prices, a real break, just off Junction 14"
+        copy="Real food, real prices, a real break, just 2 minutes from Junction 14"
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap gap-3 justify-center">
