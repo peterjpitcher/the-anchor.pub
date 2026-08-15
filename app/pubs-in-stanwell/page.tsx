@@ -294,9 +294,9 @@ export default async function PubsInStanwellPage() {
             <div className="grid gap-4">
               {[
                 { day: "Monday", text: "Bar open all day • Kitchen closed • Perfect for drinks" },
-                { day: "Tuesday - Pizza Night", text: "Stone-baked pizzas • Kitchen 6pm-9pm" },
-                { day: "Wednesday-Thursday", text: "Full menu available • Kitchen 6pm-9pm" },
-                { day: "Friday - Fish & Chips", text: "Fish & chips served • Kitchen 6pm-9pm" },
+                { day: "Tuesday - Pizza Night", text: "Stone-baked pizzas • See today's kitchen hours above" },
+                { day: "Wednesday-Thursday", text: "Full menu available • See today's kitchen hours above" },
+                { day: "Friday - Fish & Chips", text: "Fish & chips served • See today's kitchen hours above" },
                 { day: "Saturday - Entertainment Night", text: "Hosted nights & one-off events • See /whats-on for details" },
                 { day: "Sunday - Roast Day", text: "Traditional Sunday roast • Kitchen 1pm-6pm" },
               ].map((row) => (

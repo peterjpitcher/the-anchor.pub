@@ -603,7 +603,7 @@ export default async function HeathrowHotelsPubPage() {
 	          },
           {
             question: "Are you open early/late for travellers?",
-            answer: "We open at 4pm Tuesday-Friday, noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), dinner, or evening drinks. Many guests visit us the night before early flights or after afternoon hotel check-in."
+            answer: "We are not open for breakfast, but we are ideal for lunch at weekends, dinner or evening drinks. Our current opening and kitchen hours are shown live on this page. Many guests visit us the night before early flights or after afternoon hotel check-in."
           }
         ]}
         className="bg-canvas"

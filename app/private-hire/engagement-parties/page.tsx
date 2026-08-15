@@ -219,7 +219,7 @@ export default function EngagementPartiesPage() {
                                     Want to invite everyone? Our dining room holds up to 50 standing, and exclusive hire of the whole pub covers up to 300. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
                                 </p>
                                 <ul className="list-disc pl-5 text-ink-muted space-y-2">
-                                    <li>Capacity for 30-100 guests</li>
+                                    <li>From a small group up to 300 standing with exclusive hire</li>
                                     <li>Buffet packages to suit all budgets</li>
                                     <li>Space for entertainment</li>
                                 </ul>

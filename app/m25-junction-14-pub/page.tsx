@@ -551,7 +551,7 @@ export default async function M25Junction14PubPage() {
           },
           {
             question: "Are you open early/late for M25 traffic?",
-            answer: "We open at 4pm Tuesday-Friday and noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), afternoon breaks, and dinner. Many M25 regulars time their journeys to stop with us."
+            answer: "We are not open for breakfast, but we are ideal for lunch at weekends, afternoon breaks and dinner. Our current opening and kitchen hours are shown live on this page. Many M25 regulars time their journeys to stop with us."
           },
           {
             question: "Do you get updates on M25 traffic conditions?",
