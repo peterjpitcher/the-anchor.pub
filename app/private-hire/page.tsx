@@ -16,6 +16,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
+import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
@@ -186,6 +187,10 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
         ? searchParams?.event[0]
         : searchParams?.event
     const eventType = isVenueTourEventType(requestedEvent) ? requestedEvent : 'Other'
+
+    // Capacities come from the management app, which is the only true source for
+    // them. Never hardcode a capacity here.
+    const { spaces: venueSpaces } = await getCateringData()
 
     const eventVenueSchema = {
         "@context": "https://schema.org",
@@ -377,6 +382,19 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                     </div>
                 </Container>
             </section>
+
+            {venueSpaces.length > 0 && (
+                <section className="bg-canvas py-section-y">
+                    <Container>
+                        <SectionHeading
+                            kicker="Spaces"
+                            title="What each space holds"
+                            lead="Live capacities and hire rates, straight from our booking system, so what you read here is what we actually have."
+                        />
+                        <VenueSpacesTable spaces={venueSpaces} />
+                    </Container>
+                </section>
+            )}
 
             <CtaBand
                 title="Let's plan your event"
