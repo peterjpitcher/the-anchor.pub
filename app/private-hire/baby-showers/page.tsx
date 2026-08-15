@@ -14,6 +14,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
@@ -265,13 +266,12 @@ export default function BabyShowersPage() {
                 </Container>
             </section>
 
+            {/* Real Google reviews from lib/google-reviews.ts. Replaced two
+                fabricated quotes on 15 August 2026. */}
             <TestimonialSection
                 variant="compact"
                 className="py-section-y bg-surface-sunk px-4"
-                reviews={[
-                    { quote: "We hosted my sister's baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.", author: "Emma, Staines", source: "Google Review", rating: 5 },
-                    { quote: "The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.", author: "Jasmine, Ashford", source: "Google Review", rating: 5 },
-                ]}
+                reviews={getReviewsByTopic('gender-reveal', 2)}
             />
 
             <section className="py-section-y bg-surface">

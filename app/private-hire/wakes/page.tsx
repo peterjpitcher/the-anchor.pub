@@ -18,6 +18,7 @@ import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPac
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -294,16 +295,23 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
+            {/*
+                Real Google reviews about how the team looks after people, from
+                lib/google-reviews.ts. They are NOT wake reviews and the heading
+                does not claim they are: no wake or funeral review exists in the
+                Google export, so implying one would be inventing the very thing
+                this page is most sensitive about.
+
+                What was here until 15 August 2026 were three fabricated quotes
+                about funerals, attributed to Google, from people who do not
+                appear anywhere in the review export.
+            */}
             <TestimonialSection
                 variant="full"
-                title="What Families Say About Us"
-                subtitle="Words from families who have trusted us with their arrangements"
+                title="How our team looks after people"
+                subtitle="From our Google reviews. We have not published reviews of funerals we have hosted, out of respect for the families concerned."
                 className="py-section-y bg-surface"
-                reviews={[
-                    { quote: "The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.", author: "Sarah, Staines", source: "Google Review", rating: 5 },
-                    { quote: "We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.", author: "James, Ashford", source: "Google Review", rating: 5 },
-                    { quote: "Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.", author: "Priya, Feltham", source: "Google Review", rating: 5 },
-                ]}
+                reviews={getReviewsByTopic('hospitality', 3)}
             />
 
             <section className="py-section-y bg-surface-sunk">
