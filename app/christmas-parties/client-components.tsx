@@ -11,6 +11,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { TestimonialSection } from '@/components/TestimonialSection'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { pushToDataLayer, trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
@@ -802,6 +803,10 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
                   <dd className="mt-1 text-sm text-ink-muted">A Christmas quiz runs, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
                 </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What time does the party finish?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Christmas parties finish by midnight.</dd>
+                </div>
               </dl>
               <p className="mt-5 text-sm text-ink-muted">
                 Anything else, call{' '}
@@ -1059,6 +1064,43 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           </div>
         </Container>
       </Section>
+
+      {/*
+        Real Google reviews, quoted verbatim and attributed to the reviewer's own
+        display name with the month they left it. Selected for relevance to this
+        page: a repeat Christmas party booker, a Christmas meal, and a group who
+        hired a space for a party. Nothing here is written by us.
+
+        Never add a quote that is not in the Google export. Inventing a review is
+        a DMCC Act 2024 offence, and it also breaks the SSOT's no-invented-facts
+        rule. If a quote cannot be traced to a real review, it does not ship.
+      */}
+      <TestimonialSection
+        variant="full"
+        title="Groups who have already done this here"
+        subtitle="From our Google reviews"
+        className="py-section-y bg-surface"
+        reviews={[
+          {
+            quote: 'Held our christmas party here for last 2 years and many more to come.',
+            author: 'Dean Croad',
+            source: 'Google review, December 2023',
+            rating: 5
+          },
+          {
+            quote: 'Great pub. We had a delicious Christmas meal, with perfect hosting. Couldn’t have asked for more!',
+            author: 'Ally Miller',
+            source: 'Google review, December 2022',
+            rating: 5
+          },
+          {
+            quote: 'We hired the garden for a 60th birthday party and couldn’t have been happier with the experience.',
+            author: 'Milly Ganatra',
+            source: 'Google review, June 2026',
+            rating: 5
+          }
+        ]}
+      />
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
