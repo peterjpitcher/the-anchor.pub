@@ -759,6 +759,56 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
               </Card>
             </div>
+
+            {/*
+              The organiser's answers, gathered in one place next to the CTA.
+              Every one of these was already true and already on the page, but
+              scattered across a 29-question FAQ, so the person who has to get
+              this signed off had to hunt for them. Only owner-confirmed or
+              SSOT-backed facts appear here: anything undocumented stays off.
+            */}
+            <div className="mt-10 rounded-2xl border border-line bg-surface p-6 text-left md:p-8">
+              <h3 className="font-display text-h4 text-ink-strong">Organising this for work? The short answers</h3>
+              <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Can we get a VAT invoice?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Yes, for corporate bookings, so expenses are straightforward.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Can we run a company bar tab?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Yes, and you can set a spending limit on it. Tell us when you book.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Are we sharing with other groups?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">No. Never. Your group gets its own table and its own evening, never a mixed sitting.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What does the deposit do?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. It is not refundable.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">How do we collect everyone&apos;s meal choices?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">You pick them per guest as you book, and they reach the kitchen directly. Choices are due {preOrderDeadlineDays(facts)} days before your date.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Dietary requirements?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Tell us per guest when you book, including allergies, and we confirm what the kitchen can do for your date.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What if we are more than {facts.privateHireThreshold}?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">A Christmas quiz runs, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
+                </div>
+              </dl>
+              <p className="mt-5 text-sm text-ink-muted">
+                Anything else, call{' '}
+                <a href={CONTACT_PHONE_LINK} className="font-semibold text-accent-text underline">{CONTACT_PHONE}</a>{' '}
+                and you will speak to someone who can actually answer it.
+              </p>
+            </div>
           </div>
         </Container>
       </Section>
@@ -1012,22 +1062,65 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
+          <div className="mx-auto mb-8 space-y-3 text-center">
+            <h2 className="text-3xl font-bold text-ink-strong">The spaces your party could be in</h2>
+            <p className="text-base text-ink-muted">
+              These are the actual rooms, photographed as they are day to day rather than dressed for a shoot. We decorate
+              for Christmas and set the layout around your group.
+            </p>
+          </div>
+          {/*
+            Real photography of the real rooms. The section described these three
+            spaces in words for a year without showing any of them, which left an
+            organiser unable to picture their team anywhere. Capacities come from
+            SSOT venue.capacity, never restated by hand.
+          */}
           <Grid cols={3} gap="md">
-            <Card className="h-full">
+            <Card className="h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/dining-room/dining-room.jpg"
+                  alt="The dining room at The Anchor, laid with wooden tables and seating for a group"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Private Dining Room</h3>
-                <p className="text-sm text-ink-muted">Seat up to 26 guests with cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small staff Christmas party away from the main bar.</p>
+                <p className="text-sm font-semibold text-accent-text">Seats 26, or 50 standing</p>
+                <p className="text-sm text-ink-muted">Cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small staff Christmas party away from the main bar.</p>
               </div>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/our-pub/the-anchor-main-bar-area.jpg"
+                  alt="The main bar and dining area at The Anchor, with the bar, mixed tables and seating"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Main Bar &amp; Dining</h3>
-                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or 60 guests.</p>
+                <p className="text-sm font-semibold text-accent-text">Up to {facts.maxSeated} seated at Christmas, {facts.maxStanding} standing</p>
+                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or {facts.maxSeated} guests.</p>
               </div>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/dining-room/conservatory.jpg"
+                  alt="The conservatory at The Anchor, with tables and garden doors letting in daylight"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Light-filled Conservatory</h3>
+                <p className="text-sm font-semibold text-accent-text">Doors onto the beer garden</p>
                 <p className="text-sm text-ink-muted">Bright, semi-private space perfect for welcome drinks, dessert stations or children&apos;s tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
               </div>
             </Card>

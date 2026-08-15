@@ -342,12 +342,25 @@ export default async function ChristmasPartiesPage() {
       }))
     ])
 
+  /**
+   * Lowest live adult price across the course tiers, symbol-free from the menu
+   * API. Read rather than written: the SSOT forbids hardcoding a food price
+   * anywhere in page code, so if the menu is unpriced the hero simply omits the
+   * clause instead of quoting a number that might be wrong.
+   */
+  const heroPriceFrom = menu.tiers
+    .map(tier => Number.parseFloat(tier.priceFrom))
+    .filter(price => Number.isFinite(price) && price > 0)
+    .sort((a, b) => a - b)[0]
+
   const heroLead = seasonEnded
     ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
-    // Deliberately short so the booking buttons stay above the fold on a phone.
-    // The window, the group minimum, the notice and the deposit all sit in the
-    // banner and the summary block immediately below, so nothing is lost.
-    : 'A proper village pub Christmas rather than a hotel function room. Eight minutes from Staines, seven from Heathrow Terminal 5, with around 20 free parking spaces.'
+    // Leads with the differentiator, not the mechanics of ordering dinner: your
+    // own space rather than a shared hotel sitting is the thing no competitor
+    // near Heathrow offers, and it was previously buried below the menu. The
+    // window, group minimum, notice and deposit all sit in the banner and the
+    // summary block immediately below, so nothing is lost by not repeating them.
+    : `Your own table and your own evening, in a village pub rather than a shared hotel function room.${heroPriceFrom ? ` Christmas dinners from £${heroPriceFrom} a head.` : ''} Seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.`
 
   return (
     <>

@@ -231,7 +231,7 @@
     },
     "parking": {
       "free_spaces": 20,
-      "RESOLVED": "Confirmed 2026-03-22: 20 is correct. lib/schema.ts ParkingFacility (50) must be updated.",
+      "RESOLVED": "Confirmed 2026-03-22: 20 is correct. Verified 2026-08-15: lib/schema.ts ParkingFacility numberOfSpaces already reads 20 and every page states 20. No outstanding action.",
       "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV and floodlit.",
       "extended": "Additional parking available nearby"
     },
