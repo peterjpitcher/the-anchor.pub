@@ -944,8 +944,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/events/christmas/christmas-buffet-table.jpg"
-                alt="Festive buffet spread for Heathrow Christmas parties at The Anchor"
+                src="/images/events/christmas/festive-party-table-2026.jpg"
+                alt="A long table laid for a Christmas party with crackers, candles and festive runners at The Anchor near Heathrow"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
