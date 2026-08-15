@@ -331,7 +331,13 @@ export function resolveServiceRanges(
   }
 
   if (options.purpose === 'food') {
-    const foodRanges = toServiceRanges(byBookingType('food'))
+    // Food service windows are stored as `regular`. The table_booking_type enum
+    // is regular | sunday_lunch | christmas, so no slot is ever tagged `food`:
+    // matching on that alone found nothing and silently fell through to the
+    // kitchen window below. Harmless while the management app did the same, but
+    // it now enforces these slots, so the two would disagree about a gap between
+    // services. `food` is still accepted in case any row ever carries it.
+    const foodRanges = toServiceRanges([...byBookingType('food'), ...byBookingType('regular')])
     if (foodRanges.length > 0) {
       return { ranges: foodRanges, closed: false }
     }

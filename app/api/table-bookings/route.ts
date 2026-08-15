@@ -533,7 +533,10 @@ export async function POST(request: NextRequest) {
     const bookingTime = normalizeTime(normalized.payload.time)
 
     try {
-      const businessHours = await anchorAPI.getBusinessHours()
+      // The booking's own date, not today's. The pub's weekly schedule is
+      // effective-dated and bookings run twelve months out, so asking about
+      // today would check a September booking against August's hours.
+      const businessHours = await anchorAPI.getBusinessHours(normalized.payload.date)
       // Always resolve as a 'regular' booking, Sunday-lunch as a separate
       // booking type is retired on the public path (spec §7.1).
       const serviceWindow = resolveServiceRanges(businessHours, normalized.payload.date, {
