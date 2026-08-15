@@ -137,7 +137,7 @@ export default async function PubsInStanwellPage() {
                   <div className="space-y-3">
                     <p className="text-ink-muted">
                       We're not just another pub - we're your local. From our famous
-                      Sunday roasts to stone-baked pizzas, we offer something for everyone
+                      Sunday roasts to stone-baked pizzas, all made properly
                       in a warm, welcoming environment.
                     </p>
                     <ul className="space-y-2 text-ink-muted">
@@ -261,7 +261,7 @@ export default async function PubsInStanwellPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-ink">The Bells (Staines)</p>
-                        <p className="text-sm">Town center location, paid parking</p>
+                        <p className="text-sm">Town centre location, paid parking</p>
                       </div>
                       <div>
                         <p className="font-semibold text-ink">Airport Pubs</p>
@@ -361,7 +361,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "Do you have parking at the pub?",
-            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
+            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town centre pubs where parking can cost £3-5."
           },
           {
             question: "Are families welcome at The Anchor?",
@@ -373,7 +373,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "How far is The Anchor from Stanwell village?",
-            answer: "We're just 5 minutes from Stanwell village center, located on Horton Road in Stanwell Moor. We're also only 8 minutes from Staines, 7 minutes from Heathrow Terminal 5, and 2 minutes from M25 Junction 14."
+            answer: "We're just 5 minutes from Stanwell village centre, located on Horton Road in Stanwell Moor. We're also only 8 minutes from Staines, 7 minutes from Heathrow Terminal 5, and 2 minutes from M25 Junction 14."
           },
           {
             question: "Do you show sports at the pub?",

@@ -155,7 +155,7 @@ export default function BabyGuinnessPage() {
                     <li><strong className="text-ink-strong">Better Value:</strong> Proper pub pricing without airport markup</li>
                     <li><strong className="text-ink-strong">Perfect Location:</strong> Just 7 minutes from Terminal 5</li>
                     <li><strong className="text-ink-strong">Experienced Staff:</strong> We make hundreds every month</li>
-                    <li><strong className="text-ink-strong">Great Atmosphere:</strong> Friendly local pub, not a chain</li>
+                    <li><strong className="text-ink-strong">A proper local:</strong> Friendly village pub, not a chain</li>
                     <li><strong className="text-ink-strong">Free Parking:</strong> No airport parking fees here!</li>
                   </ul>
                 </CardBody>

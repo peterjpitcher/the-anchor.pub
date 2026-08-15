@@ -590,8 +590,8 @@ export default async function HeathrowHotelsPubPage() {
             answer: "Absolutely! Hotel guests consistently tell us they love the genuine British pub experience. The short journey is worth it for better food and an authentic atmosphere you won't find in a hotel restaurant."
           },
           {
-            question: "Do you accommodate flight crews and business travelers?",
-            answer: "Yes! We regularly serve flight crews and business travelers. We provide full VAT receipts for expenses, have free WiFi for working, and understand the needs of travelers including flexible dining times and quick service when needed."
+            question: "Do you accommodate flight crews and business travellers?",
+            answer: "Yes! We regularly serve flight crews and business travellers. We provide full VAT receipts for expenses, have free WiFi for working, and understand the needs of travellers including flexible dining times and quick service when needed."
           },
           {
             question: "Can I store luggage while dining?",
@@ -602,7 +602,7 @@ export default async function HeathrowHotelsPubPage() {
 	            answer: "Most guests take a taxi (£10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
 	          },
           {
-            question: "Are you open early/late for travelers?",
+            question: "Are you open early/late for travellers?",
             answer: "We open at 4pm Tuesday-Friday, noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), dinner, or evening drinks. Many guests visit us the night before early flights or after afternoon hotel check-in."
           }
         ]}

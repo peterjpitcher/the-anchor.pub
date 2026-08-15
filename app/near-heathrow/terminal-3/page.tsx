@@ -51,7 +51,7 @@ export default function Terminal3Page() {
         image="/images/page-headers/near-heathrow-terminal-3/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 3 for Food and Free Parking"
-        lead="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
+        lead="Perfect for Virgin Atlantic & Emirates travellers • Free parking • British hospitality"
         actions={
           <BookTableButton source="terminal_3_hero" context="terminal_3" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -80,7 +80,7 @@ export default function Terminal3Page() {
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
-                <span>Family-friendly seating with children\'s menu and high chairs</span>
+                <span>Family-friendly seating with children&rsquo;s menu and high chairs</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -455,7 +455,7 @@ export default function Terminal3Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Meet local residents, not just travelers</span>
+                      <span>Meet local residents, not just travellers</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -562,7 +562,7 @@ export default function Terminal3Page() {
             answer: "The Anchor is just 11 minutes drive from Heathrow Terminal 3. We're the perfect spot for a pre-flight meal or drinks after landing."
           },
           {
-            question: "Do you have parking for Terminal 3 travelers?",
+            question: "Do you have parking for Terminal 3 travellers?",
             answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {
@@ -586,7 +586,7 @@ export default function Terminal3Page() {
             answer: "Yes! The 442 bus runs from Terminal 3 to Stanwell Moor, stopping right outside The Anchor. It takes 20-25 minutes and runs every 30 minutes. The bus stop is at the Central Bus Station between Terminals 2 & 3 - follow signs from arrivals. Cost is about what a pint should cost."
           },
           {
-            question: "Is The Anchor family-friendly for Terminal 3 travelers?",
+            question: "Is The Anchor family-friendly for Terminal 3 travellers?",
             answer: "Yes! We're very family-friendly with a dedicated children's menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants for families with children. Our garden area is perfect for kids to stretch their legs before a long flight."
           }
         ]}

@@ -50,7 +50,7 @@ export default function Terminal2Page() {
         image="/images/page-headers/near-heathrow-terminal-2/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 2 for Food and Free Parking"
-        lead="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
+        lead="Perfect for Star Alliance travellers • Free parking • Traditional British hospitality"
         actions={
           <BookTableButton source="terminal_2_hero" context="terminal_2" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -308,7 +308,7 @@ export default function Terminal2Page() {
                 { title: "The Queen's Terminal", content: "Opened by Her Majesty in 2014, T2 is Heathrow's newest terminal. Experience a piece of traditional Britain at The Anchor before entering this modern gateway." },
                 { title: 'Smart Parking Choice', content: 'Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers, no fees, no time limits.' },
                 { title: 'International Meets Local', content: 'Flying to Munich, Toronto, or Singapore? Start with fish & chips or a Sunday roast. Our international guests love experiencing authentic British pub culture.' },
-                { title: 'Outside ULEZ Zone', content: "Save £12.50 daily! We're outside London's ULEZ zone, perfect for travelers avoiding the charge. Direct access from M25 without entering the zone." },
+                { title: 'Outside ULEZ Zone', content: "Save £12.50 daily! We're outside London's ULEZ zone, perfect for travellers avoiding the charge. Direct access from M25 without entering the zone." },
                 { title: 'Direct Bus Route', content: 'The 442 bus stops directly outside, connecting Terminal 2 to our pub. Much cheaper than a taxi and runs regularly throughout the day.' }
               ].map(box => (
                 <Card key={box.title} accent>
@@ -409,10 +409,10 @@ export default function Terminal2Page() {
                     at The Anchor. Our traditional British menu offers everything from classic pub favourites
                     to fish and chips, all at local pub prices during kitchen hours. With Terminal 2's
                     recommendation to arrive 3 hours early for international flights, you'll have plenty
-                    of time to relax in our beer garden or cozy interior before heading to the gate.
+                    of time to relax in our beer garden or cosy interior before heading to the gate.
                   </p>
                   <p className="text-ink-muted">
-                    Many of our regulars are business travelers who've discovered that a calm meal at
+                    Many of our regulars are business travellers who've discovered that a calm meal at
                     The Anchor beats the stress of airport dining. Park free with us, enjoy your meal,
                     then take a quick 10-minute drive to T2's drop-off zone.
                   </p>
@@ -438,7 +438,7 @@ export default function Terminal2Page() {
             <div className="bg-surface border border-line rounded-md shadow-sm p-8">
               <h3 className="text-2xl font-bold text-accent-text mb-4 text-center">Local Knowledge</h3>
               <p className="text-ink-muted mb-4">
-                As Stanwell Moor's village pub, we've been serving Terminal 2 travelers since the
+                As Stanwell Moor's village pub, we've been serving Terminal 2 travellers since the
                 Queen opened it in 2014. Our staff know the flight patterns, the best times to
                 travel to avoid traffic, and can even recommend the quickest security lanes based
                 on the time of day. We're not just a pub - we're part of your journey.
@@ -484,7 +484,7 @@ export default function Terminal2Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Meet local residents, not just travelers</span>
+                      <span>Meet local residents, not just travellers</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -579,7 +579,7 @@ export default function Terminal2Page() {
             answer: "The Anchor is just 11 minutes drive from Heathrow Terminal 2. We're the perfect spot for a pre-flight meal or drinks after landing."
           },
           {
-            question: "Do you have parking for Terminal 2 travelers?",
+            question: "Do you have parking for Terminal 2 travellers?",
             answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {
@@ -596,7 +596,7 @@ export default function Terminal2Page() {
 	          },
           {
             question: "Why choose The Anchor over Terminal 2 restaurants?",
-            answer: "At The Anchor, you'll enjoy authentic British pub atmosphere, meet local residents (not just travelers), eat proper home-cooked food, and relax in our peaceful village setting away from the airport hustle."
+            answer: "At The Anchor, you'll enjoy authentic British pub atmosphere, meet local residents (not just travellers), eat proper home-cooked food, and relax in our peaceful village setting away from the airport hustle."
           },
 	          {
 	            question: "Can I get a taxi from Terminal 2 to The Anchor?",

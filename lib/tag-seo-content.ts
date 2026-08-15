@@ -20,7 +20,7 @@ export function generateFallbackSEOContent(tag: string): TagSEOContent {
     metaTitle: `${name} | The Anchor Stanwell Moor Near Heathrow`,
     metaDescription: `Discover ${name.toLowerCase()} at The Anchor Stanwell Moor. Your local pub with great food, drinks & atmosphere - we're 7 minutes from Heathrow Airport.`,
     heroContent: `Welcome to our ${name.toLowerCase()} page at The Anchor, Stanwell Moor's favourite local pub. Explore our latest posts and updates about ${name.toLowerCase()}.`,
-    introContent: `The Anchor is your destination for all things ${name.toLowerCase()} in Stanwell Moor. As a cornerstone of the local community, we pride ourselves on offering exceptional experiences that bring people together. Whether you're a regular or visiting for the first time, you'll find a warm welcome and great atmosphere just minutes from Heathrow Airport.`,
+    introContent: `The Anchor is your destination for all things ${name.toLowerCase()} in Stanwell Moor. As a cornerstone of the local community, we pride ourselves on offering exceptional experiences that bring people together. Whether you're a regular or visiting for the first time, you'll find a warm welcome and a proper village pub just minutes from Heathrow Airport.`,
     valueProposition: `Visit The Anchor today and experience the best of ${name.toLowerCase()} in Stanwell Moor. With our convenient location, free parking, and friendly service, we're your perfect local pub near Heathrow.`,
     keywords: [
       `${tag} stanwell moor`,
@@ -177,7 +177,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Sports & Fixtures',
     description: 'Terrestrial sports screenings, match days, and sporting events',
     metaTitle: 'Sports Pub Stanwell Moor | Terrestrial Football & Rugby Near Heathrow',
-    metaDescription: 'Watch terrestrial sports at The Anchor Stanwell Moor. Multiple screens, great atmosphere for BBC, ITV, Channel 4 & Channel 5 fixtures near Heathrow.',
+    metaDescription: 'Watch terrestrial sports at The Anchor Stanwell Moor. Multiple screens with the sound up for BBC, ITV, Channel 4 and Channel 5 fixtures near Heathrow.',
     heroContent: 'Catch all the big free-to-air sporting action at The Anchor, Stanwell Moor\'s friendly sports pub. With multiple screens and an electric atmosphere, we\'re your home for terrestrial sports.',
     introContent: 'Sports fans choose The Anchor for reliable terrestrial coverage. We show major sporting events available on free-to-air channels including the World Cup, Euros, Six Nations rugby, Wimbledon, and other headline fixtures. The atmosphere during these big tournaments is incredible, with passionate fans creating an unforgettable experience.',
     valueProposition: 'Book your table for the next major tournament and enjoy great food, cold beers, and the best sporting atmosphere in Stanwell Moor during international competitions.',
@@ -198,11 +198,11 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   // Phase 4: Niche Tags
   'heathrow-area': {
     name: 'Near Heathrow Airport',
-    description: 'Perfect for airport workers and travelers',
+    description: 'Perfect for airport workers and travellers',
     metaTitle: 'Pub Near Heathrow Airport | The Anchor Stanwell Moor 7 Min Away',
-    metaDescription: 'The Anchor: Your local pub - we\'re just 7 minutes from Heathrow Airport. Perfect for airport workers, flight crews & travelers. Free parking, great food & drinks.',
-    heroContent: 'We\'re just 7 minutes from Heathrow Airport, making The Anchor the perfect pub for airport workers, flight crews, and travelers seeking authentic British hospitality.',
-    introContent: 'The Anchor\'s proximity to Heathrow Airport makes us uniquely positioned to serve the airport community. We understand the irregular hours and international tastes of airport workers and travelers. That\'s why we offer a diverse menu suited to international palates during kitchen hours, and a warm welcome whether you\'re starting your shift or ending a long journey.',
+    metaDescription: 'The Anchor: Your local pub - we\'re just 7 minutes from Heathrow Airport. Perfect for airport workers, flight crews & travellers. Free parking, great food & drinks.',
+    heroContent: 'We\'re just 7 minutes from Heathrow Airport, making The Anchor the perfect pub for airport workers, flight crews, and travellers seeking authentic British hospitality.',
+    introContent: 'The Anchor\'s proximity to Heathrow Airport makes us uniquely positioned to serve the airport community. We understand the irregular hours and international tastes of airport workers and travellers. That\'s why we offer a diverse menu suited to international palates during kitchen hours, and a warm welcome whether you\'re starting your shift or ending a long journey.',
     valueProposition: 'With free parking, quick service for those on tight schedules, and a warm welcome for airport workers, The Anchor is your home away from home near Heathrow.',
     keywords: ['pub near heathrow airport', 'bars near heathrow terminals', 'heathrow local pub', 'airport pub TW19', 'heathrow workers pub']
   },
@@ -258,7 +258,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Delicious stone-baked pizzas at The Anchor Stanwell Moor. Authentic Italian recipes, fresh ingredients, eat in or takeaway. Best pizza near Heathrow.',
     heroContent: 'Experience authentic stone-baked pizzas at The Anchor, where traditional Italian methods meet fresh, quality ingredients in the heart of Stanwell Moor.',
     introContent: 'Our pizza menu is a slice of Italy in Stanwell Moor. Each pizza is hand-stretched and stone-baked to perfection, creating that perfect combination of crispy base and bubbling toppings. From the classic Rustic Classic to creative house specials like the Fully Loaded, we use only the finest ingredients including San Marzano tomatoes, fresh mozzarella, and locally-sourced toppings where possible.',
-    valueProposition: 'Whether you\'re dining in our cozy restaurant or grabbing a takeaway, our pizzas are always made fresh to order. Try our pizza and drink deal for the perfect casual meal any night of the week.',
+    valueProposition: 'Whether you\'re dining in our cosy restaurant or grabbing a takeaway, our pizzas are always made fresh to order. Try our pizza and drink deal for the perfect casual meal any night of the week.',
     keywords: ['pizza stanwell moor', 'stone baked pizza heathrow', 'italian restaurant surrey', 'best pizza TW19', 'pizza takeaway stanwell moor']
   },
 
@@ -302,7 +302,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Family pub in Stanwell Moor. Kids menu, high chairs, family events & spacious beer garden. Perfect for family dining near Heathrow Airport.',
     heroContent: 'The Anchor welcomes families with open arms. From our dedicated kids menu to family events, we\'re Stanwell Moor\'s favourite family-friendly pub.',
     introContent: 'We believe pubs should be places where families create memories together. The Anchor offers everything you need for a stress-free family meal - a dedicated children\'s menu with healthy options, high chairs and booster seats, and a spacious beer garden perfect for summer days. Our staff are experienced in making families feel welcome and comfortable.',
-    valueProposition: 'Make The Anchor your family\'s regular dining spot. With something for everyone, fair prices, and a warm welcome, we\'re the perfect choice for family gatherings in Stanwell Moor.',
+    valueProposition: 'Make The Anchor your family\'s regular dining spot. With a children\'s menu, fair prices and a garden to run about in, we\'re built for family gatherings in Stanwell Moor.',
     keywords: ['family friendly pub stanwell moor', 'kids menu heathrow', 'family dining surrey', 'children welcome TW19', 'family pub stanwell moor']
   },
 
@@ -410,10 +410,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'February Events',
     description: 'Valentine\'s celebrations and winter warmth',
     metaTitle: 'February Events Stanwell Moor | Valentine\'s Day at The Anchor',
-    metaDescription: 'February at The Anchor Stanwell Moor. Valentine\'s dining, winter warmers, cozy atmosphere & special events. Romance & comfort near Heathrow.',
-    heroContent: 'February at The Anchor combines romantic Valentine\'s celebrations with cozy winter comfort, creating the perfect escape from the cold in Stanwell Moor.',
-    introContent: 'Love is in the air this February at The Anchor. Our special Valentine\'s menu offers romantic dining with candlelit tables and carefully crafted dishes for two. Beyond Valentine\'s Day, February sees us serving hearty winter warmers and maintaining our cozy fires that make the most of our warm, welcoming atmosphere during the coldest month.',
-    valueProposition: 'Book your Valentine\'s table early or simply escape the February chill with friends over warming drinks and comfort food. The Anchor is your cozy retreat this winter.',
+    metaDescription: 'February at The Anchor Stanwell Moor. Valentine\'s dining, winter warmers, cosy atmosphere & special events. Romance & comfort near Heathrow.',
+    heroContent: 'February at The Anchor combines romantic Valentine\'s celebrations with cosy winter comfort, creating the perfect escape from the cold in Stanwell Moor.',
+    introContent: 'Love is in the air this February at The Anchor. Our special Valentine\'s menu offers romantic dining with candlelit tables and carefully crafted dishes for two. Beyond Valentine\'s Day, February sees us serving hearty winter warmers in a warm, welcoming room during the coldest month.',
+    valueProposition: 'Book your Valentine\'s table early or simply escape the February chill with friends over warming drinks and comfort food. The Anchor is your cosy retreat this winter.',
     keywords: ['february events stanwell moor', 'valentines day heathrow', 'winter pub surrey', 'february dining TW19', 'romantic restaurant stanwell moor']
   },
 
@@ -421,10 +421,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'November Events',
     description: 'Autumn celebrations and fireworks season',
     metaTitle: 'November Events Stanwell Moor | Bonfire Night at The Anchor',
-    metaDescription: 'November at The Anchor Stanwell Moor. Bonfire Night, autumn menu, cozy fires & warming drinks. Your local pub for November near Heathrow.',
-    heroContent: 'November at The Anchor brings autumn at its finest - from Bonfire Night celebrations to cozy evenings by our fires with seasonal comfort food.',
-    introContent: 'As autumn reaches its peak, November at The Anchor offers the warmest welcome in Stanwell Moor. Guy Fawkes Night sees special events and the best views of local fireworks from our beer garden. Our autumn menu features game dishes, hearty stews, and warming puddings. The pub\'s cozy interior, complete with roaring fires, provides the perfect escape from November\'s chill.',
-    valueProposition: 'Make The Anchor your November headquarters for Bonfire Night celebrations, cozy dinners, and the best autumn atmosphere in Stanwell Moor.',
+    metaDescription: 'November at The Anchor Stanwell Moor. Bonfire Night, autumn menu, a warm room & warming drinks. Your local pub for November near Heathrow.',
+    heroContent: 'November at The Anchor brings autumn at its finest - from Bonfire Night celebrations to cosy evenings by our fires with seasonal comfort food.',
+    introContent: 'As autumn reaches its peak, November at The Anchor offers the warmest welcome in Stanwell Moor. Guy Fawkes Night sees special events and the best views of local fireworks from our beer garden. Our autumn menu features game dishes, hearty stews, and warming puddings. The pub\'s cosy interior provides the perfect escape from November\'s chill.',
+    valueProposition: 'Make The Anchor your November headquarters for Bonfire Night celebrations, cosy dinners, and the best autumn atmosphere in Stanwell Moor.',
     keywords: ['november events stanwell moor', 'bonfire night heathrow', 'autumn pub surrey', 'november dining TW19', 'fireworks night stanwell moor']
   },
 
@@ -567,7 +567,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Family-friendly dining at The Anchor Stanwell Moor. Kids menu, high chairs, family meals & Sunday roast. Perfect for families near Heathrow.',
     heroContent: 'The Anchor welcomes families with dedicated menus, comfortable spaces, and warm hospitality that makes dining out with children a pleasure.',
     introContent: 'Family dining at The Anchor is designed to be stress-free and enjoyable for all ages. Our children\'s menu offers healthy, tasty options alongside kid favourites, all at family-friendly prices. High chairs and patient staff ensure parents can relax while children are entertained. Our spacious layout provides room for pushchairs, and our beer garden offers safe outdoor space for little ones to explore.',
-    valueProposition: 'Make The Anchor your family\'s regular dining destination. With something for everyone and a genuine welcome for children, we\'re where family memories are made.',
+    valueProposition: 'Make The Anchor your family\'s regular dining destination. With a children\'s menu and a genuine welcome for little ones, we\'re where family memories are made.',
     keywords: ['family dining stanwell moor', 'kids restaurant heathrow', 'family meals surrey', 'children dining TW19', 'family restaurant stanwell moor']
   },
 
@@ -588,7 +588,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Tequila & Mexican Culture Stanwell Moor | The Anchor',
     metaDescription: 'Discover tequila tastings and Mexican culture nights at The Anchor Stanwell Moor near Heathrow. Agave spirits, cocktails and themed events.',
     heroContent: 'From tequila tastings to Día de los Muertos themed nights, we bring Mexican culture and premium agave spirits to Stanwell Moor.',
-    introContent: 'The Anchor\'s tequila-focused events celebrate the traditions and stories behind Mexico\'s most famous spirit. Join us for guided tastings, cocktails that highlight premium agave, and seasonal themed nights that pair great atmosphere with our signature British hospitality.',
+    introContent: 'The Anchor\'s tequila-focused events celebrate the traditions and stories behind Mexico\'s most famous spirit. Join us for guided tastings, cocktails that highlight premium agave, and seasonal themed nights that pair a lively room with our signature British hospitality.',
     valueProposition: 'Check our calendar for tequila tastings and themed nights, then book a table to make a full evening of it.',
     keywords: ['tequila tasting stanwell moor', 'mexican culture night heathrow', 'agave spirits TW19', 'tequila cocktails near terminal 5', 'día de los muertos events surrey']
   },
@@ -633,7 +633,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Wednesdays at The Anchor Stanwell Moor. Midweek specials, hump day offers. Best Wednesday night out near Heathrow.',
     heroContent: 'Make Wednesday wonderful at The Anchor with special offers and the perfect midweek atmosphere.',
     introContent: 'Wednesday at The Anchor offers the perfect midweek break. When our monthly quiz falls on a Wednesday, it draws teams from across Stanwell Moor for an evening of trivia, laughter, and friendly competition starting at 7pm. The midweek energy is infectious, making hump day something to look forward to.',
-    valueProposition: 'Beat the midweek blues at The Anchor - whether it\'s quiz night or just a regular Wednesday, we\'re here with great food, drinks, and atmosphere.',
+    valueProposition: 'Beat the midweek blues at The Anchor - whether it\'s quiz night or just a regular Wednesday, we\'re here with proper food, a good pint and a room that is actually busy.',
     keywords: ['wednesday stanwell moor', 'midweek specials heathrow', 'wednesday night surrey', 'midweek TW19', 'hump day stanwell moor']
   },
 
@@ -643,7 +643,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Seasonal Menu Stanwell Moor | Seasonal Events at The Anchor',
     metaDescription: 'Discover seasonal offerings at The Anchor Stanwell Moor. Seasonal menus, drinks, events throughout the year. Fresh flavours near Heathrow.',
     heroContent: 'The Anchor celebrates every season with special menus, events, and atmospheres that capture the best of each time of year.',
-    introContent: 'Our commitment to seasonality means The Anchor constantly evolves throughout the year. Spring brings fresh, light dishes and garden reopening. Summer sees BBQs and long evenings in the beer garden. Autumn introduces hearty comfort foods and harvest celebrations. Winter warms with rich stews and cozy fires. Our drinks menu follows suit with seasonal cocktails, beers, and wines.',
+    introContent: 'Our commitment to seasonality means The Anchor constantly evolves throughout the year. Spring brings fresh, light dishes and garden reopening. Summer sees BBQs and long evenings in the beer garden. Autumn introduces hearty comfort foods and harvest celebrations. Winter warms with rich stews and a proper welcome indoors. Our drinks menu follows suit with seasonal cocktails, beers, and wines.',
     valueProposition: 'Experience The Anchor in every season - each visit brings new flavours, fresh experiences, and reasons to celebrate the time of year.',
     keywords: ['seasonal menu stanwell moor', 'seasonal pub heathrow', 'seasonal dining surrey', 'seasonal events TW19', 'seasonal offerings stanwell moor']
   },
@@ -762,9 +762,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'September Events',
     description: 'Autumn beginnings and September activities',
     metaTitle: 'September Events Stanwell Moor | Autumn at The Anchor',
-    metaDescription: 'September at The Anchor Stanwell Moor. Autumn menu launch, harvest celebrations, cozy atmosphere returns. Welcome autumn near Heathrow.',
-    heroContent: 'September at The Anchor marks the beautiful transition to autumn with harvest celebrations, seasonal menus, and the return of cozy pub nights.',
-    introContent: 'As summer fades into autumn, September at The Anchor brings its own special charm. Our autumn menu launches featuring seasonal produce and warming dishes. The beer garden enjoys those last sunny days while inside becomes cozy again with fires lit on cooler evenings. Harvest celebrations and wine events mark the season\'s change, while the return of darker evenings makes our pub atmosphere even more inviting.',
+    metaDescription: 'September at The Anchor Stanwell Moor. Autumn menu launch, harvest celebrations, cosy atmosphere returns. Welcome autumn near Heathrow.',
+    heroContent: 'September at The Anchor marks the beautiful transition to autumn with harvest celebrations, seasonal menus, and the return of cosy pub nights.',
+    introContent: 'As summer fades into autumn, September at The Anchor brings its own special charm. Our autumn menu launches featuring seasonal produce and warming dishes. The beer garden enjoys those last sunny days while inside becomes cosy again with fires lit on cooler evenings. Harvest celebrations and wine events mark the season\'s change, while the return of darker evenings makes our pub atmosphere even more inviting.',
     valueProposition: 'Experience the magic of September at The Anchor - where summer memories blend with autumn anticipation in the perfect seasonal transition.',
     keywords: ['september events stanwell moor', 'autumn pub heathrow', 'september dining surrey', 'harvest events TW19', 'september activities stanwell moor']
   },

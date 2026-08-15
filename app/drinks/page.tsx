@@ -365,7 +365,7 @@ export default async function DrinksMenuPage() {
               {[
                 { title: 'Summer', body: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden" },
                 { title: 'Autumn', body: 'Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in' },
-                { title: 'Winter', body: "Bailey's hot chocolate, hearty stouts and warming spirits by the cosy fire" },
+                { title: 'Winter', body: "Bailey's hot chocolate, hearty stouts and warming spirits in the warm" },
                 { title: 'Spring', body: 'Fresh G&Ts, crisp rosé, and the return of beer garden season' }
               ].map((item) => (
                 <Card key={item.title} accent>

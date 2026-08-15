@@ -135,7 +135,7 @@ export default function HeathrowLayoverDiningPage() {
               { title: 'Free Parking & Easy Transfers', description: 'Register your car for three hours free. Need a cab back? We’ll organise one with our trusted local partners.' },
               { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
               { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
-              { title: 'Perfect for Crew & Families', description: 'Airline staff, business travelers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }
+              { title: 'Perfect for Crew & Families', description: 'Airline staff, business travellers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>

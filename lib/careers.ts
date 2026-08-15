@@ -43,7 +43,7 @@ const barStaffRole: CareerRole = {
   roleOptionLabel: 'Bar Staff',
   metaTitle: 'Bar Staff Jobs | The Anchor Pub Near Heathrow',
   metaDescription:
-    'Part-time bar staff role at The Anchor, Stanwell Moor. Pay from the live approved source.71/hr plus holiday entitlement. Friday, Saturday and Sunday shifts. Apply online.',
+    'Part-time bar staff role at The Anchor, Stanwell Moor. Hourly pay plus rolled-up holiday pay. Friday, Saturday and Sunday shifts. Apply online.',
   summary:
     'We are looking for experienced bar staff to join our team at The Anchor. This is a part-time, permanent role with shifts on Fridays, Saturdays and Sundays, with occasional weekday cover.',
   pay: {
@@ -102,7 +102,7 @@ const kitchenTeamRole: CareerRole = {
   roleOptionLabel: 'Kitchen Team',
   metaTitle: 'Kitchen Jobs | The Anchor Pub Near Heathrow',
   metaDescription:
-    'Part-time kitchen role at The Anchor, Stanwell Moor. Pay from the live approved source.71/hr plus holiday entitlement. Varying shifts including weekends. Apply online.',
+    'Part-time kitchen role at The Anchor, Stanwell Moor. Hourly pay plus rolled-up holiday pay. Varying shifts including weekends. Apply online.',
   summary:
     'We are looking for experienced kitchen team members to join The Anchor. This is a part-time role with varying shifts, helping to prepare and cook pub classics, Sunday roasts and event menus.',
   pay: {

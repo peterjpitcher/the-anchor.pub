@@ -149,7 +149,7 @@ export function getSeasonalGreeting(season: SeasonalImage['season']): string {
     winter: "Welcome to The Anchor – Settle in for winter warmth and great company.",
     spring: "Welcome to The Anchor – Fresh blooms and cheerful catch-ups await.",
     summer: "Welcome to The Anchor – Sun-soaked tables and easygoing smiles.",
-    autumn: "Welcome to The Anchor – Cozy corners and comforting flavours.",
+    autumn: "Welcome to The Anchor – Cosy corners and comforting flavours.",
     halloween: "Welcome to The Anchor – Gather close for spooktacular stories.",
     remembrance: "We Remember Together at The Anchor – With warm gratitude.",
     christmas: "Welcome to The Anchor – Festive warmth and cheer await."

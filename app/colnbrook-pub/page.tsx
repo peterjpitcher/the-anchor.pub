@@ -112,7 +112,7 @@ export default function ColnbrookPubPage() {
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike, quality food and a great atmosphere guaranteed.
+                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike, with proper food and a room that fills up nicely.
                         </p>
                     </div>
                 </Container>
