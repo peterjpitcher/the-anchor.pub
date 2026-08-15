@@ -11,6 +11,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -429,18 +430,15 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 subtitle="Choose your event type, preferred date, guest count, timing and food options."
             />
 
-            {/* Testimonials */}
+            {/* Real Google reviews from lib/google-reviews.ts. Replaced four
+                fabricated quotes on 15 August 2026, one of which was attributed
+                to an author literally named "Google Review". */}
             <TestimonialSection
                 variant="full"
                 title="What our guests say"
-                subtitle="From Google Reviews"
+                subtitle="From our Google reviews"
                 className="bg-canvas py-section-y"
-                reviews={[
-                    { quote: "We had our baby's Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.", author: "Rachel", source: "TripAdvisor", rating: 5 },
-                    { quote: "Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.", author: "Dave", source: "Google Review", rating: 5 },
-                    { quote: "Had our daughter's christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.", author: "Priya", source: "Google Review", rating: 5 },
-                    { quote: "Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.", author: "Google Review", source: "Google Review", rating: 5 },
-                ]}
+                reviews={getReviewsByTopic('private-hire', 4)}
             />
 
             {/* Private hire near local venues */}

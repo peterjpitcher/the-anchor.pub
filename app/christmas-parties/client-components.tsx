@@ -12,6 +12,7 @@ import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { pushToDataLayer, trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
@@ -1080,26 +1081,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         title="Groups who have already done this here"
         subtitle="From our Google reviews"
         className="py-section-y bg-surface"
-        reviews={[
-          {
-            quote: 'Held our christmas party here for last 2 years and many more to come.',
-            author: 'Dean Croad',
-            source: 'Google review, December 2023',
-            rating: 5
-          },
-          {
-            quote: 'Great pub. We had a delicious Christmas meal, with perfect hosting. Couldn’t have asked for more!',
-            author: 'Ally Miller',
-            source: 'Google review, December 2022',
-            rating: 5
-          },
-          {
-            quote: 'We hired the garden for a 60th birthday party and couldn’t have been happier with the experience.',
-            author: 'Milly Ganatra',
-            source: 'Google review, June 2026',
-            rating: 5
-          }
-        ]}
+        reviews={getReviewsByTopic('christmas', 3)}
       />
 
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
@@ -1117,7 +1099,15 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             organiser unable to picture their team anywhere. Capacities come from
             SSOT venue.capacity, never restated by hand.
           */}
-          <Grid cols={3} gap="md">
+          {/*
+            TWO spaces, not three. The dining room and what older copy called
+            the conservatory are the same room: SSOT.json records that the 1995
+            conservatory was replaced by the dining room extension in 2024, and
+            venue.capacity carries only main_area_* and dining_room_*. This page
+            was the last place on the site still listing a third space, which
+            meant showing one room twice under two names.
+          */}
+          <Grid cols={2} gap="md">
             <Card className="h-full overflow-hidden">
               <div className="relative aspect-[4/3] w-full">
                 <Image
@@ -1125,13 +1115,18 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   alt="The dining room at The Anchor, laid with wooden tables and seating for a group"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Private Dining Room</h3>
+                <h3 className="text-lg font-semibold text-ink-strong">The Dining Room</h3>
                 <p className="text-sm font-semibold text-accent-text">Seats 26, or 50 standing</p>
-                <p className="text-sm text-ink-muted">Cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small staff Christmas party away from the main bar.</p>
+                <p className="text-sm text-ink-muted">
+                  Warm and cosy, with direct table service and French doors onto the garden. Ideal for a Christmas lunch
+                  with family, an intimate works do or a small staff party away from the main bar. In December we tend to
+                  keep the doors shut against the cold, and the garden is still right there for anyone who wants a moment
+                  outside.
+                </p>
               </div>
             </Card>
             <Card className="h-full overflow-hidden">
@@ -1141,29 +1136,13 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   alt="The main bar and dining area at The Anchor, with the bar, mixed tables and seating"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Main Bar &amp; Dining</h3>
                 <p className="text-sm font-semibold text-accent-text">Up to {facts.maxSeated} seated at Christmas, {facts.maxStanding} standing</p>
                 <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or {facts.maxSeated} guests.</p>
-              </div>
-            </Card>
-            <Card className="h-full overflow-hidden">
-              <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src="/images/dining-room/conservatory.jpg"
-                  alt="The conservatory at The Anchor, with tables and garden doors letting in daylight"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Light-filled Conservatory</h3>
-                <p className="text-sm font-semibold text-accent-text">Doors onto the beer garden</p>
-                <p className="text-sm text-ink-muted">Bright, semi-private space perfect for welcome drinks, dessert stations or children&apos;s tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
               </div>
             </Card>
           </Grid>

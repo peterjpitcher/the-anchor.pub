@@ -24,6 +24,7 @@ import {
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -390,16 +391,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         intro="Compare the restaurant guide, live menu and Sunday roast options before reserving."
       />
 
-      {/* Customer Review */}
+      {/* Real Google review from lib/google-reviews.ts. Replaced a quote
+          attributed to "Anonymous" on 15 August 2026: an unattributable
+          testimonial cannot be verified as genuine, so it does not ship. */}
       <TestimonialSection
         variant="pull-quote"
         className="bg-surface-sunk border-b border-line"
-        reviews={[{
-          quote: "Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we'd found it sooner. Will definitely be back.",
-          author: "Anonymous",
-          source: "Google Review",
-          rating: 5
-        }]}
+        reviews={getReviewsByTopic('food', 1)}
       />
 
       {/* Getting Here */}

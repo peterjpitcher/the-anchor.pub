@@ -115,17 +115,13 @@ describe('/christmas-parties booking journeys', () => {
     expect(clientSource).not.toContain('Michelle K.')
 
     // Testimonials themselves are allowed from 15 August 2026, when the owner
-    // supplied the real Google review export. The guard now enforces the rule
-    // its own name states, traceability, rather than the blunt proxy of banning
-    // the component: EVERY quote must cite a Google review, so an invented one
-    // has nowhere to hide. Writing a fake review is a DMCC Act 2024 offence.
-    const quotes = [...clientSource.matchAll(/quote:\s*'/g)]
-    const googleSources = [...clientSource.matchAll(/source:\s*'Google review/g)]
-    expect(googleSources.length).toBe(quotes.length)
-
-    // An initial-only surname is the signature of a fabricated testimonial, and
-    // is how the three above were written. Real reviewers have display names.
-    expect(clientSource).not.toMatch(/author:\s*'[A-Z][a-z]+ [A-Z]\.'/)
+    // supplied the real Google review export. The rule this guard's name states
+    // is traceability, so it enforces that rather than the blunt proxy of
+    // banning the component: quotes must come from lib/google-reviews.ts and
+    // may never be hand-written here. tests/unit/testimonials-are-real.test.ts
+    // applies the same rule to every other page on the site.
+    expect(clientSource).not.toMatch(/quote:\s*["'`]/)
+    expect(clientSource).toContain('getReviewsByTopic')
   })
 })
 
