@@ -1102,8 +1102,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mx-auto mb-8 space-y-3 text-center">
             <h2 className="text-3xl font-bold text-ink-strong">The spaces your party could be in</h2>
             <p className="text-base text-ink-muted">
-              These are the actual rooms, photographed as they are day to day rather than dressed for a shoot. We decorate
-              for Christmas and set the layout around your group.
+              The two rooms your party could be in, shown undecorated. We dress them for Christmas and set the layout
+              around your group.
             </p>
           </div>
           {/*
@@ -1124,8 +1124,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full overflow-hidden">
               <div className="relative aspect-[4/3] w-full">
                 <Image
-                  src="/images/dining-room/dining-room.jpg"
-                  alt="The dining room at The Anchor, laid with wooden tables and seating for a group"
+                  src="/images/dining-room/the-anchor-dining-room-2026.jpg"
+                  alt="The dining room at The Anchor, with wooden tables, green panelling and French doors onto the garden"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -1145,8 +1145,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full overflow-hidden">
               <div className="relative aspect-[4/3] w-full">
                 <Image
-                  src="/images/our-pub/the-anchor-main-bar-area.jpg"
-                  alt="The main bar and dining area at The Anchor, with the bar, mixed tables and seating"
+                  src="/images/our-pub/the-anchor-main-bar-2026.jpg"
+                  alt="The main bar at The Anchor, with the blue bar front, exposed beams and mixed table seating"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
