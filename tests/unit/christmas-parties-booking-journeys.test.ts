@@ -20,7 +20,12 @@ describe('/christmas-parties booking journeys', () => {
 
   it('offers distinct party and sit-down meal journeys from the hero', () => {
     expect(heroSource).toContain("type ChristmasHeroMode = 'party' | 'meal'")
-    expect(heroSource).toContain('Plan a Christmas party')
+    // Both journeys must be reachable from the hero. Asserted on the mode each
+    // button dispatches, not on its label: the party CTA was reworded to
+    // "Check your date and get a quote" on 15 August 2026, and the same
+    // free-to-reword rule already stated for the H1 below applies to buttons.
+    expect(heroSource).toContain("dispatchChristmasOpenForm({ mode: 'party'")
+    expect(heroSource).toContain("dispatchChristmasOpenForm({ mode: 'meal'")
     expect(heroSource).toContain('Book lunch or dinner')
     // The H1 must name both journeys, because a visitor who wants a sit-down
     // Christmas dinner bounces off a heading that only sells parties. The exact
