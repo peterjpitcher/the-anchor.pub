@@ -269,7 +269,11 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
-- **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
+- **Included, adults:** a glass of prosecco on the **2 and 3 course tiers only**, swappable for
+  orange juice. **The 1 course tier does NOT include a drink for adults.** (Owner-corrected,
+  15 August 2026. This entry previously read "all three tiers", which had reached the live
+  christmas-parties page as "whichever courses they choose" and two marketing emails before
+  it was caught.)
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
 - **Trimmings:** pigs in blankets, stuffing, brussels sprouts, **Yorkshire pudding, roast potatoes, mashed potato and peas**. (Yorkshire pudding, roast potatoes, mash and peas owner-confirmed, 13 August 2026.)
 - **The Vegetable Wellington is the exception.** It is **vegan**, so it takes **no Yorkshire pudding and no pigs in blankets**, matching the Sunday roast rule where the Wellington and the pies carry no Yorkshire. Describe it as vegan Christmas trimmings and vegan gravy. Never apply the full trimmings list to it.

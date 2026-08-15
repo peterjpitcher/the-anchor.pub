@@ -419,7 +419,7 @@ function buildFaqItems(
     },
     {
       question: 'What is included in the price?',
-      answer: `Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are ${TRIMMINGS.join(', ').toLowerCase()}.`
+      answer: `Adults on the 2 and 3 course menus get a glass of prosecco, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are ${TRIMMINGS.join(', ').toLowerCase()}.`
     },
     {
       question: 'What is on the Christmas menu?',
@@ -1711,7 +1711,7 @@ function ChristmasMenuAndPricing({
                 What is included
               </h3>
               <ul className="space-y-2 text-sm text-ink-muted">
-                <li>Adults get a glass of prosecco whichever courses they choose, swappable for orange juice.</li>
+                <li>Adults on the 2 and 3 course menus get a glass of prosecco, swappable for orange juice.</li>
                 <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
                 <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
                 <li>
