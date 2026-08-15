@@ -88,6 +88,126 @@ interface ChristmasEnquiryPayload {
   notes?: string
 }
 
+// Attribution keys the client stores and forwards, exactly as the booking forms send them.
+// Kept to the marketing parameters only: this call reports which campaign produced the
+// enquiry, so the Meta signals the booking APIs also carry (fbp, fbc, user agent) have no
+// business being copied into an analytics record here.
+const ATTRIBUTION_KEYS = [
+  'source_url',
+  'landing_path',
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'short_code'
+] as const
+
+type AttributionKey = typeof ATTRIBUTION_KEYS[number]
+
+// Only these say a campaign produced the enquiry. source_url and landing_path are recorded
+// for every visitor including organic ones, so they must not keep the reporting call alive on
+// their own: doing so writes a row of nulls for every enquiry and makes every enquirer wait
+// on an analytics call that has nothing to report.
+const CAMPAIGN_KEYS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'short_code'
+] as const satisfies readonly AttributionKey[]
+
+// The conversion POST is capped rather than left dangling. An un-awaited promise in a
+// serverless function is routinely killed the moment the response is returned, so it would
+// not reliably fire at all; a short cap keeps the reporting call honest without ever making
+// the visitor wait on it.
+const CONVERSION_TIMEOUT_MS = 2500
+
+function asTrimmedString(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  return trimmed.length > 0 ? trimmed : undefined
+}
+
+function copyOptionalStrings<T extends string>(body: Record<string, unknown>, keys: readonly T[]): Partial<Record<T, string>> {
+  const output: Partial<Record<T, string>> = {}
+
+  for (const key of keys) {
+    const value = asTrimmedString(body[key])
+    if (value) output[key] = value
+  }
+
+  return output
+}
+
+function normaliseAttribution(body: Record<string, unknown>): Partial<Record<AttributionKey, string>> {
+  return copyOptionalStrings(body, ATTRIBUTION_KEYS)
+}
+
+/**
+ * Tell the management app which campaign produced this enquiry.
+ *
+ * /christmas-parties is the main call to action of the B2B email campaigns, and its form
+ * produces an enquiry rather than a booking. Bookings already reach AMS carrying their UTM
+ * values, so without this the campaign reports clicks and then nothing, and the business it
+ * actually generated is invisible.
+ *
+ * Analytics must never cost anyone an enquiry, so every failure here is swallowed: the
+ * visitor's response is decided before this runs and is not changed by it.
+ */
+async function recordMarketingConversion(options: {
+  attribution: Partial<Record<AttributionKey, string>>
+  partySize: number
+  mode: EnquiryMode
+  service?: MealService
+  partyFormat?: string
+  source?: string
+  delivery: 'management' | 'email_fallback'
+}) {
+  const managementKey = process.env.ANCHOR_API_KEY
+  if (!managementKey) return
+
+  const { attribution } = options
+  // Nothing to attribute and nothing to learn: an enquiry with no marketing parameters at
+  // all is organic, and a row of nulls would only dilute the campaign reporting.
+  if (!CAMPAIGN_KEYS.some((key) => attribution[key])) return
+
+  try {
+    const response = await fetch(`${getManagementApiBaseUrl().replace(/\/$/, '')}/marketing/conversions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': managementKey
+      },
+      body: JSON.stringify({
+        conversionType: 'christmas_enquiry',
+        occurredAt: new Date().toISOString(),
+        utmSource: attribution.utm_source,
+        utmMedium: attribution.utm_medium,
+        utmCampaign: attribution.utm_campaign,
+        utmContent: attribution.utm_content,
+        shortCode: attribution.short_code,
+        landingPath: attribution.landing_path,
+        sourceUrl: attribution.source_url,
+        partySize: options.partySize,
+        metadata: {
+          enquiry_mode: options.mode,
+          ...(options.service ? { meal_service: options.service } : {}),
+          ...(options.partyFormat ? { party_format: options.partyFormat } : {}),
+          ...(options.source ? { form_source: options.source } : {}),
+          delivery: options.delivery
+        }
+      }),
+      signal: AbortSignal.timeout(CONVERSION_TIMEOUT_MS)
+    })
+
+    if (!response.ok) {
+      console.warn('Marketing conversion not recorded:', response.status, await response.text())
+    }
+  } catch (conversionError) {
+    console.warn('Marketing conversion could not be sent:', conversionError)
+  }
+}
+
 /**
  * Earliest date we can accept, at date granularity: tomorrow in Europe/London,
  * and never before the first day of the service window. Christmas bookings
@@ -569,7 +689,22 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    return NextResponse.json({ success: true, delivery: managementForwarded ? 'management' : 'email_fallback' })
+    const delivery = managementForwarded ? 'management' : 'email_fallback'
+
+    // The enquiry is already safely lodged by this point, so the attribution call cannot
+    // change the outcome. It is recorded for both delivery routes: an email fallback is
+    // still an enquiry the campaign produced.
+    await recordMarketingConversion({
+      attribution: normaliseAttribution(rawBody as Record<string, unknown>),
+      partySize: numericPartySize,
+      mode: enquiry.mode,
+      service: enquiry.mode === 'meal' ? enquiry.service : undefined,
+      partyFormat: enquiry.mode === 'party' ? enquiry.partyFormat : undefined,
+      source: enquiry.source,
+      delivery
+    })
+
+    return NextResponse.json({ success: true, delivery })
   } catch (error) {
     console.error('Christmas enquiry submission failed:', error)
     const message = error instanceof Error ? error.message : 'Unexpected error submitting enquiry.'

@@ -17,6 +17,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { pushToDataLayer, trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getBookingAttributionPayload } from '@/lib/booking-attribution'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { CONTACT } from '@/lib/constants'
@@ -1935,6 +1936,10 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // Which campaign brought this visitor in, forwarded exactly as the booking forms
+          // send it. Without it a Christmas enquiry is untraceable back to the email or ad
+          // that produced it, which is the whole point of the campaign.
+          ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
@@ -2401,6 +2406,9 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // Same attribution as the main form: the lightbox is just another way into the
+          // same enquiry, and a campaign should not lose credit for which one was used.
+          ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
