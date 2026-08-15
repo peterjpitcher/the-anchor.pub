@@ -191,14 +191,28 @@
     },
     "voice": {
       "tone": [
-        "Friendly",
+        "Warm",
+        "Excited",
         "Cheeky",
         "Inclusive"
       ],
+      "emotional_core": [
+        "Belonging: 'Where Everyone's Welcome' is a promise, not a strapline",
+        "Pride: a village pub since 1751, before Heathrow existed",
+        "Simple joy: proper roasts, the beer garden, planes overhead"
+      ],
+      "principles": [
+        "Lead with feeling, then facts",
+        "Enthusiasm is on-brand; never flat or corporate",
+        "Cheeky, never snide; jokes never at guests' expense",
+        "Concrete beats generic; no 'great atmosphere' or 'hidden gem' filler",
+        "Inclusive by default; no in-jokes or assumed knowledge",
+        "Excitement never invents facts; banned claims still apply"
+      ],
       "perspective": "Use 'we' language",
       "language": "British English",
-      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.",
-      "notes": "Responds to local demographic change including growing Indian community"
+      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. At most one exclamation mark per section, never stacked.",
+      "notes": "Responds to local demographic change including growing Indian community. Full voice guide in docs/SSOT.md section 1."
     }
   },
   "venue": {

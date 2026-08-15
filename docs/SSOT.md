@@ -29,11 +29,43 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Local listing:** Locally listed by Spelthorne Borough Council as **The Anchor Public House**, building reference **LL/072**, listed **19 February 2004**. Described as a mid-Victorian pub on the site of an earlier pub dating from at least 1730.
 - **Heritage safe wording:** "The Anchor has served Stanwell Moor since at least 1751, with evidence of an Anchor Inn on the site by 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub."
 - **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
-- **Tone:** Friendly, cheeky, inclusive.
+- **Tone:** Warm, excited, cheeky, inclusive. We sound like people who genuinely love this pub and can't wait for you to visit. Never flat, never corporate.
 - **Perspective:** First-person plural, "we" / "our".
 - **Language:** British English spelling and idiom.
-- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.
+- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. Exclamation marks are allowed but earn their place: at most one per section, never stacked.
 - **Audience note:** Responds to local demographic change including the growing Indian community.
+
+### Emotional core (what we stand for)
+
+Copy should make people **feel invited, not just informed**. The feelings we are selling:
+
+- **Belonging.** "Where Everyone's Welcome" is a promise, not a strapline. Every piece of copy should read like a friend saying "come along, you'll love it".
+- **Pride.** A village pub that has stood here since 1751, before Heathrow existed. We are proud of that and it is fine to show it.
+- **Simple joy.** A proper roast, a full beer garden, planes thundering overhead, a quiz night that gets competitive. Small pleasures, done properly.
+
+### Voice principles
+
+1. **Lead with feeling, then facts.** Open with why something is brilliant, then give the details. Not the other way round.
+2. **Enthusiasm is on-brand.** "We love", "we can't wait", "our favourite" are encouraged. If the copy could belong to any pub chain website, rewrite it.
+3. **Cheeky, never snide.** Jokes point at ourselves, the weather, or the planes. Never at guests, staff, or other venues.
+4. **Concrete beats generic.** Name the Yorkshire pudding, the flight path, the beer garden. Banned filler: "great atmosphere", "something for everyone", "hidden gem", "look no further".
+5. **Inclusive by default.** Write as if inviting someone who has never set foot in a pub. No in-jokes that exclude newcomers, no assumed knowledge.
+6. **Excitement never invents facts.** Every claim still comes from this SSOT. §14 banned claims still apply. Prices stay live from the management DB. Energy is in the delivery, never in exaggeration.
+
+### Register dial
+
+- **High energy:** homepage hero, event pages, blog posts, social copy, marketing emails.
+- **Medium:** menu descriptions, area and feature pages, FAQs.
+- **Calm and clear:** opening hours, booking flow, deposits, allergen information, confirmations, anything operational or legal. Accuracy beats excitement here, always.
+
+### Examples (illustrative only, not published copy)
+
+- Flat: "We serve Sunday roasts from 1pm to 6pm." On-brand: "Sunday is what we live for. Roasts carved fresh from 1pm, walk in whenever suits you."
+- Flat: "The beer garden is located near Heathrow Airport." On-brand: "Pint in hand, planes roaring over the garden, seven minutes from Terminal 5. There's nowhere else like it."
+
+### Scope
+
+This voice applies to **all new customer-facing copy from 14 August 2026**. Existing pages are not being rewritten proactively; bring copy onto this voice as pages are touched.
 
 ## 2. Contact & Location
 

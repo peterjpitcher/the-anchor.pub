@@ -71,16 +71,16 @@ const REGULAR_NIGHTS: ReadonlyArray<{
   {
     cadence: 'Monthly',
     title: 'Music Bingo with Nikki Manfadge',
-    meta: 'Song clips instead of numbers, singalong rounds and prizes every game.',
+    meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
     tag: 'Hosted night',
     href: '/music-bingo'
   },
   {
     cadence: 'Monthly',
     title: 'Quiz Night',
-    meta: 'Test your knowledge with cash prizes for the winning team.',
+    meta: 'Test your knowledge for a £25 bar tab, with a bottle of wine for the second-from-last team.',
     price: '£3 entry',
-    tag: 'Cash prizes',
+    tag: '£25 bar tab',
     href: '/quiz-night'
   },
   {

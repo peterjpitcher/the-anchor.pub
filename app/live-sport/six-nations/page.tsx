@@ -21,7 +21,7 @@ const SixNationsLightbox = dynamic(
 
 export const metadata: Metadata = {
     title: 'Six Nations Pub Near Me | Watch 2026 Live',
-    description: `Watch every Six Nations 2026 match live with sound at The Anchor, Stanwell Moor near Heathrow. 4 screens, kitchen open for every game. Book now.`,
+    description: `Watch every Six Nations 2026 match live with sound at The Anchor, Stanwell Moor near Heathrow. 4 screens, food served through the match when the kitchen is open. Book now.`,
     openGraph: {
         title: 'Watch Six Nations 2026 at The Anchor',
         description: 'Every match live on big screens with sound. 7 mins from Heathrow.',
@@ -100,7 +100,7 @@ export default function SixNationsPage() {
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Six Nations"
               title="Watch Six Nations 2026 Live"
-              lead="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
+              lead="Every match live on BBC & ITV • Sound on • 4 Screens • Food through the match"
             />
 
             <section className="py-section-y bg-canvas">
@@ -131,7 +131,7 @@ export default function SixNationsPage() {
                         {[
                             { title: "Sound On", description: "Commentary on for every match." },
                             { title: "4 Screens", description: "Visible from the bar and dining areas." },
-                            { title: "Kitchen Open", description: "Food served during all games." },
+                            { title: "Food On", description: "Kitchen serving through the match, check hours for your fixture." },
                             { title: "Free Parking", description: "20 spaces + easy M25 access." }
                         ].map((feature) => (
                             <GridItem key={feature.title}>
@@ -177,10 +177,10 @@ export default function SixNationsPage() {
                             />
                             <div className="prose text-ink-muted mb-6 max-w-none">
                                 <p>
-                                    Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
+                                    Whether you're after a half-time burger or a celebratory post-match meal, the kitchen is serving through the match. Kitchen hours vary by fixture, so check before you travel.
                                 </p>
                                 <p>
-                                    <strong>Match Day Promise:</strong> Kitchen remains open for all live Six Nations fixtures, even outside normal hours.
+                                    <strong>Match Day Food:</strong> We aim to have the kitchen serving for live Six Nations fixtures. Give us a ring to confirm food times for your match.
                                 </p>
                                 <div className="mt-4">
                                     <strong className="text-ink-strong">Current Opening Hours:</strong>
@@ -229,7 +229,7 @@ export default function SixNationsPage() {
                             },
                             {
                                 question: "Is the kitchen open during the games?",
-                                answer: "Yes, the kitchen will be open throughout all Six Nations matches, so you can order food while you watch."
+                                answer: "We aim to be serving food through the Six Nations matches, but kitchen hours vary by fixture and by day. Ring us on 01753 682707 before you set off and we will confirm food times for your match."
                             },
                             {
                                 question: "Is there parking?",

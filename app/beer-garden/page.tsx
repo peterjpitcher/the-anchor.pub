@@ -114,7 +114,7 @@ export default async function BeerGardenPage() {
         image="/images/page-headers/beer-garden/beer-garden.jpg"
         crumb="Beer Garden"
         title="Beer Garden Near Heathrow"
-        lead="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
+        lead="Plan a plane spotting visit with a pint, a bite to eat, dogs welcome"
       />
 
       <AmenityStrip/>

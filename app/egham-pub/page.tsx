@@ -267,7 +267,7 @@ export default function EghamPubPage() {
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Stone-Baked Pizzas</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Wednesday Quiz Nights</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Sunday Roast (book early)</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Sunday Roast (walk-ins welcome, 1pm to 6pm)</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -304,7 +304,7 @@ export default function EghamPubPage() {
                 Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re barely ten minutes from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point, visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
               </p>
               <p>
-                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas from &pound;12 are a genuine draw. It&rsquo;s no wonder so many people searching for pubs near Egham end up making The Anchor their regular.
+                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas are a genuine draw. It&rsquo;s no wonder so many people searching for pubs near Egham end up making The Anchor their regular.
               </p>
             </div>
           </div>

@@ -50,7 +50,7 @@ export default function Terminal4Page() {
         image="/images/page-headers/near-heathrow-terminal-4/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 4 for Food and Free Parking"
-        lead="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
+        lead="Perfect for SkyTeam & budget travellers • Free parking • Real British hospitality"
         actions={
           <BookTableButton source="terminal_4_hero" context="terminal_4" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -275,7 +275,7 @@ export default function Terminal4Page() {
                   </div>
                   <div className="p-4 bg-surface-sunk rounded-sm border border-line">
                     <p className="font-semibold text-accent-text mb-2">Budget Tip:</p>
-                    <p className="text-sm text-ink-muted">Share a taxi with other travelers - ask at the rank!</p>
+                    <p className="text-sm text-ink-muted">Share a taxi with other travellers - ask at the rank!</p>
                   </div>
                 </div>
               </div>
@@ -456,7 +456,7 @@ export default function Terminal4Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Meet local residents, not just travelers</span>
+                      <span>Meet local residents, not just travellers</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -564,7 +564,7 @@ export default function Terminal4Page() {
             answer: "The Anchor is just 12 minutes drive from Heathrow Terminal 4. We're the perfect spot for a pre-flight meal or drinks after landing."
           },
           {
-            question: "Do you have parking for Terminal 4 travelers?",
+            question: "Do you have parking for Terminal 4 travellers?",
             answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {

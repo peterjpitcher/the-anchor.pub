@@ -129,7 +129,7 @@ export default function SunburyPubPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
-                                { title: "Famous Roasts", description: "Generous portions of high-quality meat and fresh veg - booking essential!" },
+                                { title: "Famous Roasts", description: "Generous portions of high-quality meat and fresh veg, with walk-ins welcome from 1pm to 6pm" },
                                 { title: "Stress-Free Parking", description: "Park right outside for free - no fighting for spaces" },
                                 { title: "Family Friendly", description: "Relaxed atmosphere where kids are welcome" },
                             ].map((item) => (
@@ -230,7 +230,7 @@ export default function SunburyPubPage() {
                     },
                     {
                         question: "Do I need to book for Sunday Roast?",
-                        answer: "Yes, Sunday is our busiest day and we are often fully booked with regulars from Sunbury and surrounding areas. We recommend booking by Wednesday/Thursday for the coming Sunday."
+                        answer: "No. We serve roasts every Sunday from 1pm to 6pm and walk-ins are welcome, with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than 20 need to book by phone on 01753 682707."
                     }
                 ]}
                 className="bg-surface"

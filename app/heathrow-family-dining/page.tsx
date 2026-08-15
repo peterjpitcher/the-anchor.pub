@@ -162,7 +162,7 @@ export default function FamilyDiningPage() {
 
             <CtaBand
                 title="Bring the Whole Family"
-                copy="A warm welcome awaits you and your little travelers."
+                copy="A warm welcome awaits you and your little travellers."
                 primary={<PhoneButton phone={CONTACT.phone} source="family_cta" variant="primary" size="lg">Book a table</PhoneButton>}
                 secondary={
                     <Button asChild variant="outline" size="lg">

@@ -23,13 +23,13 @@ export const metadata: Metadata = {
   description: `Pull off Junction 14 M25 for The Anchor: free parking, proper British pub food, draught beers and a relaxed Surrey village break minutes from Heathrow.`,
   openGraph: {
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
-    description: '5 minutes from M25 J14 with free parking, British pub food and draught beers.',
+    description: '2 minutes from M25 J14 with free parking, British pub food and draught beers.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
-    description: '5 minutes from M25 J14 with free parking, British pub food and draught beers.',
+    description: '2 minutes from M25 J14 with free parking, British pub food and draught beers.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -112,7 +112,7 @@ export default async function M25Junction14PubPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="M25 Junction 14"
         title="Your M25 Junction 14 Pit Stop"
-        lead="Just 5 minutes from the motorway - real food, real prices"
+        lead="Just off the motorway, real food at real prices"
         actions={
           <BookTableButton source="m25_junction_14_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -133,7 +133,7 @@ export default async function M25Junction14PubPage() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
               <div className="flex items-start gap-2">
-                <span>5 minute diversion from Junction 14 via A3113 and Horton Road</span>
+                <span>A short diversion from Junction 14 via A3113 and Horton Road</span>
               </div>
               <div className="flex items-start gap-2">
                 <span>Free parking for cars, vans and minibuses while you dine</span>
@@ -157,7 +157,7 @@ export default async function M25Junction14PubPage() {
               Junction 14 M25 Pub - Traditional British Pub Near M25
             </h2>
             <p className="text-lg text-ink-muted">
-              The smart alternative to motorway services - just 5 minutes from Junction 14
+              The smart alternative to motorway services, just off Junction 14
             </p>
           </div>
         </Container>
@@ -169,12 +169,12 @@ export default async function M25Junction14PubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="The Smart Alternative to Service Stations"
-              subtitle="Why settle for overpriced motorway services when a proper British pub is just 5 minutes from Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
+              subtitle="Why settle for motorway services when a proper British pub is just off Junction 14? Fresh food, fair prices, and a chance to stretch your legs in our beer garden."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
-                { title: '5 Minutes', description: 'Quick detour from M25 Junction 14' },
+                { title: 'Just Off J14', description: 'Quick detour from M25 Junction 14' },
                 { title: 'Half Price', description: 'Compared to motorway services' },
                 { title: 'Free Parking', description: '20 spaces, easy access' }
               ].map(feature => (
@@ -211,7 +211,7 @@ export default async function M25Junction14PubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-green-500 text-xl"></span>
                     <div>
-                      <strong>The Anchor:</strong> Full meals from 9.99
+                      <strong>The Anchor:</strong> A full pub menu, not a wrapped sandwich
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -308,7 +308,7 @@ export default async function M25Junction14PubPage() {
                   <li>• Jumbo Sausage & Chips - 12.99</li>
                   <li>• Beef & Ale Pie - 14.99</li>
                 </ul>
-                <p className="mt-3 text-sm text-ink-muted">All served quickly for motorway travelers</p>
+                <p className="mt-3 text-sm text-ink-muted">All served quickly for motorway travellers</p>
               </div>
 
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
@@ -367,7 +367,7 @@ export default async function M25Junction14PubPage() {
                   </li>
                 </ol>
                 <p className="mt-4 text-sm text-ink-muted">
-                  <strong>Total time:</strong> 5 minutes from motorway
+                  <strong>Total time:</strong> a short hop from the motorway
                 </p>
               </div>
 
@@ -535,7 +535,7 @@ export default async function M25Junction14PubPage() {
         faqs={[
           {
             question: "How far is The Anchor from M25 Junction 14?",
-            answer: "We're just 2.1 miles (5 minutes) from M25 Junction 14. Exit at J14, follow A3113 for 1 mile, turn right onto Horton Road, and we're 0.5 miles on your left. Much quicker than queuing at motorway services!"
+            answer: "We're just off M25 Junction 14. Exit at J14, follow A3113 for 1 mile, turn right onto Horton Road, and we're 0.5 miles on your left. Much quicker than queuing at motorway services!"
           },
           {
             question: "Is it worth leaving the M25 for food at The Anchor?",
@@ -546,7 +546,7 @@ export default async function M25Junction14PubPage() {
             answer: "Yes, we have 20 free parking spaces with easy access and turning space. While we can accommodate most vehicles, extremely large lorries might find local laybys more suitable. Cars with caravans and vans fit comfortably."
           },
           {
-            question: "What's the quickest meal option for M25 travelers?",
+            question: "What's the quickest meal option for M25 travellers?",
             answer: "Our kitchen can serve sandwiches, burgers, and jacket potatoes within 15-20 minutes. If you're in a real hurry, call ahead on 01753 682707 and we can have your order ready for collection."
           },
           {
@@ -564,7 +564,7 @@ export default async function M25Junction14PubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Make The Smart M25 Stop"
-        copy="Real food, real prices, real break - just 5 minutes from Junction 14"
+        copy="Real food, real prices, a real break, just off Junction 14"
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap gap-3 justify-center">

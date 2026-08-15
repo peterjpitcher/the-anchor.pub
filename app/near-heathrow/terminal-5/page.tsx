@@ -51,7 +51,7 @@ export default function Terminal5Page() {
         image="/images/page-headers/near-heathrow-terminal-5/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 5 for Food and Free Parking"
-        lead="Perfect for British Airways travelers • Free parking • Traditional British pub"
+        lead="Perfect for British Airways travellers • Free parking • Traditional British pub"
         actions={
           <BookTableButton source="terminal_5_hero" context="terminal_5" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -470,7 +470,7 @@ export default function Terminal5Page() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
-                    <span>Meet real locals, not just travelers</span>
+                    <span>Meet real locals, not just travellers</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
@@ -506,7 +506,7 @@ export default function Terminal5Page() {
                   </li>
                 </ul>
                 <p className="text-sm text-ink-muted italic">
-                  Perfect for business travelers looking for local atmosphere
+                  Perfect for business travellers looking for local atmosphere
                 </p>
               </div>
             </div>
@@ -542,7 +542,7 @@ export default function Terminal5Page() {
                 Experience Real British Pub Culture
               </h3>
               <p className="text-lg text-ink mb-6 mx-auto">
-                The Anchor has been serving locals and travelers for over 250 years.
+                The Anchor has been serving locals and travellers for over 250 years.
                 Step away from the international hotel scene and discover authentic
                 British hospitality, traditional ales, and home-cooked food in a
                 genuine village pub atmosphere.
@@ -551,7 +551,7 @@ export default function Terminal5Page() {
 
             <div className="mt-12 text-center">
               <p className="text-ink-muted mb-6">
-                Join the savvy travelers who've discovered there's more to Heathrow
+                Join the savvy travellers who've discovered there's more to Heathrow
                 dining than airport chains and hotel restaurants.
               </p>
               <BookTableButton
@@ -733,7 +733,7 @@ export default function Terminal5Page() {
               "name": "Travel from Heathrow Terminal 5 to The Anchor",
               "agent": {
                 "@type": "Person",
-                "name": "Heathrow Traveler"
+                "name": "Heathrow Traveller"
               },
               "fromLocation": {
                 "@type": "Airport",

@@ -247,7 +247,7 @@ export default function HortonPubPage() {
                     },
                     {
                         question: "Do you serve Sunday Roast?",
-                        answer: "Yes, our Sunday Roasts are famous in the area. We serve them every Sunday from 1pm. Booking is highly recommended as we often fill up with locals from Stanwell Moor and Horton."
+                        answer: "Yes, our Sunday Roasts are famous in the area. We serve them every Sunday from 1pm to 6pm, and walk-ins are welcome with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than 20 need to book by phone on 01753 682707."
                     },
                     {
                         question: "Is there parking?",

@@ -176,7 +176,7 @@ export const staticEvents = {
     slug: 'quiz-night',
     name: 'Monthly Quiz Night',
     description: 'Test your knowledge at our popular monthly quiz night. 3 entry, great prizes!',
-    longDescription: 'Join us for our monthly quiz night featuring questions on general knowledge, sports, music, and more. Entry is just 3 per person, teams up to 6 people. Prizes include a 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine!',
+    longDescription: 'Join us for our monthly quiz night featuring questions on general knowledge, sports, music, and more. Entry is £3 per person, teams up to 6 people. Prizes include a £25 bar tab for 1st place, and the 2nd from last team wins a bottle of wine.',
     shortDescription: '3 entry quiz with cash prizes',
     image: [
       '/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg'

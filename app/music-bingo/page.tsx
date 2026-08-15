@@ -195,7 +195,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
-          Five rounds of song snippets, singalong prompts, and shout-outs. Grab your card, spot the track, and
+          Song snippets, singalong prompts and shout-outs. Grab your card, spot the track, and
           celebrate every line win.
         </p>
       )}
@@ -330,7 +330,7 @@ export default async function MusicBingoPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong>Doors {doorTime}</strong> - arrive early, grab drinks, and collect your bingo card.</li>
                   <li><strong>{nextEventTime}</strong> - warm-up round begins with chart favourites and classics.</li>
-                  <li><strong>Five rounds</strong> - quick-fire clips, theme rounds, and bonus singalong moments.</li>
+                  <li><strong>The games</strong> - quick-fire clips, theme rounds, and bonus singalong moments.</li>
                   <li><strong>Breaks between rounds</strong> - order food, top up drinks, and compare answers.</li>
                   <li><strong>Finale</strong> - last card of the night with the headline prize.</li>
                 </ul>

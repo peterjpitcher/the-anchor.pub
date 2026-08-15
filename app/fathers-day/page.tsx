@@ -15,14 +15,14 @@ import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMA
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
-// Father's Day 2026 (Sunday 21 June 2026) is the next live seasonal event after
-// the 17 May walk-in launch, the page ships in the post-launch walk-in state
-// from launch onward. Keyword cluster layered: 'fathers day pub lunch',
-// 'fathers day sunday roast', 'fathers day pub near me', 'where to take dad
-// for sunday roast'. (Spec §8.6, keyword plan delivered in conversation.)
-const FATHERS_DAY_DATE = '2026-06-21'
-const FATHERS_DAY_LABEL = 'Sunday 21 June 2026'
-const FATHERS_DAY_SERVICE_WINDOW = '1pm–6pm'
+// Father's Day 2026 has passed, so the page now points at Father's Day 2027,
+// Sunday 20 June 2027 (UK Father's Day is the third Sunday in June). The page
+// ships in the post-launch walk-in state. Keyword cluster layered: 'fathers day
+// pub lunch', 'fathers day sunday roast', 'fathers day pub near me', 'where to
+// take dad for sunday roast'. (Spec §8.6, keyword plan delivered in conversation.)
+const FATHERS_DAY_DATE = '2027-06-20'
+const FATHERS_DAY_LABEL = 'Sunday 20 June 2027'
+const FATHERS_DAY_SERVICE_WINDOW = '1pm to 6pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
 
 const FATHERS_DAY_BOOKING_URL = '/book-table'
@@ -38,19 +38,19 @@ const FATHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 export const metadata: Metadata = {
   title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
   description:
-    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }

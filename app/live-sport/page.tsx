@@ -105,7 +105,7 @@ export default async function LiveSportPage() {
 
             <Container className="py-8">
                 <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>
-                    Live Sport Pub Near Heathrow, Big Screens &amp; Great Atmosphere
+                    Live Sport Pub Near Heathrow, Big Screens And Sound Up
                 </PageTitle>
             </Container>
 
@@ -147,7 +147,7 @@ export default async function LiveSportPage() {
                                     description: "For big games, we turn the commentary up so you get the full stadium atmosphere."
                                 },
                                 {
-                                    title: "Great Atmosphere",
+                                    title: "A Room That Reacts",
                                     description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy."
                                 }
                             ].map((feature) => (
@@ -234,6 +234,24 @@ export default async function LiveSportPage() {
                                 </Button>
                                 <Button asChild variant="outline">
                                     <Link href="/live-sport/world-cup/sweepstake">Sweep Winners</Link>
+                                </Button>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Container>
+            </section>
+
+            <section className="py-section-y bg-surface">
+                <Container>
+                    <Card accent className="mx-auto">
+                        <CardBody className="p-8 text-center">
+                            <h2 className="text-xl text-accent-text">Boxing</h2>
+                            <p className="mt-3 text-sm text-ink-muted">
+                                When a fight lands on BBC, ITV or Channel 4, it goes on the big screens with the sound up. Find out what we can show and what we cannot.
+                            </p>
+                            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                                <Button asChild variant="primary">
+                                    <Link href="/live-sport/boxing">Boxing At The Anchor &rarr;</Link>
                                 </Button>
                             </div>
                         </CardBody>

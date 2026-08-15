@@ -13,15 +13,15 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden',
-  description: 'The Anchor is the heart of Stanwell Moor village. Traditional pub with beer garden, free parking, great food and live entertainment. Your proper local in TW19.',
+  description: 'The Anchor has been the heart of Stanwell Moor village since 1751. Traditional pub with beer garden, free parking, great food, quiz nights and hosted events. Your proper local in TW19.',
   openGraph: {
     title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
-    description: 'Stanwell Moor\'s village pub since 1995. Beer garden, free parking, great food and live entertainment.',
+    description: 'Stanwell Moor\'s village pub since 1751. Beer garden, free parking, great food, quiz nights and hosted events.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
-    description: 'Stanwell Moor\'s village pub since 1995. Beer garden, free parking, great food and live entertainment.',
+    description: 'Stanwell Moor\'s village pub since 1751. Beer garden, free parking, great food, quiz nights and hosted events.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -37,7 +37,7 @@ export default async function PubsInStanwellPage() {
     "@type": "BarOrPub",
     "@id": "https://www.the-anchor.pub/pubs-in-stanwell",
     "name": "The Anchor - Traditional Pub in Stanwell Moor",
-    "description": "Family-friendly local pub serving Stanwell Moor and Stanwell since 1995. Traditional British pub with great food, beer garden, and free parking.",
+    "description": "Family-friendly local pub serving Stanwell Moor and Stanwell since 1751. Traditional British pub with great food, beer garden, and free parking.",
     "url": "https://www.the-anchor.pub",
     "image": [
       `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
@@ -85,7 +85,7 @@ export default async function PubsInStanwellPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pubs in Stanwell"
         title="Stanwell Moor's Village Pub & Beer Garden"
-        lead="The heart of Stanwell Moor village, traditional British pub since 1995"
+        lead="The heart of Stanwell Moor village, traditional British pub since 1751"
       />
 
       {/* Page Title for SEO */}
@@ -116,15 +116,16 @@ export default async function PubsInStanwellPage() {
                   <div className="space-y-3">
                     <p className="text-ink-muted">
                       Located on Horton Road in the heart of Stanwell Moor, we've been
-                      the village's gathering place for nearly 30 years. Unlike chain pubs,
-                      we're independently run with genuine local character.
+                      the village's gathering place since 1751, standing here long before
+                      Heathrow existed. Unlike chain pubs, we're independently run with
+                      genuine local character.
                     </p>
                     <ul className="space-y-2 text-ink-muted">
                       <li>Family-owned and operated</li>
                       <li>Know our regulars by name</li>
                       <li>Support local events and causes</li>
                       <li>Traditional pub atmosphere</li>
-                      <li>Community hub since 1995</li>
+                      <li>Community hub since 1751</li>
                     </ul>
                   </div>
                 </CardBody>
@@ -136,14 +137,14 @@ export default async function PubsInStanwellPage() {
                   <div className="space-y-3">
                     <p className="text-ink-muted">
                       We're not just another pub - we're your local. From our famous
-                      Sunday roasts to stone-baked pizzas, we offer something for everyone
+                      Sunday roasts to stone-baked pizzas, all made properly
                       in a warm, welcoming environment.
                     </p>
                     <ul className="space-y-2 text-ink-muted">
                       <li>Home-cooked British food</li>
                       <li>Draught beers and chilled lagers</li>
                       <li>Large beer garden</li>
-                      <li>Live entertainment</li>
+                      <li>Quiz nights and hosted events</li>
                       <li>Free parking always</li>
                     </ul>
                   </div>
@@ -170,7 +171,7 @@ export default async function PubsInStanwellPage() {
                     <li>• Sunbury: 12 mins</li>
                   </ul>
                   <ul className="space-y-1 text-sm">
-                    <li>• M25 Junction 14: 3 mins</li>
+                    <li>• M25 Junction 14: 2 mins</li>
                     <li>• Outside ULEZ zone</li>
                     <li>• 20 free parking spaces</li>
                   </ul>
@@ -195,7 +196,7 @@ export default async function PubsInStanwellPage() {
                 { title: "Great Drinks Selection", description: "Draught lagers, bottled ales, wines, spirits and soft drinks" },
                 { title: "Home-Cooked Food", description: "Traditional British pub food cooked fresh daily" },
                 { title: "Beautiful Beer Garden", description: "Spacious outdoor area perfect for sunny days" },
-                { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)" },
+                { title: "Quiz Nights & Hosted Events", description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)" },
                 { title: "Family Friendly", description: "Children welcome with kids menu available" },
                 { title: "Sports Coverage", description: "Major sporting events on our screens" },
                 { title: "Private Functions", description: "Host your special occasions with us" },
@@ -246,7 +247,7 @@ export default async function PubsInStanwellPage() {
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-accent-text mt-1">✓</span>
-                        <div><strong>Entertainment:</strong> Regular events and live shows</div>
+                        <div><strong>Entertainment:</strong> Regular quiz nights and hosted events</div>
                       </li>
                     </ul>
                   </div>
@@ -260,7 +261,7 @@ export default async function PubsInStanwellPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-ink">The Bells (Staines)</p>
-                        <p className="text-sm">Town center location, paid parking</p>
+                        <p className="text-sm">Town centre location, paid parking</p>
                       </div>
                       <div>
                         <p className="font-semibold text-ink">Airport Pubs</p>
@@ -320,7 +321,7 @@ export default async function PubsInStanwellPage() {
             />
             <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
-                Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west, and The Anchor sits right at the heart of it, the village&rsquo;s gathering place for nearly three decades.
+                Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west, and The Anchor sits right at the heart of it, the village&rsquo;s gathering place since 1751.
               </p>
               <p>
                 The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. The Stanwell Moor nature reserve, just off Horton Road, is a quiet spot that most visitors to the area never discover. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
@@ -356,11 +357,11 @@ export default async function PubsInStanwellPage() {
         faqs={[
           {
             question: "What makes The Anchor the best pub in Stanwell Moor?",
-            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1995. We offer free parking, a large beer garden, home-cooked food, regular entertainment, and a genuine local atmosphere. Our combination of location, facilities, and friendly service makes us the preferred choice for locals."
+            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere. Our combination of location, facilities, and friendly service makes us the preferred choice for locals."
           },
           {
             question: "Do you have parking at the pub?",
-            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
+            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town centre pubs where parking can cost £3-5."
           },
           {
             question: "Are families welcome at The Anchor?",
@@ -372,7 +373,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "How far is The Anchor from Stanwell village?",
-            answer: "We're just 5 minutes from Stanwell village center, located on Horton Road in Stanwell Moor. We're also only 8 minutes from Staines, 7 minutes from Heathrow Terminal 5, and 3 minutes from M25 Junction 14."
+            answer: "We're just 5 minutes from Stanwell village centre, located on Horton Road in Stanwell Moor. We're also only 8 minutes from Staines, 7 minutes from Heathrow Terminal 5, and 2 minutes from M25 Junction 14."
           },
           {
             question: "Do you show sports at the pub?",
