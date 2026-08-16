@@ -110,7 +110,9 @@ export async function POST(request: NextRequest) {
 
         const body = await request.json()
 
-        const spam = await checkSpamProtection(request, body, { skipTurnstile: true })
+        // Verified here, with this site's own secret. See app/api/table-bookings/route.ts
+        // for why the management API cannot be relied on to check a forwarded token.
+        const spam = await checkSpamProtection(request, body)
         if (spam.blocked) return spam.response
 
         const pb: LegacyPrivateBookingPayload = body
@@ -149,15 +151,14 @@ export async function POST(request: NextRequest) {
 
         const idempotencyKey = request.headers.get('Idempotency-Key') || createIdempotencyKey(mappedPayload)
 
-        const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
-
+        // Token already spent by our own verification above, and the management
+        // API's secret belongs to a different widget, so it is not forwarded.
         const res = await fetch(`${API_BASE_URL}/private-booking-enquiry`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-Key': API_KEY,
-                'Idempotency-Key': idempotencyKey,
-                ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
+                'Idempotency-Key': idempotencyKey
             },
             body: JSON.stringify(mappedPayload)
         })

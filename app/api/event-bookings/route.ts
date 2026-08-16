@@ -444,7 +444,11 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    const spam = await checkSpamProtection(request, body, { skipTurnstile: true })
+    // Verified here, with this site's own secret. The management API only checks
+    // Turnstile for callers with no API key, and does it with a different
+    // widget's secret, so a forwarded token was never validated on the happy
+    // path and could only fail when it was. See app/api/table-bookings/route.ts.
+    const spam = await checkSpamProtection(request, body)
     if (spam.blocked) return spam.response
 
     const normalized = normalizePayload(body)
@@ -469,16 +473,14 @@ export async function POST(request: NextRequest) {
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 
-    const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
-
+    // Token already spent by our own verification above, and the management
+    // API's secret belongs to a different widget, so it is not forwarded.
     const upstream = await fetch(`${API_BASE_URL}/event-bookings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': API_KEY,
-        'Idempotency-Key': idempotencyKey,
-        // Management API validates the single-use Turnstile token.
-        ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
+        'Idempotency-Key': idempotencyKey
       },
       cache: 'no-store',
       body: JSON.stringify(normalized.payload)

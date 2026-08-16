@@ -130,8 +130,14 @@ export async function checkSpamProtection(
   }
 
   // 5. Turnstile CAPTCHA verification
-  //    Skip when the upstream management API will verify the token itself
-  //    (Turnstile tokens are single-use, verifying here would consume it)
+  //    This is the ONLY place a token from one of our widgets gets verified.
+  //    Do not skip it on the assumption that the management API will do it
+  //    instead: it holds a different widget's secret and only checks callers
+  //    that present no API key, so a forwarded token reaches no valid verifier.
+  //    skipTurnstile is for routes whose form mints no token at all (they fall
+  //    back to the honeypot, timing and phone-prefix checks above). Turning it
+  //    on for a form that DOES have a widget silently disables the widget;
+  //    turning it off for a form that does NOT have one blocks every guest.
   if (!options?.skipTurnstile) {
     const turnstile = await verifyTurnstileToken(
       (body?.turnstile_token as string | null | undefined) ?? null

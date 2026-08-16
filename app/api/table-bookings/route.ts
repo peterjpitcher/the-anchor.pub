@@ -517,7 +517,16 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    const spam = await checkSpamProtection(request, body, { skipTurnstile: true })
+    // Turnstile is verified HERE, with this site's own secret.
+    //
+    // It used to be skipped on the belief that the management API would verify
+    // the forwarded token instead. It does not: it only runs its Turnstile gate
+    // for callers with no API key, and it does so with a DIFFERENT widget's
+    // secret, which can never validate a token minted by this site's site key.
+    // So the token was checked by nobody on the happy path, and was guaranteed
+    // to fail whenever the management API's gate did run. Verify it here, where
+    // the secret actually pairs with the widget the guest solved.
+    const spam = await checkSpamProtection(request, body)
     if (spam.blocked) return spam.response
 
     const normalized = normaliseIncomingPayload(body)
@@ -587,16 +596,15 @@ export async function POST(request: NextRequest) {
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
       })
 
-    const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
-
+    // No x-turnstile-token upstream. The token has already been spent by our own
+    // verification above, and the management API's secret belongs to a different
+    // widget, so forwarding it could only ever produce a spurious rejection.
     const upstream = await fetch(`${API_BASE_URL}/table-bookings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': apiKey,
-        'Idempotency-Key': idempotencyKey,
-        // Management API reads the Turnstile token from this header, not from the body
-        ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
+        'Idempotency-Key': idempotencyKey
       },
       cache: 'no-store',
       // skip_customer_sms: website bookings show PayPal buttons inline, so customer
