@@ -50,16 +50,34 @@ function SlotButton({
           ? 'cursor-not-allowed border-line bg-surface-sunk text-ink-muted opacity-60'
           : isSelected
           ? 'border-anchor-green bg-anchor-green text-white'
-          : 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
+          : servesFood
+          ? 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
+          : // Drinks-only is the exception, so it is the one that is marked. The
+            // tint and the glass are reinforcement; the caption below still says
+            // it in words, so this does not depend on seeing colour.
+            'border-anchor-gold/60 bg-anchor-gold/10 text-ink hover:border-anchor-gold'
       }`}
     >
       <span className="block text-base font-semibold">{formatTimeForDisplay(slot.time)}</span>
       <span
-        className={`mt-1 block text-xs font-normal ${
-          isUnavailable ? 'text-ink-muted' : isSelected ? 'text-white/80' : 'text-ink-muted'
+        className={`mt-1 block text-xs ${
+          isUnavailable
+            ? 'font-normal text-ink-muted'
+            : isSelected
+            ? 'font-normal text-white/80'
+            : servesFood
+            ? 'font-normal text-ink-muted'
+            : 'font-semibold text-anchor-gold-dark'
         }`}
       >
-        {servesFood ? 'Drinks & food' : 'Drinks only'}
+        {servesFood ? (
+          'Drinks & food'
+        ) : (
+          <>
+            <span aria-hidden="true" className="mr-1">&#127864;</span>
+            Drinks only
+          </>
+        )}
       </span>
       {chairCaption ? (
         <span
@@ -126,8 +144,22 @@ export function SlotPickerGrid({
   selectedTime: string
   onSelect: (slot: AvailabilitySlot) => void
 }) {
+  // Only explain the split when there is one. On a day the kitchen is on all
+  // evening this note would be noise, and a note that is always there stops
+  // being read.
+  const all = [...grouped.lunch, ...grouped.evening]
+  const hasDrinksOnly = all.some((d) => d.slot.bookable_purpose !== 'food_or_drinks')
+  const hasFood = all.some((d) => d.slot.bookable_purpose === 'food_or_drinks')
+
   return (
     <div className="space-y-4">
+      {hasDrinksOnly && hasFood ? (
+        <p className="rounded-lg border border-anchor-gold/40 bg-anchor-gold/10 px-3 py-2 text-sm text-ink">
+          <span aria-hidden="true" className="mr-1">&#127864;</span>
+          Times marked <span className="font-semibold">drinks only</span> are outside kitchen
+          hours. You are very welcome, there is just no food at those times.
+        </p>
+      ) : null}
       <SlotGroup heading="Lunch" slots={grouped.lunch} selectedTime={selectedTime} onSelect={onSelect} />
       <SlotGroup heading="Evening" slots={grouped.evening} selectedTime={selectedTime} onSelect={onSelect} />
     </div>

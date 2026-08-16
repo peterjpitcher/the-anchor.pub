@@ -176,7 +176,11 @@ function toServiceRanges(entries: ScheduleConfigEntry[]): ServiceRange[] {
       endsAt: normalizeTime(entry.ends_at || ''),
       capacity: Number.isFinite(entry.capacity) ? Number(entry.capacity) : 50
     }))
-    .filter((entry) => isValidTime(entry.startsAt) && isValidTime(entry.endsAt) && toMinutes(entry.endsAt) > toMinutes(entry.startsAt))
+    // An end at or before the start means the window runs past midnight, which
+    // is how a 00:00 close is stored. Dropping those was why a midnight close
+    // produced no bookable times at all. isInWindow already understands a
+    // wrapped range; only this filter and the slot builder did not.
+    .filter((entry) => isValidTime(entry.startsAt) && isValidTime(entry.endsAt) && toMinutes(entry.endsAt) !== toMinutes(entry.startsAt))
 }
 
 function isInWindow(targetMinutes: number, startMinutes: number, endMinutes: number): boolean {
@@ -214,10 +218,16 @@ export function buildSlotsFromRanges(
 
   for (const range of ranges) {
     const start = toMinutes(range.startsAt)
-    const end = toMinutes(range.endsAt)
-    if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) {
+    const rawEnd = toMinutes(range.endsAt)
+    if (!Number.isFinite(start) || !Number.isFinite(rawEnd) || rawEnd === start) {
       continue
     }
+
+    // A close at or before the open runs past midnight: 12:00 to 00:00 is a
+    // twelve hour day, not a negative one. Carry it to the next day so the
+    // cursor walks forwards. toTimeString wraps the clock back, so a slot at
+    // 1470 minutes renders as 00:30, matching how the management app emits it.
+    const end = rawEnd < start ? rawEnd + 1440 : rawEnd
 
     for (let cursor = start; cursor < end; cursor += slotIntervalMinutes) {
       if (typeof minMinutesForToday === 'number' && cursor < minMinutesForToday) {
@@ -253,7 +263,15 @@ export function buildSlotsFromRanges(
     }
   }
 
-  return Array.from(slots.values()).sort((a, b) => toMinutes(a.time) - toMinutes(b.time))
+  // Sort by position in the trading day, not by clock time. On a night that runs
+  // past midnight, 00:30 belongs after 23:30, and sorting on the raw clock would
+  // put the small hours at the top of the grid, before lunch.
+  const dayStart = Math.min(...ranges.map((r) => toMinutes(r.startsAt)).filter(Number.isFinite))
+  const inDayOrder = (time: string) => {
+    const m = toMinutes(time)
+    return Number.isFinite(dayStart) && m < dayStart ? m + 1440 : m
+  }
+  return Array.from(slots.values()).sort((a, b) => inDayOrder(a.time) - inDayOrder(b.time))
 }
 
 export function resolveServiceRanges(
@@ -375,7 +393,9 @@ export function resolveServiceRanges(
     String(specialDay?.closes || regularDay?.closes || kitchenCloses || '22:00')
   )
 
-  if (!isValidTime(venueOpens) || !isValidTime(venueCloses) || toMinutes(venueCloses) <= toMinutes(venueOpens)) {
+  // A close at or before the open is a late night, not an error: 00:00 means
+  // midnight. Only an exactly-equal pair is meaningless.
+  if (!isValidTime(venueOpens) || !isValidTime(venueCloses) || toMinutes(venueCloses) === toMinutes(venueOpens)) {
     return {
       ranges: [],
       closed: false,
