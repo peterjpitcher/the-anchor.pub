@@ -354,7 +354,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Accessible toilet *(verified NO)*
 - EV charging *(no "coming soon" claims)*
 - Baby changing facilities *(verified NO)*
-- Air conditioning / climate control *(verified NO — heating only)*
+- Air conditioning / climate control *(verified NO, heating only)*
 
 ### Accessibility
 
@@ -447,6 +447,11 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - **A DJ is booked in from time to time**, and is **confirmed for Halloween and New Year's Eve**. (Owner-confirmed, 11 August 2026.)
 - **A DJ can be arranged for a Christmas booking on request.** It is not included by default and is not part of a package, so never advertise it as included. Offer it as something a group can ask for. (Owner-confirmed, 11 August 2026.)
 - Outside those cases, only promote a DJ when a specific event record lists one. Never imply a resident DJ or a regular DJ night.
+
+### New Year's Eve
+
+- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026.) This is the one night where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. It is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip it as a hardcoded hours claim.
+- A DJ and a midnight countdown are confirmed for the night, see the DJ entry above.
 
 ### Curry Club
 
@@ -610,7 +615,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
-- **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only — describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
+- **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only, so describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
 - **Wedding receptions**, we host smaller private events only, not wedding receptions.
 
 ## 15. Maintaining This Document

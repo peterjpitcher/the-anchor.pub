@@ -24,8 +24,20 @@ export type CareerRole = {
   validThrough: string
 }
 
-export const CAREERS_POSTED_DATE = '2026-05-11'
-export const CAREERS_VALID_THROUGH = '2026-08-11'
+// NOT THE LIVE JOB POSTINGS. The rendered /join-our-team/bar-staff and
+// /join-our-team/kitchen-team pages build their JobPosting schema from
+// app/join-our-team/recruitmentContent.ts via _components/RecruitmentRolePage.
+// CAREER_ROLES and buildJobPostingSchema below are a second, unrendered copy
+// kept alive only by lib/__tests__/careers.test.ts, so editing them changes
+// nothing a guest or Google ever sees. Only the form constants in this file
+// (CV limits, CAREERS_FORM_ROLES) are actually used, by app/api/careers/route.
+//
+// These two dates are held in step with recruitmentContent.ts purely so the
+// dead copy cannot contradict the live one. CAREERS_VALID_THROUGH sat at
+// 2026-08-11 and had already expired, which would have meant Google dropping
+// both roles the moment anyone wired this copy up.
+export const CAREERS_POSTED_DATE = '2026-05-12'
+export const CAREERS_VALID_THROUGH = '2027-05-12'
 export const CAREERS_CV_MAX_BYTES = 20 * 1024 * 1024
 export const CAREERS_CV_ALLOWED_EXTENSIONS = ['.pdf', '.doc', '.docx']
 export const CAREERS_CV_ALLOWED_MIMES = [
