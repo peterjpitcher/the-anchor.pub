@@ -28,7 +28,7 @@ const PAGE_URL = 'https://www.the-anchor.pub/christmas-parties'
 const BUSINESS_ID = 'https://www.the-anchor.pub/#business'
 const WEBSITE_ID = 'https://www.the-anchor.pub/#website'
 const HERO_IMAGE =
-  'https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.jpg'
+  'https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table-wide.jpg'
 
 const { venue, christmas_2026: christmas } = ssot as unknown as SsotData
 

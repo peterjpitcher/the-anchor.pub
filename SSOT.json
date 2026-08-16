@@ -191,14 +191,28 @@
     },
     "voice": {
       "tone": [
-        "Friendly",
+        "Warm",
+        "Excited",
         "Cheeky",
         "Inclusive"
       ],
+      "emotional_core": [
+        "Belonging: 'Where Everyone's Welcome' is a promise, not a strapline",
+        "Pride: a village pub since 1751, before Heathrow existed",
+        "Simple joy: proper roasts, the beer garden, planes overhead"
+      ],
+      "principles": [
+        "Lead with feeling, then facts",
+        "Enthusiasm is on-brand; never flat or corporate",
+        "Cheeky, never snide; jokes never at guests' expense",
+        "Concrete beats generic; no 'great atmosphere' or 'hidden gem' filler",
+        "Inclusive by default; no in-jokes or assumed knowledge",
+        "Excitement never invents facts; banned claims still apply"
+      ],
       "perspective": "Use 'we' language",
       "language": "British English",
-      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.",
-      "notes": "Responds to local demographic change including growing Indian community"
+      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. At most one exclamation mark per section, never stacked.",
+      "notes": "Responds to local demographic change including growing Indian community. Full voice guide in docs/SSOT.md section 1."
     }
   },
   "venue": {
@@ -217,7 +231,7 @@
     },
     "parking": {
       "free_spaces": 20,
-      "RESOLVED": "Confirmed 2026-03-22: 20 is correct. lib/schema.ts ParkingFacility (50) must be updated.",
+      "RESOLVED": "Confirmed 2026-03-22: 20 is correct. Verified 2026-08-15: lib/schema.ts ParkingFacility numberOfSpaces already reads 20 and every page states 20. No outstanding action.",
       "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV and floodlit.",
       "extended": "Additional parking available nearby"
     },
@@ -288,7 +302,8 @@
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "currency": "GBP",
-    "price_range": "££"
+    "price_range": "££",
+    "spaces_note": "TWO indoor spaces, not three: the main bar area and the dining room. The 1995 conservatory was replaced by the dining room extension (renovation 2024); 'conservatory' is legacy wording and some guests still use it for the dining room. Never list it as a separate space. The dining room is warm and cosy with French doors onto the garden; in winter the doors are usually kept shut, and the garden remains accessible just outside. (Owner-confirmed 2026-08-15.)"
   },
   "beer_garden": {
     "seats": 64,
@@ -1078,7 +1093,7 @@
     "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF."
   },
   "christmas_2026": {
-    "_confirmed": "Owner-confirmed 2026-07-21. Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
+    "_confirmed": "Owner-confirmed 2026-07-21, updated 2026-08-13 (menu published; Yorkshire pudding, roast potatoes, mashed potato and peas added to trimmings, with the vegan Wellington excepted). Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
     "service_window": {
       "start": "2026-11-10",
       "end": "2026-12-20",
@@ -1158,11 +1173,15 @@
     "trimmings": [
       "Pigs in blankets",
       "Stuffing",
-      "Brussels sprouts"
+      "Brussels sprouts",
+      "Yorkshire pudding",
+      "Roast potatoes",
+      "Mashed potato",
+      "Peas"
     ],
-    "menu_status": "NOT_FINALISED",
-    "menu_wording": "menu released closer to the time",
-    "menu_rule": "Never list, guess or imply a specific Christmas dish until the menu is finalised in the management database.",
+    "menu_status": "PUBLISHED",
+    "menu_wording": "the full dish list is on the page",
+    "menu_rule": "Publish exactly the dishes the management API returns for the Christmas booking period (/table-bookings/periods). Never list, guess, pad or imply a dish the API did not return. If it returns no menu, say nothing about dishes.",
     "price_source": "LIVE_FROM_DB",
     "price_rule": "Christmas prices come live from the management database via the menu API. Never hardcode a Christmas price in website page code, JSON-LD or schemas.",
     "price_display": "Per-item menu prices display with no currency symbol. Christmas set-menu tier prices in prose may use the pound sign normally.",
@@ -1213,7 +1232,8 @@
       "Weekday/weekend two-price festive menu as the whole structure",
       "Blanket 'pre-order only' claims",
       "Any kids 2-course or 3-course price"
-    ]
+    ],
+    "trimmings_vegan_exception": "The Vegetable Wellington is vegan: no Yorkshire pudding and no pigs in blankets. Vegan Christmas trimmings and vegan gravy. Matches the Sunday roast rule where the Wellington and the pies carry no Yorkshire pudding."
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",

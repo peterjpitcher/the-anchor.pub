@@ -25,6 +25,7 @@ import { FoodMenuSection } from '../food-menu/_components/FoodMenuSection'
 import { SundayRoastFeature } from '../food-menu/_components/SundayRoastFeature'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
 
 const SUNDAY_LUNCH_BOOKING_URL = SUNDAY_ROAST.bookingHref
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -476,6 +477,8 @@ export default async function SundayRoastPage() {
           </div>
         </div>
       </section>
+
+      <ChristmasCrossLink hook="If our roast is your kind of Sunday, the kitchen does a festive version of it for six weeks at the end of the year." />
 
       <OrganicSearchClusterLinks
         cluster="heathrowDining"

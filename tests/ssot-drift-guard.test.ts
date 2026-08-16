@@ -284,10 +284,15 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(names).not.toContain('Festive Menu (weekend)')
   })
 
-  it('menu dishes are not finalised and no dish may be named', () => {
-    expect(xmas.menu_status).toBe('NOT_FINALISED')
-    expect(xmas.menu_wording).toBe('menu released closer to the time')
-    expect(mdPlain).toContain('menu released closer to the time')
+  it('menu dishes are published, and only the API may name one', () => {
+    // Changed 13 August 2026: the dish list is live on the Christmas booking
+    // period and the page renders it. The guard still exists to stop a dish
+    // being invented, it just no longer pins the pre-publication wording.
+    expect(xmas.menu_status).toBe('PUBLISHED')
+    expect(xmas.menu_rule).toContain('Never list, guess, pad or imply a dish the API did not return')
+    expect(mdPlain).toContain('Menu dishes ARE published')
+    // The retired wording must not linger anywhere in the SSOT prose.
+    expect(mdPlain).not.toContain('Menu dishes are NOT finalised')
   })
 
   it('inclusions and trimmings are pinned', () => {
@@ -298,7 +303,25 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
       'Pigs in blankets',
       'Stuffing',
       'Brussels sprouts',
+      'Yorkshire pudding',
+      'Roast potatoes',
+      'Mashed potato',
+      'Peas',
     ])
+  })
+
+  it('the vegan Wellington is excepted from the meat trimmings', () => {
+    // A Yorkshire pudding contains egg and milk and a pig in a blanket is pork,
+    // so the full trimmings list must never be applied to the vegan main. The
+    // Sunday roast already encodes this rule; Christmas has to agree with it.
+    expect(xmas.trimmings_vegan_exception).toContain('no Yorkshire pudding')
+    expect(xmas.trimmings_vegan_exception).toContain('no pigs in blankets')
+    expect(mdPlain).toContain('The Vegetable Wellington is the exception')
+
+    const wellington = ssot.sunday_roast.options.find((o: { name: string }) =>
+      /wellington/i.test(o.name)
+    )
+    expect(wellington.yorkshire_pudding).toBe(false)
   })
 
   it('Christmas prices are live-sourced, never hardcoded in the shipped shape', () => {

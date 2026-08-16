@@ -33,7 +33,7 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 const MOTHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 
 // Mother's Day 2026 (15 March) is past at time of authoring. The page persists
-// for rolling SEO and Mother's Day 2027 (Sunday 14 March 2027). Copy describes
+// for rolling SEO and Mother's Day 2027 (Sunday 7 March 2027). Copy describes
 // the post-launch walk-in model unconditionally, no date-aware switch needed
 // because no claim references a date before 17 May 2026. Keyword cluster
 // layered (per spec §8.6 + keyword plan): mothers day lunch near me,
@@ -42,9 +42,9 @@ const MOTHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 const MOTHERS_DAY_DATE = '2027-03-07' // Mothering Sunday 2027 (owner-confirmed)
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
-const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
+const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm to 6pm'
 const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
-// Offer validity start for the 2027 service. Walk-in/booking model — no
+// Offer validity start for the 2027 service. Walk-in/booking model, no
 // pre-order or cut-off; validFrom only satisfies Google's Event offer schema.
 const MOTHERS_DAY_OFFER_VALID_FROM = '2027-01-01'
 
@@ -137,14 +137,14 @@ export default function MothersDayPage() {
   const faqs = [
     {
       question: 'When is Mother’s Day Lunch at The Anchor?',
-      answer: `Mother’s Day Lunch is on ${eventDateText}. We serve from 1pm–6pm, with the last table booking at 5:30pm.`
+      answer: `Mother’s Day Lunch is on ${eventDateText}. We serve from 1pm to 6pm, with the last table booking at 5:30pm.`
     },
     {
       question: 'Where can I find a Mother’s Day Sunday roast near me?',
       answer:
         `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
         `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef, pies and a vegan wellington. ` +
-        `Walk-ins welcome 1pm–6pm, booking recommended.`
+        `Walk-ins welcome 1pm to 6pm, booking recommended.`
     },
     {
       question: 'Do I need to book for Mother’s Day?',

@@ -1,6 +1,10 @@
 import type { Event } from '@/lib/api'
 
-export const MOTHERS_DAY_SERVICE_DATE = '2026-03-15'
+// Mothering Sunday 2027. Must stay in step with MOTHERS_DAY_DATE in
+// app/mothers-day/page.tsx, which drives the page copy and its Event schema.
+// Left on 2026-03-15 this silently stops matching the event and builds booking
+// links pointing at a date that has already passed.
+export const MOTHERS_DAY_SERVICE_DATE = '2027-03-07'
 export const MOTHERS_DAY_PAGE_PATH = '/mothers-day'
 export const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Sunday Roast'
 export const MOTHERS_DAY_DEFAULT_TIME = '12:30'

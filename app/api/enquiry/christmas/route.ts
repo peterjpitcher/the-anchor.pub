@@ -27,13 +27,44 @@ const VALID_MEAL_SERVICES = new Set(['lunch', 'dinner'])
 // Shared Christmas party nights were discontinued on 21 July 2026 and are no
 // longer an accepted value.
 const VALID_PARTY_FORMATS = new Set([
+  // The three party styles offered from 15 August 2026, owner-worded: the two
+  // food-and-drink styles are standing/buffet occasions, not a second sit-down
+  // journey, and the team firms up the details on the phone anyway.
+  'sit_down_dinner',
+  'buffet_party',
+  'drinks_party',
+  // Legacy values still arriving from bundles cached before the change. A
+  // guest mid-enquiry on an old bundle must not be rejected, so these stay
+  // accepted and keep their original labels below.
   'not_sure',
   'private_space',
   'festive_buffet',
-  'drinks_party',
   'entertainment'
 ])
 const VALID_COURSE_TIERS = new Set(['undecided', 'one_course', 'two_course', 'three_course'])
+
+// These enquiries are worth four figures each, so the management call gets
+// three attempts with short backoff before the email fallback takes over.
+// Idempotency (one key per submission) makes the retries duplicate-safe.
+const MANAGEMENT_ATTEMPTS = 3
+const MANAGEMENT_TIMEOUT_MS = 8000
+const MANAGEMENT_RETRY_DELAYS_MS = [600, 1500]
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+/**
+ * A per-request timeout signal where the runtime provides one. Vercel's Node
+ * runtime always does; the jsdom test environment does not, and a thrown
+ * TypeError here would be indistinguishable from a network failure and would
+ * send every test down the retry path.
+ */
+function requestTimeoutSignal(ms: number): AbortSignal | undefined {
+  return typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function'
+    ? AbortSignal.timeout(ms)
+    : undefined
+}
 
 type EnquiryMode = 'party' | 'meal'
 type MealService = 'lunch' | 'dinner'
@@ -55,6 +86,126 @@ interface ChristmasEnquiryPayload {
   extras?: string[]
   perks?: string[]
   notes?: string
+}
+
+// Attribution keys the client stores and forwards, exactly as the booking forms send them.
+// Kept to the marketing parameters only: this call reports which campaign produced the
+// enquiry, so the Meta signals the booking APIs also carry (fbp, fbc, user agent) have no
+// business being copied into an analytics record here.
+const ATTRIBUTION_KEYS = [
+  'source_url',
+  'landing_path',
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'short_code'
+] as const
+
+type AttributionKey = typeof ATTRIBUTION_KEYS[number]
+
+// Only these say a campaign produced the enquiry. source_url and landing_path are recorded
+// for every visitor including organic ones, so they must not keep the reporting call alive on
+// their own: doing so writes a row of nulls for every enquiry and makes every enquirer wait
+// on an analytics call that has nothing to report.
+const CAMPAIGN_KEYS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'short_code'
+] as const satisfies readonly AttributionKey[]
+
+// The conversion POST is capped rather than left dangling. An un-awaited promise in a
+// serverless function is routinely killed the moment the response is returned, so it would
+// not reliably fire at all; a short cap keeps the reporting call honest without ever making
+// the visitor wait on it.
+const CONVERSION_TIMEOUT_MS = 2500
+
+function asTrimmedString(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  return trimmed.length > 0 ? trimmed : undefined
+}
+
+function copyOptionalStrings<T extends string>(body: Record<string, unknown>, keys: readonly T[]): Partial<Record<T, string>> {
+  const output: Partial<Record<T, string>> = {}
+
+  for (const key of keys) {
+    const value = asTrimmedString(body[key])
+    if (value) output[key] = value
+  }
+
+  return output
+}
+
+function normaliseAttribution(body: Record<string, unknown>): Partial<Record<AttributionKey, string>> {
+  return copyOptionalStrings(body, ATTRIBUTION_KEYS)
+}
+
+/**
+ * Tell the management app which campaign produced this enquiry.
+ *
+ * /christmas-parties is the main call to action of the B2B email campaigns, and its form
+ * produces an enquiry rather than a booking. Bookings already reach AMS carrying their UTM
+ * values, so without this the campaign reports clicks and then nothing, and the business it
+ * actually generated is invisible.
+ *
+ * Analytics must never cost anyone an enquiry, so every failure here is swallowed: the
+ * visitor's response is decided before this runs and is not changed by it.
+ */
+async function recordMarketingConversion(options: {
+  attribution: Partial<Record<AttributionKey, string>>
+  partySize: number
+  mode: EnquiryMode
+  service?: MealService
+  partyFormat?: string
+  source?: string
+  delivery: 'management' | 'email_fallback'
+}) {
+  const managementKey = process.env.ANCHOR_API_KEY
+  if (!managementKey) return
+
+  const { attribution } = options
+  // Nothing to attribute and nothing to learn: an enquiry with no marketing parameters at
+  // all is organic, and a row of nulls would only dilute the campaign reporting.
+  if (!CAMPAIGN_KEYS.some((key) => attribution[key])) return
+
+  try {
+    const response = await fetch(`${getManagementApiBaseUrl().replace(/\/$/, '')}/marketing/conversions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': managementKey
+      },
+      body: JSON.stringify({
+        conversionType: 'christmas_enquiry',
+        occurredAt: new Date().toISOString(),
+        utmSource: attribution.utm_source,
+        utmMedium: attribution.utm_medium,
+        utmCampaign: attribution.utm_campaign,
+        utmContent: attribution.utm_content,
+        shortCode: attribution.short_code,
+        landingPath: attribution.landing_path,
+        sourceUrl: attribution.source_url,
+        partySize: options.partySize,
+        metadata: {
+          enquiry_mode: options.mode,
+          ...(options.service ? { meal_service: options.service } : {}),
+          ...(options.partyFormat ? { party_format: options.partyFormat } : {}),
+          ...(options.source ? { form_source: options.source } : {}),
+          delivery: options.delivery
+        }
+      }),
+      signal: AbortSignal.timeout(CONVERSION_TIMEOUT_MS)
+    })
+
+    if (!response.ok) {
+      console.warn('Marketing conversion not recorded:', response.status, await response.text())
+    }
+  } catch (conversionError) {
+    console.warn('Marketing conversion could not be sent:', conversionError)
+  }
 }
 
 /**
@@ -97,7 +248,7 @@ function normaliseIncomingPayload(body: IncomingChristmasEnquiryPayload): Partia
   }
 
   if (body.mode === 'buffet') {
-    return { ...body, mode: 'party', partyFormat: body.partyFormat || 'festive_buffet' }
+    return { ...body, mode: 'party', partyFormat: body.partyFormat || 'buffet_party' }
   }
 
   return body as Partial<ChristmasEnquiryPayload>
@@ -122,10 +273,15 @@ function enquiryLabel(body: ChristmasEnquiryPayload): string {
 function partyFormatLabel(value?: string): string | undefined {
   if (!value) return undefined
   const labels: Record<string, string> = {
+    // Current options, 15 August 2026.
+    sit_down_dinner: 'Sit-down Christmas dinner',
+    buffet_party: `Standing party with festive buffet (${BUFFET_MINIMUM_GUESTS}+)`,
+    drinks_party: 'Drinks-only party',
+    // Legacy options, kept so an old bundle's submission is still labelled
+    // exactly as the guest saw it.
     not_sure: 'Not sure yet',
     private_space: 'Private space',
     festive_buffet: `Festive buffet (${BUFFET_MINIMUM_GUESTS}+)`,
-    drinks_party: 'Drinks party',
     entertainment: 'Entertainment package'
   }
   return labels[value] || value
@@ -140,16 +296,38 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#39;')
 }
 
-function buildEmailContent(body: ChristmasEnquiryPayload) {
+function buildEmailContent(
+  body: ChristmasEnquiryPayload,
+  options?: {
+    /**
+     * Why the management app did not take this enquiry. When set, the email
+     * is the ONLY record of the enquiry, so the subject and the opening line
+     * say so unmissably instead of looking like a routine notification.
+     */
+    managementFailureDetail?: string | null
+  }
+) {
   const extras = (body.extras || []).filter(Boolean)
   const perks = (body.perks || []).filter(Boolean)
   const preferredDate = body.preferredDate || 'Date TBC'
   const preferredTime = formatTimeForEmail(body.preferredTime)
   const label = enquiryLabel(body)
+  const managementFailureDetail = options?.managementFailureDetail || null
 
-  const subject = `${label} enquiry - ${body.partySize} guests - ${preferredDate}`
+  const subject = managementFailureDetail
+    ? `ACTION NEEDED, not in the system: ${label} enquiry - ${body.partySize} guests - ${preferredDate}`
+    : `${label} enquiry - ${body.partySize} guests - ${preferredDate}`
 
   const textLines = [
+    ...(managementFailureDetail
+      ? [
+          'THIS ENQUIRY IS NOT IN THE MANAGEMENT SYSTEM.',
+          'Saving it to /private-bookings failed after every retry, so this email is the only record.',
+          'Please add it by hand, then reply to the guest as normal.',
+          `Technical detail: ${managementFailureDetail}`,
+          ''
+        ]
+      : []),
     'New Christmas enquiry',
     '',
     `Name: ${body.name}`,
@@ -188,6 +366,14 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
   const textContent = `${textLines.join('\n')}\n`
 
   const htmlParts = [
+    ...(managementFailureDetail
+      ? [
+          '<p style="background:#b91c1c;color:#ffffff;padding:12px 16px;font-weight:bold;">' +
+            'THIS ENQUIRY IS NOT IN THE MANAGEMENT SYSTEM. Saving it to /private-bookings failed after every retry, ' +
+            'so this email is the only record. Please add it by hand, then reply to the guest as normal.</p>',
+          `<p><strong>Technical detail:</strong> ${escapeHtml(managementFailureDetail)}</p>`
+        ]
+      : []),
     '<h2>New Christmas enquiry</h2>',
     `<p><strong>Name:</strong> ${escapeHtml(body.name)}</p>`,
     `<p><strong>Email:</strong> ${escapeHtml(body.email)}</p>`,
@@ -339,8 +525,11 @@ export async function POST(request: NextRequest) {
     }
 
     const numericPartySize = Number.parseInt(body.partySize, 10)
-    const maximumPartySize = body.mode === 'meal' ? 60 : 200
-    const minimumPartySize = body.mode === 'party' && body.partyFormat === 'festive_buffet'
+    // Sit-down capacity is 60 at Christmas whichever journey it arrives by, so
+    // a party-style sit-down dinner carries the same cap as the meal journey.
+    const maximumPartySize = body.mode === 'meal' || body.partyFormat === 'sit_down_dinner' ? 60 : 200
+    const isBuffetFormat = body.partyFormat === 'buffet_party' || body.partyFormat === 'festive_buffet'
+    const minimumPartySize = body.mode === 'party' && isBuffetFormat
       ? BUFFET_MINIMUM_GUESTS
       : CHRISTMAS_MINIMUM_PARTY_SIZE
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
@@ -381,6 +570,12 @@ export async function POST(request: NextRequest) {
     const managementApiBaseUrl = getManagementApiBaseUrl()
     const managementKey = process.env.ANCHOR_API_KEY
     let managementForwarded = false
+    // Why the enquiry is not in the management system, for the fallback email.
+    // Stays null on success; is always set on any path that skips or fails the
+    // management call, so the email can never claim less than the truth.
+    let managementFailureDetail: string | null = managementKey
+      ? null
+      : 'ANCHOR_API_KEY is not configured, so the management app was never called.'
 
     if (managementKey) {
       try {
@@ -414,21 +609,59 @@ export async function POST(request: NextRequest) {
           perks: body.perks
         }
 
-        const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-API-Key': managementKey
-          },
-          body: JSON.stringify(managementPayload)
-        })
+        // One idempotency key for the whole submission, reused on every retry.
+        // The management route claims the key before writing and releases it on
+        // failure, so a retry can never create a duplicate booking: an ambiguous
+        // timeout that actually committed replays the stored 201 instead.
+        const idempotencyKey =
+          typeof crypto !== 'undefined' && 'randomUUID' in crypto
+            ? crypto.randomUUID()
+            : `xmas-${Date.now()}-${Math.random().toString(36).slice(2)}`
 
-        if (!mgmtResponse.ok) {
-          console.error('Failed to create booking in management app:', await mgmtResponse.text())
-        } else {
-          managementForwarded = true
+        for (let attempt = 1; attempt <= MANAGEMENT_ATTEMPTS && !managementForwarded; attempt++) {
+          try {
+            const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': managementKey,
+                'Idempotency-Key': idempotencyKey
+              },
+              body: JSON.stringify(managementPayload),
+              signal: requestTimeoutSignal(MANAGEMENT_TIMEOUT_MS)
+            })
+
+            if (mgmtResponse.ok) {
+              managementForwarded = true
+              managementFailureDetail = null
+              break
+            }
+
+            const errorText = await mgmtResponse.text().catch(() => '')
+            managementFailureDetail = `HTTP ${mgmtResponse.status} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}: ${errorText.slice(0, 300)}`
+
+            // 5xx may heal on retry. 429 is asking us to retry. 409 means our
+            // own earlier attempt still holds the idempotency claim, so waiting
+            // and retrying resolves to either its stored success or a clean run.
+            // Any other 4xx is a payload problem and retrying cannot fix it.
+            const retryable = mgmtResponse.status >= 500 || mgmtResponse.status === 429 || mgmtResponse.status === 409
+            if (!retryable) break
+          } catch (requestError) {
+            const message = requestError instanceof Error ? requestError.message : String(requestError)
+            managementFailureDetail = `${message} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}`
+          }
+
+          if (attempt < MANAGEMENT_ATTEMPTS) {
+            await sleep(MANAGEMENT_RETRY_DELAYS_MS[attempt - 1] ?? 1000)
+          }
+        }
+
+        if (!managementForwarded) {
+          console.error('Christmas enquiry could not be stored in the management app after retries:', managementFailureDetail)
         }
       } catch (dbError) {
+        const message = dbError instanceof Error ? dbError.message : String(dbError)
+        managementFailureDetail = managementFailureDetail || `Unexpected error before the management call: ${message}`
         console.error('Error contacting management app:', dbError)
       }
     }
@@ -443,7 +676,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const { subject, htmlContent, textContent } = buildEmailContent(enquiry)
+      const { subject, htmlContent, textContent } = buildEmailContent(enquiry, { managementFailureDetail })
       const accessToken = await getMicrosoftGraphToken()
 
       await sendMicrosoftGraphEmail(accessToken, {
@@ -456,7 +689,22 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    return NextResponse.json({ success: true, delivery: managementForwarded ? 'management' : 'email_fallback' })
+    const delivery = managementForwarded ? 'management' : 'email_fallback'
+
+    // The enquiry is already safely lodged by this point, so the attribution call cannot
+    // change the outcome. It is recorded for both delivery routes: an email fallback is
+    // still an enquiry the campaign produced.
+    await recordMarketingConversion({
+      attribution: normaliseAttribution(rawBody as Record<string, unknown>),
+      partySize: numericPartySize,
+      mode: enquiry.mode,
+      service: enquiry.mode === 'meal' ? enquiry.service : undefined,
+      partyFormat: enquiry.mode === 'party' ? enquiry.partyFormat : undefined,
+      source: enquiry.source,
+      delivery
+    })
+
+    return NextResponse.json({ success: true, delivery })
   } catch (error) {
     console.error('Christmas enquiry submission failed:', error)
     const message = error instanceof Error ? error.message : 'Unexpected error submitting enquiry.'

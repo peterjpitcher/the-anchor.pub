@@ -202,7 +202,8 @@ export async function GET(request: Request) {
     const availabilityQuery = { partySize, outside, requiresAccessibleTable, highChairCount }
 
     const [businessHours, drinksLoad, foodLoad] = await Promise.all([
-      anchorAPI.getBusinessHours(),
+      // The requested date, not today's: hours are effective-dated.
+      anchorAPI.getBusinessHours(date),
       anchorAPI.getTableBookingLoadSafe(date, { ...availabilityQuery, purpose: 'drinks' }),
       guestWantsDrinksOnly
         ? Promise.resolve(null)

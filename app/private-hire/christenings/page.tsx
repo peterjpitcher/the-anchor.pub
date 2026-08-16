@@ -14,6 +14,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
@@ -326,13 +327,12 @@ export default function ChristeningsPage() {
                 </Container>
             </section>
 
+            {/* Real Google reviews from lib/google-reviews.ts. Replaced two
+                fabricated quotes on 15 August 2026. */}
             <TestimonialSection
                 variant="compact"
                 className="py-section-y bg-surface-sunk px-4"
-                reviews={[
-                    { quote: "We held our daughter's christening reception here after the service at St Mary's. The buffet was generous, the staff were brilliant with all the children, and having free parking right outside made life so much easier with all the grandparents. Lovely afternoon.", author: "Rachel, Staines", source: "Google Review", rating: 5 },
-                    { quote: "The enclosed garden was perfect for the children to run around while we enjoyed drinks and food inside. The team set up a beautiful table for gifts and our christening cake. Could not recommend this christening venue enough.", author: "David, Ashford", source: "Google Review", rating: 5 },
-                ]}
+                reviews={getReviewsByTopic('family-group', 2)}
             />
 
             <PrivateBookingSection eventType="Christening / Baby Shower" />

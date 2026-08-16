@@ -12,6 +12,12 @@ import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
+
+// Daily regeneration so the seasonal Christmas cross-link appears and removes
+// itself on time. The page was fully static before, which would have frozen
+// the season gate at whatever the last deploy happened to see.
+export const revalidate = 86400
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
@@ -71,16 +77,16 @@ const REGULAR_NIGHTS: ReadonlyArray<{
   {
     cadence: 'Monthly',
     title: 'Music Bingo with Nikki Manfadge',
-    meta: 'Song clips instead of numbers, singalong rounds and prizes every game.',
+    meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
     tag: 'Hosted night',
     href: '/music-bingo'
   },
   {
     cadence: 'Monthly',
     title: 'Quiz Night',
-    meta: 'Test your knowledge with cash prizes for the winning team.',
+    meta: 'Test your knowledge for a £25 bar tab, with a bottle of wine for the second-from-last team.',
     price: '£3 entry',
-    tag: 'Cash prizes',
+    tag: '£25 bar tab',
     href: '/quiz-night'
   },
   {
@@ -345,6 +351,8 @@ export default async function WhatsOnPage() {
           </Container>
         </section>
       )}
+
+      <ChristmasCrossLink hook="Alongside the regular events, Christmas dinner and festive get-togethers are open to book." />
 
       {/* Internal links (preserved for SEO; A4). */}
       <section className="bg-canvas py-section-y">

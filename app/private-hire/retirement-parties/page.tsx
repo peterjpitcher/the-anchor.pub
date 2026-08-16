@@ -181,7 +181,7 @@ export default function RetirementPartiesPage() {
                     },
                     {
                         question: "How many people can you fit?",
-                        answer: "We can comfortably host up to 100 people for a buffet/drinks reception, or up to ~50 for a sit-down meal."
+                        answer: "Our dining room seats 26, or holds up to 50 standing for a buffet and drinks reception. If you are expecting more, the main area takes bigger groups, and exclusive hire of the whole pub covers up to 119 seated or 300 standing."
                     }
                 ]}
                 className="bg-canvas"

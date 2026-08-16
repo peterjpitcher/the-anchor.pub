@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
 import {
   formatMenuAllergenLabel,
-  formatMenuAllergenList,
+  formatMenuAllergenLine,
   getMenuAllergenFilters,
   getMenuItemAllergens
 } from '@/lib/menu-allergens'
@@ -210,7 +210,7 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
                             )}
                             {showAllergens && (
                               <p className="mt-2 text-xs text-ink-muted">
-                                Allergens listed: {allergens.length > 0 ? formatMenuAllergenList(allergens) : 'None listed'}
+                                {formatMenuAllergenLine(allergens)}
                               </p>
                             )}
                           </div>

@@ -216,10 +216,10 @@ export default function EngagementPartiesPage() {
                             <Card accent><CardBody className="space-y-4">
                                 <h3 className="font-display text-h4 text-ink-strong">Full Party Mode</h3>
                                 <p className="text-ink-muted">
-                                    Want to invite everyone? Our function area can host up to 100 guests. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
+                                    Want to invite everyone? Our dining room holds up to 50 standing, and exclusive hire of the whole pub covers up to 300. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
                                 </p>
                                 <ul className="list-disc pl-5 text-ink-muted space-y-2">
-                                    <li>Capacity for 30-100 guests</li>
+                                    <li>From a small group up to 300 standing with exclusive hire</li>
                                     <li>Buffet packages to suit all budgets</li>
                                     <li>Space for entertainment</li>
                                 </ul>
@@ -262,7 +262,7 @@ export default function EngagementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an engagement party at The Anchor cost?",
-                        answer: "A room hire fee applies and varies by day and party size, there's pricing discussed on enquiry on top, so you only pay for what you order. Buffets start at live price, welcome prosecco is £7.99 per person, and the deposit is £250 (deducted from your final bill). Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
+                        answer: "A room hire fee applies and varies by day and party size, there's pricing discussed on enquiry on top, so you only pay for what you order. Buffets start at live price, welcome prosecco is charged per person, and the deposit is £250 (deducted from your final bill). Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
                     },
                     {
                         question: "How many guests can you fit for an engagement party?",
@@ -294,7 +294,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "What food options are there?",
-                        answer: "We offer buffets priced from the live approved source (sandwich, finger, burger, premium, and pizza options), or you can let guests order from the à la carte menu. For drinks, welcome prosecco packages start at £7.99 per person, or we can set up a bar tab."
+                        answer: "We offer buffets priced from the live approved source (sandwich, finger, burger, premium, and pizza options), or you can let guests order from the à la carte menu. For drinks, we can pour a welcome prosecco as your guests arrive, or set up a bar tab."
                     },
                     {
                         question: "Where is The Anchor?",

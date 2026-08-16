@@ -29,11 +29,43 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Local listing:** Locally listed by Spelthorne Borough Council as **The Anchor Public House**, building reference **LL/072**, listed **19 February 2004**. Described as a mid-Victorian pub on the site of an earlier pub dating from at least 1730.
 - **Heritage safe wording:** "The Anchor has served Stanwell Moor since at least 1751, with evidence of an Anchor Inn on the site by 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub."
 - **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
-- **Tone:** Friendly, cheeky, inclusive.
+- **Tone:** Warm, excited, cheeky, inclusive. We sound like people who genuinely love this pub and can't wait for you to visit. Never flat, never corporate.
 - **Perspective:** First-person plural, "we" / "our".
 - **Language:** British English spelling and idiom.
-- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.
+- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. Exclamation marks are allowed but earn their place: at most one per section, never stacked.
 - **Audience note:** Responds to local demographic change including the growing Indian community.
+
+### Emotional core (what we stand for)
+
+Copy should make people **feel invited, not just informed**. The feelings we are selling:
+
+- **Belonging.** "Where Everyone's Welcome" is a promise, not a strapline. Every piece of copy should read like a friend saying "come along, you'll love it".
+- **Pride.** A village pub that has stood here since 1751, before Heathrow existed. We are proud of that and it is fine to show it.
+- **Simple joy.** A proper roast, a full beer garden, planes thundering overhead, a quiz night that gets competitive. Small pleasures, done properly.
+
+### Voice principles
+
+1. **Lead with feeling, then facts.** Open with why something is brilliant, then give the details. Not the other way round.
+2. **Enthusiasm is on-brand.** "We love", "we can't wait", "our favourite" are encouraged. If the copy could belong to any pub chain website, rewrite it.
+3. **Cheeky, never snide.** Jokes point at ourselves, the weather, or the planes. Never at guests, staff, or other venues.
+4. **Concrete beats generic.** Name the Yorkshire pudding, the flight path, the beer garden. Banned filler: "great atmosphere", "something for everyone", "hidden gem", "look no further".
+5. **Inclusive by default.** Write as if inviting someone who has never set foot in a pub. No in-jokes that exclude newcomers, no assumed knowledge.
+6. **Excitement never invents facts.** Every claim still comes from this SSOT. §14 banned claims still apply. Prices stay live from the management DB. Energy is in the delivery, never in exaggeration.
+
+### Register dial
+
+- **High energy:** homepage hero, event pages, blog posts, social copy, marketing emails.
+- **Medium:** menu descriptions, area and feature pages, FAQs.
+- **Calm and clear:** opening hours, booking flow, deposits, allergen information, confirmations, anything operational or legal. Accuracy beats excitement here, always.
+
+### Examples (illustrative only, not published copy)
+
+- Flat: "We serve Sunday roasts from 1pm to 6pm." On-brand: "Sunday is what we live for. Roasts carved fresh from 1pm, walk in whenever suits you."
+- Flat: "The beer garden is located near Heathrow Airport." On-brand: "Pint in hand, planes roaring over the garden, seven minutes from Terminal 5. There's nowhere else like it."
+
+### Scope
+
+This voice applies to **all new customer-facing copy from 14 August 2026**. Existing pages are not being rewritten proactively; bring copy onto this voice as pages are touched.
 
 ## 2. Contact & Location
 
@@ -237,10 +269,15 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
-- **Included, adults:** a glass of prosecco on all three tiers, swappable for orange juice.
+- **Included, adults:** a glass of prosecco on the **2 and 3 course tiers only**, swappable for
+  orange juice. **The 1 course tier does NOT include a drink for adults.** (Owner-corrected,
+  15 August 2026. This entry previously read "all three tiers", which had reached the live
+  christmas-parties page as "whichever courses they choose" and two marketing emails before
+  it was caught.)
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
-- **Trimmings:** pigs in blankets, stuffing, brussels sprouts.
-- **Menu dishes are NOT finalised.** The only permitted wording is **"menu released closer to the time"**. Never list, guess or imply a specific Christmas dish.
+- **Trimmings:** pigs in blankets, stuffing, brussels sprouts, **Yorkshire pudding, roast potatoes, mashed potato and peas**. (Yorkshire pudding, roast potatoes, mash and peas owner-confirmed, 13 August 2026.)
+- **The Vegetable Wellington is the exception.** It is **vegan**, so it takes **no Yorkshire pudding and no pigs in blankets**, matching the Sunday roast rule where the Wellington and the pies carry no Yorkshire. Describe it as vegan Christmas trimmings and vegan gravy. Never apply the full trimmings list to it.
+- **Menu dishes ARE published.** (Owner-confirmed, 13 August 2026.) The dish list lives on the Christmas booking period in the management database and reaches the website through `/table-bookings/periods`, which is the same source the booking form builds a pre-order from. Publish the dishes the API returns and nothing else: the old "menu released closer to the time" wording is retired, and inventing or padding the list is still forbidden. If the API returns no menu, say nothing rather than guessing.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
 - **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
 - **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.**
@@ -274,6 +311,8 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 ### Capacity
 
+> **Capacities are owner-confirmed as coming from the management app, and those are the only true numbers.** The table below mirrors them (and `SSOT.json` `venue.capacity`). Never invent or round a capacity in page copy: if a figure is not below, it is wrong. Owner-confirmed 15 August 2026.
+
 | Space | Capacity |
 |---|---|
 | Whole venue, exclusive hire | 119 seated / 300 standing |
@@ -289,6 +328,9 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 - **20 free spaces** on site. (This is the correct number.)
 - No fees, no time limit while visiting.
+- **No number plate registration.** We do not ask guests to register a vehicle, and no page may say we do. Owner-confirmed 15 August 2026.
+- **No free-parking time cap.** Never state a two or three hour limit for guests using the pub. Owner-confirmed 15 August 2026.
+- **Leaving a car for longer** (for example while flying) is the separate **paid** airport parking product, not guest parking. Keep the two clearly distinct in copy.
 - Level surface, close to entrance. CCTV and floodlit.
 - Additional parking available nearby.
 
@@ -312,7 +354,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Accessible toilet *(verified NO)*
 - EV charging *(no "coming soon" claims)*
 - Baby changing facilities *(verified NO)*
-- Air conditioning / climate control *(verified NO — heating only)*
+- Air conditioning / climate control *(verified NO, heating only)*
 
 ### Accessibility
 
@@ -405,6 +447,11 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - **A DJ is booked in from time to time**, and is **confirmed for Halloween and New Year's Eve**. (Owner-confirmed, 11 August 2026.)
 - **A DJ can be arranged for a Christmas booking on request.** It is not included by default and is not part of a package, so never advertise it as included. Offer it as something a group can ask for. (Owner-confirmed, 11 August 2026.)
 - Outside those cases, only promote a DJ when a specific event record lists one. Never imply a resident DJ or a regular DJ night.
+
+### New Year's Eve
+
+- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026.) This is the one night where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. It is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip it as a hardcoded hours claim.
+- A DJ and a midnight countdown are confirmed for the night, see the DJ entry above.
 
 ### Curry Club
 
@@ -568,7 +615,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
-- **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only — describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
+- **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only, so describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
 - **Wedding receptions**, we host smaller private events only, not wedding receptions.
 
 ## 15. Maintaining This Document

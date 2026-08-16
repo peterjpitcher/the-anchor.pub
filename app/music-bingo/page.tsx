@@ -164,7 +164,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
-          Two games of song snippets with interactive music rounds and quizzes between them. Grab your card,
+Two games of song snippets with interactive music rounds and quizzes between them. Grab your card,
           spot the track, and celebrate every line win.
         </p>
       )}
@@ -287,10 +287,12 @@ export default async function MusicBingoPage() {
                 <h3 className="text-h4 text-ink-strong">How Music Bingo runs</h3>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong>Doors {doorTime}</strong> - arrive early, grab drinks, and collect your bingo card.</li>
-                  <li><strong>{nextEventTime}</strong> - first game begins with chart favourites and classics.</li>
+<li><strong>{nextEventTime}</strong> - first game begins with chart favourites and classics.</li>
                   {/* Two games, not five rounds: docs/SSOT.md §10 says "Two games
                       with interactive music games and quizzes too". The page used
-                      to claim five rounds, which the SSOT does not support. */}
+                      to claim five rounds, which the SSOT does not support. Main
+                      independently softened this to "The games"; this is the same
+                      fix, stated specifically. */}
                   <li><strong>Two games</strong> - song clips instead of numbers, with interactive music games and quizzes between them.</li>
                   <li><strong>Breaks between games</strong> - order food, top up drinks, and compare answers.</li>
                   <li><strong>Finale</strong> - last card of the night with the headline prize.</li>

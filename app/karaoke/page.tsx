@@ -137,7 +137,7 @@ export default async function KaraokePage() {
 
     const heroDescription = nextEvent
         ? `Next karaoke night: ${nextEvent.name} on ${nextEventDate} at ${nextEventTime}. Free entry, endless tunes!`
-        : 'Sing your heart out at The Anchor. Thousands of songs, cold drinks, and a great atmosphere. Free entry!'
+        : 'Sing your heart out at The Anchor. Thousands of songs, cold drinks and a room that always joins in. Free entry.'
 
     return (
         <>

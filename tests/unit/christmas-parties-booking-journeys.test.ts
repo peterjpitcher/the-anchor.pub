@@ -20,7 +20,12 @@ describe('/christmas-parties booking journeys', () => {
 
   it('offers distinct party and sit-down meal journeys from the hero', () => {
     expect(heroSource).toContain("type ChristmasHeroMode = 'party' | 'meal'")
-    expect(heroSource).toContain('Plan a Christmas party')
+    // Both journeys must be reachable from the hero. Asserted on the mode each
+    // button dispatches, not on its label: the party CTA was reworded to
+    // "Check your date and get a quote" on 15 August 2026, and the same
+    // free-to-reword rule already stated for the H1 below applies to buttons.
+    expect(heroSource).toContain("dispatchChristmasOpenForm({ mode: 'party'")
+    expect(heroSource).toContain("dispatchChristmasOpenForm({ mode: 'meal'")
     expect(heroSource).toContain('Book lunch or dinner')
     // The H1 must name both journeys, because a visitor who wants a sit-down
     // Christmas dinner bounces off a heading that only sells parties. The exact
@@ -103,10 +108,20 @@ describe('/christmas-parties booking journeys', () => {
   })
 
   it('does not publish testimonials without a traceable approved source', () => {
-    expect(clientSource).not.toContain('TestimonialSection')
+    // The three names below were invented testimonials that once shipped on this
+    // page. They must never return, whatever else changes.
     expect(clientSource).not.toContain('Sarah T.')
     expect(clientSource).not.toContain('James R.')
     expect(clientSource).not.toContain('Michelle K.')
+
+    // Testimonials themselves are allowed from 15 August 2026, when the owner
+    // supplied the real Google review export. The rule this guard's name states
+    // is traceability, so it enforces that rather than the blunt proxy of
+    // banning the component: quotes must come from lib/google-reviews.ts and
+    // may never be hand-written here. tests/unit/testimonials-are-real.test.ts
+    // applies the same rule to every other page on the site.
+    expect(clientSource).not.toMatch(/quote:\s*["'`]/)
+    expect(clientSource).toContain('getReviewsByTopic')
   })
 })
 

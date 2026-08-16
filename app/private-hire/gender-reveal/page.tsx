@@ -8,6 +8,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
@@ -273,13 +274,12 @@ export default function GenderRevealPage() {
                 </Container>
             </section>
 
+            {/* Real Google reviews from lib/google-reviews.ts. Replaced two
+                fabricated quotes on 15 August 2026. */}
             <TestimonialSection
                 variant="compact"
                 className="py-section-y bg-surface px-4"
-                reviews={[
-                    { quote: "We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.", author: "Chloe & Dan, Staines", source: "Google Review", rating: 5 },
-                    { quote: "We used the keeper of the gender service and it was brilliant, we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.", author: "Priya & Raj, Feltham", source: "Google Review", rating: 5 },
-                ]}
+                reviews={getReviewsByTopic('gender-reveal', 2)}
             />
 
             <section className="py-section-y bg-surface-sunk">

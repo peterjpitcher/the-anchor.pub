@@ -11,17 +11,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Watch Boxing Near Heathrow & Staines | Live Fight Nights',
-    description: `Watch the biggest boxing matches live at ${BRAND.name}. Anthony Joshua, Tyson Fury, and title fights on big screens. Great atmosphere near Heathrow.`,
+    title: 'Watch Boxing Near Heathrow & Staines | Big Screen Fight Nights',
+    description: `Boxing on BBC, ITV and Channel 4, live on the big screens at ${BRAND.name} in Stanwell Moor. Sound up, proper pub crowd, food and free parking near Heathrow.`,
     openGraph: {
         title: 'Fight Night at The Anchor',
-        description: 'Big screens, big atmosphere. Watch the heavyweights comfortably.',
+        description: 'Terrestrial boxing on the big screens, sound turned up, free parking. 7 minutes from Heathrow T5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Fight Night at The Anchor',
-        description: 'Big screens, big atmosphere. Watch the heavyweights comfortably.',
+        description: 'Terrestrial boxing on the big screens, sound turned up, free parking. 7 minutes from Heathrow T5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -37,7 +37,7 @@ export default function BoxingPage() {
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Boxing"
               title="Big Fight Nights"
-              lead="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
+              lead="When boxing lands on BBC, ITV or Channel 4, it goes on our big screens with the sound up and the room filling."
             />
 
             <section className="py-section-y bg-canvas">
@@ -47,7 +47,7 @@ export default function BoxingPage() {
                             Ringside Seats
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Boxing needs an atmosphere. Sitting at home doesn't cut it. Join us for the build-up, the undercard, and the main event on our HD screens with full commentary.
+                            Boxing at home is a quiet night in. Here you get the build-up, the undercard and the main event on our HD screens with full commentary, a room that reacts to every round, food from the kitchen and free parking right outside.
                         </p>
                     </div>
                 </Container>
@@ -58,14 +58,14 @@ export default function BoxingPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Fight Night Ready"
-                            subtitle="No need to pay the PPV fee yourself."
+                            subtitle="Free-to-air boxing, big screens, nothing to pay at the door."
                         />
 
                         <Grid cols={3} gap="md" className="mb-8">
                             {[
                                 {
-                                    title: "PPV Events",
-                                    description: "We pay the Box Office fees so you don't have to. Watch the big Pay-Per-View fights here on the big screen."
+                                    title: "Fights On The Box",
+                                    description: "Boxing on BBC, ITV and Channel 4 goes on the big screens, the whole broadcast, undercard included."
                                 },
                                 {
                                     title: "Loud & Live",
@@ -87,8 +87,8 @@ export default function BoxingPage() {
                             ))}
                         </Grid>
 
-                        <Alert variant="warning" title="Ticketed Events" className="mx-auto mt-8">
-                            <p>For massive world title fights, we sometimes operate a ticket-only policy to control numbers and ensure everyone gets served. Check our social media for specific event details.</p>
+                        <Alert variant="info" title="What we can show" className="mx-auto mt-8">
+                            <p>We show boxing broadcast on BBC, ITV and Channel 4. We do not have Sky Sports, TNT Sports or Box Office, so pay-per-view and subscription-only fights are not something we can put on. Call us on {CONTACT.phone} before you set off and we will tell you straight whether a fight is on our screens.</p>
                         </Alert>
                     </div>
                 </Container>
@@ -97,23 +97,31 @@ export default function BoxingPage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
+                        question: "Which boxing can you show?",
+                        answer: "Any fight broadcast on BBC, ITV or Channel 4. We do not have Sky Sports, TNT Sports or Box Office, so pay-per-view and subscription-only fights cannot be shown here. Ring us on 01753 682707 if you are not sure where a fight is being broadcast."
+                    },
+                    {
                         question: "Do you show the undercard?",
-                        answer: "Yes, we usually transform into 'fight mode' from around 8pm on big fight nights to show the main undercard fights."
+                        answer: "Yes. When a fight is on a terrestrial channel we put the whole broadcast on, so you get the build-up and the undercard as well as the main event."
                     },
                     {
                         question: "Is there an entry fee?",
-                        answer: "Generally no, but for huge global events we may ticket the door to manage capacity. We always announce this on Facebook first."
+                        answer: "No. Terrestrial boxing is free to watch here, so just come in, find a spot and order a drink."
                     },
                     {
-                        question: "How late do you stay open?",
-                        answer: "We are licensed until late on weekends, but for fights that go into the early hours (like Vegas fights), please check with us directly as it depends on our license extension for that specific night."
+                        question: "Can I eat while I watch?",
+                        answer: "Yes, our kitchen menu is available whenever the kitchen is open. Book a table if you want to eat and watch without hunting for a seat."
+                    },
+                    {
+                        question: "Is there parking?",
+                        answer: "Yes, free parking for every guest with no fees and no time limit while you are with us."
                     }
                 ]}
             />
 
             <CtaBand
-                title="Don't Miss The Knockout"
-                copy="These nights are popular. Booking guarantees entry."
+                title="Get In Before The Ring Walks"
+                copy="Fight nights fill up. Book a table and you will have a clear view of the screen when the first bell goes."
             >
                 <PhoneButton phone={CONTACT.phone} source="boxing_cta" variant="primary" size="lg" className="w-full sm:w-auto">
                     Book Now

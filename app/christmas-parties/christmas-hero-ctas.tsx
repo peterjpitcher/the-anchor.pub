@@ -36,7 +36,9 @@ export function ChristmasHeroPrimaryCta() {
         onClick={() => {
           trackCtaClick({
             id: 'christmas_hero_party',
-            label: 'Plan a Christmas party',
+            // Label tracks the visible text so reports are not misleading; the
+            // id stays `christmas_hero_party` so the series is unbroken.
+            label: 'Check your date and get a quote',
             location: 'christmas_hero',
             destination: 'enquiry_form',
             mode: 'party'
@@ -44,7 +46,12 @@ export function ChristmasHeroPrimaryCta() {
           dispatchChristmasOpenForm({ mode: 'party', source: 'hero_party' })
         }}
       >
-        Plan a Christmas party
+        {/*
+          Transactional, not aspirational. An organiser's first question is
+          whether a specific date works for a specific headcount and what it
+          costs, so the button names that rather than inviting them to "plan".
+        */}
+        Check your date and get a quote
       </Button>
       <Button
         variant="outline"

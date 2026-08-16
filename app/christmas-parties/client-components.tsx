@@ -11,10 +11,13 @@ import { Icon } from '@/components/ui/Icon'
 import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { TestimonialSection } from '@/components/TestimonialSection'
+import { getReviewsByTopic } from '@/lib/google-reviews'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { pushToDataLayer, trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getBookingAttributionPayload } from '@/lib/booking-attribution'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { CONTACT } from '@/lib/constants'
@@ -78,6 +81,19 @@ export interface ChristmasMenuView {
   hasLiveDishes: boolean
   /** True when the menu call failed, rather than simply returning nothing yet. */
   isUnavailable: boolean
+}
+
+/**
+ * One festive buffet package, priced live from the management database.
+ * Empty when none are active, which hides the section rather than advertising
+ * a package nobody can book.
+ */
+export interface ChristmasBuffetView {
+  name: string
+  /** Per head, symbol-free, as the catering source supplies it. */
+  pricePerHead: string
+  minimumGuests: number
+  description: string
 }
 
 /** One course of the pre-order menu: the dishes a guest actually picks from. */
@@ -151,6 +167,8 @@ interface ChristmasPartiesPageClientProps {
   facts: ChristmasFactsView
   /** Null whenever the dish list cannot be shown, which keeps the old copy. */
   courseChoices?: ChristmasCourseChoicesView | null
+  /** Live festive buffet packages. Empty hides the buffet cards entirely. */
+  buffets?: ChristmasBuffetView[]
 }
 
 interface ChristmasEnquiryFormProps {
@@ -212,7 +230,10 @@ const PARTY_TIME_OPTIONS: TimeOption[] = [
 ]
 
 /** Shared Christmas party nights were discontinued on 21 July 2026 and are not listed. */
-const PARTY_FORMAT_VALUES = ['not_sure', 'private_space', 'festive_buffet', 'drinks_party', 'entertainment'] as const
+// The three party styles, owner-worded 15 August 2026. The two food styles are
+// standing/buffet occasions rather than a second sit-down journey, and the
+// exact shape of the night is agreed on the phone: the dropdown is a steer.
+const PARTY_FORMAT_VALUES = ['sit_down_dinner', 'buffet_party', 'drinks_party'] as const
 
 // Guests pick their own courses at pre-order, so this asks what the group
 // expects rather than committing the table to one course count.
@@ -223,7 +244,22 @@ const COURSE_TIER_OPTIONS: Array<{ value: CourseTier, label: string }> = [
   { value: 'three_course', label: 'Mostly 3 courses each' }
 ]
 
-const TRIMMINGS = ['Pigs in blankets', 'Stuffing', 'Brussels sprouts']
+// Owner-confirmed 13 August 2026: the Yorkshire pudding, roast potatoes, mashed
+// potato and peas are part of the plate, they are not extras. Mirrors
+// SSOT.json christmas_2026.trimmings.
+//
+// The vegan Vegetable Wellington is the documented exception and takes no
+// Yorkshire pudding and no pigs in blankets, so this list describes the meat
+// plates. The Wellington's own dish description carries its vegan wording.
+const TRIMMINGS = [
+  'Pigs in blankets',
+  'Stuffing',
+  'Brussels sprouts',
+  'Yorkshire pudding',
+  'Roast potatoes',
+  'Mashed potato',
+  'Peas'
+]
 
 /**
  * Owner-confirmed 11 August 2026. Christmas sittings run Tuesday to Saturday,
@@ -281,14 +317,9 @@ const getLocalStorage = (key: string) => {
 
 function partyFormatOptions(buffetMinimumGuests: number): Array<{ value: string, label: string }> {
   const labels: Record<(typeof PARTY_FORMAT_VALUES)[number], string> = {
-    not_sure: 'Not sure yet',
-    private_space: 'Private space',
-    festive_buffet: `Festive buffet (${buffetMinimumGuests}+)`,
-    drinks_party: 'Drinks party',
-    // Owner-confirmed 11 August 2026: the Christmas quiz is the only festive
-    // entertainment. This option must never read as a package sold on top of a
-    // booking, and never as karaoke, a live band or a DJ.
-    entertainment: 'Christmas quiz'
+    sit_down_dinner: 'Sit-down Christmas dinner',
+    buffet_party: `Standing party with festive buffet (${buffetMinimumGuests}+)`,
+    drinks_party: 'Drinks-only party'
   }
   return PARTY_FORMAT_VALUES.map(value => ({ value, label: labels[value] }))
 }
@@ -388,7 +419,7 @@ function buildFaqItems(
     },
     {
       question: 'What is included in the price?',
-      answer: 'Adults get a glass of prosecco whichever courses they choose, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are pigs in blankets, stuffing and brussels sprouts.'
+      answer: `Adults on the 2 and 3 course menus get a glass of prosecco, swappable for orange juice. Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course. Trimmings are ${TRIMMINGS.join(', ').toLowerCase()}.`
     },
     {
       question: 'What is on the Christmas menu?',
@@ -534,7 +565,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
   ]
 }
 
-export function ChristmasPartiesPageClient({ structuredData, menu, season, facts, courseChoices = null }: ChristmasPartiesPageClientProps) {
+export function ChristmasPartiesPageClient({ structuredData, menu, season, facts, courseChoices = null, buffets = [] }: ChristmasPartiesPageClientProps) {
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -744,6 +775,60 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
               </Card>
             </div>
+
+            {/*
+              The organiser's answers, gathered in one place next to the CTA.
+              Every one of these was already true and already on the page, but
+              scattered across a 29-question FAQ, so the person who has to get
+              this signed off had to hunt for them. Only owner-confirmed or
+              SSOT-backed facts appear here: anything undocumented stays off.
+            */}
+            <div className="mt-10 rounded-2xl border border-line bg-surface p-6 text-left md:p-8">
+              <h3 className="font-display text-h4 text-ink-strong">Organising this for work? The short answers</h3>
+              <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Can we get a VAT invoice?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Yes, for corporate bookings, so expenses are straightforward.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Can we run a company bar tab?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Yes, and you can set a spending limit on it. Tell us when you book.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Are we sharing with other groups?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">No. Never. Your group gets its own table and its own evening, never a mixed sitting.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What does the deposit do?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. It is not refundable.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">How do we collect everyone&apos;s meal choices?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">You pick them per guest as you book, and they reach the kitchen directly. Choices are due {preOrderDeadlineDays(facts)} days before your date.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Dietary requirements?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Tell us per guest when you book, including allergies, and we confirm what the kitchen can do for your date.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What if we are more than {facts.privateHireThreshold}?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">A Christmas quiz runs, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-semibold text-ink-strong">What time does the party finish?</dt>
+                  <dd className="mt-1 text-sm text-ink-muted">Christmas parties finish by midnight.</dd>
+                </div>
+              </dl>
+              <p className="mt-5 text-sm text-ink-muted">
+                Anything else, call{' '}
+                <a href={CONTACT_PHONE_LINK} className="font-semibold text-accent-text underline">{CONTACT_PHONE}</a>{' '}
+                and you will speak to someone who can actually answer it.
+              </p>
+            </div>
           </div>
         </Container>
       </Section>
@@ -816,8 +901,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
-                alt="A table laid for Christmas dinner at The Anchor near Heathrow"
+                src="/images/page-headers/christmas-parties/2026/christmas-table-laid-2026.jpg"
+                alt="A table laid for a group Christmas dinner, with plated roasts, crackers, candles and a Christmas tree behind"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -901,26 +986,24 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </p>
           </div>
 
+          {/*
+            Names, descriptions and per-head prices all come live from the
+            catering packages in the management database, never hardcoded: the
+            SSOT price policy forbids writing a food price into page code, and
+            these three were activated on 15 August 2026. If a package is
+            deactivated it simply stops appearing, rather than advertising
+            something nobody can book.
+          */}
           <Grid cols={3} gap="md" className="mt-10">
-            {[
-              {
-                title: 'Festive Sandwich & Salad',
-                description: `A cold festive buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and dietary alternatives.`
-              },
-              {
-                title: 'Festive Hot Finger',
-                description: `A hot finger buffet for ${facts.buffetMinimumGuests} guests or more. Ask us for the current selection and service details.`
-              },
-              {
-                title: 'Festive Premium Grazing',
-                description: `A premium grazing spread for ${facts.buffetMinimumGuests} guests or more. Tell us the style of party and we will confirm what is available.`
-              }
-            ].map(tier => (
-              <Card key={tier.title} className="h-full">
+            {buffets.map(buffet => (
+              <Card key={buffet.name} className="h-full">
                 <div className="p-6 space-y-3">
                   <Badge className="bg-red-100 text-red-700 w-fit">Festive buffet</Badge>
-                  <h3 className="text-lg font-semibold text-ink-strong">{tier.title}</h3>
-                  <p className="text-sm text-ink-muted">{tier.description}</p>
+                  <h3 className="text-lg font-semibold text-ink-strong">{buffet.name}</h3>
+                  <p className="text-sm font-semibold text-accent-text">
+                    £{buffet.pricePerHead} per person &middot; {buffet.minimumGuests} guests or more
+                  </p>
+                  <p className="text-sm text-ink-muted">{buffet.description}</p>
                 </div>
               </Card>
             ))}
@@ -929,8 +1012,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-line">
               <Image
-                src="/images/events/christmas/christmas-buffet-table.jpg"
-                alt="Festive buffet spread for Heathrow Christmas parties at The Anchor"
+                src="/images/events/christmas/festive-party-table-2026-v2.jpg"
+                alt="A long table laid for a Christmas party with crackers, candles, glassware and a festive runner"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -995,25 +1078,83 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         </Container>
       </Section>
 
+      {/*
+        Real Google reviews, quoted verbatim and attributed to the reviewer's own
+        display name with the month they left it. Selected for relevance to this
+        page: a repeat Christmas party booker, a Christmas meal, and a group who
+        hired a space for a party. Nothing here is written by us.
+
+        Never add a quote that is not in the Google export. Inventing a review is
+        a DMCC Act 2024 offence, and it also breaks the SSOT's no-invented-facts
+        rule. If a quote cannot be traced to a real review, it does not ship.
+      */}
+      <TestimonialSection
+        variant="full"
+        title="Groups who have already done this here"
+        subtitle="From our Google reviews"
+        className="py-section-y bg-surface"
+        reviews={getReviewsByTopic('christmas', 3)}
+      />
+
       <Section background="transparent" spacing="md" className="bg-surface-sunk">
         <Container>
-          <Grid cols={3} gap="md">
-            <Card className="h-full">
+          <div className="mx-auto mb-8 space-y-3 text-center">
+            <h2 className="text-3xl font-bold text-ink-strong">The spaces your party could be in</h2>
+            <p className="text-base text-ink-muted">
+              The two rooms your party could be in, shown undecorated. We dress them for Christmas and set the layout
+              around your group.
+            </p>
+          </div>
+          {/*
+            Real photography of the real rooms. The section described these three
+            spaces in words for a year without showing any of them, which left an
+            organiser unable to picture their team anywhere. Capacities come from
+            SSOT venue.capacity, never restated by hand.
+          */}
+          {/*
+            TWO spaces, not three. The dining room and what older copy called
+            the conservatory are the same room: SSOT.json records that the 1995
+            conservatory was replaced by the dining room extension in 2024, and
+            venue.capacity carries only main_area_* and dining_room_*. This page
+            was the last place on the site still listing a third space, which
+            meant showing one room twice under two names.
+          */}
+          <Grid cols={2} gap="md">
+            <Card className="h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/dining-room/the-anchor-dining-room-2026.jpg"
+                  alt="The dining room at The Anchor, with wooden tables, green panelling and French doors onto the garden"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Private Dining Room</h3>
-                <p className="text-sm text-ink-muted">Seat up to 26 guests with cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small staff Christmas party away from the main bar.</p>
+                <h3 className="text-lg font-semibold text-ink-strong">The Dining Room</h3>
+                <p className="text-sm font-semibold text-accent-text">Seats 26, or 50 standing</p>
+                <p className="text-sm text-ink-muted">
+                  Warm and cosy, with direct table service and French doors onto the garden. Ideal for a Christmas lunch
+                  with family, an intimate works do or a small staff party away from the main bar. In December we tend to
+                  keep the doors shut against the cold, and the garden is still right there for anyone who wants a moment
+                  outside.
+                </p>
               </div>
             </Card>
-            <Card className="h-full">
+            <Card className="h-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/our-pub/the-anchor-main-bar-2026.jpg"
+                  alt="The main bar at The Anchor, with the blue bar front, exposed beams and mixed table seating"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">Main Bar &amp; Dining</h3>
-                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or 60 guests.</p>
-              </div>
-            </Card>
-            <Card className="h-full">
-              <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Light-filled Conservatory</h3>
-                <p className="text-sm text-ink-muted">Bright, semi-private space perfect for welcome drinks, dessert stations or children&apos;s tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
+                <p className="text-sm font-semibold text-accent-text">Up to {facts.maxSeated} seated at Christmas, {facts.maxStanding} standing</p>
+                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or {facts.maxSeated} guests.</p>
               </div>
             </Card>
           </Grid>
@@ -1197,15 +1338,23 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         </Container>
       </Section>
 
-      <Section background="transparent" spacing="md" className="bg-surface-sunk">
-        <Container>
-          <FAQAccordionWithSchema
-            title="Christmas party and Christmas dinner FAQs"
-            faqs={faqItems}
-            className="bg-surface"
-          />
-        </Container>
-      </Section>
+      {/*
+        Mounted bare, never inside Section/Container. The component is a
+        self-contained full-bleed section: it brings its own py-section-y and
+        its own .container. This page was the only one of the 20-plus FAQ pages
+        that wrapped it, which stacked two lots of section padding and trapped
+        the component's background inside the 1248px container as a floating
+        card. That was the "huge text and odd padding": the type was the site's
+        normal scale sitting in a broken frame.
+      */}
+      <FAQAccordionWithSchema
+        title="Christmas party and Christmas dinner FAQs"
+        faqs={faqItems}
+        className="bg-surface-sunk"
+        // This page sets its own heading scale rather than using
+        // SectionHeading, so the FAQ heading matches its neighbours here.
+        titleClassName="text-3xl font-bold"
+      />
 
       <Section className="py-20 bg-surface-sunk border-t border-line">
         <Container>
@@ -1562,9 +1711,13 @@ function ChristmasMenuAndPricing({
                 What is included
               </h3>
               <ul className="space-y-2 text-sm text-ink-muted">
-                <li>Adults get a glass of prosecco whichever courses they choose, swappable for orange juice.</li>
+                <li>Adults on the 2 and 3 course menus get a glass of prosecco, swappable for orange juice.</li>
                 <li>Children get a Fruit Shoot or a small soft drink, either Coca-Cola, Diet Coke or lemonade, with the 1 course.</li>
                 <li>Trimmings: {TRIMMINGS.join(', ').toLowerCase()}.</li>
+                <li>
+                  The Vegetable Wellington is vegan, so it comes with vegan trimmings and vegan gravy, without the
+                  Yorkshire pudding or the pigs in blankets.
+                </li>
               </ul>
             </div>
           </Card>
@@ -1591,6 +1744,9 @@ function ChristmasMenuAndPricing({
                 These are the dishes each guest picks from. A main is the 1 course; add a starter, a dessert, or both, and
                 everyone at the table can choose differently. We need everyone&apos;s choices{' '}
                 {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date.
+              </p>
+              <p className="text-base text-ink-muted">
+                Every main comes with the trimmings: {TRIMMINGS.join(', ').toLowerCase()}.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
@@ -1709,7 +1865,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   const [partySize, setPartySize] = useState('')
   const [preferredDate, setPreferredDate] = useState('')
   const [preferredTime, setPreferredTime] = useState('18:00')
-  const [partyFormat, setPartyFormat] = useState('not_sure')
+  const [partyFormat, setPartyFormat] = useState('')
   const [notes, setNotes] = useState('')
   const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -1720,7 +1876,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
 
   const timeOptions = getTimeOptions(context)
   const formatOptions = useMemo(() => partyFormatOptions(facts.buffetMinimumGuests), [facts.buffetMinimumGuests])
-  const minimumGuests = context.mode === 'party' && partyFormat === 'festive_buffet'
+  const minimumGuests = context.mode === 'party' && partyFormat === 'buffet_party'
     ? facts.buffetMinimumGuests
     : facts.minPartySize
 
@@ -1780,10 +1936,14 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // Which campaign brought this visitor in, forwarded exactly as the booking forms
+          // send it. Without it a Christmas enquiry is untraceable back to the email or ad
+          // that produced it, which is the whole point of the campaign.
+          ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
-          partyFormat: context.mode === 'party' ? partyFormat : undefined,
+          partyFormat: context.mode === 'party' && partyFormat ? partyFormat : undefined,
           source: context.source,
           name: name.trim(),
           email: email.trim(),
@@ -1825,7 +1985,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
       setPartySize('')
       setPreferredDate('')
       setPreferredTime(context.mode === 'meal' && context.service === 'lunch' ? '12:00' : '18:00')
-      setPartyFormat('not_sure')
+      setPartyFormat('')
       setNotes('')
       setConsent(false)
       onContextChange({ perks: [], courseTier: 'undecided' })
@@ -1947,6 +2107,10 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setPartyFormat(event.target.value)}
               className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
             >
+              {/* An empty default rather than pre-selecting a style: a wrong
+                  pre-selection misroutes the kitchen conversation, and the
+                  style is optional because the team firms it up on the call. */}
+              <option value="">Choose a party style</option>
               {formatOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
@@ -2234,7 +2398,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         form_mode: context.mode,
         form_journey: context.mode === 'meal' ? 'christmas_meal' : 'christmas_party',
         meal_service: context.mode === 'meal' ? context.service : undefined,
-        party_format: context.mode === 'party' ? 'not_sure' : undefined,
+        party_format: undefined,
         party_size: Number.isNaN(numericPartySize) ? undefined : numericPartySize
       })
 
@@ -2242,10 +2406,13 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // Same attribution as the main form: the lightbox is just another way into the
+          // same enquiry, and a campaign should not lose credit for which one was used.
+          ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
           courseTier: context.mode === 'meal' ? context.courseTier : undefined,
-          partyFormat: context.mode === 'party' ? 'not_sure' : undefined,
+          partyFormat: undefined,
           source: 'lightbox',
           name: name.trim(),
           email: email.trim(),
@@ -2274,7 +2441,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         mode: context.mode,
         journey: context.mode === 'meal' ? 'christmas_meal' : 'christmas_party',
         meal_service: context.mode === 'meal' ? context.service : undefined,
-        party_format: context.mode === 'party' ? 'not_sure' : undefined,
+        party_format: undefined,
         party_size: Number.isNaN(numericPartySize) ? undefined : numericPartySize
       })
       setSubmitted(true)

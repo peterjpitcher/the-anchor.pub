@@ -1489,8 +1489,15 @@ export class AnchorAPI {
   }
 
   // Business Information
-  async getBusinessHours(): Promise<BusinessHours> {
-    const data = await this.request<BusinessHours>('/business/hours', {
+  /**
+   * Live hours. Pass `forDate` when the answer depends on a specific day rather
+   * than today: the pub's weekly schedule is effective-dated, so a booking twelve
+   * months out is not governed by this week's hours. Omitting it means "today",
+   * and the response shape is the same either way.
+   */
+  async getBusinessHours(forDate?: string): Promise<BusinessHours> {
+    const path = forDate ? `/business/hours?date=${encodeURIComponent(forDate)}` : '/business/hours'
+    const data = await this.request<BusinessHours>(path, {
       // Never cache business hours: currentStatus/closesIn/opensIn are time-sensitive.
       next: { revalidate: 0 }
     })

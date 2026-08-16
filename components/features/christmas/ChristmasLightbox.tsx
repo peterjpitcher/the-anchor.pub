@@ -28,6 +28,11 @@ const CAMPAIGN_END = new Date('2026-12-15T23:59:59').getTime()
  * opens, so a guest interrupted mid-booking has additionally burned the one showing they
  * were going to get all season.
  *
+ * The four game night pages are here for the same reason as the booking routes: each one
+ * now carries its own booking form for the next date, so they are booking pages, not just
+ * marketing pages. They are also the intended destination for paid campaigns, where a
+ * full-screen ad for a different offer lands on a visitor who clicked an ad for this one.
+ *
  * Prefix matching, because these journeys have sub-steps and query strings, and an exact
  * match would let the modal reappear one step into the flow.
  */
@@ -36,6 +41,10 @@ const SUPPRESSED_ROUTE_PREFIXES = [
     '/book-table',
     '/book-event',
     '/booking-confirmation',
+    '/quiz-night',
+    '/cash-bingo',
+    '/music-bingo',
+    '/karaoke',
 ] as const
 
 export function isLightboxSuppressedRoute(pathname: string | null): boolean {
@@ -189,7 +198,7 @@ export function ChristmasLightbox() {
                 {/* Hero Image Area */}
                 <div className="relative h-48 sm:h-56 bg-red-900 text-white flex items-center justify-center overflow-hidden">
                     <Image
-                        src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
+                        src="/images/page-headers/christmas-parties/2026/hero-table-wide.jpg"
                         alt="Christmas at The Anchor"
                         fill
                         className="object-cover"

@@ -170,9 +170,12 @@ describe('Christmas 2026 discontinued products', () => {
     const text = renderPage()
 
     // Buffets and the festive set menu stay. Pigs in blankets stay too, but as
-    // an included trimming rather than a paid add-on.
+    // an included trimming rather than a paid add-on. The Yorkshire pudding,
+    // mash and peas joined the list on 13 August 2026, owner-confirmed.
     expect(text).toMatch(/festive buffet/i)
-    expect(text).toContain('Trimmings: pigs in blankets, stuffing, brussels sprouts.')
+    expect(text).toContain(
+      'Trimmings: pigs in blankets, stuffing, brussels sprouts, yorkshire pudding, roast potatoes, mashed potato, peas.'
+    )
   })
 })
 

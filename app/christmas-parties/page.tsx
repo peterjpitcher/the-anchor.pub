@@ -3,6 +3,7 @@ import ssot from '@/SSOT.json'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import {
   ChristmasPartiesPageClient,
+  type ChristmasBuffetView,
   type ChristmasCourseChoicesView,
   type ChristmasDishView,
   type ChristmasFactsView,
@@ -21,6 +22,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { buildChristmasMenuJsonLd, christmasPartiesSchema } from '@/lib/christmas-parties-schema'
 import { getChristmasMenuPageData, MENU_ALLERGEN_UNKNOWN_NOTICE, type ChristmasMenuSection } from '@/lib/menu-page-data'
 import { getChristmasPreorderMenu, type ChristmasPreorderMenu } from '@/lib/christmas-preorder-menu'
+import { getCateringData, type CateringPackage } from '@/lib/api/catering-packages'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
@@ -36,7 +38,11 @@ import {
 // regenerated hourly rather than frozen at build time.
 export const revalidate = 3600
 
-const HERO_IMAGE = '/images/page-headers/christmas-parties/2026/hero-table.jpg'
+// New path, not an overwrite of hero-table.jpg. Everything under public/ is
+// served `immutable, max-age=31536000`, so replacing a file in place leaves the
+// CDN and every returning visitor on the old bytes for a year. Replacing this
+// image means giving it a new name.
+const HERO_IMAGE = '/images/page-headers/christmas-parties/2026/hero-table-wide.jpg'
 
 type SsotChristmasFacts = {
   venue: { capacity: { christmas_seated: number, christmas_standing: number } }
@@ -289,13 +295,41 @@ function buildCourseChoicesView(source: ChristmasPreorderMenu | null): Christmas
   }
 }
 
+/**
+ * The festive buffet packages, priced live from the catering source.
+ *
+ * Matched on a "Festive" name prefix rather than a hardcoded list, so
+ * activating or retiring one in the management app is the only step needed:
+ * the sit-down "Festive Menu" packages are excluded because they are the set
+ * menu, not a buffet, and are retired. Returns [] when none are active, which
+ * hides the cards rather than advertising something nobody can book.
+ */
+function buildBuffetView(packages: CateringPackage[]): ChristmasBuffetView[] {
+  return packages
+    .filter(pkg =>
+      /^festive/i.test(pkg.name) &&
+      pkg.servingStyle === 'buffet' &&
+      pkg.costPerHead > 0
+    )
+    .sort((a, b) => a.costPerHead - b.costPerHead)
+    .map(pkg => ({
+      name: pkg.name,
+      // Symbol-free from the source; the page adds the £, per the price policy.
+      pricePerHead: pkg.costPerHead.toFixed(2).replace(/\.00$/, ''),
+      minimumGuests: pkg.minimumGuests,
+      description: pkg.guestDescription || pkg.summary || ''
+    }))
+}
+
 export default async function ChristmasPartiesPage() {
   const season = buildSeasonView()
-  // Both menu reads are independent, so they run together rather than in series.
-  const [christmasMenu, preorderMenu] = await Promise.all([
+  // All three reads are independent, so they run together rather than in series.
+  const [christmasMenu, preorderMenu, catering] = await Promise.all([
     getChristmasMenuPageData(),
-    getChristmasPreorderMenu()
+    getChristmasPreorderMenu(),
+    getCateringData().catch(() => ({ foodPackages: [] as CateringPackage[] }))
   ])
+  const buffets = buildBuffetView(catering.foodPackages)
   const menu = buildMenuView(christmasMenu.sections, Boolean(christmasMenu.unavailableReason))
   const courseChoices = buildCourseChoicesView(preorderMenu)
   const seasonEnded = season.state === 'ended' || !season.isBookable
@@ -338,12 +372,25 @@ export default async function ChristmasPartiesPage() {
       }))
     ])
 
+  /**
+   * Lowest live adult price across the course tiers, symbol-free from the menu
+   * API. Read rather than written: the SSOT forbids hardcoding a food price
+   * anywhere in page code, so if the menu is unpriced the hero simply omits the
+   * clause instead of quoting a number that might be wrong.
+   */
+  const heroPriceFrom = menu.tiers
+    .map(tier => Number.parseFloat(tier.priceFrom))
+    .filter(price => Number.isFinite(price) && price > 0)
+    .sort((a, b) => a - b)[0]
+
   const heroLead = seasonEnded
     ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
-    // Deliberately short so the booking buttons stay above the fold on a phone.
-    // The window, the group minimum, the notice and the deposit all sit in the
-    // banner and the summary block immediately below, so nothing is lost.
-    : 'A proper village pub Christmas rather than a hotel function room. Eight minutes from Staines, seven from Heathrow Terminal 5, with around 20 free parking spaces.'
+    // Leads with the differentiator, not the mechanics of ordering dinner: your
+    // own space rather than a shared hotel sitting is the thing no competitor
+    // near Heathrow offers, and it was previously buried below the menu. The
+    // window, group minimum, notice and deposit all sit in the banner and the
+    // summary block immediately below, so nothing is lost by not repeating them.
+    : `Your own table and your own evening, in a village pub rather than a shared hotel function room.${heroPriceFrom ? ` Christmas dinners from £${heroPriceFrom} a head.` : ''} Seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.`
 
   return (
     <>
@@ -382,6 +429,7 @@ export default async function ChristmasPartiesPage() {
         season={season}
         facts={FACTS}
         courseChoices={seasonEnded ? null : courseChoices}
+        buffets={seasonEnded ? [] : buffets}
       />
       <InternalLinkingSection
         title="More Christmas Party Planning"

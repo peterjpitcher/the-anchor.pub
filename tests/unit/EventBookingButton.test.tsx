@@ -162,7 +162,7 @@ describe('EventBookingButton', () => {
   it('forces mothers day events to use the shared table-booking flow', () => {
     const event = makeEvent({
       name: "Mother's Day Sunday Lunch",
-      startDate: '2026-03-15T13:00:00+00:00',
+      startDate: '2027-03-07T13:00:00+00:00',
       bookingUrl: 'https://thirdparty.example.com/book/mothers-day'
     })
 
@@ -170,7 +170,7 @@ describe('EventBookingButton', () => {
 
     const link = screen.getByRole('link', { name: /Book Mother/i })
     expect(link.getAttribute('href')).toContain('/book-table?')
-    expect(link.getAttribute('href')).toContain('date=2026-03-15')
+    expect(link.getAttribute('href')).toContain('date=2027-03-07')
     expect(link.getAttribute('href')).toContain('purpose=food')
     expect(link.getAttribute('href')).toContain('sunday_lunch=true')
     expect(link.getAttribute('href')).toContain('mothers_day=true')

@@ -279,7 +279,7 @@ export default async function FindUsPage() {
                   <li>Turn left at Horton Road</li>
                   <li>The Anchor is on your right</li>
                 </ol>
-                <p className="mt-4 text-sm text-ink-muted">Journey time: 5 minutes from M25</p>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: 2 minutes from M25</p>
               </CardBody>
             </Card>
 
@@ -480,7 +480,7 @@ export default async function FindUsPage() {
                     <li><strong className="text-ink-strong">Power Points</strong> - Tables with plugs in dining room</li>
                     <li><strong className="text-ink-strong">Quiet Weekdays</strong> - Perfect for remote work</li>
                     <li><strong className="text-ink-strong">Free Parking for Patrons</strong> - While you visit</li>
-                    <li><strong className="text-ink-strong">Luggage Storage</strong> - Safe storage for travelers</li>
+                    <li><strong className="text-ink-strong">Luggage Storage</strong> - Safe storage for travellers</li>
                   </ul>
                 </CardBody>
               </Card>

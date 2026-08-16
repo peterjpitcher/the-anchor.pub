@@ -15,13 +15,25 @@ interface FAQAccordionWithSchemaProps {
   faqs: FAQItem[]
   className?: string
   renderSchema?: boolean
+  /**
+   * Type scale for the section heading. Defaults to the design-system `text-h2`,
+   * which is what all but one host page wants.
+   *
+   * The exception is a page that sets its own heading scale rather than using
+   * `SectionHeading`. On those, the token heading renders around 52px next to
+   * the page's own 30px headings and reads as a rendering fault. Passing the
+   * host page's own scale here keeps one page consistent without restyling the
+   * 80-plus pages that are already correct.
+   */
+  titleClassName?: string
 }
 
 export function FAQAccordionWithSchema({
   title = "Frequently Asked Questions",
   faqs,
   className = "",
-  renderSchema = true
+  renderSchema = true,
+  titleClassName = "text-h2"
 }: FAQAccordionWithSchemaProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
@@ -63,7 +75,7 @@ export function FAQAccordionWithSchema({
       <section className={cn('py-section-y bg-canvas', className)}>
         <div className="container mx-auto px-4">
           <div className="mx-auto">
-            <h2 className="text-h2 text-ink-strong mb-8 text-center">
+            <h2 className={cn(titleClassName, 'text-ink-strong mb-8 text-center')}>
               {title}
             </h2>
 
@@ -80,6 +92,14 @@ export function FAQAccordionWithSchema({
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
+                    {/*
+                      text-h4 is the site's scale for the display face: 272 uses
+                      against two for text-lg. Shrinking it below the scale put
+                      the questions at a size that appears nowhere else, which
+                      read as off rather than as tidier. Hierarchy against the
+                      heading is handled by the answer size and row rhythm, not
+                      by taking the display face somewhere it is never used.
+                    */}
                     <h3 className="font-display text-h4 text-ink-strong pr-4">
                       {faq.question}
                     </h3>
@@ -108,11 +128,34 @@ export function FAQAccordionWithSchema({
                       openIndex === index ? 'pb-5' : ''
                     }`}
                     style={{
-                      maxHeight: openIndex === index ? '500px' : '0',
+                      // Headroom, not a layout value: the open panel stops at its
+                      // own content height, and this only has to be larger than
+                      // the tallest answer or the rest is silently cut off. 500px
+                      // was under a long answer on a narrow phone, which clipped
+                      // it mid-sentence with nothing to indicate more was there.
+                      maxHeight: openIndex === index ? '1500px' : '0',
                     }}
                     aria-hidden={openIndex !== index}
                   >
-                    <p className="text-lg text-ink-muted">
+                    {/*
+                      A real reading measure, and the one deliberate exception to
+                      the one-width standard (allowlisted in
+                      scripts/audit-page-width.js, owner-approved 13 August 2026).
+
+                      At the full container an answer ran about 180 characters a
+                      line, roughly two and a half times what is comfortable to
+                      read, and the eye loses the line it is on when it returns to
+                      the left edge. The row, the question and the divider all
+                      stay full width, so the section still measures as one page
+                      width; only the paragraph inside it is capped.
+                    */}
+                    {/*
+                      54ch, not the ~70 the target measure suggests: the `ch`
+                      unit is the width of "0", and this body face carries a
+                      narrow zero, so 70ch measured 95 characters on screen.
+                      This value was set from the rendered line, not the token.
+                    */}
+                    <p className="text-lg text-ink-muted max-w-[54ch]">
                       {faq.answer}
                     </p>
                   </div>

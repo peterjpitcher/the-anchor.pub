@@ -20,7 +20,7 @@ describe('BookTableUpcomingEventsPanel', () => {
         id: 'evt-md',
         slug: 'mothers-day-lunch',
         name: "Mother's Day Lunch",
-        startDate: '2026-03-15T13:00:00+00:00'
+        startDate: '2027-03-07T13:00:00+00:00'
       },
       {
         id: 'evt-quiz',

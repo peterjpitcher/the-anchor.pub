@@ -28,6 +28,18 @@ describe('the lightbox never fires mid-booking', () => {
   it('is suppressed on the page it advertises', () => {
     expect(isLightboxSuppressedRoute('/christmas-parties')).toBe(true)
   })
+
+  it.each([
+    '/quiz-night',
+    '/cash-bingo',
+    '/music-bingo',
+    '/karaoke',
+  ])('is suppressed on the game night page %s', (path) => {
+    // These carry their own booking form for the next date, so they are booking
+    // pages. They are also the paid campaign destination, where covering the
+    // screen with a different offer wastes the click that was just paid for.
+    expect(isLightboxSuppressedRoute(path)).toBe(true)
+  })
 })
 
 describe('it still fires everywhere it should', () => {
@@ -46,6 +58,12 @@ describe('it still fires everywhere it should', () => {
     // '/book-table-something' is not inside the booking journey. Guarding with a bare
     // startsWith and no boundary would have swallowed it.
     expect(isLightboxSuppressedRoute('/book-tables-guide')).toBe(false)
+  })
+
+  it('does not suppress the quiz competition terms page', () => {
+    // '/quiz-night-competition-terms' is a real route that sits next to '/quiz-night'.
+    // It is not a booking page, so the lightbox should still fire there.
+    expect(isLightboxSuppressedRoute('/quiz-night-competition-terms')).toBe(false)
   })
 
   it('handles a null pathname without throwing', () => {
