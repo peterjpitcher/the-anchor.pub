@@ -12,7 +12,25 @@ const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
 const DISMISS_DURATION_MS = 1000 * 60 * 60 * 24 // 24 hours
 const MAX_LEAD_DAYS = 3
-const HIDDEN_PATH_PREFIXES = ['/events']
+/**
+ * Routes where the banner must not appear, because the page already does its job
+ * better than a floating card can.
+ *
+ * '/events' was the original entry: an event page is the countdown.
+ *
+ * The four game night pages are here for the same reason, plus a harder one. Each
+ * now leads with its own dated CTA ("Book your table for Wed 19 Aug") and carries
+ * the booking form for that date. The banner is fixed at bottom-28, which on a
+ * tall hero lands directly on top of that CTA and swallows the click, so the
+ * page's primary action stopped working while the banner was showing.
+ */
+const HIDDEN_PATH_PREFIXES = [
+  '/events',
+  '/quiz-night',
+  '/cash-bingo',
+  '/music-bingo',
+  '/karaoke',
+]
 
 interface BannerState {
   event: Event
@@ -87,9 +105,16 @@ const determineSessionEligibility = () => {
   }
 }
 
-const shouldSuppressPath = (pathname: string | null) => {
+/**
+ * Exported for test. Matches on an exact path or a real path segment, never a bare
+ * startsWith: '/quiz-night' must not swallow '/quiz-night-competition-terms',
+ * which is a separate page with nothing to suppress.
+ */
+export const shouldSuppressPath = (pathname: string | null) => {
   if (!pathname) return false
-  return HIDDEN_PATH_PREFIXES.some(prefix => pathname.startsWith(prefix))
+  return HIDDEN_PATH_PREFIXES.some(
+    prefix => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  )
 }
 
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
