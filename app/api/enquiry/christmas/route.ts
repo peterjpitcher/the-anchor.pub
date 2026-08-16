@@ -484,7 +484,11 @@ export async function POST(request: NextRequest) {
   try {
     const rawBody = await request.json()
 
-    const spam = await checkSpamProtection(request, rawBody, { skipTurnstile: true })
+    // Both Christmas enquiry forms (the main one and the lightbox) now mint a
+    // Turnstile token, so this route verifies it rather than relying on the
+    // honeypot and timing checks alone. This route sends an email and talks to
+    // no upstream verifier, so it is the only party that can check the token.
+    const spam = await checkSpamProtection(request, rawBody)
     if (spam.blocked) return spam.response
 
     const body = normaliseIncomingPayload(rawBody as IncomingChristmasEnquiryPayload)

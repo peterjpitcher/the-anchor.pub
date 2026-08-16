@@ -20,12 +20,21 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBookingAttributionPayload } from '@/lib/booking-attribution'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
+import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT } from '@/lib/constants'
 
 const CONTACT_EMAIL = CONTACT.email
 const CONTACT_PHONE = CONTACT.phone
 const CONTACT_PHONE_LINK = CONTACT.phoneHref
 const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
+
+// Both Christmas enquiry forms gate on this the same way the booking forms do.
+//
+// The site key and TURNSTILE_SECRET_KEY must be set together. The server fails
+// CLOSED on a missing secret, and this widget renders nothing on a missing site
+// key, so setting only the secret would mint no token and refuse every enquiry.
+// Both are set for Development, Preview and Production.
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 export type EnquiryMode = 'party' | 'meal'
 export type MealService = 'lunch' | 'dinner'
@@ -1872,6 +1881,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   const [message, setMessage] = useState<string>('')
   const [submitting, setSubmitting] = useState(false)
   const [xmasHoneypot, setXmasHoneypot] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileFieldRef>(null)
   const xmasFormLoadedAt = useRef(Date.now())
 
   const timeOptions = getTimeOptions(context)
@@ -1954,6 +1965,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
           perks: context.perks,
           notes,
           ...(xmasHoneypot ? { website: xmasHoneypot } : {}),
+          ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           _t: Math.floor((Date.now() - xmasFormLoadedAt.current) / 1000)
         })
       })
@@ -1995,6 +2007,10 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
       setMessage('Sorry, something went wrong while sending your enquiry. Please call us on 01753 682707.')
     } finally {
       setSubmitting(false)
+      // Turnstile tokens are single use. Whatever happened above, the one we
+      // just sent is spent, so mint a fresh one before any retry.
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -2231,8 +2247,22 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
           <span>I am happy for The Anchor to contact me about this enquiry.</span>
         </label>
 
+        {TURNSTILE_SITE_KEY && (
+          <TurnstileField
+            id="christmas-enquiry-turnstile"
+            turnstileRef={turnstileRef}
+            onTokenChange={setTurnstileToken}
+          />
+        )}
+
         <div className="flex flex-col md:flex-row items-center gap-4">
-          <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto" disabled={submitting}>
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            className="w-full md:w-auto"
+            disabled={submitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
+          >
             {submitting ? 'Sending…' : context.mode === 'meal' ? 'Request my Christmas meal' : 'Plan my Christmas party'}
           </Button>
           <a
@@ -2258,6 +2288,8 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [lbHoneypot, setLbHoneypot] = useState('')
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileFieldRef>(null)
   const lbFormLoadedAt = useRef(Date.now())
   const successTimeoutRef = useRef<number | null>(null)
   const lightboxRef = useRef<HTMLDivElement | null>(null)
@@ -2423,6 +2455,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
           perks: union(context.perks, ['current-pricing']),
           notes: 'Submitted via seasonal enquiry lightbox',
           ...(lbHoneypot ? { website: lbHoneypot } : {}),
+          ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           _t: Math.floor((Date.now() - lbFormLoadedAt.current) / 1000)
         })
       })
@@ -2460,6 +2493,10 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
       setError('Sorry, something went wrong. Please call us on 01753 682707 and we will take your enquiry over the phone.')
     } finally {
       setSubmitting(false)
+      // Single use, so the token just sent is spent either way. Mint a fresh
+      // one so a retry is not rejected as a duplicate.
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -2605,8 +2642,22 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 </div>
               </div>
             )}
+            {TURNSTILE_SITE_KEY && (
+              <TurnstileField
+                id="christmas-lightbox-turnstile"
+                turnstileRef={turnstileRef}
+                onTokenChange={setTurnstileToken}
+              />
+            )}
+
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button type="submit" variant="primary" size="md" className="w-full" disabled={submitting}>{submitting ? 'Sending…' : 'Send my request'}</Button>
+              <Button
+                type="submit"
+                variant="primary"
+                size="md"
+                className="w-full"
+                disabled={submitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
+              >{submitting ? 'Sending…' : 'Send my request'}</Button>
               <Button
                 type="button"
                 variant="outline"
