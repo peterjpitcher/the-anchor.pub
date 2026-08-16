@@ -1,36 +1,26 @@
 import { Metadata } from 'next'
-import {
-  Button,
-  Container,
-  Card,
-  CardBody,
-  Grid,
-  GridItem,
-  SectionHeading
-} from '@/components/ui'
+import { Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import { EventBookingButton } from '@/components/EventBookingButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
-  getEventCategories,
-  getUpcomingEventsByCategory,
-  formatEventDate,
-  formatEventTime,
-  formatDoorClockTime,
-  type Event,
-  type EventCategory
-} from '@/lib/api'
+  GameNightBooking,
+  GameNightCtaActions,
+  GameNightFacts,
+  GameNightObjections,
+  buildGameNightCtaLabel
+} from '@/components/features/GameNight'
+import { cashBingo, getGameNightEvents } from '@/lib/game-nights'
+import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
+import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
-import { RegretReduction, PsychBadge } from '@/components/psychology'
+import { PsychBadge } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -55,33 +45,8 @@ export const metadata: Metadata = {
   }
 }
 
-const BINGO_CATEGORY = {
-  name: 'Bingo Night',
-  slug: 'bingo-night'
-}
-
-const normalizeCategoryValue = (value?: string | null) =>
-  value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
-
-function getCategoryIdByLabel(categories: EventCategory[], label: typeof BINGO_CATEGORY) {
-  const targetName = normalizeCategoryValue(label.name)
-  const targetSlug = normalizeCategoryValue(label.slug)
-
-  return categories.find(category => {
-    const categoryName = normalizeCategoryValue(category.name)
-    const categorySlug = normalizeCategoryValue(category.slug)
-    return categoryName === targetName || categorySlug === targetSlug
-  })?.id
-}
-
-async function getBingoEvents() {
-  const categories = await getEventCategories()
-  const categoryId = getCategoryIdByLabel(categories, BINGO_CATEGORY)
-  if (!categoryId) return []
-
-  const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
-  return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-}
+// Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
+// shared by the four game pages.
 
 const WHY_LOVE_IT = [
   {
@@ -182,10 +147,9 @@ function BingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function CashBingoPage() {
-  const events = await getBingoEvents()
+  const events = await getGameNightEvents(cashBingo)
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
-  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
+    const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
 	  const heroDescription = nextEvent
@@ -194,11 +158,23 @@ export default async function CashBingoPage() {
 
   return (
     <>
-	      <InteriorHero
-	        image="/images/page-headers/home/page-headers-homepage.jpg"
-	        crumb="Cash Bingo"
-	        title="Cash Bingo Nights & Bingo Games at The Anchor"
-	        lead="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
+      <ScrollDepthTracker />
+
+      <InteriorHero
+        image={cashBingo.hero.image}
+        focal={cashBingo.hero.focal}
+        crumb={cashBingo.hero.crumb}
+        title={cashBingo.hero.title}
+        lead={cashBingo.hero.lead}
+        badges={<GameNightFacts facts={cashBingo.facts} />}
+        actions={
+          <GameNightCtaActions
+            gameSlug={cashBingo.slug}
+            label={buildGameNightCtaLabel(cashBingo, nextEvent)}
+            hasBookableDate={Boolean(nextEvent)}
+            location="hero"
+          />
+        }
       />
 
       <section className="py-section-y bg-surface">
@@ -217,29 +193,15 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-accent-text font-semibold">Next cash bingo night</p>
-                <h2 className="text-h3 text-ink-strong">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
-                <p className="text-accent-text font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-	                <p className="text-ink-muted whitespace-pre-line">
-	                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
-	                </p>
-                <div className="space-y-3">
-                  {nextEvent && (
-                    <RegretReduction variant="booking" className="mb-4" />
-                  )}
-                  {nextEvent ? (
-                    <EventBookingButton event={nextEvent} className="w-full" source="cash_bingo_next_event" />
-                  ) : (
-                    <PhoneButton phone={CONTACT.phone} source="cash-bingo_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
-                      Call {CONTACT.phone}
-                    </PhoneButton>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
+          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <SectionViewTracker sectionId="cash_bingo_booking">
+              <GameNightBooking
+                events={events}
+                gameName={cashBingo.name}
+                gameSlug={cashBingo.slug}
+                bookingNote={cashBingo.bookingNote}
+              />
+            </SectionViewTracker>
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How the night feels</h3>
@@ -255,6 +217,10 @@ export default async function CashBingoPage() {
               </CardBody>
             </Card>
           </div>
+
+          <SectionViewTracker sectionId="cash_bingo_objections" className="mt-10">
+            <GameNightObjections objections={cashBingo.objections} gameName={cashBingo.name} />
+          </SectionViewTracker>
         </Container>
       </section>
 
@@ -265,7 +231,9 @@ export default async function CashBingoPage() {
             <p className="text-ink-muted text-center mb-8">
               We’ve listed confirmed bingo nights below. For the very latest schedule, including bonus specials, visit our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707.
             </p>
-            <BingoEventCards events={events} />
+            <SectionViewTracker sectionId="cash_bingo_dates">
+              <BingoEventCards events={events} />
+            </SectionViewTracker>
           </div>
         </Container>
       </section>
@@ -435,18 +403,15 @@ export default async function CashBingoPage() {
 
       <CtaBand
         title="Ready to shout “Bingo”?"
-        copy="Book your £10 cash book today or call the bar team and we’ll hold tickets for your crew."
-        primary={
-          <PhoneButton phone="01753 682707" source="cash_bingo_cta_bottom" variant="primary" size="lg" className="w-full sm:w-auto">
-            Call us on 01753 682707
-          </PhoneButton>
-        }
-        secondary={
-          <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-            <Link href="#bingo-dates">Upcoming bingo dates</Link>
-          </Button>
-        }
-      />
+        copy="Reserve your table now and buy your £10 cash book when you arrive."
+      >
+        <GameNightCtaActions
+          gameSlug={cashBingo.slug}
+          label={buildGameNightCtaLabel(cashBingo, nextEvent)}
+          hasBookableDate={Boolean(nextEvent)}
+          location="closing_band"
+        />
+      </CtaBand>
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
