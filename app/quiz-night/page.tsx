@@ -12,6 +12,7 @@ import {
   GameNightBooking,
   GameNightCtaActions,
   GameNightFacts,
+  GameNightGallery,
   GameNightObjections,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
@@ -244,6 +245,14 @@ export default async function QuizNightPage() {
           </SectionViewTracker>
         </Container>
       </section>
+
+      <GameNightGallery
+        photos={quizNight.photos}
+        gameName={quizNight.name}
+        gameSlug={quizNight.slug}
+        title="What quiz night actually looks like"
+        intro="Real photos from recent quizzes. Teams of up to six, solo players matched up on arrival, and a £25 bar tab on the line."
+      />
 
       <section className="py-section-y bg-surface">
         <Container>

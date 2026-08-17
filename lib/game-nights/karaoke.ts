@@ -78,5 +78,9 @@ export const karaoke: GameNightConfig = {
     }
   ],
 
+  // No karaoke photos supplied yet, so no gallery renders here. The other three
+  // pages have one. Add shots from a listed karaoke night when there are some.
+  photos: [],
+
   promotable: false
 }

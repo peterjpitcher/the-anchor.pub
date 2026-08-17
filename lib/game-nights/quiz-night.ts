@@ -13,11 +13,9 @@ export const quizNight: GameNightConfig = {
   categories: [{ name: 'Pub Quiz Night', slug: 'quiz-night-stanwell-moor' }],
 
   hero: {
-    // Interim. The dining room is where teams actually sit, so it beats the
-    // building exterior this page used to show, but it is still the venue
-    // rather than the night. Swap for a real quiz night photo when the shoot
-    // lands: that is the only change this line needs.
-    image: '/images/our-pub/the-anchor-dining-room-interior.jpg',
+    // A real quiz night, owner-supplied. Landscape source, because the hero runs
+    // full-bleed and a portrait photo centre-crops to almost nothing.
+    image: '/images/events/quiz-night/quiz-night-tables-full.jpg',
     focal: '50% 45%',
     crumb: 'Quiz Night',
     title: 'Pub Quiz Night at The Anchor Near Heathrow',
@@ -64,6 +62,39 @@ export const quizNight: GameNightConfig = {
       question: 'Where do we park?',
       answer:
         'Free parking right outside, and we are about seven minutes from Heathrow Terminal 5 depending on traffic.'
+    }
+  ],
+
+  photos: [
+    {
+      src: '/images/events/quiz-night/quiz-night-packed-room.jpg',
+      alt: 'A full room of quiz teams at their tables on quiz night at The Anchor',
+      caption: 'A full room most months'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-teams-playing.jpg',
+      alt: 'Quiz teams working through a round together at The Anchor',
+      caption: 'Heads together on the tricky ones'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-long-table.jpg',
+      alt: 'A long table of players with drinks and answer sheets at quiz night',
+      caption: 'Big groups take the long table'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-room-wide.jpg',
+      alt: 'Wide view of the room during quiz night at The Anchor, Stanwell Moor',
+      caption: 'Doors at 6:30pm, quiz at 7pm'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-team-answering.jpg',
+      alt: 'A team conferring over their answer sheet during a quiz round',
+      caption: 'Teams of up to six'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-tables-full.jpg',
+      alt: 'Tables full of quiz players in the dining room at The Anchor',
+      caption: 'Solo players get matched up'
     }
   ],
 

@@ -19,9 +19,9 @@ export const cashBingo: GameNightConfig = {
   categories: [{ name: 'Bingo Night', slug: 'bingo-night' }],
 
   hero: {
-    // Interim, same as the other game pages: the room rather than the night.
-    // Swap for a real cash bingo photo when the shoot lands.
-    image: '/images/our-pub/the-anchor-dining-room-garden-view.jpg',
+    // A real cash bingo night, owner-supplied. Landscape source, because the hero
+    // runs full-bleed and a portrait photo centre-crops to almost nothing.
+    image: '/images/events/cash-bingo/cash-bingo-eyes-down.jpg',
     focal: '50% 50%',
     crumb: 'Cash Bingo',
     title: 'Cash Bingo Night at The Anchor Near Heathrow',
@@ -67,6 +67,39 @@ export const cashBingo: GameNightConfig = {
       question: 'How does the snowball work?',
       answer:
         'If nobody claims it, the snowball grows by £20 and two calls the following month. The current value is on the event listing below.'
+    }
+  ],
+
+  photos: [
+    {
+      src: '/images/events/cash-bingo/cash-bingo-eyes-down.jpg',
+      alt: 'Players at their tables with bingo books during cash bingo at The Anchor',
+      caption: 'Eyes down at 7pm'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-winners-cash.jpg',
+      alt: 'Winners holding their cash prize at cash bingo at The Anchor',
+      caption: 'Winnings paid out on the night'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-players.jpg',
+      alt: 'A table of players marking their bingo books between games',
+      caption: 'Ten games across the night'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-room.jpg',
+      alt: 'The room set up for cash bingo at The Anchor, Stanwell Moor',
+      caption: 'Doors and book sales from 6pm'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-winner-payout.jpg',
+      alt: 'A player collecting a cash payout at bingo at The Anchor',
+      caption: 'Cash prizes, cash only books'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-tables.jpg',
+      alt: 'Tables laid out for a cash bingo night at The Anchor',
+      caption: 'Come early for a good seat'
     }
   ],
 

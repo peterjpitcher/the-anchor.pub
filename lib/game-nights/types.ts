@@ -26,6 +26,22 @@ export interface GameNightObjection {
   answer: string
 }
 
+/**
+ * A real photograph from one of these nights, owner-supplied.
+ *
+ * Structurally compatible with the Gallery component's GalleryImage, kept
+ * declared here so the config layer does not import from components.
+ *
+ * These are photographs of identifiable customers, used on a page that paid
+ * campaigns point at. Only publish shots the owner has supplied for that
+ * purpose, and keep alt text to what is actually visible.
+ */
+export interface GameNightPhoto {
+  src: string
+  alt: string
+  caption?: string
+}
+
 export interface GameNightConfig {
   /** Route segment, also the tracking suffix. */
   slug: 'quiz-night' | 'cash-bingo' | 'music-bingo' | 'karaoke'
@@ -83,6 +99,15 @@ export interface GameNightConfig {
    * unanswered objection at the point of decision is a lost booking.
    */
   objections: GameNightObjection[]
+
+  /**
+   * Photographs of the night itself, shown in a gallery below the fold.
+   *
+   * This is the section that answers "what is it actually like", which no amount
+   * of copy does. Empty array is valid and means no gallery renders: karaoke has
+   * no photos yet.
+   */
+  photos: GameNightPhoto[]
 
   /**
    * False for formats that run only occasionally rather than to a schedule.

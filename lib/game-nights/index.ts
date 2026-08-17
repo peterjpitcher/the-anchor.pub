@@ -4,7 +4,12 @@ import { cashBingo } from './cash-bingo'
 import { musicBingo } from './music-bingo'
 import { karaoke } from './karaoke'
 
-export type { GameNightConfig, GameNightFact, GameNightObjection } from './types'
+export type {
+  GameNightConfig,
+  GameNightFact,
+  GameNightObjection,
+  GameNightPhoto
+} from './types'
 export { quizNight, cashBingo, musicBingo, karaoke }
 export { getGameNightEvents } from './events'
 

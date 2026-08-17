@@ -11,6 +11,7 @@ import {
   GameNightBooking,
   GameNightCtaActions,
   GameNightFacts,
+  GameNightGallery,
   GameNightObjections,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
@@ -223,6 +224,14 @@ export default async function CashBingoPage() {
           </SectionViewTracker>
         </Container>
       </section>
+
+      <GameNightGallery
+        photos={cashBingo.photos}
+        gameName={cashBingo.name}
+        gameSlug={cashBingo.slug}
+        title="What a cash bingo night looks like"
+        intro="Real photos from recent nights. Ten games, cash prizes paid out on the night, and a snowball that grows every month nobody claims it."
+      />
 
       <section id="bingo-dates" className="py-section-y bg-surface">
         <Container>

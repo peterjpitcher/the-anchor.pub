@@ -12,6 +12,7 @@ import {
   GameNightBooking,
   GameNightCtaActions,
   GameNightFacts,
+  GameNightGallery,
   GameNightObjections,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
@@ -309,6 +310,14 @@ export default async function MusicBingoPage() {
           </SectionViewTracker>
         </Container>
       </section>
+
+      <GameNightGallery
+        photos={musicBingo.photos}
+        gameName={musicBingo.name}
+        gameSlug={musicBingo.slug}
+        title="What music bingo actually looks like"
+        intro="Real photos from recent nights with Nikki Manfadge. Song clips instead of numbers, two games, and it does sell out."
+      />
 
       <section id="music-bingo-dates" className="py-section-y bg-surface">
         <Container>

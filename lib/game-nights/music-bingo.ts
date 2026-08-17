@@ -21,10 +21,10 @@ export const musicBingo: GameNightConfig = {
   categories: [{ name: 'Music Bingo', slug: 'music-bingo' }],
 
   hero: {
-    // Interim, the bar rather than the night. The one photo of Nikki in the
-    // repo is 360x640, far too small to run full-bleed, so it cannot serve
-    // here yet. Swap for a real music bingo photo when the shoot lands.
-    image: '/images/our-pub/the-anchor-main-bar-area.jpg',
+    // A real music bingo night, owner-supplied. This one is natively 640x360, so
+    // it is the only photo across the three sets that needs no crop to run as a
+    // wide hero.
+    image: '/images/events/music-bingo/music-bingo-room-wide.jpg',
     focal: '50% 45%',
     crumb: 'Music Bingo',
     title: 'Music Bingo at The Anchor Near Heathrow',
@@ -71,6 +71,39 @@ export const musicBingo: GameNightConfig = {
       question: 'Can we book music bingo for a private group?',
       answer:
         'Yes, private music bingo nights are available on request. Call 01753 682707 and we will put one together for your group.'
+    }
+  ],
+
+  photos: [
+    {
+      src: '/images/events/music-bingo/music-bingo-packed-tables.jpg',
+      alt: 'Packed tables of players with their cards up during music bingo at The Anchor',
+      caption: 'It genuinely does sell out'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-hands-up.jpg',
+      alt: 'Players with hands raised during a music bingo round at The Anchor',
+      caption: 'Hands up when you get the track'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-full-room.jpg',
+      alt: 'A full room during music bingo, hosted by Nikki Manfadge',
+      caption: 'Hosted by Nikki Manfadge'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-singalong.jpg',
+      alt: 'Tables of people singing along between rounds at music bingo',
+      caption: 'Singing along is compulsory'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-group-celebrating.jpg',
+      alt: 'A large group celebrating together at music bingo at The Anchor',
+      caption: 'Bring a mixed crew'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-room-wide.jpg',
+      alt: 'Wide view of the room during music bingo at The Anchor, Stanwell Moor',
+      caption: 'Doors 6:30pm, first game 8pm'
     }
   ],
 
