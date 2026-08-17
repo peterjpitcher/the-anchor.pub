@@ -38,7 +38,7 @@ Pick the decade you were born in (1996, so the nineties count) or let everyone c
 
 This one's popular for a reason. Set a dress code (black tie, all black, or smart casual, your call), arrange cocktails or a drinks package, and let the venue handle the rest. It feels grown-up without being stuffy.
 
-**Make it work:** Most pubs and venues offer welcome drinks packages. At The Anchor, welcome prosecco starts from just £7.99 per head for groups of 10 or more. That's your red carpet moment sorted.
+**Make it work:** Most pubs and venues offer welcome drinks packages. At The Anchor, welcome prosecco is available for groups of 20 or more, with orange juice as the non-alcoholic version. That's your red carpet moment sorted.
 
 ### Pub quiz birthday edition
 
@@ -88,17 +88,18 @@ The biggest mistake people make with party food is overthinking it. Your guests 
 
 For groups of 30 or more, a buffet is almost always the right call. It's cheaper per head than a sit-down meal, it lets people eat when they're hungry rather than on a schedule, and it means nobody's stuck waiting while the kitchen sends out 40 individual plates.
 
-Realistic buffet pricing for 2026 (based on what we charge at The Anchor):
+The buffet range at The Anchor, and the numbers each one needs:
 
-| Buffet Package | Price Per Head | Minimum Guests |
-|---|---|---|
-| Sandwich Buffet | current approved price | 30 |
-| Finger Buffet | current approved price | 30 |
-| Burger Buffet | current approved price | 30 |
-| Premium Buffet | current approved price | 30 |
-| Indoor BBQ | current approved price | 30 |
+| Buffet Package | Minimum Guests |
+|---|---|
+| Pizza Buffet | 10 |
+| Burger Buffet | 20 |
+| Indoor BBQ | 20 |
+| Sandwich Buffet | 30 |
+| Finger Buffet | 30 |
+| Premium Buffet | 30 |
 
-That's real money. A sandwich buffet for 30 guests comes to £298.50. A premium buffet for 40 guests is £558. Compare that with restaurant prices in Staines or Feltham and the difference is stark.
+Put your guest count into the [private hire calculator](/private-hire) and it will price any of these against your numbers, alongside the room and the drinks. Compare the total with restaurant prices in Staines or Feltham and the difference is stark.
 
 ### Pizza party (genuinely underrated for adults)
 
@@ -108,7 +109,7 @@ There's a reason pizza works at every age. Order a mix of stone-baked pizzas, se
 
 This depends on how much your friends drink. Two options to consider:
 
-**Welcome drinks package:** Gets everyone started at the same time. Prosecco and orange juice from £7.99 per head, or a Pimm's jar for £5.99 per person (minimum 30 guests). Budget predictability is the win here.
+**Welcome drinks package:** Gets everyone started at the same time. Welcome prosecco, with orange juice for anyone not drinking, needs 20 guests. Pimm's jars for the garden need 40. Budget predictability is the win here.
 
 **Bar tab:** Set a fixed amount (say £500) and let guests order what they want until it runs out. You control the spend, and nobody feels obligated to drink something they don't want. Most venues, including The Anchor, offer this option.
 
@@ -116,7 +117,7 @@ For a 30th, we'd suggest a welcome drinks package to kick things off, then switc
 
 ### Don't forget the non-drinkers
 
-Sober and sober-curious guests are more common than ever, and there's nothing worse than turning up to a party where the only alcohol-free option is tap water. Make sure your venue stocks decent soft drinks, and consider including unlimited tea and coffee (from £4.49 per head at The Anchor) for the inevitable late-evening caffeine round.
+Sober and sober-curious guests are more common than ever, and there's nothing worse than turning up to a party where the only alcohol-free option is tap water. Make sure your venue stocks decent soft drinks, and consider adding unlimited tea and coffee (minimum 20 guests at The Anchor) for the inevitable late-evening caffeine round.
 
 ## Choosing a 30th birthday party venue near Heathrow
 
@@ -193,33 +194,19 @@ If your 30th is a few months away, here's a realistic timeline that keeps you or
 - Brief the events coordinator on your timeline (speeches, cake, any surprises).
 - Then stop organising and enjoy your own birthday.
 
-## Budget breakdown: what a 30th birthday party actually costs
+## Working out what your 30th will cost
 
-People either massively overspend or massively underspend on their 30th. Here's what a solid celebration for 35 guests actually looks like, using real prices.
+People either massively overspend or massively underspend on their 30th. The [private hire calculator](/private-hire) settles it in about a minute: put in your date, your numbers, the room you want and how long for, then pick the food and drinks. It totals it up as you go, so you can see what swapping a sandwich buffet for an indoor BBQ actually does to the bill.
 
-**Budget option (around £600):**
-- Sandwich buffet: £348 (35 x current approved price)
-- Welcome drinks (prosecco): £280 (35 x £7.99)
-- Decorations (DIY): ~£30
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
-- Parking: free
-- **Total: approximately £658**
+Three shapes most 30ths take, cheapest first:
 
-**Mid-range option (around £1,000):**
-- Burger buffet: £383 (35 x current approved price)
-- Welcome prosecco: £280
-- Bar tab: £300
-- Decorations and photo display: ~£50
-- **Total: approximately £1,013**
+**Keep it simple.** Sandwich buffet, welcome prosecco for the toast, decorations you make yourself.
 
-**Push-the-boat-out option (around £1,500):**
-- Indoor BBQ: £630 (35 x current approved price)
-- Welcome prosecco: £280
-- Bar tab: £500
-- Decorations, photo wall, custom playlist: ~£80
-- **Total: approximately £1,490**
+**The middle ground.** Burger buffet, welcome prosecco, and a bar tab you set a limit on so the spend stays predictable.
 
-Every option above includes free parking for all guests, a private dining space, AV equipment, and a dedicated events coordinator. Try getting that from a hotel for under £2,000.
+**Push the boat out.** Indoor BBQ, welcome prosecco, a bigger bar tab, and a photo wall.
+
+Whichever you pick, free parking for every guest, a private space, the sound system and a dedicated events coordinator are all part of it rather than line items on top.
 
 ## Frequently asked questions about 30th birthday parties
 

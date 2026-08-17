@@ -2,7 +2,7 @@
 title: Pizza Tuesday Deal | Historical Update
 description: >-
   Historical update: the buy-one-get-one-free pizza deal is no longer available
-  at The Anchor. Check the current food menu for current approved prices.
+  at The Anchor. Check the current food menu for today's prices.
 date: '2020-08-31'
 oldUrl: >-
   https://www.the-anchor.pub/post/buy-one-get-one-free-on-all-pizza-every-tuesday

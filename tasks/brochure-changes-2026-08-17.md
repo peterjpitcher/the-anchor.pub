@@ -58,15 +58,11 @@ Page 14 shows both minimums in "The Whole List". Page 11 does not print them, so
 
 One follow-up for the owner, not the designer: the older "Welcome Prosecco / Orange Juice" package at £9.00 still describes itself as covering "prosecco for adults or orange juice for children/non-drinkers". That reads oddly now a juice-only option exists at £5. Worth renaming it to "Welcome Prosecco" and narrowing the description.
 
-## 6. VAT: a decision for you
+## 6. VAT: decided, no change
 
-Every price in all nine brochures is shown excluding VAT.
+Owner decision, 17 August 2026: **keep every price excluding VAT across all nine brochures.** No change needed.
 
-That is normal and fine for the **Corporate** brochure. For the seven consumer ones (Baby Shower, Birthdays, Christenings, Gender Reveal, Engagement, Retirement, Celebrations of Life) and the General one, prices shown to consumers are expected to include VAT. Showing £16.00 + VAT when the customer will actually pay £19.20 is the kind of thing that draws complaints.
-
-**Recommendation:** show VAT-inclusive prices on the eight consumer brochures, keep ex-VAT on Corporate, and say which is which in the footer line.
-
-This is the single biggest re-export decision, because it changes every number on pages 6 to 14.
+I had recommended VAT-inclusive pricing on the eight consumer brochures. The owner has chosen ex-VAT throughout. The brochures already carry the wording "Prices are shown excluding VAT; VAT at 20% is added to your quote" on page 2 and "Prices exclude VAT at 20%" on the pricing pages, which is what makes this defensible. Keep that wording prominent and do not drop it from any page that shows a price.
 
 ## 7. File sizes: too big to publish
 
@@ -100,6 +96,6 @@ Each brochure is around 13MB, 119MB for the set. The embedded photos are at 374 
 | 3 | Fix Main Area and Terrace capacities, add Entire Pub capacity, remove "wedding receptions" |
 | 11 | Nothing. The £5 orange juice is now a real product. |
 | 14 | Welcome Drinks and Bar Tab minimums to 10 |
-| All | Decide on VAT-inclusive pricing, re-export at 150 ppi |
+| All | Re-export at 150 ppi. VAT stays excluded, decided. |
 
-That is four edits across two pages, plus the VAT decision and the re-export.
+That is four edits across two pages, plus the re-export.

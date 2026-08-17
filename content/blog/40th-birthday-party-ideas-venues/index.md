@@ -39,13 +39,13 @@ The ideas below lean into that. They're sophisticated without being pretentious,
 
 A cocktail evening feels elevated without the formality of a sit-down dinner. The twist that makes it personal: name the cocktails after moments from your life. "The 2009" for the year you moved to London. "The Promotion" for obvious reasons. "The One We Don't Talk About" for... well, everyone's got one.
 
-**Make it work:** You don't need a professional mixologist. Most venues with a decent bar can prepare a small cocktail menu in advance. At The Anchor, the bar team can put together a bespoke drinks list for your evening, just discuss it with the events coordinator when you book. Pair it with a [finger buffet at current approved price](/food-menu) and you've got an evening that feels curated, not catered.
+**Make it work:** You don't need a professional mixologist. Most venues with a decent bar can prepare a small cocktail menu in advance. At The Anchor, the bar team can put together a bespoke drinks list for your evening, just discuss it with the events coordinator when you book. Pair it with a [finger buffet](/food-menu) and you've got an evening that feels curated, not catered.
 
 ### Wine or gin tasting supper
 
 If your idea of a perfect evening involves discovering a new favourite bottle rather than dancing to Mr Brightside (again), a tasting supper is your format. Set up four or five stations, each with a different wine, gin, or spirit, paired with complementary food. Guests move between stations, try things, argue about flavour profiles, and feel like adults doing adult things.
 
-**Make it work:** Combine a tasting element with The Anchor's [premium buffet at current approved price](/food-menu), and you've got a structured evening that doesn't feel like a conference. The private dining room seats 26, with French doors opening onto the beer garden if you need overflow space. For groups under 30, you can order from the regular menu instead of a buffet package.
+**Make it work:** Combine a tasting element with The Anchor's [premium buffet](/food-menu), and you've got a structured evening that doesn't feel like a conference. The private dining room seats 26, with French doors opening onto the beer garden if you need overflow space. For groups under 30, you can order from the regular menu instead of a buffet package.
 
 ### Surprise dinner party
 
@@ -69,7 +69,7 @@ Halfway between a party and a roast. Put together a timeline of your life, photo
 
 This is the 40th birthday party idea for people who genuinely love food. Arrange a multi-course meal, or a succession of sharing plates, where the food is the main event. No theme. No activities. Just really good food, good wine, and the kind of long-table conversation that only happens when everyone's eating the same thing.
 
-**Make it work:** For groups up to 26, The Anchor's private dining room works perfectly for a seated meal. The [indoor BBQ at current approved price](/food-menu) gives you a sharing-style feast that feels generous and communal. For larger groups, the [burger buffet at current approved price](/food-menu) keeps things relaxed while still putting food at the centre.
+**Make it work:** For groups up to 26, The Anchor's private dining room works perfectly for a seated meal. The [indoor BBQ](/food-menu) gives you a sharing-style feast that feels generous and communal. For larger groups, the [burger buffet](/food-menu) keeps things relaxed while still putting food at the centre.
 
 ## Activities that work for a 40th (and ones that don't)
 
@@ -99,15 +99,16 @@ By 40, your guests have strong opinions about food and low tolerance for bad win
 
 For groups of 30 or more, a buffet remains the smartest option. People eat what they want, when they want, and you avoid the logistical nightmare of 40 individual orders.
 
-| Package | Per Head | Min Guests | Best For |
-|---|---|---|---|
-| Sandwich Buffet | current approved price | 30 | Budget-conscious, afternoon events |
-| Finger Buffet | current approved price | 30 | Cocktail evenings, standing events |
-| Burger Buffet | current approved price | 30 | Casual celebrations, mixed ages |
-| Premium Buffet | current approved price | 30 | Evening parties, when you want a spread |
-| Indoor BBQ | current approved price | 30 | The "push the boat out" option |
+| Package | Min Guests | Best For |
+|---|---|---|
+| Pizza Buffet | 10 | Small groups, relaxed evenings |
+| Burger Buffet | 20 | Casual celebrations, mixed ages |
+| Indoor BBQ | 20 | The "push the boat out" option |
+| Sandwich Buffet | 30 | Budget-conscious, afternoon events |
+| Finger Buffet | 30 | Cocktail evenings, standing events |
+| Premium Buffet | 30 | Evening parties, when you want a spread |
 
-All prices are current at The Anchor. That's real food at real prices, not the £45-80 per head you'll get quoted from airport hotels.
+The [private hire calculator](/private-hire) prices any of these against your guest count. Whatever it lands on, it will not be the £45-80 per head you get quoted from airport hotels.
 
 ### For smaller groups
 
@@ -115,15 +116,15 @@ If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet pac
 
 ### Drinks that set the tone
 
-**Welcome drinks:** Prosecco and orange juice from £7.99 per head (minimum 10 guests). It's a small cost that makes the start of the evening feel like an occasion.
+**Welcome drinks:** Welcome prosecco for 20 guests or more, with orange juice as the non-alcoholic version so nobody is left holding tap water. A small cost that makes the start of the evening feel like an occasion.
 
-**Pimm's jars:** £5.99 per person for a summer 40th. Minimum 30 guests. Nothing says "grown-up garden party" like Pimm's.
+**Pimm's jars:** For a summer 40th, minimum 40 guests. Nothing says "grown-up garden party" like Pimm's.
 
 **Bar tab:** Set a limit (£300, £500, whatever works) and let people drink what they like. When it runs out, they buy their own. No drama, no spreadsheets.
 
-**Tea and coffee:** Unlimited at £4.49 per head. Sounds unglamorous, but at a 40th with parents, older relatives, and anyone driving, it's appreciated more than you'd think.
+**Tea and coffee:** Unlimited, minimum 20 guests. Sounds unglamorous, but at a 40th with parents, older relatives, and anyone driving, it's appreciated more than you'd think.
 
-**Kids squash:** £3.50 per head unlimited. Because children will drink approximately seven glasses of squash at any event, and that's just a fact.
+**Kids squash:** Unlimited, minimum 20 children. Because children will drink approximately seven glasses of squash at any event, and that's just a fact.
 
 ## Choosing a 40th birthday party venue near Heathrow
 
@@ -203,33 +204,19 @@ You don't need a project manager. You need a list and some discipline.
 - Brief the events coordinator on your timeline.
 - Then stop planning and enjoy your own birthday. You've earned it.
 
-## Budget breakdown: what a 40th actually costs
+## Working out what your 40th will cost
 
-Three realistic scenarios for 40 guests, using actual 2026 prices.
+Rather than guess, use the [private hire calculator](/private-hire). Put in 40 guests, choose your room and how long you want it, then add the buffet and drinks. It totals as you go, so you can see exactly what upgrading from a finger buffet to an indoor BBQ costs before you commit to either.
 
-**The smart celebration (around £700):**
-- Finger buffet: £420 (40 x current approved price)
-- Welcome prosecco: £320 (40 x £7.99)
-- Decorations: ~£40
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
-- Parking: free
-- **Total: approximately £780**
+Three shapes a 40th usually takes, cheapest first:
 
-**The proper party (around £1,200):**
-- Premium buffet: £558 (40 x current approved price)
-- Welcome prosecco: £320
-- Bar tab: £300
-- Decorations and photo display: ~£60
-- **Total: approximately £1,238**
+**The smart celebration.** Finger buffet, welcome prosecco for the toast, decorations you sort yourself.
 
-**The full works (around £1,500):**
-- Indoor BBQ: £720 (40 x current approved price)
-- Welcome prosecco: £320
-- Bar tab: £500
-- Decorations, photo timeline, quiz prizes: ~£80
-- **Total: approximately £1,620**
+**The proper party.** Premium buffet, welcome prosecco, and a bar tab with a limit you set.
 
-Every scenario above includes free parking, a private room, AV equipment, a dedicated events coordinator, and free WiFi. Compare that with the £3,000-7,000 an airport hotel would charge for the same headcount and the decision is straightforward.
+**The full works.** Indoor BBQ, welcome prosecco, a bigger bar tab, a photo timeline and quiz prizes.
+
+All three include free parking, a private room, the sound system, a dedicated events coordinator and free WiFi as standard rather than as extras. Compare the total with the £3,000-7,000 an airport hotel would charge for the same headcount and the decision is straightforward.
 
 ## Frequently asked questions about 40th birthday parties
 

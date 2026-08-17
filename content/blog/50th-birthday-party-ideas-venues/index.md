@@ -151,15 +151,16 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 ### Food and drink packages
 
-Buffet options start from current approved price (minimum 30 guests):
+Buffet options, and the numbers each one needs:
 
-- **Sandwich Buffet:** current approved price
-- **Finger Buffet:** current approved price
-- **Burger Buffet:** current approved price
-- **Premium Buffet:** current approved price
-- **Indoor BBQ:** current approved price
+- **Pizza Buffet:** minimum 10 guests
+- **Burger Buffet:** minimum 20 guests
+- **Indoor BBQ:** minimum 20 guests
+- **Sandwich Buffet:** minimum 30 guests
+- **Finger Buffet:** minimum 30 guests
+- **Premium Buffet:** minimum 30 guests
 
-Drinks packages are available from £6.99 per head for welcome drinks, or £7.99 for prosecco and orange juice. Unlimited tea and coffee runs at £4.49 per head, useful for afternoon celebrations with older guests. Kids get unlimited squash for £3.50 per head.
+On drinks, welcome drinks and a bar tab both start at 10 guests. Welcome prosecco needs 20, with orange juice as the non-alcoholic version. Unlimited tea and coffee needs 20 and is worth it for afternoon celebrations with older guests. Kids' unlimited squash needs 20 children. The [private hire calculator](/private-hire) prices any combination against your numbers.
 
 You can also bring your own food at no charge if you prefer to arrange catering independently.
 

@@ -2,7 +2,7 @@
 title: Tuesday Pizza Deals | Historical Update
 description: >-
   Historical update: the Tuesday pizza deal is no longer available at The
-  Anchor. Check the current food menu for current approved prices.
+  Anchor. Check the current food menu for today's prices.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:

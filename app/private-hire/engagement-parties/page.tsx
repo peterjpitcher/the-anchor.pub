@@ -262,7 +262,7 @@ export default function EngagementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an engagement party at The Anchor cost?",
-                        answer: "A room hire fee applies and varies by day and party size, there's pricing discussed on enquiry on top, so you only pay for what you order. Buffets start at live price, welcome prosecco is charged per person, and the deposit is £250 (deducted from your final bill). Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
+                        answer: "Room hire is charged by the hour for the space you use, with catering and drinks on top, so you only pay for what you order. Buffets and welcome drinks are priced per person, and a refundable £250 deposit is usual on private bookings, held separately from your bill. Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
                     },
                     {
                         question: "How many guests can you fit for an engagement party?",

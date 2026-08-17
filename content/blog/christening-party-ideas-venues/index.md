@@ -180,32 +180,35 @@ For families coming from St Mary's in Stanwell, we're practically next door. The
 
 Most christening groups opt for a buffet and a drinks package. Here's how it breaks down.
 
-**Buffet options (minimum 30 guests):**
+**Buffet options:**
 
-| Package | Per Head |
+| Package | Minimum |
 | --- | --- |
-| Sandwich Buffet | current approved price |
-| Finger Buffet | current approved price |
-| Burger Buffet | current approved price |
-| Premium Buffet | current approved price |
-| Pizza Buffet | Menu priced |
-| Indoor BBQ | current approved price |
+| Pizza Buffet | 10 guests |
+| Burger Buffet | 20 guests |
+| Indoor BBQ | 20 guests |
+| Afternoon Tea | 20 guests |
+| Sandwich Buffet | 30 guests |
+| Finger Buffet | 30 guests |
+| Premium Buffet | 30 guests |
 
-**Kids' catering (all £8.00 per head):**
+**Kids' catering (minimum 20 children):**
 - Kids Burger and Chips
 - Kids Chicken Nuggets and Chips
 - Kids Mini Pizza and Chips
 
 **Drinks packages:**
 
-| Package | Per Head |
+| Package | Minimum |
 | --- | --- |
-| Welcome Drinks | £6.99 |
-| Welcome Prosecco or Orange Juice | £7.99 |
-| Unlimited Tea and Coffee | £4.49 |
-| Kids Unlimited Squash | £3.50 |
+| Welcome Drinks | 10 guests |
+| Bar Tab | 10 guests |
+| Welcome Prosecco | 20 guests |
+| Welcome Orange Juice | 20 guests |
+| Unlimited Tea and Coffee | 20 guests |
+| Kids Unlimited Squash | 20 guests |
 
-For a typical christening reception of 30 guests with a finger buffet, kids' meals for eight children, unlimited tea and coffee, and a welcome prosecco, you're looking at around £500-600 total. That's well within our pricing is discussed on enquiry (which varies by day and group size).
+To see what your own combination comes to, put your numbers into the [private hire calculator](/private-hire). Pick the room, the buffet and the drinks, and it works out the estimate for you. Room hire is charged by the hour, so a lunchtime christening costs less than an all-afternoon one.
 
 Bring your own christening cake at no extra charge. Bring your own food entirely if you'd prefer -- no cakeage, no corkage drama.
 

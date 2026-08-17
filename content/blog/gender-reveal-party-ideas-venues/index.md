@@ -153,9 +153,9 @@ We're completely family-friendly with no age cut-off at any time. Here's what we
 
 ### Catering that fits the occasion
 
-Gender reveals are grazing events, not sit-down dinners. Our Buffet package prices come from the live approved source (minimum 30 guests) for a sandwich buffet, scaling up to current approved price for an indoor BBQ. Most gender reveal groups go for the finger buffet at current approved price or the burger buffet at current approved price -- enough food to keep everyone happy without overcomplicating things.
+Gender reveals are grazing events, not sit-down dinners. The buffet range runs from a burger buffet for 20 guests upwards, through sandwich and finger buffets for 30 or more, to a full indoor BBQ. Most gender reveal groups go for the finger buffet or the burger buffet, enough food to keep everyone happy without overcomplicating things. The [private hire calculator](/private-hire) prices whichever you fancy against your numbers.
 
-Kids eat for £8.00 per head with choices of burger, chicken nuggets, or mini pizza, all with chips. Unlimited kids' squash is £3.50 per head.
+Children get burger, chicken nuggets or mini pizza, all with chips, minimum 20 children. Unlimited kids' squash is available on the same minimum.
 
 Want to bring your own cake for the reveal? That's fine -- we don't charge cakeage. Bring your own food is also an option if you'd prefer to handle catering yourself.
 

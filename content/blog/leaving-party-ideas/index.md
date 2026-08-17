@@ -94,7 +94,7 @@ Not every leaving do needs to be an evening event. For some teams, especially if
 - The mood is different, more relaxed, less performative, nobody watching the clock thinking about the last train
 - You can do the speech and slideshow over pudding, then let people drift off naturally
 
-A buffet keeps things simple. If you're at a venue that offers catering packages, you avoid the nightmare of trying to get forty-two people to order from a menu at the same time. Sandwich buffets start from around current approved price at most venues, with more substantial options like burger or premium buffets available too.
+A buffet keeps things simple. If you're at a venue that offers catering packages, you avoid the nightmare of trying to get forty-two people to order from a menu at the same time. Sandwich buffets are the standard starting point, with more substantial options like burger or premium buffets available too.
 
 ## The "surprise" element
 
@@ -132,7 +132,7 @@ Whether you're planning a long lunch or an evening event, the venue can make or 
 
 **AV equipment.** If you're doing a slideshow, a quiz, or showing video messages, you need a TVs and sound system. Not "we can probably plug your laptop into the TV", actual equipment that works.
 
-**Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. Buffets starting from current approved price keep costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
+**Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. A per-head buffet keeps costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
 
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
@@ -148,9 +148,9 @@ We host leaving dos regularly, and we'll be straightforward about what we offer.
 
 **AV equipment:** We have a TVs and sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
 
-**Food options:** [Buffets](/food-menu) start from current approved price (sandwich buffet, minimum 30 guests), going up through finger buffets at current approved price, burger buffets at current approved price, and premium buffets at current approved price. Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
+**Food options:** [Buffets](/food-menu) run from a burger buffet for 20 upwards, through sandwich, finger and premium buffets for 30 or more. Price any of them against your headcount with the [private hire calculator](/private-hire). Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
 
-**Drinks:** Bar tab option means you set a budget and we track it. Welcome drinks packages from £6.99 per head if you want prosecco or cocktails on arrival. Or just let people buy their own, no pressure either way. We accept cash, card, Amex, and contactless.
+**Drinks:** A bar tab means you set a budget and we track it, from 10 guests up. Welcome drinks are available too if you want something waiting on arrival. Or just let people buy their own, no pressure either way. We accept cash, card, Amex, and contactless.
 
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
@@ -167,13 +167,13 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 - Book a private space with AV equipment
 - Premium buffet or sit-down meal
 - Bar tab for the evening
-- Welcome drinks on arrival (prosecco at £7.99 per head)
+- Welcome drinks on arrival, prosecco or orange juice
 - Custom slideshow on the TV
 - Funny awards with printed certificates
 
 ### Company's paying (modest budget)
 
-- Sandwich or finger buffet (current approved price-current approved price)
+- Sandwich or finger buffet
 - Set bar tab with a cap
 - Speech and slideshow in a venue with AV equipment
 - Memory jar or card signed by the team

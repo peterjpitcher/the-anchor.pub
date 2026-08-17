@@ -32,8 +32,8 @@ If you're short on time, here's the overview. If you want the detail, keep scrol
 |---|---|---|
 | **Atmosphere** | Warm, relaxed, characterful | Polished, neutral, professional |
 | **Cost (30 guests, evening)** | £500-£1,000 | £2,000-£5,000+ |
-| **Room hire** | Often free (quote-on-enquiry model) | Typically £200-£1,000+ |
-| **Catering per head** | current approved price-current approved price | £45-£120 |
+| **Room hire** | Charged by the hour, per space | Typically £200-£1,000+ |
+| **Catering per head** | A fraction of hotel rates | £45-£120 |
 | **Parking** | Usually free | £15-£35 per car per day |
 | **Flexibility** | High -- timings, food, decorations | Moderate -- set packages, time slots |
 | **Capacity** | 10+ to 150 room bookings; larger events by enquiry | 10-1,000+ |
@@ -63,13 +63,13 @@ This is where the difference between pub and hotel becomes stark. We've written 
 
 **At a pub (The Anchor):**
 
-| Item | Cost |
+| Item | How it's charged |
 |---|---|
-| Room hire | £0 (quote-on-enquiry model, no hire fee) |
-| Finger Buffet (30 x current approved price) | £315 |
-| Welcome Drinks (30 x £6.99) | £210 |
-| Bar Tab | £200 (you set the limit) |
-| Parking | £0 (free, 20 spaces) |
+| Room hire | By the hour, per space, 1 hour minimum |
+| Finger Buffet | Per head, minimum 30 guests |
+| Welcome Drinks | Per head, minimum 10 guests |
+| Bar Tab | You set the limit |
+| Parking | Free, 20 spaces |
 | **Total** | **approximately £725** |
 
 **At a Heathrow hotel (typical):**
@@ -123,7 +123,7 @@ There's an outdated assumption that pub food means microwaved lasagne and frozen
 
 At The Anchor, the kitchen turns out stone-baked pizzas on hand-stretched dough (with gluten-free bases available), proper Sunday roasts with herb and garlic-crusted roast potatoes, beef and ale pie, and a full menu that changes seasonally. The 5-star food hygiene rating has been maintained for seven consecutive years, and all kitchen staff hold Level 2 food safety qualifications.
 
-For private events, buffet catering ranges from a straightforward Sandwich Buffet at current approved price to a full Indoor BBQ at current approved price. Kids eat for £8.00 per head with proper meals -- burger and chips, chicken nuggets and chips, or mini pizza and chips. Not a sad sandwich on a paper plate.
+For private events, buffet catering ranges from a straightforward Sandwich Buffet to a full Indoor BBQ. Children get proper meals rather than a sad sandwich on a paper plate: burger and chips, chicken nuggets and chips, or mini pizza and chips.
 
 Hotel food is fine. Often good. Occasionally excellent. But it's rarely so superior that it justifies the four-to-six-times markup. You're paying for white tablecloths and uniformed serving staff, not better ingredients.
 
@@ -155,7 +155,7 @@ For the majority of celebrations we see enquiries about, a pub delivers a better
 
 **Budget-conscious events.** If you want to feed and water 30-50 guests without spending thousands, a pub is the obvious choice. The savings aren't marginal -- they're significant enough to spend on other parts of the celebration.
 
-**Family celebrations with children.** Hotels aren't designed for kids. Pubs (family-friendly ones, at least) are. At The Anchor, we have high chairs, buggy space, kids' meals at £8.00, unlimited squash at £3.50, and a beer garden where they can run around. Breastfeeding is welcome, and bottle warming is available on request.
+**Family celebrations with children.** Hotels aren't designed for kids. Pubs (family-friendly ones, at least) are. At The Anchor, we have high chairs, buggy space, kids' party meals, unlimited squash, and a beer garden where they can run around. Breastfeeding is welcome, and bottle warming is available on request.
 
 **Dog-friendly events.** Most hotels don't allow dogs in function rooms. At The Anchor, dogs are welcome throughout the venue -- water bowls and treats provided, kept on a lead.
 

@@ -94,9 +94,9 @@ The final thirty minutes before the surprise are the most nerve-wracking. Here's
 
 A surprise party with no food plan means thirty hungry people descending on the bar menu all at once. Pre-arranged catering keeps things smooth and gives the kitchen time to prepare.
 
-**Buffet options work best for surprise parties.** They're ready when you need them, guests can eat at their own pace, and you're not trying to coordinate a three-course sit-down meal immediately after the big reveal. At The Anchor, our buffet packages start from just current approved price for a sandwich buffet, with options like the finger buffet at current approved price and the premium buffet at current approved price (minimum 30 guests for buffet packages).
+**Buffet options work best for surprise parties.** They're ready when you need them, guests can eat at their own pace, and you're not trying to coordinate a three-course sit-down meal immediately after the big reveal. At The Anchor, the buffet range runs from a burger buffet for 20 guests upwards, through sandwich, finger and premium buffets for 30 or more. The [private hire calculator](/private-hire) will price them against your numbers.
 
-**Welcome drinks add a proper celebration feel.** A tray of prosecco or cocktails waiting for guests as they arrive sets the tone before the birthday person even gets there. We offer welcome prosecco and orange juice packages from £7.99 per head (minimum 10 guests).
+**Welcome drinks add a proper celebration feel.** A tray of prosecco or cocktails waiting for guests as they arrive sets the tone before the birthday person even gets there. We offer welcome prosecco from 20 guests, with orange juice as the non-alcoholic version on the same minimum.
 
 **Consider a drinks package or bar tab.** This keeps the evening flowing without guests queuing at the bar or worrying about rounds. A bar tab with a set limit gives you control over the budget while keeping the drinks coming.
 

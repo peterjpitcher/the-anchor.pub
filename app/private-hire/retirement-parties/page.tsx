@@ -163,7 +163,7 @@ export default function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <PrivateBookingSection eventType="Other" />
+            <PrivateBookingSection eventType="Retirement Party" />
 
             <FAQAccordionWithSchema
                 faqs={[

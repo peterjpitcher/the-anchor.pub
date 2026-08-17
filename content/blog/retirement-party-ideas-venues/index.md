@@ -124,7 +124,7 @@ If you're doing a slideshow, video messages, or a quiz, this isn't optional. A v
 
 Retirement parties can range from an afternoon tea to a full evening event. The venue should offer catering options that flex to match, not force you into a single set menu.
 
-[Buffet packages](/food-menu) work well for retirement celebrations because they're sociable (people mingle rather than sit in fixed seats) and predictable on cost. Expect to pay somewhere between current approved price and current approved price depending on the menu, with options from sandwich platters through to indoor BBQ packages.
+[Buffet packages](/food-menu) work well for retirement celebrations because they're sociable (people mingle rather than sit in fixed seats) and predictable on cost. Options run from sandwich platters through to indoor BBQ packages, and the [private hire calculator](/private-hire) will price any of them against your headcount.
 
 A bar tab is useful too, it means you set a drinks budget upfront and guests order what they like without anyone counting pennies.
 
@@ -148,7 +148,7 @@ We'll be direct about what we offer and what we don't.
 
 **AV:** TVs and sound system are all available. Your slideshow, video tributes, and speeches all work properly without any improvised tech solutions.
 
-**Catering:** [Buffet options](/food-menu) from current approved price (sandwich buffet) up to current approved price (indoor BBQ). Welcome drinks packages from £6.99 per head, or prosecco at £7.99 per head for something a bit celebratory. Unlimited tea and coffee at £4.49 per head if you're doing an afternoon event. Bar tab option available. We accept cash, card, Amex, and contactless.
+**Catering:** [Buffet options](/food-menu) from a sandwich buffet up to a full indoor BBQ. Welcome drinks from 10 guests, or welcome prosecco from 20 for something a bit celebratory, with orange juice for anyone not drinking. Unlimited tea and coffee from 20 guests if you're doing an afternoon event. Bar tab available from 10. We accept cash, card, Amex, and contactless.
 
 **Events coordinator:** Our dedicated events coordinator handles the planning. You tell us what you want, buffet choice, timings, AV needs, any specific setup, and we take care of it.
 
