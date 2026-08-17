@@ -203,6 +203,10 @@ export default async function CashBingoPage() {
                 bookingNote={cashBingo.bookingNote}
               />
             </SectionViewTracker>
+            {/* Right column stacks the "how it feels" card and the objections. The
+                booking form opposite is roughly three times the height of that
+                card on its own, which left most of this column empty. */}
+            <div className="space-y-6">
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How the night feels</h3>
@@ -217,11 +221,16 @@ export default async function CashBingoPage() {
                 </p>
               </CardBody>
             </Card>
-          </div>
 
-          <SectionViewTracker sectionId="cash_bingo_objections" className="mt-10">
-            <GameNightObjections objections={cashBingo.objections} gameName={cashBingo.name} />
-          </SectionViewTracker>
+              <SectionViewTracker sectionId="cash_bingo_objections">
+                <GameNightObjections
+                  objections={cashBingo.objections}
+                  gameName={cashBingo.name}
+                  stack
+                />
+              </SectionViewTracker>
+            </div>
+          </div>
         </Container>
       </section>
 

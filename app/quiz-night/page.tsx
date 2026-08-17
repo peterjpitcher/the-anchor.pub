@@ -223,6 +223,10 @@ export default async function QuizNightPage() {
                 bookingNote={quizNight.bookingNote}
               />
             </SectionViewTracker>
+            {/* Right column stacks the "how it runs" card and the objections. The
+                booking form opposite is roughly three times the height of that
+                card on its own, which left most of this column empty. */}
+            <div className="space-y-6">
             <Card accent>
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How the night runs</h3>
@@ -238,11 +242,16 @@ export default async function QuizNightPage() {
                 </p>
               </CardBody>
             </Card>
-          </div>
 
-          <SectionViewTracker sectionId="quiz_night_objections" className="mt-10">
-            <GameNightObjections objections={quizNight.objections} gameName={quizNight.name} />
-          </SectionViewTracker>
+              <SectionViewTracker sectionId="quiz_night_objections">
+                <GameNightObjections
+                  objections={quizNight.objections}
+                  gameName={quizNight.name}
+                  stack
+                />
+              </SectionViewTracker>
+            </div>
+          </div>
         </Container>
       </section>
 

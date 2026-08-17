@@ -21,7 +21,7 @@ export const cashBingo: GameNightConfig = {
   hero: {
     // A real cash bingo night, owner-supplied. Landscape source, because the hero
     // runs full-bleed and a portrait photo centre-crops to almost nothing.
-    image: '/images/events/cash-bingo/cash-bingo-eyes-down.jpg',
+    image: '/images/events/cash-bingo/cash-bingo-hero-eyes-down.jpg',
     focal: '50% 50%',
     crumb: 'Cash Bingo',
     title: 'Cash Bingo Night at The Anchor Near Heathrow',
@@ -70,35 +70,38 @@ export const cashBingo: GameNightConfig = {
     }
   ],
 
+  // Six deliberately different moments, not six frames of one. See the note in
+  // quiz-night.ts: the first pass repeated the same scene, so these are one per
+  // near-identical cluster, and the hero shot is excluded.
   photos: [
     {
-      src: '/images/events/cash-bingo/cash-bingo-eyes-down.jpg',
-      alt: 'Players at their tables with bingo books during cash bingo at The Anchor',
-      caption: 'Eyes down at 7pm'
-    },
-    {
       src: '/images/events/cash-bingo/cash-bingo-winners-cash.jpg',
-      alt: 'Winners holding their cash prize at cash bingo at The Anchor',
+      alt: 'Two winners holding fans of cash after a game at The Anchor',
       caption: 'Winnings paid out on the night'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-players.jpg',
-      alt: 'A table of players marking their bingo books between games',
+      src: '/images/events/cash-bingo/cash-bingo-garden-group.jpg',
+      alt: 'A group playing cash bingo at a garden table with drinks at The Anchor',
       caption: 'Ten games across the night'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-room.jpg',
-      alt: 'The room set up for cash bingo at The Anchor, Stanwell Moor',
-      caption: 'Book sales from 6pm'
+      src: '/images/events/cash-bingo/cash-bingo-cash-and-book.jpg',
+      alt: 'A player holding their cash winnings and their bingo book at The Anchor',
+      caption: '£10 a book, cash only'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-winner-payout.jpg',
-      alt: 'A player collecting a cash payout at bingo at The Anchor',
-      caption: 'Cash prizes, cash only books'
+      src: '/images/events/cash-bingo/cash-bingo-garden-tables.jpg',
+      alt: 'Players marking bingo books at tables in the garden at The Anchor',
+      caption: 'Summer nights move outside'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-tables.jpg',
-      alt: 'Tables laid out for a cash bingo night at The Anchor',
+      src: '/images/events/cash-bingo/cash-bingo-summer-evening.jpg',
+      alt: 'The beer garden at The Anchor on a summer bingo evening',
+      caption: 'Free parking right outside'
+    },
+    {
+      src: '/images/events/cash-bingo/cash-bingo-big-win.jpg',
+      alt: 'A player holding a large fan of cash winnings at The Anchor',
       caption: 'Come early for a good seat'
     }
   ],

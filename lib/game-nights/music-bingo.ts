@@ -24,7 +24,7 @@ export const musicBingo: GameNightConfig = {
     // A real music bingo night, owner-supplied. This one is natively 640x360, so
     // it is the only photo across the three sets that needs no crop to run as a
     // wide hero.
-    image: '/images/events/music-bingo/music-bingo-room-wide.jpg',
+    image: '/images/events/music-bingo/music-bingo-hero-room-wide.jpg',
     focal: '50% 45%',
     crumb: 'Music Bingo',
     title: 'Music Bingo at The Anchor Near Heathrow',
@@ -79,35 +79,39 @@ export const musicBingo: GameNightConfig = {
     }
   ],
 
+  // Six deliberately different moments, not six frames of one. This set needed it
+  // most: perceptual hashing found one cluster of 36 near-identical photos and
+  // another of 22, and the first pass drew several picks from the same cluster.
+  // One per cluster now, and the hero shot is excluded.
   photos: [
     {
       src: '/images/events/music-bingo/music-bingo-packed-tables.jpg',
-      alt: 'Packed tables of players with their cards up during music bingo at The Anchor',
+      alt: 'Packed long tables of players during music bingo at The Anchor',
       caption: 'It genuinely does sell out'
     },
     {
-      src: '/images/events/music-bingo/music-bingo-hands-up.jpg',
-      alt: 'Players with hands raised during a music bingo round at The Anchor',
-      caption: 'Hands up when you get the track'
-    },
-    {
-      src: '/images/events/music-bingo/music-bingo-full-room.jpg',
-      alt: 'A full room during music bingo, hosted by Nikki Manfadge',
+      src: '/images/events/music-bingo/music-bingo-host-on-the-mic.jpg',
+      alt: 'Nikki Manfadge hosting music bingo on the microphone at The Anchor',
       caption: 'Hosted by Nikki Manfadge'
     },
     {
-      src: '/images/events/music-bingo/music-bingo-singalong.jpg',
-      alt: 'Tables of people singing along between rounds at music bingo',
-      caption: 'Singing along is compulsory'
-    },
-    {
-      src: '/images/events/music-bingo/music-bingo-group-celebrating.jpg',
-      alt: 'A large group celebrating together at music bingo at The Anchor',
+      src: '/images/events/music-bingo/music-bingo-big-group.jpg',
+      alt: 'A large group posing together at music bingo at The Anchor',
       caption: 'Bring a mixed crew'
     },
     {
-      src: '/images/events/music-bingo/music-bingo-room-wide.jpg',
-      alt: 'Wide view of the room during music bingo at The Anchor, Stanwell Moor',
+      src: '/images/events/music-bingo/music-bingo-table-of-friends.jpg',
+      alt: 'A table of friends with drinks at music bingo at The Anchor',
+      caption: 'Good for a group night out'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-winner-with-host.jpg',
+      alt: 'A music bingo winner collecting their prize from the host at The Anchor',
+      caption: 'Prizes across both games'
+    },
+    {
+      src: '/images/events/music-bingo/music-bingo-group-standing.jpg',
+      alt: 'A group standing with drinks at music bingo at The Anchor',
       caption: 'Arrive from 6:30pm, first game 7pm'
     }
   ],

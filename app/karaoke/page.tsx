@@ -199,6 +199,10 @@ export default async function KaraokePage() {
                                 bookingNote={karaoke.bookingNote}
                             />
                         </SectionViewTracker>
+                        {/* Right column stacks the "how it works" card and the
+                            objections, so it is not left mostly empty beside the
+                            much taller booking form. */}
+                        <div className="space-y-6">
                         <Card accent>
                             <CardBody className="space-y-4">
                                 <h3 className="text-h4 text-ink-strong">How it works</h3>
@@ -213,11 +217,16 @@ export default async function KaraokePage() {
                                 </p>
                             </CardBody>
                         </Card>
-                    </div>
 
-                    <SectionViewTracker sectionId="karaoke_objections" className="mt-10">
-                        <GameNightObjections objections={karaoke.objections} gameName={karaoke.name} />
-                    </SectionViewTracker>
+                            <SectionViewTracker sectionId="karaoke_objections">
+                                <GameNightObjections
+                                    objections={karaoke.objections}
+                                    gameName={karaoke.name}
+                                    stack
+                                />
+                            </SectionViewTracker>
+                        </div>
+                    </div>
                 </Container>
             </section>
 

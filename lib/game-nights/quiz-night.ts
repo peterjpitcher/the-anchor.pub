@@ -15,7 +15,7 @@ export const quizNight: GameNightConfig = {
   hero: {
     // A real quiz night, owner-supplied. Landscape source, because the hero runs
     // full-bleed and a portrait photo centre-crops to almost nothing.
-    image: '/images/events/quiz-night/quiz-night-tables-full.jpg',
+    image: '/images/events/quiz-night/quiz-night-hero-tables-full.jpg',
     focal: '50% 45%',
     crumb: 'Quiz Night',
     title: 'Pub Quiz Night at The Anchor Near Heathrow',
@@ -65,35 +65,40 @@ export const quizNight: GameNightConfig = {
     }
   ],
 
+  // Six deliberately different moments, not six frames of one. The first pass took
+  // several shots from the same burst and the gallery read as one photo repeated:
+  // perceptual hashing put eleven of these photos in a single near-identical
+  // cluster. One per cluster now, and the hero shot is excluded so it does not
+  // appear twice on the same page.
   photos: [
     {
-      src: '/images/events/quiz-night/quiz-night-packed-room.jpg',
-      alt: 'A full room of quiz teams at their tables on quiz night at The Anchor',
+      src: '/images/events/quiz-night/quiz-night-busy-room.jpg',
+      alt: 'A busy room of quiz players at The Anchor on quiz night',
       caption: 'A full room most months'
     },
     {
-      src: '/images/events/quiz-night/quiz-night-teams-playing.jpg',
-      alt: 'Quiz teams working through a round together at The Anchor',
+      src: '/images/events/quiz-night/quiz-night-host-and-room.jpg',
+      alt: 'The quizmaster reading a question to a room of seated teams at The Anchor',
+      caption: 'Four rounds, read by a proper quizmaster'
+    },
+    {
+      src: '/images/events/quiz-night/quiz-night-team-writing.jpg',
+      alt: 'A quiz team writing their answer down together at The Anchor',
       caption: 'Heads together on the tricky ones'
     },
     {
-      src: '/images/events/quiz-night/quiz-night-long-table.jpg',
-      alt: 'A long table of players with drinks and answer sheets at quiz night',
-      caption: 'Big groups take the long table'
+      src: '/images/events/quiz-night/quiz-night-food-on-the-table.jpg',
+      alt: 'Quiz players with food and drinks on the table before the first round',
+      caption: 'Kitchen runs to 9pm, so eat first'
     },
     {
-      src: '/images/events/quiz-night/quiz-night-room-wide.jpg',
-      alt: 'Wide view of the room during quiz night at The Anchor, Stanwell Moor',
-      caption: 'Arrive from 6:30pm, quiz at 7pm'
+      src: '/images/events/quiz-night/quiz-night-winners.jpg',
+      alt: 'Quiz night winners with their prize at The Anchor',
+      caption: '£25 bar tab for the winners'
     },
     {
-      src: '/images/events/quiz-night/quiz-night-team-answering.jpg',
-      alt: 'A team conferring over their answer sheet during a quiz round',
-      caption: 'Teams of up to six'
-    },
-    {
-      src: '/images/events/quiz-night/quiz-night-tables-full.jpg',
-      alt: 'Tables full of quiz players in the dining room at The Anchor',
+      src: '/images/events/quiz-night/quiz-night-second-room.jpg',
+      alt: 'Teams playing the quiz in the second room at The Anchor, Stanwell Moor',
       caption: 'Solo players get matched up'
     }
   ],
