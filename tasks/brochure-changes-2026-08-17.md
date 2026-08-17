@@ -1,101 +1,125 @@
 # 2026 Event Brochures: changes needed before publishing
 
-Checked against the live management database (`venue_spaces`, `catering_packages`) on 17 August 2026, and against `docs/SSOT.md`.
+Checked line by line against the live management database (`venue_spaces`, `catering_packages`) on 17 August 2026, after that day's data corrections and the Main Area rate rise.
 
-**Headline:** the catering is near perfect. Every buffet, kids, drinks and afternoon tea price and minimum matches the database exactly. The problems are all on the venue hire page, plus one banned phrase, two changed minimums, and the file sizes.
+**Headline:** the food and children's pricing is correct on every line in all nine brochures. The changes are the Main Area hire rate, two venue capacities, the prosecco naming, two drinks minimums, one banned phrase and two statistics.
 
-All nine brochures share the same page 2, 3, 11 and 14, so these fixes apply to the whole set unless stated.
+## What is already right, do not touch
+
+- **Three of the four hire rates**, and all the minimum hours: Dining Room £25, Terrace and Garden £25, Entire Pub £200 with its 4 hour / £800 minimum. Dining Room capacity 26 / 50.
+- **All 14 food packages**, prices and minimums: Fish and Chip Van 30, Sandwich 30, Finger 30, Premium 30, Burger 20, Indoor BBQ 20, Curry 30, Tex-Mex 30, Mediterranean 30, Pizza 10, Goujon Tray 25, Afternoon Tea 20, Prosecco Afternoon Tea 20, Petits Fours 30.
+- **All four children's lines** at £8.00 and £4.00, minimum 20 each.
+- **Unlimited Tea and Coffee** £5.00 min 20. **Pimm's** £8.00 min 40.
+- **The £250 refundable security deposit.** **Nikki Manfadge** as a paid drag host, £250 typical.
+- **"No setup fees."** All four spaces carry a zero setup fee.
+- **Room hire charged on Celebrations of Life.** Wakes are charged like any other booking.
+- **Bring your own food**, free, no minimum, organiser signs a waiver.
 
 ---
 
-## 1. Page 3, Venue Hire: capacities are wrong
+## 1. The Main Area is now £100 per hour, not £40
 
-The database is the source of truth. Three of the four cards need changing.
+Owner decision, 17 August 2026. Applied to the database already, so a fresh export reads the new rate.
+
+**£40 per hour becomes £100 per hour**, everywhere it appears:
+
+| Page | Brochures affected |
+|---|---|
+| Page 3, The Main Area card | All nine |
+| Page 4, The Main Area card | General, Birthdays, Engagement Parties |
+| The Whole List, "Main Area · min 1 hour" | All nine (page 14, but **page 13** on Celebrations of Life) |
+
+Existing bookings are unaffected: the system snapshots the agreed rate per booking, so the one confirmed Main Area booking (7 November 2026) keeps its £40 rate as quoted.
+
+## 2. Page 3, Venue Hire: two capacities are wrong
 
 | Card | Currently says | Must say |
 |---|---|---|
 | The Main Area | Seats 50 inside, 64 outside · Standing 300 | **Seats 29 · Standing 150** |
 | The Terrace and Garden | Seats 64 · Standing 150 | **Seats 64 · Standing 250** |
 | The Entire Pub | *(no capacity line)* | **Seats 119 · Standing 300** |
-| The Dining Room | Seats 26 · Standing 50 | Correct, no change |
+| The Dining Room | Seats 26 · Standing 50 | Correct |
 
-All four hourly rates are correct: £25, £25, £40, £200 per hour, with the 1 hour and 4 hour minimums as printed.
+The stale database figures that caused this (50 seated on the Main Area, 80 on the Entire Pub) have been corrected at source.
 
-**Why this happened:** the `venue_spaces` table has free-text descriptions that contradict its own capacity columns. The Main Area description says "50 guests seated", the actual column says 29. The Entire Pub description says "80 seated", the column says 119. Whoever built the brochure read the descriptions. Those two rows need correcting at source or this will happen again.
+## 3. Page 3, The Entire Pub: remove "wedding receptions"
 
-## 2. Page 3, The Entire Pub: remove "wedding receptions"
-
-Current text reads: "For the big ones: milestone birthdays, wedding receptions, wakes with a lot of people to look after."
+Currently: "For the big ones: milestone birthdays, wedding receptions, wakes with a lot of people to look after."
 
 We will take wedding bookings, but we are not marketing for them yet, so the word should not appear in print.
 
 **Replace with:** "For the big ones: milestone birthdays, big anniversaries, wakes with a lot of people to look after."
 
-## 3. Page 2, Welcome: the "300" statistic is wrong
+## 4. Page 2: both numbers in the stats row need changing
 
-The four stats read: 4 spaces · 24 packages · **300 standing guests in the main area at most** · 1751.
+Currently: 4 spaces · **24** packages · **300 standing guests in the main area at most** · 1751.
 
-300 is the whole-venue figure, not the main area. The main area holds 150.
+- **300 is the whole-venue figure.** The main area holds 150. Replace with "300 · Standing guests with the whole place to yourselves".
+- **24 becomes 25**, because orange juice is now its own product. See item 5.
 
-**Replace with:** "300 · Standing guests with the whole place to yourselves"
+"4 spaces to hire" and "1751" are correct.
 
-The other three stats are correct. I counted the packages listed on page 14 and it is exactly 24.
+## 5. Drinks: orange juice is now its own product
 
-## 4. Pages 11 and 14: two minimums have changed
+The database used to hold one combined "Welcome Prosecco/Orange Juice" at £9.00. It is now two products, so the brochure's £5.00 orange juice figure was right all along and simply needed a name.
 
-Both changed in the database on 17 August 2026.
+| Was | Now |
+|---|---|
+| "Welcome Prosecco or Orange Juice", £9.00 pp, min 20, with a sub-line "Orange juice £5.00 pp" | **Welcome Prosecco**, £9.00 pp, min 20 **and** **Welcome Orange Juice**, £5.00 pp, min 20, as two named entries |
+
+**Recommendation:** two separate entries rather than a price with a sub-line. That is how they appear on the customer's quote, and it makes the non-alcoholic option a real choice rather than a footnote. It is also what takes the package count to 25.
+
+Affects **page 11** in all nine, the **Whole List** in all nine, and **page 4** in General, Engagement Parties and Gender Reveal.
+
+## 6. Two drinks minimums have dropped to 10
 
 | Package | Printed | Now |
 |---|---|---|
 | Welcome Drinks | min 30 | **min 10** |
 | Bar Tab | min 30 | **min 10** |
 
-Page 14 shows both minimums in "The Whole List". Page 11 does not print them, so page 11 needs no change unless you want to add them.
+On the Whole List in all nine, plus **page 4** of Birthdays (Bar Tab) and Retirement Parties (Welcome Drinks).
 
-## 5. Page 11: the £5 orange juice line is now correct
+## 7. Page 4, the per-brochure "Suggested for you" cards
 
-**Resolved, no brochure change needed.** "Welcome Orange Juice" has been added to the management database at £5.00 per head, minimum 20 guests, as the non-alcoholic alternative to the Welcome Prosecco. Owner instruction, 17 August 2026. The brochure figure was right all along, the database was simply missing the product.
+Page 4 differs in every brochure, so these are individual. This corrects an earlier version of this brief, which missed the Gender Reveal prosecco card and the Birthdays capacity claim.
 
-One follow-up for the owner, not the designer: the older "Welcome Prosecco / Orange Juice" package at £9.00 still describes itself as covering "prosecco for adults or orange juice for children/non-drinkers". That reads oddly now a juice-only option exists at £5. Worth renaming it to "Welcome Prosecco" and narrowing the description.
+| Brochure | Page 4 changes |
+|---|---|
+| **General** | Main Area £40 to £100 · rename to "Welcome Prosecco" |
+| **Birthdays** | Main Area £40 to £100 · **"Up to 300 standing" becomes "Up to 150 standing"** · Bar Tab min 30 to 10 |
+| **Engagement Parties** | Main Area £40 to £100 · rename to "Welcome Prosecco" |
+| **Gender Reveal** | Rename to "Welcome Prosecco" |
+| **Retirement Parties** | Welcome Drinks min 30 to 10 |
+| Baby Shower, Christenings, Corporate, Celebrations of Life | No change, all four cards correct in each |
 
-## 6. VAT: decided, no change
+## 8. VAT: decided, no change
 
-Owner decision, 17 August 2026: **keep every price excluding VAT across all nine brochures.** No change needed.
+Owner decision: **keep every price excluding VAT across all nine.**
 
-I had recommended VAT-inclusive pricing on the eight consumer brochures. The owner has chosen ex-VAT throughout. The brochures already carry the wording "Prices are shown excluding VAT; VAT at 20% is added to your quote" on page 2 and "Prices exclude VAT at 20%" on the pricing pages, which is what makes this defensible. Keep that wording prominent and do not drop it from any page that shows a price.
+Keep the existing wording ("Prices are shown excluding VAT; VAT at 20% is added to your quote" on page 2, "Prices exclude VAT at 20%" on the pricing pages). Do not drop it from any page showing a price, as it is what makes ex-VAT display defensible to consumers.
 
-## 7. File sizes: too big to publish
+## 9. File sizes: too big to publish
 
-Each brochure is around 13MB, 119MB for the set. The embedded photos are at 374 to 515 ppi, far beyond what any screen or home printer uses.
+Each brochure is around 13MB, 119MB for the set. Photos are embedded at 374 to 515 ppi, far beyond what any screen or home printer uses.
 
-**Export at 150 ppi.** That should bring each one under 2MB with no visible quality loss. At current size they are a painful download on mobile and too heavy to sit in the website repository.
+**Export at 150 ppi.** That should bring each under 2MB with no visible quality loss.
 
-## 8. Worth checking
+## 10. Worth checking
 
-- **Cover photography.** The Baby Shower cover is stock imagery, not The Anchor. The interior shots on page 3 are genuinely ours. Worth checking the other eight covers, given the preference for real photos everywhere else.
-- **Page 13 reviews.** Quoted as real Google reviews from guests who booked. Please confirm each one is genuine and quoted accurately. Fake or embellished reviews are now a direct legal risk, and we removed fourteen invented testimonials from the site in August for exactly this reason.
+- **Celebrations of Life is 15 pages, not 16.** Its Whole List sits on page 13. Every "page 14" instruction above lands on page 13 in that one.
+- **Cover photography.** The Baby Shower cover is stock imagery, not The Anchor. The page 3 interiors are genuinely ours. Worth checking the other eight covers.
+- **Page 13 reviews.** Please confirm each quoted Google review is genuine and accurately quoted. Fake or embellished reviews are a direct legal risk, and fourteen invented testimonials were removed from the site in August for that reason.
 
 ---
 
-## Confirmed correct, do not change
-
-- All four venue hire rates and minimum hours.
-- Every buffet, hot food, afternoon tea, kids and drinks price.
-- Every catering minimum except Welcome Drinks and Bar Tab: Pizza 10, Burger 20, BBQ 20, Afternoon Tea 20, Prosecco Afternoon Tea 20, Kids food 20, Kids Squash 20, Tea and Coffee 20, Welcome Prosecco 20, Goujon Tray 25, Sandwich 30, Finger 30, Premium 30, Fish and Chip Van 30, Curry 30, Tex-Mex 30, Mediterranean 30, Petits Fours 30, Pimm's 40.
-- The £250 refundable security deposit.
-- Nikki Manfadge as a paid private-event drag host. Owner-confirmed 17 August 2026.
-- Room hire being charged on the Celebrations of Life brochure. Wakes are charged for like any other booking.
-- Bring your own food, free, no minimum, organiser signs a waiver.
-- The "prices were correct when this brochure was printed" disclaimer.
-
 ## Summary by page
 
-| Page | Change |
-|---|---|
-| 2 | Fix the "300 in the main area" statistic |
-| 3 | Fix Main Area and Terrace capacities, add Entire Pub capacity, remove "wedding receptions" |
-| 11 | Nothing. The £5 orange juice is now a real product. |
-| 14 | Welcome Drinks and Bar Tab minimums to 10 |
-| All | Re-export at 150 ppi. VAT stays excluded, decided. |
-
-That is four edits across two pages, plus the re-export.
+| Page | Change | Applies to |
+|---|---|---|
+| 2 | "300 in the main area" statistic · 24 becomes 25 | All nine |
+| 3 | Main Area rate to £100 · Main Area and Terrace capacities · add Entire Pub capacity · remove "wedding receptions" | All nine |
+| 4 | See the table in item 7 | Five brochures |
+| 11 | Split prosecco and orange juice into two named entries | All nine |
+| 14 (13 on Celebrations of Life) | Main Area rate to £100 · split prosecco and orange juice · Welcome Drinks and Bar Tab to min 10 | All nine |
+| All | Re-export at 150 ppi. VAT stays excluded. | All nine |
