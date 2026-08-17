@@ -74,29 +74,33 @@ Christening receptions sit somewhere between a formal dinner and a casual gather
 
 A buffet is the natural choice for christenings. It works for all ages, guests can eat at their own pace, and it takes the pressure off timing everything around a baby's mood.
 
-**Buffet options at The Anchor (all require minimum 30 guests):**
+**Buffet options at The Anchor:**
 
-| Package | Price per head |
+| Package | Minimum |
 |---|---|
-| Sandwich Buffet | current approved price |
-| Finger Buffet | current approved price |
-| Burger Buffet | current approved price |
-| Premium Buffet | current approved price |
-| Indoor BBQ | current approved price |
-| Chicken Goujon Sharing Tray | £35.00 (serves approximately 10, minimum 25 guests) |
+| Pizza Buffet | 10 guests |
+| Burger Buffet | 20 guests |
+| Indoor BBQ | 20 guests |
+| Afternoon Tea | 20 guests |
+| Prosecco Afternoon Tea | 20 guests |
+| Chicken Goujon Sharing Tray | 25 guests, each tray serves about 10 |
+| Sandwich Buffet | 30 guests |
+| Finger Buffet | 30 guests |
+| Premium Buffet | 30 guests |
 
-**Kids catering** is £8.00 per head, with choices of burger and chips, chicken nuggets and chips, or mini pizza and chips.
+**Kids catering** comes as burger and chips, chicken nuggets and chips, or mini pizza and chips, minimum 20 children.
 
 **Drinks packages to consider:**
 
-| Package | Price per head |
+| Package | Minimum |
 |---|---|
-| Welcome Drinks | £6.99 (minimum 10 guests) |
-| Welcome Prosecco or Orange Juice | £7.99 (minimum 10 guests) |
-| Unlimited Tea and Coffee | £4.49 (minimum 10 guests) |
-| Kids Unlimited Squash | £3.50 (minimum 10 guests) |
+| Welcome Drinks | 10 guests |
+| Bar Tab | 10 guests |
+| Welcome Prosecco or Orange Juice | 20 guests |
+| Unlimited Tea and Coffee | 20 guests |
+| Kids Unlimited Squash | 20 guests |
 
-For a christening, the welcome prosecco option works particularly well -- it gives guests something to toast with when they arrive from the church.
+For a christening, the welcome prosecco option works particularly well: it gives guests something to toast with when they arrive from the church. Put your numbers into the [private hire calculator](/private-hire) to see what any combination comes to.
 
 ## Step 5: The Cake Question
 
@@ -181,23 +185,17 @@ These are the things that make the difference between a smooth day and a stressf
 
 ## Step 10: Budget It Out
 
-Here's what a christening reception actually costs when you break it down. These are real numbers based on hosting at a pub venue like The Anchor, not aspirational figures from a wedding magazine.
+Work out roughly what yours will come to before you ring anyone. Our [private hire calculator](/private-hire) lets you put in your numbers, pick a room, choose the food and drinks, and see an estimate straight away. No form to fill in and nobody chasing you afterwards.
 
-**Example: 40-guest christening reception**
+The things worth deciding before you use it:
 
-| Item | Cost |
-|---|---|
-| Venue hire | £0 (no room hire at The Anchor -- quote-on-enquiry model) |
-| Finger Buffet (30 adults at current approved price) | £315.00 |
-| Kids Catering (10 children at £8.00) | £80.00 |
-| Welcome Prosecco/OJ (40 at £7.99) | £319.60 |
-| Unlimited Tea and Coffee (40 at £4.49) | £179.60 |
-| Kids Squash (10 at £3.50) | £35.00 |
-| Christening cake (bring your own) | £0 at venue |
-| Deposit | £250 (deducted from final bill) |
-| **Estimated total** | **approximately £930** |
+- **How many adults and how many children.** They are priced separately, and the children's options are portioned and priced for small appetites.
+- **Which room.** The dining room suits a smaller, quieter gathering. The main area or the garden if you have a crowd.
+- **How long you want it for.** Rooms are hired by the hour, so a lunchtime christening costs less than an all-afternoon one.
+- **Buffet or afternoon tea.** Afternoon tea suits a christening particularly well, and there is a prosecco version if you want a toast.
+- **Whether you want drinks sorted up front.** A welcome drink on arrival and unlimited tea and coffee take the queue away from the bar.
 
-That's a proper reception for 40 people -- welcome drinks, a full buffet, hot drinks, and kids sorted -- for under a grand. Try getting that at a hotel.
+A refundable £250 security deposit is usual on private bookings, and it sits separate from your bill.
 
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
@@ -209,7 +207,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 ### What if we have more than 50 guests?
 
-The Anchor's private hire space accommodates 10+ to 150 guests in the dining room. For larger gatherings, we can discuss using additional areas of the pub. Call us on 01753 682707 to talk through options.
+The dining room seats 26, or 50 standing. Above that we move you into the main area (29 seated, 150 standing) or the garden (64 seated, 250 standing). Private hire runs from 10 to 150 guests. Call us on 01753 682707 to talk through options.
 
 ### Is there a TV for a slideshow?
 

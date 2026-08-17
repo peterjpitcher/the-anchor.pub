@@ -919,7 +919,7 @@
       "Beer garden",
       "Dining room (private hire)"
     ],
-    "room_hire_charge": "Discuss on enquiry; do not publish minimum-spend wording.",
+    "room_hire_charge": "Charged by the hour, per space, live from the management DB venue_spaces.rate_per_hour. No setup fees. Wakes are charged for like any other booking (owner-confirmed 2026-08-17); do not publish minimum-spend wording.",
     "catering_buffet_from_gbp": "LIVE_FROM_DB",
     "catering_sitdown_from_gbp": "LIVE_FROM_DB",
     "christmas_menus_from_gbp": "LIVE_FROM_DB",
@@ -931,7 +931,7 @@
     "christmas_buffets": "Available for 30+ guests",
     "private_booking_deposit_gbp": 250,
     "catering_packages": {
-      "source": "anchor-management-tools database (2026-03-22)",
+      "source": "anchor-management-tools database catering_packages (verified 2026-08-17)",
       "buffet": [
         {
           "name": "Sandwich Buffet",
@@ -944,30 +944,65 @@
           "min_guests": 30
         },
         {
-          "name": "Burger Buffet",
-          "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 30
-        },
-        {
           "name": "Premium Buffet",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 30
         },
         {
-          "name": "Pizza Buffet",
-          "price_per_head_gbp": "menu priced",
-          "min_guests": 30
+          "name": "Burger Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
         },
         {
           "name": "Indoor BBQ",
           "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
+        },
+        {
+          "name": "Pizza Buffet",
+          "price_per_head_gbp": "menu priced",
+          "min_guests": 10
+        },
+        {
+          "name": "Fish & Chip Van",
+          "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 30
+        },
+        {
+          "name": "Indian-Inspired Curry Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Tex-Mex Hot Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Mediterranean Hot Buffet",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
+        },
+        {
+          "name": "Afternoon Tea",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
+        },
+        {
+          "name": "Prosecco Afternoon Tea",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
         },
         {
           "name": "Chicken Goujon Sharing Tray",
           "price_gbp": "LIVE_FROM_DB",
           "serves": "~10",
           "min_guests": 25
+        },
+        {
+          "name": "Petits Fours",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 30
         }
       ],
       "christmas": [
@@ -1011,58 +1046,70 @@
       "kids": [
         {
           "name": "Kids Burger & Chips",
-          "price_per_head_gbp": "LIVE_FROM_DB"
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
         },
         {
           "name": "Kids Chicken Nuggets & Chips",
-          "price_per_head_gbp": "LIVE_FROM_DB"
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
         },
         {
           "name": "Kids Mini Pizza & Chips",
-          "price_per_head_gbp": "LIVE_FROM_DB"
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20
         }
       ],
       "drinks": [
         {
           "name": "Welcome Drinks",
-          "price_per_head_gbp": "LIVE_FROM_DB",
+          "price": "quoted per booking",
           "min_guests": 10
         },
         {
           "name": "Welcome Prosecco/Orange Juice",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 10
+          "min_guests": 20
+        },
+        {
+          "name": "Welcome Orange Juice",
+          "price_per_head_gbp": "LIVE_FROM_DB",
+          "min_guests": 20,
+          "note": "Non-alcoholic alternative to the Welcome Prosecco. Added 2026-08-17."
         },
         {
           "name": "Unlimited Tea & Coffee",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 10
+          "min_guests": 20
         },
         {
           "name": "Kids Unlimited Squash",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 10
+          "min_guests": 20
         },
         {
           "name": "Pimm's Jar",
           "price_gbp": "LIVE_FROM_DB",
-          "min_guests": 30
+          "min_guests": 40
         },
         {
           "name": "Bar Tab",
-          "price": "variable"
+          "price": "variable, prepaid limit set by the organiser",
+          "min_guests": 10
         },
         {
           "name": "Bring Your Own Food",
-          "price": "free"
+          "price": "free, organiser signs an outside-food waiver",
+          "min_guests": 1
         }
-      ]
+      ],
+      "minimums_note": "The 30-guest minimum is a FESTIVE buffet rule, not a universal one. Year-round packages carry their own minimums and several are below 30. Corrected 2026-08-17 against the live catering_packages table."
     },
     "av_equipment": "TVs and sound system. No projector.",
     "dedicated_events_coordinator": true,
     "free_wifi": true,
     "free_parking": "For all attendees",
-    "wakes_speciality": "Private entrance area, short notice accepted",
+    "wakes_speciality": "Private entrance area, short notice accepted (24-48 hours). Room hire IS charged, at the standard hourly rate for the space (owner-confirmed 2026-08-17).",
     "event_types": [
       "Wakes / memorials",
       "Christenings",
@@ -1090,7 +1137,41 @@
         "drive_time": "15 minutes"
       }
     ],
-    "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF."
+    "catering_rule": "Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.",
+    "venue_hire_rates": {
+      "source": "anchor-management-tools database venue_spaces (2026-08-17)",
+      "note": "Capacities are the structured capacity_seated/capacity_standing columns. Do not read capacities from the description free text on the same row: Main Area and Entire Pub descriptions carry stale seated figures.",
+      "spaces": [
+        {
+          "name": "The Dining Room",
+          "seated": 26,
+          "standing": 50,
+          "rate_per_hour_gbp": "LIVE_FROM_DB",
+          "minimum_hours": 1
+        },
+        {
+          "name": "Outdoor Terrace/Garden",
+          "seated": 64,
+          "standing": 250,
+          "rate_per_hour_gbp": "LIVE_FROM_DB",
+          "minimum_hours": 1
+        },
+        {
+          "name": "The Main Area",
+          "seated": 29,
+          "standing": 150,
+          "rate_per_hour_gbp": "LIVE_FROM_DB",
+          "minimum_hours": 1
+        },
+        {
+          "name": "Entire Pub",
+          "seated": 119,
+          "standing": 300,
+          "rate_per_hour_gbp": "LIVE_FROM_DB",
+          "minimum_hours": 4
+        }
+      ]
+    }
   },
   "christmas_2026": {
     "_confirmed": "Owner-confirmed 2026-07-21, updated 2026-08-13 (menu published; Yorkshire pudding, roast potatoes, mashed potato and peas added to trimmings, with the vegan Wellington excepted). Canonical prose lives in docs/SSOT.md section 7. Supersedes every earlier Christmas 2026 statement.",
@@ -1446,7 +1527,8 @@
     "christmas_named_dishes": "The Christmas menu is NOT finalised. Never list or imply a specific Christmas dish. The only permitted wording is 'menu released closer to the time'.",
     "christmas_sub_6_or_same_day": "Christmas bookings under 6 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",
     "buffet_minimum_25_or_26": "WRONG. The festive buffet minimum is 30 guests everywhere. Correct any 25 or 26 figure in the management database, in this file or in page copy.",
-    "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'."
+    "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'.",
+    "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema."
   },
   "resolved_inconsistencies": [
     {

@@ -110,10 +110,10 @@ export default async function WakesPage() {
                 image="/images/page-headers/private-hire/private-hire.jpg"
                 crumb="Wakes"
                 title="Wakes, Funeral Receptions & Celebrations of Life"
-                lead="A peaceful, respectful venue for gathering with family and friends. There is no room hire charge for wakes, a private entrance area is available, and we can arrange everything at 24 to 48 hours' notice."
+                lead="A peaceful, respectful venue for gathering with family and friends. A private entrance area is available, and we can arrange everything at 24 to 48 hours' notice."
                 badges={
                     <>
-                        <Badge variant="sand">No Room Hire Charge</Badge>
+                        <Badge variant="sand">Private Entrance</Badge>
                         <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
                         <Badge variant="sand">Compassionate Team</Badge>
                         <Badge variant="sand">{fromPrice ? `Funeral Tea from ${fromPrice}pp` : 'Current catering packages'}</Badge>
@@ -176,7 +176,7 @@ export default async function WakesPage() {
                     <Card accent className="mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
-                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities. There is no room hire charge for wakes, and a private entrance area is available.</p>
+                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities, and a private entrance area is available.</p>
                         </CardBody>
                     </Card>
                 </Container>
@@ -408,7 +408,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "How much does a wake reception cost?",
-                        answer: "There is no room hire charge for wakes. You pay only for the catering you choose and anything from the bar. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. Staff and parking are included."
+                        answer: "Yes. Room hire is charged by the hour for the space you use, on top of the catering you choose and anything from the bar. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. Staff and parking are included."
                     },
                     {
                         question: "Can we bring our own flowers or photos?",

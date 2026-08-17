@@ -468,7 +468,9 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Nikki's Games Night
 
-Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/games nights as a recurring format. Nikki currently hosts Music Bingo only.
+Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/games nights as a recurring **public** format.
+
+**Nikki as a private-event host is a live, bookable offer** (owner-confirmed 17 August 2026). Nikki Manfadge can host private bookings as a drag host, priced per booking. This is separate from the public events programme, where Nikki hosts Music Bingo only. Private-hire pages and the 2026 event brochures may offer Nikki as a paid add-on; the public events pages still must not list Nikki-hosted nights as a recurring fixture.
 
 ### Tasting Nights
 
@@ -488,21 +490,39 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 - **Capacity:** 10+ – 150 guests. (Full venue exclusive hire: 119 seated or 300 standing; 60 seated at Christmas, 200 standing.) Values from the management DB `venue_spaces`: dining room 26 seated / 50 standing, main area 29 / 150, garden 64 / 250, whole venue 119 / 300.
 - **Dining room:** 26 seated or up to 50 standing. French doors open onto the beer garden.
 - **Spaces available:** Beer garden, dining room.
-- **Room hire charge:** Discuss on enquiry. Do not publish minimum-spend wording.
+- **Room hire charge:** Charged by the hour, per space, from the management DB `venue_spaces.rate_per_hour`. Rates are published (see the table below). No setup fees. Do not publish minimum-spend wording. **Wakes are charged for like any other booking** (owner-confirmed 17 August 2026); the older "no room hire charge for wakes" line is retired.
 - **Deposit:** £250.
 - **Pricing rule:** Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.
 
-### Catering, Buffet (verified prices)
+### Venue hire rates (live, DB `venue_spaces`)
+
+| Space | Seated | Standing | Rate | Minimum |
+|---|---|---|---|---|
+| The Dining Room | 26 | 50 | (live, DB) per hour | 1 hour |
+| Outdoor Terrace / Garden | 64 | 250 | (live, DB) per hour | 1 hour |
+| The Main Area | 29 | 150 | (live, DB) per hour | 1 hour |
+| Entire Pub (exclusive) | 119 | 300 | (live, DB) per hour | 4 hours |
+
+Capacities here are the structured `capacity_seated` / `capacity_standing` columns, which are canonical. **Do not take a capacity from the `description` free text on the same row.** The Main Area and Entire Pub descriptions carry stale figures (50 seated and 80 seated respectively) that contradict their own structured columns. That mismatch is what put the wrong Main Area capacity into the 2026 event brochures.
+
+### Catering, Buffet (verified against the management DB, 17 August 2026)
 
 | Package | Price | Minimum |
 |---|---|---|
 | Sandwich Buffet | (live, DB) | 30 guests |
 | Finger Buffet | (live, DB) | 30 guests |
-| Burger Buffet | (live, DB) | 30 guests |
 | Premium Buffet | (live, DB) | 30 guests |
-| Pizza Buffet | menu priced | 30 guests |
-| Indoor BBQ | (live, DB) | 30 guests |
+| Burger Buffet | (live, DB) | 20 guests |
+| Indoor BBQ | (live, DB) | 20 guests |
+| Pizza Buffet | menu priced | 10 guests |
+| Fish & Chip Van | (live, DB) | 30 guests |
+| Indian-Inspired Curry Buffet | (live, DB) | 30 guests |
+| Tex-Mex Hot Buffet | (live, DB) | 30 guests |
+| Mediterranean Hot Buffet | (live, DB) | 30 guests |
+| Afternoon Tea | (live, DB) | 20 guests |
+| Prosecco Afternoon Tea | (live, DB) | 20 guests |
 | Chicken Goujon Sharing Tray | (live, DB) (serves ~10) | 25 guests |
+| Petits Fours | (live, DB) | 30 guests |
 
 ### Festive buffets (seasonal, minimum 30 guests)
 
@@ -512,21 +532,26 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 | Festive Hot Finger | (live, DB) | 30 guests |
 | Festive Premium Grazing | (live, DB) | 30 guests |
 
-The 30-guest minimum applies everywhere. Any 25-guest or 26-guest figure still showing in the management database, in `SSOT.json` or in page copy is wrong and must be corrected to 30.
+**The 30-guest minimum is a festive-buffet rule, not a universal one.** Year-round packages carry their own minimums, listed above, and several are below 30. Any earlier "30 everywhere, no exceptions" wording is wrong and was corrected on 17 August 2026 against the live `catering_packages` table. The one figure that must never drop is the **festive** buffet minimum of 30.
 
 ### Drinks Packages
 
 | Package | Price | Minimum |
 |---|---|---|
-| Welcome Drinks | (live, DB) | 10 |
-| Welcome Prosecco / Orange Juice | (live, DB) | 10 |
-| Unlimited Tea and Coffee | (live, DB) | 10 |
-| Kids Unlimited Squash | (live, DB) | 10 |
-| Pimm's Jar | (live, DB) | 30 |
-| Bar Tab | variable |, |
-| Bring Your Own Food | free |, |
+| Welcome Drinks | quoted per booking | 10 |
+| Bar Tab | variable, prepaid limit set by the organiser | 10 |
+| Welcome Prosecco / Orange Juice | (live, DB) | 20 |
+| Welcome Orange Juice | (live, DB) | 20 |
+| Unlimited Tea and Coffee | (live, DB) | 20 |
+| Kids Unlimited Squash | (live, DB) | 20 |
+| Pimm's Jar | (live, DB) | 40 |
+| Bring Your Own Food | free, organiser signs an outside-food waiver | none |
+
+**Welcome Orange Juice** is the non-alcoholic alternative to the Welcome Prosecco, added to the management DB on 17 August 2026 at the owner's instruction. Note the overlap: the older **Welcome Prosecco / Orange Juice** package still describes itself as covering "prosecco for adults or orange juice for children/non-drinkers" at the higher price, which now reads oddly next to a cheaper juice-only option. Flagged for the owner to decide whether that package should be renamed to Welcome Prosecco and its description narrowed.
 
 ### Kids Catering
+
+Minimum 20 children on each.
 
 - Kids Burger and Chips: (live, DB).
 - Kids Chicken Nuggets and Chips: (live, DB).
@@ -538,7 +563,7 @@ Equipment and services: TVs and sound system (no projector) · Dedicated events 
 
 ### Event types offered
 
-Wakes / memorials · Christenings · Engagement parties · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties. (Canonical list: `SSOT.json` `private_hire.event_types`. Never "weddings" or "wedding receptions", see §14.)
+Wakes / memorials · Christenings · Engagement parties · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties. (Canonical list: `SSOT.json` `private_hire.event_types`. On weddings, see §14: bookings are accepted, but we do not market or optimise for them yet.)
 
 > **Pre-order language is allowed** for private events, and for the **2-course and 3-course** Christmas tiers only. The **1-course** Christmas tier is pre-book **without** pre-order, so blanket "Christmas is pre-order only" copy is wrong, see §7. The 2026-05-17 walk-in change applies only to the **Sunday roast service**, it does not affect private-hire pre-ordering.
 
@@ -547,7 +572,7 @@ Wakes / memorials · Christenings · Engagement parties · Baby showers · Gende
 ### Wakes, speciality
 
 - Private entrance area.
-- No room hire charge.
+- **Room hire is charged**, at the standard hourly rate for the space. Owner-confirmed 17 August 2026. Never publish "no room hire charge for wakes".
 - Short notice accepted (24–48 hours).
 
 ### Nearby venues for wakes
@@ -625,7 +650,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
 - **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only, so describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
-- **Wedding receptions**, we host smaller private events only, not wedding receptions.
+- **Wedding receptions**, updated 17 August 2026. We **will take** wedding reception bookings, so do not refuse or deny the offer if a customer asks. We do **not** market or optimise for them yet: no wedding landing page, no wedding keywords, no "wedding venue" positioning in page copy, meta, schema or `SSOT.json`. Treat it as a quiet yes on enquiry, not a promoted product. Revisit if the owner decides to push it.
 
 ## 15. Maintaining This Document
 

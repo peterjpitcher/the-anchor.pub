@@ -190,7 +190,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     ],
                 },
                 packagesHeading: 'Catering for the gathering',
-                packagesIntro: 'We offer buffets, afternoon teas and unlimited tea and coffee, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options for mixed groups. There is no room hire charge for wakes, and we will give you a clear, tailored quote when you call.',
+                packagesIntro: 'We offer buffets, afternoon teas and unlimited tea and coffee, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options for mixed groups. We will give you a clear, tailored quote covering room hire and catering when you call.',
                 faqs: [
                     {
                         question: `How far is The Anchor from ${name}?`,
@@ -206,7 +206,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there a room hire charge for a wake?',
-                        answer: 'No. There is no room hire charge for wakes. You will only pay for the catering and refreshments you choose, and we will quote that clearly in advance.',
+                        answer: 'Yes. Room hire is charged by the hour for the space you use, alongside the catering and refreshments you choose. We will quote the whole thing clearly in advance so there are no surprises.',
                     },
                     {
                         question: 'Is there parking for funeral cars?',

@@ -235,7 +235,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       {
         href: '/private-hire/wakes',
         label: 'Wakes and memorials',
-        description: 'A quiet private room near local crematoriums, with no room hire charge.',
+        description: 'A quiet private room near local crematoriums, with a private entrance area.',
         anchor: 'wake venue near Heathrow'
       },
       {
