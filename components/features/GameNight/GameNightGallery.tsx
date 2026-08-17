@@ -47,12 +47,15 @@ export function GameNightGallery({
             <h2 className="text-h3 text-ink-strong">{title}</h2>
             {intro && <p className="mt-3 text-ink-muted">{intro}</p>}
           </div>
+          {/* eagerCount 0: this gallery is well below the fold, so nothing here
+              should compete with the hero or the booking form for bandwidth. */}
           <Gallery
             images={photos}
             columns={3}
             gap="md"
             showCaptions
             showFilter={false}
+            eagerCount={0}
           />
           <p className="mt-6 text-center text-sm text-ink-muted">
             Real photos from {gameName} at The Anchor. Tap any picture to see it bigger.

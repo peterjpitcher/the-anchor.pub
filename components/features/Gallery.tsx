@@ -31,6 +31,16 @@ interface GalleryProps {
   showFilter?: boolean
   className?: string
   onImageClick?: (image: GalleryImage, index: number) => void
+  /**
+   * How many tiles load eagerly. Set to 0 when the gallery sits below the fold.
+   *
+   * Eagerly loading four tiles that nobody can see yet competes with the hero and
+   * the booking form for bandwidth, which matters on a page paid traffic lands on.
+   * It also makes the fourth tile the last thing the dev server optimises, so it
+   * shows as a blank card for several seconds locally and looks like a broken
+   * image when it is not.
+   */
+  eagerCount?: number
 }
 
 export function Gallery({
@@ -40,7 +50,8 @@ export function Gallery({
   showCaptions = true,
   showFilter = true,
   className,
-  onImageClick
+  onImageClick,
+  eagerCount = 4
 }: GalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null)
@@ -221,7 +232,7 @@ export function Gallery({
                     fill
                     sizes={`(max-width: 768px) 100vw, (max-width: 1200px) ${100/columns}vw, ${1200/columns}px`}
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    loading={index < 4 ? "eager" : "lazy"}
+                    loading={index < eagerCount ? "eager" : "lazy"}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colours duration-300" />
 
