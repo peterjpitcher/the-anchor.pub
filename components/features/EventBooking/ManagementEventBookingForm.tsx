@@ -873,46 +873,67 @@ export function ManagementEventBookingForm({
             </div>
           )}
 
-          {isCommunalEvent ? (
+          {/* Three states, not one.
+
+              The radios used to render on every communal event regardless of
+              what was actually on sale. Since every hosted night currently comes
+              back with standing_remaining: 0, that meant a permanently greyed-out
+              Standing option reading "Standing tickets are not available" on
+              every single booking, under a heading inviting you to choose. A
+              disabled control is a promise the page cannot keep, and on a booking
+              form it reads as an unfinished system rather than a deliberate
+              choice.
+
+              Both live      → show the radios, because there is a real choice.
+              Standing only  → no radios, but say plainly that the booking will be
+                               for standing. The effect above has already switched
+                               the preference, and switching silently would mean a
+                               customer discovering it on arrival.
+              Seated only    → nothing to show. This is the everyday case.
+              Neither        → the sold-out and waitlist path handles it. */}
+          {isCommunalEvent && !seatedDisabled && !standingDisabled ? (
             <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
               <legend className="px-1 text-sm font-semibold text-ink">Ticket type</legend>
               <div className="grid gap-2 sm:grid-cols-2">
-                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-55">
+                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5">
                   <input
                     type="radio"
                     name="seating_preference"
                     value="seated"
                     checked={seatingPreference === 'seated'}
-                    disabled={seatedDisabled}
                     onChange={() => setSeatingPreference('seated')}
                     className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
                   />
                   <span>
                     <span className="block text-sm font-semibold text-ink">Seated</span>
                     <span className="block text-xs leading-relaxed text-ink-muted">
-                      {seatedDisabled ? 'Seated places are full.' : 'Communal table seating.'}
+                      Communal table seating.
                     </span>
                   </span>
                 </label>
-                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-55">
+                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5">
                   <input
                     type="radio"
                     name="seating_preference"
                     value="standing"
                     checked={seatingPreference === 'standing'}
-                    disabled={standingDisabled}
                     onChange={() => setSeatingPreference('standing')}
                     className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
                   />
                   <span>
                     <span className="block text-sm font-semibold text-ink">Standing</span>
                     <span className="block text-xs leading-relaxed text-ink-muted">
-                      {standingDisabled ? 'Standing tickets are not available.' : 'Same event price. No table seat included.'}
+                      Same event price. No table seat included.
                     </span>
                   </span>
                 </label>
               </div>
             </fieldset>
+          ) : isCommunalEvent && seatedDisabled && !standingDisabled ? (
+            <p className="rounded-sm border border-line bg-surface-sunk p-2.5 text-sm leading-relaxed text-ink">
+              Seated places are full, so this booking will be for standing tickets. Same event price,
+              no table seat included.
+            </p>
           ) : null}
 
           <div className="grid grid-cols-2 gap-2">

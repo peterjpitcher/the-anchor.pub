@@ -111,6 +111,9 @@ describe('getEventBookingCopy', () => {
       booking_mode: 'communal',
       payment_mode: 'cash_only',
       price_per_seat: 10,
+      // Standing tickets genuinely on sale, which is what earns the
+      // seated-or-standing label. Without this the copy must not offer a choice.
+      standing_remaining: 12,
       offers: { price: '10', priceCurrency: 'GBP', '@type': 'Offer', availability: '', validFrom: '' }
     } as any
 
@@ -130,6 +133,44 @@ describe('getEventBookingCopy', () => {
         standing_remaining: 8
       })
     ).toBe('8 standing left')
+  })
+
+  // Regression guard for the case that is actually live on every hosted night at
+  // The Anchor: booking_mode is communal but standing_remaining is 0, so there is
+  // no seated-or-standing choice to offer. The copy used to promise one anyway,
+  // and the booking form then rendered a greyed-out Standing option saying it was
+  // unavailable.
+  it('does not offer a standing choice on a communal event with no standing tickets', () => {
+    const event = {
+      name: 'Cabaret Night',
+      startDate: '2026-05-08T20:00:00+01:00',
+      booking_mode: 'communal',
+      payment_mode: 'cash_only',
+      price_per_seat: 10,
+      standing_remaining: 0,
+      offers: { price: '10', priceCurrency: 'GBP', '@type': 'Offer', availability: '', validFrom: '' }
+    } as any
+
+    const copy = getEventBookingCopy(event)
+
+    expect(copy.label).toBe('Book your places')
+    expect(copy.policy).not.toContain('standing')
+  })
+
+  it('treats a missing standing_remaining as no standing tickets', () => {
+    const event = {
+      name: 'Karaoke Night',
+      startDate: '2026-09-18T20:00:00+01:00',
+      booking_mode: 'communal',
+      payment_mode: 'free',
+      isAccessibleForFree: true,
+      offers: { price: '0', priceCurrency: 'GBP', '@type': 'Offer', availability: '', validFrom: '' }
+    } as any
+
+    expect(getEventBookingCopy(event).label).toBe('Book your places')
+    expect(getEventBookingReassurance(event)).toBe(
+      'No payment needed. Book a free place for each person so we know how many seats to lay out.'
+    )
   })
 
   it('surfaces sold-out availability clearly', () => {

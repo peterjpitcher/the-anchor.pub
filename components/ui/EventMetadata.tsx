@@ -55,7 +55,10 @@ export function EventMetadata({
     if (doorTimeText) {
       metadata.push({
         icon: '',
-        label: 'Doors',
+        // "Arrive from", never "Doors": docs/SSOT.md §10 bans the wording,
+        // because the pub opens at 12pm and a "Doors" label reads as an opening
+        // time.
+        label: 'Arrive from',
         value: doorTimeText
       })
     }

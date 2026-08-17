@@ -5,11 +5,12 @@ import {
   getEventOnlineSavingText,
   getEventTicketPrice,
   getEventUnitPrice,
+  isFreeEvent,
 } from '@/lib/event-booking-experience'
 
 type EventPriceSource = Pick<
   Event,
-  'name' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'ticketTypes' | 'ticket_types'
+  'name' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'ticketTypes' | 'ticket_types' | 'isAccessibleForFree' | 'is_free'
 >
 
 export function getEventPriceLabel(event: EventPriceSource): string | null {
@@ -24,6 +25,12 @@ export function getEventPriceLabel(event: EventPriceSource): string | null {
       return `from ${formatEventBookingMoney(0)}`
     }
   }
+
+  // Free events say "Free", and must be answered before the price parse below.
+  // getEventTicketPrice() returns null for a zero price just as it does for a
+  // missing one, so a free night used to fall through to the caller's fallback
+  // and render "Price: Check booking step" on an event that costs nothing.
+  if (isFreeEvent(event)) return 'Free'
 
   const ticketPrice = getEventTicketPrice(event)
   if (ticketPrice === null || ticketPrice <= 0) return null

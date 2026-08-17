@@ -408,10 +408,19 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
+    // Seated is full and standing is not, so there is no choice left to offer.
+    // The form says so in a sentence instead of rendering a radio group with one
+    // permanently disabled option, which is what it used to do.
     expect(screen.queryByText('Seated places are full. 9 standing tickets available.')).not.toBeInTheDocument()
-    expect(screen.getByText('Seated places are full.')).toBeInTheDocument()
-    expect(screen.getByRole('radio', { name: /Seated/i })).toBeDisabled()
-    await waitFor(() => expect(screen.getByRole('radio', { name: /Standing/i })).toBeChecked())
+    expect(
+      screen.getByText(/Seated places are full, so this booking will be for standing tickets/i)
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('radio', { name: /Seated/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('radio', { name: /Standing/i })).not.toBeInTheDocument()
+    // The preference really did switch to standing: the submit label proves it.
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Book standing tickets' })).toBeInTheDocument()
+    )
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '3' } })
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's

@@ -1,9 +1,9 @@
 import type { Event } from '@/lib/api'
-import { formatEventBookingMoney, getEventBookingReassurance, getEventOnlineSavingText, getEventUnitPrice } from '@/lib/event-booking-experience'
+import { formatEventBookingMoney, getEventBookingReassurance, getEventOnlineSavingText, getEventUnitPrice, hasStandingTickets } from '@/lib/event-booking-experience'
 
 type EventBookingCopySource = Pick<
   Event,
-  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value'
+  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'standing_remaining'
 >
 
 export type EventBookingCopy = {
@@ -57,9 +57,17 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   const arrivalReassurance = getEventBookingReassurance(event)
 
   if (isCommunalBooking(event)) {
+    // Only offer the seated/standing choice when standing tickets are genuinely
+    // on sale. See hasStandingTickets() in lib/event-booking-experience.ts: every
+    // hosted night currently returns standing_remaining: 0, so this label used to
+    // promise a choice the booking form then greyed out.
+    const standingAvailable = hasStandingTickets(event)
+
     return {
-      label: 'Book seated or standing tickets',
-      policy: `${arrivalReassurance} Choose seated tickets for communal table seating or standing tickets if seats are full.`,
+      label: standingAvailable ? 'Book seated or standing tickets' : 'Book your places',
+      policy: standingAvailable
+        ? `${arrivalReassurance} Choose seated tickets for communal table seating or standing tickets if seats are full.`
+        : `${arrivalReassurance} Seating is communal, so book everyone in your group together and we will seat you together.`,
       foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
       suppressRawCancellationPolicy: false
     }

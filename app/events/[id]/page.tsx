@@ -425,7 +425,8 @@ export default async function EventPage({ params }: Props) {
     // Designed artwork already carries the date and start time as part of the
     // design, and the facts strip immediately below repeats both again. Saying
     // it three times makes all three look cheap, so the badges stand down.
-    // Doors is kept either way: it is in neither the artwork nor the strip.
+    // The arrival time is kept either way: it is in neither the artwork nor the
+    // strip. It renders as "Arrive from 6:30pm", never "Doors" (docs/SSOT.md §10).
     ...(hasOwnArtwork
       ? []
       : [

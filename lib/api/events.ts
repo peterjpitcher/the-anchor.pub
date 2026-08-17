@@ -599,21 +599,29 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
   return event.description
 }
 
-// Helper to format door time as a bare clock time, e.g. "6:30pm".
-// Use this wherever the caller renders its own "Doors" label, otherwise the
-// label is printed twice ("Doors Doors: 6:30pm").
+// Helper to format the arrival time as a bare clock time, e.g. "6:30pm".
+// Use this wherever the caller renders its own "Arrive from" label, otherwise the
+// label is printed twice.
 export function formatDoorClockTime(doorTimeString: string | null | undefined): string | null {
   if (!doorTimeString) return null
 
   return formatEventLocalTime(doorTimeString)
 }
 
-// Helper to format door time as a self-describing label, e.g. "Doors: 6:30pm".
-// Only for standalone use (badges, metadata rows with no label of their own).
+// Helper to format the arrival time as a self-describing label, e.g.
+// "Arrive from 6:30pm". Only for standalone use (badges, metadata rows with no
+// label of their own).
+//
+// The label was "Doors: 6:30pm" until 17 August 2026. docs/SSOT.md §10 bans
+// "Doors" wording outright: the pub opens at 12pm, hours before any event, so a
+// "Doors 6:30pm" badge tells a customer the place is shut until then and costs
+// the earlier food trade. The four category pages had already been fixed; this
+// was the last place the banned wording still reached a customer, in the hero
+// badge strip on every individual event page.
 export function formatDoorTime(doorTimeString: string | null | undefined): string | null {
   const clockTime = formatDoorClockTime(doorTimeString)
 
-  return clockTime ? `Doors: ${clockTime}` : null
+  return clockTime ? `Arrive from ${clockTime}` : null
 }
 
 // Helper to format event duration
