@@ -27,96 +27,88 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 
+/**
+ * The title stays pub-qualified on purpose. GKP measures "bingo night near me"
+ * and "pub bingo near me" at 500 UK searches a month each, while every town-level
+ * bingo term ("bingo staines", "bingo night surrey", "bingo ashford middlesex")
+ * returned no data at all. The unqualified "bingo" SERP belongs to Buzz Bingo
+ * Feltham and the online operators, so chasing it would be spending relevance on
+ * a fight we lose. See tasks/keyword-plan-game-nights-2026-08-17.md.
+ */
 export const metadata: Metadata = {
-  title: 'Pub Bingo Night Near Heathrow | Cash Prizes & Jackpots',
+  title: 'Pub Bingo Near Me | Cash Bingo at The Anchor, Stanwell Moor',
   description:
-    'Pub bingo night near Heathrow at The Anchor. Cash bingo with £10 tickets, cash prizes, snowball bonus, and jackpot rounds in Stanwell Moor.',
+    'Traditional cash bingo at The Anchor, Stanwell Moor. £10 a book, cash only, ten games, winnings paid out on the night and a rolling snowball jackpot. 18+ to play.',
   openGraph: {
-    title: 'Pub Bingo Night Near Heathrow | The Anchor',
-    description: 'Bingo night near Heathrow with cash prizes, snowball bonus, and jackpot rounds at The Anchor, Stanwell Moor.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+    title: 'Cash Bingo at The Anchor, Stanwell Moor',
+    description: 'Ten games, £10 a book, cash only, winnings paid out on the night and a rolling snowball jackpot.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Cash bingo at The Anchor pub in Stanwell Moor' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Bingo Night Near Heathrow | The Anchor',
-    description: 'Bingo night near Heathrow with cash prizes, snowball bonus, and jackpot rounds at The Anchor, Stanwell Moor.',
+    title: 'Cash Bingo at The Anchor, Stanwell Moor',
+    description: 'Ten games, £10 a book, cash only, winnings paid out on the night and a rolling snowball jackpot.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
-    canonical: '/cash-bingo'
+    canonical: './'
   }
 }
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
 
-const WHY_LOVE_IT = [
+/**
+ * Three cards, replacing a five-card block that read as though it had been
+ * written for a keyword tool rather than a customer: "bingo games for money",
+ * "bingo hall", "bingo room", "bingo number caller", "play bingo for cash". The
+ * repetition is what a newcomer notices, and it made the page feel machine
+ * written rather than like the local pub it is describing.
+ */
+const WHAT_IT_IS = [
   {
-    icon: '',
-    title: 'Cash-first bingo night',
-    body: 'Ten lively bingo games for money with £10 bingo books (tickets), instant cash prizes, a snowball bingo bonus that climbs by £20 each month and a jackpot bingo pot that rolls to £300+ when the room sells out.'
+    title: 'One book, ten games',
+    body: 'A book costs £10 in cash and covers every game of the night. Half of all book sales go into the final cash jackpot, so the fuller the room, the bigger that last prize gets.'
   },
   {
-    icon: '',
-    title: 'Classic calls with Anchor humour',
-    body: 'Traditional bingo calls and bingo numbers delivered by our bingo number caller, mixed with Anchor in-jokes, Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
+    title: 'Winnings paid on the night',
+    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from month to month.'
   },
   {
-    icon: '',
-    title: 'Freshly-cooked fuel',
-    body: 'Our full, delicious menu is served 6 pm–9 pm on bingo nights, so you can order burgers, sharers and puddings straight to your table between games.'
-  },
-  {
-    icon: '',
-    title: 'Perfect night out',
-    body: 'Book sales from 6 pm, eyes down at 7 pm, finale by 9:30 pm. Ideal for Heathrow crews, locals, work mates and birthday nights.'
-  },
-  {
-    icon: '',
-    title: 'Snowball loyalty perks',
-    body: 'Attend three in a row to unlock the rolling snowball on Game 9. We track regulars on the Snowball Register so loyalty really does pay.'
+    title: 'The rolling snowball',
+    body: 'Every month nobody claims it, the snowball grows by £20 and gains two extra calls, which makes it easier to win the longer it survives. The current target is on the event listing.'
   }
 ]
 
 const FAQS = [
   {
-    question: 'When does cash bingo start and finish?',
+    question: 'What time does cash bingo start and finish?',
     answer:
-      'Book sales and seating open at 6 pm. Bingo starts at 7 pm and runs to around 9:30 pm with two 10-minute breaks for food, drinks and extra book sales.'
+      'Please arrive by 6:30pm so you have time for a drink, to order food and to buy your books. The first game is at 7pm and we finish around 9:30pm, with breaks along the way. The pub itself is open from 12pm, so you are welcome much earlier.'
   },
   {
     question: 'How much is it to play and how do I pay?',
     answer:
-      'Each bingo book (your bingo tickets for the night) is £10 and payment is cash-only (same for £1 daubers). Prizes are paid out in cash on the night, so bring notes or hit the ATM before you arrive.'
-  },
-  {
-    question: 'Do I need to book in advance?',
-    answer:
-      'Yes, tables sell fast. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event, check back nearer the date or call 01753 682707 and we’ll help.'
+      'Each book is £10 and covers all ten games. Books and £1 daubers are cash only, and winnings are paid out in cash on the night, so bring notes. The bar itself takes card as normal.'
   },
   {
     question: 'Is there an age limit for bingo night?',
     answer:
-      'Cash bingo is primarily an over-18 event but supervised children are welcome. Keep phones on silent and little ones seated with their grown-ups during games.'
+      'You need to be 18 or over to buy a book and play for the cash prizes. Supervised under-18s are welcome to come along with you, they just cannot play.'
   },
   {
-    question: 'What are the prizes and how does the snowball work?',
+    question: 'How does the snowball jackpot work?',
     answer:
-      'Expect a lively combination of free drinks, chocolate, quiz tickets, food vouchers, £10 cash boosts, a snowball bonus and a jackpot pot that grows with every £10 book sold. The snowball headline increases by £20 each month it rolls over, and we add two extra calls every time to make it easier to win.'
+      'It is a full house within a set number of calls. Each month it goes unclaimed it grows by £20 and gains two extra calls, so it gets easier to win over time. The current target and who is eligible are on the event listing below, because those change every month.'
   },
   {
-    question: 'Do you serve food and drinks?',
+    question: 'Do I need to book in advance?',
     answer:
-      'Absolutely. Our full menu and bar service run 6 pm–9 pm on bingo nights. Order before the first game or during the breaks and we’ll deliver everything straight to your table.'
+      'Yes, we would recommend it. Seating is communal, so booking everyone in one go is how we make sure your group sits together. If booking is not open yet, call 01753 682707.'
   },
   {
     question: 'Can we host a private cash bingo fundraiser?',
     answer:
-      'Yes. From corporate socials to charity nights we can supply callers, books and prize structure. Email manager@the-anchor.pub or call 01753 682707 to build a bespoke package.'
-  },
-  {
-    question: 'Where can I see the latest dates?',
-    answer:
-      'Check the Upcoming Bingo Dates below or visit our What’s On page. Bonus specials are announced there first, so it’s the best place to keep tabs on the next cash bingo night.'
+      'Yes. From corporate socials to charity nights we can supply callers, books and a prize structure. Email manager@the-anchor.pub or call 01753 682707.'
   }
 ]
 
@@ -128,18 +120,19 @@ function BingoEventCards({ events }: { events: Event[] }) {
       bookingSource="cash_bingo_event_card"
       imageAltSuffix="cash bingo night at The Anchor"
       renderMeta={(_event, doorTime) => (
-        <p className="text-xs text-ink-muted">Arrive from {doorTime ?? '6:00pm'} • £10 cash book</p>
+        <p className="text-xs text-ink-muted">Arrive by {doorTime ?? '6:30pm'} • £10 cash book</p>
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
-          £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20, and two extra calls, each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
+          One £10 cash-only book covers all ten games, and half of every book sold goes into the
+          final jackpot. The snowball grows by £20, and two extra calls, each time it rolls over.
         </p>
       )}
       emptyState={
         <>
-          <p className="text-lg font-semibold text-accent-text mb-2">New cash bingo dates are loading soon</p>
+          <p className="mb-2 text-lg font-semibold text-accent-text">New cash bingo dates are loading soon</p>
           <p className="text-ink-muted">
-            We’re finalising the next jackpot night. Call 01753 682707 and we’ll text you as soon as books go on sale.
+            We&rsquo;re finalising the next jackpot night. Call 01753 682707 and we&rsquo;ll text you as soon as books go on sale.
           </p>
         </>
       }
@@ -150,12 +143,15 @@ function BingoEventCards({ events }: { events: Event[] }) {
 export default async function CashBingoPage() {
   const events = await getGameNightEvents(cashBingo)
   const nextEvent = events[0]
-    const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
-  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
+  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
+  // 6:30pm, owner-confirmed 17 August 2026: "I want people in for 6:30pm so they
+  // have time to get a drink, order some food, get their books and get comfortable
+  // for a 7pm start." The page previously gave three different arrival times.
+  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
 
-	  const heroDescription = nextEvent
-	    ? `Arrive from ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
-	    : 'Arrive from 6:00 pm. Bingo starts at 7:00 pm with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
+  const heroDescription = nextEvent
+    ? `Arrive by ${doorTime} and the first game is at ${nextEventTime}. Books are £10 each, cash only, bought when you get here.`
+    : 'Arrive by 6:30pm and the first game is at 7pm. Books are £10 each, cash only, bought when you get here.'
 
   return (
     <>
@@ -181,12 +177,15 @@ export default async function CashBingoPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
-            Cash Bingo Night & Bingo Games: Stanwell Moor & Heathrow
+            Cash Bingo in Stanwell Moor
           </PageTitle>
-          <p className="text-lg text-ink-muted text-center mx-auto">
-            Searching for cash bingo games near Heathrow? If you're after things to do near Heathrow, our bingo nights are a local favourite. Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
+          <p className="mx-auto text-center text-lg text-ink-muted">
+            Traditional bingo in a village pub rather than a bingo hall: ten games, a friendly caller,
+            numbers on the pub screens, and hot food from the kitchen while you play. Everyone aged 18
+            or over can play and win, and supervised under-18s are welcome to come along.{' '}
+            {heroDescription}
           </p>
-          <div className="flex justify-center mt-4">
+          <div className="mt-4 flex justify-center">
             <PsychBadge variant="prize" label="Cash prizes every game" />
           </div>
         </Container>
@@ -194,7 +193,7 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
             <SectionViewTracker sectionId="cash_bingo_booking">
               <GameNightBooking
                 events={events}
@@ -203,24 +202,28 @@ export default async function CashBingoPage() {
                 bookingNote={cashBingo.bookingNote}
               />
             </SectionViewTracker>
-            {/* Right column stacks the "how it feels" card and the objections. The
+            {/* Right column stacks the "what £10 buys" card and the objections. The
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}
             <div className="space-y-6">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">How the night feels</h3>
-                <p className="text-ink-muted">
-                  We keep things punchy in the bingo room: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
-                </p>
-                <p className="text-ink-muted">
-                  Expect classic bingo banter, cheeky spot prizes and a snowball countdown that gets louder as the numbers close in. When you shout bingo, our host will check the board and make sure the pot lands in the right hands.
-                </p>
-                <p className="text-sm text-ink-muted">
-                  Caller’s decision is final, mobiles stay on silent and tied games split the winnings evenly.
-                </p>
-              </CardBody>
-            </Card>
+              <Card accent>
+                <CardBody className="space-y-4">
+                  <h3 className="text-h4 text-ink-strong">What your £10 buys</h3>
+                  <p className="text-ink-muted">
+                    One book, covering all ten games of the night. Half of every book sold goes into
+                    the final cash jackpot, so it grows with the size of the room.
+                  </p>
+                  <p className="text-ink-muted">
+                    Ten quick games with two planned pauses, so you can top up drinks and order from
+                    the kitchen without missing a call. Expect classic bingo banter, spot prizes and a
+                    snowball countdown that gets louder as the numbers close in.
+                  </p>
+                  <p className="text-sm text-ink-muted">
+                    Caller&rsquo;s decision is final, mobiles stay on silent, and tied games split the
+                    winnings evenly.
+                  </p>
+                </CardBody>
+              </Card>
 
               <SectionViewTracker sectionId="cash_bingo_objections">
                 <GameNightObjections
@@ -239,15 +242,20 @@ export default async function CashBingoPage() {
         gameName={cashBingo.name}
         gameSlug={cashBingo.slug}
         title="What a cash bingo night looks like"
-        intro="Real photos from recent nights. Ten games, cash prizes paid out on the night, and a snowball that grows every month nobody claims it."
+        intro="Real photos from recent nights. Ten games, winnings paid out on the night, and a snowball that grows every month nobody claims it."
       />
 
       <section id="bingo-dates" className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
-            <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming cash bingo dates</h2>
-            <p className="text-ink-muted text-center mb-8">
-              We’ve listed confirmed bingo nights below. For the very latest schedule, including bonus specials, visit our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707.
+            <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming cash bingo dates</h2>
+            <p className="mb-8 text-center text-ink-muted">
+              Confirmed nights are below, each with its own snowball target. For everything else we
+              have on, see{' '}
+              <Link href="/whats-on" className="font-semibold text-accent-text hover:text-accent-text">
+                What&rsquo;s On
+              </Link>{' '}
+              or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="cash_bingo_dates">
               <BingoEventCards events={events} />
@@ -256,91 +264,17 @@ export default async function CashBingoPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto grid gap-6 md:grid-cols-3">
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">Sunday Roast Bingo Weekends</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Walk in for Sunday roast 1pm-6pm and tuck in before book sales start at 6 pm. Perfect for family bingo nights.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="bingo_roast_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book Sunday Roast
-                  </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Sunday roast menu
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">Stone-Baked Pizza Warm-Up</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Hand-stretched pizzas with bold toppings. Share slices between games without leaving your table.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="bingo_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    View pizza menu
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">All-Day Menu & Cocktails</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Burgers, pizzas, puddings and themed cocktails delivered direct to your bingo table throughout the night.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="bingo_food_menu_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Browse food & drinks
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
+      <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto">
-            <h2 className="text-h2 text-ink-strong mb-8 text-center">
-              Why everyone loves cash bingo at The Anchor
-            </h2>
-            <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
-              {WHY_LOVE_IT.map(feature => (
-                <GridItem key={feature.title}>
+            <h2 className="mb-8 text-center text-h3 text-ink-strong">How the night works</h2>
+            <Grid cols={3} gap="md">
+              {WHAT_IT_IS.map(item => (
+                <GridItem key={item.title}>
                   <Card accent className="h-full">
                     <CardBody className="space-y-3">
-                      <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-ink-strong">{feature.title}</h3>
-                      <p className="text-ink-muted text-sm leading-relaxed">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-ink-strong">{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-ink-muted">{item.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -350,57 +284,26 @@ export default async function CashBingoPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface-sunk">
-        <Container>
-          <div className="mx-auto text-ink-muted space-y-4">
-            <h2 className="text-h3 text-ink-strong text-center">What’s up for grabs?</h2>
-	            <p>
-	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20, and two additional calls, each month it survives, so loyal dabbers see the prize get juicier and easier to win.
-	            </p>
-          </div>
-        </Container>
-      </section>
-
+      {/* One food section, not the previous three-card row. The first of those
+          cards promoted a Sunday roast warm-up, which was nonsense on this page:
+          every listed cash bingo date is a Wednesday, and it also sat oddly beside
+          an 18-plus-to-play night. */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto">
-            <h2 className="text-h3 text-ink-strong text-center mb-6">Tips for playing bingo for cash</h2>
-            <p className="text-ink-muted text-center mx-auto mb-6">
-              Looking to “play bingo for cash” like a pro? These quick-fire tips from our regulars help you stay sharp and give the snowball your best shot.
+          <div className="mx-auto text-center">
+            <h2 className="mb-3 text-h4 text-ink-strong">Eat before the first game</h2>
+            <p className="mb-5 text-ink-muted">
+              The full menu runs until 9pm, so order at your table when you arrive or during one of
+              the breaks. You do not need a separate dining booking, because your bingo booking is
+              your seat for the night.
             </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-	                  <h3 className="text-xl font-semibold text-ink-strong">Bring the right kit</h3>
-	                  <p className="text-ink-muted text-sm leading-relaxed">
-	                    Cash-only entry, so bring notes and coins for bingo tickets, £10 bingo books and £1 daubers. Pack spare daubers or lucky charms, confidence helps when the jackpot numbers fall.
-	                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Arrive early for the best spots</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Book sales open at 6 pm. Bingo start time is 7 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Keep your focus between calls</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Use the breaks to stretch, order drinks and catch up. During games keep conversations low, phones away and eyes on the card so you never miss the bingo calls or numbers.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Build your snowball streak</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Attend each cash bingo night and we tick you off on the Snowball Register. Every consecutive month boosts your eligibility when the snowball finally lands.
-                  </p>
-                </CardBody>
-              </Card>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <BookTableButton source="bingo_food_cta" variant="outline" size="sm">
+                Book a table for another night
+              </BookTableButton>
+              <Link href="/food-menu" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
+                See the food menu {'>'}
+              </Link>
             </div>
           </div>
         </Container>
@@ -411,17 +314,29 @@ export default async function CashBingoPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto text-center">
-            <h2 className="text-h4 text-ink-strong mb-3">Prefer music bingo?</h2>
-            <p className="text-ink-muted mb-4">
-              We also run <Link href="/music-bingo" className="text-accent-text hover:text-accent-text font-semibold">Music Bingo</Link>, a separate event where you mark off songs instead of numbers. Same pub, different buzz. Check <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What&apos;s On</Link> for upcoming dates of both.
+            <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            <p className="text-ink-muted">
+              Prefer songs to numbers? We also run{' '}
+              <Link href="/music-bingo" className="font-semibold text-accent-text hover:text-accent-text">
+                music bingo
+              </Link>
+              , where you mark off tracks instead. There is also a{' '}
+              <Link href="/quiz-night" className="font-semibold text-accent-text hover:text-accent-text">
+                Wednesday pub quiz
+              </Link>{' '}
+              and{' '}
+              <Link href="/karaoke" className="font-semibold text-accent-text hover:text-accent-text">
+                karaoke
+              </Link>{' '}
+              when a night is listed.
             </p>
           </div>
         </Container>
       </section>
 
       <CtaBand
-        title="Ready to shout “Bingo”?"
-        copy="Reserve your table now and buy your £10 cash book when you arrive."
+        title="Ready to shout bingo?"
+        copy="Reserve your places now and bring £10 cash per book for when you arrive."
       >
         <GameNightCtaActions
           gameSlug={cashBingo.slug}
@@ -433,36 +348,37 @@ export default async function CashBingoPage() {
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
             <div>
-              <h2 className="text-h4 text-ink-strong mb-3">Find us</h2>
-              <p className="text-ink-muted mb-4">
-                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
+              <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
+              <p className="mb-4 text-ink-muted">
+                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
+                Bedfont and Egham, with 20 free parking spaces on site.
               </p>
-              <ul className="space-y-3 text-ink-muted text-sm">
-                <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
-                <li><strong>Public transport:</strong> 441 & 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> Step-free bar and dining areas, flexible seating for players, and no accessible toilet.</li>
+              <ul className="space-y-3 text-sm text-ink-muted">
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
+                <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
+                <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating for players, and no accessible toilet.</li>
               </ul>
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 font-semibold text-anchor-green transition hover:bg-anchor-green hover:text-white"
                 >
-                   Get directions
+                  Get directions
                 </Link>
                 <Link
                   href="https://wa.me/441753682707"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold-dark px-4 py-2 text-accent-text font-semibold hover:bg-anchor-gold-dark hover:text-anchor-green transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold-dark px-4 py-2 font-semibold text-accent-text transition hover:bg-anchor-gold-dark hover:text-anchor-green"
                 >
-                   WhatsApp the team
+                  WhatsApp the team
                 </Link>
               </div>
             </div>
-            <div className="bg-surface border border-line rounded-xl overflow-hidden shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-line bg-surface shadow-sm">
               <GoogleMapEmbed
                 query="The Anchor, Stanwell Moor"
-                className="h-full min-h-[300px] border border-line rounded-xl overflow-hidden shadow-sm"
+                className="h-full min-h-[300px] overflow-hidden rounded-xl border border-line shadow-sm"
               />
             </div>
           </div>

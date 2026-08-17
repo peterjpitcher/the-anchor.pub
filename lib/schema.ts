@@ -208,14 +208,17 @@ export const quizNightEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#quiz-night-series",
   "name": "Monthly Quiz Night at The Anchor",
-  "description": "Test your knowledge at our popular monthly quiz night. £3 per person, teams up to 6, with a £25 bar tab for the winners.",
+  "description": "Test your knowledge at our monthly Wednesday pub quiz. £3 per person, teams up to 6, 7pm to 9:30pm, with a £25 bar tab for the winners.",
   "startDate": "2024-01-01",
   "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
     "startTime": "19:00:00",
-    "endTime": "22:00:00",
+    // 21:30, owner-confirmed 17 August 2026 and matching `end_time` on every
+    // scheduled quiz in the management DB. This said 22:00, which was later than
+    // both the page copy (9:45pm) and the event records (9:30pm).
+    "endTime": "21:30:00",
     "scheduleTimezone": "Europe/London"
   },
   "location": {
@@ -261,14 +264,16 @@ export const bingoEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#bingo-series",
   "name": "Monthly Cash Bingo Night",
-  "description": "Monthly bingo night, £10 per book, cash only. 10 games with various prizes including drinks, chocolate, vouchers, and a cash jackpot on the last game.",
+  "description": "Monthly cash bingo night, £10 per book, cash only. 10 games with various prizes, plus a rolling snowball and a cash jackpot on the last game. 18+ to play.",
   "startDate": "2024-01-01",
   "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
     "startTime": "19:00:00",
-    "endTime": "21:00:00",
+    // 21:30, matching `end_time` on every scheduled cash bingo in the management
+    // DB. This said 21:00 while the page said "finale by 9:30pm".
+    "endTime": "21:30:00",
     "scheduleTimezone": "Europe/London"
   },
   "location": {

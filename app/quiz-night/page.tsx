@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { Badge, Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
+import { Badge, Container, Card, CardBody } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -26,101 +26,78 @@ import { JsonLd } from '@/components/JsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
+/**
+ * Title and description carry "pub quiz near me" and "Wednesday", which are the
+ * two measured wins for this page: GKP puts "pub quiz near me" and "quiz night
+ * near me" at 5,000 UK searches a month each, and "wednesday pub quiz" at 500 at
+ * a paid competition index of zero. See
+ * tasks/keyword-plan-game-nights-2026-08-17.md.
+ *
+ * "Cash Prizes" was removed from the title on 17 August 2026. The advertised
+ * prize is a £25 bar tab, not cash, so the old title promised something the page
+ * does not deliver and would have been earning clicks it then disappointed.
+ */
 export const metadata: Metadata = {
-  title: 'Pub Quiz Night Near Heathrow | £3 Entry, Cash Prizes',
+  title: 'Pub Quiz Near Me | Wednesday Quiz Night at The Anchor',
   description:
-    "Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.",
+    'Monthly Wednesday pub quiz at The Anchor, Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners. Free parking, solo players matched up.',
   openGraph: {
-    title: 'Pub Quiz Night Near Heathrow & Staines | The Anchor',
-    description: 'Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+    title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
+    description: 'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Quiz night at The Anchor pub in Stanwell Moor' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Quiz Night Near Heathrow & Staines | The Anchor',
-    description: 'Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.',
+    title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
+    description: 'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
-    canonical: '/quiz-night'
+    canonical: './'
   }
 }
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
 
-const WHY_LOVE_IT = [
-  {
-    icon: '',
-    title: 'Four Curated Rounds',
-    body: 'Every quiz night quiz features four curated rounds mixing legends, cult film clues, riddles and general trivia. Expect 50% easy wins, 35% brain-teasers and a tasty 15% "ooh, good one".'
-  },
-  {
-    icon: '',
-    title: 'Phone-Free, Pen & Paper Fun',
-    body: 'Proper pub quiz energy with PG-13 questions so crews, families and Heathrow stopovers feel right at home. Solo players get paired on arrival.'
-  },
-  {
-    icon: '',
-    title: 'Prizes & Bragging Rights',
-    body: '£25 bar tab for the champions, bottle of house wine for the second-from-last team, and seasonal props for the best team name. Bonus trivia prompts scoop extra bragging points.'
-  },
-  {
-    icon: '',
-    title: 'Atmosphere from 6:30 pm',
-    body: 'Tables set from 6:30pm with themed playlists, seasonal décor and limited-edition cocktails behind the bar. Order dinner before the first round lands.'
-  },
-  {
-    icon: '',
-    title: 'Community Night Out',
-    body: 'Friendly quizmasters, a welcoming Stanwell Moor crowd and plenty of laughs whether you’re local or flying in from Heathrow.'
-  }
-]
-
+/**
+ * Six questions, down from nine.
+ *
+ * The three that went were a duplicate private-quiz question, a "do you run quiz
+ * nights on weekends" filler, and a "closest pub quiz near Heathrow hotels"
+ * question aimed at airport guests. This page is for people who live within a few
+ * miles: the keyword data shows the demand sits in "pub quiz near me", not in
+ * hotel-adjacent phrasing.
+ */
 const FAQS = [
   {
     question: 'When does the quiz start and how long does it run?',
     answer:
-      'Tables are set from 6:30 pm for food and team set-up, and the pub is open long before that. Questions start at 7:00 pm sharp and we wrap with prizes around 9:45 pm including a comfort break halfway through.'
+      'Questions start at 7pm and we aim to finish at 9:30pm, with a comfort break halfway through. Tables are set from 6:30pm, and the pub itself is open from 12pm, so come early and eat first if you want to.'
   },
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s £3 per player. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event, check back nearer the date or call 01753 682707 and we’ll help.'
+      'It is £3 per player, paid in cash on the night. Booking is worth doing because it holds your team’s seats: if booking is open you will see a button above, and if not, call 01753 682707.'
   },
   {
     question: 'How many players can we bring?',
     answer:
-      'Teams are capped at six players to keep things fair. Smaller groups and solo quizzers are welcome, we happily pair you with other legends on the night.'
+      'Teams are capped at six to keep it fair. Smaller groups and solo players are welcome, and we pair solo quizzers up with others on arrival.'
   },
   {
     question: 'Can kids or dogs come to quiz night?',
     answer:
-      'Yes. Families are welcome all evening and well-behaved dogs can curl up under the table. Just remember it’s a phone-free quiz during rounds (there’s a –5 point penalty for sneaky scrolling).'
+      'Yes to both. Families are welcome all evening and well-behaved dogs can curl up under the table. It is a phone-free quiz during the rounds, with a 5 point penalty for a sneaky scroll.'
   },
   {
     question: 'What food and drink is available?',
     answer:
-      'Order from the food menu before the quiz starts or during the break. Kitchen times come from the live hours for that date, with cocktails, mocktails and bottled ales available from the bar.'
+      'The kitchen runs to 9pm, so order before the first round or during the comfort break. Cocktails, mocktails and bottled ales are available from the bar all evening.'
   },
   {
-    question: 'What if we want to celebrate a win or host a private quiz?',
+    question: 'Do you host private or corporate quiz nights?',
     answer:
-      'Talk to us about post-quiz celebrations or booking the function room for a bespoke trivia night. Email manager@the-anchor.pub or call 01753 682707 and we’ll build the perfect package.'
-  },
-  {
-    question: 'Do you host private trivia parties or corporate quiz nights?',
-    answer:
-      'Absolutely. We run custom trivia nights for corporate teams, birthdays and fundraisers with tailored rounds and prizes. Drop us a line at manager@the-anchor.pub or call 01753 682707 and we’ll plan a private pub trivia party around your group.'
-  },
-  {
-    question: 'Is this the closest pub quiz near Heathrow hotels?',
-    answer:
-      'Yes, we\'re just seven minutes from Heathrow Terminal 5 and 8 minutes from Staines. We\'re the go-to “pub quiz near me” for airport crews, local hotels and Stanwell Moor neighbours looking for a proper quiz night without London prices.'
-  },
-  {
-    question: 'Do you run quiz nights on weekends?',
-    answer:
-      "Our quiz night is monthly and dates vary. Keep an eye on the What’s On page or call 01753 682707 for the next date."
+      'Yes. We run custom trivia nights for corporate teams, birthdays and fundraisers with tailored rounds and prizes. Email manager@the-anchor.pub or call 01753 682707.'
   }
 ]
 
@@ -128,8 +105,8 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
   return (
     <Card accent className="h-full">
       <CardBody>
-        <h3 className="text-lg font-semibold text-ink-strong mb-2">{title}</h3>
-        <p className="text-2xl text-accent-text mb-3">{reward}</p>
+        <h3 className="mb-2 text-lg font-semibold text-ink-strong">{title}</h3>
+        <p className="mb-3 text-2xl text-accent-text">{reward}</p>
         <p className="text-sm text-ink-muted">{copy}</p>
       </CardBody>
     </Card>
@@ -156,15 +133,15 @@ function QuizNightEvents({ events }: { events: Event[] }) {
             <Badge variant="sand">Bottle of wine for second-from-last</Badge>
           </div>
           <p className="text-sm text-ink-muted">
-            £3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
+            7pm to 9:30pm · Teams up to six · Solo players welcome, we&rsquo;ll match you on arrival
           </p>
         </>
       )}
       emptyState={
         <>
-          <p className="text-lg font-semibold text-accent-text mb-2">New quiz dates are loading soon</p>
+          <p className="mb-2 text-lg font-semibold text-accent-text">New quiz dates are loading soon</p>
           <p className="text-ink-muted">
-            Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
+            Our next quiz night is being finalised right now. Call 01753 682707 and we&rsquo;ll let you know as soon as booking opens.
           </p>
         </>
       }
@@ -175,12 +152,12 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 export default async function QuizNightPage() {
   const events = await getGameNightEvents(quizNight)
   const nextEvent = events[0]
-  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
-  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
+  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
+  const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
 
-	  const heroDescription = nextEvent
-	    ? `Arrive from ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`
-	    : 'Arrive from 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.'
+  const heroDescription = nextEvent
+    ? `Tables are set from ${doorTime} and the quiz starts at ${nextEventTime}, finishing around 9:30pm. It's £3 per player, so build a team of up to six or arrive solo and we'll match you.`
+    : "Tables are set from 6:30pm and the quiz starts at 7pm, finishing around 9:30pm. It's £3 per player, so build a team of up to six or arrive solo and we'll match you."
 
   return (
     <>
@@ -206,15 +183,17 @@ export default async function QuizNightPage() {
       {/* Definitive answer for featured snippets */}
       <section className="bg-surface-sunk border-b border-line py-section-y">
         <Container>
-          <p className="text-center text-lg md:text-xl text-ink-muted mx-auto leading-relaxed">
-            The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
+          <p className="mx-auto text-center text-lg leading-relaxed text-ink-muted md:text-xl">
+            The Anchor runs a monthly Wednesday pub quiz in Stanwell Moor, near Staines. Entry is
+            &pound;3 per player, teams are up to six, the quiz runs 7pm to 9:30pm, and the winners
+            take a &pound;25 bar tab.
           </p>
         </Container>
       </section>
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
+          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
             <SectionViewTracker sectionId="quiz_night_booking">
               <GameNightBooking
                 events={events}
@@ -227,21 +206,25 @@ export default async function QuizNightPage() {
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}
             <div className="space-y-6">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">How the night runs</h3>
-                <ul className="space-y-3 text-ink-muted">
-                  <li><strong>6:30 pm</strong> · Tables set, soundtrack on, grab sharers & themed cocktails.</li>
-                  <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
-                  <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
-                  <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders (kitchen closes 9pm).</li>
-                  <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
-                </ul>
-                <p className="text-sm text-ink-muted">
-                  Teams up to six. House rule: phones away during rounds or it’s a cheeky –5 points. We keep things welcoming, witty and PG-13.
-                </p>
-              </CardBody>
-            </Card>
+              <Card accent>
+                <CardBody className="space-y-4">
+                  <h3 className="text-h4 text-ink-strong">How the night runs</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li><strong>6:30pm</strong> · tables set, soundtrack on, order food while you settle in.</li>
+                    <li><strong>7pm</strong> · first round. Four rounds of ten questions, general knowledge, no specialist subjects.</li>
+                    <li><strong>8:15pm</strong> · interactive quick-fire round to get everyone on their feet.</li>
+                    <li><strong>8:30pm</strong> · comfort break and last call for the kitchen, which closes at 9pm.</li>
+                    {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
+                        21:30 in the management DB. This said 9:45pm while the event
+                        pages said 9:30pm. */}
+                    <li><strong>9:30pm</strong> · final scores, prizes and best team name.</li>
+                  </ul>
+                  <p className="text-sm text-ink-muted">
+                    Teams up to six. House rule: phones away during the rounds, or it is a cheeky 5
+                    point penalty. Friendly rather than serious, with the odd bit of adult humour.
+                  </p>
+                </CardBody>
+              </Card>
 
               <SectionViewTracker sectionId="quiz_night_objections">
                 <GameNightObjections
@@ -266,10 +249,12 @@ export default async function QuizNightPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
-            Pub Quiz Night Near Heathrow &amp; Staines: Monthly at The Anchor
+            Wednesday Pub Quiz in Stanwell Moor
           </PageTitle>
-          <p className="text-lg text-ink-muted text-center mx-auto">
-            Looking for a pub quiz in Staines, Stanwell Moor or near Heathrow? Once a month we turn The Anchor into a trivia night for locals, airport crews and anyone who fancies a proper pub quiz in Surrey. {heroDescription}
+          <p className="mx-auto text-center text-lg text-ink-muted">
+            Once a month we turn The Anchor into a proper pub quiz for Stanwell Moor, Staines,
+            Ashford and Bedfont. No app, no specialist rounds, no need for a full team.{' '}
+            {heroDescription}
           </p>
         </Container>
       </section>
@@ -277,9 +262,13 @@ export default async function QuizNightPage() {
       <section id="quiz-dates" className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
-            <h2 className="text-h3 text-ink-strong text-center mb-6">Upcoming quiz night dates</h2>
-            <p className="text-ink-muted text-center mb-8">
-              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-accent-text hover:text-accent-text font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+            <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming quiz night dates</h2>
+            <p className="mb-8 text-center text-ink-muted">
+              Confirmed dates are below. For everything else we have on, see{' '}
+              <Link href="/whats-on" className="font-semibold text-accent-text hover:text-accent-text">
+                What&rsquo;s On
+              </Link>{' '}
+              or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="quiz_night_dates">
               <QuizNightEvents events={events} />
@@ -288,203 +277,72 @@ export default async function QuizNightPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto grid gap-6 md:grid-cols-3">
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">Eat Before You Quiz</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Kitchen open until 9pm on quiz night. Arrive early and fuel up on pizzas, burgers, or pie and mash before the first round.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="quiz_night_food_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    See the food menu →
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">Stone-Baked Pizza Teams</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Arrive early and fuel up on stone-baked pizzas before trivia kicks off.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="quiz_night_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    View pizza menu →
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-accent-text mb-2">All-Day Menu & Cocktails</h3>
-                <p className="text-sm text-ink-muted mb-4">
-                  Order sharers, burgers or themed cocktails delivered to your table during breaks.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="quiz_night_food_menu_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Browse food & drinks →
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto">
-            <h2 className="text-h2 text-ink-strong mb-8 text-center">
-              Why everyone loves The Anchor quiz night
-            </h2>
-            <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
-              {WHY_LOVE_IT.map(feature => (
-                <GridItem key={feature.title}>
-                  <Card accent className="h-full">
-                    <CardBody className="space-y-3">
-                      <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-ink-strong">{feature.title}</h3>
-                      <p className="text-ink-muted text-sm leading-relaxed">{feature.body}</p>
-                    </CardBody>
-                  </Card>
-                </GridItem>
-              ))}
-            </Grid>
-          </div>
-        </Container>
-      </section>
-
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto">
-	            <h2 className="text-h3 text-ink-strong text-center mb-6">Prizes & bragging rights</h2>
-	            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-	              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
-	              <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
-	              <PrizeCard title="Bonus Challenges" reward="Surprise Treats" copy="Nail the bonus prompts to pick up Anchor goodies and bragging rights." />
-	            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface-sunk">
-        <Container>
-          <div className="mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">Make a night of it</h3>
-                <ul className="space-y-3 text-ink-muted">
-                  <li><strong>Food served until 9pm:</strong> pizzas, burger stacks, pies and seasonal specials.</li>
-                  <li><strong>Drinks menu:</strong> draught lagers, bottled ales, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
-                  <li><strong>Stay comfy:</strong> plenty of parking right outside.</li>
-                  <li><strong>Travelling?</strong> We’re 7 minutes from Heathrow Terminal 5 and on the 441/555 bus routes.</li>
-                </ul>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">Quiz Night House Rules</h3>
-                <ul className="space-y-3 text-ink text-sm">
-                  <li>Phones away during questions (–5 points if we catch a scroll).</li>
-                  <li>Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
-                  <li>Dogs welcome, water bowls and treats ready behind the bar.</li>
-                  <li>Charity pot when available supports local causes. We’ll shout about the beneficiary each month.</li>
-                </ul>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto">
-            <h2 className="text-h3 text-ink-strong text-center mb-6">Quiz team tips for the win</h2>
-	            <p className="text-ink-muted text-center mx-auto mb-6">
-	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
-	            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Balance your brain power</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Mix general knowledge legends with niche specialists, think music, sport, film buffs and a wildcard who reads the news. Diverse teams smash the picture and music rounds every time.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Pick a memorable team name</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Punny trivia team names earn bonus applause (and we award a seasonal prop for the best one). Keep a shortlist ready so you can rotate it for every monthly quiz night.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Nominate a scribe & rules coach</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    Agree who writes the answers and who double-checks spelling before you hand the sheet in. It keeps debates quick and protects those half-point bonuses.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Arrive early, fuel up</h3>
-                  <p className="text-ink-muted text-sm leading-relaxed">
-                    We set the tables from 6:30 pm, grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
-                  </p>
-                </CardBody>
-              </Card>
+            <h2 className="mb-6 text-center text-h3 text-ink-strong">What you are playing for</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
+              <PrizeCard title="Second from last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
+              <PrizeCard title="Best team name" reward="Seasonal Prop" copy="Worth the effort. The room decides whether you earned it." />
             </div>
           </div>
         </Container>
       </section>
 
+      {/* One food section, not the previous three-card row of near-identical
+          "Book a Table" buttons. Three separate dining CTAs on a page whose
+          primary action is an event booking made a visitor wonder whether they
+          needed two bookings. They do not. */}
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto text-center">
-            <h2 className="text-h4 text-ink-strong mb-3">More Things to Do at The Anchor</h2>
-            <p className="text-ink-muted">
-              Not a quiz night? No problem. Play along at our monthly <Link href="/music-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">Music Bingo</Link> with Nikki Manfadge, chase the jackpot at <Link href="/cash-bingo" className="text-accent-text font-semibold hover:text-accent-text transition">cash prize bingo</Link>, or grab the mic at a <Link href="/karaoke" className="text-accent-text font-semibold hover:text-accent-text transition">karaoke night</Link> when one is listed.
+            <h2 className="mb-3 text-h4 text-ink-strong">Eat before you quiz</h2>
+            <p className="mb-5 text-ink-muted">
+              The kitchen runs to 9pm on quiz night: pizzas, burgers, pies and the full menu. Order at
+              your table before the first round or during the comfort break. You do not need a
+              separate dining booking, because your quiz booking is your team&rsquo;s table.
             </p>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <BookTableButton source="quiz_night_food_cta" variant="outline" size="sm">
+                Book a table for another night
+              </BookTableButton>
+              <Link href="/food-menu" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
+                See the food menu {'>'}
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
 
       <FAQAccordionWithSchema faqs={FAQS} />
 
+      <section className="py-section-y bg-surface">
+        <Container>
+          <div className="mx-auto text-center">
+            <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            <p className="text-ink-muted">
+              Not a quiz night? Play along at{' '}
+              <Link href="/music-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
+                music bingo
+              </Link>{' '}
+              with Nikki Manfadge, chase the snowball at{' '}
+              <Link href="/cash-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
+                cash bingo
+              </Link>
+              , or grab the microphone at{' '}
+              <Link href="/karaoke" className="font-semibold text-accent-text transition hover:text-accent-text">
+                karaoke
+              </Link>{' '}
+              when a night is listed.
+            </p>
+          </div>
+        </Container>
+      </section>
+
       <CtaBand
         title="Ready to play for the tab?"
-        copy="Reserve your spot or call the bar team and we’ll make sure your table’s ready."
+        copy="Book your team in, or call the bar and we'll make sure your seats are ready."
       >
         <GameNightCtaActions
           gameSlug={quizNight.slug}

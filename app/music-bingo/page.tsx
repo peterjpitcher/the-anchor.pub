@@ -29,100 +29,88 @@ import {
 import Link from 'next/link'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { JsonLd } from '@/components/JsonLd'
-import { bingoEventSeries } from '@/lib/schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
+/**
+ * Title carries both measured clusters for this page: "music bingo near me" and
+ * "drag bingo near me" each measure 500 UK searches a month in GKP at a paid
+ * competition index of zero, and Music Bingo is the only drag night The Anchor
+ * runs (docs/SSOT.md permits drag-host wording here and nowhere else). See
+ * tasks/keyword-plan-game-nights-2026-08-17.md.
+ */
 export const metadata: Metadata = {
-  title: 'Music Bingo Near Heathrow | Win Every Round',
+  title: 'Music Bingo Near Me | Drag Music Bingo at The Anchor',
   description:
-    'Singalong Music Bingo at The Anchor, Stanwell Moor, song snippets replace numbers, prizes every round. Book early, it sells out. 7 mins from Heathrow T5.',
+    'Music bingo at The Anchor, Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games, £5 cash entry. It sells out, so book ahead.',
   openGraph: {
-    title: 'Music Bingo Near Heathrow | The Anchor',
-    description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+    title: 'Music Bingo at The Anchor, Stanwell Moor',
+    description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Music bingo at The Anchor pub in Stanwell Moor' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Music Bingo Near Heathrow | The Anchor',
-    description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',
+    title: 'Music Bingo at The Anchor, Stanwell Moor',
+    description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
-    canonical: '/music-bingo'
+    canonical: './'
   }
 }
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
 
-const WHY_LOVE_IT = [
+/**
+ * Three steps rather than the previous four-card "tips for a winning card" block
+ * plus a separate "how to play" card plus a five-card "why everyone loves it"
+ * grid. All three said roughly the same thing and none of them matched a keyword
+ * with measured demand.
+ */
+const HOW_TO_PLAY = [
   {
-    icon: '',
-    title: 'Songs replace numbers',
-    body: 'We play short clips from chart hits, throwbacks, and guilty pleasures. Mark the track on your card and you are closer to a line.'
+    title: 'Hear the clip',
+    body: 'Short bursts of chart hits, throwbacks and guilty pleasures, all built around that night’s theme.'
   },
   {
-    icon: '',
-    title: 'Hosted by Nikki Manfadge',
-    body: 'Expect big singalong energy, cheeky shout-outs, and bonus moments that keep the room buzzing between rounds.'
+    title: 'Find it on your card',
+    body: 'Song titles instead of numbers. Mark it off the moment you spot it, because the next clip is not far behind.'
   },
   {
-    icon: '',
-    title: 'Prizes every round',
-    body: 'Line wins, full house prizes, and surprise treats mean there is always something to play for.'
-  },
-  {
-    icon: '',
-    title: 'Food and cocktails ready',
-    body: 'Order from the full menu before the first round or during breaks. The kitchen keeps your table fuelled.'
-  },
-  {
-    icon: '',
-    title: 'Friendly, all-ages vibe',
-    body: 'Bring mates, family, or coworkers. We keep it welcoming, inclusive, and easy for first timers.'
+    title: 'Shout for the win',
+    body: 'A line or a full house takes the prize. Two games across the night, with interactive music rounds and quizzes in between.'
   }
 ]
 
 const FAQS = [
   {
-    question: 'When does Music Bingo start and finish?',
+    question: 'How much is entry to music bingo?',
     answer:
-      'It typically starts at 7pm unless the event listing says otherwise. We play two games, with interactive music games and quizzes too.'
+      'Entry is £5 per person, paid in cash on the night. There is nothing to pay when you book.'
   },
   {
-    question: 'How much is entry?',
+    question: 'When does music bingo start and finish?',
     answer:
-      'Entry is £3 per person.'
-  },
-  {
-    question: 'Do we need to book in advance?',
-    answer:
-      'Booking is strongly recommended if you want a great seat, but walk-ins are welcome.'
+      'The first game is at 7pm and the room is set from 6:30pm, unless the event listing for that date says otherwise. The pub itself is open from 12pm, so come early and eat first.'
   },
   {
     question: 'What is the format?',
     answer:
-      'We play two games where you listen to the songs, then guess the song and artist on your card. It is a great excuse to sing along and dance between tracks.'
+      'Two games where you listen to song clips and mark the track off your card, with interactive music games and quizzes between them. It is a good excuse to sing along and dance between tracks.'
   },
   {
-    question: 'Is Music Bingo suitable for families?',
+    question: 'Do we need to book in advance?',
     answer:
-      'Absolutely. We play music from the 1950s to today, so bring a mix of ages to cover all the songs and artists.'
+      'Yes, we would recommend it. Music bingo does sell out, and seating is communal, so booking is how we make sure your group sits together.'
   },
   {
-    question: 'Can we eat and drink during the games?',
+    question: 'Is music bingo suitable for families?',
     answer:
-      'Absolutely. Check the live kitchen hours for the night, then order before the first game or during breaks.'
+      'Yes. The music runs from the 1950s to today, so a mix of ages tends to cover more of the card than a group of the same age.'
   },
   {
-    question: 'Can you run a private Music Bingo night?',
+    question: 'Can you run a private music bingo night?',
     answer:
-      'Yes, we can host private Music Bingo nights by request.'
-  },
-  {
-    question: 'Where can I see the latest dates?',
-    answer:
-      'All of our dates for all upcoming events are available at https://www.the-anchor.pub/whats-on.'
+      'Yes, private music bingo nights are available on request. Call 01753 682707 and we will put one together for your group.'
   }
 ]
 
@@ -165,13 +153,13 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
-Two games of song snippets with interactive music rounds and quizzes between them. Grab your card,
-          spot the track, and celebrate every line win.
+          Two themed games of song clips with interactive music rounds and quizzes between them.
+          Grab your card, spot the track, and celebrate every line win.
         </p>
       )}
       emptyState={
         <>
-          <p className="mb-2 text-lg font-semibold text-accent-text">New Music Bingo dates are loading soon</p>
+          <p className="mb-2 text-lg font-semibold text-accent-text">New music bingo dates are loading soon</p>
           <p className="text-ink-muted">
             We are lining up the next singalong sessions. Call 01753 682707 and we will share the next date as soon as booking opens.
           </p>
@@ -186,11 +174,14 @@ export default async function MusicBingoPage() {
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
-  const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
+  // £5, corrected from £3 on 17 August 2026. The old figure appeared here, in the
+  // config chips and in the FAQ while every live event record said 5, so the page
+  // gave three different prices before the booking step gave a fourth.
+  const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£5 entry'
 
   const heroDescription = nextEvent
-    ? `Arrive from ${doorTime}. Music Bingo starts at ${nextEventTime}. ${entryLabel}. Booking is recommended.`
-    : 'Arrive from 6:30pm. Music Bingo starts at 7pm. £3 entry. Booking is recommended.'
+    ? `Arrive from ${doorTime}, first game at ${nextEventTime}. ${entryLabel}, paid in cash on the night.`
+    : 'Arrive from 6:30pm, first game at 7pm. £5 entry, paid in cash on the night.'
 
   return (
     <>
@@ -201,18 +192,19 @@ export default async function MusicBingoPage() {
           "@type": "EventSeries",
           "@id": "https://www.the-anchor.pub/#music-bingo-series",
           "name": "Music Bingo with Nikki Manfadge at The Anchor",
-          "description": "Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high. A fun bingo night near Heathrow.",
+          "description": "Song clips replace numbers, prizes land across both games, and drag host Nikki Manfadge keeps the singalong energy high. A themed music bingo night in Stanwell Moor.",
           "startDate": "2024-01-01",
           "endDate": "2026-12-31",
           "eventSchedule": {
             "@type": "Schedule",
             "repeatFrequency": "P1M",
             // 7pm start, owner-confirmed 16 August 2026. This said 20:00, which
-            // is where the "starts at 8pm" copy across the page came from. The
-            // two-hour duration is carried over from the original rather than
-            // invented: the SSOT states a start time but no end time.
+            // is where the "starts at 8pm" copy across the page came from. End
+            // time is 23:00 to match `end_time` on the scheduled events in the
+            // management DB, rather than the 21:00 that was carried over from an
+            // older version of this block.
             "startTime": "19:00:00",
-            "endTime": "21:00:00",
+            "endTime": "23:00:00",
             "scheduleTimezone": "Europe/London"
           },
           "location": {
@@ -229,10 +221,11 @@ export default async function MusicBingoPage() {
           },
           "offers": {
             "@type": "Offer",
-            "price": "3",
+            // £5, matching every scheduled music bingo in the management DB.
+            "price": "5",
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock",
-            "description": "£3 per person entry"
+            "description": "£5 per person entry, cash on the night"
           },
           "performer": {
             "@type": "Person",
@@ -267,11 +260,12 @@ export default async function MusicBingoPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
-            Music Bingo Near Heathrow - Stanwell Moor, Staines and Surrey
+            Music Bingo in Stanwell Moor
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
-            Looking for a music bingo night near Heathrow that feels like a proper local? It's one of the best things to do near Heathrow for a fun evening out. We swap bingo numbers for
-            song clips, hand out prizes every round, and keep the atmosphere warm and welcoming. {heroDescription}
+            Bingo with the numbers swapped for song clips, hosted by drag queen Nikki Manfadge. Every
+            date has its own theme, there are prizes across both games, and you do not need to know
+            anything about music to play. {heroDescription}
           </p>
         </Container>
       </section>
@@ -291,26 +285,24 @@ export default async function MusicBingoPage() {
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}
             <div className="space-y-6">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">How Music Bingo runs</h3>
-                <ul className="space-y-3 text-ink-muted">
-                  <li><strong>Arrive from {doorTime}</strong> - the pub is open long before this, so come early, grab drinks, and collect your bingo card.</li>
-<li><strong>{nextEventTime}</strong> - first game begins with chart favourites and classics.</li>
-                  {/* Two games, not five rounds: docs/SSOT.md §10 says "Two games
-                      with interactive music games and quizzes too". The page used
-                      to claim five rounds, which the SSOT does not support. Main
-                      independently softened this to "The games"; this is the same
-                      fix, stated specifically. */}
-                  <li><strong>Two games</strong> - song clips instead of numbers, with interactive music games and quizzes between them.</li>
-                  <li><strong>Breaks between games</strong> - order food, top up drinks, and compare answers.</li>
-                  <li><strong>Finale</strong> - last card of the night with the headline prize.</li>
-                </ul>
-                <p className="text-sm text-ink-muted">
-                  Song clips are short, so keep ears open and phones away during the rounds.
-                </p>
-              </CardBody>
-            </Card>
+              <Card accent>
+                <CardBody className="space-y-4">
+                  <h3 className="text-h4 text-ink-strong">How music bingo runs</h3>
+                  <ul className="space-y-3 text-ink-muted">
+                    <li><strong>Arrive from {doorTime}</strong> · the pub is open from 12pm, so come earlier, eat, and collect your card.</li>
+                    <li><strong>{nextEventTime}</strong> · first game begins, built around that night&rsquo;s theme.</li>
+                    {/* Two games, not five rounds: docs/SSOT.md §10 says "Two games
+                        with interactive music games and quizzes too". The page used
+                        to claim five rounds, which the SSOT does not support. */}
+                    <li><strong>Two games</strong> · song clips instead of numbers, with interactive music games and quizzes between them.</li>
+                    <li><strong>Breaks between games</strong> · order food, top up drinks, and compare answers.</li>
+                    <li><strong>Finale</strong> · last card of the night with the headline prize.</li>
+                  </ul>
+                  <p className="text-sm text-ink-muted">
+                    Song clips are short, so keep ears open and phones away during the rounds.
+                  </p>
+                </CardBody>
+              </Card>
 
               <SectionViewTracker sectionId="music_bingo_objections">
                 <GameNightObjections
@@ -335,13 +327,14 @@ export default async function MusicBingoPage() {
       <section id="music-bingo-dates" className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
-            <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming Music Bingo dates</h2>
+            <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming music bingo themes</h2>
             <p className="mb-8 text-center text-ink-muted">
-              We list confirmed Music Bingo dates below. For the very latest schedule, check the{' '}
+              Every date has its own theme. Confirmed nights are below, and everything else we have on
+              is on the{' '}
               <Link href="/whats-on" className="font-semibold text-accent-text hover:text-accent-text">
-                What's On page
+                What&apos;s On page
               </Link>{' '}
-              or call 01753 682707.
+              or on 01753 682707.
             </p>
             <SectionViewTracker sectionId="music_bingo_dates">
               <MusicBingoEventCards events={events} />
@@ -350,91 +343,17 @@ export default async function MusicBingoPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto grid gap-6 md:grid-cols-3">
-            <Card accent>
-              <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-accent-text">Sunday Roast Music Bingo Warm-Up</h3>
-                <p className="mb-4 text-sm text-ink-muted">
-                  Walk in for a Sunday roast (served 1pm-6pm) or book ahead, then bring the crew for Music Bingo.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="music_bingo_roast_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book Sunday Roast
-                  </BookTableButton>
-                  <Link href="/sunday-roast" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
-                    Sunday roast menu {'>'}
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-accent-text">Stone-Baked Pizza Warm-Up</h3>
-                <p className="mb-4 text-sm text-ink-muted">
-                  Hand-stretched pizzas and sharers keep your table fuelled between rounds.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="music_bingo_pizza_cta"
-                    context="pizza_menu"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu#pizza" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
-                    View pizza menu {'>'}
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-accent-text">All-Day Menu and Cocktails</h3>
-                <p className="mb-4 text-sm text-ink-muted">
-                  Burgers, sharers, and themed cocktails delivered to your table all night.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <BookTableButton
-                    source="music_bingo_food_menu_cta"
-                    variant="primary"
-                    size="sm"
-                    className="w-full"
-                  >
-                    Book a Table
-                  </BookTableButton>
-                  <Link href="/food-menu" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
-                    Browse food and drinks {'>'}
-                  </Link>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
+      <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto">
-            <h2 className="mb-8 text-center text-h2 text-ink-strong">
-              Why everyone loves Music Bingo at The Anchor
-            </h2>
-            <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
-              {WHY_LOVE_IT.map(feature => (
-                <GridItem key={feature.title}>
+            <h2 className="mb-8 text-center text-h3 text-ink-strong">How to play, in three steps</h2>
+            <Grid cols={3} gap="md">
+              {HOW_TO_PLAY.map(step => (
+                <GridItem key={step.title}>
                   <Card accent className="h-full">
                     <CardBody className="space-y-3">
-                      <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-ink-strong">{feature.title}</h3>
-                      <p className="text-sm leading-relaxed text-ink-muted">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-ink-strong">{step.title}</h3>
+                      <p className="text-sm leading-relaxed text-ink-muted">{step.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -444,75 +363,25 @@ export default async function MusicBingoPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface-sunk">
-        <Container>
-          <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">How to play Music Bingo</h3>
-                <ol className="space-y-3 text-ink-muted">
-                  <li>1. Grab your card and listen for the song clip.</li>
-                  <li>2. Mark the track on your card as soon as you spot it.</li>
-                  <li>3. Shout when you hit the pattern for that round.</li>
-                  <li>4. Keep playing for the full house finale prize.</li>
-                </ol>
-              </CardBody>
-            </Card>
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h3 className="text-h4 text-ink-strong">Music Bingo house rules</h3>
-                <ul className="space-y-3 text-sm text-ink">
-                  <li>Phones away during rounds so everyone gets a fair listen.</li>
-                  <li>Singing along is encouraged, but keep shouting to a cheer.</li>
-                  <li>Caller's decision is final on line and full house wins.</li>
-                  <li>Dogs are welcome and water bowls are ready at the bar.</li>
-                </ul>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
+      {/* One food section, not the previous three-card row. The first of those
+          cards promoted a Sunday roast warm-up, which was nonsense on this page:
+          every listed music bingo date is a Friday. */}
       <section className="py-section-y bg-surface">
         <Container>
-          <div className="mx-auto">
-            <h2 className="mb-6 text-center text-h3 text-ink-strong">Tips for a winning card</h2>
-            <p className="mx-auto mb-6 text-center text-ink-muted">
-              Whether you are new to music bingo or a seasoned singalong legend, these tips keep your ears sharp.
+          <div className="mx-auto text-center">
+            <h2 className="mb-3 text-h4 text-ink-strong">Eat before the first game</h2>
+            <p className="mb-5 text-ink-muted">
+              The full menu runs until 9pm, so order at your table before the first game or during the
+              break between them. You do not need a separate dining booking, because your music bingo
+              booking is your seat for the night.
             </p>
-            <div className="grid gap-4 md:grid-cols-2">
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Bring a mixed crew</h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
-                    Team up with friends who love different eras of music so you can nail the classics, throwbacks, and current hits.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Arrive early</h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
-                    Arrive from {doorTime}. Grab your drinks, settle the table, and you will not miss the opening clips.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Keep your card visible</h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
-                    Clear the table and keep your card in sight so you can mark the track before the next clip drops.
-                  </p>
-                </CardBody>
-              </Card>
-              <Card accent className="h-full">
-                <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-ink-strong">Stay for the finale</h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
-                    The last round brings the biggest prize, so stick around and keep the energy high.
-                  </p>
-                </CardBody>
-              </Card>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <BookTableButton source="music_bingo_food_cta" variant="outline" size="sm">
+                Book a table for another night
+              </BookTableButton>
+              <Link href="/food-menu" className="text-sm font-semibold text-accent-text transition hover:text-anchor-green">
+                See the food menu {'>'}
+              </Link>
             </div>
           </div>
         </Container>
@@ -520,9 +389,32 @@ export default async function MusicBingoPage() {
 
       <FAQAccordionWithSchema faqs={FAQS} />
 
+      <section className="py-section-y bg-surface">
+        <Container>
+          <div className="mx-auto text-center">
+            <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            <p className="text-ink-muted">
+              Prefer numbers to songs? Try{' '}
+              <Link href="/cash-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
+                cash bingo
+              </Link>{' '}
+              with a rolling snowball jackpot. There is also a{' '}
+              <Link href="/quiz-night" className="font-semibold text-accent-text transition hover:text-accent-text">
+                Wednesday pub quiz
+              </Link>{' '}
+              and{' '}
+              <Link href="/karaoke" className="font-semibold text-accent-text transition hover:text-accent-text">
+                karaoke
+              </Link>{' '}
+              when a night is listed.
+            </p>
+          </div>
+        </Container>
+      </section>
+
       <CtaBand
         title="Ready to sing for the prizes?"
-        copy="Music bingo sells out, so book your table rather than turning up on the night."
+        copy="Music bingo sells out, so book your places rather than turning up on the night."
       >
         <GameNightCtaActions
           gameSlug={musicBingo.slug}
@@ -538,12 +430,13 @@ export default async function MusicBingoPage() {
             <div>
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
-                The Anchor - Horton Road, Stanwell Moor, TW19 6AQ - Free on-site parking - 7 minutes from Heathrow T5 - 8 minutes from Staines.
+                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
+                Bedfont and Egham, with 20 free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
-                <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> Step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
+                <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -570,7 +463,11 @@ export default async function MusicBingoPage() {
         </Container>
       </section>
 
-      <JsonLd data={bingoEventSeries} />
+      {/* No <JsonLd data={bingoEventSeries} /> here. That constant describes the
+          CASH bingo series ("Monthly Cash Bingo Night", £10 per book, cash only)
+          and this page was publishing it alongside its own music bingo series, so
+          the music bingo URL declared itself to be a £10 cash bingo night as well
+          as a £5 music bingo one. It belongs on /cash-bingo only. */}
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />
       ))}
