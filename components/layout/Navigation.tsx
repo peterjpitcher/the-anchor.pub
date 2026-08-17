@@ -417,7 +417,8 @@ export function Navigation({
     )
   }
 
-  // Quick-link (utility strip) — Book parking + phone.
+  // Quick-link (utility strip): airport parking + phone. "Airport", not "Book":
+  // see the note on the mobile-drawer link below.
   const quickLinkClass =
     'inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark rounded'
 
@@ -436,7 +437,7 @@ export function Navigation({
               className={quickLinkClass}
               onClick={() =>
                 trackNavigationClick({
-                  label: 'Book parking',
+                  label: 'Airport parking',
                   url: PARKING_HREF,
                   level: 'main',
                   deviceType: 'desktop',
@@ -446,7 +447,7 @@ export function Navigation({
               }
             >
               <Icon name="parking" className="h-[15px] w-[15px] text-accent-text" />
-              Book parking
+              Airport parking
             </Link>
 
             <a
@@ -652,13 +653,18 @@ export function Navigation({
                 )
               })}
 
-              {/* Book parking link */}
+              {/* Airport parking link. Renamed from "Book parking" on 17 August
+                  2026: on an event page that says parking is free, a header link
+                  reading "Book parking" made locals think they had to reserve a
+                  space for the night, and risked dropping them into the paid
+                  airport-parking funnel by mistake. The two products are
+                  genuinely separate (docs/SSOT.md §8) and the label now says so. */}
               <Link
                 href={PARKING_HREF}
                 className="flex min-h-[44px] items-center gap-1.5 border-b border-line py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
                 onClick={() => {
                   trackNavigationClick({
-                    label: 'Book parking',
+                    label: 'Airport parking',
                     url: PARKING_HREF,
                     level: 'main',
                     deviceType: 'mobile',
@@ -670,7 +676,7 @@ export function Navigation({
                 }}
               >
                 <Icon name="parking" className="h-[18px] w-[18px] text-accent-text" />
-                Book parking
+                Airport parking
               </Link>
 
               {/* CTA block */}
