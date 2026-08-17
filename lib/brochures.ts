@@ -45,6 +45,14 @@ const BROCHURE_LIST: Brochure[] = [
     sizeLabel: '1.1 MB'
   },
   {
+    key: 'anniversaries',
+    title: 'Anniversary Parties Brochure',
+    description: 'Ten years or fifty. Everyone in one room, and no clearing up.',
+    file: '/downloads/the-anchor-2026-anniversary-party-brochure.pdf',
+    pages: 16,
+    sizeLabel: '1.2 MB'
+  },
+  {
     key: 'baby_shower',
     title: 'Baby Showers Brochure',
     description: 'Afternoon tea on proper stands, in a room of your own.',

@@ -1,5 +1,6 @@
 import { SectionHeading, AlertBox, Container, Card, CardBody, Button } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -114,6 +115,8 @@ export default function SummerGardenPartiesPage() {
                     </div>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="general" source="summer_garden_parties" />
 
             <FAQAccordionWithSchema
                 faqs={[

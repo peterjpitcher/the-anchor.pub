@@ -11,6 +11,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CtaBand } from '@/components/CtaBand'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -856,6 +857,8 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     </div>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="general" source="private_hire_near" />
 
             <PrivateBookingSection eventType={angle.eventType} />
 

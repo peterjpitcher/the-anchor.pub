@@ -517,7 +517,8 @@ Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts
 
 - **Prices inside are frozen at print time and exclude VAT.** The download CTA never repeats a price, so the live cost estimator stays the number customers act on. If catering prices or minimums change, the PDFs need re-exporting.
 - **Google reviews on page 13 are genuine**, supplied by the owner from Google (confirmed 17 August 2026). Do not re-flag them as unverified.
-- Occasions covered: general, birthdays, baby shower, christenings, gender reveal, engagement, retirement, celebration of life, corporate. **No brochure exists** for anniversary parties, summer garden parties or Christmas parties; those pages use the general brochure or their own material.
+- Occasions covered: general, anniversaries, birthdays, baby shower, christenings, gender reveal, engagement, retirement, celebration of life, corporate. The Anniversaries brochure was added 17 August 2026 and verified the same way.
+- **No dedicated brochure** for summer garden parties or Christmas parties. Both carry the **general** brochure instead. On `/christmas-parties` it is headed "Planning something outside Christmas?" on purpose: the general brochure does not carry the festive menus, deposit rules or service window, so it must never be presented as the Christmas offer.
 
 ### Catering, Buffet (verified against the management DB, 17 August 2026)
 

@@ -16,6 +16,7 @@ import {
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
 import { InteriorHero } from '@/components/hero'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -431,6 +432,17 @@ export default async function ChristmasPartiesPage() {
         courseChoices={seasonEnded ? null : courseChoices}
         buffets={seasonEnded ? [] : buffets}
       />
+      {/*
+        The general (year-round) brochure, not a festive one. The heading says so
+        explicitly: the festive menus, deposit rules and service window on this page
+        are the Christmas offer, and the brochure does not carry them.
+      */}
+      <BrochureDownload
+        brochure="general"
+        source="christmas_parties"
+        heading="Planning something outside Christmas?"
+      />
+
       <InternalLinkingSection
         title="More Christmas Party Planning"
         links={[
