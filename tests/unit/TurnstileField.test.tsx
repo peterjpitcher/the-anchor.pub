@@ -81,15 +81,10 @@ describe('TurnstileField', () => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   })
 
-  it.each([
-    ['error', 'Mock Error'],
-    ['expiry', 'Mock Expire'],
-    ['timeout', 'Mock Timeout'],
-    ['unsupported browser', 'Mock Unsupported']
-  ])('shows retry UI when Turnstile reports %s', (_label, buttonName) => {
+  it('shows retry UI when Turnstile reports an error', () => {
     const { onTokenChange } = renderTurnstileField()
 
-    fireEvent.click(screen.getByRole('button', { name: buttonName }))
+    fireEvent.click(screen.getByRole('button', { name: 'Mock Error' }))
 
     expect(onTokenChange).toHaveBeenCalledWith(null)
     expect(screen.getByRole('alert')).toHaveTextContent(
@@ -100,6 +95,40 @@ describe('TurnstileField', () => {
 
     expect(mockReset).toHaveBeenCalledTimes(1)
     expect(onTokenChange).toHaveBeenLastCalledWith(null)
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
+  it('sends an unsupported browser to the phone rather than a dead retry', () => {
+    const { onTokenChange } = renderTurnstileField()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mock Unsupported' }))
+
+    expect(onTokenChange).toHaveBeenCalledWith(null)
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'This browser cannot complete our security check. Please call 01753 682707 and we will book this for you.'
+    )
+  })
+
+  // Expiry and challenge-timeout self-heal via refreshExpired/refreshTimeout
+  // 'auto'. A guest who spends more than five minutes on the booking form is
+  // ordinary, and used to be shown a red failure banner for it.
+  it.each([
+    ['expiry', 'Mock Expire'],
+    ['timeout', 'Mock Timeout']
+  ])('drops the stale token silently on %s', (_label, buttonName) => {
+    const { onTokenChange } = renderTurnstileField()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+    expect(onTokenChange).toHaveBeenLastCalledWith('token-123')
+
+    fireEvent.click(screen.getByRole('button', { name: buttonName }))
+
+    expect(onTokenChange).toHaveBeenLastCalledWith(null)
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+
+    // Cloudflare mints a replacement and the guest can submit again.
+    fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+    expect(onTokenChange).toHaveBeenLastCalledWith('token-123')
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   })
 })

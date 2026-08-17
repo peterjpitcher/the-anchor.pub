@@ -1,3 +1,11 @@
+// This suite is about how upstream policy-violation responses are mapped, not
+// about bot protection. Turnstile is verified in the route now, so stub the
+// whole spam check out rather than minting tokens in every case.
+// Turnstile's own contract is covered by tests/api/event-turnstile-forwarding.test.ts.
+jest.mock('@/lib/spam-protection', () => ({
+  checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false })
+}))
+
 describe('Event Bookings API - policy violation handling', () => {
   let createEventBooking: (request: any) => Promise<Response>
 
