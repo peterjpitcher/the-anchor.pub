@@ -1,11 +1,25 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Cash bingo. Facts from docs/SSOT.md §10: monthly, dates vary, arrive from 6pm
- * with book sales from 6pm, eyes down 7pm, £10 per book and £1 daubers both cash
- * only, ten games, capacity 60, prizes vary by event, and a snowball that grows
- * £20 and 2 calls each month it rolls over. Current jackpot values live in the
- * event records only, never here.
+ * Cash bingo. Facts from docs/SSOT.md §10: monthly, dates vary, arrive by 6:30pm,
+ * first game 7pm, finishes about 9:30pm, £10 per book and £1 daubers both cash
+ * only, ten games, capacity 60, 18+ to play with supervised under-18s welcome to
+ * attend, prizes vary by event, and a snowball that grows £20 and 2 calls each
+ * month it rolls over. Current jackpot values live in the event records only,
+ * never here.
+ *
+ * Arrival corrected on 17 August 2026. The page previously carried three
+ * different arrival times (6pm in the chips, 6:30pm in the listings, "sales and
+ * seating open at 6pm" in the FAQ), which is exactly the kind of contradiction
+ * that makes a customer doubt the booking will be handled properly. There is now
+ * one arrival time, owner-confirmed: "I want people in for 6:30pm so they have
+ * time to get a drink, order some food, get their books and get comfortable for a
+ * 7pm start." Books are bought on arrival, so do not reintroduce a separate
+ * book-sales time.
+ *
+ * The pub is open from 12pm and the copy has to say so. An arrival time presented
+ * on its own reads as an opening time, which is wrong and costs the earlier food
+ * trade. See the banned-"Doors" note at the head of docs/SSOT.md §10.
  *
  * The cash-only rule is deliberately the first fact and the first objection.
  * Discovering it on arrival is a bad night out, and discovering it after
@@ -24,24 +38,24 @@ export const cashBingo: GameNightConfig = {
     image: '/images/events/cash-bingo/cash-bingo-hero-eyes-down.jpg',
     focal: '50% 50%',
     crumb: 'Cash Bingo',
-    title: 'Cash Bingo Night at The Anchor Near Heathrow',
+    title: 'Cash Bingo at The Anchor, Stanwell Moor',
     lead:
-      'Monthly cash bingo in Stanwell Moor. Ten games, cash prizes, and a snowball jackpot that grows every month nobody claims it.'
+      'Traditional cash bingo in the pub, not a bingo hall. Ten games, winnings paid out on the night, and a snowball jackpot that grows every month nobody claims it.'
   },
 
   facts: [
     { label: 'Books', value: '£10 each, cash only' },
-    { label: 'Eyes down', value: '7pm, arrive from 6pm' },
+    { label: 'First game', value: '7pm, arrive by 6:30pm' },
     { label: 'Games', value: '10, plus the snowball' },
-    { label: 'Age', value: '18+' },
-    { label: 'Parking', value: 'Free, right outside' }
+    { label: 'Age', value: '18+ to play' },
+    { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 
-  bookingCtaPrefix: 'Reserve your table for',
+  bookingCtaPrefix: 'Reserve your places for',
   bookingCtaFallback: 'Call about the next cash bingo',
 
   bookingNote:
-    'Booking holds your table. Bingo books are £10 each and daubers £1, both cash only, bought when you arrive.',
+    'Your booking is your seat, and you do not need a separate table booking to eat. Books are £10 each and daubers £1, both cash only, bought when you arrive.',
 
   objections: [
     {
@@ -50,59 +64,53 @@ export const cashBingo: GameNightConfig = {
         'No. Bingo books and daubers are cash only, so bring £10 a book and £1 if you need a dauber. The bar itself takes card as normal.'
     },
     {
-      question: 'What do I need to bring?',
+      question: 'What does the £10 actually buy?',
       answer:
-        'Just cash for your books. Daubers are £1 on the night if you have not got one of your own.'
+        'One book covering all ten games. Half of every book sold goes into the final cash jackpot, so the fuller the room, the bigger that last prize gets.'
     },
     {
       question: 'What time should we get here?',
       answer:
-        'Book sales start at 6pm and eyes down is 7pm. The pub is open long before that, so come early if you want food and a decent seat.'
+        'By 6:30pm, so you have time for a drink, to order food and to buy your books before the first game at 7pm. The pub itself is open from 12pm, so come earlier if you like. We finish about 9:30pm.'
     },
     {
-      question: 'Is it 18 and over?',
-      answer: 'Yes, players need to be 18 or over.'
+      question: 'Can I bring my children?',
+      answer:
+        'Yes, with a supervising adult. Only guests aged 18 and over can buy a book and play for the cash prizes.'
+    },
+    {
+      question: 'Will my group sit together?',
+      answer:
+        'Yes. Seating is communal, so book everyone in one booking and we will seat you together. On a busy night a long table may be shared with another group.'
     },
     {
       question: 'How does the snowball work?',
       answer:
-        'If nobody claims it, the snowball grows by £20 and two calls the following month. The current value is on the event listing below.'
+        'If nobody claims it, the snowball grows by £20 and two calls the following month. The current value and who is eligible are on the event listing below.'
     }
   ],
 
-  // Six deliberately different moments, not six frames of one. See the note in
-  // quiz-night.ts: the first pass repeated the same scene, so these are one per
-  // near-identical cluster, and the hero shot is excluded.
+  // Three photographs, not six. The set previously ran six and the weakest three
+  // were doing active harm: a general beer-garden shot with no bingo visible in
+  // it at all, and a chocolate-and-prosecco prize shot whose alt text claimed it
+  // showed players marking books. Three that each do a distinct job beats six
+  // where half of them sell the wrong thing. The 3-column gallery also fills one
+  // clean row at this count.
   photos: [
     {
       src: '/images/events/cash-bingo/cash-bingo-winners-cash.jpg',
-      alt: 'Two winners holding fans of cash after a game at The Anchor',
+      alt: 'Two winners holding fans of cash after a game of bingo at The Anchor',
       caption: 'Winnings paid out on the night'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-garden-group.jpg',
-      alt: 'A group playing cash bingo at a garden table with drinks at The Anchor',
-      caption: 'Ten games across the night'
-    },
-    {
       src: '/images/events/cash-bingo/cash-bingo-cash-and-book.jpg',
-      alt: 'A player holding their cash winnings and their bingo book at The Anchor',
-      caption: '£10 a book, cash only'
+      alt: 'A player holding a ten pound note and her bingo books at The Anchor',
+      caption: 'One £10 book covers all ten games'
     },
     {
-      src: '/images/events/cash-bingo/cash-bingo-garden-tables.jpg',
-      alt: 'Players marking bingo books at tables in the garden at The Anchor',
-      caption: 'Summer nights move outside'
-    },
-    {
-      src: '/images/events/cash-bingo/cash-bingo-summer-evening.jpg',
-      alt: 'The beer garden at The Anchor on a summer bingo evening',
-      caption: 'Free parking right outside'
-    },
-    {
-      src: '/images/events/cash-bingo/cash-bingo-big-win.jpg',
-      alt: 'A player holding a large fan of cash winnings at The Anchor',
-      caption: 'Come early for a good seat'
+      src: '/images/events/cash-bingo/cash-bingo-garden-group.jpg',
+      alt: 'Five players marking their bingo books with daubers at a table at The Anchor',
+      caption: 'Books, daubers, ten games'
     }
   ],
 

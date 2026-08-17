@@ -1,11 +1,20 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Quiz night. Facts from docs/SSOT.md §10: monthly, dates vary, arrive from
- * 6:30pm, start usually 7pm, ends around 9:45pm, £3 per person, teams capped at
- * six, four rounds of ten questions plus an interactive quick-fire round and a
- * comfort break, capacity 80, £25 bar tab for the winners and a bottle of house
- * wine for second from last, phone-free with a 5 point penalty.
+ * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
+ * from 6:30pm, start usually 7pm, aims to finish 9:30pm, £3 per person, teams
+ * capped at six, four rounds of ten questions plus an interactive quick-fire round
+ * and a comfort break, capacity 80, £25 bar tab for the winners and a bottle of
+ * house wine for second from last, phone-free with a 5 point penalty.
+ *
+ * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed
+ * and matching `end_time` 21:30 on every scheduled quiz in the management DB. The
+ * category page said 9:45pm while the event pages said 9:30pm, so a customer
+ * working out whether they could get a babysitter home got two answers.
+ *
+ * "Wednesday" is deliberate and load-bearing: "wednesday pub quiz" measures 500/mo
+ * in the UK at a paid competition index of zero, and the quizzes genuinely are
+ * Wednesdays. See tasks/keyword-plan-game-nights-2026-08-17.md.
  */
 export const quizNight: GameNightConfig = {
   slug: 'quiz-night',
@@ -18,24 +27,24 @@ export const quizNight: GameNightConfig = {
     image: '/images/events/quiz-night/quiz-night-hero-tables-full.jpg',
     focal: '50% 45%',
     crumb: 'Quiz Night',
-    title: 'Pub Quiz Night at The Anchor Near Heathrow',
+    title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     lead:
-      'Monthly pub quiz near Heathrow and Staines. Four rounds, a £25 bar tab for the winners, and a bottle of wine for whoever comes second from last.'
+      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of wine for whoever comes second from last.'
   },
 
   facts: [
-    { label: 'Entry', value: '£3 per player' },
+    { label: 'Entry', value: '£3 per player, cash' },
     { label: 'Teams', value: 'Up to 6 players' },
-    { label: 'Starts', value: '7pm, arrive from 6:30pm' },
+    { label: 'Time', value: '7pm to 9:30pm' },
     { label: 'House rule', value: 'Phones away' },
-    { label: 'Parking', value: 'Free, right outside' }
+    { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 
-  bookingCtaPrefix: 'Book your table for',
+  bookingCtaPrefix: 'Book your team in for',
   bookingCtaFallback: 'Call about the next quiz night',
 
   bookingNote:
-    'Booking holds your table. Entry is £3 per player paid on the night, so there is nothing to pay now.',
+    'Your booking is your team’s seats, and you do not need a separate table booking to eat. Entry is £3 per player paid in cash on the night, so there is nothing to pay now.',
 
   objections: [
     {
@@ -46,22 +55,27 @@ export const quizNight: GameNightConfig = {
     {
       question: 'Are the questions too hard?',
       answer:
-        'General knowledge, no specialist rounds. Roughly half the questions are gettable for anyone, and the rest are the ones worth arguing over.'
+        'General knowledge, no specialist rounds. Roughly half the questions are gettable for anyone, and the rest are the ones worth arguing over. Friendly rather than serious, with the odd bit of adult humour.'
+    },
+    {
+      question: 'What time will we get home?',
+      answer:
+        'We aim to finish at 9:30pm. Tables are set from 6:30pm and the pub is open from 12pm, so come early and eat first if you want a full evening of it.'
     },
     {
       question: 'Can we eat first?',
       answer:
-        'Yes, and the pub is open long before the quiz, so come early. Tables are set from 6:30pm and the kitchen runs to 9pm, so order before the first round or during the comfort break.'
+        'Yes. The kitchen runs to 9pm, so order before the first round or during the comfort break.'
+    },
+    {
+      question: 'Will my team sit together?',
+      answer:
+        'Yes. Book everyone in one booking and we will seat your team together. On a busy night a long table may be shared with another team.'
     },
     {
       question: 'Do we have to pay now?',
       answer:
-        'No. It is £3 per player on the night. Booking just holds the table so your team has somewhere to sit.'
-    },
-    {
-      question: 'Where do we park?',
-      answer:
-        'Free parking right outside, and we are about seven minutes from Heathrow Terminal 5 depending on traffic.'
+        'No. It is £3 per player in cash on the night. The booking just holds your team’s seats.'
     }
   ],
 
