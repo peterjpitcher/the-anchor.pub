@@ -167,7 +167,10 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
             <MetaCell label="Date" value={dateLabel} />
             <MetaCell label="Time" value={timeLabel} />
             {priceText && <MetaCell label="Price" value={priceText} />}
-            {doorTime && <MetaCell label="Doors" value={doorTime} />}
+            {/* "Arrive from", never "Doors": the pub opens hours before any event
+                starts, and a "Doors 6:30pm" label tells a customer it is shut
+                until then. docs/SSOT.md §10 bans the wording. */}
+            {doorTime && <MetaCell label="Arrive from" value={doorTime} />}
           </div>
 
           {/* Actions: md buttons so both fit one row at lg+, keeping the

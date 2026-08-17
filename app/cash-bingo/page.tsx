@@ -68,7 +68,7 @@ const WHY_LOVE_IT = [
   {
     icon: '',
     title: 'Perfect night out',
-    body: 'Doors & book sales from 6 pm, eyes down at 7 pm, finale by 9:30 pm. Ideal for Heathrow crews, locals, work mates and birthday nights.'
+    body: 'Book sales from 6 pm, eyes down at 7 pm, finale by 9:30 pm. Ideal for Heathrow crews, locals, work mates and birthday nights.'
   },
   {
     icon: '',
@@ -128,7 +128,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
       bookingSource="cash_bingo_event_card"
       imageAltSuffix="cash bingo night at The Anchor"
       renderMeta={(_event, doorTime) => (
-        <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:00pm'} • £10 cash book</p>
+        <p className="text-xs text-ink-muted">Arrive from {doorTime ?? '6:00pm'} • £10 cash book</p>
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
@@ -154,8 +154,8 @@ export default async function CashBingoPage() {
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
 	  const heroDescription = nextEvent
-	    ? `Doors ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
-	    : 'Doors 6:00 pm. Bingo starts at 7:00 pm with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
+	    ? `Arrive from ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
+	    : 'Arrive from 6:00 pm. Bingo starts at 7:00 pm with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
 
   return (
     <>
@@ -254,7 +254,7 @@ export default async function CashBingoPage() {
               <CardBody>
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Sunday Roast Bingo Weekends</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Walk in for Sunday roast 1pm-6pm and tuck in before doors open at 6 pm. Perfect for family bingo nights.
+                  Walk in for Sunday roast 1pm-6pm and tuck in before book sales start at 6 pm. Perfect for family bingo nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -372,7 +372,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-ink-strong">Arrive early for the best spots</h3>
                   <p className="text-ink-muted text-sm leading-relaxed">
-                    Doors open at 6 pm. Bingo start time is 7 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
+                    Book sales open at 6 pm. Bingo start time is 7 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
                   </p>
                 </CardBody>
               </Card>

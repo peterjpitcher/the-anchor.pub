@@ -14,7 +14,13 @@ export function GameNightFacts({ facts }: { facts: GameNightFact[] }) {
     <>
       {facts.map((fact) => (
         <Badge key={fact.label} variant="sand">
-          <span className="font-normal opacity-70">{fact.label}</span> {fact.value}
+          {/* The gap has to be a margin, not a space between the two nodes. Badge
+              is `inline-flex`, so a whitespace-only text node between children
+              becomes an anonymous flex item and is dropped: that is why these
+              rendered as "Entry£3 per person" despite reading correctly in the
+              markup. */}
+          <span className="mr-1 font-normal opacity-70">{fact.label}</span>
+          <span>{fact.value}</span>
         </Badge>
       ))}
     </>

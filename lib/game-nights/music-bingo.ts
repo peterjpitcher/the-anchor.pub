@@ -1,8 +1,8 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Music bingo. Facts from docs/SSOT.md §10: dates vary, doors 6:30pm, start 8pm
- * unless the event record says otherwise, £3 per person unless the event record
+ * Music bingo. Facts from docs/SSOT.md §10: dates vary, arrive from 6:30pm, start
+ * 7pm unless the event record says otherwise, £3 per person unless the event record
  * says otherwise, two games plus interactive music games and quizzes, song clips
  * replace bingo numbers, capacity 90, hosted by Nikki Manfadge, and private
  * nights available on request.
@@ -34,7 +34,7 @@ export const musicBingo: GameNightConfig = {
 
   facts: [
     { label: 'Entry', value: '£3 per person' },
-    { label: 'Starts', value: '8pm, doors 6:30pm' },
+    { label: 'Starts', value: '7pm, arrive from 6:30pm' },
     { label: 'Games', value: 'Two, plus music rounds' },
     { label: 'Host', value: 'Nikki Manfadge' },
     { label: 'Parking', value: 'Free, right outside' }
@@ -56,6 +56,11 @@ export const musicBingo: GameNightConfig = {
       question: 'Do I need to be good at music?',
       answer:
         'No. The clips span decades, so mixed groups tend to do best. There are two games plus interactive rounds and quizzes between them.'
+    },
+    {
+      question: 'What time does it start?',
+      answer:
+        'First game is 7pm. The room is set from 6:30pm, and the pub is open long before that, so come early and eat first if you like.'
     },
     {
       question: 'Does it sell out?',
@@ -103,7 +108,7 @@ export const musicBingo: GameNightConfig = {
     {
       src: '/images/events/music-bingo/music-bingo-room-wide.jpg',
       alt: 'Wide view of the room during music bingo at The Anchor, Stanwell Moor',
-      caption: 'Doors 6:30pm, first game 8pm'
+      caption: 'Arrive from 6:30pm, first game 7pm'
     }
   ],
 

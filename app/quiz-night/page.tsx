@@ -80,7 +80,7 @@ const FAQS = [
   {
     question: 'When does the quiz start and how long does it run?',
     answer:
-      'Doors open at 6:30 pm for food and team set-up. Questions start at 7:00 pm sharp and we wrap with prizes around 9:45 pm including a comfort break halfway through.'
+      'Tables are set from 6:30 pm for food and team set-up, and the pub is open long before that. Questions start at 7:00 pm sharp and we wrap with prizes around 9:45 pm including a comfort break halfway through.'
   },
   {
     question: 'How much is entry and do we need to book?',
@@ -145,7 +145,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
       imageAltSuffix="quiz night at The Anchor"
       renderMeta={(_event, doorTime) => (
         <>
-          <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'}</p>
+          <p className="text-xs text-ink-muted">Arrive from {doorTime ?? '6:30pm'}</p>
           <p className="text-xs text-ink-muted">£3 per player</p>
         </>
       )}
@@ -179,8 +179,8 @@ export default async function QuizNightPage() {
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
 	  const heroDescription = nextEvent
-	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`
-	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.'
+	    ? `Arrive from ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`
+	    : 'Arrive from 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.'
 
   return (
     <>
@@ -227,7 +227,7 @@ export default async function QuizNightPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How the night runs</h3>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
+                  <li><strong>6:30 pm</strong> · Tables set, soundtrack on, grab sharers & themed cocktails.</li>
                   <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
                   <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
                   <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders (kitchen closes 9pm).</li>
@@ -451,7 +451,7 @@ export default async function QuizNightPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-ink-strong">Arrive early, fuel up</h3>
                   <p className="text-ink-muted text-sm leading-relaxed">
-                    We open the doors at 6:30 pm, grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
+                    We set the tables from 6:30 pm, grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
                   </p>
                 </CardBody>
               </Card>

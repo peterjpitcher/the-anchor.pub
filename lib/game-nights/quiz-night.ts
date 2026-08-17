@@ -1,7 +1,7 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Quiz night. Facts from docs/SSOT.md §10: monthly, dates vary, doors usually
+ * Quiz night. Facts from docs/SSOT.md §10: monthly, dates vary, arrive from
  * 6:30pm, start usually 7pm, ends around 9:45pm, £3 per person, teams capped at
  * six, four rounds of ten questions plus an interactive quick-fire round and a
  * comfort break, capacity 80, £25 bar tab for the winners and a bottle of house
@@ -26,7 +26,7 @@ export const quizNight: GameNightConfig = {
   facts: [
     { label: 'Entry', value: '£3 per player' },
     { label: 'Teams', value: 'Up to 6 players' },
-    { label: 'Starts', value: '7pm, doors 6:30pm' },
+    { label: 'Starts', value: '7pm, arrive from 6:30pm' },
     { label: 'House rule', value: 'Phones away' },
     { label: 'Parking', value: 'Free, right outside' }
   ],
@@ -51,7 +51,7 @@ export const quizNight: GameNightConfig = {
     {
       question: 'Can we eat first?',
       answer:
-        'Yes. Doors open at 6:30pm and the kitchen runs to 9pm, so order before the first round or during the comfort break.'
+        'Yes, and the pub is open long before the quiz, so come early. Tables are set from 6:30pm and the kitchen runs to 9pm, so order before the first round or during the comfort break.'
     },
     {
       question: 'Do we have to pay now?',
@@ -84,7 +84,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-room-wide.jpg',
       alt: 'Wide view of the room during quiz night at The Anchor, Stanwell Moor',
-      caption: 'Doors at 6:30pm, quiz at 7pm'
+      caption: 'Arrive from 6:30pm, quiz at 7pm'
     },
     {
       src: '/images/events/quiz-night/quiz-night-team-answering.jpg',

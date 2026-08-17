@@ -474,7 +474,9 @@ export default async function EventPage({ params }: Props) {
     { label: 'Date', value: eventDate },
     { label: 'Start time', value: eventTime },
     { label: 'End time', value: endTime },
-    { label: 'Doors open', value: doorsTime },
+    // "Arrive from", never "Doors open": the pub opens hours before any event
+    // starts. docs/SSOT.md §10 bans the wording.
+    { label: 'Arrive from', value: doorsTime },
     { label: 'Last entry', value: lastEntryTime },
     { label: 'Duration', value: durationLabel },
     // "Scheduled" on a night that has already happened reads as though it is

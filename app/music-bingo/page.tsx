@@ -87,7 +87,7 @@ const FAQS = [
   {
     question: 'When does Music Bingo start and finish?',
     answer:
-      'It typically starts at 8pm unless the event listing says otherwise. We play two games, with interactive music games and quizzes too.'
+      'It typically starts at 7pm unless the event listing says otherwise. We play two games, with interactive music games and quizzes too.'
   },
   {
     question: 'How much is entry?',
@@ -161,7 +161,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
       bookingSource="music_bingo_event_card"
       imageAltSuffix="music bingo night at The Anchor"
       renderMeta={(event, doorTime) => (
-        <p className="text-xs text-ink-muted">Doors {doorTime ?? '6:30pm'} - {getEntryLabel(event)}</p>
+        <p className="text-xs text-ink-muted">Arrive from {doorTime ?? '6:30pm'} - {getEntryLabel(event)}</p>
       )}
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
@@ -184,13 +184,13 @@ Two games of song snippets with interactive music rounds and quizzes between the
 export default async function MusicBingoPage() {
   const events = await getGameNightEvents(musicBingo)
   const nextEvent = events[0]
-  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8pm'
+  const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
   const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
 
   const heroDescription = nextEvent
-    ? `Doors ${doorTime}. Music Bingo starts at ${nextEventTime}. ${entryLabel}. Booking is recommended.`
-    : 'Doors 6:30pm. Music Bingo starts at 8pm. £3 entry. Booking is recommended.'
+    ? `Arrive from ${doorTime}. Music Bingo starts at ${nextEventTime}. ${entryLabel}. Booking is recommended.`
+    : 'Arrive from 6:30pm. Music Bingo starts at 7pm. £3 entry. Booking is recommended.'
 
   return (
     <>
@@ -207,8 +207,12 @@ export default async function MusicBingoPage() {
           "eventSchedule": {
             "@type": "Schedule",
             "repeatFrequency": "P1M",
-            "startTime": "20:00:00",
-            "endTime": "22:00:00",
+            // 7pm start, owner-confirmed 16 August 2026. This said 20:00, which
+            // is where the "starts at 8pm" copy across the page came from. The
+            // two-hour duration is carried over from the original rather than
+            // invented: the SSOT states a start time but no end time.
+            "startTime": "19:00:00",
+            "endTime": "21:00:00",
             "scheduleTimezone": "Europe/London"
           },
           "location": {
@@ -287,7 +291,7 @@ export default async function MusicBingoPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-h4 text-ink-strong">How Music Bingo runs</h3>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong>Doors {doorTime}</strong> - arrive early, grab drinks, and collect your bingo card.</li>
+                  <li><strong>Arrive from {doorTime}</strong> - the pub is open long before this, so come early, grab drinks, and collect your bingo card.</li>
 <li><strong>{nextEventTime}</strong> - first game begins with chart favourites and classics.</li>
                   {/* Two games, not five rounds: docs/SSOT.md §10 says "Two games
                       with interactive music games and quizzes too". The page used
@@ -480,7 +484,7 @@ export default async function MusicBingoPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-ink-strong">Arrive early</h3>
                   <p className="text-sm leading-relaxed text-ink-muted">
-                    Doors open at {doorTime}. Grab your drinks, settle the table, and you will not miss the opening clips.
+                    Arrive from {doorTime}. Grab your drinks, settle the table, and you will not miss the opening clips.
                   </p>
                 </CardBody>
               </Card>

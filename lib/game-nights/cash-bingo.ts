@@ -1,8 +1,8 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Cash bingo. Facts from docs/SSOT.md §10: monthly, dates vary, doors 6pm with
- * book sales from 6pm, eyes down 7pm, £10 per book and £1 daubers both cash
+ * Cash bingo. Facts from docs/SSOT.md §10: monthly, dates vary, arrive from 6pm
+ * with book sales from 6pm, eyes down 7pm, £10 per book and £1 daubers both cash
  * only, ten games, capacity 60, prizes vary by event, and a snowball that grows
  * £20 and 2 calls each month it rolls over. Current jackpot values live in the
  * event records only, never here.
@@ -31,7 +31,7 @@ export const cashBingo: GameNightConfig = {
 
   facts: [
     { label: 'Books', value: '£10 each, cash only' },
-    { label: 'Eyes down', value: '7pm, doors 6pm' },
+    { label: 'Eyes down', value: '7pm, arrive from 6pm' },
     { label: 'Games', value: '10, plus the snowball' },
     { label: 'Age', value: '18+' },
     { label: 'Parking', value: 'Free, right outside' }
@@ -57,7 +57,7 @@ export const cashBingo: GameNightConfig = {
     {
       question: 'What time should we get here?',
       answer:
-        'Doors and book sales open at 6pm, eyes down at 7pm. Come early if you want food and a decent seat.'
+        'Book sales start at 6pm and eyes down is 7pm. The pub is open long before that, so come early if you want food and a decent seat.'
     },
     {
       question: 'Is it 18 and over?',
@@ -89,7 +89,7 @@ export const cashBingo: GameNightConfig = {
     {
       src: '/images/events/cash-bingo/cash-bingo-room.jpg',
       alt: 'The room set up for cash bingo at The Anchor, Stanwell Moor',
-      caption: 'Doors and book sales from 6pm'
+      caption: 'Book sales from 6pm'
     },
     {
       src: '/images/events/cash-bingo/cash-bingo-winner-payout.jpg',

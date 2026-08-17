@@ -400,10 +400,17 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ## 10. Events
 
+> **"Doors" is banned wording for events.** (Owner-confirmed, 16 August 2026.) The
+> times below are when the room is set and players should arrive, **not** when the
+> pub opens. The Anchor is open from **12pm Tuesday to Sunday and 4pm on Mondays**,
+> so "doors 6:30pm" tells a customer the pub is shut until 6:30pm, which is wrong
+> and costs the earlier food trade. Write **"arrive from 6:30pm"** instead, and
+> never label an event time "Doors" or "Doors open" in customer-facing copy.
+
 ### Quiz Night
 
 - Monthly, dates vary, see listings.
-- Doors usually 6:30pm · Start usually 7pm · End ~9:45pm.
+- Arrive from 6:30pm · Start usually 7pm · End ~9:45pm.
 - £3 per person. Team size max 6.
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
 - Capacity 80.
@@ -414,7 +421,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 ### Cash Bingo
 
 - Monthly (dates vary).
-- Doors 6pm (book sales from 6pm) · Eyes-down 7pm.
+- Arrive from 6pm (book sales from 6pm) · Eyes-down 7pm.
 - £10 per book (**cash only**). £1 daubers cash only.
 - 10 games. Capacity 60.
 - Prizes vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.
@@ -422,7 +429,9 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 ### Music Bingo
 
 - Dates vary.
-- Doors 6:30pm · Start 8pm unless the event record says otherwise.
+- Arrive from 6:30pm · **Start 7pm** unless the event record says otherwise. (Start
+  time corrected from 8pm, owner-confirmed 16 August 2026. Anything still saying
+  8pm is wrong.)
 - £3 per person unless the event record says otherwise. Two games with interactive music games and quizzes too; song clips replace bingo numbers.
 - Capacity 90. Host: Nikki Manfadge.
 - Private nights available on request.
