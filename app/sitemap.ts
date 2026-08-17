@@ -112,6 +112,7 @@ const DATES = {
   jul2026Early: new Date('2026-07-07'), // Anniversary parties content remediation
   jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
   aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
+  aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -178,6 +179,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/brochures', lastModified: DATES.aug2026Brochures },
 
     // Heathrow & location pages
     { path: '/near-heathrow', lastModified: DATES.launch },

@@ -10,6 +10,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CtaBand } from '@/components/CtaBand'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -164,6 +165,8 @@ export default async function WakesPage() {
                     </Card>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="celebration_of_life" source="wakes" />
 
             <PrivateBookingSection id="enquiry" eventType="Wake / Memorial" />
 

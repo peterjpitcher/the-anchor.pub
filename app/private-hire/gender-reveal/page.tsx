@@ -12,6 +12,7 @@ import { getReviewsByTopic } from '@/lib/google-reviews'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 
 export const metadata: Metadata = {
@@ -298,6 +299,8 @@ export default function GenderRevealPage() {
                     </div>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="gender_reveal" source="gender_reveal" />
 
             <PrivateBookingSection eventType="Christening / Baby Shower" />
 

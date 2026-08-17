@@ -11,6 +11,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
@@ -479,6 +480,8 @@ export default function CorporateEventsPage() {
           />
         </Container>
       </section>
+
+      <BrochureDownload brochure="corporate" source="corporate_events" />
 
       <PrivateBookingSection
         eventType="Corporate Event"

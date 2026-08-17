@@ -10,6 +10,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
@@ -298,6 +299,8 @@ export default function BabyShowersPage() {
                     </div>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="baby_shower" source="baby_showers" />
 
             <PrivateBookingSection eventType="Christening / Baby Shower" />
 

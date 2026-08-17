@@ -9,6 +9,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 
 export const metadata: Metadata = {
@@ -220,6 +221,8 @@ export default function MilestoneBirthdaysPage() {
                     </Card>
                 </Container>
             </section>
+
+            <BrochureDownload brochure="birthdays" source="milestone_birthdays" />
 
             <PrivateBookingSection eventType="Birthday Party" />
 

@@ -10,6 +10,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
@@ -420,6 +421,8 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 }
             />
 
+            <BrochureDownload brochure="general" source="private_hire_hub" />
+
             {/* Existing enquiry form (logic preserved) */}
             <PrivateBookingSection
                 id="enquiry"
@@ -488,6 +491,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
             <InternalLinkingSection
                 title="Also explore"
                 links={[
+                    { href: '/private-hire/brochures', title: 'All 2026 Event Brochures', description: 'Nine brochures by occasion, with every space, menu and package' },
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
                     { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'A quiet private room with a private entrance and short-notice bookings' },
                     { href: '/private-hire/anniversary-parties', title: 'Anniversary Parties', description: 'Milestone celebrations with food, drinks and free parking' },

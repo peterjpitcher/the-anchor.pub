@@ -409,8 +409,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Quiz Night
 
-- Monthly, dates vary, see listings.
-- Arrive from 6:30pm · Start usually 7pm · End ~9:45pm.
+- Monthly, dates vary, see listings. Currently Wednesdays.
+- Arrive from 6:30pm · Start usually 7pm · **Aims to finish 9:30pm** (owner-confirmed 17 August 2026, and matches `end_time` 21:30 on every scheduled quiz in the management DB). The older "~9:45pm" is retired: anything still saying 9:45pm is wrong.
 - £3 per person. Team size max 6.
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
 - Capacity 80.
@@ -421,8 +421,10 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 ### Cash Bingo
 
 - Monthly (dates vary).
-- Arrive from 6pm (book sales from 6pm) · Eyes-down 7pm.
+- **Arrive by 6:30pm · First game 7pm · Finishes about 9:30pm.** (Owner-confirmed 17 August 2026: "I want people in for 6:30pm so they have time to get a drink, order some food, get their books and get comfortable for a 7pm start.") This supersedes the older "arrive from 6pm, book sales from 6pm" line. Books are bought on arrival, so do not publish a separate book-sales start time.
+- **The pub itself is open from 12pm.** Say so rather than implying the venue opens at the arrival time. See the banned-"Doors" note above.
 - £10 per book (**cash only**). £1 daubers cash only.
+- **18+ to play. Supervised under-18s are welcome to attend but may not play.** Publish both halves together, never one without the other.
 - 10 games. Capacity 60.
 - Prizes vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.
 
@@ -432,7 +434,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Arrive from 6:30pm · **Start 7pm** unless the event record says otherwise. (Start
   time corrected from 8pm, owner-confirmed 16 August 2026. Anything still saying
   8pm is wrong.)
-- £3 per person unless the event record says otherwise. Two games with interactive music games and quizzes too; song clips replace bingo numbers.
+- **£5 per person** unless the event record says otherwise. (Owner-confirmed 17 August 2026, and every scheduled Music Bingo in the management DB is priced at 5. Corrected from £3: anything still saying £3 is wrong.) Two games with interactive music games and quizzes too; song clips replace bingo numbers.
 - Capacity 90. Host: Nikki Manfadge.
 - Private nights available on request.
 
@@ -448,6 +450,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - **Not a regular feature in 2026.** Karaoke happens occasionally, nothing more. Only promote it when a specific event record lists it. Never imply a weekly, monthly or Friday slot. (Owner-confirmed, 11 August 2026.)
 - **Not hosted by Nikki Manfadge.** Nikki hosts Music Bingo. Karaoke has no fixed host. Take the host from the event record, or name nobody. (Owner-confirmed, 11 August 2026.)
 - Free entry.
+- **Ticketed with communal seating, and no reserved tables.** (Owner-confirmed 17 August 2026, and `booking_mode` is `communal` on the listed night.) Book a free place per person so we know how many seats to lay out. Never promise a guest "a table waiting for you" on karaoke: that claim is retired.
+- **All ages are welcome at all times, with under-18s accompanied by a supervising adult.** (Owner-confirmed 17 August 2026.) The older "strictly 18+ after 9pm" rule is retired and must not be republished.
 - Capacity 50.
 - Do not publish a recurring EventSeries schema for karaoke. Individual nights get their own Event schema when listed.
 
@@ -503,7 +507,17 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 | The Main Area | 29 | 150 | (live, DB) per hour | 1 hour |
 | Entire Pub (exclusive) | 119 | 300 | (live, DB) per hour | 4 hours |
 
-Capacities here are the structured `capacity_seated` / `capacity_standing` columns, which are canonical. **Do not take a capacity from the `description` free text on the same row.** The Main Area and Entire Pub descriptions carry stale figures (50 seated and 80 seated respectively) that contradict their own structured columns. That mismatch is what put the wrong Main Area capacity into the 2026 event brochures.
+Capacities here are the structured `capacity_seated` / `capacity_standing` columns, which are canonical. **Do not take a capacity from the `description` free text on the same row.** Both mismatched descriptions (Main Area and Entire Pub) were corrected on 17 August 2026, but the rule stands: the columns win.
+
+> **The Main Area rate is deliberately prohibitive.** It went from £40 to £100 per hour on 17 August 2026 because the owner does **not** want the main bar rented out; the price is set to discourage it, not to reflect cost. Do not "correct" it downwards, do not flag it as an error against the garden at £25 per hour for a larger capacity, and do not promote main-area hire as good value. If someone asks, the garden and dining room are the spaces we actually want booked.
+
+### 2026 event brochures
+
+Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts`. Verified figure by figure against `venue_spaces` and `catering_packages` on 17 August 2026.
+
+- **Prices inside are frozen at print time and exclude VAT.** The download CTA never repeats a price, so the live cost estimator stays the number customers act on. If catering prices or minimums change, the PDFs need re-exporting.
+- **Google reviews on page 13 are genuine**, supplied by the owner from Google (confirmed 17 August 2026). Do not re-flag them as unverified.
+- Occasions covered: general, birthdays, baby shower, christenings, gender reveal, engagement, retirement, celebration of life, corporate. **No brochure exists** for anniversary parties, summer garden parties or Christmas parties; those pages use the general brochure or their own material.
 
 ### Catering, Buffet (verified against the management DB, 17 August 2026)
 

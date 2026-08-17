@@ -630,6 +630,31 @@ export function trackPhoneCall(context: string) {
   trackPhoneCallClick({ source: context })
 }
 
+/**
+ * Fires when a visitor opens or downloads a private-hire event brochure PDF.
+ * A brochure download is a strong private-hire intent signal, so it reports into
+ * the private_hire_enquiry funnel rather than being treated as a generic click.
+ */
+export function trackBrochureDownload(data: {
+  /** Occasion the brochure covers, e.g. 'baby_shower'. */
+  brochure: string
+  /** Page or component the download started from. */
+  source: string
+  /** Public path of the PDF. */
+  file: string
+}) {
+  pushToDataLayer({
+    event: 'brochure_download',
+    funnel: 'private_hire_enquiry',
+    source_component: data.source,
+    cta_text: 'Download brochure',
+    destination: data.file,
+    brochure_occasion: data.brochure,
+    file_name: data.file.split('/').pop(),
+    file_extension: 'pdf'
+  })
+}
+
 export function trackEmailClick(data: { email: string; source: string; subject?: string }) {
   pushToDataLayer({
     event: 'email_click',
