@@ -22,12 +22,53 @@ All five open questions answered by the owner:
 
 | Lever | Status |
 |---|---|
-| Lever 2, require email at booking | **Built and verified.** 144 suites / 1,663 tests pass, typecheck and lint clean, confirmed in the browser. |
+| Lever 2, require email at booking | **Built and verified.** 145 suites / 1,683 tests pass, typecheck and lint clean, confirmed in the browser. |
 | Newsletter consent copy and versioning | **Built.** `lib/communication-consent.ts` plus 17 tests. |
-| `mobile_number` nullable migration | **Drafted, not applied.** Awaiting explicit go-ahead to run against production. |
+| Consent notices widened to v4 | **Built.** Both compact notices and all three marketing labels now name menus and offers. |
+| `mobile_number` nullable migration | **APPLIED TO PRODUCTION** 19 Aug 2026, history version `20260819170814`. Smoke-tested. |
 | Lever 1, SMS capture route | Not started. Needs the AMS route. |
-| Lever 3, website sign-up | Not started. Depends on the migration. |
+| Lever 3, website sign-up | Not started. Now unblocked by the migration. |
 | Lever 5, confirmation one-tap | Not started. Shares Lever 1's route. |
+
+### Branches
+
+| Repo | Branch | Commits |
+|---|---|---|
+| `OJ-The-Anchor.pub` | `feat/email-signup-capture` | 3 |
+| `OJ-AnchorManagementTools` | `feat/customers-optional-mobile` | 1 |
+
+**Open caveat:** the production database now allows phone-less customers, but the AMS consent-constants fix sits on that branch rather than on `main`. The database change needs no code to function, so nothing is broken. The consent-wording drift described below does, however, continue until the branch is merged and deployed.
+
+### Migration record
+
+| Item | Value |
+|---|---|
+| Project | `the-anchor-management-tools`, ref `tfcasgxopxegwrabvwat`, eu-west-2 |
+| Repo file | `supabase/migrations/20260819090000_customers_optional_mobile.sql` |
+| Applied history version | `20260819170814` / `customers_optional_mobile` |
+| Pre-flight | Column confirmed NOT NULL, 1,090 rows / 992 kB, 4 dependent views, 0 materialised views, index absent, 0 existing null mobiles |
+| Validation | Full SQL plus a phone-less insert run inside a rolled-back transaction; all 4 dependent views resolved; rollback confirmed to have left production untouched |
+| Post-apply | `is_nullable = YES`, drift index present, row count unchanged at 1,090, `chk_customer_phone_format` intact, column comment set |
+| Smoke test | Phone-less subscriber moved the marketing audience 225 to 226, `get_bulk_sms_recipients` returned 0 recipients without a number, drift index matched 0 rows, transaction rolled back with no residue |
+| Advisors | No new advisories. The 3 pre-existing ERROR-level items are `security_definer_view` on unrelated views. No RLS policy was touched, so no anon/authenticated re-verification was required. |
+| Rollback | In-file, valid while no phone-less rows exist |
+
+### A second drift found while doing this
+
+`OJ-AnchorManagementTools/src/lib/consent/constants.ts` is a hand-copied duplicate of the website's consent constants, and it had drifted to a state worse than being merely stale. It sat at `guest-comms-consent-v1`, carrying the generic **"Email me about future events and offers."** wording that predates v1 and that no guest has been shown since.
+
+These values are the **fallbacks** `ConsentService.recordConsent` uses when a caller supplies no version or text, and it stores both. Website-originated consents always supply their own, so those were correct. Everything AMS recorded itself did not:
+
+| Capture method | Rows stamped v1 | Last seen |
+|---|---:|---|
+| `unsubscribe_link` | 24 | 17 Aug 2026 |
+| `inbound_keyword` (NOEVENTS) | 4 | 13 Aug 2026 |
+| `profile_toggle` | 5 | 17 Aug 2026 |
+| `provider_event` | 6 | 18 Aug 2026 |
+
+Website rows over the same window correctly carried v3. Both files are now at v4 with a comment in each naming the other, since there is no shared package to enforce it.
+
+**Worth a later decision, not fixed here:** stamping the *current* version on an opt-out row is arguably wrong in principle, since the version should record what the guest was shown when they consented, not when they withdrew. That is a deeper design question about the ledger than this change should settle.
 
 ---
 
