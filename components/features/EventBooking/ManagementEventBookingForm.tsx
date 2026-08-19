@@ -382,9 +382,18 @@ export function ManagementEventBookingForm({
     const resolvedLastName = lastName.trim()
     const resolvedEmail = email.trim()
 
-    if (resolvedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resolvedEmail)) {
+    // Required since 2026-08-19. It was optional, and the label said so, which is why
+    // roughly half of every month's bookers arrived with no address on file at all. The
+    // confirmation is a real reason to ask, so the field now asks properly.
+    if (!resolvedEmail) {
       setLoading(false)
-      setError('Please enter a valid email address, or leave it blank.')
+      setError('Please enter your email address so we can send your confirmation.')
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(resolvedEmail)) {
+      setLoading(false)
+      setError('Please enter a valid email address.')
       return
     }
 
@@ -1041,13 +1050,14 @@ export function ManagementEventBookingForm({
           />
 
           <Input
-            label="Email address (optional)"
+            label="Email address"
             type="email"
+            required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="jane@example.com"
             autoComplete="email"
-            helperText="For payment follow-up if needed."
+            helperText="So we can send your confirmation and any payment follow-up."
           />
 
           <CommunicationConsentFields

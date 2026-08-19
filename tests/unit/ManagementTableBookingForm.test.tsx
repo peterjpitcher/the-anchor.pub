@@ -442,6 +442,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -492,6 +493,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -525,6 +527,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -578,6 +581,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -609,6 +613,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -799,6 +804,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Guest' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
@@ -833,8 +839,10 @@ describe('ManagementTableBookingForm', () => {
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-table')
     expect(payload.attribution_captured_at).toBe(ATTRIBUTION_CAPTURED_AT.toISOString())
-    expect(payload.email).toBeUndefined()
-    expect(JSON.stringify(payload)).not.toContain('jane@example.com')
+    // Email became required on 2026-08-19, so it is now always carried. This previously
+    // asserted the opposite, pinning the "blank email is omitted from the payload"
+    // behaviour, which is no longer reachable from the form.
+    expect(payload.email).toBe('jane@example.com')
     expect(payload.communication_consent).toEqual(
       expect.objectContaining({
         service_contact_notice_shown: true,
@@ -940,6 +948,7 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -1295,6 +1304,7 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -1359,7 +1369,7 @@ describe('ManagementTableBookingForm', () => {
 
       const firstName = screen.getByLabelText('First Name') as HTMLInputElement
       const lastName = screen.getByLabelText('Last name (optional)') as HTMLInputElement
-      const email = screen.getByLabelText('Email (optional)') as HTMLInputElement
+      const email = screen.getByLabelText('Email address') as HTMLInputElement
 
       expect(firstName.getAttribute('autocomplete')).toBe('given-name')
       expect(lastName.getAttribute('autocomplete')).toBe('family-name')
@@ -1445,6 +1455,7 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -1526,6 +1537,7 @@ describe('ManagementTableBookingForm', () => {
       firstName?: string
       lastName?: string
       phone?: string
+      email?: string
       notes?: string
     } = {}) {
       const partySize = options.partySize ?? '2'
@@ -1534,6 +1546,7 @@ describe('ManagementTableBookingForm', () => {
       const firstName = options.firstName ?? 'Sam'
       const lastName = options.lastName ?? 'Walker'
       const phone = options.phone ?? '07700900000'
+      const email = options.email ?? 'sam@example.com'
 
       fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
       fireEvent.blur(screen.getByLabelText('Party Size'))
@@ -1551,6 +1564,7 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: firstName } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: lastName } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: email } })
       if (options.notes) {
         fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), { target: { value: options.notes } })
       }
@@ -1841,6 +1855,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -1896,6 +1911,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -2095,6 +2111,7 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -2186,6 +2203,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -2649,6 +2667,7 @@ describe('ManagementTableBookingForm', () => {
       )
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
 
@@ -2704,6 +2723,7 @@ describe('ManagementTableBookingForm', () => {
       )
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       expect(screen.getByText('Table for food')).toBeInTheDocument()
@@ -2918,6 +2938,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -2948,6 +2969,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -3081,6 +3103,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -3127,6 +3150,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -3249,6 +3273,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       }
@@ -3348,6 +3373,7 @@ describe('ManagementTableBookingForm', () => {
           fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
           await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
           fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+          fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
           fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
           await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         }
@@ -3405,6 +3431,7 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
         await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       }
@@ -3481,6 +3508,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
@@ -3547,6 +3575,7 @@ describe('ManagementTableBookingForm', () => {
       await reachDetailsAt7pm(capturePayload)
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -3632,6 +3661,7 @@ describe('ManagementTableBookingForm', () => {
       )
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
       // Blocked until the shortfall is acknowledged.
@@ -3654,6 +3684,7 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.queryByText(/Book anyway/)).not.toBeInTheDocument()
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       // The chair clicks trigger an options-change re-read; while it is in
       // flight the wizard politely refuses Continue. Retry until it settles,
       // proving no acknowledgement is ever demanded on this path.
@@ -3678,6 +3709,7 @@ describe('ManagementTableBookingForm', () => {
       )
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.click(screen.getByRole('button', { name: 'Yes, book with 1' }))
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
@@ -3802,6 +3834,7 @@ describe('ManagementTableBookingForm', () => {
       await searchTo7pmChoose()
       await advanceTo7pmDetails()
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
 
@@ -3962,6 +3995,7 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())

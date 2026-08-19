@@ -210,17 +210,29 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
     return { code: 'name_missing', message: 'Please enter your first name.' }
   }
 
-  // Email is optional, so an empty box is fine and always has been. A typed one is
-  // checked, because until now anything at all was accepted: "jane@gmail" and
-  // "jane.gmail.com" both sailed through, went to the management app, and became a
-  // permanently undeliverable address on the marketing list. Nobody finds out until a
-  // campaign bounces months later, and by then the guest is long gone.
+  // Email became required on 2026-08-19. It was optional from the day the form started
+  // collecting it, and the label said so, which is why only 46% of new guests left one:
+  // roughly half of every month's bookers arrived with no way to be emailed at all. The
+  // field always had a genuine service reason behind it (the confirmation), so the label
+  // was telling guests not to bother with something the booking actually wants.
+  //
+  // Known customers are exempt because they never see the box. The management app already
+  // holds their address, and the form deliberately submits nothing for them, so demanding
+  // one here would block a returning guest over a field that is not on their screen.
+  if (!state.isKnownCustomer && !state.email.trim()) {
+    return { code: 'email_missing', message: 'Please enter your email address so we can send your confirmation.' }
+  }
+
+  // A typed one is checked, because before this anything at all was accepted:
+  // "jane@gmail" and "jane.gmail.com" both sailed through, went to the management app, and
+  // became a permanently undeliverable address on the marketing list. Nobody finds out
+  // until a campaign bounces months later, and by then the guest is long gone.
   //
   // The shape check is deliberately loose. Anything stricter starts rejecting real
   // addresses, and the cost of a false rejection here (a guest abandons the booking) is
   // far higher than the cost of letting an odd-but-valid address through.
   if (state.email.trim() && !isPlausibleEmail(state.email.trim())) {
-    return { code: 'email_invalid', message: 'That email address does not look right. Please check it, or clear the box.' }
+    return { code: 'email_invalid', message: 'That email address does not look right. Please check it.' }
   }
 
   // A high-chair shortfall needs an explicit tap before the guest can carry

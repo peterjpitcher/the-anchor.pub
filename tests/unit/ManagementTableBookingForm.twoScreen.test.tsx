@@ -211,6 +211,7 @@ async function verifyPhoneAndFillName() {
   fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
   await screen.findByLabelText('First Name')
   fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+  fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
   fireEvent.click(screen.getByLabelText(/booking and no-show policy/i))
 }
 

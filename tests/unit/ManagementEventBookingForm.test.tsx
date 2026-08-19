@@ -138,6 +138,7 @@ describe('ManagementEventBookingForm', () => {
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
 
@@ -161,6 +162,7 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
@@ -206,6 +208,7 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
@@ -304,6 +307,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Ticket 5 name'), { target: { value: 'Di Five' } })
     fireEvent.change(screen.getByLabelText('Ticket 6 name'), { target: { value: 'Ez Six' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
@@ -331,8 +335,10 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.gclid).toBe('g-123')
     expect(payload.short_code).toBe('ma-bingo')
     expect(payload.attribution_captured_at).toBe(CAPTURED_AT.toISOString())
-    expect(payload.email).toBeUndefined()
-    expect(JSON.stringify(payload)).not.toContain('jane@example.com')
+    // Email became required on 2026-08-19, so it is now always carried. This previously
+    // asserted the opposite, pinning the "blank email is omitted from the payload"
+    // behaviour, which is no longer reachable from the form.
+    expect(payload.email).toBe('jane@example.com')
     expect(payload.communication_consent).toEqual(
       expect.objectContaining({
         service_contact_notice_shown: true,
@@ -426,6 +432,7 @@ describe('ManagementEventBookingForm', () => {
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Book standing tickets' }))
@@ -512,6 +519,7 @@ describe('ManagementEventBookingForm', () => {
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))

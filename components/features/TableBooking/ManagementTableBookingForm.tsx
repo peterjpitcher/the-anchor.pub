@@ -3074,15 +3074,16 @@ export function ManagementTableBookingForm({
                 />
                 <div className="md:col-span-2">
                   <Input
-                    label="Email (optional)"
+                    label="Email address"
                     type="email"
                     size="lg"
+                    required
                     inputMode="email"
                     autoComplete="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@example.com"
-                    hint="So we can email your confirmation."
+                    hint="So we can send your confirmation and tell you about any changes."
                   />
                 </div>
               </div>
@@ -3304,15 +3305,16 @@ export function ManagementTableBookingForm({
                 />
                 <div className="md:col-span-2">
                   <Input
-                    label="Email (optional)"
+                    label="Email address"
                     type="email"
                     size="lg"
+                    required
                     inputMode="email"
                     autoComplete="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@example.com"
-                    hint="So we can email your confirmation."
+                    hint="So we can send your confirmation and tell you about any changes."
                   />
                 </div>
               </div>
