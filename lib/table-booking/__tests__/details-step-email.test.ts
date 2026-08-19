@@ -10,9 +10,13 @@ import {
  * Now it is a permanently undeliverable address on a marketing list, discovered months
  * later when a campaign bounces.
  *
- * The balance these tests pin: reject the obviously broken, accept anything that might be
- * real. A guest told their own working address is invalid abandons the booking, which
- * costs far more than letting an odd-looking address through.
+ * It became REQUIRED on 2026-08-19. Measured cause: the field was labelled "(optional)"
+ * and only 46% of new guests left an address, so about half of every month's bookers
+ * could never be emailed at all. The confirmation is a real reason to ask.
+ *
+ * The balance these tests pin: demand an address, reject the obviously broken, and accept
+ * anything that might be real. A guest told their own working address is invalid abandons
+ * the booking, which costs far more than letting an odd-looking address through.
  */
 
 function state(overrides: Partial<DetailsStepState> = {}): DetailsStepState {
@@ -31,13 +35,35 @@ function state(overrides: Partial<DetailsStepState> = {}): DetailsStepState {
   }
 }
 
-describe('email stays optional', () => {
-  it('lets a guest through with no email at all', () => {
-    expect(findDetailsStepRefusal(state({ email: '' }))).toBeNull()
+describe('email is required', () => {
+  it('refuses an empty box', () => {
+    const refusal = findDetailsStepRefusal(state({ email: '' }))
+    expect(refusal?.code).toBe('email_missing')
   })
 
-  it('treats whitespace as empty rather than as a typo', () => {
-    expect(findDetailsStepRefusal(state({ email: '   ' }))).toBeNull()
+  it('treats whitespace as empty rather than as a typed address', () => {
+    // Otherwise a space would satisfy the required check and then fail the shape check,
+    // which tells the guest their address looks wrong when they never gave one.
+    const refusal = findDetailsStepRefusal(state({ email: '   ' }))
+    expect(refusal?.code).toBe('email_missing')
+  })
+
+  it('says why it is being asked for', () => {
+    // A required field with no stated reason reads as data harvesting, which is exactly
+    // when a guest abandons. The confirmation is the reason, so it goes in the message.
+    const refusal = findDetailsStepRefusal(state({ email: '' }))
+    expect(refusal?.message).toMatch(/confirmation/i)
+  })
+
+  it('exempts a known customer, who never sees the box', () => {
+    // The management app already holds their address and the form submits nothing for
+    // them, so demanding one would block a returning guest over an off-screen field.
+    expect(findDetailsStepRefusal(state({ isKnownCustomer: true, email: '' }))).toBeNull()
+  })
+
+  it('still checks a known customer address if one was somehow typed', () => {
+    const refusal = findDetailsStepRefusal(state({ isKnownCustomer: true, email: 'nope' }))
+    expect(refusal?.code).toBe('email_invalid')
   })
 })
 
@@ -65,16 +91,19 @@ describe('a typed email is checked', () => {
     expect(findDetailsStepRefusal(state({ email }))).toBeNull()
   })
 
-  it('asks the guest to fix it or clear it, rather than just saying no', () => {
+  it('asks the guest to check it, rather than just saying no', () => {
+    // No longer offers "or clear the box": clearing it is now a refusal in its own right,
+    // so suggesting it would send the guest round in a circle.
     const refusal = findDetailsStepRefusal(state({ email: 'nope' }))
-    expect(refusal?.message).toContain('clear the box')
+    expect(refusal?.message).toContain('check it')
+    expect(refusal?.message).not.toContain('clear the box')
   })
 })
 
-describe('email is checked after the things that actually block a booking', () => {
+describe('email is checked after the earlier fields on the form', () => {
   it('reports the missing phone first, not the bad email', () => {
-    // Order matters for the guest: the phone is required and the email is not, so
-    // leading with the optional field would read as though the email were the problem.
+    // Order matters for the guest: both are required now, so the refusal should follow
+    // reading order down the form rather than jumping to the last field they touched.
     const refusal = findDetailsStepRefusal(state({ phone: '', email: 'nope' }))
     expect(refusal?.code).toBe('phone_missing')
   })
@@ -109,9 +138,23 @@ describe('the consent notice tells the guest both ways out', () => {
   it('moved the consent text version, because the wording moved', () => {
     // The version is the record of what a guest was shown. Leaving it at an old value
     // while the words change settles a later dispute against wording that guest never saw.
-    // Moved to v3 on 2026-08-11, when live music was dropped from every notice because it
-    // is discontinued in full. Bump this pin deliberately whenever the notices change.
-    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v3')
+    // Moved to v4 on 2026-08-19, when the notices were widened to name menus and offers,
+    // which the venue was already sending. Bump this pin deliberately whenever they change.
+    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v4')
+  })
+
+  it('describes the menus and offers that are actually sent, not just the game nights', () => {
+    // The v3 wording named the three game nights only, while the "Lunch from September
+    // 2026" campaign had already gone to this same list. A notice that under-describes what
+    // is sent is not the clear information the soft opt-in basis depends on.
+    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/new menus/i)
+    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/offers/i)
+  })
+
+  it('still names the game nights concretely rather than going generic', () => {
+    // The generic "events and offers" phrasing this family replaced was ticked by 1 of 71
+    // guests. Widening the scope must not cost the concreteness that fixed that.
+    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/quiz nights and bingo/i)
   })
 
   it('no longer offers a guest texts about live music', () => {
