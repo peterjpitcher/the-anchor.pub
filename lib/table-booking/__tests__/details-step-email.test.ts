@@ -138,9 +138,10 @@ describe('the consent notice tells the guest both ways out', () => {
   it('moved the consent text version, because the wording moved', () => {
     // The version is the record of what a guest was shown. Leaving it at an old value
     // while the words change settles a later dispute against wording that guest never saw.
-    // Moved to v4 on 2026-08-19, when the notices were widened to name menus and offers,
-    // which the venue was already sending. Bump this pin deliberately whenever they change.
-    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v4')
+    // Moved to v5 on 2026-08-20, when the venue confirmed the scope is the latest from The
+    // Anchor generally, including changes as they happen, not only events, menus and offers.
+    // Bump this pin deliberately whenever the notices change.
+    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v5')
   })
 
   it('describes the menus and offers that are actually sent, not just the game nights', () => {
@@ -151,10 +152,10 @@ describe('the consent notice tells the guest both ways out', () => {
     expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/offers/i)
   })
 
-  it('still names the game nights concretely rather than going generic', () => {
-    // The generic "events and offers" phrasing this family replaced was ticked by 1 of 71
-    // guests. Widening the scope must not cost the concreteness that fixed that.
-    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/quiz nights and bingo/i)
+  it('covers changes, which the venue also sends', () => {
+    // v5. Menu launches and altered hours are things guests are told about, and a notice
+    // that lists only events, menus and offers under-describes that.
+    expect(GUEST_TABLE_COMPACT_CONSENT_NOTICE).toMatch(/any changes/i)
   })
 
   it('no longer offers a guest texts about live music', () => {
