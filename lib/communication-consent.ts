@@ -22,10 +22,20 @@
 // clear information the basis depends on. Concrete wording is kept, because the generic
 // "events and offers" phrasing this replaced was ticked by 1 of 71 guests.
 //
+// Bumped to v5 on 2026-08-20. The venue confirmed the scope is wider again than v4
+// described: not only what is on, new menus and offers, but the latest from The Anchor
+// generally, including changes as they happen (a menu launch, altered hours, a new offer).
+// v4 named three categories and the venue sends four, so the notice was under-describing
+// again, in the same way and for the same reason it did before v4.
+//
+// Still a widening of the DESCRIPTION, not of the legal basis. Soft opt-in reaches "our own
+// similar services", and news about the pub's own offering sits inside that. It would not
+// stretch to anything about a third party, and nothing here should ever name one.
+//
 // Both the client payload and the server sanitiser read this same constant
 // (lib/communication-consent-server.ts pins it with z.literal), so there is exactly one
 // place to change and no way for the two to drift.
-export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v4'
+export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v5'
 
 export const GUEST_SERVICE_CONTACT_NOTICE =
   'We will use your phone and email to manage this booking, including confirmations, reminders, payment links, waitlist updates, and changes.'
@@ -45,12 +55,12 @@ export const GUEST_SERVICE_CONTACT_NOTICE =
 // becomes eligible for exactly the same campaigns as a past booker, so a label naming only
 // the game nights was describing a narrower list than the one they were joining.
 export const GUEST_MARKETING_EMAIL_LABEL =
-  'Email me what is on at The Anchor: quiz nights and bingo, new menus, and offers.'
+  'Email me the latest from The Anchor: quiz nights and bingo, new menus, offers, and any changes.'
 export const GUEST_MARKETING_SMS_LABEL =
-  'Text me what is on at The Anchor: quiz nights and bingo, new menus, and offers.'
+  'Text me the latest from The Anchor: quiz nights and bingo, new menus, offers, and any changes.'
 export const GUEST_WHATSAPP_SERVICE_LABEL = 'Send booking updates by WhatsApp.'
 export const GUEST_MARKETING_WHATSAPP_LABEL =
-  'Send me WhatsApp updates about what is on, new menus, and offers.'
+  'Send me WhatsApp updates on what is on, new menus, offers, and any changes.'
 
 // Compact notice for the event booking form. Four tick boxes on a £5 bingo
 // booking cost more conversions than the explicit consent was worth, and the
@@ -64,7 +74,7 @@ export const GUEST_MARKETING_WHATSAPP_LABEL =
 // opt-in under Meta's own platform rules, which soft opt-in does not satisfy, so
 // it is simply not offered at booking time rather than quietly assumed.
 export const GUEST_COMPACT_CONSENT_NOTICE =
-  'We will use your phone and email to manage this booking, and to text you what is on at The Anchor: quiz nights and bingo, new menus, and offers. Reply NOEVENTS to any message to stop those texts.'
+  'We will use your phone and email to manage this booking, and to text you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to any message to stop those texts.'
 
 // The table-booking version of the same notice, which also covers EMAIL.
 //
@@ -83,7 +93,7 @@ export const GUEST_COMPACT_CONSENT_NOTICE =
 // Still deliberately no WhatsApp. Meta's platform rules require explicit opt-in, which
 // soft opt-in does not satisfy, so it is not offered at booking time rather than assumed.
 export const GUEST_TABLE_COMPACT_CONSENT_NOTICE =
-  'We will use your phone and email to manage this booking, and to let you know what is on at The Anchor: quiz nights and bingo, new menus, and offers. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
+  'We will use your phone and email to manage this booking, and to send you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
 
 // ── Newsletter, the website sign-up ─────────────────────────────────────────
 //
@@ -112,7 +122,7 @@ export const GUEST_NEWSLETTER_CONSENT_TEXT_VERSION = 'guest-newsletter-consent-v
 // only promotable where a specific event record lists them, which a standing label cannot
 // guarantee. Still no live music, which is discontinued in full.
 export const GUEST_NEWSLETTER_LABEL =
-  "Email me what's on at The Anchor: quiz nights and bingo, new menus, offers, and first chance to book."
+  'Email me the latest from The Anchor: quiz nights and bingo, new menus, offers, any changes, and first chance to book.'
 
 // Sits under the sign-up field. States the scope again in sentence form, and names the way
 // out, which is what makes the consent valid rather than merely obtained.
@@ -120,7 +130,7 @@ export const GUEST_NEWSLETTER_LABEL =
 // Deliberately promises NO frequency. Nothing in docs/SSOT.md supports a cadence
 // commitment, and a broken "weekly" promise is a leading cause of unsubscribes.
 export const GUEST_NEWSLETTER_SCOPE_NOTICE =
-  'We will email you when there is something worth knowing: upcoming events, new menus, offers and deals, and early booking for paid events. Every email has an unsubscribe link, and we never pass your address to anyone else.'
+  'We will email you the latest from The Anchor: upcoming events, new menus, offers and deals, anything that is changing, and early booking for paid events. Every email has an unsubscribe link, and we never pass your address to anyone else.'
 
 export type CommunicationConsentPayload = {
   service_contact_notice_shown: boolean

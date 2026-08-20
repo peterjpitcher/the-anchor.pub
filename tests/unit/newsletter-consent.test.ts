@@ -32,6 +32,7 @@ describe('the newsletter has its own consent version lineage', () => {
 describe('the newsletter label covers the scope the owner confirmed', () => {
   it.each([
     ['events', /quiz nights and bingo/i],
+    ['changes', /any changes/i],
     ['new menus', /new menus/i],
     ['offers', /offers/i],
     ['early booking', /first chance to book/i],
