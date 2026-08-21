@@ -650,5 +650,60 @@
     "source": "/blog/best-sunday-roast-near-heathrow",
     "destination": "/sunday-roast",
     "permanent": true
+  },
+  {
+    "source": "/pub-near-crowne-plaza-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-hilton-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-holiday-inn-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-ibis-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-marriott-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-novotel-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-premier-inn-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-radisson-blu-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-renaissance-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-sofitel-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-travelodge-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
   }
 ]

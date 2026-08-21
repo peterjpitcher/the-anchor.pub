@@ -200,19 +200,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/coach-parking-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/restaurants-near-heathrow', lastModified: DATES.seoOverhaul },
 
-    // Hotel proximity pages
+    // Hotel hub. The 11 individual /pub-near-* pages were retired on
+    // 21 Aug 2026 (83% duplicates of each other, 29 clicks in 16 months,
+    // ranking only for generic pub terms other pages own). See
+    // tasks/site-growth-implementation-spec-2026-08-17.md C6.
     { path: '/heathrow-hotels-pub', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-sofitel-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-premier-inn-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-hilton-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-marriott-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-crowne-plaza-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-ibis-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-travelodge-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-renaissance-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-holiday-inn-heathrow', lastModified: DATES.apr2026 },
-    { path: '/pub-near-novotel-heathrow', lastModified: DATES.apr2026 },
-    { path: '/pub-near-radisson-blu-heathrow', lastModified: DATES.apr2026 },
 
     // Venue & facilities
     { path: '/m25-junction-14-pub', lastModified: DATES.seoOverhaul },
