@@ -113,6 +113,7 @@ const DATES = {
   jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
   aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
   aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
+  aug2026Growth: new Date('2026-08-21'),    // Site growth programme: themed quiz hub, retirements, metadata
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -155,6 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Events & entertainment
     { path: '/whats-on', lastModified: DATES.apr2026 },
     { path: '/quiz-night', lastModified: DATES.apr2026 },
+    { path: '/quiz-night/themed', lastModified: DATES.aug2026Growth },
     { path: '/cash-bingo', lastModified: DATES.apr2026 },
     { path: '/music-bingo', lastModified: DATES.apr2026 },
     { path: '/karaoke', lastModified: DATES.apr2026 },
