@@ -652,7 +652,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     const { label, descriptor } = getMetaForType(landmark.type, landmark.slug)
     const title = `${label} Near ${landmark.name}`
-    const description = `${label} for ${descriptor}, ${landmark.distance} from ${landmark.name}. Free parking, flexible private spaces for 10 to 150 guests, and a dedicated coordinator.`
+    // Kept under 160 characters so it is not truncated in results. The old
+    // version interpolated the full `descriptor` list ("engagement parties,
+    // naming ceremonies and post-ceremony receptions") and ran to 225.
+    const description = `${label} ${landmark.distance} from ${landmark.name}. Free parking, private space for 10 to 150 guests and someone to help you plan it.`
 
     return {
         title,

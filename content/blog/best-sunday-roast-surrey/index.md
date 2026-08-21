@@ -1,6 +1,6 @@
 ---
 title: "Best Sunday Roast in Surrey (2026): 7 Pubs Honestly Compared"
-description: "An honest 2026 comparison of 7 of Surrey's best Sunday roast pubs: quality, booking, parking and family-friendliness, from a Surrey pub team that cooks roasts every week."
+description: "Seven of Surrey's best Sunday roast pubs compared on food, booking, parking and whether they suit families. From a team that cooks roasts weekly."
 date: "2026-04-07"
 author: "Billy"
 keywords:

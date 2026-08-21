@@ -1,6 +1,6 @@
 ---
 title: "Heathrow Layover Guide: What To Do With 4-8 Hours (2026)"
-description: "Got a long Heathrow layover? Skip the terminal and explore. A local's guide to the best ways to spend 4-8 hours near the airport, dining, sightseeing, and relaxation."
+description: "A long Heathrow layover is not wasted time. How to spend four to eight hours near the airport, from a proper lunch to somewhere to sit."
 date: "2026-03-20"
 author: "Billy"
 keywords:

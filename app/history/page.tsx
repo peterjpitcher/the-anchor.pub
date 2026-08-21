@@ -20,7 +20,7 @@ import {
 export const metadata: Metadata = {
   title: { absolute: 'History of The Anchor, Stanwell Moor | Village Pub Since 1751' },
   description:
-    'The history of The Anchor in Stanwell Moor, a village pub since at least 1751 with roots reaching back to 1730. Locally listed Victorian building near Heathrow Terminal 5.',
+    'A village pub since at least 1751, with roots reaching back to 1730. The locally listed Victorian building near Heathrow Terminal 5.',
   alternates: { canonical: '/history' },
   openGraph: {
     title: 'The History of The Anchor | Stanwell Moor Village Pub Since 1751',

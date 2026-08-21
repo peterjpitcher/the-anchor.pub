@@ -1,11 +1,7 @@
 ---
 title: Dog Friendly Pub Near Heathrow | Dogs Welcome in Stanwell Moor
 slug: dog-friendly-pub
-description: >-
-  The Anchor is the perfect dog friendly pub near Heathrow Airport. Enjoy Sunday
-  lunch with your dog, spacious garden terrace, water bowls & treats provided.
-  Family friendly pub in Stanwell Moor with nearby walks. Free parking, just 7
-  mins from Terminal 5.
+description: "Dogs are welcome throughout, garden included, with water bowls and treats on us. Sunday roast, free parking, seven minutes from Terminal 5."
 date: '2023-03-05'
 oldUrl: 'https://www.the-anchor.pub/post/the-importance-of-being-dog-friendly'
 author: Billy

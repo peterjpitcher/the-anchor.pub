@@ -31,7 +31,7 @@ export function generateMetadata(): Metadata {
 
   return {
     title,
-    description: `The Anchor is a traditional pub near Heathrow Airport, 7 minutes from Terminal 5. Free parking, freshly made pub food, ${sundayPhrase}, and a dog-friendly beer garden under the flight path. Outside the ULEZ zone.`,
+    description: `A traditional pub 7 minutes from Heathrow Terminal 5. Free parking, ${sundayPhrase} and a dog-friendly beer garden under the flight path.`,
     openGraph: {
       title,
       description: 'The closest traditional pub to Heathrow Terminal 5. Free customer parking, freshly made pub food, a dog-friendly beer garden under the flight path, and easy access from the M25 and every terminal.',

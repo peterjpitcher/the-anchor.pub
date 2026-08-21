@@ -37,7 +37,7 @@ const EASTER_SUNDAY_DYNAMIC: SeasonalDynamicFields = {}
 export const metadata: Metadata = {
   title: 'Easter Sunday Roast in Stanwell Moor',
   description:
-    'Easter Sunday roast at The Anchor in Stanwell Moor, near Heathrow Terminal 5. A family-friendly Sunday roast served 1pm to 6pm, cooked from scratch. Walk in or book ahead, free parking.',
+    'A family-friendly Easter Sunday roast near Heathrow Terminal 5, cooked from scratch and served 1pm to 6pm. Walk in or book ahead, free parking.',
   keywords:
     'easter sunday roast stanwell moor, easter sunday pub near heathrow, easter sunday lunch near heathrow, family-friendly easter sunday roast, easter roast near terminal 5',
   alternates: { canonical: './' },

@@ -1,6 +1,6 @@
 ---
 title: "Secret Santa Ideas Under £10 That Won't End Up in the Bin"
-description: "30 genuinely good Secret Santa ideas for work that cost under £10. Organised by category, opinionated, and designed to make you the colleague who actually gives good presents."
+description: "Thirty Secret Santa ideas for work, all under £10, sorted by category. For anyone who wants to stop giving novelty socks."
 date: "2026-04-11"
 author: "The Anchor Team"
 keywords:

@@ -26,7 +26,7 @@ const NYE_DYNAMIC: SeasonalDynamicFields = {
 
 const PAGE_TITLE = "New Year's Eve Near Heathrow | DJ, Open Till 1am"
 const PAGE_DESCRIPTION =
-  "See in the new year at The Anchor near Heathrow. A proper local New Year's Eve party with a DJ, a midnight countdown and late opening until 1am. Full bar, free parking. Book a table or walk in."
+  "A proper local New Year's Eve near Heathrow: a DJ, a midnight countdown and the bar open until 1am. Free parking. Book a table or walk in."
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,

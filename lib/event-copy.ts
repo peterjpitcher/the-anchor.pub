@@ -113,11 +113,17 @@ export function getEventMetaDescription(
 
   const date = eventDateLabel(event)
   const categoryName = event.category?.name
-  const onward = categoryName
-    ? ` See upcoming ${categoryName} dates at The Anchor.`
-    : ' See what is coming up at The Anchor.'
+  const onward = categoryName ? ` See upcoming ${categoryName} dates.` : ' See what is coming up.'
 
-  return `${event.name} took place at The Anchor in Stanwell Moor${date ? ` on ${date}` : ''}.${onward}`
+  // Kept under 160 characters so results are not truncated. Event names run
+  // long ("St Patrick's Day / Free Jamesons with First Guinness"), so the
+  // name is trimmed rather than the date or the onward link, which are the
+  // two parts that actually help someone who has landed on a finished night.
+  const tail = ` took place in Stanwell Moor${date ? ` on ${date}` : ''}.${onward}`
+  const room = 160 - tail.length
+  const name = event.name.length > room ? `${event.name.slice(0, Math.max(0, room - 1)).trimEnd()}\u2026` : event.name
+
+  return `${name}${tail}`
 }
 
 /**

@@ -51,7 +51,22 @@ describe('getEventMetaDescription', () => {
       makeEvent({ startDate: new Date(Date.now() - 30 * DAY).toISOString() }),
       'fallback',
     )
-    expect(d).toContain('Music Bingo took place at The Anchor')
+    expect(d).toContain('Music Bingo took place in Stanwell Moor')
+    expect(d).toContain('See upcoming Music Bingo dates')
+    // Must survive a search result without being truncated.
+    expect(d.length).toBeLessThanOrEqual(160)
+  })
+
+  it('trims a long event name rather than losing the date or the onward link', () => {
+    const d = getEventMetaDescription(
+      makeEvent({
+        name: "St Patrick's Day / Free Jamesons with First Guinness and a Very Long Tail That Keeps Going",
+        startDate: new Date(Date.now() - 30 * DAY).toISOString(),
+      }),
+      'fallback',
+    )
+    expect(d.length).toBeLessThanOrEqual(160)
+    expect(d).toContain('took place in Stanwell Moor')
     expect(d).toContain('See upcoming Music Bingo dates')
   })
 

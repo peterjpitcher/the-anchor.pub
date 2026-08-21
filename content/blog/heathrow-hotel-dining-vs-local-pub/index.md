@@ -1,9 +1,6 @@
 ---
 title: Heathrow Hotel Dining vs Local Pub, An Honest Comparison (2026)
-description: >-
-  Should you eat in your Heathrow hotel restaurant or head out to a local pub?
-  We compare prices, atmosphere, food quality and practicality to help you
-  decide where to eat near Heathrow tonight.
+description: "Hotel restaurant or local pub near Heathrow? An honest comparison of price, food and the walk back, so you can decide tonight."
 date: '2026-03-01'
 author: The Anchor Team
 keywords:

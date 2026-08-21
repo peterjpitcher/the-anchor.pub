@@ -33,7 +33,7 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Stanwell Moor Pub',
-    description: `Your local pub in Stanwell Moor near Staines and Heathrow. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights and free parking.`,
+    description: `Your local in Stanwell Moor, near Staines and Heathrow. ${sundayPhrase}, stone-baked pizzas, a dog-friendly beer garden and free parking.`,
     openGraph: {
       title: 'Stanwell Moor Pub, Beer Garden, Food and Free Parking',
       description: `${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,

@@ -20,7 +20,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Heathrow & Staines',
-    description: 'Private room for christening parties & baptism receptions at The Anchor, Stanwell Moor. Up to 50 guests, buffet options, family-friendly, free parking. Near Heathrow.',
+    description: 'A private room for christenings and naming days in Stanwell Moor. Up to 50 guests, buffet catering, family-friendly and free parking.',
     openGraph: {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',

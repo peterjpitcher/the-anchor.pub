@@ -171,7 +171,7 @@ export async function generateMetadata(): Promise<Metadata> {
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
-    : `Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19). A relaxed night out for couples, friends and small groups, with good food and proper drinks. Book online for ${eventDateLabel}.`
+    : `A relaxed Valentine's and Galentine's near Heathrow, for couples, friends and small groups. Good food, proper drinks, free parking. Book for ${eventDateLabel}.`
 
   const keywords = event?.keywords
     ? event.keywords

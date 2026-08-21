@@ -16,7 +16,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pubs in Sunbury | Sunday Roasts & Free Parking',
-    description: `Looking for pubs in Sunbury? ${BRAND.name} is a favourite for Sunbury residents. Exceptional Sunday roasts, stone-baked pizzas, family-friendly atmosphere, and free parking.`,
+    description: `Looking for pubs near Sunbury? Sunday roasts, stone-baked pizzas, a family-friendly welcome and free parking, a short drive away.`,
     openGraph: {
         title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',

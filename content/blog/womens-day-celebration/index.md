@@ -1,11 +1,7 @@
 ---
 title: International Women's Day Near Heathrow | How We Celebrate
 slug: womens-day-celebration
-description: >-
-  Celebrate International Women's Day at The Anchor pub near Heathrow Airport.
-  Female-led team, special events, and inclusive atmosphere in Stanwell Moor.
-  Join us March 8th just 7 minutes from Terminal 5. Supporting women in
-  hospitality and our local community.
+description: "How we mark International Women's Day in Stanwell Moor, and why a female-led team matters to a village pub seven minutes from Heathrow."
 date: '2023-02-10'
 oldUrl: >-
   https://www.the-anchor.pub/post/international-women-s-day-celebrating-the-achievem

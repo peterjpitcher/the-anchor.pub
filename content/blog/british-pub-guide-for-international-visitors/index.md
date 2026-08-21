@@ -1,9 +1,6 @@
 ---
 title: A First-Timer's Guide to British Pub Culture (For International Visitors Near Heathrow)
-description: >-
-  Visiting a British pub for the first time? This practical guide explains pub
-  etiquette, ordering, British beers, Sunday roasts and everything international
-  visitors near Heathrow need to know to enjoy the authentic experience.
+description: "First time in a British pub? How to order at the bar, what the beers are, what a Sunday roast involves and what nobody tells you."
 date: '2026-03-01'
 author: The Anchor Team
 keywords:

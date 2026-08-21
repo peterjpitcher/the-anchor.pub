@@ -1,7 +1,7 @@
 ---
 title: "Cheap Heathrow Parking Alternatives (2026 Guide)"
 slug: cheap-heathrow-parking-alternatives
-description: "Compare cheap Heathrow parking options for 2026. See official long stay vs short stay vs off-airport alternatives, with terminal transfer times and The Anchor pricing from £15/day."
+description: "Heathrow parking compared for 2026: official long stay, short stay and off-airport options, with transfer times and real prices."
 date: "2026-02-18"
 author: "Billy"
 keywords:

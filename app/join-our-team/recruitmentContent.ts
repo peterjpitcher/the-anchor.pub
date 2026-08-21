@@ -189,7 +189,7 @@ export const recruitmentRolePages: Record<RoleSlug, RecruitmentRolePage> = {
     title: 'Bar Staff',
     metaTitle: 'Bar Staff Jobs Near Heathrow | The Anchor Stanwell Moor',
     metaDescription:
-      'Apply for part-time bar staff jobs at The Anchor in Stanwell Moor near Heathrow. Ideal for experienced, reliable hospitality staff who care about great guest service.',
+      'Part-time bar staff jobs in Stanwell Moor near Heathrow. For reliable people who care about looking after guests. Free parking on shift.',
     heroTitle: 'Bar Staff Jobs Near Heathrow',
     heroIntro: [
       'We are looking for experienced, reliable bar staff to join our small team at The Anchor in Stanwell Moor.',

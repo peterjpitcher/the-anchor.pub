@@ -93,9 +93,9 @@ const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDat
 
 const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines`
 const descriptionStatic =
-  `Mother's Day lunch near me, Mother's Day Sunday roast at The Anchor near Staines. ` +
-  `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-  `Walk-ins welcome, booking recommended. Current Sunday roast menu.`
+  `Mother's Day Sunday roast near Staines, served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
+  `with last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}. ` +
+  `Walk-ins welcome, booking recommended.`
 const keywordsStatic =
   "mothers day lunch near me, mothers day sunday roast near me, mothers day sunday roast, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
 
