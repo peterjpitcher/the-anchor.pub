@@ -493,7 +493,8 @@ export default async function EventPage({ params }: Props) {
 
   return (
     <>
-      <EventSchema event={event} />
+      {/* The event's own page, so it is the one place a breadcrumb belongs. */}
+      <EventSchema event={event} includeBreadcrumb />
       <EventPageTracker
         eventId={event.id}
         eventName={event.name}

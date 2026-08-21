@@ -91,3 +91,27 @@ export function getRedirectStatus(rule: RedirectRule): number {
 export function getRedirectMapSize(): number {
   return REDIRECT_MAP.size
 }
+
+/**
+ * Catch-all patterns that MUST run after the concrete lookup above.
+ *
+ * Next's `redirects()` runs before middleware, so any pattern registered
+ * there beats every concrete rule in REDIRECT_MAP. `/post/:slug -> /blog`
+ * was registered there, which meant all 232 concrete `/post/*` rules were
+ * dead: 172 old Wix URLs that each had a specific migrated post to land on
+ * were instead dumped on the blog index, losing the topical match and
+ * turning a precise 301 into a soft one.
+ *
+ * Keeping the fallback here, after lookupRedirect(), restores the intended
+ * order: land on the specific post when we know it, and fall back to the
+ * blog index only when we do not. next.config.js excludes these sources from
+ * its pattern list so they cannot run early again.
+ */
+export const FALLBACK_PATTERN_SOURCES = ['/post/:slug', '/post/:slug/:rest*'] as const
+
+export function lookupFallbackRedirect(pathname: string): RedirectRule | undefined {
+  if (pathname === '/post' || pathname.startsWith('/post/')) {
+    return { source: pathname, destination: '/blog', permanent: true }
+  }
+  return undefined
+}

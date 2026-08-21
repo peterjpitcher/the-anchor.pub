@@ -7,6 +7,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 interface EventSchemaProps {
   event: Event
+  /**
+   * Emit the BreadcrumbList too. Only true on the event's OWN page.
+   *
+   * Six of the eight callers render this component in a loop over many events
+   * (the homepage, /whats-on and the four game pages). A breadcrumb describes
+   * where the CURRENT page sits, not where each listed item sits, so emitting
+   * one per card put 17 trails on /whats-on. Defaults to false so a new
+   * listing page cannot repeat that by accident.
+   */
+  includeBreadcrumb?: boolean
 }
 
 /**
@@ -17,8 +27,17 @@ interface EventSchemaProps {
  * the breadcrumb treatment in results. The trail here mirrors that nav exactly,
  * which is what Google asks for: Home, then the category hub, then this event.
  */
-export function EventSchema({ event }: EventSchemaProps) {
+export function EventSchema({ event, includeBreadcrumb = false }: EventSchemaProps) {
   const schema = buildEventSchema(event)
+
+  if (!includeBreadcrumb) {
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(schema) }}
+      />
+    )
+  }
 
   const categoryName = event.category?.name ?? "What's On"
   const categoryUrl = getCategoryPageUrl(event.category?.slug)

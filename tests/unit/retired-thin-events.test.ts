@@ -55,3 +55,48 @@ describe('retired thin event pages', () => {
     expect(getEventSeoStrategy(pastEvent('quiz-night-2026-03-04')).index).toBe(true)
   })
 })
+
+/**
+ * A breadcrumb describes where the CURRENT page sits, not where each listed
+ * item sits. EventSchema is rendered in a loop on six pages (the homepage,
+ * /whats-on and the four game pages), so emitting a BreadcrumbList by default
+ * put 17 trails on /whats-on alone.
+ */
+describe('EventSchema breadcrumb is opt-in', () => {
+  const fs = require('fs') as typeof import('fs')
+  const path = require('path') as typeof import('path')
+
+  const listingPages = [
+    'app/page.tsx',
+    'app/whats-on/page.tsx',
+    'app/quiz-night/page.tsx',
+    'app/cash-bingo/page.tsx',
+    'app/music-bingo/page.tsx',
+    'app/karaoke/page.tsx',
+    'app/valentines-day/page.tsx',
+  ]
+
+  it('defaults to off, so a listing page cannot emit one trail per card', () => {
+    const src = fs.readFileSync(
+      path.join(process.cwd(), 'components/seo/EventSchema.tsx'),
+      'utf8',
+    )
+    expect(src).toMatch(/includeBreadcrumb\s*=\s*false/)
+  })
+
+  it('is not enabled on any page that renders EventSchema in a loop', () => {
+    const offenders = listingPages.filter((p) => {
+      const src = fs.readFileSync(path.join(process.cwd(), p), 'utf8')
+      return /<EventSchema[^>]*includeBreadcrumb/.test(src)
+    })
+    expect(offenders).toEqual([])
+  })
+
+  it('is enabled on the event detail page, which is the event’s own page', () => {
+    const src = fs.readFileSync(
+      path.join(process.cwd(), 'app/events/[id]/page.tsx'),
+      'utf8',
+    )
+    expect(src).toMatch(/<EventSchema[^>]*includeBreadcrumb/)
+  })
+})

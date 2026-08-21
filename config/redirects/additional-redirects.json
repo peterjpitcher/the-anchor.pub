@@ -341,11 +341,6 @@
     "permanent": true
   },
   {
-    "source": "/honey-bee-mine",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/$",
     "destination": "/",
     "permanent": true
@@ -451,38 +446,13 @@
     "permanent": true
   },
   {
-    "source": "/subscribe",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/subscribe-for-digital-flyers",
     "destination": "/",
     "permanent": true
   },
   {
-    "source": "/join-the-team",
-    "destination": "/join-our-team",
-    "permanent": true
-  },
-  {
     "source": "/category/:category",
     "destination": "/",
-    "permanent": true
-  },
-  {
-    "source": "/privacy-and-cookie-policy",
-    "destination": "/privacy-policy",
-    "permanent": true
-  },
-  {
-    "source": "/our-events",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/food",
-    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -492,38 +462,8 @@
     "statusCode": 301
   },
   {
-    "source": "/drink",
-    "destination": "/drinks",
-    "permanent": true
-  },
-  {
-    "source": "/sport",
-    "destination": "/live-sport",
-    "permanent": true
-  },
-  {
-    "source": "/heel-of-fortune",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/honey-bee-mine-terms-and-conditions",
-    "destination": "/privacy-policy",
-    "permanent": true
-  },
-  {
-    "source": "/celebrating-sport-at-the-anchor",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
     "source": "/gin-tasting-evening-october-2023",
     "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/company-christmas-party-venue",
-    "destination": "/christmas-parties",
     "permanent": true
   },
   {
