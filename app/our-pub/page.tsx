@@ -469,6 +469,24 @@ export default function OurPubPage() {
           <p className="text-sm text-anchor-cream-text/70">
             Just 7 minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome
           </p>
+          {/* /history, /about and /about/the-anchor-facts had no editorial
+              inbound links at all, only nav and footer. This page is the
+              natural place to send anyone who wants the longer version. */}
+          <p className="text-sm text-anchor-cream-text/70">
+            Want the longer version? Read{' '}
+            <Link href="/history" className="font-semibold underline underline-offset-4">
+              our history since 1751
+            </Link>
+            , find out{' '}
+            <Link href="/about" className="font-semibold underline underline-offset-4">
+              who we are
+            </Link>{' '}
+            or skim{' '}
+            <Link href="/about/the-anchor-facts" className="font-semibold underline underline-offset-4">
+              the facts and figures
+            </Link>
+            .
+          </p>
         </div>
       </CtaBand>
     </>
