@@ -276,6 +276,63 @@ export function getDiscontinuedFormatReplacement(
  * Verified against event_categories on 21 Aug 2026. If a new category is
  * added, add its real slug here; do not add an aliased guess.
  */
+/**
+ * Past event pages retired on 21 August 2026, one-off historical cleanup.
+ *
+ * The standing policy below keeps past events indexed, and that is right for
+ * pages carrying real content. These eighteen did not. Evidence from Search
+ * Console, 16 months to 19 August 2026:
+ *
+ *   - 9 clicks and 684 impressions across all eighteen, combined.
+ *   - 6 of them never recorded a single impression.
+ *   - Over the last 3 months: 0 clicks, 3 impressions.
+ *   - 12 carry no long_description at all; 5 more share one description,
+ *     published five times over, with an identical meta_title.
+ *
+ * The decisive part is not that they are thin, it is that they hold rankings
+ * they cannot convert. They sit at position 1 to 7 for brand-and-category
+ * queries and take almost no clicks, because the page says the night is over:
+ *
+ *   "the anchor pub quiz"   position 4.74   23 impressions   0 clicks
+ *   "bingo near me"         position 1       2 impressions   0 clicks
+ *   "bingo staines"         position 1       1 impression    0 clicks
+ *
+ * Those positions belong to /quiz-night and /cash-bingo, which can take a
+ * booking. Each URL 301s to the hub for its own category via
+ * config/redirects/additional-redirects.json; this set keeps them out of the
+ * sitemap and returns noindex, so we never list or advertise a redirect.
+ *
+ * This is a fixed historical list, deliberately not a rule. A general quality
+ * floor needs long_description in the events LIST payload, which the
+ * management API does not currently return. See
+ * tasks/site-growth-implementation-spec-2026-08-17.md C11.
+ */
+export const RETIRED_THIN_EVENT_SLUGS: ReadonlySet<string> = new Set([
+  'quiz-night-april--2025',
+  'quiz-night-may--2025',
+  'quiz-night-june--2025',
+  'quiz-night-july--2025',
+  'quiz-night-pub-pursuit-2025-08-13',
+  'pub-quiz-night-2025-10-01',
+  'pub-quiz-night-2025-11-05',
+  'cash-bingo-april--2025',
+  'cash-bingo-may--2025',
+  'cash-bingo-june--2025',
+  'cash-bingo-2025-07-18',
+  'bingo-night-2025-08-29',
+  'bingo-night-2025-09-19',
+  'bingo-night-2025-10-17',
+  'bingo-night-2025-11-14',
+  'bank-holiday-sing-along-karaoke-may--2025',
+  'nikki-s-karaoke-night-2025-08-22',
+  'rum-tasting-night-june--2025',
+])
+
+export function isRetiredThinEvent(event: Pick<Event, 'slug'> | { slug?: string | null }): boolean {
+  const slug = event.slug?.toLowerCase().trim()
+  return Boolean(slug && RETIRED_THIN_EVENT_SLUGS.has(slug))
+}
+
 export const CATEGORY_ROUTES: Record<string, string> = {
   'quiz-night-stanwell-moor': '/quiz-night',
   'bingo-night': '/cash-bingo',
@@ -322,6 +379,7 @@ export interface EventSeoStrategy {
  */
 export function getEventSeoStrategy(
   event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'> &
+    { slug?: string | null } &
     DiscontinuedFields &
     BannedClaimFields
 ): EventSeoStrategy {
@@ -332,6 +390,12 @@ export function getEventSeoStrategy(
   // verifies as false, stay reachable but out of search whatever their date.
   // Keeping them indexed would rank a night nobody can attend, or advertise
   // facilities the pub does not have.
+  // Retired thin pages: 301'd to their category hub, so they must never be
+  // listed in the sitemap or claim to be indexable.
+  if (isRetiredThinEvent(event)) {
+    return { index: false, showEndedBanner: true, stage: 'archived' }
+  }
+
   if (isDiscontinuedFormatEvent(event) || hasBannedClaim(event)) {
     return {
       index: false,

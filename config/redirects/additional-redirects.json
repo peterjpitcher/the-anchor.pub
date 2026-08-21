@@ -705,5 +705,95 @@
     "source": "/pub-near-travelodge-heathrow",
     "destination": "/heathrow-hotels-pub",
     "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-april--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-may--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-june--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-july--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-pub-pursuit-2025-08-13",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/pub-quiz-night-2025-10-01",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/pub-quiz-night-2025-11-05",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-april--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-may--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-june--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-2025-07-18",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-08-29",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-09-19",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-10-17",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-11-14",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bank-holiday-sing-along-karaoke-may--2025",
+    "destination": "/karaoke",
+    "permanent": true
+  },
+  {
+    "source": "/events/nikki-s-karaoke-night-2025-08-22",
+    "destination": "/karaoke",
+    "permanent": true
+  },
+  {
+    "source": "/events/rum-tasting-night-june--2025",
+    "destination": "/whats-on",
+    "permanent": true
   }
 ]
