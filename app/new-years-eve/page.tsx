@@ -24,7 +24,7 @@ const NYE_DYNAMIC: SeasonalDynamicFields = {
   eventEndTime: '1am'
 }
 
-const PAGE_TITLE = "New Year's Eve Party Near Heathrow | DJ & Open Until 1am | The Anchor"
+const PAGE_TITLE = "New Year's Eve Near Heathrow | DJ, Open Till 1am"
 const PAGE_DESCRIPTION =
   "See in the new year at The Anchor near Heathrow. A proper local New Year's Eve party with a DJ, a midnight countdown and late opening until 1am. Full bar, free parking. Book a table or walk in."
 

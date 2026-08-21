@@ -19,6 +19,7 @@ import {
 import { getDrinksHeroImage } from '@/lib/drinks-hero-image'
 import type { ManagersSpecial } from '@/types/managers-special'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 
 export const dynamic = 'force-dynamic'
 
@@ -142,7 +143,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
   const openGraphImage = getPromotionImage(currentPromotion.imageFolder) || DEFAULT_DRINKS_IMAGE
 
   return {
-    title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name}`,
+    title: stripBrandSuffix(promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name}`),
     description,
     alternates: {
       canonical

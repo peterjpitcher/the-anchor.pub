@@ -39,7 +39,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
  * tasks/keyword-plan-game-nights-2026-08-17.md.
  */
 export const metadata: Metadata = {
-  title: 'Music Bingo Near Me | Drag Music Bingo at The Anchor',
+  title: 'Music Bingo Near Me | Drag Music Bingo',
   description:
     'Music bingo at The Anchor, Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games, £5 cash entry. It sells out, so book ahead.',
   openGraph: {

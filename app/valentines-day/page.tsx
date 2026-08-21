@@ -159,8 +159,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = event?.metaTitle
     ? event.metaTitle
     : event?.name
-    ? `${event.name} | Valentine's & Galentine's at The Anchor`
-    : "Valentine's & Galentine's Near Heathrow | The Anchor Stanwell Moor"
+    ? `${event.name} | Valentine's & Galentine's`
+    : "Valentine's & Galentine's Near Heathrow"
 
   const description = event?.metaDescription
     ? event.metaDescription

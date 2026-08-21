@@ -1,5 +1,5 @@
 ---
-title: New Dining Room Near Heathrow | The Anchor Pub Extension
+title: New Dining Room Near Heathrow | Our Pub Extension
 slug: new-dining-room
 description: >-
   The Anchor pub near Heathrow Airport unveils new dining room extension. Modern

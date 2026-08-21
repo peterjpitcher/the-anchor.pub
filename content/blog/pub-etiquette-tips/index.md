@@ -1,5 +1,5 @@
 ---
-title: British Pub Etiquette Guide Near Heathrow | The Anchor Tips
+title: British Pub Etiquette Guide Near Heathrow
 slug: pub-etiquette-tips
 description: >-
   Learn British pub etiquette at The Anchor near Heathrow Airport. Essential

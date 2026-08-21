@@ -1,5 +1,5 @@
 ---
-title: Family-Friendly Sunday Roast Near Heathrow | The Anchor Pub Guide
+title: Family-Friendly Sunday Roast Near Heathrow | A Parent Guide
 description: >-
   Plan a stress-free family Sunday roast minutes from Heathrow. Kids’ roasts,
   high chairs, a selection of games, and free parking at The Anchor Stanwell Moor.

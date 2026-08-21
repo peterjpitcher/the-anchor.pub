@@ -38,7 +38,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
  * does not deliver and would have been earning clicks it then disappointed.
  */
 export const metadata: Metadata = {
-  title: 'Pub Quiz Near Me | Wednesday Quiz Night at The Anchor',
+  title: 'Pub Quiz Near Me | Wednesday Quiz Night',
   description:
     'Monthly Wednesday pub quiz at The Anchor, Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners. Free parking, solo players matched up.',
   openGraph: {

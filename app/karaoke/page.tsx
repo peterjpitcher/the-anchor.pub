@@ -37,7 +37,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
  * and nobody has to sing.
  */
 export const metadata: Metadata = {
-  title: 'Karaoke Near Me | Free Entry at The Anchor, Stanwell Moor',
+  title: 'Karaoke Near Me | Free Entry, Stanwell Moor',
   description:
     'Free entry karaoke at The Anchor in Stanwell Moor. Sing, share a duet or just watch. All ages welcome, communal seating, free parking. See the next confirmed night.',
   openGraph: {

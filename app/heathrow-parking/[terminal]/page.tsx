@@ -66,7 +66,7 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
 
   const terminal = TERMINAL_PAGES[params.terminal]
   const canonical = `/heathrow-parking/${params.terminal}`
-  const title = `Cheap Heathrow Terminal ${terminal.number} Parking from £15/day | The Anchor`
+  const title = `Cheap Heathrow Terminal ${terminal.number} Parking from £15/day`
   const description = `Compare cheap Heathrow Terminal ${terminal.number} parking options. The Anchor in Stanwell Moor is ${terminal.transferTime} away with key-retention parking from £15 per day.`
 
   return {

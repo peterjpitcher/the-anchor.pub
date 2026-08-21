@@ -1,5 +1,5 @@
 ---
-title: 5 Star Food Hygiene Near Heathrow | The Anchor Pub Excellence
+title: 5 Star Food Hygiene Rating Near Heathrow
 slug: 5-star-food-rating
 description: >-
   The Anchor pub near Heathrow Airport maintains 5-star food hygiene rating for

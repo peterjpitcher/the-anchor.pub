@@ -1,5 +1,5 @@
 ---
-title: Village Pub Near Heathrow | The Anchor Community Spirit Year-Round
+title: Village Pub Near Heathrow | Community Spirit Year-Round
 slug: new-year-celebration
 description: >-
   Experience the warm community atmosphere at The Anchor pub near Heathrow

@@ -27,7 +27,7 @@ export function generateMetadata(): Metadata {
     ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
-  const title = 'Pub Near Heathrow Airport | The Anchor, 7 Mins from T5'
+  const title = 'Pub Near Heathrow Airport | 7 Mins from T5'
 
   return {
     title,

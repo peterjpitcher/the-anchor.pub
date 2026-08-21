@@ -1,5 +1,5 @@
 ---
-title: 'Remote Work Near Heathrow: The Anchor Pub as Your Digital Nomad Haven'
+title: 'Remote Work Near Heathrow | A Digital Nomad Guide'
 description: >-
   Looking for the perfect remote work spot near Heathrow Airport? The Anchor pub
   in Stanwell Moor offers free WiFi, quiet atmosphere, great coffee, and

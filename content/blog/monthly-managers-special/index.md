@@ -1,5 +1,5 @@
 ---
-title: Premium Spirit Deals Near Heathrow | The Anchor's Manager's Special
+title: Premium Spirit Deals Near Heathrow | Manager's Special
 slug: monthly-managers-special
 description: >-
   Enjoy 25% off premium spirits every month at The Anchor pub near Heathrow

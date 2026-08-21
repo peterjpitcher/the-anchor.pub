@@ -91,7 +91,7 @@ const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDat
   timeZone: 'Europe/London'
 })
 
-const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines | The Anchor`
+const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines`
 const descriptionStatic =
   `Mother's Day lunch near me, Mother's Day Sunday roast at The Anchor near Staines. ` +
   `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +

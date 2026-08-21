@@ -44,6 +44,7 @@ import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
+import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 
 type Props = {
   params: { id: string }
@@ -261,7 +262,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ].join(', ') || undefined
 
     return {
-      title: event.metaTitle || event.name,
+      title: stripBrandSuffix(event.metaTitle || event.name),
       description,
       keywords,
       ...(shouldNoindex ? { robots: { index: false, follow: true } } : {}),

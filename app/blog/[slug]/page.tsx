@@ -18,6 +18,7 @@ import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpot
 import { VisitPlannerPanel } from '@/components/conversion/VisitPlannerPanel'
 import { shouldShowVisitPlannerPanel } from '@/components/conversion/visit-planner-config'
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
+import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 
 export const revalidate = 3600
 
@@ -176,7 +177,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const ogImageAlt = post.ogImageAlt || post.title
 
   return {
-    title: post.title,
+    // Front matter often ends with the brand; the root template adds it too.
+    title: stripBrandSuffix(post.title),
     description: post.description,
     alternates: {
       canonical: `/blog/${params.slug}`

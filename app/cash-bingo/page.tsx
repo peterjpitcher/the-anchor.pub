@@ -36,7 +36,7 @@ import { bingoEventSeries } from '@/lib/schema'
  * a fight we lose. See tasks/keyword-plan-game-nights-2026-08-17.md.
  */
 export const metadata: Metadata = {
-  title: 'Pub Bingo Near Me | Cash Bingo at The Anchor, Stanwell Moor',
+  title: 'Pub Bingo Near Me | Cash Bingo in Stanwell Moor',
   description:
     'Traditional cash bingo at The Anchor, Stanwell Moor. £10 a book, cash only, ten games, winnings paid out on the night and a rolling snowball jackpot. 18+ to play.',
   openGraph: {

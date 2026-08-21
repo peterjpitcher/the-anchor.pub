@@ -1,5 +1,5 @@
 ---
-title: Heathrow Pub Price Freeze | The Anchor Keeps Pints Affordable
+title: Heathrow Pub Price Freeze | Keeping Pints Affordable
 description: >-
   The Anchor near Heathrow is freezing pint prices until autumn 2025. Keep
   enjoying £4.75 Carlsberg, fair spirits and free parking just seven minutes

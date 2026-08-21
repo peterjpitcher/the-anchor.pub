@@ -1,5 +1,5 @@
 ---
-title: Community Pub Near Heathrow | The Anchor's Local Journey
+title: Community Pub Near Heathrow | Our Local Journey
 slug: community-feedback
 description: >-
   The Anchor pub near Heathrow Airport values community feedback. Historic

@@ -1,5 +1,5 @@
 ---
-title: Friday Lunch Near Heathrow | The Anchor Pub Opens Noon Every Friday
+title: Friday Lunch Near Heathrow | Open From Noon
 slug: friday-extended-hours
 description: >-
   Enjoy Friday lunch near Heathrow Airport at The Anchor pub in Stanwell Moor.

@@ -1,5 +1,5 @@
 ---
-title: Cosy Pub Near Heathrow | The Anchor in Stanwell Moor Village
+title: Cosy Pub Near Heathrow | Stanwell Moor Village
 slug: cosy-pub-stanwell
 description: >-
   Discover the perfect cosy pub near Heathrow Airport. The Anchor in Stanwell
