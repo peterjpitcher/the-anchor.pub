@@ -259,11 +259,29 @@ export function getDiscontinuedFormatReplacement(
  * that category falls through to /whats-on rather than being linked into a
  * redirect to a page that no longer sells the thing it names.
  */
+/**
+ * Category slug -> hub page. The KEYS must be the slugs the management API
+ * actually sends, not the tidy names we use for our own routes.
+ *
+ * Three of the four original keys ('quiz-night', 'cash-bingo', 'karaoke')
+ * matched no category in the database, so getCategoryPageUrl() fell through
+ * to /whats-on for 44 of 75 events: every Quiz Night (22), every Cash Bingo
+ * (19) and every Karaoke Night (3). Only 'music-bingo' happened to be right.
+ *
+ * The visible symptom was the "View all <category> events" link at the foot
+ * of each event page, plus the archive listing, pointing at /whats-on rather
+ * than the hub. That quietly denied /quiz-night and /cash-bingo their most
+ * natural inbound internal links.
+ *
+ * Verified against event_categories on 21 Aug 2026. If a new category is
+ * added, add its real slug here; do not add an aliased guess.
+ */
 export const CATEGORY_ROUTES: Record<string, string> = {
-  'quiz-night': '/quiz-night',
-  'cash-bingo': '/cash-bingo',
+  'quiz-night-stanwell-moor': '/quiz-night',
+  'bingo-night': '/cash-bingo',
   'music-bingo': '/music-bingo',
-  'karaoke': '/karaoke',
+  'karaoke-night': '/karaoke',
+  'nikkis-karaoke-night': '/karaoke',
 }
 
 export function getCategoryPageUrl(categorySlug: string | undefined | null): string {
