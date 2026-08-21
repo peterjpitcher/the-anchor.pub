@@ -304,7 +304,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     .map((event) => ({
       url: `${baseUrl}${getEventWebsitePath(event)}`,
-      lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
+      // lastmod describes when the PAGE changed, not when the event happens.
+      // Falling back to startDate gave future events a future lastmod, which
+      // is a misleading crawl signal rather than a strong one. Omit the field
+      // when there is no trustworthy update timestamp.
+      lastModified: event._meta?.lastUpdated ? getSafeDate(event._meta.lastUpdated) : undefined,
     }))
 
   return [...staticSitemap, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
