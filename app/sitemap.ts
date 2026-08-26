@@ -182,6 +182,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/brochures', lastModified: DATES.aug2026Brochures },
+    // Made indexable 26 Aug 2026, owner decision 4.
+    { path: '/private-hire/venue-tour', lastModified: DATES.aug2026Brochures },
 
     // Heathrow & location pages
     { path: '/near-heathrow', lastModified: DATES.launch },

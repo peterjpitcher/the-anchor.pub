@@ -139,7 +139,7 @@ Applied 26 August:
 
 ---
 
-### W6. Event retirement stays a fixed manifest · P1 · half a day
+### W6. Event retirement stays a fixed manifest · P1 · half a day · **DECIDED (1)**
 
 **F05 and F06.** The two documents describe different rules, and neither is implementable from the current list API, which omits `long_description`.
 
@@ -161,11 +161,11 @@ Add `verifiedAt`, `source` and `owner` to volatile content, and a CI warning whe
 
 ---
 
-### W8. Seasonal and themed page lifecycle · P1 · 1 day
+### W8. Seasonal and themed page lifecycle · P1 · 1 day · **DECIDED (2)**
 
 **F16.** `/halloween` and `/quiz-night/themed` are both specified only for known 2026 dates. Neither defines sold out, cancelled, postponed, past, no next date, or the 2027 rollover.
 
-Adopted model, pending the owner confirming intent ownership:
+**Decided (2):** the evergreen occasion page owns acquisition intent, the dated event page owns booking.
 
 - The **evergreen occasion page** is the stable acquisition URL. The **dated event page** is the booking URL. Distinct titles, canonicals, cross-links.
 - Define post-event copy and the cancelled and sold-out states.
@@ -242,6 +242,22 @@ W6, W7, W8, W9 ──> W10 (gated on the 28-day review) ──> W12
 Per **O02**, ship the destination page first, then redirects and sitemap changes, then metadata and content. Keep an observation window between high-risk steps. The Halloween deadline has now passed as a fast-track justification, so there is no reason to bundle.
 
 ---
+
+---
+
+## Decisions made, 26 August 2026
+
+Owner: Peter Pitcher.
+
+| # | Decision | Effect |
+|---|---|---|
+| 1 | **Event retirement stays a fixed manifest.** No automatic quality floor. | W6 closes. The management API change is not funded and not needed. `RETIRED_THIN_EVENT_SLUGS` is the single source of truth. |
+| 2 | **The evergreen occasion page owns acquisition intent; the dated event page owns booking.** | W8 proceeds on that model. `/halloween` targets "halloween party near me"; the dated event page carries the booking detail and links up to it. |
+| 3 | **The parking comparison is manual, dated editorial data.** No integration, no scraping. | W12 and F17 close. **No competitor prices appear on the page at all** until Peter approves a named source. Until then the page states our own price and links to official live prices. |
+| 4 | **`/private-hire/venue-tour` becomes indexable.** | Remove `robots: { index: false, follow: false }`. An interactive floor plan is content worth having found. Add it to the sitemap and give it a canonical. |
+| 5 | **Peter owns Search Console, the CDN, the management API and content freshness.** | W7 and W11 name him as the approver for every volatile claim and every external system action. No separate owner table needed. |
+
+Decision 6, the rollback threshold, is still open and is the only thing blocking W4 from being finished.
 
 ## What I would not do
 
