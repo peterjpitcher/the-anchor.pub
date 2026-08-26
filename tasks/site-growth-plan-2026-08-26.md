@@ -1,7 +1,7 @@
 # Site growth: the plan
 
 **Date:** 26 August 2026
-**Status:** live change register. This document supersedes `site-growth-spec-2026-08-17.md` and `site-growth-implementation-spec-2026-08-17.md`, which are now background evidence only.
+**Status: all work complete except the two items needing owner access.** Live change register. This document supersedes `site-growth-spec-2026-08-17.md` and `site-growth-implementation-spec-2026-08-17.md`, which are now background evidence only.
 **Baseline:** `main` at `53897b7d`
 **Target:** `feat/site-growth-phase-0` at `6eb94344`, 14 commits, 110 files, +3,755 / −1,047
 **Driven by:** [developer review, 26 Aug](./site-growth-spec-developer-review-2026-08-26.md), 27 confirmed issues and 6 optional improvements
@@ -261,6 +261,43 @@ Owner: Peter Pitcher.
 | 6 | **Rollback is judged on completed table bookings from Google, and nothing else.** Revert if they fall more than **25%** over the 28 days after deploy, measured against **the same 28 days last year**. | W4 closes. Rankings, impressions and sessions are reported but never trigger a revert: they can all rise while bookings fall. 25% is deliberately a wide band, because booking volumes here are small enough that a 10% swing is weather. Year-on-year, not month-on-month, because late September is not August. |
 
 All six decisions are settled. Nothing in this plan is waiting on an owner answer.
+
+---
+
+## Status, 26 August 2026
+
+| Item | State |
+|---|---|
+| W1 branch hygiene | **Done** |
+| W2 redirect audit | **Done**, `npm run audit:redirects` |
+| W3 API failure semantics | **Done**, incl. a build regression it caused |
+| W4 baseline sheet | **Blocked on owner**, needs Search Console |
+| W5 document corrections | **Done** |
+| W6 fixed retirement manifest | **Done**, decision 1 |
+| W7 content freshness | **Done**, `npm run audit:freshness` |
+| W8 seasonal lifecycle | **Done**, decision 2 |
+| W9 test gate | **Done**, incl. accessibility |
+| W10 near-me retargets | **Held**, gated on the 28-day review |
+| W11 migration runbook | **Done**, `docs/url-migration-runbook.md` |
+| W12 schema gaps | **Done**, F26, F27 and F18 |
+
+**Verification gate, all green:**
+
+```
+npm run lint          eslint + 6 audits
+npx tsc --noEmit
+npx jest tests/       1,313 passed, 109 suites
+npm run build         297 static pages
+npm run audit:rendered  199 URLs, 0 errors
+npm run audit:a11y      WCAG 2.2 AA, 0 violations
+```
+
+**Two things need a person, not code:**
+
+1. **The GSC baseline (W4).** Without it the 28-day review has nothing to measure and the retirements cannot be judged or reversed on evidence.
+2. **Three failing colour tokens.** `text-anchor-sage`, `text-accent-text` and `text-ink-muted` fail WCAG AA wherever they appear, 30 elements across ten templates. Changing brand colours is an owner decision, so it is ratcheted, not silently edited.
+
+Two files also still need their drive times checked: `lib/local-seo-data.ts` and `app/near-heathrow/page.tsx`. `npm run audit:freshness` flags them until someone confirms and stamps them.
 
 ## What I would not do
 
