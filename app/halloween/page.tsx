@@ -12,6 +12,7 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { isHalloweenPartyOver } from '@/lib/seasonal/halloween'
 
 const HALLOWEEN_BOOKING_URL = '/book-table?purpose=food'
 
@@ -40,7 +41,23 @@ const HALLOWEEN_DYNAMIC: SeasonalDynamicFields & { verifiedAt?: string } = {
   bookingStatus: 'Book a table if you want to eat before the party',
 }
 
-export const metadata: Metadata = {
+export function generateMetadata(): Metadata {
+  const over = isHalloweenPartyOver()
+  const title = over
+    ? 'Halloween Party Near Heathrow'
+    : 'Halloween Party Near Heathrow, Free Entry'
+  const description = over
+    ? 'Our Halloween fancy-dress party near Heathrow, in Stanwell Moor. This year has been and gone; next year’s theme goes up as soon as it is confirmed.'
+    : 'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.'
+
+  return {
+    ...baseMetadata,
+    title,
+    description,
+  }
+}
+
+const baseMetadata: Metadata = {
   title: 'Halloween Party Near Heathrow, Free Entry',
   description:
     'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.',
@@ -98,7 +115,20 @@ const faqs = [
   },
 ]
 
+/**
+ * The date this year's party actually happens. Everything date-sensitive on the
+ * page keys off this.
+ *
+ * Without it, the page states "Saturday 31 October, 8pm till midnight, free
+ * entry" as flat fact, so on 1 November it would still be inviting people to a
+ * party that had already happened, and would carry on doing so until someone
+ * remembered to edit it. Seasonal pages are most visited exactly when the date
+ * is closest, which is also when being wrong costs most.
+ */
 export default function HalloweenPage() {
+  const partyOver = isHalloweenPartyOver()
+  const dynamicFields = partyOver ? {} : HALLOWEEN_DYNAMIC
+
   return (
     <>
 
@@ -145,9 +175,13 @@ export default function HalloweenPage() {
 
             {/* This year's theme (A11 dynamic block) */}
             <SeasonalDynamicDetails
-              fields={HALLOWEEN_DYNAMIC}
+              fields={dynamicFields}
               heading="This year's Halloween"
-              intro="Here's what's confirmed for this year's Halloween party at The Anchor."
+              intro={
+                partyOver
+                  ? 'This year\u2019s Halloween party has been and gone. Next year\u2019s theme goes up here once it is confirmed.'
+                  : "Here's what's confirmed for this year's Halloween party at The Anchor."
+              }
             />
 
             {/* Food & Drink */}

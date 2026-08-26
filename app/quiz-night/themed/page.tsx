@@ -78,7 +78,6 @@ const THEMED_NIGHTS = [
     name: 'Only Fools and Horses',
     fullName: 'Lovely Jubbly: Only Fools and Horses Charity Quiz Night',
     date: 'Friday 25 September 2026',
-    status: 'upcoming' as const,
     href: '/events/pub-quiz-lovely-jubbly-only-fools-and-horses-quiz-night-2026-09-25',
     verifiedAt: '2026-08-26',
     copy:
@@ -88,7 +87,6 @@ const THEMED_NIGHTS = [
     name: 'Gavin & Stacey',
     fullName: 'Gavin & Stacey Quiz Night',
     date: 'Friday 15 May 2026',
-    status: 'past' as const,
     href: '/events/gavin-and-stacey-quiz-night-2026-05-15',
     verifiedAt: '2026-08-26',
     copy:
@@ -115,7 +113,7 @@ const FAQS = [
   {
     question: 'When is the next themed quiz night?',
     answer:
-      'The next one is our Only Fools and Horses quiz on Friday 25 September 2026, run as a charity night. The event page carries who we are raising money for and who we are running it with. New themes are announced on our What’s On page as they are confirmed.'
+      'We announce each themed night on our What’s On page once the date and the theme are confirmed. Anything already booked in is listed above, with the detail on its own event page.'
   },
   {
     question: 'Are the Halloween and Christmas quizzes themed?',
@@ -130,8 +128,22 @@ const FAQS = [
 ]
 
 export default function ThemedQuizNightsPage() {
-  const upcoming = THEMED_NIGHTS.filter((n) => n.status === 'upcoming')
-  const past = THEMED_NIGHTS.filter((n) => n.status === 'past')
+  // Status is DERIVED, never stored. A hardcoded 'upcoming' is true until the
+  // night happens and false forever after, and nothing prompts anyone to change
+  // it: this page would have kept advertising the 25 September quiz on the 26th.
+  // Event slugs end in their own date, which the guard test checks against the
+  // stated date, so the slug is the authority.
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const dated = THEMED_NIGHTS.map((night) => {
+    const iso = night.href.match(/(\d{4}-\d{2}-\d{2})$/)?.[1]
+    const when = iso ? new Date(`${iso}T00:00:00`) : null
+    return { ...night, isUpcoming: when ? when >= today : false }
+  })
+
+  const upcoming = dated.filter((n) => n.isUpcoming)
+  const past = dated.filter((n) => !n.isUpcoming)
 
   return (
     <>
@@ -174,6 +186,37 @@ export default function ThemedQuizNightsPage() {
           </div>
         </Container>
       </section>
+
+      {/* When nothing themed is booked in, say so and send people to the
+          monthly quiz. Silently hiding the section leaves a page about themed
+          quiz nights with no way to attend one, which reads as abandoned. */}
+      {upcoming.length === 0 && (
+        <section className="bg-canvas py-section-y">
+          <Container>
+            <div>
+              <h2 className="mb-4 text-h3 text-ink-strong">Nothing themed booked in just yet</h2>
+              <p className="text-lg leading-relaxed text-ink-muted">
+                We run these a few times a year, whenever we land on a show worth
+                a whole night. Our{' '}
+                <Link
+                  href="/quiz-night"
+                  className="font-semibold text-accent-text underline decoration-dotted hover:text-anchor-gold"
+                >
+                  monthly quiz
+                </Link>{' '}
+                runs every month regardless, and new themed dates go up on{' '}
+                <Link
+                  href="/whats-on"
+                  className="font-semibold text-accent-text underline decoration-dotted hover:text-anchor-gold"
+                >
+                  What&apos;s On
+                </Link>{' '}
+                as soon as they are confirmed.
+              </p>
+            </div>
+          </Container>
+        </section>
+      )}
 
       {upcoming.length > 0 && (
         <section className="bg-canvas py-section-y">

@@ -163,7 +163,7 @@ Add `verifiedAt`, `source` and `owner` to volatile content, and a CI warning whe
 
 ---
 
-### W8. Seasonal and themed page lifecycle · P1 · 1 day · **DECIDED (2)**
+### W8. Seasonal and themed page lifecycle · P1 · **COMPLETE 26 Aug** · DECIDED (2)
 
 **F16.** `/halloween` and `/quiz-night/themed` are both specified only for known 2026 dates. Neither defines sold out, cancelled, postponed, past, no next date, or the 2027 rollover.
 
@@ -207,7 +207,7 @@ Keep the 301s for **at least one year**. Update internal links. Remove retired U
 
 ---
 
-### W12. Close the schema gaps · P2 · 1 day
+### W12. Close the schema gaps · P2 · **COMPLETE 26 Aug** (F26 and F27 done; F18 remains, see below)
 
 **F26:** add explicit decisions for Easter and Mother's Day event `offers`. Either a truthful price and currency where a fixed package exists, or remove the offer block. No zero prices.
 

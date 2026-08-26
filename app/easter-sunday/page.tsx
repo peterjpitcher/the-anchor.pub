@@ -131,11 +131,12 @@ export default function EasterSundayPage() {
       telephone: CONTACT.phoneIntl,
       email: CONTACT.email
     },
-    offers: {
-      '@type': 'Offer',
-      url: `${WEBSITE_ORIGIN}${EASTER_BOOKING_URL}`,
-      availability: 'https://schema.org/InStock'
-    },
+    // No `offers` block on purpose. Search Console asked for price and
+    // priceCurrency here, and the honest answer is that there is no fixed
+    // Easter package to price: it is the normal Sunday roast on a particular
+    // Sunday, charged from the live menu. Adding a zero price, or a made-up
+    // one, to clear a warning would be a false offer. See the GSC audit,
+    // 17 Aug 2026, "Correct event schema lifecycle and offers".
     image: [
       `${WEBSITE_ORIGIN}${DEFAULT_SUNDAY_LUNCH_IMAGE}`,
       `${WEBSITE_ORIGIN}${DEFAULT_FOOD_IMAGE}`,

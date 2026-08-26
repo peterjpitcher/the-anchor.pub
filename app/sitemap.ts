@@ -167,7 +167,7 @@ const DATES = {
   jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
   aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
   aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
-  aug2026Growth: new Date('2026-08-21'),    // Site growth programme: themed quiz hub, retirements, metadata
+  aug2026Growth: new Date('2026-08-26'),    // Site growth programme: titles, descriptions, retargets, retirements
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -181,26 +181,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '', lastModified: DATES.apr2026 },
     { path: '/about', lastModified: DATES.launch },
     { path: '/about/the-anchor-facts', lastModified: DATES.may2026Late },
-    { path: '/history', lastModified: DATES.may2026Late },
+    { path: '/history', lastModified: DATES.aug2026Growth },
     { path: '/blog', lastModified: DATES.apr2026 },
     { path: '/blog/tags', lastModified: DATES.seoOverhaul },
-    { path: '/join-our-team', lastModified: DATES.may2026 },
-    { path: '/join-our-team/bar-staff', lastModified: DATES.may2026 },
+    { path: '/join-our-team', lastModified: DATES.aug2026Growth },
+    { path: '/join-our-team/bar-staff', lastModified: DATES.aug2026Growth },
     { path: '/join-our-team/kitchen-team', lastModified: DATES.may2026 },
-    { path: '/food-menu', lastModified: DATES.apr2026 },
+    { path: '/food-menu', lastModified: DATES.aug2026Growth },
     { path: '/food-menu/vegetarian', lastModified: DATES.seoOverhaul },
     { path: '/food-menu/vegan', lastModified: DATES.seoOverhaul },
     { path: '/food-menu/gluten-free', lastModified: DATES.seoOverhaul },
-    { path: '/mothers-day', lastModified: DATES.seoOverhaul },
-    { path: '/valentines-day', lastModified: DATES.seoOverhaul },
-    { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
-    { path: '/easter-sunday', lastModified: DATES.jul2026Late },
+    { path: '/mothers-day', lastModified: DATES.aug2026Growth },
+    { path: '/valentines-day', lastModified: DATES.aug2026Growth },
+    { path: '/new-years-eve', lastModified: DATES.aug2026Growth },
+    { path: '/easter-sunday', lastModified: DATES.aug2026Growth },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
-    { path: '/halloween', lastModified: DATES.seoOverhaul },
+    { path: '/halloween', lastModified: DATES.aug2026Growth },
     // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends
     // are now 301-redirected (see config/redirects/additional-redirects.json)
     // and their route dirs deleted, so they are intentionally omitted here.
-    { path: '/sunday-roast', lastModified: DATES.jul2026Late },
+    { path: '/sunday-roast', lastModified: DATES.aug2026Growth },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
@@ -209,13 +209,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Events & entertainment
     { path: '/whats-on', lastModified: DATES.apr2026 },
-    { path: '/quiz-night', lastModified: DATES.apr2026 },
+    { path: '/quiz-night', lastModified: DATES.aug2026Growth },
     { path: '/quiz-night/themed', lastModified: DATES.aug2026Growth },
-    { path: '/cash-bingo', lastModified: DATES.apr2026 },
-    { path: '/music-bingo', lastModified: DATES.apr2026 },
-    { path: '/karaoke', lastModified: DATES.apr2026 },
+    { path: '/cash-bingo', lastModified: DATES.aug2026Growth },
+    { path: '/music-bingo', lastModified: DATES.aug2026Growth },
+    { path: '/karaoke', lastModified: DATES.aug2026Growth },
     { path: '/live-sport', lastModified: DATES.apr2026 },
-    { path: '/live-sport/six-nations', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/six-nations', lastModified: DATES.aug2026Growth },
     { path: '/live-sport/f1', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/boxing', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/world-cup', lastModified: DATES.seoOverhaul },
@@ -223,24 +223,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/summer-garden-parties', lastModified: DATES.seoOverhaul },
 
     // Booking & private hire
-    { path: '/book-table', lastModified: DATES.apr2026 },
+    { path: '/book-table', lastModified: DATES.aug2026Growth },
     { path: '/private-hire', lastModified: DATES.jul2026 },
     { path: '/corporate-events', lastModified: DATES.seoOverhaul },
     { path: '/christmas-parties', lastModified: DATES.aug2026Christmas },
-    { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/wakes', lastModified: DATES.aug2026Growth },
+    { path: '/private-hire/christenings', lastModified: DATES.aug2026Growth },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/anniversary-parties', lastModified: DATES.jul2026Early },
+    { path: '/private-hire/anniversary-parties', lastModified: DATES.aug2026Growth },
     { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/brochures', lastModified: DATES.aug2026Brochures },
+    { path: '/private-hire/brochures', lastModified: DATES.aug2026Growth },
     // Made indexable 26 Aug 2026, owner decision 4.
     { path: '/private-hire/venue-tour', lastModified: DATES.aug2026Brochures },
 
     // Heathrow & location pages
-    { path: '/near-heathrow', lastModified: DATES.launch },
+    { path: '/near-heathrow', lastModified: DATES.aug2026Growth },
     { path: '/near-heathrow/terminal-2', lastModified: DATES.launch },
     { path: '/near-heathrow/terminal-3', lastModified: DATES.launch },
     { path: '/near-heathrow/terminal-4', lastModified: DATES.launch },
@@ -250,42 +250,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/pre-flight-meal', lastModified: DATES.seoOverhaul },
     { path: '/heathrow-family-dining', lastModified: DATES.apr2026 },
     { path: '/luggage-storage-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/heathrow-parking', lastModified: DATES.launch },
+    { path: '/heathrow-parking', lastModified: DATES.aug2026Growth },
     { path: '/heathrow-parking/terminal-2', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-3', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-4', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-5', lastModified: DATES.launch },
     { path: '/coach-parking-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/restaurants-near-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/restaurants-near-heathrow', lastModified: DATES.aug2026Growth },
 
     // Hotel hub. The 11 individual /pub-near-* pages were retired on
     // 21 Aug 2026 (83% duplicates of each other, 29 clicks in 16 months,
     // ranking only for generic pub terms other pages own). See
     // tasks/site-growth-implementation-spec-2026-08-17.md C6.
-    { path: '/heathrow-hotels-pub', lastModified: DATES.seoOverhaul },
+    { path: '/heathrow-hotels-pub', lastModified: DATES.aug2026Growth },
 
     // Venue & facilities
     { path: '/m25-junction-14-pub', lastModified: DATES.seoOverhaul },
     { path: '/beer-garden', lastModified: DATES.launch },
-    { path: '/our-pub', lastModified: DATES.apr2026 },
+    { path: '/our-pub', lastModified: DATES.aug2026Growth },
     { path: '/plane-spotting-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.apr2026 },
+    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.aug2026Growth },
     { path: '/family-friendly-pub-heathrow', lastModified: DATES.seoOverhaul },
 
     // Local area pages
     { path: '/ashford-pub', lastModified: DATES.apr2026 },
     { path: '/bedfont-pub', lastModified: DATES.apr2026 },
     { path: '/colnbrook-pub', lastModified: DATES.apr2026 },
-    { path: '/egham-pub', lastModified: DATES.apr2026 },
-    { path: '/feltham-pub', lastModified: DATES.launch },
+    { path: '/egham-pub', lastModified: DATES.aug2026Growth },
+    { path: '/feltham-pub', lastModified: DATES.aug2026Growth },
     { path: '/horton-pub', lastModified: DATES.apr2026 },
     { path: '/longford-pub', lastModified: DATES.apr2026 },
     { path: '/staines-pub', lastModified: DATES.apr2026 },
-    { path: '/stanwell-pub', lastModified: DATES.apr2026 },
-    { path: '/sunbury-pub', lastModified: DATES.apr2026 },
+    { path: '/stanwell-pub', lastModified: DATES.aug2026Growth },
+    { path: '/sunbury-pub', lastModified: DATES.aug2026Growth },
     { path: '/windsor-pub', lastModified: DATES.apr2026 },
     { path: '/wraysbury-pub', lastModified: DATES.apr2026 },
-    { path: '/pubs-in-stanwell', lastModified: DATES.apr2026 },
+    { path: '/pubs-in-stanwell', lastModified: DATES.aug2026Growth },
 
     // Footer / legal
     { path: '/sitemap-page', lastModified: DATES.launch },
@@ -293,7 +293,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/accessibility', lastModified: DATES.launch },
     { path: '/safety-and-respect', lastModified: DATES.launch },
     { path: '/sustainability', lastModified: DATES.launch },
-    { path: '/reviews', lastModified: DATES.seoOverhaul },
+    { path: '/reviews', lastModified: DATES.aug2026Growth },
   ]
 
   // Get all blog posts

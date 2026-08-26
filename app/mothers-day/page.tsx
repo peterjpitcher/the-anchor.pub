@@ -213,12 +213,10 @@ export default function MothersDayPage() {
       telephone: CONTACT.phoneIntl,
       email: CONTACT.email
     },
-    offers: {
-      '@type': 'Offer',
-      url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
-      availability: 'https://schema.org/InStock',
-      validFrom: MOTHERS_DAY_OFFER_VALID_FROM
-    },
+    // No `offers` block on purpose, same reasoning as /easter-sunday: there is
+    // no fixed Mother's Day package to price, it is the normal Sunday roast
+    // charged from the live menu. A zero or invented price would be a false
+    // offer, and clearing a Search Console warning is not worth that.
     image: [
       toAbsoluteUrl(eventImage),
       toAbsoluteUrl(DEFAULT_SUNDAY_LUNCH_IMAGE),
