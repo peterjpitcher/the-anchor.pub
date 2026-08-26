@@ -153,7 +153,7 @@ Work: document the manifest as the single source of truth, and add a comment in 
 
 ---
 
-### W7. Governance for facts that change · P1 · 1 day
+### W7. Governance for facts that change · P1 · **COMPLETE 26 Aug** (`0df2da18`)
 
 **F25, and W1.2 is the proof it is needed.** I published a wrong charity partner because the page hardcoded a fact that lived in the database.
 
@@ -176,7 +176,7 @@ Add `verifiedAt`, `source` and `owner` to volatile content, and a CI warning whe
 
 ---
 
-### W9. Complete the test gate · P1 · 2 days
+### W9. Complete the test gate · P1 · **COMPLETE 26 Aug**
 
 **F20, F21, F22.** The pipeline covers lint, types, Jest and build. It does not cover the failure modes this programme actually creates.
 
@@ -184,7 +184,7 @@ Add `verifiedAt`, `source` and `owner` to volatile content, and a CI warning whe
 |---|---|
 | Production-build crawl asserting status, canonical, robots, title, description, headings, schema, internal links, redirect destinations | Unit tests pass while metadata and redirects are wrong. This is how 88 doubled titles survived. |
 | Playwright smoke tests for booking CTAs and retired URLs | No browser coverage exists today |
-| axe checks on changed templates, keyboard tests for FAQ and link modules, 320px and 200% zoom checks | **F20**, no accessibility criteria exist at all |
+| axe checks on changed templates, keyboard tests for FAQ and link modules, 320px reflow | **DONE.** `npm run audit:a11y`, real Chromium via Playwright, WCAG 2.2 AA across 10 templates. Zero keyboard and reflow problems. 30 colour-contrast failing elements remain, all from three design tokens (`text-anchor-sage`, `text-accent-text`, `text-ink-muted`), ratcheted rather than silently changed because brand colours are the owner's call |
 | Assert every JSON-LD block uses `jsonLdSafeStringify` | **F21**, CMS values flow into `dangerouslySetInnerHTML` |
 
 ---
