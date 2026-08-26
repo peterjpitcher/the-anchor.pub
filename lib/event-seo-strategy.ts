@@ -302,10 +302,22 @@ export function getDiscontinuedFormatReplacement(
  * config/redirects/additional-redirects.json; this set keeps them out of the
  * sitemap and returns noindex, so we never list or advertise a redirect.
  *
- * This is a fixed historical list, deliberately not a rule. A general quality
- * floor needs long_description in the events LIST payload, which the
- * management API does not currently return. See
- * tasks/site-growth-implementation-spec-2026-08-17.md C11.
+ * FIXED LIST, NOT A RULE. Owner decision 1, 26 August 2026.
+ *
+ * An automatic quality floor was considered and rejected. It would need the
+ * management API's LIST endpoint to expose a word count, a content hash and a
+ * real content-updated timestamp; today it omits long_description entirely, so
+ * the rule cannot see what it would need to judge. Fetching every event's
+ * detail record to build a sitemap would turn one request into fifty-odd and
+ * make sitemap generation fragile for the sake of tidiness.
+ *
+ * The API change is not funded and there is no evidence thin past events
+ * accumulate fast enough to need automation: this list covers eighteen pages
+ * across sixteen months. Revisit only if it needs a third amendment.
+ *
+ * To retire another event: add the slug here AND a matching 301 in
+ * config/redirects/additional-redirects.json. tests/unit/retired-thin-events.test.ts
+ * fails if the two disagree, so they cannot drift.
  */
 export const RETIRED_THIN_EVENT_SLUGS: ReadonlySet<string> = new Set([
   'quiz-night-april--2025',

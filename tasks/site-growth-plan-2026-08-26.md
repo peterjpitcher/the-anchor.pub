@@ -141,7 +141,7 @@ Applied 26 August:
 
 ---
 
-### W6. Event retirement stays a fixed manifest · P1 · half a day · **DECIDED (1)**
+### W6. Event retirement stays a fixed manifest · P1 · **COMPLETE 26 Aug** · DECIDED (1)
 
 **F05 and F06.** The two documents describe different rules, and neither is implementable from the current list API, which omits `long_description`.
 
@@ -197,7 +197,7 @@ Both changes are already committed. **The pattern does not extend to any further
 
 ---
 
-### W11. Migration runbook · P1 · half a day
+### W11. Migration runbook · P1 · **COMPLETE 26 Aug** → `docs/url-migration-runbook.md`
 
 **F14.** Applies to the 29 URLs already retired.
 
@@ -223,7 +223,7 @@ Keep the 301s for **at least one year**. Update internal links. Remove retired U
 |---|---|
 | 51 pages without `BreadcrumbList` | Needs a prop change across 98 pages using `InteriorHero`. Own changeset. **F18** wants route-family definitions first. |
 | 42 blog titles over 75 chars | Ratcheted in test so the count cannot grow. **F10** is right that a hard cap is not a platform rule; treat as editorial. |
-| Merging JSON-LD into one `@graph` | **Dropped.** F19 is correct that it does not solve the stated problem. Superseded by the W12 decision on listing-page Event objects. |
+| Merging JSON-LD into one `@graph` | **Dropped, and superseded.** F19 was right that it would not solve the problem. Removing the 33 ineligible listing-page `Event` objects did: 262KB of HTML and 237KB of JSON-LD gone, `/whats-on` down 26%. |
 | Funeral venue differentiation | Real work, no deadline. After W1 to W4. |
 | Publishing cadence | Ongoing, not a code change. |
 
