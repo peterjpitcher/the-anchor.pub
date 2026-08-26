@@ -5,7 +5,6 @@ import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
@@ -369,9 +368,12 @@ export default async function QuizNightPage() {
       />
 
       <JsonLd data={quizNightEventSeries} />
-      {events.map(event => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Each event already carries its own Event markup on /events/[id]. */}
     </>
   )
 }

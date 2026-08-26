@@ -5,7 +5,6 @@ import { InteriorHero } from '@/components/hero'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
 import { UpcomingEvents } from '@/components/events/UpcomingEvents'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { RegularEventCard } from './_components/RegularEventCard'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
@@ -120,9 +119,15 @@ export default async function WhatsOnPage() {
       {/* Per-event JSON-LD: preserved from the previous events listing, which
           emitted an EventSchema for each upcoming event. UpcomingEvents itself
           is presentational and emits none. */}
-      {upcomingEvents.map((event) => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "Each event MUST have a unique URL (a leaf page) and markup on
+        that URL. The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Every event already carries its own Event markup on /events/[id]. The
+        33 copies across the listing pages were ineligible, and cost 58KB on
+        /whats-on alone. */}
 
       {/* Collection / event-series / venue JSON-LD (unchanged). */}
       <script
