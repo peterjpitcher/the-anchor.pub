@@ -1,3 +1,14 @@
+> **SUPERSEDED AS A DELIVERY DOCUMENT, 26 August 2026.**
+> Kept as the evidence record for the keyword research only. The live change
+> register is `tasks/site-growth-plan-2026-08-26.md`.
+>
+> Two corrections applied throughout after the developer review:
+> **Google Keyword Planner "competition" counts advertisers, not organic
+> difficulty.** Every "winnable", "unwinnable" and "uncontested" judgement in
+> this document rests on paid competition and is therefore unconfirmed until
+> the live UK SERP is reviewed. **"No GKP data" means no reportable volume,
+> not no demand**; GKP does not report below roughly 10 searches a month.
+
 # Keyword Plan: Site Growth Programme (target country: United Kingdom)
 
 **Date:** 17 August 2026
@@ -9,7 +20,7 @@
 
 ## Headline findings
 
-### 1. The hotel proximity concept has no measurable demand
+### 1. The hotel proximity concept has no reportable Keyword Planner volume
 
 Eight of ten hotel terms returned **no data at all**:
 
@@ -26,13 +37,15 @@ Eight of ten hotel terms returned **no data at all**:
 | **places to eat near heathrow airport** | **500**, Low (15), £0.13 to £0.83 |
 | restaurants near sofitel heathrow | 50, Low (3) |
 
-The 11 hotel pages are not underperforming against demand. **There is no demand.** They should retire.
+The 11 hotel pages returned **no reportable Keyword Planner volume**. That means demand is unknown or below GKP's reporting floor, **not that it is zero**: Search Console later recorded 29 clicks and 1,787 impressions across the family over 16 months.
+
+The retirement still stands, but on the honest grounds: **83.3% mutual duplication, and rankings only for generic pub terms the site already has stronger pages for**. Not on absent demand.
 
 **Correction added 17 Aug, after measuring the destination.** I first wrote that `/heathrow-hotels-pub` should retire with them, on the grounds that it names a concept nobody searches for. That was wrong. Measured, it is **1,187 words with 12 h2s and only 1.1% overlap with `/restaurants-near-heathrow`**: genuinely unique content on a real angle (the alternative to hotel dining), not another thin template page. It stays, becomes the 301 target for the 11, and gets retitled away from the zero-demand head term towards its actual angle.
 
 The keyword conclusion is unchanged: do not build page strategy on "pub near heathrow hotels". The page-disposition conclusion changed because the page turned out not to be what its URL suggested.
 
-### 2. Parking: the head terms are the biggest prize on the site and are not winnable
+### 2. Parking: the head terms are the biggest prize on the site and are heavily advertised
 
 | Term | Volume | Competition | Bids |
 |---|---:|---|---|
@@ -46,7 +59,7 @@ The keyword conclusion is unchanged: do not build page strategy on "pub near hea
 
 **Round 2 tested and killed the off-airport hypothesis.** Every "alternative parking" angle returned no data: `pub parking heathrow`, `non airport parking heathrow`, `heathrow parking stanwell`, `airport parking stanwell moor`, `parking near heathrow with shuttle`, `heathrow parking shuttle`, `heathrow parking alternatives`. People do not search for an alternative to airport parking. They search for the head term, or they search for the price.
 
-**One term in 36 is both high-volume and winnable:**
+**One term in 36 carries volume with little paid competition:**
 
 > **`heathrow parking prices`: 5,000/mo, Low competition (index 22), bids £0.22 to £0.58**
 
@@ -64,7 +77,7 @@ GKP does not report below roughly 10 searches a month. These pages win a spread 
 
 `wake venue near me` at 500/mo, Low (17), with **£1.69 to £5.06** top-of-page bids confirms the commercial value of the cluster. Those are the highest bids in the entire dataset.
 
-### 4. Themed quiz nights are an uncontested 1,250/mo cluster
+### 4. Themed quiz nights: 1,250/mo with little or no PAID competition
 
 | Term | Volume | Competition index |
 |---|---:|---:|
@@ -77,7 +90,7 @@ GKP does not report below roughly 10 searches a month. These pages win a spread 
 | charity quiz night near me | 50 | **0** |
 | christmas quiz night near me | 50 | **0** |
 
-Competition index 0 means literally no advertiser bidding. `themed quiz night near me`, `tv themed quiz night`, `tv quiz night near me`, `music quiz night near me` and `soap quiz night` all returned no data, so the demand attaches to **the named theme, not to the category**.
+Competition index 0 means no advertiser bidding. It says nothing about organic difficulty, which stays unconfirmed until the live UK SERP is reviewed. `themed quiz night near me`, `tv themed quiz night`, `tv quiz night near me`, `music quiz night near me` and `soap quiz night` all returned no data, so the demand attaches to **the named theme, not to the category**.
 
 The Anchor already runs these. Its own listing shows *"Lovely Jubbly: Only Fools and Horses Charity Quiz Night, Friday 25 September 2026"*.
 

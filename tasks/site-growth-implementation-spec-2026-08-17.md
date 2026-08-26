@@ -1,3 +1,9 @@
+> **SUPERSEDED, 26 August 2026.** Do not use as the change register.
+> Fourteen of its items are already implemented on `feat/site-growth-phase-0`,
+> its counts are stale, and the developer review found its hotel destination,
+> past-event rule and phase gates internally contradictory.
+> The live plan is `tasks/site-growth-plan-2026-08-26.md`.
+
 # Implementation spec: site growth programme
 
 **Date:** 17 August 2026

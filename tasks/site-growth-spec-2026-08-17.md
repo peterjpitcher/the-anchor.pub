@@ -1,3 +1,18 @@
+> **SUPERSEDED AS A DELIVERY DOCUMENT, 26 August 2026.**
+> Kept as the diagnosis record. The live change register is
+> `tasks/site-growth-plan-2026-08-26.md`, which supersedes both this file and
+> `site-growth-implementation-spec-2026-08-17.md`.
+>
+> Three claims in this document were later disproved and must not be relied on:
+> 1. **"Redirects are healthy" is wrong.** That test only proved every source
+>    reached a 200. Commit `6eb94344` found a catch-all pattern beating 232
+>    concrete rules, so 172 old URLs reached the blog index, not their post.
+> 2. **Keyword Planner "competition" is advertiser count, not organic
+>    difficulty.** Every "winnable" and "uncontested" judgement is unconfirmed
+>    until a live SERP review.
+> 3. **The 60-character title cap and 70-165 description window are editorial
+>    targets, not platform rules.** Google publishes no fixed limit.
+
 # Site growth spec: what is holding the-anchor.pub back
 
 **Date:** 17 August 2026
@@ -37,7 +52,7 @@ The fixes below are ordered by expected effect on organic growth, not by effort.
 
 State this plainly so effort is not misdirected:
 
-- **Redirects.** 684 rules, all 301, zero chains, zero loops, zero self-redirects. Every one of the 142 concrete destinations resolves. I initially flagged 17 `/post/*` rules as pointing at 404s; end-to-end testing disproved it, because earlier rules in `wix-redirects.json` catch them first and land on `/blog` in a single hop. **No redirect work is required.**
+- **Redirects. ~~Healthy.~~ THIS CLAIM WAS WRONG.** 684 rules, all 301, no chains, no loops, no self-redirects, and every source reached a 200. But "reaches a 200" is not "reaches the intended page". A catch-all pattern registered in `next.config.js` was beating 232 concrete rules, so 172 old URLs landed on `/blog` instead of their specific migrated post. Fixed in `6eb94344`. My explanation at the time (that `wix-redirects.json` caught them first) was also wrong: the real cause is that Next's `redirects()` runs before middleware.
 - **Canonicals.** 226 of 226 self-referencing and correct. The root layout correctly carries `metadataBase` only.
 - **Indexing plumbing.** No `noindex` page appears in the sitemap. robots.txt is correct.
 - **Core Web Vitals.** 121 good URLs on both mobile and desktop, none poor. Performance is not the constraint.

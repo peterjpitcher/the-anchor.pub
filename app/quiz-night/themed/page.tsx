@@ -64,7 +64,7 @@ const THEMED_NIGHTS = [
     status: 'upcoming' as const,
     href: '/events/pub-quiz-lovely-jubbly-only-fools-and-horses-quiz-night-2026-09-25',
     copy:
-      'A full Only Fools and Horses quiz, run with the Stanwell Moor Village Hall team in aid of Macmillan Cancer Support. 7pm to 9.30pm, £3 a player.'
+      'A full Only Fools and Horses quiz, in partnership with the Stanwell Moor Community Wellbeing Garden in aid of Macmillan Cancer Support. 7pm to 9.30pm, £3 a player.'
   },
   {
     name: 'Gavin & Stacey',
@@ -96,7 +96,7 @@ const FAQS = [
   {
     question: 'When is the next themed quiz night?',
     answer:
-      'The next one is our Only Fools and Horses quiz on Friday 25 September 2026, raising money for Macmillan Cancer Support with the Stanwell Moor Village Hall team. New themes are announced on our What’s On page as they are confirmed.'
+      'The next one is our Only Fools and Horses quiz on Friday 25 September 2026, in partnership with the Stanwell Moor Community Wellbeing Garden and raising money for Macmillan Cancer Support. New themes are announced on our What’s On page as they are confirmed.'
   },
   {
     question: 'Are the Halloween and Christmas quizzes themed?',
@@ -127,7 +127,7 @@ export default function ThemedQuizNightsPage() {
 
       <section className="bg-surface py-section-y">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-4">
+          <div className="space-y-4">
             <h2 className="text-h3 text-ink-strong">What makes it different</h2>
             <p className="text-lg leading-relaxed text-ink-muted">
               Our{' '}
@@ -159,7 +159,7 @@ export default function ThemedQuizNightsPage() {
       {upcoming.length > 0 && (
         <section className="bg-canvas py-section-y">
           <Container>
-            <div className="mx-auto max-w-3xl">
+            <div>
               <h2 className="mb-6 text-h3 text-ink-strong">Coming up</h2>
               {upcoming.map((night) => (
                 <Card key={night.name} className="mb-4">
@@ -185,7 +185,7 @@ export default function ThemedQuizNightsPage() {
 
       <section className="bg-surface py-section-y">
         <Container>
-          <div className="mx-auto max-w-3xl">
+          <div>
             <h2 className="mb-6 text-h3 text-ink-strong">Themes we have run</h2>
             {past.map((night) => (
               <Card key={night.name} className="mb-4">
@@ -212,7 +212,7 @@ export default function ThemedQuizNightsPage() {
 
       <section className="bg-canvas py-section-y">
         <Container>
-          <div className="mx-auto max-w-3xl space-y-4">
+          <div className="space-y-4">
             <h2 className="text-h3 text-ink-strong">Seasonal nights are a different thing</h2>
             <p className="leading-relaxed text-ink-muted">
               Worth being straight about this, because the names suggest otherwise. Nights like{' '}
