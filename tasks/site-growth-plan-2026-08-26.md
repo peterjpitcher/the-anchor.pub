@@ -86,7 +86,7 @@ Ordered by risk, not by effort. **Nothing ships until W1 to W4 are done.**
 
 ---
 
-### W2. Rebuild the redirect audit around the right question · P0 · 1 day
+### W2. Rebuild the redirect audit around the right question · P0 · **COMPLETE 26 Aug** (`4515fced`)
 
 **F02.** The old test asked "does this reach a 200?". It must ask "does this reach the page it is supposed to reach?".
 
@@ -99,7 +99,7 @@ Ordered by risk, not by effort. **Nothing ships until W1 to W4 are done.**
 
 ---
 
-### W3. Define safe behaviour when the management API fails · P0 · 1 day
+### W3. Define safe behaviour when the management API fails · P0 · **COMPLETE 26 Aug**
 
 **F15.** This is the most dangerous gap in the programme and nothing on the branch addresses it.
 
@@ -110,7 +110,7 @@ Today a general event API error can produce a **permanent redirect to `/whats-on
 | API returns 404 | `notFound()`. Confirmed absence. |
 | API times out or returns 5xx | Temporary error, or serve cached stale data. **Never a 301.** |
 | Slug is in the retirement manifest | 301 to the mapped hub. The only permitted permanent redirect. |
-| Sitemap refresh fails | Preserve the last good event sitemap. Never emit a sitemap with zero events. |
+| Sitemap refresh fails | Throw. Next then keeps serving the last good sitemap; only a cold start with no cache 500s. **This reverses a deliberate earlier decision** to return `[]` and publish without events. That avoided a GSC processing error but failed silently, caching a wrong sitemap for an hour. Note the harm was overstated in the review and in my first draft: dropping URLs from a sitemap does not deindex them. |
 
 ---
 

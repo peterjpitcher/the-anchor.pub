@@ -328,6 +328,34 @@ export const RETIRED_THIN_EVENT_SLUGS: ReadonlySet<string> = new Set([
   'rum-tasting-night-june--2025',
 ])
 
+/**
+ * Where a retired slug goes, decided WITHOUT calling the API.
+ *
+ * A retirement is the only case that justifies a permanent redirect, so it must
+ * not depend on a dependency being reachable. Resolving it from the slug alone
+ * means an outage can never turn into a durable "this moved" signal, and a
+ * genuine retirement still answers correctly while the CMS is down.
+ *
+ * Destinations mirror config/redirects/additional-redirects.json. The redirect
+ * config handles these at the edge in normal operation; this exists so the route
+ * gives the same answer if a request reaches it directly.
+ */
+const RETIRED_EVENT_DESTINATIONS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/^(pub-)?quiz-night/, '/quiz-night'],
+  [/^(cash-)?bingo|^cash-bingo/, '/cash-bingo'],
+  [/karaoke/, '/karaoke'],
+]
+
+export function getRetiredEventRedirect(slugOrId: string): string | null {
+  const slug = slugOrId?.toLowerCase().trim()
+  if (!slug || !RETIRED_THIN_EVENT_SLUGS.has(slug)) return null
+  for (const [pattern, destination] of RETIRED_EVENT_DESTINATIONS) {
+    if (pattern.test(slug)) return destination
+  }
+  // Tasting nights and anything else retired without a hub of its own.
+  return '/whats-on'
+}
+
 export function isRetiredThinEvent(event: Pick<Event, 'slug'> | { slug?: string | null }): boolean {
   const slug = event.slug?.toLowerCase().trim()
   return Boolean(slug && RETIRED_THIN_EVENT_SLUGS.has(slug))

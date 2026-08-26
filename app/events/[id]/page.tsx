@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getEventHeroImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
 import Link from 'next/link'
-import { permanentRedirect } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Button, Container, Card, CardBody, Alert, Badge } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -45,6 +45,8 @@ import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
+import { rethrowIfTransient } from '@/lib/api/error-kind'
+import { getRetiredEventRedirect } from '@/lib/event-seo-strategy'
 
 type Props = {
   params: { id: string }
@@ -298,12 +300,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function EventPage({ params }: Props) {
+  // Retired slugs are decided by the manifest, not by the API, so answer them
+  // before any network call. A retirement is the ONE case that justifies a
+  // permanent redirect, and it must not depend on a dependency being up.
+  const retirement = getRetiredEventRedirect(params.id)
+  if (retirement) {
+    permanentRedirect(retirement)
+  }
+
   let event
 
   try {
     event = await anchorAPI.getEvent(params.id)
-  } catch {
-    permanentRedirect('/whats-on')
+  } catch (error) {
+    // A bare catch here used to send EVERY failure to permanentRedirect(
+    // '/whats-on'): timeouts, 502s, DNS blips, JSON parse errors. That told
+    // Google a live event had permanently moved because the CMS was briefly
+    // slow. A 301 is durable and cached; the outage that caused it is not.
+    rethrowIfTransient(error)
+    // Only a definite 404 reaches here: the event genuinely does not exist.
+    notFound()
+  }
+
+  // getEvent returns null rather than throwing when the API reports 404.
+  if (!event) {
+    notFound()
   }
 
   if (isRetiredEvent(event)) {
@@ -313,10 +334,6 @@ export default async function EventPage({ params }: Props) {
   const canonicalSegment = getEventCanonicalSegment(event)
   if (canonicalSegment && canonicalSegment !== params.id) {
     permanentRedirect(`/events/${encodeURIComponent(canonicalSegment)}`)
-  }
-
-  if (!event) {
-    permanentRedirect('/whats-on')
   }
 
   const status = normalizeEventStatus(event)

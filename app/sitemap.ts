@@ -72,11 +72,50 @@ function addSitemapEvents(uniqueEvents: Map<string, Event>, batch: Event[]): voi
   }
 }
 
+/**
+ * Thrown when the event feed cannot be READ, as distinct from being genuinely empty.
+ *
+ * This reverses a deliberate earlier decision, so the reasoning matters.
+ *
+ * The previous behaviour returned `[]` on any fetch failure, documented in
+ * tests/sitemap-events.test.ts and tasks/gsc-indexing-fix/FINAL-SPEC.md: publish
+ * a sitemap carrying static and blog URLs rather than let a slow API surface as
+ * a "Temporary processing error" in Search Console. That is a fair goal.
+ *
+ * What it gets wrong is that the failure is SILENT. A fresh, wrong sitemap is
+ * generated, cached, and served for the full `revalidate` hour, and nothing
+ * anywhere reports that the feed was down.
+ *
+ * Being accurate about the harm: dropping URLs from a sitemap does NOT deindex
+ * them. They stay linked from /whats-on and the category hubs and keep their
+ * place. The real cost is a lost freshness signal, a stale hour, and no alert.
+ *
+ * Throwing is the mechanism that preserves the last good sitemap: Next fails
+ * regeneration and keeps serving the previously cached response. Only a cold
+ * start with nothing cached produces a 500, which Google retries.
+ *
+ * So the trade is: a visible, self-correcting error instead of a quiet, cached
+ * inaccuracy. An empty array is indistinguishable from "this pub genuinely has
+ * no events", and that is a claim we should never make by accident.
+ */
+class EventFeedUnavailableError extends Error {
+  constructor() {
+    super('Event feed unavailable, refusing to publish a sitemap without events')
+    this.name = 'EventFeedUnavailableError'
+  }
+}
+
 export async function getSitemapEvents(): Promise<Event[]> {
   const uniqueEvents = new Map<string, Event>()
   const firstBatch = await fetchSitemapEventsPage(0)
 
-  if (!firstBatch || firstBatch.length === 0) {
+  // null means the fetch failed. An empty array means it succeeded and there is
+  // genuinely nothing, which is legitimate and must still publish.
+  if (firstBatch === null) {
+    throw new EventFeedUnavailableError()
+  }
+
+  if (firstBatch.length === 0) {
     return []
   }
 
@@ -93,7 +132,14 @@ export async function getSitemapEvents(): Promise<Event[]> {
   )
 
   for (const batch of remainingBatches) {
-    if (!batch || batch.length === 0) break
+    // A failed later page would silently truncate the sitemap, dropping real
+    // URLs with no signal that anything went wrong. Treat it the same as a
+    // failed first page: keep the last good sitemap rather than publish a
+    // partial one.
+    if (batch === null) {
+      throw new EventFeedUnavailableError()
+    }
+    if (batch.length === 0) break
     addSitemapEvents(uniqueEvents, batch)
     if (batch.length < EVENT_PAGE_SIZE) break
   }
