@@ -1,3 +1,4 @@
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 interface SpeakableSchemaProps {
   selectors?: string[]
 }
@@ -26,7 +27,7 @@ export function SpeakableSchema({ selectors = defaultSelectors }: SpeakableSchem
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(schema).replace(/</g, '\u003c')
+        __html: jsonLdSafeStringify(schema)
       }}
     />
   )

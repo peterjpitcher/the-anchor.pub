@@ -2,7 +2,8 @@
  * Tell a missing thing apart from a broken dependency.
  *
  * This distinction was absent, and the cost was real: `app/events/[id]/page.tsx`
- * wrapped its fetch in a bare `catch` that issued `permanentRedirect('/whats-on')`.
+ * wrapped its fetch in a bare `catch` that issued `permanentRedirect('/whats-on')`,
+ * which emits HTTP 308, a permanent redirect browsers cache by default.
  * Every failure mode took that branch, so a three-second timeout, a 502 from the
  * management app, a DNS blip or a JSON parse error all told Google that a live,
  * bookable event had **permanently** moved. A 301 is durable and cached; the

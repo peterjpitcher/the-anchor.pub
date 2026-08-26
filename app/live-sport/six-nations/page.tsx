@@ -13,6 +13,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SixNationsFixtures } from '@/components/features/six-nations/SixNationsFixtures'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const SixNationsLightbox = dynamic(
     () => import('@/components/features/six-nations/SixNationsLightbox').then(mod => mod.SixNationsLightbox),
@@ -91,7 +92,7 @@ export default function SixNationsPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventSchema]) }}
             />
 
             <SixNationsLightbox/>

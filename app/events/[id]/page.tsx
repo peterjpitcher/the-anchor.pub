@@ -316,7 +316,10 @@ export default async function EventPage({ params }: Props) {
     // A bare catch here used to send EVERY failure to permanentRedirect(
     // '/whats-on'): timeouts, 502s, DNS blips, JSON parse errors. That told
     // Google a live event had permanently moved because the CMS was briefly
-    // slow. A 301 is durable and cached; the outage that caused it is not.
+    // slow. Note it emits 308, not 301 (Next's PermanentRedirect status): a
+    // permanent redirect that browsers cache by default, so a visitor could
+    // keep being bounced after the API recovered, with no server round-trip
+    // to correct it.
     rethrowIfTransient(error)
     // Only a definite 404 reaches here: the event genuinely does not exist.
     notFound()

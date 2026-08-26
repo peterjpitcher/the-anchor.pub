@@ -25,6 +25,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -107,7 +108,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: jsonLdSafeStringify([
             {
               '@context': 'https://schema.org',
               '@type': 'WebPage',

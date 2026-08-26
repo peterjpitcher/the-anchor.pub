@@ -28,7 +28,10 @@ const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postc
 // Only fields the DB actually carries are set. No performer/DJ is named
 // because none is booked in the record, and no special menu because none
 // exists. Do not add either without a DB record to point at.
-const HALLOWEEN_DYNAMIC: SeasonalDynamicFields = {
+const HALLOWEEN_DYNAMIC: SeasonalDynamicFields & { verifiedAt?: string } = {
+  // Checked against management DB event d52cbd18 on 17 Aug 2026: name, date
+  // (Saturday confirmed), 8pm to midnight, free entry. Owner: Peter Pitcher.
+  verifiedAt: '2026-08-17',
   occasionDate: 'Saturday 31 October 2026',
   annualTheme: 'Enter If You Dare: The House of Horrors',
   eventStartTime: '8pm',

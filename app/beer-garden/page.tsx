@@ -25,6 +25,7 @@ import {
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -105,7 +106,7 @@ export default async function BeerGardenPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([planeSpottingSchema, parkingFacilitySchema]) }}
       />
       <PlaneSpottingBookingPrompt source="beer_garden_plane_spotting_prompt" />
 

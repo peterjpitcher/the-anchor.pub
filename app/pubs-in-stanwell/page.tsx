@@ -10,6 +10,7 @@ import { GoogleReviews } from '@/components/reviews'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden',
@@ -77,7 +78,7 @@ export default async function PubsInStanwellPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localPubSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(localPubSchema) }}
       />
 
       {/* Hero Section */}

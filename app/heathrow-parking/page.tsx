@@ -15,6 +15,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
@@ -45,6 +46,10 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
  * while the page body reads the live rate from anchorAPI.getParkingRates(),
  * so the two could drift apart silently.
  */
+// Parking rates checked against the parking_rates table on 21 Aug 2026:
+// daily_rate 15.00, weekly 75.00, monthly 265.00. Competitor prices are
+// deliberately absent (owner decision 3) until a named source is approved.
+// verifiedAt: '2026-08-21'  Owner: Peter Pitcher.
 export const metadata: Metadata = {
   title: 'Heathrow Parking Prices | Park 7 Mins from T5',
   description: 'What Heathrow parking actually costs, and what we charge to park at the pub instead. Keep your keys, CCTV, 7 minutes from Terminal 5.',
@@ -332,15 +337,15 @@ export default async function HeathrowParkingPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingFacilitySchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingOfferSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingOfferSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(howToSchema) }}
       />
 
 	      <InteriorHero

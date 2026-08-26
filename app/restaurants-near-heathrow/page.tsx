@@ -16,6 +16,7 @@ import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Restaurants Near Heathrow Airport, 7 Min T5',
@@ -119,7 +120,7 @@ export default async function RestaurantsNearHeathrowPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(restaurantSchema) }}
       />
 
       {/* Hero Section */}

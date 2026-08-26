@@ -18,6 +18,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 function formatMenuItemPrice(item: MenuPageItem): string {
   const price = item.price.trim()
@@ -104,7 +105,7 @@ export default async function StanwellPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[

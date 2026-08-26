@@ -14,6 +14,7 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
@@ -148,7 +149,7 @@ export default function EasterSundayPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(easterEventSchema)
+          __html: jsonLdSafeStringify(easterEventSchema)
         }}
       />
 

@@ -4,7 +4,7 @@ import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
-import { isRetiredEvent } from '@/lib/api/events'
+import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
 
@@ -112,6 +112,14 @@ export async function getSitemapEvents(): Promise<Event[]> {
   // null means the fetch failed. An empty array means it succeeded and there is
   // genuinely nothing, which is legitimate and must still publish.
   if (firstBatch === null) {
+    throw new EventFeedUnavailableError()
+  }
+
+  // A resolved promise is NOT proof the feed worked. anchorAPI serves a
+  // fabricated event on network failure (lib/api/client.ts getFallbackResponse),
+  // so `catch` never fires and the sitemap would happily publish
+  // /events/the-anchor-showcase, a URL for an event that has never existed.
+  if (firstBatch.some(isFallbackEvent)) {
     throw new EventFeedUnavailableError()
   }
 

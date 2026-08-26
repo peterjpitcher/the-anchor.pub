@@ -111,3 +111,37 @@ describe('getSitemapEvents', () => {
     expect(mockGetEvents).toHaveBeenCalledTimes(1)
   })
 })
+
+/**
+ * A resolved promise is not proof the feed worked.
+ *
+ * anchorAPI.request() serves a FABRICATED event on network failure
+ * (lib/api/client.ts getFallbackResponse -> createFallbackEventsResponse), so
+ * getEvents never throws and `catch` never fires. The sitemap would then
+ * publish /events/the-anchor-showcase: a URL for an event that has never
+ * existed, which permanently redirects when crawled.
+ *
+ * Found by review after the first W3 fix, which caught only the throwing case.
+ */
+describe('getSitemapEvents and the fabricated fallback event', () => {
+  it('refuses to publish the offline fallback event', async () => {
+    const { createFallbackEventsResponse } = jest.requireActual('@/lib/api/events')
+    mockGetEvents.mockResolvedValueOnce(createFallbackEventsResponse())
+
+    await expect(getSitemapEvents()).rejects.toThrow(/Event feed unavailable/)
+  })
+
+  it('still publishes a real event with the same shape', async () => {
+    mockGetEvents.mockResolvedValueOnce({
+      events: [{
+        id: 'real-1',
+        slug: 'real-1',
+        startDate: '2026-06-01T18:00:00Z',
+        event_status: 'scheduled',
+      }],
+    })
+
+    const events = await getSitemapEvents()
+    expect(events.map((e) => e.id)).toEqual(['real-1'])
+  })
+})

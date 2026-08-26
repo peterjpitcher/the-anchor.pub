@@ -17,6 +17,7 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Beer Garden Views',
@@ -80,7 +81,7 @@ export default async function PlaneSpottingHeathrowPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(planeSpottingSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(planeSpottingSchema) }}
       />
       <PlaneSpottingBookingPrompt source="plane_spotting_page_prompt" />
 

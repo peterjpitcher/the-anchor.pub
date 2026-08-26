@@ -13,6 +13,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
@@ -143,7 +144,7 @@ export default function ReviewsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
             'name': 'Reviews, What Our Guests Say About The Anchor',

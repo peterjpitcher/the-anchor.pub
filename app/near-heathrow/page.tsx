@@ -18,6 +18,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JourneyTimesCard } from './_components/JourneyTimesCard'
 import { WhyStopList } from './_components/WhyStopList'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
@@ -62,7 +63,7 @@ export default function NearHeathrowPage() {
       <SpeakableSchema/>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingFacilitySchema) }}
       />
 
       {/* Hero: keyword-focused H1 retained (stronger for SEO than the prototype title). */}
@@ -253,7 +254,7 @@ export default function NearHeathrowPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(parkingFacilitySchema)
+          __html: jsonLdSafeStringify(parkingFacilitySchema)
         }}
       />
     </>

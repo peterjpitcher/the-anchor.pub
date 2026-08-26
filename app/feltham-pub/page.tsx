@@ -15,6 +15,7 @@ import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -86,7 +87,7 @@ export default function FelthamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
