@@ -145,3 +145,34 @@ describe('getSitemapEvents and the fabricated fallback event', () => {
     expect(events.map((e) => e.id)).toEqual(['real-1'])
   })
 })
+
+/**
+ * The build deliberately skips external fetches, so the fabricated fallback is
+ * EXPECTED during a build and a failure at runtime. Treating them the same
+ * broke `npm run build` entirely: the sitemap threw, and the whole static
+ * export failed. Caught only by running the build, which unit tests do not.
+ */
+describe('build phase versus runtime failure', () => {
+  const originalPhase = process.env.NEXT_PHASE
+
+  afterEach(() => {
+    if (originalPhase === undefined) delete process.env.NEXT_PHASE
+    else process.env.NEXT_PHASE = originalPhase
+  })
+
+  it('returns an empty list during the build instead of failing the export', async () => {
+    process.env.NEXT_PHASE = 'phase-production-build'
+    const { createFallbackEventsResponse } = jest.requireActual('@/lib/api/events')
+    mockGetEvents.mockResolvedValueOnce(createFallbackEventsResponse())
+
+    await expect(getSitemapEvents()).resolves.toEqual([])
+  })
+
+  it('still throws on the same fallback at runtime', async () => {
+    delete process.env.NEXT_PHASE
+    const { createFallbackEventsResponse } = jest.requireActual('@/lib/api/events')
+    mockGetEvents.mockResolvedValueOnce(createFallbackEventsResponse())
+
+    await expect(getSitemapEvents()).rejects.toThrow(/Event feed unavailable/)
+  })
+})

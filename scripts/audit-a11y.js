@@ -78,9 +78,21 @@ async function main() {
   const reflowProblems = []
 
   try {
+    // Warm every page first. A dev server compiles routes on first request, so
+    // a cold page can answer 500 while still building and be reported as an
+    // accessibility failure it is not. This made the result flaky between runs.
+    for (const [pathname] of PAGES) {
+      try { await fetch(BASE + pathname) } catch { /* checked properly below */ }
+    }
+
     for (const [pathname, label] of PAGES) {
       const page = await context.newPage()
-      const res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
+      let res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
+      if (res && res.status() >= 500) {
+        // One retry, in case it was still compiling.
+        await page.waitForTimeout(3000)
+        res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
+      }
       if (!res || res.status() !== 200) {
         violations.push({ pathname, id: 'page-unreachable', help: `status ${res && res.status()}`, nodes: 0 })
         await page.close()

@@ -98,6 +98,20 @@ function addSitemapEvents(uniqueEvents: Map<string, Event>, batch: Event[]): voi
  * inaccuracy. An empty array is indistinguishable from "this pub genuinely has
  * no events", and that is a claim we should never make by accident.
  */
+/**
+ * The build deliberately skips external fetches (lib/api/client.ts), so a
+ * fabricated fallback during the build is expected, not a failure.
+ */
+function isBuildPhase(): boolean {
+  // No `typeof window` guard: NEXT_PHASE is only ever set by a server build, so
+  // the check adds nothing, and it made this untestable under Jest's jsdom
+  // environment where `window` exists.
+  return (
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+  )
+}
+
 class EventFeedUnavailableError extends Error {
   constructor() {
     super('Event feed unavailable, refusing to publish a sitemap without events')
@@ -119,7 +133,14 @@ export async function getSitemapEvents(): Promise<Event[]> {
   // fabricated event on network failure (lib/api/client.ts getFallbackResponse),
   // so `catch` never fires and the sitemap would happily publish
   // /events/the-anchor-showcase, a URL for an event that has never existed.
+  //
+  // Except during the build, where that same fallback is DELIBERATE: the client
+  // skips external fetches at build time on purpose, so the fabricated event is
+  // expected rather than a fault. Throwing there fails the whole export, which
+  // is exactly what the first version of this check did. Emit the static and
+  // blog URLs, and let the first revalidation fill in the events.
   if (firstBatch.some(isFallbackEvent)) {
+    if (isBuildPhase()) return []
     throw new EventFeedUnavailableError()
   }
 
