@@ -41,11 +41,15 @@ All custom parameters used in GTM events must be registered here AND in GA4 Admi
 | `filter_type` | Event | `filter_change` | Type of filter applied |
 | `modal_id` | Event | `modal_open`, `modal_close`, `modal_engage` | Modal identifier |
 
-## Conversions (mark in GA4 Admin > Events)
+## Key events (mark in GA4 Admin > Key events)
 
-| Event | Why It's a Conversion |
+| Event | Why it is a key event |
 |---|---|
-| `table_booking_funnel` (step=success) | Primary revenue action |
-| `booking_wizard_complete` | Sunday lunch booking confirmed |
+| `purchase` | Confirmed table or ticketed-event booking |
 | `private_hire_enquiry_submitted` | High-value lead captured |
-| `phone_call_click` | Strong purchase intent signal |
+| `call_click` | Strong purchase intent signal |
+| `contact_us` | Contact form submitted |
+
+`table_booking_completed` and `event_booking_completed` remain available as
+funnel events, but must not be marked as key events. Each confirmed booking also
+emits `purchase`, so marking both would count one booking twice.
