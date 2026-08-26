@@ -2,7 +2,7 @@
 // Centralised event tracking for The Anchor website
 //
 // Table-booking event names (snapshot, keep in sync with GTM):
-//   table_booking_click / book_table_click           CTA and in-form click tracking
+//   table_booking_click                              CTA and in-form click tracking
 //   table_booking_funnel                             funnel_step: view | start | availability_check |
 //                                                    details_entered | submit | success | error
 //   table_booking_started / table_booking_completed  (+ sunday_roast_* variants)
@@ -406,11 +406,6 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
 
   pushToDataLayer({
     event: 'table_booking_click',
-    ...payload
-  }, { sendToApi: true })
-
-  pushToDataLayer({
-    event: 'book_table_click',
     ...payload
   }, { sendToApi: true })
 
