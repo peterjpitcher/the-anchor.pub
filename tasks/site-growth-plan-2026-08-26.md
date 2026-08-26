@@ -73,14 +73,14 @@ These fourteen commits are on the branch. They need **review, not rework**.
 
 Ordered by risk, not by effort. **Nothing ships until W1 to W4 are done.**
 
-### W1. Make the branch honest before anything else · P0 · half a day
+### W1. Make the branch honest before anything else · P0 · **COMPLETE 26 Aug**
 
 | Task | Detail |
 |---|---|
 | **W1.1** ✅ Fix the page-width audit failure | Done 26 Aug. Four `max-w-3xl` caps removed from `app/quiz-night/themed/page.tsx`. Page width is set once by `.container`; no page may re-cap it. |
-| **W1.2** | **Commit the owner's themed-quiz correction.** I wrote "Stanwell Moor Village Hall team". The correct partner is the **Stanwell Moor Community Wellbeing Garden**. The database has already been corrected; the page was corrected by hand and is uncommitted. |
-| **W1.3** | **Stop the themed hub hardcoding facts that live in the database.** W1.2 happened because the page duplicates the partner and charity names as string literals. When the database changed, the page did not. Read them from the event record, or mark them `verifiedAt` with an owner (see W7). |
-| **W1.4** | **Separate the unrelated analytics work.** `lib/gtm-events.ts`, `docs/analytics/custom-dimensions.md` and `tests/unit/table-booking-tracking.test.ts` are uncommitted in the tree and are **not** part of this programme. Commit them separately or stash them. Do not fold them into a URL-migration release. |
+| **W1.2** ✅ | **DONE 26 Aug.** Committed the owner's themed-quiz correction. I wrote "Stanwell Moor Village Hall team". The correct partner is the **Stanwell Moor Community Wellbeing Garden**. The database has already been corrected; the page was corrected by hand and is uncommitted. |
+| **W1.3** ✅ | **DONE 26 Aug.** Stopped the themed hub hardcoding facts that live in the database. W1.2 happened because the page duplicates the partner and charity names as string literals. When the database changed, the page did not. Read them from the event record, or mark them `verifiedAt` with an owner (see W7). |
+| **W1.4** ✅ | **DONE 26 Aug**, committed as `da30e061`. Separated the unrelated analytics work. `lib/gtm-events.ts`, `docs/analytics/custom-dimensions.md` and `tests/unit/table-booking-tracking.test.ts` are uncommitted in the tree and are **not** part of this programme. Commit them separately or stash them. Do not fold them into a URL-migration release. |
 
 **Gate:** `npm run lint && npx tsc --noEmit && npx jest tests/` all pass, and `git status` is clean apart from deliberate work.
 
@@ -114,7 +114,7 @@ Today a general event API error can produce a **permanent redirect to `/whats-on
 
 ---
 
-### W4. Build the baseline sheet before any further deploy · P0 · half a day, owner-led
+### W4. Build the baseline sheet before any further deploy · P0 · half a day, owner-led · **DECIDED (6)**
 
 **F13.** Without this, none of the 29 retirements can be judged and no rollback decision can be principled.
 
@@ -123,6 +123,8 @@ Capture per page: clicks, impressions, CTR, position, organic landing sessions, 
 Cover: the 11 retired `/pub-near-*` URLs, the 18 retired event URLs, `/heathrow-hotels-pub`, `/halloween`, `/heathrow-parking`, `/food-menu`, `/sunday-roast`, all 17 `/private-hire/near/*`.
 
 Reviews at **28, 56 and 84 days**.
+
+**Revert rule (decision 6):** completed table bookings originating from Google, down more than **25%** over the 28 days after deploy versus the same 28 days last year. That is the only trigger. Everything else is reported, not acted on.
 
 > **Note:** for the 14 commits already made, use historical pre-change GSC data. The window is still open.
 
@@ -256,8 +258,9 @@ Owner: Peter Pitcher.
 | 3 | **The parking comparison is manual, dated editorial data.** No integration, no scraping. | W12 and F17 close. **No competitor prices appear on the page at all** until Peter approves a named source. Until then the page states our own price and links to official live prices. |
 | 4 | **`/private-hire/venue-tour` becomes indexable.** | Remove `robots: { index: false, follow: false }`. An interactive floor plan is content worth having found. Add it to the sitemap and give it a canonical. |
 | 5 | **Peter owns Search Console, the CDN, the management API and content freshness.** | W7 and W11 name him as the approver for every volatile claim and every external system action. No separate owner table needed. |
+| 6 | **Rollback is judged on completed table bookings from Google, and nothing else.** Revert if they fall more than **25%** over the 28 days after deploy, measured against **the same 28 days last year**. | W4 closes. Rankings, impressions and sessions are reported but never trigger a revert: they can all rise while bookings fall. 25% is deliberately a wide band, because booking volumes here are small enough that a 10% swing is weather. Year-on-year, not month-on-month, because late September is not August. |
 
-Decision 6, the rollback threshold, is still open and is the only thing blocking W4 from being finished.
+All six decisions are settled. Nothing in this plan is waiting on an owner answer.
 
 ## What I would not do
 

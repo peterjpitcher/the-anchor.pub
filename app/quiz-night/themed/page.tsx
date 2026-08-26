@@ -55,6 +55,23 @@ export const metadata: Metadata = {
  * Only nights the management database confirms actually ran or are scheduled.
  * Do not add a theme here speculatively: an unrun themed quiz that ranks is a
  * page that disappoints everyone who clicks it.
+ *
+ * WHAT MAY AND MAY NOT LIVE HERE.
+ *
+ * This page originally repeated the charity partner as a string literal. It
+ * said "the Stanwell Moor Village Hall team", copied from the event record at
+ * the time. The partner later changed to the Community Wellbeing Garden, the
+ * database was corrected, and this page was not, so the site published a wrong
+ * partner name for a charity night.
+ *
+ * The rule that follows from that: a fact which can change without anyone
+ * touching this file does not belong in this file. Partner names, charity
+ * names, prices and booking states live on the event page, which reads them
+ * live. Here we carry only the theme, the date (verifiable against the slug,
+ * see the guard test) and editorial copy about the format itself.
+ *
+ * `verifiedAt` is the date a human last checked these against the event
+ * records. See W7 in tasks/site-growth-plan-2026-08-26.md.
  */
 const THEMED_NIGHTS = [
   {
@@ -63,8 +80,9 @@ const THEMED_NIGHTS = [
     date: 'Friday 25 September 2026',
     status: 'upcoming' as const,
     href: '/events/pub-quiz-lovely-jubbly-only-fools-and-horses-quiz-night-2026-09-25',
+    verifiedAt: '2026-08-26',
     copy:
-      'A full Only Fools and Horses quiz, in partnership with the Stanwell Moor Community Wellbeing Garden in aid of Macmillan Cancer Support. 7pm to 9.30pm, £3 a player.'
+      'A full Only Fools and Horses quiz, run as a charity night. Rounds on Peckham, the Trotters and everything in between. 7pm to 9.30pm, £3 a player, with the partner and the cause named on the event page.'
   },
   {
     name: 'Gavin & Stacey',
@@ -72,6 +90,7 @@ const THEMED_NIGHTS = [
     date: 'Friday 15 May 2026',
     status: 'past' as const,
     href: '/events/gavin-and-stacey-quiz-night-2026-05-15',
+    verifiedAt: '2026-08-26',
     copy:
       'Our Gavin and Stacey quiz ran on a Friday night in May: rounds on Barry, Essex and everyone in between, for fans and for people who had simply watched enough of it. A £25 bar voucher for the winners.'
   }
@@ -96,7 +115,7 @@ const FAQS = [
   {
     question: 'When is the next themed quiz night?',
     answer:
-      'The next one is our Only Fools and Horses quiz on Friday 25 September 2026, in partnership with the Stanwell Moor Community Wellbeing Garden and raising money for Macmillan Cancer Support. New themes are announced on our What’s On page as they are confirmed.'
+      'The next one is our Only Fools and Horses quiz on Friday 25 September 2026, run as a charity night. The event page carries who we are raising money for and who we are running it with. New themes are announced on our What’s On page as they are confirmed.'
   },
   {
     question: 'Are the Halloween and Christmas quizzes themed?',
@@ -233,7 +252,7 @@ export default function ThemedQuizNightsPage() {
 
       <CtaBand
         title="Next one is Only Fools and Horses"
-        copy="Friday 25 September, £3 a player, raising money for Macmillan Cancer Support. Book a table and bring the friend who quotes it constantly."
+        copy="Friday 25 September, £3 a player, and it is a charity night. Book a table and bring the friend who quotes it constantly."
         primary={<BookTableButton source="themed_quiz_cta" size="lg" />}
       />
 
