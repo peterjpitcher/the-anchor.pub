@@ -331,11 +331,6 @@
     "permanent": true
   },
   {
-    "source": "/cdn-cgi/l/email-protection",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/honeybeemine",
     "destination": "/",
     "permanent": true
