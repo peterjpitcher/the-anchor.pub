@@ -62,6 +62,7 @@ import {
   trackTableBookingClick,
   trackTableBookingFunnel,
 } from '@/lib/gtm-events'
+import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
@@ -1505,10 +1506,15 @@ export function ManagementTableBookingForm({
                    pushToDataLayer({
                      event: 'purchase',
                      transaction_id: transactionId,
-                     value: depositAmountForPayment,
+                     // Estimated booking value, NOT cash taken. The deposit is a
+                     // prepayment against the same bill, so sending it here would
+                     // have valued a booking at what was paid up front rather than
+                     // what it is worth. This is the figure the site already sends
+                     // Meta for this exact booking; GA4 was the odd one out at £0.
+                     value: estimateTableBookingValue(partySize),
                      currency: 'GBP',
                      booking_source: bookingSource,
-                   })
+                   }, { sendToApi: true })
                  }
                }}
                onError={(msg) => {
@@ -1948,10 +1954,18 @@ export function ManagementTableBookingForm({
           pushToDataLayer({
             event: 'purchase',
             transaction_id: transactionId,
-            value: bookingResult.deposit_amount ?? 0,
+            // See the note on the PayPal branch. Every booking since April 2026
+            // has taken a £0 deposit, so this used to send GA4 a literal zero on
+            // every single booking, which is why Total revenue read £0.00.
+            value: estimateTableBookingValue(partySize),
             currency: 'GBP',
             booking_source: bookingSource,
-          })
+            // Delivered through the Measurement Protocol as well as the dataLayer.
+            // GA4 logged 53 table_booking_completed against only 28 purchase in
+            // the same 28 days, and the confirmation screen is exactly where
+            // people close the tab. transaction_id is the booking reference, so
+            // GA4 de-duplicates if both paths land.
+          }, { sendToApi: true })
         }
       }
     } catch (submitError: any) {

@@ -6,10 +6,19 @@ import { Plane, X } from 'lucide-react'
 import { pushToDataLayer } from '@/lib/gtm-events'
 import {
   getLondonIsoDate,
+  getPlaneSpottingBookingTime,
   getTodayPlaneSpottingWindow,
   type PlaneSpottingWindowInfo,
 } from '@/lib/heathrow-runway-alternation'
 
+// Every event here is sent through the Measurement Protocol.
+//
+// Plane spotting is the biggest audience on the site, roughly 227 users in
+// 28 days across the two pages, and GA4 showed it producing nothing at all.
+// That was never true: this prompt existed the whole time, but its events only
+// reached the dataLayer, and the published GTM container has no triggers for
+// our custom events, so none of them reached GA4. The funnel was not failing,
+// it was invisible. See lib/gtm-events.ts trackFormComplete for the same fault.
 export const PLANE_SPOTTING_PROMPT_SESSION_KEY = 'plane_spotting_booking_prompt_shown'
 
 const SCROLL_PERCENT_THRESHOLD = 0.55
@@ -19,9 +28,13 @@ interface PlaneSpottingBookingPromptProps {
   source?: string
 }
 
-function buildBookingHref(source: string) {
+function buildBookingHref(source: string, info?: PlaneSpottingWindowInfo | null) {
   const params = new URLSearchParams({ source })
   params.set('date', getLondonIsoDate())
+  // Prefill the time with today's overhead window, so the booking matches what
+  // the reader came for rather than dropping them on an empty form.
+  const time = info ? getPlaneSpottingBookingTime(info.window) : undefined
+  if (time) params.set('time', time)
   return `/book-table?${params.toString()}`
 }
 
@@ -51,7 +64,7 @@ export function PlaneSpottingBookingPrompt({
       trigger,
       plane_spotting_window: todaySchedule.window,
       plane_spotting_label: todaySchedule.label,
-    })
+    }, { sendToApi: true })
   }, [])
 
   const dismiss = useCallback(() => {
@@ -59,7 +72,7 @@ export function PlaneSpottingBookingPrompt({
     pushToDataLayer({
       event: 'plane_spotting_prompt_dismissed',
       source,
-    })
+    }, { sendToApi: true })
   }, [source])
 
   useEffect(() => {
@@ -113,7 +126,7 @@ export function PlaneSpottingBookingPrompt({
     return null
   }
 
-  const href = buildBookingHref(source)
+  const href = buildBookingHref(source, schedule)
 
   return (
     <div
@@ -139,7 +152,7 @@ export function PlaneSpottingBookingPrompt({
                 event: 'plane_spotting_prompt_cta_clicked',
                 source,
                 plane_spotting_window: schedule.window,
-              })
+              }, { sendToApi: true })
               setVisible(false)
             }}
           >

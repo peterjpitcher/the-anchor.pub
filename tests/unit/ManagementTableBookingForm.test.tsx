@@ -980,14 +980,20 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
     )
 
-    // GA4 purchase event should fire with the booking reference as transaction_id.
+    // GA4 purchase event should fire with the booking reference as transaction_id,
+    // carry an estimated booking value rather than the (always £0) deposit, and
+    // go through the Measurement Protocol as well as the dataLayer.
     expect(pushToDataLayer).toHaveBeenCalledWith(
       expect.objectContaining({
         event: 'purchase',
         transaction_id: 'TB-CONF-1',
+        // 4 covers at the £25 per-cover figure the site already sends Meta.
+        // Sending the deposit here is what made GA4 Total revenue read £0.00.
+        value: 100,
         currency: 'GBP',
         booking_source: 'direct',
-      })
+      }),
+      expect.objectContaining({ sendToApi: true })
     )
 
     // Sequence assertion: view → start → submit → success in order.

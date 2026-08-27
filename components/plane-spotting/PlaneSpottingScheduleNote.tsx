@@ -3,6 +3,7 @@ import { Plane, CloudSun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   getLondonIsoDate,
+  getPlaneSpottingBookingTime,
   getPlaneSpottingWindowForDate,
   getTodayPlaneSpottingWindow,
   type PlaneSpottingWindowInfo,
@@ -25,9 +26,15 @@ function resolveInfo(isoDate?: string, info?: PlaneSpottingWindowInfo): PlaneSpo
   return getTodayPlaneSpottingWindow()
 }
 
-function bookingHref(source: string, isoDate?: string) {
+function bookingHref(source: string, isoDate?: string, info?: PlaneSpottingWindowInfo) {
   const params = new URLSearchParams({ source })
   if (isoDate) params.set('date', isoDate)
+  // Carry the overhead window through to the form. The booking page already
+  // reads `time` and passes it to the form as a prefill, so the reader lands on
+  // a booking for the thing they were actually reading about instead of an
+  // empty form they have to reason about themselves.
+  const time = info ? getPlaneSpottingBookingTime(info.window) : undefined
+  if (time) params.set('time', time)
   return `/book-table?${params.toString()}`
 }
 
@@ -76,7 +83,7 @@ export function PlaneSpottingScheduleNote({
 
           {showCta ? (
             <Link
-              href={bookingHref(ctaSource, isoDate ?? getLondonIsoDate())}
+              href={bookingHref(ctaSource, isoDate ?? getLondonIsoDate(), schedule)}
               className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-anchor-gold-dark px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 md:w-auto"
             >
               Book a Table

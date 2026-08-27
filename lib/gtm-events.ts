@@ -35,6 +35,7 @@
 // be the most sensitive thing in the payload. Both rules apply.
 
 import { dispatchTrackingEvent, TrackingDispatchOptions } from './tracking/dispatcher'
+import { estimateTableBookingValue } from './booking-conversion-value'
 import { trackMetaBookingPurchase } from './meta-pixel'
 
 interface GTMEvent {
@@ -483,6 +484,17 @@ export function trackTableBookingFunnel(data: {
     pushToDataLayer({
       event: 'table_booking_completed',
       funnel: 'food_table_booking',
+      // value and currency sit high in this literal deliberately. The dispatcher
+      // appends page context, device type and up to a dozen attribution keys
+      // afterwards, and app/api/analytics/route.ts keeps only the first 25
+      // parameters in key order, so anything added late is silently dropped on
+      // exactly the attributed bookings that matter most.
+      //
+      // This does not inflate Total revenue: GA4 counts only `purchase` toward
+      // revenue. It gives the funnel event a value so completions can be
+      // compared with starts in monetary terms.
+      value: estimateTableBookingValue(data.partySize),
+      currency: 'GBP',
       source_component: data.source,
       destination: '/booking-confirmation',
       booking_source: data.source,

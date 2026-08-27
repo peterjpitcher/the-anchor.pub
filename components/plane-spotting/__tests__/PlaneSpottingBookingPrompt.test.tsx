@@ -67,7 +67,8 @@ describe('PlaneSpottingBookingPrompt', () => {
       expect.objectContaining({
         event: 'plane_spotting_prompt_shown',
         trigger: 'scroll',
-      })
+      }),
+      expect.objectContaining({ sendToApi: true })
     )
   })
 
@@ -90,10 +91,14 @@ describe('PlaneSpottingBookingPrompt', () => {
     fireScroll()
 
     fireEvent.click(screen.getByLabelText('Dismiss plane spotting booking prompt'))
-    expect(mockPushToDataLayer).toHaveBeenCalledWith({
+    expect(mockPushToDataLayer).toHaveBeenCalledWith(
+      expect.objectContaining({
       event: 'plane_spotting_prompt_dismissed',
       source: 'test_prompt',
-    })
+      }),
+      // Measurement Protocol, or the event never reaches GA4.
+      expect.objectContaining({ sendToApi: true })
+    )
 
     window.sessionStorage.clear()
     jest.clearAllMocks()
@@ -109,7 +114,8 @@ describe('PlaneSpottingBookingPrompt', () => {
       expect.objectContaining({
         event: 'plane_spotting_prompt_cta_clicked',
         source: 'test_prompt',
-      })
+      }),
+      expect.objectContaining({ sendToApi: true })
     )
   })
 })

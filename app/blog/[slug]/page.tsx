@@ -416,7 +416,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <div className="flex-1">
                 <h2 className="font-display text-h4 text-ink-strong mb-2">
-                  Visiting Heathrow? The Anchor is 5 minutes away
+                  Visiting Heathrow? The Anchor is 7 minutes from Terminal 5
                 </h2>
                 <p className="text-ink-muted">
                   Book a table for lunch in our beer garden, great food, cold drinks, and a proper base for a day of spotting.

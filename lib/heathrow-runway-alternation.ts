@@ -124,6 +124,24 @@ export function getPlaneSpottingWindowForDate(isoDate: string): PlaneSpottingWin
   }
 }
 
+/**
+ * The time to prefill on a booking made from a plane-spotting page.
+ *
+ * Someone reading these pages is not booking a table in the abstract, they want
+ * to be sat outside while aircraft are overhead. Sending them to an empty
+ * booking form makes them work that out for themselves. 'from_3pm' weeks put
+ * the arrivals after 3pm, so 3pm is the start of what they came for; on
+ * 'until_3pm' weeks 1pm sits inside the window with time to order first.
+ *
+ * Returns undefined when the window is unknown, so the form falls back to its
+ * own default rather than inventing a time.
+ */
+export function getPlaneSpottingBookingTime(window: PlaneSpottingWindow): string | undefined {
+  if (window === 'from_3pm') return '15:00'
+  if (window === 'until_3pm') return '13:00'
+  return undefined
+}
+
 export function getTodayPlaneSpottingWindow(date: Date = new Date()): PlaneSpottingWindowInfo {
   return getPlaneSpottingWindowForDate(getLondonIsoDate(date))
 }
