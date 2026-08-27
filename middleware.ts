@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import securityHeaders from '@/config/security-headers.json'
-import { lookupRedirect, getRedirectStatus, resolveRedirectUrl } from '@/lib/middleware-redirects'
+import { lookupRedirect, lookupFallbackRedirect, getRedirectStatus, resolveRedirectUrl } from '@/lib/middleware-redirects'
 
 export function middleware(request: NextRequest) {
     // Handle domain redirects (non-www to www) and force HTTPS for production hostname
@@ -43,7 +43,10 @@ export function middleware(request: NextRequest) {
     // the apex variants of consolidated tag redirects produced two hops (apex -> www,
     // then www -> destination) which GSC reported as "Redirect error". See
     // tasks/gsc-indexing-fix/FINAL-SPEC.md §P0.1.
-    const matchedRedirect = lookupRedirect(url.pathname)
+    // Concrete rules first, then catch-all fallbacks. Order matters: a
+    // /post/* URL should reach its specific migrated blog post when we know
+    // it, and only fall back to the blog index when we do not.
+    const matchedRedirect = lookupRedirect(url.pathname) ?? lookupFallbackRedirect(url.pathname)
     if (matchedRedirect) {
         const canonicalUrl = new URL(request.url)
         canonicalUrl.protocol = url.protocol

@@ -22,6 +22,7 @@ export const revalidate = 86400
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -101,7 +102,7 @@ export default function StainesPubPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
 
       {/* Hero Section */}

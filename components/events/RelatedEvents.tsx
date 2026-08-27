@@ -5,6 +5,7 @@ import { getUpcomingEventsByCategory, getUpcomingEvents, formatEventDate, format
 import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventWebsitePath } from '@/lib/event-url'
 import type { Event } from '@/lib/api'
+import { readableInkOn } from '@/lib/contrast'
 
 /**
  * Stands in for the poster on events that have no artwork of their own.
@@ -110,8 +111,10 @@ export default async function RelatedEvents({
                     <span
                       className="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold rounded-full"
                       style={{
-                        backgroundColor: `${event.category.color}cc`,
-                        color: '#ffffff',
+                        backgroundColor: event.category.color,
+                        // Category colours come from the CMS, so white is not
+                        // always readable on them. One purple measured 4.04:1.
+                        color: readableInkOn(event.category.color),
                       }}
                     >
                       {event.category.name}

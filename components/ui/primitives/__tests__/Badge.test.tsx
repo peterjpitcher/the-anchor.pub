@@ -15,7 +15,10 @@ describe('Badge', () => {
   it('renders each of the six variants', () => {
     const cases: Array<[Parameters<typeof Badge>[0]['variant'], string]> = [
       ['green', 'bg-anchor-green'],
-      ['gold', 'bg-anchor-gold'],
+      // anchor-gold-dark, not anchor-gold. White on #a57626 is 4.02:1, under
+      // AA, and Button had already rejected that exact fill for the same
+      // reason. anchor-gold-dark takes white to 5.59:1.
+      ['gold', 'bg-anchor-gold-dark'],
       // The sand variant is theme-aware: warm cream on light, gold at low
       // opacity on the dark season's green. Both live behind --tile.
       ['sand', 'bg-tile'],

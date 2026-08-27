@@ -15,6 +15,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Hotels | Food, Beer & Free Parking',
@@ -100,7 +101,7 @@ export default async function HeathrowHotelsPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -180,19 +181,19 @@ export default async function HeathrowHotelsPubPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Terminal 5 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-sofitel-heathrow" className="font-medium hover:text-accent-text transition-colors">Sofitel London Heathrow</Link>
+                    <span className="font-medium">Sofitel London Heathrow</span>
                     <span className="text-accent-text font-bold">7 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-premier-inn-heathrow" className="font-medium hover:text-accent-text transition-colors">Premier Inn T5</Link>
+                    <span className="font-medium">Premier Inn T5</span>
                     <span className="text-accent-text font-bold">8 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-travelodge-heathrow" className="font-medium hover:text-accent-text transition-colors">Travelodge Heathrow</Link>
+                    <span className="font-medium">Travelodge Heathrow</span>
                     <span className="text-accent-text font-bold">10 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-hilton-heathrow" className="font-medium hover:text-accent-text transition-colors">Hilton London Heathrow</Link>
+                    <span className="font-medium">Hilton London Heathrow</span>
                     <span className="text-accent-text font-bold">10 mins</span>
                   </li>
                 </ul>
@@ -205,31 +206,31 @@ export default async function HeathrowHotelsPubPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Bath Road & T4 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-marriott-heathrow" className="font-medium hover:text-accent-text transition-colors">Marriott London Heathrow</Link>
+                    <span className="font-medium">Marriott London Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-crowne-plaza-heathrow" className="font-medium hover:text-accent-text transition-colors">Crowne Plaza Heathrow</Link>
+                    <span className="font-medium">Crowne Plaza Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-radisson-blu-heathrow" className="font-medium hover:text-accent-text transition-colors">Radisson Blu Heathrow</Link>
+                    <span className="font-medium">Radisson Blu Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-holiday-inn-heathrow" className="font-medium hover:text-accent-text transition-colors">Holiday Inn Heathrow</Link>
+                    <span className="font-medium">Holiday Inn Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-ibis-heathrow" className="font-medium hover:text-accent-text transition-colors">ibis London Heathrow</Link>
+                    <span className="font-medium">ibis London Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-novotel-heathrow" className="font-medium hover:text-accent-text transition-colors">Novotel London Heathrow</Link>
+                    <span className="font-medium">Novotel London Heathrow</span>
                     <span className="text-accent-text font-bold">15 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <Link href="/pub-near-renaissance-heathrow" className="font-medium hover:text-accent-text transition-colors">Renaissance London Heathrow</Link>
+                    <span className="font-medium">Renaissance London Heathrow</span>
                     <span className="text-accent-text font-bold">12 mins</span>
                   </li>
                 </ul>
@@ -620,7 +621,7 @@ export default async function HeathrowHotelsPubPage() {
             <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
             <Button asChild variant="outline" size="lg"><Link href="/food-menu">View Menu</Link></Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Free Parking • 7-12 mins from all major hotels • Outside ULEZ Zone</p>
+          <p className="text-ink-muted text-sm">Free Parking • 7-12 mins from all major hotels • Outside ULEZ Zone</p>
         </div>
       </CtaBand>
     </>

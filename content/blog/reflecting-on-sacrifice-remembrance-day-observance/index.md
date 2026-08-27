@@ -1,5 +1,5 @@
 ---
-title: Remembrance Day Near Heathrow | The Anchor Honours Our Heroes
+title: Remembrance Day Near Heathrow | Honouring Our Heroes
 description: >-
   Join The Anchor pub near Heathrow Airport in honouring our fallen heroes on
   Remembrance Day. Located in Stanwell Moor, we observe the two-minute silence

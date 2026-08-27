@@ -1,5 +1,5 @@
 ---
-title: Double Spirits £2 Near Heathrow | The Anchor Pub Daily Deal
+title: Double Spirits £2 Near Heathrow | Daily Pub Deal
 slug: double-up-offer
 description: >-
   Double spirits for just £2 extra at The Anchor pub near Heathrow Airport! All

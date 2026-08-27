@@ -11,10 +11,11 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Anniversary Party Venue Near Heathrow',
-    description: `Anniversary party venue near Heathrow and Staines. Private dining room for 10+ to 150 guests, buffets and drinks at live prices, and free parking at ${BRAND.name}. Room hire and terms quoted on enquiry.`,
+    description: `Anniversary party venue near Heathrow and Staines. A private dining room for 10 to 150 guests, buffet catering and free parking at ${BRAND.name}.`,
     openGraph: {
         title: 'Anniversary Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate a milestone anniversary at The Anchor. Private dining room, catering handled, free parking, and a dog-friendly garden seven minutes from Heathrow.',
@@ -66,7 +67,7 @@ export default function AnniversaryPartiesPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventVenueSchema]) }}
             />
 
             <InteriorHero

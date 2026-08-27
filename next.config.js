@@ -36,6 +36,19 @@ function isPatternRedirect(redirect) {
   return source.includes(':') || source.includes('*') || source.includes('(')
 }
 
+// Patterns deliberately NOT registered here, because redirects() runs before
+// middleware and a catch-all registered here beats every concrete rule.
+// `/post/:slug -> /blog` did exactly that: it killed all 232 concrete /post/*
+// rules, so 172 old Wix URLs with a specific migrated post to land on were
+// dumped on the blog index instead. These are handled in middleware.ts as a
+// fallback AFTER the concrete lookup. Keep in sync with
+// FALLBACK_PATTERN_SOURCES in lib/middleware-redirects.ts.
+const MIDDLEWARE_FALLBACK_SOURCES = new Set(['/post/:slug', '/post/:slug/:rest*'])
+
+function isMiddlewareFallbackPattern(redirect) {
+  return MIDDLEWARE_FALLBACK_SOURCES.has(redirect?.source)
+}
+
 const allRedirects = [
   ...wixRedirects,
   ...blogRedirects,
@@ -50,7 +63,7 @@ const nextConfig = {
     // Next/Vercel framework redirects run before middleware. Concrete redirect
     // sources therefore live in middleware so apex host + path consolidation can
     // happen in one hop. Keep only pattern redirects here.
-    return allRedirects.filter(isPatternRedirect).map(normaliseRedirect)
+    return allRedirects.filter(isPatternRedirect).filter((r) => !isMiddlewareFallbackPattern(r)).map(normaliseRedirect)
   },
   async headers() {
     const baseHeaders = [

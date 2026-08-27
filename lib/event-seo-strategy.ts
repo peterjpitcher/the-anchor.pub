@@ -259,11 +259,126 @@ export function getDiscontinuedFormatReplacement(
  * that category falls through to /whats-on rather than being linked into a
  * redirect to a page that no longer sells the thing it names.
  */
+/**
+ * Category slug -> hub page. The KEYS must be the slugs the management API
+ * actually sends, not the tidy names we use for our own routes.
+ *
+ * Three of the four original keys ('quiz-night', 'cash-bingo', 'karaoke')
+ * matched no category in the database, so getCategoryPageUrl() fell through
+ * to /whats-on for 44 of 75 events: every Quiz Night (22), every Cash Bingo
+ * (19) and every Karaoke Night (3). Only 'music-bingo' happened to be right.
+ *
+ * The visible symptom was the "View all <category> events" link at the foot
+ * of each event page, plus the archive listing, pointing at /whats-on rather
+ * than the hub. That quietly denied /quiz-night and /cash-bingo their most
+ * natural inbound internal links.
+ *
+ * Verified against event_categories on 21 Aug 2026. If a new category is
+ * added, add its real slug here; do not add an aliased guess.
+ */
+/**
+ * Past event pages retired on 21 August 2026, one-off historical cleanup.
+ *
+ * The standing policy below keeps past events indexed, and that is right for
+ * pages carrying real content. These eighteen did not. Evidence from Search
+ * Console, 16 months to 19 August 2026:
+ *
+ *   - 9 clicks and 684 impressions across all eighteen, combined.
+ *   - 6 of them never recorded a single impression.
+ *   - Over the last 3 months: 0 clicks, 3 impressions.
+ *   - 12 carry no long_description at all; 5 more share one description,
+ *     published five times over, with an identical meta_title.
+ *
+ * The decisive part is not that they are thin, it is that they hold rankings
+ * they cannot convert. They sit at position 1 to 7 for brand-and-category
+ * queries and take almost no clicks, because the page says the night is over:
+ *
+ *   "the anchor pub quiz"   position 4.74   23 impressions   0 clicks
+ *   "bingo near me"         position 1       2 impressions   0 clicks
+ *   "bingo staines"         position 1       1 impression    0 clicks
+ *
+ * Those positions belong to /quiz-night and /cash-bingo, which can take a
+ * booking. Each URL 301s to the hub for its own category via
+ * config/redirects/additional-redirects.json; this set keeps them out of the
+ * sitemap and returns noindex, so we never list or advertise a redirect.
+ *
+ * FIXED LIST, NOT A RULE. Owner decision 1, 26 August 2026.
+ *
+ * An automatic quality floor was considered and rejected. It would need the
+ * management API's LIST endpoint to expose a word count, a content hash and a
+ * real content-updated timestamp; today it omits long_description entirely, so
+ * the rule cannot see what it would need to judge. Fetching every event's
+ * detail record to build a sitemap would turn one request into fifty-odd and
+ * make sitemap generation fragile for the sake of tidiness.
+ *
+ * The API change is not funded and there is no evidence thin past events
+ * accumulate fast enough to need automation: this list covers eighteen pages
+ * across sixteen months. Revisit only if it needs a third amendment.
+ *
+ * To retire another event: add the slug here AND a matching 301 in
+ * config/redirects/additional-redirects.json. tests/unit/retired-thin-events.test.ts
+ * fails if the two disagree, so they cannot drift.
+ */
+export const RETIRED_THIN_EVENT_SLUGS: ReadonlySet<string> = new Set([
+  'quiz-night-april--2025',
+  'quiz-night-may--2025',
+  'quiz-night-june--2025',
+  'quiz-night-july--2025',
+  'quiz-night-pub-pursuit-2025-08-13',
+  'pub-quiz-night-2025-10-01',
+  'pub-quiz-night-2025-11-05',
+  'cash-bingo-april--2025',
+  'cash-bingo-may--2025',
+  'cash-bingo-june--2025',
+  'cash-bingo-2025-07-18',
+  'bingo-night-2025-08-29',
+  'bingo-night-2025-09-19',
+  'bingo-night-2025-10-17',
+  'bingo-night-2025-11-14',
+  'bank-holiday-sing-along-karaoke-may--2025',
+  'nikki-s-karaoke-night-2025-08-22',
+  'rum-tasting-night-june--2025',
+])
+
+/**
+ * Where a retired slug goes, decided WITHOUT calling the API.
+ *
+ * A retirement is the only case that justifies a permanent redirect, so it must
+ * not depend on a dependency being reachable. Resolving it from the slug alone
+ * means an outage can never turn into a durable "this moved" signal, and a
+ * genuine retirement still answers correctly while the CMS is down.
+ *
+ * Destinations mirror config/redirects/additional-redirects.json. The redirect
+ * config handles these at the edge in normal operation; this exists so the route
+ * gives the same answer if a request reaches it directly.
+ */
+const RETIRED_EVENT_DESTINATIONS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/^(pub-)?quiz-night/, '/quiz-night'],
+  [/^(cash-)?bingo|^cash-bingo/, '/cash-bingo'],
+  [/karaoke/, '/karaoke'],
+]
+
+export function getRetiredEventRedirect(slugOrId: string): string | null {
+  const slug = slugOrId?.toLowerCase().trim()
+  if (!slug || !RETIRED_THIN_EVENT_SLUGS.has(slug)) return null
+  for (const [pattern, destination] of RETIRED_EVENT_DESTINATIONS) {
+    if (pattern.test(slug)) return destination
+  }
+  // Tasting nights and anything else retired without a hub of its own.
+  return '/whats-on'
+}
+
+export function isRetiredThinEvent(event: Pick<Event, 'slug'> | { slug?: string | null }): boolean {
+  const slug = event.slug?.toLowerCase().trim()
+  return Boolean(slug && RETIRED_THIN_EVENT_SLUGS.has(slug))
+}
+
 export const CATEGORY_ROUTES: Record<string, string> = {
-  'quiz-night': '/quiz-night',
-  'cash-bingo': '/cash-bingo',
+  'quiz-night-stanwell-moor': '/quiz-night',
+  'bingo-night': '/cash-bingo',
   'music-bingo': '/music-bingo',
-  'karaoke': '/karaoke',
+  'karaoke-night': '/karaoke',
+  'nikkis-karaoke-night': '/karaoke',
 }
 
 export function getCategoryPageUrl(categorySlug: string | undefined | null): string {
@@ -304,6 +419,7 @@ export interface EventSeoStrategy {
  */
 export function getEventSeoStrategy(
   event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'> &
+    { slug?: string | null } &
     DiscontinuedFields &
     BannedClaimFields
 ): EventSeoStrategy {
@@ -314,6 +430,12 @@ export function getEventSeoStrategy(
   // verifies as false, stay reachable but out of search whatever their date.
   // Keeping them indexed would rank a night nobody can attend, or advertise
   // facilities the pub does not have.
+  // Retired thin pages: 301'd to their category hub, so they must never be
+  // listed in the sitemap or claim to be indexable.
+  if (isRetiredThinEvent(event)) {
+    return { index: false, showEndedBanner: true, stage: 'archived' }
+  }
+
   if (isDiscontinuedFormatEvent(event) || hasBannedClaim(event)) {
     return {
       index: false,

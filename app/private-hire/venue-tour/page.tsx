@@ -13,14 +13,15 @@ import {
 } from '@/components/private-hire/venue-tour'
 import { CONTACT } from '@/lib/constants'
 
+// Indexable as of 26 August 2026 (owner decision 4). It was noindex, but an
+// interactive floor plan with real photographs of each hire space is exactly
+// what someone comparing venues wants to find, and nothing here duplicates
+// another page.
 export const metadata: Metadata = {
-  title: 'Interactive Private Hire Venue Tour',
+  title: 'Interactive Venue Tour | Private Hire Spaces',
   description:
-    'Explore The Anchor private hire spaces and photo viewpoints on an interactive floor plan.',
-  robots: {
-    index: false,
-    follow: false,
-  },
+    'Walk round our private hire spaces on an interactive floor plan, with real photos of each room. Free parking, near Heathrow and Staines.',
+  alternates: { canonical: './' },
 }
 
 interface VenueTourPageProps {

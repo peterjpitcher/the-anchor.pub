@@ -1,10 +1,6 @@
 ---
 title: Curry Night Near Heathrow Airport | Monthly Curry Club Stanwell Moor
-description: >-
-  Experience authentic Indian curry nights at The Anchor pub near Heathrow
-  Airport. Monthly curry club with rotating curry-night specials, friendly pub
-  atmosphere, and free parking. Just 7 minutes from Terminal 5. Call to confirm
-  the current menu and pricing.
+description: "Our monthly curry club near Heathrow, with specials that change each time. Call to check the current menu and prices before you come."
 date: '2025-01-15'
 oldUrl: 'https://www.the-anchor.pub/post/curry-club-the-anchor'
 author: Billy

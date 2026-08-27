@@ -208,7 +208,7 @@ export function Footer({
       <p className="font-script text-[1.9rem] leading-none text-anchor-gold-bright mt-4">
         Where everyone&apos;s welcome
       </p>
-      <p className="text-sm text-anchor-sage leading-relaxed mt-4">
+      <p className="text-sm text-ink-muted leading-relaxed mt-4">
         {businessInfo.description}
       </p>
     </div>
@@ -427,7 +427,7 @@ export function Footer({
             </ul>
           )}
 
-          <p className="mt-4 text-xs text-anchor-sage">
+          <p className="mt-4 text-xs text-ink-muted">
             Serving Stanwell Moor, Staines, Ashford, Feltham, Bedfont, and surrounding Surrey areas
           </p>
         </div>

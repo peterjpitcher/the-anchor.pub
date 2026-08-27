@@ -1,6 +1,6 @@
 ---
 title: "Dog-Friendly Pubs & Walks Near Heathrow Airport"
-description: "Discover the best dog walks near Heathrow with a proper pub at the end. Staines Moor, King George VI Reservoir, and Colnbrook routes, all ending at a dog-friendly local."
+description: "Dog walks near Heathrow with a proper pub at the end: Staines Moor, King George VI Reservoir and Colnbrook, with distances and parking."
 date: "2026-03-20"
 author: "Billy"
 keywords:

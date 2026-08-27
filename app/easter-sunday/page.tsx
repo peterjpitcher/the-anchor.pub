@@ -14,6 +14,7 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
@@ -37,7 +38,7 @@ const EASTER_SUNDAY_DYNAMIC: SeasonalDynamicFields = {}
 export const metadata: Metadata = {
   title: 'Easter Sunday Roast in Stanwell Moor',
   description:
-    'Easter Sunday roast at The Anchor in Stanwell Moor, near Heathrow Terminal 5. A family-friendly Sunday roast served 1pm to 6pm, cooked from scratch. Walk in or book ahead, free parking.',
+    'A family-friendly Easter Sunday roast near Heathrow Terminal 5, cooked from scratch and served 1pm to 6pm. Walk in or book ahead, free parking.',
   keywords:
     'easter sunday roast stanwell moor, easter sunday pub near heathrow, easter sunday lunch near heathrow, family-friendly easter sunday roast, easter roast near terminal 5',
   alternates: { canonical: './' },
@@ -130,11 +131,12 @@ export default function EasterSundayPage() {
       telephone: CONTACT.phoneIntl,
       email: CONTACT.email
     },
-    offers: {
-      '@type': 'Offer',
-      url: `${WEBSITE_ORIGIN}${EASTER_BOOKING_URL}`,
-      availability: 'https://schema.org/InStock'
-    },
+    // No `offers` block on purpose. Search Console asked for price and
+    // priceCurrency here, and the honest answer is that there is no fixed
+    // Easter package to price: it is the normal Sunday roast on a particular
+    // Sunday, charged from the live menu. Adding a zero price, or a made-up
+    // one, to clear a warning would be a false offer. See the GSC audit,
+    // 17 Aug 2026, "Correct event schema lifecycle and offers".
     image: [
       `${WEBSITE_ORIGIN}${DEFAULT_SUNDAY_LUNCH_IMAGE}`,
       `${WEBSITE_ORIGIN}${DEFAULT_FOOD_IMAGE}`,
@@ -148,7 +150,7 @@ export default function EasterSundayPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(easterEventSchema)
+          __html: jsonLdSafeStringify(easterEventSchema)
         }}
       />
 

@@ -17,6 +17,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'M25 Junction 14 Pub | 5 Mins | Free Parking & Food',
@@ -98,7 +99,7 @@ export default async function M25Junction14PubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -572,7 +573,7 @@ export default async function M25Junction14PubPage() {
             <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
             <Button asChild variant="outline" size="lg"><Link href="/find-us">Get Directions</Link></Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Free Parking • Quick Service • Dog Friendly • Outside ULEZ</p>
+          <p className="text-ink-muted text-sm">Free Parking • Quick Service • Dog Friendly • Outside ULEZ</p>
         </div>
       </CtaBand>
     </>

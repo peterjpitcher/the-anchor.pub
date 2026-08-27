@@ -1,5 +1,5 @@
 ---
-title: Bingo Near Heathrow | Win £50 Cash at The Anchor Monthly Bingo
+title: Bingo Near Heathrow | Win £50 Cash Every Month
 slug: monthly-cash-bingo
 description: >-
   Play cash bingo near Heathrow Airport at The Anchor pub. Win up to £50 every

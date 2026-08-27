@@ -18,20 +18,27 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JourneyTimesCard } from './_components/JourneyTimesCard'
 import { WhyStopList } from './_components/WhyStopList'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
+// verifiedAt: '2026-08-26'  Owner: Peter Pitcher.
+// Terminal times checked against the docs/SSOT.md §2 distance table and against
+// every other statement of the same journey on the site: T5 seven minutes, T2
+// and T3 eleven, T4 twelve. Consistent across 30 occurrences. Not road-tested
+// against a live mapping service; the project's Google key lacks billing and
+// Routes permission.
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
   const sundayPhrase = sunday.isLive
     ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
-  const title = 'Pub Near Heathrow Airport | The Anchor, 7 Mins from T5'
+  const title = 'Pub Near Heathrow Airport | 7 Mins from T5'
 
   return {
     title,
-    description: `The Anchor is a traditional pub near Heathrow Airport, 7 minutes from Terminal 5. Free parking, freshly made pub food, ${sundayPhrase}, and a dog-friendly beer garden under the flight path. Outside the ULEZ zone.`,
+    description: `A traditional pub 7 minutes from Heathrow Terminal 5. Free parking, ${sundayPhrase} and a dog-friendly beer garden under the flight path.`,
     openGraph: {
       title,
       description: 'The closest traditional pub to Heathrow Terminal 5. Free customer parking, freshly made pub food, a dog-friendly beer garden under the flight path, and easy access from the M25 and every terminal.',
@@ -62,7 +69,7 @@ export default function NearHeathrowPage() {
       <SpeakableSchema/>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingFacilitySchema) }}
       />
 
       {/* Hero: keyword-focused H1 retained (stronger for SEO than the prototype title). */}
@@ -253,7 +260,7 @@ export default function NearHeathrowPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(parkingFacilitySchema)
+          __html: jsonLdSafeStringify(parkingFacilitySchema)
         }}
       />
     </>

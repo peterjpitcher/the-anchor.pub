@@ -13,6 +13,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SixNationsFixtures } from '@/components/features/six-nations/SixNationsFixtures'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const SixNationsLightbox = dynamic(
     () => import('@/components/features/six-nations/SixNationsLightbox').then(mod => mod.SixNationsLightbox),
@@ -21,7 +22,7 @@ const SixNationsLightbox = dynamic(
 
 export const metadata: Metadata = {
     title: 'Six Nations Pub Near Me | Watch 2026 Live',
-    description: `Watch every Six Nations 2026 match live with sound at The Anchor, Stanwell Moor near Heathrow. 4 screens, food served through the match when the kitchen is open. Book now.`,
+    description: `Watch every Six Nations 2026 match live with sound near Heathrow. Four screens, and food through the match when the kitchen is open.`,
     openGraph: {
         title: 'Watch Six Nations 2026 at The Anchor',
         description: 'Every match live on big screens with sound. 7 mins from Heathrow.',
@@ -91,7 +92,7 @@ export default function SixNationsPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventSchema]) }}
             />
 
             <SixNationsLightbox/>

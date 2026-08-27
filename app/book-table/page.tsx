@@ -25,6 +25,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -42,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const sundayPhrase = sundayMenu.menuData
     ? ' Sunday roast menu details are loaded live.'
     : ' Sunday roast details are available on request.'
-  const description = `Reserve your table at The Anchor, Stanwell Moor, quick confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
+  const description = `Reserve a table at The Anchor, Stanwell Moor.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from Terminal 5.`
 
   return {
     title: 'Book a Table Near Heathrow T5',
@@ -107,7 +108,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: jsonLdSafeStringify([
             {
               '@context': 'https://schema.org',
               '@type': 'WebPage',

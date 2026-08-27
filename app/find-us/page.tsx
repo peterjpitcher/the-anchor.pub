@@ -23,6 +23,7 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: { absolute: 'Find The Anchor | TW19 6AQ, 7 Mins from Heathrow T5' },
@@ -72,7 +73,7 @@ export default async function FindUsPage() {
       <SpeakableSchema/>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": "Find The Anchor, Directions & Contact",

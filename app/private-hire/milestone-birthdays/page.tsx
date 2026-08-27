@@ -11,6 +11,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Birthday Party Venue Near Heathrow | 30th, 40th, 50th Parties',
@@ -66,7 +67,7 @@ export default function MilestoneBirthdaysPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventVenueSchema]) }}
             />
 
             <InteriorHero

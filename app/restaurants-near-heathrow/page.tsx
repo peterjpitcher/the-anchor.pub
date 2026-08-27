@@ -16,6 +16,7 @@ import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Restaurants Near Heathrow Airport, 7 Min T5',
@@ -119,7 +120,7 @@ export default async function RestaurantsNearHeathrowPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(restaurantSchema) }}
       />
 
       {/* Hero Section */}
@@ -679,7 +680,7 @@ export default async function RestaurantsNearHeathrowPage() {
             <BookTableButton source="restaurants_near_heathrow_cta" variant="primary" size="lg">Book a Table</BookTableButton>
             <PhoneButton phone={CONTACT.phone} source="restaurants_near_heathrow_cta" variant="outline" size="lg">Call: 01753 682707</PhoneButton>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking always</p>
+          <p className="text-ink-muted text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking always</p>
         </div>
       </CtaBand>
     </>

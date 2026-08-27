@@ -5,7 +5,6 @@ import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
@@ -36,7 +35,7 @@ import { bingoEventSeries } from '@/lib/schema'
  * a fight we lose. See tasks/keyword-plan-game-nights-2026-08-17.md.
  */
 export const metadata: Metadata = {
-  title: 'Pub Bingo Near Me | Cash Bingo at The Anchor, Stanwell Moor',
+  title: 'Pub Bingo Near Me | Cash Bingo in Stanwell Moor',
   description:
     'Traditional cash bingo at The Anchor, Stanwell Moor. £10 a book, cash only, ten games, winnings paid out on the night and a rolling snowball jackpot. 18+ to play.',
   openGraph: {
@@ -386,9 +385,12 @@ export default async function CashBingoPage() {
       </section>
 
       <JsonLd data={bingoEventSeries} />
-      {events.map(event => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Each event already carries its own Event markup on /events/[id]. */}
     </>
   )
 }

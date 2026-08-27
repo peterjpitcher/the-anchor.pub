@@ -6,7 +6,6 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroBadge } from '@/components/HeroBadge'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
@@ -37,7 +36,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
  * and nobody has to sing.
  */
 export const metadata: Metadata = {
-  title: 'Karaoke Near Me | Free Entry at The Anchor, Stanwell Moor',
+  title: 'Karaoke Near Me | Free Entry, Stanwell Moor',
   description:
     'Free entry karaoke at The Anchor in Stanwell Moor. Sing, share a duet or just watch. All ages welcome, communal seating, free parking. See the next confirmed night.',
   openGraph: {
@@ -385,9 +384,12 @@ export default async function KaraokePage() {
         />
       </CtaBand>
 
-      {events.map(event => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Each event already carries its own Event markup on /events/[id]. */}
     </>
   )
 }

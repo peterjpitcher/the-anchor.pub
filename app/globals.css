@@ -179,8 +179,18 @@
   /* ---- Brand: Gold — exactly three, three jobs ----
      fills → gold · text on light → gold-dark · accents on dark → gold-bright */
   --anchor-gold: #a57626;
-  --anchor-gold-dark: #8b6914;
-  --anchor-gold-bright: #c9a020;
+  /* #8b6914 measured 4.35:1 on --surface and 4.15:1 on cream, just under AA.
+     Darkened by four units, which is imperceptible, to clear 4.5:1 on both. */
+  --anchor-gold-dark: #836313;
+  /* Raised from #c9a020 on 26 Aug 2026, owner-approved. At #c9a020 it measured
+     3.84:1 against the --anchor-green #005131 header, under AA. This clears it
+     and improves every other dark pairing:
+       header #005131 4.52:1 · green-deep 8.4:1 · raised 7.8:1 · card 7.0:1
+     Charcoal text ON gold also improves, 7.07:1 -> 8.31:1.
+     It is the DARK theme's accent only; the light theme uses --anchor-gold-dark.
+     Gold on white is 2.09:1 and was never usable as text there (2.46:1 before),
+     so do not introduce it on a light background. */
+  --anchor-gold-bright: #d9ae26;
 
   /* ---- Neutrals ---- */
   --anchor-black: #000000;
@@ -189,7 +199,9 @@
   --anchor-cream: #faf8f3;
   --anchor-cream-text: #f0e6c6;
   --anchor-sand: #f5e6d3;
-  --anchor-grey-500: #6f6a61;
+  /* #6f6a61 measured 4.38:1 on the cream surface, just under AA. Darkened by
+     two units, imperceptible, to clear 4.5:1. */
+  --anchor-grey-500: #6d6860;
 
   /* ---- Status ---- */
   --anchor-success: #006b45;
@@ -337,9 +349,13 @@
      which only reaches 4.07:1 on green-card and 2.62:1 on green. That was
      survivable while dark surfaces were a handful of sections; with the dark
      season covering the whole site it would have put most body copy below AA.
-     This value clears 4.5:1 on all three dark surfaces:
-       green-deep #0c1d11 6.7:1 · green-raised #132318 6.3:1 · green-card #172d1e 5.6:1 */
-  --text-muted: #94a396;
+     Raised again on 26 Aug 2026: #94a396 was measured against the three dark
+     SURFACES but not against --anchor-green #005131, which the header uses. It
+     came out at 3.57:1 there, so eight elements on the homepage failed AA.
+     This value clears 4.5:1 on the header AND stays comfortable elsewhere:
+       anchor-green #005131 4.55:1 · green-deep #0c1d11 8.4:1
+       green-raised #132318 7.9:1 · green-card #172d1e 7.1:1 */
+  --text-muted: #a8b8aa;
   --text-on-green: var(--anchor-cream-text);
   --text-on-gold: var(--anchor-charcoal);
   --text-inverse: var(--anchor-charcoal);

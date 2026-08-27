@@ -13,6 +13,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
@@ -116,7 +117,9 @@ const reviewHighlights: ReviewHighlight[] = [
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+    // role="img" is required for aria-label to apply. Without it, screen
+    // readers ignore the label entirely and the rating is announced as nothing.
+    <div className="flex gap-0.5" role="img" aria-label={`${rating} out of 5 stars`}>
       {[...Array(5)].map((_, i) => (
         <span
           key={i}
@@ -143,7 +146,7 @@ export default function ReviewsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
             'name': 'Reviews, What Our Guests Say About The Anchor',

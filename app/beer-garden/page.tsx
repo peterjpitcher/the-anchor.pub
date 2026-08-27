@@ -25,6 +25,7 @@ import {
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -105,7 +106,7 @@ export default async function BeerGardenPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([planeSpottingSchema, parkingFacilitySchema]) }}
       />
       <PlaneSpottingBookingPrompt source="beer_garden_plane_spotting_prompt" />
 
@@ -421,7 +422,7 @@ export default async function BeerGardenPage() {
               <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">Get Directions</Link>
             </Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">
+          <p className="text-ink-muted text-sm">
             Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
           </p>
         </div>

@@ -9,7 +9,7 @@ import { BrochureGrid } from '@/components/features/PrivateHire/BrochureGrid'
 import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Event Brochures | The Anchor Stanwell Moor',
+  title: 'Event Brochures',
   description:
     'Download our 2026 event brochures. Spaces, buffets, drinks packages and how to book, for birthdays, christenings, baby showers, wakes, corporate events and more.',
   alternates: { canonical: './' },

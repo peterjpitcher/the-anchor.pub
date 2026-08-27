@@ -1,12 +1,7 @@
 ---
 title: Dog Travel Guide Near Heathrow | Pet-Friendly Stop at The Anchor
 slug: dog-travel-tips
-description: >-
-  Essential tips for travelling with dogs near Heathrow Airport. The Anchor pub
-  in Stanwell Moor is your perfect pet-friendly stop, just 7 minutes from
-  Terminal 5. Dog-friendly pub with outdoor seating, water bowls, and treats.
-  Free parking for travellers with pets. Ideal rest stop before or after flights
-  from Heathrow.
+description: "Travelling with a dog near Heathrow? A practical stop seven minutes from Terminal 5, with outdoor seating, water bowls and free parking."
 date: '2024-11-06'
 oldUrl: >-
   https://www.the-anchor.pub/post/essential-tips-for-travelling-with-your-dog-safety

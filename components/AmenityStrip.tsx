@@ -50,7 +50,7 @@ export function AmenityStrip({ items = DEFAULT_ITEMS, className }: AmenityStripP
                 </span>
                 <span className="flex flex-col">
                   <span className="text-base font-bold text-anchor-cream-text">{item.title}</span>
-                  <span className="text-sm text-anchor-sage">{item.subline}</span>
+                  <span className="text-sm text-ink-muted">{item.subline}</span>
                 </span>
               </li>
             )

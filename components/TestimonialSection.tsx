@@ -34,7 +34,9 @@ const testimonialSectionVariants = cva('', {
 /** Star rating display — accessible, purely presentational. */
 function StarRating({ rating, className }: { rating: number; className?: string }) {
   return (
-    <div className={cn('flex gap-0.5', className)} aria-label={`${rating} out of 5 stars`}>
+    // role="img" is required for aria-label to apply. Without it, screen
+    // readers ignore the label and the star rating is announced as nothing.
+    <div className={cn('flex gap-0.5', className)} role="img" aria-label={`${rating} out of 5 stars`}>
       {[...Array(5)].map((_, i) => (
         <span
           key={i}

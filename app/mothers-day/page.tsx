@@ -91,11 +91,11 @@ const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDat
   timeZone: 'Europe/London'
 })
 
-const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines | The Anchor`
+const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines`
 const descriptionStatic =
-  `Mother's Day lunch near me, Mother's Day Sunday roast at The Anchor near Staines. ` +
-  `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-  `Walk-ins welcome, booking recommended. Current Sunday roast menu.`
+  `Mother's Day Sunday roast near Staines, served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
+  `with last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}. ` +
+  `Walk-ins welcome, booking recommended.`
 const keywordsStatic =
   "mothers day lunch near me, mothers day sunday roast near me, mothers day sunday roast, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
 
@@ -213,12 +213,10 @@ export default function MothersDayPage() {
       telephone: CONTACT.phoneIntl,
       email: CONTACT.email
     },
-    offers: {
-      '@type': 'Offer',
-      url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
-      availability: 'https://schema.org/InStock',
-      validFrom: MOTHERS_DAY_OFFER_VALID_FROM
-    },
+    // No `offers` block on purpose, same reasoning as /easter-sunday: there is
+    // no fixed Mother's Day package to price, it is the normal Sunday roast
+    // charged from the live menu. A zero or invented price would be a false
+    // offer, and clearing a Search Console warning is not worth that.
     image: [
       toAbsoluteUrl(eventImage),
       toAbsoluteUrl(DEFAULT_SUNDAY_LUNCH_IMAGE),

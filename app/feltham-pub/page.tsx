@@ -15,6 +15,7 @@ import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -24,7 +25,7 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Pub Near Feltham | Free Parking & Sunday Roasts',
-    description: `Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights in a relaxed village pub.`,
+    description: `Looking for pubs near Feltham? A relaxed village pub 10 minutes away, with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
     openGraph: {
       title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
       description: `Pubs near Feltham, just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
@@ -86,7 +87,7 @@ export default function FelthamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[

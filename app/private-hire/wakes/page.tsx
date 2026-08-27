@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
         title: 'Wake Venue Near Staines & Heathrow | Private Room',
-        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Seats up to 26, or 50 standing, ${buffetPhrase}, free parking. Compassionate staff.`,
+        description: `A private room for wakes and funeral teas near Staines and Heathrow. Seats 26, or 50 standing, ${buffetPhrase}, free parking.`,
         openGraph: {
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
             description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. ${buffetPhrase}. Minutes from local crematoriums.`,

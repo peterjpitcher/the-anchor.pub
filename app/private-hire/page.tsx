@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Briefcase, PartyPopper, Cake, Flower, Check, Phone } from 'lucide-react'
+import { Briefcase, PartyPopper, Cake, Flower, Check, Phone, Baby, Church, Heart, Gift } from 'lucide-react'
 import { InteriorHero } from '@/components/hero'
 import { Container, SectionHeading, Button, Badge } from '@/components/ui'
 import { AmenityStrip } from '@/components/AmenityStrip'
@@ -79,6 +79,39 @@ const occasions = [
         icon: Flower,
         title: 'Wakes and memorials',
         description: 'A quiet, private room near local crematoriums, with respectful service and full catering.',
+    },
+    // The five below were missing from this list, so each occasion page sat on
+    // a single inbound link while the hub they belong to had over a hundred.
+    // Engagement parties and christenings both have measured search demand.
+    {
+        href: '/private-hire/engagement-parties',
+        icon: Heart,
+        title: 'Engagement parties',
+        description: 'Celebrate the news with the people who matter, in a room that is yours for the evening.',
+    },
+    {
+        href: '/private-hire/christenings',
+        icon: Church,
+        title: 'Christenings and naming days',
+        description: 'A short drive from local churches, with space for the whole family after the service.',
+    },
+    {
+        href: '/private-hire/baby-showers',
+        icon: Baby,
+        title: 'Baby showers',
+        description: 'A relaxed private room for an afternoon of food, games and family.',
+    },
+    {
+        href: '/private-hire/gender-reveal',
+        icon: Gift,
+        title: 'Gender reveals',
+        description: 'Somewhere to gather everyone for the moment, with food and drinks sorted.',
+    },
+    {
+        href: '/private-hire/retirement-parties',
+        icon: Cake,
+        title: 'Retirement parties',
+        description: 'Send someone off properly, with a buffet and a room that fits the whole team.',
     },
 ]
 

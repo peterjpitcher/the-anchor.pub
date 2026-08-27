@@ -12,6 +12,7 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { isHalloweenPartyOver } from '@/lib/seasonal/halloween'
 
 const HALLOWEEN_BOOKING_URL = '/book-table?purpose=food'
 
@@ -24,24 +25,54 @@ const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postc
 // evergreen body stands on its own with nothing set. Never invent a theme,
 // music act, costume competition or special menu, leave each out until
 // confirmed for the year.
-const HALLOWEEN_DYNAMIC: SeasonalDynamicFields = {}
+// 2026 confirmed from the management database (event d52cbd18), 17 Aug 2026.
+// Only fields the DB actually carries are set. No performer/DJ is named
+// because none is booked in the record, and no special menu because none
+// exists. Do not add either without a DB record to point at.
+const HALLOWEEN_DYNAMIC: SeasonalDynamicFields & { verifiedAt?: string } = {
+  // Checked against management DB event d52cbd18 on 17 Aug 2026: name, date
+  // (Saturday confirmed), 8pm to midnight, free entry. Owner: Peter Pitcher.
+  verifiedAt: '2026-08-17',
+  occasionDate: 'Saturday 31 October 2026',
+  annualTheme: 'Enter If You Dare: The House of Horrors',
+  eventStartTime: '8pm',
+  eventEndTime: 'midnight',
+  ticketStatus: 'Free entry, no ticket needed',
+  bookingStatus: 'Book a table if you want to eat before the party',
+}
 
-export const metadata: Metadata = {
-  title: 'Halloween Fancy-Dress Disco Near Heathrow',
+export function generateMetadata(): Metadata {
+  const over = isHalloweenPartyOver()
+  const title = over
+    ? 'Halloween Party Near Heathrow'
+    : 'Halloween Party Near Heathrow, Free Entry'
+  const description = over
+    ? 'Our Halloween fancy-dress party near Heathrow, in Stanwell Moor. This year has been and gone; next year’s theme goes up as soon as it is confirmed.'
+    : 'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.'
+
+  return {
+    ...baseMetadata,
+    title,
+    description,
+  }
+}
+
+const baseMetadata: Metadata = {
+  title: 'Halloween Party Near Heathrow, Free Entry',
   description:
-    'Halloween at The Anchor near Heathrow: a fancy-dress disco with a different theme every year. A proper local Halloween night with music, drinks and a full bar. Free parking. Check this year’s details, book a table or walk in.',
+    'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.',
   alternates: { canonical: './' },
   openGraph: {
-    title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor',
+    title: 'Halloween Party Near Heathrow, Free Entry | The Anchor',
     description:
-      'A fancy-dress Halloween disco at The Anchor near Heathrow, with a different theme every year. Music, drinks and a proper local Halloween night. Free parking.',
+      'Halloween party at The Anchor near Heathrow, Saturday 31 October, 8pm till midnight. Free entry, fancy dress and free parking. This year: The House of Horrors.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Halloween Fancy-Dress Disco Near Heathrow | The Anchor',
+    title: 'Halloween Party Near Heathrow, Free Entry | The Anchor',
     description:
-      'A fancy-dress Halloween disco at The Anchor near Heathrow, with a different theme every year. Music, drinks and a proper local Halloween night. Free parking.',
+      'Halloween party at The Anchor near Heathrow, Saturday 31 October, 8pm till midnight. Free entry, fancy dress and free parking. This year: The House of Horrors.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
 }
@@ -50,7 +81,7 @@ const faqs = [
   {
     question: 'Is there a Halloween party at The Anchor?',
     answer:
-      'Yes. Halloween at The Anchor is a fancy-dress disco, a proper local Halloween night with music and drinks. The theme changes every year, so check this year\u2019s details on our What\u2019s On page or give us a call.',
+      'Yes. This year it is Enter If You Dare: The House of Horrors, on Saturday 31 October from 8pm until midnight. Entry is free, fancy dress is encouraged and the bar is open until midnight.',
   },
   {
     question: 'Do I have to wear fancy dress?',
@@ -60,12 +91,22 @@ const faqs = [
   {
     question: 'What is this year\u2019s Halloween theme?',
     answer:
-      'The fancy-dress theme changes every year. We confirm each year\u2019s theme on our What\u2019s On page closer to the date, so check there or call us for the latest.',
+      'Enter If You Dare: The House of Horrors. The fancy-dress theme changes every year, so it is never the same night twice. Come as anything that fits the theme, or just come as something spooky.',
   },
   {
     question: 'Do you serve food on Halloween?',
     answer:
       'Yes, our regular food menu is available earlier in the evening before the disco gets going. Confirmed kitchen times for the night go on our What\u2019s On page. Book a table if you\u2019d like to eat.',
+  },
+  {
+    question: 'What Halloween events are on near me?',
+    answer:
+      'We run two: A Hint of Halloween Quiz Night on Wednesday 7 October, which is our normal quiz with a few spooky touches and \u00a33 entry, and the House of Horrors Halloween party on Saturday 31 October, which is free to get into. Both are in Stanwell Moor, a few minutes from Heathrow and a short drive from Staines.',
+  },
+  {
+    question: 'How much does it cost to get in?',
+    answer:
+      'The Halloween party on 31 October is free entry, with no ticket needed. The Hint of Halloween quiz on 7 October is \u00a33 per person, paid in cash on arrival.',
   },
   {
     question: 'Is there parking?',
@@ -74,16 +115,29 @@ const faqs = [
   },
 ]
 
+/**
+ * The date this year's party actually happens. Everything date-sensitive on the
+ * page keys off this.
+ *
+ * Without it, the page states "Saturday 31 October, 8pm till midnight, free
+ * entry" as flat fact, so on 1 November it would still be inviting people to a
+ * party that had already happened, and would carry on doing so until someone
+ * remembered to edit it. Seasonal pages are most visited exactly when the date
+ * is closest, which is also when being wrong costs most.
+ */
 export default function HalloweenPage() {
+  const partyOver = isHalloweenPartyOver()
+  const dynamicFields = partyOver ? {} : HALLOWEEN_DYNAMIC
+
   return (
     <>
 
             <InteriorHero
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="Halloween"
-        kicker="31 October"
+        kicker="Saturday 31 October, 8pm till midnight"
         title="Halloween at The Anchor"
-        lead="Fancy dress, music, drinks and a proper local Halloween night. Our annual Halloween fancy-dress disco at The Anchor in Stanwell Moor has a different theme every year, with food earlier in the evening, a full bar and free parking. Check this year's details, book a table or walk in."
+        lead="Enter If You Dare: The House of Horrors is this year's Halloween party at The Anchor in Stanwell Moor. Free entry, fancy dress encouraged, music all night and the bar open until midnight. Eat before the party, park for free, and walk in."
       />
 
       <section className="py-section-y bg-surface">
@@ -101,17 +155,19 @@ export default function HalloweenPage() {
                 your friends, and come and join in.
               </p>
               <p className="text-ink-muted leading-relaxed">
-                The fancy-dress theme changes every year, so it never feels like the same night twice. We
-                confirm each year&apos;s theme and timings on our{' '}
+                The fancy-dress theme changes every year, so it never feels like the same night twice. This
+                year it is <strong className="text-ink-strong">Enter If You Dare: The House of Horrors</strong>,
+                on Saturday 31 October from 8pm until midnight. Entry is free and there is no ticket to buy,
+                so bring whoever you like. Everything on the night is listed on our{' '}
                 <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                   What&apos;s On page
                 </Link>
-                , so check there for this year&apos;s details before you plan your costume.
+                {' '}alongside the rest of our Halloween events.
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <Badge variant="green">Fancy-dress disco</Badge>
-                <Badge variant="green">Different theme every year</Badge>
-                <Badge variant="green">Full bar</Badge>
+                <Badge variant="green">House of Horrors</Badge>
+                <Badge variant="success">Free entry</Badge>
                 <Badge variant="success">Free parking</Badge>
                 <Badge variant="green">Dog friendly</Badge>
               </div>
@@ -119,9 +175,13 @@ export default function HalloweenPage() {
 
             {/* This year's theme (A11 dynamic block) */}
             <SeasonalDynamicDetails
-              fields={HALLOWEEN_DYNAMIC}
+              fields={dynamicFields}
               heading="This year's Halloween"
-              intro="The fancy-dress theme changes every year. Here's what's confirmed for this year's Halloween disco at The Anchor."
+              intro={
+                partyOver
+                  ? 'This year\u2019s Halloween party has been and gone. Next year\u2019s theme goes up here once it is confirmed.'
+                  : "Here's what's confirmed for this year's Halloween party at The Anchor."
+              }
             />
 
             {/* Food & Drink */}
@@ -162,7 +222,7 @@ export default function HalloweenPage() {
                 <h2 className="text-h4 text-ink-strong">Booking</h2>
                 <p className="text-ink-muted leading-relaxed">
                   Walk-ins are welcome for drinks all evening. If you&apos;d like to eat before the disco, we recommend
-                  booking a table. Check this year&apos;s confirmed timings on our What&apos;s On page.
+                  booking a table. The party itself is free entry with no ticket, so you can just turn up for that.
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
@@ -188,8 +248,8 @@ export default function HalloweenPage() {
       </section>
 
       <CtaBand
-        title="Check this year's Halloween details"
-        copy="Our fancy-dress Halloween disco at The Anchor in Stanwell Moor, with a different theme every year. Check this year's theme and timings on What's On, then book a table or walk in."
+        title="Halloween at The Anchor, Saturday 31 October"
+        copy="Enter If You Dare: The House of Horrors runs from 8pm until midnight. Free entry, fancy dress encouraged and free parking. Book a table if you want to eat first, or just walk in."
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={HALLOWEEN_BOOKING_URL}>Book a Table</a>

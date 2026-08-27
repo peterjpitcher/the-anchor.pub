@@ -1,5 +1,5 @@
 ---
-title: International Women's Day Near Heathrow | The Anchor Celebrates
+title: International Women's Day Near Heathrow | How We Celebrate
 slug: womens-day-2024
 description: >-
   Celebrate International Women's Day at The Anchor pub near Heathrow Airport.

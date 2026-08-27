@@ -1,9 +1,6 @@
 ---
 title: Where to Eat Near Heathrow Airport as a Business Traveller (2026 Guide)
-description: >-
-  Skip hotel restaurants and airport food courts. This guide covers the best
-  dining options near Heathrow for business travellers, with tips on VAT
-  receipts, quick service, and client dinner venues.
+description: "Where to eat near Heathrow on business: VAT receipts, quick service and somewhere you can actually hear a client talk."
 date: '2026-03-01'
 author: The Anchor Team
 keywords:

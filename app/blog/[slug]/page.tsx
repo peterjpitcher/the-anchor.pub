@@ -18,6 +18,8 @@ import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpot
 import { VisitPlannerPanel } from '@/components/conversion/VisitPlannerPanel'
 import { shouldShowVisitPlannerPanel } from '@/components/conversion/visit-planner-config'
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
+import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
+import { getRelatedPosts } from '@/lib/blog/related-posts'
 
 export const revalidate = 3600
 
@@ -176,7 +178,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const ogImageAlt = post.ogImageAlt || post.title
 
   return {
-    title: post.title,
+    // Front matter often ends with the brand; the root template adds it too.
+    title: stripBrandSuffix(post.title),
     description: post.description,
     alternates: {
       canonical: `/blog/${params.slug}`
@@ -222,6 +225,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const navigationPosts = post.noindex
     ? await getAllBlogPosts()
     : await getIndexableBlogPosts()
+  // Topically related posts, scored on shared tags. Previous/next below is
+  // chronological, which links a post to whatever happened to be published
+  // either side of it; this is the link that is actually about the same thing.
+  const relatedPosts = getRelatedPosts(post, navigationPosts, 4)
+
   const currentIndex = navigationPosts.findIndex(p => p.slug === post.slug)
   const prevPost = currentIndex > 0 ? navigationPosts[currentIndex - 1] : null
   const nextPost = currentIndex < navigationPosts.length - 1 ? navigationPosts[currentIndex + 1] : null
@@ -449,6 +457,29 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         </Container>
       </section>
+
+      {/* Related reading, scored on shared tags */}
+      {relatedPosts.length > 0 && (
+        <section className="py-section-y bg-surface border-b border-line">
+          <Container>
+            <h2 className="font-display text-h3 text-ink-strong mb-6">More like this</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {relatedPosts.map((related) => (
+                <Link key={related.slug} href={`/blog/${related.slug}`} className="group">
+                  <Card hover className="h-full p-6">
+                    <h3 className="font-display text-h4 text-ink-strong group-hover:text-accent-text transition-colors">
+                      {related.title}
+                    </h3>
+                    {related.description && (
+                      <p className="mt-2 text-sm text-ink-muted line-clamp-3">{related.description}</p>
+                    )}
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* Navigation */}
       <section className="py-section-y bg-canvas border-b border-line">

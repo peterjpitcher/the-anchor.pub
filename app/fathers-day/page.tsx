@@ -14,6 +14,7 @@ import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 // Father's Day 2026 has passed, so the page now points at Father's Day 2027,
 // Sunday 20 June 2027 (UK Father's Day is the third Sunday in June). The page
@@ -155,7 +156,7 @@ export default function FathersDayPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(fathersDayEventSchema)
+          __html: jsonLdSafeStringify(fathersDayEventSchema)
         }}
       />
 

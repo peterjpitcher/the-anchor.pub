@@ -1,5 +1,5 @@
 ---
-title: Best Fish and Chips Near Heathrow | The Anchor Pub Guide
+title: Best Fish and Chips Near Heathrow | A Local Guide
 slug: fish-chips-guide
 description: >-
   Discover the best fish and chips near Heathrow at The Anchor. Fresh North

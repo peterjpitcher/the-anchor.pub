@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     absolute: 'Jobs at The Anchor Pub Near Staines | Bar & Kitchen Roles'
   },
   description:
-    'Apply for part-time bar and kitchen jobs at The Anchor, a friendly village pub in Stanwell Moor near Staines and Heathrow Terminal 5. Free parking, clear shifts and a small team.',
+    'Part-time bar and kitchen jobs at a village pub near Staines and Heathrow Terminal 5. Free parking, clear shifts and a small team.',
   alternates: {
     canonical: '/join-our-team'
   },

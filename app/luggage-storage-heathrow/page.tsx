@@ -11,6 +11,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Luggage Friendly Pub Near Heathrow | Bring Your Bags',
@@ -60,7 +61,7 @@ export default function LuggageStoragePage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([howToSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([howToSchema]) }}
             />
 
             <InteriorHero

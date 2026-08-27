@@ -5,7 +5,6 @@ import { InteriorHero } from '@/components/hero'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
@@ -38,9 +37,9 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
  * does not deliver and would have been earning clicks it then disappointed.
  */
 export const metadata: Metadata = {
-  title: 'Pub Quiz Near Me | Wednesday Quiz Night at The Anchor',
+  title: 'Pub Quiz Near Me | Wednesday Quiz Night',
   description:
-    'Monthly Wednesday pub quiz at The Anchor, Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners. Free parking, solo players matched up.',
+    'Monthly Wednesday pub quiz in Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm. Free parking, and we match up solo players.',
   openGraph: {
     title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     description: 'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.',
@@ -321,6 +320,13 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            <p className="mb-3 text-ink-muted">
+              Every so often we build the whole quiz around one show. See our{' '}
+              <Link href="/quiz-night/themed" className="font-semibold text-accent-text transition hover:text-accent-text">
+                themed quiz nights
+              </Link>
+              , including the Only Fools and Horses charity quiz on Friday 25 September.
+            </p>
             <p className="text-ink-muted">
               Not a quiz night? Play along at{' '}
               <Link href="/music-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
@@ -362,9 +368,12 @@ export default async function QuizNightPage() {
       />
 
       <JsonLd data={quizNightEventSeries} />
-      {events.map(event => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Each event already carries its own Event markup on /events/[id]. */}
     </>
   )
 }

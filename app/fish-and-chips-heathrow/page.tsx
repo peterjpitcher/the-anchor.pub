@@ -62,31 +62,19 @@ export default async function FishAndChipsPage() {
   const data = await getFishAndChipsMenuPageData()
   const fishItems = data?.fishItems ?? []
   const signatureFish = fishItems[0]
-  const signaturePrice = extractSchemaPrice(signatureFish)
 
-  const productSchema = signatureFish
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: signatureFish.name,
-        image: DEFAULT_PAGE_HEADER_IMAGE,
-        description: signatureFish.description,
-        brand: {
-          '@type': 'Brand',
-          name: BRAND.name
-        },
-        offers: {
-          '@type': 'Offer',
-          ...(signaturePrice ? { price: signaturePrice } : {}),
-          priceCurrency: 'GBP',
-          availability: 'https://schema.org/InStock',
-          seller: {
-            '@type': 'Restaurant',
-            name: BRAND.name
-          }
-        }
-      }
-    : null
+  /**
+   * No Product schema here.
+   *
+   * A plate of fish and chips served in a pub is not a retail product. Marking
+   * it as one put this page in Google's product-snippet and merchant-listing
+   * reports, which then asked for shipping details, a return policy, reviews
+   * and ratings. None of that applies to a meal you eat at the table.
+   *
+   * The Menu / MenuSection / MenuItem schema below already describes food sold
+   * by a restaurant, which is the correct vocabulary, and it carries the same
+   * live prices. Flagged in tasks/gsc-audit-2026-08-17.md.
+   */
 
   const menuSchema = data
     ? {
@@ -114,10 +102,10 @@ export default async function FishAndChipsPage() {
 
   return (
     <>
-      {(productSchema || menuSchema) && (
+      {menuSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema, menuSchema].filter(Boolean)) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuSchema) }}
         />
       )}
 

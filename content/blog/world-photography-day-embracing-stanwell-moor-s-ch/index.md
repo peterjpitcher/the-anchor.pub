@@ -1,10 +1,6 @@
 ---
 title: World Photography Day Near Heathrow | Capture Stanwell Moor's Beauty
-description: >-
-  Celebrate World Photography Day at The Anchor pub near Heathrow Airport. Join
-  our annual photo competition capturing Stanwell Moor's charm. Submit your best
-  village photos for display in our traditional British pub. Perfect for
-  photographers near Terminal 5, just 7 minutes away.
+description: "Our World Photography Day competition: send us your best pictures of Stanwell Moor and we will display the winners in the pub."
 date: '2023-08-11'
 oldUrl: >-
   https://www.the-anchor.pub/post/world-photography-day-embracing-stanwell-moor-s-ch

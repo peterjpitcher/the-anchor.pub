@@ -17,7 +17,7 @@ export const revalidate = 86400
 export const metadata: Metadata = {
   title: 'Our Pub, Garden & Facilities | Stanwell Moor',
   description:
-    'Take a look around The Anchor in Stanwell Moor. Bar with 18 gins and 17 whiskeys, sunlit dining room, beer garden under the Heathrow flight path, pool table and darts. 7 min from T5.',
+    'Look around The Anchor: the bar, a sunlit dining room, a beer garden under the Heathrow flight path, pool and darts. 7 minutes from Terminal 5.',
   openGraph: {
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
@@ -468,6 +468,24 @@ export default function OurPubPage() {
           </div>
           <p className="text-sm text-anchor-cream-text/70">
             Just 7 minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome
+          </p>
+          {/* /history, /about and /about/the-anchor-facts had no editorial
+              inbound links at all, only nav and footer. This page is the
+              natural place to send anyone who wants the longer version. */}
+          <p className="text-sm text-anchor-cream-text/70">
+            Want the longer version? Read{' '}
+            <Link href="/history" className="font-semibold underline underline-offset-4">
+              our history since 1751
+            </Link>
+            , find out{' '}
+            <Link href="/about" className="font-semibold underline underline-offset-4">
+              who we are
+            </Link>{' '}
+            or skim{' '}
+            <Link href="/about/the-anchor-facts" className="font-semibold underline underline-offset-4">
+              the facts and figures
+            </Link>
+            .
           </p>
         </div>
       </CtaBand>

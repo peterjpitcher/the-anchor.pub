@@ -331,17 +331,7 @@
     "permanent": true
   },
   {
-    "source": "/cdn-cgi/l/email-protection",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/honeybeemine",
-    "destination": "/",
-    "permanent": true
-  },
-  {
-    "source": "/honey-bee-mine",
     "destination": "/",
     "permanent": true
   },
@@ -451,38 +441,13 @@
     "permanent": true
   },
   {
-    "source": "/subscribe",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/subscribe-for-digital-flyers",
     "destination": "/",
     "permanent": true
   },
   {
-    "source": "/join-the-team",
-    "destination": "/join-our-team",
-    "permanent": true
-  },
-  {
     "source": "/category/:category",
     "destination": "/",
-    "permanent": true
-  },
-  {
-    "source": "/privacy-and-cookie-policy",
-    "destination": "/privacy-policy",
-    "permanent": true
-  },
-  {
-    "source": "/our-events",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/food",
-    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -492,38 +457,8 @@
     "statusCode": 301
   },
   {
-    "source": "/drink",
-    "destination": "/drinks",
-    "permanent": true
-  },
-  {
-    "source": "/sport",
-    "destination": "/live-sport",
-    "permanent": true
-  },
-  {
-    "source": "/heel-of-fortune",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/honey-bee-mine-terms-and-conditions",
-    "destination": "/privacy-policy",
-    "permanent": true
-  },
-  {
-    "source": "/celebrating-sport-at-the-anchor",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
     "source": "/gin-tasting-evening-october-2023",
     "destination": "/whats-on",
-    "permanent": true
-  },
-  {
-    "source": "/company-christmas-party-venue",
-    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -649,6 +584,151 @@
   {
     "source": "/blog/best-sunday-roast-near-heathrow",
     "destination": "/sunday-roast",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-crowne-plaza-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-hilton-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-holiday-inn-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-ibis-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-marriott-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-novotel-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-premier-inn-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-radisson-blu-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-renaissance-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-sofitel-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/pub-near-travelodge-heathrow",
+    "destination": "/heathrow-hotels-pub",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-april--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-may--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-june--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-july--2025",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-pub-pursuit-2025-08-13",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/pub-quiz-night-2025-10-01",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/pub-quiz-night-2025-11-05",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-april--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-may--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-june--2025",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/cash-bingo-2025-07-18",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-08-29",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-09-19",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-10-17",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-2025-11-14",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bank-holiday-sing-along-karaoke-may--2025",
+    "destination": "/karaoke",
+    "permanent": true
+  },
+  {
+    "source": "/events/nikki-s-karaoke-night-2025-08-22",
+    "destination": "/karaoke",
+    "permanent": true
+  },
+  {
+    "source": "/events/rum-tasting-night-june--2025",
+    "destination": "/whats-on",
     "permanent": true
   }
 ]

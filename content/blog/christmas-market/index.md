@@ -1,5 +1,5 @@
 ---
-title: Christmas Market Near Heathrow | The Anchor's Festive Shopping Event
+title: Christmas Market Near Heathrow | Festive Shopping
 slug: christmas-market
 description: >-
   Visit The Anchor's Christmas Market in Stanwell Moor, just 7 minutes from

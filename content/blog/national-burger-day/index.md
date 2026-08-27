@@ -1,5 +1,5 @@
 ---
-title: Best Burgers Near Heathrow | The Anchor's Gourmet Burger Menu
+title: Best Burgers Near Heathrow | Gourmet Burger Menu
 slug: national-burger-day
 description: >-
   Discover the best burgers near Heathrow Airport at The Anchor pub in Stanwell

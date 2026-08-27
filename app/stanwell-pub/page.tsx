@@ -18,6 +18,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 function formatMenuItemPrice(item: MenuPageItem): string {
   const price = item.price.trim()
@@ -33,7 +34,7 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Stanwell Moor Pub',
-    description: `Your local pub in Stanwell Moor near Staines and Heathrow. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights and free parking.`,
+    description: `Your local in Stanwell Moor, near Staines and Heathrow. ${sundayPhrase}, stone-baked pizzas, a dog-friendly beer garden and free parking.`,
     openGraph: {
       title: 'Stanwell Moor Pub, Beer Garden, Food and Free Parking',
       description: `${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
@@ -104,7 +105,7 @@ export default async function StanwellPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -403,7 +404,9 @@ export default async function StanwellPubPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li>• 5 minutes from Stanwell Village</li>
                   <li>• 10 minutes from King George VI Reservoir</li>
-                  <li>• 15 minutes from Staines-upon-Thames</li>
+                  {/* SSOT §2 distance table: Staines is 8 minutes. This said 15,
+                      contradicting /staines-pub and both private-hire pages. */}
+                  <li>• 8 minutes from Staines-upon-Thames</li>
                   <li>• 7 minutes from Heathrow Terminal 5</li>
                   <li>• Next to St Mary's Church, Stanwell Moor</li>
                 </ul>

@@ -313,6 +313,25 @@ function removeRetiredEvents(events: Event[]): Event[] {
   return events.filter(event => !isRetiredEvent(event))
 }
 
+/**
+ * Marks an event object as fabricated by the offline fallback rather than
+ * fetched from the management database.
+ *
+ * The fallback exists so a list UI degrades instead of crashing. The problem is
+ * that it resolves SUCCESSFULLY, so callers that reasonably assume "no throw
+ * means real data" publish it. The sitemap did exactly that: on a network
+ * failure it emitted /events/the-anchor-showcase, advertising an event that has
+ * never existed, and that URL then permanently redirects when crawled.
+ *
+ * Any consumer that publishes URLs or makes an indexing decision must check
+ * this before trusting the payload.
+ */
+export const FALLBACK_EVENT_MARKER = '__fallback__' as const
+
+export function isFallbackEvent(event: Pick<Event, 'id'> | { id?: string | null } | null | undefined): boolean {
+  return Boolean(event && (event as { [FALLBACK_EVENT_MARKER]?: boolean })[FALLBACK_EVENT_MARKER])
+}
+
 export function createFallbackEvent(eventId: string): Event {
   const normalizedId = eventId.replace(/\/+$/, '')
   const id = normalizedId || 'the-anchor-event'
@@ -415,6 +434,7 @@ export function createFallbackEvent(eventId: string): Event {
 
 export function createFallbackEventsResponse(): EventsResponse {
   const event = createFallbackEvent('the-anchor-showcase')
+  Object.defineProperty(event, FALLBACK_EVENT_MARKER, { value: true, enumerable: false })
   return {
     events: [event],
     pagination: {

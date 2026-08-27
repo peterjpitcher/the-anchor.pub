@@ -1,5 +1,5 @@
 ---
-title: Pub Renovations Near Heathrow | The Anchor's Fresh New Look
+title: Pub Renovations Near Heathrow | A Fresh New Look
 description: >-
   The Anchor pub near Heathrow Airport unveils stunning renovations. Our
   traditional British pub in Stanwell Moor features a fresh exterior, improved

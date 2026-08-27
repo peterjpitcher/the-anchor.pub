@@ -1,12 +1,7 @@
 ---
 title: Sports Bar Near Heathrow | Sky Sports Update at The Anchor
 slug: sports-update
-description: >-
-  Important update about Sky Sports and TNT Sports at The Anchor pub near
-  Heathrow Airport. While subscription sports end January 2025, we'll still show
-  major events on terrestrial TV in Stanwell Moor. Just 7 minutes from Terminal
-  5, watch Six Nations, World Cup, and more. Family-friendly pub near Staines
-  with free parking.
+description: "What happened to subscription sport at The Anchor, and what we show now. Major events on terrestrial TV in Stanwell Moor, seven minutes from Terminal 5."
 date: '2025-01-06'
 oldUrl: >-
   https://www.the-anchor.pub/post/anchor-sports-update-the-future-of-sport-at-the-an

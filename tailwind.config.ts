@@ -18,7 +18,11 @@ const config: Config = {
         // Raw brand palette (fixed across themes)
         anchor: {
           green: { DEFAULT: '#005131', dark: '#003d25', deep: '#0c1d11', raised: '#132318', card: '#172d1e', light: '#006b45' },
-          gold: { DEFAULT: '#a57626', dark: '#8b6914', bright: '#c9a020' },
+          // Kept in step with the --anchor-* variables in app/globals.css by
+          // scripts/audit-palette.js. These are literals, not var() references,
+          // so editing one side alone silently drifts: the CSS variable changes
+          // and every `text-anchor-gold-bright` class keeps the old value.
+          gold: { DEFAULT: '#a57626', dark: '#836313', bright: '#d9ae26' },
           sage: '#7a8b7f', charcoal: '#1a1a1a', cream: '#faf8f3',
           'cream-text': '#f0e6c6', sand: '#f5e6d3', grey: '#6f6a61',
           // Theme-aware: these two lift on dark surfaces (see globals.css).

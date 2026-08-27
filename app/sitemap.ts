@@ -4,7 +4,7 @@ import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
-import { isRetiredEvent } from '@/lib/api/events'
+import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
 
@@ -72,11 +72,79 @@ function addSitemapEvents(uniqueEvents: Map<string, Event>, batch: Event[]): voi
   }
 }
 
+/**
+ * Thrown when the event feed cannot be READ, as distinct from being genuinely empty.
+ *
+ * This reverses a deliberate earlier decision, so the reasoning matters.
+ *
+ * The previous behaviour returned `[]` on any fetch failure, documented in
+ * tests/sitemap-events.test.ts and tasks/gsc-indexing-fix/FINAL-SPEC.md: publish
+ * a sitemap carrying static and blog URLs rather than let a slow API surface as
+ * a "Temporary processing error" in Search Console. That is a fair goal.
+ *
+ * What it gets wrong is that the failure is SILENT. A fresh, wrong sitemap is
+ * generated, cached, and served for the full `revalidate` hour, and nothing
+ * anywhere reports that the feed was down.
+ *
+ * Being accurate about the harm: dropping URLs from a sitemap does NOT deindex
+ * them. They stay linked from /whats-on and the category hubs and keep their
+ * place. The real cost is a lost freshness signal, a stale hour, and no alert.
+ *
+ * Throwing is the mechanism that preserves the last good sitemap: Next fails
+ * regeneration and keeps serving the previously cached response. Only a cold
+ * start with nothing cached produces a 500, which Google retries.
+ *
+ * So the trade is: a visible, self-correcting error instead of a quiet, cached
+ * inaccuracy. An empty array is indistinguishable from "this pub genuinely has
+ * no events", and that is a claim we should never make by accident.
+ */
+/**
+ * The build deliberately skips external fetches (lib/api/client.ts), so a
+ * fabricated fallback during the build is expected, not a failure.
+ */
+function isBuildPhase(): boolean {
+  // No `typeof window` guard: NEXT_PHASE is only ever set by a server build, so
+  // the check adds nothing, and it made this untestable under Jest's jsdom
+  // environment where `window` exists.
+  return (
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+  )
+}
+
+class EventFeedUnavailableError extends Error {
+  constructor() {
+    super('Event feed unavailable, refusing to publish a sitemap without events')
+    this.name = 'EventFeedUnavailableError'
+  }
+}
+
 export async function getSitemapEvents(): Promise<Event[]> {
   const uniqueEvents = new Map<string, Event>()
   const firstBatch = await fetchSitemapEventsPage(0)
 
-  if (!firstBatch || firstBatch.length === 0) {
+  // null means the fetch failed. An empty array means it succeeded and there is
+  // genuinely nothing, which is legitimate and must still publish.
+  if (firstBatch === null) {
+    throw new EventFeedUnavailableError()
+  }
+
+  // A resolved promise is NOT proof the feed worked. anchorAPI serves a
+  // fabricated event on network failure (lib/api/client.ts getFallbackResponse),
+  // so `catch` never fires and the sitemap would happily publish
+  // /events/the-anchor-showcase, a URL for an event that has never existed.
+  //
+  // Except during the build, where that same fallback is DELIBERATE: the client
+  // skips external fetches at build time on purpose, so the fabricated event is
+  // expected rather than a fault. Throwing there fails the whole export, which
+  // is exactly what the first version of this check did. Emit the static and
+  // blog URLs, and let the first revalidation fill in the events.
+  if (firstBatch.some(isFallbackEvent)) {
+    if (isBuildPhase()) return []
+    throw new EventFeedUnavailableError()
+  }
+
+  if (firstBatch.length === 0) {
     return []
   }
 
@@ -93,7 +161,14 @@ export async function getSitemapEvents(): Promise<Event[]> {
   )
 
   for (const batch of remainingBatches) {
-    if (!batch || batch.length === 0) break
+    // A failed later page would silently truncate the sitemap, dropping real
+    // URLs with no signal that anything went wrong. Treat it the same as a
+    // failed first page: keep the last good sitemap rather than publish a
+    // partial one.
+    if (batch === null) {
+      throw new EventFeedUnavailableError()
+    }
+    if (batch.length === 0) break
     addSitemapEvents(uniqueEvents, batch)
     if (batch.length < EVENT_PAGE_SIZE) break
   }
@@ -113,6 +188,7 @@ const DATES = {
   jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
   aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
   aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
+  aug2026Growth: new Date('2026-08-26'),    // Site growth programme: titles, descriptions, retargets, retirements
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -126,26 +202,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '', lastModified: DATES.apr2026 },
     { path: '/about', lastModified: DATES.launch },
     { path: '/about/the-anchor-facts', lastModified: DATES.may2026Late },
-    { path: '/history', lastModified: DATES.may2026Late },
+    { path: '/history', lastModified: DATES.aug2026Growth },
     { path: '/blog', lastModified: DATES.apr2026 },
     { path: '/blog/tags', lastModified: DATES.seoOverhaul },
-    { path: '/join-our-team', lastModified: DATES.may2026 },
-    { path: '/join-our-team/bar-staff', lastModified: DATES.may2026 },
+    { path: '/join-our-team', lastModified: DATES.aug2026Growth },
+    { path: '/join-our-team/bar-staff', lastModified: DATES.aug2026Growth },
     { path: '/join-our-team/kitchen-team', lastModified: DATES.may2026 },
-    { path: '/food-menu', lastModified: DATES.apr2026 },
+    { path: '/food-menu', lastModified: DATES.aug2026Growth },
     { path: '/food-menu/vegetarian', lastModified: DATES.seoOverhaul },
     { path: '/food-menu/vegan', lastModified: DATES.seoOverhaul },
     { path: '/food-menu/gluten-free', lastModified: DATES.seoOverhaul },
-    { path: '/mothers-day', lastModified: DATES.seoOverhaul },
-    { path: '/valentines-day', lastModified: DATES.seoOverhaul },
-    { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
-    { path: '/easter-sunday', lastModified: DATES.jul2026Late },
+    { path: '/mothers-day', lastModified: DATES.aug2026Growth },
+    { path: '/valentines-day', lastModified: DATES.aug2026Growth },
+    { path: '/new-years-eve', lastModified: DATES.aug2026Growth },
+    { path: '/easter-sunday', lastModified: DATES.aug2026Growth },
     { path: '/fathers-day', lastModified: DATES.seoOverhaul },
-    { path: '/halloween', lastModified: DATES.seoOverhaul },
+    { path: '/halloween', lastModified: DATES.aug2026Growth },
     // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends
     // are now 301-redirected (see config/redirects/additional-redirects.json)
     // and their route dirs deleted, so they are intentionally omitted here.
-    { path: '/sunday-roast', lastModified: DATES.jul2026Late },
+    { path: '/sunday-roast', lastModified: DATES.aug2026Growth },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
@@ -154,12 +230,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Events & entertainment
     { path: '/whats-on', lastModified: DATES.apr2026 },
-    { path: '/quiz-night', lastModified: DATES.apr2026 },
-    { path: '/cash-bingo', lastModified: DATES.apr2026 },
-    { path: '/music-bingo', lastModified: DATES.apr2026 },
-    { path: '/karaoke', lastModified: DATES.apr2026 },
+    { path: '/quiz-night', lastModified: DATES.aug2026Growth },
+    { path: '/quiz-night/themed', lastModified: DATES.aug2026Growth },
+    { path: '/cash-bingo', lastModified: DATES.aug2026Growth },
+    { path: '/music-bingo', lastModified: DATES.aug2026Growth },
+    { path: '/karaoke', lastModified: DATES.aug2026Growth },
     { path: '/live-sport', lastModified: DATES.apr2026 },
-    { path: '/live-sport/six-nations', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/six-nations', lastModified: DATES.aug2026Growth },
     { path: '/live-sport/f1', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/boxing', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/world-cup', lastModified: DATES.seoOverhaul },
@@ -167,22 +244,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/summer-garden-parties', lastModified: DATES.seoOverhaul },
 
     // Booking & private hire
-    { path: '/book-table', lastModified: DATES.apr2026 },
+    { path: '/book-table', lastModified: DATES.aug2026Growth },
     { path: '/private-hire', lastModified: DATES.jul2026 },
     { path: '/corporate-events', lastModified: DATES.seoOverhaul },
     { path: '/christmas-parties', lastModified: DATES.aug2026Christmas },
-    { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/wakes', lastModified: DATES.aug2026Growth },
+    { path: '/private-hire/christenings', lastModified: DATES.aug2026Growth },
     { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/anniversary-parties', lastModified: DATES.jul2026Early },
+    { path: '/private-hire/anniversary-parties', lastModified: DATES.aug2026Growth },
     { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
     { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/brochures', lastModified: DATES.aug2026Brochures },
+    { path: '/private-hire/brochures', lastModified: DATES.aug2026Growth },
+    // Made indexable 26 Aug 2026, owner decision 4.
+    { path: '/private-hire/venue-tour', lastModified: DATES.aug2026Brochures },
 
     // Heathrow & location pages
-    { path: '/near-heathrow', lastModified: DATES.launch },
+    { path: '/near-heathrow', lastModified: DATES.aug2026Growth },
     { path: '/near-heathrow/terminal-2', lastModified: DATES.launch },
     { path: '/near-heathrow/terminal-3', lastModified: DATES.launch },
     { path: '/near-heathrow/terminal-4', lastModified: DATES.launch },
@@ -192,50 +271,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/pre-flight-meal', lastModified: DATES.seoOverhaul },
     { path: '/heathrow-family-dining', lastModified: DATES.apr2026 },
     { path: '/luggage-storage-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/heathrow-parking', lastModified: DATES.launch },
+    { path: '/heathrow-parking', lastModified: DATES.aug2026Growth },
     { path: '/heathrow-parking/terminal-2', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-3', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-4', lastModified: DATES.launch },
     { path: '/heathrow-parking/terminal-5', lastModified: DATES.launch },
     { path: '/coach-parking-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/restaurants-near-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/restaurants-near-heathrow', lastModified: DATES.aug2026Growth },
 
-    // Hotel proximity pages
-    { path: '/heathrow-hotels-pub', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-sofitel-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-premier-inn-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-hilton-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-marriott-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-crowne-plaza-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-ibis-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-travelodge-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-renaissance-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/pub-near-holiday-inn-heathrow', lastModified: DATES.apr2026 },
-    { path: '/pub-near-novotel-heathrow', lastModified: DATES.apr2026 },
-    { path: '/pub-near-radisson-blu-heathrow', lastModified: DATES.apr2026 },
+    // Hotel hub. The 11 individual /pub-near-* pages were retired on
+    // 21 Aug 2026 (83% duplicates of each other, 29 clicks in 16 months,
+    // ranking only for generic pub terms other pages own). See
+    // tasks/site-growth-implementation-spec-2026-08-17.md C6.
+    { path: '/heathrow-hotels-pub', lastModified: DATES.aug2026Growth },
 
     // Venue & facilities
     { path: '/m25-junction-14-pub', lastModified: DATES.seoOverhaul },
     { path: '/beer-garden', lastModified: DATES.launch },
-    { path: '/our-pub', lastModified: DATES.apr2026 },
+    { path: '/our-pub', lastModified: DATES.aug2026Growth },
     { path: '/plane-spotting-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.apr2026 },
+    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.aug2026Growth },
     { path: '/family-friendly-pub-heathrow', lastModified: DATES.seoOverhaul },
 
     // Local area pages
     { path: '/ashford-pub', lastModified: DATES.apr2026 },
     { path: '/bedfont-pub', lastModified: DATES.apr2026 },
     { path: '/colnbrook-pub', lastModified: DATES.apr2026 },
-    { path: '/egham-pub', lastModified: DATES.apr2026 },
-    { path: '/feltham-pub', lastModified: DATES.launch },
+    { path: '/egham-pub', lastModified: DATES.aug2026Growth },
+    { path: '/feltham-pub', lastModified: DATES.aug2026Growth },
     { path: '/horton-pub', lastModified: DATES.apr2026 },
     { path: '/longford-pub', lastModified: DATES.apr2026 },
     { path: '/staines-pub', lastModified: DATES.apr2026 },
-    { path: '/stanwell-pub', lastModified: DATES.apr2026 },
-    { path: '/sunbury-pub', lastModified: DATES.apr2026 },
+    { path: '/stanwell-pub', lastModified: DATES.aug2026Growth },
+    { path: '/sunbury-pub', lastModified: DATES.aug2026Growth },
     { path: '/windsor-pub', lastModified: DATES.apr2026 },
     { path: '/wraysbury-pub', lastModified: DATES.apr2026 },
-    { path: '/pubs-in-stanwell', lastModified: DATES.apr2026 },
+    { path: '/pubs-in-stanwell', lastModified: DATES.aug2026Growth },
 
     // Footer / legal
     { path: '/sitemap-page', lastModified: DATES.launch },
@@ -243,7 +314,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/accessibility', lastModified: DATES.launch },
     { path: '/safety-and-respect', lastModified: DATES.launch },
     { path: '/sustainability', lastModified: DATES.launch },
-    { path: '/reviews', lastModified: DATES.seoOverhaul },
+    { path: '/reviews', lastModified: DATES.aug2026Growth },
   ]
 
   // Get all blog posts
@@ -312,7 +383,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     .map((event) => ({
       url: `${baseUrl}${getEventWebsitePath(event)}`,
-      lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
+      // lastmod describes when the PAGE changed, not when the event happens.
+      // Falling back to startDate gave future events a future lastmod, which
+      // is a misleading crawl signal rather than a strong one. Omit the field
+      // when there is no trustworthy update timestamp.
+      lastModified: event._meta?.lastUpdated ? getSafeDate(event._meta.lastUpdated) : undefined,
     }))
 
   return [...staticSitemap, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]

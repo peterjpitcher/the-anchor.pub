@@ -5,7 +5,6 @@ import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/seo/EventSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { EventDateCards } from '@/components/features/EventDateCards'
 import {
@@ -39,9 +38,9 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
  * tasks/keyword-plan-game-nights-2026-08-17.md.
  */
 export const metadata: Metadata = {
-  title: 'Music Bingo Near Me | Drag Music Bingo at The Anchor',
+  title: 'Music Bingo Near Me | Drag Music Bingo',
   description:
-    'Music bingo at The Anchor, Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games, £5 cash entry. It sells out, so book ahead.',
+    'Music bingo in Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games. It sells out, so book ahead.',
   openGraph: {
     title: 'Music Bingo at The Anchor, Stanwell Moor',
     description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
@@ -468,9 +467,12 @@ export default async function MusicBingoPage() {
           and this page was publishing it alongside its own music bingo series, so
           the music bingo URL declared itself to be a £10 cash bingo night as well
           as a £5 music bingo one. It belongs on /cash-bingo only. */}
-      {events.map(event => (
-        <EventSchema key={`event-schema-${event.id}`} event={event} />
-      ))}
+      {/* No per-event Event schema here on purpose.
+        Google: "The event experience on Google only supports pages that focus
+        on a single event. We recommend focusing on adding markup to your event
+        posting pages instead of pages that list schedules or multiple events."
+        https://developers.google.com/search/docs/appearance/structured-data/event
+        Each event already carries its own Event markup on /events/[id]. */}
     </>
   )
 }

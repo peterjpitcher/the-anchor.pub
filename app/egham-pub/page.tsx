@@ -10,10 +10,11 @@ import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pubs in Egham | Free Parking Alternative',
-  description: 'Searching for pubs in Egham? The Anchor is just 12 minutes away with free parking, Sunday roasts, stone-baked pizzas and a warm local welcome for Royal Holloway students.',
+  description: 'Searching for pubs in Egham? Twelve minutes away, with free parking, Sunday roasts, stone-baked pizzas and a warm welcome.',
   openGraph: {
     title: 'Pubs in Egham, The Anchor, Stanwell Moor',
     description: 'One of the best pubs near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
@@ -75,7 +76,7 @@ export default function EghamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
       />
 
       {/* Hero Section */}

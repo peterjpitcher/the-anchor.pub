@@ -15,22 +15,53 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
+/**
+ * Retargeted 21 August 2026 from "cheap heathrow parking" to
+ * "heathrow parking prices".
+ *
+ * Keyword Planner, UK, 36 parking terms tested. The four terminal head terms
+ * are 50,000 searches a month EACH, and every one of them sits at competition
+ * index 66 to 72 with £2+ top-of-page bids, against Heathrow's own site and
+ * the national aggregators. A village pub does not enter that top ten.
+ *
+ * The off-airport escape route does not exist either: "pub parking heathrow",
+ * "non airport parking heathrow", "heathrow parking alternatives" and
+ * "airport parking stanwell" all return NO DATA. Nobody searches for an
+ * alternative to airport parking.
+ *
+ * Exactly one term in 36 is both high-volume and winnable:
+ *
+ *   heathrow parking prices    5,000/mo    Low, index 22    £0.22-£0.58
+ *
+ * It is informational intent, which is precisely what the aggregators serve
+ * badly because they answer with a booking funnel instead of a number.
+ * See tasks/keyword-plan-2026-08-17-site-growth.md.
+ *
+ * The price is deliberately NOT in the title any more. It was hardcoded here
+ * while the page body reads the live rate from anchorAPI.getParkingRates(),
+ * so the two could drift apart silently.
+ */
+// Parking rates checked against the parking_rates table on 21 Aug 2026:
+// daily_rate 15.00, weekly 75.00, monthly 265.00. Competitor prices are
+// deliberately absent (owner decision 3) until a named source is approved.
+// verifiedAt: '2026-08-21'  Owner: Peter Pitcher.
 export const metadata: Metadata = {
-  title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5',
-  description: 'Cheap Heathrow parking from £15/day or £75/week, save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
+  title: 'Heathrow Parking Prices | Park 7 Mins from T5',
+  description: 'What Heathrow parking actually costs, and what we charge to park at the pub instead. Keep your keys, CCTV, 7 minutes from Terminal 5.',
   openGraph: {
-    title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
-    description: 'Cheap Heathrow parking from £15/day or £75/week, save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
-    images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
+    title: 'Heathrow Parking Prices | The Anchor, Stanwell Moor',
+    description: 'What Heathrow parking actually costs, and what we charge to park at the pub instead. Keep your keys, CCTV, 7 minutes from Terminal 5.',
+    images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Parking at The Anchor pub near Heathrow Airport' }],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({
-    title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
-    description: 'Cheap Heathrow parking from £15/day or £75/week, save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
+    title: 'Heathrow Parking Prices | The Anchor, Stanwell Moor',
+    description: 'What Heathrow parking actually costs, and what we charge to park at the pub instead. Keep your keys, CCTV, 7 minutes from Terminal 5.',
     images: [DEFAULT_PARKING_IMAGE]
   }),
   alternates: {
@@ -143,8 +174,8 @@ const faqs = (rateCard: ParkingRateCard | null) => {
 
 	  return [
 	  {
-	    question: 'Is The Anchor cheaper than Heathrow long stay parking?',
-	    answer: `Yes, our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
+	    question: 'How much is parking at The Anchor, and how does it compare?',
+	    answer: `We charge £${daily} a day or £${weekly} a week, and that is the price you pay. Heathrow's own car parks are priced dynamically, so what they cost depends on your dates and how far ahead you book. Check their current price for your trip and compare it against ours rather than trusting anyone's saving claim, including ours.`
 	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
@@ -206,9 +237,12 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
 	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true },
 	      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
 	    ],
+	    // Fallbacks must match the live rate card. The daily fallback said 39.00
+	    // while every other fallback on this page says 15.00, so an API failure
+	    // would have advertised a daily rate we do not charge.
 	    priceRange: rateCard
-	      ? `£${formatRate(rateCard.hourly_rate, '5.00')}-£${formatRate(rateCard.daily_rate, '39.00')} per day`
-	      : '£5-£39 per day',
+	      ? `£${formatRate(rateCard.hourly_rate, '5.00')}-£${formatRate(rateCard.daily_rate, '15.00')} per day`
+	      : '£5-£15 per day',
 	    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
 	    offers: {
       '@type': 'Offer',
@@ -221,15 +255,31 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
   }
 }
 
+/**
+ * Service, not Product.
+ *
+ * Parking is a service we provide, not a retail item we ship. Marking it as a
+ * Product put it in Google's product-snippet report, which then asked for
+ * shipping details, a return policy, reviews and ratings, none of which mean
+ * anything for a car park. Flagged in tasks/gsc-audit-2026-08-17.md.
+ *
+ * The AggregateOffer is kept: the price range is real and comes from the live
+ * rate card. `provider` replaces `brand`, which is a Product property.
+ */
 function buildParkingOfferSchema(rateCard: ParkingRateCard | null) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'Service',
+    serviceType: 'Airport parking',
     name: 'Heathrow Long Stay Parking',
     description: 'Pre-book secure Heathrow airport parking at The Anchor pub with on-site hospitality and PayPal checkout.',
-    brand: {
-      '@type': 'Brand',
+    provider: {
+      '@type': 'LocalBusiness',
       name: 'The Anchor, Stanwell Moor'
+    },
+    areaServed: {
+      '@type': 'Place',
+      name: 'Heathrow Airport'
     },
     offers: {
       '@type': 'AggregateOffer',
@@ -287,15 +337,15 @@ export default async function HeathrowParkingPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingFacilitySchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingOfferSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(parkingOfferSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(howToSchema) }}
       />
 
 	      <InteriorHero

@@ -1,9 +1,6 @@
 ---
 title: Things to Do Near Heathrow Between Flights (Layover Guide 2026)
-description: >-
-  Got 4–10 hours at Heathrow? This guide covers the best things to do near
-  Heathrow Airport during a layover, from a proper pub lunch to local
-  attractions, all within 15 minutes of the terminals.
+description: "Four to ten hours at Heathrow? What is worth doing near the airport on a layover, all within fifteen minutes of the terminals."
 date: '2026-03-01'
 author: The Anchor Team
 keywords:
