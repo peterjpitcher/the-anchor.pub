@@ -33,6 +33,18 @@ export interface TrackingDispatchOptions {
   includePageContext?: boolean
 }
 
+/**
+ * Events deliberately kept out of GA4.
+ *
+ * Only for telemetry that already has its own pipeline or would drown the
+ * useful signal. Everything else goes, because an event nobody can see is the
+ * same as an event nobody sent.
+ */
+const API_EXCLUDED_EVENTS = new Set([
+  // Has a dedicated endpoint at /api/web-vitals; sending it twice buys nothing.
+  'web_vitals_reported',
+])
+
 const API_BATCH_SIZE = 8
 const API_FLUSH_DELAY = 2000
 
@@ -83,11 +95,20 @@ function sendApiBatch(events: Record<string, unknown>[], reason: string) {
       return
     }
 
+    // The .catch is not optional. A try/catch cannot catch a rejected promise,
+    // so until this was added a failed analytics POST became an unhandled
+    // rejection: offline, blocked by an extension, or any non-2xx transport
+    // error. It surfaced the moment GA4 delivery became the default and started
+    // killing a whole test worker, which is a fair impression of what it does
+    // to a page.
     void fetch('/api/analytics', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,
       keepalive: true
+    }).catch(() => {
+      // Analytics must never break the page, and a dropped batch is not worth
+      // telling the visitor about.
     })
   } catch (error) {
     // Analytics should never block the UX; swallow errors silently
@@ -124,7 +145,19 @@ export function dispatchTrackingEvent(
 
   const {
     requireConsent = true,
-    sendToApi = false,
+    // Defaults to TRUE, and that is the whole point.
+    //
+    // The published GTM container has no triggers for our custom events, so an
+    // event that only reaches the dataLayer never reaches GA4. With this
+    // defaulting to false, 36 event types were silently invisible, including
+    // booking_error_shown, which would have exposed a completely broken
+    // quick-book sheet months earlier. A July 2026 audit found the same fault
+    // and fixing it event-by-event did not hold, because the next event anyone
+    // added inherited the broken default again.
+    //
+    // Opting in per call site was the bug. Anything genuinely too noisy for GA4
+    // opts OUT below, by name, with a reason.
+    sendToApi = !API_EXCLUDED_EVENTS.has(eventData.event),
     includePageContext = true
   } = options ?? {}
 

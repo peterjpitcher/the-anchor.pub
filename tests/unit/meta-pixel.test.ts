@@ -18,6 +18,16 @@ function purchaseCalls() {
   return fbqMock().mock.calls.filter((entry) => entry[0] === 'track' && entry[1] === 'Purchase')
 }
 
+// The conversion forward is no longer the only fetch on this path: since GA4
+// delivery became the default, dispatchTrackingEvent also POSTs to
+// /api/analytics. Select the call under test by URL rather than assuming the
+// page makes exactly one request.
+function conversionCalls() {
+  return (global.fetch as jest.Mock).mock.calls.filter(
+    (call) => String(call[0]).includes('/api/tracking/booking-conversion')
+  )
+}
+
 describe('Meta Pixel booking tracking', () => {
   beforeEach(() => {
     mockedCanUseCookieCategory.mockImplementation((category) => category === 'marketing' || category === 'analytics')
@@ -78,8 +88,8 @@ describe('Meta Pixel booking tracking', () => {
     })
     expect(purchases[0]?.[3]).toEqual({ eventID: 'BK-123' })
 
-    expect(global.fetch).toHaveBeenCalledTimes(1)
-    const forwardedPayload = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))
+    expect(conversionCalls()).toHaveLength(1)
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
     expect(forwardedPayload).toMatchObject({
       bookingId: 'BK-123',
       metaEventId: 'BK-123',
@@ -127,8 +137,8 @@ describe('Meta Pixel booking tracking', () => {
     })
     expect(purchases[0]?.[3]).toEqual({ eventID: 'EVT-456' })
 
-    expect(global.fetch).toHaveBeenCalledTimes(1)
-    const forwardedPayload = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))
+    expect(conversionCalls()).toHaveLength(1)
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
     expect(forwardedPayload).toMatchObject({
       bookingId: 'EVT-456',
       bookingType: 'event',
@@ -162,8 +172,8 @@ describe('Meta Pixel booking tracking', () => {
       bookingSource: 'booking_widget'
     })
     expect(purchaseCalls()).toHaveLength(0)
-    expect(global.fetch).toHaveBeenCalledTimes(1)
-    const forwardedPayload = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))
+    expect(conversionCalls()).toHaveLength(1)
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
     expect(forwardedPayload).toMatchObject({
       bookingId: 'BK-789',
       metaConsentGranted: false,

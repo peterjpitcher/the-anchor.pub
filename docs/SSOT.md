@@ -391,6 +391,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 - **Seats:** 64.
 - **Flight path:** Directly under Heathrow's southern runway approach path.
+- **Never publish a runway designator.** Do not write 27R, 27L, 09L or 09R in page copy, FAQs or JSON-LD. Until 27 August 2026 ten places across `/beer-garden` and `/plane-spotting-heathrow` asserted "27R", including structured data, which contradicted the southern-runway line directly above: Heathrow's southern runway is not 27R. The designator adds nothing a visitor needs, and it is the sort of claim an enthusiast will notice and correct in public. Say "under Heathrow's southern runway approach path", and use the weekly alternation for timing.
 - **Aircraft frequency:** Approximately every 90 seconds during peak times.
 - **Aircraft altitude:** 500 – 800 feet overhead.
 - **Common aircraft:** A380, Boeing 777, 787 Dreamliner, A350, A330, Boeing 747.
