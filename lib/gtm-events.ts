@@ -817,24 +817,42 @@ export function trackError(errorType: string, errorMessage: string, context?: st
 }
 
 // Form interactions
+//
+// Two things were wrong here until 27 August 2026, and together they meant no
+// form on the site had a measurable completion rate.
+//
+// 1. Neither call passed `sendToApi`, so both went only to the dataLayer and
+//    depended on GTM forwarding them. It does not: GA4 recorded ZERO
+//    `form_complete` in 28 days even though the recruitment form fires it on
+//    the same success path, one line before trackRecruitmentApplicationSubmitted,
+//    which DID arrive. Every event that reaches GA4 reliably on this site is one
+//    sent through the Measurement Protocol, so these now are too.
+//
+// 2. `form_start` collided with GA4 Enhanced Measurement, which has "Form
+//    interactions" switched on and emits its own `form_start` for any form on
+//    the site. The 104 `form_start` events in GA4 were all Google's, not ours,
+//    so pairing them with our completions would have compared two different
+//    populations. The names now follow the convention the rest of this file
+//    already uses for funnels, `*_started` and `*_completed`, which both avoids
+//    the collision and makes the pair directly comparable.
 export function trackFormStart(form: FormEventInput) {
   const { name, metadata } = normaliseFormEvent(form)
 
   pushToDataLayer({
-    event: 'form_start',
+    event: 'form_started',
     form_name: name,
     ...metadata
-  })
+  }, { sendToApi: true })
 }
 
 export function trackFormComplete(form: FormEventInput) {
   const { name, metadata } = normaliseFormEvent(form)
 
   pushToDataLayer({
-    event: 'form_complete',
+    event: 'form_completed',
     form_name: name,
     ...metadata
-  })
+  }, { sendToApi: true })
 }
 
 export function trackRecruitmentApplicationSubmitted(data: {
