@@ -364,7 +364,11 @@ export function Navigation({
   const renderPromoCta = (button: HeaderCtaButton, context: 'strip' | 'drawer') => {
     const isDrawer = context === 'drawer'
     const className = cn(
-      'inline-flex items-center justify-center gap-1.5 rounded-pill bg-anchor-gold px-4 py-1.5 font-sans text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-anchor-gold-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2',
+      // bg-anchor-gold #a57626 gives white text 4.02:1, under AA. Resting state
+      // moves to anchor-gold-dark (5.59:1), and hover to anchor-green, matching
+      // Button's primary variant. Hovering back onto anchor-gold would have put
+      // the failing colour straight back, just only while the pointer is over it.
+      'inline-flex items-center justify-center gap-1.5 rounded-pill bg-anchor-gold-dark px-4 py-1.5 font-sans text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-anchor-green focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2',
       isDrawer && 'w-full min-h-[44px] py-2.5'
     )
 

@@ -44,6 +44,15 @@ const PAGES = [
   ['/blog/best-sunday-roast-surrey', 'blog template with related-posts module'],
   ['/private-hire/near/slough-crematorium', 'landmark template'],
   ['/sunday-roast', 'money page'],
+  // Added 26 Aug after a wider sweep found three defects the ten-template
+  // sample missed: a star rating whose aria-label was on a plain div (screen
+  // readers ignore it entirely), a nav pill at 4.02:1, and a badge variant
+  // using a fill Button had already rejected for the same reason.
+  ['/reviews', 'star rating component'],
+  ['/private-hire', 'testimonial star ratings'],
+  ['/whats-on', 'event listing, seasonal nav pill'],
+  ['/book-table', 'booking flow'],
+  ['/drinks/managers-special', 'gold badge variant'],
 ]
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
@@ -59,10 +68,12 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
  * against the header green, and a badge hardcoded white text over a colour that
  * comes from the CMS.
  *
- * The 2 that remain are `--anchor-gold-bright` #c9a020 on the #005131 header at
- * 3.84:1. That token is the dark theme's accent, link, focus ring and tile
- * colour with 27 direct usages, so brightening it to #d9ae26 is a visible brand
- * change and the owner's decision, not one to make silently.
+ * Now ZERO. The last two were `--anchor-gold-bright` #c9a020 on the #005131
+ * header at 3.84:1. That token is the dark theme's accent, link, focus ring and
+ * tile colour across 27 usages, so brightening it was a visible brand change;
+ * the owner approved #d9ae26 on 26 August 2026.
+ *
+ * Keep this at 0. A contrast failure is now a regression, not a known issue.
  * Counted in NODES, not violations. axe groups every failing element on a page
  * into one violation object, so counting violations would miss a new failure
  * added to a page that already has one. Verified by injecting an unreadable
@@ -70,7 +81,7 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
  *
  * Lower this number as tokens are fixed; never raise it.
  */
-const CONTRAST_BASELINE = 2
+const CONTRAST_BASELINE = 0
 
 async function main() {
   const browser = await chromium.launch()

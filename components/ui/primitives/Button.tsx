@@ -25,7 +25,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // AA-safe primary: #8b6914 on white is 5.08:1, passing AA for normal text.
+        // AA-safe primary: --anchor-gold-dark #836313 on white is 5.59:1 (was
+        // #8b6914 at 5.08:1, darkened 26 Aug so it also clears AA on cream).
         // The prototype's lighter #a57626 fill only reaches 4.02:1, so it is not used.
         primary: 'bg-anchor-gold-dark text-white hover:bg-anchor-green hover:shadow-gold',
         // Theme-aware accent outline: green on light, gold-bright inside .theme-dark.

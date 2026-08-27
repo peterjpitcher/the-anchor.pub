@@ -11,8 +11,10 @@ const badgeVariants = cva(
       variant: {
         // bg --anchor-green, white text
         green: 'bg-anchor-green text-white',
-        // bg --anchor-gold, white text
-        gold: 'bg-anchor-gold text-white',
+        // White on --anchor-gold #a57626 is 4.02:1, under AA. Button.tsx already
+        // avoids that exact fill for the same reason; Badge did not. Matching it
+        // on --anchor-gold-dark takes white to 5.59:1.
+        gold: 'bg-anchor-gold-dark text-white',
         // bg --anchor-sand, green text — amenities, dietary flags, categories
         sand: 'bg-tile text-tile-ink',
         // transparent, 1.5px solid --border-strong, text --text
