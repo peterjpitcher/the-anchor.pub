@@ -404,7 +404,9 @@ export default async function StanwellPubPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li>• 5 minutes from Stanwell Village</li>
                   <li>• 10 minutes from King George VI Reservoir</li>
-                  <li>• 15 minutes from Staines-upon-Thames</li>
+                  {/* SSOT §2 distance table: Staines is 8 minutes. This said 15,
+                      contradicting /staines-pub and both private-hire pages. */}
+                  <li>• 8 minutes from Staines-upon-Thames</li>
                   <li>• 7 minutes from Heathrow Terminal 5</li>
                   <li>• Next to St Mary's Church, Stanwell Moor</li>
                 </ul>

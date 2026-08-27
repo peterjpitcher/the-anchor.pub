@@ -1,3 +1,23 @@
+/**
+ * verifiedAt: '2026-08-26'  Owner: Peter Pitcher.
+ *
+ * Checked against the distance table in docs/SSOT.md §2, which is canonical
+ * per CLAUDE.md ("The SSOT wins. If existing page copy disagrees with the
+ * SSOT, the page is wrong"). Terminal 5 seven minutes, Terminals 2 and 3
+ * eleven, Terminal 4 twelve, Staines eight.
+ *
+ * Every terminal and Staines claim across app/ and lib/ was compared against
+ * that table. One real contradiction was found and corrected: /stanwell-pub
+ * claimed fifteen minutes from Staines against the SSOT's eight and four other
+ * pages agreeing with the SSOT.
+ *
+ * NOT verified against a live mapping service. The Google key in this project
+ * has neither billing enabled (server key) nor permission for Routes or
+ * Distance Matrix (browser key is referer-restricted), so "7 minutes" is
+ * verified as INTERNALLY CONSISTENT AND SSOT-BACKED, not as independently
+ * road-tested. The per-landmark times below are not in the SSOT table and have
+ * no independent source.
+ */
 export type LandmarkType = 'crematorium' | 'church' | 'registry_office' | 'hospital' | 'business_park' | 'sports_venue' | 'other';
 
 export interface Landmark {

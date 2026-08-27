@@ -22,6 +22,12 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
+// verifiedAt: '2026-08-26'  Owner: Peter Pitcher.
+// Terminal times checked against the docs/SSOT.md §2 distance table and against
+// every other statement of the same journey on the site: T5 seven minutes, T2
+// and T3 eleven, T4 twelve. Consistent across 30 occurrences. Not road-tested
+// against a live mapping service; the project's Google key lacks billing and
+// Routes permission.
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
   const sundayPhrase = sunday.isLive
