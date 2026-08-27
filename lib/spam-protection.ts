@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { verifyTurnstileToken } from '@/lib/turnstile'
+import { logError } from '@/lib/error-handling'
 
 // ── Rate limiter ────────────────────────────────────────────────────────────
 const RATE_LIMIT_WINDOW_MS = 60_000
@@ -27,52 +28,45 @@ function isRateLimited(ip: string): boolean {
 // Minimum seconds a real user needs to fill any form
 const MIN_FORM_DURATION_SECONDS = 3
 
-// ── Phone country allowlist ─────────────────────────────────────────────────
-// Accepted calling codes for a pub near Heathrow. Add more as needed.
-const ALLOWED_PHONE_PREFIXES = [
-  '+44',   // UK
-  '+1',    // US / Canada
-  '+33',   // France
-  '+34',   // Spain
-  '+353',  // Ireland
-  '+49',   // Germany
-  '+31',   // Netherlands
-  '+32',   // Belgium
-  '+39',   // Italy
-  '+351',  // Portugal
-  '+41',   // Switzerland
-  '+45',   // Denmark
-  '+46',   // Sweden
-  '+47',   // Norway
-  '+48',   // Poland
-  '+43',   // Austria
-  '+61',   // Australia
-  '+64',   // New Zealand
-  '+971',  // UAE (Dubai layover traffic near Heathrow)
-]
+// Every rejection a human could plausibly trigger says the same thing, and
+// always offers the phone. See the note on silent success below.
+const CALL_US_INSTEAD =
+  'We could not accept that submission. Please try again, or call us on 01753 682707 and we will take your details.'
 
 /**
- * Extract a phone number from common payload shapes and check its country prefix.
- * Returns true if the number looks suspicious (non-allowlisted country).
+ * A blocked submission must never be reported to the caller as a success.
+ *
+ * This module used to answer the honeypot, timing and phone-prefix checks with
+ * HTTP 200 {"success": true}, so that a bot learned nothing from being caught.
+ * The cost of that trade was invisible and severe: a real guest whose
+ * submission tripped any of the three saw the "Inquiry Received!" screen, and
+ * the enquiry was discarded with no record kept anywhere. Nobody could tell
+ * afterwards that they had ever tried. Private-hire enquiries are worth four
+ * figures each.
+ *
+ * Turnstile is the check that actually stops bots, and it fails loudly. The
+ * cheap heuristics below stay as a second layer, but they now fail honestly and
+ * are logged, so a false positive costs the guest one phone call instead of the
+ * whole booking.
  */
-function hasSuspiciousPhone(body: Record<string, unknown>): boolean {
-  // Find the phone value from various payload shapes
-  const phone =
-    (typeof body.phone === 'string' && body.phone) ||
-    (typeof body.contact_phone === 'string' && body.contact_phone) ||
-    (typeof body.customer_phone === 'string' && body.customer_phone) ||
-    (typeof (body.customer as Record<string, unknown>)?.mobile_number === 'string'
-      && (body.customer as Record<string, unknown>).mobile_number as string) ||
-    null
+function blockedResponse(reason: string, request: NextRequest | Request, status = 400): { blocked: true; response: Response } {
+  // Logged so a false positive is discoverable in Vercel logs rather than
+  // silently absorbed. No personal data: the reason and the path only.
+  logError('lib/spam-protection/blocked', new Error(`Submission blocked: ${reason}`), {
+    reason,
+    path: (() => {
+      try {
+        return new URL(request.url).pathname
+      } catch {
+        return 'unknown'
+      }
+    })()
+  })
 
-  if (!phone) return false // no phone to check, let other validation handle it
-
-  const trimmed = phone.trim()
-
-  // Only check numbers that start with + (international format)
-  if (!trimmed.startsWith('+')) return false
-
-  return !ALLOWED_PHONE_PREFIXES.some((prefix) => trimmed.startsWith(prefix))
+  return {
+    blocked: true,
+    response: Response.json({ success: false, error: CALL_US_INSTEAD, reason }, { status })
+  }
 }
 
 type SpamCheckResult =
@@ -103,41 +97,28 @@ export async function checkSpamProtection(
     }
   }
 
-  // 2. Honeypot, if a hidden field has a value, return fake success
+  // 2. Honeypot. Bots fill the hidden field; browser autofill and password
+  //    managers occasionally do too, which is why this no longer fakes success.
   if (body?.website || body?.honeypot_field) {
-    return {
-      blocked: true,
-      response: Response.json({ success: true })
-    }
+    return blockedResponse('honeypot', request)
   }
 
-  // 3. Phone country check, block numbers from non-allowlisted countries
-  if (hasSuspiciousPhone(body)) {
-    return {
-      blocked: true,
-      response: Response.json({ success: true })
-    }
-  }
-
-  // 4. Timing, reject if too fast OR if timing field is missing entirely
-  //    (missing _t means the request didn't come from our form)
+  // 3. Timing, reject if the form was completed implausibly fast, or if the
+  //    timing field is missing entirely (the request did not come from our form).
   const formDuration = typeof body?._t === 'number' ? body._t : null
   if (formDuration === null || formDuration < MIN_FORM_DURATION_SECONDS) {
-    return {
-      blocked: true,
-      response: Response.json({ success: true })
-    }
+    return blockedResponse(formDuration === null ? 'timing_missing' : 'timing_too_fast', request)
   }
 
-  // 5. Turnstile CAPTCHA verification
+  // 4. Turnstile CAPTCHA verification
   //    This is the ONLY place a token from one of our widgets gets verified.
   //    Do not skip it on the assumption that the management API will do it
   //    instead: it holds a different widget's secret and only checks callers
   //    that present no API key, so a forwarded token reaches no valid verifier.
   //    skipTurnstile is for routes whose form mints no token at all (they fall
-  //    back to the honeypot, timing and phone-prefix checks above). Turning it
-  //    on for a form that DOES have a widget silently disables the widget;
-  //    turning it off for a form that does NOT have one blocks every guest.
+  //    back to the honeypot and timing checks above). Turning it on for a form
+  //    that DOES have a widget silently disables the widget; turning it off for
+  //    a form that does NOT have one blocks every guest.
   if (!options?.skipTurnstile) {
     const turnstile = await verifyTurnstileToken(
       (body?.turnstile_token as string | null | undefined) ?? null

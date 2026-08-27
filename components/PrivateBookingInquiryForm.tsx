@@ -395,6 +395,8 @@ export function PrivateBookingInquiryForm({
                                     <label className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
                                     <input
                                         type="number"
+                                        min={1}
+                                        max={300}
                                         value={formData.guest_count || 0}
                                         onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
                                         className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
