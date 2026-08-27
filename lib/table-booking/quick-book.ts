@@ -244,6 +244,31 @@ export type QuickBookPayload = {
   default_country_code: string
 }
 
+/**
+ * The body actually POSTed to /api/table-bookings.
+ *
+ * Kept separate from buildQuickBookPayload because these two fields are
+ * VOLATILE: they must be appended only after the idempotency fingerprint has
+ * been taken from the clean payload, or a refreshed Turnstile token or one more
+ * second on the sheet would mint a new key and let a double tap create two
+ * bookings. lib/table-booking/submission.ts does the same for the full form.
+ *
+ * Both fields are mandatory in practice. /api/table-bookings runs the shared
+ * spam guard, which rejects a body with no `_t` and, separately, one with no
+ * Turnstile token. The sheet sent neither until August 2026, so every quick
+ * booking was silently discarded and answered with a fake success.
+ */
+export function buildQuickBookRequestBody(
+  payload: QuickBookPayload,
+  volatileFields: { turnstileToken?: string | null; secondsOnSheet: number }
+): Record<string, unknown> {
+  return {
+    ...payload,
+    ...(volatileFields.turnstileToken ? { turnstile_token: volatileFields.turnstileToken } : {}),
+    _t: volatileFields.secondsOnSheet,
+  }
+}
+
 export function buildQuickBookPayload(submission: QuickBookSubmission): QuickBookPayload {
   return {
     phone: submission.phone.trim(),

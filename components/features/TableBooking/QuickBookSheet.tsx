@@ -17,6 +17,7 @@ import {
   QUICK_BOOK_MAX_PARTY,
   buildQuickBookIntentFingerprint,
   buildQuickBookPayload,
+  buildQuickBookRequestBody,
   defaultQuickBookState,
   findQuickBookRefusal,
   fullFormHref,
@@ -26,12 +27,15 @@ import {
   type QuickBookState,
 } from '@/lib/table-booking/quick-book'
 import { createClientIdempotencyKey } from '@/lib/table-booking-idempotency'
+import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import {
   trackTableBookingClick,
   trackFormStart,
   trackFormComplete,
   trackBookingErrorShown,
 } from '@/lib/gtm-events'
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type QuickBookSheetProps = {
   open: boolean
@@ -68,6 +72,13 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const [fieldError, setFieldError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [reference, setReference] = useState<string | null>(null)
+  // /api/table-bookings runs the shared spam guard, which requires BOTH a
+  // Turnstile token and `_t`. This sheet sent neither, so every submission was
+  // rejected at the timing check and answered with a fake success: the guest
+  // saw "You're booked in.", a form_complete fired, and no booking existed.
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileFieldRef>(null)
+  const openedAtRef = useRef<number>(Date.now())
 
   const dateChoices = useMemo(() => quickDateChoices(), [])
   const phoneRef = useRef<HTMLInputElement | null>(null)
@@ -89,7 +100,11 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   // A fresh sheet every time it opens. Reopening after a booking and finding the previous
   // guest's phone number still in the box is alarming on a shared family phone.
   useEffect(() => {
-    if (open) return
+    if (open) {
+      openedAtRef.current = Date.now()
+      return
+    }
+    setTurnstileToken(null)
     setState(defaultQuickBookState())
     setPhase('choose')
     setSelectedTime(null)
@@ -223,7 +238,17 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
           // one and coming back as a raw 409.
           'Idempotency-Key': idempotencyKeyFor(buildQuickBookIntentFingerprint(payload)),
         },
-        body: JSON.stringify(payload),
+        // Volatile fields are appended AFTER the fingerprint above has already
+        // been taken from the clean payload, exactly as the full form does in
+        // lib/table-booking/submission.ts, so a refreshed token or another
+        // second on the sheet cannot mint a different idempotency key and turn
+        // a double tap into two bookings.
+        body: JSON.stringify(
+          buildQuickBookRequestBody(payload, {
+            turnstileToken,
+            secondsOnSheet: Math.floor((Date.now() - openedAtRef.current) / 1000),
+          })
+        ),
       })
 
       const body = await response.json()
@@ -254,8 +279,13 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       trackBookingErrorShown({ code: 'quick_book_submit_failed' })
     } finally {
       setSubmitting(false)
+      // A Turnstile token is single use. Without this a guest whose first
+      // attempt failed would resubmit the spent token and be refused again,
+      // with no way out but to close the sheet.
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
-  }, [firstName, idempotencyKeyFor, phone, selectedTime, slots, source, state])
+  }, [firstName, idempotencyKeyFor, phone, selectedTime, slots, source, state, turnstileToken])
 
   return (
     <StickyDrawer
@@ -342,11 +372,20 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 ) : null}
                 {error ? <p className="text-sm text-anchor-danger">{error}</p> : null}
 
+                {TURNSTILE_SITE_KEY ? (
+                  <TurnstileField
+                    id="quick-book-turnstile"
+                    turnstileRef={turnstileRef}
+                    onTokenChange={setTurnstileToken}
+                  />
+                ) : null}
+
                 <Button
                   variant="primary"
                   size="lg"
                   className="w-full"
                   loading={submitting}
+                  disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
                   onClick={submit}
                 >
                   Book table
