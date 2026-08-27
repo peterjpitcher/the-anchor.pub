@@ -621,7 +621,7 @@ export default async function HeathrowHotelsPubPage() {
             <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
             <Button asChild variant="outline" size="lg"><Link href="/food-menu">View Menu</Link></Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Free Parking • 7-12 mins from all major hotels • Outside ULEZ Zone</p>
+          <p className="text-ink-muted text-sm">Free Parking • 7-12 mins from all major hotels • Outside ULEZ Zone</p>
         </div>
       </CtaBand>
     </>

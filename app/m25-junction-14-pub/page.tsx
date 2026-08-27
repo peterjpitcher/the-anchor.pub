@@ -573,7 +573,7 @@ export default async function M25Junction14PubPage() {
             <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
             <Button asChild variant="outline" size="lg"><Link href="/find-us">Get Directions</Link></Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Free Parking • Quick Service • Dog Friendly • Outside ULEZ</p>
+          <p className="text-ink-muted text-sm">Free Parking • Quick Service • Dog Friendly • Outside ULEZ</p>
         </div>
       </CtaBand>
     </>

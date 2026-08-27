@@ -45,7 +45,7 @@ export default async function PlaneSpottingHeathrowPage() {
     '@type': 'TouristAttraction',
     '@id': 'https://www.the-anchor.pub/plane-spotting-heathrow',
     name: 'The Anchor - Heathrow Plane Spotting Pub',
-    description: 'Heathrow plane spotting venue with a beer garden under the expected 27R flight path, offering food, drinks and shelter year-round.',
+    description: 'Heathrow plane spotting venue with a beer garden under the southern runway approach path, offering food, drinks and shelter year-round.',
     url: 'https://www.the-anchor.pub/plane-spotting-heathrow',
     image: DEFAULT_NEAR_HEATHROW_IMAGE,
     address: {
@@ -213,7 +213,7 @@ export default async function PlaneSpottingHeathrowPage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'Under the Flight Path', description: 'On westerly operations with 27R arrivals, you are aligned with the landing path. Aircraft overhead is expected, not guaranteed.' },
+              { title: 'Under the Flight Path', description: 'You sit directly under Heathrow\u2019s southern runway approach path. Aircraft overhead is expected during the active window, not guaranteed.' },
               { title: 'Photo-Friendly Garden', description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome.' },
               { title: 'Proper Refreshments', description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.' }
             ].map(feature => (
@@ -277,7 +277,7 @@ export default async function PlaneSpottingHeathrowPage() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
-              { title: 'Myrtle Avenue', description: 'Legendary runway 27L arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and runway 27R coverage.' },
+              { title: 'Myrtle Avenue', description: 'Legendary arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and a different angle on the approach.' },
               { title: 'Visitors Centre / Renaissance Hotel', description: 'Great for departures on easterly operations. Wrap up the day with a pint at The Anchor before heading home.' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
@@ -304,7 +304,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'What aircraft will I see from The Anchor?',
-            answer: 'When runway 27R arrivals are operating, you may see British Airways, Virgin Atlantic, Emirates A380s, Qatar Airways, American Airlines and cargo airlines. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed.'
+            answer: 'When arrivals are overhead, you may see British Airways, Virgin Atlantic, Emirates A380s, Qatar Airways, American Airlines and cargo airlines. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed.'
           },
           {
             question: 'Can I charge batteries or use WiFi?',

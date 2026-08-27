@@ -680,7 +680,7 @@ export default async function RestaurantsNearHeathrowPage() {
             <BookTableButton source="restaurants_near_heathrow_cta" variant="primary" size="lg">Book a Table</BookTableButton>
             <PhoneButton phone={CONTACT.phone} source="restaurants_near_heathrow_cta" variant="outline" size="lg">Call: 01753 682707</PhoneButton>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking always</p>
+          <p className="text-ink-muted text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking always</p>
         </div>
       </CtaBand>
     </>

@@ -725,7 +725,7 @@ export default function HistoryPage(): React.JSX.Element {
               {`Call ${CONTACT.phone}`}
             </PhoneButton>
           </div>
-          <p className="text-sm text-anchor-cream-text/80">
+          <p className="text-sm text-ink-muted">
             Horton Road, Stanwell Moor, Surrey TW19 6AQ · 7 mins from Heathrow T5 · Free parking
           </p>
         </div>

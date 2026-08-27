@@ -64,7 +64,7 @@ export default async function BeerGardenPage() {
     "@context": "https://schema.org",
     "@type": "TouristAttraction",
     "name": "The Anchor Beer Garden - Heathrow Plane Spotting",
-    "description": "Beer garden under Heathrow's expected 27R flight path with food, drinks and plane spotting opportunities",
+    "description": "Beer garden under Heathrow's southern runway approach path with food, drinks and plane spotting opportunities",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Horton Road",
@@ -124,7 +124,7 @@ export default async function BeerGardenPage() {
       <section className="py-section-y bg-canvas">
         <Container>
           <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
-            The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s expected 27R arrivals path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
+            The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s southern runway approach path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
           </p>
         </Container>
       </section>
@@ -197,7 +197,7 @@ export default async function BeerGardenPage() {
             Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
           </h2>
           <p className="text-center text-lg text-ink-muted mt-4 mx-auto">
-            The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden is fully dog-friendly with water bowls provided.
+            The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway approach path. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden is fully dog-friendly with water bowls provided.
           </p>
         </Container>
       </section>
@@ -215,7 +215,7 @@ export default async function BeerGardenPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Why Aviation Enthusiasts Love Us</h3>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Perfect Position</strong>: Under the expected Heathrow 27R approach path</li>
+                    <li><strong className="text-ink-strong">Perfect Position</strong>: Under Heathrow&apos;s southern runway approach path</li>
                     <li><strong className="text-ink-strong">Low & Loud</strong>: When operating, aircraft pass at approximately 500-800 feet</li>
                     <li><strong className="text-ink-strong">Photo Friendly</strong>: Unobstructed views perfect for photography</li>
                     <li><strong className="text-ink-strong">Refreshments</strong>: Full bar service delivered to your table</li>
@@ -364,7 +364,7 @@ export default async function BeerGardenPage() {
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",
-            answer: "When runway 27R arrivals are operating, you may see A380s, Boeing 777s, 787 Dreamliners, A350s and other Heathrow traffic. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed."
+            answer: "When arrivals are overhead, you may see A380s, Boeing 777s, 787 Dreamliners, A350s and other Heathrow traffic. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed."
           },
           {
             question: "When is the best time for plane spotting at The Anchor?",
@@ -376,7 +376,7 @@ export default async function BeerGardenPage() {
           },
           {
             question: "Can I take photos of planes from the beer garden?",
-            answer: "Absolutely. Our beer garden is a popular spot for aviation photographers when 27R arrivals are operating. Bring a camera, check runway use before travelling, and remember aircraft overhead cannot be guaranteed."
+            answer: "Absolutely. Our beer garden is a popular spot for aviation photographers when arrivals are overhead. Bring a camera, check the expected overhead window before travelling, and remember aircraft overhead cannot be guaranteed."
           }
         ]}
       />
@@ -422,7 +422,7 @@ export default async function BeerGardenPage() {
               <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">Get Directions</Link>
             </Button>
           </div>
-          <p className="text-anchor-cream-text/80 text-sm">
+          <p className="text-ink-muted text-sm">
             Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
           </p>
         </div>

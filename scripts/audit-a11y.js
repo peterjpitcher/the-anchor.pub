@@ -51,14 +51,18 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
 /**
  * Pre-existing colour-contrast failures, recorded 26 August 2026.
  *
- * These are DESIGN TOKEN problems, not page problems. Three tokens fail AA
- * wherever they appear: `text-anchor-sage`, `text-accent-text` and
- * `text-ink-muted` on some backgrounds, plus `text-anchor-cream-text/80`.
- * They predate this programme and affect the whole site.
+ * Was 30 on 26 August 2026. Now 2, after fixing the causes rather than the
+ * symptoms: two dark-background tokens were being used on light backgrounds
+ * (`text-anchor-sage`, `text-anchor-cream-text/80`, both replaced with the
+ * theme-aware `text-ink-muted`), two light-theme tokens sat a few hundredths
+ * under AA and were nudged imperceptibly, `--text-muted` had never been checked
+ * against the header green, and a badge hardcoded white text over a colour that
+ * comes from the CMS.
  *
- * Fixing them means changing brand colours, which is the owner's decision and
- * has site-wide visual consequences, so this is a ratchet rather than a silent
- * edit: the count may not grow, and every other accessibility rule fails hard.
+ * The 2 that remain are `--anchor-gold-bright` #c9a020 on the #005131 header at
+ * 3.84:1. That token is the dark theme's accent, link, focus ring and tile
+ * colour with 27 direct usages, so brightening it to #d9ae26 is a visible brand
+ * change and the owner's decision, not one to make silently.
  * Counted in NODES, not violations. axe groups every failing element on a page
  * into one violation object, so counting violations would miss a new failure
  * added to a page that already has one. Verified by injecting an unreadable
@@ -66,7 +70,7 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
  *
  * Lower this number as tokens are fixed; never raise it.
  */
-const CONTRAST_BASELINE = 30
+const CONTRAST_BASELINE = 2
 
 async function main() {
   const browser = await chromium.launch()
