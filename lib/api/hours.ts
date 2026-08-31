@@ -14,22 +14,39 @@ export type KitchenClosed = {
 
 export type KitchenStatus = KitchenOpen | KitchenClosed | null
 
+export interface DayHoursEntry {
+  opens: string
+  closes: string
+  kitchen?: KitchenStatus
+  is_closed: boolean
+  is_kitchen_closed?: boolean
+  schedule_config?: Array<{
+    name?: string
+    starts_at: string
+    ends_at: string
+    capacity: number
+    booking_type: string
+    slot_type?: string
+  }>
+}
+
 export interface BusinessHours {
   regularHours: {
-    [key: string]: {
-      opens: string
-      closes: string
-      kitchen?: KitchenStatus
-      is_closed: boolean
-      schedule_config?: Array<{
-        name: string
-        starts_at: string
-        ends_at: string
-        capacity: number
-        booking_type: string
-      }>
-    }
+    [key: string]: DayHoursEntry
   }
+  /**
+   * Published weekly schedules whose start date has not yet arrived.
+   *
+   * `regularHours` above is only the schedule in force on the date the API
+   * resolved (today, unless `?date=` was sent). Anything painting a future
+   * date - the seven-day table, opening-hours schema, a booking date months
+   * out - must resolve against these first. See `resolveRegularHoursForDate`.
+   */
+  upcomingVersions?: Array<{
+    effectiveFrom: string
+    label?: string | null
+    hours: Record<string, DayHoursEntry>
+  }>
   specialHours: Array<{
     date: string
     opens?: string

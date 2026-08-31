@@ -9,6 +9,7 @@ import {
   STATIC_HOURS_REVIEW_NOTE,
   STATIC_KITCHEN_HOURS_SUMMARY
 } from '@/lib/business-hours-fallback'
+import { getKitchenWindows, resolveRegularHoursForDate } from '@/lib/hours-utils'
 
 interface BusinessHoursProps {
   showKitchen?: boolean
@@ -135,11 +136,24 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     const isoDate = date.toISODate()
     const day = date.toFormat('cccc').toLowerCase() as typeof dayOrder[number]
     if (isoDate) mainDates.add(isoDate)
-    const dayHours = hours.regularHours[day]
+    // Per date, not once for the week: the weekly schedule is effective-dated,
+    // so a change starting mid-table governs only the days from its start.
+    const dayHours = resolveRegularHoursForDate(
+      isoDate || londonToday.toISODate() || '',
+      hours.regularHours,
+      hours.upcomingVersions
+    )[day]
     const specialHours = getSpecialHoursForDate(isoDate)
     const displayHours = specialHours || dayHours
     const hasSpecialHours = !!specialHours
     const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
+    const kitchenWindows = getKitchenWindows({
+      kitchen,
+      is_kitchen_closed: kitchenClosed,
+      schedule_config: specialHours
+        ? (specialHours as any).schedule_config ?? []
+        : dayHours?.schedule_config ?? []
+    })
     const sundayLunchInfo = getSundayLunchInfoForDate(isoDate)
     const hasSundayLunchNotice = !!(sundayLunchInfo && !sundayLunchInfo.available)
 
@@ -151,7 +165,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
       displayHours,
       hasSpecialHours,
       specialHours,
-      kitchen,
+      kitchenWindows,
       kitchenClosed,
       sundayLunchInfo,
       hasSundayLunchNotice,
@@ -175,11 +189,20 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     .map((sh: any) => {
       const dt = DateTime.fromISO(sh.date, { zone: 'Europe/London' })
       const weekday = dt.toFormat('cccc').toLowerCase()
-      const regularForDay = hours.regularHours[weekday]
+      const regularForDay = resolveRegularHoursForDate(
+        sh.date,
+        hours.regularHours,
+        hours.upcomingVersions
+      )[weekday]
       // Merge: ?? for opens/closes, property-presence for kitchen
       const mergedOpens = sh.opens ?? regularForDay?.opens
       const mergedCloses = sh.closes ?? regularForDay?.closes
       const { kitchen, kitchenClosed } = resolveKitchenInfo(sh, regularForDay)
+      const kitchenWindows = getKitchenWindows({
+        kitchen,
+        is_kitchen_closed: kitchenClosed,
+        schedule_config: sh.schedule_config ?? []
+      })
 
       return {
         date: sh.date,
@@ -187,7 +210,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
         is_closed: sh.is_closed,
         opens: mergedOpens,
         closes: mergedCloses,
-        kitchen,
+        kitchenWindows,
         kitchenClosed,
         note: sh.note || sh.reason || 'Special hours',
       }
@@ -195,21 +218,26 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
 
   // --- Render ---
 
-  const renderKitchen = (kitchen: any, kitchenClosed: boolean, hasSpecialHours: boolean) => {
+  const renderKitchen = (
+    kitchenWindows: Array<{ opens: string; closes: string }>,
+    kitchenClosed: boolean,
+    hasSpecialHours: boolean
+  ) => {
     if (kitchenClosed) {
       return <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink-muted'}>Closed</span>
     }
-    if (!kitchen || kitchen === null) {
+    if (kitchenWindows.length === 0) {
       return <span className="text-ink-muted">No service</span>
     }
-    if ('opens' in kitchen && 'closes' in kitchen) {
-      return (
-        <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink'}>
-          {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
-        </span>
-      )
-    }
-    return <span className="text-ink-muted">No service</span>
+    // A day with a lunch and a dinner sitting reads as both, because the
+    // booking form will not take a food booking in the gap between them.
+    return (
+      <span className={hasSpecialHours ? 'text-accent-text font-semibold' : 'text-ink'}>
+        {kitchenWindows
+          .map((window) => `${formatTime(window.opens)} - ${formatTime(window.closes)}`)
+          .join(', ')}
+      </span>
+    )
   }
 
   return (
@@ -218,7 +246,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
       <div className="space-y-1">
         {mainDays.map(({
           day, isoDate, isToday, displayHours, hasSpecialHours, specialHours,
-          kitchen, kitchenClosed, hasSundayLunchNotice, sundayLunchInfo,
+          kitchenWindows, kitchenClosed, hasSundayLunchNotice, sundayLunchInfo,
         }) => {
           if (!displayHours) return null
 
@@ -255,7 +283,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
                       {showKitchen && (
                         <div className="text-sm">
                           <span className="text-ink-muted mr-1">Kitchen:</span>
-                          {renderKitchen(kitchen, kitchenClosed, hasSpecialHours)}
+                          {renderKitchen(kitchenWindows, kitchenClosed, hasSpecialHours)}
                         </div>
                       )}
                     </>
@@ -313,7 +341,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
                           {showKitchen && (
                             <div className="text-sm">
                               <span className="text-ink-muted mr-1">Kitchen:</span>
-                              {renderKitchen(entry.kitchen, entry.kitchenClosed, true)}
+                              {renderKitchen(entry.kitchenWindows, entry.kitchenClosed, true)}
                             </div>
                           )}
                         </>

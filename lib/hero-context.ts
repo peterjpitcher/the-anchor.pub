@@ -201,7 +201,8 @@ export function findNextBarOpening(
     const effective = getEffectiveDayHours(
       dateStr,
       businessHours.regularHours || {},
-      businessHours.specialHours
+      businessHours.specialHours,
+      businessHours.upcomingVersions
     )
     if ((effective as { is_closed?: boolean }).is_closed === true) continue
     const opens = (effective as { opens?: string | null }).opens
@@ -263,7 +264,8 @@ export function resolveHeroContext(
   const effective = getEffectiveDayHours(
     todayStr,
     businessHours.regularHours || {},
-    businessHours.specialHours
+    businessHours.specialHours,
+    businessHours.upcomingVersions
   )
   const barClosesAt = formatTime12h(effective.closes as string | undefined)
   const kitchenClosesAt =

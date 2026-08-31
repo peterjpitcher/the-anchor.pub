@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { BusinessHours, KitchenStatus } from '@/lib/api'
+import { getKitchenWindows, resolveRegularHoursForDate } from '@/lib/hours-utils'
 
 interface NextChange {
   at: Date
@@ -69,7 +70,11 @@ export function computeNextStatusChange(data: BusinessHours): NextChange {
       
       // Check for special hours tomorrow
       const tomorrowSpecialHours = specialHours?.find(sh => sh.date === tomorrowDateStr)
-      const tomorrowHours = tomorrowSpecialHours || regularHours[tomorrowName]
+      // Resolved for tomorrow's date: a schedule change starting tomorrow must
+      // drive "opens at", or the site counts down to the wrong time all evening.
+      const tomorrowHours =
+        tomorrowSpecialHours ||
+        resolveRegularHoursForDate(tomorrowDateStr, regularHours, data.upcomingVersions)[tomorrowName]
       
       if (tomorrowHours && 'opens' in tomorrowHours && tomorrowHours.opens && !tomorrowHours.is_closed) {
         const [openHour, openMin] = tomorrowHours.opens.split(':').map(Number)
@@ -83,27 +88,34 @@ export function computeNextStatusChange(data: BusinessHours): NextChange {
   let nextKitchenChange: DateTime | null = null
   let nextKitchenReason: 'kitchen_opens' | 'kitchen_closes' | null = null
   
-  // Only calculate kitchen changes if kitchen service exists today
-  const todayKitchen = todayHours?.kitchen
-  if (todayHours && todayKitchen && isKitchenOpen(todayKitchen)) {
-    if (currentStatus.kitchenOpen) {
-      // Kitchen is open, next change is closing
-      const [closeHour, closeMin] = todayKitchen.closes.split(':').map(Number)
-      const closeTime = now.set({ hour: closeHour, minute: closeMin, second: 0, millisecond: 0 })
-      
-      if (closeTime > now) {
-        nextKitchenChange = closeTime
-        nextKitchenReason = 'kitchen_closes'
-      }
-    } else {
-      // Kitchen is closed, check if it opens later today
-      const [openHour, openMin] = todayKitchen.opens.split(':').map(Number)
-      const openTime = now.set({ hour: openHour, minute: openMin, second: 0, millisecond: 0 })
-      
-      if (openTime > now) {
-        nextKitchenChange = openTime
-        nextKitchenReason = 'kitchen_opens'
-      }
+  // Walk today's sittings rather than the flattened kitchen span. On a day with
+  // a lunch and a dinner service the span hides the afternoon closure, so the
+  // next boundary was scheduled for the dinner close and the header sat on a
+  // stale "open" label straight through the gap.
+  if (todayHours) {
+    const kitchenWindows = getKitchenWindows(todayHours as Parameters<typeof getKitchenWindows>[0])
+
+    const boundaries: Array<{ at: DateTime; reason: 'kitchen_opens' | 'kitchen_closes' }> = []
+    for (const window of kitchenWindows) {
+      const [openHour, openMin] = window.opens.split(':').map(Number)
+      const [closeHour, closeMin] = window.closes.split(':').map(Number)
+      boundaries.push({
+        at: now.set({ hour: openHour, minute: openMin, second: 0, millisecond: 0 }),
+        reason: 'kitchen_opens'
+      })
+      boundaries.push({
+        at: now.set({ hour: closeHour, minute: closeMin, second: 0, millisecond: 0 }),
+        reason: 'kitchen_closes'
+      })
+    }
+
+    const nextBoundary = boundaries
+      .filter((boundary) => boundary.at > now)
+      .sort((a, b) => a.at.toMillis() - b.at.toMillis())[0]
+
+    if (nextBoundary) {
+      nextKitchenChange = nextBoundary.at
+      nextKitchenReason = nextBoundary.reason
     }
   }
   
@@ -140,8 +152,11 @@ export function getTomorrowHours(data: BusinessHours) {
   // Check for special hours tomorrow
   const tomorrowSpecialHours = data.specialHours?.find(sh => sh.date === tomorrowDateStr)
   
-  // Return special hours if they exist, otherwise regular hours
-  return tomorrowSpecialHours || data.regularHours[tomorrowName]
+  // Return special hours if they exist, otherwise the schedule in force tomorrow
+  return (
+    tomorrowSpecialHours ||
+    resolveRegularHoursForDate(tomorrowDateStr, data.regularHours, data.upcomingVersions)[tomorrowName]
+  )
 }
 
 /**
@@ -204,7 +219,9 @@ function getHoursForDayOffset(data: BusinessHours, offset: number): DayHoursResu
   const dayNameLower = target.toFormat('cccc').toLowerCase()
   const dateStr = target.toFormat('yyyy-MM-dd')
   const specialHours = data.specialHours?.find(sh => sh.date === dateStr)
-  const hours = specialHours || data.regularHours[dayNameLower]
+  const hours =
+    specialHours ||
+    resolveRegularHoursForDate(dateStr, data.regularHours, data.upcomingVersions)[dayNameLower]
   return {
     hours,
     dayName: target.toFormat('cccc'),
@@ -231,17 +248,19 @@ export function findNextKitchenOpening(
     const { hours, dayName, date } = getHoursForDayOffset(data, offset)
     if (!hours || hours.is_closed) continue
 
-    const kitchen = (hours as any).kitchen ?? null
     const kitchenClosedFlag = (hours as any).is_kitchen_closed === true
-
     if (kitchenClosedFlag) continue
-    if (!kitchen) continue
-    if (!isKitchenOpen(kitchen)) continue
+
+    // The first sitting is when the kitchen actually starts serving, and its
+    // own end is when that service stops. The flattened span would report a
+    // close time the kitchen does not keep on a split day.
+    const windows = getKitchenWindows(hours as Parameters<typeof getKitchenWindows>[0])
+    if (windows.length === 0) continue
 
     return {
       offset,
-      opens: kitchen.opens,
-      closes: kitchen.closes,
+      opens: windows[0].opens,
+      closes: windows[0].closes,
       dayName,
       date: date.toJSDate()
     }

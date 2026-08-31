@@ -53,7 +53,7 @@ async function getOpeningHoursSpecification() {
       new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
     ])
 
-    return buildOpeningHoursSchema(hours?.regularHours)
+    return buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions)
   } catch (error) {
     console.warn('Failed to load opening hours for /whats-on schema, omitting hours', error)
     return []

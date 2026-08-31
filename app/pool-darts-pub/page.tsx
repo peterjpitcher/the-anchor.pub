@@ -6,6 +6,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { BusinessHours } from '@/components/BusinessHours'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -134,12 +135,11 @@ export default function PoolAndDartsPage() {
                                 <Card accent>
                                     <CardBody>
                                         <h3 className="font-display text-h4 text-ink-strong mb-3">When to Visit</h3>
-                                        <ul className="space-y-2 text-sm text-ink-muted">
-                                            <li>Tuesday – Thursday: 4pm – 11pm</li>
-                                            <li>Friday: 4pm – late</li>
-                                            <li>Saturday: 12pm – late</li>
-                                            <li>Sunday: 1pm – 6pm</li>
-                                        </ul>
+                                        {/* Live, not hardcoded. These times had
+                                            drifted (Tue-Thu was listed to 11pm, Sunday
+                                            as 1pm-6pm) and the dated schedule change
+                                            would have made them wrong again. */}
+                                        <BusinessHours showKitchen={false} />
                                     </CardBody>
                                 </Card>
                             </div>

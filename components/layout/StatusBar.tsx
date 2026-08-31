@@ -6,6 +6,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
+import { getKitchenWindows } from '@/lib/hours-utils'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import {
   STATIC_BAR_HOURS_SHORT,
@@ -56,6 +57,29 @@ function isKitchenOpen(kitchen: KitchenStatus): kitchen is { opens: string; clos
  */
 function isKitchenClosed(kitchen: KitchenStatus): boolean {
   return kitchen !== null && 'is_closed' in kitchen && kitchen.is_closed === true
+}
+
+function minutesOfDay(time: string): number {
+  const match = /^(\d{1,2}):(\d{2})/.exec(String(time).trim())
+  if (!match) return 0
+  return Number(match[1]) * 60 + Number(match[2])
+}
+
+/**
+ * Minutes since midnight in Europe/London.
+ *
+ * This runs in the browser, so the visitor's own clock is the wrong reference:
+ * a customer reading the site from another timezone must still be told the
+ * pub's hours in the pub's time.
+ */
+function londonMinutesNow(): number {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23'
+  }).format(new Date())
+  return minutesOfDay(parts)
 }
 
 function resolveTodaySchedule(hours: any) {
@@ -158,33 +182,49 @@ function getKitchenStatus(hours: any): {
     return futureOpeningMessage('Kitchen: Closed today')
   }
 
-  if (isKitchenOpen(kitchenHours)) {
-    if (currentStatus.kitchenOpen) {
-      return {
-        status: `Kitchen: Open · closes ${formatTime12Hour(kitchenHours.closes)}`,
-        indicator: 'open'
-      }
-    }
+  // Sittings, not the flattened `kitchen` span. A day serving lunch and then
+  // dinner arrives as one 12:00-21:00 window, so reading `kitchen.closes` put
+  // "closes 9pm" in the header right through the afternoon closure, while the
+  // hours table and the booking form both said the kitchen was shut.
+  const kitchenWindows = getKitchenWindows(todayHours)
 
-    const now = new Date()
-    const [openHour, openMin] = kitchenHours.opens.split(':').map(Number)
-    const openingTime = new Date()
-    openingTime.setHours(openHour, openMin, 0, 0)
-
-    if (openingTime > now) {
-      return {
-        status: `Kitchen: Opens at ${formatTime12Hour(kitchenHours.opens)}`,
-        indicator: currentStatus.isOpen ? 'warning' : 'closed'
-      }
-    }
-
-    return futureOpeningMessage(
-      'Kitchen: Closed today',
-      currentStatus.isOpen ? 'warning' : 'closed'
-    )
+  if (kitchenWindows.length === 0) {
+    return futureOpeningMessage('Kitchen: Closed today')
   }
 
-  return futureOpeningMessage('Kitchen: Closed today')
+  const nowMinutes = londonMinutesNow()
+  const openWindow = kitchenWindows.find(
+    (window) =>
+      nowMinutes >= minutesOfDay(window.opens) && nowMinutes < minutesOfDay(window.closes)
+  )
+
+  // `currentStatus.kitchenOpen` stays the authority on whether food is being
+  // served right now, because it also reflects live closures the schedule does
+  // not carry. The windows decide which time to print.
+  if (openWindow && currentStatus.kitchenOpen) {
+    return {
+      status: `Kitchen: Open · closes ${formatTime12Hour(openWindow.closes)}`,
+      indicator: 'open'
+    }
+  }
+
+  // Covers both "before the first sitting" and "in the gap between sittings",
+  // so the afternoon closure reads "Opens at 4pm" rather than jumping to tomorrow.
+  const nextWindowToday = kitchenWindows.find(
+    (window) => minutesOfDay(window.opens) > nowMinutes
+  )
+
+  if (nextWindowToday) {
+    return {
+      status: `Kitchen: Opens at ${formatTime12Hour(nextWindowToday.opens)}`,
+      indicator: currentStatus.isOpen ? 'warning' : 'closed'
+    }
+  }
+
+  return futureOpeningMessage(
+    'Kitchen: Closed today',
+    currentStatus.isOpen ? 'warning' : 'closed'
+  )
 }
 
 /** A single status row: a coloured dot plus its label. Dot colour is never the only

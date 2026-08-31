@@ -283,7 +283,12 @@ export function resolveServiceRanges(
   }
 ): ServiceRangeResolution {
   const dayKey = getDayKey(isoDate)
-  const regularDay = (businessHours.regularHours?.[dayKey] || null) as Record<string, unknown> | null
+  // Already resolved for `isoDate` by the caller, which passes the date to
+  // `/business/hours`, so the effective-dated schedule is handled upstream.
+  const regularDay = (businessHours.regularHours?.[dayKey] || null) as unknown as Record<
+    string,
+    unknown
+  > | null
   const specialDay = ((businessHours.specialHours || []) as Array<Record<string, unknown>>).find(
     (entry) => entry.date === isoDate
   )
