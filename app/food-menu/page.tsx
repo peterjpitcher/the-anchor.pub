@@ -12,6 +12,7 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getBusinessHoursSnapshot, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
+import { getKitchenWindows, resolveRegularHoursForDate } from '@/lib/hours-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -41,42 +42,81 @@ export const revalidate = 3600
 // pointing at it through the run-up, and not at all once the season has passed.
 const CHRISTMAS_LINK_LEAD_DAYS = 120
 
+const WEEKDAY_INDEX: Record<string, number> = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6
+}
+
+/** The next London date falling on the given weekday, today included. */
+function nextIsoDateForWeekday(day: string): string {
+  const todayIso = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/London',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(new Date())
+
+  const target = WEEKDAY_INDEX[day.toLowerCase()]
+  if (target === undefined) return todayIso
+
+  const date = new Date(`${todayIso}T12:00:00Z`)
+  date.setUTCDate(date.getUTCDate() + ((target - date.getUTCDay() + 7) % 7))
+  return date.toISOString().slice(0, 10)
+}
+
 function buildKitchenSchedule(hours: BusinessHours): string {
   const schedule: Record<string, string> = {}
+
+  // Read as sittings, not one flattened span: a day serving lunch and then
+  // dinner must not be described as open straight through the gap between them.
+  //
+  // Each weekday is resolved against its NEXT occurrence, because the schedule
+  // is effective-dated. Reading today's schedule for every day meant this page
+  // described the outgoing hours as "Tuesday to Friday" on the eve of a change,
+  // contradicting its own structured data on the same page.
+  const sittingsLabel = (day: keyof BusinessHours['regularHours']): string | null => {
+    const dayHours = resolveRegularHoursForDate(
+      nextIsoDateForWeekday(String(day)),
+      hours.regularHours,
+      hours.upcomingVersions
+    )[day]
+    if (!dayHours) return null
+    const windows = getKitchenWindows(dayHours)
+    if (windows.length === 0) return null
+    return windows
+      .map(window => `${formatTime12Hour(window.opens)}-${formatTime12Hour(window.closes)}`)
+      .join(' & ')
+  }
 
   const weekdays: Array<keyof BusinessHours['regularHours']> = ['tuesday', 'wednesday', 'thursday', 'friday']
   const weekdayHours = weekdays
     .map(day => {
-      const dayHours = hours.regularHours[day]
-      if (!dayHours?.kitchen || !isKitchenOpen(dayHours.kitchen)) return null
-      return {
-        day,
-        opens: formatTime12Hour(dayHours.kitchen.opens),
-        closes: formatTime12Hour(dayHours.kitchen.closes)
-      }
+      const label = sittingsLabel(day)
+      return label ? { day, label } : null
     })
-    .filter(Boolean) as Array<{ day: string; opens: string; closes: string }>
+    .filter(Boolean) as Array<{ day: string; label: string }>
 
   if (
     weekdayHours.length === weekdays.length &&
-    weekdayHours.every(h => h.opens === weekdayHours[0].opens && h.closes === weekdayHours[0].closes)
+    weekdayHours.every(h => h.label === weekdayHours[0].label)
   ) {
-    schedule['Tuesday to Friday'] = `${weekdayHours[0].opens}-${weekdayHours[0].closes}`
+    schedule['Tuesday to Friday'] = weekdayHours[0].label
   } else {
     weekdayHours.forEach(h => {
-      schedule[h.day.charAt(0).toUpperCase() + h.day.slice(1)] = `${h.opens}-${h.closes}`
+      schedule[h.day.charAt(0).toUpperCase() + h.day.slice(1)] = h.label
     })
   }
 
-  const saturdayHours = hours.regularHours.saturday?.kitchen
-  if (saturdayHours && isKitchenOpen(saturdayHours)) {
-    schedule.Saturday = `${formatTime12Hour(saturdayHours.opens)}-${formatTime12Hour(saturdayHours.closes)}`
-  }
+  const saturdayLabel = sittingsLabel('saturday')
+  if (saturdayLabel) schedule.Saturday = saturdayLabel
 
-  const sundayHours = hours.regularHours.sunday?.kitchen
-  if (sundayHours && isKitchenOpen(sundayHours)) {
-    schedule.Sunday = `${formatTime12Hour(sundayHours.opens)}-${formatTime12Hour(sundayHours.closes)}`
-  }
+  const sundayLabel = sittingsLabel('sunday')
+  if (sundayLabel) schedule.Sunday = sundayLabel
 
   return Object.entries(schedule)
     .map(([day, time]) => `${day} ${time}`)
@@ -389,7 +429,7 @@ export default async function FoodMenuPage() {
               '@type': 'Menu',
               '@id': 'https://www.the-anchor.pub/food-menu#menu',
               url: 'https://www.the-anchor.pub/food-menu',
-              provider: { '@id': 'https://www.the-anchor.pub/#business' },
+              provider: { '@id': 'https://www.the-anchor.pub/food-menu#restaurant' },
               name: 'The Anchor Food Menu',
               description: 'Current food menu near Heathrow Airport.',
               hasMenuSection: combinedCategories.map(category => ({
@@ -419,7 +459,10 @@ export default async function FoodMenuPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'Restaurant',
-              '@id': 'https://www.the-anchor.pub/#business',
+              // Page-scoped @id. This node publishes the KITCHEN's service
+              // windows, which are not the venue's opening hours, so it must not
+              // claim the site-wide '#business' identity that carries those.
+              '@id': 'https://www.the-anchor.pub/food-menu#restaurant',
               name: 'The Anchor',
               description: 'Traditional British pub restaurant near Heathrow Airport',
               servesCuisine: ['British', 'Pizza', 'Pub Food'],

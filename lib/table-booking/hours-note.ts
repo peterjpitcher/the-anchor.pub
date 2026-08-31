@@ -1,8 +1,9 @@
 import {
   formatTimeNoSeconds,
   getEffectiveDayHours,
-  isKitchenClosed,
+  getKitchenWindows,
   isVenueClosed,
+  type UpcomingHoursVersion,
 } from '@/lib/hours-utils'
 /**
  * The bar and kitchen summary shown above the party-size field on the Find step.
@@ -23,6 +24,10 @@ export type BookingHoursNote = {
 export type PublishedHours = {
   regularHours: Parameters<typeof getEffectiveDayHours>[1]
   specialHours?: Parameters<typeof getEffectiveDayHours>[2]
+  // A guest can pick a date months out, and the weekly schedule is
+  // effective-dated, so the note has to be read off the schedule that governs
+  // the chosen date rather than off this week's.
+  upcomingVersions?: UpcomingHoursVersion[] | null
 }
 
 /** null while hours are still loading, when the date is invalid, or when there is nothing to say. */
@@ -35,7 +40,8 @@ export function buildBookingHoursNote(
   const effective = getEffectiveDayHours(
     date,
     businessHours.regularHours,
-    businessHours.specialHours
+    businessHours.specialHours,
+    businessHours.upcomingVersions
   )
 
   if (isVenueClosed(effective)) {
@@ -50,21 +56,14 @@ export function buildBookingHoursNote(
       ? `${formatTimeNoSeconds(effective.opens)}–${formatTimeNoSeconds(effective.closes)}`
       : null
 
-  const kitchen = effective.kitchen
-  const kitchenIsClosed = isKitchenClosed(effective)
-  let kitchenRange: string | null = null
-  if (
-    !kitchenIsClosed &&
-    kitchen &&
-    typeof kitchen === 'object' &&
-    'opens' in kitchen &&
-    'closes' in kitchen
-  ) {
-    const k = kitchen as { opens?: string; closes?: string }
-    if (k.opens && k.closes) {
-      kitchenRange = `${formatTimeNoSeconds(k.opens)}–${formatTimeNoSeconds(k.closes)}`
-    }
-  }
+  // Sittings, not the flattened span: the availability route marks the gap
+  // between lunch and dinner drinks-only, so promising food across it here
+  // would contradict the very form this note sits on.
+  const kitchenWindows = getKitchenWindows(effective)
+  const kitchenIsClosed = kitchenWindows.length === 0
+  const kitchenRange = kitchenWindows
+    .map((window) => `${formatTimeNoSeconds(window.opens)}–${formatTimeNoSeconds(window.closes)}`)
+    .join(', ')
 
   const parts: string[] = []
   if (barRange) parts.push(`Bar open ${barRange}`)

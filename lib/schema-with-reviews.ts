@@ -13,7 +13,7 @@ const getBusinessStatsCached = unstable_cache(
 
     try {
       const hours = await anchorAPI.getBusinessHours()
-      openingHours = buildOpeningHoursSchema(hours?.regularHours)
+      openingHours = buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions)
     } catch (error) {
       console.warn('Failed to fetch opening hours for schema, omitting hours:', error)
     }

@@ -12,6 +12,7 @@ import { GoogleReviews } from '@/components/reviews'
 import { CONTACT } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
+import { WeekHours } from '@/components/WeekHours'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -535,63 +536,12 @@ export default async function RestaurantsNearHeathrowPage() {
               subtitle="Kitchen hours for fresh-cooked meals"
             />
 
-            <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-bold text-lg mb-4 text-ink-strong">Kitchen Hours</h3>
-                  <ul className="space-y-2">
-                    <li className="flex justify-between">
-                      <span className="font-medium">Monday:</span>
-                      <span className="text-red-600 font-semibold">CLOSED</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Tuesday-Friday:</span>
-                      <span>4pm - 9pm</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Saturday:</span>
-                      <span>12pm - 7pm</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Sunday:</span>
-                      <span>1pm - 6pm</span>
-                    </li>
-                  </ul>
-                  <p className="text-sm text-ink-muted mt-4">
-                    Sunday: Regular menu available without pre-order
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-lg mb-4 text-ink-strong">Bar Hours</h3>
-                  <ul className="space-y-2">
-                    <li className="flex justify-between">
-                      <span className="font-medium">Monday:</span>
-                      <span className="text-red-600 font-semibold">CLOSED</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Tue-Thu:</span>
-                      <span>4pm - 11pm</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Friday:</span>
-                      <span>4pm - 10pm</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Saturday:</span>
-                      <span>12pm - 10pm</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-medium">Sunday:</span>
-                      <span>1pm - 6pm</span>
-                    </li>
-                  </ul>
-                  <p className="text-sm text-ink-muted mt-4">
-                    Full bar service during all opening hours
-                  </p>
-                </div>
-              </div>
-            </div>
+            {/* Live from the management app. This was a hardcoded table that had
+                drifted badly: it claimed the bar was CLOSED on Mondays and open
+                until 11pm Tuesday to Thursday, neither of which had been true for
+                some time, and the effective-dated schedule change would have made
+                every weekday row wrong again. */}
+            <WeekHours initialHours={businessHours} />
           </div>
         </Container>
       </section>

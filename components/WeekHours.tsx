@@ -12,6 +12,7 @@ import {
   STATIC_HOURS_REVIEW_NOTE
 } from '@/lib/business-hours-fallback'
 import { getPlaneSpottingWindowForDate } from '@/lib/heathrow-runway-alternation'
+import { getKitchenWindows, resolveRegularHoursForDate } from '@/lib/hours-utils'
 
 interface WeekHoursProps {
   showKitchen?: boolean
@@ -23,6 +24,14 @@ interface WeekHoursProps {
    * hydration, so live data always wins.
    */
   initialHours?: BusinessHours | null
+  /**
+   * How many columns the seven days are laid out in on wider screens.
+   *
+   * Two by default. Pass 1 where the table sits in a narrow slot beside other
+   * content: at that width a two-column split leaves each day too tight for the
+   * kitchen line, which now carries two sittings on most days.
+   */
+  columns?: 1 | 2
 }
 
 const FOOTER_NOTE =
@@ -53,7 +62,8 @@ const dayOrder = [
 export function WeekHours({
   showKitchen = true,
   className = '',
-  initialHours = null
+  initialHours = null,
+  columns = 2
 }: WeekHoursProps) {
   const context = useBusinessHoursContext()
   const {
@@ -189,11 +199,28 @@ export function WeekHours({
     const date = londonToday.plus({ days: offset })
     const isoDate = date.toISODate()
     const day = date.toFormat('cccc').toLowerCase() as (typeof dayOrder)[number]
-    const dayHours = hours.regularHours[day]
+    // Resolved per date, not once for the week: the weekly schedule is
+    // effective-dated, so a change starting mid-table must show on the days it
+    // actually governs instead of the whole week wearing today's hours.
+    const dayHours = resolveRegularHoursForDate(
+      isoDate || londonToday.toISODate() || '',
+      hours.regularHours,
+      hours.upcomingVersions
+    )[day]
     const specialHours = getSpecialHoursForDate(isoDate)
     const displayHours = specialHours || dayHours
     const hasSpecialHours = !!specialHours
     const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
+    // Sittings come from whichever entry supplied the kitchen, so a split
+    // service reads "12pm – 3pm, 4pm – 9pm" instead of one 12-to-9 window the
+    // booking form would refuse food bookings inside.
+    const kitchenWindows = getKitchenWindows({
+      kitchen,
+      is_kitchen_closed: kitchenClosed,
+      schedule_config: specialHours
+        ? specialHours.schedule_config ?? []
+        : dayHours?.schedule_config ?? []
+    })
     const sundayLunchInfo = getSundayLunchInfoForDate(isoDate)
     const hasSundayLunchNotice = !!(sundayLunchInfo && !sundayLunchInfo.available)
     const planeWindow = isoDate ? getPlaneSpottingWindowForDate(isoDate) : null
@@ -209,6 +236,7 @@ export function WeekHours({
       specialHours,
       kitchen,
       kitchenClosed,
+      kitchenWindows,
       sundayLunchInfo,
       hasSundayLunchNotice,
       planeWindow
@@ -218,15 +246,16 @@ export function WeekHours({
   // --- Kitchen line text (special-hours note replaces it when present) ---
 
   const kitchenLineText = (
-    kitchen: any,
+    kitchenWindows: Array<{ opens: string; closes: string }>,
     kitchenClosed: boolean
   ): { text: string; closed: boolean } => {
-    if (kitchenClosed) return { text: 'Kitchen closed', closed: true }
-    if (!kitchen) return { text: 'Kitchen closed', closed: true }
-    if (typeof kitchen === 'object' && 'opens' in kitchen && 'closes' in kitchen) {
-      return { text: `Kitchen ${formatTime(kitchen.opens)} – ${formatTime(kitchen.closes)}`, closed: false }
+    if (kitchenClosed || kitchenWindows.length === 0) {
+      return { text: 'Kitchen closed', closed: true }
     }
-    return { text: 'Kitchen closed', closed: true }
+    const ranges = kitchenWindows
+      .map((window) => `${formatTime(window.opens)} – ${formatTime(window.closes)}`)
+      .join(', ')
+    return { text: `Kitchen ${ranges}`, closed: false }
   }
 
   return (
@@ -246,7 +275,20 @@ export function WeekHours({
       )}
 
       {/* 2-column day list (1-col under 640px) */}
-      <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-md sm:grid-cols-2">
+      {/* Days read down each column, not across the rows: Monday to Thursday,
+          then Friday to Sunday. Filling row-wise put Monday beside Tuesday and
+          Wednesday underneath, so the week had to be read in a zigzag. */}
+      <ul
+        // `grid-rows-[repeat(4,auto)]` rather than `grid-rows-4`, which is
+        // repeat(4, minmax(0,1fr)) and would stretch every row to match the
+        // tallest day. Days need four rows to flow down, not equal heights.
+        //
+        // columns={1} still splits in two between sm and lg, because the pages
+        // that ask for one column only put the table in a narrow slot at lg.
+        className={`grid grid-cols-1 gap-px overflow-hidden rounded-md sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-[repeat(4,auto)] ${
+          columns === 1 ? 'lg:grid-flow-row lg:grid-cols-1 lg:grid-rows-none' : ''
+        }`}
+      >
         {days.map(
           ({
             day,
@@ -257,7 +299,7 @@ export function WeekHours({
             displayHours,
             hasSpecialHours,
             specialHours,
-            kitchen,
+            kitchenWindows,
             kitchenClosed,
             hasSundayLunchNotice,
             sundayLunchInfo,
@@ -271,7 +313,7 @@ export function WeekHours({
               ? 'Closed'
               : `${formatTime(displayHours?.opens)} – ${formatTime(displayHours?.closes)}`
 
-            const kitchenInfo = kitchenLineText(kitchen, kitchenClosed)
+            const kitchenInfo = kitchenLineText(kitchenWindows, kitchenClosed)
             // A special-hours note replaces the kitchen line when present.
             const sundayNotice = hasSundayLunchNotice
               ? sundayLunchInfo?.message || 'Sunday roast unavailable'

@@ -1,49 +1,108 @@
 import { BusinessHours, KitchenStatus } from './api'
 import { isKitchenOpen } from './api'
+import { getKitchenWindows } from './hours-utils'
 import type { AllergenType } from '@/hooks/useAllergenFilter'
+
+const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
+function isoDayBefore(isoDate: string): string {
+  const parsed = new Date(`${isoDate}T00:00:00Z`)
+  if (Number.isNaN(parsed.getTime())) return isoDate
+  parsed.setUTCDate(parsed.getUTCDate() - 1)
+  return parsed.toISOString().slice(0, 10)
+}
+
+type DatedSchedule = {
+  hours: BusinessHours['regularHours']
+  validFrom?: string
+  validThrough?: string
+}
+
+/**
+ * The weekly schedules to publish, in date order.
+ *
+ * `regularHours` is only the schedule in force today. When a dated change is
+ * already published, emitting that alone tells Google the old times are
+ * open-ended and says nothing about the new ones, so each schedule is bounded
+ * by the start of the one that succeeds it.
+ */
+function datedSchedules(businessHours: BusinessHours): DatedSchedule[] {
+  const upcoming = (businessHours.upcomingVersions ?? [])
+    .filter((version) => version?.effectiveFrom && version.hours)
+    .slice()
+    .sort((a, b) => a.effectiveFrom.localeCompare(b.effectiveFrom))
+
+  if (upcoming.length === 0) return [{ hours: businessHours.regularHours }]
+
+  const schedules: DatedSchedule[] = [
+    { hours: businessHours.regularHours, validThrough: isoDayBefore(upcoming[0].effectiveFrom) }
+  ]
+
+  upcoming.forEach((version, index) => {
+    const next = upcoming[index + 1]
+    schedules.push({
+      hours: version.hours,
+      validFrom: version.effectiveFrom,
+      ...(next ? { validThrough: isoDayBefore(next.effectiveFrom) } : {})
+    })
+  })
+
+  return schedules
+}
 
 // Helper to generate OpeningHoursSpecification from BusinessHours API response
 export function generateOpeningHoursSpecification(businessHours: BusinessHours | null) {
   if (!businessHours) return []
-  
+
   const openingHours: any[] = []
-  const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-  
-  daysOfWeek.forEach(day => {
-    const hours = businessHours.regularHours[day]
-    if (hours && !hours.is_closed) {
-      openingHours.push({
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": day.charAt(0).toUpperCase() + day.slice(1),
-        "opens": hours.opens,
-        "closes": hours.closes
-      })
-    }
+
+  datedSchedules(businessHours).forEach((schedule) => {
+    daysOfWeek.forEach(day => {
+      const hours = schedule.hours?.[day]
+      if (hours && !hours.is_closed) {
+        openingHours.push({
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": day.charAt(0).toUpperCase() + day.slice(1),
+          "opens": hours.opens,
+          "closes": hours.closes,
+          ...(schedule.validFrom ? { "validFrom": schedule.validFrom } : {}),
+          ...(schedule.validThrough ? { "validThrough": schedule.validThrough } : {})
+        })
+      }
+    })
   })
-  
+
   return openingHours
 }
 
 // Helper to generate kitchen hours specification
 export function generateKitchenHoursSpecification(businessHours: BusinessHours | null) {
   if (!businessHours) return []
-  
+
   const kitchenHours: any[] = []
-  const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-  
-  daysOfWeek.forEach(day => {
-    const hours = businessHours.regularHours[day]
-    if (hours && !hours.is_closed && hours.kitchen && isKitchenOpen(hours.kitchen)) {
-      kitchenHours.push({
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": day.charAt(0).toUpperCase() + day.slice(1),
-        "opens": hours.kitchen.opens,
-        "closes": hours.kitchen.closes,
-        "name": "Kitchen Hours"
+
+  datedSchedules(businessHours).forEach((schedule) => {
+    daysOfWeek.forEach(day => {
+      const hours = schedule.hours?.[day]
+      if (!hours || hours.is_closed) return
+
+      // One entry per sitting: a day that serves lunch and then dinner is two
+      // windows, and publishing the flattened span would advertise food through
+      // a gap the booking system refuses.
+      getKitchenWindows(hours).forEach((window) => {
+        kitchenHours.push({
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": day.charAt(0).toUpperCase() + day.slice(1),
+          "opens": window.opens,
+          "closes": window.closes,
+          "name": "Kitchen Hours",
+          ...(schedule.validFrom ? { "validFrom": schedule.validFrom } : {}),
+          ...(schedule.validThrough ? { "validThrough": schedule.validThrough } : {})
+        })
       })
-    }
+    })
   })
-  
+
   return kitchenHours
 }
 

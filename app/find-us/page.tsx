@@ -125,9 +125,14 @@ export default async function FindUsPage() {
       <section id="visit-us" className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch">
-              {/* Address card */}
-              <Card accent className="h-full">
+            {/* Address, contact and map sit to the left of the week's hours.
+                The hours table alone did not fill the container width, and
+                pairing it with the details it belongs with gives the block a
+                spine to read down. */}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+              {/* Left: address, contact and map */}
+              <div className="space-y-8">
+              <Card accent>
                 <CardBody>
                   <SpeakableContent selector="contact-info" priority="high">
                   <h2 className="font-display text-h3 text-ink-strong mb-4">Our Address</h2>
@@ -193,16 +198,19 @@ export default async function FindUsPage() {
               <GoogleMapEmbed
                 query="The Anchor, Stanwell Moor"
                 height="100%"
-                className="h-[360px] min-h-[360px] shadow-lg [&_iframe]:block [&_iframe]:h-full sm:h-[440px] lg:h-full lg:min-h-[560px]"
+                className="h-[360px] min-h-[360px] shadow-lg [&_iframe]:block [&_iframe]:h-full sm:h-[420px]"
               />
-            </div>
+              </div>
 
-            {/* Opening hours & flight path */}
-            <div id="opening-hours" className="mt-8 scroll-mt-24">
-              <h2 className="mb-4 font-display text-h3 text-ink-strong">Opening hours &amp; flight path</h2>
-              <SpeakableContent selector="opening-hours" priority="high">
-                <WeekHours initialHours={businessHours} />
-              </SpeakableContent>
+              {/* Right: opening hours & flight path */}
+              <div id="opening-hours" className="scroll-mt-24">
+                <h2 className="mb-4 font-display text-h3 text-ink-strong">Opening hours &amp; flight path</h2>
+                <SpeakableContent selector="opening-hours" priority="high">
+                  {/* One column: beside the address block there is not room for
+                      two, and each day now carries two kitchen sittings. */}
+                  <WeekHours initialHours={businessHours} columns={1} />
+                </SpeakableContent>
+              </div>
             </div>
           </div>
         </Container>
