@@ -204,8 +204,8 @@ describe('getKitchenWindows across midnight', () => {
   it('does not merge a late sitting into an earlier one just because it wraps', () => {
     const day = {
       opens: '12:00:00',
-      closes: '00:00:00',
-      kitchen: { opens: '12:00:00', closes: '00:00:00' },
+      closes: '00:30:00',
+      kitchen: { opens: '12:00:00', closes: '00:30:00' },
       is_closed: false,
       is_kitchen_closed: false,
       schedule_config: [
@@ -217,5 +217,61 @@ describe('getKitchenWindows across midnight', () => {
       { opens: '12:00', closes: '15:00' },
       { opens: '20:00', closes: '00:30' }
     ])
+  })
+})
+
+
+describe('getKitchenWindows clips services to the kitchen hours', () => {
+  /**
+   * A `regular` service gates drinks as well as food, so the management app
+   * deliberately lets one run past the kitchen close and live special-hours rows
+   * already do. The booking engine bounds food by both the kitchen hours and the
+   * service windows, so the published hours must intersect them too. Reading the
+   * services alone advertised food outside kitchen hours.
+   */
+  it('truncates a service that overhangs the kitchen close', () => {
+    const narrowedKitchen = {
+      opens: '12:00:00',
+      closes: '22:00:00',
+      kitchen: { opens: '13:00:00', closes: '19:00:00' },
+      is_closed: false,
+      is_kitchen_closed: false,
+      schedule_config: [
+        { name: 'lunch', starts_at: '12:00', ends_at: '14:30', capacity: 50, booking_type: 'regular' },
+        { name: 'dinner', starts_at: '17:00', ends_at: '21:00', capacity: 50, booking_type: 'regular' }
+      ]
+    }
+    expect(getKitchenWindows(narrowedKitchen)).toEqual([
+      { opens: '13:00', closes: '14:30' },
+      { opens: '17:00', closes: '19:00' }
+    ])
+  })
+
+  it('drops a service lying entirely outside the kitchen hours', () => {
+    const drinksOnly = {
+      opens: '12:00:00',
+      closes: '23:00:00',
+      kitchen: { opens: '13:00:00', closes: '15:00:00' },
+      is_closed: false,
+      is_kitchen_closed: false,
+      schedule_config: [
+        { name: 'late drinks', starts_at: '20:00', ends_at: '22:00', capacity: 50, booking_type: 'regular' }
+      ]
+    }
+    expect(getKitchenWindows(drinksOnly)).toEqual([])
+  })
+
+  it('treats a missing kitchen window as closed even when a service remains', () => {
+    const noKitchen = {
+      opens: '12:00:00',
+      closes: '22:00:00',
+      kitchen: null,
+      is_closed: false,
+      is_kitchen_closed: false,
+      schedule_config: [
+        { name: 'dinner', starts_at: '17:00', ends_at: '21:00', capacity: 50, booking_type: 'regular' }
+      ]
+    }
+    expect(getKitchenWindows(noKitchen)).toEqual([])
   })
 })
