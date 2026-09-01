@@ -156,6 +156,30 @@ function toMinutesOfDay(time: string): number | null {
 }
 
 /**
+ * Where a window ends, measured from the start of its own day.
+ *
+ * A service ending at or before 06:00 has run past midnight and is measured
+ * into the next day. One ending before it starts at any other hour is malformed
+ * rather than overnight: reading "21:00 to 16:00" as a nineteen-hour service
+ * would advertise food all night.
+ */
+function kitchenEndMinutes(window: { opens: string; closes: string }): number | null {
+  const opens = toMinutesOfDay(window.opens);
+  const closes = toMinutesOfDay(window.closes);
+  if (opens === null || closes === null) return null;
+  if (closes > opens) return closes;
+  if (closes <= LATEST_OVERNIGHT_END_MINUTES) return closes + 1440;
+  return null;
+}
+
+function fromMinutesOfDay(total: number): string {
+  const wrapped = ((total % 1440) + 1440) % 1440;
+  const hours = Math.floor(wrapped / 60);
+  const minutes = wrapped % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+/**
  * The kitchen's real service windows for a day, in order.
  *
  * `kitchen` is a single flattened span, so a day with a lunch sitting and a
@@ -171,58 +195,58 @@ function toMinutesOfDay(time: string): number | null {
 export function getKitchenWindows(effective: DayHours): KitchenWindow[] {
   if (isVenueClosed(effective) || isKitchenClosed(effective)) return [];
 
-  // A sitting that ends at or before it starts runs past midnight, the way a
-  // late service ending "00:00" does. Those are kept and measured to the next
-  // day, because discarding them would silently drop a real service. This
-  // mirrors how the booking slot builder treats a wrapping range.
-  const endMinutes = (window: { opens: string; closes: string }): number | null => {
-    const opens = toMinutesOfDay(window.opens);
-    const closes = toMinutesOfDay(window.closes);
-    if (opens === null || closes === null) return null;
-    if (closes > opens) return closes;
-    // Ending at or before 06:00 is a late service that has run past midnight.
-    // Ending before it starts at any other hour is malformed data, not a wrap:
-    // reading "21:00 to 16:00" as a nineteen-hour service would advertise food
-    // all night. Those are dropped so the flattened window stands in instead.
-    if (closes <= LATEST_OVERNIGHT_END_MINUTES) return closes + 1440;
-    return null;
-  };
+  // The kitchen's own hours are a CEILING on its services, not merely a
+  // fallback. A `regular` service gates drinks as well as food, so the
+  // management app deliberately allows one to run past the kitchen close, and
+  // live special-hours rows already do. The booking engine bounds food by both,
+  // so reading the services alone would advertise food outside kitchen hours.
+  // Absent kitchen hours mean no service at all, whatever services remain.
+  const kitchen = effective.kitchen;
+  const boundsOpenRaw =
+    kitchen && typeof kitchen === 'object' && 'opens' in kitchen ? kitchen.opens : null;
+  const boundsCloseRaw =
+    kitchen && typeof kitchen === 'object' && 'closes' in kitchen ? kitchen.closes : null;
+  const boundsOpen = toMinutesOfDay(boundsOpenRaw ?? '');
+  const boundsClose =
+    boundsOpenRaw && boundsCloseRaw
+      ? kitchenEndMinutes({ opens: boundsOpenRaw, closes: boundsCloseRaw })
+      : null;
+  if (boundsOpen === null || boundsClose === null) return [];
 
   const sittings = (effective.schedule_config ?? [])
     .map((entry) => ({ opens: entry?.starts_at ?? '', closes: entry?.ends_at ?? '' }))
-    .filter((window) => toMinutesOfDay(window.opens) !== null && endMinutes(window) !== null)
+    .filter((window) => toMinutesOfDay(window.opens) !== null && kitchenEndMinutes(window) !== null)
     .sort((a, b) => (toMinutesOfDay(a.opens) ?? 0) - (toMinutesOfDay(b.opens) ?? 0));
 
-  if (sittings.length > 0) {
-    // Sittings that touch or overlap are one continuous service to a customer,
-    // so they read as one window rather than "12pm-3pm, 3pm-9pm".
-    const merged: KitchenWindow[] = [];
-    for (const window of sittings) {
-      const previous = merged[merged.length - 1];
-      if (previous && (toMinutesOfDay(window.opens) ?? 0) <= (endMinutes(previous) ?? 0)) {
-        if ((endMinutes(window) ?? 0) > (endMinutes(previous) ?? 0)) {
-          previous.closes = window.closes;
-        }
-        continue;
+  if (sittings.length === 0) {
+    return [{ opens: boundsOpenRaw as string, closes: boundsCloseRaw as string }];
+  }
+
+  // Sittings that touch or overlap are one continuous service to a customer,
+  // so they read as one window rather than "12pm-3pm, 3pm-9pm".
+  const merged: KitchenWindow[] = [];
+  for (const window of sittings) {
+    const previous = merged[merged.length - 1];
+    if (previous && (toMinutesOfDay(window.opens) ?? 0) <= (kitchenEndMinutes(previous) ?? 0)) {
+      if ((kitchenEndMinutes(window) ?? 0) > (kitchenEndMinutes(previous) ?? 0)) {
+        previous.closes = window.closes;
       }
-      merged.push({ ...window });
+      continue;
     }
-    return merged;
+    merged.push({ ...window });
   }
 
-  const kitchen = effective.kitchen;
-  if (
-    kitchen &&
-    typeof kitchen === 'object' &&
-    'opens' in kitchen &&
-    'closes' in kitchen &&
-    kitchen.opens &&
-    kitchen.closes
-  ) {
-    return [{ opens: kitchen.opens, closes: kitchen.closes }];
-  }
-
-  return [];
+  // Clip to the kitchen's own hours. A service lying entirely outside them is
+  // gating drinks, not food, so it is dropped.
+  return merged.flatMap((window) => {
+    const start = Math.max(toMinutesOfDay(window.opens) as number, boundsOpen);
+    const end = Math.min(kitchenEndMinutes(window) as number, boundsClose);
+    if (end <= start) return [];
+    const unchanged =
+      start === (toMinutesOfDay(window.opens) as number) &&
+      end === (kitchenEndMinutes(window) as number);
+    return [unchanged ? window : { opens: fromMinutesOfDay(start), closes: fromMinutesOfDay(end) }];
+  });
 }
 
 /**
