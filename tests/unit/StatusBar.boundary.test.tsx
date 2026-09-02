@@ -152,8 +152,13 @@ describe('StatusBar Boundary Tests', () => {
 
   testScenarios.forEach(scenario => {
     it(`should display correctly ${scenario.name}`, async () => {
-      // Mock current time
-      const mockDate = new Date(`2025-08-13T${scenario.time}`)
+      // Mock current time.
+      // The offset is explicit because the scenario times are venue-local
+      // (Europe/London) and 2025-08-13 falls in BST. Without it, `new Date` reads
+      // them as the *runner's* local time, so the whole suite silently shifts by
+      // an hour on a UTC runner such as CI. That moved the 17:00 scenario onto
+      // the kitchen's 18:00 opening and broke the assertion.
+      const mockDate = new Date(`2025-08-13T${scenario.time}+01:00`)
       jest.useFakeTimers()
       jest.setSystemTime(mockDate)
       
