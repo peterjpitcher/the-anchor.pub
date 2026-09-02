@@ -1,3 +1,5 @@
+import { bookingConversionsUrl } from '@/lib/cheersai'
+
 export type BookingConversionForwardPayload = {
   sourceSite?: string | null
   bookingId: string
@@ -41,11 +43,6 @@ export type BookingConversionForwardResult =
   | { accepted: true }
   | { accepted: false; reason: 'not_configured' | 'upstream_rejected' | 'network_error' }
 
-function getIngestUrl() {
-  return process.env.CHEERSAI_BOOKING_CONVERSIONS_URL?.trim()
-    || 'https://www.cheersai.uk/api/booking-conversions'
-}
-
 function getSecret() {
   return process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET?.trim() || ''
 }
@@ -59,11 +56,22 @@ export async function forwardBookingConversionToCheersAI(
     return { accepted: false, reason: 'not_configured' }
   }
 
+  // Resolve the endpoint before opening the request so a configuration fault is
+  // reported as `not_configured` rather than surfacing as a network error. A
+  // booking must never fail because conversion tracking is misconfigured.
+  let ingestUrl: string
+  try {
+    ingestUrl = bookingConversionsUrl()
+  } catch (error) {
+    console.error('[booking-conversion] CheersAI base URL is not configured', error)
+    return { accepted: false, reason: 'not_configured' }
+  }
+
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), options?.timeoutMs ?? 1800)
 
   try {
-    const response = await fetch(getIngestUrl(), {
+    const response = await fetch(ingestUrl, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${secret}`,

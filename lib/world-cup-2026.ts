@@ -1,3 +1,5 @@
+import { tournamentFeedUrl } from '@/lib/cheersai'
+
 export type WorldCup2026MatchStage =
   | 'First Stage'
   | 'Round of 32'
@@ -56,7 +58,7 @@ const ROUND_TO_STAGE: Record<string, WorldCup2026MatchStage> = {
   final: 'Final',
 }
 
-const CHEERSAI_FEED_URL = 'https://www.cheersai.uk/api/feed/f40ef35f-5a1c-4409-8d02-27f2f97d0a0e'
+const WORLD_CUP_TOURNAMENT_ID = 'f40ef35f-5a1c-4409-8d02-27f2f97d0a0e'
 
 export async function getWorldCup2026Matches(): Promise<WorldCup2026Match[]> {
   const apiKey = process.env.CHEERSAI_FEED_API_KEY
@@ -64,7 +66,7 @@ export async function getWorldCup2026Matches(): Promise<WorldCup2026Match[]> {
     throw new Error('CHEERSAI_FEED_API_KEY environment variable is not set')
   }
 
-  const response = await fetch(`${CHEERSAI_FEED_URL}?showing=all`, {
+  const response = await fetch(`${tournamentFeedUrl(WORLD_CUP_TOURNAMENT_ID)}?showing=all`, {
     headers: { 'x-api-key': apiKey },
     next: { revalidate: 300 },
   })

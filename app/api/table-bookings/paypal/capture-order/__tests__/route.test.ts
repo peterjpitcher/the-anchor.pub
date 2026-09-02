@@ -21,7 +21,7 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
 
   afterEach(() => {
     delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
-    delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
+    delete process.env.CHEERSAI_BASE_URL
   })
 
   it('proxies valid request and returns success', async () => {
@@ -48,7 +48,7 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
 
   it('forwards successful captures as paid table booking conversions', async () => {
     process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
-    process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+    process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
     mockFetch
       .mockResolvedValueOnce({
         ok: true,
@@ -157,7 +157,7 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
 
     beforeEach(() => {
       process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
-      process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+      process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
     })
 
     it('should forward hashed email and phone when marketing consent is granted', async () => {

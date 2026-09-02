@@ -220,7 +220,7 @@ project: the-anchor-pub
 | `OPENWEATHER_API_KEY` | Server | OpenWeatherMap | Informational weather display |
 | `MICROSOFT_TENANT_ID`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, `MICROSOFT_USER_EMAIL` | Server | Microsoft Graph | `/api/enquiry/*`, `/api/careers` |
 | `CHRISTMAS_ENQUIRY_TO`, `RECRUITMENT_APPLICATION_TO` | Server | Email routing | Enquiry form handlers |
-| `CHEERSAI_BOOKING_CONVERSIONS_URL`, `CHEERSAI_BOOKING_CONVERSIONS_SECRET` | Server | CheersAI | Booking conversion webhooks |
+| `CHEERSAI_BASE_URL`, `CHEERSAI_BOOKING_CONVERSIONS_SECRET` | Server | CheersAI | Booking conversion webhooks |
 | `CHEERSAI_FEED_API_KEY` | Server | CheersAI | Sports fixture data (World Cup, etc.) |
 
 ---
