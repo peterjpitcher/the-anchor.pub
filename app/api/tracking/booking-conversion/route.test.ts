@@ -55,7 +55,7 @@ const validPayload = {
 
 beforeEach(() => {
   process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'secret-123'
-  process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+  process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
   ;(global as any).fetch = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }))
 })
 

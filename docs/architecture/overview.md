@@ -88,7 +88,7 @@ All routes follow **one of two patterns**:
 - `OPENWEATHER_API_KEY` — Weather data
 - `MICROSOFT_*` (5 vars) — Email sending (Microsoft Graph)
 - `TURNSTILE_SECRET_KEY` — Cloudflare verification
-- `CHEERSAI_*` (2 vars) — CheersAI integration
+- `CHEERSAI_*` (3 vars) - CheersAI integration (base URL, ingest secret, feed API key)
 - `CHRISTMAS_ENQUIRY_TO`, `RECRUITMENT_APPLICATION_TO` — Email routing
 
 ## Key Integrations

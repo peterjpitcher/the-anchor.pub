@@ -30,7 +30,7 @@ describe('Event Bookings API - policy violation handling', () => {
   afterEach(() => {
     delete process.env.ANCHOR_API_KEY
     delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
-    delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
+    delete process.env.CHEERSAI_BASE_URL
     jest.clearAllMocks()
   })
 
@@ -184,7 +184,7 @@ describe('Event Bookings API - policy violation handling', () => {
 
   it('forwards confirmed event bookings to CheersAI with paid attribution', async () => {
     process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
-    process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+    process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
 
     ;(global.fetch as jest.Mock)
       .mockResolvedValueOnce(

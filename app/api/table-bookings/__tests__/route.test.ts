@@ -105,7 +105,7 @@ beforeEach(() => {
 
 afterEach(() => {
   delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
-  delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
+  delete process.env.CHEERSAI_BASE_URL
   jest.clearAllMocks()
   jest.useRealTimers()
 })
@@ -248,7 +248,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
 
   it('forwards confirmed table bookings to CheersAI with stored attribution and no PII', async () => {
     process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
-    process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+    process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
 
@@ -303,7 +303,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     expect(JSON.stringify(conversion)).not.toMatch(/07700900000|Jane|Guest|jane@example\.com/)
 
     delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
-    delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
+    delete process.env.CHEERSAI_BASE_URL
   })
 
   it('accepts a drinks booking at 22:30 even when schedule_config drinks entry matches kitchen hours', async () => {

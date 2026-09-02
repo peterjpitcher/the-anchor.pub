@@ -26,9 +26,9 @@ This is the canonical list of environment variables consumed by the website. Sou
 | `MS_PREVIEW_TOKEN` | Token gating CMS preview content | no | `app/drinks/managers-special/page.tsx`, `app/api/managers-special/route.ts` |
 | `CHRISTMAS_ENQUIRY_TO` | Recipient address override for Christmas enquiries | no | `app/api/enquiry/christmas/route.ts` |
 | `RECRUITMENT_APPLICATION_TO` | Recipient address override for recruitment applications | no | `app/api/enquiry/recruitment/route.ts` |
-| `CHEERSAI_BOOKING_CONVERSIONS_URL` | CheersAI booking conversion webhook URL | yes | `lib/booking-conversion-forwarding.ts` |
+| `CHEERSAI_BASE_URL` | Origin of the CheersAI app. Required in production; the conversion ingest and fixture feed URLs are both derived from it | yes | `lib/cheersai.ts` |
 | `CHEERSAI_BOOKING_CONVERSIONS_SECRET` | Shared secret for CheersAI conversion forwarding | yes | `lib/booking-conversion-forwarding.ts` |
-| `CHEERSAI_FEED_API_KEY` | CheersAI tournament fixture feed API key | yes | CheersAI feed integration |
+| `CHEERSAI_FEED_API_KEY` | CheersAI tournament fixture feed API key | yes | `lib/world-cup-2026.ts` |
 | `API_DEBUG_LOGS` | Toggles verbose API client logging | no | `lib/api/client.ts` |
 | `ENABLE_BUILD_TIME_EXTERNAL_API` | Allows external API calls during `next build` | no | `lib/api/client.ts` and similar |
 | `SEASONAL_IMAGE_LOGS` | Verbose logging for seasonal image picker | no | `lib/` (seasonal helpers) |
