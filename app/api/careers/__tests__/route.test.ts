@@ -229,7 +229,7 @@ describe('POST /api/careers', () => {
     await postWithFormData()
 
     expect(mockCheckSpamProtection).toHaveBeenCalledTimes(1)
-    // The third argument (options) should be undefined — no skipTurnstile
+    // The third argument (options) should be undefined, no skipTurnstile
     const optionsArg = mockCheckSpamProtection.mock.calls[0][2]
     expect(optionsArg).toBeUndefined()
   })

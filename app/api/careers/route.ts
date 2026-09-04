@@ -68,7 +68,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       website,
     }
 
-    // Spam protection — do NOT pass skipTurnstile
+    // Spam protection, do NOT pass skipTurnstile
     const spam = await checkSpamProtection(request, bodyRecord)
     if (spam.blocked) return spam.response!
 
