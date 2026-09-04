@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
+import { logError } from '@/lib/error-handling'
 import {
   sanitizeCommunicationConsent,
   communicationConsentIdempotencyPart,
 } from '@/lib/communication-consent-server'
+
+// Shown to the guest whenever the order could not be created for a reason they
+// cannot fix themselves. It carries the phone number because the alternative is
+// a dead end: the PayPal sheet never opens and there is nothing else to try.
+const ORDER_FAILED_MESSAGE =
+  'We could not start your parking payment. Please try again, or call 01753 682707 and we will book your space.'
 
 const CreateOrderSchema = z.object({
   customer: z.object({
@@ -70,15 +77,34 @@ export async function POST(request: NextRequest) {
       ...orderData,
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     }, idempotencyKey)
+
+    // The wizard hands paypal_order_id straight to the PayPal SDK and keeps
+    // booking_id for the capture step. An answer missing either is not an order
+    // we can trust, so it must not leave here as a 201: PayPal would open on an
+    // undefined order and the guest would see a broken payment sheet with no
+    // idea who to call.
+    const order = result as { paypal_order_id?: unknown; booking_id?: unknown } | null
+    if (!order || !order.paypal_order_id || !order.booking_id) {
+      logError('api/parking/payment/create-order', new Error('Create-order response was incomplete'), {
+        registration: registrationFingerprint,
+      })
+      return NextResponse.json({ error: ORDER_FAILED_MESSAGE }, { status: 502 })
+    }
+
     return NextResponse.json(result, { status: 201 })
   } catch (error: unknown) {
     // error is typed as unknown; cast to access dynamic API error shape
     const apiError = error as { status?: number; code?: string }
     const status = apiError?.status === 409 ? 409 : 502
+
+    if (status !== 409) {
+      logError('api/parking/payment/create-order', error, { registration: registrationFingerprint })
+    }
+
     const message =
       apiError?.code === 'CAPACITY_UNAVAILABLE'
         ? 'Sorry, this slot is now fully booked. Please choose different dates.'
-        : 'Unable to create payment order. Please try again.'
+        : ORDER_FAILED_MESSAGE
     return NextResponse.json(
       { error: message, ...(status === 409 ? { code: apiError?.code } : {}) },
       { status }

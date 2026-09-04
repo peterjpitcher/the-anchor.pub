@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { logError } from '@/lib/error-handling'
 import {
   escapeHtml,
   sendMicrosoftGraphEmail,
@@ -21,6 +22,12 @@ const ROLE_LABELS: Record<string, string> = {
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+// The application only exists as an email. If the send fails there is no record
+// of it anywhere, so the applicant must be told plainly and given a way to
+// reach us rather than being left to assume it arrived.
+const APPLICATION_FAILED_MESSAGE =
+  'We could not send your application. Please try again, or call us on 01753 682707 and we will take your details.'
 
 function sanitiseFilename(name: string): string {
   return name.replace(/[^a-zA-Z0-9.\-]/g, '_')
@@ -143,9 +150,9 @@ export async function POST(request: NextRequest): Promise<Response> {
     // Check email service configuration
     const graphUser = process.env.MICROSOFT_USER_EMAIL
     if (!graphUser) {
-      console.error('MICROSOFT_USER_EMAIL is not configured.')
+      logError('api/careers', new Error('MICROSOFT_USER_EMAIL is not configured'))
       return NextResponse.json(
-        { success: false, error: 'Email service is not configured. Please contact the site administrator.' },
+        { success: false, error: APPLICATION_FAILED_MESSAGE },
         { status: 500 }
       )
     }
@@ -188,9 +195,9 @@ export async function POST(request: NextRequest): Promise<Response> {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Job application submission failed:', error)
+    logError('api/careers', error)
     return NextResponse.json(
-      { success: false, error: 'Something went wrong. Please try again later.' },
+      { success: false, error: APPLICATION_FAILED_MESSAGE },
       { status: 500 }
     )
   }

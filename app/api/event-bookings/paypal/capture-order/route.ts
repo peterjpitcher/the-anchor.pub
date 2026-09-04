@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { logError } from '@/lib/error-handling'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
+
+// The guest has already paid by the time this route runs. A capture we cannot
+// read is not a capture, and it must never be dressed up as one: the phone
+// number is the only way they can find out whether the money moved.
+const CAPTURE_UNAVAILABLE_MESSAGE =
+  'We could not confirm your payment. Please call us on 01753 682707 before paying again, and we will check whether it went through.'
 
 const BodySchema = z.object({
   bookingId: z.string().uuid(),
@@ -133,7 +140,8 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   if (!process.env.ANCHOR_API_KEY) {
-    return jsonNoStore({ error: 'Payment service unavailable' }, { status: 503 })
+    logError('api/event-bookings/paypal/capture-order', new Error('ANCHOR_API_KEY is not configured'))
+    return jsonNoStore({ error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 503 })
   }
 
   const { bookingId, orderId } = parsed.data
@@ -150,14 +158,35 @@ export async function POST(request: NextRequest): Promise<Response> {
       cache: 'no-store',
     })
 
-    const data = await response.json().catch(() => ({ error: 'Payment service unavailable' }))
+    const data = await response.json().catch(() => null)
+
+    // A body we could not parse used to be replaced with our own error object
+    // and returned under the upstream's status. On a 2xx that is a fabricated
+    // confirmation for a payment nobody has verified, so it fails closed here
+    // instead. A readable body is passed through untouched, which keeps the
+    // upstream's 202 manual-review signal intact.
+    if (data === null) {
+      logError(
+        'api/event-bookings/paypal/capture-order',
+        new Error(`Upstream ${response.status} body could not be parsed`),
+        { bookingId, orderId },
+      )
+      return jsonNoStore({ error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 502 })
+    }
 
     if (response.ok && data?.success === true) {
       await forwardCapturedEventConversion(request, parsed.data)
+    } else if (!response.ok) {
+      logError(
+        'api/event-bookings/paypal/capture-order',
+        new Error(`Upstream responded ${response.status}`),
+        { bookingId, orderId },
+      )
     }
 
     return jsonNoStore(data, { status: response.status })
-  } catch {
-    return jsonNoStore({ error: 'Payment service unavailable' }, { status: 502 })
+  } catch (error) {
+    logError('api/event-bookings/paypal/capture-order', error, { bookingId, orderId })
+    return jsonNoStore({ error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 502 })
   }
 }

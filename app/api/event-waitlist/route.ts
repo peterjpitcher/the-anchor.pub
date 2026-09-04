@@ -13,6 +13,9 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
+const WAITLIST_UNAVAILABLE_MESSAGE =
+  'We could not join the waitlist right now. Please call 01753 682707.'
+
 type EventWaitlistPayload = {
   event_id: string
   phone: string
@@ -195,6 +198,19 @@ export async function POST(request: NextRequest) {
       error: getSafeUpstreamErrorMessage(rawText, 'Event waitlist request failed')
     }
 
+    // An OK status we could not parse is not a place on the waitlist. This used
+    // to return `success: false` under the upstream's own 2xx, so anything
+    // reading the status rather than the body, a retry wrapper, a log, a future
+    // caller, would record a join that never happened.
+    if (upstream.ok && parsed === null) {
+      logError(
+        'api/event-waitlist',
+        new Error(`Upstream ${upstream.status} body could not be parsed`),
+        { eventId: normalized.payload.event_id }
+      )
+      return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 502)
+    }
+
     // Handle BOOKINGS_DISABLED rejection from management API
     if (upstream.status === 409 && hasUpstreamErrorCode(parsed, 'BOOKINGS_DISABLED')) {
       return NextResponse.json(
@@ -211,9 +227,6 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     logError('api/event-waitlist', error)
-    return createApiErrorResponse(
-      'We could not join the waitlist right now. Please call 01753 682707.',
-      503
-    )
+    return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 503)
   }
 }
