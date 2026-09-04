@@ -33,7 +33,9 @@ Endpoints used: `GET /business/hours`, `GET /table-bookings/availability`, `POST
 - `sunday_lunch` and `food` bookings need the kitchen; `drinks` does not. If the kitchen is closed, food and sunday_lunch slots must be empty and drinks slots unaffected.
 - Hours are effective-dated (`upcomingVersions`). `kitchen` is a flattened span; `schedule_config` holds the real sittings.
 
-Key files: `lib/api.ts` (`anchorAPI.*` client and the `buildTableAvailabilityFromBusinessHours()` fallback), `lib/table-booking-service-windows.ts` (`resolveServiceRanges()`), `lib/hours-utils.ts` (`getEffectiveDayHours()`, `isKitchenClosed()`). Use `lib/hours-utils.ts` for all hours logic; never re-implement hours parsing inline.
+Key files: `lib/api/client.ts` holds the `anchorAPI` client (`lib/api.ts` is only a re-export barrel), `lib/table-booking-service-windows.ts` has `resolveServiceRanges()`, and `lib/hours-utils.ts` has `getEffectiveDayHours()` and `isKitchenClosed()`. Use `lib/hours-utils.ts` for all hours logic; never re-implement hours parsing inline.
+
+**Availability fails closed, and must stay that way.** `app/api/table-bookings/availability/route.ts` returns no slots and the phone number when the management API gives no table read-out or answers "unknown", and a 503 with the phone number if the call throws. The client registers no fallback for availability, and skips its fallback entirely for `/business/hours` so stale times are never served. The site once advertised times when the pub was physically full, because local slot maths cannot see tables, joins or private bookings. Never reintroduce locally calculated slots as an outage fallback.
 
 ## Critical business rules (full detail in docs/SSOT.md)
 
