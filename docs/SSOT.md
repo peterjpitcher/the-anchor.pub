@@ -677,3 +677,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 **Word doc render:** `docs/SSOT-Review-The-Anchor.docx` can be regenerated for non-technical reviewers via `node docs/generate-ssot-docx.mjs` (the script reads `/SSOT.json`, so update the JSON first if the docx is what an external reviewer is reading).
 
 **Process docs (separate concern):** `docs/ssot-review-spec.json` is a spec for the SSOT *review process*, not a brand-fact source. Don't edit it as part of routine fact updates.
+
+### Nations Championship screenings, owner decision 5 September 2026
+
+We show Nations Championship games broadcast on terrestrial TV during our existing opening hours. Bookings must not wait for the exact channel, screen allocation or commentary arrangement. Early games are shown from opening and viewing ends at closing. A missing match finish time uses the existing two-hour booking window for booking planning only, never as a claim about the actual final whistle. Kitchen promotion follows the live service intervals.

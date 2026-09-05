@@ -1,5 +1,5 @@
 import { buildScreeningCalendar } from '@/lib/nations-championship/calendar'
-import { nationsFixture } from '../fixtures/nations-championship'
+import { nationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 const now = new Date('2026-09-05T07:00:00Z')
 it('starts a partial screening at opening and includes food and missed-start details', () => {
   const ics = buildScreeningCalendar(nationsFixture(), now)
@@ -20,4 +20,12 @@ it('escapes calendar injection and folds UTF8 safely', () => {
   expect(text.match(/\r\nBEGIN:VEVENT/g)).toHaveLength(1)
   expect(text.replace(/\r\n/g, '')).not.toContain('\r')
   expect(text.split('\r\n').every(line => Buffer.byteLength(line) <= 75)).toBe(true)
+})
+
+it('marks a late approved booking window and closing, without inventing a final whistle', () => {
+  const calendar = buildScreeningCalendar(approvedNationsFixture(true), now).replace(/\r\n /g, '')
+  expect(calendar).toContain('DTEND:20261107T220000Z')
+  expect(calendar).toContain('booking window, not the final whistle'.replace(',', '\\,'))
+  expect(calendar).toContain('Viewing ends when the pub closes')
+  expect(calendar).not.toContain('the start of the game is missed')
 })

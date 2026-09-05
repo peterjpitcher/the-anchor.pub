@@ -10,7 +10,7 @@ export function fixtureBookingHref(fixture: ScreeningFixture): string {
 const statusLabels: Record<ScreeningFixture['screening']['status'], string> = {
   awaiting_channel: 'Awaiting ITV channel confirmation', awaiting_decision: 'Screening decision pending',
   hours_unknown: 'Opening times unavailable', opening_conflict: 'Screening times under review',
-  confirmed_full: 'Confirmed screening', confirmed_partial: 'Showing from opening',
+  confirmed_full: 'Confirmed screening', confirmed_partial: 'Showing during opening hours',
   not_showing: 'Not showing', finished: 'Finished', cancelled: 'Cancelled',
 }
 export function FixtureCard({ fixture, stale = false, location = 'fixture_card', anchor = true }: {
@@ -31,7 +31,9 @@ export function FixtureCard({ fixture, stale = false, location = 'fixture_card',
       <p className="mt-2 text-ink-strong"><time dateTime={fixture.kickOffAt}>{kickoff.toFormat('cccc d LLLL yyyy')}</time></p>
       <p className="font-semibold text-ink-strong">Kick-off {kickoff.toFormat('h:mma').toLowerCase()} (UK time)</p>
       <p className="mt-3 text-ink-strong">{fixture.screening.openingLabel}</p>
-      {fixture.screening.status === 'confirmed_partial' && <p className="mt-2 font-semibold text-accent-text">Showing from {DateTime.fromISO(fixture.screening.screeningStartAt!).setZone('Europe/London').toFormat('h:mma').toLowerCase()}. You will miss the start of the game.</p>}
+      {['from_opening', 'from_opening_until_closing'].includes(fixture.coverage) && fixture.screening.status === 'confirmed_partial' && <p className="mt-2 font-semibold text-accent-text">Showing from {DateTime.fromISO(fixture.screening.screeningStartAt!).setZone('Europe/London').toFormat('h:mma').toLowerCase()}. You will miss the start of the game.</p>}
+      {['until_closing', 'from_opening_until_closing'].includes(fixture.coverage) && fixture.screening.status === 'confirmed_partial' && <p className="mt-2 font-semibold text-accent-text">Viewing ends at {DateTime.fromISO(fixture.screening.screeningEndAt!).setZone('Europe/London').toFormat('h:mma').toLowerCase()} when the pub closes, even if the game continues.</p>}
+      {fixture.bookingApproved && !fixture.linearChannel && <p className="mt-2 text-sm text-ink-muted">Terrestrial TV screening. Exact channel details will follow.</p>}
       {fixture.screeningDecision === 'confirmed' && <p className="mt-2 text-sm text-ink-muted">{fixture.linearChannel ?? 'Channel awaiting confirmation'} · {fixture.screenLabel ?? 'Screen allocation pending'} · {fixture.commentary === 'on' ? 'Commentary on' : fixture.commentary === 'off' ? 'Without commentary' : 'Commentary pending'}</p>}
       {food ? <div className="mt-4 rounded-card bg-surface-sunk p-4">
         <p className="font-semibold text-ink-strong">{fixture.screening.foodPromotion.kind === 'before_match' ? 'Make time for food before the rugby' : 'Food and rugby at The Anchor'}</p>
@@ -45,7 +47,7 @@ export function FixtureCard({ fixture, stale = false, location = 'fixture_card',
       <details className="mt-4 text-sm text-ink-muted">
         <summary className="cursor-pointer py-2">Fixture checks and sharing</summary>
         <p>{fixture.sourceCheckedAt ? `Fixture checked ${DateTime.fromISO(fixture.sourceCheckedAt).setZone('Europe/London').toFormat('d LLL yyyy, HH:mm')}` : 'Fixture verification pending'}</p>
-        <p>{fixture.broadcastCheckedAt ? `Channel checked ${DateTime.fromISO(fixture.broadcastCheckedAt).setZone('Europe/London').toFormat('d LLL yyyy, HH:mm')}` : 'Channel verification pending'}</p>
+        <p>{fixture.broadcastCheckedAt ? `Broadcast checked ${DateTime.fromISO(fixture.broadcastCheckedAt).setZone('Europe/London').toFormat('d LLL yyyy, HH:mm')}` : 'Channel verification pending'}</p>
         <Link href={`/live-sport/nations-championship#fixture-${fixture.id}`} onClick={() => trackNationsEvent('select_fixture', tracking)} className="inline-flex min-h-11 items-center underline">Link to {label}</Link>
       </details>
     </article>

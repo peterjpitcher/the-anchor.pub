@@ -27,12 +27,13 @@ export const screeningFixtureSchema = z.object({
   kickOffAt: instant,
   plannedEndAt: instant.nullable(),
   matchState: z.enum(['scheduled', 'in_progress', 'finished', 'cancelled']),
+  bookingApproved: z.boolean().default(false),
   screeningDecision: z.enum(['unconfirmed', 'confirmed', 'not_showing']),
   broadcastDecision: z.enum(['unconfirmed', 'confirmed', 'not_linear']),
   linearChannel: z.string().nullable(),
   screenLabel: z.string().nullable(),
   commentary: z.enum(['unconfirmed', 'on', 'off']),
-  coverage: z.enum(['full', 'from_opening']),
+  coverage: z.enum(['full', 'from_opening', 'until_closing', 'from_opening_until_closing']),
   sourceUrl: z.string().url().nullable(),
   sourceCheckedAt: instant.nullable(),
   broadcastCheckedAt: instant.nullable(),
@@ -73,14 +74,22 @@ export function isBookableScreening(fixture: ScreeningFixture, now = new Date())
   const start = Date.parse(fixture.screening.screeningStartAt ?? '')
   const end = Date.parse(fixture.screening.screeningEndAt ?? '')
   const bar = fixture.hours.bar
+  const approved = fixture.bookingApproved && fixture.screeningDecision !== 'not_showing'
+  const plannedEnd = Date.parse(fixture.plannedEndAt ?? '')
+  // Same two-hour planning duration as lib/api/bookings.ts, never a final-whistle promise.
+  const bookingEnd = fixture.plannedEndAt === null
+    ? Date.parse(fixture.kickOffAt) + 120 * 60_000 : plannedEnd
+  const expectedEnd = approved && bar ? Math.min(bookingEnd, Date.parse(bar.endAt)) : plannedEnd
+  const technicalDetailsConfirmed = fixture.screeningDecision === 'confirmed' &&
+    Boolean(fixture.linearChannel?.trim() && fixture.screenLabel?.trim())
   return fixture.screening.canBookForScreening &&
     ['confirmed_full', 'confirmed_partial'].includes(fixture.screening.status) &&
-    fixture.screeningDecision === 'confirmed' && fixture.broadcastDecision === 'confirmed' &&
+    (approved || technicalDetailsConfirmed) && fixture.broadcastDecision === 'confirmed' &&
     !['cancelled', 'finished'].includes(fixture.matchState) &&
     fixture.hours.state === 'open' && Boolean(bar) &&
-    Boolean(fixture.linearChannel?.trim() && fixture.screenLabel?.trim() && fixture.broadcastCheckedAt && fixture.screeningConfirmedAt) &&
+    Boolean(fixture.broadcastCheckedAt && fixture.screeningConfirmedAt) &&
     fixture.screening.hoursFingerprint === fixture.hours.fingerprint &&
     Number.isFinite(start) && start >= Date.parse(fixture.kickOffAt) &&
     start >= Date.parse(bar!.startAt) && end <= Date.parse(bar!.endAt) &&
-    end === Date.parse(fixture.plannedEndAt ?? '') && end > start && end > now.getTime()
+    end === expectedEnd && end > start && end > now.getTime()
 }

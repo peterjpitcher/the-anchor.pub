@@ -27,6 +27,17 @@ Owner decisions on the record: unlink the never-used marketing skills; standardi
 - Supabase's own platform default still grants anon on objects created by supabase_admin. It cannot be changed without membership of that role.
 - OJ-Planner looks superseded by OJ-PlanneriPhoneApp. Its instruction file says to check before investing.
 
+# Terrestrial rugby bookings
+
+- [x] Record the owner decision and preserve live hours rules.
+- [x] Accept approved booking windows in the feed consumer and booking checks.
+- [x] Explain start and closing limits accurately on cards, booking forms and calendars.
+- [x] Verify focused browser flow and full London/UTC gates.
+
+Website consumer change is independently deployable before the Cheers producer. No database change.
+
+Validation: lint, types, build, 183 suites and 1979 passing tests in both London and UTC after merging the API-outage changes from main. Isolated owner-approved browser booking, cancellation and response recovery passed with no external writes, console errors or accessibility violations.
+
 ## API connections, 5 September 2026
 
 - [x] Complete parking and runtime API fallback remediation. Evidence and checks: tasks/fix-function/2026-09-05-api-connections/. Verified branch changes; root coordinates merge and deployment.

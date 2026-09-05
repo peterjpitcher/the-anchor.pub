@@ -2,11 +2,12 @@
 // Local-only browser fixture server. Every outbound fetch is intercepted before
 // Next starts. It never delegates to native fetch, including unknown URLs.
 const http = require('node:http')
-const { nationsFeed } = require('../tests/fixtures/nations-championship.ts')
+const { nationsFeed, approvedNationsFixture } = require('../tests/fixtures/nations-championship.ts')
 const requests = []
 const outcomes = new Map()
 let feedUnavailable = false
-const feed = nationsFeed()
+const feed = nationsFeed(process.env.NATIONS_APPROVED_TEST === 'true' ? [approvedNationsFixture()] : undefined)
+const initialScreeningDecision = feed.fixtures[0].screeningDecision
 const hours = {
   regularHours: Object.fromEntries(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(day => [day, { opens: '12:00', closes: '22:00', is_closed: false, kitchen: { opens: '12:00', closes: '19:00' } }])),
   specialHours: [], currentStatus: { isOpen: false, kitchenOpen: false }, timezone: 'Europe/London',
@@ -67,7 +68,7 @@ app.prepare().then(() => {
     if (req.url.startsWith('/__nations_test')) {
       const url = new URL(req.url, 'http://127.0.0.1')
       if (url.searchParams.has('outage')) feedUnavailable = url.searchParams.get('outage') === 'true'
-      if (url.searchParams.has('cancel')) feed.fixtures[0].screeningDecision = url.searchParams.get('cancel') === 'true' ? 'not_showing' : 'confirmed'
+      if (url.searchParams.has('cancel')) feed.fixtures[0].screeningDecision = url.searchParams.get('cancel') === 'true' ? 'not_showing' : initialScreeningDecision
       res.setHeader('content-type', 'application/json'); res.end(JSON.stringify({ requests, feedUnavailable })); return
     }
     await handle(req, res)
