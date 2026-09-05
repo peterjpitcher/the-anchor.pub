@@ -52,6 +52,7 @@ export function StickyCtas() {
   const pathname = usePathname()
   const isBookTable = pathname?.startsWith('/book-table') ?? false
   const isChristmasParties = pathname === '/christmas-parties'
+  const isNationsChampionship = pathname === '/live-sport/nations-championship'
 
   const [visible, setVisible] = useState(false)
   const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
@@ -162,7 +163,11 @@ export function StickyCtas() {
       data-testid="sticky-ctas"
     >
       <div className="container flex items-center gap-3 lg:justify-end">
-        {isChristmasParties ? (
+        {isNationsChampionship ? (
+          <Button asChild variant="primary" size="md" className="flex-1 lg:flex-none" tabIndex={showStickyCtas ? undefined : -1}>
+            <Link href="#fixtures" onClick={() => trackCtaClick({ id: 'nations_sticky', label: 'Choose a game', location: 'sticky_global', destination: '#fixtures' })}>Choose a game</Link>
+          </Button>
+        ) : isChristmasParties ? (
           <Button
             variant="primary"
             size="md"
