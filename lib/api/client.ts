@@ -13,7 +13,7 @@ import {
 } from '@/lib/table-booking-service-windows'
 
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
-import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsResponse } from './events'
+import { FALLBACK_EVENT_CATEGORIES } from './events'
 import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
 import {
   CHRISTMAS_MENU_CODE,
@@ -32,7 +32,6 @@ import type {
   ParkingCreateOrderResponse,
   ParkingCaptureResponse
 } from './parking'
-import { FALLBACK_PARKING_RATES } from './parking'
 import type { MenuItem } from './menu'
 
 /**
@@ -756,8 +755,10 @@ export class AnchorAPI {
 
       const fallback = this.getFallbackResponse(baseEndpoint, endpointParams)
 
-      // Never serve stale business hours at runtime – a network error shouldn't show wrong times
-      const shouldSkipFallback = baseEndpoint === '/business/hours'
+      // Runtime operational data must come from management. Build placeholders
+      // must never advertise invented event dates or capacity to a visitor.
+      const shouldSkipFallback = baseEndpoint === '/business/hours' ||
+        baseEndpoint === '/events' || baseEndpoint.startsWith('/events/')
 
       if (fallback && !shouldSkipFallback) {
         console.warn(`[api-request] Using fallback data for ${baseEndpoint}`, {
@@ -1386,7 +1387,23 @@ export class AnchorAPI {
 
   // Parking
   async getParkingRates(): Promise<ParkingRateCard> {
-    return this.request<ParkingRateCard>('/parking/rates')
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+    try {
+      const rates = await this.request<ParkingRateCard>('/parking/rates', {
+        signal: controller.signal,
+        next: { revalidate: 0 }
+      } as RequestInit & { next: { revalidate: number } })
+      const amounts = [rates?.hourly_rate, rates?.daily_rate, rates?.weekly_rate, rates?.monthly_rate]
+      if (!rates || typeof rates.id !== 'string' || !amounts.every(amount =>
+        typeof amount === 'number' && Number.isFinite(amount) && amount >= 0
+      )) {
+        throw { code: 'INVALID_RESPONSE', message: 'Invalid parking rates from management', status: 502 }
+      }
+      return rates
+    } finally {
+      clearTimeout(timeout)
+    }
   }
 
   async getParkingAvailability(params: {
@@ -1540,25 +1557,14 @@ export class AnchorAPI {
       return FALLBACK_EVENT_CATEGORIES
     }
 
-    if (endpoint === '/parking/rates') {
-      return FALLBACK_PARKING_RATES
-    }
-
     // No entry for the Sunday lunch menu: getSundayLunchMenu owns its own recovery
     // (real menu, then the Sunday sections of the main menu, then the empty fallback),
     // and a silent fallback here only ever hid a request that could not have worked.
 
-    if (endpoint === '/events' || endpoint === '/events/') {
-      return createFallbackEventsResponse()
-    }
-
-    if (endpoint === '/events/today') {
-      return createFallbackEventsResponse()
-    }
-
-    if (endpoint.startsWith('/events/')) {
-      const eventId = endpoint.replace('/events/', '').replace(/\/+$/, '') || 'event'
-      return createFallbackEvent(eventId)
+    if (endpoint === '/events' || endpoint === '/events/' || endpoint === '/events/today') {
+      // Builds can render an empty events state without calling management.
+      // Never manufacture a scheduled event for statically rendered pages.
+      return { events: [], pagination: { total: 0, limit: 0, offset: 0 } }
     }
 
     return null
