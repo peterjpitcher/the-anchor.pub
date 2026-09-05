@@ -730,5 +730,40 @@
     "source": "/events/rum-tasting-night-june--2025",
     "destination": "/whats-on",
     "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-03-18",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-04-29",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-05-20",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-07-29",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-09-02",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-09-30",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-11-18",
+    "destination": "/cash-bingo",
+    "permanent": true
   }
 ]
