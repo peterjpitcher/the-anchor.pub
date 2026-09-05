@@ -36,7 +36,7 @@ Owner decisions on the record: unlink the never-used marketing skills; standardi
 
 Website consumer change is independently deployable before the Cheers producer. No database change.
 
-Validation: lint, types, build, 180 suites in both London and UTC; 1958 passing tests after focused API additions. Isolated owner-approved browser booking, cancellation and response recovery passed with no external writes, console errors or accessibility violations.
+Validation: lint, types, build, 183 suites and 1979 passing tests in both London and UTC after merging the API-outage changes from main. Isolated owner-approved browser booking, cancellation and response recovery passed with no external writes, console errors or accessibility violations.
 
 ## API connections, 5 September 2026
 
