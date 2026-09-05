@@ -7,6 +7,18 @@ import { cn } from '@/lib/utils'
 import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import type { BaseComponentProps } from '../types'
 
+/**
+ * How long the modal waits before moving focus into itself, so focus lands after the
+ * open transition rather than during it.
+ *
+ * Exported because the test has to wait exactly this long. It previously guessed at the
+ * value with a 200ms `waitFor`, which left CI a 100ms wall-clock budget to render jsdom
+ * and fire the timer; that assertion failed on `main` three times on commits which never
+ * touched this component. Anything driving this timer should import the constant rather
+ * than restate the number.
+ */
+export const MODAL_FOCUS_DELAY_MS = 100
+
 const modalVariants = cva(
   'relative bg-surface text-ink rounded-md mx-auto border border-line shadow-lg',
   {
@@ -175,7 +187,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           )
           firstFocusable?.focus()
         }
-      }, 100)
+      }, MODAL_FOCUS_DELAY_MS)
 
       return () => {
         clearTimeout(timer)

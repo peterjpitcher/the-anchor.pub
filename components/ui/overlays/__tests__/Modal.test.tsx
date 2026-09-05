@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { act, render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../Modal'
+import { MODAL_FOCUS_DELAY_MS, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../Modal'
 
 describe('Modal', () => {
   it('renders when open', () => {
@@ -135,19 +135,39 @@ describe('Modal', () => {
     expect(screen.getByRole('dialog')).toHaveClass('max-w-2xl')
   })
 
-  it('focuses first focusable element when opened', async () => {
-    render(
-      <Modal open={true} onClose={() => {}}>
-        <ModalBody>
-          <button>First button</button>
-          <button>Second button</button>
-        </ModalBody>
-      </Modal>
-    )
-    
-    await waitFor(() => {
+  it('focuses first focusable element when opened', () => {
+    // Driven, not raced. The modal moves focus on a MODAL_FOCUS_DELAY_MS timer, so the
+    // old `waitFor(..., { timeout: 200 })` gave a shared CI runner 100ms of wall clock to
+    // render jsdom and fire it. That budget failed on `main` three times, on commits
+    // which never touched this component, and a test that goes red for reasons unrelated
+    // to the change is how a real failure eventually gets waved through.
+    //
+    // Advancing the timer directly removes the clock from the assertion entirely and
+    // pins the actual contract: focus is not moved before the delay, and lands after it.
+    jest.useFakeTimers()
+
+    try {
+      render(
+        <Modal open={true} onClose={() => {}}>
+          <ModalBody>
+            <button>First button</button>
+            <button>Second button</button>
+          </ModalBody>
+        </Modal>
+      )
+
+      // Proves the timer is what moves focus. Without this the test would still pass if
+      // the delay were removed and focus moved synchronously on mount.
+      expect(screen.getByLabelText('Close modal')).not.toHaveFocus()
+
+      act(() => {
+        jest.advanceTimersByTime(MODAL_FOCUS_DELAY_MS)
+      })
+
       expect(screen.getByLabelText('Close modal')).toHaveFocus()
-    }, { timeout: 200 })
+    } finally {
+      jest.useRealTimers()
+    }
   })
 
   it('traps focus within modal', async () => {
