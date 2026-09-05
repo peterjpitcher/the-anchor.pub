@@ -48,6 +48,15 @@ async function main() {
     evidence.checks.push('Immediate refresh, separate date headings, filters remove empty dates, editorial below fixtures')
     for (const width of [375, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1000 })
+      if (width === 375) {
+        await page.getByRole('button', { name: 'Open menu', exact: true }).click()
+        const mobileMenu = page.getByRole('dialog', { name: 'Mobile navigation menu' })
+        const tournamentLink = mobileMenu.getByRole('link', { name: 'Nations Championship', exact: true })
+        await tournamentLink.waitFor({ state: 'visible' })
+        assert.equal(await tournamentLink.getAttribute('href'), '/live-sport/nations-championship')
+        await page.getByRole('button', { name: 'Close menu', exact: true }).first().click()
+        evidence.checks.push('Nations Championship is accessible in the mobile navigation menu at 375 pixels')
+      }
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
       await page.locator('#fixtures').scrollIntoViewIfNeeded()
       await page.screenshot({ path: `${output}/dates-${width}.png` })
