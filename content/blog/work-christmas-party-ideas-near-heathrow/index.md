@@ -81,7 +81,7 @@ The menu is released closer to the time, and prices come from our live system ra
 
 ## The deposit, and why per-person deposits help you
 
-Every Christmas booking carries a £10 per person deposit, whatever the size of the party. Taken at booking, non-refundable, and deducted from your bill on the night.
+Every Christmas booking carries a £10 per person deposit, whatever the size of the party. Taken at booking and deducted from your bill on the night. Cancel more than seven days before the booking and we refund it in full; inside seven days it is not refunded.
 
 Organisers flinch at that line. They should not, because the deposit is doing a job for you. Work Christmas headcounts drift: twenty-two say yes in October, nineteen turn up in December, and you are the one explaining the gap. A per-person deposit turns a casual "yeah, put me down" into a small commitment, so your final number is closer to the truth. It also gives you a clean reason to collect from colleagues while the do is still a nice idea, rather than chasing them in January.
 
@@ -125,7 +125,7 @@ No. We stopped running shared party nights, and we do not put on a DJ or a Chris
 
 ### How does the deposit work?
 
-Every Christmas booking takes a £10 per person deposit at booking, regardless of party size. It is non-refundable and deducted from your final bill on the night.
+Every Christmas booking takes a £10 per person deposit at booking, regardless of party size. It is deducted from your final bill on the night, and refunded in full if you cancel more than seven days before your booking. Inside seven days it is not refunded.
 
 ### Do we all have to have the same number of courses?
 

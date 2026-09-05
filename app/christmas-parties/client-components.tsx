@@ -412,7 +412,7 @@ function buildFaqItems(
     },
     {
       question: 'Do you take a deposit for Christmas bookings?',
-      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It is non-refundable and comes off your final bill.`
+      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It comes off your final bill, and if you need to cancel more than seven days before your booking we refund it in full. Inside seven days the deposit is not refunded.`
     },
     {
       question: 'Do we have to pre-order our meals?',
@@ -809,7 +809,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What does the deposit do?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. It is not refundable.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. Cancel more than seven days ahead and we refund it in full.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">How do we collect everyone&apos;s meal choices?</dt>
@@ -872,7 +872,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking, non-refundable, and deducted from your bill.</span>
+                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking and deducted from your bill, and refunded in full if you cancel more than seven days ahead.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />

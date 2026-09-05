@@ -1230,7 +1230,10 @@
       "per_person_gbp": 10,
       "applies_regardless_of_party_size": true,
       "taken_at_booking": true,
-      "refundable": false,
+      "refundable": true,
+      "refund_cutoff_days": 7,
+      "refund_rule": "Refundable in full if the booking is cancelled more than 7 days before the booking date. Inside 7 days the deposit is not refunded.",
+      "_confirmed": "Owner-confirmed 5 September 2026. Supersedes the earlier blanket non-refundable rule, which contradicted the live management setting.",
       "deducted_from_bill": true
     },
     "tiers": {

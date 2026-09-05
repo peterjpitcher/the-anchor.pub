@@ -79,7 +79,7 @@ Adults get a glass of prosecco on all three tiers, swappable for orange juice. C
 
 ## Collect the deposit before you book, not after
 
-Every Christmas booking with us carries a £10 per person deposit, whatever the party size. Taken at booking, non-refundable, deducted from your bill on the day. Not an extra charge, just your money arriving early.
+Every Christmas booking with us carries a £10 per person deposit, whatever the party size. Taken at booking, deducted from your bill on the day, and refunded in full if you cancel more than seven days ahead. Not an extra charge, just your money arriving early.
 
 The classic mistake is booking first and collecting afterwards. Do that and you have personally underwritten fourteen colleagues, then spend three weeks sending increasingly cheerful reminders.
 
@@ -90,7 +90,7 @@ What works instead:
 3. Book the number who paid, not the number who reacted with a thumbs up.
 4. If stragglers want in later, ask the venue. Adding is a far easier conversation than shrinking.
 
-Because the deposit is non-refundable, book the number you are confident about, not the optimistic one.
+The deposit is refunded in full if you cancel more than seven days ahead, but not inside that week, which is exactly when headcounts wobble. Book the number you are confident about, not the optimistic one.
 
 ## Ask the allergen and access questions early, and ask them properly
 
