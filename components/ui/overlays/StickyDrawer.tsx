@@ -157,6 +157,29 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
       return () => document.removeEventListener('keydown', handleTabKey)
     }, [open])
 
+    /**
+     * `inert` while the drawer is closed, so the off-canvas panel leaves the tab order and
+     * stops taking pointer events.
+     *
+     * Unlike `Modal`, this drawer stays mounted when closed and hides itself with a
+     * transform, because it animates in and out. `aria-hidden` on its own would be a fault
+     * of its own making: hiding a subtree that still holds focusable children lets a
+     * keyboard user tab into content the screen reader has been told is not there.
+     *
+     * Set on the node rather than passed as a prop because React 18 has no `inert` support.
+     * A boolean prop renders `inert="true"` and logs "Received `true` for a non-boolean
+     * attribute", and the empty string the HTML spec asks for is rejected by the only
+     * `inert` typing in scope, which comes from React's experimental build and types it as
+     * the boolean React 18 cannot take. On React 19 this whole effect collapses to
+     * `inert={!open}` on the panel below.
+     */
+    useEffect(() => {
+      const panel = drawerRef.current
+      if (!panel) return
+      if (open) panel.removeAttribute('inert')
+      else panel.setAttribute('inert', '')
+    }, [mounted, open])
+
     if (!mounted) return null
 
     return createPortal(
@@ -189,8 +212,9 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
             if (!interactive || interactive.dataset.drawerClose === 'true') return
             recordEngagement('click', interactive.tagName.toLowerCase())
           }}
-          role="dialog"
-          aria-modal="true"
+          role={open ? 'dialog' : undefined}
+          aria-modal={open ? 'true' : undefined}
+          aria-hidden={open ? undefined : true}
           aria-labelledby={title ? titleId : undefined}
           aria-describedby={description ? descriptionId : undefined}
           data-testid={testId}

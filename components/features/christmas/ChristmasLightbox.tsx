@@ -63,14 +63,18 @@ export function isLightboxSuppressedRoute(pathname: string | null): boolean {
  * the top of them. An independent review caught exactly that in September 2026. Adding
  * more route prefixes would not fix it, because the sheet follows the guest everywhere.
  *
- * Two overlay primitives, two shapes to match:
+ * Both overlay primitives now put `aria-modal` on the page only while they are actually
+ * open. `Modal` unmounts when closed. `StickyDrawer`, which the quick-book sheet uses,
+ * has to stay mounted so it can animate, but it drops `role` and `aria-modal` and goes
+ * `inert` while closed, because a permanently open-looking dialog on every page is an
+ * accessibility defect in its own right.
  *
- * - `Modal` unmounts when closed, so its `aria-modal` is on the page only while open and
- *   it carries no `data-state`.
- * - `StickyDrawer`, which the quick-book sheet uses, renders its panel all the time and
- *   hides it with a transform, so its `aria-modal` is present on every page whether the
- *   drawer is open or not. `data-state` is the attribute that actually says. Matching on
- *   `aria-modal` alone would therefore suppress the lightbox site-wide, permanently.
+ * The `data-state` clause is therefore belt-and-braces rather than load-bearing, and it
+ * stays that way deliberately. The failure it guards against is silent and expensive: one
+ * always-mounted overlay keeping `aria-modal="true"` on a closed panel would suppress the
+ * lightbox site-wide for a whole season, and the campaign would simply never run. Note
+ * what it does not cover, though: an always-mounted panel that sets neither `data-state`
+ * nor anything else to say it is shut is still indistinguishable from an open one here.
  */
 export function isDialogOpen(): boolean {
     if (typeof document === 'undefined') return false
