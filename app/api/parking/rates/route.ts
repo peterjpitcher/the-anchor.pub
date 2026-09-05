@@ -13,7 +13,7 @@ export async function GET() {
     logError('api/parking/rates', error)
 
     const err = error as { status?: number; code?: string }
-    const status = err?.status || 500
+    const status = 503
     const code = err?.code || 'INTERNAL_ERROR'
     const message =
       code === 'FORBIDDEN'

@@ -109,15 +109,3 @@ export interface ParkingRateCard {
   notes?: string | null
   created_at: string
 }
-
-export const FALLBACK_PARKING_RATES: ParkingRateCard = {
-  id: 'fallback-parking-rates',
-  effective_from: '2024-01-01T00:00:00.000Z',
-  hourly_rate: 2.5,
-  daily_rate: 12,
-  weekly_rate: 55,
-  monthly_rate: 180,
-  capacity_override: 40,
-  notes: 'Offline fallback rates. Contact the venue to confirm current pricing.',
-  created_at: '2024-01-01T00:00:00.000Z'
-}

@@ -17,8 +17,8 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-const formatRate = (value: number | null | undefined, fallback: string) =>
-  typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
+const formatRate = (value: number) => value.toFixed(2)
+const pricingUnavailable = 'We could not load current parking prices. Please refresh the page or call 01753 682707.'
 
 /**
  * Retargeted 21 August 2026 from "cheap heathrow parking" to
@@ -88,7 +88,7 @@ const terminalLandingPages = [
   {
     href: '/heathrow-parking/terminal-5',
     title: 'Terminal 5 cheap parking guide',
-    description: '7-minute transfer plan for T5 with key-retention parking from £15 per day.'
+    description: '7-minute transfer plan for T5 with key-retention parking.'
   }
 ]
 
@@ -138,15 +138,15 @@ const terminalGuides = [
   }
 ]
 
-const comparisonRows = [
+const comparisonRows = (rateCard: ParkingRateCard | null) => [
   {
     label: 'Published starting price',
-    anchor: '£15 daily rate or £75 weekly rate',
+    anchor: rateCard ? `£${formatRate(rateCard.daily_rate)} daily rate or £${formatRate(rateCard.weekly_rate)} weekly rate` : pricingUnavailable,
     heathrow: 'T5 Park & Ride starts from £46.80'
   },
   {
     label: 'Short parking comparison',
-    anchor: '£5 per hour for short visits',
+    anchor: rateCard ? `£${formatRate(rateCard.hourly_rate)} per hour for short visits` : pricingUnavailable,
     heathrow: 'T5 Terminal Parking starts from £8 for 29 minutes'
   },
   {
@@ -167,15 +167,15 @@ const comparisonRows = [
 ]
 
 const faqs = (rateCard: ParkingRateCard | null) => {
-  const hourly = formatRate(rateCard?.hourly_rate, '5.00')
-  const daily = formatRate(rateCard?.daily_rate, '15.00')
-  const weekly = formatRate(rateCard?.weekly_rate, '75.00')
-  const monthly = formatRate(rateCard?.monthly_rate, '265.00')
+  const hourly = rateCard ? formatRate(rateCard.hourly_rate) : null
+  const daily = rateCard ? formatRate(rateCard.daily_rate) : null
+  const weekly = rateCard ? formatRate(rateCard.weekly_rate) : null
+  const monthly = rateCard ? formatRate(rateCard.monthly_rate) : null
 
 	  return [
 	  {
 	    question: 'How much is parking at The Anchor, and how does it compare?',
-	    answer: `We charge £${daily} a day or £${weekly} a week, and that is the price you pay. Heathrow's own car parks are priced dynamically, so what they cost depends on your dates and how far ahead you book. Check their current price for your trip and compare it against ours rather than trusting anyone's saving claim, including ours.`
+	    answer: rateCard ? `We charge £${daily} a day or £${weekly} a week, and that is the price you pay. Heathrow's own car parks are priced dynamically, so what they cost depends on your dates and how far ahead you book. Check their current price for your trip and compare it against ours rather than trusting anyone's saving claim, including ours.` : pricingUnavailable
 	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
@@ -183,11 +183,11 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   },
 	  {
 	    question: 'Where can I find cheap parking near Heathrow Terminal 5?',
-	    answer: 'Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. You pay from £15 per day, keep your keys and avoid airport surcharges. Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.'
+	    answer: `Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. ${rateCard ? `You pay from £${daily} per day, keep your keys and avoid airport surcharges.` : pricingUnavailable} Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.`
 	  },
 	  {
 	    question: 'How much does Heathrow parking cost at The Anchor?',
-	    answer: `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.`
+	    answer: rateCard ? `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.` : pricingUnavailable
 	  },
   {
     question: 'Is this long stay parking near Heathrow Terminals 2, 3, 4 and 5?',
@@ -237,21 +237,16 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
 	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true },
 	      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
 	    ],
-	    // Fallbacks must match the live rate card. The daily fallback said 39.00
-	    // while every other fallback on this page says 15.00, so an API failure
-	    // would have advertised a daily rate we do not charge.
-	    priceRange: rateCard
-	      ? `£${formatRate(rateCard.hourly_rate, '5.00')}-£${formatRate(rateCard.daily_rate, '15.00')} per day`
-	      : '£5-£15 per day',
-	    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
-	    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'GBP',
-      price: rateCard?.daily_rate ?? 15,
-      availability: 'https://schema.org/InStock',
-      url: 'https://www.the-anchor.pub/heathrow-parking',
-      validFrom: new Date().toISOString()
-    }
+    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
+    ...(rateCard ? {
+      priceRange: `£${formatRate(rateCard.hourly_rate)} per hour to £${formatRate(rateCard.monthly_rate)} per month`,
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'GBP',
+        price: rateCard.daily_rate,
+        url: 'https://www.the-anchor.pub/heathrow-parking'
+      }
+    } : {})
   }
 }
 
@@ -281,14 +276,14 @@ function buildParkingOfferSchema(rateCard: ParkingRateCard | null) {
       '@type': 'Place',
       name: 'Heathrow Airport'
     },
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'GBP',
-      lowPrice: rateCard?.hourly_rate ?? 5,
-      highPrice: rateCard?.weekly_rate ?? 75,
-      offerCount: 20,
-      availability: 'https://schema.org/LimitedAvailability'
-    }
+    ...(rateCard ? {
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'GBP',
+        lowPrice: rateCard.hourly_rate,
+        highPrice: rateCard.weekly_rate
+      }
+    } : {})
   }
 }
 
@@ -352,7 +347,7 @@ export default async function HeathrowParkingPage() {
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
         title="Heathrow Parking: Book, Pay & Park in Stanwell Moor"
-        lead="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
+        lead={`Secure long stay and short stay Heathrow parking${rateCard ? ` from £${formatRate(rateCard.hourly_rate)} per hour` : ''}. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes.`}
         badges={
           <>
             <Badge variant="sand">PayPal checkout</Badge>
@@ -400,7 +395,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    Lock in from £15 per day or £75 per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
+                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.` : pricingUnavailable}
                   </p>
                 </CardBody>
               </Card>
@@ -440,7 +435,7 @@ export default async function HeathrowParkingPage() {
       <section className="py-section-y bg-canvas">
         <Container>
           <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
-            Cheap Heathrow Parking, Long Stay &amp; Short Stay from £15/day
+            Cheap Heathrow Parking, Long Stay &amp; Short Stay{rateCard ? ` from £${formatRate(rateCard.daily_rate)}/day` : ''}
           </PageTitle>
           <p className="mx-auto mt-4 text-center text-lg text-ink-muted">
             Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi or the 442 bus for a five to ten minute ride to any Heathrow terminal.
@@ -538,7 +533,7 @@ export default async function HeathrowParkingPage() {
               </div>
             </div>
             <div className="divide-y divide-line">
-              {comparisonRows.map(row => (
+              {comparisonRows(rateCard).map(row => (
                 <div key={row.label} className="grid gap-2 px-6 py-4 md:grid-cols-3 md:gap-4 md:items-center">
                   <div className="font-semibold text-ink-strong">{row.label}</div>
                   <div className="text-sm text-ink">
