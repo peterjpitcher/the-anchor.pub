@@ -58,7 +58,7 @@ Driven by `lib/event-seo-strategy.ts` (function `getEventSeoStrategy`). Behaviou
 | Past, not cancelled, **any age** | Render with "ended" banner, **indexable, kept indefinitely, never redirected**, every booking surface off, prominent link to the next date in the category. | `getEventSeoStrategy` returns `index: true` for all past events; `getEventPresentation` switches the booking surfaces off; `nextInCategory` in `app/events/[id]/page.tsx` builds the link. |
 | Past, ≤ 30 days vs > 30 days | Presentation only (`stage: 'recent'` vs `'archived'`). Controls the /whats-on recent archive and page wording. **Never indexability.** | `RECENT_EVENT_WINDOW_DAYS = 30`, also imported by `lib/api/events.ts` so the listing window cannot drift. |
 | Draft (`event_status === 'draft'`) | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
-| API returns 404 / fetch throws | 301 to `/whats-on`. (B) | `app/events/[id]/page.tsx`. |
+| API returns 404, **or the fetch throws for any reason** | `notFound()`, HTTP 404. (D) In practice this is every failure mode, transient ones included. | `app/events/[id]/page.tsx`. `anchorAPI.getEvent` catches each transient error internally (`lib/api/client.ts:961-965`, `985-990`) and throws one synthesised `{ message: 'Event not found', status: 404 }` (`lib/api/client.ts:993`). `rethrowIfTransient()` at `app/events/[id]/page.tsx:324` therefore never fires, and the path always reaches `notFound()`. |
 | Slug differs from canonical segment | 301 to canonical segment. (A) | `getEventCanonicalSegment` check. |
 
 **Rationale for keeping past events live and indexed (owner decision, 2026-08-06)**
@@ -101,14 +101,37 @@ Cancelled events are the one exception and still drop out after
 `CANCELLED_INDEX_DAYS`. Nothing happened on the night, so there is no content
 worth ranking.
 
-**Rationale for blanket 301 → /whats-on on draft / missing events**
+**Rationale for blanket 301 → /whats-on on draft and retired events**
+
+Missing events are no longer redirected; they return 404 (see the table row
+above). Three routes still redirect to `/whats-on`:
+`getRetiredEventRedirect(params.id)` before any network call
+(`app/events/[id]/page.tsx:307-310`), `isRetiredEvent(event)` after the fetch
+(334-336), and `status === 'draft'` (343-346).
 
 These cases produce no useful single page for a visitor. `/whats-on` is the
 closest replacement and is itself a strong topical hub. We deliberately accept
 that GSC may report some of these in "Page with redirect" — that is expected
-behaviour for retired events, not a defect. Tests in
-`tests/event-seo-strategy.test.ts` lock in this behaviour so a future edit
-cannot silently demote events to `/`.
+behaviour for retired events, not a defect.
+
+Test coverage for the missing-versus-broken distinction lives in
+`tests/unit/api-failure-semantics.test.ts`, not in
+`tests/event-seo-strategy.test.ts`, which carries no draft or missing-event
+cases at all. That coverage is pure-function only: it exercises the classifier
+in isolation and never composes it with `getEvent`, so no test today asserts
+the end-to-end route behaviour of a draft, retired or missing event.
+
+**A-before-B is deliberately overridden for the retired bingo URLs.** The rule
+of thumb above prefers a close replacement (case A) over a topical parent
+(case B), and it remains sound in general. The `/events/bingo-2026-MM-DD`
+family is the documented exception: all eight members redirect to
+`/cash-bingo` (case B) even though dated replacement pages exist, because the
+replacement slugs are CMS-owned and demonstrably unstable. The family has been
+renamed twice, and the July night is not at `cash-bingo-2026-07-29` at all but
+at `/events/bingo-near-me-bingo-2026-07-29`. A static redirect pointed at a
+CMS slug degrades into a 301 that lands on a 404, with nothing to self-correct
+it. `/cash-bingo` is a code-owned route (`app/cash-bingo/page.tsx`) and cannot
+move. Prefer case A again wherever the replacement URL is code-owned.
 
 ### 2. Blog tags
 
@@ -118,13 +141,25 @@ cannot silently demote events to `/`.
   (`sports`, `community`, `seasonal`, `food-and-drink`, `events`, `news`,
   `offers`, `guides`, `private-hire`, `heathrow`, plus a few topic pages such
   as `/quiz-night`).
-- Every `tag-redirects.json` source is also excluded from the sitemap by
-  `app/sitemap.ts` (`redirectSourceTags` filter), so we never list a redirect
-  source in `sitemap.xml`. The `sitemap-vs-redirects` test guards this.
-- Broad archive tags that are useful for browsing but weak as standalone
-  search landing pages render with `noindex, follow` (case E) and are excluded
-  from the sitemap by `isNoindexBlogTag()` in `lib/blog-tag-policy.ts`.
-  Current broad noindex tags:
+- `app/sitemap.ts` emits no `/blog/tag/<x>` URLs at all, so no tag redirect
+  source can be listed in `sitemap.xml`. There is no `redirectSourceTags`
+  filter in the sitemap; that set now lives only in
+  `app/blog/tag/[tag]/page.tsx:17` and `app/blog/tags/page.tsx:29`, where it
+  keeps redirect sources out of the on-page tag clouds and the tag index.
+- **Every** blog tag archive renders with `noindex, follow` (case E). The rule
+  is unconditional: `app/blog/tag/[tag]/page.tsx:62-65` sets
+  `robots: { index: false, follow: true }` for all tags, with no per-tag list
+  and no exceptions. There is no longer any selective exclusion. The old
+  helper `isNoindexBlogTag()` and its `NOINDEX_BLOG_TAGS` set were deleted
+  from `lib/blog-tag-policy.ts` on 5 September 2026, having stopped deciding
+  anything in production. That module now exports `normalizeBlogTag` only.
+- Tag archives still render for visitors and still appear in internal tag
+  clouds. They should not be made indexable or re-added to `sitemap.xml`
+  unless a tag is rebuilt into a genuine search landing page with a clear
+  keyword target, current content, and a conversion path, at which point the
+  blanket rule above has to be revisited deliberately.
+
+Where the highest-volume tag intents should land instead:
 
 | Tag URL | Preferred indexable page(s) | Reason |
 |---|---|---|
@@ -132,11 +167,6 @@ cannot silently demote events to `/`.
 | `/blog/tag/food-and-drink` | `/food-menu`, `/sunday-lunch`, `/pizza-menu`, `/burger-menu`, `/drinks` | Commercial food/drink intent is better served by current menu pages than a chronological blog archive. |
 | `/blog/tag/news` | `/blog` or specific current posts | Generic pub news archives have weak search intent and can dilute stronger local/commercial pages. |
 | `/blog/tag/sports` | `/live-sport`, `/live-sport/six-nations`, `/live-sport/f1`, `/live-sport/boxing`, `/live-sport/world-cup` | Sport-intent searches should land on evergreen live-sport pages, not mixed historical posts. |
-
-These noindex tag pages may still render for visitors and may still appear in
-internal tag clouds; they should not be re-added to `sitemap.xml` unless they
-are rebuilt into genuine search landing pages with a clear keyword target,
-current content, and a conversion path.
 
 ### 3. Legacy Wix `/post/*` URLs
 
