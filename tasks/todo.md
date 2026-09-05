@@ -1,67 +1,28 @@
-# Fixes from the independent booking feedback, 5 September 2026
+# Workspace standards, security and context work, 4 to 5 September 2026
 
-Owner decisions taken on 5 September 2026:
+Owner decisions on the record: unlink the never-used marketing skills; standardise CLAUDE.md and AGENTS.md across every project; fix everything found, excluding the Barons projects.
 
-1. Christmas deposit is **refundable up to seven days before the booking**. The live
-   management setting wins; the site and the SSOT were wrong.
-2. Event seating is **per event**, chosen in the management app as table, communal,
-   ticketed or standing. No single site-wide claim is correct.
-3. Approved: make the small website fixes.
+## Done, 4 September
+- [x] Slimmed the CLAUDE.md chain, path-scoped the Supabase rule, moved on-demand rules to .claude/docs
+- [x] Codex parity: AGENTS.md symlinks, global contract symlink, project_doc_fallback_filenames
+- [x] Audited 209 conversations, 1,379 commits across 18 repos, and every skill
+- [x] Parked 26 unused skills, reinstalled brainstorming, writing-plans and systematic-debugging
+- [x] Added the no-em-dash Bash hook, closing the shell-write gap
+- [x] Hardened six public write paths on this site to fail closed
+- [x] Pinned the business timezone with a UTC counter-run in seven repos
+- [x] Anon-access allowlists with drift tests in eight repos
 
-Out of scope here (management app, not this repo): the one-course Christmas pre-order
-configuration, menu description quality including Broccoli Cheese, and setting sellable
-capacity on dated event records.
+## Done, 5 September
+- [x] Applied to production: profiles read closed (management app); rate-limit function and analytics policies closed, secret-table grants removed (CheersAI); orphan booking function dropped (CashBingo); trigger functions closed (Planner 2.0, OrangeJelly); table grants narrowed (Dukes Head)
+- [x] Root cause fixed: default privileges no longer grant anon on new objects, in six databases
+- [x] Corrected my own regression: revoking EXECUTE on two RLS predicate helpers made anon queries error instead of returning no rows. Restored and verified by querying as the anon role
+- [x] Repo and database migration histories reconciled, so supabase db push will not re-apply
+- [x] Em dashes removed from the AI prompts and stripped from generated social copy (CheersAI)
+- [x] QuizNight stopped gitignoring its own instruction files
+- [x] All 18 repos now have a tracked CLAUDE.md and an AGENTS.md symlink
 
-## Wave 0, keep the tree clean
-
-- [ ] Commit the pre-existing `SSOT.json` whatpub to camra.org.uk URL change on its own,
-      so it is not swept into the deposit work.
-
-## Wave 1, Christmas deposit refundability
-
-The rule changes from "non-refundable" to "refundable up to seven days before".
-
-- [ ] `SSOT.json`: `christmas_2026.deposit.refundable` false to a refund-window rule
-- [ ] `docs/SSOT.md` line 258
-- [ ] `app/christmas-parties/client-components.tsx` lines 415, 812, 875
-- [ ] `content/blog/work-christmas-party-ideas-near-heathrow/index.md` lines 84, 128
-- [ ] `content/blog/festive-buffet-ideas-for-large-groups-near-heathrow/index.md` line 79
-- [ ] `content/blog/christmas-dinner-or-party-night-which-suits-your-group/index.md` lines 78, 109
-- [ ] `content/blog/christmas-party-planning-checklist-for-organisers/index.md` lines 82, 93
-- [ ] `content/copy-decks/*christmas*.md`: dated superseded notes, these are internal
-      records and are not rendered, but they state the old rule as current guidance
-- [ ] `npx jest tests/ssot-drift-guard.test.ts`
-
-## Wave 2, event versus table booking contradiction
-
-The three game night pages are already accurate and seating-specific. Only the
-book-table page tells people to make two bookings.
-
-- [ ] `app/book-table/page.tsx` lines 378 to 381: stop instructing a separate food
-      booking before an event, point at the event page instead
-
-## Wave 3, promotion over an open booking sheet
-
-`ChristmasLightbox` suppresses by route only. `StickyCtas` mounts the quick-book sheet
-on every page, so on the homepage or `/private-hire` the lightbox can fire over an open
-booking sheet.
-
-- [ ] Suppress the lightbox while any booking or enquiry dialog is open, by state
-      rather than by adding more route prefixes
-- [ ] Test covering the open-sheet case
-
-## Wave 4, mislabelled private hire action
-
-- [ ] `components/layout/Navigation.tsx` line 92 and `components/layout/Footer.tsx`
-      line 60: "Check Availability" points at the estimator, not a live calendar
-
-## Wave 5, verification
-
-- [ ] `npm run lint`
-- [ ] `npm run typecheck`
-- [ ] `npm test` and `npm run test:utc`
-- [ ] `npm run build`
-
-## Results
-
-(filled in as waves complete)
+## Deliberately not done
+- Barons projects untouched, as instructed. The BaronsHub migration drafted on 4 September is still unapplied: three SECURITY DEFINER functions there are callable by anyone with the publishable key.
+- QuizNight session_state is readable by any anon key by design, because the TV display carries the token in the URL where a policy cannot see it. It holds no question or answer text today.
+- Supabase's own platform default still grants anon on objects created by supabase_admin. It cannot be changed without membership of that role.
+- OJ-Planner looks superseded by OJ-PlanneriPhoneApp. Its instruction file says to check before investing.
