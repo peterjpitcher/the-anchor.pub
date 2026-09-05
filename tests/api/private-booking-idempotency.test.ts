@@ -164,4 +164,21 @@ describe('POST /api/public/private-booking: fallback Idempotency-Key', () => {
     expect(await keyFor({ contact_phone: '+447700900111' })).not.toBe(base)
     expect(await keyFor({ customer_first_name: 'Cara' })).not.toBe(base)
   })
+  it('preserves every estimator item instead of silently dropping items after twelve', async () => {
+    await keyFor({ items: Array.from({ length: 13 }, (_, index) => ({ description: `Choice ${index + 1}`, quantity: 1 })) })
+    const mapped = JSON.parse(calls[0].init.body as string)
+    expect(mapped.notes).toContain('Choice 13 x1')
+  })
+
+  it('rejects overlong context without posting or truncating it', async () => {
+    const request = new Request('http://localhost/api/public/private-booking', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ...VALID_BASE, internal_notes: 'x'.repeat(2001) })
+    })
+    const response = await createPrivateBookingEnquiry(request)
+    expect(response.status).toBe(400)
+    expect(calls).toHaveLength(0)
+    expect(await response.json()).toMatchObject({ success: false, error: { code: 'VALIDATION_ERROR' } })
+  })
+
 })

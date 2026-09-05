@@ -1,4 +1,16 @@
-import { isDialogOpen, isLightboxSuppressedRoute } from '../ChristmasLightbox'
+import { isDialogOpen, isLightboxSuppressedRoute, isBookingFormActive } from '../ChristmasLightbox'
+
+describe('inline enquiries keep their focus', () => {
+  afterEach(() => { document.body.innerHTML = '' })
+  it('suppresses promotions after a guest starts an inline enquiry', () => {
+    document.body.innerHTML = '<form data-booking-flow="active"><input /></form>'
+    expect(isBookingFormActive()).toBe(true)
+  })
+  it('does not suppress an untouched form', () => {
+    document.body.innerHTML = '<form><input /></form>'
+    expect(isBookingFormActive()).toBe(false)
+  })
+})
 
 /**
  * The lightbox burns its once-per-season suppression key the moment it opens, so firing it
