@@ -33,6 +33,7 @@ export function parseLookupResponse(payload: any): CustomerLookupResult {
 }
 
 export type ManagementTableBookingResult = {
+  fixture_id?: string
   state: 'confirmed' | 'pending_payment' | 'blocked'
   table_booking_id: string | null
   booking_reference: string | null
@@ -114,6 +115,7 @@ export type TableBookingSubmitInput = {
   partySize: number
   purpose: 'food' | 'drinks'
   notes: string
+  fixtureId?: string
   highChairCount: number
   isOutsideSeating: boolean
   requiresAccessibleTable: boolean
@@ -158,6 +160,7 @@ export function buildTableBookingPayload(
     party_size: input.partySize,
     purpose: input.purpose,
     ...(input.notes ? { notes: input.notes } : {}),
+    ...(input.fixtureId ? { fixture_id: input.fixtureId } : {}),
     // High-chair request (0 omitted) and outside-seating flag (false omitted).
     // Added before the idempotency key so it varies with them (spec §10).
     ...(input.highChairCount > 0 ? { high_chair_count: input.highChairCount } : {}),

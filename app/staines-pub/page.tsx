@@ -1,3 +1,4 @@
+import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import { Button, Badge, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
@@ -118,6 +119,7 @@ export default function StainesPubPage() {
         </BookTableButton>
         }
       />
+      <TournamentLink />
 
       <section className="py-section-y bg-canvas">
         <Container>

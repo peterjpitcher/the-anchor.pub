@@ -1,3 +1,4 @@
+import { getNationsChampionshipFeed } from '@/lib/nations-championship/feed'
 import { MetadataRoute } from 'next'
 import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
@@ -390,5 +391,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: event._meta?.lastUpdated ? getSafeDate(event._meta.lastUpdated) : undefined,
     }))
 
-  return [...staticSitemap, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
+  const nationsEntry: MetadataRoute.Sitemap[number] = { url: `${baseUrl}/live-sport/nations-championship` }
+  if (process.env.NEXT_PHASE !== 'phase-production-build') {
+    try {
+      const feed = await getNationsChampionshipFeed()
+      if (feed.meta.contentUpdatedAt) nationsEntry.lastModified = new Date(feed.meta.contentUpdatedAt)
+    } catch { /* Keep the stable hub URL; do not invent its modification date. */ }
+  }
+  return [...staticSitemap, nationsEntry, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
 }

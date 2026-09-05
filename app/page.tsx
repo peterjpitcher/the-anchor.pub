@@ -1,3 +1,4 @@
+import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -220,6 +221,7 @@ export default async function HomePage() {
         focal={`${focal.x}% ${focal.yDesktop}%`}
         copy={monthlyCopy}
       />
+      <TournamentLink />
 
       {/* 2 — Amenity strip */}
       <AmenityStrip/>

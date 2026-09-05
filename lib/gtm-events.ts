@@ -421,6 +421,7 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
 // Comprehensive table booking funnel tracking
 export function trackTableBookingFunnel(data: {
   step: 'view' | 'start' | 'availability_check' | 'details_entered' | 'submit' | 'success' | 'error'
+  fixtureId?: string
   partySize?: number
   bookingDate?: string
   bookingTime?: string
@@ -483,6 +484,7 @@ export function trackTableBookingFunnel(data: {
   if (data.step === 'success') {
     pushToDataLayer({
       event: 'table_booking_completed',
+      ...(data.fixtureId ? { fixture_id: data.fixtureId } : {}),
       funnel: 'food_table_booking',
       // value and currency sit high in this literal deliberately. The dispatcher
       // appends page context, device type and up to a dozen attribution keys

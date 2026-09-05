@@ -1,3 +1,5 @@
+import { resolveFixtureBookingContext, composeFixtureNotes } from '@/lib/nations-championship/booking-context'
+import { isFixtureArrivalAllowed, type FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import { createHash } from 'node:crypto'
 import { NextRequest } from 'next/server'
 import { anchorAPI } from '@/lib/api'
@@ -508,6 +510,12 @@ async function forwardConfirmedTableBookingConversion(
   }).catch(() => undefined)
 }
 
+function screeningUnavailable(message: string, status: number): Response {
+  return new Response(JSON.stringify({ error: message, code: 'SCREENING_UNAVAILABLE' }), {
+    status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+  })
+}
+
 export async function POST(request: NextRequest) {
   const apiKey = process.env.ANCHOR_API_KEY
   if (!apiKey) {
@@ -534,9 +542,81 @@ export async function POST(request: NextRequest) {
       return createApiErrorResponse(normalized.error || 'Invalid booking payload', 400)
     }
 
+    const idempotencyKey =
+      asTrimmedString(request.headers.get('Idempotency-Key')) ||
+      createIdempotencyKey('tbl', {
+        fixture_id: body.fixture_id || undefined,
+        phone: normalized.payload.phone,
+        date: normalized.payload.date,
+        time: normalized.payload.time,
+        party_size: normalized.payload.party_size,
+        purpose: normalized.payload.purpose,
+        notes: normalized.payload.notes || undefined,
+        // Vary the fallback key with the new features so two otherwise-identical
+        // requests differing only in chairs/outside are not collapsed.
+        high_chair_count: normalized.payload.high_chair_count ?? null,
+        outside_seating: normalized.payload.outside_seating ?? null,
+        // Accessibility varies the key ONLY when requested, matching the AMS
+        // request hash (review F18). JSON.stringify drops undefined entries,
+        // so absent-or-false leaves the payload byte-identical to a request
+        // that predates the field.
+        requires_accessible_table:
+          normalized.payload.requires_accessible_table === true ? true : undefined,
+        communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
+      })
+
+    const replayOnly = request.headers.get('X-Booking-Replay-Only') === 'true'
+    if (body.fixture_id !== undefined || replayOnly) {
+      if (typeof body.fixture_id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.fixture_id)) {
+        return createApiErrorResponse('Please choose the game again from the tournament page.', 400)
+      }
+      const replay = await fetch(`${API_BASE_URL}/table-bookings`, {
+        method: 'POST', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey, 'Idempotency-Key': idempotencyKey, 'X-Idempotency-Replay-Only': 'true' },
+        body: JSON.stringify({ replay_request: { ...normalized.payload, fixture_id: body.fixture_id,
+          notes: [`Nations Championship: [${body.fixture_id}]`, normalized.payload.notes].filter(Boolean).join('\n'),
+          booking_type: 'regular', skip_customer_sms: true } }),
+      })
+      const replayBody = safeJsonParse(await replay.text())
+      const replayRecord = replayBody as { code?: string; error?: { code?: string } } | null
+      const notFound = replay.status === 404 && (replayRecord?.code === 'IDEMPOTENCY_KEY_NOT_FOUND' || replayRecord?.error?.code === 'IDEMPOTENCY_KEY_NOT_FOUND')
+      if (!notFound || replayOnly) {
+        if (replay.ok) {
+          const data = pickResponseData(replayBody)
+          if (data && ['confirmed', 'pending_payment'].includes(String(data.state))) data.fixture_id = body.fixture_id
+          await forwardConfirmedTableBookingConversion(request, normalized.payload, normalized.attribution, replayBody)
+        }
+        return new Response(JSON.stringify(replayBody), { status: replay.status, headers: {
+          'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Idempotency-Key': idempotencyKey,
+        } })
+      }
+    }
+
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
       return createApiErrorResponse(validationError, 400)
+    }
+
+    let fixtureContext: FixtureBookingContext | null = null
+    if (body.fixture_id !== undefined) {
+      if (typeof body.fixture_id !== 'string' || !body.fixture_id.trim()) {
+        return createApiErrorResponse('Please choose the game again from the tournament page.', 400)
+      }
+      try {
+        fixtureContext = await resolveFixtureBookingContext(body.fixture_id)
+      } catch {
+        logError('api/table-bookings/fixture-check', new Error('Tournament screening could not be verified'))
+        return screeningUnavailable('We cannot verify this screening right now. Please try again or choose a normal table booking.', 503)
+      }
+      if (!fixtureContext) {
+        return screeningUnavailable('This game is no longer available to book. Please choose another game or a normal table booking.', 409)
+      }
+      if (!isFixtureArrivalAllowed(fixtureContext, normalized.payload.date, normalizeTime(normalized.payload.time))) {
+        return createApiErrorResponse('Please choose an available arrival time on the match date, from pub opening and before the screening ends.', 400)
+      }
+      try { normalized.payload.notes = composeFixtureNotes(fixtureContext, normalized.payload.notes) } catch {
+        return createApiErrorResponse('Your notes are too long with the match details included. Please shorten them.', 400)
+      }
     }
 
     const bookingTime = normalizeTime(normalized.payload.time)
@@ -575,27 +655,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const idempotencyKey =
-      asTrimmedString(request.headers.get('Idempotency-Key')) ||
-      createIdempotencyKey('tbl', {
-        phone: normalized.payload.phone,
-        date: normalized.payload.date,
-        time: normalized.payload.time,
-        party_size: normalized.payload.party_size,
-        purpose: normalized.payload.purpose,
-        // Vary the fallback key with the new features so two otherwise-identical
-        // requests differing only in chairs/outside are not collapsed.
-        high_chair_count: normalized.payload.high_chair_count ?? null,
-        outside_seating: normalized.payload.outside_seating ?? null,
-        // Accessibility varies the key ONLY when requested, matching the AMS
-        // request hash (review F18). JSON.stringify drops undefined entries,
-        // so absent-or-false leaves the payload byte-identical to a request
-        // that predates the field.
-        requires_accessible_table:
-          normalized.payload.requires_accessible_table === true ? true : undefined,
-        communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),
-      })
-
     // No x-turnstile-token upstream. The token has already been spent by our own
     // verification above, and the management API's secret belongs to a different
     // widget, so forwarding it could only ever produce a spurious rejection.
@@ -615,6 +674,7 @@ export async function POST(request: NextRequest) {
       // or stale clients (spec §6, §8.1).
       body: JSON.stringify({
         ...normalized.payload,
+        ...(fixtureContext ? { fixture_id: fixtureContext.fixtureId } : {}),
         booking_type: 'regular',
         skip_customer_sms: true
       })
@@ -628,6 +688,10 @@ export async function POST(request: NextRequest) {
     }
 
     const responseBody = parsed ?? fallbackPayload
+    if (fixtureContext && upstream.ok) {
+      const data = pickResponseData(responseBody)
+      if (data && ['confirmed', 'pending_payment'].includes(String(data.state))) data.fixture_id = fixtureContext.fixtureId
+    }
 
     if (upstream.ok) {
       await forwardConfirmedTableBookingConversion(request, normalized.payload, normalized.attribution, responseBody)

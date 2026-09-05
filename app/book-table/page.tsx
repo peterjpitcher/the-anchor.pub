@@ -1,3 +1,5 @@
+import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
+import type { FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { InteriorHero } from '@/components/hero'
@@ -69,6 +71,7 @@ type BookTablePageProps = {
     date?: string
     time?: string
     party_size?: string
+    fixture_id?: string
   }
 }
 
@@ -92,13 +95,19 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
     // mode, so turning it off is a settings change rather than a deploy.
     isWebsiteUiFlagEnabled('booking_options_step1')
   ])
+  let fixtureContext: FixtureBookingContext | null = null
+  let fixtureMessage: string | undefined
+  if (searchParams?.fixture_id) {
+    try { fixtureContext = await resolveFixtureBookingContext(searchParams.fixture_id) } catch { /* A normal booking stays available without promising a screening. */ }
+    if (!fixtureContext) fixtureMessage = 'We cannot confirm this game right now. You can make a normal table booking below or check the tournament page.'
+  }
   const previewItems = itemPreview(foodMenu?.items ?? [])
   // sunday_lunch, mothers_day, and purpose query params are silently ignored.
   // Sunday-lunch as a separate booking type is retired with the walk-in launch
   // (spec §6, §8.1); the booking purpose chooser is replaced by per-slot
   // kitchen-open captions and submit-time derivation (spec §5, §8).
   const prefill = {
-    date: searchParams?.date,
+    date: fixtureContext?.date ?? searchParams?.date,
     time: searchParams?.time,
     partySize: parsePartySize(searchParams?.party_size)
   }
@@ -191,7 +200,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <LaunchAnnouncement variant="banner" />
               <RegretReduction variant="booking" />
             </div>
-            <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} />
+            <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} fixtureContext={fixtureContext} fixtureMessage={fixtureMessage} />
             <p className="mx-auto mt-4 text-center text-sm text-ink-muted">
               Prefer to talk to us? Call{' '}
               <PhoneLink

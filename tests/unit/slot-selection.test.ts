@@ -190,8 +190,9 @@ describe('there is exactly one selection rule', () => {
 
     // The grid and the alternatives builder.
     expect(form).toContain(
-      'groupSlotsForDisplay(currentReading?.time_slots || [], slotSelectionContext)'
+      'groupSlotsForDisplay(screeningSlots, slotSelectionContext)'
     )
+    expect(form).toContain('(currentReading?.time_slots || []).filter(')
     expect(form).toContain('judgeSlot(slot, probeContext)')
     // The alternatives panel inherits the flow's chair policy through the
     // context and asks the rule one question. It carried its own extra chair

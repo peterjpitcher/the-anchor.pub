@@ -1,3 +1,4 @@
+import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Badge, Button, Card, Container, SectionHeading } from '@/components/ui'
@@ -220,6 +221,7 @@ export default async function WhatsOnPage() {
           </>
         }
       />
+      <TournamentLink />
 
       {/* 2. AmenityStrip (§7.3.2) */}
       <AmenityStrip/>

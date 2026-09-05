@@ -1,3 +1,4 @@
+import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -103,6 +104,7 @@ export default function SixNationsPage() {
               title="Watch Six Nations 2026 Live"
               lead="Every match live on BBC & ITV • Sound on • 4 Screens • Food through the match"
             />
+      <TournamentLink />
 
             <section className="py-section-y bg-canvas">
                 <Container>

@@ -1,3 +1,4 @@
+import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
@@ -102,6 +103,7 @@ export default async function LiveSportPage() {
               title="Live Sport at The Anchor"
               lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
             />
+      <TournamentLink />
 
             <Container className="py-8">
                 <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>

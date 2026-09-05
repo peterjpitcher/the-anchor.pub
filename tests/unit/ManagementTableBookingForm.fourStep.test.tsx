@@ -1,4 +1,6 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { fixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
+import { nationsFixture } from '../fixtures/nations-championship'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
 
@@ -130,6 +132,18 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
     jest.clearAllMocks()
+  })
+
+  it('shows match, partial-screening and food information in the four-step flow', async () => {
+    setupFetchMock(() => ({ time_slots: [] }))
+    const context = fixtureBookingContext(nationsFixture())!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByText('Book a table for Italy v South Africa')).toBeInTheDocument()
+    expect(screen.getByText(/The start of the game will be missed/)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-11-08' } })
+    expect(screen.getByText(/normal table booking without a game attached/)).toBeInTheDocument()
+    await act(async () => {})
   })
 
   async function searchAndOpenDetails() {
