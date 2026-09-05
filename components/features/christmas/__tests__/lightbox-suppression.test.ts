@@ -98,10 +98,19 @@ describe('the lightbox never fires over an open dialog', () => {
   })
 
   it('is NOT suppressed by a closed StickyDrawer', () => {
-    // The regression that matters. `StickyDrawer` renders its panel even when closed and
-    // hides it with a transform, so `aria-modal="true"` sits on every page all the time.
-    // Matching on that attribute alone would suppress the lightbox site-wide, for the
-    // whole season, and the campaign would silently never run.
+    // The regression that matters, and the shape a closed drawer actually has: it stays
+    // mounted so it can animate, but drops `role` and `aria-modal` and goes `inert`.
+    // `StickyDrawer.test.tsx` pins this markup from the other side.
+    document.body.innerHTML =
+      '<div data-state="closed" aria-hidden="true" inert>Quick book</div>'
+    expect(isDialogOpen()).toBe(false)
+  })
+
+  it('is NOT suppressed by a closed panel that still carries aria-modal', () => {
+    // Belt-and-braces, and worth keeping even though no component renders this shape any
+    // more. One always-mounted overlay that forgot to drop `aria-modal` would suppress
+    // the lightbox site-wide for the whole season, and the campaign would silently never
+    // run. The `data-state` clause in the selector exists for exactly that.
     document.body.innerHTML =
       '<div role="dialog" aria-modal="true" data-state="closed">Quick book</div>'
     expect(isDialogOpen()).toBe(false)
