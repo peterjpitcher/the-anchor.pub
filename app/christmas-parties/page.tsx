@@ -89,7 +89,7 @@ const TIER_DEFINITIONS: Array<{
 }> = [
   // Owner-confirmed 2026-08-04: courses are chosen per person, so these are
   // price points a guest picks for themselves, not tiers the table commits to.
-  // Every guest pre-orders a main whichever they pick. 1 course is the only
+  // One course needs no pre-order and is the only
   // price point with a kids portion. 2 and 3 course are adults only as a priced
   // point, and priced differently Tue-Thu versus Fri-Sat.
   {

@@ -226,7 +226,7 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     )
   })
 
-  it('Christmas deposit is refundable outside the 7 day cutoff', () => {
+  it('Christmas deposit includes the London day seven days before the booking', () => {
     // Owner-confirmed 5 September 2026, after an independent review found the site
     // promising a non-refundable deposit while the management app was refunding it up
     // to 7 days out. The management app owns the real setting; if that cutoff ever
@@ -235,7 +235,7 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(xmas.deposit.refundable).toBe(true)
     expect(xmas.deposit.refund_cutoff_days).toBe(7)
     expect(mdPlain).toContain(
-      'Refundable in full if the booking is cancelled more than 7 days before the booking date',
+      'Refundable in full if the booking is cancelled up to and including seven days before the booking date',
     )
   })
 

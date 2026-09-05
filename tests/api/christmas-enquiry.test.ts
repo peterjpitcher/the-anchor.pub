@@ -95,19 +95,18 @@ describe('POST /api/enquiry/christmas', () => {
     // Owner-confirmed 2026-08-04: courses are per person, so every sit-down
     // booking pre-orders and the answer no longer depends on a table-wide tier.
     expect(forwarded.notes).not.toMatch(/pre-order only/i)
-    expect(forwarded.notes).toContain('Pre-order required: Yes, per person. A main for every guest, starter and dessert optional.')
+    expect(forwarded.notes).toContain('Pre-order required: One course needs no pre-order. Two or three courses need a pre-order, chosen per person.')
     expect(forwarded.enquiryMode).toBe('meal')
     expect(forwarded.mealService).toBe('lunch')
     expect(forwarded.courseTier).toBe('undecided')
   })
 
-  // The expected course count is a steer for the kitchen. It never changes the
-  // pre-order answer, because every guest chooses a main in advance regardless.
+  // The expected count is a guide; the staff summary retains the per-person exemption.
   it.each([
     ['one_course', 'Sit-down Christmas lunch (Mostly 1 course per guest)'],
     ['two_course', 'Sit-down Christmas lunch (Mostly 2 courses per guest)'],
     ['three_course', 'Sit-down Christmas lunch (Mostly 3 courses per guest)'],
-  ])('describes %s as a per-guest expectation, and still requires a pre-order', async (courseTier, label) => {
+  ])('describes %s as a per-guest expectation, and states the per-person pre-order rule', async (courseTier, label) => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({ success: true }, 201))
 
     const response = await post(validPayload({ courseTier }))
@@ -116,8 +115,8 @@ describe('POST /api/enquiry/christmas', () => {
     const forwarded = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
     expect(forwarded.courseTier).toBe(courseTier)
     expect(forwarded.notes).toContain(label)
-    expect(forwarded.notes).toContain('Pre-order required: Yes, per person. A main for every guest, starter and dessert optional.')
-    // The retired rule said one course carried no pre-order at all.
+    expect(forwarded.notes).toContain('Pre-order required: One course needs no pre-order. Two or three courses need a pre-order, chosen per person.')
+    // Avoid the retired blanket wording.
     expect(forwarded.notes).not.toMatch(/pre-book only/i)
   })
 

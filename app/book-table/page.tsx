@@ -71,6 +71,7 @@ type BookTablePageProps = {
     date?: string
     time?: string
     party_size?: string
+    purpose?: string
     fixture_id?: string
   }
 }
@@ -102,14 +103,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
     if (!fixtureContext) fixtureMessage = 'We cannot confirm this game right now. You can make a normal table booking below or check the tournament page.'
   }
   const previewItems = itemPreview(foodMenu?.items ?? [])
-  // sunday_lunch, mothers_day, and purpose query params are silently ignored.
-  // Sunday-lunch as a separate booking type is retired with the walk-in launch
-  // (spec §6, §8.1); the booking purpose chooser is replaced by per-slot
-  // kitchen-open captions and submit-time derivation (spec §5, §8).
+  // Only the explicit drinks value opts into bar seating. Other purpose values
+  // cannot override the live slot's food availability.
   const prefill = {
     date: fixtureContext?.date ?? searchParams?.date,
     time: searchParams?.time,
-    partySize: parsePartySize(searchParams?.party_size)
+    partySize: parsePartySize(searchParams?.party_size),
+    drinksOnly: searchParams?.purpose === 'drinks'
   }
 
   return (

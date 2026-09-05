@@ -190,6 +190,7 @@ export interface BookingPeriod {
   starts_on: string
   ends_on: string
   requires_preorder: boolean
+  course_policy?: { version: 1; preorder_closes_at: string; multiple_courses_available: boolean } | null
   preorder_cutoff_days: number | null
   deposit_basis: string | null
   deposit_amount: number | null
@@ -240,6 +241,7 @@ export interface TableBookingRequest {
    */
   booking_period_id?: string
   booking_period_answer?: boolean
+  christmas_course_counts?: number[]
   customer: {
     first_name: string
     last_name: string

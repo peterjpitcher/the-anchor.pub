@@ -10,6 +10,7 @@ import type { TableBookingPreorderEntry } from '@/lib/table-booking/submission'
  * deliberately excluded: they change between retries of the same intent.
  */
 export type TableBookingSubmitIntentFields = {
+  christmas_course_counts?: Array<number | null | undefined>
   phone: string
   firstName?: string
   lastName?: string
@@ -89,6 +90,7 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     // preserved because position is the seat; add-on tick order is not
     // meaningful and is sorted, exactly as AMS does it. Absent and empty both
     // produce the pre-change fingerprint byte for byte.
+    christmas_course_counts: input.christmas_course_counts ?? undefined,
     preorder: input.preorder?.length
       ? input.preorder.map((entry) => ({
           starter: entry.starter_menu_item_id || null,

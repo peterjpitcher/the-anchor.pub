@@ -261,6 +261,11 @@ describe('ManagementTableBookingForm', () => {
     jest.clearAllMocks()
   })
 
+  it('prefills an explicit drinks choice in the full form', async () => {
+    await act(async () => { render(<ManagementTableBookingForm prefill={{ drinksOnly: true }} />) })
+    expect(screen.getByRole('checkbox', { name: /^Just drinks/ })).toBeChecked()
+  })
+
   it('does not render the "Booking for" chooser', async () => {
     setupFetchMock({ availability: [] })
     render(<ManagementTableBookingForm />)

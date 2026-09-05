@@ -255,7 +255,7 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **Service window:** **10 November to 20 December 2026**. The 20th is **inclusive**, a 20 December sitting is bookable. The previously published 1 November to 23 December window is superseded, see §14.
 - **Minimum party size:** **6 guests.** Every Christmas dinner booking needs 6 or more guests.
 - **Minimum notice:** **24 hours.** No same-day Christmas bookings.
-- **Deposit:** **£10 per person on every Christmas booking, regardless of party size.** Taken at booking, deducted from the bill. **Refundable in full if the booking is cancelled more than 7 days before the booking date; inside 7 days it is not refunded.** Owner-confirmed 5 September 2026: this supersedes the earlier blanket "non-refundable" wording, which contradicted the live management setting.
+- **Deposit:** **£10 per person on every Christmas booking, regardless of party size.** Taken at booking, deducted from the bill. **Refundable in full if the booking is cancelled up to and including seven days before the booking date; fewer than seven days before it is not refunded.** Owner-confirmed 5 September 2026: this supersedes the earlier blanket "non-refundable" wording, which contradicted the live management setting. Boundary clarified from the existing management refund implementation on 5 September 2026: the whole London calendar day seven days before is included; no payment rule was changed.
 - **Pre-book and pre-order, by course:**
 
 | Tier | Pre-book | Pre-order |
