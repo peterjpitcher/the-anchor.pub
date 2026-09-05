@@ -19,6 +19,7 @@ export type TableBookingSubmitIntentFields = {
   partySize: number
   purpose: 'food' | 'drinks'
   notes?: string
+  fixtureId?: string
   highChairCount: number
   isOutsideSeating: boolean
   requiresAccessibleTable?: boolean
@@ -62,6 +63,7 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     partySize: input.partySize,
     purpose: input.purpose,
     notes: input.notes?.trim() || '',
+    fixtureId: input.fixtureId || undefined,
     highChairCount: input.highChairCount,
     isOutsideSeating: input.isOutsideSeating,
     communicationConsent: input.communicationConsent,

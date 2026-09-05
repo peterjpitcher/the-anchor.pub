@@ -1,5 +1,8 @@
 'use client'
 
+import Link from 'next/link'
+import { fixtureBookingContext, fixtureNotesAllowance, fixtureKickoffLabel, isFixtureArrivalAllowed, type FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
+import { screeningFeedSchema } from '@/lib/nations-championship/types'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, ChevronDown } from 'lucide-react'
@@ -163,6 +166,8 @@ function buildAvailabilityInputsKey(input: {
 }
 
 interface ManagementTableBookingFormProps {
+  fixtureContext?: FixtureBookingContext | null
+  fixtureMessage?: string
   prefill?: {
     date?: string
     time?: string
@@ -179,6 +184,8 @@ interface ManagementTableBookingFormProps {
 
 export function ManagementTableBookingForm({
   prefill,
+  fixtureContext = null,
+  fixtureMessage,
   twoScreenFlow = false
 }: ManagementTableBookingFormProps) {
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
@@ -313,6 +320,19 @@ export function ManagementTableBookingForm({
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [notes, setNotes] = useState('')
+  const [currentFixture, setCurrentFixture] = useState(fixtureContext)
+  const [fixtureAttached, setFixtureAttached] = useState(Boolean(fixtureContext))
+  const [fixtureUnavailable, setFixtureUnavailable] = useState(false)
+  const [fixtureDetached, setFixtureDetached] = useState(false)
+  const activeFixture = fixtureAttached && !fixtureUnavailable && currentFixture?.date === date ? currentFixture : null
+  const notesAllowance = fixtureNotesAllowance(activeFixture)
+  const completedBookings = useRef(new Set<string>())
+  useEffect(() => {
+    if (fixtureAttached && currentFixture && date !== currentFixture.date) {
+      setFixtureAttached(false)
+      setFixtureDetached(true)
+    }
+  }, [date, currentFixture, fixtureAttached])
   const [highChairCount, setHighChairCount] = useState(0)
   const [isOutsideSeating, setIsOutsideSeating] = useState(false)
 
@@ -671,7 +691,32 @@ export function ManagementTableBookingForm({
   const [depositAmountForPayment, setDepositAmountForPayment] = useState<number>(0)
   const [paymentState, setPaymentState] = useState<'idle' | 'confirmed' | 'error'>('idle')
   const [paymentError, setPaymentError] = useState<string | null>(null)
+  const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
   const [submittedAttribution, setSubmittedAttribution] = useState<BookingAttributionPayload | null>(null)
+
+  useEffect(() => {
+    if (!fixtureAttached || !fixtureContext || (result && result.state !== 'blocked')) return
+    let cancelled = false
+    const controller = new AbortController()
+    async function refreshFixture() {
+      try {
+        const response = await fetch('/api/nations-championship', { cache: 'no-store', signal: controller.signal })
+        if (!response.ok) throw new Error('Screening unavailable')
+        const feed = screeningFeedSchema.parse(await response.json())
+        const fixture = feed.fixtures.find(item => item.id === fixtureContext!.fixtureId)
+        const context = fixture ? fixtureBookingContext(fixture) : null
+        if (!cancelled) {
+          setFixtureUnavailable(!context || context.date !== fixtureContext!.date)
+          if (context && context.date === fixtureContext!.date) setCurrentFixture(context)
+        }
+      } catch { if (!cancelled) setFixtureUnavailable(true) }
+    }
+    // The server rendered the initial facts. Recheck on return to the tab and
+    // once a minute while editing; final POST independently checks again.
+    const interval = window.setInterval(() => { void refreshFixture() }, 60_000)
+    window.addEventListener('focus', refreshFixture)
+    return () => { cancelled = true; controller.abort(); window.clearInterval(interval); window.removeEventListener('focus', refreshFixture) }
+  }, [fixtureAttached, fixtureContext, result])
 
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -699,7 +744,6 @@ export function ManagementTableBookingForm({
   const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [website, setWebsite] = useState('')
   const formLoadedAt = useRef(Date.now())
-  const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
   const aircraftOverheadNote = useMemo(
     () => getAircraftOverheadNotePartsForDateTime(date, requestedTime),
     [date, requestedTime]
@@ -752,6 +796,7 @@ export function ManagementTableBookingForm({
   // fingerprint, they can change between retries without changing the booking
   // intent. Stored in a ref because the value is never rendered and we need to
   // read/write it inside the submit handler without async state timing issues.
+  const [uncertainAttempt, setUncertainAttempt] = useState<{ payload: Record<string, unknown>; key: string; fixture: FixtureBookingContext } | null>(null)
   const submitIntentKeyRef = useRef<{ fingerprint: string; key: string } | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
@@ -810,9 +855,13 @@ export function ManagementTableBookingForm({
 
   // Every time the guest may currently choose, by the one rule. Everything that
   // asks "can they have this slot" reads from here or from `judgeTime`.
+  const screeningSlots = useMemo(
+    () => (currentReading?.time_slots || []).filter(slot => !activeFixture || isFixtureArrivalAllowed(activeFixture, date, slot.time)),
+    [currentReading?.time_slots, activeFixture, date]
+  )
   const availableSlots = useMemo(
-    () => selectableSlots(currentReading?.time_slots || [], slotSelectionContext),
-    [currentReading?.time_slots, slotSelectionContext]
+    () => selectableSlots(screeningSlots, slotSelectionContext),
+    [screeningSlots, slotSelectionContext]
   )
   // Visible step-2 slots: by default a 7-slot window centred on the search-time
   // anchor, expanded to the full list when the customer taps "See more times".
@@ -872,8 +921,8 @@ export function ManagementTableBookingForm({
   // Two-screen flow: the whole day, grouped Lunch and Evening. The grid decides
   // nothing on its own; it reads the same verdict everything else reads.
   const groupedSlots = useMemo(
-    () => groupSlotsForDisplay(currentReading?.time_slots || [], slotSelectionContext),
-    [currentReading?.time_slots, slotSelectionContext]
+    () => groupSlotsForDisplay(screeningSlots, slotSelectionContext),
+    [screeningSlots, slotSelectionContext]
   )
   // Every time was hidden because the guest asked for chairs and none are free
   // anywhere on this date. Say so and offer the way out, rather than leaving an
@@ -886,8 +935,8 @@ export function ManagementTableBookingForm({
   // it is still stored, and a Continue button that reads only the stored value
   // will happily carry them off a grid that no longer shows it.
   const selectedTimeVerdict = useMemo(
-    () => judgeTime(currentReading?.time_slots || [], selectedTime, slotSelectionContext),
-    [currentReading?.time_slots, selectedTime, slotSelectionContext]
+    () => judgeTime(screeningSlots, selectedTime, slotSelectionContext),
+    [screeningSlots, selectedTime, slotSelectionContext]
   )
   // Whether the reading on screen has any standing to judge the chosen slot.
   // On the nearest-alternative path it does not: that slot belongs to another
@@ -1491,8 +1540,11 @@ export function ManagementTableBookingForm({
                onSuccess={() => {
                  setPaymentState('confirmed')
                  const transactionId = result.booking_reference || bookingIdForPayment || undefined
+                 if (transactionId && completedBookings.current.has(transactionId)) return
+                 if (transactionId) completedBookings.current.add(transactionId)
                  trackTableBookingFunnel({
                    step: 'success',
+                   fixtureId: result.fixture_id,
                    partySize,
                    bookingDate: date,
                    bookingTime: selectedTime,
@@ -1505,6 +1557,7 @@ export function ManagementTableBookingForm({
                  if (transactionId) {
                    pushToDataLayer({
                      event: 'purchase',
+                     ...(result.fixture_id ? { fixture_id: result.fixture_id } : {}),
                      transaction_id: transactionId,
                      // Estimated booking value, NOT cash taken. The deposit is a
                      // prepayment against the same bill, so sending it here would
@@ -1743,7 +1796,93 @@ export function ManagementTableBookingForm({
     submitIntentKeyRef.current = null
   }
 
+  function recordConfirmedBooking(bookingResult: ManagementTableBookingResult, intent: { partySize: number; date: string; time: string }) {
+    const completionId = bookingResult.booking_reference || bookingResult.table_booking_id
+    if (completionId && completedBookings.current.has(completionId)) return
+    if (completionId) completedBookings.current.add(completionId)
+    trackTableBookingFunnel({
+      step: 'success',
+      fixtureId: bookingResult.fixture_id,
+      partySize: intent.partySize,
+      bookingDate: intent.date,
+      bookingTime: intent.time,
+      bookingReference: bookingResult.booking_reference || undefined,
+      source: bookingSource,
+      bookingType,
+      deviceType: getDeviceType(),
+    })
+    // Use the booking reference for GA4 deduplication. The value is an estimate for reporting.
+    if (completionId) {
+      pushToDataLayer({
+        event: 'purchase',
+        ...(bookingResult.fixture_id ? { fixture_id: bookingResult.fixture_id } : {}),
+        transaction_id: completionId,
+        value: estimateTableBookingValue(intent.partySize),
+        currency: 'GBP',
+        booking_source: bookingSource,
+      }, { sendToApi: true })
+    }
+  }
+
+  async function recoverPreviousBooking() {
+    if (!uncertainAttempt || loading) return
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      showBookingError('verification_required', 'Please complete the security check before checking your previous booking.')
+      return
+    }
+    setLoading(true)
+    try {
+      const response = await fetch('/api/table-bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': uncertainAttempt.key, 'X-Booking-Replay-Only': 'true' },
+        body: JSON.stringify({ ...uncertainAttempt.payload, turnstile_token: turnstileToken }),
+      })
+      const body = await response.json()
+      const code = body?.code || body?.error?.code
+      if (code === 'IDEMPOTENCY_KEY_NOT_FOUND') {
+        setUncertainAttempt(null)
+        showBookingError('previous_attempt_not_found', 'No previous booking was found. Please check the game and your details before trying again.')
+        return
+      }
+      const data = body?.data || body
+      if (!response.ok || !['confirmed', 'pending_payment', 'blocked'].includes(data?.state)) throw new Error('We cannot confirm the previous attempt yet. Please check again before making another booking.')
+      const attempted = uncertainAttempt.payload
+      setDate(String(attempted.date))
+      setSelectedTime(String(attempted.time))
+      setPartySize(Number(attempted.party_size))
+      setPartySizeDisplay(String(attempted.party_size))
+      setPhone(String(attempted.phone))
+      setFirstName(String(attempted.first_name || ''))
+      setLastName(String(attempted.last_name || ''))
+      setNotes(String(attempted.notes || ''))
+      setCurrentFixture(uncertainAttempt.fixture)
+      setFixtureAttached(true)
+      setFixtureDetached(false)
+      setFixtureUnavailable(false)
+      setResult(applyRequestedExtras(data as ManagementTableBookingResult, {
+        highChairCount: Number(uncertainAttempt.payload.high_chair_count || 0),
+        isOutsideSeating: uncertainAttempt.payload.outside_seating === true,
+      }))
+      setError(null)
+      setUncertainAttempt(null)
+      if (data.state === 'confirmed') {
+        clearSubmitIntentIdempotencyKey()
+        recordConfirmedBooking(data as ManagementTableBookingResult, { partySize: Number(attempted.party_size), date: String(attempted.date), time: String(attempted.time) })
+      }
+    } catch (recoveryError) {
+      showBookingError('recovery_failed', recoveryError instanceof Error ? recoveryError.message : 'Please check your previous booking again.')
+    } finally {
+      setLoading(false)
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
+    }
+  }
+
   async function handleConfirmBooking() {
+    if (uncertainAttempt) {
+      await recoverPreviousBooking()
+      return
+    }
     setError(null)
     setResult(null)
 
@@ -1776,6 +1915,19 @@ export function ManagementTableBookingForm({
     // record and resolves it from the phone number.
     const resolvedEmail = (isKnownCustomer ? undefined : email.trim()) || undefined
     const trimmedNotes = notes.trim()
+    if (fixtureAttached && (fixtureUnavailable || !activeFixture)) {
+      showBookingError('screening_unavailable', 'We cannot confirm this screening. Check the tournament page or choose a normal booking below.')
+      return
+    }
+    if (activeFixture && !isFixtureArrivalAllowed(activeFixture, date, selectedTime)) {
+      showBookingError('screening_arrival', 'Choose an available arrival from pub opening and before the screening ends.')
+      setStep(slotsStep)
+      return
+    }
+    if (trimmedNotes.length > notesAllowance) {
+      showBookingError('notes_too_long', `Please keep your notes to ${notesAllowance} characters so we can include the match details.`)
+      return
+    }
     // Submit the ORIGINAL request, never a value clamped to the advisory
     // remaining figure (review F06). The server re-checks atomically at create
     // and the confirmation screen shows granted-of-requested; the shortfall
@@ -1799,6 +1951,7 @@ export function ManagementTableBookingForm({
       partySize,
       purpose,
       notes: trimmedNotes,
+      fixtureId: activeFixture?.fixtureId,
       highChairCount: resolvedHighChairCount,
       isOutsideSeating: resolvedOutsideSeating,
       requiresAccessibleTable,
@@ -1853,6 +2006,7 @@ export function ManagementTableBookingForm({
         partySize,
         purpose,
         notes: trimmedNotes,
+      fixtureId: activeFixture?.fixtureId,
         highChairCount: resolvedHighChairCount,
         isOutsideSeating: resolvedOutsideSeating,
         requiresAccessibleTable,
@@ -1875,6 +2029,8 @@ export function ManagementTableBookingForm({
         secondsOnForm: Math.floor((Date.now() - formLoadedAt.current) / 1000)
       })
 
+      if (activeFixture) setUncertainAttempt({ payload, key: idempotencyKey, fixture: activeFixture })
+
       const response = await fetch('/api/table-bookings', {
         method: 'POST',
         headers: {
@@ -1888,6 +2044,7 @@ export function ManagementTableBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        if (body?.code === 'SCREENING_UNAVAILABLE' && fixtureAttached) setFixtureUnavailable(true)
         const upstreamError =
           body?.error?.message ||
           body?.error ||
@@ -1899,6 +2056,8 @@ export function ManagementTableBookingForm({
       if (!data || typeof data !== 'object' || !data.state) {
         throw new Error('Booking response was incomplete. Please try again.')
       }
+
+      setUncertainAttempt(null)
 
       // Preserve what the guest requested so the confirmation can show
       // granted-of-requested; fall back to the submitted values if the API
@@ -1933,40 +2092,7 @@ export function ManagementTableBookingForm({
         // a retry case). See codex AB-003.
         clearSubmitIntentIdempotencyKey()
 
-        // Funnel success
-        trackTableBookingFunnel({
-          step: 'success',
-          partySize,
-          bookingDate: date,
-          bookingTime: selectedTime,
-          bookingReference: bookingResult.booking_reference || undefined,
-          source: bookingSource,
-          bookingType,
-          deviceType: getDeviceType(),
-        })
-
-        // GA4 purchase event so bookings appear in the Monetisation reports.
-        // Confirmed (no deposit) bookings have value 0; the `transaction_id`
-        // is the booking reference so duplicates de-dupe in GA4.
-        const transactionId =
-          bookingResult.booking_reference || bookingResult.table_booking_id || undefined
-        if (transactionId) {
-          pushToDataLayer({
-            event: 'purchase',
-            transaction_id: transactionId,
-            // See the note on the PayPal branch. Every booking since April 2026
-            // has taken a £0 deposit, so this used to send GA4 a literal zero on
-            // every single booking, which is why Total revenue read £0.00.
-            value: estimateTableBookingValue(partySize),
-            currency: 'GBP',
-            booking_source: bookingSource,
-            // Delivered through the Measurement Protocol as well as the dataLayer.
-            // GA4 logged 53 table_booking_completed against only 28 purchase in
-            // the same 28 days, and the confirmation screen is exactly where
-            // people close the tab. transaction_id is the booking reference, so
-            // GA4 de-duplicates if both paths land.
-          }, { sendToApi: true })
-        }
+        recordConfirmedBooking(bookingResult, { partySize, date, time: selectedTime })
       }
     } catch (submitError: any) {
       const errorMessage = submitError?.message || 'We could not process your booking right now.'
@@ -2078,6 +2204,7 @@ export function ManagementTableBookingForm({
   if (result?.state === 'confirmed') {
     return (
       <div ref={confirmationRef}>
+        {result.fixture_id && currentFixture && <p className="mb-4 font-semibold">Game: {currentFixture.label}</p>}
         <BookingConfirmedCard
           result={result}
           partySize={partySize}
@@ -2094,6 +2221,30 @@ export function ManagementTableBookingForm({
     <div ref={wizardRef} className="mx-auto">
     <Card accent>
       <CardBody className="space-y-6">
+        {uncertainAttempt && (
+          <div role="status" className="space-y-2 rounded-md border border-line p-4">
+            <p>Your previous booking attempt needs checking before you make another booking. This check cannot create a new booking.</p>
+            {!loading && TURNSTILE_SITE_KEY && <TurnstileField id="table-booking-recovery-turnstile" turnstileRef={turnstileRef} onTokenChange={setTurnstileToken} />}
+            <Button type="button" variant="outline" disabled={loading} onClick={recoverPreviousBooking}>Check previous booking attempt</Button>
+          </div>
+        )}
+        {activeFixture && (
+          <div className="space-y-2 rounded-md border border-line bg-surface-sunk p-4" aria-label="Your rugby booking">
+            <h2 className="font-semibold text-ink-strong">Book a table for {activeFixture.label}</h2>
+            <p>Kick-off: {fixtureKickoffLabel(activeFixture)} (UK time).</p>
+            <p>{activeFixture.openingLabel}</p>
+            {activeFixture.partial && <p className="font-semibold">Showing from opening. The start of the game will be missed.</p>}
+            {activeFixture.foodMessage && <p>{activeFixture.foodMessage} <Link href="/food-menu" className="underline">View the food menu</Link></p>}
+            <p className="text-sm">Choose an available arrival time below. The game details will be included with your booking.</p>
+          </div>
+        )}
+        {(fixtureMessage || fixtureDetached || (fixtureAttached && fixtureUnavailable)) && (
+          <div role="status" className="space-y-2 rounded-md border border-line p-4">
+            <p>{fixtureDetached ? 'This is now a normal table booking without a game attached.' : fixtureAttached && fixtureUnavailable ? 'We cannot confirm this screening right now. Please check before booking for the game.' : fixtureMessage}</p>
+            <Link href="/live-sport/nations-championship" className="underline">Check the tournament page</Link>
+            {fixtureAttached && fixtureUnavailable && !uncertainAttempt && <Button type="button" variant="outline" onClick={() => { setFixtureAttached(false); setFixtureDetached(true) }}>Continue with a normal table booking</Button>}
+          </div>
+        )}
         <BookingProgressBar
           currentStep={currentStepIndex + 1}
           totalSteps={stepKeys.length}
@@ -3107,6 +3258,8 @@ export function ManagementTableBookingForm({
               <Textarea
                 label="Notes (optional)"
                 value={notes}
+                maxLength={notesAllowance}
+                hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
                 onChange={(event) => setNotes(event.target.value)}
                 placeholder="Special requests, dietary needs, occasion details..."
                 rows={3}
@@ -3163,7 +3316,7 @@ export function ManagementTableBookingForm({
                   />
                 </div>
 
-                {detailsUnlocked && TURNSTILE_SITE_KEY && (
+                {detailsUnlocked && !uncertainAttempt && TURNSTILE_SITE_KEY && (
                   <TurnstileField
                     id="table-booking-turnstile"
                     turnstileRef={turnstileRef}
@@ -3338,6 +3491,8 @@ export function ManagementTableBookingForm({
               <Textarea
                 label="Notes (optional)"
                 value={notes}
+                maxLength={notesAllowance}
+                hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
                 onChange={(event) => setNotes(event.target.value)}
                 placeholder="Special requests, accessibility needs, occasion details..."
                 rows={3}
@@ -3589,7 +3744,7 @@ export function ManagementTableBookingForm({
                   />
                 </div>
 
-                {TURNSTILE_SITE_KEY && (
+                {!uncertainAttempt && TURNSTILE_SITE_KEY && (
                   <TurnstileField
                     id="table-booking-turnstile"
                     turnstileRef={turnstileRef}

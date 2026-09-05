@@ -1,3 +1,5 @@
+import { fixtureBookingContext, fixtureNotesAllowance } from '@/lib/nations-championship/booking-context-shared'
+import { nationsFixture, nationsFeed } from '../fixtures/nations-championship'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { STEP_FREE_TABLE_EXPLANATION } from '@/components/features/TableBooking/TableRefinements'
@@ -30,6 +32,10 @@ jest.mock('@/lib/gtm-events', () => ({
   trackSlotFlagShown: (...args: unknown[]) => trackSlotFlagShown(...args),
   trackSlotInvalidated: (...args: unknown[]) => trackSlotInvalidated(...args),
   trackBookingErrorShown: (...args: unknown[]) => trackBookingErrorShown(...args),
+}))
+
+jest.mock('@/components/features/TableBooking/PayPalDepositSection', () => ({
+  PayPalDepositSection: ({ onSuccess }: { onSuccess: () => void }) => <button onClick={() => { onSuccess(); onSuccess() }}>Complete mock deposit</button>,
 }))
 
 jest.mock('next/navigation', () => ({
@@ -225,6 +231,106 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
     jest.clearAllMocks()
+  })
+
+  function rugbyContext() {
+    return { ...fixtureBookingContext(nationsFixture())!, date: BOOKING_DATE, kickoff: '2026-07-07T12:00:00Z', barStartAt: '2026-07-07T11:00:00Z', screeningEndAt: '2026-07-07T14:00:00Z' }
+  }
+
+  it('shows food and partial coverage, books only returned screening slots and tracks confirmed fixture', async () => {
+    const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+    const context = rugbyContext()
+    setupFetchMock({ availability: DAY_SLOTS, capturePayload, bookingResponse: { state: 'confirmed', table_booking_id: 'tb-rugby', booking_reference: 'TB-RUGBY', fixture_id: context.fixtureId } })
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    expect(screen.getByText(/The start of the game will be missed/)).toBeInTheDocument()
+    expect(screen.getByText(/Food served noon to 7pm/)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
+    await findATable()
+    expect(screen.queryByRole('button', { name: /^6pm,/ })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
+    await screen.findByLabelText('Mobile Number')
+    await verifyPhoneAndFillName()
+    expect(screen.getByLabelText('Notes (optional)')).toHaveAttribute('maxLength', String(fixtureNotesAllowance(context)))
+    fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Near the screen' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+    await waitFor(() => expect(capturePayload.ref.current).toMatchObject({ fixture_id: context.fixtureId, notes: 'Near the screen' }))
+    expect(trackTableBookingFunnel).toHaveBeenCalledWith(expect.objectContaining({ step: 'success', fixtureId: context.fixtureId }))
+  })
+
+  it('recovers the frozen attempt after cancellation without sending edited notes or a new key', async () => {
+    const context = rugbyContext()
+    const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS })
+    const attempts: { payload: Record<string, unknown>; headers: Record<string, string> }[] = []
+    global.fetch = jest.fn((input, init) => {
+      if (input === '/api/nations-championship') return Promise.resolve(jsonResponse(nationsFeed([])))
+      if (input === '/api/table-bookings') {
+        attempts.push({ payload: JSON.parse(String(init?.body)), headers: init?.headers as Record<string, string> })
+        if (attempts.length === 1) return Promise.reject(new Error('Connection lost'))
+        return Promise.resolve(jsonResponse({ success: true, data: { state: 'confirmed', table_booking_id: 'original', booking_reference: 'TB-RECOVERED', fixture_id: context.fixtureId } }))
+      }
+      return fallbackFetch(input, init)
+    })
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    await findATable()
+    fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
+    await screen.findByLabelText('Mobile Number')
+    await verifyPhoneAndFillName()
+    fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Original notes' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+    await screen.findByText('Connection lost')
+    fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Edited notes' } })
+    fireEvent(window, new Event('focus'))
+    await screen.findByText('We cannot confirm this screening right now. Please check before booking for the game.')
+    expect(screen.queryByRole('button', { name: 'Continue with a normal table booking' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Check previous booking attempt' }))
+    await screen.findByText('TB-RECOVERED')
+    expect(trackTableBookingFunnel.mock.calls.filter(([event]) => event.step === 'success')).toEqual([[expect.objectContaining({ step: 'success', fixtureId: context.fixtureId, bookingDate: BOOKING_DATE, bookingTime: '13:00' })]])
+    expect(pushToDataLayer.mock.calls.filter(([event]) => event.event === 'purchase')).toEqual([[expect.objectContaining({ event: 'purchase', fixture_id: context.fixtureId, transaction_id: 'TB-RECOVERED' }), { sendToApi: true }]])
+    expect(attempts).toHaveLength(2)
+    expect(attempts[1].payload).toMatchObject({ notes: 'Original notes', fixture_id: context.fixtureId })
+    expect(attempts[1].headers['Idempotency-Key']).toBe(attempts[0].headers['Idempotency-Key'])
+    expect(attempts[1].headers['X-Booking-Replay-Only']).toBe('true')
+  })
+
+  it('clears the game association visibly when the customer changes date', async () => {
+    setupFetchMock({ availability: DAY_SLOTS })
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-08' } })
+    expect(screen.getByText(/now a normal table booking without a game attached/)).toBeInTheDocument()
+    expect(screen.queryByLabelText('Your rugby booking')).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('blocks stale screening after focus refresh and offers an explicit normal booking', async () => {
+    const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS })
+    global.fetch = jest.fn((input, init) => input === '/api/nations-championship'
+      ? Promise.resolve(jsonResponse(nationsFeed([]))) : fallbackFetch(input, init))
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    fireEvent(window, new Event('focus'))
+    await screen.findByText('We cannot confirm this screening right now. Please check before booking for the game.')
+    fireEvent.click(screen.getByRole('button', { name: 'Continue with a normal table booking' }))
+    expect(screen.queryByLabelText('Your rugby booking')).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('retains the server-verified fixture through deposit completion and tracks it once', async () => {
+    const context = rugbyContext()
+    const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS.map(slot => ({ ...slot, available_capacity: 20 })), bookingResponse: { state: 'pending_payment', booking_id: 'tb-paid', booking_reference: 'TB-PAID', deposit_amount: 150, fixture_id: context.fixtureId } })
+    global.fetch = jest.fn((input, init) => input === '/api/table-bookings/paypal/create-order'
+      ? Promise.resolve(jsonResponse({ success: true, orderId: 'TEST-PAYPAL' })) : fallbackFetch(input, init))
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} twoScreenFlow />)
+    await findATable()
+    fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
+    await screen.findByLabelText('Mobile Number')
+    await verifyPhoneAndFillName()
+    fireEvent.click(screen.getByRole('button', { name: /Confirm and pay deposit/i }))
+    const complete = await screen.findByRole('button', { name: 'Complete mock deposit' })
+    expect(trackTableBookingFunnel.mock.calls.filter(([event]) => event.step === 'success')).toHaveLength(0)
+    fireEvent.click(complete)
+    expect(trackTableBookingFunnel.mock.calls.filter(([event]) => event.step === 'success')).toEqual([[expect.objectContaining({ fixtureId: context.fixtureId, step: 'success' })]])
   })
 
   // Party size sits on the same screen as the grid now, which is what makes

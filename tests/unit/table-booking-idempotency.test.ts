@@ -127,3 +127,10 @@ describe('buildSubmitIntentFingerprint', () => {
     ).toBe(buildSubmitIntentFingerprint(baseIntent))
   })
 })
+
+it('distinguishes game selection and edited notes while keeping retries stable', () => {
+  const intent = { ...baseIntent, fixtureId: '10000000-0000-4000-8000-000000000001', notes: 'Near the screen' }
+  expect(buildSubmitIntentFingerprint(intent)).toBe(buildSubmitIntentFingerprint({ ...intent }))
+  expect(buildSubmitIntentFingerprint(intent)).not.toBe(buildSubmitIntentFingerprint({ ...intent, fixtureId: undefined }))
+  expect(buildSubmitIntentFingerprint(intent)).not.toBe(buildSubmitIntentFingerprint({ ...intent, notes: 'Different notes' }))
+})
