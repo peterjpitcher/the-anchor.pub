@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { resolveBookingCta } from '@/lib/booking-cta'
 
 function read(relativePath: string): string {
   return fs.readFileSync(path.join(process.cwd(), relativePath), 'utf8')
@@ -18,8 +19,7 @@ describe('/christmas-parties responsive layout', () => {
 
   it('uses the single global sticky bar for the Christmas enquiry', () => {
     expect(pageSource).not.toContain('StickyDrawerTrigger')
-    expect(stickyCtaSource).toContain("const isChristmasParties = pathname === '/christmas-parties'")
-    expect(stickyCtaSource).toContain('Christmas enquiry')
+    expect(resolveBookingCta('/christmas-parties')).toMatchObject({ label: 'Christmas enquiry' })
     expect(stickyCtaSource).toContain("detail: { source: 'sticky_global' }")
     expect(pageSource).toContain('const mode = customEvent.detail?.mode ?? context.mode')
   })

@@ -81,6 +81,10 @@ export function isDialogOpen(): boolean {
     return document.querySelector('[aria-modal="true"]:not([data-state="closed"])') !== null
 }
 
+export function isBookingFormActive(): boolean {
+    return typeof document !== 'undefined' && document.querySelector('[data-booking-flow="active"]') !== null
+}
+
 export function ChristmasLightbox() {
     const pathname = usePathname()
     const isSuppressedRoute = isLightboxSuppressedRoute(pathname)
@@ -100,7 +104,7 @@ export function ChristmasLightbox() {
         // long after the timer is set. Returning true here also leaves the season's one
         // showing unspent: `triggerLightbox` writes the suppression key only after this
         // passes, so an interrupted guest does not additionally lose their one showing.
-        if (isDialogOpen()) return true
+        if (isDialogOpen() || isBookingFormActive()) return true
 
         // Check date range
         const now = Date.now()

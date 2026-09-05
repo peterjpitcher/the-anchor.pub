@@ -41,3 +41,13 @@ Validation: lint, types, build, 183 suites and 1979 passing tests in both London
 ## API connections, 5 September 2026
 
 - [x] Complete parking and runtime API fallback remediation. Evidence and checks: tasks/fix-function/2026-09-05-api-connections/. Verified branch changes; root coordinates merge and deployment.
+
+## 5 September 2026: Anchor booking growth
+
+- [x] Add short private-hire enquiry, page-specific booking actions, Sunday copy, Christmas course selection and durable event requests.
+- [x] Prevent active enquiry promotion interruptions and redact analytics URL context.
+- [x] Reproduce and fix quick-book failure loading; verify the full-form purpose handoff.
+- [x] Finish browser evidence and final gates after the latest source changes.
+- [ ] Release only after the management migrations and paired rollout approval.
+
+Full evidence and exact production approval package are in the paired management repository at `tasks/anchor-booking-growth/`.

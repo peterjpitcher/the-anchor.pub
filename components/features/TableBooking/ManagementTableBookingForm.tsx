@@ -172,6 +172,7 @@ interface ManagementTableBookingFormProps {
     date?: string
     time?: string
     partySize?: number
+    drinksOnly?: boolean
   }
   /**
    * The approved two-screen journey (spec D1). Off by default and set from the
@@ -341,7 +342,7 @@ export function ManagementTableBookingForm({
   // kitchen hours, so the clock cannot be used to guess. Ticking it switches the house order
   // to the bar, shortens the turn, drops out of kitchen pacing and reveals slots when the
   // kitchen is shut.
-  const [drinksOnly, setDrinksOnly] = useState(false)
+  const [drinksOnly, setDrinksOnly] = useState(prefill?.drinksOnly === true)
 
   // A seating requirement, never a reason or a diagnosis. Small Bay has a step and High 4 is
   // bar height, so this is a real filter, not a preference.
@@ -387,6 +388,7 @@ export function ManagementTableBookingForm({
   const [preorderChoices, setPreorderChoices] = useState<PreorderChoice[]>([])
 
   const seasonalMenu = seasonal.period?.menu ?? []
+  const courseAware = seasonal.period?.course_policy?.version === 1
   const preorderRequired =
     seasonal.answer === true &&
     Boolean(seasonal.period?.requires_preorder) &&
@@ -408,7 +410,7 @@ export function ManagementTableBookingForm({
   }, [preorderMenuKey])
 
   const preorderIncompleteGuests = preorderRequired
-    ? preorderGuestsMissingMain(preorderChoices, partySize)
+    ? preorderGuestsMissingMain(preorderChoices, partySize, courseAware)
     : []
   const preorderSatisfied = !preorderRequired || preorderIncompleteGuests.length === 0
 
@@ -1964,6 +1966,7 @@ export function ManagementTableBookingForm({
       // Built the same way as the payload below, from the same source, so a
       // changed dish mints a new key rather than replaying the old booking.
       preorder: preorderRequired ? preorderPayloadEntries : undefined,
+        christmas_course_counts: preorderRequired && courseAware ? resizePreorderChoices(preorderChoices, partySize).map(choice => choice.courseCount) : undefined,
       communicationConsent
     })
     const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
@@ -2023,6 +2026,7 @@ export function ManagementTableBookingForm({
         // IS the seat, so skipping a sparse entry would move every later guest
         // onto someone else's dinner.
         preorder: preorderRequired ? preorderPayloadEntries : undefined,
+        christmas_course_counts: preorderRequired && courseAware ? resizePreorderChoices(preorderChoices, partySize).map(choice => choice.courseCount) : undefined,
         attribution,
         turnstileToken,
         website,
@@ -2412,6 +2416,8 @@ export function ManagementTableBookingForm({
                       partySize={partySize}
                       menu={seasonalMenu}
                       choices={preorderChoices}
+                      courseAware={courseAware}
+                      multipleCoursesAvailable={seasonal.period?.course_policy?.multiple_courses_available}
                       preorderCutoffDays={seasonal.period?.preorder_cutoff_days ?? null}
                       onChange={setPreorderChoices}
                     />
@@ -2705,8 +2711,8 @@ export function ManagementTableBookingForm({
                 {hasUsableSelection && !seasonalAnswerRequired && !preorderSatisfied ? (
                   <p className="text-sm text-ink-muted" aria-live="polite">
                     {preorderIncompleteGuests.length === 1
-                      ? `Please choose a main for guest ${preorderIncompleteGuests[0]} before continuing.`
-                      : `Please choose a main for guests ${preorderIncompleteGuests.join(', ')} before continuing.`}
+                      ? `Please complete the course choices for guest ${preorderIncompleteGuests[0]} before continuing.`
+                      : `Please complete the course choices for guests ${preorderIncompleteGuests.join(', ')} before continuing.`}
                   </p>
                 ) : null}
               </div>

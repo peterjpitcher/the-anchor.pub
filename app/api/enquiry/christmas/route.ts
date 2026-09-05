@@ -233,10 +233,9 @@ function courseTierLabel(value?: CourseTier): string {
   return COURSE_TIER_LABELS[value || 'undecided']
 }
 
-// Every sit-down Christmas booking now pre-orders, whatever the guests choose,
-// because a main per cover is captured in advance in all cases.
+// One course needs no pre-order. Two and three courses retain the published deadline.
 const PRE_ORDER_REQUIREMENT =
-  'Yes, per person. A main for every guest, starter and dessert optional.'
+  'One course needs no pre-order. Two or three courses need a pre-order, chosen per person.'
 
 type IncomingChristmasEnquiryPayload = Omit<Partial<ChristmasEnquiryPayload>, 'mode'> & {
   mode?: EnquiryMode | LegacyEnquiryMode

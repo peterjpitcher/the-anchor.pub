@@ -127,6 +127,22 @@ describe('POST /api/event-bookings: fallback Idempotency-Key', () => {
     return (calls[0].init.headers as Record<string, string>)['Idempotency-Key']
   }
 
+  it('forwards food and arrival requests and includes them in retry keys', async () => {
+    const noRequest = await keyFor()
+    const food = await keyFor({ dining_request: 'before_event' })
+    expect(food).not.toBe(noRequest)
+    expect(await keyFor({ dining_request: 'before_event' })).toBe(food)
+    const early = await keyFor({ dining_request: 'before_event', early_arrival_request: true })
+    expect(early).not.toBe(food)
+    expect(JSON.parse(String(calls[calls.length - 1].init.body))).toMatchObject({ dining_request: 'before_event', early_arrival_request: true })
+  })
+
+  it.each([{ dining_request: 'guaranteed_meal' }, { dining_request: ['before_event'] }, { early_arrival_request: 'true' }])('rejects invalid requests before forwarding %j', async (overrides) => {
+    const response = await createEventBooking(new Request('https://example.com/api/event-bookings', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...VALID_BASE, ...overrides }) }))
+    expect(response.status).toBe(400)
+    expect(calls).toHaveLength(0)
+  })
+
   it('reuses the caller Idempotency-Key when one is supplied', async () => {
     const key = await keyFor({}, { 'Idempotency-Key': 'evt_web_caller-supplied' })
 

@@ -1,3 +1,4 @@
+import type { EventDiningRequest } from '@/lib/api/events'
 import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
@@ -56,6 +57,8 @@ type EventBookingPayload = {
   event_price?: number
   event_value?: number
   food_intent?: string
+  dining_request?: EventDiningRequest
+  early_arrival_request?: boolean
   seating_preference?: 'seated' | 'standing'
   communication_consent?: CommunicationConsentPayload
 }
@@ -171,6 +174,13 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
     return { error: 'seating_preference must be seated or standing' }
   }
 
+  if (body.dining_request !== undefined && (typeof body.dining_request !== 'string' || !['before_event', 'during_event', 'not_sure'].includes(body.dining_request))) {
+    return { error: 'Choose a valid food request' }
+  }
+  if (body.early_arrival_request !== undefined && typeof body.early_arrival_request !== 'boolean') {
+    return { error: 'Choose a valid early-arrival request' }
+  }
+
   return {
     payload: {
       event_id: eventId,
@@ -182,6 +192,8 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(notes ? { notes } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
       ...(seatingPreference ? { seating_preference: seatingPreference } : {}),
+      ...(body.dining_request ? { dining_request: body.dining_request as EventDiningRequest } : {}),
+      ...(body.early_arrival_request === true ? { early_arrival_request: true } : {}),
       ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
       ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
@@ -468,6 +480,8 @@ export async function POST(request: NextRequest) {
         event_id: normalized.payload.event_id,
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
+        ...(normalized.payload.dining_request ? { dining_request: normalized.payload.dining_request } : {}),
+        ...(normalized.payload.early_arrival_request ? { early_arrival_request: true } : {}),
         ...(normalized.payload.attendee_names ? { attendee_names: normalized.payload.attendee_names } : {}),
         ...(normalized.payload.ticket_selections ? { ticket_selections: normalized.payload.ticket_selections } : {}),
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),

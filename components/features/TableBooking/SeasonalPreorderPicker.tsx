@@ -20,6 +20,7 @@ import type { BookingPeriodMenuItem } from '@/lib/api/bookings'
 export type PreorderChoice = {
   /** Index of the guest in the party, 0-based. Position is the seat. */
   guestIndex: number
+  courseCount?: 1 | 2 | 3 | null
   starterId: string | null
   mainId: string | null
   dessertId: string | null
@@ -61,9 +62,15 @@ export function isPreorderComplete(choices: PreorderChoice[], partySize: number)
 }
 
 /** Seats still missing a main, 1-based, for a message the guest can act on. */
-export function preorderGuestsMissingMain(choices: PreorderChoice[], partySize: number): number[] {
+export function preorderGuestsMissingMain(choices: PreorderChoice[], partySize: number, courseAware = false): number[] {
   return resizePreorderChoices(choices, partySize)
-    .filter((choice) => !choice.mainId)
+    .filter((choice) => {
+      if (!courseAware) return !choice.mainId
+      if (!choice.courseCount) return true
+      if (choice.courseCount === 1) return false
+      const selected = [choice.starterId, choice.mainId, choice.dessertId].filter(Boolean).length
+      return !choice.mainId || selected !== choice.courseCount
+    })
     .map((choice) => choice.guestIndex + 1)
 }
 
@@ -80,12 +87,16 @@ export function SeasonalPreorderPicker({
   menu,
   choices,
   preorderCutoffDays,
+  courseAware = false,
+  multipleCoursesAvailable = true,
   onChange
 }: {
   partySize: number
   menu: BookingPeriodMenuItem[]
   choices: PreorderChoice[]
   preorderCutoffDays?: number | null
+  courseAware?: boolean
+  multipleCoursesAvailable?: boolean
   onChange(choices: PreorderChoice[]): void
 }) {
   const sized = resizePreorderChoices(choices, partySize)
@@ -108,8 +119,10 @@ export function SeasonalPreorderPicker({
       <div>
         <h4 className="font-display text-h5 text-ink-strong">Choose what everyone is eating</h4>
         <p className="mt-1 text-sm text-ink-muted">
-          Every guest has a main. Add a starter, a dessert, or both, and each guest can choose differently. The kitchen
-          needs these {preorderCutoffDays ? `${preorderCutoffDays} days` : 'a week'} before your booking.
+          {courseAware
+            ? `Choose each guest's number of courses. One course needs no pre-order. Two or three courses need menu choices by noon ${preorderCutoffDays ?? 7} days before your booking.`
+            : `Every guest has a main. Add a starter, a dessert, or both. The kitchen needs these ${preorderCutoffDays ?? 7} days before your booking.`}
+          {courseAware && !multipleCoursesAvailable ? ' The pre-order deadline has passed for this date. Choose one course or contact the team.' : ''}
         </p>
       </div>
 
@@ -120,7 +133,23 @@ export function SeasonalPreorderPicker({
             <legend className="px-1 text-sm font-semibold text-ink-strong">Guest {guestNumber}</legend>
 
             <div className="space-y-3">
-              {SINGLE_CHOICE_COURSES.map(({ course, label, optional }) => {
+              {courseAware ? (
+                <div>
+                  <label htmlFor={`course-count-${choice.guestIndex}`} className="block text-sm text-ink-strong">Number of courses</label>
+                  <select id={`course-count-${choice.guestIndex}`} value={choice.courseCount ?? ''}
+                    className="mt-1 min-h-[44px] w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink"
+                    onChange={(event) => update(choice.guestIndex, {
+                      courseCount: event.target.value ? Number(event.target.value) as 1 | 2 | 3 : null,
+                      starterId: null, mainId: null, dessertId: null, addonIds: []
+                    })}>
+                    <option value="">Please choose...</option>
+                    <option value="1">1 course, no pre-order</option>
+                    <option value="2" disabled={!multipleCoursesAvailable}>2 courses</option>
+                    <option value="3" disabled={!multipleCoursesAvailable}>3 courses</option>
+                  </select>
+                </div>
+              ) : null}
+              {(!courseAware || (choice.courseCount ?? 0) > 1) && SINGLE_CHOICE_COURSES.map(({ course, label, optional }) => {
                 const items = itemsForCourse(menu, course)
                 if (items.length === 0) return null
 
@@ -149,7 +178,7 @@ export function SeasonalPreorderPicker({
                 )
               })}
 
-              {addons.length > 0 && (
+              {addons.length > 0 && (!courseAware || (choice.courseCount ?? 0) > 1) && (
                 <div>
                   <span className="block text-sm text-ink-strong">Extras (optional)</span>
                   {/* Priced here because an add-on is a real charge the guest has

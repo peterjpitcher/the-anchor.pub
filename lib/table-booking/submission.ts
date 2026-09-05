@@ -105,6 +105,7 @@ export type TableBookingPreorderEntry = {
 }
 
 export type TableBookingSubmitInput = {
+  christmas_course_counts?: Array<number | null | undefined>
   phone: string
   firstName: string
   lastName: string
@@ -182,6 +183,7 @@ export function buildTableBookingPayload(
     // abandoned. AMS hashes this field too, so both ends agree on what a retry
     // means.
     ...((input.preorder?.length ?? 0) > 0 ? { preorder: input.preorder } : {}),
+    ...(input.christmas_course_counts ? { christmas_course_counts: input.christmas_course_counts } : {}),
     communication_consent: buildCommunicationConsentPayload(input.communicationConsent),
     ...input.attribution,
     // Volatile fields below, added after the idempotency key has already

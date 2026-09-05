@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { resolveBookingCta, type BookingCta } from '@/lib/booking-cta'
 import { hasUserConsented } from '@/lib/cookies'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
@@ -51,13 +52,35 @@ function measureHeroHeight(): number {
 export function StickyCtas() {
   const pathname = usePathname()
   const isBookTable = pathname?.startsWith('/book-table') ?? false
-  const isChristmasParties = pathname === '/christmas-parties'
-  const isNationsChampionship = pathname === '/live-sport/nations-championship'
+  const [pageAction, setPageAction] = useState<{ pathname: string; action: BookingCta } | null>(null)
+  const action = pageAction?.pathname === pathname ? pageAction.action : resolveBookingCta(pathname || '/')
 
   const [visible, setVisible] = useState(false)
   const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
   const [quickBookOpen, setQuickBookOpen] = useState(false)
+
+  useEffect(() => {
+    setQuickBookOpen(false)
+    setPageAction(null)
+    if (!pathname?.startsWith('/events/')) return
+
+    // The page's server-rendered marker carries its actual sales state. Observe
+    // streamed content too, and match the path so a previous page cannot win.
+    const readPageAction = () => {
+      const marker = Array.from(document.querySelectorAll<HTMLElement>('[data-booking-cta-path]'))
+        .find((element) => element.dataset.bookingCtaPath === pathname.replace(/\/$/, ''))
+      if (!marker?.dataset.bookingCtaHref || !marker.dataset.bookingCtaLabel) return
+      const action: BookingCta = { kind: 'link', label: marker.dataset.bookingCtaLabel, href: marker.dataset.bookingCtaHref }
+      setPageAction((current) => current?.pathname === pathname && current.action.kind === 'link' && current.action.href === action.href && current.action.label === action.label
+        ? current
+        : { pathname, action })
+    }
+    readPageAction()
+    const observer = new MutationObserver(readPageAction)
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-booking-cta-href', 'data-booking-cta-label'] })
+    return () => observer.disconnect()
+  }, [pathname])
 
   // The bar used to hide itself entirely while the cookie banner was up, because both are
   // pinned to the bottom of the viewport and would have overlapped. The cost of that was
@@ -163,11 +186,11 @@ export function StickyCtas() {
       data-testid="sticky-ctas"
     >
       <div className="container flex items-center gap-3 lg:justify-end">
-        {isNationsChampionship ? (
+        {action.kind === 'link' ? (
           <Button asChild variant="primary" size="md" className="flex-1 lg:flex-none" tabIndex={showStickyCtas ? undefined : -1}>
-            <Link href="#fixtures" onClick={() => trackCtaClick({ id: 'nations_sticky', label: 'Choose a game', location: 'sticky_global', destination: '#fixtures' })}>Choose a game</Link>
+            <Link href={action.href} onClick={() => trackCtaClick({ id: pathname === '/live-sport/nations-championship' ? 'nations_sticky' : 'page_sticky', label: action.label, location: 'sticky_global', destination: action.href, context: pathname || '/' })}>{action.label}</Link>
           </Button>
-        ) : isChristmasParties ? (
+        ) : action.kind === 'christmas' ? (
           <Button
             variant="primary"
             size="md"

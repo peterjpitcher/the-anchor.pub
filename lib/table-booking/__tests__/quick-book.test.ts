@@ -135,6 +135,10 @@ describe('an empty grid explains itself', () => {
     expect(resolveEmptyState(availability(), 2, 'food', false)).toBe('none')
   })
 
+  it('shows check failure when a failed request leaves no availability', () => {
+    expect(resolveEmptyState(null, 2, 'food', false)).toBe('check_failed')
+  })
+
   it('stays in loading while the request is in flight', () => {
     expect(resolveEmptyState(null, 2, 'food', true)).toBe('loading')
   })
@@ -166,12 +170,9 @@ describe('handing over to the full form', () => {
     expect(href).toContain('time=19%3A00')
   })
 
-  it('sends only params the booking page actually reads', () => {
-    // app/book-table/page.tsx reads date, time and party_size. Sending `purpose` would
-    // look like it carried the food choice over and silently would not, so the guest
-    // re-answers a question they believe they have answered.
-    const href = fullFormHref({ partySize: 2, date: '2026-08-12', purpose: 'drinks' })
-    expect(href).not.toContain('purpose')
+  it('preserves an explicit drinks choice for the full form', () => {
+    expect(fullFormHref({ purpose: 'drinks' })).toBe('/book-table?purpose=drinks')
+    expect(fullFormHref({ purpose: 'food' })).toBe('/book-table')
   })
 
   it('falls back to a bare link with nothing chosen', () => {

@@ -75,11 +75,10 @@ describe('/christmas-parties booking journeys', () => {
     expect(apiSource).toContain("three_course: 'Mostly 3 courses per guest'")
   })
 
-  it('asks for a pre-order on every sit-down booking, whatever the courses', () => {
-    // Owner-confirmed 2026-08-04: a main per guest is always captured, so the
-    // old "one course needs no pre-order" branch no longer exists.
+  it('keeps the one-course pre-order exemption in the enquiry summary', () => {
+    // The one-course exemption also reaches the staff enquiry summary.
     expect(apiSource).toContain(
-      "'Yes, per person. A main for every guest, starter and dessert optional.'"
+      "'One course needs no pre-order. Two or three courses need a pre-order, chosen per person.'"
     )
     expect(stripComments(apiSource)).not.toMatch(/pre-book only/i)
     expect(stripComments(clientSource)).not.toMatch(/pre-book only/i)
