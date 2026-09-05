@@ -34,3 +34,13 @@ it('defaults old feeds to no owner approval', () => {
   const { bookingApproved: _approval, ...legacy } = nationsFixture()
   expect(screeningFixtureSchema.parse(legacy).bookingApproved).toBe(false)
 })
+
+it('preserves optional late policy without extending or reopening booking eligibility', () => {
+  const fixture = approvedNationsFixture(true)
+  fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+  expect(screeningFixtureSchema.parse(fixture).screening.lateFinishPolicy).toBe('stay_open_if_viewers')
+  expect(isBookableScreening(fixture, now)).toBe(true)
+  expect(isBookableScreening(fixture, new Date('2026-11-07T22:00:00Z'))).toBe(false)
+  fixture.screening.screeningEndAt = '2026-11-07T22:10:00Z'
+  expect(isBookableScreening(fixture, now)).toBe(false)
+})

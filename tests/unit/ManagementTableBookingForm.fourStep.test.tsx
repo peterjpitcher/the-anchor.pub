@@ -1,5 +1,5 @@
 import { fixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFixture, sundayNationsFixture } from '../fixtures/nations-championship'
+import { nationsFixture, sundayNationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
@@ -143,6 +143,18 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
     expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-11-08' } })
     expect(screen.getByText(/normal table booking without a game attached/)).toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('shows the conditional late finish in the booking summary', async () => {
+    setupFetchMock(() => ({ time_slots: [] }))
+    const fixture = approvedNationsFixture(true)
+    fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+    fixture.screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+    const context = fixtureBookingContext(fixture)!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByText(/If people are still here watching/)).toHaveTextContent('Please arrive before our usual closing time.')
+    expect(screen.queryByText(/Viewing ends at our normal closing time/)).not.toBeInTheDocument()
     await act(async () => {})
   })
 

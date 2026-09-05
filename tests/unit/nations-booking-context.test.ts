@@ -62,3 +62,14 @@ it('carries the Sunday roast menu and verified kitchen times into the booking fo
   expect(context.foodMessage).toContain('1pm to 6pm')
   expect(context.barStartAt).toBe('2026-11-08T12:00:00Z')
 })
+
+it('retains normal arrival limits when existing viewers may stay until the finish', () => {
+  const fixture = approvedNationsFixture(true)
+  fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+  const context = fixtureBookingContext(fixture)!
+  expect(context.lateFinishPolicy).toBe('stay_open_if_viewers')
+  expect(context.screeningEndAt).toBe('2026-11-07T22:00:00Z')
+  expect(isFixtureArrivalAllowed(context, context.date, '21:30')).toBe(true)
+  expect(isFixtureArrivalAllowed(context, context.date, '22:00')).toBe(false)
+  expect(isFixtureArrivalAllowed(context, context.date, '22:10')).toBe(false)
+})

@@ -140,3 +140,15 @@ it('uses Sunday roast links on the game card and England highlight with kitchen 
   expect(within(england).getByRole('link', { name: 'View the Sunday roast menu' })).toHaveAttribute('href', '/sunday-roast')
   expect(screen.queryByRole('link', { name: 'View the food menu' })).not.toBeInTheDocument()
 })
+
+it('offers conditional late viewing without a hard closing claim or changed food promise', () => {
+  const fixture = approvedNationsFixture(true)
+  fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+  fixture.screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+  render(<FixtureCard fixture={fixture} />)
+  expect(screen.getByText(/If people are still here watching/)).toHaveTextContent('Please arrive before our usual closing time.')
+  expect(screen.queryByText(/Viewing ends/)).not.toBeInTheDocument()
+  expect(screen.getByText('Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.')).toBeVisible()
+  expect(screen.getByText(/Food served noon to 7pm/)).toBeVisible()
+  expect(screen.getByRole('link', { name: /Book a table for Italy/ })).toBeVisible()
+})

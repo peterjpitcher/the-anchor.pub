@@ -51,3 +51,15 @@ Validation: lint, types, build, 183 suites and 1979 passing tests in both London
 - [x] Release after exact owner approval and management migration verification. Website commit `443959e552029a30ba391f46ccf28eb58491a86f` is live as `dpl_G6x2MEyHZ7rx88zSp8bDyqJ8CR7y`; the production alias, short enquiry, event request controls and Christmas course journey were checked. No real customer submission was made.
 
 Full evidence and exact production approval package are in the paired management repository at `tasks/anchor-booking-growth/`.
+
+## 5 September 2026: Conditional late rugby viewing
+
+Complexity 4, website consumer release coordinated with a separate Cheers producer release. The optional feed field permits either release order without changing admission hours.
+
+- [x] Record the owner policy in SSOT before customer copy.
+- [x] Consume the optional policy in cards, booking summaries and calendars.
+- [x] Update editorial and verify unchanged opening, kitchen and arrival limits.
+- [x] Run focused browser checks, London/UTC tests, lint, types and build.
+- [ ] Release and verify the exact production deployment.
+
+Validation: 190 suites, 2056 passed and 1 skipped in both zones; 53 final focused checks in each zone after copy review. Final lint, types and production build passed. Isolated browser verified conditional card, booking summary, Find a table and calendar with zero booking writes and no browser errors. Deployment evidence is maintained outside the repository.
