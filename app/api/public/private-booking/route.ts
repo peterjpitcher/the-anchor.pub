@@ -76,7 +76,6 @@ function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {
     const bookingItems = Array.isArray(payload.items) ? payload.items : []
     if (bookingItems.length > 0) {
         const itemSummary = bookingItems
-            .slice(0, 12)
             .map((item) => {
                 const description = asTrimmedString(item.description) || 'Item'
                 const quantity = asPositiveInt(item.quantity) || 1
@@ -202,6 +201,9 @@ export async function POST(request: NextRequest) {
 
         const groupSize = asPositiveInt(pb.guest_count)
         const notes = toNotes(pb)
+        if (notes && notes.length > 2000) {
+            return NextResponse.json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Your enquiry details are too long. Please shorten your notes or call 01753 682707 so we can record every detail.' } }, { status: 400 })
+        }
         const communicationConsent = sanitizeCommunicationConsent(pb.communication_consent)
 
         // email and event_type are sent as first-class fields, not only as
@@ -240,10 +242,13 @@ export async function POST(request: NextRequest) {
                 await sleep(MANAGEMENT_RETRY_DELAYS_MS[attempt - 1] ?? 1500)
             }
 
+            const controller = new AbortController()
+            const timeout = setTimeout(() => controller.abort(), 10000)
             try {
                 transportError = null
                 res = await fetch(`${API_BASE_URL}/private-booking-enquiry`, {
                     method: 'POST',
+                    signal: controller.signal,
                     headers: {
                         'Content-Type': 'application/json',
                         'X-API-Key': API_KEY,
@@ -256,6 +261,8 @@ export async function POST(request: NextRequest) {
                 transportError = fetchError
                 res = null
                 data = null
+            } finally {
+                clearTimeout(timeout)
             }
 
             // Only transient failures are worth another go. A 4xx is a decision,

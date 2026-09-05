@@ -1,5 +1,7 @@
 'use client'
 
+import type { EventDiningRequest } from '@/lib/api/events'
+
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
@@ -47,6 +49,7 @@ type EventBookingResult = {
   event_seating_type?: EventSeatingPreference | null
   next_step_url: string | null
   manage_booking_url: string | null
+  requests_recorded?: boolean
 }
 
 type WaitlistResult = {
@@ -158,6 +161,8 @@ export function ManagementEventBookingForm({
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [diningRequest, setDiningRequest] = useState<EventDiningRequest | ''>('')
+  const [earlyArrivalRequest, setEarlyArrivalRequest] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
@@ -476,6 +481,8 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
+          ...(diningRequest ? { dining_request: diningRequest, food_intent: diningRequest } : {}),
+          ...(earlyArrivalRequest ? { early_arrival_request: true } : {}),
           ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
@@ -540,7 +547,7 @@ export function ManagementEventBookingForm({
           eventDate: event.startDate,
           tickets: clampedSeats,
           value: totalValue,
-          foodIntent: null,
+          foodIntent: diningRequest || null,
           attribution,
           // Consent-gated inside PayPalEventPaymentSection; hashed server-side.
           email: resolvedEmail || null,
@@ -1060,6 +1067,28 @@ export function ManagementEventBookingForm({
             helperText="So we can send your confirmation and any payment follow-up."
           />
 
+          <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
+            <legend className="px-1 text-sm font-semibold">Food and arrival (optional)</legend>
+            <label className="block text-sm font-medium">
+              Would you like to discuss food?
+              <select
+                value={diningRequest}
+                onChange={(event) => setDiningRequest(event.target.value as EventDiningRequest | '')}
+                className="mt-1 block w-full rounded-sm border border-line bg-surface p-2 text-ink"
+              >
+                <option value="">No request</option>
+                <option value="before_event">Ask about food before the event</option>
+                <option value="during_event">Ask about food during the event</option>
+                <option value="not_sure">Discuss food options</option>
+              </select>
+            </label>
+            <label className="flex items-start gap-2 text-sm">
+              <input type="checkbox" checked={earlyArrivalRequest} onChange={(event) => setEarlyArrivalRequest(event.target.checked)} className="mt-1" />
+              I would like to discuss arriving early
+            </label>
+            <p className="text-sm text-ink-muted">These are requests only. Food availability and arrival arrangements need to be agreed with the team. This does not make a separate dining booking.</p>
+          </fieldset>
+
           <CommunicationConsentFields
             value={communicationConsent}
             onChange={setCommunicationConsent}
@@ -1123,6 +1152,8 @@ export function ManagementEventBookingForm({
           <Alert variant="success" title="Event booking confirmed">
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
             {submittedBreakdownBlock}
+            {!result.requests_recorded && (diningRequest || earlyArrivalRequest) && <p className="mt-2">Your event booking has been processed, but we could not confirm that your food or early-arrival request was recorded. Please contact us about these arrangements.</p>}
+            {result.requests_recorded && <p className="mt-2">Your food or early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
             ) : null}
@@ -1142,6 +1173,8 @@ export function ManagementEventBookingForm({
           <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
             <p>Your {submittedTicketLabel} are currently on hold.</p>
             {submittedBreakdownBlock}
+            {!result.requests_recorded && (diningRequest || earlyArrivalRequest) && <p className="mt-2">Your event booking has been processed, but we could not confirm that your food or early-arrival request was recorded. Please contact us about these arrangements.</p>}
+            {result.requests_recorded && <p className="mt-2">Your food or early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
             ) : null}

@@ -146,7 +146,7 @@ export function resolveEmptyState(
   isLoading: boolean
 ): EmptyStateReason {
   if (isLoading) return 'loading'
-  if (!availability) return 'loading'
+  if (!availability) return 'check_failed'
   if (availability.calculation_state === 'unknown') return 'check_failed'
   if (selectableSlots(availability, partySize, purpose).length > 0) return 'none'
 
@@ -172,16 +172,15 @@ export function requiresFullForm(partySize: number): boolean {
  * Deep link into the full booking form carrying whatever the guest already chose, so
  * handing over never costs them the taps they have already spent.
  *
- * Only date, time and party_size are sent, because those are the only three
- * `app/book-table/page.tsx` reads. Adding `purpose` here would look like it carried the
- * food-or-drinks choice over and silently would not, which is worse than not sending it:
- * the guest re-answers a question they think they have already answered.
+ * Date, time and party size are preserved. An explicit drinks choice carries
+ * through to the full form's drinks-only checkbox; food remains slot-derived.
  */
 export function fullFormHref(state: Partial<QuickBookState> & { time?: string | null }): string {
   const params = new URLSearchParams()
   if (state.partySize) params.set('party_size', String(state.partySize))
   if (state.date) params.set('date', state.date)
   if (state.time) params.set('time', state.time)
+  if (state.purpose === 'drinks') params.set('purpose', 'drinks')
   const query = params.toString()
   return query ? `/book-table?${query}` : '/book-table'
 }

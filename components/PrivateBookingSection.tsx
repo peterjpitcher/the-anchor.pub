@@ -1,3 +1,4 @@
+import { PrivateHireQuickEnquiry } from '@/components/PrivateHireQuickEnquiry'
 import { Container, SectionHeading } from '@/components/ui'
 import { StickyEstimatorDrawer } from '@/components/StickyEstimatorDrawer'
 import { VenueTourLink } from '@/components/private-hire/venue-tour/VenueTourLink'
@@ -17,8 +18,8 @@ interface PrivateBookingSectionProps {
 
 export function PrivateBookingSection({
   id = 'enquiry',
-  title = 'Instant Quote, Then Enquire About Your Date',
-  subtitle = 'Get an immediate cost estimate, then send us your date and we will come back to confirm whether it is free.',
+  title = 'Plan Your Private Event',
+  subtitle = 'Send a short enquiry, or explore the cost estimator to plan your event.',
   eventType,
   initialSpaceId,
   showVenueTourLink = true,
@@ -42,17 +43,20 @@ export function PrivateBookingSection({
               </VenueTourLink>
             </p>
           ) : null}
-          <div className="max-w-md mx-auto text-center">
-            <p className="text-ink-muted mb-6">
-              Use our cost estimator to build a bespoke quote for your event. Choose your space, guest count, catering, and extras to see a live price breakdown.
-            </p>
-            <StickyEstimatorDrawer
-              eventType={eventType}
-              initialSpaceId={initialSpaceId}
-              source={`estimator_${id}`}
-              showInlineButton
-              inlineButtonLabel="Open Cost Estimator"
-            />
+          <div className="grid gap-8 lg:grid-cols-2">
+            <PrivateHireQuickEnquiry eventType={eventType} initialSpaceId={initialSpaceId} />
+            <div className="text-center">
+              <p className="text-ink-muted mb-6">
+                Use our cost estimator to build a bespoke quote for your event. Choose your space, guest count, catering, and extras to see a live price breakdown.
+              </p>
+              <StickyEstimatorDrawer
+                eventType={eventType}
+                initialSpaceId={initialSpaceId}
+                source={`estimator_${id}`}
+                showInlineButton
+                inlineButtonLabel="Open Cost Estimator"
+              />
+            </div>
           </div>
         </Container>
       </section>

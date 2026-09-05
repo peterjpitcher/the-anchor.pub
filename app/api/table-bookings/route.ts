@@ -28,6 +28,7 @@ const API_BASE_URL = getManagementApiBaseUrl()
 type BookingPurpose = 'food' | 'drinks'
 
 type ManagementTableBookingPayload = {
+  christmas_course_counts?: unknown[]
   phone: string
   first_name?: string
   last_name?: string
@@ -300,6 +301,8 @@ function normaliseIncomingPayload(input: unknown): {
       // outside seating, where the form sends is_outside_seating and this maps it.
       ...(body.requires_accessible_table === true ? { requires_accessible_table: true } : {}),
       ...(seasonalAnswer ?? {}),
+      ...(seasonalAnswer?.booking_period_answer === true && Array.isArray(body.christmas_course_counts)
+        ? { christmas_course_counts: body.christmas_course_counts } : {}),
       ...(preorder.length > 0 ? { preorder } : {}),
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },

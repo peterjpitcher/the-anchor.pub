@@ -412,11 +412,11 @@ function buildFaqItems(
     },
     {
       question: 'Do you take a deposit for Christmas bookings?',
-      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It comes off your final bill, and if you need to cancel more than seven days before your booking we refund it in full. Inside seven days the deposit is not refunded.`
+      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It comes off your final bill, and if you need to cancel up to and including seven days before your booking date we refund it in full. Inside seven days the deposit is not refunded.`
     },
     {
       question: 'Do we have to pre-order our meals?',
-      answer: `Yes, and everyone chooses for themselves. Courses are picked per person, not for the whole table. Every guest chooses a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Send your choices to us ${deadlineDays} days before your booking date.`
+      answer: `One course needs a booking but no pre-order. Two or three courses need a pre-order ${deadlineDays} days before your booking date. Courses are picked per person, not for the whole table, so guests can have different numbers of courses.`
     },
     {
       question: 'When is the Christmas pre-order deadline?',
@@ -809,7 +809,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What does the deposit do?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. Cancel more than seven days ahead and we refund it in full.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">£{facts.depositPerPerson} per person, taken at booking and deducted from your final bill. Cancel up to and including seven days before your booking date and we refund it in full.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">How do we collect everyone&apos;s meal choices?</dt>
@@ -872,7 +872,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking and deducted from your bill, and refunded in full if you cancel more than seven days ahead.</span>
+                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking and deducted from your bill, and refunded in full if you cancel up to and including seven days before your booking date.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -880,7 +880,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">Pre-orders are due {deadlineDays} days before your date.</strong> Every guest pre-orders their dishes, and the 2 and 3 course choices have to be with us {deadlineDays} days before the booking. Send any dietary requirements at the same time.</span>
+                  <span><strong className="text-ink-strong">Two and three course pre-orders are due {deadlineDays} days before your date.</strong> One course needs no pre-order. Send dietary requirements with any pre-order.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -904,8 +904,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 your date, the prices and what happens next.
               </p>
               <p className="text-sm text-accent-text font-semibold">
-                Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional. Every guest
-                pre-orders, and meal choices and dietary requirements are due {deadlineDays} days before your booking date.
+                Everyone chooses their own courses: a main for each guest, with a starter and a dessert optional. One course
+                needs no pre-order. Two and three course choices and dietary requirements are due {deadlineDays} days before your booking date.
               </p>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line">
@@ -935,7 +935,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <Card className="h-full">
               <div className="p-5 space-y-2">
                 <h3 className="font-semibold text-ink-strong">3. Send your pre-order</h3>
-                <p className="text-sm text-ink-muted">Return each guest&apos;s courses and any dietary requirements {deadlineDays} days before your booking date. A main for everyone, starter and dessert optional.</p>
+                <p className="text-sm text-ink-muted">For two or three courses, return each guest&apos;s choices and dietary requirements {deadlineDays} days before your booking date. One course needs no pre-order.</p>
               </div>
             </Card>
           </Grid>
@@ -2080,8 +2080,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               {facts.minPartySize}+ guests, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
             </p>
             <p className="mt-1 text-xs">
-              Courses are chosen per person: a main for every guest, with a starter and a dessert optional. Every guest
-              pre-orders, and choices are due {preOrderDeadlineDays(facts)} days before your booking date.
+              Courses are chosen per person. One course needs no pre-order. Two and three course
+              choices are due {preOrderDeadlineDays(facts)} days before your booking date.
             </p>
             <fieldset className="mt-4">
               <legend className="mb-2 text-sm font-medium">Which sitting would you prefer? *</legend>
@@ -2101,7 +2101,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             </fieldset>
             <div className="mt-4">
               <label htmlFor="christmas-course-tier" className="block text-sm font-medium">How many courses per guest?</label>
-              <p className="mt-1 text-xs">A steer for the kitchen, not a commitment. Each guest picks their own courses when you pre-order.</p>
+              <p className="mt-1 text-xs">A guide for the kitchen. Each guest can choose their own number of courses.</p>
               <select
                 id="christmas-course-tier"
                 value={context.courseTier}

@@ -23,6 +23,7 @@ type CommunicationConsentFieldsProps = {
    * similar night. See GUEST_COMPACT_CONSENT_NOTICE for the reasoning.
    */
   variant?: 'checkboxes' | 'compact'
+  idPrefix?: string
   /**
    * Overrides the compact notice wording. Table bookings pass
    * GUEST_TABLE_COMPACT_CONSENT_NOTICE, which covers email as well as SMS and names the
@@ -36,6 +37,7 @@ export function CommunicationConsentFields({
   onChange,
   variant = 'checkboxes',
   notice,
+  idPrefix,
 }: CommunicationConsentFieldsProps) {
   const update = (key: keyof CommunicationConsentState, checked: boolean) => {
     onChange({ ...value, [key]: checked })
@@ -59,25 +61,25 @@ export function CommunicationConsentFields({
 
       <div className="space-y-2">
         <ConsentCheckbox
-          id="marketing_email_opt_in"
+          id={idPrefix ? `${idPrefix}-marketing_email_opt_in` : 'marketing_email_opt_in'}
           checked={value.marketing_email_opt_in}
           label={GUEST_MARKETING_EMAIL_LABEL}
           onChange={(checked) => update('marketing_email_opt_in', checked)}
         />
         <ConsentCheckbox
-          id="marketing_sms_opt_in"
+          id={idPrefix ? `${idPrefix}-marketing_sms_opt_in` : 'marketing_sms_opt_in'}
           checked={value.marketing_sms_opt_in}
           label={GUEST_MARKETING_SMS_LABEL}
           onChange={(checked) => update('marketing_sms_opt_in', checked)}
         />
         <ConsentCheckbox
-          id="whatsapp_opt_in"
+          id={idPrefix ? `${idPrefix}-whatsapp_opt_in` : 'whatsapp_opt_in'}
           checked={value.whatsapp_opt_in}
           label={GUEST_WHATSAPP_SERVICE_LABEL}
           onChange={(checked) => update('whatsapp_opt_in', checked)}
         />
         <ConsentCheckbox
-          id="marketing_whatsapp_opt_in"
+          id={idPrefix ? `${idPrefix}-marketing_whatsapp_opt_in` : 'marketing_whatsapp_opt_in'}
           checked={value.marketing_whatsapp_opt_in}
           label={GUEST_MARKETING_WHATSAPP_LABEL}
           onChange={(checked) => update('marketing_whatsapp_opt_in', checked)}

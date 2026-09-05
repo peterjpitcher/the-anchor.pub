@@ -79,6 +79,35 @@ describe('ManagementEventBookingForm', () => {
     window.localStorage.clear()
   })
 
+  it.each([true, false])('submits optional requests and only acknowledges server persistence %s', async (recorded) => {
+    const previousFetch = global.fetch
+    const sent: Record<string, unknown>[] = []
+    global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (input === '/api/event-bookings') {
+        sent.push(JSON.parse(String(init?.body)))
+        return new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'booking-fixture', requests_recorded: recorded } }), { status: 201 })
+      }
+      return previousFetch(input, init)
+    })
+    render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.change(screen.getByLabelText('Would you like to discuss food?'), { target: { value: 'before_event' } })
+    fireEvent.click(screen.getByLabelText('I would like to discuss arriving early'))
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    await screen.findByText('Event booking confirmed')
+    expect(sent[0]).toMatchObject({ dining_request: 'before_event', early_arrival_request: true, food_intent: 'before_event' })
+    if (recorded) {
+      expect(screen.getByText(/request has been recorded for the team/)).toBeInTheDocument()
+    } else {
+      expect(screen.queryByText(/request has been recorded for the team/)).not.toBeInTheDocument()
+      expect(screen.getByText(/could not confirm that your food/)).toBeInTheDocument()
+    }
+    expect(screen.getByText(/These are requests only/)).toBeInTheDocument()
+  })
+
   it('shows a compact single-step booking form', () => {
     render(
       <ManagementEventBookingForm

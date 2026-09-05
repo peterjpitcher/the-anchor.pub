@@ -66,7 +66,7 @@ function getSundayLunchFaqs() {
   return [
     {
       question: 'Do I need to book a table for Sunday roast?',
-      answer: 'No. Walk in any time between 1pm and 6pm and order at the table. Booking is only recommended for groups of 15 or more, or for busy afternoons.'
+      answer: 'No. Walk in any time between 1pm and 6pm and order at the table. Booking is strongly recommended for groups and peak times.'
     },
     {
       question: 'What time is Sunday roast served at The Anchor?',
@@ -151,7 +151,7 @@ export default async function SundayRoastPage() {
         crumb="Sunday Roast"
         kicker="The Anchor, Stanwell Moor"
         title="Sunday Roast Near Heathrow"
-        lead="A proper Sunday roast 7 minutes from Heathrow Terminal 5. Walk in any time from 1pm to 6pm. No booking, no pre-order, just sit down and order at the table."
+        lead="Choose a time for your Sunday roast, then order at the table. Booking is recommended for groups and peak times. Walk-ins are welcome too, with no pre-order needed."
         actions={
           <>
             <BookTableButton
@@ -164,7 +164,7 @@ export default async function SundayRoastPage() {
               trackingLabel="Book a Sunday roast"
               eventName="Sunday roast"
             >
-              Book a Table
+              Choose your Sunday table
             </BookTableButton>
             <PhoneButton
               phone="01753 682707"
@@ -272,18 +272,18 @@ export default async function SundayRoastPage() {
         <div className="container">
           <div className="mx-auto">
             <h2 className="mb-4 text-h3 text-ink-strong">
-              No Booking, No Pre-Order, No Fuss
+              Choose Your Table, Order When You Arrive
             </h2>
             <p className="mb-4 leading-relaxed text-ink-muted">
               Most Sunday roasts near Heathrow want you to commit days ahead: choose your meat by Saturday lunchtime, pay up front, lock in a slot. We used to do that too. Not any more.
             </p>
             <p className="mb-6 leading-relaxed text-ink-muted">
-              Since May 2026, the roast is walk-in all the way through. Turn up between 1pm and 6pm (last tables seated at 5:30pm) and we will cook it fresh. No Saturday cut-off, no deposit per plate, no pre-order form. Changed your mind about pork on the drive over? Order beef instead. Booking is still a good idea for bigger tables or a busy afternoon, but for two or four people it is genuinely never required.
+              Book a table for the time that suits your Sunday, especially for a group or a peak slot. There is no pre-order or Saturday cut-off: choose your roast when you arrive. Prefer to decide on the day? Walk-ins are welcome too. Check the booking calendar for available times.
             </p>
             <SundayLunchHowItWorks/>
             <ul className="mt-6 space-y-2 text-base text-ink-muted">
               <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm.</li>
-              <li>&bull; Walk-ins are welcome. Booking guarantees your spot, especially for larger parties.</li>
+              <li>&bull; Walk-ins are welcome. Booking is strongly recommended for groups and peak times.</li>
               <li>&bull; No Sunday-specific pre-order is required.</li>
               <li>&bull; {sunday.depositCopy}</li>
               <li>&bull; Plans changed? A quick call to{' '}
