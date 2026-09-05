@@ -49,6 +49,32 @@ export function AllergenFilterBar({
     return () => document.removeEventListener('keydown', handler)
   }, [isOpen, onClose])
 
+  /**
+   * `inert` while the panel is closed, so its off-canvas contents leave the tab order and
+   * stop taking pointer events.
+   *
+   * The panel stays mounted when closed and hides itself with a transform, because it
+   * slides in and out. `aria-hidden` on its own would be a fault of its own making: hiding
+   * a subtree that still holds focusable children lets a keyboard user tab into content the
+   * screen reader has been told is not there.
+   *
+   * Set on the node rather than passed as a prop because React 18 has no `inert` support. A
+   * boolean prop renders `inert="true"` and logs "Received `true` for a non-boolean
+   * attribute", and the empty string the HTML spec asks for is rejected by the only `inert`
+   * typing in scope, which comes from React's experimental build and types it as the
+   * boolean React 18 cannot take. On React 19 this whole effect collapses to
+   * `inert={!isOpen}` on the panel below.
+   *
+   * Declared before the focus effect deliberately. Effects run in declaration order within
+   * a commit, and calling focus() on a node that is still `inert` does nothing.
+   */
+  useEffect(() => {
+    const panel = panelRef.current
+    if (!panel) return
+    if (isOpen) panel.removeAttribute('inert')
+    else panel.setAttribute('inert', '')
+  }, [isOpen])
+
   // Trap focus inside panel when open
   useEffect(() => {
     if (isOpen) {
@@ -89,12 +115,25 @@ export function AllergenFilterBar({
         />
       )}
 
-      {/* Slide-in panel */}
+      {/*
+        Slide-in panel. It stays mounted so it can animate, so "closed" has to be said in
+        the markup rather than implied by absence: `role` and `aria-modal` are dropped,
+        `aria-hidden` is set, and the effect above makes it `inert`.
+
+        `data-state` is belt-and-braces for `isDialogOpen()` in
+        components/features/christmas/ChristmasLightbox.tsx, which reads any
+        `[aria-modal="true"]` element that is not `data-state="closed"` as an open dialog
+        and holds the lightbox back. An always-mounted panel that said nothing here would
+        suppress the Christmas lightbox site-wide for the whole season, and the campaign
+        would silently never run.
+      */}
       <div
         ref={panelRef}
         tabIndex={-1}
-        role="dialog"
-        aria-modal="true"
+        data-state={isOpen ? 'open' : 'closed'}
+        role={isOpen ? 'dialog' : undefined}
+        aria-modal={isOpen ? 'true' : undefined}
+        aria-hidden={isOpen ? undefined : true}
         aria-label="Dietary and allergen filters"
         className={cn(
           'fixed top-0 right-0 z-50 h-full w-80 max-w-[90vw] bg-surface shadow-2xl transition-transform duration-300 ease-in-out flex flex-col',
