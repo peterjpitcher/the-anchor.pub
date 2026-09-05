@@ -462,8 +462,8 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 eventType={eventType}
                 initialSpaceId={initialSpaceId}
                 showVenueTourLink={false}
-                title="Check availability and build a quote"
-                subtitle="Choose your event type, preferred date, guest count, timing and food options."
+                title="Build a quote, then enquire about your date"
+                subtitle="Choose your event type, preferred date, guest count, timing and food options. We confirm whether the date is free when we reply."
             />
 
             {/* Real Google reviews from lib/google-reviews.ts. Replaced four

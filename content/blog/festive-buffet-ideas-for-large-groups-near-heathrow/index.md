@@ -76,7 +76,7 @@ If your group is under 30, the [Christmas set menu](/christmas-parties) is the b
 A few practical things worth knowing before you enquire:
 
 - The festive window runs **10 November to 20 December 2026**, and the 20th is bookable. Within it, sittings run **Tuesday to Saturday, plus Sunday from 1pm to 6pm**. There are **no Monday sittings**, the kitchen is closed. Worth knowing before you go looking for a date that suits forty people.
-- Every Christmas booking takes a **£10 per person deposit**, whatever the party size. Non-refundable, and it comes straight off your bill on the day.
+- Every Christmas booking takes a **£10 per person deposit**, whatever the party size. It comes straight off your bill on the day, and it is refunded in full if you cancel more than seven days ahead.
 - We need **24 hours' notice** minimum. No same-day Christmas bookings.
 - **More than 20 guests is not a table booking, it is private hire.** Email manager@the-anchor.pub, call 01753 682707, or WhatsApp the same number, and a person will talk it through with you.
 

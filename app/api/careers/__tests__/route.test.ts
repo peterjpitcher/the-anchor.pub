@@ -47,6 +47,12 @@ jest.mock('@/lib/microsoft-graph-mail', () => ({
       .replace(/'/g, '&#39;'),
 }))
 
+const mockLogError = jest.fn()
+jest.mock('@/lib/error-handling', () => {
+  const actual = jest.requireActual('@/lib/error-handling')
+  return { ...actual, logError: (...args: unknown[]) => mockLogError(...args) }
+})
+
 // ── Env vars ─────────────────────────────────────────────────────────────────
 
 const ORIGINAL_ENV = process.env
@@ -223,7 +229,7 @@ describe('POST /api/careers', () => {
     await postWithFormData()
 
     expect(mockCheckSpamProtection).toHaveBeenCalledTimes(1)
-    // The third argument (options) should be undefined — no skipTurnstile
+    // The third argument (options) should be undefined, no skipTurnstile
     const optionsArg = mockCheckSpamProtection.mock.calls[0][2]
     expect(optionsArg).toBeUndefined()
   })
@@ -342,5 +348,56 @@ describe('POST /api/careers', () => {
     expect(res.status).toBe(200)
     const body = await res.json()
     expect(body.success).toBe(true)
+  })
+
+  // 13. The application only exists as an email. If the send fails there is no
+  // record of it anywhere, so the applicant must never be told it worked, and
+  // the failure must reach our error log rather than a bare console.error.
+  describe('when the application email cannot be sent', () => {
+    it('never reports success', async () => {
+      mockSendMicrosoftGraphEmail.mockRejectedValue(new Error('Graph token request failed'))
+
+      const res = await postWithFormData()
+      const body = await res.json()
+
+      expect(res.status).toBe(500)
+      expect(body.success).toBe(false)
+    })
+
+    it('gives the applicant the phone number instead of a dead end', async () => {
+      mockSendMicrosoftGraphEmail.mockRejectedValue(new Error('Graph token request failed'))
+
+      const res = await postWithFormData()
+      const body = await res.json()
+
+      expect(body.error).toContain('01753 682707')
+    })
+
+    it('logs the failure so a lost application is visible to us', async () => {
+      const failure = new Error('Graph token request failed')
+      mockSendMicrosoftGraphEmail.mockRejectedValue(failure)
+
+      await postWithFormData()
+
+      expect(mockLogError).toHaveBeenCalledWith('api/careers', failure)
+    })
+
+    it('fails closed when the mailbox is not configured, and says who to call', async () => {
+      const previous = process.env.MICROSOFT_USER_EMAIL
+      delete process.env.MICROSOFT_USER_EMAIL
+
+      try {
+        const res = await postWithFormData()
+        const body = await res.json()
+
+        expect(res.status).toBe(500)
+        expect(body.success).toBe(false)
+        expect(body.error).toContain('01753 682707')
+        expect(mockLogError).toHaveBeenCalled()
+        expect(mockSendMicrosoftGraphEmail).not.toHaveBeenCalled()
+      } finally {
+        process.env.MICROSOFT_USER_EMAIL = previous
+      }
+    })
   })
 })

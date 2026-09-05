@@ -17,8 +17,8 @@ interface PrivateBookingSectionProps {
 
 export function PrivateBookingSection({
   id = 'enquiry',
-  title = 'Instant Quote & Check Availability',
-  subtitle = 'Get an immediate cost estimate for your gathering.',
+  title = 'Instant Quote, Then Enquire About Your Date',
+  subtitle = 'Get an immediate cost estimate, then send us your date and we will come back to confirm whether it is free.',
   eventType,
   initialSpaceId,
   showVenueTourLink = true,

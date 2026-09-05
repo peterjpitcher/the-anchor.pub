@@ -7,6 +7,7 @@
 > - "Bring a DJ, book a live band, or let us set up karaoke" and any "Live Band Christmas Celebration". **Live music is discontinued in full** (11 Aug 2026). Karaoke and a DJ happen only occasionally and are never offered as part of a Christmas booking.
 > - **Shared Christmas party nights were discontinued on 21 July 2026.**
 > - Any "late bar until midnight" claim. Not documented in the SSOT.
+> - **"Deposit (non-refundable)" (added 5 September 2026).** The £10 per person deposit is refunded in full if the booking is cancelled more than 7 days before the booking date. Only inside 7 days is it not refunded.
 >
 > Read `docs/SSOT.md` before reusing anything here. The live pages at `/christmas-parties` and `/corporate-events` are already correct; this file is kept for history only.
 

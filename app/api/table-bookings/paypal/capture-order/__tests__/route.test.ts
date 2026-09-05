@@ -127,6 +127,54 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
     expect(res.status).toBe(400)
   })
 
+  // The deposit has already left the guest's account by the time this route
+  // runs. These two pin the fail-closed behaviour: a capture we cannot verify
+  // must not come back as a confirmation, and must not be counted as revenue.
+  it('returns 502 and forwards nothing when the management API never answers', async () => {
+    mockFetch.mockRejectedValueOnce(new Error('fetch failed'))
+
+    const req = new NextRequest('http://localhost/api/table-bookings/paypal/capture-order', {
+      method: 'POST',
+      body: JSON.stringify({
+        bookingId: '550e8400-e29b-41d4-a716-446655440000',
+        orderId: 'ORDER-123',
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+    const res = await POST(req)
+    const body = await res.json()
+
+    expect(res.status).toBe(502)
+    expect(body.success).toBeUndefined()
+    expect(mockFetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns 502 rather than a confirmation when the 200 body cannot be read', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: async () => {
+        throw new SyntaxError('Unexpected token < in JSON')
+      },
+    })
+
+    const req = new NextRequest('http://localhost/api/table-bookings/paypal/capture-order', {
+      method: 'POST',
+      body: JSON.stringify({
+        bookingId: '550e8400-e29b-41d4-a716-446655440000',
+        orderId: 'ORDER-123',
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+    const res = await POST(req)
+    const body = await res.json()
+
+    expect(res.status).toBe(502)
+    expect(body.success).toBeUndefined()
+    // No CheersAI conversion: only the upstream capture call was made.
+    expect(mockFetch).toHaveBeenCalledTimes(1)
+  })
+
   describe('advanced matching (email/phone)', () => {
     const CONTACT = { email: 'Test@Example.COM', phone: '07700 900123' }
     // Computed independently of lib/booking-conversion-signals so the test cannot

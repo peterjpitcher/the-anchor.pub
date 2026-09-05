@@ -132,7 +132,7 @@
     "social_media": {
       "facebook": "https://www.facebook.com/theanchorpubsm/",
       "instagram": "https://www.instagram.com/theanchor.pub/",
-      "whatpub": "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor",
+      "whatpub": "https://camra.org.uk/pubs/anchor-stanwell-moor-159519",
       "_no_twitter_or_linkedin": "Owner-confirmed 8 August 2026: The Anchor has no X/Twitter or LinkedIn account. Do not add them to sameAs, footers, blog posts or the Google Business Profile. Facebook and Instagram are the only social accounts."
     },
     "schema_org": {
@@ -1230,7 +1230,10 @@
       "per_person_gbp": 10,
       "applies_regardless_of_party_size": true,
       "taken_at_booking": true,
-      "refundable": false,
+      "refundable": true,
+      "refund_cutoff_days": 7,
+      "refund_rule": "Refundable in full if the booking is cancelled more than 7 days before the booking date. Inside 7 days the deposit is not refunded.",
+      "_confirmed": "Owner-confirmed 5 September 2026. Supersedes the earlier blanket non-refundable rule, which contradicted the live management setting.",
       "deducted_from_bill": true
     },
     "tiers": {

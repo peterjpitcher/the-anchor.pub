@@ -75,7 +75,7 @@ Access belongs in an honest comparison too. The car park, the bar and the dining
 - **When:** 10 November to 20 December 2026, and the 20th is included. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no Monday sittings, because the kitchen is closed on Mondays.
 - **Group size:** minimum 6 guests on every Christmas dinner booking. More than 20 guests is [private hire](/private-hire) rather than a table booking.
 - **Notice:** at least 24 hours. We cannot take same-day Christmas bookings.
-- **Deposit:** £10 per person on every Christmas booking whatever the size. Taken at booking, non-refundable, and it comes straight off your bill on the day.
+- **Deposit:** £10 per person on every Christmas booking whatever the size. Taken at booking and it comes straight off your bill on the day. Refunded in full if you cancel more than seven days before the booking.
 - **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, and choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order, which is the flexible option if your group decides late.
 - **Children:** there is no kids 2-course or 3-course tier and no child price for those. Children may order the adult 2 or 3 course tier at the adult price. The 1 course does have a kids version.
 - **Prices:** live from our booking system, and they differ between Tuesday to Thursday and Friday to Saturday. We will not print a number here that might be stale by the time you read it.
@@ -106,7 +106,7 @@ No, and that is one of the real differences from a fixed package. Each person pi
 
 ### Is there a deposit?
 
-Yes. £10 per person on every Christmas booking whatever the group size, taken at booking. It is non-refundable and it is deducted from your final bill.
+Yes. £10 per person on every Christmas booking whatever the group size, taken at booking. It is deducted from your final bill, and refunded in full if you cancel more than seven days before the booking. Inside seven days it is not refunded.
 
 ### What if we are more than 20 people?
 
