@@ -869,7 +869,13 @@ export function PrivateBookingCalculator({
                             : 'min-w-0 w-full break-words px-6 py-4 text-lg md:w-auto md:px-8'
                     )}
                 >
-                    Check Availability
+                    {/*
+                      Not "Check Availability". This button opens an enquiry form; it does
+                      not read a live calendar, and the pub confirms the date by hand. An
+                      independent review flagged the old label in September 2026 as a
+                      promise the button does not keep.
+                    */}
+                    Enquire About Your Date
                     <svg className={cn(compact ? 'w-3.5 h-3.5' : 'w-5 h-5', 'transition-transform group-hover:translate-x-1')} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
