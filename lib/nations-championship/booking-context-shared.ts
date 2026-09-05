@@ -12,6 +12,7 @@ export interface FixtureBookingContext {
   openingLabel: string
   partial: boolean
   untilClosing?: boolean
+  lateFinishPolicy?: ScreeningFixture['screening']['lateFinishPolicy']
   foodMessage: string | null
   foodMenu?: FixtureFoodMenu | null
 }
@@ -28,6 +29,7 @@ export function fixtureBookingContext(fixture: ScreeningFixture): FixtureBooking
     openingLabel: fixture.screening.openingLabel,
     partial: ['from_opening', 'from_opening_until_closing'].includes(fixture.coverage),
     untilClosing: ['until_closing', 'from_opening_until_closing'].includes(fixture.coverage),
+    lateFinishPolicy: fixture.screening.lateFinishPolicy,
     foodMenu: fixtureFoodMenu(fixture),
     foodMessage: fixture.hours.kitchenState === 'known' && ['during_screening', 'before_match'].includes(fixture.screening.foodPromotion.kind)
       ? fixture.screening.foodPromotion.message : null,

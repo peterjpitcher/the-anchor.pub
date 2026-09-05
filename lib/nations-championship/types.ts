@@ -45,6 +45,7 @@ export const screeningFixtureSchema = z.object({
     status: z.enum(['awaiting_channel', 'awaiting_decision', 'hours_unknown', 'opening_conflict', 'confirmed_full', 'confirmed_partial', 'not_showing', 'finished', 'cancelled']),
     screeningStartAt: instant.nullable(),
     screeningEndAt: instant.nullable(),
+    lateFinishPolicy: z.literal('stay_open_if_viewers').optional(),
     openingLabel: z.string(),
     kitchenLabel: z.string(),
     foodPromotion: z.object({

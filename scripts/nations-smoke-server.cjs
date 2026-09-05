@@ -6,7 +6,15 @@ const { nationsFeed, approvedNationsFixture } = require('../tests/fixtures/natio
 const requests = []
 const outcomes = new Map()
 let feedUnavailable = false
-const feed = nationsFeed(process.env.NATIONS_APPROVED_TEST === 'true' ? [approvedNationsFixture()] : undefined)
+const lateTest = process.env.NATIONS_LATE_TEST === 'true'
+const feed = nationsFeed(lateTest ? [approvedNationsFixture(true)] : process.env.NATIONS_APPROVED_TEST === 'true' ? [approvedNationsFixture()] : undefined)
+if (lateTest) {
+  feed.fixtures[0].screening.foodPromotion.kind = 'before_match'
+  feed.fixtures[0].screening.foodPromotion.overlapWindows = []
+  feed.fixtures[0].screening.foodPromotion.message = 'Food served noon to 7pm. Eat before the game.'
+  feed.fixtures[0].screening.lateFinishPolicy = 'stay_open_if_viewers'
+  feed.fixtures[0].screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+}
 const initialScreeningDecision = feed.fixtures[0].screeningDecision
 const hours = {
   regularHours: Object.fromEntries(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(day => [day, { opens: '12:00', closes: '22:00', is_closed: false, kitchen: { opens: '12:00', closes: '19:00' } }])),

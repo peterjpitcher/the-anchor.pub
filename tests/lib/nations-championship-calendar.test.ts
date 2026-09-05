@@ -36,3 +36,15 @@ it('includes the Sunday roast menu and actual service hours in the calendar', ()
   expect(calendar).toContain('Food served 1pm to 6pm')
   expect(calendar).not.toContain('/food-menu')
 })
+
+it('explains the conditional finish while retaining the usual closing calendar boundary', () => {
+  const fixture = approvedNationsFixture(true)
+  fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+    fixture.screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+  const calendar = buildScreeningCalendar(fixture, now).replace(/\r\n /g, '')
+  expect(calendar).toContain('DTEND:20261107T220000Z')
+  expect(calendar).toContain('If people are still here watching')
+  expect(calendar).toContain('Please arrive before our usual closing time.')
+  expect(calendar).toContain('Calendar end marks usual closing')
+  expect(calendar).not.toContain('Viewing ends when the pub closes')
+})

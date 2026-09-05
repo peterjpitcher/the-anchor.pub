@@ -29,7 +29,11 @@ export function buildScreeningCalendar(fixture: ScreeningFixture, now = new Date
   const description = [
     `Kick-off ${kickoff} (UK time).`, fixture.screening.openingLabel,
     ['from_opening', 'from_opening_until_closing'].includes(fixture.coverage) ? 'Showing from opening; the start of the game is missed.' : '',
-    ['until_closing', 'from_opening_until_closing'].includes(fixture.coverage) ? 'Viewing ends when the pub closes, even if the game continues.' : '',
+    ['until_closing', 'from_opening_until_closing'].includes(fixture.coverage)
+      ? fixture.screening.lateFinishPolicy === 'stay_open_if_viewers'
+        ? 'Calendar end marks usual closing, not the final whistle.'
+        : 'Viewing ends when the pub closes, even if the game continues.'
+      : '',
     fixture.screening.foodPromotion.message,
     menu ? `Menu: https://www.the-anchor.pub${menu.href}` : '',
     fixture.plannedEndAt === null ? 'Calendar end marks the booking window, not the final whistle. Check the website before travelling. Downloaded calendar files do not update automatically.' : 'End time is planned and may change. Check the website before travelling. Downloaded calendar files do not update automatically.',
