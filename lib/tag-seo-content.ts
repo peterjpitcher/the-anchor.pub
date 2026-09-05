@@ -34,7 +34,17 @@ export function generateFallbackSEOContent(tag: string): TagSEOContent {
 
 // Get SEO content for a tag (with fallback)
 export function getTagSEOContent(tag: string): TagSEOContent {
-  return tagSEOContent[tag] || generateFallbackSEOContent(tag)
+  // Own-property guard, not a truthiness check. `tagSEOContent` is a plain
+  // object literal, so it inherits from Object.prototype: a lookup for
+  // `constructor` or `__proto__` returned a truthy value that is not a
+  // TagSEOContent, the fallback never fired, and the undefined metaTitle threw
+  // in getTwitterMetadata. That served HTTP 500 on /blog/tag/constructor and
+  // /blog/tag/__proto__ in production.
+  if (!Object.prototype.hasOwnProperty.call(tagSEOContent, tag)) {
+    return generateFallbackSEOContent(tag)
+  }
+
+  return tagSEOContent[tag]
 }
 
 export const tagSEOContent: Record<string, TagSEOContent> = {
