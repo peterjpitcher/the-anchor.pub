@@ -54,6 +54,29 @@ export function isLightboxSuppressedRoute(pathname: string | null): boolean {
     )
 }
 
+/**
+ * True while a modal dialog is open anywhere on the page.
+ *
+ * The route list above cannot carry this on its own. `StickyCtas` mounts the quick-book
+ * sheet on every page, so a guest can be part-way through choosing a time on the homepage
+ * or on `/private-hire`, neither of which is a suppressed route, and the timer fires over
+ * the top of them. An independent review caught exactly that in September 2026. Adding
+ * more route prefixes would not fix it, because the sheet follows the guest everywhere.
+ *
+ * Two overlay primitives, two shapes to match:
+ *
+ * - `Modal` unmounts when closed, so its `aria-modal` is on the page only while open and
+ *   it carries no `data-state`.
+ * - `StickyDrawer`, which the quick-book sheet uses, renders its panel all the time and
+ *   hides it with a transform, so its `aria-modal` is present on every page whether the
+ *   drawer is open or not. `data-state` is the attribute that actually says. Matching on
+ *   `aria-modal` alone would therefore suppress the lightbox site-wide, permanently.
+ */
+export function isDialogOpen(): boolean {
+    if (typeof document === 'undefined') return false
+    return document.querySelector('[aria-modal="true"]:not([data-state="closed"])') !== null
+}
+
 export function ChristmasLightbox() {
     const pathname = usePathname()
     const isSuppressedRoute = isLightboxSuppressedRoute(pathname)
@@ -68,6 +91,12 @@ export function ChristmasLightbox() {
     const checkSuppression = useCallback(() => {
         if (typeof window === 'undefined') return true
         if (isSuppressedRoute) return true
+
+        // Checked at fire time, not at mount, because the guest opens the booking sheet
+        // long after the timer is set. Returning true here also leaves the season's one
+        // showing unspent: `triggerLightbox` writes the suppression key only after this
+        // passes, so an interrupted guest does not additionally lose their one showing.
+        if (isDialogOpen()) return true
 
         // Check date range
         const now = Date.now()

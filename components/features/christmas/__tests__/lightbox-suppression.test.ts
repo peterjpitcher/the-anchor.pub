@@ -1,4 +1,4 @@
-import { isLightboxSuppressedRoute } from '../ChristmasLightbox'
+import { isDialogOpen, isLightboxSuppressedRoute } from '../ChristmasLightbox'
 
 /**
  * The lightbox burns its once-per-season suppression key the moment it opens, so firing it
@@ -68,5 +68,47 @@ describe('it still fires everywhere it should', () => {
 
   it('handles a null pathname without throwing', () => {
     expect(isLightboxSuppressedRoute(null)).toBe(false)
+  })
+})
+
+/**
+ * The route list cannot cover the quick-book sheet, because `StickyCtas` mounts it on
+ * every page. A guest choosing a time on the homepage or on `/private-hire` is inside a
+ * booking journey on a route the list deliberately allows.
+ */
+describe('the lightbox never fires over an open dialog', () => {
+  afterEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  it('is not suppressed on a page with no dialogs', () => {
+    expect(isDialogOpen()).toBe(false)
+  })
+
+  it('is suppressed while a Modal is open', () => {
+    // `Modal` unmounts when closed, so its presence alone means open.
+    document.body.innerHTML = '<div role="dialog" aria-modal="true">Booking</div>'
+    expect(isDialogOpen()).toBe(true)
+  })
+
+  it('is suppressed while a StickyDrawer is open', () => {
+    document.body.innerHTML =
+      '<div role="dialog" aria-modal="true" data-state="open">Quick book</div>'
+    expect(isDialogOpen()).toBe(true)
+  })
+
+  it('is NOT suppressed by a closed StickyDrawer', () => {
+    // The regression that matters. `StickyDrawer` renders its panel even when closed and
+    // hides it with a transform, so `aria-modal="true"` sits on every page all the time.
+    // Matching on that attribute alone would suppress the lightbox site-wide, for the
+    // whole season, and the campaign would silently never run.
+    document.body.innerHTML =
+      '<div role="dialog" aria-modal="true" data-state="closed">Quick book</div>'
+    expect(isDialogOpen()).toBe(false)
+  })
+
+  it('is not suppressed by a non-modal popover', () => {
+    document.body.innerHTML = '<div role="dialog" aria-modal="false">Popover</div>'
+    expect(isDialogOpen()).toBe(false)
   })
 })
