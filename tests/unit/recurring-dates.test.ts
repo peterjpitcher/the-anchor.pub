@@ -150,3 +150,14 @@ describe('getHeaderPromoCtas', () => {
     })
   })
 })
+
+
+describe('Nations Championship header promotion', () => {
+  it('follows Christmas and covers the owner-approved run through Finals Weekend only', () => {
+    const promos = getHeaderPromoCtas(new Date('2026-09-05T12:00:00Z'))
+    const index = promos.findIndex(p => p.label === 'Nations Championship')
+    expect(promos[index - 1].label).toBe('Christmas')
+    expect(promos[index]).toMatchObject({ href: '/live-sport/nations-championship', startsOn: '2026-09-05', endsOn: '2026-11-29', leadDays: 0 })
+    expect(getHeaderPromoCtas(new Date('2027-09-05T12:00:00Z')).some(p => p.label === 'Nations Championship')).toBe(false)
+  })
+})
