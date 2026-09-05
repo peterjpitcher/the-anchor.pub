@@ -26,10 +26,11 @@ export function buildScreeningCalendar(fixture: ScreeningFixture, now = new Date
   const kickoff = DateTime.fromISO(fixture.kickOffAt).setZone('Europe/London').toFormat('d MMMM yyyy, HH:mm')
   const description = [
     `Kick-off ${kickoff} (UK time).`, fixture.screening.openingLabel,
-    fixture.screening.status === 'confirmed_partial' ? 'Showing from opening; the start of the game is missed.' : '',
+    ['from_opening', 'from_opening_until_closing'].includes(fixture.coverage) ? 'Showing from opening; the start of the game is missed.' : '',
+    ['until_closing', 'from_opening_until_closing'].includes(fixture.coverage) ? 'Viewing ends when the pub closes, even if the game continues.' : '',
     fixture.screening.foodPromotion.message,
     fixture.screening.foodPromotion.message ? 'Menu: https://www.the-anchor.pub/food-menu' : '',
-    'End time is planned and may change. Check the website before travelling. Downloaded calendar files do not update automatically.',
+    fixture.plannedEndAt === null ? 'Calendar end marks the booking window, not the final whistle. Check the website before travelling. Downloaded calendar files do not update automatically.' : 'End time is planned and may change. Check the website before travelling. Downloaded calendar files do not update automatically.',
   ].filter(Boolean).join('\n')
   return [
     'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//The Anchor//Rugby screenings//EN', 'CALSCALE:GREGORIAN',

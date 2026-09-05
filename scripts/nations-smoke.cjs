@@ -49,7 +49,7 @@ async function main() {
     await page.getByLabel('Filter by team').selectOption('England')
     await page.getByText('0 fixtures shown', { exact: true }).waitFor()
     await page.getByRole('button', { name: 'Show all fixtures', exact: true }).click()
-    await page.getByText('1 fixtures shown', { exact: true }).waitFor()
+    await page.getByText('1 fixture shown', { exact: true }).waitFor()
     evidence.checks.push('Team filter and reset')
     const validCalendar = await fetch(`${base}/api/nations-championship/calendar/${fixtureId}`)
     assert.equal(validCalendar.status, 200)

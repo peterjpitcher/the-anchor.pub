@@ -2233,6 +2233,7 @@ export function ManagementTableBookingForm({
             <h2 className="font-semibold text-ink-strong">Book a table for {activeFixture.label}</h2>
             <p>Kick-off: {fixtureKickoffLabel(activeFixture)} (UK time).</p>
             <p>{activeFixture.openingLabel}</p>
+            {activeFixture.untilClosing && <p className="font-semibold">Viewing ends at our normal closing time, even if the game continues.</p>}
             {activeFixture.partial && <p className="font-semibold">Showing from opening. The start of the game will be missed.</p>}
             {activeFixture.foodMessage && <p>{activeFixture.foodMessage} <Link href="/food-menu" className="underline">View the food menu</Link></p>}
             <p className="text-sm">Choose an available arrival time below. The game details will be included with your booking.</p>

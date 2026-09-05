@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, within, act } from '@testing-library/react'
 import { NationsChampionshipFixtures } from '@/components/features/nations-championship/NationsChampionshipFixtures'
 import { FixtureCard } from '@/components/features/nations-championship/FixtureCard'
-import { nationsFeed, nationsFixture } from '../fixtures/nations-championship'
+import { nationsFeed, nationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 jest.mock('@/lib/nations-championship/tracking', () => ({ trackNationsEvent: jest.fn() }))
 beforeEach(() => { jest.useFakeTimers(); jest.setSystemTime(new Date('2026-09-05T07:00:00Z')) })
 const originalFetch = global.fetch
@@ -45,4 +45,12 @@ it('times out a hung refresh and permits a later retry', async () => {
   expect(screen.getByRole('alert')).toBeVisible()
   await act(async () => { jest.advanceTimersByTime(60000) })
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+})
+
+it('offers approved terrestrial bookings with an honest closing warning', () => {
+  render(<FixtureCard fixture={approvedNationsFixture(true)} />)
+  expect(screen.getByRole('link', { name: /Book a table for Italy/ })).toBeVisible()
+  expect(screen.getByText(/Exact channel details will follow/)).toBeVisible()
+  expect(screen.getByText(/Viewing ends at 10:00pm/)).toBeVisible()
+  expect(screen.queryByText(/miss the start/)).not.toBeInTheDocument()
 })

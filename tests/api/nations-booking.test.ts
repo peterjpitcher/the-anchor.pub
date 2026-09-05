@@ -7,7 +7,7 @@ import { POST } from '@/app/api/table-bookings/route'
 import { getNationsChampionshipFeed } from '@/lib/nations-championship/feed'
 import { anchorAPI } from '@/lib/api'
 import { NextRequest } from 'next/server'
-import { nationsFeed, nationsFixture } from '../fixtures/nations-championship'
+import { nationsFeed, nationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 const feed = getNationsChampionshipFeed as jest.Mock
 const makeRequest = (fields = {}, key?: string) => ({ json: async () => ({ phone: '07700900123', date: '2026-11-07', time: '12:00', party_size: 2, purpose: 'food', fixture_id: nationsFixture().id, notes: 'Near the screen', ...fields }), headers: new Headers(key ? { 'Idempotency-Key': key } : {}) }) as NextRequest
 beforeEach(() => {
@@ -72,4 +72,18 @@ it('ignores refreshed labels in stable replay payload and fallback key', async (
   const probes = (global.fetch as jest.Mock).mock.calls.filter(call => call[1].headers['X-Idempotency-Replay-Only'])
   expect(probes[0][1].body).toBe(probes[1][1].body)
   expect(probes[0][1].headers['Idempotency-Key']).toBe(probes[1][1].headers['Idempotency-Key'])
+})
+
+it.each([false, true])('forwards an owner-approved booking without exact channel or finish time, late: %s', late => {
+  feed.mockResolvedValue(nationsFeed([approvedNationsFixture(late)]))
+  return POST(makeRequest({ time: late ? '20:00' : '12:00', purpose: 'drinks' })).then(async response => {
+    expect(response.status).toBe(200)
+    expect(await response.json()).toMatchObject({ data: { fixture_id: nationsFixture().id } })
+    expect(JSON.parse((global.fetch as jest.Mock).mock.calls[1][1].body)).toMatchObject({ time: late ? '20:00' : '12:00', purpose: 'drinks' })
+  })
+})
+it('rejects closing-time arrival for owner-approved late game before a write', async () => {
+  feed.mockResolvedValue(nationsFeed([approvedNationsFixture(true)]))
+  expect((await POST(makeRequest({ time: '22:00', purpose: 'drinks' }))).status).toBe(400)
+  expect((global.fetch as jest.Mock).mock.calls.every(call => call[1].headers['X-Idempotency-Replay-Only'] === 'true')).toBe(true)
 })

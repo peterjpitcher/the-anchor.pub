@@ -3,7 +3,7 @@ jest.mock('@/lib/nations-championship/feed', () => ({ getNationsChampionshipFeed
 import { getNationsChampionshipFeed } from '@/lib/nations-championship/feed'
 import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
 import { composeFixtureNotes, fixtureNotesAllowance, isFixtureArrivalAllowed, fixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFeed, nationsFixture } from '../fixtures/nations-championship'
+import { nationsFeed, nationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 const getFeed = getNationsChampionshipFeed as jest.Mock
 beforeEach(() => { jest.useFakeTimers().setSystemTime(new Date('2026-09-05T07:00:00Z')); getFeed.mockReset().mockResolvedValue(nationsFeed()) })
 afterEach(() => jest.useRealTimers())
@@ -40,4 +40,18 @@ it('converts BST arrival in the business zone and allows food before kick-off', 
   expect(isFixtureArrivalAllowed(context, context.date, '11:30')).toBe(false)
   expect(isFixtureArrivalAllowed(context, context.date, '12:00')).toBe(true)
   expect(isFixtureArrivalAllowed(context, context.date, '17:00')).toBe(false)
+})
+
+it('accepts owner-approved late arrival until closing without claiming a missed start', () => {
+  const context = fixtureBookingContext(approvedNationsFixture(true))!
+  expect(context).toMatchObject({ partial: false, untilClosing: true, screeningEndAt: '2026-11-07T22:00:00Z' })
+  expect(isFixtureArrivalAllowed(context, context.date, '20:00')).toBe(true)
+  expect(isFixtureArrivalAllowed(context, context.date, '20:10')).toBe(true)
+  expect(isFixtureArrivalAllowed(context, context.date, '22:00')).toBe(false)
+})
+it('accepts owner-approved early game from opening only', () => {
+  const context = fixtureBookingContext(approvedNationsFixture())!
+  expect(context.partial).toBe(true)
+  expect(isFixtureArrivalAllowed(context, context.date, '11:40')).toBe(false)
+  expect(isFixtureArrivalAllowed(context, context.date, '12:00')).toBe(true)
 })

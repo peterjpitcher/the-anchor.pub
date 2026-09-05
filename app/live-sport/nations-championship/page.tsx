@@ -41,7 +41,7 @@ export default async function NationsChampionshipPage() {
   return <>
     <BreadcrumbJsonLd items={[{ name: 'Home', url: '/' }, { name: 'Live Sport', url: '/live-sport' }, { name: 'Nations Championship', url: NATIONS_CHAMPIONSHIP_PATH }]} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(schema) }} />
-    <InteriorHero image={DEFAULT_PAGE_HEADER_IMAGE} kicker="November rugby at The Anchor" title="Watch Nations Championship rugby near Heathrow" lead="Pick your game and book your table. We show confirmed screenings during our existing opening hours, with food when the kitchen is serving." crumb="Nations Championship" actions={<Button asChild variant="primary" size="lg"><Link href="#fixtures">Choose a game and book</Link></Button>} />
+    <InteriorHero image={DEFAULT_PAGE_HEADER_IMAGE} kicker="November rugby at The Anchor" title="Watch Nations Championship rugby near Heathrow" lead="Pick your game and book your table. We show terrestrial TV games during our existing opening hours, with food when the kitchen is serving." crumb="Nations Championship" actions={<Button asChild variant="primary" size="lg"><Link href="#fixtures">Choose a game and book</Link></Button>} />
     <section className="bg-canvas py-section-y"><Container>
       <nav aria-label="Page sections" className="mb-8 flex flex-wrap gap-4 text-sm font-semibold text-accent-text">
         <Link href="#fixtures">Fixtures and bookings</Link><Link href="#autumn-rugby">Autumn internationals</Link><Link href="#food-and-parking">Food and parking</Link><Link href="#faqs">Your visit</Link>

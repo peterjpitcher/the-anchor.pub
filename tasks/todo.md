@@ -26,3 +26,14 @@ Owner decisions on the record: unlink the never-used marketing skills; standardi
 - QuizNight session_state is readable by any anon key by design, because the TV display carries the token in the URL where a policy cannot see it. It holds no question or answer text today.
 - Supabase's own platform default still grants anon on objects created by supabase_admin. It cannot be changed without membership of that role.
 - OJ-Planner looks superseded by OJ-PlanneriPhoneApp. Its instruction file says to check before investing.
+
+# Terrestrial rugby bookings
+
+- [x] Record the owner decision and preserve live hours rules.
+- [x] Accept approved booking windows in the feed consumer and booking checks.
+- [x] Explain start and closing limits accurately on cards, booking forms and calendars.
+- [x] Verify focused browser flow and full London/UTC gates.
+
+Website consumer change is independently deployable before the Cheers producer. No database change.
+
+Validation: lint, types, build, 180 suites in both London and UTC; 1958 passing tests after focused API additions. Isolated owner-approved browser booking, cancellation and response recovery passed with no external writes, console errors or accessibility violations.

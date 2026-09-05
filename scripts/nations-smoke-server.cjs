@@ -2,11 +2,11 @@
 // Local-only browser fixture server. Every outbound fetch is intercepted before
 // Next starts. It never delegates to native fetch, including unknown URLs.
 const http = require('node:http')
-const { nationsFeed } = require('../tests/fixtures/nations-championship.ts')
+const { nationsFeed, approvedNationsFixture } = require('../tests/fixtures/nations-championship.ts')
 const requests = []
 const outcomes = new Map()
 let feedUnavailable = false
-const feed = nationsFeed()
+const feed = nationsFeed(process.env.NATIONS_APPROVED_TEST === 'true' ? [approvedNationsFixture()] : undefined)
 const hours = {
   regularHours: Object.fromEntries(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(day => [day, { opens: '12:00', closes: '22:00', is_closed: false, kitchen: { opens: '12:00', closes: '19:00' } }])),
   specialHours: [], currentStatus: { isOpen: false, kitchenOpen: false }, timezone: 'Europe/London',
