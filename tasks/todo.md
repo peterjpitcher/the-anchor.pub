@@ -26,3 +26,7 @@ Owner decisions on the record: unlink the never-used marketing skills; standardi
 - QuizNight session_state is readable by any anon key by design, because the TV display carries the token in the URL where a policy cannot see it. It holds no question or answer text today.
 - Supabase's own platform default still grants anon on objects created by supabase_admin. It cannot be changed without membership of that role.
 - OJ-Planner looks superseded by OJ-PlanneriPhoneApp. Its instruction file says to check before investing.
+
+## API connections, 5 September 2026
+
+- [x] Complete parking and runtime API fallback remediation. Evidence and checks: tasks/fix-function/2026-09-05-api-connections/. Verified branch changes; root coordinates merge and deployment.

@@ -1,0 +1,5 @@
+{
+  "source": "/Users/peterpitcher/Cursor/OJ-The-Anchor.pub",
+  "base_commit": "0e2a84d400840fbc8f7daae009373e96283cd3b3",
+  "dirty": " M tasks/todo.md\n?? tasks/plan-2026-09-05-nations-championship.md\n?? tasks/spec-2026-09-05-nations-championship.md\n"
+}
