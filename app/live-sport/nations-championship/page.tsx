@@ -1,3 +1,4 @@
+import { fixtureFoodMenu } from '@/lib/nations-championship/food-menu'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { Container, Button } from '@/components/ui'
@@ -10,7 +11,7 @@ import type { ScreeningFeed } from '@/lib/nations-championship/types'
 import { NationsChampionshipFixtures } from '@/components/features/nations-championship/NationsChampionshipFixtures'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { nationsFaqs } from '@/content/nations-championship'
+import { englandNationsFixtures, nationsEditorial, nationsFaqs } from '@/content/nations-championship'
 import { PhoneLink } from '@/components/PhoneLink'
 
 export const dynamic = 'force-dynamic'
@@ -53,19 +54,48 @@ export default async function NationsChampionshipPage() {
       </div>}
     </Container></section>
     <section id="autumn-rugby" className="scroll-mt-28 bg-surface-sunk py-section-y"><Container>
-      <h2 className="font-display text-3xl text-ink-strong">Your pub for the autumn internationals</h2>
-      <p className="mt-4 text-ink-muted">Looking for somewhere to watch the autumn internationals? In 2026, the November games form part of the Nations Championship, taking the place of the autumn nations series. Use the team filter to find England, Ireland, Scotland, Wales or your other favourite team, then check the screening details before booking.</p>
-      <h3 className="mt-6 font-display text-2xl text-ink-strong">Finals Weekend</h3>
-      <p className="mt-3 text-ink-muted">The tournament ends with teams playing the side in the matching position in the other group. Select Finals Weekend in the fixtures to see the schedule. Opponents are added when confirmed.</p>
-      <p className="mt-4"><Link href="https://allianzstadiumtwickenham.com/nations-championship" className="text-accent-text underline">Read the official tournament format</Link></p>
-      <p className="mt-4"><Link href="/live-sport/six-nations" className="text-accent-text underline">Looking for the Six Nations?</Link></p>
+      <div>
+        <h2 className="font-display text-3xl text-ink-strong">Where to watch Nations Championship 2026 near Heathrow</h2>
+        <p className="mt-4 text-ink-muted">{nationsEditorial.introduction}</p>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Your pub for the autumn internationals</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.autumn}</p>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.teams}</p>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Watch England rugby at The Anchor</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.england}</p>
+        <ul className="mt-4 space-y-3">
+          {englandNationsFixtures.map(match => {
+            const fixture = feed?.fixtures.find(item => item.importKey === match.importKey)
+            const menu = fixture ? fixtureFoodMenu(fixture) : null
+            return <li key={match.importKey}>
+              <Link href={fixture ? `#fixture-${fixture.id}` : '#fixtures'} className="inline-flex min-h-11 items-center text-accent-text underline">{match.label}</Link>
+              {fixture?.screening.canBookForScreening && fixture.screening.foodPromotion.message && <p className="text-sm text-ink-muted">{fixture.screening.foodPromotion.message} {menu && <Link href={menu.href} className="text-accent-text underline">{menu.label}</Link>}</p>}
+            </li>
+          })}
+        </ul>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Nations Championship Finals Weekend</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.finals}</p>
+        <p className="mt-4"><Link href="https://allianzstadiumtwickenham.com/nations-championship" className="text-accent-text underline">Read the official tournament format and England fixtures</Link></p>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">What channel is Nations Championship on?</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.television}</p>
+        <p className="mt-4"><Link href="https://www.itv.com/presscentre/media-releases/nations-championship-statement-partnership-itv-cements-uks-most-comprehensive-free" className="text-accent-text underline">ITV's Nations Championship coverage announcement</Link></p>
+        <div className="mt-6"><Button asChild><Link href="#fixtures">Choose a match and book your table</Link></Button></div>
+        <p className="mt-5 text-ink-muted">For other rugby dates, see <Link href="/live-sport" className="text-accent-text underline">live sport at The Anchor</Link> or our <Link href="/live-sport/six-nations" className="text-accent-text underline">Six Nations page</Link>.</p>
+      </div>
     </Container></section>
     <section id="food-and-parking" className="scroll-mt-28 bg-canvas py-section-y"><Container>
-      <h2 className="font-display text-3xl text-ink-strong">Food, rugby and a table for your group</h2>
-      <p className="mt-4 text-ink-muted">Make food part of your visit when your game overlaps kitchen service. Each confirmed screening shows the actual service times, including when the kitchen closes during a game. Choose your fixture to book an available arrival time.</p>
-      <div className="mt-5 flex flex-wrap gap-4"><Button asChild><Link href="#fixtures">Choose your game</Link></Button><Button asChild variant="outline"><Link href="/food-menu">View the food menu</Link></Button></div>
-      <p className="mt-6 text-ink-muted">The Anchor is on Horton Road in Stanwell Moor, near Heathrow and Staines. There are 20 free customer parking spaces while you visit, available on a first-come basis.</p>
-      <Link href="/find-us" className="mt-4 inline-flex min-h-11 items-center text-accent-text underline">Find The Anchor</Link>
+      <div>
+        <h2 className="font-display text-3xl text-ink-strong">Food, rugby and a table for your group</h2>
+        <p className="mt-4 text-ink-muted">{nationsEditorial.food}</p>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.foodTiming}</p>
+        <div className="mt-5 flex flex-wrap gap-4"><Button asChild><Link href="#fixtures">Choose your game</Link></Button><Button asChild variant="outline"><Link href="/food-menu">View the food menu</Link></Button><Link href="/sunday-roast" className="inline-flex min-h-11 items-center text-accent-text underline">Our Sunday roasts</Link></div>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Plan your arrival around the game</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.hours}</p>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Coming with friends or family?</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.groups}</p>
+        <h3 className="mt-8 font-display text-2xl text-ink-strong">Getting here from Heathrow and Staines</h3>
+        <p className="mt-3 text-ink-muted">{nationsEditorial.travel}</p>
+        <Link href="/find-us" className="mt-4 inline-flex min-h-11 items-center text-accent-text underline">Directions and parking at The Anchor</Link>
+      </div>
     </Container></section>
     <section id="faqs" className="scroll-mt-28 bg-surface-sunk py-section-y"><Container>
       <h2 className="mb-6 font-display text-3xl text-ink-strong">Plan your rugby visit</h2>

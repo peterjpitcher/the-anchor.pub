@@ -3,7 +3,7 @@ jest.mock('@/lib/nations-championship/feed', () => ({ getNationsChampionshipFeed
 import { getNationsChampionshipFeed } from '@/lib/nations-championship/feed'
 import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
 import { composeFixtureNotes, fixtureNotesAllowance, isFixtureArrivalAllowed, fixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFeed, nationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
+import { nationsFeed, nationsFixture, approvedNationsFixture, sundayNationsFixture } from '../fixtures/nations-championship'
 const getFeed = getNationsChampionshipFeed as jest.Mock
 beforeEach(() => { jest.useFakeTimers().setSystemTime(new Date('2026-09-05T07:00:00Z')); getFeed.mockReset().mockResolvedValue(nationsFeed()) })
 afterEach(() => jest.useRealTimers())
@@ -54,4 +54,11 @@ it('accepts owner-approved early game from opening only', () => {
   expect(context.partial).toBe(true)
   expect(isFixtureArrivalAllowed(context, context.date, '11:40')).toBe(false)
   expect(isFixtureArrivalAllowed(context, context.date, '12:00')).toBe(true)
+})
+
+it('carries the Sunday roast menu and verified kitchen times into the booking form', () => {
+  const context = fixtureBookingContext(sundayNationsFixture())!
+  expect(context.foodMenu).toEqual({ href: '/sunday-roast', label: 'View the Sunday roast menu' })
+  expect(context.foodMessage).toContain('1pm to 6pm')
+  expect(context.barStartAt).toBe('2026-11-08T12:00:00Z')
 })

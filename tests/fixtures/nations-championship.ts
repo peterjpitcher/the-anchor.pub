@@ -28,3 +28,19 @@ export function approvedNationsFixture(closingOnly = false): ScreeningFixture {
   }
   return fixture
 }
+
+
+export function sundayNationsFixture(): ScreeningFixture {
+  const fixture = JSON.parse(JSON.stringify(approvedNationsFixture()).replace(/2026-11-07/g, '2026-11-08')) as ScreeningFixture
+  fixture.teamA = 'England'
+  fixture.hours.bar = { startAt: '2026-11-08T12:00:00Z', endAt: '2026-11-08T21:00:00Z' }
+  fixture.hours.kitchen = [{ startAt: '2026-11-08T13:00:00Z', endAt: '2026-11-08T18:00:00Z' }]
+  fixture.screening.openingLabel = 'Pub open noon to 9pm.'
+  fixture.screening.kitchenLabel = 'Kitchen serves 1pm to 6pm.'
+  fixture.screening.foodPromotion = {
+    kind: 'during_screening', serviceWindows: fixture.hours.kitchen,
+    overlapWindows: [{ startAt: '2026-11-08T13:00:00Z', endAt: '2026-11-08T13:40:00Z' }],
+    message: 'Food served 1pm to 6pm. Book a table for food and rugby.',
+  }
+  return fixture
+}

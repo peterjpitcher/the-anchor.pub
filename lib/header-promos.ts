@@ -1,5 +1,6 @@
 import { nowInLondonComponents } from './time-london'
 import { getMotheringSunday, getValentinesDay } from './recurring-dates'
+import { NATIONS_CHAMPIONSHIP_PATH } from './nations-championship/config'
 import { CHRISTMAS_WINDOW_END, CHRISTMAS_WINDOW_START } from './christmas-season'
 
 /**
@@ -80,6 +81,17 @@ export function getHeaderPromoCtas(testDate?: Date): HeaderPromo[] {
     ...occasionsForYear(year),
     // Next year's too, so a promo's lead window can cross 31 December.
     ...occasionsForYear(year + 1),
-    christmasPromo()
+    christmasPromo(),
+    // Owner requested a top-bar link from 5 September through Finals Weekend.
+    // One tournament only: it must not return automatically in a later year.
+    ...(year === 2026 ? [{
+      label: 'Nations Championship',
+      href: NATIONS_CHAMPIONSHIP_PATH,
+      external: false,
+      variant: 'outline' as const,
+      startsOn: '2026-09-05',
+      endsOn: '2026-11-29',
+      leadDays: 0
+    }] : [])
   ]
 }

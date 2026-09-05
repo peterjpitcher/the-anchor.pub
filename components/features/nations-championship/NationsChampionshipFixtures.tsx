@@ -1,5 +1,7 @@
 'use client'
+import { fixtureFoodMenu } from '@/lib/nations-championship/food-menu'
 import { useEffect, useState } from 'react'
+import { DateTime } from 'luxon'
 import { isBookableScreening, screeningFeedSchema, type ScreeningFeed } from '@/lib/nations-championship/types'
 import { trackNationsEvent } from '@/lib/nations-championship/tracking'
 import { FixtureCard } from './FixtureCard'
@@ -38,6 +40,7 @@ export function NationsChampionshipFixtures({ initialFeed }: { initialFeed: Scre
       requestAnimationFrame(() => document.getElementById(window.location.hash.slice(1))?.scrollIntoView())
     }
     revealAnchor()
+    void refresh()
     const timer = window.setInterval(refresh, 60000)
     const visibility = () => { if (!document.hidden) void refresh() }
     document.addEventListener('visibilitychange', visibility)
@@ -56,9 +59,20 @@ export function NationsChampionshipFixtures({ initialFeed }: { initialFeed: Scre
   const filtered = upcoming.filter(f => (team === 'all' || [f.teamA, f.teamB].includes(team)) &&
     (round === 'all' || (round === 'finals' ? f.finalPosition !== null : String(f.roundNumber) === round)) &&
     (!confirmed || (!stale && isBookableScreening(f))))
+  const fixturesByDate = new Map<string, { label: string; fixtures: typeof filtered }>()
+  for (const fixture of [...filtered].sort((a, b) => Date.parse(a.kickOffAt) - Date.parse(b.kickOffAt))) {
+    const kickoff = DateTime.fromISO(fixture.kickOffAt).setZone('Europe/London')
+    const date = kickoff.toISODate()!
+    const group = fixturesByDate.get(date) ?? { label: kickoff.toFormat('cccc d LLLL yyyy'), fixtures: [] }
+    group.fixtures.push(fixture)
+    fixturesByDate.set(date, group)
+  }
   const trackFilter = (filter_type: string, filter_value: string) => trackNationsEvent('filter_fixtures', { filter_type, filter_value, cta_location: 'fixture_filters' })
   return <>
-    {stale && <p role="alert" className="mb-6 rounded-card border border-line p-4">We could not refresh screening details. Match booking links are paused until we can check them. Please try again shortly or call the pub.</p>}
+    {stale && <div role="alert" className="mb-6 rounded-card border border-line p-4">
+      <p>We could not refresh screening details. Match booking links are paused until we can check them. Refresh the page to load the latest version, or call the pub.</p>
+      <button type="button" onClick={() => window.location.reload()} className="mt-2 min-h-12 font-semibold text-accent-text underline">Refresh page</button>
+    </div>}
     {next && <section aria-labelledby="next-screening-heading" className="mb-10">
       <h2 id="next-screening-heading" className="mb-4 font-display text-3xl text-ink-strong">Next confirmed screening</h2>
       <FixtureCard fixture={next} location="next_fixture" anchor={false} />
@@ -67,7 +81,7 @@ export function NationsChampionshipFixtures({ initialFeed }: { initialFeed: Scre
       <h2 id="live-screening-heading" className="mb-4 font-display text-3xl text-ink-strong">Showing now</h2>
       <div className="grid gap-5 md:grid-cols-2">{live.map(f => <FixtureCard key={f.id} fixture={f} location="live_fixture" anchor={false} />)}</div>
     </section>}
-    {!next && live.length === 0 && <p className="mb-8 text-ink-muted">There is no upcoming confirmed screening to book at the moment. The full fixture guide below shows the latest decisions.</p>}
+    {!stale && !next && live.length === 0 && <p className="mb-8 text-ink-muted">There is no upcoming confirmed screening to book at the moment. The full fixture guide below shows the latest decisions.</p>}
     <section id="fixtures" className="scroll-mt-28" aria-labelledby="fixture-heading">
       <h2 id="fixture-heading" className="font-display text-3xl text-ink-strong">Choose your game and book a table</h2>
       <p className="mt-3 text-ink-muted">All times are UK time. Check when we open, what we are showing and when food is served, then book for your chosen game.</p>
@@ -78,16 +92,24 @@ export function NationsChampionshipFixtures({ initialFeed }: { initialFeed: Scre
         <button type="button" onClick={() => { setTeam('all'); setRound('all'); setConfirmed(false); trackFilter('all', 'all') }} className="min-h-12 px-3 text-accent-text underline">Show all fixtures</button>
       </div>
       <p aria-live="polite" className="mb-4 text-sm text-ink-muted">{filtered.length} {filtered.length === 1 ? 'fixture' : 'fixtures'} shown</p>
-      <div className="grid gap-5 md:grid-cols-2">{filtered.map(f => <FixtureCard key={f.id} fixture={f} stale={stale} />)}</div>
+      <div className="space-y-10">{Array.from(fixturesByDate, ([date, group]) => <section key={date} aria-labelledby={`fixture-date-${date}`}>
+        <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-3">
+          <h3 id={`fixture-date-${date}`} className="font-display text-2xl font-bold text-ink-strong"><time dateTime={date}>{group.label}</time></h3>
+          <p className="text-sm text-ink-muted">{group.fixtures.length} {group.fixtures.length === 1 ? 'game' : 'games'}</p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">{group.fixtures.map(f => <FixtureCard key={f.id} fixture={f} stale={stale} headingLevel={4} />)}</div>
+      </section>)}</div>
       {filtered.length === 0 && <p className="py-8 text-ink-muted">No fixtures match these filters. Choose all fixtures to see the full guide.</p>}
     </section>
     {englandFixtures.length > 0 && <section id="england-fixtures" aria-labelledby="england-fixtures-heading" className="mt-10 scroll-mt-28">
       <h2 id="england-fixtures-heading" className="font-display text-3xl text-ink-strong">England rugby fixtures in November 2026</h2>
       <p className="mt-3 text-ink-muted">Choose an England game below to check the screening and book your table.</p>
-      <ul className="mt-4 space-y-4">{englandFixtures.map(f => <li key={f.id} className="rounded-card border border-line bg-surface p-4">
+      <ul className="mt-4 space-y-4">{englandFixtures.map(f => {
+        const menu = fixtureFoodMenu(f)
+        return <li key={f.id} className="rounded-card border border-line bg-surface p-4">
         <a href={`#fixture-${f.id}`} onClick={() => trackNationsEvent('select_fixture', { fixture_id: f.id, fixture_name: `${f.teamA} v ${f.teamB}`, cta_location: 'england_fixtures' })} className="inline-flex min-h-11 items-center font-semibold text-accent-text underline">{f.teamA} v {f.teamB}</a>
-        {!stale && isBookableScreening(f) && f.screening.foodPromotion.message && <p className="mt-1 text-sm text-ink-strong">{f.screening.foodPromotion.message} <a href="/food-menu" className="text-accent-text underline">View the food menu</a></p>}
-      </li>)}</ul>
+        {!stale && isBookableScreening(f) && f.screening.foodPromotion.message && <p className="mt-1 text-sm text-ink-strong">{f.screening.foodPromotion.message} {menu && <a href={menu.href} className="text-accent-text underline">{menu.label}</a>}</p>}
+      </li>})}</ul>
     </section>}
   </>
 }

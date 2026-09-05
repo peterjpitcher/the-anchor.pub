@@ -1,3 +1,4 @@
+import { fixtureFoodMenu, type FixtureFoodMenu } from './food-menu'
 import { DateTime } from 'luxon'
 import { isBookableScreening, type ScreeningFixture } from './types'
 
@@ -12,6 +13,7 @@ export interface FixtureBookingContext {
   partial: boolean
   untilClosing?: boolean
   foodMessage: string | null
+  foodMenu?: FixtureFoodMenu | null
 }
 
 export function fixtureBookingContext(fixture: ScreeningFixture): FixtureBookingContext | null {
@@ -26,6 +28,7 @@ export function fixtureBookingContext(fixture: ScreeningFixture): FixtureBooking
     openingLabel: fixture.screening.openingLabel,
     partial: ['from_opening', 'from_opening_until_closing'].includes(fixture.coverage),
     untilClosing: ['until_closing', 'from_opening_until_closing'].includes(fixture.coverage),
+    foodMenu: fixtureFoodMenu(fixture),
     foodMessage: fixture.hours.kitchenState === 'known' && ['during_screening', 'before_match'].includes(fixture.screening.foodPromotion.kind)
       ? fixture.screening.foodPromotion.message : null,
   }

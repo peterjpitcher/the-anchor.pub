@@ -1,5 +1,5 @@
 import { fixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFixture } from '../fixtures/nations-championship'
+import { nationsFixture, sundayNationsFixture } from '../fixtures/nations-championship'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
@@ -143,6 +143,17 @@ describe('ManagementTableBookingForm: the live four-step path', () => {
     expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-11-08' } })
     expect(screen.getByText(/normal table booking without a game attached/)).toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('shows the Sunday roast menu beside actual Sunday kitchen hours in the booking summary', async () => {
+    setupFetchMock(() => ({ time_slots: [] }))
+    const context = fixtureBookingContext(sundayNationsFixture())!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByRole('link', { name: 'View the Sunday roast menu' })).toHaveAttribute('href', '/sunday-roast')
+    expect(screen.getByText(/Food served 1pm to 6pm/)).toBeVisible()
+    expect(screen.getByText('Pub open noon to 9pm.')).toBeVisible()
+    expect(screen.queryByRole('link', { name: 'View the food menu' })).not.toBeInTheDocument()
     await act(async () => {})
   })
 
