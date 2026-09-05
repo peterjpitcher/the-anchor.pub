@@ -1,3 +1,4 @@
+import { resolveEventBookingCta } from '@/lib/booking-cta'
 import { Metadata } from 'next'
 import { getEventHeroImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
@@ -463,6 +464,12 @@ export default async function EventPage({ params }: Props) {
       : [])
   ]
 
+  const stickyBookingAction = resolveEventBookingCta(event)
+  if (mothersDayBookingFlow && presentation.showBookingForm) {
+    stickyBookingAction.href = mothersDayBookingUrl
+    stickyBookingAction.label = MOTHERS_DAY_BOOKING_CTA_LABEL
+  }
+
   const heroPrimaryCta = mothersDayBookingFlow ? (
     <Button asChild size="lg" className="w-full sm:w-auto">
       <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
@@ -513,6 +520,12 @@ export default async function EventPage({ params }: Props) {
 
   return (
     <>
+      <span
+        hidden
+        data-booking-cta-path={heroRoute}
+        data-booking-cta-href={stickyBookingAction.href}
+        data-booking-cta-label={stickyBookingAction.label}
+      />
       {/* The event's own page, so it is the one place a breadcrumb belongs. */}
       <EventSchema event={event} includeBreadcrumb />
       <EventPageTracker
