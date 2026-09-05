@@ -16,7 +16,7 @@ One thing to be clear about, because it was overstated in the original spec: **r
 
 ## Before the deploy
 
-- [x] **Baseline captured** (1 September 2026, see below). Clicks, impressions, CTR, position, organic landing sessions, booking starts, completed bookings, and phone or WhatsApp actions, for every URL being retired and for its destination. Without this the review at 28 days has nothing to compare against, and the decision to retire cannot be validated or reversed on evidence. **Check how far back Search Console actually goes before relying on it.** This property starts on 1 May 2026, which ruled out the year-on-year comparison the original revert rule was built on.
+- [x] **Baseline captured** (exports pulled 1 September 2026, analysed 5 September 2026, see below). Clicks, impressions, CTR, position, organic landing sessions, booking starts, completed bookings, and phone or WhatsApp actions, for every URL being retired and for its destination. Without this the review at 28 days has nothing to compare against, and the decision to retire cannot be validated or reversed on evidence. **Check how far back Search Console actually goes before relying on it.** This property starts on 1 May 2026, which ruled out the year-on-year comparison the original revert rule was built on.
 - [ ] **Redirect map reviewed.** Every source has exactly one destination, and that destination is the closest equivalent page, not a generic index. `npm run audit:redirects` enforces this.
 - [ ] **Internal links updated.** No page should link to a URL that redirects. A redirect is for outside traffic and old bookmarks, not for our own navigation.
 - [ ] **Sitemap updated.** Retired URLs removed. `npm run audit:rendered` fails if a sitemap URL does not return 200.
@@ -34,7 +34,7 @@ One thing to be clear about, because it was overstated in the original spec: **r
 - [ ] **Watch both old and new URLs in Search Console.** The old URL should fade; the new one should absorb. If the old one keeps getting impressions after several weeks, the redirect is not being honoured somewhere.
 - [ ] **Review at 28, 56 and 84 days.**
 
-## Pre-change baseline, captured 1 September 2026
+## Pre-change baseline, exports pulled 1 September 2026, analysed 5 September 2026
 
 Search Console, Web search, 1 May to 24 Aug 2026, 116 days. Raw exports in `docs/evidence/gsc-baseline-2026-09-01/`.
 
@@ -90,7 +90,7 @@ Only the booking number triggers a revert. The search figures are diagnosis.
 
 ## The revert rule
 
-Decision 6, agreed 26 August 2026, **revised 1 September 2026** once Search Console was found to hold no data before 1 May 2026.
+Decision 6, agreed 26 August 2026, **revised 5 September 2026** once Search Console was found to hold no data before 1 May 2026.
 
 ### Why the original rule was replaced
 
@@ -160,7 +160,7 @@ The event retirements are listed in `RETIRED_THIN_EVENT_SLUGS` in `lib/event-seo
 
 ## Outstanding owner action
 
-- ~~`public/sitemap-priority.xml` needs removing from the Search Console sitemaps list.~~ **Void, checked 1 September 2026.** The file was deleted from the repository, but it had never been submitted in Search Console, so there was nothing to remove and no fetch error to worry about.
+- ~~`public/sitemap-priority.xml` needs removing from the Search Console sitemaps list.~~ **Void, checked 5 September 2026.** The file was deleted from the repository, but it had never been submitted in Search Console, so there was nothing to remove and no fetch error to worry about.
 - ~~Export the retired URLs and their destinations from Search Console for 1 May to 24 Aug 2026.~~ **Done 1 September 2026**, analysed above, raw files kept in `docs/evidence/gsc-baseline-2026-09-01/`.
 - On or after 27 September 2026: repeat the destination-hub export for 28 Aug to 24 Sep 2026, same regex filter, for the 28-day review.
 - Worth one check: if an older Search Console property exists for this site, for example a URL prefix property rather than a domain property, it may hold history from before 1 May 2026. Switch property in the dropdown and look at the earliest date available.

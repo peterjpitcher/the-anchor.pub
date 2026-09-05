@@ -114,7 +114,7 @@ Today a general event API error can produce a **permanent redirect to `/whats-on
 
 ---
 
-### W4. Build the baseline sheet before any further deploy · P0 · **COMPLETE 1 Sep 2026**
+### W4. Build the baseline sheet before any further deploy · P0 · **COMPLETE 5 Sep 2026**
 
 **F13.** Without this, none of the 29 retirements can be judged and no rollback decision can be principled.
 
@@ -124,9 +124,9 @@ Cover: the 11 retired `/pub-near-*` URLs, the 18 retired event URLs, `/heathrow-
 
 Reviews at **28, 56 and 84 days**.
 
-**Revert rule (decision 6, revised 1 September 2026):** non-cancelled website table bookings, down more than **25%** over the 28 days after deploy versus **the 28 days immediately before deploy**. Baseline is **58** bookings (31 Jul to 27 Aug 2026), so the trigger is **43 or fewer** in 28 Aug to 24 Sep. Measured from the management database. That is the only trigger. Everything else is reported, not acted on. The original year-on-year form was dropped because Search Console holds no data before 1 May 2026, the `completed` status barely existed in 2025, and last year's run rate (24 bookings) is so far below today's that bookings could halve and still pass. See the runbook for the full working.
+**Revert rule (decision 6, revised 5 September 2026):** non-cancelled website table bookings, down more than **25%** over the 28 days after deploy versus **the 28 days immediately before deploy**. Baseline is **58** bookings (31 Jul to 27 Aug 2026), so the trigger is **43 or fewer** in 28 Aug to 24 Sep. Measured from the management database. That is the only trigger. Everything else is reported, not acted on. The original year-on-year form was dropped because Search Console holds no data before 1 May 2026, the `completed` status barely existed in 2025, and last year's run rate (24 bookings) is so far below today's that bookings could halve and still pass. See the runbook for the full working.
 
->**Captured 1 September 2026.** Search Console holds nothing before 1 May 2026, so the baseline is 1 May to 24 Aug 2026, 116 days. Raw exports in `docs/evidence/gsc-baseline-2026-09-01/`, full analysis in the runbook.
+>**Exports pulled 1 September 2026, analysed 5 September 2026.** Search Console holds nothing before 1 May 2026, so the baseline is 1 May to 24 Aug 2026, 116 days. Raw exports in `docs/evidence/gsc-baseline-2026-09-01/`, full analysis in the runbook.
 >
 > | Set | Clicks | Impressions |
 > |---|---:|---:|
@@ -211,7 +211,7 @@ Both changes are already committed. **The pattern does not extend to any further
 
 Keep the 301s for **at least one year**. Update internal links. Remove retired URLs from the sitemap (done). Test on production, not just locally. Check the CDN. Monitor old and new URLs. Confirm no paid campaign, QR code or printed material points at a retired URL.
 
-**Owner action: none outstanding.** The deleted `public/sitemap-priority.xml` was assumed to be submitted in Search Console. Checked 1 September 2026: it was never listed there, so no action was needed.
+**Owner action: none outstanding.** The deleted `public/sitemap-priority.xml` was assumed to be submitted in Search Console. Checked 5 September 2026: it was never listed there, so no action was needed.
 
 ---
 
@@ -266,7 +266,7 @@ Owner: Peter Pitcher.
 | 3 | **The parking comparison is manual, dated editorial data.** No integration, no scraping. | W12 and F17 close. **No competitor prices appear on the page at all** until Peter approves a named source. Until then the page states our own price and links to official live prices. |
 | 4 | **`/private-hire/venue-tour` becomes indexable.** | Remove `robots: { index: false, follow: false }`. An interactive floor plan is content worth having found. Add it to the sitemap and give it a canonical. |
 | 5 | **Peter owns Search Console, the CDN, the management API and content freshness.** | W7 and W11 name him as the approver for every volatile claim and every external system action. No separate owner table needed. |
-| 6 | **Rollback is judged on website table bookings, and nothing else.** Revert if non-cancelled website bookings fall more than **25%** over the 28 days after deploy, measured against **the 28 days immediately before deploy**: baseline 58, trigger at 43 or fewer. **Revised 1 September 2026.** | W4 closes. Rankings, impressions and sessions are reported but never trigger a revert: they can all rise while bookings fall. 25% is deliberately a wide band, because booking volumes here are small enough that a 10% swing is weather. Originally year-on-year, changed because Search Console holds nothing before 1 May 2026, the `completed` status barely existed in 2025, and last year's 24 bookings against this year's 75 meant the test could never fire. September ran ahead of August last year, so month-on-month over-detects a fall rather than hiding one. |
+| 6 | **Rollback is judged on website table bookings, and nothing else.** Revert if non-cancelled website bookings fall more than **25%** over the 28 days after deploy, measured against **the 28 days immediately before deploy**: baseline 58, trigger at 43 or fewer. **Revised 5 September 2026.** | W4 closes. Rankings, impressions and sessions are reported but never trigger a revert: they can all rise while bookings fall. 25% is deliberately a wide band, because booking volumes here are small enough that a 10% swing is weather. Originally year-on-year, changed because Search Console holds nothing before 1 May 2026, the `completed` status barely existed in 2025, and last year's 24 bookings against this year's 75 meant the test could never fire. September ran ahead of August last year, so month-on-month over-detects a fall rather than hiding one. |
 
 All six decisions are settled. Nothing in this plan is waiting on an owner answer.
 
