@@ -357,7 +357,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep, paypalLoaded, paypalRendered])
 
-  const canProceedFromStep1 = availabilityState.status === 'available'
+  const canProceedFromStep1 = availabilityState.status === 'available' && Boolean(rates) && !ratesError && !isLoadingRates
   const canProceedFromStep2 = customer.firstName && customer.lastName && customer.phone
   const canProceedFromStep3 = vehicle.registration.length >= 5
 
