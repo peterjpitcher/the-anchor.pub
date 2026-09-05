@@ -58,6 +58,27 @@ describe('POST /api/analytics GA4 forwarding', () => {
     jest.restoreAllMocks()
   })
 
+  it('sanitises old-client URL context before GA4 while retaining separate campaign fields', async () => {
+    await POST(makeRequest({ events: [{
+      event: 'private_hire_enquiry_submitted', client_id: '111.222',
+      page_location: 'https://www.the-anchor.pub/private-hire?email=fixture@example.invalid#phone=07700900000',
+      page_referrer: 'https://example.invalid/start?name=Fixture',
+      referrer: 'https://example.invalid/start#private',
+      source_url: 'https://www.the-anchor.pub/private-hire?utm_source=newsletter&email=fixture@example.invalid',
+      landing_path: '/private-hire?email=fixture@example.invalid',
+      utm_source: 'newsletter', utm_campaign: 'autumn', gclid: 'approved-click-id',
+    }] }) as never)
+    const body = lastGa4Body()
+    expect(body.events[0].params).toMatchObject({
+      page_location: 'https://www.the-anchor.pub/private-hire',
+      page_referrer: 'https://example.invalid/start', referrer: 'https://example.invalid/start',
+      source_url: 'https://www.the-anchor.pub/private-hire', landing_path: '/private-hire',
+      utm_source: 'newsletter', utm_campaign: 'autumn', gclid: 'approved-click-id',
+    })
+    expect(JSON.stringify(body)).not.toContain('fixture@example.invalid')
+    expect(JSON.stringify(body)).not.toContain('07700900000')
+  })
+
   it('sends session_id so the event joins the browser session', async () => {
     const response = await POST(
       makeRequest(

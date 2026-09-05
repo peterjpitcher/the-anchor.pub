@@ -1,6 +1,7 @@
 import { canUseCookieCategory } from '../cookies'
 import { getBookingAttributionPayload } from '../booking-attribution'
 import { getGa4Identity } from './ga4-identity'
+import { sanitizeTrackingUrlContext } from './url-context'
 
 /**
  * Conversion events that should carry booking-attribution context
@@ -222,7 +223,7 @@ export function dispatchTrackingEvent(
     }
   }
 
-  const dataLayerPayload = sanitizePayload(payload)
+  const dataLayerPayload = sanitizePayload(sanitizeTrackingUrlContext(payload))
 
   // Ensure dataLayer exists before pushing
   if (!('dataLayer' in window) || !Array.isArray(window.dataLayer)) {
