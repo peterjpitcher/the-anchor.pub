@@ -1,3 +1,5 @@
+export type EventDiningRequest = 'before_event' | 'during_event' | 'not_sure'
+
 // Events domain types and helper functions
 
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
