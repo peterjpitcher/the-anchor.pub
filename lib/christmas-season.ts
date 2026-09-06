@@ -13,6 +13,7 @@
 
 import ssot from '@/SSOT.json'
 import { nowInLondonComponents, parseLondonDate } from '@/lib/time-london'
+import { formatTime12h } from '@/lib/hero-context'
 
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 
@@ -33,6 +34,7 @@ type SsotChristmasBlock = {
   start_date?: unknown
   end_date?: unknown
   booking_rules?: { min_party_size?: unknown }
+  christmas_day?: { opens?: unknown, closes?: unknown, food_service?: unknown }
 }
 
 type SsotWithChristmas = {
@@ -100,6 +102,39 @@ export const CHRISTMAS_MINIMUM_PARTY_SIZE: number = (() => {
   const value = (ssot as SsotWithChristmas).christmas_2026?.booking_rules?.min_party_size
   return typeof value === 'number' && Number.isInteger(value) && value > 0 ? value : 4
 })()
+
+/** Christmas Day itself, which sits outside the 10 Nov to 20 Dec service window. */
+export type ChristmasDayView = {
+  /** Human opening time, for example "12pm". */
+  opens: string
+  /** Human closing time, for example "3pm". */
+  closes: string
+  /** Whether any food is served. False means drinks only. */
+  foodService: boolean
+}
+
+/**
+ * Christmas Day opening, formatted for pub copy.
+ *
+ * The SSOT stores 24 hour clock times because that is what the rest of the
+ * system reads, but customer copy says "12pm to 3pm" and never "12:00 to
+ * 15:00". Building it here rather than in the page means the formatting is
+ * covered by tests: on 6 September 2026 the page shipped "from 12:00 to 15:00"
+ * to production while a hand-written test fixture said "12pm" and passed.
+ *
+ * `foodService` defaults to false, the conservative reading: if the SSOT block
+ * is missing or malformed, claim no food rather than invent a service.
+ */
+export function getChristmasDay(): ChristmasDayView {
+  const block = (ssot as SsotWithChristmas).christmas_2026?.christmas_day
+  const opens = typeof block?.opens === 'string' ? block.opens : undefined
+  const closes = typeof block?.closes === 'string' ? block.closes : undefined
+  return {
+    opens: formatTime12h(opens) ?? '12pm',
+    closes: formatTime12h(closes) ?? '3pm',
+    foodService: block?.food_service === true
+  }
+}
 
 /** Deposit per person on every Christmas booking, in pounds. */
 export const CHRISTMAS_DEPOSIT_PER_PERSON = 10

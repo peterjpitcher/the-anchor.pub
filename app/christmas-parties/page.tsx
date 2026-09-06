@@ -31,6 +31,7 @@ import {
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   formatChristmasWindowLabel,
+  getChristmasDay,
   getChristmasSeasonStatus,
   getLondonIsoDate
 } from '@/lib/christmas-season'
@@ -73,11 +74,7 @@ const FACTS: ChristmasFactsView = {
   // read from the SSOT so the page cannot drift from the fact it is quoting.
   // The defaults are the conservative reading: if the SSOT block is missing,
   // claim no food rather than inventing a service.
-  christmasDay: {
-    opens: christmasSsot.christmas_day?.opens ?? '12pm',
-    closes: christmasSsot.christmas_day?.closes ?? '3pm',
-    foodService: christmasSsot.christmas_day?.food_service === true
-  },
+  christmasDay: getChristmasDay(),
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
   buffetMinimumGuests: christmasSsot.buffets.min_guests,

@@ -21,7 +21,8 @@ import {
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   CHRISTMAS_WINDOW_END,
-  CHRISTMAS_WINDOW_START
+  CHRISTMAS_WINDOW_START,
+  getChristmasDay
 } from '@/lib/christmas-season'
 
 const BUFFET_MINIMUM_GUESTS =
@@ -29,7 +30,11 @@ const BUFFET_MINIMUM_GUESTS =
 
 const FACTS: ChristmasFactsView = {
   minPartySize: CHRISTMAS_MINIMUM_PARTY_SIZE,
-  christmasDay: { opens: '12pm', closes: '3pm', foodService: false },
+  // Derived from the SSOT exactly as app/christmas-parties/page.tsx does it,
+  // rather than hand-written. A hand-written '12pm' fixture let the page ship
+  // "from 12:00 to 15:00" to production on 6 September 2026 while this test
+  // passed, because the fixture never exercised the formatting.
+  christmasDay: getChristmasDay(),
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
   buffetMinimumGuests: BUFFET_MINIMUM_GUESTS,
@@ -148,11 +153,23 @@ describe('Christmas 2026 booking rules', () => {
 })
 
 describe('Christmas 2026 owner decisions of 6 September', () => {
+  it('formats the Christmas Day times as pub copy, never as a 24 hour clock', () => {
+    const day = getChristmasDay()
+
+    // The SSOT stores "12:00" and "15:00"; customers must read "12pm" and "3pm".
+    expect(day.opens).toBe('12pm')
+    expect(day.closes).toBe('3pm')
+    expect(day.foodService).toBe(false)
+    expect(`${day.opens} ${day.closes}`).not.toMatch(/\d{1,2}:\d{2}/)
+  })
+
   it('answers the Christmas Day question, drinks only and no food', () => {
     const text = renderPage()
 
     expect(text).toContain('Are you open on Christmas Day?')
     expect(text).toMatch(/open on Christmas Day for drinks only, from 12pm to 3pm/i)
+    // Pub copy never says 24 hour clock times.
+    expect(text).not.toMatch(/1[0-9]:[0-9]{2}/)
     expect(text).toMatch(/no food service on Christmas Day/i)
   })
 
