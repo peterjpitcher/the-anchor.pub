@@ -1,226 +1,91 @@
 ---
-title: Christmas at The Anchor | Festive Events & Menu Near Heathrow
+title: 'Christmas 2026: Festive Events and Opening Times Near Heathrow'
 slug: christmas-events
 description: >-
-  Celebrate Christmas at The Anchor pub near Heathrow Airport. Festive menu,
-  Christmas parties, carol nights, and New Year's Eve celebrations in Stanwell
-  Moor. Book your Christmas event at our traditional pub - perfect for families,
-  groups, and Heathrow travelers.
-date: '2023-12-09'
+  What is on at The Anchor this Christmas: festive dinner from 10 November to
+  20 December, our Christmas quiz and festive bingo nights, Christmas Day
+  drinks, and New Year's Eve. A proper village pub 7 minutes from Heathrow
+  Terminal 5, with free parking.
+date: '2026-09-06'
 oldUrl: >-
   https://www.the-anchor.pub/post/celebrate-christmas-2023-at-the-anchor-events-and-
 author: Billy
 keywords:
   - christmas pub near heathrow
   - festive events stanwell moor
-  - christmas menu near me
+  - are you open on christmas day
+  - christmas quiz night near heathrow
   - new years eve pub heathrow
-  - christmas parties staines
-  - festive dining near airport
-  - traditional christmas dinner
+  - christmas dinner staines
   - the anchor christmas
 tags:
   - seasonal
   - events
   - news
 featured: true
-hero: hero.jpg
+hero: hero-2026.jpg
+heroAlt: A table laid for Christmas dinner at The Anchor in Stanwell Moor
 images: []
-noindex: true
 ---
 
-![Christmas event schedule at The Anchor pub featuring key dates for karaoke, market, quiz, bingo, and parties with festive decorations.](/content/blog/christmas-events/hero.jpg)
+![A table laid for Christmas dinner at The Anchor in Stanwell Moor](/content/blog/christmas-events/hero-2026.jpg)
 
-Looking for the perfect **Christmas pub near Heathrow**? The Anchor in Stanwell Moor transforms into a festive wonderland each December. From traditional Christmas dinners to lively New Year's Eve parties, discover why we're the go-to destination for **festive events** near Heathrow Airport.
+Christmas at The Anchor is a village pub Christmas: your own table, a proper roast dinner, and a quiz on a Tuesday. We are in Stanwell Moor, seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.
 
-## Book Christmas Parties Near Heathrow & Staines
+This is what is happening here this festive season, and when we are open.
 
-Planning a work do or family get-together? Our Christmas party details (menus, shared nights and enquiries) live on the main page:
+## Christmas dinner, 10 November to 20 December 2026
 
-- [Christmas Parties at The Anchor →](/christmas-parties)
+Our festive menu runs from **10 November to 20 December 2026**. The 20th is included, so a sitting that day can be booked.
 
-## Why Choose The Anchor for Your Christmas Celebration
+- **Sittings** are Tuesday to Saturday, lunchtime or evening, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed.
+- **Group size** is from 4 guests midweek and 6 on Friday and Saturday. Tuesday to Thursday is our weekday rate, so a midweek date is the cheaper one and takes a smaller group.
+- **Everyone chooses their own courses.** Every guest has a main; a starter and a dessert are optional. Guests at the same table can have different numbers of courses.
+- **Choices come to us 7 days before** your booking date for the 2 and 3 course price points.
+- **A £10 per person deposit** applies to every Christmas booking, whatever the size. It comes straight off your bill, and it is refundable in full if you cancel more than 7 days before.
 
-### The Perfect Festive Venue Near Heathrow
+The full dish list and current prices are on the [Christmas parties page](/christmas-parties), pulled live from our booking system, so what you see there is always what we are actually serving.
 
-Just 7 minutes from Terminal 5, The Anchor offers:
+Groups of more than 20 are a private booking rather than a table booking. Between 21 and 29 guests we arrange it as a private booking so the space and the food suit the size of your group, and from 30 guests a festive buffet is an option too.
 
-- **Traditional Christmas atmosphere** with cozy decorations
-- **Extensive festive menu** featuring local ingredients
-- **Free parking** for all Christmas guests
-- **Flexible booking options** for groups of all sizes
-- **Family-friendly environment** welcoming all ages
-- **Convenient location** for Heathrow travelers and locals
+## Festive nights out
 
-## Our Annual Christmas Events Calendar
+Our regular event nights carry on through November and December with a festive twist, and they are free to walk into unless the event page says otherwise:
 
-### December Festivities at The Anchor
+- **Quiz nights**, including our Christmas quiz
+- **Music bingo**, with a festive playlist in December
+- **Cash bingo**
 
-Each year, our **Christmas pub** hosts a variety of festive events:
+Dates move year to year, so the live list is on [what's on](/whats-on) rather than pinned here. That page is updated straight from our booking system.
 
-#### Christmas Karaoke Nights
-**Every Friday in December | From 8pm**
+If your group wants more than a meal, a **DJ can be arranged on request** for a Christmas booking. It is not part of any package, so just ask us when you enquire.
 
-Belt out your favourite festive tunes at our legendary Christmas karaoke sessions:
-- Professional karaoke setup with 1000s of songs
-- Festive cocktail menu featuring seasonal favourites
-- Prizes for best performances
-- No booking required - first come, first served
-- Hosted by our entertaining regular compere
+## Are you open on Christmas Day?
 
-#### The Anchor Christmas Market
-**First Saturday of December | 1pm-5pm**
+**Yes, for drinks only, from 12pm to 3pm.**
 
-Our annual **Christmas market** transforms our garden into a festive shopping paradise:
-- **Local artisan stalls** - unique gifts and decorations
-- **Live piano music** creating magical atmosphere
-- **Festive drinks** to keep you warm
-- **Traditional mince pies** made fresh daily
-- **Ample parking** available
+There is no food service on Christmas Day, so there is no Christmas dinner, no Christmas lunch and no festive menu on the 25th. If you want the full festive meal, that is what the 10 November to 20 December season is for.
 
-#### Festive Quiz Nights
-**Wednesday evenings in December | 7pm-10pm**
+Come down for a drink with the neighbours on Christmas morning, then go home to your own dinner. It is one of the nicest three hours of our year.
 
-Test your Christmas knowledge at our popular quiz nights:
-- £3 per person entry
-- Teams up to 6 people
-- Festive prizes and surprises
-- Full food menu available
-- Book early - tables fill fast!
+## New Year's Eve
 
-#### Christmas Music Bingo
-**Between Christmas and New Year | 7pm**
+We stay open until **1am on New Year's Eve**, with a DJ and a midnight countdown.
 
-A unique twist on traditional bingo:
-- Christmas songs replace numbers
-- Great prizes throughout the night
-- Fun for all ages
-- Regular and festive drinks available
+For anyone local, that is a night out you can walk home from, with no taxi to book and no surge fare at 1am.
 
-## Christmas Menu at The Anchor
+## Booking and getting here
 
-### Traditional Festive Dining Near Heathrow
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ.
 
-Our **Christmas menu** celebrates the best of British festive cuisine:
+- **Call** 01753 682707
+- **Email** manager@the-anchor.pub
+- **Enquire online** on the [Christmas parties page](/christmas-parties)
 
-#### Starters
-- **Homemade soup of the day** with crusty bread
-- **Smoked salmon** with capers and lemon
-- **Brie wedges** with cranberry sauce
-- **Prawn cocktail** with Marie Rose sauce
+Around 20 free parking spaces, seven minutes from Heathrow Terminal 5, eight minutes from Staines.
 
-#### Main Courses
-- **Traditional turkey** with all the trimmings
-- **Roast beef** with Yorkshire pudding
-- **Honey-glazed ham** with pineapple
-- **Vegan wellington** with roasted vegetables
-- **Pan-fried salmon** with festive sides
+**Book early for December.** Friday and Saturday dates go first, and midweek is both cheaper and easier to get.
 
-#### All mains include:
-- Roast potatoes and seasonal vegetables
-- Pigs in blankets
-- Stuffing and cranberry sauce
-- Rich gravy
+## Planning a work Christmas do?
 
-#### Desserts
-- **Christmas pudding** with brandy butter
-- **Mince pies** with cream
-- **Chocolate yule log**
-- **Cheese board** with crackers
-
-### Christmas Party Bookings
-
-Perfect for:
-- **Office Christmas parties** (up to 80 guests)
-- **Family gatherings** in our private areas
-- **Festive lunches** for groups
-- **Christmas drinks receptions**
-
-## New Year's Eve at The Anchor
-
-### Ring in the New Year Near Heathrow
-
-Our **New Year's Eve pub** celebration features:
-
-**December 31st | 7pm-1am**
-
-- **Live DJ** playing party favourites
-- **BBC countdown** on all screens
-- **Champagne at midnight**
-- **Festive burger menu** available
-- **Family-friendly** until 11pm
-- **No tickets required** for entry
-
-Perfect for locals who want to celebrate without expensive taxis or Heathrow travelers extending their stay!
-
-## Christmas Opening Hours
-
-### When to Visit During the Festive Season
-
-- **December 1-23**: Normal hours with festive events
-- **Christmas Eve**: 12pm-11pm (bar only, kitchen closed)
-- **Christmas Day**: 12pm-3pm (drinks only)
-- **Boxing Day**: CLOSED (team holiday)
-- **December 27-30**: Normal service resumes
-- **New Year's Eve**: 12pm-1am (special event)
-- **New Year's Day**: CLOSED (recovery day!)
-
-## Why The Anchor is Perfect for Christmas
-
-### Your Local Festive Hub Near Heathrow
-
-#### For Locals
-- **Walk home** after celebrations - no taxi needed
-- **Meet neighbours** at community events
-- **Support local** - we use regional suppliers
-- **Regular events** throughout December
-
-#### For Heathrow Travelers
-- **Pre-flight Christmas meal** before traveling
-- **Festive stopover** during connections
-- **Traditional British Christmas** experience
-- **Easy access** from all terminals
-
-#### For Groups
-- **Flexible spaces** for 10-80 guests
-- **Customizable menus** for dietary needs
-- **Dedicated event coordinator**
-- **Competitive pricing** vs. airport venues
-
-## Book Your Christmas at The Anchor
-
-### Reserve Your Festive Experience
-
-Don't miss out on Christmas at Stanwell Moor's favourite pub:
-
-📞 **Call**: 01753 682707
-📧 **Email**: manager@the-anchor.pub
-🏠 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-
-### Booking Tips
-
-- **Book early** - December weekends fill quickly
-- **Confirm numbers** 48 hours before
-- **Pre-order** for groups over 10
-- **Deposits** required for large parties
-- **Special dietary requirements** catered for
-
-## Creating Christmas Memories at The Anchor
-
-### What Our Guests Say
-
-"The perfect village Christmas! Great atmosphere, delicious food, and no need for expensive taxis home." - The Thompson Family
-
-"We stop here every Christmas Eve on our way to Heathrow. It's become our family tradition!" - Sarah M.
-
-"Best office Christmas party venue near the airport. Easy for everyone to get to and fantastic value." - TechCorp UK
-
-## Make The Anchor Your Christmas Tradition
-
-Whether you're a **Stanwell Moor local**, **Heathrow traveler**, or visiting from **Staines** and beyond, The Anchor provides the perfect setting for your Christmas celebrations. From intimate family dinners to lively party nights, we've got your festive season covered.
-
-Join us this December and discover why The Anchor is the area's favourite **Christmas pub near Heathrow**. Book early to avoid disappointment!
-
-**Merry Christmas and a Happy New Year from all of us at The Anchor!**
-
-*Follow us on social media for Christmas event updates and special offers throughout the festive season.*
+Everything an organiser needs, including prices, capacity, the deposit and the enquiry form, is on the [Christmas parties page](/christmas-parties). There are also guides on [work Christmas party ideas near Heathrow](/blog/work-christmas-party-ideas-near-heathrow) and a [Christmas party planning checklist](/blog/christmas-party-planning-checklist-for-organisers).
