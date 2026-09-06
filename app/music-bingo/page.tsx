@@ -40,7 +40,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
   title: 'Music Bingo Near Me | Drag Music Bingo',
   description:
-    'Music bingo in Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games. It sells out, so book ahead.',
+    'Music bingo in Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games. £5 a player, communal seating, book ahead.',
   openGraph: {
     title: 'Music Bingo at The Anchor, Stanwell Moor',
     description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
@@ -99,7 +99,7 @@ const FAQS = [
   {
     question: 'Do we need to book in advance?',
     answer:
-      'Yes, we would recommend it. Music bingo does sell out, and seating is communal, so booking is how we make sure your group sits together.'
+      'Yes, we would recommend it. Seating is communal, so booking is how we know how many places to lay out and how we make sure your group sits together.'
   },
   {
     question: 'Is music bingo suitable for families?',
@@ -320,7 +320,7 @@ export default async function MusicBingoPage() {
         gameName={musicBingo.name}
         gameSlug={musicBingo.slug}
         title="What music bingo actually looks like"
-        intro="Real photos from recent nights with Nikki Manfadge. Song clips instead of numbers, two games, and it does sell out."
+        intro="Real photos from recent nights with Nikki Manfadge. Song clips instead of numbers, two games, and communal tables."
       />
 
       <section id="music-bingo-dates" className="py-section-y bg-surface">
@@ -413,7 +413,7 @@ export default async function MusicBingoPage() {
 
       <CtaBand
         title="Ready to sing for the prizes?"
-        copy="Music bingo sells out, so book your places rather than turning up on the night."
+        copy="Book your places rather than turning up on the night, so we can lay out seats for your group."
       >
         <GameNightCtaActions
           gameSlug={musicBingo.slug}

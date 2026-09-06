@@ -52,6 +52,18 @@ describe('the lightbox never fires mid-booking', () => {
     // screen with a different offer wastes the click that was just paid for.
     expect(isLightboxSuppressedRoute(path)).toBe(true)
   })
+
+  it.each([
+    '/whats-on',
+    '/whats-on/archive',
+    '/events/quiz-night-2026-10-07',
+    '/events/detention-disco-back-to-school-music-bingo-2026-09-11',
+  ])('is suppressed on the event surface %s', (path) => {
+    // Same reasoning as the game night pages, and these were the gap. The
+    // overlay was covering the H1, the price and both CTAs ten seconds into an
+    // event page. Owner-approved 6 September 2026.
+    expect(isLightboxSuppressedRoute(path)).toBe(true)
+  })
 })
 
 describe('it still fires everywhere it should', () => {
@@ -59,7 +71,6 @@ describe('it still fires everywhere it should', () => {
     '/',
     '/sunday-roast',
     '/food-menu',
-    '/whats-on',
     '/private-hire',
     '/beer-garden',
   ])('is allowed on %s', (path) => {

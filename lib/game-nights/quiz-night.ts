@@ -4,7 +4,7 @@ import type { GameNightConfig } from './types'
  * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
  * from 6:30pm, start usually 7pm, aims to finish 9:30pm, £3 per person, teams
  * capped at six, four rounds of ten questions plus an interactive quick-fire round
- * and a comfort break, capacity 80, £25 bar tab for the winners and a bottle of
+ * and a comfort break, capacity 60, £25 bar tab for the winners and a bottle of
  * house wine for second from last, phone-free with a 5 point penalty.
  *
  * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed

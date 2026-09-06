@@ -61,12 +61,16 @@ async function getOpeningHoursSpecification() {
   }
 }
 
-// "The regulars": recurring nights that run every month. O4: only verified,
-// SSOT/existing-page-backed values are shown here. Quiz £3 entry and cash bingo
-// £10 a book are confirmed in the page's existing JSON-LD (lib/schema.ts) and
-// long-standing page copy. Exact times, song counts and similar specifics are
-// deliberately omitted as unverified.
-const REGULAR_NIGHTS: ReadonlyArray<{
+// The nights this hub links to. Only verified, SSOT-backed or existing-page-backed
+// values appear here. Quiz £3 entry and cash bingo £10 a book are confirmed in the
+// page's existing JSON-LD (lib/schema.ts) and long-standing page copy. Exact times,
+// song counts and similar specifics are deliberately omitted as unverified.
+//
+// Named HUB_NIGHTS, not REGULAR_NIGHTS: karaoke is in this list and docs/SSOT.md §10
+// forbids implying it is regular. Each entry carries its own `cadence`, so the
+// collection must not assert one. Renamed 6 September 2026 after a review found the
+// constant name contradicted the card it held.
+const HUB_NIGHTS: ReadonlyArray<{
   cadence: string
   title: string
   meta: string
@@ -96,6 +100,19 @@ const REGULAR_NIGHTS: ReadonlyArray<{
     price: '£10 a book',
     tag: 'Cash jackpot',
     href: '/cash-bingo'
+  },
+  // Karaoke is deliberately last and deliberately not labelled monthly.
+  // docs/SSOT.md §10 is explicit that karaoke is not a regular feature in 2026
+  // and that no copy may imply a weekly, monthly or Friday slot. It is listed
+  // here because the page was otherwise orphaned from its own hub, reachable
+  // only through global nav and footer. Owner-approved 6 September 2026.
+  {
+    cadence: 'Occasionally',
+    title: 'Karaoke',
+    meta: 'Free entry, communal seating and all ages welcome. We run it now and then, so check the listings for a confirmed night.',
+    price: 'Free entry',
+    tag: 'When it is listed',
+    href: '/karaoke'
   }
 ]
 
@@ -259,12 +276,12 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeading
             kicker="The regulars"
-            title="On every month"
-            lead="The nights that come round every month. See each event page for the next date and to reserve a table."
+            title="Our nights"
+            lead="Three that come round every month, plus karaoke when we run it. See each page for the next date and to book your places."
           />
 
-          <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-3">
-            {REGULAR_NIGHTS.map((night) => (
+          <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {HUB_NIGHTS.map((night) => (
               <RegularEventCard
                 key={night.title}
                 cadence={night.cadence}
