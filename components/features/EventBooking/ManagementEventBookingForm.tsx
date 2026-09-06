@@ -75,7 +75,9 @@ const BLOCKED_COPY: Record<string, string> = {
   blocked: 'This event is not bookable online right now.',
   not_eligible: 'This booking is currently blocked. Please contact the pub for help.',
   sold_out: 'This event is sold out.',
-  payment_required: 'Payment is required to secure this booking.'
+  payment_required: 'Payment is required to secure this booking.',
+  seated_capacity_changed: 'There are no longer enough seats for your group. Please review the available tickets before booking again. No booking has been made.',
+  standing_not_available_until_seated_full: 'Standing tickets are only available once seats sell out. Please review current availability before booking again. No booking has been made.'
 }
 
 function getBlockedMessage(reason: string | null | undefined): string {
@@ -162,7 +164,6 @@ export function ManagementEventBookingForm({
     DEFAULT_COMMUNICATION_CONSENT_STATE
   )
   const [seats, setSeats] = useState(2)
-  const [seatsDisplay, setSeatsDisplay] = useState('2')
   // Multi-ticket-type state (only used when the event exposes 2+ active types).
   const [ticketQuantities, setTicketQuantities] = useState<Record<string, number>>({})
   // Snapshot of the per-type breakdown at submit time, for the summary /
@@ -170,11 +171,11 @@ export function ManagementEventBookingForm({
   const [submittedTicketBreakdown, setSubmittedTicketBreakdown] = useState<
     Array<{ name: string; quantity: number; lineTotal: number }>
   >([])
-  const [seatingPreference, setSeatingPreference] = useState<EventSeatingPreference>('seated')
   const [submittedSeatingPreference, setSubmittedSeatingPreference] = useState<EventSeatingPreference | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EventBookingResult | null>(null)
+  const [latestAvailability, setLatestAvailability] = useState<Pick<EventBookingResult, 'seated_remaining' | 'standing_remaining' | 'seats_remaining'> | null>(null)
   const [paymentConversionPayload, setPaymentConversionPayload] = useState<EventPaymentConversionPayload | null>(null)
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
@@ -193,10 +194,10 @@ export function ManagementEventBookingForm({
   // Online ticket sales are closed if the caller says so, or the event's own
   // cutoff has passed. Either way the form must not render its fields or POST.
   const salesClosed = bookingClosed || isEventBookingClosed(event) || salesClosedAtSubmit
-  const bookingReassurance = getEventBookingReassurance(event)
+  const bookingReassurance = getEventBookingReassurance({ ...event, ...latestAvailability })
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
   // Multi-type flow: only when the event exposes 2+ active types at differing
-  // prices AND is not communal (communal keeps its seated/standing chooser).
+  // prices AND is not communal (communal uses the available seating type).
   const ticketTypes = getEventTicketTypes(event)
   const isMultiTypeEvent = !isCommunalEvent && hasMultipleTicketPrices(event)
   const eventUnitPrice = getEventUnitPrice(event)
@@ -207,31 +208,21 @@ export function ManagementEventBookingForm({
   const multiTypeOverCapacity = isMultiTypeEvent && isSelectionOverCapacity(ticketTypes, ticketQuantities)
   // Seats actually being booked, regardless of flow.
   const effectiveSeats = isMultiTypeEvent ? multiTypeTotalSeats : seats
-  const ticketSelectionValid = !isMultiTypeEvent || (multiTypeTotalSeats > 0 && !multiTypeOverCapacity)
-  const seatedRemaining = normalizeRemaining(event.seated_remaining)
-  const standingRemaining = normalizeRemaining(event.standing_remaining)
+  const ticketSelectionValid = !isMultiTypeEvent || (multiTypeTotalSeats > 0 && multiTypeTotalSeats <= 6 && !multiTypeOverCapacity)
+  const seatedRemaining = normalizeRemaining(latestAvailability ? latestAvailability.seated_remaining : event.seated_remaining)
+  const standingRemaining = normalizeRemaining(latestAvailability ? latestAvailability.standing_remaining : event.standing_remaining)
   const seatedDisabled = isCommunalEvent && seatedRemaining !== null && seatedRemaining <= 0
   const standingDisabled = isCommunalEvent && (standingRemaining === null || standingRemaining <= 0)
+  const seatingPreference: EventSeatingPreference = seatedDisabled && !standingDisabled ? 'standing' : 'seated'
+  const availableForSelection = isCommunalEvent
+    ? (seatingPreference === 'standing' ? standingRemaining : seatedRemaining)
+    : normalizeRemaining(event.seats_remaining)
+  const selectionOverCapacity = availableForSelection !== null && seats > availableForSelection
   const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
   const fellBackToStanding = isCommunalEvent &&
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
   const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
-
-  useEffect(() => {
-    if (!isCommunalEvent) {
-      setSeatingPreference('seated')
-      return
-    }
-
-    if (seatingPreference === 'seated' && seatedDisabled && !standingDisabled) {
-      setSeatingPreference('standing')
-    }
-
-    if (seatingPreference === 'standing' && standingDisabled && !seatedDisabled) {
-      setSeatingPreference('seated')
-    }
-  }, [isCommunalEvent, seatedDisabled, seatingPreference, standingDisabled])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -247,7 +238,7 @@ export function ManagementEventBookingForm({
 
   // Adjust a ticket type's quantity within its available capacity.
   function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
-    const max = getMaxForType(type, ticketTypes, ticketQuantities)
+    const max = Math.min(getMaxForType(type, ticketTypes, ticketQuantities), 6 - multiTypeTotalSeats + (ticketQuantities[type.id] || 0))
     const clamped = Math.max(0, Math.min(nextQuantity, max))
     setTicketQuantities((prev) => ({ ...prev, [type.id]: clamped }))
   }
@@ -267,14 +258,14 @@ export function ManagementEventBookingForm({
     setSubmittedTicketBreakdown([])
     setWaitlistResult(null)
 
-    // Sync seatsDisplay → seats in case blur hasn't fired. In the multi-type
-    // flow the seat count is the sum of the per-type quantities instead.
-    const parsedSeats = Number.parseInt(seatsDisplay, 10)
-    const clampedSingleSeats = (!Number.isFinite(parsedSeats) || parsedSeats < 1) ? 1 : Math.min(parsedSeats, 20)
-    const clampedSeats = isMultiTypeEvent ? multiTypeTotalSeats : clampedSingleSeats
-    if (!isMultiTypeEvent) {
-      setSeats(clampedSingleSeats)
-      setSeatsDisplay(String(clampedSingleSeats))
+    const clampedSeats = isMultiTypeEvent ? multiTypeTotalSeats : seats
+    if (clampedSeats > 6) {
+      setError('For more than 6 people, please call us.')
+      return
+    }
+    if (!isMultiTypeEvent && selectionOverCapacity) {
+      setError('That many tickets are no longer available. Please choose fewer tickets or call us.')
+      return
     }
 
     const ticketSelections = isMultiTypeEvent
@@ -478,6 +469,13 @@ export function ManagementEventBookingForm({
       }
 
       if (bookingData.state === 'blocked') {
+        if (bookingData.reason === 'seated_capacity_changed' || bookingData.reason === 'standing_not_available_until_seated_full') {
+          setLatestAvailability({
+            seated_remaining: bookingData.seated_remaining,
+            standing_remaining: bookingData.standing_remaining,
+            seats_remaining: bookingData.seats_remaining,
+          })
+        }
         setPaymentConversionPayload(null)
         trackEventBookingFunnelStep({
           step: 'blocked',
@@ -659,7 +657,7 @@ export function ManagementEventBookingForm({
               <div className="space-y-2.5">
                 {ticketTypes.map((type) => {
                   const quantity = ticketQuantities[type.id] || 0
-                  const max = getMaxForType(type, ticketTypes, ticketQuantities)
+                  const max = Math.min(getMaxForType(type, ticketTypes, ticketQuantities), 6 - multiTypeTotalSeats + (ticketQuantities[type.id] || 0))
                   const soldOut = max <= 0 && quantity <= 0
                   return (
                     <div
@@ -733,24 +731,20 @@ export function ManagementEventBookingForm({
             </fieldset>
           ) : (
             <div className="space-y-2">
-              {/* Quick picks first, so the common sizes are one tap and never open
-                  a keyboard. Average booking here is three to four seats, so 1 to 6
-                  covers nearly everything; the field below still takes any number
-                  up to 20 for the rare larger group. */}
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Choose number of seats">
+              <div className="flex flex-wrap gap-2" role="group" aria-label={seatingPreference === 'standing' ? 'Choose number of standing tickets' : 'Choose number of seats'}>
                 {[1, 2, 3, 4, 5, 6].map((count) => {
-                  const selected = seats === count && seatsDisplay === String(count)
+                  const selected = seats === count
                   return (
                     <button
                       key={count}
                       type="button"
                       aria-pressed={selected}
+                      disabled={availableForSelection !== null && count > availableForSelection}
                       onClick={() => {
                         setSeats(count)
-                        setSeatsDisplay(String(count))
                       }}
                       className={cn(
-                        'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors',
+                        'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50',
                         selected
                           ? 'border-accent bg-accent text-white'
                           : 'border-line bg-surface text-ink hover:border-accent'
@@ -761,89 +755,22 @@ export function ManagementEventBookingForm({
                   )
                 })}
               </div>
-              <Input
-                label="Seats"
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                required
-                value={seatsDisplay}
-                onChange={(event) => {
-                  const raw = event.target.value
-                  if (raw !== '' && !/^\d+$/.test(raw)) return
-                  setSeatsDisplay(raw)
-                  if (raw === '') return
-                  const parsed = Number.parseInt(raw, 10)
-                  if (Number.isNaN(parsed)) return
-                  setSeats(Math.min(Math.max(parsed, 1), 20))
-                }}
-                onBlur={() => {
-                  const parsed = Number.parseInt(seatsDisplay, 10)
-                  const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
-                  setSeats(clamped)
-                  setSeatsDisplay(String(clamped))
-                }}
-              />
             </div>
           )}
 
-          {/* Three states, not one.
+          <p className="text-sm text-ink-muted">
+            More than 6 people? <PhoneLink phone={CONTACT.phone} source="event_booking_large_group" className="underline">Call us</PhoneLink>.
+          </p>
 
-              The radios used to render on every communal event regardless of
-              what was actually on sale. Since every hosted night currently comes
-              back with standing_remaining: 0, that meant a permanently greyed-out
-              Standing option reading "Standing tickets are not available" on
-              every single booking, under a heading inviting you to choose. A
-              disabled control is a promise the page cannot keep, and on a booking
-              form it reads as an unfinished system rather than a deliberate
-              choice.
+          {!isMultiTypeEvent && selectionOverCapacity && availableForSelection !== null ? (
+            <p className="text-sm text-ink-muted">
+              {availableForSelection === 0
+                ? 'No tickets are available. Please call us for help.'
+                : `Only ${availableForSelection} ${seatingPreference === 'standing' ? 'standing ticket' : 'seat'}${availableForSelection === 1 ? ' remains' : 's remain'}. Please choose fewer tickets or call us.`}
+            </p>
+          ) : null}
 
-              Both live      → show the radios, because there is a real choice.
-              Standing only  → no radios, but say plainly that the booking will be
-                               for standing. The effect above has already switched
-                               the preference, and switching silently would mean a
-                               customer discovering it on arrival.
-              Seated only    → nothing to show. This is the everyday case.
-              Neither        → the sold-out and waitlist path handles it. */}
-          {isCommunalEvent && !seatedDisabled && !standingDisabled ? (
-            <fieldset className="space-y-2 rounded-sm border border-line bg-surface-sunk p-2.5">
-              <legend className="px-1 text-sm font-semibold text-ink">Ticket type</legend>
-              <div className="grid gap-2 sm:grid-cols-2">
-                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5">
-                  <input
-                    type="radio"
-                    name="seating_preference"
-                    value="seated"
-                    checked={seatingPreference === 'seated'}
-                    onChange={() => setSeatingPreference('seated')}
-                    className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
-                  />
-                  <span>
-                    <span className="block text-sm font-semibold text-ink">Seated</span>
-                    <span className="block text-xs leading-relaxed text-ink-muted">
-                      Communal table seating.
-                    </span>
-                  </span>
-                </label>
-                <label className="flex cursor-pointer gap-2 rounded-sm border border-line bg-surface p-2.5">
-                  <input
-                    type="radio"
-                    name="seating_preference"
-                    value="standing"
-                    checked={seatingPreference === 'standing'}
-                    onChange={() => setSeatingPreference('standing')}
-                    className="mt-1 h-4 w-4 flex-shrink-0 accent-anchor-gold-dark"
-                  />
-                  <span>
-                    <span className="block text-sm font-semibold text-ink">Standing</span>
-                    <span className="block text-xs leading-relaxed text-ink-muted">
-                      Same event price. No table seat included.
-                    </span>
-                  </span>
-                </label>
-              </div>
-            </fieldset>
-          ) : isCommunalEvent && seatedDisabled && !standingDisabled ? (
+          {isCommunalEvent && seatedDisabled && !standingDisabled ? (
             <p className="rounded-sm border border-line bg-surface-sunk p-2.5 text-sm leading-relaxed text-ink">
               Seated places are full, so this booking will be for standing tickets. Same event price,
               no table seat included.
@@ -970,7 +897,7 @@ export function ManagementEventBookingForm({
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
             {submittedBreakdownBlock}
             {fellBackToStanding ? (
-              <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
+              <p className="mt-2">There were not enough seats for your group, so we have booked standing tickets. No table seat is included.</p>
             ) : null}
             {result.manage_booking_url ? (
               <div className="mt-3">
@@ -989,7 +916,7 @@ export function ManagementEventBookingForm({
             <p>Your {submittedTicketLabel} are currently on hold.</p>
             {submittedBreakdownBlock}
             {fellBackToStanding ? (
-              <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
+              <p className="mt-2">There were not enough seats for your group, so we have held standing tickets. No table seat is included.</p>
             ) : null}
             {result.booking_id && paymentConversionPayload ? (
               <PayPalEventPaymentSection

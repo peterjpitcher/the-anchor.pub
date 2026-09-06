@@ -697,3 +697,8 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 ### Nations Championship screenings, owner decision 5 September 2026
 
 We show Nations Championship games broadcast on terrestrial TV during our existing opening hours. Bookings must not wait for the exact channel, screen allocation or commentary arrangement. Early games are shown from opening. If a game runs beyond our usual closing time and people are still in watching, we will stay open until it finishes (owner-confirmed 5 September 2026). This is conditional continuation for viewers already in the pub, not a guaranteed late opening or permission for arrivals after usual closing. Regular opening times, kitchen service and bookable arrival hours remain unchanged. A missing match finish time uses the existing two-hour booking window for booking planning only, never as a claim about the actual final whistle. Kitchen promotion follows the live service intervals.
+
+
+### Online event booking, owner decision 6 September 2026
+
+Offer standing tickets only once all seated places are sold out, with clear notice that no table seat is included. Do not ask customers to choose seated or standing tickets. Online event bookings allow up to 6 tickets; the single-quantity form uses a 1 to 6 picker; larger groups should call 01753 682707.

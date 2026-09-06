@@ -639,7 +639,15 @@ export default async function EventPage({ params }: Props) {
               <div className="order-2 lg:order-1">
                 <EventHighlights highlights={event.highlights} compact />
 
-                <details className="mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
+                {/* Description */}
+                {(event.longDescription || event.about || event.description) && (
+                  <div className="mt-6 mb-6 lg:mb-8">
+                    <h2 className="text-xl md:text-2xl text-accent-text mb-3 md:mb-4">About This Event</h2>
+                    <p className="text-ink-muted whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
+                  </div>
+                )}
+
+                <details className="mt-6 mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-semibold text-accent-text [&::-webkit-details-marker]:hidden">
                     <span>More event details</span>
                     <span className="text-xl leading-none text-ink-muted" aria-hidden="true">+</span>
@@ -668,14 +676,6 @@ export default async function EventPage({ params }: Props) {
                       </div>
                     </CardBody>
                   </Card>
-                )}
-
-                {/* Description */}
-                {(event.longDescription || event.about || event.description) && (
-                  <div className="mb-6 lg:mb-8">
-                    <h2 className="text-xl md:text-2xl text-accent-text mb-3 md:mb-4">About This Event</h2>
-                    <p className="text-ink-muted whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
-                  </div>
                 )}
 
                 {/* Category Link */}

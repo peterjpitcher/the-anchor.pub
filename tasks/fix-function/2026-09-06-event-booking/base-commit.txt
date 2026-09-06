@@ -1,0 +1,2 @@
+Website base: a024b3cddf7bad627044fa91a024728368601e34
+Website initially clean. Management has unrelated dirty work; read-only scope there.

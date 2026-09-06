@@ -153,7 +153,8 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    expect(screen.getByLabelText('Seats')).toBeInTheDocument()
+    expect(screen.queryByLabelText('Seats')).not.toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'Choose number of seats' })).toBeInTheDocument()
     expect(screen.getByLabelText('First name')).toBeInTheDocument()
     expect(screen.getByLabelText('Last name')).toBeInTheDocument()
     expect(screen.getByLabelText('Mobile number')).toBeInTheDocument()
@@ -190,7 +191,7 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
+    fireEvent.click(screen.getByRole('button', { name: '4' }))
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
@@ -352,7 +353,7 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '6' } })
+    fireEvent.click(screen.getByRole('button', { name: '6' }))
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
@@ -410,6 +411,58 @@ describe('ManagementEventBookingForm', () => {
         bookingId: 'booking-123'
       })
     )
+  })
+
+  it('limits mixed ticket types to six people altogether', () => {
+    render(<ManagementEventBookingForm event={{
+      id: 'mixed-event', name: 'Mixed ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid',
+      ticket_types: [
+        { id: 'adult', name: 'Adult', price: 12, sort_order: 0, remaining: 10 },
+        { id: 'child', name: 'Child', price: 6, sort_order: 1, remaining: 10 },
+      ],
+    }} />)
+    for (let count = 0; count < 5; count++) fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
+    expect(screen.getByRole('button', { name: 'Add one Adult ticket' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Add one Child ticket' })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Remove one Adult ticket' }))
+    expect(screen.getByRole('button', { name: 'Add one Child ticket' })).toBeEnabled()
+  })
+
+  it.each([43, 1, null])('does not offer standing while seated capacity is %s', (remaining) => {
+    render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', booking_mode: 'communal', seated_remaining: remaining, standing_remaining: 11 }} />)
+    expect(screen.queryByRole('radio')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Book standing tickets' })).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Seats')).not.toBeInTheDocument()
+    expect(screen.getByText(/More than 6 people/)).toBeInTheDocument()
+    if (remaining === 1) {
+      expect(screen.getByRole('button', { name: '2' })).toBeDisabled()
+      expect(screen.getByRole('button', { name: '1' })).toBeEnabled()
+    }
+  })
+
+  it('requires review and a new click when seats sell out during booking', async () => {
+    const sent: Record<string, unknown>[] = []
+    global.fetch = jest.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      sent.push(JSON.parse(String(init?.body)))
+      return new Response(JSON.stringify({ success: true, data: sent.length === 1
+        ? { state: 'blocked', reason: 'seated_capacity_changed', seated_remaining: 0, standing_remaining: 11, booking_id: null }
+        : { state: 'confirmed', event_seating_type: 'standing', booking_id: 'standing-retry' }
+      }), { status: 200 })
+    })
+    render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', booking_mode: 'communal', seated_remaining: 2, standing_remaining: 11 }} />)
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    await screen.findByText(/No booking has been made/)
+    expect(sent).toHaveLength(1)
+    expect(sent[0].seating_preference).toBe('seated')
+    expect(screen.getByLabelText('First name')).toHaveValue('Jane')
+    fireEvent.click(screen.getByRole('button', { name: 'Book standing tickets' }))
+    await screen.findByText('Your standing tickets are confirmed for Music Bingo.')
+    expect(sent[1].seating_preference).toBe('standing')
   })
 
   it('offers standing tickets for communal events when seated places are full', async () => {
@@ -476,7 +529,7 @@ describe('ManagementEventBookingForm', () => {
       expect(screen.getByRole('button', { name: 'Book standing tickets' })).toBeInTheDocument()
     )
 
-    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '3' } })
+    fireEvent.click(screen.getByRole('button', { name: '3' }))
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
@@ -563,7 +616,7 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
+    fireEvent.click(screen.getByRole('button', { name: '4' }))
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })

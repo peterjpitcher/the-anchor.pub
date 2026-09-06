@@ -127,6 +127,13 @@ describe('POST /api/event-bookings: fallback Idempotency-Key', () => {
     return (calls[0].init.headers as Record<string, string>)['Idempotency-Key']
   }
 
+  it('uses a new retry key when the customer reviews standing instead of seated tickets', async () => {
+    const seated = await keyFor({ seating_preference: 'seated' })
+    const standing = await keyFor({ seating_preference: 'standing' })
+    expect(standing).not.toBe(seated)
+    expect(await keyFor({ seating_preference: 'standing' })).toBe(standing)
+  })
+
   it('forwards food and arrival requests and includes them in retry keys', async () => {
     const noRequest = await keyFor()
     const food = await keyFor({ dining_request: 'before_event' })
