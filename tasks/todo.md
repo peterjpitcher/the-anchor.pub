@@ -195,3 +195,42 @@ Still outstanding at this gate: A4 presentation flags and calendar, A5 Turnstile
 The 500s two agents reported on `/api/calendar/event/[id]` were a stale `.next` cache, not their code: the untouched `/api/events/[id]` failed identically and `vendor-chunks/cookie.js` was genuinely absent. Cleared `.next`, restarted the dev server, and all three routes now return 200. Generated ICS verified live: stable domain-scoped UID, `DTSTART` 18:00Z for a 7pm BST event, `DTEND` 20:30Z matching the SSOT quiz finish, canonical `www.the-anchor.pub` URL, escaped comma, no management URL.
 
 Two pre-existing em dashes removed from comments, in `lib/api/events.ts` and `lib/event-calendar.ts`.
+
+## Wave 2 gate: PASS, and browser-verified
+
+Four agents, one page file each. All four accepted.
+
+- **B1 `/whats-on` and `/live-sport`.** Outage state, heading, revalidate, canonicals. Declined to branch the copy on event count, correctly, because a single read can only return ok or unavailable so the branch would have been unreachable. Passes the empty-state prop as null during an outage so the empty-diary claim cannot render at all. Negative test: 5 of 8 failed on the old code.
+- **B2 event detail page.** Raw slug, prose normalisation, calendar, share at all breakpoints, editorial floor, four small fixes. Eleven separate mutations, every one failed as expected. Found three live SSOT contradictions in booking copy.
+- **B3 four game night pages.** Breadcrumb markup, per-page link previews, calendar on date cards, venue-wide rating. Built shared components rather than editing four pages. Fixed a real SSOT violation: `/cash-bingo` published "18+ to play" without the half that welcomes supervised under-18s. Fourteen mutations, all failed as expected.
+- **B4 confirmation state.** Calendar and directions on confirmed only. Widened props with `event_status`, which is load-bearing: without it the calendar gate cannot see a cancelled event. Declined to use the shared `DirectionsButton` because it nests a button inside a link, a real defect across 21 files, now spun off as its own task.
+
+**Three live SSOT contradictions fixed by the orchestrator** in `lib/event-booking-copy.ts`, found by B2 and verified against §10: Music Bingo "starts at 8pm" (SSOT says 7pm and that anything saying 8pm is wrong), cash bingo and quiz "arrive from 6pm" (SSOT says 6:30pm for both and explicitly supersedes the 6pm line). These rendered on desktop event pages. Four guard tests added so copy stating a time is pinned to the SSOT.
+
+**Flake investigation.** B3 reported `tests/unit/event-detail-page.test.tsx` failing about one run in five. Not reproduced in thirteen consecutive runs: five full London, three full UTC, five isolated. Most likely B3 was reading a tree three other agents were editing. Cannot prove a negative; recorded rather than dismissed.
+
+**Seven pre-existing em dashes** removed from comments in `tests/seo-indexing.test.ts`, plus one each earlier in `lib/api/events.ts` and `lib/event-calendar.ts`.
+
+### Browser verification, after clearing the wedged dev server
+
+The shared dev server had seized under four agents; every route except `/` hung past five minutes. Cleared `.next`, killed strays, restarted. All four routes now return 200 in under two seconds, which confirms contention rather than a defect.
+
+| Check | Result |
+|---|---|
+| Em dashes in served event HTML | 16 before, **0** after |
+| Raw `Event type` slug | gone |
+| Calendar controls on the event page | 2, visible at 375px |
+| Share control at 375px | present and visible |
+| Map iframe title | meaningful, event-specific |
+| `og:type` on the event page | `article` |
+| `og:description` | absolute date, no "next Friday" |
+| H3 before first H2 | fixed |
+| `/quiz-night` BreadcrumbList | present |
+| `/quiz-night` aggregateRating | absent, correct |
+| `/quiz-night` calendar links | 10, five dates times two destinations |
+| `/quiz-night` og:image | quiz-specific, was generic |
+| `/karaoke` EventSeries | absent, correct per SSOT |
+| `/whats-on` month claim | gone, now "What's coming up" |
+| `/whats-on` karaoke links | 4 |
+
+One false positive worth recording: a cadence regex flagged `/karaoke`, but the matched copy reads "We run it occasionally rather than every week", which is the SSOT rule being satisfied. That is the same negate-check trap the repo already records for `getBannedClaims()`.
