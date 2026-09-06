@@ -5,7 +5,7 @@ import { checkSpamProtection } from '@/lib/spam-protection'
 import { normaliseChristmasEnquiryTime } from '@/lib/christmas-enquiry'
 import {
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  getChristmasMinimumPartySize,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   getLondonIsoDate
@@ -527,6 +527,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // The date is validated BEFORE the party size, because since 6 September
+    // 2026 the minimum depends on the day: 4 guests Tuesday to Thursday, 6 on
+    // Friday, Saturday and Sunday. There is no day-independent minimum to
+    // check against, so an unvalidated date cannot be used to derive one.
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
+      return NextResponse.json(
+        { success: false, error: 'Please choose a date within the Christmas booking period' },
+        { status: 400 }
+      )
+    }
+
     const numericPartySize = Number.parseInt(body.partySize, 10)
     // Sit-down capacity is 60 at Christmas whichever journey it arrives by, so
     // a party-style sit-down dinner carries the same cap as the meal journey.
@@ -534,17 +545,10 @@ export async function POST(request: NextRequest) {
     const isBuffetFormat = body.partyFormat === 'buffet_party' || body.partyFormat === 'festive_buffet'
     const minimumPartySize = body.mode === 'party' && isBuffetFormat
       ? BUFFET_MINIMUM_GUESTS
-      : CHRISTMAS_MINIMUM_PARTY_SIZE
+      : getChristmasMinimumPartySize(body.preferredDate)
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
       return NextResponse.json(
         { success: false, error: `Guest numbers must be between ${minimumPartySize} and ${maximumPartySize}` },
-        { status: 400 }
-      )
-    }
-
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
-      return NextResponse.json(
-        { success: false, error: 'Please choose a date within the Christmas booking period' },
         { status: 400 }
       )
     }

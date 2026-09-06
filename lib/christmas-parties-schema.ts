@@ -1,7 +1,7 @@
 import ssot from '@/SSOT.json'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   formatChristmasWindowLabel
@@ -81,7 +81,7 @@ export const christmasPartiesSchema = {
       url: PAGE_URL,
       name: 'Christmas parties and Christmas dinner near Staines and Heathrow',
       description:
-        `Christmas dinner and Christmas parties at The Anchor in Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. ${DAYS_AVAILABLE} Minimum ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least 24 hours notice, and a deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person on every Christmas booking.`,
+        `Christmas dinner and Christmas parties at The Anchor in Stanwell Moor, near Heathrow Airport, ${WINDOW_LABEL}. ${DAYS_AVAILABLE} Group size ${CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}, at least 24 hours notice, and a deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person on every Christmas booking.`,
       inLanguage: 'en-GB',
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': BUSINESS_ID },
@@ -135,7 +135,7 @@ export const christmasPartiesSchema = {
         ),
         enquiryService(
           'Sit-down Christmas lunch or dinner',
-          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm, and never on a Monday. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us ${PRE_ORDER_DEADLINE_DAYS} days before the booking date. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
+          `A one, two or three course Christmas dinner for groups ${CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}, booked at least 24 hours ahead. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm, and never on a Monday. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us ${PRE_ORDER_DEADLINE_DAYS} days before the booking date. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
         ),
         enquiryService(
           'Festive buffet',

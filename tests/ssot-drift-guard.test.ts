@@ -196,12 +196,35 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     )
   })
 
-  it('minimum party size is 6 and minimum notice is 24 hours', () => {
-    expect(xmas.booking_rules.min_party_size).toBe(6)
+  it('minimum party size is day-dependent and minimum notice is 24 hours', () => {
+    // Owner-confirmed 6 September 2026: 4 guests Tuesday to Thursday, 6 on
+    // Friday, Saturday and Sunday. The owner approved Tuesday to Thursday
+    // only, so Sunday is pinned at 6 rather than assumed either way.
+    const byDay = xmas.booking_rules.min_party_size_by_day
+    expect(byDay.midweek).toBe(4)
+    expect(byDay.weekend).toBe(6)
+    expect(byDay.sunday).toBe(6)
     expect(xmas.booking_rules.min_notice_hours).toBe(24)
     expect(xmas.booking_rules.same_day_bookings).toBe(false)
-    expect(mdPlain).toContain('Minimum party size: 6 guests.')
+    expect(mdPlain).toContain('4 guests Tuesday to Thursday')
     expect(mdPlain).toContain('Minimum notice: 24 hours.')
+    // The retired flat rule must not come back in the prose.
+    expect(mdPlain).not.toContain('Minimum party size: 6 guests.')
+  })
+
+  it('records the Christmas Day drinks-only hours and forbids a food claim', () => {
+    // Owner-confirmed 6 September 2026. Christmas Day sits outside the
+    // 10 November to 20 December window, so the page said nothing at all.
+    expect(xmas.christmas_day.food_service).toBe(false)
+    expect(xmas.christmas_day.opens).toBe('12:00')
+    expect(xmas.christmas_day.closes).toBe('15:00')
+    expect(mdPlain).toContain('On 25 December we open for drinks only, 12pm to 3pm')
+    expect(mdPlain).toMatch(/no food service at all on Christmas Day/i)
+  })
+
+  it('records the 21 to 29 band and the drinks-only party rule', () => {
+    expect(xmas.group_size_bands.private_booking_band).toBe('21 to 29 seated guests')
+    expect(xmas.drinks_only_party.minimum_spend).toBeNull()
   })
 
   it('pre-order is required for 2 and 3 course only', () => {
@@ -458,7 +481,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
   it('does not reintroduce old private-hire and Christmas-price copy', () => {
     expect(
       matchingFiles(
-        /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|minimum spend|min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
+        /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|(?<!no )minimum spend|(?<!no )min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
       ),
     ).toEqual([])
   })

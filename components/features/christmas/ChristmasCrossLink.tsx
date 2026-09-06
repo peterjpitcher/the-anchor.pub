@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
@@ -45,8 +45,8 @@ export function ChristmasCrossLink({ hook }: ChristmasCrossLinkProps) {
           <p className="text-xs font-semibold uppercase tracking-wide text-accent-text">Christmas 2026</p>
           <h2 className="mt-2 font-display text-h3 text-ink-strong">Christmas at The Anchor</h2>
           <p className="mt-3 text-ink-muted">
-            {hook} Christmas dinner runs {formatChristmasWindowLabel()}, for groups of{' '}
-            {CHRISTMAS_MINIMUM_PARTY_SIZE} or more with a £{CHRISTMAS_DEPOSIT_PER_PERSON} per person
+            {hook} Christmas dinner runs {formatChristmasWindowLabel()},{' '}
+            {CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}, with a £{CHRISTMAS_DEPOSIT_PER_PERSON} per person
             deposit that comes off your bill. The full menu and prices are on the Christmas page.
           </p>
           <div className="mt-5">

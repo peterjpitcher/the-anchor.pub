@@ -2,7 +2,7 @@ import { christmasPartiesSchema } from '@/lib/christmas-parties-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START
 } from '@/lib/christmas-season'
@@ -127,7 +127,7 @@ describe('christmasPartiesSchema', () => {
     const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
     const description = String(sitDown?.description)
 
-    expect(description).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
+    expect(description).toContain(CHRISTMAS_MIN_PARTY_SIZE_SUMMARY)
     expect(description).toContain('at least 24 hours ahead')
     expect(description).toContain(
       `deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size`

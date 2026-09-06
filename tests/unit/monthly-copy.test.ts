@@ -5,7 +5,7 @@ import {
 } from '@/lib/monthly-copy'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
   formatChristmasWindowLabel
 } from '@/lib/christmas-season'
 
@@ -84,7 +84,7 @@ describe('getMonthlyHomepageCopy', () => {
     })
 
     it('should interpolate the live minimum party size, not a literal', () => {
-      const min = String(CHRISTMAS_MINIMUM_PARTY_SIZE)
+      const min = String(CHRISTMAS_MIN_PARTY_SIZE_LOWEST)
       ;[10, 11, 12].forEach((m) => {
         expect(allText(getMonthlyHomepageCopy(m))).toContain(min)
       })

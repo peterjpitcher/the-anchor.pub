@@ -25,7 +25,9 @@ import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_LAST_BOOKABLE_DATE,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
+  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   getChristmasSeasonStatus
@@ -35,7 +37,10 @@ const BUFFET_MINIMUM_GUESTS =
   (ssot as unknown as { christmas_2026: { buffets: { min_guests: number } } }).christmas_2026.buffets.min_guests
 
 const FACTS: ChristmasFactsView = {
-  minPartySize: CHRISTMAS_MINIMUM_PARTY_SIZE,
+  minPartySize: CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  minPartySizeSummary: CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
+  minPartySizeByWeekday: CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
+  christmasDay: { opens: '12pm', closes: '3pm', foodService: false },
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
   buffetMinimumGuests: BUFFET_MINIMUM_GUESTS,

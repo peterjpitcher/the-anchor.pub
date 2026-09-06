@@ -27,7 +27,9 @@ import { getCateringData, type CateringPackage } from '@/lib/api/catering-packag
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
+  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   formatChristmasWindowLabel,
@@ -51,6 +53,7 @@ type SsotChristmasFacts = {
     buffets: { min_guests: number }
     groups_above_20: string
     booking_rules?: { pre_order_deadline_days?: number }
+    christmas_day?: { opens?: string, closes?: string, food_service?: boolean }
   }
 }
 
@@ -66,7 +69,24 @@ function resolvePrivateHireThreshold(): number {
 }
 
 const FACTS: ChristmasFactsView = {
-  minPartySize: CHRISTMAS_MINIMUM_PARTY_SIZE,
+  // The floor across the window (4 midweek, 6 Friday to Sunday), for the
+  // handful of places that legitimately say "from N". Anything that states
+  // the RULE must use minPartySizeSummary instead: a flat "6 guests or more"
+  // is wrong on 18 of the 36 bookable dates, and a flat "4" is wrong on the
+  // other 18. The enquiry forms derive the real minimum from the chosen date.
+  minPartySize: CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  minPartySizeSummary: CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
+  minPartySizeByWeekday: CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
+  // Owner-confirmed 6 September 2026: drinks only on Christmas Day, no food.
+  // A licensed exception to the API-only hours rule, like New Year's Eve, and
+  // read from the SSOT so the page cannot drift from the fact it is quoting.
+  // The defaults are the conservative reading: if the SSOT block is missing,
+  // claim no food rather than inventing a service.
+  christmasDay: {
+    opens: christmasSsot.christmas_day?.opens ?? '12pm',
+    closes: christmasSsot.christmas_day?.closes ?? '3pm',
+    foodService: christmasSsot.christmas_day?.food_service === true
+  },
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
   buffetMinimumGuests: christmasSsot.buffets.min_guests,
@@ -262,12 +282,12 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     openGraph: {
       title: 'Christmas Dinner & Christmas Parties Near Heathrow | The Anchor',
-      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking, seven minutes from Heathrow Terminal 5.`,
+      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups ${FACTS.minPartySizeSummary}. Free parking, seven minutes from Heathrow Terminal 5.`,
       images: [{ url: HERO_IMAGE, width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
     },
     twitter: getTwitterMetadata({
       title: 'Christmas Dinner & Christmas Parties Near Heathrow | The Anchor',
-      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking near Heathrow.`,
+      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups ${FACTS.minPartySizeSummary}. Free parking near Heathrow.`,
       images: [HERO_IMAGE]
     }),
     alternates: { canonical: './' }

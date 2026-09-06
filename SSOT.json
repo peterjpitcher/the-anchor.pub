@@ -1207,7 +1207,16 @@
       },
       "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired.",
       "pre_order_deadline_days": 7,
-      "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'."
+      "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'.",
+      "min_party_size_by_day": {
+        "midweek": 4,
+        "midweek_days": "Tuesday to Thursday",
+        "weekend": 6,
+        "weekend_days": "Friday and Saturday",
+        "sunday": 6,
+        "_confirmed": "Owner-confirmed 2026-09-06. Midweek lowered from 6 to 4 to open up the 18 quietest dates in the window. The owner approved Tuesday to Thursday only, so Sunday stays at 6.",
+        "rule": "Never state a flat '6 guests or more' for Christmas. Where copy cannot be date-specific, say 'from 4 guests midweek, 6 on Friday and Saturday'. min_party_size stays at 6 as the safe headline figure for any consumer that has not been made date-aware."
+      }
     },
     "days_available": {
       "weekday_sittings": "Tuesday to Thursday",
@@ -1325,7 +1334,33 @@
       "Blanket 'pre-order only' claims",
       "Any kids 2-course or 3-course price"
     ],
-    "trimmings_vegan_exception": "The Vegetable Wellington is vegan: no Yorkshire pudding and no pigs in blankets. Vegan Christmas trimmings and vegan gravy. Matches the Sunday roast rule where the Wellington and the pies carry no Yorkshire pudding."
+    "trimmings_vegan_exception": "The Vegetable Wellington is vegan: no Yorkshire pudding and no pigs in blankets. Vegan Christmas trimmings and vegan gravy. Matches the Sunday roast rule where the Wellington and the pies carry no Yorkshire pudding.",
+    "christmas_day": {
+      "date": "2026-12-25",
+      "open": true,
+      "drinks_only": true,
+      "opens": "12:00",
+      "closes": "15:00",
+      "food_service": false,
+      "display": "Christmas Day: open for drinks only, 12pm to 3pm. No food.",
+      "_confirmed": "Owner-confirmed 2026-09-06.",
+      "rule": "Never advertise Christmas dinner, Christmas lunch, a festive menu or any food on 25 December. Christmas Day sits outside the 10 November to 20 December service window. Licensed exception to the API-only hours rule, like New Year's Eve.",
+      "boxing_day": "NOT CONFIRMED. Say nothing about Boxing Day or the days between Christmas and New Year until the owner confirms them.",
+      "management_api_warning": "As of 2026-09-06 GET /business/hours carries no special_hours row for 2026-12-25, so the site resolves Christmas Day to regular Friday hours including a kitchen open until 21:00. A special_hours row is required in the management app or the site advertises food that will not be served."
+    },
+    "group_size_bands": {
+      "seated_max": 20,
+      "private_booking_band": "21 to 29 seated guests",
+      "buffet_min": 30,
+      "rule": "21 to 29 seated is a private booking, not a table booking, because the no-show exposure at that size is too large to carry on a table booking. Route to the manager. Present it as how we look after a group that size, never as a refusal.",
+      "_confirmed": "Owner-confirmed 2026-09-06."
+    },
+    "drinks_only_party": {
+      "minimum_spend": null,
+      "display": "No minimum spend. Arranged as a private booking so we can confirm nothing else is needed.",
+      "rule": "Never invent a package, a per-head price or a bar-tab minimum for a drinks-only Christmas party.",
+      "_confirmed": "Owner-confirmed 2026-09-06."
+    }
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",

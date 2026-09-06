@@ -28,7 +28,7 @@ import {
   type MenuPageItem
 } from '@/lib/menu-page-data'
 import {
-  CHRISTMAS_MINIMUM_PARTY_SIZE,
+  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
@@ -356,7 +356,7 @@ export default async function FoodMenuPage() {
               >
                 festive set menus and Christmas booking dates
               </Link>{' '}
-              for parties of {CHRISTMAS_MINIMUM_PARTY_SIZE} or more.
+              for groups {CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}.
             </p>
           )}
           <MenuAnchorNav

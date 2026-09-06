@@ -143,8 +143,29 @@ export interface ChristmasSeasonView {
   bookingClosed: boolean
 }
 
+/**
+ * The Christmas group minimum for a chosen date, applied client-side.
+ *
+ * The rule arrives as `facts.minPartySizeByWeekday` rather than by importing
+ * lib/christmas-season, which would pull SSOT.json into the browser bundle.
+ * With no date chosen yet it returns the floor across the window, so the field
+ * never blocks a valid midweek party before the guest has picked a day.
+ */
+function minimumGuestsForDate(facts: ChristmasFactsView, isoDate: string): number {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return facts.minPartySize
+  const weekday = new Date(`${isoDate}T00:00:00Z`).getUTCDay()
+  return facts.minPartySizeByWeekday[weekday] ?? facts.minPartySize
+}
+
 export interface ChristmasFactsView {
+  /** The floor across the window (4 midweek, 6 Friday to Sunday). Only for "from N" phrasings. */
   minPartySize: number
+  /** "from 4 guests midweek, 6 on Friday and Saturday". Use this wherever the RULE is stated. */
+  minPartySizeSummary: string
+  /** The minimum indexed by weekday, 0 = Sunday. Passed as data so this client bundle does not import SSOT.json. */
+  minPartySizeByWeekday: readonly number[]
+  /** Christmas Day itself, which sits outside the service window. Drinks only, no food. */
+  christmasDay: { opens: string, closes: string, foodService: boolean }
   minNoticeHours: number
   depositPerPerson: number
   buffetMinimumGuests: number
@@ -365,6 +386,10 @@ function buildFaqItems(
    * without asking, and the FAQ answer stops telling search engines the menu is
    * unpublished while the same page lists it.
    */
+  const christmasDayAnswer = facts.christmasDay.foodService
+    ? ''
+    : `We are open on Christmas Day for drinks only, from ${facts.christmasDay.opens} to ${facts.christmasDay.closes}. There is no food service on Christmas Day, so there is no Christmas dinner, no lunch and no festive menu on the 25th. Our Christmas dinner season runs ${season.windowLabel}, and that is when to book if you want the full festive meal.`
+
   const menuAnswer = (() => {
     const groups = courseChoices?.groups.filter(group => group.course !== 'addon') ?? []
     if (groups.length === 0) {
@@ -399,7 +424,16 @@ function buildFaqItems(
     },
     {
       question: 'Which days of the week can we book Christmas dinner?',
-      answer: 'Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget.'
+      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Midweek also takes smaller groups: ${facts.minPartySizeSummary}.`
+    },
+    {
+      // The service window ends on 20 December, so the page said nothing at all
+      // about the 25th. "christmas day dinner near me" and "pubs that are open
+      // on christmas day" are among the few query shapes that have ever earned
+      // this site a click, and answering them honestly is worth more than
+      // leaving the question open.
+      question: 'Are you open on Christmas Day?',
+      answer: christmasDayAnswer
     },
     {
       question: 'Can we book a Christmas meal on a Monday?',
@@ -407,11 +441,11 @@ function buildFaqItems(
     },
     {
       question: 'How do we book Christmas at The Anchor?',
-      answer: `Send us an enquiry from this page or call ${CONTACT_PHONE}. Christmas dinner needs ${facts.minPartySize} guests or more and at least ${facts.minNoticeHours} hours notice, and every Christmas booking takes a £${facts.depositPerPerson} per person deposit that comes off your bill. More than ${facts.privateHireThreshold} guests is private hire, so email ${CONTACT_EMAIL} for those.`
+      answer: `Send us an enquiry from this page or call ${CONTACT_PHONE}. Christmas dinner takes groups ${facts.minPartySizeSummary}, with at least ${facts.minNoticeHours} hours notice, and every Christmas booking takes a £${facts.depositPerPerson} per person deposit that comes off your bill. More than ${facts.privateHireThreshold} guests is private hire, so email ${CONTACT_EMAIL} for those.`
     },
     {
       question: 'Is there a minimum group size for Christmas dinner?',
-      answer: `Yes. Every Christmas dinner booking is for ${facts.minPartySize} guests or more. Smaller groups are very welcome to join us from the regular menu instead.`
+      answer: `Christmas dinner takes groups ${facts.minPartySizeSummary}. Smaller groups are very welcome to join us from the regular menu instead.`
     },
     {
       question: 'How far ahead do we need to book?',
@@ -455,7 +489,7 @@ function buildFaqItems(
     },
     {
       question: 'What if our group is bigger than 20?',
-      answer: `More than ${facts.privateHireThreshold} guests is not a table booking, it is private hire. Email manager@the-anchor.pub, call ${CONTACT_PHONE} or send a WhatsApp to the same number and we will plan it with you.`
+      answer: `More than ${facts.privateHireThreshold} guests is not a table booking, it is private hire. Between ${facts.privateHireThreshold + 1} and ${facts.buffetMinimumGuests - 1} guests we arrange it as a private booking so the space and the food are right for the size of your group, and from ${facts.buffetMinimumGuests} a festive buffet is an option too. Email manager@the-anchor.pub, call ${CONTACT_PHONE} or send a WhatsApp to the same number and we will look after it.`
     },
     {
       question: 'How much does a Christmas party cost?',
@@ -560,7 +594,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
     },
     {
       title: 'A sit-down Christmas lunch or dinner',
-      description: `The one most groups book: your own table, a lunchtime or evening sitting, and 1, 2 or 3 courses chosen by each guest. Tuesday to Saturday, or a Sunday between 1pm and 6pm, for ${facts.minPartySize} guests or more.`,
+      description: `The one most groups book: your own table, a lunchtime or evening sitting, and 1, 2 or 3 courses chosen by each guest. Tuesday to Saturday, or a Sunday between 1pm and 6pm, for groups ${facts.minPartySizeSummary}.`,
       ideal: 'Teams and families who want to sit down and eat together'
     },
     {
@@ -570,7 +604,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
     },
     {
       title: 'Drinks only, no food',
-      description: `An area of the pub for your group and an agreed bar tab. The ${facts.minPartySize}-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks-only booking.`,
+      description: `An area of the pub for your group and an agreed bar tab. There is no minimum spend. The group-size minimum and the pre-order rules apply to Christmas dinner, not to a drinks-only booking, which we arrange as a private booking so we can check nothing else is needed.`,
       ideal: 'Teams who want a couple of hours after work'
     },
     {
@@ -683,8 +717,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               {season.bookingClosed
                 ? `We are serving the final Christmas sittings of the season, ${season.windowLabel}. Online enquiries have closed, so please call ${CONTACT_PHONE} to ask about a table.`
                 : season.state === 'active'
-                ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
-                : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
+                ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. Groups ${facts.minPartySizeSummary}, £${facts.depositPerPerson} per person deposit off your bill.`
+                : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. Groups ${facts.minPartySizeSummary}, £${facts.depositPerPerson} per person deposit off your bill.`}
             </p>
           </div>
         </Container>
@@ -698,8 +732,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <h2 className="text-3xl font-bold text-ink-strong">Christmas at The Anchor, in short</h2>
             <p className="text-base text-ink-muted">
               We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
-              Heathrow Terminal 5. {DAYS_AVAILABLE_SUMMARY} Every Christmas dinner booking is for {facts.minPartySize} guests
-              or more, booked at least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit
+              Heathrow Terminal 5. {DAYS_AVAILABLE_SUMMARY} Christmas dinner takes groups {facts.minPartySizeSummary},
+              booked at least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit
               that comes off your bill. Everyone chooses their own courses: a main for each guest, with a starter and a
               dessert optional, so guests at the same table can have different numbers of courses. Choices come to us{' '}
               {deadlineDays} days before your booking date. Festive buffets are available for {facts.buffetMinimumGuests}{' '}
@@ -711,7 +745,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Days</strong>Tuesday to Saturday, plus Sunday 1pm to 6pm. No Mondays</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySize} guests or more</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySizeSummary}</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Notice</strong>At least {facts.minNoticeHours} hours, no same-day bookings</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Pre-order</strong>Choices due {deadlineDays} days before your date</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person, every booking, any size</li>
@@ -773,7 +807,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                     and chooses their dishes in advance, so nobody is tied to what the rest of the table is having.
                   </p>
                   <p className="mt-3 text-sm font-semibold text-accent-text">
-                    {facts.minPartySize} guests or more, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
+                    Groups {facts.minPartySizeSummary}, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
                   </p>
                   <Button
                     variant="primary"
@@ -832,7 +866,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What if we are more than {facts.privateHireThreshold}?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Between {facts.privateHireThreshold + 1} and {facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
@@ -871,7 +905,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <ul className="space-y-4 text-sm md:text-base text-ink-muted">
                 <li className="flex items-start gap-3">
                   <Icon name="users" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">{facts.minPartySize} guests or more.</strong> Every Christmas dinner booking needs at least {facts.minPartySize} guests. Smaller groups are welcome from the regular menu.</span>
+                  <span><strong className="text-ink-strong">Groups {facts.minPartySizeSummary}.</strong> Smaller groups are welcome from the regular menu.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="calendar" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -1491,7 +1525,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         onClose={() => setDrawerOpen(false)}
         title="Christmas Booking Enquiry"
         description={context.mode === 'meal'
-          ? `Sit-down Christmas lunch or dinner, ${facts.minPartySize}+ guests, ${facts.minNoticeHours} hours notice`
+          ? `Sit-down Christmas lunch or dinner, groups ${facts.minPartySizeSummary}, ${facts.minNoticeHours} hours notice`
           : 'Christmas parties, private spaces, drinks and buffets'}
         side="right"
         testId="christmas-enquiry-drawer"
@@ -1795,7 +1829,7 @@ function ChristmasMenuAndPricing({
           </table>
           <p className="border-t border-line px-4 py-4 text-sm text-ink-muted">
             Each guest picks their own number of courses and pays that rate, so one person can have three courses while the
-            next has a main on its own. Every Christmas dinner booking is for {facts.minPartySize} guests or more, booked at
+            next has a main on its own. Christmas dinner takes groups {facts.minPartySizeSummary}, booked at
             least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit that comes off your
             bill. There is no kids 2 course and no kids 3 course: children are welcome on those tiers at the adult price.
           </p>
@@ -1976,9 +2010,14 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
 
   const timeOptions = getTimeOptions(context)
   const formatOptions = useMemo(() => partyFormatOptions(facts.buffetMinimumGuests), [facts.buffetMinimumGuests])
+  // Owner-confirmed 6 September 2026: the sit-down minimum is 4 Tuesday to
+  // Thursday and 6 Friday to Sunday, so it cannot be read off `facts` alone.
+  // It follows the date the guest has actually chosen; before they choose one
+  // it falls back to the floor, so the field never blocks a valid midweek party.
+  const dateMinimumGuests = minimumGuestsForDate(facts, preferredDate)
   const minimumGuests = context.mode === 'party' && partyFormat === 'buffet_party'
     ? facts.buffetMinimumGuests
-    : facts.minPartySize
+    : dateMinimumGuests
 
   useEffect(() => {
     if (timeOptions.some(option => option.value === preferredTime)) return
@@ -2166,7 +2205,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
         {context.mode === 'meal' ? (
           <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-amber-950">
             <p className="text-sm font-semibold">
-              {facts.minPartySize}+ guests, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
+              Groups {facts.minPartySizeSummary}, at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
             </p>
             <p className="mt-1 text-xs">
               Courses are chosen per person. One course needs no pre-order. Two and three course
@@ -2279,7 +2318,9 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             />
             <p className="mt-1 text-xs text-ink-muted">
               {context.mode === 'meal'
-                ? `Christmas dinner needs ${facts.minPartySize} guests or more. Above ${facts.privateHireThreshold} it becomes private hire, so call or email us.`
+                ? `${preferredDate
+                    ? `Christmas dinner needs ${dateMinimumGuests} guests or more on that date.`
+                    : `Christmas dinner takes groups ${facts.minPartySizeSummary}.`} Between ${facts.privateHireThreshold + 1} and ${facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it.`
                 : `Festive buffets need ${facts.buffetMinimumGuests} guests or more.`}
             </p>
           </div>
@@ -2613,7 +2654,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
           <Badge className="bg-red-100 text-red-700 w-fit">Christmas enquiry</Badge>
           <h3 id="christmas-lightbox-title" className="pr-8 text-2xl font-bold text-ink-strong">Planning Christmas with us?</h3>
           <p className="text-sm text-ink-muted">
-            Share a few details and we will confirm availability and the price for your group. {facts.minPartySize}+ guests,
+            Share a few details and we will confirm availability and the price for your group. Groups {facts.minPartySizeSummary},
             at least {facts.minNoticeHours} hours notice, £{facts.depositPerPerson} per person deposit.
           </p>
 
@@ -2678,7 +2719,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
               <input
                 type="number"
                 aria-label="Number of guests"
-                min={facts.minPartySize}
+                min={minimumGuestsForDate(facts, preferredDate)}
                 max={context.mode === 'meal' ? facts.maxSeated : facts.maxStanding}
                 placeholder="Number of guests"
                 value={partySize}
