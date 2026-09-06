@@ -430,7 +430,7 @@ step from the bar, ramp on request.
 - Arrive from 6:30pm · Start usually 7pm · **Aims to finish 9:30pm** (owner-confirmed 17 August 2026, and matches `end_time` 21:30 on every scheduled quiz in the management DB). The older "~9:45pm" is retired: anything still saying 9:45pm is wrong.
 - £3 per person. Team size max 6.
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
-- Capacity 80.
+- Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 80). Every scheduled quiz record carries 60. Anything still saying 80 is wrong. **This is a mirror, not a source: page code must read capacity from the API, never from this line.**
 - Prizes: 1st place £25 bar tab; second from last gets a bottle of house wine.
 - **Phone-free.** -5 points for phone use.
 - Host: Question One Quiz Masters (Nikki Manfadge occasional).
@@ -442,7 +442,7 @@ step from the bar, ramp on request.
 - **The pub itself is open from 12pm.** Say so rather than implying the venue opens at the arrival time. See the banned-"Doors" note above.
 - £10 per book (**cash only**). £1 daubers cash only.
 - **18+ to play. Supervised under-18s are welcome to attend but may not play.** Publish both halves together, never one without the other.
-- 10 games. Capacity 60.
+- 10 games. Capacity 60, mirrored from the management app on 6 September 2026. Every scheduled cash bingo record carries 60. **Mirror only: page code reads capacity from the API.**
 - Prizes vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.
 
 ### Music Bingo
@@ -452,7 +452,8 @@ step from the bar, ramp on request.
   time corrected from 8pm, owner-confirmed 16 August 2026. Anything still saying
   8pm is wrong.)
 - **£5 per person** unless the event record says otherwise. (Owner-confirmed 17 August 2026, and every scheduled Music Bingo in the management DB is priced at 5. Corrected from £3: anything still saying £3 is wrong.) Two games with interactive music games and quizzes too; song clips replace bingo numbers.
-- Capacity 90. Host: Nikki Manfadge.
+- Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 90). Every scheduled Music Bingo record carries 60. Anything still saying 90 is wrong. **Mirror only: page code reads capacity from the API.** Host: Nikki Manfadge.
+- **Music Bingo does not reliably sell out, and no page may claim it does.** (Owner-confirmed 6 September 2026.) The `/music-bingo` page asserted it five times, including in its meta description, against live records showing every seat free on most upcoming dates. Motivate booking with communal seating and group seating instead. Honest live remaining counts are permitted; a fixed scarcity claim is not.
 - Private nights available on request.
 
 ### Live Music, DISCONTINUED
@@ -469,7 +470,7 @@ step from the bar, ramp on request.
 - Free entry.
 - **Ticketed with communal seating, and no reserved tables.** (Owner-confirmed 17 August 2026, and `booking_mode` is `communal` on the listed night.) Book a free place per person so we know how many seats to lay out. Never promise a guest "a table waiting for you" on karaoke: that claim is retired.
 - **All ages are welcome at all times, with under-18s accompanied by a supervising adult.** (Owner-confirmed 17 August 2026.) The older "strictly 18+ after 9pm" rule is retired and must not be republished.
-- Capacity 50.
+- Capacity 60, mirrored from the management app on 6 September 2026 (corrected from 50). Taken from the record for the listed night, which §8 makes the only true source. Not separately owner-stated, so confirm at the next review. **Mirror only: page code reads capacity from the API.**
 - Do not publish a recurring EventSeries schema for karaoke. Individual nights get their own Event schema when listed.
 
 ### DJ
@@ -497,6 +498,14 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 - Occasional (no fixed frequency).
 - Expert-led sessions across whisky, gin, rum, wine and beer.
+- Capacity 25, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.**
+
+### Party nights
+
+- Standalone party nights such as the Halloween party. Not a recurring format, and only promoted when an event record lists one.
+- Capacity 150, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.** This is the party-night figure. Do not apply it to quiz, bingo, music bingo or karaoke, which are all 60, and do not confuse it with the retired live-music capacity of 150 in the discontinued-formats note below.
+
+> **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. They are consistent within each category as at 6 September 2026: quiz night, cash bingo, music bingo and karaoke all 60, party nights 150, tasting nights 25. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one.
 
 > Event details are managed per-event in the management app and live canonically in `SSOT.json` under `events`. The summaries above are for reference; confirm current dates, times and prices against the management app / API.
 

@@ -1,7 +1,7 @@
 import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Badge, Button, Card, Container, SectionHeading } from '@/components/ui'
+import { Alert, Badge, Button, Card, Container, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
@@ -14,12 +14,20 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
 
-// Daily regeneration so the seasonal Christmas cross-link appears and removes
-// itself on time. The page was fully static before, which would have frozen
-// the season gate at whatever the last deploy happened to see.
-export const revalidate = 86400
+// The route must not be fully static: the seasonal Christmas cross-link is gated
+// on the current date, and a static page would freeze that gate at whatever the
+// last deploy happened to see.
+//
+// The number is 300 purely so the declared value and the real one agree.
+// lib/api/client.ts already sets a 300s revalidate on every server fetch this
+// page makes, and Next.js 14 resolves a route to the lowest revalidate it finds,
+// so 300 was already the effective cadence while this line said 86400. Changing
+// it alters nothing at runtime; it removes a contradiction, not a staleness bug.
+export const revalidate = 300
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
-import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
+import { getBusinessHours, readRecentEvents, readUpcomingEvents, formatEventDate } from '@/lib/api'
+import { logError } from '@/lib/error-handling'
+import { PhoneLink } from '@/components/PhoneLink'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -35,6 +43,9 @@ export const metadata: Metadata = {
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
     description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
+    // Stated rather than left to the default. This hub is a standing page, not
+    // an article or a single event.
+    type: 'website',
   },
   twitter: getTwitterMetadata({
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
@@ -42,7 +53,9 @@ export const metadata: Metadata = {
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
-    canonical: '/whats-on'
+    // Relative, per the project convention. It resolved to the same URL when it
+    // was written out in full; this is convention alignment, not a fix.
+    canonical: './'
   }
 }
 
@@ -61,12 +74,16 @@ async function getOpeningHoursSpecification() {
   }
 }
 
-// "The regulars": recurring nights that run every month. O4: only verified,
-// SSOT/existing-page-backed values are shown here. Quiz £3 entry and cash bingo
-// £10 a book are confirmed in the page's existing JSON-LD (lib/schema.ts) and
-// long-standing page copy. Exact times, song counts and similar specifics are
-// deliberately omitted as unverified.
-const REGULAR_NIGHTS: ReadonlyArray<{
+// The nights this hub links to. Only verified, SSOT-backed or existing-page-backed
+// values appear here. Quiz £3 entry and cash bingo £10 a book are confirmed in the
+// page's existing JSON-LD (lib/schema.ts) and long-standing page copy. Exact times,
+// song counts and similar specifics are deliberately omitted as unverified.
+//
+// Named HUB_NIGHTS, not REGULAR_NIGHTS: karaoke is in this list and docs/SSOT.md §10
+// forbids implying it is regular. Each entry carries its own `cadence`, so the
+// collection must not assert one. Renamed 6 September 2026 after a review found the
+// constant name contradicted the card it held.
+const HUB_NIGHTS: ReadonlyArray<{
   cadence: string
   title: string
   meta: string
@@ -96,15 +113,66 @@ const REGULAR_NIGHTS: ReadonlyArray<{
     price: '£10 a book',
     tag: 'Cash jackpot',
     href: '/cash-bingo'
+  },
+  // Karaoke is deliberately last and deliberately not labelled monthly.
+  // docs/SSOT.md §10 is explicit that karaoke is not a regular feature in 2026
+  // and that no copy may imply a weekly, monthly or Friday slot. It is listed
+  // here because the page was otherwise orphaned from its own hub, reachable
+  // only through global nav and footer. Owner-approved 6 September 2026.
+  {
+    cadence: 'Occasionally',
+    title: 'Karaoke',
+    meta: 'Free entry, communal seating and all ages welcome. We run it now and then, so check the listings for a confirmed night.',
+    price: 'Free entry',
+    tag: 'When it is listed',
+    href: '/karaoke'
   }
 ]
 
 export default async function WhatsOnPage() {
-  const [openingHoursSpecification, upcomingEvents, recentEvents] = await Promise.all([
+  // These used to be `.catch(() => [])`, which handed an outage to the renderer
+  // as an empty diary. The page then told the visitor there was nothing on,
+  // which is a public read path failing open: a claim we had no evidence for,
+  // made at exactly the moment we could not check it. The read helpers now
+  // report the outcome as well as the contents, so the three cases below stay
+  // distinct all the way to the screen.
+  const [openingHoursSpecification, upcomingEventsRead, recentEventsRead] = await Promise.all([
     getOpeningHoursSpecification(),
-    getUpcomingEvents(24).catch(() => [] as Event[]),
-    getRecentEvents(12).catch(() => [] as Event[]),
+    readUpcomingEvents(24),
+    readRecentEvents(12),
   ])
+
+  const upcomingEvents = upcomingEventsRead.events
+  const recentEvents = recentEventsRead.events
+  const upcomingEventsUnavailable = upcomingEventsRead.status !== 'ok'
+
+  // An outage must be visible to us, not only to the visitor standing in front
+  // of a diary that will not load. lib/api/events.ts logs the failed call; this
+  // records that the hub itself rendered degraded, which is the part a customer
+  // actually sees. Counts and statuses only, never customer data.
+  if (upcomingEventsUnavailable) {
+    logError(
+      'whats-on-upcoming-events',
+      new Error(`Upcoming events read was ${upcomingEventsRead.status}`),
+      {
+        status: upcomingEventsRead.status,
+        failure: upcomingEventsRead.failure,
+        eventsRendered: upcomingEvents.length
+      }
+    )
+  }
+
+  if (recentEventsRead.status !== 'ok') {
+    logError(
+      'whats-on-recent-events',
+      new Error(`Recent events read was ${recentEventsRead.status}`),
+      {
+        status: recentEventsRead.status,
+        failure: recentEventsRead.failure,
+        eventsRendered: recentEvents.length
+      }
+    )
+  }
 
   return (
     <>
@@ -229,10 +297,15 @@ export default async function WhatsOnPage() {
       {/* 3. Next up (§7.3.3): cream, live events from the management API. */}
       <section id="upcoming-events" className="bg-canvas py-section-y">
         <Container>
+          {/* The heading says nothing about how far ahead the list reaches.
+              "This month's headline nights" sat above fifteen events running
+              from September to December, so the heading contradicted the cards
+              underneath it, and would do so again every time the diary changed
+              shape. */}
           <SectionHeading
             kicker="Next up"
             script="Don't miss it"
-            title="This month's headline nights"
+            title="What's coming up"
             lead="Choose a hosted night below, check the date, price and seats, then reserve through the event's own booking form."
           />
 
@@ -241,14 +314,42 @@ export default async function WhatsOnPage() {
               <UpcomingEvents
                 events={upcomingEvents}
                 emptyState={
-                  <div className="rounded-md border border-line bg-surface p-8 text-center">
-                    <p className="text-lg text-ink-strong">No upcoming events scheduled at the moment.</p>
-                    <p className="mt-2 text-ink-muted">
-                      Check back soon, or call 01753 682707 for today&apos;s listings.
-                    </p>
-                  </div>
+                  // Only an `ok` read may claim the diary is empty. When the
+                  // read failed there is nothing to be empty about, and the
+                  // notice below carries the outage instead.
+                  upcomingEventsUnavailable ? null : (
+                    <div className="rounded-md border border-line bg-surface p-8 text-center">
+                      <p className="text-lg text-ink-strong">No upcoming events scheduled at the moment.</p>
+                      <p className="mt-2 text-ink-muted">
+                        Check back soon, or call 01753 682707 for today&apos;s listings.
+                      </p>
+                    </div>
+                  )
                 }
               />
+
+              {/* Covers both `unavailable` and `partial`. Whatever did load is
+                  still rendered above; this says the list cannot be trusted as
+                  the whole diary. The wording deliberately does not branch on
+                  how many events loaded, so it stays true whether the page shows
+                  a short list or none at all. */}
+              {upcomingEventsUnavailable && (
+                <Alert variant="warning" title="We could not load the dates just now" className="mt-6">
+                  <p>
+                    Our event diary is not answering, so this page may be missing nights or showing
+                    none at all. Please do not read a gap as nothing being on. Call{' '}
+                    <PhoneLink
+                      phone="01753 682707"
+                      source="whats_on_events_unavailable"
+                      className="font-semibold text-accent-text underline"
+                      showIcon={false}
+                    >
+                      01753 682707
+                    </PhoneLink>{' '}
+                    and we will tell you what is coming up.
+                  </p>
+                </Alert>
+              )}
             </div>
           </SpeakableContent>
         </Container>
@@ -259,12 +360,12 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeading
             kicker="The regulars"
-            title="On every month"
-            lead="The nights that come round every month. See each event page for the next date and to reserve a table."
+            title="Our nights"
+            lead="Three that come round every month, plus karaoke when we run it. See each page for the next date and to book your places."
           />
 
-          <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-3">
-            {REGULAR_NIGHTS.map((night) => (
+          <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {HUB_NIGHTS.map((night) => (
               <RegularEventCard
                 key={night.title}
                 cadence={night.cadence}
@@ -351,7 +452,7 @@ export default async function WhatsOnPage() {
               </Link>
               <Link href="/whats-on#upcoming-events">
                 <Button variant="outline" size="md">
-                  See this month&apos;s events
+                  See what&apos;s coming up
                 </Button>
               </Link>
             </div>

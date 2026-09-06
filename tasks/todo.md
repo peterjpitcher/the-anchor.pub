@@ -97,3 +97,140 @@ Verification: Node 20 full lint, standalone typecheck, 191 test suites (2,083 pa
 # Event page and booking checks, 6 September 2026
 
 Plan and results: tasks/fix-function/2026-09-06-event-booking/. Website page and form changes plus reviewed capacity retry handling. Management standing-policy and SMS fixes are prepared separately; garden blocking remains a read-only finding. Website lint, types, 191 suites (2,089 passed, one skipped) in London and UTC, production build and isolated browser flows passed. Local only; deployment and migration approval pending.
+
+# Event pages implementation, 6 September 2026
+
+Spec: `tasks/spec-2026-09-06-event-pages.md` (35 tickets, reconciled against the independent developer review).
+Branch: `fix/event-pages-wave-1`.
+Standing rules: capacities always from the management app; no em dashes in customer-facing text; no live booking, SMS, payment, migration or deployment; London and UTC test zones both green at every gate.
+
+**Not mine to commit:** `tasks/fix-function/2026-09-06-event-booking/discovery.md` and `todo.md` are another session's release records. Exclude by path at every commit.
+
+## Package 1: close out Wave 1
+
+- [x] P1.1 Rename `REGULAR_NIGHTS` to `HUB_NIGHTS` in `app/whats-on/page.tsx`. The constant now holds a night that is explicitly not regular, which contradicts the SSOT. Resolves review finding R21.
+- [x] P1.2 Add the Jest case EV-001 promised: all four game routes resolve their sticky CTA to `#book`.
+- [ ] P1.3 Verify the four-card "Our nights" grid at a real desktop width. The earlier check returned `innerWidth: 0` from a hidden pane and proved nothing. **Still outstanding.**
+- [x] P1.4 Gate: lint, typecheck, both zones, build. Commit Package 1. Committed as `fix(events): stop the Christmas overlay covering event booking CTAs`, 12 files, the other session's two files correctly excluded.
+
+## Package 2: booking and feed reliability
+
+- [ ] P2.1 EV-003. Add a result type to the events API helpers that preserves `ok` / `not-found` / `unavailable` / `partial`. Change `getUpcomingEvents`, `getRecentEvents` and `getUpcomingEventsByCategory` to stop collapsing failures into `[]`. Keep every existing caller working.
+- [ ] P2.2 EV-003. `/whats-on` renders the four outcomes distinctly. Unavailable shows a "could not load the dates" state carrying 01753 682707. Genuine empty keeps its current wording.
+- [ ] P2.3 EV-003. Test injects the failure **beneath the API helper**, not at the page import, and asserts the user sees the failure and the phone number. Second test asserts genuine-empty still reads as an empty diary.
+- [ ] P2.4 EV-016. Implement the Turnstile recovery contract in spec §7.5: 10s timeout, accessible message plus phone number, input retained, retry that resets the widget, late token clears the message. Never bypass server validation.
+- [ ] P2.5 EV-016. Tests: script blocked, delayed token, expiry then retry success, verification outage.
+- [~] P2.6 EV-009. **Not done, deliberately.** `lib/static-events.ts` has no importer, but the owner declined an equivalent dead-code cleanup in September 2026 (`careers dead code kept`), and `SSOT.json` `meta.sources` still cites the file as a provenance record. Deleting it would leave a dangling reference in the SSOT. Flagged for the owner rather than removed. The availability route deletion already needed owner sign-off and is untouched.
+- [ ] P2.7 Gate and commit Package 2.
+
+## Package 3: factual presentation
+
+- [ ] P3.1 EV-004. Route `organizer.url` through `isManagementUrl()` and substitute the public site. Test both with and without an organizer URL.
+- [ ] P3.2 EV-005. Absolutise every URL in the Event JSON-LD. Do not add `doorTime`: that half of the ticket is withdrawn.
+- [ ] P3.3 EV-007a. Category fallback image map with an unknown-category branch and a failed-load branch. Only quiz-night, cash-bingo and music-bingo have assets; karaoke, tasting and parties fall back to a truthful neutral image.
+- [ ] P3.4 EV-031. Render `category.name`, not the raw slug, in the event information table. Drop the duplicated row.
+- [ ] P3.5 EV-032. One tested adapter normalising em dashes out of named prose fields only: description, longDescription, about, highlights, faq text, image_alt_text, derived meta description. Never touch serialised JSON, URLs, slugs or identifiers.
+- [ ] P3.6 EV-033. Retitle "This month's headline nights" to something the card list does not contradict.
+- [ ] P3.7 EV-002. Set `/whats-on` route revalidate to 300 for consistency. Claim no freshness improvement.
+- [ ] P3.8 EV-020. Emit `BreadcrumbList` JSON-LD on the four game pages using the existing component.
+- [ ] P3.9 EV-024. Align `/whats-on` and `/live-sport` canonicals to `'./'`. Set `og:type` deliberately per route. Give `/karaoke` its own `og:image`. Serve the landscape variant to Twitter.
+- [ ] P3.10 EV-035. Karaoke email helper wording on a free event; `og:description` relative date; Google Maps iframe `title`; H3-before-H2 outline on the event page; remove the unused karaoke poster preload.
+- [ ] P3.11 Gate and commit Package 3.
+
+## Package 4: bounded conversion additions, decision-free parts only
+
+- [ ] P4.1 EV-011. Add `showAddToCalendar` to `EventPresentation` per spec §7.1, false for cancelled and ended. Never compute the state inline.
+- [ ] P4.2 EV-011. Surface add-to-calendar on the event detail page, the confirmed booking state and the category date cards. Stable UID, public canonical URL, event start not arrival time, omit DTEND when unknown, escaped text.
+- [ ] P4.3 EV-011. Tests in both zones: midnight-crossing event, clock-change event, unknown end time, re-download producing one entry.
+- [ ] P4.4 EV-013. Extend the confirmed state with calendar and directions. Preserve Manage Booking and the PayPal path, asserted by test. No post-confirmation content on hold, pending, manual review or waitlist. Food cross-sell deferred: wording needs the owner.
+- [ ] P4.5 EV-014. Share control at all breakpoints, still gated by `showShareButton`. Add unsupported, permission-denied and clipboard fallback states.
+- [ ] P4.6 EV-017. Show the existing rating near the CTA on the event template and the four category pages, labelled venue-wide with its source. No `aggregateRating` markup.
+- [ ] P4.7 EV-018. Editorial floor: theme, day, date, start time, price and payment method as text where the record holds them. Omit what it does not hold. Never fill a gap from the poster.
+- [ ] P4.8 Gate and commit Package 4.
+
+## Blocked, not started
+
+Owner decision required: EV-012 scarcity threshold and wording; EV-010 desktop fold visual; EV-015 mobile DOM order (reverses a prior decision); EV-021 template ordering (do now or defer); EV-023 `/live-sport` scope; EV-034 imagery.
+Deferred: EV-022 subscription capture, until a service exists to fulfil the promise.
+Owner or management repo: EV-006 performer records, EV-007b artwork, EV-026 GBP posts, EV-027 slug authoring, SMS nudge, `sundayLunch.message`.
+Needs the analytics operator and the published GTM container: EV-029.
+Needs owner sign-off on external callers: EV-009 availability route deletion.
+
+## Definition of done for every package
+
+Lint zero warnings, typecheck, Jest in Europe/London and UTC, production build, plus the acceptance rows in spec §19 that the package touches. Browser verification with a negative control where the change is a suppression or a conditional. No deployment.
+
+## Progress log
+
+**Package 1 committed.** Lint clean, typecheck clean, 191 suites and 2,097 tests in both zones, production build clean. Typecheck caught an incomplete rename that the whole Jest suite missed, which is a reminder that tests alone are not the gate here.
+
+Both new tests were negative-tested: the fix was reverted, the test was confirmed to fail, then restored. A test that passes without the fix present would prove nothing.
+
+**Wave 1 launched**, five agents on strictly disjoint library files so none can collide:
+- A1 `lib/api/events.ts`, read-failure contract. Reuses the existing `lib/api/error-kind.ts` rather than inventing a second taxonomy.
+- A2 `lib/structured-data/event-schema.ts` and `lib/event-image.ts`, organiser URL, absolute URLs, category image fallback.
+- A3 new `lib/text/` adapter, bounded em dash normalisation on named prose fields only.
+- A4 `lib/event-presentation.ts`, `lib/event-calendar.ts`, new AddToCalendar component behind a lifecycle flag.
+- A5 `ManagementEventBookingForm.tsx`, Turnstile recovery and the free-event email helper.
+
+Wave 2 will mount these on the pages, one agent per page file, because `app/events/[id]/page.tsx`, `app/whats-on/page.tsx` and the booking form are each touched by more than one package and cannot be worked in parallel.
+
+### Wave 1 gate, running record
+
+- **A3 prose adapter: accepted.** `lib/text/normalise-api-prose.ts`, 28 tests, negative test failed 14 of 28 when stubbed. Correctly declined to touch en dashes, which carry ranges elsewhere in the codebase. Added `shortDescription` beyond the brief because the JSON-LD `disambiguatingDescription` derives from it.
+- **A1 read-failure contract: accepted.** `EventsReadResult` with `ok` / `partial` / `unavailable` plus a `failure` reason. Existing helpers kept as backwards-compatible wrappers, all 10 callers checked. Negative test failed 19 of 32 when reverted. Two things beyond the brief: it found `invalid-payload`, a 200 whose body is not an events list, which `error-kind` structurally cannot see because nothing throws; and it fixed a real date bug where `from_date` used `toISOString().split('T')[0]` and so asked from yesterday between midnight and 1am BST.
+- **A2 schema and images: accepted.** Organiser guarded, every schema URL absolutised, category image fallback map. Found an adjacent defect its own tests exposed: `sanitiseMainEntityOfPage` checked category paths but never the management host. Verified on the rendered page: no management URL anywhere in the graph, organiser is the public site, image absolute and category-appropriate, `doorTime` still absent.
+- **EV-006 website half, done by the orchestrator** once `event-schema.ts` was free. The schema asserted an invented Organization called "The Anchor Entertainment" whenever a record carried no performer. Now omitted. Deliberately no heuristic for a performer that is present but wrong: quiz nights take guest hosts and karaoke has no fixed host, so a guess would overwrite legitimate values. Four tests added, negative-tested.
+- **Pre-existing em dash** removed from a comment in `lib/api/events.ts`.
+
+Noted for EV-034, not a blocker: every category fallback photo is 640x480 or smaller. All clear Google's 50,000 pixel minimum for Event images, none reaches the recommended 1920px width. The neutral fallback is the only 1920x1080 asset.
+
+Still outstanding at this gate: A4 presentation flags and calendar, A5 Turnstile recovery.
+
+- **A4 presentation and calendar: accepted.** `showAddToCalendar` flag plus a self-gating `AddToCalendar` component. Found three real defects beyond the brief: `getEventDateRangeUtc` invented a two-hour end time when an event had neither `endDate` nor `duration`; an unparseable `endDate` threw a RangeError instead of being treated as unknown; `escapeIcsText` missed a lone carriage return. Distinguished postponed (no calendar, the listed date is the night not happening) from rescheduled (calendar, `startDate` already carries the new date). Orchestrator added the draft exclusion on its recommendation, with a test.
+- **A5 Turnstile recovery: accepted.** 10 second timeout, accessible live region rendered empty from first paint, retained input, retry, late token clears the message, unsupported browser gets no retry. Both new `TurnstileField` props are optional and `showInlineError` defaults true, so all seven other forms are behaviourally identical. Free events no longer promise a payment follow-up. Negative tests failed 5, 1 and 2 across three separate reverts.
+
+**Wave 1 gate: PASS.** Lint zero warnings, typecheck clean, 197 suites and 2,246 tests in both Europe/London and UTC, production build compiled.
+
+The 500s two agents reported on `/api/calendar/event/[id]` were a stale `.next` cache, not their code: the untouched `/api/events/[id]` failed identically and `vendor-chunks/cookie.js` was genuinely absent. Cleared `.next`, restarted the dev server, and all three routes now return 200. Generated ICS verified live: stable domain-scoped UID, `DTSTART` 18:00Z for a 7pm BST event, `DTEND` 20:30Z matching the SSOT quiz finish, canonical `www.the-anchor.pub` URL, escaped comma, no management URL.
+
+Two pre-existing em dashes removed from comments, in `lib/api/events.ts` and `lib/event-calendar.ts`.
+
+## Wave 2 gate: PASS, and browser-verified
+
+Four agents, one page file each. All four accepted.
+
+- **B1 `/whats-on` and `/live-sport`.** Outage state, heading, revalidate, canonicals. Declined to branch the copy on event count, correctly, because a single read can only return ok or unavailable so the branch would have been unreachable. Passes the empty-state prop as null during an outage so the empty-diary claim cannot render at all. Negative test: 5 of 8 failed on the old code.
+- **B2 event detail page.** Raw slug, prose normalisation, calendar, share at all breakpoints, editorial floor, four small fixes. Eleven separate mutations, every one failed as expected. Found three live SSOT contradictions in booking copy.
+- **B3 four game night pages.** Breadcrumb markup, per-page link previews, calendar on date cards, venue-wide rating. Built shared components rather than editing four pages. Fixed a real SSOT violation: `/cash-bingo` published "18+ to play" without the half that welcomes supervised under-18s. Fourteen mutations, all failed as expected.
+- **B4 confirmation state.** Calendar and directions on confirmed only. Widened props with `event_status`, which is load-bearing: without it the calendar gate cannot see a cancelled event. Declined to use the shared `DirectionsButton` because it nests a button inside a link, a real defect across 21 files, now spun off as its own task.
+
+**Three live SSOT contradictions fixed by the orchestrator** in `lib/event-booking-copy.ts`, found by B2 and verified against §10: Music Bingo "starts at 8pm" (SSOT says 7pm and that anything saying 8pm is wrong), cash bingo and quiz "arrive from 6pm" (SSOT says 6:30pm for both and explicitly supersedes the 6pm line). These rendered on desktop event pages. Four guard tests added so copy stating a time is pinned to the SSOT.
+
+**Flake investigation.** B3 reported `tests/unit/event-detail-page.test.tsx` failing about one run in five. Not reproduced in thirteen consecutive runs: five full London, three full UTC, five isolated. Most likely B3 was reading a tree three other agents were editing. Cannot prove a negative; recorded rather than dismissed.
+
+**Seven pre-existing em dashes** removed from comments in `tests/seo-indexing.test.ts`, plus one each earlier in `lib/api/events.ts` and `lib/event-calendar.ts`.
+
+### Browser verification, after clearing the wedged dev server
+
+The shared dev server had seized under four agents; every route except `/` hung past five minutes. Cleared `.next`, killed strays, restarted. All four routes now return 200 in under two seconds, which confirms contention rather than a defect.
+
+| Check | Result |
+|---|---|
+| Em dashes in served event HTML | 16 before, **0** after |
+| Raw `Event type` slug | gone |
+| Calendar controls on the event page | 2, visible at 375px |
+| Share control at 375px | present and visible |
+| Map iframe title | meaningful, event-specific |
+| `og:type` on the event page | `article` |
+| `og:description` | absolute date, no "next Friday" |
+| H3 before first H2 | fixed |
+| `/quiz-night` BreadcrumbList | present |
+| `/quiz-night` aggregateRating | absent, correct |
+| `/quiz-night` calendar links | 10, five dates times two destinations |
+| `/quiz-night` og:image | quiz-specific, was generic |
+| `/karaoke` EventSeries | absent, correct per SSOT |
+| `/whats-on` month claim | gone, now "What's coming up" |
+| `/whats-on` karaoke links | 4 |
+
+One false positive worth recording: a cadence regex flagged `/karaoke`, but the matched copy reads "We run it occasionally rather than every week", which is the SSOT rule being satisfied. That is the same negate-check trap the repo already records for `getBannedClaims()`.

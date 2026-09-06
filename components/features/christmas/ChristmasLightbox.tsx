@@ -45,6 +45,12 @@ const SUPPRESSED_ROUTE_PREFIXES = [
     '/cash-bingo',
     '/music-bingo',
     '/karaoke',
+    // Event pages and the events hub are booking surfaces too. The overlay was
+    // covering the H1, the price and both CTAs ten seconds into an event page,
+    // which is the moment a visitor is closest to booking. Owner-approved
+    // 6 September 2026.
+    '/events',
+    '/whats-on',
 ] as const
 
 export function isLightboxSuppressedRoute(pathname: string | null): boolean {

@@ -5,24 +5,24 @@ import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
+  GameNightBreadcrumb,
   GameNightCtaActions,
+  GameNightDateCards,
   GameNightFacts,
   GameNightGallery,
   GameNightObjections,
+  GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { cashBingo, getGameNightEvents } from '@/lib/game-nights'
+import { cashBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
 import Link from 'next/link'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PsychBadge } from '@/components/psychology'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
-import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 
@@ -34,24 +34,17 @@ import { bingoEventSeries } from '@/lib/schema'
  * Feltham and the online operators, so chasing it would be spending relevance on
  * a fight we lose. See tasks/keyword-plan-game-nights-2026-08-17.md.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildGameNightMetadata(cashBingo, {
   title: 'Pub Bingo Near Me | Cash Bingo in Stanwell Moor',
+  // Both halves of the age rule (docs/SSOT.md §10), never one without the other.
+  // This description previously ended "18+ to play." on its own, which is the
+  // half that turns a family away, published without the half that invites them.
   description:
-    'Traditional cash bingo at The Anchor, Stanwell Moor. £10 a book, cash only, ten games, winnings paid out on the night and a rolling snowball jackpot. 18+ to play.',
-  openGraph: {
-    title: 'Cash Bingo at The Anchor, Stanwell Moor',
-    description: 'Ten games, £10 a book, cash only, winnings paid out on the night and a rolling snowball jackpot.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Cash bingo at The Anchor pub in Stanwell Moor' }]
-  },
-  twitter: getTwitterMetadata({
-    title: 'Cash Bingo at The Anchor, Stanwell Moor',
-    description: 'Ten games, £10 a book, cash only, winnings paid out on the night and a rolling snowball jackpot.',
-    images: [DEFAULT_EVENT_IMAGE]
-  }),
-  alternates: {
-    canonical: './'
-  }
-}
+    'Traditional cash bingo at The Anchor, Stanwell Moor. £10 a book, cash only, ten games and a rolling snowball jackpot. 18+ to play, supervised under 18s welcome.',
+  shareTitle: 'Cash Bingo at The Anchor, Stanwell Moor',
+  shareDescription:
+    'Ten games, £10 a book, cash only, winnings paid out on the night and a rolling snowball jackpot.'
+})
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
@@ -113,10 +106,11 @@ const FAQS = [
 
 function BingoEventCards({ events }: { events: Event[] }) {
   return (
-    <EventDateCards
+    <GameNightDateCards
       events={events}
       eyebrow="Monthly cash bingo"
       bookingSource="cash_bingo_event_card"
+      calendarSource="cash_bingo_date_card"
       imageAltSuffix="cash bingo night at The Anchor"
       renderMeta={(_event, doorTime) => (
         <p className="text-xs text-ink-muted">Arrive by {doorTime ?? '6:30pm'} • £10 cash book</p>
@@ -154,6 +148,7 @@ export default async function CashBingoPage() {
 
   return (
     <>
+      <GameNightBreadcrumb config={cashBingo} />
       <ScrollDepthTracker />
 
       <InteriorHero
@@ -193,14 +188,17 @@ export default async function CashBingoPage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
-            <SectionViewTracker sectionId="cash_bingo_booking">
-              <GameNightBooking
-                events={events}
-                gameName={cashBingo.name}
-                gameSlug={cashBingo.slug}
-                bookingNote={cashBingo.bookingNote}
-              />
-            </SectionViewTracker>
+            <div className="space-y-4">
+              <SectionViewTracker sectionId="cash_bingo_booking">
+                <GameNightBooking
+                  events={events}
+                  gameName={cashBingo.name}
+                  gameSlug={cashBingo.slug}
+                  bookingNote={cashBingo.bookingNote}
+                />
+              </SectionViewTracker>
+              <GameNightSocialProof gameName={cashBingo.name} />
+            </div>
             {/* Right column stacks the "what £10 buys" card and the objections. The
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}

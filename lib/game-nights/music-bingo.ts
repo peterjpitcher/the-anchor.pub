@@ -4,7 +4,7 @@ import type { GameNightConfig } from './types'
  * Music bingo. Facts from docs/SSOT.md §10: dates vary, arrive from 6:30pm, start
  * 7pm unless the event record says otherwise, £5 per person unless the event record
  * says otherwise, two games plus interactive music games and quizzes, song clips
- * replace bingo numbers, capacity 90, hosted by Nikki Manfadge, and private
+ * replace bingo numbers, capacity 60, hosted by Nikki Manfadge, and private
  * nights available on request.
  *
  * Price corrected from £3 to £5 on 17 August 2026. The £3 figure was stale in three
@@ -41,7 +41,16 @@ export const musicBingo: GameNightConfig = {
     // within a few miles and already know where the pub is.
     title: 'Music Bingo at The Anchor, Stanwell Moor',
     lead:
-      'Song clips instead of numbers, hosted by drag queen Nikki Manfadge. Two themed games, prizes across both, and it sells out, so book ahead.'
+      'Song clips instead of numbers, hosted by drag queen Nikki Manfadge. Two themed games, prizes across both, and communal seating, so book ahead and we will keep your group together.'
+  },
+
+  share: {
+    // The hero photograph. Natively 640x360, so it is the closest of the three
+    // to the 1.91:1 crop a link preview applies.
+    image: '/images/events/music-bingo/music-bingo-hero-room-wide.jpg',
+    alt: 'A full room of players at music bingo with drag host Nikki Manfadge at The Anchor, Stanwell Moor',
+    width: 640,
+    height: 360
   },
 
   facts: [
@@ -49,7 +58,7 @@ export const musicBingo: GameNightConfig = {
     { label: 'Starts', value: '7pm, arrive from 6:30pm' },
     { label: 'Games', value: 'Two, plus music rounds' },
     { label: 'Host', value: 'Nikki Manfadge' },
-    // "Free, right outside" read as a guarantee on a night that sells out. There
+    // "Free, right outside" read as a guarantee on a night that fills up. There
     // are 20 spaces (docs/SSOT.md §8), so say so.
     { label: 'Parking', value: 'Free, 20 spaces' }
   ],
@@ -101,7 +110,7 @@ export const musicBingo: GameNightConfig = {
     {
       src: '/images/events/music-bingo/music-bingo-packed-tables.jpg',
       alt: 'Nikki Manfadge working a full room of seated players during music bingo at The Anchor',
-      caption: 'It genuinely does sell out'
+      caption: 'Communal tables, and everyone joins in'
     },
     {
       src: '/images/events/music-bingo/music-bingo-host-on-the-mic.jpg',

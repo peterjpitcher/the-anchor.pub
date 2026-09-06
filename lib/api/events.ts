@@ -4,9 +4,14 @@ export type EventDiningRequest = 'before_event' | 'during_event' | 'not_sure'
 
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { logError } from '@/lib/error-handling'
+import { isNotFoundError } from '@/lib/api/error-kind'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 import { dedupeUpcomingEvents } from '@/lib/event-normalization'
 import { RECENT_EVENT_WINDOW_DAYS } from '@/lib/event-seo-strategy'
+// The shared Europe/London calendar-date helper. It lives in the table-booking
+// module because that is where it was first needed, but it is the repo's one
+// implementation and a fourth private copy here is how date bugs breed.
+import { londonIsoDate } from '@/lib/table-booking-service-windows'
 
 /**
  * A purchasable ticket type on an event (e.g. Adult / Child / Concession, or
@@ -511,7 +516,7 @@ export function getEventTicketTypes(event: EventTicketTypeSource): EventTicketTy
 }
 
 /**
- * True only when the event offers 2+ ticket types whose prices differ — the
+ * True only when the event offers 2+ ticket types whose prices differ, the
  * condition under which the "from £X" / multi-type UI is shown. A single type
  * (or several identically-priced types) keeps the existing single-price path.
  */
@@ -681,7 +686,112 @@ const MAX_EVENTS_LIMIT = 100
 // declared here, which had to agree with the one in event-seo-strategy by hand.
 const RECENT_EVENT_DEFAULT_DAYS = RECENT_EVENT_WINDOW_DAYS
 
-export async function getUpcomingEvents(limit: number = 10, daysLookahead?: number): Promise<Event[]> {
+/**
+ * The outcome of a list read, not only its contents.
+ *
+ * `ok`          the management API answered and this is its whole answer. An
+ *               empty `events` here means the diary genuinely is empty.
+ * `partial`     several reads ran together and at least one, but not all, of
+ *               them failed. `events` holds what did load, so a page can show
+ *               it while saying the list is incomplete.
+ * `unavailable` nothing usable came back. `events` is empty because we could
+ *               not look, not because there is nothing on.
+ *
+ * The three list helpers used to catch and return `[]`, which collapsed the
+ * first and the last of those into the same value. A page cannot fail closed on
+ * information it was never given: "no events" and "we could not reach the
+ * diary" have to reach the caller as different things, exactly as
+ * lib/api/error-kind.ts already does for a single event.
+ */
+export type EventsReadStatus = 'ok' | 'partial' | 'unavailable'
+
+/**
+ * Why a read was not `ok`.
+ *
+ * `transient` and `not-found` are decided by lib/api/error-kind.ts, the single
+ * place this repo classifies a management API error. Do not grow a second
+ * taxonomy here: the "308 permanent redirect on every failure" incident
+ * recorded in that file began as precisely this kind of local guesswork.
+ *
+ * `invalid-payload` is the one case error-kind cannot see, because nothing
+ * threw: the upstream answered 200 with a body that is not an events list.
+ */
+export type EventsReadFailure = 'transient' | 'not-found' | 'invalid-payload'
+
+export interface EventsReadResult {
+  status: EventsReadStatus
+  events: Event[]
+  /** Undefined when `status` is `ok`. */
+  failure?: EventsReadFailure
+}
+
+function classifyReadFailure(error: unknown): EventsReadFailure {
+  return isNotFoundError(error) ? 'not-found' : 'transient'
+}
+
+/**
+ * A Europe/London calendar date `days` either side of `from`.
+ *
+ * Shifting the query window with `date.setDate(date.getDate() + n)` reads the
+ * runtime's own clock, so the same code produced a different `to_date` on a
+ * London laptop and on Vercel's UTC runtime near midnight. Anchoring at midday
+ * on the London calendar date keeps the answer identical in both, and stops a
+ * daylight-saving hour from nudging the result onto the wrong day.
+ */
+function shiftLondonIsoDate(from: Date, days: number): string {
+  const [year, month, day] = londonIsoDate(from).split('-').map(Number)
+  return londonIsoDate(new Date(Date.UTC(year, month - 1, day + days, 12, 0, 0)))
+}
+
+/**
+ * The events array from a list response, or null when the payload is not one.
+ *
+ * `response.events || []` could not tell an empty diary from a body that is not
+ * an events list at all, and handed both to the caller as a successful empty
+ * array. A malformed 200 is a failure; it must not be published as a fact.
+ */
+function readEventsPayload(response: unknown): Event[] | null {
+  if (!response || typeof response !== 'object') return null
+  const events = (response as { events?: unknown }).events
+  return Array.isArray(events) ? (events as Event[]) : null
+}
+
+/**
+ * Rolls several list reads into one outcome.
+ *
+ * `partial` exists for this: a game night page fans out over two or three
+ * category ids at once, and if one of them 503s the page still has real events
+ * to show but no longer has the whole picture. Reporting that as `ok` would let
+ * it print "that is everything coming up" while a category is missing.
+ *
+ * Combining nothing is vacuously `ok`. Callers that fanned out over an empty id
+ * list should decide for themselves whether that is an answer or a gap.
+ */
+export function combineEventsReadResults(results: EventsReadResult[]): EventsReadResult {
+  if (results.length === 0) return { status: 'ok', events: [] }
+
+  const events = results.flatMap(result => result.events)
+  const failure = results.find(result => result.failure)?.failure
+  const failed = results.filter(result => result.status === 'unavailable')
+
+  if (failed.length === results.length) {
+    return { status: 'unavailable', events: [], failure }
+  }
+
+  const degraded = failed.length > 0 || results.some(result => result.status === 'partial')
+
+  return degraded ? { status: 'partial', events, failure } : { status: 'ok', events }
+}
+
+/**
+ * Upcoming events, with the outcome of the read attached.
+ *
+ * `getUpcomingEvents` stays the `Event[]` form every existing caller uses.
+ */
+export async function readUpcomingEvents(
+  limit: number = 10,
+  daysLookahead?: number
+): Promise<EventsReadResult> {
   // Import lazily to avoid circular dependency with client.ts
   const { anchorAPI } = await import('./client')
   try {
@@ -694,36 +804,52 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
       limit: number
       status: string
     } = {
-      from_date: now.toISOString().split('T')[0],
+      // Europe/London, not UTC. `toISOString().split('T')[0]` was a day behind
+      // between midnight and 1am British Summer Time, so for that hour the
+      // query asked for events from yesterday and offered evenings that had
+      // already finished.
+      from_date: londonIsoDate(now),
       limit: safeLimit,
       status: 'scheduled'
     }
 
     if (typeof daysLookahead === 'number' && Number.isFinite(daysLookahead)) {
-      const toDate = new Date(now)
-      toDate.setDate(now.getDate() + daysLookahead)
-      params.to_date = toDate.toISOString().split('T')[0]
+      params.to_date = shiftLondonIsoDate(now, daysLookahead)
     }
 
     const response = await anchorAPI.getEvents(params)
-    const events = response.events || []
+    const events = readEventsPayload(response)
+
+    if (!events) {
+      logError('api-upcoming-events', new Error('Events list response carried no events array'), { limit, daysLookahead })
+      return { status: 'unavailable', events: [], failure: 'invalid-payload' }
+    }
+
     const nowMs = Date.now()
 
-    return dedupeUpcomingEvents(removeRetiredEvents(events), nowMs)
+    return { status: 'ok', events: dedupeUpcomingEvents(removeRetiredEvents(events), nowMs) }
   } catch (error) {
     logError('api-upcoming-events', error, { limit, daysLookahead })
-    // Return empty array on failure, UI components should handle the empty state.
-    // Previously this returned a hardcoded fallback event ("the-anchor-showcase")
-    // which rendered as a real event on the homepage but produced 404s on
+    // No fabricated fallback. This once returned a hardcoded "the-anchor-showcase"
+    // event, which rendered as a real event on the homepage and produced 404s on
     // calendar link endpoints (e.g. /api/calendar/event/the-anchor-showcase).
-    return []
+    return { status: 'unavailable', events: [], failure: classifyReadFailure(error) }
   }
 }
 
-export async function getRecentEvents(
+export async function getUpcomingEvents(limit: number = 10, daysLookahead?: number): Promise<Event[]> {
+  return (await readUpcomingEvents(limit, daysLookahead)).events
+}
+
+/**
+ * Recent past events, with the outcome of the read attached.
+ *
+ * `getRecentEvents` stays the `Event[]` form every existing caller uses.
+ */
+export async function readRecentEvents(
   limit: number = 10,
   daysBack: number = RECENT_EVENT_DEFAULT_DAYS
-): Promise<Event[]> {
+): Promise<EventsReadResult> {
   const { anchorAPI } = await import('./client')
   try {
     const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
@@ -731,30 +857,50 @@ export async function getRecentEvents(
     const fetchLimit = Math.min(Math.max(safeLimit * 3, 20), MAX_EVENTS_LIMIT)
 
     const now = new Date()
+    // `fromDate` is the instant the local filter below compares against, and is
+    // deliberately left as clock arithmetic. The two query bounds are
+    // Europe/London calendar dates, for the reason given in readUpcomingEvents.
     const fromDate = new Date(now)
     fromDate.setDate(now.getDate() - safeDaysBack)
 
     const response = await anchorAPI.getEvents({
-      from_date: fromDate.toISOString().split('T')[0],
-      to_date: now.toISOString().split('T')[0],
+      from_date: shiftLondonIsoDate(now, -safeDaysBack),
+      to_date: londonIsoDate(now),
       limit: fetchLimit,
       status: 'scheduled,rescheduled,postponed,sold_out,cancelled',
     })
 
+    const events = readEventsPayload(response)
+
+    if (!events) {
+      logError('api-recent-events', new Error('Events list response carried no events array'), { limit, daysBack })
+      return { status: 'unavailable', events: [], failure: 'invalid-payload' }
+    }
+
     const nowMs = Date.now()
     const earliestMs = fromDate.getTime()
 
-    return removeRetiredEvents(response.events || [])
-      .filter(event => {
-        const startMs = Date.parse(event.startDate)
-        return Number.isFinite(startMs) && startMs < nowMs && startMs >= earliestMs
-      })
-      .sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate))
-      .slice(0, safeLimit)
+    return {
+      status: 'ok',
+      events: removeRetiredEvents(events)
+        .filter(event => {
+          const startMs = Date.parse(event.startDate)
+          return Number.isFinite(startMs) && startMs < nowMs && startMs >= earliestMs
+        })
+        .sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate))
+        .slice(0, safeLimit)
+    }
   } catch (error) {
     logError('api-recent-events', error, { limit, daysBack })
-    return []
+    return { status: 'unavailable', events: [], failure: classifyReadFailure(error) }
   }
+}
+
+export async function getRecentEvents(
+  limit: number = 10,
+  daysBack: number = RECENT_EVENT_DEFAULT_DAYS
+): Promise<Event[]> {
+  return (await readRecentEvents(limit, daysBack)).events
 }
 
 /**
@@ -808,12 +954,23 @@ export async function getPastEvents(limit: number = 200): Promise<Event[]> {
   }
 }
 
-export async function getUpcomingEventsByCategory(
+/**
+ * Upcoming events in one category, with the outcome of the read attached.
+ *
+ * `getUpcomingEventsByCategory` stays the `Event[]` form every existing caller
+ * uses.
+ *
+ * A blank category id reports `unavailable` / `not-found` rather than `ok`,
+ * because no read happened. It usually arrives here because the category
+ * lookup upstream failed, and a page that treated it as a verified empty diary
+ * would print "nothing coming up" off the back of an outage.
+ */
+export async function readUpcomingEventsByCategory(
   categoryId: string,
   limit: number = 10,
   daysLookahead?: number
-): Promise<Event[]> {
-  if (!categoryId) return []
+): Promise<EventsReadResult> {
+  if (!categoryId) return { status: 'unavailable', events: [], failure: 'not-found' }
 
   const { anchorAPI } = await import('./client')
   try {
@@ -827,27 +984,64 @@ export async function getUpcomingEventsByCategory(
       status: string
       category_id: string
     } = {
-      from_date: now.toISOString().split('T')[0],
+      // Europe/London, for the reason given in readUpcomingEvents.
+      from_date: londonIsoDate(now),
       limit: safeLimit,
       status: 'scheduled',
       category_id: categoryId
     }
 
     if (typeof daysLookahead === 'number' && Number.isFinite(daysLookahead)) {
-      const toDate = new Date(now)
-      toDate.setDate(now.getDate() + daysLookahead)
-      params.to_date = toDate.toISOString().split('T')[0]
+      params.to_date = shiftLondonIsoDate(now, daysLookahead)
     }
 
     const response = await anchorAPI.getEvents(params)
-    const events = response.events || []
+    const events = readEventsPayload(response)
+
+    if (!events) {
+      logError('api-upcoming-events-by-category', new Error('Events list response carried no events array'), { categoryId, limit, daysLookahead })
+      return { status: 'unavailable', events: [], failure: 'invalid-payload' }
+    }
+
     const nowMs = Date.now()
 
-    return dedupeUpcomingEvents(removeRetiredEvents(events), nowMs)
+    return { status: 'ok', events: dedupeUpcomingEvents(removeRetiredEvents(events), nowMs) }
   } catch (error) {
     logError('api-upcoming-events-by-category', error, { categoryId, limit, daysLookahead })
-    return []
+    return { status: 'unavailable', events: [], failure: classifyReadFailure(error) }
   }
+}
+
+export async function getUpcomingEventsByCategory(
+  categoryId: string,
+  limit: number = 10,
+  daysLookahead?: number
+): Promise<Event[]> {
+  return (await readUpcomingEventsByCategory(categoryId, limit, daysLookahead)).events
+}
+
+/**
+ * Upcoming events across several categories at once, de-duplicated.
+ *
+ * This is the fan-out the game night pages do. Doing it here rather than in
+ * each page is what makes `partial` reachable: one failing category leaves the
+ * page with real events and an explicit note that the list is short, instead of
+ * a silently truncated diary that looks complete.
+ */
+export async function readUpcomingEventsByCategories(
+  categoryIds: string[],
+  limit: number = 10,
+  daysLookahead?: number
+): Promise<EventsReadResult> {
+  const ids = categoryIds.filter(id => Boolean(id && id.trim()))
+  if (ids.length === 0) return { status: 'unavailable', events: [], failure: 'not-found' }
+
+  const results = await Promise.all(
+    ids.map(categoryId => readUpcomingEventsByCategory(categoryId, limit, daysLookahead))
+  )
+  const combined = combineEventsReadResults(results)
+
+  return { ...combined, events: dedupeUpcomingEvents(combined.events) }
 }
 
 export async function getTodaysEvents(): Promise<Event[]> {

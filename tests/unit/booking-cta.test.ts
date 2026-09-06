@@ -9,11 +9,29 @@ describe('page booking actions', () => {
     ['/cash-bingo', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
     ['/quiz-night/', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
     ['/music-bingo', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
+    ['/karaoke', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
     ['/christmas-parties', { kind: 'christmas', label: 'Christmas enquiry' }],
     ['/live-sport/nations-championship', { kind: 'link', label: 'Choose a game', href: '#fixtures' }],
   ])('%s chooses its own journey', (pathname, expected) => {
     expect(resolveBookingCta(pathname)).toEqual(expected)
   })
+
+  // Every game night page carries its own booking form at #book. Karaoke was
+  // missing from the route list, so its sticky bar fell through to the generic
+  // "Book a table" and sent mobile visitors to /book-table instead of the form
+  // 300px below. It is the highest-traffic of the four hubs, so it was the one
+  // that leaked. Asserted as a set rather than a row so a fifth game page
+  // cannot be added without deciding this.
+  test.each(['/quiz-night', '/cash-bingo', '/music-bingo', '/karaoke'])(
+    'game night page %s keeps its visitor on the page',
+    (pathname) => {
+      expect(resolveBookingCta(pathname)).toEqual({
+        kind: 'link',
+        label: 'View upcoming dates',
+        href: '#book',
+      })
+    }
+  )
 
   const now = Date.parse('2026-09-05T12:00:00Z')
   const event = { startDate: '2026-10-01T19:00:00Z', event_status: 'scheduled', eventStatus: 'https://schema.org/EventScheduled', bookings_enabled: true }

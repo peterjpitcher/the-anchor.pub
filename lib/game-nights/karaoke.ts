@@ -72,6 +72,18 @@ export const karaoke: GameNightConfig = {
       'Free entry karaoke in Stanwell Moor. Sing solo, share a duet, or just come and cheer everyone else on. We run it occasionally rather than to a fixed schedule, so any confirmed night is listed below.'
   },
 
+  share: {
+    // Deliberately the neutral events image, not a photograph of another night.
+    // There is no photograph of a karaoke night anywhere in this repo (see the
+    // hero note above), and previewing a karaoke link with a quiz or bingo photo
+    // would show a night that is not this one. Swap this the moment a real
+    // karaoke photograph exists, at the same time as the hero.
+    image: '/images/page-headers/whats-on/whats-on.jpg',
+    alt: 'The Anchor pub in Stanwell Moor, where karaoke nights are held',
+    width: 1920,
+    height: 1080
+  },
+
   facts: [
     { label: 'Entry', value: 'Free' },
     { label: 'Seating', value: 'Communal, no reserved tables' },
