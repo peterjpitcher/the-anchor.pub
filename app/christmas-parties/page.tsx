@@ -213,7 +213,16 @@ function buildSeasonView(): ChristmasSeasonView {
     windowLabel: formatChristmasWindowLabel(),
     minEnquiryDate: earliestWithNotice > CHRISTMAS_WINDOW_START ? earliestWithNotice : CHRISTMAS_WINDOW_START,
     maxEnquiryDate: CHRISTMAS_WINDOW_END,
-    isBookable: status.isBookable
+    isBookable: status.isBookable,
+    // Two different facts that must never be collapsed into one flag again.
+    // "No new booking can be taken" arrives one day BEFORE "the offer is over",
+    // because the 24 hour notice rule closes new bookings on 19 December while
+    // the kitchen still serves on the 20th. Treating them as the same thing
+    // made the page announce "our Christmas service has finished" on its own
+    // last trading day, and drop the menu, the prices and the Menu JSON-LD
+    // with it. Use `bookingClosed` for the enquiry route, `state === 'ended'`
+    // for whether the page has anything left to sell.
+    bookingClosed: status.state !== 'ended' && !status.isBookable
   }
 }
 
@@ -221,7 +230,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const season = buildSeasonView()
   const windowLabel = season.windowLabel
 
-  if (season.state === 'ended' || !season.isBookable) {
+  // Only once the window has actually passed. While the final sittings are
+  // still being served the page keeps its commercial title and description,
+  // because it is still selling something that exists.
+  if (season.state === 'ended') {
     const title = 'Christmas Parties Near Heathrow & Staines | The Anchor'
     const description =
       'Christmas bookings at The Anchor near Heathrow are closed for this season. Private hire and group bookings run all year, with free parking.'
@@ -333,7 +345,8 @@ export default async function ChristmasPartiesPage() {
   const buffets = buildBuffetView(catering.foodPackages)
   const menu = buildMenuView(christmasMenu.sections, Boolean(christmasMenu.unavailableReason))
   const courseChoices = buildCourseChoicesView(preorderMenu)
-  const seasonEnded = season.state === 'ended' || !season.isBookable
+  // The offer is over, not merely closed to new bookings. See buildSeasonView.
+  const seasonEnded = season.state === 'ended'
 
   // Priced markup is only ever built from live data, and only in season. It
   // returns null when there is nothing to publish, so no empty Menu node ships.
@@ -386,6 +399,11 @@ export default async function ChristmasPartiesPage() {
 
   const heroLead = seasonEnded
     ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
+    : season.bookingClosed
+    // Still serving, but too late to take a new booking with the notice the
+    // kitchen needs. The offer is described in the present tense because it is
+    // still running; only the self-service route has closed.
+    ? `We are serving the last Christmas sittings of the season, up to and including ${season.windowLabel.split(' to ')[1] || season.windowLabel}. Online enquiries have closed for this year, so please call us to ask about a table.`
     // Leads with the differentiator, not the mechanics of ordering dinner: your
     // own space rather than a shared hotel sitting is the thing no competitor
     // near Heathrow offers, and it was previously buried below the menu. The
@@ -414,7 +432,10 @@ export default async function ChristmasPartiesPage() {
         title="Christmas parties and Christmas dinner near Staines and Heathrow"
         lead={heroLead}
         actions={
-          seasonEnded ? (
+          // The enquiry CTA only appears while an enquiry can still be acted
+          // on. Phone and email stay in both closed states, because the pub
+          // can still answer a question about a sitting it is serving today.
+          seasonEnded || season.bookingClosed ? (
             <ChristmasHeroSecondaryCta />
           ) : (
             <>

@@ -134,6 +134,13 @@ export interface ChristmasSeasonView {
   maxEnquiryDate: string
   /** False once no date inside the window can still be booked with notice. */
   isBookable: boolean
+  /**
+   * True while the kitchen is still serving the season but no new booking can
+   * be taken with the required notice. Distinct from `state === 'ended'`: the
+   * page keeps its menu, prices and structured data in this state and swaps
+   * only the enquiry route for a phone call.
+   */
+  bookingClosed: boolean
 }
 
 export interface ChristmasFactsView {
@@ -580,7 +587,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
   const [drawerOpen, setDrawerOpen] = useState(false)
   const enquiryRef = useRef<HTMLDivElement | null>(null)
 
-  const seasonEnded = season.state === 'ended' || !season.isBookable
+  // Only when the window has passed. `season.bookingClosed` covers the last
+  // day, when the offer is still real but the enquiry route has closed.
+  const seasonEnded = season.state === 'ended'
   const faqItems = useMemo(() => buildFaqItems(season, facts, courseChoices), [season, facts, courseChoices])
   const partyIdeas = useMemo(() => buildPartyIdeas(facts), [facts])
   const deadlineDays = preOrderDeadlineDays(facts)
@@ -671,7 +680,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <p className="text-sm md:text-base font-semibold">
               {/* Leads with the offer and the reason to choose us. The conditions
                   still appear, in the tail, where they inform rather than deter. */}
-              {season.state === 'active'
+              {season.bookingClosed
+                ? `We are serving the final Christmas sittings of the season, ${season.windowLabel}. Online enquiries have closed, so please call ${CONTACT_PHONE} to ask about a table.`
+                : season.state === 'active'
                 ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
                 : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
             </p>
@@ -1486,20 +1497,31 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         testId="christmas-enquiry-drawer"
       >
         <div className="p-3 sm:p-6">
-          <ChristmasEnquiryForm
-            context={context}
-            season={season}
-            facts={facts}
-            onContextChange={handleContextChange}
-            onSuccess={() => {
-              handleFormSuccess()
-            }}
-          />
+          {/*
+            Eleven controls on this page open this drawer. Swapping the panel
+            here, rather than hiding all eleven, means none of them becomes a
+            dead button on the last day of the season: they all still lead to a
+            way of asking about a table. The form itself cannot be shown,
+            because its date picker would have a minimum later than its maximum.
+          */}
+          {season.bookingClosed ? (
+            <ChristmasBookingClosedPanel season={season} facts={facts} />
+          ) : (
+            <ChristmasEnquiryForm
+              context={context}
+              season={season}
+              facts={facts}
+              onContextChange={handleContextChange}
+              onSuccess={() => {
+                handleFormSuccess()
+              }}
+            />
+          )}
         </div>
       </StickyDrawer>
 
       <ChristmasLightbox
-        suppressed={drawerOpen || formSubmitted}
+        suppressed={drawerOpen || formSubmitted || season.bookingClosed}
         context={context}
         season={season}
         facts={facts}
@@ -1512,6 +1534,73 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(structuredData) }}
       />
     </>
+  )
+}
+
+/**
+ * Shown inside the enquiry drawer on the last day or two of the season, when
+ * the kitchen is still serving but the 24 hour notice rule means no new
+ * booking can be taken through the form. The offer is described in the present
+ * tense, because it is still running.
+ */
+function ChristmasBookingClosedPanel({
+  season,
+  facts
+}: {
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
+}) {
+  return (
+    <div className="space-y-5">
+      <Alert variant="info" title="Online Christmas enquiries have closed for this year">
+        We are still serving Christmas dinner up to and including the last day of the season,{' '}
+        {season.windowLabel}. A Christmas booking needs {facts.minNoticeHours} hours notice, so the form
+        has closed, but it is always worth a call: we may have a table today.
+      </Alert>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Button
+          asChild
+          variant="primary"
+          size="lg"
+          onClick={() => {
+            trackCtaClick({
+              id: 'christmas_booking_closed_call',
+              label: 'Call The Anchor',
+              location: 'christmas_booking_closed_panel',
+              destination: 'phone'
+            })
+            trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_booking_closed_panel' })
+          }}
+        >
+          <a href={CONTACT_PHONE_LINK}>
+            <Icon name="phone" className="mr-2 h-4 w-4" />
+            Call {CONTACT_PHONE}
+          </a>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          onClick={() => {
+            trackCtaClick({
+              id: 'christmas_booking_closed_email',
+              label: 'Email The Anchor',
+              location: 'christmas_booking_closed_panel',
+              destination: 'email'
+            })
+            trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_booking_closed_panel' })
+          }}
+        >
+          <a href={CONTACT_EMAIL_LINK}>
+            <Icon name="mail" className="mr-2 h-4 w-4" /> Email us
+          </a>
+        </Button>
+      </div>
+      <p className="text-sm text-ink-muted">
+        Looking further ahead? <Link href="/private-hire" className="font-semibold text-accent-text underline">Private hire and group bookings</Link>{' '}
+        run all year.
+      </p>
+    </div>
   )
 }
 

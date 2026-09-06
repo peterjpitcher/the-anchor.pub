@@ -42,7 +42,8 @@ const SEASON: ChristmasSeasonView = {
   windowLabel: '10 November to 20 December 2026',
   minEnquiryDate: CHRISTMAS_WINDOW_START,
   maxEnquiryDate: CHRISTMAS_WINDOW_END,
-  isBookable: true
+  isBookable: true,
+  bookingClosed: false
 }
 
 const EMPTY_MENU: ChristmasMenuView = {
