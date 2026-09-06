@@ -337,15 +337,15 @@ export default function BedfontPubPage() {
         title="Your Nearest Traditional Pub"
         copy="Join your Bedfont neighbours at The Anchor - where everyone knows your name"
       >
-        <Link href="tel:+441753682707">
-          <Button variant="primary" size="lg">Call: 01753 682707</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
-        <Link href="/find-us">
-          <Button variant="outline" size="lg">Get Directions</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="tel:+441753682707">Call: 01753 682707</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/find-us">Get Directions</Link>
+        </Button>
       </CtaBand>
     </>
   )

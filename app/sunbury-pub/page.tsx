@@ -160,9 +160,9 @@ export default function SunburyPubPage() {
                                     Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and plenty of parking for your guests coming from all over.
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
-                                    <Link href="/private-hire">
-                                        <Button variant="primary">Use Our Venue Finder</Button>
-                                    </Link>
+                                    <Button asChild variant="primary">
+                                        <Link href="/private-hire">Use Our Venue Finder</Link>
+                                    </Button>
                                     <PhoneButton phone={CONTACT.phone} source="sunbury_events" variant="outline">Call for a Quote</PhoneButton>
                                 </div>
                             </CardBody>
@@ -241,12 +241,12 @@ export default function SunburyPubPage() {
                 title="Experience The Anchor"
                 copy="Just a short drive for great food and hospitality."
             >
-                <Link href={CONTACT.phoneHref}>
-                    <Button variant="primary" size="lg">Book a Table</Button>
-                </Link>
-                <Link href="/private-hire#enquiry">
-                    <Button variant="outline" size="lg">Book an Event</Button>
-                </Link>
+                <Button asChild variant="primary" size="lg">
+                    <Link href={CONTACT.phoneHref}>Book a Table</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/private-hire#enquiry">Book an Event</Link>
+                </Button>
                 <DirectionsButton
                     href="https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
                     source="sunbury_cta_band_directions"

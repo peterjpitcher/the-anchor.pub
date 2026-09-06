@@ -435,11 +435,11 @@ export default async function HeathrowHotelsPubPage() {
                 Most hotel guests say the short journey is absolutely worth it for the authentic
                 experience and massive savings compared to hotel dining!
               </p>
-              <Link href="/find-us">
-                <Button variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg">
+                <Link href="/find-us">
                   Get Detailed Directions
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>

@@ -272,11 +272,11 @@ export default function WindsorPubPage() {
               <p className="text-lg text-ink-muted mb-6">
                 Private function room available for Windsor groups - 10+ to 150 guests
               </p>
-              <Link href="/private-hire#enquiry">
-                <Button variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/private-hire#enquiry">
                   Enquire About Group Bookings
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -485,15 +485,15 @@ export default function WindsorPubPage() {
         title="Discover Windsor's Favourite Local"
         copy="Just 15 minutes from the castle - where Windsor locals escape the tourists"
       >
-        <Link href={CONTACT.phoneHref}>
-          <Button variant="primary" size="lg">Book a Table</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
-        <Link href="/special-offers">
-          <Button variant="outline" size="lg">View Offers</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href={CONTACT.phoneHref}>Book a Table</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/special-offers">View Offers</Link>
+        </Button>
       </CtaBand>
     </>
   )

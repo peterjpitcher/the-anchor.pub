@@ -455,11 +455,11 @@ export default async function RestaurantsNearHeathrowPage() {
             </div>
 
             <div className="text-center mt-8">
-              <Link href="/food-menu">
-                <Button variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/food-menu">
                   View the Full Menu
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>

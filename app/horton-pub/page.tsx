@@ -262,15 +262,15 @@ export default function HortonPubPage() {
                 title="Your Neighbouring Village Pub"
                 copy="Great food, cold drinks, and good company - just 1 mile away."
             >
-                <Link href={CONTACT.phoneHref}>
-                    <Button variant="primary" size="lg">Book a Table</Button>
-                </Link>
-                <Link href="/private-hire#enquiry">
-                    <Button variant="outline" size="lg">Book an Event</Button>
-                </Link>
-                <Link href="/food-menu">
-                    <Button variant="outline" size="lg">View Menu</Button>
-                </Link>
+                <Button asChild variant="primary" size="lg">
+                    <Link href={CONTACT.phoneHref}>Book a Table</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/private-hire#enquiry">Book an Event</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/food-menu">View Menu</Link>
+                </Button>
             </CtaBand>
         </>
     )
