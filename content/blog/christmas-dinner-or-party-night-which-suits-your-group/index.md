@@ -36,9 +36,9 @@ If your group wants to sit down together, eat a Christmas dinner, talk without s
 | Who shares the room | Other groups you have never met, often several hundred people | Your group at your own table, in a pub with regulars in the bar |
 | Cost structure | One fixed price per head, drinks usually extra | Each person picks 1, 2 or 3 courses and pays for what they order, plus drinks |
 | What is included | A set menu plus entertainment | The meal, the trimmings, and a glass of prosecco for adults, swappable for orange juice |
-| Entertainment | The main event | Not part of the booking. No DJ, no live act, no party night. A Christmas quiz runs in the diary if you want one |
+| Entertainment | The main event | Not part of the booking, and never included by default. No live act and no party night. A DJ can be arranged on request if your group wants one, and a Christmas quiz runs in the diary |
 | Noise | Loud by design. Hard to talk once the music starts | Pub busy. No dance floor, so a table of eight can actually hear each other |
-| Group size that works | Small groups joining a shared room, or large groups filling tables | Minimum 6. Up to 20 as a table booking, above that it is private hire |
+| Group size that works | Small groups joining a shared room, or large groups filling tables | Minimum 4. Up to 20 as a table booking, above that it is private hire |
 | Travel and parking | Check parking charges and how people get home before you commit | 20 free spaces on site, no fees, no time limit |
 | Organising effort | Low. Pick a date, pay per head, turn up | Book, pay the deposit, and pre-order 7 days ahead if anyone wants 2 or 3 courses |
 
@@ -73,7 +73,7 @@ Access belongs in an honest comparison too. The car park, the bar and the dining
 ## How ours actually works
 
 - **When:** 10 November to 20 December 2026, and the 20th is included. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. There are no Monday sittings, because the kitchen is closed on Mondays.
-- **Group size:** minimum 6 guests on every Christmas dinner booking. More than 20 guests is [private hire](/private-hire) rather than a table booking.
+- **Group size:** minimum 4 guests on every Christmas dinner booking. More than 20 guests is [private hire](/private-hire) rather than a table booking.
 - **Notice:** at least 24 hours. We cannot take same-day Christmas bookings.
 - **Deposit:** £10 per person on every Christmas booking whatever the size. Taken at booking and it comes straight off your bill on the day. Refunded in full if you cancel more than seven days before the booking.
 - **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, and choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order, which is the flexible option if your group decides late.
@@ -98,7 +98,7 @@ No. We do not run shared Christmas party nights any more. What we do is a sit-do
 
 ### What is the smallest group you take for Christmas dinner?
 
-Six guests, and we need at least 24 hours' notice, so no same-day bookings.
+Four guests, and we need at least 24 hours' notice, so no same-day bookings.
 
 ### Do we all have to have the same number of courses?
 

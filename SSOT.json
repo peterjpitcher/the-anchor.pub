@@ -934,7 +934,7 @@
     "christmas_one_course_gbp": "LIVE_FROM_DB",
     "christmas_two_course_gbp": "LIVE_FROM_DB",
     "christmas_three_course_gbp": "LIVE_FROM_DB",
-    "christmas_sit_down_meals": "Minimum 6 guests and at least 24 hours notice. Every Christmas booking is pre-booked, and courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
+    "christmas_sit_down_meals": "Minimum 4 guests and at least 24 hours notice. Every Christmas booking is pre-booked, and courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
     "christmas_2026_service_window": "2026-11-10 to 2026-12-20 inclusive; reconfirm before publishing a later season",
     "christmas_buffets": "Available for 30+ guests",
     "private_booking_deposit_gbp": 250,
@@ -1565,10 +1565,10 @@
     "christmas_blanket_pre_order_only": "SUPERSEDED 2026-08-04. Courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Never publish whole-table course copy such as '1 course is pre-book only, no pre-order' in copy, constants, schema or tests.",
     "christmas_kids_multi_course_price": "DOES NOT EXIST. There is no kids 2 course and no kids 3 course, no child portion and no child price. Never invent one. Children may order the adult tiers at the adult price.",
     "christmas_named_dishes": "The Christmas menu is NOT finalised. Never list or imply a specific Christmas dish. The only permitted wording is 'menu released closer to the time'.",
-    "christmas_sub_6_or_same_day": "Christmas bookings under 6 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",
     "buffet_minimum_25_or_26": "WRONG. The festive buffet minimum is 30 guests everywhere. Correct any 25 or 26 figure in the management database, in this file or in page copy.",
     "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'.",
-    "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema."
+    "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema.",
+    "christmas_sub_4_or_same_day": "Christmas bookings under 4 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise."
   },
   "resolved_inconsistencies": [
     {

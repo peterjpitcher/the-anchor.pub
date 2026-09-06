@@ -658,7 +658,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **"1 November to 23 December 2026"**, superseded. The window is 10 November to 20 December 2026 inclusive.
 - **Weekday / weekend two-price festive menu split as the whole story**, superseded by the three-tier structure (1, 2 and 3 course) in §7.
 - **"All Christmas meals are pre-order only"**, wrong. 1 course is pre-book without pre-order.
-- **Christmas bookings under 6 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
+- **Christmas bookings under 4 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
 - **A kids 2-course or 3-course price**, does not exist. Never invent one.
 - **Named Christmas dishes**, the menu is not finalised. Only "menu released closer to the time" is permitted.
 - **26-guest or 25-guest festive buffet minimums**, wrong. The minimum is 30.

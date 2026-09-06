@@ -45,7 +45,7 @@ If the pub option fits, the format and dates are on our [Christmas party page](/
 
 The number in your spreadsheet quietly changes which product you are buying.
 
-- **Fewer than 6 guests.** Not a Christmas booking. Our festive menu needs a minimum of 6.
+- **Fewer than 4 guests.** Not a Christmas booking. Our festive menu needs a minimum of 4.
 - **6 to 20 guests.** A normal table booking. You book it, you turn up, we look after you.
 - **More than 20 guests.** No longer a table booking. This is [private hire](/private-hire), and it goes through a person rather than a form: manager@the-anchor.pub, 01753 682707, or WhatsApp on the same number.
 

@@ -27,7 +27,7 @@ So here is the order we would use, from watching organisers do this every Novemb
 
 Headcount comes first because it is the only decision that changes *what* you are booking, rather than just when. Your number puts you in one of four bands, and each one opens or closes doors:
 
-- **Under 6.** Too small for a Christmas set menu with us. A Christmas dinner booking needs at least 6 guests. You are very welcome as an ordinary table, but it will not be the festive booking.
+- **Under 4.** Too small for a Christmas set menu with us. A Christmas dinner booking needs at least 4 guests. You are very welcome as an ordinary table, but it will not be the festive booking.
 - **6 to 20.** A table booking. The route most work teams and family groups take.
 - **More than 20.** This stops being a table booking and becomes [private hire](/private-hire). Different conversation, different contact route, worth starting earlier.
 - **30 or more.** Only here does a festive buffet become possible. All three of our buffet packages carry a 30-guest minimum, everywhere, no exceptions.
@@ -124,7 +124,7 @@ As soon as you have a confident headcount. The hard floor with us is 24 hours' n
 
 ### How many people do I need for a Christmas booking?
 
-Six. Every Christmas dinner booking with us needs at least 6 guests. Above 20 it becomes a private hire enquiry rather than a table booking, so email manager@the-anchor.pub or ring 01753 682707.
+Four. Every Christmas dinner booking with us needs at least 4 guests. Above 20 it becomes a private hire enquiry rather than a table booking, so email manager@the-anchor.pub or ring 01753 682707.
 
 ### Does everyone have to have the same number of courses?
 
