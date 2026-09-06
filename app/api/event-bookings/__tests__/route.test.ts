@@ -1,9 +1,8 @@
 /**
  * Per-ticket attendee-name behaviour for the website /api/event-bookings proxy.
  *
- * - Paid events (event_price > 0) require a name for every ticket and forward
- *   the `attendee_names` array to the management API.
- * - Free events do not require names and forward none.
+ * - Paid and free events accept ticket quantities without attendee names.
+ * - Optional attendee names are validated and forwarded for existing callers.
  * - A name count that does not match `seats`, or any blank name, is rejected 400.
  */
 
@@ -112,13 +111,30 @@ afterEach(() => {
 })
 
 describe('website /api/event-bookings proxy, per-ticket attendee names', () => {
-  it('rejects a paid booking that is missing attendee names', async () => {
-    installUpstreamFetch()
+  it.each([undefined, []])('accepts a paid booking with optional names %p', async (attendeeNames) => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequest({ ...VALID_BASE, event_price: 5, attendee_names: attendeeNames }) as any)
+
+    expect(res.status).toBe(201)
+    expect(calls).toHaveLength(1)
+    const forwarded = JSON.parse(String(calls[0].init.body))
+    expect(forwarded.seats).toBe(2)
+    expect(forwarded.attendee_names).toBeUndefined()
+  })
+
+  it('returns a visible failure when a quantity-only booking cannot reach management', async () => {
+    global.fetch = jest.fn().mockRejectedValue(new Error('Management unavailable'))
     const POST = await getPostHandler()
 
     const res = await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
 
-    expect(res.status).toBe(400)
+    expect(res.status).toBe(503)
+    expect(await res.json()).toEqual({
+      success: false,
+      error: 'We could not process this event booking right now. Please call 01753 682707.'
+    })
   })
 
   it('forwards attendee_names for a paid booking with a name per ticket', async () => {
@@ -192,6 +208,47 @@ describe('website /api/event-bookings proxy, per-ticket attendee names', () => {
 })
 
 describe('website /api/event-bookings proxy, ticket_selections passthrough', () => {
+  it.each([undefined, []])('forwards a quantity-only basket with optional names %p', async (attendeeNames) => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const selections = [
+      { ticket_type_id: 'type-adult', quantity: 2, ...(attendeeNames ? { attendee_names: attendeeNames } : {}) },
+      { ticket_type_id: 'type-child', quantity: 1, ...(attendeeNames ? { attendee_names: attendeeNames } : {}) }
+    ]
+
+    const res = await POST(buildRequest({
+      ...VALID_BASE,
+      seats: 3,
+      event_price: 5,
+      ticket_selections: selections
+    }) as any)
+
+    expect(res.status).toBe(201)
+    expect(calls).toHaveLength(1)
+    const forwarded = JSON.parse(String(calls[0].init.body))
+    expect(forwarded.ticket_selections).toEqual([
+      { ticket_type_id: 'type-adult', quantity: 2 },
+      { ticket_type_id: 'type-child', quantity: 1 }
+    ])
+    expect(forwarded.seats).toBe(3)
+    expect(forwarded.attendee_names).toBeUndefined()
+  })
+
+  it.each([['Alice Booker', '   '], ['Alice Booker', 'B'.repeat(121)]])(
+    'rejects invalid supplied selection names %p', async (...attendeeNames) => {
+      const calls = installUpstreamFetch()
+      const POST = await getPostHandler()
+      const res = await POST(buildRequest({
+        ...VALID_BASE,
+        event_price: 5,
+        ticket_selections: [{ ticket_type_id: 'type-adult', quantity: 2, attendee_names: attendeeNames }]
+      }) as any)
+
+      expect(res.status).toBe(400)
+      expect(calls).toHaveLength(0)
+    }
+  )
+
   it('forwards a valid ticket_selections basket to the management API', async () => {
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()

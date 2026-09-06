@@ -63,3 +63,18 @@ Complexity 4, website consumer release coordinated with a separate Cheers produc
 - [ ] Release and verify the exact production deployment.
 
 Validation: 190 suites, 2056 passed and 1 skipped in both zones; 53 final focused checks in each zone after copy review. Final lint, types and production build passed. Isolated browser verified conditional card, booking summary, Find a table and calendar with zero booking writes and no browser errors. Deployment evidence is maintained outside the repository.
+
+
+# Event booking quantities, 6 September 2026
+
+- [x] Trace the website form and both API validation paths.
+- [x] Remove per-guest name collection for all event ticket types.
+- [x] Verify quantity-only bookings, failures, lint, types and build.
+
+Scope: website only, lead booker details retained. Management API already accepts omitted names. No migration. Local only until deployment approval.
+
+Verification: Node 20 lint, standalone typecheck, all 191 test suites (2,083 passed, one skipped) and production build passed. Combined form/API suite has 26 passing tests in UTC. Browser verification passed with the actual component in an isolated Next app: four prepaid seats and mixed quantities of two Adult plus one Child submitted only lead details and quantities. Intercepted 503 responses showed Booking not completed and the phone fallback. Screenshots: output/playwright/event-booking-quantity/. No live bookings, messages or payments. The production event page wrapper and real payment flow were not exercised. Local only, deployment awaits approval.
+
+Files changed: components/features/EventBooking/ManagementEventBookingForm.tsx, app/api/event-bookings/route.ts, their two existing test files and tasks/todo.md. Deliberately unchanged: management application, database, staff booking forms, historical attendee-name records, shared legacy name helpers, payment processing and event page wrapper. Supplied legacy names remain supported.
+
+Owner approved website production deployment on 6 September 2026. All five changed files belong to this approved change.

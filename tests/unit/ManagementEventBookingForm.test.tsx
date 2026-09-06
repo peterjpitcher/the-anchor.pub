@@ -108,6 +108,38 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.getByText(/These are requests only/)).toBeInTheDocument()
   })
 
+  it('submits mixed ticket quantities without collecting guest names', async () => {
+    const sent: Record<string, unknown>[] = []
+    global.fetch = jest.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      sent.push(JSON.parse(String(init?.body)))
+      return new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'mixed-fixture' } }), { status: 201 })
+    })
+    render(<ManagementEventBookingForm event={{
+      id: 'mixed-event', name: 'Mixed ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid',
+      ticket_types: [
+        { id: 'adult', name: 'Adult', price: 12, sort_order: 0, remaining: 10 },
+        { id: 'child', name: 'Child', price: 6, sort_order: 1, remaining: 10 },
+      ],
+    }} />)
+    expect(screen.getByRole('button', { name: 'Reserve my seats' })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText(/ticket .* name/i)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    await screen.findByText('Event booking confirmed')
+    expect(sent[0]).toMatchObject({
+      seats: 3, first_name: 'Jane', last_name: 'Guest',
+      ticket_selections: [{ ticket_type_id: 'adult', quantity: 2 }, { ticket_type_id: 'child', quantity: 1 }],
+    })
+    expect(sent[0].attendee_names).toBeUndefined()
+  })
+
   it('shows a compact single-step booking form', () => {
     render(
       <ManagementEventBookingForm
@@ -144,12 +176,6 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
   })
 
-  // Regression guard. Collecting a name per guest used to be gated on "does this
-  // event have a price", which caught every cash_only night. Booking a £5 bingo
-  // for four then meant typing three friends' full legal names before the submit
-  // button would enable. Every upcoming event is free or cash_only, so this fired
-  // on all of them. Only prepaid events, where seats are paid for up front, have
-  // any reason to ask.
   it('keeps the submit button enabled on a cash_only event without any guest names', async () => {
     render(
       <ManagementEventBookingForm
@@ -252,7 +278,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('First name')).not.toBeInTheDocument()
   })
 
-  it('submits per-ticket names on a prepaid event and omits food fields', async () => {
+  it('submits a prepaid group booking with only lead booker details and quantity', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
 
@@ -316,8 +342,6 @@ describe('ManagementEventBookingForm', () => {
           startDate: '2026-05-08T20:00:00+01:00',
           time: '20:00',
           price_per_seat: 6,
-          // Per-ticket names are collected on prepaid events only. Without this
-          // the form treats it as pay-on-the-night and asks for the booker alone.
           payment_mode: 'prepaid',
           category: {
             id: 'cat-bingo',
@@ -330,11 +354,7 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '6' } })
-    fireEvent.change(await screen.findByLabelText('Ticket 2 name'), { target: { value: 'Al Two' } })
-    fireEvent.change(screen.getByLabelText('Ticket 3 name'), { target: { value: 'Bo Three' } })
-    fireEvent.change(screen.getByLabelText('Ticket 4 name'), { target: { value: 'Cy Four' } })
-    fireEvent.change(screen.getByLabelText('Ticket 5 name'), { target: { value: 'Di Five' } })
-    fireEvent.change(screen.getByLabelText('Ticket 6 name'), { target: { value: 'Ez Six' } })
+    expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
@@ -350,7 +370,7 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.seats).toBe(6)
     expect(payload.first_name).toBe('Jane')
     expect(payload.last_name).toBe('Guest')
-    expect(payload.attendee_names).toEqual(['Jane Guest', 'Al Two', 'Bo Three', 'Cy Four', 'Di Five', 'Ez Six'])
+    expect(payload.attendee_names).toBeUndefined()
     expect(payload.notes).toBeUndefined()
     expect(payload.food_intent).toBeUndefined()
     expect(payload.event_slug).toBe('music-bingo')

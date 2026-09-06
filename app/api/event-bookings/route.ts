@@ -19,7 +19,7 @@ const API_KEY = process.env.ANCHOR_API_KEY
 type TicketSelection = {
   ticket_type_id: string
   quantity: number
-  attendee_names: string[]
+  attendee_names?: string[]
 }
 
 type EventBookingPayload = {
@@ -129,15 +129,19 @@ function asNameArray(value: unknown): string[] | undefined {
 // Parses the multi-ticket-type payload. Returns undefined when absent, and an
 // (empty-name-tolerant) normalized array otherwise so validatePayload can reject
 // malformed lines with a clear message. Passed straight through to AMS, which is
-// the source of truth for pricing/capacity — the proxy only shape-checks it.
+// the source of truth for pricing/capacity; the proxy only shape-checks it.
 function asTicketSelections(value: unknown): TicketSelection[] | undefined {
   if (!Array.isArray(value)) return undefined
   return value.map((entry) => {
     const line = (entry && typeof entry === 'object' ? entry : {}) as Record<string, unknown>
     const ticketTypeId = asTrimmedString(line.ticket_type_id) || ''
     const quantity = asPositiveInt(line.quantity) ?? 0
-    const attendeeNames = asNameArray(line.attendee_names) ?? []
-    return { ticket_type_id: ticketTypeId, quantity, attendee_names: attendeeNames }
+    const attendeeNames = asNameArray(line.attendee_names)
+    return {
+      ticket_type_id: ticketTypeId,
+      quantity,
+      ...(attendeeNames?.length ? { attendee_names: attendeeNames } : {})
+    }
   })
 }
 
@@ -194,7 +198,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(seatingPreference ? { seating_preference: seatingPreference } : {}),
       ...(body.dining_request ? { dining_request: body.dining_request as EventDiningRequest } : {}),
       ...(body.early_arrival_request === true ? { early_arrival_request: true } : {}),
-      ...(attendeeNames ? { attendee_names: attendeeNames } : {}),
+      ...(attendeeNames?.length ? { attendee_names: attendeeNames } : {}),
       ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
@@ -258,7 +262,6 @@ function validatePayload(payload: EventBookingPayload): string | null {
   }
 
   const attendeeNames = payload.attendee_names
-  const isPaidEvent = typeof payload.event_price === 'number' && payload.event_price > 0
 
   const ticketSelections = payload.ticket_selections
   if (ticketSelections) {
@@ -273,39 +276,27 @@ function validatePayload(payload: EventBookingPayload): string | null {
       if (line.quantity < 1) {
         return 'Please choose at least one ticket'
       }
-      if (line.attendee_names.length !== line.quantity) {
-        return 'Please enter a name for each ticket'
-      }
-      if (line.attendee_names.some((name) => name.length === 0)) {
-        return 'Please enter a name for each ticket'
-      }
-      if (line.attendee_names.some((name) => name.length > MAX_ATTENDEE_NAME_LENGTH)) {
-        return `Each name must be ${MAX_ATTENDEE_NAME_LENGTH} characters or fewer`
-      }
+      const nameError = validateFlatAttendeeNames(line.attendee_names, line.quantity)
+      if (nameError) return nameError
       selectionSeatSum += line.quantity
     }
     if (selectionSeatSum !== payload.seats) {
       return 'Seat total does not match the ticket selection'
     }
-    // Multi-type events carry the full name set inside ticket_selections; the flat
-    // attendee_names aggregate is validated below when present.
+    // Names are optional, but validate the flat aggregate when supplied too.
     return validateFlatAttendeeNames(attendeeNames, payload.seats)
-  }
-
-  if (isPaidEvent && (!attendeeNames || attendeeNames.length === 0)) {
-    return 'Please enter a name for each ticket'
   }
 
   return validateFlatAttendeeNames(attendeeNames, payload.seats)
 }
 
 // Validates the flat attendee_names aggregate (shared by single- and multi-type
-// paths). No-op when the aggregate is absent.
+// paths). No-op when the aggregate is absent or empty.
 function validateFlatAttendeeNames(
   attendeeNames: string[] | undefined,
   seats: number
 ): string | null {
-  if (!attendeeNames) return null
+  if (!attendeeNames || attendeeNames.length === 0) return null
   if (attendeeNames.some((name) => name.length === 0)) {
     return 'Please enter a name for each ticket'
   }
