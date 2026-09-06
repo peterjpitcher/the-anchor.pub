@@ -1,5 +1,5 @@
 /**
- * SEO regression tests — guards against contradictions between robots.txt,
+ * SEO regression tests, guards against contradictions between robots.txt,
  * sitemap.xml, the redirects table, and noindex blog posts.
  *
  * These tests exist because each of the failure modes below has shipped at
@@ -37,8 +37,8 @@ jest.mock('@/lib/api', () => ({
  * which is published as ESM and breaks Jest's CommonJS transformer. We
  * replace it with a lightweight reader that walks `content/blog/*` directly
  * and returns the same shape the sitemap consumes (slug + tags + noindex
- * + date). This keeps the test dependent on real frontmatter — including
- * `noindex: true` posts — while sidestepping the markdown-to-HTML stage.
+ * + date). This keeps the test dependent on real frontmatter, including
+ * `noindex: true` posts, while sidestepping the markdown-to-HTML stage.
  */
 jest.mock('@/lib/markdown', () => {
   const fs = jest.requireActual<typeof import('fs')>('fs')
@@ -211,7 +211,7 @@ describe('robots.txt', () => {
 })
 
 describe('middleware redirect lookup (apex/host chain flattening)', () => {
-  // The seven URLs reported by GSC as "Redirect error" — see
+  // The seven URLs reported by GSC as "Redirect error", see
   // tasks/gsc-indexing-fix/FINAL-SPEC.md §P0.1. Both www and apex variants of
   // these tags must resolve in a single hop to the consolidated destination,
   // not via the apex -> www -> destination chain.
@@ -365,7 +365,7 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
   })
 
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
-    // Pattern rules use `:slug` or `:path*` syntax — middleware can not match
+    // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects
     // pipeline. This guards against accidentally precompiling them and
     // producing literal `/profile/:path*` matches.
@@ -461,7 +461,10 @@ describe('orphan-page internal linking guards', () => {
     const footer = fs.readFileSync(path.join(process.cwd(), 'components', 'layout', 'Footer.tsx'), 'utf8')
 
     expect(whatsOnPage).toContain('seasonalOccasionLinks')
-    expect(whatsOnPage).toContain('getRecentEvents')
+    // Matches the read helper and the local variable alike. What matters is
+    // that the hub still pulls recent events in and links them; the helper was
+    // pinned by exact name and broke when it gained a result-carrying sibling.
+    expect(whatsOnPage).toContain('recentEvents')
     expect(privateHirePage).toContain('landmarkGroups')
     expect(footer).toContain('trustLinks')
   })
@@ -672,7 +675,7 @@ describe('redirect-loops', () => {
   })
 })
 
-describe('structured data — breadcrumbs', () => {
+describe('structured data, breadcrumbs', () => {
   // Guards GSC "Breadcrumbs: Missing field 'item' (in 'itemListElement')".
   // The shape below mirrors HeroWrapper.generateBreadcrumbsFromRoute output for
   // /private-hire/near/slough-crematorium: Home + a clickable parent + the
@@ -697,7 +700,7 @@ describe('structured data — breadcrumbs', () => {
   })
 })
 
-describe('structured data — JobPosting', () => {
+describe('structured data, JobPosting', () => {
   // Guards GSC "Job Postings: Missing field 'validThrough'". Google can drop a
   // posting once validThrough passes, so it must be present and in the future
   // relative to datePosted.

@@ -685,27 +685,65 @@ Repo key: **W** website (`OJ-The-Anchor.pub`), **M** management (`OJ-AnchorManag
 
 ## 18. Implementation status
 
-Wave 1 was built on branch `fix/event-pages-wave-1` after the 6 September decisions. **Uncommitted, unpushed, not deployed, and not browser-verified.** `main` is untouched.
+Branch `fix/event-pages-wave-1`. **Two commits, uncommitted work in progress on top, nothing pushed and nothing deployed.** `main` is untouched.
 
-| Ticket | Change | Files |
-|---|---|---|
-| EV-000 | `/events` and `/whats-on` added to the lightbox suppression list | `components/features/christmas/ChristmasLightbox.tsx`, `components/features/christmas/__tests__/lightbox-suppression.test.ts` |
-| EV-001 | `/karaoke` added to the sticky-CTA route list | `lib/booking-cta.ts` |
-| EV-008 | Five sell-out claims removed and replaced | `lib/game-nights/music-bingo.ts`, `app/music-bingo/page.tsx` |
-| EV-019 | Karaoke card added to `/whats-on` with honest cadence, section retitled, grid widened to four | `app/whats-on/page.tsx` |
-| §15 | Capacities corrected, party nights and tasting nights recorded, sell-out claim banned | `docs/SSOT.md`, `SSOT.json`, `lib/game-nights/quiz-night.ts`, `lib/game-nights/music-bingo.ts` |
+**What is live right now, checked 6 September 2026.** A separate session deployed the event booking simplification and applied the standing-ticket migration as production version `20260906143610`, so production already carries the shorter form: no seated-or-standing radio and no per-guest name fields. It does **not** carry any of this branch's work. `https://www.the-anchor.pub/events/quiz-night-2026-10-07` still prints the raw `Event type` slug and still publishes `management.orangejelly.co.uk` as the organiser. Both are fixed locally and neither is deployed.
 
-**Gates passed.** Node 20 lint with zero warnings, including the repo's JSON-LD safety, freshness and palette audits. Uncached typecheck clean. `tests/ssot-drift-guard.test.ts` 39 passing. Full suite 191 suites, 2,092 passing and one skipped, in **both** Europe/London and UTC. **Production build clean, exit 0.**
+### Commit 1: owner-decided fixes
+`fix(events): stop the Christmas overlay covering event booking CTAs`, 12 files.
 
-**Gates NOT run.** Browser verification at 375x812 and desktop. So there is no proof yet that the lightbox is actually absent from a rendered event page, or that the four-across karaoke card renders correctly. Nothing here may be called working until that is done.
+| Ticket | Change |
+|---|---|
+| EV-000 | `/events` and `/whats-on` added to the lightbox suppression list |
+| EV-001 | `/karaoke` added to the sticky-CTA route list |
+| EV-008 | Five sell-out claims removed, and banned in `docs/SSOT.md` |
+| EV-019 | Karaoke card on `/whats-on`, cadence "Occasionally", `REGULAR_NIGHTS` renamed `HUB_NIGHTS` |
+| §16 | Capacities corrected in `docs/SSOT.md`, `SSOT.json` and two config comments |
 
-**One change still required before this package is acceptable (R21).** The karaoke card was added to a constant called `REGULAR_NIGHTS`, which now holds a night that is explicitly not regular. Rename it to `HUB_NIGHTS` so the code stops asserting a cadence the SSOT forbids. See EV-019.
+### Commit 2: the library layer
+`feat(events): tell an outage from an empty diary, and stop inventing facts`, 17 files, 3,070 insertions. Built by five agents on disjoint files, then gate-reviewed.
 
-**Two things that need a human before this goes anywhere.**
-1. The replacement music bingo copy was written directly, not through `editorial-team`, which the house rules require for customer-facing copy. Treat it as draft wording.
-2. EV-000 reversed a decision that was encoded in a passing test. `lightbox-suppression.test.ts` asserted `/whats-on` was a route where the lightbox *should* fire. Somebody chose that deliberately. The assertion was moved rather than deleted, but it is worth knowing the change contradicts an earlier judgement.
+| Ticket | Change |
+|---|---|
+| EV-003 (helpers) | `EventsReadResult` reporting `ok` / `partial` / `unavailable` with a failure reason. Existing helpers kept as backwards-compatible wrappers; all ten callers checked. Reuses `lib/api/error-kind.ts` rather than adding a second taxonomy |
+| EV-004 | `organizer.url` guarded, plus `sanitiseMainEntityOfPage` which had the same hole |
+| EV-005 | Every schema URL absolutised. `doorTime` correctly left absent |
+| EV-006 (website half) | The invented "The Anchor Entertainment" organiser is omitted. No heuristic for a wrong-but-present performer |
+| EV-007a | Category image fallback map across square, hero and social |
+| EV-011 (foundations) | `showAddToCalendar` flag and a self-gating `AddToCalendar` component |
+| EV-016 | Turnstile recovery: 10s timeout, live region, retained input, retry, late-token clearing |
+| EV-032 (adapter) | `lib/text/normalise-api-prose.ts`, allow-listed prose fields only |
+| EV-035 (part) | Free events no longer promise a payment follow-up |
 
-**Not built from the Do-now list:** EV-004 organizer URL, EV-005 relative image and null doorTime, EV-002 hub cache, EV-011 add-to-calendar, EV-031 raw slug, EV-033 "this month", EV-020 breadcrumbs, EV-014 share button, EV-035 list, EV-007(a) category fallback image.
+### Defects found during implementation that no ticket had predicted
+
+Each was found by an agent reading the code it was sent to change, and each is real.
+
+| Found in | Defect |
+|---|---|
+| `lib/api/events.ts` | `from_date` used `toISOString().split('T')[0]`, so between midnight and 1am BST the query asked from yesterday and offered evenings that had already finished |
+| `lib/api/events.ts` | A 200 response whose body is not an events list was handed back as a successful empty array. `error-kind` structurally cannot see it, because nothing throws |
+| `lib/structured-data/event-schema.ts` | `sanitiseMainEntityOfPage` checked category paths but never the management host, so a management `@id` was still published |
+| `lib/event-calendar.ts` | An end time was invented (start plus two hours) when an event had neither `endDate` nor `duration` |
+| `lib/event-calendar.ts` | An unparseable `endDate` reached `toISOString()` and threw a `RangeError` |
+| `lib/event-calendar.ts` | `escapeIcsText` missed a lone carriage return, which corrupts an ICS file |
+| Two files | Pre-existing em dashes in comments |
+
+### Verified, not just asserted
+
+Every fix was negative-tested: reverted, confirmed the matching test failed, restored. A1 failed 19 of 32, A3 failed 14 of 28, A5 failed 5, 1 and 2 across three reverts, A2 failed on all five, the performer and draft changes failed 2 and 1.
+
+Browser-verified at 375x812 with a cleared suppression key **and a negative control**: `/whats-on` and `/events/quiz-night-2026-10-07` show no overlay after 18 seconds, while `/sunday-roast` still fires it. Without the control the test would have passed on a stale key alone, which is how the first attempt fooled itself.
+
+Rendered JSON-LD checked on a live page: no management URL anywhere in the graph, organiser is the public site, image absolute and category-appropriate, `doorTime` absent.
+
+Generated ICS checked live: stable domain-scoped UID, `DTSTART` 18:00Z for a 7pm BST event, `DTEND` 20:30Z matching the SSOT quiz finish, canonical URL, escaped comma.
+
+Gates at both commits: lint zero warnings including all eight repo audits, typecheck clean, full suite in Europe/London **and** UTC, production build compiled.
+
+### A note on estimating this work
+
+Five of my original claims were wrong (§3.1), and in each case the capability existed already. The pattern held during implementation: the capacity precedence contract, the missing-versus-unavailable distinction, the ICS builder and the calendar routes were all already written. **This was mostly a job of wiring up and constraining what existed, not of building what was absent.** Anything estimated from the first draft of this spec would have been estimated far too high.
 
 ---
 
@@ -792,7 +830,55 @@ Checked the installed set against this job. Findings, so nobody re-litigates it 
 | `analytics-tracking` | No | Generic and SaaS-shaped. This repo already has `lib/gtm-events.ts` and a GA4 setup with known quirks; a generic plan would talk past it. |
 | `content-strategy` | No | Wrong altitude. It answers "what should I write", not "how should these templates convert". |
 
-## 22. Sources for the practice claims in this spec
+## 22. Decisions still needed, in one list
+
+Everything in this spec that cannot proceed without the owner, consolidated so it can be answered in one pass rather than drip-fed.
+
+### Blocks a ticket that is otherwise ready to build
+
+| # | Decision | Recommendation |
+|---|---|---|
+| 1 | **EV-012 scarcity on the event detail page.** Where does the remaining-places label go, and does the existing threshold of 20 carry over? | Put it beside the booking action, and keep 20. The wording and threshold are already shipped behaviour on the four category pages, so this is only a placement question. |
+| 2 | **EV-010 the desktop fold.** At 1440x900 the poster runs y150 to y651, the H1 is sliced, and the date, price and Book button are all below the fold. Cap the poster height? | Yes. Mobile is already correct and must not change. |
+| 3 | **EV-015 mobile section order.** The booking form currently renders above the description on mobile, so an undecided visitor meets a form before the pitch. Reverse it? | Yes, but it reverses a deliberate earlier decision, so it is yours. Must be a DOM change, not a CSS `order` swap, or screen reader and keyboard order stay wrong. |
+| 4 | **EV-021 template ordering.** Do the narrow section-order fix now, or defer the whole thing? | Defer. The review was right that an identical-layout snapshot would be brittle and would encourage empty sections. |
+| 5 | **EV-023 `/live-sport`.** In scope or out? It is the only one of the six with no live data, so it can advertise a finished tournament indefinitely. | Give it a hero CTA now, decide live fixtures separately. |
+
+### Content and imagery
+
+| # | Decision | Recommendation |
+|---|---|---|
+| 6 | **Karaoke, parties and tasting nights have no photography.** They fall back to a neutral crowd shot, which is honest but generic. Commission photography? | Karaoke first, since it is the largest keyword cluster on the site and has the weakest page. |
+| 7 | **`public/images/private-hire/parties.jpg`** is 1024x1024 and could serve the parties category, but it is private-hire room photography rather than a public party night. Use it? | No. It would imply a room hire rather than the night. |
+| 8 | **EV-034 hero imagery.** The `/quiz-night` hero source is 640x480 and is displayed up to 1440px wide, so it is upscaled two to four times. Every category fallback photo is 640x480 or smaller. All clear Google's 50,000 pixel minimum; none reaches the recommended 1920px width. Replace the source photography? | Yes, but capture a performance baseline first: a bigger hero can make the booking surface slower on mobile, which would be a net loss. |
+| 9 | **Spaced en dashes.** Should ` , ` style en dashes also become commas, as em dashes now do? | No. The SSOT bans em dashes only, and en dashes carry ranges correctly elsewhere on the site. |
+
+### Cleanup and structure
+
+| # | Decision | Recommendation |
+|---|---|---|
+| 10 | **`lib/static-events.ts`** has no importer, but `SSOT.json` `meta.sources` still cites it as a provenance record, and you declined an equivalent dead-code cleanup in September. Delete it? | Leave it. Not worth reopening a settled preference for 10KB. |
+| 11 | **`app/api/events/[id]/availability/route.ts`** has no caller in this repo, and contains the locally-calculated availability fallback the project bans for table bookings. Zero imports does not prove no external caller for an HTTP endpoint. Remove it? | Check request logs first, then remove. The unsafe fallback is the real hazard and should be reviewed separately from the deletion. |
+| 12 | **`DIRECTIONS_URL`** is now duplicated between `components/FindUsSection.tsx` and the booking form. It belongs in `lib/constants.ts` beside `CONTACT.coordinates`. | Move it. Trivial, but two copies of a destination is how they drift. |
+
+### Beyond this repository
+
+| # | Item | Status |
+|---|---|---|
+| 13 | **EV-007b artwork** for the ten events without any | In hand, owner producing |
+| 14 | **EV-006 performer records.** Live quiz records publish the owner as performer; `docs/SSOT.md` §10 names Question One Quiz Masters. The website now omits an absent performer but deliberately does not guess at a wrong one | Management app, owner action |
+| 15 | **EV-026 GBP event posts.** Documented, free, and a single-location UK food and drink business is explicitly the supported case. Check the account's actual recurring-post capability before promising a programme | Owner action |
+| 16 | **EV-027 slug quality.** `/events/quiz-night-2026-10-07` is the URL for "A Hint of Halloween Quiz Night" | Management app authoring |
+| 17 | **The SMS non-booker nudge.** Answered "rebuild if needed" on 6 September. This is the larger of the two channels | Management app |
+| 18 | **`services.sundayLunch.message`** in the live `/api/business/hours` response still says Sunday lunch needs pre-order and a £5 deposit by 1pm Saturday, contradicting the walk-in rule since 17 May. The website consumes it | Management app, and it is being served today |
+
+### Not a decision, a warning
+
+**Nothing in this spec authorises a deployment.** The website deploys manually and a push does not deploy. Two things also make this branch unusual: another session shipped to production during this work, and the deploy model itself is contested in the repo, with one document describing manual `vercel --prod` and another describing auto-deploy on push. Confirm which before releasing anything.
+
+---
+
+## 23. Sources for the practice claims in this spec
 
 Every non-repo claim above traces to one of these. Nothing here is folklore.
 

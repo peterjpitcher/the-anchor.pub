@@ -31,7 +31,9 @@ export const metadata: Metadata = {
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
-        canonical: '/live-sport'
+        // Relative, per the project convention. It resolved to the same URL when
+        // it was written out in full; this is convention alignment, not a fix.
+        canonical: './'
     }
 }
 

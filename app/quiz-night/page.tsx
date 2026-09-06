@@ -6,21 +6,21 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
-import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
+  GameNightBreadcrumb,
   GameNightCtaActions,
+  GameNightDateCards,
   GameNightFacts,
   GameNightGallery,
   GameNightObjections,
+  GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { quizNight, getGameNightEvents } from '@/lib/game-nights'
+import { quizNight, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
-import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
@@ -36,24 +36,14 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
  * prize is a £25 bar tab, not cash, so the old title promised something the page
  * does not deliver and would have been earning clicks it then disappointed.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildGameNightMetadata(quizNight, {
   title: 'Pub Quiz Near Me | Wednesday Quiz Night',
   description:
     'Monthly Wednesday pub quiz in Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm. Free parking, and we match up solo players.',
-  openGraph: {
-    title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
-    description: 'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Quiz night at The Anchor pub in Stanwell Moor' }]
-  },
-  twitter: getTwitterMetadata({
-    title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
-    description: 'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.',
-    images: [DEFAULT_EVENT_IMAGE]
-  }),
-  alternates: {
-    canonical: './'
-  }
-}
+  shareTitle: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
+  shareDescription:
+    'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.'
+})
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
@@ -114,10 +104,11 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
 
 function QuizNightEvents({ events }: { events: Event[] }) {
   return (
-    <EventDateCards
+    <GameNightDateCards
       events={events}
       eyebrow="Monthly quiz night"
       bookingSource="quiz_night_event_card"
+      calendarSource="quiz_night_date_card"
       imageAltSuffix="quiz night at The Anchor"
       renderMeta={(_event, doorTime) => (
         <>
@@ -160,6 +151,7 @@ export default async function QuizNightPage() {
 
   return (
     <>
+      <GameNightBreadcrumb config={quizNight} />
       <ScrollDepthTracker />
 
       <InteriorHero
@@ -193,14 +185,17 @@ export default async function QuizNightPage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
-            <SectionViewTracker sectionId="quiz_night_booking">
-              <GameNightBooking
-                events={events}
-                gameName={quizNight.name}
-                gameSlug={quizNight.slug}
-                bookingNote={quizNight.bookingNote}
-              />
-            </SectionViewTracker>
+            <div className="space-y-4">
+              <SectionViewTracker sectionId="quiz_night_booking">
+                <GameNightBooking
+                  events={events}
+                  gameName={quizNight.name}
+                  gameSlug={quizNight.slug}
+                  bookingNote={quizNight.bookingNote}
+                />
+              </SectionViewTracker>
+              <GameNightSocialProof gameName={quizNight.name} />
+            </div>
             {/* Right column stacks the "how it runs" card and the objections. The
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}

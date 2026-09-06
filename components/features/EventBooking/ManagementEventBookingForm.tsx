@@ -10,7 +10,8 @@ import {
   type TurnstileFieldRef,
   type TurnstileFieldStatus,
 } from '@/components/security/TurnstileField'
-import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
+import { trackDirectionsClick, trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
+import { AddToCalendar } from '@/components/events/AddToCalendar'
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
@@ -23,7 +24,7 @@ import {
 } from '@/lib/event-ticket-selection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { cn } from '@/lib/utils'
-import { CONTACT } from '@/lib/constants'
+import { BRAND, CONTACT } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
@@ -68,6 +69,15 @@ const TURNSTILE_UNSUPPORTED_MESSAGE =
 /** Anchors the submit button's description at the recovery panel. */
 const TURNSTILE_RECOVERY_REGION_ID = 'event-booking-turnstile-recovery'
 
+/**
+ * The same destination the Find Us section sends people to.
+ *
+ * It is built from the verified coordinates rather than a name search, because
+ * a search for "The Anchor" from a phone in Staines can land on a different
+ * pub entirely. Coordinates cannot be misread.
+ */
+const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`
+
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type EventSeatingPreference = 'seated' | 'standing'
 
@@ -93,8 +103,17 @@ type WaitlistResult = {
 }
 
 interface ManagementEventBookingFormProps {
+  /**
+   * A slice of an event, not the whole thing: two call sites hand over a full
+   * `Event`, the third builds the object by hand from a suggested event.
+   *
+   * The status, end and description fields are here for the confirmation state's
+   * add-to-calendar control, which decides for itself whether the night is one
+   * anybody should be diarising. Without them a cancelled event would look
+   * merely undated to that gate, and it would offer the diary entry anyway.
+   */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -287,6 +306,16 @@ export function ManagementEventBookingForm({
     !turnstileToken &&
     (turnstileTimedOut || turnstileStatus === 'error' || turnstileStatus === 'unsupported')
   const turnstileRetryable = turnstileStatus !== 'unsupported'
+
+  /**
+   * `AddToCalendar` asks for a whole `Event`; this form only ever holds a slice
+   * of one. Widening here is safe rather than optimistic: every field that
+   * control reads is read defensively, so a missing slug, location or end time
+   * costs a detail on the diary entry, and a missing start date makes the
+   * control render nothing at all. It gates itself on the event's phase, so it
+   * is mounted plainly below and never re-gated.
+   */
+  const calendarEvent = event as Event
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -607,6 +636,16 @@ export function ManagementEventBookingForm({
     setTurnstileTimedOut(false)
     setTurnstileAttempt((attempt) => attempt + 1)
     turnstileRef.current?.reset()
+  }
+
+  // The confirmation's directions link reports itself the same way every other
+  // one on the site does, so a booked guest heading here is counted alongside
+  // the rest rather than disappearing from the directions numbers.
+  function handleDirectionsClick(): void {
+    trackDirectionsClick('event_booking_confirmed', {
+      destination: BRAND.nameWithLocation,
+      mapPlatform: 'google_maps'
+    })
   }
 
   function handleEventPaymentSuccess() {
@@ -1058,6 +1097,32 @@ export function ManagementEventBookingForm({
                 </Button>
               </div>
             ) : null}
+
+            {/*
+              The two things somebody actually does next: put the night in their
+              diary, and work out how to get here.
+
+              This belongs to the confirmed state alone. A booking on hold for
+              payment is not a booking, and telling a guest to diarise one is a
+              promise we have not made. `AddToCalendar` adds its own refusal on
+              top for a cancelled, postponed or finished event.
+            */}
+            <div className="mt-4 space-y-3 border-t border-line pt-4">
+              <AddToCalendar event={calendarEvent} source="event_booking_confirmed" layout="stacked" />
+
+              <div>
+                <Button asChild size="sm" variant="outline">
+                  <a
+                    href={DIRECTIONS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={handleDirectionsClick}
+                  >
+                    Get directions
+                  </a>
+                </Button>
+              </div>
+            </div>
           </Alert>
         )}
 

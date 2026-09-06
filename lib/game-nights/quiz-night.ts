@@ -32,6 +32,14 @@ export const quizNight: GameNightConfig = {
       'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of wine for whoever comes second from last.'
   },
 
+  share: {
+    // The hero photograph, which is a real quiz night and the widest of the set.
+    image: '/images/events/quiz-night/quiz-night-hero-tables-full.jpg',
+    alt: 'A full room of teams playing the Wednesday pub quiz at The Anchor, Stanwell Moor',
+    width: 640,
+    height: 480
+  },
+
   facts: [
     { label: 'Entry', value: '£3 per player, cash' },
     { label: 'Teams', value: 'Up to 6 players' },

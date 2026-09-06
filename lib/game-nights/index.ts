@@ -12,6 +12,8 @@ export type {
 } from './types'
 export { quizNight, cashBingo, musicBingo, karaoke }
 export { getGameNightEvents } from './events'
+export { buildGameNightMetadata } from './metadata'
+export type { GameNightMetadataOptions } from './metadata'
 
 /** Every hosted-game category page, keyed by route segment. */
 export const GAME_NIGHTS: Record<GameNightConfig['slug'], GameNightConfig> = {

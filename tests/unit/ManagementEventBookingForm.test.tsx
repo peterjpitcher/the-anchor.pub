@@ -1,7 +1,8 @@
+import type { ComponentProps } from 'react'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
-import { trackEventBookingComplete } from '@/lib/gtm-events'
+import { trackDirectionsClick, trackEventBookingComplete } from '@/lib/gtm-events'
 import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
@@ -10,7 +11,8 @@ import {
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
   trackEventBookingComplete: jest.fn(),
-  trackEventBookingFunnelStep: jest.fn()
+  trackEventBookingFunnelStep: jest.fn(),
+  trackDirectionsClick: jest.fn()
 }))
 
 const TEST_TURNSTILE_SITE_KEY = 'test-turnstile-site-key'
@@ -767,6 +769,231 @@ describe('ManagementEventBookingForm', () => {
     } finally {
       delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
     }
+  })
+
+  /**
+   * The two things a guest actually does next: put the night in a diary, and
+   * work out how to get here.
+   *
+   * The rule worth pinning is the negative one. A hold awaiting payment, a
+   * waitlist offer and a blocked attempt are all "not booked", so neither
+   * action may appear on any of them. The calendar control also refuses a
+   * cancelled or finished night on its own, and that refusal has to survive
+   * being mounted inside a confirmation.
+   */
+  describe('confirmation next actions', () => {
+    // Built from CONTACT.coordinates, the same destination the Find Us section
+    // uses. Written out in full here so a silent change to either one shows up.
+    const DIRECTIONS_HREF = 'https://www.google.com/maps/dir/?api=1&destination=51.462509,-0.502067'
+
+    const UPCOMING_EVENT = {
+      id: 'evt-next-actions',
+      name: 'Quiz Night',
+      slug: 'quiz-night-2999-01-01',
+      startDate: '2999-01-01T19:00:00Z'
+    }
+
+    /**
+     * Answers the booking POST and the customer lookup, and nothing else.
+     *
+     * Local dev and this suite both point at the live management API, so an
+     * unexpected URL is a real booking waiting to happen: it throws rather than
+     * being quietly allowed through.
+     */
+    function respondWith(bookingData: Record<string, unknown>): void {
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : String(input)
+
+        if (url.startsWith('/api/customers/lookup')) {
+          return new Response(
+            JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+          )
+        }
+
+        if (url === '/api/event-bookings') {
+          return new Response(JSON.stringify({ success: true, data: bookingData }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        }
+
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+    }
+
+    function submitBooking(
+      eventOverrides: Partial<ComponentProps<typeof ManagementEventBookingForm>['event']> = {}
+    ): void {
+      render(<ManagementEventBookingForm event={{ ...UPCOMING_EVENT, ...eventOverrides }} />)
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    }
+
+    function queryCalendarLinks(): HTMLElement[] {
+      return [
+        ...screen.queryAllByRole('link', { name: /Google Calendar/i }),
+        ...screen.queryAllByRole('link', { name: /calendar file/i })
+      ]
+    }
+
+    function queryDirectionsLink(): HTMLElement | null {
+      return screen.queryByRole('link', { name: 'Get directions' })
+    }
+
+    it('offers the calendar and directions once the booking is confirmed', async () => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-next-actions',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-next-actions'
+      })
+
+      submitBooking()
+      await screen.findByText('Event booking confirmed')
+
+      expect(screen.getByRole('link', { name: /Google Calendar/i })).toHaveAttribute(
+        'href',
+        expect.stringContaining('calendar.google.com')
+      )
+      expect(screen.getByRole('link', { name: /calendar file/i })).toHaveAttribute(
+        'href',
+        '/api/calendar/event/quiz-night-2999-01-01'
+      )
+
+      const directions = screen.getByRole('link', { name: 'Get directions' })
+      expect(directions).toHaveAttribute('href', DIRECTIONS_HREF)
+      expect(directions).toHaveAttribute('target', '_blank')
+      expect(directions).toHaveAttribute('rel', 'noopener noreferrer')
+
+      // The recovery panel must stay away: the result is set, so the security
+      // clock is suppressed and nothing appears ten seconds later.
+      expect(screen.queryByText('Security check not completed')).not.toBeInTheDocument()
+
+      // Manage Booking is a real customer URL and has to survive alongside them.
+      expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+        'href',
+        'https://management.orangejelly.co.uk/manage/booking-next-actions'
+      )
+    })
+
+    it('reports the directions click the way the rest of the site does', async () => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-directions',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('Event booking confirmed')
+
+      fireEvent.click(screen.getByRole('link', { name: 'Get directions' }))
+
+      expect(trackDirectionsClick).toHaveBeenCalledWith(
+        'event_booking_confirmed',
+        expect.objectContaining({ mapPlatform: 'google_maps' })
+      )
+    })
+
+    it('offers neither on a booking that is only on hold for payment', async () => {
+      process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-paypal-client-id'
+
+      try {
+        respondWith({
+          state: 'pending_payment',
+          booking_id: 'booking-on-hold',
+          reason: null,
+          seats_remaining: 4,
+          next_step_url: 'https://management.orangejelly.co.uk/pay/booking-on-hold',
+          manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-on-hold'
+        })
+
+        submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
+        await screen.findByText('Your seats are currently on hold.')
+
+        // Payment has not cleared, so there is no night to diarise yet.
+        expect(queryCalendarLinks()).toHaveLength(0)
+        expect(queryDirectionsLink()).not.toBeInTheDocument()
+
+        // The paths that get the guest paid must be untouched by all of this.
+        expect(screen.getByTestId('paypal-buttons')).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'Open Payment Link' })).toHaveAttribute(
+          'href',
+          'https://management.orangejelly.co.uk/pay/booking-on-hold'
+        )
+        expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+          'href',
+          'https://management.orangejelly.co.uk/manage/booking-on-hold'
+        )
+      } finally {
+        delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+      }
+    })
+
+    it('offers neither when the event is full and only a waitlist is on the table', async () => {
+      respondWith({
+        state: 'full_with_waitlist_option',
+        booking_id: null,
+        reason: 'sold_out',
+        seats_remaining: 0,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('This event is currently full')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument()
+    })
+
+    it('offers neither when the booking is blocked', async () => {
+      respondWith({
+        state: 'blocked',
+        booking_id: null,
+        reason: 'sold_out',
+        seats_remaining: 0,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('This event is sold out.')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).not.toBeInTheDocument()
+    })
+
+    // Directions to the pub are true whatever happened to the event, so they
+    // stay. A diary entry for a night that is not happening is not.
+    it.each([
+      ['cancelled', { event_status: 'cancelled' }],
+      ['finished', { startDate: '2020-01-01T19:00:00Z' }]
+    ])('offers no calendar entry for a %s event, even on a confirmed booking', async (_label, overrides) => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-no-calendar',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking(overrides)
+      await screen.findByText('Event booking confirmed')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).toBeInTheDocument()
+    })
   })
 })
 

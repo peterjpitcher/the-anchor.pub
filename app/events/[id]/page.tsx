@@ -16,6 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
+import { AddToCalendar } from '@/components/events/AddToCalendar'
 import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -48,9 +49,25 @@ import LiteYouTube from '@/components/events/LiteYouTube'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { rethrowIfTransient } from '@/lib/api/error-kind'
 import { getRetiredEventRedirect } from '@/lib/event-seo-strategy'
+import { normaliseEventProse } from '@/lib/text/normalise-api-prose'
 
 type Props = {
   params: { id: string }
+}
+
+// The head this route returns when the event does not exist. Held as one value
+// so the null case and the thrown case cannot drift apart.
+const EVENT_NOT_FOUND_METADATA: Metadata = {
+  title: 'Event Not Found',
+  description: 'This event could not be found.',
+}
+
+/** An API timestamp, or undefined when the record holds nothing usable. */
+function toArticleTimestamp(value: string | null | undefined): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  if (!trimmed || Number.isNaN(Date.parse(trimmed))) return undefined
+  return trimmed
 }
 
 function getStatusNotice(
@@ -172,9 +189,14 @@ function EventHighlights({
       accent className={className}
     >
       <CardBody className={compact ? 'p-3' : 'p-4 md:p-6'}>
-        <h3 className={compact ? 'mb-2 text-lg font-semibold leading-tight text-accent-text' : 'text-xl md:text-2xl text-accent-text mb-3 md:mb-4'}>
+        {/* An H2, not an H3. This is the first heading under the page title, so
+            as an H3 it opened the outline with a skipped level, and every
+            assistive technology that navigates by heading saw a section nested
+            under a parent that does not exist. The visual size is set by the
+            class, not the tag, so nothing moves. */}
+        <h2 className={compact ? 'mb-2 text-lg font-semibold leading-tight text-accent-text' : 'text-xl md:text-2xl text-accent-text mb-3 md:mb-4'}>
           Event Highlights
-        </h3>
+        </h2>
         <ul className={compact ? 'space-y-1' : 'space-y-2'}>
           {highlights.map((highlight, index) => (
             <li key={`${highlight}-${index}`} className={compact ? 'flex items-start gap-2' : 'flex items-start gap-3'}>
@@ -214,7 +236,21 @@ function EventInformationList({ items }: { items: EventInformationItem[] }) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const event = await anchorAPI.getEvent(params.id)
+    const apiEvent = await anchorAPI.getEvent(params.id)
+    // A 404 comes back as null despite the Promise<Event> signature, and
+    // normalising would spread it into an empty object and hide the miss, so
+    // the miss is answered before any prose is touched.
+    if (!apiEvent) {
+      return EVENT_NOT_FOUND_METADATA
+    }
+
+    // Every prose field this head emits (the meta description, the Open Graph
+    // description, the image alt) comes from the management database, where
+    // copy is typed by hand. The served head of one event page carried em
+    // dashes on 6 September 2026. Normalising here means the head, the visible
+    // page and the JSON-LD all read the same cleaned prose.
+    const event = normaliseEventProse(apiEvent)
+
     if (isRetiredEvent(event)) {
       return {
         title: "What's On at The Anchor",
@@ -247,10 +283,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     )
     const socialCopy = getEventSocialCopy(event)
     const socialTitle = socialCopy?.title || event.metaTitle || event.name
-    const socialDescription = socialCopy?.description || getEventMetaDescription(
-      event,
-      `Event at The Anchor, ${formatEventDate(event.startDate)}`,
-    )
+    // The Open Graph description states the date. getEventSocialCopy() writes a
+    // relative phrase for the native share sheet ("is at The Anchor next Friday
+    // from 7pm"), which is true on the day it renders and wrong the moment the
+    // week turns. A link preview is cached by the platform and reshared for
+    // weeks, so "next Friday" was still being shown after that Friday had gone.
+    // The share sheet keeps the personal wording; the card carries the date.
+    const socialDescription = socialCopy
+      ? `${event.name} at The Anchor, Stanwell Moor. ${formatEventDate(event.startDate)}, ${formatEventTime(event.startDate)}.`
+      : getEventMetaDescription(
+          event,
+          `Event at The Anchor, ${formatEventDate(event.startDate)}`,
+        )
 
     // Indexability comes from getEventSeoStrategy, the same function the page
     // body and app/sitemap.ts use. It previously lived here as its own copy of
@@ -284,7 +328,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           alt: imageAlt,
           type: eventImage ? 'image/jpeg' : 'image/png'
         }],
-        type: 'website',
+        // Open Graph has no `event` type, and `website` describes a whole site
+        // rather than one page, so every shared event URL was announcing itself
+        // as The Anchor's site. `article` is the closest true fit: one dated
+        // piece of content, in a section, with its own publication and
+        // modification times. Those times come from the record or are omitted.
+        type: 'article',
+        section: event.category?.name,
+        publishedTime: toArticleTimestamp(event.created_at),
+        modifiedTime: toArticleTimestamp(event.updated_at),
       },
       twitter: getTwitterMetadata({
         title: socialTitle,
@@ -293,10 +345,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       })
     }
   } catch {
-    return {
-      title: 'Event Not Found',
-      description: 'This event could not be found.',
-    }
+    return EVENT_NOT_FOUND_METADATA
   }
 }
 
@@ -309,10 +358,10 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect(retirement)
   }
 
-  let event
+  let apiEvent
 
   try {
-    event = await anchorAPI.getEvent(params.id)
+    apiEvent = await anchorAPI.getEvent(params.id)
   } catch (error) {
     // A bare catch here used to send EVERY failure to permanentRedirect(
     // '/whats-on'): timeouts, 502s, DNS blips, JSON parse errors. That told
@@ -327,9 +376,19 @@ export default async function EventPage({ params }: Props) {
   }
 
   // getEvent returns null rather than throwing when the API reports 404.
-  if (!event) {
+  if (!apiEvent) {
     notFound()
   }
+
+  // One normalisation, at the boundary, before anything reads the record.
+  // Event copy is typed into the management app, not written here, so the house
+  // ban on em dashes was never enforced on it: the served HTML of one event
+  // page carried sixteen of them on 6 September 2026, including inside the
+  // JSON-LD description. Everything downstream (the hero lead, the description,
+  // the highlights, the FAQs, EventSchema's JSON-LD) reads this object, so the
+  // visible copy and the structured data cannot disagree. Only named prose
+  // fields are touched; ids, slugs, URLs and dates come through untouched.
+  const event = normaliseEventProse(apiEvent)
 
   if (isRetiredEvent(event)) {
     permanentRedirect('/whats-on')
@@ -512,7 +571,11 @@ export default async function EventPage({ params }: Props) {
     // still going ahead. "Cancelled" is still worth showing.
     ...(presentation.showStatusRow ? [{ label: 'Status', value: statusLabel }] : []),
     { label: 'Booking type', value: bookingModeLabel },
-    { label: 'Event type', value: event.event_type },
+    // "Event type" is gone. It printed `event.event_type` raw, so customers
+    // read "Event type: music-bingo", a database slug. The row immediately
+    // below already carries the same thing written for people ("Category:
+    // Music Bingo"), so rendering category.name here would have printed the
+    // same words twice under two labels. One row, human wording.
     { label: 'Category', value: event.category?.name },
     { label: 'Performer', value: event.performer?.name || event.performer_name },
     { label: 'Price', value: priceLabel }
@@ -666,13 +729,25 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
+                {/* How to pay, at every breakpoint. This card was `hidden
+                    lg:block`, so the only statement of what a visitor pays and
+                    when was invisible to the phone-first audience that makes up
+                    most of this page's traffic. The policy line is resolved from
+                    the record (booking mode, payment mode, price), so it says
+                    nothing the management app has not been told.
+
+                    The second paragraph that used to sit here, the food prompt,
+                    has gone. It hardcoded an arrival time and a start time that
+                    the event record does not hold, and on Music Bingo it
+                    published "starts at 8pm" against a 7pm start (docs/SSOT.md
+                    §10). Times on this page come from the record: the start time
+                    and "Arrive from" rows below, and the facts strip above. */}
                 {presentation.showBookingPolicy && (
-                  <Card accent className="mb-6 hidden lg:mb-8 lg:block">
+                  <Card accent className="mb-6 lg:mb-8">
                     <CardBody className="p-4">
                       <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
                       <div className="mt-3 space-y-2 text-sm text-ink-muted">
                         <p>{eventBookingCopy.policy}</p>
-                        <p>{eventBookingCopy.foodPrompt}</p>
                       </div>
                     </CardBody>
                   </Card>
@@ -742,14 +817,33 @@ export default async function EventPage({ params }: Props) {
                     )}
                   </div>
 
-                  {presentation.showShareButton && (
-                    <div className="mb-6 hidden lg:block">
-                      <EventSecondaryActions
+                  {/* What somebody does once they have decided to come: put it
+                      in the diary, then tell the person they want to bring. So
+                      both sit directly under the booking action rather than at
+                      the foot of the page, and this column is `order-1`, so on
+                      a phone they are within a screen of the top.
+
+                      Neither is breakpoint-gated. The share control was `hidden
+                      lg:block`, which withheld sharing from the phone audience
+                      that does almost all of it. Both read their flag from
+                      getEventPresentation: AddToCalendar gates itself on
+                      showAddToCalendar, so it is mounted plainly. */}
+                  {(presentation.showAddToCalendar || presentation.showShareButton) && (
+                    <div className="mb-6 space-y-3">
+                      <AddToCalendar
                         event={event}
-                        source="event_page_sidebar_actions"
-                        className="justify-start"
+                        source="event_page_booking_actions"
+                        layout="stacked"
                         size="sm"
                       />
+                      {presentation.showShareButton && (
+                        <EventSecondaryActions
+                          event={event}
+                          source="event_page_sidebar_actions"
+                          className="justify-start"
+                          size="sm"
+                        />
+                      )}
                     </div>
                   )}
                 </div>
@@ -790,8 +884,12 @@ export default async function EventPage({ params }: Props) {
                         </PhoneButton>
                       </div>
                     </div>
+                    {/* An explicit frame title: the default is built from the
+                        query, which here is a full postal address assembled
+                        from the record and reads badly out loud. */}
                     <GoogleMapEmbed
                       query={locationQuery || 'The Anchor, Stanwell Moor'}
+                      title={`Map showing where ${event.name} is held, The Anchor in Stanwell Moor`}
                       className="rounded-xl shadow-sm"
                       height={300}
                     />

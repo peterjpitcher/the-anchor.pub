@@ -44,6 +44,15 @@ export const musicBingo: GameNightConfig = {
       'Song clips instead of numbers, hosted by drag queen Nikki Manfadge. Two themed games, prizes across both, and communal seating, so book ahead and we will keep your group together.'
   },
 
+  share: {
+    // The hero photograph. Natively 640x360, so it is the closest of the three
+    // to the 1.91:1 crop a link preview applies.
+    image: '/images/events/music-bingo/music-bingo-hero-room-wide.jpg',
+    alt: 'A full room of players at music bingo with drag host Nikki Manfadge at The Anchor, Stanwell Moor',
+    width: 640,
+    height: 360
+  },
+
   facts: [
     { label: 'Entry', value: '£5 per person, cash' },
     { label: 'Starts', value: '7pm, arrive from 6:30pm' },

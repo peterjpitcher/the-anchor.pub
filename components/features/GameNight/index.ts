@@ -3,4 +3,7 @@ export { GameNightCtaActions, GAME_NIGHT_BOOKING_ANCHOR } from './GameNightCtaAc
 export { GameNightBooking } from './GameNightBooking'
 export { GameNightObjections } from './GameNightObjections'
 export { GameNightGallery } from './GameNightGallery'
+export { GameNightBreadcrumb } from './GameNightBreadcrumb'
+export { GameNightDateCards } from './GameNightDateCards'
+export { GameNightSocialProof } from './GameNightSocialProof'
 export { buildGameNightCtaLabel, gameNightShortDate } from './format'

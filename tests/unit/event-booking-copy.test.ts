@@ -178,3 +178,46 @@ describe('getEventBookingCopy', () => {
     expect(getEventSeatAvailabilityLabel({ seats_remaining: 0, is_full: true })).toBe('Sold out')
   })
 })
+
+/**
+ * Three of these strings contradicted docs/SSOT.md §10 and were live on desktop
+ * event pages: Music Bingo "starts at 8pm" when the SSOT says 7pm and that
+ * "anything still saying 8pm is wrong"; Cash Bingo and Quiz "arrive from 6pm"
+ * when both say 6:30pm and the SSOT explicitly supersedes the 6pm line.
+ *
+ * Copy that states a time has to be pinned to the source of truth, because a
+ * wrong arrival time sends somebody to a pub that is not ready for them, and
+ * nothing about it fails loudly.
+ */
+describe('event booking copy states times that match the SSOT', () => {
+  const bingo = { name: 'Cash Bingo', booking_mode: 'table' } as any
+  const musicBingo = { name: 'Music Bingo', booking_mode: 'table' } as any
+  const quiz = { name: 'Quiz Night', booking_mode: 'table' } as any
+
+  it('cash bingo asks people in by 6:30pm, never from 6pm', () => {
+    const prompt = getEventBookingCopy(bingo).foodPrompt
+    expect(prompt).toContain('6:30pm')
+    expect(prompt).not.toContain('6pm for food')
+  })
+
+  it('music bingo starts at 7pm, never 8pm', () => {
+    const prompt = getEventBookingCopy(musicBingo).foodPrompt
+    expect(prompt).toContain('7pm')
+    expect(prompt).not.toContain('8pm')
+  })
+
+  it('quiz asks people in from 6:30pm, never from 6pm', () => {
+    const prompt = getEventBookingCopy(quiz).foodPrompt
+    expect(prompt).toContain('6:30pm')
+    expect(prompt).not.toContain('from 6pm')
+  })
+
+  it('no booking copy anywhere states a retired time', () => {
+    for (const event of [bingo, musicBingo, quiz]) {
+      const copy = getEventBookingCopy(event)
+      const all = `${copy.foodPrompt} ${copy.policy} ${copy.label}`
+      expect(all).not.toMatch(/\b8pm\b/)
+      expect(all).not.toMatch(/\b9:45pm\b/)
+    }
+  })
+})
