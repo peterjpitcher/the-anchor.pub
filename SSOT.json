@@ -808,7 +808,7 @@
     {
       "name": "Bundle A",
       "description": "Prosecco plus coffee and mince pie bundle",
-      "status": "DISCONTINUED as of 2026-07-21. Adults now get a glass of prosecco, swappable for orange juice, included on all three Christmas tiers."
+      "status": "DISCONTINUED as of 2026-07-21. Adults now get a glass of prosecco, swappable for orange juice, included on the 2 and 3 course Christmas tiers only."
     },
     {
       "name": "Standalone Christmas drinks bundles",
@@ -934,7 +934,7 @@
     "christmas_one_course_gbp": "LIVE_FROM_DB",
     "christmas_two_course_gbp": "LIVE_FROM_DB",
     "christmas_three_course_gbp": "LIVE_FROM_DB",
-    "christmas_sit_down_meals": "Minimum 6 guests and at least 24 hours notice. Every Christmas booking is pre-booked, and courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
+    "christmas_sit_down_meals": "Minimum 4 guests and at least 24 hours notice. Every Christmas booking is pre-booked, and courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. A £10 per person deposit applies to every Christmas booking, any party size. Full rules: christmas_2026.",
     "christmas_2026_service_window": "2026-11-10 to 2026-12-20 inclusive; reconfirm before publishing a later season",
     "christmas_buffets": "Available for 30+ guests",
     "private_booking_deposit_gbp": 250,
@@ -1191,7 +1191,7 @@
       "note": "The 20th is inclusive. A 20 December sitting is bookable."
     },
     "booking_rules": {
-      "min_party_size": 6,
+      "min_party_size": 4,
       "min_notice_hours": 24,
       "applies_to": "Every Christmas dinner booking",
       "same_day_bookings": false,
@@ -1207,7 +1207,8 @@
       },
       "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired.",
       "pre_order_deadline_days": 7,
-      "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'."
+      "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'.",
+      "min_party_size_note": "Owner-confirmed 2026-09-06: 4 guests on every Christmas dinner booking, regardless of the day. An earlier reading of the same conversation had this as 4 midweek and 6 at the weekend and was corrected the same day. The Sunday roast is a separate offer with NO minimum party size; never copy this figure onto it."
     },
     "days_available": {
       "weekday_sittings": "Tuesday to Thursday",
@@ -1224,7 +1225,9 @@
       "dance_floor": false,
       "shared_party_night": false,
       "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
-      "_confirmed": "Owner-confirmed 11 August 2026"
+      "_confirmed": "Owner-confirmed 11 August 2026",
+      "christmas_market": false,
+      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market stays noindexed and must not be revived. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
     },
     "deposit": {
       "per_person_gbp": 10,
@@ -1259,7 +1262,7 @@
       "weekend": "Friday to Saturday"
     },
     "included": {
-      "adults": "A glass of prosecco on all three tiers, swappable for orange juice.",
+      "adults": "A glass of prosecco on the 2 and 3 course tiers only, swappable for orange juice. The 1 course tier does not include a drink for adults.",
       "children": "A Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course."
     },
     "trimmings": [
@@ -1325,7 +1328,33 @@
       "Blanket 'pre-order only' claims",
       "Any kids 2-course or 3-course price"
     ],
-    "trimmings_vegan_exception": "The Vegetable Wellington is vegan: no Yorkshire pudding and no pigs in blankets. Vegan Christmas trimmings and vegan gravy. Matches the Sunday roast rule where the Wellington and the pies carry no Yorkshire pudding."
+    "trimmings_vegan_exception": "The Vegetable Wellington is vegan: no Yorkshire pudding and no pigs in blankets. Vegan Christmas trimmings and vegan gravy. Matches the Sunday roast rule where the Wellington and the pies carry no Yorkshire pudding.",
+    "christmas_day": {
+      "date": "2026-12-25",
+      "open": true,
+      "drinks_only": true,
+      "opens": "12:00",
+      "closes": "15:00",
+      "food_service": false,
+      "display": "Christmas Day: open for drinks only, 12pm to 3pm. No food.",
+      "_confirmed": "Owner-confirmed 2026-09-06.",
+      "rule": "Never advertise Christmas dinner, Christmas lunch, a festive menu or any food on 25 December. Christmas Day sits outside the 10 November to 20 December service window. Licensed exception to the API-only hours rule, like New Year's Eve.",
+      "boxing_day": "NOT CONFIRMED. Say nothing about Boxing Day or the days between Christmas and New Year until the owner confirms them.",
+      "management_api_warning": "As of 2026-09-06 GET /business/hours carries no special_hours row for 2026-12-25, so the site resolves Christmas Day to regular Friday hours including a kitchen open until 21:00. A special_hours row is required in the management app or the site advertises food that will not be served."
+    },
+    "group_size_bands": {
+      "seated_max": 20,
+      "private_booking_band": "21 to 29 seated guests",
+      "buffet_min": 30,
+      "rule": "21 to 29 seated is a private booking, not a table booking, because the no-show exposure at that size is too large to carry on a table booking. Route to the manager. Present it as how we look after a group that size, never as a refusal.",
+      "_confirmed": "Owner-confirmed 2026-09-06."
+    },
+    "drinks_only_party": {
+      "minimum_spend": null,
+      "display": "No minimum spend. Arranged as a private booking so we can confirm nothing else is needed.",
+      "rule": "Never invent a package, a per-head price or a bar-tab minimum for a drinks-only Christmas party.",
+      "_confirmed": "Owner-confirmed 2026-09-06."
+    }
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",
@@ -1536,10 +1565,10 @@
     "christmas_blanket_pre_order_only": "SUPERSEDED 2026-08-04. Courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Never publish whole-table course copy such as '1 course is pre-book only, no pre-order' in copy, constants, schema or tests.",
     "christmas_kids_multi_course_price": "DOES NOT EXIST. There is no kids 2 course and no kids 3 course, no child portion and no child price. Never invent one. Children may order the adult tiers at the adult price.",
     "christmas_named_dishes": "The Christmas menu is NOT finalised. Never list or imply a specific Christmas dish. The only permitted wording is 'menu released closer to the time'.",
-    "christmas_sub_6_or_same_day": "Christmas bookings under 6 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",
     "buffet_minimum_25_or_26": "WRONG. The festive buffet minimum is 30 guests everywhere. Correct any 25 or 26 figure in the management database, in this file or in page copy.",
     "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'.",
-    "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema."
+    "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema.",
+    "christmas_sub_4_or_same_day": "Christmas bookings under 4 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise."
   },
   "resolved_inconsistencies": [
     {

@@ -134,10 +134,20 @@ export interface ChristmasSeasonView {
   maxEnquiryDate: string
   /** False once no date inside the window can still be booked with notice. */
   isBookable: boolean
+  /**
+   * True while the kitchen is still serving the season but no new booking can
+   * be taken with the required notice. Distinct from `state === 'ended'`: the
+   * page keeps its menu, prices and structured data in this state and swaps
+   * only the enquiry route for a phone call.
+   */
+  bookingClosed: boolean
 }
 
 export interface ChristmasFactsView {
+  /** Minimum guests on every Christmas dinner booking, any day. */
   minPartySize: number
+  /** Christmas Day itself, which sits outside the service window. Drinks only, no food. */
+  christmasDay: { opens: string, closes: string, foodService: boolean }
   minNoticeHours: number
   depositPerPerson: number
   buffetMinimumGuests: number
@@ -358,6 +368,10 @@ function buildFaqItems(
    * without asking, and the FAQ answer stops telling search engines the menu is
    * unpublished while the same page lists it.
    */
+  const christmasDayAnswer = facts.christmasDay.foodService
+    ? ''
+    : `We are open on Christmas Day for drinks only, from ${facts.christmasDay.opens} to ${facts.christmasDay.closes}. There is no food service on Christmas Day, so there is no Christmas dinner, no lunch and no festive menu on the 25th. Our Christmas dinner season runs ${season.windowLabel}, and that is when to book if you want the full festive meal.`
+
   const menuAnswer = (() => {
     const groups = courseChoices?.groups.filter(group => group.course !== 'addon') ?? []
     if (groups.length === 0) {
@@ -392,7 +406,16 @@ function buildFaqItems(
     },
     {
       question: 'Which days of the week can we book Christmas dinner?',
-      answer: 'Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget.'
+      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Every Christmas dinner booking is for ${facts.minPartySize} guests or more, whichever day you pick.`
+    },
+    {
+      // The service window ends on 20 December, so the page said nothing at all
+      // about the 25th. "christmas day dinner near me" and "pubs that are open
+      // on christmas day" are among the few query shapes that have ever earned
+      // this site a click, and answering them honestly is worth more than
+      // leaving the question open.
+      question: 'Are you open on Christmas Day?',
+      answer: christmasDayAnswer
     },
     {
       question: 'Can we book a Christmas meal on a Monday?',
@@ -404,7 +427,7 @@ function buildFaqItems(
     },
     {
       question: 'Is there a minimum group size for Christmas dinner?',
-      answer: `Yes. Every Christmas dinner booking is for ${facts.minPartySize} guests or more. Smaller groups are very welcome to join us from the regular menu instead.`
+      answer: `Yes. Every Christmas dinner booking is for ${facts.minPartySize} guests or more. Smaller groups are very welcome to join us from the regular menu instead, and the Sunday roast has no minimum at all.`
     },
     {
       question: 'How far ahead do we need to book?',
@@ -448,7 +471,7 @@ function buildFaqItems(
     },
     {
       question: 'What if our group is bigger than 20?',
-      answer: `More than ${facts.privateHireThreshold} guests is not a table booking, it is private hire. Email manager@the-anchor.pub, call ${CONTACT_PHONE} or send a WhatsApp to the same number and we will plan it with you.`
+      answer: `More than ${facts.privateHireThreshold} guests is not a table booking, it is private hire. Between ${facts.privateHireThreshold + 1} and ${facts.buffetMinimumGuests - 1} guests we arrange it as a private booking so the space and the food are right for the size of your group, and from ${facts.buffetMinimumGuests} a festive buffet is an option too. Email manager@the-anchor.pub, call ${CONTACT_PHONE} or send a WhatsApp to the same number and we will look after it.`
     },
     {
       question: 'How much does a Christmas party cost?',
@@ -563,7 +586,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
     },
     {
       title: 'Drinks only, no food',
-      description: `An area of the pub for your group and an agreed bar tab. The ${facts.minPartySize}-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks-only booking.`,
+      description: `An area of the pub for your group and an agreed bar tab. There is no minimum spend. The group-size minimum and the pre-order rules apply to Christmas dinner, not to a drinks-only booking, which we arrange as a private booking so we can check nothing else is needed.`,
       ideal: 'Teams who want a couple of hours after work'
     },
     {
@@ -580,7 +603,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
   const [drawerOpen, setDrawerOpen] = useState(false)
   const enquiryRef = useRef<HTMLDivElement | null>(null)
 
-  const seasonEnded = season.state === 'ended' || !season.isBookable
+  // Only when the window has passed. `season.bookingClosed` covers the last
+  // day, when the offer is still real but the enquiry route has closed.
+  const seasonEnded = season.state === 'ended'
   const faqItems = useMemo(() => buildFaqItems(season, facts, courseChoices), [season, facts, courseChoices])
   const partyIdeas = useMemo(() => buildPartyIdeas(facts), [facts])
   const deadlineDays = preOrderDeadlineDays(facts)
@@ -671,7 +696,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             <p className="text-sm md:text-base font-semibold">
               {/* Leads with the offer and the reason to choose us. The conditions
                   still appear, in the tail, where they inform rather than deter. */}
-              {season.state === 'active'
+              {season.bookingClosed
+                ? `We are serving the final Christmas sittings of the season, ${season.windowLabel}. Online enquiries have closed, so please call ${CONTACT_PHONE} to ask about a table.`
+                : season.state === 'active'
                 ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
                 : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
             </p>
@@ -821,7 +848,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What if we are more than {facts.privateHireThreshold}?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Between {facts.privateHireThreshold + 1} and {facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
@@ -1486,20 +1513,31 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         testId="christmas-enquiry-drawer"
       >
         <div className="p-3 sm:p-6">
-          <ChristmasEnquiryForm
-            context={context}
-            season={season}
-            facts={facts}
-            onContextChange={handleContextChange}
-            onSuccess={() => {
-              handleFormSuccess()
-            }}
-          />
+          {/*
+            Eleven controls on this page open this drawer. Swapping the panel
+            here, rather than hiding all eleven, means none of them becomes a
+            dead button on the last day of the season: they all still lead to a
+            way of asking about a table. The form itself cannot be shown,
+            because its date picker would have a minimum later than its maximum.
+          */}
+          {season.bookingClosed ? (
+            <ChristmasBookingClosedPanel season={season} facts={facts} />
+          ) : (
+            <ChristmasEnquiryForm
+              context={context}
+              season={season}
+              facts={facts}
+              onContextChange={handleContextChange}
+              onSuccess={() => {
+                handleFormSuccess()
+              }}
+            />
+          )}
         </div>
       </StickyDrawer>
 
       <ChristmasLightbox
-        suppressed={drawerOpen || formSubmitted}
+        suppressed={drawerOpen || formSubmitted || season.bookingClosed}
         context={context}
         season={season}
         facts={facts}
@@ -1512,6 +1550,73 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(structuredData) }}
       />
     </>
+  )
+}
+
+/**
+ * Shown inside the enquiry drawer on the last day or two of the season, when
+ * the kitchen is still serving but the 24 hour notice rule means no new
+ * booking can be taken through the form. The offer is described in the present
+ * tense, because it is still running.
+ */
+function ChristmasBookingClosedPanel({
+  season,
+  facts
+}: {
+  season: ChristmasSeasonView
+  facts: ChristmasFactsView
+}) {
+  return (
+    <div className="space-y-5">
+      <Alert variant="info" title="Online Christmas enquiries have closed for this year">
+        We are still serving Christmas dinner up to and including the last day of the season,{' '}
+        {season.windowLabel}. A Christmas booking needs {facts.minNoticeHours} hours notice, so the form
+        has closed, but it is always worth a call: we may have a table today.
+      </Alert>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Button
+          asChild
+          variant="primary"
+          size="lg"
+          onClick={() => {
+            trackCtaClick({
+              id: 'christmas_booking_closed_call',
+              label: 'Call The Anchor',
+              location: 'christmas_booking_closed_panel',
+              destination: 'phone'
+            })
+            trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_booking_closed_panel' })
+          }}
+        >
+          <a href={CONTACT_PHONE_LINK}>
+            <Icon name="phone" className="mr-2 h-4 w-4" />
+            Call {CONTACT_PHONE}
+          </a>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          onClick={() => {
+            trackCtaClick({
+              id: 'christmas_booking_closed_email',
+              label: 'Email The Anchor',
+              location: 'christmas_booking_closed_panel',
+              destination: 'email'
+            })
+            trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_booking_closed_panel' })
+          }}
+        >
+          <a href={CONTACT_EMAIL_LINK}>
+            <Icon name="mail" className="mr-2 h-4 w-4" /> Email us
+          </a>
+        </Button>
+      </div>
+      <p className="text-sm text-ink-muted">
+        Looking further ahead? <Link href="/private-hire" className="font-semibold text-accent-text underline">Private hire and group bookings</Link>{' '}
+        run all year.
+      </p>
+    </div>
   )
 }
 
@@ -2190,7 +2295,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             />
             <p className="mt-1 text-xs text-ink-muted">
               {context.mode === 'meal'
-                ? `Christmas dinner needs ${facts.minPartySize} guests or more. Above ${facts.privateHireThreshold} it becomes private hire, so call or email us.`
+                ? `Christmas dinner needs ${facts.minPartySize} guests or more. Between ${facts.privateHireThreshold + 1} and ${facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it.`
                 : `Festive buffets need ${facts.buffetMinimumGuests} guests or more.`}
             </p>
           </div>

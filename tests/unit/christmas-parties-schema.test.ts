@@ -122,12 +122,14 @@ describe('christmasPartiesSchema', () => {
     expect(description).not.toMatch(/pre-book only/i)
   })
 
-  it('should state the 6 guest minimum, the 24 hour notice and the any-size deposit', () => {
+  it('should state the group minimum, the 24 hour notice and the any-size deposit', () => {
     const services = nodeOfType('Service').isRelatedTo as Node[]
     const sitDown = services.find((item) => /lunch or dinner/i.test(String(item.name)))
     const description = String(sitDown?.description)
 
+    // 4 since 6 September 2026, and it must never read as the retired 6.
     expect(description).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
+    expect(description).not.toMatch(/\b6 guests or more/)
     expect(description).toContain('at least 24 hours ahead')
     expect(description).toContain(
       `deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size`

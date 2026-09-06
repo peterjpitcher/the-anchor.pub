@@ -196,12 +196,40 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     )
   })
 
-  it('minimum party size is 6 and minimum notice is 24 hours', () => {
-    expect(xmas.booking_rules.min_party_size).toBe(6)
+  it('minimum party size is 4 on every day, and minimum notice is 24 hours', () => {
+    // Owner-confirmed 6 September 2026: 4 guests, regardless of the day. An
+    // earlier reading of the same conversation had this as 4 midweek and 6 at
+    // the weekend and was corrected the same day.
+    expect(xmas.booking_rules.min_party_size).toBe(4)
+    expect(xmas.booking_rules.min_party_size_by_day).toBeUndefined()
     expect(xmas.booking_rules.min_notice_hours).toBe(24)
     expect(xmas.booking_rules.same_day_bookings).toBe(false)
-    expect(mdPlain).toContain('Minimum party size: 6 guests.')
+    expect(mdPlain).toContain('4 guests, on every Christmas dinner booking, regardless of the day')
     expect(mdPlain).toContain('Minimum notice: 24 hours.')
+    // Neither retired rule may come back in the prose.
+    expect(mdPlain).not.toContain('Minimum party size: 6 guests.')
+    expect(mdPlain).not.toContain('4 guests Tuesday to Thursday')
+  })
+
+  it('keeps the Christmas minimum off the Sunday roast, which has none', () => {
+    expect(ssot.sunday_roast.booking_policy.advance_booking_required).toBe(false)
+    expect(ssot.sunday_roast.booking_policy.walk_ins_welcome).toBe(true)
+    expect(mdPlain).toContain('Sunday roast has no minimum party size at all')
+  })
+
+  it('records the Christmas Day drinks-only hours and forbids a food claim', () => {
+    // Owner-confirmed 6 September 2026. Christmas Day sits outside the
+    // 10 November to 20 December window, so the page said nothing at all.
+    expect(xmas.christmas_day.food_service).toBe(false)
+    expect(xmas.christmas_day.opens).toBe('12:00')
+    expect(xmas.christmas_day.closes).toBe('15:00')
+    expect(mdPlain).toContain('On 25 December we open for drinks only, 12pm to 3pm')
+    expect(mdPlain).toMatch(/no food service at all on Christmas Day/i)
+  })
+
+  it('records the 21 to 29 band and the drinks-only party rule', () => {
+    expect(xmas.group_size_bands.private_booking_band).toBe('21 to 29 seated guests')
+    expect(xmas.drinks_only_party.minimum_spend).toBeNull()
   })
 
   it('pre-order is required for 2 and 3 course only', () => {
@@ -310,6 +338,15 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
   it('inclusions and trimmings are pinned', () => {
     expect(xmas.included.adults).toContain('prosecco')
     expect(xmas.included.adults).toContain('orange juice')
+    // Owner-corrected 15 August 2026, and wrong in SSOT.json until 6 September
+    // 2026. The "all three tiers" wording reached the live page and two
+    // marketing emails before it was caught the first time, so the tier
+    // restriction is pinned in both directions: it must be stated, and the
+    // retracted wording must not reappear anywhere in the SSOT.
+    expect(xmas.included.adults).toContain('2 and 3 course')
+    expect(xmas.included.adults).not.toMatch(/all three tiers/i)
+    expect(JSON.stringify(ssot)).not.toMatch(/prosecco[^"]*all three (?:Christmas )?tiers/i)
+    expect(mdPlain).not.toMatch(/prosecco[^.]*all three tiers/i)
     expect(xmas.included.children).toContain('Fruit Shoot')
     expect(xmas.trimmings).toEqual([
       'Pigs in blankets',
@@ -449,7 +486,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
   it('does not reintroduce old private-hire and Christmas-price copy', () => {
     expect(
       matchingFiles(
-        /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|minimum spend|min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
+        /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|(?<!no )minimum spend|(?<!no )min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
       ),
     ).toEqual([])
   })

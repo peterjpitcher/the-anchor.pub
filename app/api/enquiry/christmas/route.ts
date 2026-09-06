@@ -527,6 +527,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Date before party size. The two are independent again now the Christmas
+    // minimum is a flat 4, but the order is worth keeping: a guest who picks an
+    // impossible date should be told about the date, not about guest numbers.
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
+      return NextResponse.json(
+        { success: false, error: 'Please choose a date within the Christmas booking period' },
+        { status: 400 }
+      )
+    }
+
     const numericPartySize = Number.parseInt(body.partySize, 10)
     // Sit-down capacity is 60 at Christmas whichever journey it arrives by, so
     // a party-style sit-down dinner carries the same cap as the meal journey.
@@ -538,13 +548,6 @@ export async function POST(request: NextRequest) {
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
       return NextResponse.json(
         { success: false, error: `Guest numbers must be between ${minimumPartySize} and ${maximumPartySize}` },
-        { status: 400 }
-      )
-    }
-
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
-      return NextResponse.json(
-        { success: false, error: 'Please choose a date within the Christmas booking period' },
         { status: 400 }
       )
     }

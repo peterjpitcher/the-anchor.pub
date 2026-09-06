@@ -253,7 +253,7 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 ### Christmas 2026 (owner-confirmed 21 July 2026)
 
 - **Service window:** **10 November to 20 December 2026**. The 20th is **inclusive**, a 20 December sitting is bookable. The previously published 1 November to 23 December window is superseded, see §14.
-- **Minimum party size:** **6 guests.** Every Christmas dinner booking needs 6 or more guests.
+- **Minimum party size:** **4 guests, on every Christmas dinner booking, regardless of the day.** (Owner-confirmed, 6 September 2026. Lowered from 6 to open up the quieter dates in the window. An earlier reading of the same conversation had this as 4 midweek and 6 at the weekend and was corrected the same day; there is no day-dependent Christmas minimum.) The **Sunday roast has no minimum party size at all** and is a separate offer: never copy this figure onto it.
 - **Minimum notice:** **24 hours.** No same-day Christmas bookings.
 - **Deposit:** **£10 per person on every Christmas booking, regardless of party size.** Taken at booking, deducted from the bill. **Refundable in full if the booking is cancelled up to and including seven days before the booking date; fewer than seven days before it is not refunded.** Owner-confirmed 5 September 2026: this supersedes the earlier blanket "non-refundable" wording, which contradicted the live management setting. Boundary clarified from the existing management refund implementation on 5 September 2026: the whole London calendar day seven days before is included; no payment rule was changed.
 - **Pre-book and pre-order, by course:**
@@ -266,6 +266,10 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 
 - **Pre-order deadline:** **7 days before the booking date** for the 2 and 3 course tiers. (Owner-confirmed, 11 August 2026.) State this plainly rather than hedging with "confirmed with your booking".
 - **Days available:** Tuesday to Saturday sittings, plus **Sunday sittings from 1pm to 6pm**. **Mondays are not available** for Christmas bookings, the kitchen is closed. (Owner-confirmed, 11 August 2026.)
+- **There is no Christmas market in 2026.** (Owner-confirmed, 6 September 2026.) A market ran in earlier years, so archived copy and old imagery still describe one. Treat every such reference as historical, never as an offer, and do not revive `/blog/christmas-market`.
+- **Christmas Day itself is outside the offer.** **On 25 December we open for drinks only, 12pm to 3pm. There is no food service at all on Christmas Day.** (Owner-confirmed, 6 September 2026.) This is a licensed exception to the rule in §3 that opening hours only ever come from the API, in the same way as the New Year's Eve closing time, because the offer window ends on 20 December and the page would otherwise say nothing. **Never advertise Christmas dinner, a Christmas lunch, a festive menu or any food on 25 December.** Boxing Day and the days between Christmas and New Year are **not yet confirmed**: say nothing about them until they are.
+- **Group size band:** **21 to 29 seated guests is handled as a private booking, not a table booking.** (Owner-confirmed, 6 September 2026. The reason is the no-show exposure at that size, which is too large to carry on a table booking.) It sits between the sit-down maximum of 20 and the 30-guest buffet minimum, so route it to the manager rather than leaving the organiser with no route. Present it as how we look after a group that size, never as a refusal.
+- **Drinks-only Christmas party:** **no minimum spend.** (Owner-confirmed, 6 September 2026.) Arranged as a private booking so we can confirm no other services are needed. Never invent a package, a per-head price or a bar-tab minimum for it.
 - **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
@@ -654,7 +658,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **"1 November to 23 December 2026"**, superseded. The window is 10 November to 20 December 2026 inclusive.
 - **Weekday / weekend two-price festive menu split as the whole story**, superseded by the three-tier structure (1, 2 and 3 course) in §7.
 - **"All Christmas meals are pre-order only"**, wrong. 1 course is pre-book without pre-order.
-- **Christmas bookings under 6 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
+- **Christmas bookings under 4 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
 - **A kids 2-course or 3-course price**, does not exist. Never invent one.
 - **Named Christmas dishes**, the menu is not finalised. Only "menu released closer to the time" is permitted.
 - **26-guest or 25-guest festive buffet minimums**, wrong. The minimum is 30.

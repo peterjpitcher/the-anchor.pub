@@ -29,6 +29,7 @@ const BUFFET_MINIMUM_GUESTS =
 
 const FACTS: ChristmasFactsView = {
   minPartySize: CHRISTMAS_MINIMUM_PARTY_SIZE,
+  christmasDay: { opens: '12pm', closes: '3pm', foodService: false },
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
   buffetMinimumGuests: BUFFET_MINIMUM_GUESTS,
@@ -42,7 +43,8 @@ const SEASON: ChristmasSeasonView = {
   windowLabel: '10 November to 20 December 2026',
   minEnquiryDate: CHRISTMAS_WINDOW_START,
   maxEnquiryDate: CHRISTMAS_WINDOW_END,
-  isBookable: true
+  isBookable: true,
+  bookingClosed: false
 }
 
 const EMPTY_MENU: ChristmasMenuView = {
@@ -66,7 +68,8 @@ function renderPage(menu: ChristmasMenuView = EMPTY_MENU): string {
 
 describe('Christmas 2026 booking rules', () => {
   it('holds the owner-confirmed constants, so every consumer inherits the same rules', () => {
-    expect(CHRISTMAS_MINIMUM_PARTY_SIZE).toBe(6)
+    // Owner-confirmed 6 September 2026: 4 guests, every day of the week.
+    expect(CHRISTMAS_MINIMUM_PARTY_SIZE).toBe(4)
     expect(CHRISTMAS_MINIMUM_NOTICE_HOURS).toBe(24)
     expect(CHRISTMAS_DEPOSIT_PER_PERSON).toBe(10)
     expect(CHRISTMAS_WINDOW_START).toBe('2026-11-10')
@@ -74,10 +77,12 @@ describe('Christmas 2026 booking rules', () => {
     expect(CHRISTMAS_WINDOW_END).toBe('2026-12-20')
   })
 
-  it('states the 6 guest minimum, the 24 hour notice and the deposit on the page', () => {
+  it('states the day-dependent group minimum, the 24 hour notice and the deposit on the page', () => {
     const text = renderPage()
 
-    expect(text).toContain('6 guests or more')
+    // The minimum was 6 until 6 September 2026 and is now 4, every day.
+    expect(text).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
+    expect(text).not.toMatch(/Christmas dinner[^.]{0,60}\b6 guests or more/i)
     expect(text).toContain('at least 24 hours')
     expect(text).toContain('no same-day bookings')
     expect(text).toContain(`£${CHRISTMAS_DEPOSIT_PER_PERSON} per person`)
@@ -134,11 +139,62 @@ describe('Christmas 2026 booking rules', () => {
   it('carries the booking rules into the page level JSON-LD', () => {
     const schemaJson = JSON.stringify(christmasPartiesSchema)
 
-    expect(schemaJson).toContain('6 guests or more')
+    expect(schemaJson).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
     expect(schemaJson).toContain('at least 24 hours ahead')
     expect(schemaJson).toContain('Courses are chosen per person, not for the whole table.')
     expect(schemaJson).toContain('Every guest chooses a main.')
     expect(schemaJson).toMatch(/deposit of 10 pounds per person applies to every Christmas booking, whatever the party size/i)
+  })
+})
+
+describe('Christmas 2026 owner decisions of 6 September', () => {
+  it('answers the Christmas Day question, drinks only and no food', () => {
+    const text = renderPage()
+
+    expect(text).toContain('Are you open on Christmas Day?')
+    expect(text).toMatch(/open on Christmas Day for drinks only, from 12pm to 3pm/i)
+    expect(text).toMatch(/no food service on Christmas Day/i)
+  })
+
+  it('never advertises food on Christmas Day', () => {
+    const text = renderPage()
+
+    // The banned shape: any claim of a meal ON the 25th. The FAQ answer names
+    // the dishes we do NOT serve that day, so the assertion is scoped to a
+    // positive offer rather than the mere co-occurrence of the words.
+    expect(text).not.toMatch(/Christmas dinner on (the )?(25th|Christmas Day)/i)
+    expect(text).not.toMatch(/(book|serving|serve) .{0,30}Christmas Day/i)
+  })
+
+  it('states a flat 4 guest minimum on every day, and never the retired 6', () => {
+    const text = renderPage()
+
+    expect(CHRISTMAS_MINIMUM_PARTY_SIZE).toBe(4)
+    expect(text).toContain('4 guests or more')
+    expect(text).not.toMatch(/Christmas dinner[^.]{0,60}\b6 guests or more/i)
+    // The day-dependent reading was wrong and must not come back.
+    expect(text).not.toMatch(/midweek[^.]{0,40}6 on Friday/i)
+  })
+
+  it('never puts a minimum party size on the Sunday roast', () => {
+    const text = renderPage()
+
+    expect(text).toMatch(/Sunday roast has no minimum/i)
+  })
+
+  it('says a drinks-only party has no minimum spend', () => {
+    const text = renderPage()
+
+    expect(text).toMatch(/no minimum spend/i)
+    // The rule is that we never invent one, so no figure may appear near it.
+    expect(text).not.toMatch(/minimum spend of £/i)
+  })
+
+  it('routes a 21 to 29 guest group to a private booking rather than refusing it', () => {
+    const text = renderPage()
+
+    expect(text).toMatch(/Between 21 and 29 guests we arrange it as a private booking/i)
+    expect(text).toMatch(/we will look after it/i)
   })
 })
 

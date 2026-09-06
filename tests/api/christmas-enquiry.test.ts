@@ -208,7 +208,7 @@ describe('POST /api/enquiry/christmas', () => {
     ['a discontinued shared party night', { mode: 'party', service: undefined, partyFormat: 'shared_party' }],
     ['an invalid course tier', { courseTier: 'four_course' }],
     ['meal over capacity', { partySize: '61' }],
-    ['a meal below the 6 guest minimum', { partySize: '5' }],
+    ['a meal below the 4 guest minimum', { partySize: '3' }],
     ['a buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'buffet_party', partySize: '29' }],
     ['a legacy-valued buffet below the 30 guest minimum', { mode: 'party', service: undefined, partyFormat: 'festive_buffet', partySize: '29' }],
     ['a party-style sit-down dinner above the 60 seat capacity', { mode: 'party', service: undefined, partyFormat: 'sit_down_dinner', partySize: '61' }],
