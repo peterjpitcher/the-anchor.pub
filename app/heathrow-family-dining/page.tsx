@@ -150,7 +150,7 @@ export default function FamilyDiningPage() {
                     },
                     {
                         question: "Can we bring a pushchair inside?",
-                        answer: "Yes, we have ramp access and plenty of space between tables for buggies and pushchairs."
+                        answer: "Yes. The bar and dining area are step free from the car park, and there is plenty of space between tables for buggies and pushchairs."
                     },
                     {
                         question: "Is the food fast?",

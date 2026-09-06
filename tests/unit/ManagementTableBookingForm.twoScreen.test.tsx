@@ -535,11 +535,18 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.getByTestId('step-free-explanation')).toHaveTextContent(
         STEP_FREE_TABLE_EXPLANATION
       )
-      // The facts the owner confirmed, and the claim the copy must never make.
+      // The facts the owner confirmed, and the claims the copy must never make.
       expect(STEP_FREE_TABLE_EXPLANATION).toContain('We do not have an accessible toilet.')
-      expect(STEP_FREE_TABLE_EXPLANATION).toContain('The garden is step free.')
       expect(STEP_FREE_TABLE_EXPLANATION.toLowerCase()).not.toContain('accessible pub')
       expect(STEP_FREE_TABLE_EXPLANATION.toLowerCase()).not.toContain('wheelchair')
+      // The garden route, corrected 2026-09-06. "The garden is step free" on its
+      // own is true from the car park and false from the bar, and this guest has
+      // just asked for step-free access. Both halves must survive together.
+      expect(STEP_FREE_TABLE_EXPLANATION).toContain('The garden is step free from the car park')
+      expect(STEP_FREE_TABLE_EXPLANATION).toContain('one step between the garden and the bar')
+      expect(STEP_FREE_TABLE_EXPLANATION).toContain('we will put our ramp out whenever you ask')
+      // Guards the exact regression: the bare sentence must never come back.
+      expect(STEP_FREE_TABLE_EXPLANATION).not.toContain('The garden is step free.')
     })
 
     it('re-reads availability in place when a refinement changes', async () => {
