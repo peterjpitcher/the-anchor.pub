@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui'
 import { trackPhoneCallClick } from '@/lib/gtm-events'
 
@@ -24,18 +23,22 @@ export function PhoneButton({
   // Convert UK phone number to international format for tel: links
   const formattedPhone = phone.replace(/\s/g, '').replace(/^01753/, '+441753')
   
+  // One anchor, styled as a button, via the design system's asChild pattern. An <a>
+  // may not contain interactive content, and wrapping a <button> in one gave a single
+  // action two tab stops and an odd screen reader announcement.
   return (
-    <Link 
-      href={`tel:${formattedPhone}`}
-      onClick={() => trackPhoneCallClick({ phone, source })}
+    <Button
+      asChild
+      variant={variant}
+      size={size}
+      className={className}
     >
-      <Button 
-        variant={variant}
-        size={size}
-        className={className}
+      <a
+        href={`tel:${formattedPhone}`}
+        onClick={() => trackPhoneCallClick({ phone, source })}
       >
         {children || `Call ${phone}`}
-      </Button>
-    </Link>
+      </a>
+    </Button>
   )
 }
