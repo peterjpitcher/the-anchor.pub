@@ -90,7 +90,6 @@ import {
   generateStaticParams as generateBlogTagStaticParams,
 } from '@/app/blog/tag/[tag]/page'
 import BlogTagPage from '@/app/blog/tag/[tag]/page'
-import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
 import { middleware } from '@/middleware'
 import {
   lookupRedirect,
@@ -591,19 +590,62 @@ describe('blog archive-vs-noindex', () => {
 })
 
 describe('blog tag index policy', () => {
-  const broadArchiveTags = ['events', 'food-and-drink', 'news', 'sports']
+  /**
+   * Every tag archive the route actually builds must be noindexed, canonical to
+   * its own lowercase path, and absent from the sitemap. The list is derived
+   * from `generateStaticParams` rather than hardcoded: an earlier version named
+   * four tags by hand while thirteen archives were live, so nine of them were
+   * never asserted. Tags that redirect at middleware never reach this route and
+   * are filtered out by `generateStaticParams` itself.
+   */
+  it('keeps every live tag archive noindexed, self-canonical and out of the sitemap', async () => {
+    const archiveTags = (await generateBlogTagStaticParams()).map(({ tag }) => tag)
 
-  it.each(broadArchiveTags)(
-    'keeps broad archive tag %s noindexed and out of the sitemap',
-    async (tag) => {
-      expect(isNoindexBlogTag(tag)).toBe(true)
+    // The guard is meaningless if the corpus stops producing archives at all.
+    expect(archiveTags.length).toBeGreaterThan(0)
 
+    for (const tag of archiveTags) {
       const metadata = await generateBlogTagMetadata({ params: { tag } })
       expect(metadata.robots).toEqual({ index: false, follow: true })
+      expect(metadata.alternates?.canonical).toBe(`/blog/tag/${tag}`)
 
       const sitemapEntries = await sitemap()
       const sitemapPaths = new Set(sitemapEntries.map((entry) => toPath(entry.url)))
       expect(sitemapPaths.has(`/blog/tag/${tag}`)).toBe(false)
+    }
+  })
+
+  it('normalises a case variant of a live archive to the lowercase canonical', async () => {
+    // `/blog/tag/GUIDES` is a duplicate of `/blog/tag/guides`, not a redirect:
+    // `normalizeBlogTag` lowercases the slug before anything else runs.
+    const [firstTag] = (await generateBlogTagStaticParams()).map(({ tag }) => tag)
+    expect(firstTag).toBeDefined()
+
+    const metadata = await generateBlogTagMetadata({ params: { tag: firstTag.toUpperCase() } })
+    expect(metadata.alternates?.canonical).toBe(`/blog/tag/${firstTag}`)
+  })
+})
+
+describe('blog tag inherited-member safety', () => {
+  /**
+   * `/blog/tag/constructor` and `/blog/tag/__proto__` returned HTTP 500 in
+   * production. `tagSEOContent` is a plain object literal, so a lookup for an
+   * inherited `Object.prototype` member returned a truthy non-TagSEOContent
+   * value, the `||` fallback never fired, `metaTitle` was `undefined`, and
+   * `getTwitterMetadata` threw on `title.length`. `CONSTRUCTOR` is the same
+   * defect reached through `normalizeBlogTag`'s lowercasing.
+   */
+  it.each(['constructor', '__proto__', 'CONSTRUCTOR'])(
+    'builds fallback metadata for the inherited-member tag %s instead of throwing',
+    async (tag) => {
+      const metadata = await generateBlogTagMetadata({ params: { tag } })
+
+      expect(typeof metadata.title).toBe('string')
+      expect(metadata.title).not.toHaveLength(0)
+      expect(typeof metadata.description).toBe('string')
+      expect(metadata.description).not.toHaveLength(0)
+      expect(metadata.alternates?.canonical).toBe(`/blog/tag/${tag.toLowerCase()}`)
+      expect(metadata.robots).toEqual({ index: false, follow: true })
     },
   )
 })
