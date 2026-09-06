@@ -12,14 +12,19 @@ import { HIGH_CHAIR_HOUSE_CAP } from '@/lib/table-booking/journey'
  */
 
 /**
- * Owner-approved copy, verbatim (spec §4.5). The facts in it were checked
- * against the production `tables` rows on 2026-07-29. Do not reword it: if the
- * physical facts change, the copy and the table flags change together. It never
- * calls the pub "accessible", because with no accessible toilet that would be
- * false.
+ * Owner-approved copy, verbatim. The table facts were checked against the
+ * production `tables` rows on 2026-07-29; the garden wording was corrected and
+ * re-approved on 2026-09-06. Do not reword it: if the physical facts change,
+ * the copy and the table flags change together. It never calls the pub
+ * "accessible", because with no accessible toilet that would be false.
+ *
+ * The garden sentence used to read "The garden is step free." That is true from
+ * the car park and false from the bar, and the guest reading this has just
+ * asked for step-free access, so the route matters to them more than to anyone
+ * else on the site. See docs/SSOT.md "Accessibility".
  */
 export const STEP_FREE_TABLE_EXPLANATION =
-  'You will get a table with step-free access and standard-height seating. That rules out two of our ten tables: the Small Bay, which has a step, and the High 4, which is bar stools. The garden is step free. We do not have an accessible toilet. If you would like to talk it through first, call us on 01753 682707.'
+  'You will get a table with step-free access and standard-height seating. That rules out two of our ten tables: the Small Bay, which has a step, and the High 4, which is bar stools. The garden is step free from the car park, though there is one step between the garden and the bar, and we will put our ramp out whenever you ask. We do not have an accessible toilet. If you would like to talk it through first, call us on 01753 682707.'
 
 // The number is rendered as a tel: link so a guest on a phone can just tap it.
 // Split from the constant above rather than retyped, so the paragraph's text is
