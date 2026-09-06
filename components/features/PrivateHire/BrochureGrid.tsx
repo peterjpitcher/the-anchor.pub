@@ -30,31 +30,29 @@ export function BrochureGrid({ source }: BrochureGridProps) {
             <p className="text-sm text-ink-muted">
               {`PDF, ${brochure.pages} pages, ${brochure.sizeLabel}`}
             </p>
-            <a
-              href={brochure.file}
-              target="_blank"
-              rel="noopener"
-              onClick={() =>
-                trackBrochureDownload({
-                  brochure: brochure.key,
-                  source,
-                  file: brochure.file,
-                })
-              }
-              className="mt-auto pt-2"
-            >
-              <Button
-                variant="outline"
-                size="md"
-                fullWidth
-                icon={<Icon name="download" />}
-              >
-                Download
+            {/* The wrapper keeps the card's push-to-bottom spacing; the anchor itself is
+                the button, so its own padding must not be nudged by pt-2. */}
+            <div className="mt-auto pt-2">
+              <Button asChild variant="outline" size="md" fullWidth icon={<Icon name="download" />}>
+                <a
+                  href={brochure.file}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() =>
+                    trackBrochureDownload({
+                      brochure: brochure.key,
+                      source,
+                      file: brochure.file,
+                    })
+                  }
+                >
+                  Download
+                  <span className="sr-only">
+                    {` ${brochure.title}. Opens in a new tab.`}
+                  </span>
+                </a>
               </Button>
-              <span className="sr-only">
-                {` ${brochure.title}. Opens in a new tab.`}
-              </span>
-            </a>
+            </div>
           </CardBody>
         </Card>
       ))}

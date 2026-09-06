@@ -140,11 +140,11 @@ export default async function ParkingConfirmationPage({ params }: Props) {
           </Card>
 
           {/* CTA */}
-          <Link href="/" className="block">
-            <Button variant="primary" size="lg" fullWidth>
+          <Button asChild variant="primary" size="lg" fullWidth>
+            <Link href="/">
               While you&apos;re here, visit the pub
-            </Button>
-          </Link>
+            </Link>
+          </Button>
           <p className="text-ink-muted text-xs text-center">Full menu · Draught beers · Family friendly</p>
         </div>
       </Container>

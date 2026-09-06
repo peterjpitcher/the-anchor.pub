@@ -77,11 +77,11 @@ export default function AnniversaryPartiesPage() {
                 lead="A private dining room for 10+ to 150 guests, catering and drinks handled, and free parking, seven minutes from Heathrow"
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Enquire Now
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton phone={CONTACT.phone} source="anniversary_hero" variant="outline" size="lg">
                             Call {CONTACT.phone}
                         </PhoneButton>
@@ -247,12 +247,12 @@ export default function AnniversaryPartiesPage() {
                             Get in touch with our team to check availability and talk through your ideas. We recommend booking at least 4 weeks in advance for Friday and Saturday dates.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/private-hire#enquiry">
-                                <Button size="lg" variant="primary">Enquire for Party</Button>
-                            </Link>
-                            <Link href="/book-table">
-                                <Button size="lg" variant="outline">Book Table (Small Groups)</Button>
-                            </Link>
+                            <Button asChild size="lg" variant="primary">
+                                <Link href="/private-hire#enquiry">Enquire for Party</Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline">
+                                <Link href="/book-table">Book Table (Small Groups)</Link>
+                            </Button>
                         </div>
                     </div>
                 </Container>
