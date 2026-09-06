@@ -6,6 +6,7 @@ import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
 import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
+import { logError } from '@/lib/error-handling'
 
 export const revalidate = 60 * 60 // 1 hour
 
@@ -56,7 +57,20 @@ async function fetchSitemapEventsPage(page: number): Promise<Event[] | null> {
       { signal: controller.signal },
     )
     return Array.isArray(response.events) ? response.events : []
-  } catch {
+  } catch (error) {
+    // Log before returning null. The caller turns null into
+    // EventFeedUnavailableError, which aborts regeneration and leaves Next
+    // serving the last good sitemap. That is the right fail-safe, but it used
+    // to be completely silent: on 5 September 2026 the live sitemap sat stale
+    // for over 15 hours with nothing in the logs to say why, and only a
+    // redeploy cleared it. Record the page and whether the abort was our own
+    // timeout, so the next occurrence is diagnosable.
+    const timedOut = error instanceof Error && error.name === 'AbortError'
+    logError('sitemap-events-page', error, {
+      page,
+      timedOut,
+      timeoutMs: EVENT_PAGE_TIMEOUT_MS,
+    })
     return null
   } finally {
     clearTimeout(timeout)
@@ -114,10 +128,21 @@ function isBuildPhase(): boolean {
 }
 
 class EventFeedUnavailableError extends Error {
-  constructor() {
-    super('Event feed unavailable, refusing to publish a sitemap without events')
+  constructor(reason: string) {
+    super(`Event feed unavailable, refusing to publish a sitemap without events (${reason})`)
     this.name = 'EventFeedUnavailableError'
   }
+}
+
+/**
+ * Aborting regeneration is correct: a sitemap missing every event URL is worse
+ * than yesterday's sitemap. But Next then serves the last good copy for as long
+ * as the feed stays down, with no ceiling and no signal, so this must be loud.
+ */
+function eventFeedUnavailable(reason: string): EventFeedUnavailableError {
+  const error = new EventFeedUnavailableError(reason)
+  logError('sitemap-event-feed-unavailable', error, { reason })
+  return error
 }
 
 export async function getSitemapEvents(): Promise<Event[]> {
@@ -127,7 +152,7 @@ export async function getSitemapEvents(): Promise<Event[]> {
   // null means the fetch failed. An empty array means it succeeded and there is
   // genuinely nothing, which is legitimate and must still publish.
   if (firstBatch === null) {
-    throw new EventFeedUnavailableError()
+    throw eventFeedUnavailable('first page fetch failed')
   }
 
   // A resolved promise is NOT proof the feed worked. anchorAPI serves a
@@ -142,7 +167,7 @@ export async function getSitemapEvents(): Promise<Event[]> {
   // blog URLs, and let the first revalidation fill in the events.
   if (firstBatch.some(isFallbackEvent)) {
     if (isBuildPhase()) return []
-    throw new EventFeedUnavailableError()
+    throw eventFeedUnavailable('feed returned the fabricated fallback event')
   }
 
   if (firstBatch.length === 0) {
@@ -167,7 +192,7 @@ export async function getSitemapEvents(): Promise<Event[]> {
     // failed first page: keep the last good sitemap rather than publish a
     // partial one.
     if (batch === null) {
-      throw new EventFeedUnavailableError()
+      throw eventFeedUnavailable('a later page fetch failed')
     }
     if (batch.length === 0) break
     addSitemapEvents(uniqueEvents, batch)
