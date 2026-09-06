@@ -97,3 +97,63 @@ Verification: Node 20 full lint, standalone typecheck, 191 test suites (2,083 pa
 # Event page and booking checks, 6 September 2026
 
 Plan and results: tasks/fix-function/2026-09-06-event-booking/. Website page and form changes plus reviewed capacity retry handling. Management standing-policy and SMS fixes are prepared separately; garden blocking remains a read-only finding. Website lint, types, 191 suites (2,089 passed, one skipped) in London and UTC, production build and isolated browser flows passed. Local only; deployment and migration approval pending.
+
+# Anchor wrapping Button, accessibility fix rollout, 6 September 2026
+
+An `<a>` may not contain interactive content. `<Link><Button>...</Button></Link>` renders
+`<a><button>...</button></a>`: invalid HTML, two tab stops for one action, and an odd
+screen reader announcement. Fixed with the design system's `asChild`, already the house
+pattern in `app/join-our-team/page.tsx` and 20-odd other places.
+
+146 instances across 55 .tsx files, cleared to zero. Five separately deployable commits.
+
+- [x] Wave 0: cherry-picked `1ecf129b` (DirectionsButton fix and its guard test) from
+      `claude/upbeat-hugle-ee1882`, so this branch is correct on its own. It is the same
+      change on both branches, so a later merge of that branch is a no-op.
+- [x] Wave 1: `components/PhoneButton.tsx` plus `tests/unit/PhoneButton.test.tsx`
+- [x] Wave 2: the Colnbrook, Sunbury and Wraysbury CtaBand maps links routed through
+      DirectionsButton, which also restores their missing `directions_click` event
+- [x] Wave 3: 56 CTAs on the 18 area and near-Heathrow pages
+- [x] Wave 4: 43 CTAs on the blog, what's on, live sport, drinks and menu pages
+- [x] Wave 5: 49 CTAs on the home, private hire, seasonal, parking and brochure pages
+      and the two lightboxes, plus `tests/unit/no-anchor-wrapped-buttons.test.ts`
+
+## How it was done
+
+137 sites were rewritten by a scripted tag swap (the nesting depth does not change, so
+indentation is untouched), and 14 by hand: multi-line Button attribute lists, the blog
+pagination `key`, the two brochure anchors that also wrap a visually hidden span, and the
+two lightboxes that carried a redundant `asChild={false}`.
+
+Three wrapper `className="block"` / `"inline-block"` values were dropped. `cn` uses
+tailwind-merge and the child's classes win, so leaving them would have beaten the
+button's own `inline-flex` and broken its centring.
+
+## Verification
+
+Gates green on every wave: `npx tsc --noEmit`, eslint zero warnings on app, components
+and lib, all seven audit scripts, 194 Jest suites (2,104 passed, 1 skipped) in both
+Europe/London and UTC, and `npm run build`.
+
+Browser evidence on the dev server: 51 routes fetched and parsed, including every static
+route this branch touched and four dynamic ones. Zero `a button`, `button a` or `a a`
+anywhere; 348 anchors carry the button styling. React props confirm the `onClick`
+handlers survived the `asChild` clone on both DirectionsButton and PhoneButton, so
+analytics wiring is intact. `scripts/audit-a11y.js` reports zero axe violations.
+
+## Deliberately not done
+
+- `/parking/bookings/[id]` and `/heathrow-parking/confirmation/[bookingId]` were changed
+  but not fetched in the browser: both need a real booking id. Build, types and the
+  repo-wide guard test cover them.
+- `scripts/audit-a11y.js` reports three keyboard failures on `/quiz-night/themed`: the
+  NavBar dropdown triggers are anchors with `aria-expanded` that navigate on Enter
+  instead of expanding. `components/ui/navigation/NavBar.tsx` is untouched by this
+  branch, so it is a separate defect, not a regression here.
+- `npm run lint` and `npm test` cannot run verbatim from a worktree under
+  `.claude/worktrees/`: eslint picks up the parent checkout's `.eslintrc.json` and Jest's
+  `testPathIgnorePatterns` matches the worktree's own path. Both were run with the
+  equivalent commands instead. Left alone, because fixing either is a repo change beyond
+  this concern.
+
+Local only. Not pushed, not deployed.
