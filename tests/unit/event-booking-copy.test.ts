@@ -113,14 +113,15 @@ describe('getEventBookingCopy', () => {
       price_per_seat: 10,
       // Standing tickets genuinely on sale, which is what earns the
       // seated-or-standing label. Without this the copy must not offer a choice.
+      seated_remaining: 0,
       standing_remaining: 12,
       offers: { price: '10', priceCurrency: 'GBP', '@type': 'Offer', availability: '', validFrom: '' }
     } as any
 
     const copy = getEventBookingCopy(event)
 
-    expect(copy.label).toBe('Book seated or standing tickets')
-    expect(copy.policy).toContain('Choose seated tickets for communal table seating')
+    expect(copy.label).toBe('Book standing tickets')
+    expect(copy.policy).toContain('Seated places are full')
     expect(getEventBookingReassurance(event)).toBe('No payment now. Book online and pay £10 per person on arrival.')
     expect(getEventBookingHeroStatement(event)).toBe(
       'Book tickets for Friday 8 May. No payment now, pay £10 on arrival.'

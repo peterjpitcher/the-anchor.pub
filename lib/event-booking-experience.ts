@@ -22,8 +22,7 @@ export type EventBookingPaymentSource = {
   is_free?: boolean | null
   ticketTypes?: EventTicketType[] | null
   ticket_types?: EventTicketType[] | null
-  // Booking copy needs this: the reassurance line only offers a seated/standing
-  // choice when standing tickets actually exist. See hasStandingTickets below.
+  seated_remaining?: number | null
   standing_remaining?: number | null
 }
 
@@ -46,27 +45,13 @@ function parseRemaining(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : null
 }
 
-/**
- * Whether standing tickets are genuinely on sale for this event.
- *
- * Communal events are not automatically standing events. Every hosted night at
- * The Anchor currently comes back from the management API with
- * `standing_remaining: 0`, so copy that promised "seated or standing tickets"
- * was inviting a choice the form then refused: the booking step rendered a
- * disabled Standing radio reading "Standing tickets are not available". A CTA
- * that offers something the next screen withdraws reads as a half-built system,
- * which is exactly the doubt you cannot afford at the point of booking.
- *
- * `null` means the API did not send a figure, which is treated as "no standing
- * tickets" rather than "unknown but probably fine", matching the form's own
- * `standingDisabled` rule so the label and the control can never disagree.
- */
+/** Standing is offered only once all seats have sold out. */
 export function hasStandingTickets(event: EventBookingPaymentSource): boolean {
   if (!isCommunalBookingMode(event.booking_mode)) return false
 
   const standingRemaining = parseRemaining(event.standing_remaining)
 
-  return standingRemaining !== null && standingRemaining > 0
+  return parseRemaining(event.seated_remaining) === 0 && standingRemaining !== null && standingRemaining > 0
 }
 
 function parsePositiveMoney(value: unknown): number | null {
@@ -235,7 +220,7 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
     if (!isCommunal) return 'No payment needed. Reserve seats online so your table is held.'
 
     return hasStandingTickets(event)
-      ? 'No payment needed. Book seated or standing places online.'
+      ? 'No payment needed. Book standing places online.'
       : 'No payment needed. Book a free place for each person so we know how many seats to lay out.'
   }
 

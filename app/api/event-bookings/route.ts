@@ -471,6 +471,7 @@ export async function POST(request: NextRequest) {
         event_id: normalized.payload.event_id,
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
+        ...(normalized.payload.seating_preference ? { seating_preference: normalized.payload.seating_preference } : {}),
         ...(normalized.payload.dining_request ? { dining_request: normalized.payload.dining_request } : {}),
         ...(normalized.payload.early_arrival_request ? { early_arrival_request: true } : {}),
         ...(normalized.payload.attendee_names ? { attendee_names: normalized.payload.attendee_names } : {}),
