@@ -5,12 +5,16 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
-import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
+import {
+  TurnstileField,
+  type TurnstileFieldRef,
+  type TurnstileFieldStatus,
+} from '@/components/security/TurnstileField'
 import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
-import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney } from '@/lib/event-booking-experience'
+import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney, isPrepaidEvent } from '@/lib/event-booking-experience'
 import {
   getMaxForType,
   getSelectionBreakdown,
@@ -29,7 +33,40 @@ import {
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+/**
+ * Read per render rather than once at module load. Webpack inlines
+ * `process.env.NEXT_PUBLIC_*` at build time wherever it appears, so production
+ * gets the same constant either way, while a test can decide whether this form
+ * has a security check to recover from without reloading React alongside it.
+ */
+function getTurnstileSiteKey(): string {
+  return process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+}
+
+/**
+ * How long we wait for Cloudflare to hand over a token before we say something.
+ *
+ * The submit button is disabled until a token exists, so a widget that is
+ * blocked by an extension, killed by a corporate proxy or simply never loaded
+ * left the guest looking at a dead button with nothing on screen to explain it.
+ * Ten seconds is long enough for a slow phone on a weak signal to finish
+ * quietly, and short enough that nobody sits there wondering what they did.
+ */
+const TURNSTILE_RECOVERY_DELAY_MS = 10_000
+
+const TURNSTILE_RECOVERY_TITLE = 'Security check not completed'
+
+const TURNSTILE_RECOVERY_MESSAGE =
+  'Our security check has not finished, so we cannot take this booking online yet. Everything you have typed is still here.'
+
+// Nothing retries a browser that cannot run the challenge at all, so this one
+// sends the guest straight to the phone rather than to a Try Again button that
+// can only fail again.
+const TURNSTILE_UNSUPPORTED_MESSAGE =
+  'This browser cannot complete our security check. Everything you have typed is still here, but we cannot take this booking online.'
+
+/** Anchors the submit button's description at the recovery panel. */
+const TURNSTILE_RECOVERY_REGION_ID = 'event-booking-turnstile-recovery'
 
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type EventSeatingPreference = 'seated' | 'standing'
@@ -184,6 +221,13 @@ export function ManagementEventBookingForm({
   // the same friendly closed panel renders (rather than a generic error).
   const [salesClosedAtSubmit, setSalesClosedAtSubmit] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileStatus, setTurnstileStatus] = useState<TurnstileFieldStatus>('pending')
+  // True once the recovery clock below has run out with no token in hand.
+  const [turnstileTimedOut, setTurnstileTimedOut] = useState(false)
+  // Bumped by the retry button so the clock restarts even when nothing else
+  // about the widget's state has changed (a widget that never loaded stays on
+  // 'pending', so without this the effect would not re-run).
+  const [turnstileAttempt, setTurnstileAttempt] = useState(0)
   const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [honeypot, setHoneypot] = useState('')
   const formLoadedAt = useRef(Date.now())
@@ -194,6 +238,7 @@ export function ManagementEventBookingForm({
   // Online ticket sales are closed if the caller says so, or the event's own
   // cutoff has passed. Either way the form must not render its fields or POST.
   const salesClosed = bookingClosed || isEventBookingClosed(event) || salesClosedAtSubmit
+  const turnstileSiteKey = getTurnstileSiteKey()
   const bookingReassurance = getEventBookingReassurance({ ...event, ...latestAvailability })
   const isCommunalEvent = isCommunalBookingMode(event.booking_mode)
   // Multi-type flow: only when the event exposes 2+ active types at differing
@@ -202,6 +247,17 @@ export function ManagementEventBookingForm({
   const isMultiTypeEvent = !isCommunalEvent && hasMultipleTicketPrices(event)
   const eventUnitPrice = getEventUnitPrice(event)
   const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
+  /**
+   * Could this booking ever be followed by a request for money?
+   *
+   * Read every price signal rather than the unit price alone. A multi-type
+   * event can carry a free kids ticket beside a paid adult one, and the unit
+   * price is the lowest of the two, so the event would otherwise read as free.
+   * A free event never triggers a payment follow-up, which is why promising one
+   * on /karaoke was simply untrue.
+   */
+  const eventTakesPayment =
+    isPaidEvent || isPrepaidEvent(event) || ticketTypes.some((type) => type.price > 0)
   // Multi-type derived state.
   const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
   const multiTypeBreakdown = getSelectionBreakdown(ticketTypes, ticketQuantities)
@@ -223,6 +279,14 @@ export function ManagementEventBookingForm({
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
   const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
+  // The security check is standing between the guest and a booking they cannot
+  // otherwise make. Say so, rather than leaving a disabled button unexplained.
+  const turnstileUnavailable =
+    Boolean(turnstileSiteKey) &&
+    !result &&
+    !turnstileToken &&
+    (turnstileTimedOut || turnstileStatus === 'error' || turnstileStatus === 'unsupported')
+  const turnstileRetryable = turnstileStatus !== 'unsupported'
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -235,6 +299,35 @@ export function ManagementEventBookingForm({
       source: 'event_booking_form'
     })
   }, [event.id, event.name, event.startDate])
+
+  /**
+   * Recovery clock for the security check.
+   *
+   * Starts when the widget mounts and restarts after every expiry or retry. An
+   * expired token is routine and Cloudflare usually replaces it in well under a
+   * second, so the panel only appears if no replacement turns up: a guest who
+   * simply took their time still sees nothing. A hard error or an unsupported
+   * browser skips the wait, because neither is going to resolve itself quietly.
+   *
+   * This is a UX recovery path and nothing more. The submit button stays
+   * disabled without a token and `/api/event-bookings` still verifies every
+   * token it is given, so there is no way through here without passing.
+   */
+  useEffect(() => {
+    if (!turnstileSiteKey) return
+    // A booking already exists, so the post-submit widget reset behind the
+    // confirmation is housekeeping, not a failure the guest needs to hear about.
+    if (result) return
+
+    if (turnstileToken || turnstileStatus === 'error' || turnstileStatus === 'unsupported') {
+      setTurnstileTimedOut(false)
+      return
+    }
+
+    setTurnstileTimedOut(false)
+    const timer = window.setTimeout(() => setTurnstileTimedOut(true), TURNSTILE_RECOVERY_DELAY_MS)
+    return () => window.clearTimeout(timer)
+  }, [result, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
 
   // Adjust a ticket type's quantity within its available capacity.
   function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
@@ -504,6 +597,16 @@ export function ManagementEventBookingForm({
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
+  }
+
+  // Reset the widget and put the clock back to the start. Nothing the guest has
+  // typed is touched, so a retry costs them the click and nothing else.
+  function handleTurnstileRetry() {
+    setTurnstileToken(null)
+    setTurnstileStatus('pending')
+    setTurnstileTimedOut(false)
+    setTurnstileAttempt((attempt) => attempt + 1)
+    turnstileRef.current?.reset()
   }
 
   function handleEventPaymentSuccess() {
@@ -830,7 +933,11 @@ export function ManagementEventBookingForm({
             onChange={(event) => setEmail(event.target.value)}
             placeholder="jane@example.com"
             autoComplete="email"
-            helperText="So we can send your confirmation and any payment follow-up."
+            helperText={
+              eventTakesPayment
+                ? 'So we can send your confirmation and any payment follow-up.'
+                : 'So we can send your confirmation.'
+            }
           />
 
           <CommunicationConsentFields
@@ -853,13 +960,55 @@ export function ManagementEventBookingForm({
             />
           </div>
 
-          {TURNSTILE_SITE_KEY && (
-            <TurnstileField
-              id="event-booking-turnstile"
-              turnstileRef={turnstileRef}
-              onTokenChange={setTurnstileToken}
-              className="space-y-2"
-            />
+          {/*
+            One flow child, so the form's vertical rhythm is unchanged whether or
+            not there is anything to announce.
+          */}
+          {turnstileSiteKey && (
+            <div>
+              <TurnstileField
+                id="event-booking-turnstile"
+                turnstileRef={turnstileRef}
+                onTokenChange={setTurnstileToken}
+                onStatusChange={setTurnstileStatus}
+                // This form owns the failure message below, so the widget must
+                // not print a second one of its own above it.
+                showInlineError={false}
+                className="space-y-2"
+              />
+
+              {/*
+                Kept in the DOM at all times and left empty until there is
+                something to say. A live region added to the page at the same
+                moment as its text is routinely missed by screen readers,
+                whereas one already sitting there announces the change.
+              */}
+              <div id={TURNSTILE_RECOVERY_REGION_ID} role="status" aria-live="polite" aria-atomic="true">
+                {turnstileUnavailable ? (
+                  <div className="mt-3 space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger">
+                    <p className="font-semibold">{TURNSTILE_RECOVERY_TITLE}</p>
+                    <p>{turnstileRetryable ? TURNSTILE_RECOVERY_MESSAGE : TURNSTILE_UNSUPPORTED_MESSAGE}</p>
+                    <p>
+                      Call{' '}
+                      <PhoneLink
+                        phone={CONTACT.phone}
+                        source="event_booking_turnstile_recovery"
+                        showIcon={false}
+                        className="font-semibold underline"
+                      >
+                        01753 682707
+                      </PhoneLink>{' '}
+                      and we will book it for you.
+                    </p>
+                    {turnstileRetryable ? (
+                      <Button type="button" size="sm" variant="outline" onClick={handleTurnstileRetry}>
+                        Try the security check again
+                      </Button>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+            </div>
           )}
 
           <Button
@@ -867,7 +1016,8 @@ export function ManagementEventBookingForm({
             fullWidth
             size="lg"
             loading={loading}
-            disabled={(TURNSTILE_SITE_KEY ? !turnstileToken : false) || !ticketSelectionValid}
+            aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
+            disabled={(turnstileSiteKey ? !turnstileToken : false) || !ticketSelectionValid}
             onClick={() => {
               trackEventBookingFunnelStep({
                 step: 'cta_click',

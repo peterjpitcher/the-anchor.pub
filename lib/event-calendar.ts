@@ -162,7 +162,7 @@ function getTimeZoneOffsetMs(timeZone: string, date: Date): number {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    // h23, not `hour12: false` — an "24" hour here would roll Date.UTC() into
+    // h23, not `hour12: false`: an "24" hour here would roll Date.UTC() into
     // the next day and skew the offset by 24 hours at midnight.
     hourCycle: 'h23'
   })
@@ -221,20 +221,45 @@ function parseIsoDurationToMs(value?: string | null): number | null {
   return (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000
 }
 
-export function getEventDateRangeUtc(event: Pick<Event, 'startDate' | 'endDate' | 'duration'>): { start: Date; end: Date } {
+export type EventCalendarRange = {
+  start: Date
+  /** Null when the management API gives neither an end date nor a duration. */
+  end: Date | null
+}
+
+/**
+ * The honest range: `end` is null when the finish time is genuinely unknown.
+ *
+ * Calendar entries use this, because inventing a finish time writes a fact we
+ * do not have into somebody's diary. `getEventDateRangeUtc` keeps the two-hour
+ * assumption for the surfaces that must have an end (schema.org `endDate`, the
+ * homepage now/next logic, event sorting).
+ */
+export function getEventCalendarRangeUtc(
+  event: Pick<Event, 'startDate' | 'endDate' | 'duration'>
+): EventCalendarRange {
   const start = parseEventDateUtc(event.startDate)
 
   const explicitEnd = event.endDate ? parseEventDateUtc(event.endDate) : null
-  if (explicitEnd) {
+  if (explicitEnd && !Number.isNaN(explicitEnd.getTime())) {
     return { start, end: explicitEnd }
   }
 
   const durationMs = parseIsoDurationToMs(event.duration)
-  const end = durationMs
-    ? new Date(start.getTime() + durationMs)
-    : new Date(start.getTime() + DEFAULT_EVENT_DURATION_MINUTES * 60 * 1000)
+  if (durationMs) {
+    return { start, end: new Date(start.getTime() + durationMs) }
+  }
 
-  return { start, end }
+  return { start, end: null }
+}
+
+export function getEventDateRangeUtc(event: Pick<Event, 'startDate' | 'endDate' | 'duration'>): { start: Date; end: Date } {
+  const { start, end } = getEventCalendarRangeUtc(event)
+
+  return {
+    start,
+    end: end ?? new Date(start.getTime() + DEFAULT_EVENT_DURATION_MINUTES * 60 * 1000)
+  }
 }
 
 export function getEventLocationText(event: Pick<Event, 'location'>): string {
@@ -254,30 +279,81 @@ function formatCalendarUtc(date: Date): string {
   return date.toISOString().replace(/-|:|\.\d{3}/g, '')
 }
 
-export function buildGoogleCalendarUrl(event: Event): string {
-  const { start, end } = getEventDateRangeUtc(event)
+/**
+ * The identifier a calendar client uses to recognise an entry it already holds.
+ *
+ * It must depend only on the event, never on the moment of download, so that a
+ * second download updates the existing diary entry instead of adding a duplicate.
+ */
+export function getEventCalendarUid(event: Pick<Event, 'id' | 'slug'>): string {
+  const id = `${event.id ?? ''}`.trim() || `${event.slug ?? ''}`.trim()
+  return `${id || 'event'}@the-anchor.pub`
+}
+
+const CLOCK_TIME_PATTERN = /^\d{1,2}:\d{2}(?::\d{2})?$/
+
+/**
+ * Doors, when the API gives them, as London wall time. Never used as the
+ * calendar start: the entry starts when the event starts.
+ */
+function formatEventDoorTime(event: Pick<Event, 'doorTime' | 'doors_time' | 'startDate'>): string | null {
+  const raw = `${event.doorTime || event.doors_time || ''}`.trim()
+  if (!raw) return null
+
+  if (raw.includes('T') || raw.includes(' ')) {
+    return formatEventLocalTime(raw, { fallback: '' }) || null
+  }
+
+  if (!CLOCK_TIME_PATTERN.test(raw)) return null
+
+  // A bare clock time carries no date, so pin it to the event's own London date.
+  const localDate = getEventLocalIsoDate(event.startDate)
+  if (!localDate) return null
+
+  return formatEventLocalTime(`${localDate}T${raw}`, { fallback: '' }) || null
+}
+
+function buildCalendarDescription(event: Event, eventUrl: string): string {
+  const summary = event.shortDescription || event.description || 'Event at The Anchor'
+  const doorTime = formatEventDoorTime(event)
+
+  return [summary, doorTime ? `Doors from ${doorTime}.` : null, `More info: ${eventUrl}`]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+export function buildGoogleCalendarUrl(event: Event): string | null {
+  const { start, end } = getEventCalendarRangeUtc(event)
+  if (Number.isNaN(start.getTime())) return null
+
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   const location = getEventLocationText(event)
-  const description = `${event.shortDescription || event.description || 'Event at The Anchor'}\n\nMore info: ${eventUrl}`
+  const description = buildCalendarDescription(event, eventUrl)
+  // Google's template needs both halves of `dates`. With no known finish we
+  // repeat the start rather than invent one, which Google shows as a point in
+  // the day for the visitor to stretch if they want to.
+  const finish = end && !Number.isNaN(end.getTime()) ? end : start
 
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${formatCalendarUtc(start)}/${formatCalendarUtc(end)}&location=${encodeURIComponent(location)}&details=${encodeURIComponent(description)}`
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${formatCalendarUtc(start)}/${formatCalendarUtc(finish)}&location=${encodeURIComponent(location)}&details=${encodeURIComponent(description)}`
 }
 
 function escapeIcsText(value: string): string {
   return value
     .replace(/\\/g, '\\\\')
-    .replace(/\r?\n/g, '\\n')
+    // A lone CR is a line break too, and an unescaped one splits the property.
+    .replace(/\r\n|\r|\n/g, '\\n')
     .replace(/,/g, '\\,')
     .replace(/;/g, '\\;')
 }
 
 export function buildEventIcs(event: Event): string {
-  const { start, end } = getEventDateRangeUtc(event)
-  const url = getEventWebsiteUrl(event, { absolute: true })
-  const location = getEventLocationText(event)
-  const description = `${event.shortDescription || event.description || 'Event at The Anchor'}\n\nMore info: ${url}`
-  const uid = `${event.id}@the-anchor.pub`
   const dtstamp = formatCalendarUtc(new Date())
+  const eventLines = buildVEventLines(event, dtstamp)
+  if (!eventLines) {
+    // The route turns this into a 404. Handing back an empty calendar file
+    // would look like a successful download of nothing.
+    throw new Error(`Event ${event.id || event.slug || 'unknown'} has no usable start date for a calendar entry`)
+  }
 
   const lines = [
     'BEGIN:VCALENDAR',
@@ -285,16 +361,7 @@ export function buildEventIcs(event: Event): string {
     'PRODID:-//The Anchor//Events//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `UID:${escapeIcsText(uid)}`,
-    `DTSTAMP:${dtstamp}`,
-    `DTSTART:${formatCalendarUtc(start)}`,
-    `DTEND:${formatCalendarUtc(end)}`,
-    `SUMMARY:${escapeIcsText(event.name)}`,
-    `DESCRIPTION:${escapeIcsText(description)}`,
-    `LOCATION:${escapeIcsText(location)}`,
-    `URL:${escapeIcsText(url)}`,
-    'END:VEVENT',
+    ...eventLines,
     'END:VCALENDAR'
   ]
 
@@ -308,20 +375,22 @@ type EventsCalendarIcsOptions = {
 }
 
 function buildVEventLines(event: Event, dtstamp: string): string[] | null {
-  const { start, end } = getEventDateRangeUtc(event)
-  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return null
+  const { start, end } = getEventCalendarRangeUtc(event)
+  if (Number.isNaN(start.getTime())) return null
 
   const url = getEventWebsiteUrl(event, { absolute: true })
   const location = getEventLocationText(event)
-  const description = `${event.shortDescription || event.description || 'Event at The Anchor'}\n\nMore info: ${url}`
-  const uid = `${event.id}@the-anchor.pub`
+  const description = buildCalendarDescription(event, url)
+  const knownEnd = end && !Number.isNaN(end.getTime()) ? end : null
 
   return [
     'BEGIN:VEVENT',
-    `UID:${escapeIcsText(uid)}`,
+    `UID:${escapeIcsText(getEventCalendarUid(event))}`,
     `DTSTAMP:${dtstamp}`,
     `DTSTART:${formatCalendarUtc(start)}`,
-    `DTEND:${formatCalendarUtc(end)}`,
+    // No DTEND at all when the finish is unknown. RFC 5545 reads that as an
+    // event with no duration, which is honest; a made-up finish time is not.
+    ...(knownEnd ? [`DTEND:${formatCalendarUtc(knownEnd)}`] : []),
     `SUMMARY:${escapeIcsText(event.name)}`,
     `DESCRIPTION:${escapeIcsText(description)}`,
     `LOCATION:${escapeIcsText(location)}`,

@@ -108,10 +108,10 @@ Standing rules: capacities always from the management app; no em dashes in custo
 
 ## Package 1: close out Wave 1
 
-- [ ] P1.1 Rename `REGULAR_NIGHTS` to `HUB_NIGHTS` in `app/whats-on/page.tsx`. The constant now holds a night that is explicitly not regular, which contradicts the SSOT. Resolves review finding R21.
-- [ ] P1.2 Add the Jest case EV-001 promised: all four game routes resolve their sticky CTA to `#book`.
-- [ ] P1.3 Verify the four-card "Our nights" grid at a real desktop width. The earlier check returned `innerWidth: 0` from a hidden pane and proved nothing.
-- [ ] P1.4 Gate: lint, typecheck, both zones, build. Commit Package 1.
+- [x] P1.1 Rename `REGULAR_NIGHTS` to `HUB_NIGHTS` in `app/whats-on/page.tsx`. The constant now holds a night that is explicitly not regular, which contradicts the SSOT. Resolves review finding R21.
+- [x] P1.2 Add the Jest case EV-001 promised: all four game routes resolve their sticky CTA to `#book`.
+- [ ] P1.3 Verify the four-card "Our nights" grid at a real desktop width. The earlier check returned `innerWidth: 0` from a hidden pane and proved nothing. **Still outstanding.**
+- [x] P1.4 Gate: lint, typecheck, both zones, build. Commit Package 1. Committed as `fix(events): stop the Christmas overlay covering event booking CTAs`, 12 files, the other session's two files correctly excluded.
 
 ## Package 2: booking and feed reliability
 
@@ -120,7 +120,7 @@ Standing rules: capacities always from the management app; no em dashes in custo
 - [ ] P2.3 EV-003. Test injects the failure **beneath the API helper**, not at the page import, and asserts the user sees the failure and the phone number. Second test asserts genuine-empty still reads as an empty diary.
 - [ ] P2.4 EV-016. Implement the Turnstile recovery contract in spec §7.5: 10s timeout, accessible message plus phone number, input retained, retry that resets the widget, late token clears the message. Never bypass server validation.
 - [ ] P2.5 EV-016. Tests: script blocked, delayed token, expiry then retry success, verification outage.
-- [ ] P2.6 EV-009 (partial). Delete `lib/static-events.ts` after confirming no dynamic import. Leave the availability route alone: its deletion needs owner sign-off.
+- [~] P2.6 EV-009. **Not done, deliberately.** `lib/static-events.ts` has no importer, but the owner declined an equivalent dead-code cleanup in September 2026 (`careers dead code kept`), and `SSOT.json` `meta.sources` still cites the file as a provenance record. Deleting it would leave a dangling reference in the SSOT. Flagged for the owner rather than removed. The availability route deletion already needed owner sign-off and is untouched.
 - [ ] P2.7 Gate and commit Package 2.
 
 ## Package 3: factual presentation
@@ -159,3 +159,39 @@ Needs owner sign-off on external callers: EV-009 availability route deletion.
 ## Definition of done for every package
 
 Lint zero warnings, typecheck, Jest in Europe/London and UTC, production build, plus the acceptance rows in spec §19 that the package touches. Browser verification with a negative control where the change is a suppression or a conditional. No deployment.
+
+## Progress log
+
+**Package 1 committed.** Lint clean, typecheck clean, 191 suites and 2,097 tests in both zones, production build clean. Typecheck caught an incomplete rename that the whole Jest suite missed, which is a reminder that tests alone are not the gate here.
+
+Both new tests were negative-tested: the fix was reverted, the test was confirmed to fail, then restored. A test that passes without the fix present would prove nothing.
+
+**Wave 1 launched**, five agents on strictly disjoint library files so none can collide:
+- A1 `lib/api/events.ts`, read-failure contract. Reuses the existing `lib/api/error-kind.ts` rather than inventing a second taxonomy.
+- A2 `lib/structured-data/event-schema.ts` and `lib/event-image.ts`, organiser URL, absolute URLs, category image fallback.
+- A3 new `lib/text/` adapter, bounded em dash normalisation on named prose fields only.
+- A4 `lib/event-presentation.ts`, `lib/event-calendar.ts`, new AddToCalendar component behind a lifecycle flag.
+- A5 `ManagementEventBookingForm.tsx`, Turnstile recovery and the free-event email helper.
+
+Wave 2 will mount these on the pages, one agent per page file, because `app/events/[id]/page.tsx`, `app/whats-on/page.tsx` and the booking form are each touched by more than one package and cannot be worked in parallel.
+
+### Wave 1 gate, running record
+
+- **A3 prose adapter: accepted.** `lib/text/normalise-api-prose.ts`, 28 tests, negative test failed 14 of 28 when stubbed. Correctly declined to touch en dashes, which carry ranges elsewhere in the codebase. Added `shortDescription` beyond the brief because the JSON-LD `disambiguatingDescription` derives from it.
+- **A1 read-failure contract: accepted.** `EventsReadResult` with `ok` / `partial` / `unavailable` plus a `failure` reason. Existing helpers kept as backwards-compatible wrappers, all 10 callers checked. Negative test failed 19 of 32 when reverted. Two things beyond the brief: it found `invalid-payload`, a 200 whose body is not an events list, which `error-kind` structurally cannot see because nothing throws; and it fixed a real date bug where `from_date` used `toISOString().split('T')[0]` and so asked from yesterday between midnight and 1am BST.
+- **A2 schema and images: accepted.** Organiser guarded, every schema URL absolutised, category image fallback map. Found an adjacent defect its own tests exposed: `sanitiseMainEntityOfPage` checked category paths but never the management host. Verified on the rendered page: no management URL anywhere in the graph, organiser is the public site, image absolute and category-appropriate, `doorTime` still absent.
+- **EV-006 website half, done by the orchestrator** once `event-schema.ts` was free. The schema asserted an invented Organization called "The Anchor Entertainment" whenever a record carried no performer. Now omitted. Deliberately no heuristic for a performer that is present but wrong: quiz nights take guest hosts and karaoke has no fixed host, so a guess would overwrite legitimate values. Four tests added, negative-tested.
+- **Pre-existing em dash** removed from a comment in `lib/api/events.ts`.
+
+Noted for EV-034, not a blocker: every category fallback photo is 640x480 or smaller. All clear Google's 50,000 pixel minimum for Event images, none reaches the recommended 1920px width. The neutral fallback is the only 1920x1080 asset.
+
+Still outstanding at this gate: A4 presentation flags and calendar, A5 Turnstile recovery.
+
+- **A4 presentation and calendar: accepted.** `showAddToCalendar` flag plus a self-gating `AddToCalendar` component. Found three real defects beyond the brief: `getEventDateRangeUtc` invented a two-hour end time when an event had neither `endDate` nor `duration`; an unparseable `endDate` threw a RangeError instead of being treated as unknown; `escapeIcsText` missed a lone carriage return. Distinguished postponed (no calendar, the listed date is the night not happening) from rescheduled (calendar, `startDate` already carries the new date). Orchestrator added the draft exclusion on its recommendation, with a test.
+- **A5 Turnstile recovery: accepted.** 10 second timeout, accessible live region rendered empty from first paint, retained input, retry, late token clears the message, unsupported browser gets no retry. Both new `TurnstileField` props are optional and `showInlineError` defaults true, so all seven other forms are behaviourally identical. Free events no longer promise a payment follow-up. Negative tests failed 5, 1 and 2 across three separate reverts.
+
+**Wave 1 gate: PASS.** Lint zero warnings, typecheck clean, 197 suites and 2,246 tests in both Europe/London and UTC, production build compiled.
+
+The 500s two agents reported on `/api/calendar/event/[id]` were a stale `.next` cache, not their code: the untouched `/api/events/[id]` failed identically and `vendor-chunks/cookie.js` was genuinely absent. Cleared `.next`, restarted the dev server, and all three routes now return 200. Generated ICS verified live: stable domain-scoped UID, `DTSTART` 18:00Z for a 7pm BST event, `DTEND` 20:30Z matching the SSOT quiz finish, canonical `www.the-anchor.pub` URL, escaped comma, no management URL.
+
+Two pre-existing em dashes removed from comments, in `lib/api/events.ts` and `lib/event-calendar.ts`.
