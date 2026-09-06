@@ -358,11 +358,23 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 ### Accessibility
 
-- Step-free: bar (yes), dining area (yes), car park (yes).
-- Beer garden: steps from bar, but ramp available on request.
+- Step-free: bar (yes), dining area (yes), car park (yes). Getting in from the
+  car park is step free.
+- Beer garden: step free from the car park, but there is **one large step
+  between the garden and the bar**. That step is the only one inside the venue.
+- **We have exactly one ramp, and it is not a permanent fixture.** Staff put it
+  out on request, for that step between the garden and the bar. Owner-confirmed
+  5 September 2026. Never describe the pub as having "ramp access" as though a
+  ramp is always in place, and never imply there is more than one.
 - Accessible toilet: **NO**.
 - Assistance dogs: always welcome.
 - Encourage guests to call ahead to plan their visit.
+
+**Writing rule.** "The garden is step free" on its own is incomplete and has
+already shipped in that form. It is true from the car park and false from the
+bar, and the guest reading it is usually the one person for whom that
+difference decides the visit. State the route: step free from the car park, one
+step from the bar, ramp on request.
 
 ### Family facilities
 
