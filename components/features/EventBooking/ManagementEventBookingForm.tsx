@@ -1,7 +1,5 @@
 'use client'
 
-import type { EventDiningRequest } from '@/lib/api/events'
-
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
@@ -159,7 +157,6 @@ export function ManagementEventBookingForm({
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
-  const [diningRequest, setDiningRequest] = useState<EventDiningRequest | ''>('')
   const [earlyArrivalRequest, setEarlyArrivalRequest] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -387,7 +384,6 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
-          ...(diningRequest ? { dining_request: diningRequest, food_intent: diningRequest } : {}),
           ...(earlyArrivalRequest ? { early_arrival_request: true } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
@@ -452,7 +448,7 @@ export function ManagementEventBookingForm({
           eventDate: event.startDate,
           tickets: clampedSeats,
           value: totalValue,
-          foodIntent: diningRequest || null,
+          foodIntent: null,
           attribution,
           // Consent-gated inside PayPalEventPaymentSection; hashed server-side.
           email: resolvedEmail || null,
@@ -914,25 +910,12 @@ export function ManagementEventBookingForm({
           />
 
           <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
-            <legend className="px-1 text-sm font-semibold">Food and arrival (optional)</legend>
-            <label className="block text-sm font-medium">
-              Would you like to discuss food?
-              <select
-                value={diningRequest}
-                onChange={(event) => setDiningRequest(event.target.value as EventDiningRequest | '')}
-                className="mt-1 block w-full rounded-sm border border-line bg-surface p-2 text-ink"
-              >
-                <option value="">No request</option>
-                <option value="before_event">Ask about food before the event</option>
-                <option value="during_event">Ask about food during the event</option>
-                <option value="not_sure">Discuss food options</option>
-              </select>
-            </label>
+            <legend className="px-1 text-sm font-semibold">Early arrival (optional)</legend>
             <label className="flex items-start gap-2 text-sm">
               <input type="checkbox" checked={earlyArrivalRequest} onChange={(event) => setEarlyArrivalRequest(event.target.checked)} className="mt-1" />
               I would like to discuss arriving early
             </label>
-            <p className="text-sm text-ink-muted">These are requests only. Food availability and arrival arrangements need to be agreed with the team. This does not make a separate dining booking.</p>
+            <p className="text-sm text-ink-muted">Early arrival is a request only and needs to be agreed with the team.</p>
           </fieldset>
 
           <CommunicationConsentFields
@@ -998,8 +981,8 @@ export function ManagementEventBookingForm({
           <Alert variant="success" title="Event booking confirmed">
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
             {submittedBreakdownBlock}
-            {!result.requests_recorded && (diningRequest || earlyArrivalRequest) && <p className="mt-2">Your event booking has been processed, but we could not confirm that your food or early-arrival request was recorded. Please contact us about these arrangements.</p>}
-            {result.requests_recorded && <p className="mt-2">Your food or early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
+            {!result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your event booking has been processed, but we could not confirm that your early-arrival request was recorded. Please contact us about these arrangements.</p>}
+            {result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
             ) : null}
@@ -1019,8 +1002,8 @@ export function ManagementEventBookingForm({
           <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
             <p>Your {submittedTicketLabel} are currently on hold.</p>
             {submittedBreakdownBlock}
-            {!result.requests_recorded && (diningRequest || earlyArrivalRequest) && <p className="mt-2">Your event booking has been processed, but we could not confirm that your food or early-arrival request was recorded. Please contact us about these arrangements.</p>}
-            {result.requests_recorded && <p className="mt-2">Your food or early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
+            {!result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your event booking has been processed, but we could not confirm that your early-arrival request was recorded. Please contact us about these arrangements.</p>}
+            {result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
             ) : null}
