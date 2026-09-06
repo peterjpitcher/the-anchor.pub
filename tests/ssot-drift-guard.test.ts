@@ -310,6 +310,15 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
   it('inclusions and trimmings are pinned', () => {
     expect(xmas.included.adults).toContain('prosecco')
     expect(xmas.included.adults).toContain('orange juice')
+    // Owner-corrected 15 August 2026, and wrong in SSOT.json until 6 September
+    // 2026. The "all three tiers" wording reached the live page and two
+    // marketing emails before it was caught the first time, so the tier
+    // restriction is pinned in both directions: it must be stated, and the
+    // retracted wording must not reappear anywhere in the SSOT.
+    expect(xmas.included.adults).toContain('2 and 3 course')
+    expect(xmas.included.adults).not.toMatch(/all three tiers/i)
+    expect(JSON.stringify(ssot)).not.toMatch(/prosecco[^"]*all three (?:Christmas )?tiers/i)
+    expect(mdPlain).not.toMatch(/prosecco[^.]*all three tiers/i)
     expect(xmas.included.children).toContain('Fruit Shoot')
     expect(xmas.trimmings).toEqual([
       'Pigs in blankets',

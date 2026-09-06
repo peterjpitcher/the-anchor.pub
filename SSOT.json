@@ -808,7 +808,7 @@
     {
       "name": "Bundle A",
       "description": "Prosecco plus coffee and mince pie bundle",
-      "status": "DISCONTINUED as of 2026-07-21. Adults now get a glass of prosecco, swappable for orange juice, included on all three Christmas tiers."
+      "status": "DISCONTINUED as of 2026-07-21. Adults now get a glass of prosecco, swappable for orange juice, included on the 2 and 3 course Christmas tiers only."
     },
     {
       "name": "Standalone Christmas drinks bundles",
@@ -1259,7 +1259,7 @@
       "weekend": "Friday to Saturday"
     },
     "included": {
-      "adults": "A glass of prosecco on all three tiers, swappable for orange juice.",
+      "adults": "A glass of prosecco on the 2 and 3 course tiers only, swappable for orange juice. The 1 course tier does not include a drink for adults.",
       "children": "A Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course."
     },
     "trimmings": [
