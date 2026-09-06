@@ -276,9 +276,15 @@ export default function WraysburyPubPage() {
                 <Link href="/private-hire#enquiry">
                     <Button variant="outline" size="lg">Book an Event</Button>
                 </Link>
-                <Link href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">
-                    <Button variant="outline" size="lg">Get Directions</Button>
-                </Link>
+                <DirectionsButton
+                    href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    source="wraysbury_cta_band_directions"
+                    variant="outline"
+                    size="lg"
+                    fromLocation="Wraysbury"
+                >
+                    Get Directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )
