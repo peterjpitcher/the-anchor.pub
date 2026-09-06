@@ -270,15 +270,15 @@ export default function WraysburyPubPage() {
                 title="Worth the 5 Minute Drive"
                 copy="Experience the best hospitality in the area at The Anchor."
             >
-                <Link href={CONTACT.phoneHref}>
-                    <Button variant="primary" size="lg">Book a Table</Button>
-                </Link>
-                <Link href="/private-hire#enquiry">
-                    <Button variant="outline" size="lg">Book an Event</Button>
-                </Link>
-                <Link href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">
-                    <Button variant="outline" size="lg">Get Directions</Button>
-                </Link>
+                <Button asChild variant="primary" size="lg">
+                    <Link href={CONTACT.phoneHref}>Book a Table</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/private-hire#enquiry">Book an Event</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get Directions</Link>
+                </Button>
             </CtaBand>
         </>
     )

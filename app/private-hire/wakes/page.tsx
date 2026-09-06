@@ -131,11 +131,11 @@ export default async function WakesPage() {
                         >
                             Call to Discuss Arrangements
                         </PhoneButton>
-                        <Link href="#enquiry">
-                            <Button variant="outline" size="lg" fullWidth>
+                        <Button asChild variant="outline" size="lg" fullWidth>
+                            <Link href="#enquiry">
                                 Enquire Online
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </>
                 }
             />
@@ -447,9 +447,9 @@ export default async function WakesPage() {
                     <PhoneButton phone="01753 682707" size="lg" variant="primary" source="wakes_cta_bottom">Call 01753 682707</PhoneButton>
                 }
                 secondary={
-                    <Link href="mailto:manager@the-anchor.pub?subject=Wake Enquiry" className="inline-block">
-                        <Button variant="outline" size="lg">Email Us</Button>
-                    </Link>
+                    <Button asChild variant="outline" size="lg">
+                        <Link href="mailto:manager@the-anchor.pub?subject=Wake Enquiry">Email Us</Link>
+                    </Button>
                 }
             />
         </>

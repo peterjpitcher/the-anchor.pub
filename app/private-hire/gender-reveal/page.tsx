@@ -80,11 +80,11 @@ export default function GenderRevealPage() {
                 lead="The perfect setting to share your exciting news"
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Enquire Now
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton phone={CONTACT.phone} source="reveal_hero" variant="outline" size="lg">
                             Call {CONTACT.phone}
                         </PhoneButton>
@@ -343,11 +343,11 @@ export default function GenderRevealPage() {
                 title="Ready to Pop the Question?"
                 copy="(The gender question, that is!) Book your reveal today."
                 primary={
-                    <Link href="/private-hire#enquiry">
-                        <Button variant="primary" size="lg">
+                    <Button asChild variant="primary" size="lg">
+                        <Link href="/private-hire#enquiry">
                             Enquire Now
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 }
                 secondary={
                     <PhoneButton phone={CONTACT.phone} source="reveal_cta" variant="outline" size="lg">

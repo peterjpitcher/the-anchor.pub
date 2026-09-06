@@ -91,11 +91,11 @@ export default function NearHeathrowPage() {
             <BookTableButton source="near_heathrow_hero" variant="primary" size="lg">
               Book a table
             </BookTableButton>
-            <Link href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg" icon={<MapPin className="h-5 w-5" strokeWidth={2} />}>
+            <Button asChild variant="outline" size="lg" icon={<MapPin className="h-5 w-5" strokeWidth={2} />}>
+              <Link href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
                 Get directions
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -236,11 +236,11 @@ export default function NearHeathrowPage() {
           </BookTableButton>
         }
         secondary={
-          <Link href="/food-menu">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/food-menu">
               See the menu
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
       />
 

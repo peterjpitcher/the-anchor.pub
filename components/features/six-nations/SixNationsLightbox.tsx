@@ -169,32 +169,33 @@ export function SixNationsLightbox() {
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        <Link href="/book-table" className="w-full" onClick={() => {
-                            trackFormStart({ formName: 'six_nations_lightbox' })
-                            recordEngagement('primary_cta')
-                            requestClose('cta')
-                        }}>
-                            <Button
-                                variant="primary"
-                                size="lg"
-                                className="w-full justify-center"
-                                asChild={false} // Default
-                            >
+                        <Button
+                            asChild
+                            variant="primary"
+                            size="lg"
+                            className="w-full justify-center"
+                        >
+                            <Link href="/book-table" className="w-full" onClick={() => {
+                                trackFormStart({ formName: 'six_nations_lightbox' })
+                                recordEngagement('primary_cta')
+                                requestClose('cta')
+                            }}>
                                 Book a Table Now
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
 
-                        <Link href="/live-sport/six-nations" className="w-full" onClick={() => {
-                            recordEngagement('secondary_cta')
-                            requestClose('cta')
-                        }}>
-                            <Button
-                                variant="outline"
-                                className="w-full justify-center"
-                            >
+                        <Button
+                            asChild
+                            variant="outline"
+                            className="w-full justify-center"
+                        >
+                            <Link href="/live-sport/six-nations" className="w-full" onClick={() => {
+                                recordEngagement('secondary_cta')
+                                requestClose('cta')
+                            }}>
                                 View Fixtures & Info
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
 
                     <p className="text-xs text-center text-ink-muted">

@@ -325,11 +325,11 @@ export default async function FoodMenuPage() {
             >
               Book a table
             </BookTableButton>
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/whats-on" className="w-full sm:w-auto">
                 What&apos;s on
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -403,11 +403,11 @@ export default async function FoodMenuPage() {
             </BookTableButton>
           }
           secondary={
-            <Link href="/find-us">
-              <Button variant="outline" size="lg">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/find-us">
                 Find us
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           }
         />
       </div>

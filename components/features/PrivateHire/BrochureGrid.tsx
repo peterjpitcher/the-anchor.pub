@@ -30,31 +30,35 @@ export function BrochureGrid({ source }: BrochureGridProps) {
             <p className="text-sm text-ink-muted">
               {`PDF, ${brochure.pages} pages, ${brochure.sizeLabel}`}
             </p>
-            <a
-              href={brochure.file}
-              target="_blank"
-              rel="noopener"
-              onClick={() =>
-                trackBrochureDownload({
-                  brochure: brochure.key,
-                  source,
-                  file: brochure.file,
-                })
-              }
-              className="mt-auto pt-2"
-            >
+            {/* The spacing stays on a wrapper: merged onto the anchor, pt-2 would
+                pad the inside of the pill rather than the space above it. */}
+            <div className="mt-auto pt-2">
               <Button
+                asChild
                 variant="outline"
                 size="md"
                 fullWidth
                 icon={<Icon name="download" />}
               >
-                Download
+                <a
+                  href={brochure.file}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() =>
+                    trackBrochureDownload({
+                      brochure: brochure.key,
+                      source,
+                      file: brochure.file,
+                    })
+                  }
+                >
+                  Download
+                  <span className="sr-only">
+                    {` ${brochure.title}. Opens in a new tab.`}
+                  </span>
+                </a>
               </Button>
-              <span className="sr-only">
-                {` ${brochure.title}. Opens in a new tab.`}
-              </span>
-            </a>
+            </div>
           </CardBody>
         </Card>
       ))}

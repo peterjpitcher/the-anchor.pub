@@ -25,17 +25,18 @@ export function PhoneButton({
   const formattedPhone = phone.replace(/\s/g, '').replace(/^01753/, '+441753')
   
   return (
-    <Link 
-      href={`tel:${formattedPhone}`}
-      onClick={() => trackPhoneCallClick({ phone, source })}
+    <Button
+      asChild
+      variant={variant}
+      size={size}
+      className={className}
     >
-      <Button 
-        variant={variant}
-        size={size}
-        className={className}
+      <Link
+        href={`tel:${formattedPhone}`}
+        onClick={() => trackPhoneCallClick({ phone, source })}
       >
         {children || `Call ${phone}`}
-      </Button>
-    </Link>
+      </Link>
+    </Button>
   )
 }

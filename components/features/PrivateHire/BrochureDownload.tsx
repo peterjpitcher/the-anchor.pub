@@ -58,18 +58,18 @@ export function BrochureDownload({
                 </p>
               </div>
             </div>
-            <a
-              href={file}
-              target="_blank"
-              rel="noopener"
-              onClick={() => trackBrochureDownload({ brochure, source, file })}
-              className="shrink-0"
-            >
-              <Button variant="primary" size="lg" icon={<Icon name="download" />}>
+            <Button asChild variant="primary" size="lg" icon={<Icon name="download" />}>
+              <a
+                href={file}
+                target="_blank"
+                rel="noopener"
+                onClick={() => trackBrochureDownload({ brochure, source, file })}
+                className="shrink-0"
+              >
                 Download
-              </Button>
-              <span className="sr-only">{` ${title}. ${meta}. Opens in a new tab.`}</span>
-            </a>
+                <span className="sr-only">{` ${title}. ${meta}. Opens in a new tab.`}</span>
+              </a>
+            </Button>
           </div>
         </div>
       </Container>

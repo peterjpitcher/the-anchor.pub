@@ -190,16 +190,16 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
             Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/find-us">
-              <Button variant="primary" size="lg">
+            <Button asChild variant="primary" size="lg">
+              <Link href="/find-us">
                 Get Directions
-              </Button>
-            </Link>
-            <Link href="/whats-on">
-              <Button variant="outline" size="lg">
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/whats-on">
                 See What&apos;s On
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </Container>
       </section>

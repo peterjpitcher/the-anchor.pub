@@ -281,11 +281,11 @@ export default async function BlogPage({
                   <div className="flex justify-center items-center gap-2">
                     {/* Previous button */}
                     {currentPage > 1 && (
-                      <Link href={`/blog?page=${currentPage - 1}`}>
-                        <Button variant="outline" size="sm">
+                      <Button asChild variant="outline" size="sm">
+                        <Link href={`/blog?page=${currentPage - 1}`}>
                           ← Previous
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     )}
 
                     {/* Page numbers */}
@@ -293,11 +293,11 @@ export default async function BlogPage({
                       {/* First page */}
                       {currentPage > 3 && (
                         <>
-                          <Link href="/blog">
-                            <Button variant="outline" size="sm">
+                          <Button asChild variant="outline" size="sm">
+                            <Link href="/blog">
                               1
-                            </Button>
-                          </Link>
+                            </Link>
+                          </Button>
                           {currentPage > 4 && <span className="px-2 py-2 text-ink-muted">...</span>}
                         </>
                       )}
@@ -309,39 +309,38 @@ export default async function BlogPage({
                           return distance <= 2
                         })
                         .map(page => (
-                          <Link
+                          <Button
                             key={page}
-                            href={page === 1 ? '/blog' : `/blog?page=${page}`}
+                            asChild
+                            variant={page === currentPage ? 'primary' : 'outline'}
+                            size="sm"
                           >
-                            <Button
-                              variant={page === currentPage ? 'primary' : 'outline'}
-                              size="sm"
-                            >
+                            <Link href={page === 1 ? '/blog' : `/blog?page=${page}`}>
                               {page}
-                            </Button>
-                          </Link>
+                            </Link>
+                          </Button>
                         ))}
 
                       {/* Last page */}
                       {currentPage < totalPages - 2 && (
                         <>
                           {currentPage < totalPages - 3 && <span className="px-2 py-2 text-ink-muted">...</span>}
-                          <Link href={`/blog?page=${totalPages}`}>
-                            <Button variant="outline" size="sm">
+                          <Button asChild variant="outline" size="sm">
+                            <Link href={`/blog?page=${totalPages}`}>
                               {totalPages}
-                            </Button>
-                          </Link>
+                            </Link>
+                          </Button>
                         </>
                       )}
                     </div>
 
                     {/* Next button */}
                     {currentPage < totalPages && (
-                      <Link href={`/blog?page=${currentPage + 1}`}>
-                        <Button variant="outline" size="sm">
+                      <Button asChild variant="outline" size="sm">
+                        <Link href={`/blog?page=${currentPage + 1}`}>
                           Next →
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     )}
                   </div>
                 )}
@@ -354,11 +353,11 @@ export default async function BlogPage({
             ) : (
               <div className="text-center py-12">
                 <p className="text-ink-muted mb-4">No blog posts yet. Check back soon!</p>
-                <Link href="/">
-                  <Button variant="primary">
+                <Button asChild variant="primary">
+                  <Link href="/">
                     Back to Home
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             )}
           </div>
@@ -375,16 +374,16 @@ export default async function BlogPage({
             Don&apos;t miss out on our latest news and events. Visit us for the full experience!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
+            <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
+              <Link href="/whats-on" className="w-full sm:w-auto">
                 View Upcoming Events
-              </Button>
-            </Link>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" fullWidth className="sm:w-auto">
+              <Link href="/find-us" className="w-full sm:w-auto">
                 Visit Us Today
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </Container>
       </section>

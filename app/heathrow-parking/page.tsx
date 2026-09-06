@@ -358,11 +358,11 @@ export default async function HeathrowParkingPage() {
         }
         actions={
           <>
-            <Link href="#book-parking">
-              <Button size="lg" variant="primary" fullWidth>
+            <Button asChild size="lg" variant="primary" fullWidth>
+              <Link href="#book-parking">
                 Book Heathrow parking now
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <PhoneButton phone={CONTACT.phone} source="heathrow-parking_cta" variant="outline" size="lg">
               Speak to the team {CONTACT.phone}
             </PhoneButton>
@@ -417,16 +417,16 @@ export default async function HeathrowParkingPage() {
               </Card>
             </div>
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
-              <Link href="#price-comparison">
-                <Button variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg">
+                <Link href="#price-comparison">
                    View the Heathrow price comparison
-                </Button>
-              </Link>
-              <Link href="#book-parking">
-                <Button variant="primary" size="lg">
+                </Link>
+              </Button>
+              <Button asChild variant="primary" size="lg">
+                <Link href="#book-parking">
                    Book the cheapest Heathrow parking
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -693,9 +693,9 @@ export default async function HeathrowParkingPage() {
         title="Ready to lock in Heathrow airport parking?"
         copy="Tap the button to reserve and pay now, or call our Stanwell Moor team if you need a bespoke long stay parking package. Remember you will need to organise your own transfer (taxi or 442 bus), keep your keys and understand parking is left at the owner's risk."
       >
-        <Link href="#book-parking">
-          <Button variant="primary" size="lg">Book Heathrow parking</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="#book-parking">Book Heathrow parking</Link>
+        </Button>
         <PhoneButton phone={CONTACT.phone} source="heathrow_parking_cta" variant="outline" size="lg">
           Call {CONTACT.phone}
         </PhoneButton>

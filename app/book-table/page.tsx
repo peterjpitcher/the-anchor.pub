@@ -230,11 +230,11 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                 >
                   Call 01753 682707
                 </PhoneButton>
-                <Link href="/food-menu" className="block">
-                  <Button variant="outline" className="w-full">
+                <Button asChild variant="outline" className="w-full">
+                  <Link href="/food-menu">
                     View food menu
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </Card>
 

@@ -340,14 +340,15 @@ export default function FelthamPubPage() {
                   Competitive rates - let's discuss your needs. Private hire for 10+ to 150 guests, with larger events by enquiry.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/private-hire">
-                    <Button
-                      variant="primary"
-                      size="md"
-                    >
+                  <Button
+                    asChild
+                    variant="primary"
+                    size="md"
+                  >
+                    <Link href="/private-hire">
                       Party Venue Info
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <PhoneButton
                     phone="01753 682707"
                     source="feltham_pub_event_quote"
@@ -356,14 +357,15 @@ export default function FelthamPubPage() {
                   >
                      Quick Quote
                   </PhoneButton>
-                  <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                    <Button
-                      variant="outline"
-                      size="md"
-                    >
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="md"
+                  >
+                    <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                        WhatsApp
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </CardBody>
             </Card>
@@ -450,18 +452,18 @@ export default function FelthamPubPage() {
         title="Experience the Difference"
         copy="See why so many Feltham residents make the short journey to The Anchor"
       >
-        <Link href="/book-table">
-          <Button variant="primary" size="lg">Book a Table</Button>
-        </Link>
-        <Link href="tel:+441753682707">
-          <Button variant="outline" size="lg">Call: 01753 682707</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
-        <Link href="/find-us">
-          <Button variant="outline" size="lg">Get Directions</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/book-table">Book a Table</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="tel:+441753682707">Call: 01753 682707</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/find-us">Get Directions</Link>
+        </Button>
       </CtaBand>
     </>
   )
