@@ -181,11 +181,11 @@ export default async function DrinksMenuPage() {
             >
               Reserve a Table
             </BookTableButton>
-            <Link href="#menu" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="#menu" className="w-full sm:w-auto">
                 Jump to Menu
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -474,11 +474,11 @@ export default async function DrinksMenuPage() {
         <PhoneButton phone={CONTACT.phone} source="drinks_cta" size="lg" variant="outline">
           Call Us
         </PhoneButton>
-        <Link href="/food-menu#pizza">
-          <Button size="lg" variant="outline">
+        <Button asChild size="lg" variant="outline">
+          <Link href="/food-menu#pizza">
             Pizza Menu
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </CtaBand>
     </>
   )
