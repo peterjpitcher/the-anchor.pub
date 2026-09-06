@@ -53,6 +53,6 @@ Gates on every wave: typecheck clean, 1,906 tests passing in both Europe/London 
 
 1. **A `special_hours` row for 2026-12-25 in the management app.** 25 December is a Friday and there is no record, so the site resolves it to regular Friday hours with a kitchen open until 21:00. The website now says drinks only 12pm to 3pm, so the two sources currently disagree. This is production data in the other repository.
 2. **`/blog/christmas-market` stays noindexed.** No 2026 market exists in the events data.
-3. **`content/blog/christmas-events/hero.jpg`** is no longer referenced but is still reachable at its public URL, and still advertises Christmas karaoke and a Christmas market with 2023 dates.
+3. ~~`content/blog/christmas-events/hero.jpg`~~ **Deleted 6 September 2026 at the owner's instruction.** It was a Christmas 2023 schedule graphic advertising Christmas karaoke and a Christmas market, still serving HTTP 200 at its public URL. Nothing referenced it after the post was rewritten.
 4. **Sunday's minimum party size** stays at 6, unchanged and unassumed.
 5. **Boxing Day, Christmas Eve and New Year's Day** hours remain unconfirmed and are stated nowhere.
