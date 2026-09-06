@@ -82,3 +82,13 @@ Owner approved website production deployment on 6 September 2026. All five chang
 Owner added removal of the food discussion question during the approved deployment. Removed that question, food payload fields and related confirmation copy. Early-arrival request retained. Form and its tests are the only additional application files changed.
 
 Food-question follow-up verified: Node 20 full lint, typecheck, 191 suites (2,083 passed, one skipped) and production build passed. No migration or management changes.
+
+
+# Remove event early-arrival option, 6 September 2026
+
+- [x] Remove the whole early-arrival box, outgoing flag and confirmation wording.
+- [ ] Run verification, publish the follow-up and check the live form.
+
+Owner requested removal as a follow-up to the approved event form simplification. Scope: website form and its tests; API compatibility, historical requests, staff forms and database remain unchanged. No migration.
+
+Verification: Node 20 full lint, standalone typecheck, 191 test suites (2,083 passed, one skipped), production build and diff checks passed. Browser smoke follows deployment.

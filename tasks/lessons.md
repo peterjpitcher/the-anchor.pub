@@ -15,3 +15,5 @@
 - Verify a deploy by reading the published words, not by asserting a fixture you wrote yourself. The Christmas Day FAQ shipped as "from 12:00 to 15:00" while its test passed, because the test hand-typed '12pm' into its own facts fixture and never touched the code that reads the SSOT. A test that constructs the value it is checking proves nothing. Make the fixture call the same function production calls, then delete the fix and confirm the test actually fails.
 
 - Event booking forms should collect ticket quantities and lead booker details, without guest-by-guest names or a food discussion question (owner decision, 6 September 2026).
+
+- The event booking simplification also removes the whole early-arrival box, including any follow-up confirmation wording. Do not retain food or early-arrival discussion prompts (owner correction, 6 September 2026).

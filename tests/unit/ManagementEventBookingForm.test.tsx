@@ -79,7 +79,7 @@ describe('ManagementEventBookingForm', () => {
     window.localStorage.clear()
   })
 
-  it.each([true, false])('submits early-arrival requests without food questions and only acknowledges server persistence %s', async (recorded) => {
+  it.each([true, false])('books without food or early-arrival requests regardless of legacy response flag %s', async (recorded) => {
     const previousFetch = global.fetch
     const sent: Record<string, unknown>[] = []
     global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -95,19 +95,16 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     expect(screen.queryByLabelText('Would you like to discuss food?')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByLabelText('I would like to discuss arriving early'))
+    expect(screen.queryByLabelText('I would like to discuss arriving early')).not.toBeInTheDocument()
+    expect(screen.queryByText('Early arrival (optional)')).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
     await screen.findByText('Event booking confirmed')
-    expect(sent[0]).toMatchObject({ early_arrival_request: true })
+    expect(sent[0].early_arrival_request).toBeUndefined()
     expect(sent[0].dining_request).toBeUndefined()
     expect(sent[0].food_intent).toBeUndefined()
-    if (recorded) {
-      expect(screen.getByText(/request has been recorded for the team/)).toBeInTheDocument()
-    } else {
-      expect(screen.queryByText(/request has been recorded for the team/)).not.toBeInTheDocument()
-      expect(screen.getByText(/could not confirm that your early-arrival/)).toBeInTheDocument()
-    }
-    expect(screen.getByText(/These arrangements are not confirmed|Please contact us about these arrangements/)).toBeInTheDocument()
+    expect(screen.queryByText(/request has been recorded for the team/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/early.arrival|arriving early|discuss food/i)).not.toBeInTheDocument()
+
   })
 
   it('submits mixed ticket quantities without collecting guest names', async () => {

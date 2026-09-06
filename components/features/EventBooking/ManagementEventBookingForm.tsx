@@ -45,7 +45,6 @@ type EventBookingResult = {
   event_seating_type?: EventSeatingPreference | null
   next_step_url: string | null
   manage_booking_url: string | null
-  requests_recorded?: boolean
 }
 
 type WaitlistResult = {
@@ -157,7 +156,6 @@ export function ManagementEventBookingForm({
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
-  const [earlyArrivalRequest, setEarlyArrivalRequest] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
@@ -384,7 +382,6 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
-          ...(earlyArrivalRequest ? { early_arrival_request: true } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
@@ -909,15 +906,6 @@ export function ManagementEventBookingForm({
             helperText="So we can send your confirmation and any payment follow-up."
           />
 
-          <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
-            <legend className="px-1 text-sm font-semibold">Early arrival (optional)</legend>
-            <label className="flex items-start gap-2 text-sm">
-              <input type="checkbox" checked={earlyArrivalRequest} onChange={(event) => setEarlyArrivalRequest(event.target.checked)} className="mt-1" />
-              I would like to discuss arriving early
-            </label>
-            <p className="text-sm text-ink-muted">Early arrival is a request only and needs to be agreed with the team.</p>
-          </fieldset>
-
           <CommunicationConsentFields
             value={communicationConsent}
             onChange={setCommunicationConsent}
@@ -981,8 +969,6 @@ export function ManagementEventBookingForm({
           <Alert variant="success" title="Event booking confirmed">
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
             {submittedBreakdownBlock}
-            {!result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your event booking has been processed, but we could not confirm that your early-arrival request was recorded. Please contact us about these arrangements.</p>}
-            {result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have booked standing tickets for your group.</p>
             ) : null}
@@ -1002,8 +988,6 @@ export function ManagementEventBookingForm({
           <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
             <p>Your {submittedTicketLabel} are currently on hold.</p>
             {submittedBreakdownBlock}
-            {!result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your event booking has been processed, but we could not confirm that your early-arrival request was recorded. Please contact us about these arrangements.</p>}
-            {result.requests_recorded && earlyArrivalRequest && <p className="mt-2">Your early-arrival request has been recorded for the team. These arrangements are not confirmed. Please contact us to agree the details.</p>}
             {fellBackToStanding ? (
               <p className="mt-2">Seated places are full, so we have held standing tickets for your group.</p>
             ) : null}
