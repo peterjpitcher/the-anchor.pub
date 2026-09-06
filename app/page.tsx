@@ -26,7 +26,7 @@ import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalHomepageImage, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 import { getCurrentMonthlyHomepageCopy } from '@/lib/monthly-copy'
 import {
-  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
@@ -286,7 +286,7 @@ export default async function HomePage() {
               >
                 Christmas party venue near Heathrow
               </Link>{' '}
-              takes group bookings from {CHRISTMAS_MIN_PARTY_SIZE_LOWEST} guests up.
+              takes group bookings from {CHRISTMAS_MINIMUM_PARTY_SIZE} guests up.
             </p>
           )}
         </div>

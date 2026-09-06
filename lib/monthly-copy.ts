@@ -1,7 +1,7 @@
 import { nowInLondonComponents } from './time-london'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
-  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel
 } from './christmas-season'
 
@@ -68,9 +68,7 @@ const READY_TO_VISIT = {
  */
 export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
   const christmasWindow = formatChristmasWindowLabel()
-  // The floor across the window, not a flat rule: 4 midweek, 6 Friday to
-  // Sunday. Every sentence below says "from N up", which stays true.
-  const minParty = CHRISTMAS_MIN_PARTY_SIZE_LOWEST
+  const minParty = CHRISTMAS_MINIMUM_PARTY_SIZE
   const deposit = CHRISTMAS_DEPOSIT_PER_PERSON
 
   switch (month) {

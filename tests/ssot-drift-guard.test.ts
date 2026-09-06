@@ -196,20 +196,25 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     )
   })
 
-  it('minimum party size is day-dependent and minimum notice is 24 hours', () => {
-    // Owner-confirmed 6 September 2026: 4 guests Tuesday to Thursday, 6 on
-    // Friday, Saturday and Sunday. The owner approved Tuesday to Thursday
-    // only, so Sunday is pinned at 6 rather than assumed either way.
-    const byDay = xmas.booking_rules.min_party_size_by_day
-    expect(byDay.midweek).toBe(4)
-    expect(byDay.weekend).toBe(6)
-    expect(byDay.sunday).toBe(6)
+  it('minimum party size is 4 on every day, and minimum notice is 24 hours', () => {
+    // Owner-confirmed 6 September 2026: 4 guests, regardless of the day. An
+    // earlier reading of the same conversation had this as 4 midweek and 6 at
+    // the weekend and was corrected the same day.
+    expect(xmas.booking_rules.min_party_size).toBe(4)
+    expect(xmas.booking_rules.min_party_size_by_day).toBeUndefined()
     expect(xmas.booking_rules.min_notice_hours).toBe(24)
     expect(xmas.booking_rules.same_day_bookings).toBe(false)
-    expect(mdPlain).toContain('4 guests Tuesday to Thursday')
+    expect(mdPlain).toContain('4 guests, on every Christmas dinner booking, regardless of the day')
     expect(mdPlain).toContain('Minimum notice: 24 hours.')
-    // The retired flat rule must not come back in the prose.
+    // Neither retired rule may come back in the prose.
     expect(mdPlain).not.toContain('Minimum party size: 6 guests.')
+    expect(mdPlain).not.toContain('4 guests Tuesday to Thursday')
+  })
+
+  it('keeps the Christmas minimum off the Sunday roast, which has none', () => {
+    expect(ssot.sunday_roast.booking_policy.advance_booking_required).toBe(false)
+    expect(ssot.sunday_roast.booking_policy.walk_ins_welcome).toBe(true)
+    expect(mdPlain).toContain('Sunday roast has no minimum party size at all')
   })
 
   it('records the Christmas Day drinks-only hours and forbids a food claim', () => {

@@ -21,7 +21,7 @@ import type { BookingPeriodMenuItem } from '@/lib/api/bookings'
 import { parseLondonDate } from '@/lib/time-london'
 import {
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  getChristmasMinimumPartySize,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   getLondonIsoDate
@@ -113,7 +113,7 @@ export async function getChristmasPreorderMenu(): Promise<ChristmasPreorderMenu 
 
   // Cached, not live: this is page copy, not a price quote at the point of
   // booking, and the page is revalidated hourly anyway.
-  const response = await anchorAPI.getBookingPeriodCached(probeDate, getChristmasMinimumPartySize(probeDate))
+  const response = await anchorAPI.getBookingPeriodCached(probeDate, CHRISTMAS_MINIMUM_PARTY_SIZE)
   const period = response?.period
   if (!period) return null
 

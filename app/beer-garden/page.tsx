@@ -21,7 +21,7 @@ import { HeroBadge } from '@/components/HeroBadge'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 import {
-  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
@@ -398,7 +398,7 @@ export default async function BeerGardenPage() {
             ? [{
                 href: '/christmas-parties',
                 title: 'Book a Christmas Meal Near Heathrow',
-                description: `Festive lunches and dinners indoors, ${formatChristmasWindowLabel()}, for groups ${CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}`
+                description: `Festive lunches and dinners indoors, ${formatChristmasWindowLabel()}, for groups of ${CHRISTMAS_MINIMUM_PARTY_SIZE} or more`
               }]
             : []),
         ]}

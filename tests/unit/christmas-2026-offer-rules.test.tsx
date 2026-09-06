@@ -19,11 +19,7 @@ import { buildChristmasMenuJsonLd, christmasPartiesSchema } from '@/lib/christma
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
-  CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
-  CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK,
-  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
-  CHRISTMAS_MIN_PARTY_SIZE_WEEKEND,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START
 } from '@/lib/christmas-season'
@@ -32,9 +28,7 @@ const BUFFET_MINIMUM_GUESTS =
   (ssot as unknown as { christmas_2026: { buffets: { min_guests: number } } }).christmas_2026.buffets.min_guests
 
 const FACTS: ChristmasFactsView = {
-  minPartySize: CHRISTMAS_MIN_PARTY_SIZE_LOWEST,
-  minPartySizeSummary: CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
-  minPartySizeByWeekday: CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY,
+  minPartySize: CHRISTMAS_MINIMUM_PARTY_SIZE,
   christmasDay: { opens: '12pm', closes: '3pm', foodService: false },
   minNoticeHours: CHRISTMAS_MINIMUM_NOTICE_HOURS,
   depositPerPerson: CHRISTMAS_DEPOSIT_PER_PERSON,
@@ -74,10 +68,8 @@ function renderPage(menu: ChristmasMenuView = EMPTY_MENU): string {
 
 describe('Christmas 2026 booking rules', () => {
   it('holds the owner-confirmed constants, so every consumer inherits the same rules', () => {
-    // Owner-confirmed 6 September 2026: 4 midweek, 6 Friday to Sunday.
-    expect(CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK).toBe(4)
-    expect(CHRISTMAS_MIN_PARTY_SIZE_WEEKEND).toBe(6)
-    expect(CHRISTMAS_MIN_PARTY_SIZE_LOWEST).toBe(4)
+    // Owner-confirmed 6 September 2026: 4 guests, every day of the week.
+    expect(CHRISTMAS_MINIMUM_PARTY_SIZE).toBe(4)
     expect(CHRISTMAS_MINIMUM_NOTICE_HOURS).toBe(24)
     expect(CHRISTMAS_DEPOSIT_PER_PERSON).toBe(10)
     expect(CHRISTMAS_WINDOW_START).toBe('2026-11-10')
@@ -88,9 +80,8 @@ describe('Christmas 2026 booking rules', () => {
   it('states the day-dependent group minimum, the 24 hour notice and the deposit on the page', () => {
     const text = renderPage()
 
-    // Never a flat "6 guests or more" for Christmas: that is wrong on 18 of
-    // the 36 bookable dates, and it is what this page said until 6 Sep 2026.
-    expect(text).toContain(CHRISTMAS_MIN_PARTY_SIZE_SUMMARY)
+    // The minimum was 6 until 6 September 2026 and is now 4, every day.
+    expect(text).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
     expect(text).not.toMatch(/Christmas dinner[^.]{0,60}\b6 guests or more/i)
     expect(text).toContain('at least 24 hours')
     expect(text).toContain('no same-day bookings')
@@ -148,7 +139,7 @@ describe('Christmas 2026 booking rules', () => {
   it('carries the booking rules into the page level JSON-LD', () => {
     const schemaJson = JSON.stringify(christmasPartiesSchema)
 
-    expect(schemaJson).toContain(CHRISTMAS_MIN_PARTY_SIZE_SUMMARY)
+    expect(schemaJson).toContain(`${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more`)
     expect(schemaJson).toContain('at least 24 hours ahead')
     expect(schemaJson).toContain('Courses are chosen per person, not for the whole table.')
     expect(schemaJson).toContain('Every guest chooses a main.')
@@ -175,12 +166,20 @@ describe('Christmas 2026 owner decisions of 6 September', () => {
     expect(text).not.toMatch(/(book|serving|serve) .{0,30}Christmas Day/i)
   })
 
-  it('states the day-dependent group minimum and never a flat six', () => {
+  it('states a flat 4 guest minimum on every day, and never the retired 6', () => {
     const text = renderPage()
 
-    expect(text).toContain(CHRISTMAS_MIN_PARTY_SIZE_SUMMARY)
-    expect(text).toContain('4 guests midweek')
+    expect(CHRISTMAS_MINIMUM_PARTY_SIZE).toBe(4)
+    expect(text).toContain('4 guests or more')
     expect(text).not.toMatch(/Christmas dinner[^.]{0,60}\b6 guests or more/i)
+    // The day-dependent reading was wrong and must not come back.
+    expect(text).not.toMatch(/midweek[^.]{0,40}6 on Friday/i)
+  })
+
+  it('never puts a minimum party size on the Sunday roast', () => {
+    const text = renderPage()
+
+    expect(text).toMatch(/Sunday roast has no minimum/i)
   })
 
   it('says a drinks-only party has no minimum spend', () => {

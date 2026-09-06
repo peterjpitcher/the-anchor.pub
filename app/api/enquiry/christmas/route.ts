@@ -5,7 +5,7 @@ import { checkSpamProtection } from '@/lib/spam-protection'
 import { normaliseChristmasEnquiryTime } from '@/lib/christmas-enquiry'
 import {
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  getChristmasMinimumPartySize,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   getLondonIsoDate
@@ -527,10 +527,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // The date is validated BEFORE the party size, because since 6 September
-    // 2026 the minimum depends on the day: 4 guests Tuesday to Thursday, 6 on
-    // Friday, Saturday and Sunday. There is no day-independent minimum to
-    // check against, so an unvalidated date cannot be used to derive one.
+    // Date before party size. The two are independent again now the Christmas
+    // minimum is a flat 4, but the order is worth keeping: a guest who picks an
+    // impossible date should be told about the date, not about guest numbers.
     if (!/^\d{4}-\d{2}-\d{2}$/.test(body.preferredDate) || body.preferredDate < CHRISTMAS_BOOKING_START || body.preferredDate > CHRISTMAS_BOOKING_END) {
       return NextResponse.json(
         { success: false, error: 'Please choose a date within the Christmas booking period' },
@@ -545,7 +544,7 @@ export async function POST(request: NextRequest) {
     const isBuffetFormat = body.partyFormat === 'buffet_party' || body.partyFormat === 'festive_buffet'
     const minimumPartySize = body.mode === 'party' && isBuffetFormat
       ? BUFFET_MINIMUM_GUESTS
-      : getChristmasMinimumPartySize(body.preferredDate)
+      : CHRISTMAS_MINIMUM_PARTY_SIZE
     if (!/^\d+$/.test(body.partySize.trim()) || !Number.isInteger(numericPartySize) || numericPartySize < minimumPartySize || numericPartySize > maximumPartySize) {
       return NextResponse.json(
         { success: false, error: `Guest numbers must be between ${minimumPartySize} and ${maximumPartySize}` },

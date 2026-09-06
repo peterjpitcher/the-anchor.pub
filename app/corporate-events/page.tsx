@@ -19,7 +19,7 @@ import { VenueTourTeaser } from '@/components/private-hire/venue-tour'
 import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
-  CHRISTMAS_MIN_PARTY_SIZE_SUMMARY,
+  CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel
 } from '@/lib/christmas-season'
 
@@ -242,7 +242,7 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">How Christmas bookings work</h3>
                 <ul className="space-y-2 text-ink-muted">
                   <li><strong className="text-ink-strong">Festive service runs {formatChristmasWindowLabel()}</strong></li>
-                  <li><strong className="text-ink-strong">Group size {CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}</strong></li>
+                  <li><strong className="text-ink-strong">Minimum {CHRISTMAS_MINIMUM_PARTY_SIZE} guests</strong> on every Christmas booking</li>
                   <li><strong className="text-ink-strong">Sittings Tuesday to Saturday</strong>, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed</li>
                   <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
                   <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
@@ -511,7 +511,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "Can we hold our office Christmas party at The Anchor?",
-            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking takes groups ${CHRISTMAS_MIN_PARTY_SIZE_SUMMARY}, needs at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
+            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
           },
           {
             question: "How many people can you seat for a work Christmas party?",

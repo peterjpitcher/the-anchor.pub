@@ -39,7 +39,7 @@ This is what is happening here this festive season, and when we are open.
 Our festive menu runs from **10 November to 20 December 2026**. The 20th is included, so a sitting that day can be booked.
 
 - **Sittings** are Tuesday to Saturday, lunchtime or evening, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed.
-- **Group size** is from 4 guests midweek and 6 on Friday and Saturday. Tuesday to Thursday is our weekday rate, so a midweek date is the cheaper one and takes a smaller group.
+- **Group size** is 4 guests or more, on any day. Tuesday to Thursday is our weekday rate, so a midweek date is the cheaper one.
 - **Everyone chooses their own courses.** Every guest has a main; a starter and a dessert are optional. Guests at the same table can have different numbers of courses.
 - **Choices come to us 7 days before** your booking date for the 2 and 3 course price points.
 - **A £10 per person deposit** applies to every Christmas booking, whatever the size. It comes straight off your bill, and it is refundable in full if you cancel more than 7 days before.

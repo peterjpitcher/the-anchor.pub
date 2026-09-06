@@ -1191,7 +1191,7 @@
       "note": "The 20th is inclusive. A 20 December sitting is bookable."
     },
     "booking_rules": {
-      "min_party_size": 6,
+      "min_party_size": 4,
       "min_notice_hours": 24,
       "applies_to": "Every Christmas dinner booking",
       "same_day_bookings": false,
@@ -1208,15 +1208,7 @@
       "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired.",
       "pre_order_deadline_days": 7,
       "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'.",
-      "min_party_size_by_day": {
-        "midweek": 4,
-        "midweek_days": "Tuesday to Thursday",
-        "weekend": 6,
-        "weekend_days": "Friday and Saturday",
-        "sunday": 6,
-        "_confirmed": "Owner-confirmed 2026-09-06. Midweek lowered from 6 to 4 to open up the 18 quietest dates in the window. The owner approved Tuesday to Thursday only, so Sunday stays at 6.",
-        "rule": "Never state a flat '6 guests or more' for Christmas. Where copy cannot be date-specific, say 'from 4 guests midweek, 6 on Friday and Saturday'. min_party_size stays at 6 as the safe headline figure for any consumer that has not been made date-aware."
-      }
+      "min_party_size_note": "Owner-confirmed 2026-09-06: 4 guests on every Christmas dinner booking, regardless of the day. An earlier reading of the same conversation had this as 4 midweek and 6 at the weekend and was corrected the same day. The Sunday roast is a separate offer with NO minimum party size; never copy this figure onto it."
     },
     "days_available": {
       "weekday_sittings": "Tuesday to Thursday",
@@ -1233,7 +1225,9 @@
       "dance_floor": false,
       "shared_party_night": false,
       "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
-      "_confirmed": "Owner-confirmed 11 August 2026"
+      "_confirmed": "Owner-confirmed 11 August 2026",
+      "christmas_market": false,
+      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market stays noindexed and must not be revived. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
     },
     "deposit": {
       "per_person_gbp": 10,

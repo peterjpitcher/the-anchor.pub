@@ -32,7 +32,7 @@ type SsotChristmasBlock = {
   window?: SsotChristmasWindow
   start_date?: unknown
   end_date?: unknown
-  booking_rules?: { min_party_size_by_day?: unknown }
+  booking_rules?: { min_party_size?: unknown }
 }
 
 type SsotWithChristmas = {
@@ -86,82 +86,20 @@ export const CHRISTMAS_WINDOW_END: string = RESOLVED_WINDOW?.end || FALLBACK_WIN
 export const CHRISTMAS_MINIMUM_NOTICE_HOURS = 24
 
 /**
- * Minimum guests on a Christmas dinner booking, which is not one number.
+ * Minimum guests on every Christmas dinner booking, any day of the week.
  *
- * Owner-confirmed 6 September 2026: 4 guests Tuesday to Thursday, 6 on Friday,
- * Saturday and Sunday. The midweek minimum was lowered to open up the 18
- * quietest dates in the window. The owner approved Tuesday to Thursday only,
- * so Sunday deliberately stays at 6 rather than being assumed either way.
+ * Owner-confirmed 6 September 2026: 4 guests, regardless of the day. An
+ * earlier reading of the same conversation had this as 4 midweek and 6 at the
+ * weekend; the owner corrected it to a flat 4 the same day. Read from the SSOT
+ * so the number cannot drift from the document that owns it.
  *
- * There is no single `CHRISTMAS_MINIMUM_PARTY_SIZE` any more, on purpose: a
- * flat constant is what let "6 guests or more" spread across six pages, and it
- * would now turn away exactly the midweek bookings this change exists to win.
- * Call `getChristmasMinimumPartySize()` where a date is known, and use
- * `CHRISTMAS_MIN_PARTY_SIZE_SUMMARY` where it is not.
+ * The Sunday roast is a separate offer and has no minimum party size at all.
+ * Never copy this figure onto it.
  */
-type SsotMinPartySizeByDay = { midweek?: unknown, weekend?: unknown, sunday?: unknown }
-
-function readMinPartySize(key: keyof SsotMinPartySizeByDay, fallback: number): number {
-  const byDay = (ssot as SsotWithChristmas).christmas_2026?.booking_rules?.min_party_size_by_day
-  const value = byDay && typeof byDay === 'object' ? (byDay as SsotMinPartySizeByDay)[key] : undefined
-  return typeof value === 'number' && Number.isInteger(value) && value > 0 ? value : fallback
-}
-
-/** Minimum guests on a Tuesday, Wednesday or Thursday Christmas booking. */
-export const CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK: number = readMinPartySize('midweek', 4)
-
-/** Minimum guests on a Friday or Saturday Christmas booking. */
-export const CHRISTMAS_MIN_PARTY_SIZE_WEEKEND: number = readMinPartySize('weekend', 6)
-
-/** Minimum guests on a Sunday Christmas booking. */
-export const CHRISTMAS_MIN_PARTY_SIZE_SUNDAY: number = readMinPartySize('sunday', 6)
-
-/** The smallest group we can take at all, across the whole window. */
-export const CHRISTMAS_MIN_PARTY_SIZE_LOWEST: number = Math.min(
-  CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK,
-  CHRISTMAS_MIN_PARTY_SIZE_WEEKEND,
-  CHRISTMAS_MIN_PARTY_SIZE_SUNDAY
-)
-
-/**
- * For copy that cannot be tied to a date. The SSOT forbids a flat "6 guests or
- * more" for Christmas, because it is wrong on 18 of the 36 bookable dates.
- */
-export const CHRISTMAS_MIN_PARTY_SIZE_SUMMARY =
-  `from ${CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK} guests midweek, ${CHRISTMAS_MIN_PARTY_SIZE_WEEKEND} on Friday and Saturday`
-
-/**
- * Minimum guests for a specific booking date, in Europe/London terms.
- * Monday has no Christmas sitting at all (the kitchen is closed), so it
- * returns the weekend figure rather than pretending a smaller group could book.
- */
-export function getChristmasMinimumPartySize(isoDate?: string): number {
-  return CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY[christmasWeekday(isoDate)]
-}
-
-/**
- * The same rule as a plain array indexed by JavaScript weekday (0 = Sunday).
- *
- * Client components take this as data rather than importing this module: doing
- * so would pull the whole of SSOT.json into the browser bundle, on a page that
- * already ships 74KB of duplicated flight payload.
- */
-export const CHRISTMAS_MIN_PARTY_SIZE_BY_WEEKDAY: readonly number[] = [
-  CHRISTMAS_MIN_PARTY_SIZE_SUNDAY,    // Sunday
-  CHRISTMAS_MIN_PARTY_SIZE_WEEKEND,   // Monday, no Christmas sitting at all
-  CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK,   // Tuesday
-  CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK,   // Wednesday
-  CHRISTMAS_MIN_PARTY_SIZE_MIDWEEK,   // Thursday
-  CHRISTMAS_MIN_PARTY_SIZE_WEEKEND,   // Friday
-  CHRISTMAS_MIN_PARTY_SIZE_WEEKEND    // Saturday
-]
-
-function christmasWeekday(isoDate?: string): number {
-  // getUTCDay is correct here: parseLondonDate returns the London calendar day
-  // pinned to UTC midnight, so the weekday is read off the date, never off a
-  // clock that British Summer Time could shift across a boundary.
-  return parseLondonDate(normaliseIsoDate(isoDate)).getUTCDay()
-}
+export const CHRISTMAS_MINIMUM_PARTY_SIZE: number = (() => {
+  const value = (ssot as SsotWithChristmas).christmas_2026?.booking_rules?.min_party_size
+  return typeof value === 'number' && Number.isInteger(value) && value > 0 ? value : 4
+})()
 
 /** Deposit per person on every Christmas booking, in pounds. */
 export const CHRISTMAS_DEPOSIT_PER_PERSON = 10
