@@ -264,9 +264,15 @@ export default function ColnbrookPubPage() {
                 <Button asChild variant="outline" size="lg">
                     <Link href="/private-hire#enquiry">Book an Event</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                    <Link href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get Directions</Link>
-                </Button>
+                <DirectionsButton
+                    href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    source="colnbrook_cta_directions"
+                    variant="outline"
+                    size="lg"
+                    fromLocation="Colnbrook"
+                >
+                    Get Directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )

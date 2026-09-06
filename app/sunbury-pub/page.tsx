@@ -247,9 +247,15 @@ export default function SunburyPubPage() {
                 <Button asChild variant="outline" size="lg">
                     <Link href="/private-hire#enquiry">Book an Event</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                    <Link href="https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get Directions</Link>
-                </Button>
+                <DirectionsButton
+                    href="https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    source="sunbury_cta_directions"
+                    variant="outline"
+                    size="lg"
+                    fromLocation="Sunbury"
+                >
+                    Get Directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )
