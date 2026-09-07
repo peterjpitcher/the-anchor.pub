@@ -216,16 +216,16 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                 the best of our back bar with the people who support us, and to help everyone discover something new.
               </p>
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                <Link href="/drinks" className="w-full sm:w-auto">
-                  <Button variant="primary" size="lg" fullWidth>
+                <Button asChild variant="primary" size="lg" fullWidth>
+                  <Link href="/drinks" className="w-full sm:w-auto">
                     Explore Drinks
-                  </Button>
-                </Link>
-                <Link href="/whats-on" className="w-full sm:w-auto">
-                  <Button variant="outline" size="lg" fullWidth>
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" fullWidth>
+                  <Link href="/whats-on" className="w-full sm:w-auto">
                     See What&apos;s On
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -390,11 +390,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               size="lg"
               fullWidth
             />
-            <Link href="/drinks" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/drinks" className="w-full sm:w-auto">
                 View Drinks Menu
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -491,11 +491,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                   size="lg"
                   className="w-full sm:w-auto"
                 />
-                <Link href="/drinks" className="w-full sm:w-auto">
-                  <Button variant="outline" size="lg" fullWidth>
+                <Button asChild variant="outline" size="lg" fullWidth>
+                  <Link href="/drinks" className="w-full sm:w-auto">
                     See the Full Bar
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -630,11 +630,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         >
           01753 682707
         </PhoneButton>
-        <Link href="/find-us">
-          <Button variant="outline" size="lg">
+        <Button asChild variant="outline" size="lg">
+          <Link href="/find-us">
             Get Directions
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </CtaBand>
 
       <section className="bg-canvas py-6">

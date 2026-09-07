@@ -829,11 +829,11 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                         <GoogleMapEmbed query={`The Anchor Stanwell Moor near ${landmark.name}`} />
                     </div>
                     <div className="text-center mt-6">
-                        <Link href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(landmark.address)}&destination=The+Anchor+Stanwell+Moor+TW19+6AQ`} target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline">
+                        <Button asChild variant="outline">
+                            <Link href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(landmark.address)}&destination=The+Anchor+Stanwell+Moor+TW19+6AQ`} target="_blank" rel="noopener noreferrer">
                                 Get Directions from {landmark.name}
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
                 </Container>
             </section>

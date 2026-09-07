@@ -133,12 +133,12 @@ export default function AnchorFactsPage() {
         lead="Current factual details for food, booking links, opening hours, private hire, hosted events, parking and Heathrow distance."
         actions={
           <>
-            <Link href="/book-table">
-              <Button size="lg" fullWidth>Book a Table</Button>
-            </Link>
-            <Link href="/food-menu">
-              <Button variant="outline" size="lg" fullWidth>View Food Menu</Button>
-            </Link>
+            <Button asChild size="lg" fullWidth>
+              <Link href="/book-table">Book a Table</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/food-menu">View Food Menu</Link>
+            </Button>
           </>
         }
       />

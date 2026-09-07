@@ -204,11 +204,11 @@ export default function BabyGuinnessPage() {
         <PhoneButton phone="01753 682707" source="baby_guinness_page" variant="outline" size="lg">
           01753 682707
         </PhoneButton>
-        <Link href="/drinks">
-          <Button variant="outline" size="lg">
+        <Button asChild variant="outline" size="lg">
+          <Link href="/drinks">
             View Full Drinks Menu
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </CtaBand>
 
       <script

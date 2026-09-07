@@ -395,11 +395,11 @@ export default function StainesPubPage() {
                   We're always willing to discuss your needs and budget.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/private-hire">
-                    <Button variant="primary" size="md">
+                  <Button asChild variant="primary" size="md">
+                    <Link href="/private-hire">
                       View Event Options
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <PhoneButton
                     phone="01753 682707"
                     source="staines_pub_event_enquiry"
@@ -408,11 +408,11 @@ export default function StainesPubPage() {
                   >
                     Quick Enquiry
                   </PhoneButton>
-                  <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="md">
+                  <Button asChild variant="outline" size="md">
+                    <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                       WhatsApp
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </CardBody>
             </Card>
@@ -520,18 +520,18 @@ export default function StainesPubPage() {
         title="Visit Staines' Favourite Local Pub"
         copy="Just 8 minutes from Staines town centre with free parking"
       >
-        <Link href="/book-table">
-          <Button variant="primary" size="lg">Book a Table</Button>
-        </Link>
-        <Link href={CONTACT.phoneHref}>
-          <Button variant="outline" size="lg">Call Us</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
-        <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor">
-          <Button variant="outline" size="lg">Get Directions from Staines</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/book-table">Book a Table</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href={CONTACT.phoneHref}>Call Us</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor">Get Directions from Staines</Link>
+        </Button>
       </CtaBand>
     </>
   )

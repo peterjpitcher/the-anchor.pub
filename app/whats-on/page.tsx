@@ -276,16 +276,16 @@ export default async function WhatsOnPage() {
         }
         actions={
           <>
-            <Link href="/book-table?source=whats_on_hero" className="w-full sm:w-auto">
-              <Button variant="primary" size="lg" fullWidth>
+            <Button asChild variant="primary" size="lg" fullWidth>
+              <Link href="/book-table?source=whats_on_hero" className="w-full sm:w-auto">
                 Reserve an event table
-              </Button>
-            </Link>
-            <Link href="/food-menu" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/food-menu" className="w-full sm:w-auto">
                 See the food menu
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -445,16 +445,16 @@ export default async function WhatsOnPage() {
                 events reachable by clicking, which is why those pages could not
                 build the authority that keeping them was meant to build. */}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/whats-on/archive">
-                <Button variant="outline" size="md">
+              <Button asChild variant="outline" size="md">
+                <Link href="/whats-on/archive">
                   Browse all past events
-                </Button>
-              </Link>
-              <Link href="/whats-on#upcoming-events">
-                <Button variant="outline" size="md">
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="md">
+                <Link href="/whats-on#upcoming-events">
                   See what&apos;s coming up
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </Container>
         </section>
@@ -488,18 +488,18 @@ export default async function WhatsOnPage() {
         title="Bringing a group?"
         copy="Groups of 15 or more pay a £10 per person deposit, deducted from your bill. Book a table for the night, or enquire about private hire for the whole room."
         primary={
-          <Link href="/book-table?source=whats_on_footer">
-            <Button variant="primary" size="lg">
+          <Button asChild variant="primary" size="lg">
+            <Link href="/book-table?source=whats_on_footer">
               Book a table
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
         secondary={
-          <Link href="/private-hire">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/private-hire">
               Private hire
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
       />
     </>

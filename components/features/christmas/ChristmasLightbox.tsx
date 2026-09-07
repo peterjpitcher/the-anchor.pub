@@ -264,20 +264,20 @@ export function ChristmasLightbox() {
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        <Link href="/christmas-parties" className="w-full" onClick={() => {
-                            trackFormStart({ formName: 'christmas_lightbox' })
-                            recordEngagement('primary_cta')
-                            requestClose('cta')
-                        }}>
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="w-full justify-center"
-                                asChild={false}
-                            >
+                        <Button
+                            asChild
+                            variant="outline"
+                            size="lg"
+                            className="w-full justify-center"
+                        >
+                            <Link href="/christmas-parties" onClick={() => {
+                                trackFormStart({ formName: 'christmas_lightbox' })
+                                recordEngagement('primary_cta')
+                                requestClose('cta')
+                            }}>
                                 View Festive Packages
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
 
                         <button onClick={() => requestClose('close_button')} className="text-sm text-ink-muted hover:text-ink underline">
                             No thanks, I&apos;ll book later

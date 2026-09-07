@@ -77,11 +77,11 @@ export default function EngagementPartiesPage() {
                 lead="buffets priced from the live approved source, prosecco packages, free parking, and space for up to 50 guests"
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Enquire Now
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton phone={CONTACT.phone} source="engagement_hero" variant="outline" size="lg">
                             Call {CONTACT.phone}
                         </PhoneButton>
@@ -247,12 +247,12 @@ export default function EngagementPartiesPage() {
                             Get in touch with our team to check availability and discuss your ideas. We recommend booking at least 4 weeks in advance for Friday/Saturday slots.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/private-hire#enquiry">
-                                <Button size="lg" variant="primary">Enquire for Party</Button>
-                            </Link>
-                            <Link href="/book-table">
-                                <Button size="lg" variant="outline">Book Table (Small Groups)</Button>
-                            </Link>
+                            <Button asChild size="lg" variant="primary">
+                                <Link href="/private-hire#enquiry">Enquire for Party</Link>
+                            </Button>
+                            <Button asChild size="lg" variant="outline">
+                                <Link href="/book-table">Book Table (Small Groups)</Link>
+                            </Button>
                         </div>
                     </div>
                 </Container>

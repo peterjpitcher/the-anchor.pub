@@ -437,11 +437,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 <BookTableButton source="blog_heathrow_cta" context="heathrow_visitor" size="md">
                   Book a Table
                 </BookTableButton>
-                <Link href="/food-menu">
-                  <Button variant="outline" size="md">
+                <Button asChild variant="outline" size="md">
+                  <Link href="/food-menu">
                     View Food Menu
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </Container>
@@ -542,29 +542,29 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 >
                   Book a Table
                 </BookTableButton>
-                <Link href="/food-menu">
-                  <Button variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/food-menu">
                     View Food Menu
-                  </Button>
-                </Link>
-                <Link href="/find-us">
-                  <Button variant="outline" size="lg">
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/find-us">
                     Get Directions
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </>
             ) : (
               <>
-                <Link href="/find-us">
-                  <Button variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/find-us">
                     Get Directions
-                  </Button>
-                </Link>
-                <Link href="/blog">
-                  <Button variant="outline" size="lg">
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/blog">
                     More Stories
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </>
             )}
           </div>

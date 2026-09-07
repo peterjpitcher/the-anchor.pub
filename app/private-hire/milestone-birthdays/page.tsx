@@ -77,11 +77,11 @@ export default function MilestoneBirthdaysPage() {
                 lead="A pub birthday party venue with private rooms, DJ space, and catering. Celebrate the big numbers in style near Staines and Heathrow Airport."
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Plan My Party
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton phone={CONTACT.phone} source="birthday_hero" variant="outline" size="lg">
                             Call {CONTACT.phone}
                         </PhoneButton>

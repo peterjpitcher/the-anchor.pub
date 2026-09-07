@@ -148,11 +148,11 @@ export default async function WorldCupPage() {
             <BookTableButton source="world_cup_hero" variant="primary" size="lg" fullWidth>
               Book a Table
             </BookTableButton>
-            <Link href="/food-menu">
-              <Button variant="outline" size="lg" fullWidth>
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/food-menu">
                 View Menu
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </>
         }
       />
@@ -167,11 +167,11 @@ export default async function WorldCupPage() {
                 Spain took the title, Tom won the £100 top prize, and all 13 prize winners are now listed.
               </p>
             </div>
-            <Link href="/live-sport/world-cup/sweepstake" className="w-full shrink-0 md:w-auto">
-              <Button variant="primary" size="lg" className="w-full md:w-auto">
+            <Button asChild variant="primary" size="lg" className="w-full md:w-auto">
+              <Link href="/live-sport/world-cup/sweepstake" className="w-full shrink-0 md:w-auto">
                 View Sweep Winners
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </Container>
       </section>
@@ -319,11 +319,11 @@ export default async function WorldCupPage() {
               >
                 Book a Table
               </BookTableButton>
-              <Link href="#fixtures" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+                <Link href="#fixtures" className="w-full sm:w-auto">
                   See Fixtures
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               <PhoneButton
                 phone={CONTACT.phone}
                 source="world_cup_quick_cta"
@@ -369,12 +369,12 @@ export default async function WorldCupPage() {
                 <p>Kitchen is open during our opening hours (check the menu for current serving times).</p>
               </div>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Link href="/food-menu">
-                  <Button variant="primary">View Food Menu</Button>
-                </Link>
-                <Link href="/drinks">
-                  <Button variant="outline">Drinks List</Button>
-                </Link>
+                <Button asChild variant="primary">
+                  <Link href="/food-menu">View Food Menu</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/drinks">Drinks List</Link>
+                </Button>
               </div>
             </div>
 

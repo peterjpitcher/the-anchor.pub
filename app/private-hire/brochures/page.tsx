@@ -33,11 +33,11 @@ export default function BrochuresPage() {
         lead="Everything we offer, written down. Pick the one that matches your occasion, or take the full brochure and browse the lot."
         actions={
           <>
-            <Link href="/private-hire#enquiry">
-              <Button variant="primary" size="lg" fullWidth>
+            <Button asChild variant="primary" size="lg" fullWidth>
+              <Link href="/private-hire#enquiry">
                 Build a quote
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <PhoneButton
               phone={CONTACT.phone}
               source="brochures_hero"
@@ -92,11 +92,11 @@ export default function BrochuresPage() {
         title="Not sure which space fits?"
         copy="Tell us your date and rough numbers and we will tell you straight what works, including if the date has gone."
         primary={
-          <Link href="/private-hire#enquiry">
-            <Button variant="primary" size="lg">
+          <Button asChild variant="primary" size="lg">
+            <Link href="/private-hire#enquiry">
               Check availability
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
         secondary={
           <PhoneButton

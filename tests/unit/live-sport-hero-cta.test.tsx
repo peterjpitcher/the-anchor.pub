@@ -124,7 +124,13 @@ describe('/live-sport hero call to action', () => {
     render(<>{hero.props.actions}</>)
 
     expect(screen.getByRole('button', { name: /book a table for the game/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: new RegExp(`call ${CONTACT.phone}`, 'i') })).toBeInTheDocument()
+    // A link, not a button. PhoneButton renders as a single anchor since the
+    // September 2026 unnesting work, which removed the link-wrapping-a-button
+    // pattern that gave one action two tab stops. Asserting `button` here would
+    // quietly re-encode the shape that change existed to remove.
+    expect(
+      screen.getByRole('link', { name: new RegExp(`call ${CONTACT.phone}`, 'i') })
+    ).toHaveAttribute('href', `tel:${CONTACT.phoneIntl}`)
   })
 
   it('sends the primary hero action to the table booking wizard and tags it as the hero', async () => {

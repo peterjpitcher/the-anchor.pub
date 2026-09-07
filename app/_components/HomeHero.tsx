@@ -114,11 +114,11 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
           {/* Actions */}
           <div className="flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center">
             {copy.primaryHref ? (
-              <Link href={copy.primaryHref} className="w-full sm:w-auto">
-                <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
+              <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
+                <Link href={copy.primaryHref} className="w-full sm:w-auto">
                   {copy.primaryCta}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             ) : (
               <BookTableButton
                 source="homepage_hero"
@@ -130,11 +130,11 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
                 {copy.primaryCta}
               </BookTableButton>
             )}
-            <Link href={copy.secondaryHref} className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" fullWidth className="sm:w-auto">
+            <Button asChild variant="outline" size="lg" fullWidth className="sm:w-auto">
+              <Link href={copy.secondaryHref} className="w-full sm:w-auto">
                 {copy.secondaryCta}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Live status pill */}

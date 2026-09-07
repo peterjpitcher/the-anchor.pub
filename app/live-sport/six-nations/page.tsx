@@ -191,8 +191,8 @@ export default function SixNationsPage() {
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <Link href="/food-menu"><Button variant="primary">View Food Menu</Button></Link>
-                                <Link href="/drinks"><Button variant="outline">Drinks List</Button></Link>
+                                <Button asChild variant="primary"><Link href="/food-menu">View Food Menu</Link></Button>
+                                <Button asChild variant="outline"><Link href="/drinks">Drinks List</Link></Button>
                             </div>
                         </div>
                         <Card accent>

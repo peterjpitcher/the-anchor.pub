@@ -217,11 +217,11 @@ export default async function VeganMenuPage() {
           >
             01753 682707
           </PhoneButton>
-          <Link href="/food-menu">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/food-menu">
               View full menu
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CtaBand>
       </div>
 
