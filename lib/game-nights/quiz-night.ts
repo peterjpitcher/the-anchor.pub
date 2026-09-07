@@ -29,7 +29,7 @@ export const quizNight: GameNightConfig = {
     crumb: 'Quiz Night',
     title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     lead:
-      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of wine for whoever comes second from last.'
+      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of house wine for whoever comes second from last.'
   },
 
   share: {

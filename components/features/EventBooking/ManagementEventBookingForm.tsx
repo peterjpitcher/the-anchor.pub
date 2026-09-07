@@ -24,7 +24,7 @@ import {
 } from '@/lib/event-ticket-selection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { cn } from '@/lib/utils'
-import { BRAND, CONTACT } from '@/lib/constants'
+import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
@@ -68,15 +68,6 @@ const TURNSTILE_UNSUPPORTED_MESSAGE =
 
 /** Anchors the submit button's description at the recovery panel. */
 const TURNSTILE_RECOVERY_REGION_ID = 'event-booking-turnstile-recovery'
-
-/**
- * The same destination the Find Us section sends people to.
- *
- * It is built from the verified coordinates rather than a name search, because
- * a search for "The Anchor" from a phone in Staines can land on a different
- * pub entirely. Coordinates cannot be misread.
- */
-const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`
 
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type EventSeatingPreference = 'seated' | 'standing'

@@ -15,6 +15,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | Big Screens',
@@ -99,11 +100,46 @@ export default async function LiveSportPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, screeningEventSchema]) }}
             />
 
-                        <InteriorHero
+            <ScrollDepthTracker />
+
+            <InteriorHero
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Live Sport"
               title="Live Sport at The Anchor"
               lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
+              actions={
+                /*
+                 * EV-023. This was the only event page with no hero action, so the
+                 * first thing anyone could click sat roughly two thirds down.
+                 *
+                 * The pair matches the game night pages: one primary action plus a
+                 * phone button. The primary goes to /book-table rather than to an
+                 * on-page anchor because, unlike the game nights, this page carries
+                 * no booking form of its own, and the page's own FAQ tells people
+                 * that booking is what secures a seat for a big game.
+                 */
+                <>
+                  <BookTableButton
+                    source="sport_hero"
+                    context="live_sport"
+                    trackingLabel="Book a Table for the Game"
+                    variant="primary"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Book a Table for the Game
+                  </BookTableButton>
+                  <PhoneButton
+                    phone={CONTACT.phone}
+                    source="sport_hero"
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    Call {CONTACT.phone}
+                  </PhoneButton>
+                </>
+              }
             />
       <TournamentLink />
 

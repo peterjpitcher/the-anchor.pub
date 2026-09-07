@@ -277,7 +277,7 @@ export default async function QuizNightPage() {
             <h2 className="mb-6 text-center text-h3 text-ink-strong">What you are playing for</h2>
             <div className="grid gap-4 md:grid-cols-3">
               <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
-              <PrizeCard title="Second from last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
+              <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
               <PrizeCard title="Best team name" reward="Seasonal Prop" copy="Worth the effort. The room decides whether you earned it." />
             </div>
           </div>

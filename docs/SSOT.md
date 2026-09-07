@@ -507,6 +507,8 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 > **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. They are consistent within each category as at 6 September 2026: quiz night, cash bingo, music bingo and karaoke all 60, party nights 150, tasting nights 25. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one.
 
+> **Payment method comes from the event record's `payment_mode`, not from this document.** (Recorded 7 September 2026 after a page audit flagged cash-only claims on quiz and music bingo as unsourced. They are sourced, just not from here.) Verified across all 15 upcoming events: quiz night, cash bingo and music bingo records all carry `payment_mode: cash_only`; karaoke, party nights and tasting nights carry `free`. The cash-only line under §Cash Bingo below is about the £10 books and the £1 daubers specifically, which is why it reads as a Cash Bingo rule; it was never meant to imply the other formats take cards. Read the record.
+
 > Event details are managed per-event in the management app and live canonically in `SSOT.json` under `events`. The summaries above are for reference; confirm current dates, times and prices against the management app / API.
 
 ### Retired entertainment formats

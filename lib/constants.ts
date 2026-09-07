@@ -82,5 +82,18 @@ export const LARGE_GROUP_DEPOSIT_POLICY_COPY =
 export const WALK_IN_LAUNCH_STARTS_AT_MS = new Date('2026-05-17T00:00:00+01:00').getTime()
 export const WALK_IN_LAUNCH_BANNER_ENDS_AT_MS = new Date('2026-05-17T18:00:00+01:00').getTime()
 
-/** Convenience alias — use this in components instead of CONTACT.phone */
+/** Convenience alias, use this in components instead of CONTACT.phone */
 export const PHONE_NUMBER = CONTACT.phone
+
+/**
+ * Turn-by-turn directions to the pub.
+ *
+ * Built from coordinates rather than a name search on purpose: "The Anchor"
+ * searched from a phone in Staines resolves to a different pub.
+ *
+ * Two copies of this string had already grown independently, in
+ * components/FindUsSection.tsx and in the event booking form. Two copies of a
+ * destination is how a destination drifts, so it lives here beside the
+ * coordinates it is built from.
+ */
+export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`

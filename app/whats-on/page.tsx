@@ -101,7 +101,7 @@ const HUB_NIGHTS: ReadonlyArray<{
   {
     cadence: 'Monthly',
     title: 'Quiz Night',
-    meta: 'Test your knowledge for a £25 bar tab, with a bottle of wine for the second-from-last team.',
+    meta: 'Test your knowledge for a £25 bar tab, with a bottle of house wine for the second-from-last team.',
     price: '£3 entry',
     tag: '£25 bar tab',
     href: '/quiz-night'
