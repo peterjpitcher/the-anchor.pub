@@ -150,10 +150,22 @@ analytics wiring is intact. `scripts/audit-a11y.js` reports zero axe violations.
   NavBar dropdown triggers are anchors with `aria-expanded` that navigate on Enter
   instead of expanding. `components/ui/navigation/NavBar.tsx` is untouched by this
   branch, so it is a separate defect, not a regression here.
-- `npm run lint` and `npm test` cannot run verbatim from a worktree under
-  `.claude/worktrees/`: eslint picks up the parent checkout's `.eslintrc.json` and Jest's
-  `testPathIgnorePatterns` matches the worktree's own path. Both were run with the
-  equivalent commands instead. Left alone, because fixing either is a repo change beyond
-  this concern.
+- `/parking/bookings/[id]` and `/heathrow-parking/confirmation/[bookingId]` browser
+  checks, as above.
 
-Local only. Not pushed, not deployed.
+## Follow-up, worktree gate configuration
+
+`npm run lint` and `npm test` could not run verbatim from a worktree under
+`.claude/worktrees/`: eslint walked up and found the parent checkout's `.eslintrc.json`,
+giving a plugin conflict and exit 1, and Jest's `testPathIgnorePatterns` matched the
+worktree's own absolute path, so every test in it was ignored and Jest reported "No tests
+found". The waves above were verified with equivalent commands.
+
+- [x] `.eslintrc.json` sets `"root": true`. Nothing above the project supplies eslint
+      config, so this loses nothing and stops the upward walk.
+- [x] `jest.config.js` anchors the ignore pattern with `<rootDir>/`. Checked in both
+      directions: the main checkout still ignores nested worktrees, and a worktree runs
+      its own tests while still ignoring worktrees nested inside it.
+
+Both gates then ran verbatim from this worktree: `npm run lint` exit 0 with zero
+warnings, `npm test` and `npm run test:utc` 194 suites each, 2,104 passed, 1 skipped.

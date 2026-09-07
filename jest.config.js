@@ -23,7 +23,11 @@ const customJestConfig = {
   // repo. Without this, a bare `npx jest` also collects their tests, so stale or
   // in-progress branches produce phantom failures that mask real regressions.
   // next/jest appends these to its own defaults (/node_modules/ and <rootDir>/.next/).
-  testPathIgnorePatterns: ['/\\.claude/worktrees/'],
+  //
+  // The <rootDir> prefix is what makes this work in both directions. Unanchored, the
+  // pattern also matched a worktree's OWN absolute path, so `npm test` run from inside
+  // a worktree ignored every test in it and reported "No tests found".
+  testPathIgnorePatterns: ['<rootDir>/\\.claude/worktrees/'],
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
