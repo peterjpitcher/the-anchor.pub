@@ -37,7 +37,7 @@ import {
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
-import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
+import { getEventBookingHeroStatement, getEventSeatAvailabilityLabel } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
@@ -132,6 +132,16 @@ const SALES_CLOSED_COPY = {
   title: 'Online ticket sales have closed',
   message: 'Online ticket sales for this event have closed. Please contact us if you need help.'
 } as const
+
+/**
+ * The one label `getEventSeatAvailabilityLabel` returns that is not a count.
+ * Held here only to pick the badge's colour: a sold-out night is not an
+ * invitation, so it takes the plain outline rather than the gold that carries
+ * "there are still places". The wording itself is never written here, and the
+ * event-detail-page tests assert this string against the resolver's own output
+ * so the two cannot drift.
+ */
+const SOLD_OUT_LABEL = 'Sold out'
 
 function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {
   title: string
@@ -427,6 +437,22 @@ export default async function EventPage({ params }: Props) {
   // about whether this event is over.
   const presentation = getEventPresentation(event)
 
+  /**
+   * How many places are left, in the management app's own words.
+   *
+   * `getEventSeatAvailabilityLabel` was already written, already booking-mode
+   * aware and already handled seated versus standing, `is_full` and the
+   * schema.org SoldOut flag, and was exported and called from nowhere. It reads
+   * live API counts only and returns null when the record carries none, so an
+   * event whose capacity is unknown says nothing at all rather than guessing.
+   *
+   * Withheld on an ended or cancelled night. The flag comes from
+   * getEventPresentation, never from testing the date here: that is the whole
+   * reason that module exists.
+   */
+  const seatAvailabilityLabel =
+    presentation.phase === 'upcoming' ? getEventSeatAvailabilityLabel(event) : null
+
   const bookingBlockReason = getEventBookingBlockReason(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
   // surfaced when nothing more specific (cancelled / sold out / past) applies.
@@ -689,9 +715,27 @@ export default async function EventPage({ params }: Props) {
       <section className="bg-canvas py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
         <Container>
           <div className="mx-auto">
-            {/* Main Content Grid */}
-            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
-              {/* Left Column - Event Details.
+            {/* Main Content Grid.
+                Three DOM children, not two, and no CSS `order` anywhere. The
+                grid used to hold the details column followed by the booking
+                column and flip them with `order-1` / `order-2`, which put the
+                booking form above the description on a phone: a visitor who had
+                not decided yet met a form before learning what the night was.
+                CSS order changes only the painting order, so a screen reader or
+                a keyboard still met the form first whatever the classes said.
+
+                So the pitch, the booking action and the supporting detail are
+                three siblings in reading order, and desktop is rebuilt from
+                explicit grid placement instead: pitch in column 1 row 1,
+                supporting detail in column 1 row 2, booking spanning both rows
+                in column 2 so its sticky sidebar still has a tall containing
+                block. `grid-rows-[auto_1fr]` sends any surplus height from that
+                spanning column into row 2, so a long booking form cannot open a
+                gap between the pitch and the detail beneath it. Row gap is zero
+                on desktop because the two left blocks were one continuous flow
+                before this and their own margins already space them. */}
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:grid-rows-[auto_1fr] lg:gap-x-10 lg:gap-y-0">
+              {/* 1. The pitch: what this night is.
                   The square artwork card that used to sit here has gone. It
                   earned its place when the hero was a photograph of the pub,
                   but EventArtworkHero now shows the artwork clean at the top,
@@ -699,7 +743,7 @@ export default async function EventPage({ params }: Props) {
                   down, and only on desktop because it was hidden below lg.
                   The square image is still used for listing cards
                   (RelatedEvents), the countdown banner and event schema. */}
-              <div className="order-2 lg:order-1">
+              <div className="lg:col-start-1 lg:row-start-1">
                 <EventHighlights highlights={event.highlights} compact />
 
                 {/* Description */}
@@ -709,8 +753,104 @@ export default async function EventPage({ params }: Props) {
                     <p className="text-ink-muted whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
                   </div>
                 )}
+              </div>
 
-                <details className="mt-6 mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
+              {/* 2. The booking action, read after the pitch on a phone and
+                  shown as the sticky sidebar on desktop. */}
+              <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
+                <div className="lg:sticky lg:top-24">
+                  {(event.previous_event_summary || event.attendance_note) && (
+                    <div className="mb-4 rounded-lg border border-anchor-gold-dark/10 bg-surface-sunk p-4">
+                      {event.previous_event_summary && (
+                        <p className="text-sm text-ink-muted">
+                          <span className="font-medium text-accent-text">Last time:</span> {event.previous_event_summary}
+                        </p>
+                      )}
+                      {event.attendance_note && (
+                        <p className="mt-1 text-sm text-ink-muted">
+                          {event.attendance_note}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
+                    {/* How many places are actually left, beside the thing that
+                        takes the booking. Every word of it comes from
+                        getEventSeatAvailabilityLabel, which reads only the
+                        counts the management API sent and returns null when it
+                        has none, so nothing is rendered unless the number is
+                        real. Nothing here is computed, inferred, hardcoded or
+                        counted down: CMA207 banned practice 7 prohibits falsely
+                        stating limited availability, and live event ticketing is
+                        a sector the CMA is actively sweeping. */}
+                    {seatAvailabilityLabel && (
+                      <p className="mb-2">
+                        <Badge variant={seatAvailabilityLabel === SOLD_OUT_LABEL ? 'outline' : 'gold'}>
+                          {seatAvailabilityLabel}
+                        </Badge>
+                      </p>
+                    )}
+                    {mothersDayBookingFlow ? (
+                      <Card accent>
+                        <CardBody className="space-y-3 p-4">
+                          <h2 className="text-xl text-accent-text">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                          <p className="text-sm text-ink-muted">{mothersDayBookingCopy}</p>
+                          <Button asChild fullWidth size="lg">
+                            <Link href={mothersDayBookingUrl}>
+                              {MOTHERS_DAY_BOOKING_CTA_LABEL}
+                            </Link>
+                          </Button>
+                        </CardBody>
+                      </Card>
+                    ) : bookingFormSuppressed ? (
+                      <Alert variant="info" title={bookingDisabledCopy?.title}>
+                        <p>{bookingDisabledCopy?.message}</p>
+                      </Alert>
+                    ) : (
+                      <ManagementEventBookingForm
+                        event={event}
+                        title={bookingFormTitle}
+                        compact
+                      />
+                    )}
+                  </div>
+
+                  {/* What somebody does once they have decided to come: put it
+                      in the diary, then tell the person they want to bring. So
+                      both sit directly under the booking action rather than at
+                      the foot of the page.
+
+                      Neither is breakpoint-gated. The share control was `hidden
+                      lg:block`, which withheld sharing from the phone audience
+                      that does almost all of it. Both read their flag from
+                      getEventPresentation: AddToCalendar gates itself on
+                      showAddToCalendar, so it is mounted plainly. */}
+                  {(presentation.showAddToCalendar || presentation.showShareButton) && (
+                    <div className="mb-6 space-y-3">
+                      <AddToCalendar
+                        event={event}
+                        source="event_page_booking_actions"
+                        layout="stacked"
+                        size="sm"
+                      />
+                      {presentation.showShareButton && (
+                        <EventSecondaryActions
+                          event={event}
+                          source="event_page_sidebar_actions"
+                          className="justify-start"
+                          size="sm"
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* 3. Supporting detail, read after the booking action on a phone
+                  and continuing the left column on desktop. */}
+              <div className="lg:col-start-1 lg:row-start-2">
+                <details className="mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-semibold text-accent-text [&::-webkit-details-marker]:hidden">
                     <span>More event details</span>
                     <span className="text-xl leading-none text-ink-muted" aria-hidden="true">+</span>
@@ -720,7 +860,13 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 </details>
 
-                <Card accent className="mb-6 mt-6 hidden lg:mb-8 lg:block">
+                {/* `mt-6` has gone with the restructure. On desktop this card
+                    is now the first thing in its own grid row, so that margin
+                    stacked on top of the description block's `lg:mb-8` above it
+                    instead of collapsing with it, which added 24px that was
+                    never there before. It never applied on mobile: the card is
+                    `hidden` below lg. */}
+                <Card accent className="mb-6 hidden lg:mb-8 lg:block">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-semibold text-accent-text md:text-xl">Event information</h2>
                     <div className="mt-4">
@@ -771,82 +917,6 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 )}
 
-              </div>
-
-              {/* Right Column - Reservation */}
-              <div className="order-1 lg:order-2">
-                <div className="lg:sticky lg:top-24">
-                  {(event.previous_event_summary || event.attendance_note) && (
-                    <div className="mb-4 rounded-lg border border-anchor-gold-dark/10 bg-surface-sunk p-4">
-                      {event.previous_event_summary && (
-                        <p className="text-sm text-ink-muted">
-                          <span className="font-medium text-accent-text">Last time:</span> {event.previous_event_summary}
-                        </p>
-                      )}
-                      {event.attendance_note && (
-                        <p className="mt-1 text-sm text-ink-muted">
-                          {event.attendance_note}
-                        </p>
-                      )}
-                    </div>
-                  )}
-
-                  <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
-                    {mothersDayBookingFlow ? (
-                      <Card accent>
-                        <CardBody className="space-y-3 p-4">
-                          <h2 className="text-xl text-accent-text">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
-                          <p className="text-sm text-ink-muted">{mothersDayBookingCopy}</p>
-                          <Button asChild fullWidth size="lg">
-                            <Link href={mothersDayBookingUrl}>
-                              {MOTHERS_DAY_BOOKING_CTA_LABEL}
-                            </Link>
-                          </Button>
-                        </CardBody>
-                      </Card>
-                    ) : bookingFormSuppressed ? (
-                      <Alert variant="info" title={bookingDisabledCopy?.title}>
-                        <p>{bookingDisabledCopy?.message}</p>
-                      </Alert>
-                    ) : (
-                      <ManagementEventBookingForm
-                        event={event}
-                        title={bookingFormTitle}
-                        compact
-                      />
-                    )}
-                  </div>
-
-                  {/* What somebody does once they have decided to come: put it
-                      in the diary, then tell the person they want to bring. So
-                      both sit directly under the booking action rather than at
-                      the foot of the page, and this column is `order-1`, so on
-                      a phone they are within a screen of the top.
-
-                      Neither is breakpoint-gated. The share control was `hidden
-                      lg:block`, which withheld sharing from the phone audience
-                      that does almost all of it. Both read their flag from
-                      getEventPresentation: AddToCalendar gates itself on
-                      showAddToCalendar, so it is mounted plainly. */}
-                  {(presentation.showAddToCalendar || presentation.showShareButton) && (
-                    <div className="mb-6 space-y-3">
-                      <AddToCalendar
-                        event={event}
-                        source="event_page_booking_actions"
-                        layout="stacked"
-                        size="sm"
-                      />
-                      {presentation.showShareButton && (
-                        <EventSecondaryActions
-                          event={event}
-                          source="event_page_sidebar_actions"
-                          className="justify-start"
-                          size="sm"
-                        />
-                      )}
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
 
