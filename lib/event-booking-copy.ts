@@ -73,7 +73,9 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
     return {
       label: 'Reserve a table, buy bingo book on arrival',
       policy: 'Reserve your table online. Buy your £10 bingo book on arrival. Players must be 18+.',
-      foodPrompt: 'Arrive from 6pm for food before eyes down at 7pm.',
+      // docs/SSOT.md: arrive by 6:30pm, first game 7pm. The older "arrive from
+      // 6pm" line is explicitly superseded there, owner-confirmed 17 August 2026.
+      foodPrompt: 'Arrive by 6:30pm for food before eyes down at 7pm.',
       suppressRawCancellationPolicy: true
     }
   }
@@ -82,7 +84,9 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
     return {
       label: 'Reserve a table for Music Bingo',
       policy: `${arrivalReassurance} Booking holds your table for Music Bingo.`,
-      foodPrompt: 'Arrive from 6:30pm for food. Music Bingo starts at 8pm.',
+      // docs/SSOT.md: start corrected from 8pm to 7pm, owner-confirmed 16 August
+      // 2026, and "anything still saying 8pm is wrong". This string was one of them.
+      foodPrompt: 'Arrive from 6:30pm for food. Music Bingo starts at 7pm.',
       suppressRawCancellationPolicy: true
     }
   }
@@ -92,7 +96,8 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
     return {
       label: 'Reserve a table, pay quiz entry on arrival',
       policy: `No payment now. Reserve your table online and pay ${entryPrice} cash entry per person on arrival.`,
-      foodPrompt: 'Arrive from 6pm for food. Quiz starts at 7pm.',
+      // docs/SSOT.md: arrive from 6:30pm, start usually 7pm.
+      foodPrompt: 'Arrive from 6:30pm for food. Quiz starts at 7pm.',
       suppressRawCancellationPolicy: true
     }
   }

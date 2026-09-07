@@ -16,6 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
+import { AddToCalendar } from '@/components/events/AddToCalendar'
 import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -36,7 +37,7 @@ import {
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
-import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
+import { getEventBookingHeroStatement, getEventSeatAvailabilityLabel } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
@@ -48,9 +49,25 @@ import LiteYouTube from '@/components/events/LiteYouTube'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { rethrowIfTransient } from '@/lib/api/error-kind'
 import { getRetiredEventRedirect } from '@/lib/event-seo-strategy'
+import { normaliseEventProse } from '@/lib/text/normalise-api-prose'
 
 type Props = {
   params: { id: string }
+}
+
+// The head this route returns when the event does not exist. Held as one value
+// so the null case and the thrown case cannot drift apart.
+const EVENT_NOT_FOUND_METADATA: Metadata = {
+  title: 'Event Not Found',
+  description: 'This event could not be found.',
+}
+
+/** An API timestamp, or undefined when the record holds nothing usable. */
+function toArticleTimestamp(value: string | null | undefined): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  if (!trimmed || Number.isNaN(Date.parse(trimmed))) return undefined
+  return trimmed
 }
 
 function getStatusNotice(
@@ -116,6 +133,16 @@ const SALES_CLOSED_COPY = {
   message: 'Online ticket sales for this event have closed. Please contact us if you need help.'
 } as const
 
+/**
+ * The one label `getEventSeatAvailabilityLabel` returns that is not a count.
+ * Held here only to pick the badge's colour: a sold-out night is not an
+ * invitation, so it takes the plain outline rather than the gold that carries
+ * "there are still places". The wording itself is never written here, and the
+ * event-detail-page tests assert this string against the resolver's own output
+ * so the two cannot drift.
+ */
+const SOLD_OUT_LABEL = 'Sold out'
+
 function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {
   title: string
   message: string
@@ -172,9 +199,14 @@ function EventHighlights({
       accent className={className}
     >
       <CardBody className={compact ? 'p-3' : 'p-4 md:p-6'}>
-        <h3 className={compact ? 'mb-2 text-lg font-semibold leading-tight text-accent-text' : 'text-xl md:text-2xl text-accent-text mb-3 md:mb-4'}>
+        {/* An H2, not an H3. This is the first heading under the page title, so
+            as an H3 it opened the outline with a skipped level, and every
+            assistive technology that navigates by heading saw a section nested
+            under a parent that does not exist. The visual size is set by the
+            class, not the tag, so nothing moves. */}
+        <h2 className={compact ? 'mb-2 text-lg font-semibold leading-tight text-accent-text' : 'text-xl md:text-2xl text-accent-text mb-3 md:mb-4'}>
           Event Highlights
-        </h3>
+        </h2>
         <ul className={compact ? 'space-y-1' : 'space-y-2'}>
           {highlights.map((highlight, index) => (
             <li key={`${highlight}-${index}`} className={compact ? 'flex items-start gap-2' : 'flex items-start gap-3'}>
@@ -214,7 +246,21 @@ function EventInformationList({ items }: { items: EventInformationItem[] }) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const event = await anchorAPI.getEvent(params.id)
+    const apiEvent = await anchorAPI.getEvent(params.id)
+    // A 404 comes back as null despite the Promise<Event> signature, and
+    // normalising would spread it into an empty object and hide the miss, so
+    // the miss is answered before any prose is touched.
+    if (!apiEvent) {
+      return EVENT_NOT_FOUND_METADATA
+    }
+
+    // Every prose field this head emits (the meta description, the Open Graph
+    // description, the image alt) comes from the management database, where
+    // copy is typed by hand. The served head of one event page carried em
+    // dashes on 6 September 2026. Normalising here means the head, the visible
+    // page and the JSON-LD all read the same cleaned prose.
+    const event = normaliseEventProse(apiEvent)
+
     if (isRetiredEvent(event)) {
       return {
         title: "What's On at The Anchor",
@@ -247,10 +293,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     )
     const socialCopy = getEventSocialCopy(event)
     const socialTitle = socialCopy?.title || event.metaTitle || event.name
-    const socialDescription = socialCopy?.description || getEventMetaDescription(
-      event,
-      `Event at The Anchor, ${formatEventDate(event.startDate)}`,
-    )
+    // The Open Graph description states the date. getEventSocialCopy() writes a
+    // relative phrase for the native share sheet ("is at The Anchor next Friday
+    // from 7pm"), which is true on the day it renders and wrong the moment the
+    // week turns. A link preview is cached by the platform and reshared for
+    // weeks, so "next Friday" was still being shown after that Friday had gone.
+    // The share sheet keeps the personal wording; the card carries the date.
+    const socialDescription = socialCopy
+      ? `${event.name} at The Anchor, Stanwell Moor. ${formatEventDate(event.startDate)}, ${formatEventTime(event.startDate)}.`
+      : getEventMetaDescription(
+          event,
+          `Event at The Anchor, ${formatEventDate(event.startDate)}`,
+        )
 
     // Indexability comes from getEventSeoStrategy, the same function the page
     // body and app/sitemap.ts use. It previously lived here as its own copy of
@@ -284,7 +338,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           alt: imageAlt,
           type: eventImage ? 'image/jpeg' : 'image/png'
         }],
-        type: 'website',
+        // Open Graph has no `event` type, and `website` describes a whole site
+        // rather than one page, so every shared event URL was announcing itself
+        // as The Anchor's site. `article` is the closest true fit: one dated
+        // piece of content, in a section, with its own publication and
+        // modification times. Those times come from the record or are omitted.
+        type: 'article',
+        section: event.category?.name,
+        publishedTime: toArticleTimestamp(event.created_at),
+        modifiedTime: toArticleTimestamp(event.updated_at),
       },
       twitter: getTwitterMetadata({
         title: socialTitle,
@@ -293,10 +355,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       })
     }
   } catch {
-    return {
-      title: 'Event Not Found',
-      description: 'This event could not be found.',
-    }
+    return EVENT_NOT_FOUND_METADATA
   }
 }
 
@@ -309,10 +368,10 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect(retirement)
   }
 
-  let event
+  let apiEvent
 
   try {
-    event = await anchorAPI.getEvent(params.id)
+    apiEvent = await anchorAPI.getEvent(params.id)
   } catch (error) {
     // A bare catch here used to send EVERY failure to permanentRedirect(
     // '/whats-on'): timeouts, 502s, DNS blips, JSON parse errors. That told
@@ -327,9 +386,19 @@ export default async function EventPage({ params }: Props) {
   }
 
   // getEvent returns null rather than throwing when the API reports 404.
-  if (!event) {
+  if (!apiEvent) {
     notFound()
   }
+
+  // One normalisation, at the boundary, before anything reads the record.
+  // Event copy is typed into the management app, not written here, so the house
+  // ban on em dashes was never enforced on it: the served HTML of one event
+  // page carried sixteen of them on 6 September 2026, including inside the
+  // JSON-LD description. Everything downstream (the hero lead, the description,
+  // the highlights, the FAQs, EventSchema's JSON-LD) reads this object, so the
+  // visible copy and the structured data cannot disagree. Only named prose
+  // fields are touched; ids, slugs, URLs and dates come through untouched.
+  const event = normaliseEventProse(apiEvent)
 
   if (isRetiredEvent(event)) {
     permanentRedirect('/whats-on')
@@ -367,6 +436,22 @@ export default async function EventPage({ params }: Props) {
   // JSON-LD via buildEventSchema, so the page and the schema cannot disagree
   // about whether this event is over.
   const presentation = getEventPresentation(event)
+
+  /**
+   * How many places are left, in the management app's own words.
+   *
+   * `getEventSeatAvailabilityLabel` was already written, already booking-mode
+   * aware and already handled seated versus standing, `is_full` and the
+   * schema.org SoldOut flag, and was exported and called from nowhere. It reads
+   * live API counts only and returns null when the record carries none, so an
+   * event whose capacity is unknown says nothing at all rather than guessing.
+   *
+   * Withheld on an ended or cancelled night. The flag comes from
+   * getEventPresentation, never from testing the date here: that is the whole
+   * reason that module exists.
+   */
+  const seatAvailabilityLabel =
+    presentation.phase === 'upcoming' ? getEventSeatAvailabilityLabel(event) : null
 
   const bookingBlockReason = getEventBookingBlockReason(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
@@ -512,7 +597,11 @@ export default async function EventPage({ params }: Props) {
     // still going ahead. "Cancelled" is still worth showing.
     ...(presentation.showStatusRow ? [{ label: 'Status', value: statusLabel }] : []),
     { label: 'Booking type', value: bookingModeLabel },
-    { label: 'Event type', value: event.event_type },
+    // "Event type" is gone. It printed `event.event_type` raw, so customers
+    // read "Event type: music-bingo", a database slug. The row immediately
+    // below already carries the same thing written for people ("Category:
+    // Music Bingo"), so rendering category.name here would have printed the
+    // same words twice under two labels. One row, human wording.
     { label: 'Category', value: event.category?.name },
     { label: 'Performer', value: event.performer?.name || event.performer_name },
     { label: 'Price', value: priceLabel }
@@ -626,9 +715,27 @@ export default async function EventPage({ params }: Props) {
       <section className="bg-canvas py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
         <Container>
           <div className="mx-auto">
-            {/* Main Content Grid */}
-            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
-              {/* Left Column - Event Details.
+            {/* Main Content Grid.
+                Three DOM children, not two, and no CSS `order` anywhere. The
+                grid used to hold the details column followed by the booking
+                column and flip them with `order-1` / `order-2`, which put the
+                booking form above the description on a phone: a visitor who had
+                not decided yet met a form before learning what the night was.
+                CSS order changes only the painting order, so a screen reader or
+                a keyboard still met the form first whatever the classes said.
+
+                So the pitch, the booking action and the supporting detail are
+                three siblings in reading order, and desktop is rebuilt from
+                explicit grid placement instead: pitch in column 1 row 1,
+                supporting detail in column 1 row 2, booking spanning both rows
+                in column 2 so its sticky sidebar still has a tall containing
+                block. `grid-rows-[auto_1fr]` sends any surplus height from that
+                spanning column into row 2, so a long booking form cannot open a
+                gap between the pitch and the detail beneath it. Row gap is zero
+                on desktop because the two left blocks were one continuous flow
+                before this and their own margins already space them. */}
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:grid-rows-[auto_1fr] lg:gap-x-10 lg:gap-y-0">
+              {/* 1. The pitch: what this night is.
                   The square artwork card that used to sit here has gone. It
                   earned its place when the hero was a photograph of the pub,
                   but EventArtworkHero now shows the artwork clean at the top,
@@ -636,7 +743,7 @@ export default async function EventPage({ params }: Props) {
                   down, and only on desktop because it was hidden below lg.
                   The square image is still used for listing cards
                   (RelatedEvents), the countdown banner and event schema. */}
-              <div className="order-2 lg:order-1">
+              <div className="lg:col-start-1 lg:row-start-1">
                 <EventHighlights highlights={event.highlights} compact />
 
                 {/* Description */}
@@ -646,60 +753,11 @@ export default async function EventPage({ params }: Props) {
                     <p className="text-ink-muted whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
                   </div>
                 )}
-
-                <details className="mt-6 mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-semibold text-accent-text [&::-webkit-details-marker]:hidden">
-                    <span>More event details</span>
-                    <span className="text-xl leading-none text-ink-muted" aria-hidden="true">+</span>
-                  </summary>
-                  <div className="border-t border-line p-3">
-                    <EventInformationList items={eventInformationItems} />
-                  </div>
-                </details>
-
-                <Card accent className="mb-6 mt-6 hidden lg:mb-8 lg:block">
-                  <CardBody className="p-4">
-                    <h2 className="text-lg font-semibold text-accent-text md:text-xl">Event information</h2>
-                    <div className="mt-4">
-                      <EventInformationList items={eventInformationItems} />
-                    </div>
-                  </CardBody>
-                </Card>
-
-                {presentation.showBookingPolicy && (
-                  <Card accent className="mb-6 hidden lg:mb-8 lg:block">
-                    <CardBody className="p-4">
-                      <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
-                      <div className="mt-3 space-y-2 text-sm text-ink-muted">
-                        <p>{eventBookingCopy.policy}</p>
-                        <p>{eventBookingCopy.foodPrompt}</p>
-                      </div>
-                    </CardBody>
-                  </Card>
-                )}
-
-                {/* Category Link */}
-                {event.category && (
-                  <Link
-                    href={getCategoryPageUrl(event.category.slug)}
-                    className="inline-flex items-center text-sm text-accent-text hover:text-accent-text hover:underline mb-6"
-                  >
-                    View all {event.category.name} events &rarr;
-                  </Link>
-                )}
-
-                {/* Cancellation Policy */}
-                {event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
-                  <div className="mt-4 mb-6 p-3 rounded-md bg-surface-sunk border border-line">
-                    <p className="text-xs font-medium text-accent-text mb-1">Cancellation Policy</p>
-                    <p className="text-sm text-ink-muted">{event.cancellation_policy}</p>
-                  </div>
-                )}
-
               </div>
 
-              {/* Right Column - Reservation */}
-              <div className="order-1 lg:order-2">
+              {/* 2. The booking action, read after the pitch on a phone and
+                  shown as the sticky sidebar on desktop. */}
+              <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
                 <div className="lg:sticky lg:top-24">
                   {(event.previous_event_summary || event.attendance_note) && (
                     <div className="mb-4 rounded-lg border border-anchor-gold-dark/10 bg-surface-sunk p-4">
@@ -717,6 +775,22 @@ export default async function EventPage({ params }: Props) {
                   )}
 
                   <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
+                    {/* How many places are actually left, beside the thing that
+                        takes the booking. Every word of it comes from
+                        getEventSeatAvailabilityLabel, which reads only the
+                        counts the management API sent and returns null when it
+                        has none, so nothing is rendered unless the number is
+                        real. Nothing here is computed, inferred, hardcoded or
+                        counted down: CMA207 banned practice 7 prohibits falsely
+                        stating limited availability, and live event ticketing is
+                        a sector the CMA is actively sweeping. */}
+                    {seatAvailabilityLabel && (
+                      <p className="mb-2">
+                        <Badge variant={seatAvailabilityLabel === SOLD_OUT_LABEL ? 'outline' : 'gold'}>
+                          {seatAvailabilityLabel}
+                        </Badge>
+                      </p>
+                    )}
                     {mothersDayBookingFlow ? (
                       <Card accent>
                         <CardBody className="space-y-3 p-4">
@@ -742,17 +816,107 @@ export default async function EventPage({ params }: Props) {
                     )}
                   </div>
 
-                  {presentation.showShareButton && (
-                    <div className="mb-6 hidden lg:block">
-                      <EventSecondaryActions
+                  {/* What somebody does once they have decided to come: put it
+                      in the diary, then tell the person they want to bring. So
+                      both sit directly under the booking action rather than at
+                      the foot of the page.
+
+                      Neither is breakpoint-gated. The share control was `hidden
+                      lg:block`, which withheld sharing from the phone audience
+                      that does almost all of it. Both read their flag from
+                      getEventPresentation: AddToCalendar gates itself on
+                      showAddToCalendar, so it is mounted plainly. */}
+                  {(presentation.showAddToCalendar || presentation.showShareButton) && (
+                    <div className="mb-6 space-y-3">
+                      <AddToCalendar
                         event={event}
-                        source="event_page_sidebar_actions"
-                        className="justify-start"
+                        source="event_page_booking_actions"
+                        layout="stacked"
                         size="sm"
                       />
+                      {presentation.showShareButton && (
+                        <EventSecondaryActions
+                          event={event}
+                          source="event_page_sidebar_actions"
+                          className="justify-start"
+                          size="sm"
+                        />
+                      )}
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* 3. Supporting detail, read after the booking action on a phone
+                  and continuing the left column on desktop. */}
+              <div className="lg:col-start-1 lg:row-start-2">
+                <details className="mb-3 rounded-xl border border-line bg-surface-sunk lg:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-semibold text-accent-text [&::-webkit-details-marker]:hidden">
+                    <span>More event details</span>
+                    <span className="text-xl leading-none text-ink-muted" aria-hidden="true">+</span>
+                  </summary>
+                  <div className="border-t border-line p-3">
+                    <EventInformationList items={eventInformationItems} />
+                  </div>
+                </details>
+
+                {/* `mt-6` has gone with the restructure. On desktop this card
+                    is now the first thing in its own grid row, so that margin
+                    stacked on top of the description block's `lg:mb-8` above it
+                    instead of collapsing with it, which added 24px that was
+                    never there before. It never applied on mobile: the card is
+                    `hidden` below lg. */}
+                <Card accent className="mb-6 hidden lg:mb-8 lg:block">
+                  <CardBody className="p-4">
+                    <h2 className="text-lg font-semibold text-accent-text md:text-xl">Event information</h2>
+                    <div className="mt-4">
+                      <EventInformationList items={eventInformationItems} />
+                    </div>
+                  </CardBody>
+                </Card>
+
+                {/* How to pay, at every breakpoint. This card was `hidden
+                    lg:block`, so the only statement of what a visitor pays and
+                    when was invisible to the phone-first audience that makes up
+                    most of this page's traffic. The policy line is resolved from
+                    the record (booking mode, payment mode, price), so it says
+                    nothing the management app has not been told.
+
+                    The second paragraph that used to sit here, the food prompt,
+                    has gone. It hardcoded an arrival time and a start time that
+                    the event record does not hold, and on Music Bingo it
+                    published "starts at 8pm" against a 7pm start (docs/SSOT.md
+                    §10). Times on this page come from the record: the start time
+                    and "Arrive from" rows below, and the facts strip above. */}
+                {presentation.showBookingPolicy && (
+                  <Card accent className="mb-6 lg:mb-8">
+                    <CardBody className="p-4">
+                      <h2 className="text-lg font-semibold text-accent-text md:text-xl">Booking and payment</h2>
+                      <div className="mt-3 space-y-2 text-sm text-ink-muted">
+                        <p>{eventBookingCopy.policy}</p>
+                      </div>
+                    </CardBody>
+                  </Card>
+                )}
+
+                {/* Category Link */}
+                {event.category && (
+                  <Link
+                    href={getCategoryPageUrl(event.category.slug)}
+                    className="inline-flex items-center text-sm text-accent-text hover:text-accent-text hover:underline mb-6"
+                  >
+                    View all {event.category.name} events &rarr;
+                  </Link>
+                )}
+
+                {/* Cancellation Policy */}
+                {event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
+                  <div className="mt-4 mb-6 p-3 rounded-md bg-surface-sunk border border-line">
+                    <p className="text-xs font-medium text-accent-text mb-1">Cancellation Policy</p>
+                    <p className="text-sm text-ink-muted">{event.cancellation_policy}</p>
+                  </div>
+                )}
+
               </div>
             </div>
 
@@ -790,8 +954,12 @@ export default async function EventPage({ params }: Props) {
                         </PhoneButton>
                       </div>
                     </div>
+                    {/* An explicit frame title: the default is built from the
+                        query, which here is a full postal address assembled
+                        from the record and reads badly out loud. */}
                     <GoogleMapEmbed
                       query={locationQuery || 'The Anchor, Stanwell Moor'}
+                      title={`Map showing where ${event.name} is held, The Anchor in Stanwell Moor`}
                       className="rounded-xl shadow-sm"
                       height={300}
                     />

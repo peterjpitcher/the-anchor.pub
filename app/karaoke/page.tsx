@@ -4,24 +4,23 @@ import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { HeroBadge } from '@/components/HeroBadge'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
+  GameNightBreadcrumb,
   GameNightCtaActions,
+  GameNightDateCards,
   GameNightFacts,
   GameNightObjections,
+  GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { karaoke, getGameNightEvents } from '@/lib/game-nights'
+import { karaoke, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import Link from 'next/link'
 import { BookTableButton } from '@/components/BookTableButton'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
-import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 /**
  * Karaoke is the largest organic opportunity across the four game pages: GKP puts
@@ -35,24 +34,14 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
  * often it runs, and leans on the two things that are always true: it is free,
  * and nobody has to sing.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildGameNightMetadata(karaoke, {
   title: 'Karaoke Near Me | Free Entry, Stanwell Moor',
   description:
     'Free entry karaoke at The Anchor in Stanwell Moor. Sing, share a duet or just watch. All ages welcome, communal seating, free parking. See the next confirmed night.',
-  openGraph: {
-    title: 'Karaoke at The Anchor, Stanwell Moor',
-    description: 'Free entry karaoke when a night is listed. Sing, duet or just cheer along. All ages welcome.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub in Stanwell Moor' }]
-  },
-  twitter: getTwitterMetadata({
-    title: 'Karaoke at The Anchor, Stanwell Moor',
-    description: 'Free entry karaoke when a night is listed. Sing, duet or just cheer along. All ages welcome.',
-    images: [DEFAULT_EVENT_IMAGE]
-  }),
-  alternates: {
-    canonical: './'
-  }
-}
+  shareTitle: 'Karaoke at The Anchor, Stanwell Moor',
+  shareDescription:
+    'Free entry karaoke when a night is listed. Sing, duet or just cheer along. All ages welcome.'
+})
 
 // Category lookup, fetching, de-duplication and sorting all live in
 // lib/game-nights/events.ts, shared by the four game pages. Karaoke's two
@@ -114,10 +103,11 @@ const FAQS = [
 
 function KaraokeEventCards({ events }: { events: Event[] }) {
   return (
-    <EventDateCards
+    <GameNightDateCards
       events={events}
       eyebrow="Karaoke night"
       bookingSource="karaoke_event_card"
+      calendarSource="karaoke_date_card"
       imageAltSuffix="karaoke night at The Anchor"
       renderMeta={() => <p className="text-xs text-ink-muted">Free entry</p>}
       renderDetails={() => (
@@ -166,6 +156,7 @@ export default async function KaraokePage() {
         * events system whenever one is actually listed, which is the honest
         * place for it. Do not reinstate a recurring series here.
         */}
+      <GameNightBreadcrumb config={karaoke} />
       <ScrollDepthTracker />
 
       <InteriorHero
@@ -185,12 +176,6 @@ export default async function KaraokePage() {
         }
       />
 
-      <section className="bg-surface-sunk py-section-y">
-        <Container>
-          <HeroBadge className="text-sm" />
-        </Container>
-      </section>
-
       <section className="py-section-y bg-surface">
         <Container>
           <PageTitle className="text-center text-accent-text" seo={{ structured: true, speakable: true }}>
@@ -207,14 +192,20 @@ export default async function KaraokePage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
-            <SectionViewTracker sectionId="karaoke_booking">
-              <GameNightBooking
-                events={events}
-                gameName={karaoke.name}
-                gameSlug={karaoke.slug}
-                bookingNote={karaoke.bookingNote}
-              />
-            </SectionViewTracker>
+            <div className="space-y-4">
+              <SectionViewTracker sectionId="karaoke_booking">
+                <GameNightBooking
+                  events={events}
+                  gameName={karaoke.name}
+                  gameSlug={karaoke.slug}
+                  bookingNote={karaoke.bookingNote}
+                />
+              </SectionViewTracker>
+              {/* The rating badge used to sit in its own band under the hero,
+                  unlabelled and three screens above the booking form. It proves
+                  nothing there. It is venue-wide, so the caption says so. */}
+              <GameNightSocialProof gameName={karaoke.name} />
+            </div>
             {/* Right column stacks the "how it works" card and the objections, so
                 it is not left mostly empty beside the much taller booking form. */}
             <div className="space-y-6">

@@ -828,7 +828,7 @@
       "entry_fee_gbp": 3,
       "team_size_max": 6,
       "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
-      "capacity": 80,
+      "capacity": 60,
       "prizes": {
         "first": "£25 bar tab",
         "second_from_last": "Bottle of house wine"
@@ -857,7 +857,7 @@
       "entry_fee_gbp": 5,
       "RESOLVED": "£5 per person, owner-confirmed 17 August 2026 and matched by every scheduled Music Bingo in the management DB. The earlier £3 figure is retired: anything still saying £3 is wrong.",
       "format": "Two games with interactive music games and quizzes too; song clips replace bingo numbers.",
-      "capacity": 90,
+      "capacity": 60,
       "host": "Nikki Manfadge",
       "private_nights": "Available on request"
     },
@@ -883,7 +883,7 @@
       "seating": "Ticketed with communal seating, no reserved tables. Book a free place per person so the room can be laid out. Never promise a guest a table waiting for them.",
       "age_policy": "All ages welcome at all times, with under-18s accompanied by a supervising adult. The older 'strictly 18+ after 9pm' rule is retired.",
       "_seating_and_age_confirmed": "Owner-confirmed 17 August 2026. booking_mode is 'communal' on the listed night.",
-      "capacity": 50,
+      "capacity": 60,
       "catalogue": "Use event listing if song-count detail is needed",
       "features": [
         "Free entry when listed",

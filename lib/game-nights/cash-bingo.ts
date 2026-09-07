@@ -43,11 +43,23 @@ export const cashBingo: GameNightConfig = {
       'Traditional cash bingo in the pub, not a bingo hall. Ten games, winnings paid out on the night, and a snowball jackpot that grows every month nobody claims it.'
   },
 
+  share: {
+    // The hero photograph, which is a real cash bingo night.
+    image: '/images/events/cash-bingo/cash-bingo-hero-eyes-down.jpg',
+    alt: 'Players marking their books at a cash bingo night at The Anchor, Stanwell Moor',
+    width: 640,
+    height: 480
+  },
+
   facts: [
     { label: 'Books', value: '£10 each, cash only' },
     { label: 'First game', value: '7pm, arrive by 6:30pm' },
     { label: 'Games', value: '10, plus the snowball' },
-    { label: 'Age', value: '18+ to play' },
+    // Both halves of the age rule, never one without the other (docs/SSOT.md
+    // §10): "18+ to play. Supervised under-18s are welcome to attend but may
+    // not play." This chip published only the first half, which reads as a door
+    // policy and turns away a family that could have come.
+    { label: 'Age', value: '18+ to play, supervised under 18s welcome' },
     { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 

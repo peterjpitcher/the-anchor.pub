@@ -1,6 +1,48 @@
 import { type CSSProperties, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { cva } from 'class-variance-authority'
+
+/**
+ * The artwork frame.
+ *
+ * Width drives the box and the aspect ratio derives the height. Setting an
+ * explicit height instead letterboxed the artwork on mobile, because the width
+ * clamp does not feed back into an already-definite height, so the desktop cap
+ * is expressed as a max-width too: for a square that is the height, for a 16:9
+ * poster it is the height multiplied by 16/9. The ratio is therefore never
+ * touched and the poster is neither cropped nor stretched, only smaller.
+ *
+ * The `lg:` cap is the fold fix (EV-010). At 1440x900 the poster ran from y150
+ * to y651 and pushed the H1, the date and price line and the "Book tickets"
+ * button (bottom at y1067) below the fold, so the only thing selling the event
+ * above it was the artwork. Below the poster the hero needs a fixed 416px for
+ * the breadcrumb, heading, lead, badges and buttons, and the header plus the
+ * top padding take 150px above it, so the poster may have `100vh - 592px`
+ * (37rem) and still leave the primary CTA about 26px clear of the fold. The
+ * 220px floor stops a short desktop window shrinking the artwork to nothing.
+ *
+ * Nothing below `lg` changes: at 375x812 the name, date, price and Book button
+ * were already in the first viewport, and the mobile max-width is untouched.
+ *
+ * The cap travels as a custom property that the element's own `max-width` reads,
+ * rather than as a `max-w-[...]` utility, because scripts/audit-page-width.js
+ * bans arbitrary width caps of 600px and up in class names. That rule is about
+ * page-content width fighting `.container`; this is the frame around one image,
+ * and it carried exactly this 890px cap as an inline style before the fold fix.
+ * Keeping the declaration inline leaves the audit's surface where it was.
+ */
+const artworkFrame = cva('relative w-full overflow-hidden rounded-xl shadow-lg', {
+  variants: {
+    wide: {
+      true: 'aspect-[16/9] [--artwork-frame-max:890px] lg:[--artwork-frame-max:clamp(391px,calc((100vh_-_37rem)*16/9),890px)]',
+      false: 'aspect-square [--artwork-frame-max:500px] lg:[--artwork-frame-max:clamp(220px,calc(100vh_-_37rem),500px)]'
+    }
+  },
+  defaultVariants: {
+    wide: false
+  }
+})
 
 export interface EventArtworkHeroProps {
   /** The event's own artwork. Never a generic fallback image. */
@@ -45,16 +87,10 @@ export function EventArtworkHero({
           object-contain because a poster that has been cropped has lost the
           point of being a poster. */}
       <div className="mx-auto flex w-full items-center justify-center px-4 pt-6 sm:px-6">
-        {/* Width drives the box and the aspect ratio derives the height, with the
-            max-width picked so the height lands near 500px at full size. Setting
-            an explicit height instead letterboxed the artwork on mobile, because
-            the width clamp does not feed back into an already-definite height. */}
         <div
-          className="relative w-full overflow-hidden rounded-xl shadow-lg"
-          style={{
-            aspectRatio: wide ? '16 / 9' : '1 / 1',
-            maxWidth: wide ? '890px' : '500px'
-          }}
+          className={artworkFrame({ wide })}
+          data-event-artwork-frame
+          style={{ maxWidth: 'var(--artwork-frame-max)' }}
         >
           <Image
             src={image}

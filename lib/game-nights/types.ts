@@ -71,6 +71,30 @@ export interface GameNightConfig {
   }
 
   /**
+   * Link preview image for this page, used for `og:image` and the Twitter card.
+   *
+   * All four pages shared one generic events photograph, so a shared quiz link
+   * and a shared karaoke link previewed with the same picture of neither. The
+   * image must show this night, and the dimensions must be the file's real
+   * dimensions: declaring 1200x630 for a file that is not 1200x630 tells the
+   * crawler something untrue about the crop it is about to make.
+   *
+   * Karaoke has no photograph of a karaoke night anywhere in the repo, so it
+   * deliberately stays on the neutral events image. Using another night's photo
+   * there would be a picture of a different event.
+   */
+  share: {
+    /** Absolute path under /public. */
+    image: string
+    /** Alt text, describing what is actually in the photograph. */
+    alt: string
+    /** The file's real pixel width. */
+    width: number
+    /** The file's real pixel height. */
+    height: number
+  }
+
+  /**
    * At-a-glance chips rendered in the hero, under the H1. Four or five maximum:
    * these are scanned in about two seconds, not read. Anything that needs a
    * sentence belongs in `objections` instead.

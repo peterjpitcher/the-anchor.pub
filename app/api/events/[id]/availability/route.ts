@@ -28,41 +28,27 @@ export async function POST(
       // If we can't fetch the event, continue with the availability check
     }
 
-    let availability;
-
-    try {
-        availability = await anchorAPI.checkEventAvailability(params.id, seats)
-    } catch (error: unknown) {
-        // Fallback: if the availability endpoint fails (e.g. 404 or not implemented),
-        // try fetching the event details and calculating availability manually.
-        // This matches the previous route's resilience logic.
-        const err = error as { status?: number }
-        if (err.status === 404 || err.status === 405 || err.status === 500) {
-             try {
-                 const event = await anchorAPI.getEvent(params.id)
-                 if (event) {
-                    const maxCapacity = event.maximumAttendeeCapacity || 100
-                    const remaining = event.remainingAttendeeCapacity ?? 0
-                    const booked = maxCapacity - remaining
-                    
-                    availability = {
-                        available: remaining >= seats,
-                        event_id: event.id,
-                        capacity: maxCapacity,
-                        booked: booked,
-                        remaining: remaining,
-                        percentage_full: maxCapacity ? Math.round((booked / maxCapacity) * 100) : 0
-                    }
-                 } else {
-                     throw error // Re-throw original error if event not found
-                 }
-             } catch (innerError) {
-                 throw error // Throw original error if fallback fails
-             }
-        } else {
-            throw error
-        }
-    }
+    // Availability comes from the management app or it does not come at all.
+    //
+    // This used to fall back to calculating availability here whenever the
+    // upstream returned 404, 405 or 500, which is precisely during an outage,
+    // when local arithmetic is least trustworthy. It was wrong three ways.
+    //
+    // It invented a capacity: `maximumAttendeeCapacity || 100`. Every real
+    // capacity is 60, so an event whose capacity did not load was published as
+    // holding 100. It then read `remainingAttendeeCapacity ?? 0`, so an event
+    // whose remaining count did not load was reported as sold out, and the two
+    // together produced "100 booked of 100, 100% full" for an event nobody had
+    // booked. It also read only the schema.org spelling, the single-spelling
+    // bug that `getEventRemainingCapacity` records as having silenced every
+    // scarcity readout on the site when the list response stopped carrying it.
+    //
+    // Most importantly, local slot maths cannot see tables, joins or private
+    // bookings. That is why availability fails closed here and everywhere else:
+    // the site once advertised times when the pub was physically full. The
+    // catch below already returns a 503 with a phone number, which is the
+    // correct answer to "we do not know".
+    const availability = await anchorAPI.checkEventAvailability(params.id, seats)
 
     // Return with success wrapper format for consistency
     return NextResponse.json({

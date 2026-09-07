@@ -6,16 +6,18 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
-import { EventDateCards } from '@/components/features/EventDateCards'
 import {
   GameNightBooking,
+  GameNightBreadcrumb,
   GameNightCtaActions,
+  GameNightDateCards,
   GameNightFacts,
   GameNightGallery,
   GameNightObjections,
+  GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { musicBingo, getGameNightEvents } from '@/lib/game-nights'
+import { musicBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import {
@@ -26,8 +28,6 @@ import {
   type Event
 } from '@/lib/api'
 import Link from 'next/link'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
-import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 /**
@@ -37,24 +37,14 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
  * runs (docs/SSOT.md permits drag-host wording here and nowhere else). See
  * tasks/keyword-plan-game-nights-2026-08-17.md.
  */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildGameNightMetadata(musicBingo, {
   title: 'Music Bingo Near Me | Drag Music Bingo',
   description:
-    'Music bingo in Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games. It sells out, so book ahead.',
-  openGraph: {
-    title: 'Music Bingo at The Anchor, Stanwell Moor',
-    description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
-    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Music bingo at The Anchor pub in Stanwell Moor' }]
-  },
-  twitter: getTwitterMetadata({
-    title: 'Music Bingo at The Anchor, Stanwell Moor',
-    description: 'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.',
-    images: [DEFAULT_EVENT_IMAGE]
-  }),
-  alternates: {
-    canonical: './'
-  }
-}
+    'Music bingo in Stanwell Moor, hosted by drag queen Nikki Manfadge. Song clips replace numbers, two themed games. £5 a player, communal seating, book ahead.',
+  shareTitle: 'Music Bingo at The Anchor, Stanwell Moor',
+  shareDescription:
+    'Song clips replace numbers, hosted by drag queen Nikki Manfadge. Two themed games, £5 cash entry.'
+})
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
 // shared by the four game pages.
@@ -99,7 +89,7 @@ const FAQS = [
   {
     question: 'Do we need to book in advance?',
     answer:
-      'Yes, we would recommend it. Music bingo does sell out, and seating is communal, so booking is how we make sure your group sits together.'
+      'Yes, we would recommend it. Seating is communal, so booking is how we know how many places to lay out and how we make sure your group sits together.'
   },
   {
     question: 'Is music bingo suitable for families?',
@@ -142,10 +132,11 @@ function getEntryLabel(event: Event) {
 
 function MusicBingoEventCards({ events }: { events: Event[] }) {
   return (
-    <EventDateCards
+    <GameNightDateCards
       events={events}
       eyebrow="Music bingo night"
       bookingSource="music_bingo_event_card"
+      calendarSource="music_bingo_date_card"
       imageAltSuffix="music bingo night at The Anchor"
       renderMeta={(event, doorTime) => (
         <p className="text-xs text-ink-muted">Arrive from {doorTime ?? '6:30pm'} - {getEntryLabel(event)}</p>
@@ -184,6 +175,7 @@ export default async function MusicBingoPage() {
 
   return (
     <>
+      <GameNightBreadcrumb config={musicBingo} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
@@ -272,14 +264,17 @@ export default async function MusicBingoPage() {
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto grid gap-6 md:grid-cols-2 md:items-start">
-            <SectionViewTracker sectionId="music_bingo_booking">
-              <GameNightBooking
-                events={events}
-                gameName={musicBingo.name}
-                gameSlug={musicBingo.slug}
-                bookingNote={musicBingo.bookingNote}
-              />
-            </SectionViewTracker>
+            <div className="space-y-4">
+              <SectionViewTracker sectionId="music_bingo_booking">
+                <GameNightBooking
+                  events={events}
+                  gameName={musicBingo.name}
+                  gameSlug={musicBingo.slug}
+                  bookingNote={musicBingo.bookingNote}
+                />
+              </SectionViewTracker>
+              <GameNightSocialProof gameName={musicBingo.name} />
+            </div>
             {/* Right column stacks the "how it runs" card and the objections. The
                 booking form opposite is roughly three times the height of that
                 card on its own, which left most of this column empty. */}
@@ -320,7 +315,7 @@ export default async function MusicBingoPage() {
         gameName={musicBingo.name}
         gameSlug={musicBingo.slug}
         title="What music bingo actually looks like"
-        intro="Real photos from recent nights with Nikki Manfadge. Song clips instead of numbers, two games, and it does sell out."
+        intro="Real photos from recent nights with Nikki Manfadge. Song clips instead of numbers, two games, and communal tables."
       />
 
       <section id="music-bingo-dates" className="py-section-y bg-surface">
@@ -413,7 +408,7 @@ export default async function MusicBingoPage() {
 
       <CtaBand
         title="Ready to sing for the prizes?"
-        copy="Music bingo sells out, so book your places rather than turning up on the night."
+        copy="Book your places rather than turning up on the night, so we can lay out seats for your group."
       >
         <GameNightCtaActions
           gameSlug={musicBingo.slug}

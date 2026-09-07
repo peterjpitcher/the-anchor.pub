@@ -1,7 +1,8 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import type { ComponentProps } from 'react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
-import { trackEventBookingComplete } from '@/lib/gtm-events'
+import { trackDirectionsClick, trackEventBookingComplete } from '@/lib/gtm-events'
 import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
@@ -10,7 +11,41 @@ import {
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
   trackEventBookingComplete: jest.fn(),
-  trackEventBookingFunnelStep: jest.fn()
+  trackEventBookingFunnelStep: jest.fn(),
+  trackDirectionsClick: jest.fn()
+}))
+
+const TEST_TURNSTILE_SITE_KEY = 'test-turnstile-site-key'
+
+const mockTurnstileReset = jest.fn()
+
+/** Last props Cloudflare's widget was rendered with, so a test can drive it. */
+const mockTurnstileProps: { current: any } = { current: null }
+
+/**
+ * Stands in for Cloudflare's widget.
+ *
+ * It renders a placeholder and fires nothing of its own accord, which is exactly
+ * what a blocked, proxied or never-loaded widget does in the wild. It also loads
+ * no script and opens no connection, so nothing in this file can reach the live
+ * management API.
+ */
+jest.mock('@marsidev/react-turnstile', () => {
+  const React = require('react')
+
+  return {
+    Turnstile: React.forwardRef(function MockTurnstile(props: any, ref: any) {
+      React.useImperativeHandle(ref, () => ({ reset: mockTurnstileReset }))
+      mockTurnstileProps.current = props
+      return <div data-testid="turnstile-widget" />
+    })
+  }
+})
+
+/** PayPal's SDK fetches a remote script, so it is replaced with inert markup. */
+jest.mock('@paypal/react-paypal-js', () => ({
+  PayPalScriptProvider: (props: any) => <div data-testid="paypal-provider">{props.children}</div>,
+  PayPalButtons: () => <div data-testid="paypal-buttons" />
 }))
 
 /**
@@ -637,5 +672,614 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.first_name).toBe('Jane')
     expect(payload.last_name).toBe('Guest')
     expect(payload.requested_seats).toBe(4)
+  })
+
+  // /karaoke is free entry, and the email field still promised "any payment
+  // follow-up". There is no payment on a free event, so there is no follow-up.
+  it('promises a payment follow-up only when the event can actually charge', () => {
+    const { unmount } = render(
+      <ManagementEventBookingForm
+        event={{
+          id: 'karaoke-fixture',
+          name: 'Karaoke Night',
+          startDate: '2999-01-01T20:00:00Z',
+          payment_mode: 'free'
+        }}
+      />
+    )
+
+    expect(screen.getByText('So we can send your confirmation.')).toBeInTheDocument()
+    expect(screen.queryByText(/payment follow-up/)).not.toBeInTheDocument()
+
+    unmount()
+
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: 'quiz-fixture',
+          name: 'Quiz Night',
+          startDate: '2999-01-01T19:00:00Z',
+          price_per_seat: 3
+        }}
+      />
+    )
+
+    expect(
+      screen.getByText('So we can send your confirmation and any payment follow-up.')
+    ).toBeInTheDocument()
+    expect(screen.queryByText('So we can send your confirmation.')).not.toBeInTheDocument()
+  })
+
+  // Both of these point at real customer URLs on the management domain and must
+  // keep working. A change that quietly drops either one strands a paid booking.
+  it('keeps the Manage Booking link and the PayPal section on a pending payment', async () => {
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-paypal-client-id'
+
+    try {
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+        if (input === '/api/event-bookings') {
+          return new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                state: 'pending_payment',
+                booking_id: 'booking-pending-1',
+                reason: null,
+                seats_remaining: 4,
+                next_step_url: 'https://management.orangejelly.co.uk/pay/booking-pending-1',
+                manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-pending-1'
+              }
+            }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+          )
+        }
+        throw new Error(`Unexpected fetch call: ${String(input)}`)
+      })
+
+      render(
+        <ManagementEventBookingForm
+          event={{
+            id: 'prepaid-fixture',
+            name: 'Music Bingo',
+            startDate: '2999-01-01T20:00:00Z',
+            price_per_seat: 6,
+            payment_mode: 'prepaid'
+          }}
+        />
+      )
+
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+      await screen.findByText('Your seats are currently on hold.')
+
+      expect(screen.getByTestId('paypal-buttons')).toBeInTheDocument()
+      expect(screen.getByText('Pay with PayPal to confirm your booking.')).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Open Payment Link' })).toHaveAttribute(
+        'href',
+        'https://management.orangejelly.co.uk/pay/booking-pending-1'
+      )
+      expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+        'href',
+        'https://management.orangejelly.co.uk/manage/booking-pending-1'
+      )
+    } finally {
+      delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    }
+  })
+
+  /**
+   * The two things a guest actually does next: put the night in a diary, and
+   * work out how to get here.
+   *
+   * The rule worth pinning is the negative one. A hold awaiting payment, a
+   * waitlist offer and a blocked attempt are all "not booked", so neither
+   * action may appear on any of them. The calendar control also refuses a
+   * cancelled or finished night on its own, and that refusal has to survive
+   * being mounted inside a confirmation.
+   */
+  describe('confirmation next actions', () => {
+    // Built from CONTACT.coordinates, the same destination the Find Us section
+    // uses. Written out in full here so a silent change to either one shows up.
+    const DIRECTIONS_HREF = 'https://www.google.com/maps/dir/?api=1&destination=51.462509,-0.502067'
+
+    const UPCOMING_EVENT = {
+      id: 'evt-next-actions',
+      name: 'Quiz Night',
+      slug: 'quiz-night-2999-01-01',
+      startDate: '2999-01-01T19:00:00Z'
+    }
+
+    /**
+     * Answers the booking POST and the customer lookup, and nothing else.
+     *
+     * Local dev and this suite both point at the live management API, so an
+     * unexpected URL is a real booking waiting to happen: it throws rather than
+     * being quietly allowed through.
+     */
+    function respondWith(bookingData: Record<string, unknown>): void {
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : String(input)
+
+        if (url.startsWith('/api/customers/lookup')) {
+          return new Response(
+            JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+          )
+        }
+
+        if (url === '/api/event-bookings') {
+          return new Response(JSON.stringify({ success: true, data: bookingData }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        }
+
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+    }
+
+    function submitBooking(
+      eventOverrides: Partial<ComponentProps<typeof ManagementEventBookingForm>['event']> = {}
+    ): void {
+      render(<ManagementEventBookingForm event={{ ...UPCOMING_EVENT, ...eventOverrides }} />)
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    }
+
+    function queryCalendarLinks(): HTMLElement[] {
+      return [
+        ...screen.queryAllByRole('link', { name: /Google Calendar/i }),
+        ...screen.queryAllByRole('link', { name: /calendar file/i })
+      ]
+    }
+
+    function queryDirectionsLink(): HTMLElement | null {
+      return screen.queryByRole('link', { name: 'Get directions' })
+    }
+
+    it('offers the calendar and directions once the booking is confirmed', async () => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-next-actions',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-next-actions'
+      })
+
+      submitBooking()
+      await screen.findByText('Event booking confirmed')
+
+      expect(screen.getByRole('link', { name: /Google Calendar/i })).toHaveAttribute(
+        'href',
+        expect.stringContaining('calendar.google.com')
+      )
+      expect(screen.getByRole('link', { name: /calendar file/i })).toHaveAttribute(
+        'href',
+        '/api/calendar/event/quiz-night-2999-01-01'
+      )
+
+      const directions = screen.getByRole('link', { name: 'Get directions' })
+      expect(directions).toHaveAttribute('href', DIRECTIONS_HREF)
+      expect(directions).toHaveAttribute('target', '_blank')
+      expect(directions).toHaveAttribute('rel', 'noopener noreferrer')
+
+      // The recovery panel must stay away: the result is set, so the security
+      // clock is suppressed and nothing appears ten seconds later.
+      expect(screen.queryByText('Security check not completed')).not.toBeInTheDocument()
+
+      // Manage Booking is a real customer URL and has to survive alongside them.
+      expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+        'href',
+        'https://management.orangejelly.co.uk/manage/booking-next-actions'
+      )
+    })
+
+    it('reports the directions click the way the rest of the site does', async () => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-directions',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('Event booking confirmed')
+
+      fireEvent.click(screen.getByRole('link', { name: 'Get directions' }))
+
+      expect(trackDirectionsClick).toHaveBeenCalledWith(
+        'event_booking_confirmed',
+        expect.objectContaining({ mapPlatform: 'google_maps' })
+      )
+    })
+
+    it('offers neither on a booking that is only on hold for payment', async () => {
+      process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-paypal-client-id'
+
+      try {
+        respondWith({
+          state: 'pending_payment',
+          booking_id: 'booking-on-hold',
+          reason: null,
+          seats_remaining: 4,
+          next_step_url: 'https://management.orangejelly.co.uk/pay/booking-on-hold',
+          manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-on-hold'
+        })
+
+        submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
+        await screen.findByText('Your seats are currently on hold.')
+
+        // Payment has not cleared, so there is no night to diarise yet.
+        expect(queryCalendarLinks()).toHaveLength(0)
+        expect(queryDirectionsLink()).not.toBeInTheDocument()
+
+        // The paths that get the guest paid must be untouched by all of this.
+        expect(screen.getByTestId('paypal-buttons')).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'Open Payment Link' })).toHaveAttribute(
+          'href',
+          'https://management.orangejelly.co.uk/pay/booking-on-hold'
+        )
+        expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+          'href',
+          'https://management.orangejelly.co.uk/manage/booking-on-hold'
+        )
+      } finally {
+        delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+      }
+    })
+
+    it('offers neither when the event is full and only a waitlist is on the table', async () => {
+      respondWith({
+        state: 'full_with_waitlist_option',
+        booking_id: null,
+        reason: 'sold_out',
+        seats_remaining: 0,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('This event is currently full')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument()
+    })
+
+    it('offers neither when the booking is blocked', async () => {
+      respondWith({
+        state: 'blocked',
+        booking_id: null,
+        reason: 'sold_out',
+        seats_remaining: 0,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+      await screen.findByText('This event is sold out.')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).not.toBeInTheDocument()
+    })
+
+    // Directions to the pub are true whatever happened to the event, so they
+    // stay. A diary entry for a night that is not happening is not.
+    it.each([
+      ['cancelled', { event_status: 'cancelled' }],
+      ['finished', { startDate: '2020-01-01T19:00:00Z' }]
+    ])('offers no calendar entry for a %s event, even on a confirmed booking', async (_label, overrides) => {
+      respondWith({
+        state: 'confirmed',
+        booking_id: 'booking-no-calendar',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking(overrides)
+      await screen.findByText('Event booking confirmed')
+
+      expect(queryCalendarLinks()).toHaveLength(0)
+      expect(queryDirectionsLink()).toBeInTheDocument()
+    })
+  })
+})
+
+/**
+ * The security check is the one part of this form that could fail with nothing
+ * on screen. The submit button is disabled until Cloudflare hands over a token,
+ * so a widget that was blocked, dead or merely slow left the guest clicking a
+ * button that would never answer and offered no way out. Every path below is
+ * driven through the mock widget, so none of it touches the network.
+ */
+describe('ManagementEventBookingForm security check recovery', () => {
+  const RECOVERY_TITLE = 'Security check not completed'
+  const RECOVERY_MESSAGE =
+    'Our security check has not finished, so we cannot take this booking online yet. Everything you have typed is still here.'
+  const UNSUPPORTED_MESSAGE =
+    'This browser cannot complete our security check. Everything you have typed is still here, but we cannot take this booking online.'
+  const RETRY_LABEL = 'Try the security check again'
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockTurnstileProps.current = null
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY = TEST_TURNSTILE_SITE_KEY
+    jest.useFakeTimers()
+
+    // Any test that needs a booking response replaces this. Everything else must
+    // fail loudly rather than quietly hitting the live management API.
+    ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+      throw new Error(`Unexpected fetch call: ${String(input)}`)
+    })
+  })
+
+  afterEach(() => {
+    jest.useRealTimers()
+    delete process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  })
+
+  function renderForm() {
+    return render(
+      <ManagementEventBookingForm
+        event={{
+          id: 'turnstile-fixture',
+          name: 'Quiz Night',
+          startDate: '2999-01-01T19:00:00Z',
+          price_per_seat: 3
+        }}
+      />
+    )
+  }
+
+  function fillBookerDetails() {
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+  }
+
+  /** Nothing the guest typed may be lost by a failure they did not cause. */
+  function expectDetailsSurvived() {
+    expect(screen.getByLabelText('First name')).toHaveValue('Jane')
+    expect(screen.getByLabelText('Last name')).toHaveValue('Guest')
+    expect(screen.getByLabelText('Email address')).toHaveValue('jane@example.com')
+    expect(screen.getByLabelText('Mobile number')).toHaveValue('07700900000')
+  }
+
+  function advanceBy(ms: number) {
+    act(() => {
+      jest.advanceTimersByTime(ms)
+    })
+  }
+
+  function emitTurnstile(handler: 'onSuccess' | 'onError' | 'onExpire' | 'onUnsupported', arg?: string) {
+    act(() => {
+      mockTurnstileProps.current?.[handler]?.(arg)
+    })
+  }
+
+  /** The always-present live region the recovery message is announced through. */
+  function recoveryRegion(): HTMLElement {
+    return screen.getByRole('status')
+  }
+
+  function submitButton(): HTMLElement {
+    return screen.getByRole('button', { name: 'Reserve my seats' })
+  }
+
+  function expectRecoveryPanel(message: string) {
+    const region = recoveryRegion()
+    expect(region).toHaveTextContent(RECOVERY_TITLE)
+    expect(region).toHaveTextContent(message)
+    expect(within(region).getByRole('link', { name: '01753 682707' })).toHaveAttribute(
+      'href',
+      'tel:+441753682707'
+    )
+  }
+
+  it('announces the failure through a live region that is present from the start', () => {
+    renderForm()
+
+    const region = recoveryRegion()
+    expect(region).toHaveAttribute('aria-live', 'polite')
+    expect(region).toHaveAttribute('aria-atomic', 'true')
+    // Empty until there is something to say: a live region added at the same
+    // moment as its text is routinely missed by screen readers.
+    expect(region).toBeEmptyDOMElement()
+  })
+
+  it('explains the dead submit button when the widget never loads at all', () => {
+    renderForm()
+    fillBookerDetails()
+
+    expect(submitButton()).toBeDisabled()
+    // Nothing yet: a slow phone on a weak signal is given room to finish.
+    advanceBy(9_000)
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+
+    advanceBy(1_000)
+
+    expectRecoveryPanel(RECOVERY_MESSAGE)
+    expectDetailsSurvived()
+    // Still no way past verification: the button is explained, not unlocked.
+    expect(submitButton()).toBeDisabled()
+    expect(submitButton()).toHaveAttribute('aria-describedby', 'event-booking-turnstile-recovery')
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('offers a keyboard reachable retry that resets the widget and restarts the clock', () => {
+    renderForm()
+    fillBookerDetails()
+    advanceBy(10_000)
+
+    const retry = screen.getByRole('button', { name: RETRY_LABEL })
+    expect(retry.tagName).toBe('BUTTON')
+    expect(retry).toBeEnabled()
+    retry.focus()
+    expect(retry).toHaveFocus()
+
+    fireEvent.click(retry)
+
+    expect(mockTurnstileReset).toHaveBeenCalledTimes(1)
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+    expectDetailsSurvived()
+
+    // The clock really did restart rather than staying spent.
+    advanceBy(10_000)
+    expectRecoveryPanel(RECOVERY_MESSAGE)
+  })
+
+  it('clears the message and enables submit when the token turns up late', () => {
+    renderForm()
+    fillBookerDetails()
+    advanceBy(10_000)
+    expectRecoveryPanel(RECOVERY_MESSAGE)
+
+    emitTurnstile('onSuccess', 'late-token')
+
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+    expect(submitButton()).toBeEnabled()
+    expect(submitButton()).not.toHaveAttribute('aria-describedby')
+    expectDetailsSurvived()
+  })
+
+  it('skips the wait when the widget reports a hard error', () => {
+    renderForm()
+    fillBookerDetails()
+
+    emitTurnstile('onError', '600010')
+
+    expectRecoveryPanel(RECOVERY_MESSAGE)
+    expect(screen.getByRole('button', { name: RETRY_LABEL })).toBeInTheDocument()
+    expectDetailsSurvived()
+  })
+
+  it('sends an unsupported browser straight to the phone with no retry to click', () => {
+    renderForm()
+    fillBookerDetails()
+
+    emitTurnstile('onUnsupported')
+
+    expectRecoveryPanel(UNSUPPORTED_MESSAGE)
+    // Nothing retries a browser that cannot run the challenge at all.
+    expect(screen.queryByRole('button', { name: RETRY_LABEL })).not.toBeInTheDocument()
+    expectDetailsSurvived()
+  })
+
+  it('says nothing about an expiry Cloudflare replaces on its own', () => {
+    renderForm()
+    fillBookerDetails()
+    emitTurnstile('onSuccess', 'first-token')
+
+    emitTurnstile('onExpire', 'first-token')
+    advanceBy(2_000)
+    // A guest who simply took their time must not be shown a failure.
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+
+    emitTurnstile('onSuccess', 'replacement-token')
+    advanceBy(30_000)
+
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+    expect(submitButton()).toBeEnabled()
+  })
+
+  it('recovers a token that expires just before submit and books on the retry', async () => {
+    const sent: Record<string, unknown>[] = []
+    ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (input === '/api/event-bookings') {
+        sent.push(JSON.parse(String(init?.body)))
+        return new Response(
+          JSON.stringify({
+            success: true,
+            data: {
+              state: 'confirmed',
+              booking_id: 'booking-after-retry',
+              reason: null,
+              seats_remaining: 4,
+              next_step_url: null,
+              manage_booking_url: 'https://management.orangejelly.co.uk/manage/booking-after-retry'
+            }
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      throw new Error(`Unexpected fetch call: ${String(input)}`)
+    })
+
+    renderForm()
+    fillBookerDetails()
+    emitTurnstile('onSuccess', 'about-to-expire')
+    expect(submitButton()).toBeEnabled()
+
+    // The token dies on the doorstep and no replacement arrives.
+    emitTurnstile('onExpire', 'about-to-expire')
+    expect(submitButton()).toBeDisabled()
+    advanceBy(10_000)
+    expectRecoveryPanel(RECOVERY_MESSAGE)
+    expectDetailsSurvived()
+
+    fireEvent.click(screen.getByRole('button', { name: RETRY_LABEL }))
+    expect(mockTurnstileReset).toHaveBeenCalledTimes(1)
+    emitTurnstile('onSuccess', 'fresh-token')
+
+    expect(recoveryRegion()).toBeEmptyDOMElement()
+    fireEvent.click(submitButton())
+
+    await waitFor(() => expect(screen.getByText('Event booking confirmed')).toBeInTheDocument())
+    expect(sent).toHaveLength(1)
+    // The server still verifies: it is handed the replacement, never the dead one.
+    expect(sent[0].turnstile_token).toBe('fresh-token')
+    expect(screen.getByRole('link', { name: 'Manage Booking' })).toHaveAttribute(
+      'href',
+      'https://management.orangejelly.co.uk/manage/booking-after-retry'
+    )
+  })
+
+  it('shows the outage, the phone number and the details when verification is rejected', async () => {
+    ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+      if (input === '/api/event-bookings') {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: {
+              code: 'TURNSTILE_VERIFICATION_FAILED',
+              message: 'We could not complete the security check. Please try again.'
+            }
+          }),
+          { status: 503, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      throw new Error(`Unexpected fetch call: ${String(input)}`)
+    })
+
+    renderForm()
+    fillBookerDetails()
+    emitTurnstile('onSuccess', 'doomed-token')
+    fireEvent.click(submitButton())
+
+    await waitFor(() => expect(screen.getByText('Booking not completed')).toBeInTheDocument())
+    expect(
+      screen.getByText('We could not complete the security check. Please try again.')
+    ).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: '01753 682707' }).length).toBeGreaterThan(0)
+    expectDetailsSurvived()
+
+    // The widget was reset by the submit, so the clock is running again: if no
+    // fresh token arrives, the guest is told rather than left with a dead button.
+    expect(mockTurnstileReset).toHaveBeenCalled()
+    advanceBy(10_000)
+    expectRecoveryPanel(RECOVERY_MESSAGE)
   })
 })

@@ -13,7 +13,7 @@ export function resolveBookingCta(pathname: string): BookingCta {
   // A route alone cannot establish that an event is still on sale. Its page
   // supplies the live action after resolving the same state as its booking form.
   if (/^\/events\/[^/]+$/.test(path)) return { kind: 'link', label: 'View upcoming dates', href: '/whats-on' }
-  if (['/quiz-night', '/cash-bingo', '/music-bingo'].includes(path)) {
+  if (['/quiz-night', '/cash-bingo', '/music-bingo', '/karaoke'].includes(path)) {
     return { kind: 'link', label: 'View upcoming dates', href: '#book' }
   }
   if (path === '/private-hire' || path.startsWith('/private-hire/')) {

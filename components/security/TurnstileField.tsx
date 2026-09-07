@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, type MutableRefObject } from 'react'
+import { useCallback, useEffect, useRef, useState, type MutableRefObject } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Button } from '@/components/ui/primitives/Button'
 import { cn } from '@/lib/utils'
@@ -13,20 +13,51 @@ const UNSUPPORTED_ERROR =
 
 export type TurnstileFieldRef = TurnstileInstance | null
 
+/**
+ * What Cloudflare last told us. Reported only to callers that pass
+ * `onStatusChange`, so a form can run its own recovery UI: the widget itself
+ * says nothing at all when it never loads, and `onTokenChange(null)` alone
+ * cannot tell "the token expired and will be replaced" apart from "the
+ * challenge failed".
+ */
+export type TurnstileFieldStatus = 'pending' | 'ready' | 'expired' | 'error' | 'unsupported'
+
 interface TurnstileFieldProps {
   id: string
   turnstileRef: MutableRefObject<TurnstileFieldRef>
   onTokenChange: (token: string | null) => void
   className?: string
+  /** Optional lifecycle feed for callers that own their own recovery message. */
+  onStatusChange?: (status: TurnstileFieldStatus) => void
+  /**
+   * Set false when the caller renders its own failure panel, so the guest is not
+   * told the same thing twice by two different components. Defaults to true, so
+   * every existing caller keeps the inline alert it has always had.
+   */
+  showInlineError?: boolean
 }
 
 export function TurnstileField({
   id,
   turnstileRef,
   onTokenChange,
-  className
+  className,
+  onStatusChange,
+  showInlineError = true
 }: TurnstileFieldProps) {
   const [error, setError] = useState<string | null>(null)
+
+  // Held in a ref so an inline arrow passed by the caller does not change the
+  // identity of the handlers below on every render, which would hand Cloudflare
+  // a fresh set of callbacks each time the parent form re-renders.
+  const onStatusChangeRef = useRef(onStatusChange)
+  useEffect(() => {
+    onStatusChangeRef.current = onStatusChange
+  }, [onStatusChange])
+
+  const reportStatus = useCallback((status: TurnstileFieldStatus) => {
+    onStatusChangeRef.current?.(status)
+  }, [])
 
   // Expiry and challenge-timeout are ROUTINE, not failures.
   //
@@ -41,32 +72,37 @@ export function TurnstileField({
   // Drop the stale token so the button cannot submit one, and say nothing.
   const clearTokenQuietly = useCallback(() => {
     onTokenChange(null)
-  }, [onTokenChange])
+    reportStatus('expired')
+  }, [onTokenChange, reportStatus])
 
   // A real failure. `retry: 'auto'` may still recover it, in which case
   // onSuccess clears this, but it can also be terminal so the guest is told.
   const clearTokenWithError = useCallback(() => {
     onTokenChange(null)
     setError(VERIFICATION_ERROR)
-  }, [onTokenChange])
+    reportStatus('error')
+  }, [onTokenChange, reportStatus])
 
   // Terminal: nothing retries a browser that cannot run the challenge at all,
   // so send the guest straight to the phone instead of a dead Try Again button.
   const handleUnsupported = useCallback(() => {
     onTokenChange(null)
     setError(UNSUPPORTED_ERROR)
-  }, [onTokenChange])
+    reportStatus('unsupported')
+  }, [onTokenChange, reportStatus])
 
   const handleSuccess = useCallback((token: string) => {
     onTokenChange(token)
     setError(null)
-  }, [onTokenChange])
+    reportStatus('ready')
+  }, [onTokenChange, reportStatus])
 
   const handleRetry = useCallback(() => {
     onTokenChange(null)
     setError(null)
+    reportStatus('pending')
     turnstileRef.current?.reset()
-  }, [onTokenChange, turnstileRef])
+  }, [onTokenChange, reportStatus, turnstileRef])
 
   return (
     <div className={cn('space-y-3', className)}>
@@ -90,7 +126,7 @@ export function TurnstileField({
         }}
       />
 
-      {error ? (
+      {error && showInlineError ? (
         <div
           role="alert"
           className="space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger"
