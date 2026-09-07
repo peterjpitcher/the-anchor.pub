@@ -285,11 +285,11 @@ export default function NewYearsEvePage(): React.JSX.Element {
                       Book Your Spot
                     </a>
                   </Button>
-                  <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button asChild variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Link href="/find-us" className="w-full sm:w-auto">
                       Find Us
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </CardBody>
             </Card>
@@ -360,11 +360,11 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button asChild variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Link href="/find-us" className="w-full sm:w-auto">
                       Directions & parking
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <PhoneButton
                     phone={CONTACT.phone}
                     source="nye_location"

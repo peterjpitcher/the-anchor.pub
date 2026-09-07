@@ -264,14 +264,11 @@ export default function AshfordPubPage() {
               <p className="text-lg text-ink-muted mb-6">
                 Private areas available for Ashford groups - from intimate dinners to parties of 250!
               </p>
-              <Link href="/private-hire#enquiry">
-                <Button
-                  variant="primary"
-                  size="lg"
-                >
+              <Button asChild variant="primary" size="lg">
+                <Link href="/private-hire#enquiry">
                   Enquire About Private Hire
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -343,14 +340,11 @@ export default function AshfordPubPage() {
                   We love being part of the Ashford community.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/private-hire">
-                    <Button
-                      variant="primary"
-                      size="md"
-                    >
+                  <Button asChild variant="primary" size="md">
+                    <Link href="/private-hire">
                       View All Event Options
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <PhoneButton
                     phone="01753 682707"
                     source="ashford_pub_event_cta"
@@ -359,14 +353,11 @@ export default function AshfordPubPage() {
                   >
                      Call: 01753 682707
                   </PhoneButton>
-                  <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-                    <Button
-                      variant="outline"
-                      size="md"
-                    >
+                  <Button asChild variant="outline" size="md">
+                    <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                        WhatsApp Us
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </CardBody>
             </Card>
@@ -574,15 +565,15 @@ export default function AshfordPubPage() {
         title="Worth the Trip from Ashford"
         copy="Join your Ashford neighbours who've discovered their new favourite pub"
       >
-        <Link href="/book-table">
-          <Button variant="primary" size="lg">Book a Table</Button>
-        </Link>
-        <Link href={CONTACT.phoneHref}>
-          <Button variant="outline" size="lg">Call Us</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/book-table">Book a Table</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href={CONTACT.phoneHref}>Call Us</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
       </CtaBand>
     </>
   )

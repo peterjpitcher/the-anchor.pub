@@ -309,11 +309,11 @@ export default async function StanwellPubPage() {
             </div>
 
             <div className="text-center">
-              <Link href="/food-menu">
-                <Button variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/food-menu">
                   View Full Menu
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -508,18 +508,18 @@ export default async function StanwellPubPage() {
         title="Visit Stanwell's Favourite Local Pub"
         copy="Join your neighbours at The Anchor - where Stanwell comes together"
       >
-        <Link href="/book-table">
-          <Button variant="primary" size="lg">Book a Table</Button>
-        </Link>
-        <Link href={CONTACT.phoneHref}>
-          <Button variant="outline" size="lg">Call Us</Button>
-        </Link>
-        <Link href="/private-hire#enquiry">
-          <Button variant="outline" size="lg">Book an Event</Button>
-        </Link>
-        <Link href="/whats-on">
-          <Button variant="outline" size="lg">What's On</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/book-table">Book a Table</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href={CONTACT.phoneHref}>Call Us</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/private-hire#enquiry">Book an Event</Link>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <Link href="/whats-on">What's On</Link>
+        </Button>
       </CtaBand>
 
       <InternalLinkingSection

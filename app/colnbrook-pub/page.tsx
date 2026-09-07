@@ -159,9 +159,9 @@ export default function ColnbrookPubPage() {
                                     We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
-                                    <Link href="/corporate-events">
-                                        <Button variant="primary">Corporate Info</Button>
-                                    </Link>
+                                    <Button asChild variant="primary">
+                                        <Link href="/corporate-events">Corporate Info</Link>
+                                    </Button>
                                     <PhoneButton phone={CONTACT.phone} source="colnbrook_corporate" variant="outline">Call to Discuss</PhoneButton>
                                 </div>
                             </CardBody>
@@ -258,15 +258,21 @@ export default function ColnbrookPubPage() {
                 title="Your Local After-Work Spot"
                 copy="Great food and drink just minutes from the office."
             >
-                <Link href={CONTACT.phoneHref}>
-                    <Button variant="primary" size="lg">Book a Table</Button>
-                </Link>
-                <Link href="/private-hire#enquiry">
-                    <Button variant="outline" size="lg">Book an Event</Button>
-                </Link>
-                <Link href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">
-                    <Button variant="outline" size="lg">Get Directions</Button>
-                </Link>
+                <Button asChild variant="primary" size="lg">
+                    <Link href={CONTACT.phoneHref}>Book a Table</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="/private-hire#enquiry">Book an Event</Link>
+                </Button>
+                <DirectionsButton
+                    href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    source="colnbrook_cta_band_directions"
+                    variant="outline"
+                    size="lg"
+                    fromLocation="Colnbrook"
+                >
+                    Get Directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )

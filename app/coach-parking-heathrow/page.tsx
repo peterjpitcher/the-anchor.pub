@@ -155,9 +155,9 @@ export default function CoachParkingPage() {
                 <PhoneButton phone={CONTACT.phone} source="coach_cta" variant="primary" size="lg">
                     Call Us
                 </PhoneButton>
-                <Link href="mailto:manager@the-anchor.pub">
-                    <Button variant="outline" size="lg">Email Us</Button>
-                </Link>
+                <Button asChild variant="outline" size="lg">
+                    <Link href="mailto:manager@the-anchor.pub">Email Us</Link>
+                </Button>
             </CtaBand>
         </>
     )

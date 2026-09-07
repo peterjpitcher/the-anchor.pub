@@ -222,11 +222,11 @@ export default async function PizzaMenuPage() {
         >
           Order for collection
         </PhoneButton>
-        <Link href="/food-menu">
-          <Button variant="outline" size="lg">
+        <Button asChild variant="outline" size="lg">
+          <Link href="/food-menu">
             Full food menu
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </CtaBand>
     </>
   )

@@ -145,11 +145,11 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         }
         actions={
           <>
-            <Link href="/heathrow-parking#book-parking">
-              <Button size="lg" variant="primary" fullWidth>
+            <Button asChild size="lg" variant="primary" fullWidth>
+              <Link href="/heathrow-parking#book-parking">
                 Book parking now
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <PhoneButton phone={CONTACT.phone} source="heathrow-parking-terminal_cta" variant="outline" size="lg">
               Call {CONTACT.phone}
             </PhoneButton>
@@ -205,16 +205,16 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                   Heathrow now describes Short Stay as Terminal Parking and Long Stay as Park &amp; Ride on its official parking pages.
                 </p>
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/heathrow-parking#book-parking">
-                    <Button variant="primary" size="lg">
+                  <Button asChild variant="primary" size="lg">
+                    <Link href="/heathrow-parking#book-parking">
                       Check live availability
-                    </Button>
-                  </Link>
-                  <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20Terminal%20parking%20help.">
-                    <Button variant="outline" size="lg">
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg">
+                    <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20Terminal%20parking%20help.">
                       WhatsApp the team
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </CardBody>
             </Card>
@@ -263,9 +263,9 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         title={`Need cheap Heathrow Terminal ${terminalNumber} parking?`}
         copy="Book online in minutes and lock your space before prices rise. You keep your keys and arrange your own transfer."
       >
-        <Link href="/heathrow-parking#book-parking">
-          <Button variant="primary" size="lg">Book Heathrow parking</Button>
-        </Link>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/heathrow-parking#book-parking">Book Heathrow parking</Link>
+        </Button>
         <PhoneButton phone={CONTACT.phone} source={`heathrow_terminal_${terminalNumber}_cta`} variant="outline" size="lg">
           Call {CONTACT.phone}
         </PhoneButton>

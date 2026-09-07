@@ -78,11 +78,11 @@ export default function RetirementPartiesPage() {
                 lead="A proper send-off for a lifetime of hard work"
                 actions={
                     <>
-                        <Link href="/private-hire#enquiry">
-                            <Button variant="primary" size="lg" fullWidth>
+                        <Button asChild variant="primary" size="lg" fullWidth>
+                            <Link href="/private-hire#enquiry">
                                 Enquire Now
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <PhoneButton phone={CONTACT.phone} source="retirement_hero" variant="outline" size="lg">
                             Call {CONTACT.phone}
                         </PhoneButton>
@@ -195,11 +195,11 @@ export default function RetirementPartiesPage() {
                 title="Book a Proper Send-Off"
                 copy="Contact us to check availability for your date."
                 primary={
-                    <Link href="/private-hire#enquiry">
-                        <Button variant="primary" size="lg">
+                    <Button asChild variant="primary" size="lg">
+                        <Link href="/private-hire#enquiry">
                             Enquire Now
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 }
                 secondary={
                     <PhoneButton phone={CONTACT.phone} source="retirement_cta" variant="outline" size="lg">

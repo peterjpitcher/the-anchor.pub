@@ -427,11 +427,11 @@ export default async function ValentinesDayPage() {
                           </a>
                         </Button>
                       </div>
-                      <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
-                        <Button variant="outline" size="lg" fullWidth className="sm:min-w-[200px]">
+                      <Button asChild variant="outline" size="lg" fullWidth className="sm:min-w-[200px]">
+                        <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
                           View full event details
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                     </div>
 
                     {(dinnerRange || lateMenuRange || partyUntilMidnight) && (
@@ -547,11 +547,11 @@ export default async function ValentinesDayPage() {
                   Address: <span className="font-semibold text-ink-strong">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <Link href="/find-us" className="w-full sm:w-auto">
-                    <Button variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                  <Button asChild variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                    <Link href="/find-us" className="w-full sm:w-auto">
                       Directions & parking
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <PhoneButton
                     phone="01753 682707"
                     source="valentines_location"

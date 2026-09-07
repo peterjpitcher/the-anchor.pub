@@ -98,16 +98,16 @@ export default async function AllTagsPage() {
             Don&apos;t miss our latest stories, events, and special offers
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/blog">
-              <Button variant="primary" size="lg">
+            <Button asChild variant="primary" size="lg">
+              <Link href="/blog">
                 Back to Blog
-              </Button>
-            </Link>
-            <Link href="/whats-on">
-              <Button variant="outline" size="lg">
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/whats-on">
                 Upcoming Events
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </Container>
       </section>

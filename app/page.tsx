@@ -271,11 +271,11 @@ export default async function HomePage() {
             <HomeUpcomingEvents/>
           </Suspense>
           <div className="mt-10 flex justify-center">
-            <Link href="/whats-on">
-              <Button variant="primary" size="lg">
+            <Button asChild variant="primary" size="lg">
+              <Link href="/whats-on">
                 View all events
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
           {showChristmasLink && (
             <p className="mx-auto mt-6 text-center text-ink-muted">
@@ -325,11 +325,11 @@ export default async function HomePage() {
         copy={monthlyCopy.bandCopy}
         primary={<BookTableButton source="homepage_cta_band" variant="primary" size="lg">Book a table</BookTableButton>}
         secondary={
-          <Link href="/food-menu">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/food-menu">
               See the menu
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         }
       />
 

@@ -328,11 +328,11 @@ export default async function M25Junction14PubPage() {
               <p className="text-lg text-ink-muted mb-4">
                 Kitchen serves quick meals perfect for motorway breaks
               </p>
-              <Link href="/food-menu">
-                <Button variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg">
+                <Link href="/food-menu">
                   View Full Menu
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </Container>

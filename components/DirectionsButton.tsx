@@ -64,22 +64,26 @@ export function DirectionsButton({
     )
   }
 
+  // One anchor, styled as a button, via the design system's asChild pattern. An <a>
+  // may not contain interactive content, and wrapping a <button> in one gave a single
+  // action two tab stops and an odd screen reader announcement.
   return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={handleClick}
-      role={role}
+    <Button
+      asChild
+      variant={variant === 'link' ? 'ghost' : variant}
+      size={size}
+      className={className}
     >
-      <Button 
-        variant={variant === 'link' ? 'ghost' : variant}
-        size={size}
-        className={className}
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={handleClick}
+        role={role}
       >
         {children}
-      </Button>
-    </Link>
+      </a>
+    </Button>
   )
 }
 
