@@ -234,3 +234,35 @@ The shared dev server had seized under four agents; every route except `/` hung 
 | `/whats-on` karaoke links | 4 |
 
 One false positive worth recording: a cadence regex flagged `/karaoke`, but the matched copy reads "We run it occasionally rather than every week", which is the SSOT rule being satisfied. That is the same negate-check trap the repo already records for `getBannedClaims()`.
+
+## Final round, 7 September 2026
+
+Owner instruction: work through everything outstanding. Silence on the 18-item decision list was taken as agreement with the recommendations.
+
+**Built and pushed**
+- EV-010 desktop fold. Poster capped by viewport height above `lg`, measured from the real fixed chrome. Poster 890x501 to 548x308, H1 no longer sliced, Book button clears the fold by 26px. Mobile byte-for-byte unchanged at 343x193.
+- EV-015 mobile order. A real DOM restructure into three grid children, not a CSS `order` swap, because CSS order does not change reading or keyboard order. Desktop rebuilt from explicit grid placement so the sticky sidebar keeps a containing block taller than itself.
+- EV-012 scarcity. `getEventSeatAvailabilityLabel` was written, tested, exported and called from nowhere. Now called on the detail page. Both resolvers were run side by side over eight payload shapes; they never contradict, only differ in wording and in when they stay silent.
+- EV-023 `/live-sport` hero CTA plus the scroll tracking it was missing.
+- EV-009 partial. The availability route's local fallback removed. It invented a capacity of 100 and treated unknown remaining as 0, so an event nobody had booked reported "100 booked of 100, 100% full", and it ran on 404, 405 and 500, which is precisely during an outage. Route kept, since zero imports does not prove no external caller for an HTTP endpoint.
+- `DIRECTIONS_URL` moved to `lib/constants.ts`. `FindUsSection.tsx` keeps its copy deliberately: it imports `DirectionsButton`, which a concurrent session is editing.
+- Two SSOT alignments: "bottle of house wine" in all three places, and payment method recorded as coming from the event record's `payment_mode`.
+
+**Resolved without the owner**
+Two of the five claims flagged as unsourced were sourced after all. All fifteen upcoming records carry `payment_mode: cash_only` for quiz, cash bingo and music bingo, and `free` for karaoke, parties and tasting nights. The audit looked in the SSOT; the fact lives in the API.
+
+**Checked, then deliberately not changed**
+`getBannedClaims()` still lacks the negation check its sibling `getSafeAccessibilityNotes()` has, so in principle it deindexes an event whose copy honestly denies a facility. All 15 live events were scanned against it: none trips it. Latent trap, not active harm, so it stays flagged rather than becoming unplanned scope.
+
+**Two negation traps caught in this round alone.** A cadence regex flagged `/karaoke` where the copy reads "we run it occasionally rather than every week", and a banned-term grep flagged `/live-sport` three times where all three were honest denials of Sky and TNT. Both were the same shape as the `getBannedClaims()` defect above.
+
+**Coordination note.** Port 3000 is serving the `DirectionsButton` task's worktree, not this checkout, so agents verifying there would have seen the wrong tree. C2 caught it and ran its own server; C1 reported it too. Final verification was done on a separate port from this checkout. `SendMessage` is not available in this session, so mid-flight agents could not be warned.
+
+**Still outstanding, and why**
+- Needs a fact only the owner has: the quiz "Seasonal Prop" third prize, and whether the music bingo `EventSeries` monthly cadence is real (§10 says "dates vary").
+- Needs an asset: a karaoke photograph. Nothing in `public/` shows a karaoke night.
+- Needs another repository: performer records, event artwork, GBP posts, slug authoring, the SMS nudge, and the `sundayLunch.message` contradiction.
+- Needs the analytics operator and the published GTM container: EV-029.
+- Needs request logs: deleting the availability route itself.
+- Deferred by recommendation: EV-021 template ordering, EV-022 subscription capture.
+- Blocked on a performance baseline and new photography: EV-034.
