@@ -182,6 +182,24 @@ async function main() {
           if (ring.outline === 'none' && (!ring.shadow || ring.shadow === 'none')) {
             keyboardProblems.push({ pathname, issue: 'focused disclosure control shows no visible focus indicator' })
           }
+          // Wait for THIS control to be wired, not just for the page to have
+          // started hydrating. React attaches handlers as it walks the tree, so
+          // the page-level probe above can pass on the first button while a
+          // control further down is still inert. That is the same race in a
+          // smaller window, and pressing Enter into it produces exactly the
+          // false "aria-expanded stayed false" this check exists to avoid.
+          // Caught on a deployed preview, where the header disclosures wire up
+          // after the burger the page-level probe happens to find first.
+          try {
+            await page.waitForFunction((el) => {
+              const key = Object.keys(el).find((k) => k.startsWith('__reactProps$'))
+              return Boolean(key && typeof el[key].onClick === 'function')
+            }, await t.elementHandle(), { timeout: 10000 })
+          } catch {
+            keyboardProblems.push({ pathname, issue: 'disclosure control never had a handler attached' })
+            continue
+          }
+
           const before = await t.getAttribute('aria-expanded')
           await t.press('Enter')
           await page.waitForTimeout(150)
