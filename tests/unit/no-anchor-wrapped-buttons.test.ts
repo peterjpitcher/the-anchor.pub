@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { execSync } from 'child_process'
 import path from 'path'
+import ts from 'typescript'
 
 /**
  * An anchor may not contain interactive content. `<Link><Button>...</Button></Link>`
@@ -10,55 +11,60 @@ import path from 'path'
  *
  * This guards the whole tree, because the pattern was reintroduced by hand 146 times
  * before it was cleared out.
+ *
+ * The detector walks the TSX syntax tree rather than scanning text. The first version
+ * matched only a `<Button` sitting immediately after the anchor's opening tag, so it
+ * missed a button nested one level deeper, a button following a sibling, and a plain
+ * lowercase `<button>`. All three are the same defect and all three are covered below.
  */
 
 const repoRoot = path.resolve(__dirname, '../..')
 
-/**
- * Index of the '>' closing the JSX tag that starts at `from`, ignoring braces and
- * strings. A plain `[^>]*` scan misses tags holding an arrow function, which is how
- * two of these instances hid from the first sweep.
- */
-function openTagEnd(source: string, from: number): number {
-  let depth = 0
-  let quote: string | null = null
+// What actually renders an interactive control in this codebase. `Button` is the
+// design system primitive, which emits a real <button> unless it is given asChild.
+// There is no IconButton or similar wrapper to add here yet.
+const INTERACTIVE = /^(Button|button)$/
+const ANCHOR = /^(Link|a)$/
 
-  for (let i = from; i < source.length; i++) {
-    const char = source[i]
-
-    if (quote) {
-      if (char === quote && source[i - 1] !== '\\') quote = null
-      continue
-    }
-    if (char === '"' || char === "'" || char === '`') {
-      quote = char
-      continue
-    }
-    if (char === '{') depth++
-    else if (char === '}') depth--
-    else if (char === '>' && depth === 0) return i
-  }
-
-  return -1
+function hasAsChild(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement, source: ts.SourceFile): boolean {
+  return node.attributes.properties.some(
+    property => ts.isJsxAttribute(property) && property.name.getText(source) === 'asChild'
+  )
 }
 
+/**
+ * Line numbers of every interactive element sitting inside an anchor, at any depth.
+ */
 function findAnchorWrappedButtons(source: string): number[] {
+  const sourceFile = ts.createSourceFile('scan.tsx', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
   const lines: number[] = []
-  const openers = /<(Link|a)(?=[\s/>])/g
-  let match: RegExpExecArray | null
 
-  while ((match = openers.exec(source))) {
-    const tagEnd = openTagEnd(source, match.index)
-    // Skip malformed and self-closing tags: neither can wrap anything.
-    if (tagEnd < 0 || source[tagEnd - 1] === '/') continue
+  const visit = (node: ts.Node, insideAnchor: boolean): void => {
+    let inside = insideAnchor
 
-    const afterTag = source.slice(tagEnd + 1)
-    const whitespace = afterTag.match(/^\s*/)![0]
-    if (!/^<Button(?=[\s/>])/.test(afterTag.slice(whitespace.length))) continue
+    const inspect = (tag: string, element: ts.Node, asChild: boolean) => {
+      if (ANCHOR.test(tag)) {
+        inside = true
+        return
+      }
+      // A Button with asChild renders no <button> of its own: it clones its child,
+      // so `<Button asChild><Link /></Button>` is the fix rather than the defect.
+      if (inside && !asChild && INTERACTIVE.test(tag)) {
+        lines.push(sourceFile.getLineAndCharacterOfPosition(element.getStart(sourceFile)).line + 1)
+      }
+    }
 
-    lines.push(source.slice(0, match.index).split('\n').length)
+    if (ts.isJsxElement(node)) {
+      const opening = node.openingElement
+      inspect(opening.tagName.getText(sourceFile), node, hasAsChild(opening, sourceFile))
+    } else if (ts.isJsxSelfClosingElement(node)) {
+      inspect(node.tagName.getText(sourceFile), node, hasAsChild(node, sourceFile))
+    }
+
+    ts.forEachChild(node, child => visit(child, inside))
   }
 
+  visit(sourceFile, false)
   return lines
 }
 
@@ -85,19 +91,59 @@ describe('no anchor-wrapped buttons', () => {
     expect(offenders).toEqual([])
   })
 
-  it('detects the defect it is meant to catch', () => {
-    const bad = `
+  it('detects every shape of the defect it is meant to catch', () => {
+    const direct = `
       <Link href="/whats-on" onClick={() => track('x')}>
         <Button variant="primary">See what is on</Button>
       </Link>
     `
-    const good = `
+    const nestedDeeper = `
+      <a href="/whats-on">
+        <div className="wrap">
+          <Button variant="primary">See what is on</Button>
+        </div>
+      </a>
+    `
+    const afterASibling = `
+      <a href="/whats-on">
+        <span aria-hidden="true" />
+        <Button variant="primary">See what is on</Button>
+      </a>
+    `
+    const lowercaseButton = `
+      <Link href="/whats-on">
+        <button type="button">See what is on</button>
+      </Link>
+    `
+
+    expect(findAnchorWrappedButtons(direct)).toHaveLength(1)
+    expect(findAnchorWrappedButtons(nestedDeeper)).toHaveLength(1)
+    expect(findAnchorWrappedButtons(afterASibling)).toHaveLength(1)
+    expect(findAnchorWrappedButtons(lowercaseButton)).toHaveLength(1)
+  })
+
+  it('accepts the asChild pattern that replaced it', () => {
+    const asChildWithLink = `
       <Button asChild variant="primary">
         <Link href="/whats-on" onClick={() => track('x')}>See what is on</Link>
       </Button>
     `
+    const asChildWithAnchor = `
+      <Button asChild variant="primary" icon={<Icon name="download" />}>
+        <a href="/brochure.pdf" target="_blank" rel="noopener">
+          Download
+          <span className="sr-only"> Opens in a new tab.</span>
+        </a>
+      </Button>
+    `
+    const buttonWithNoAnchor = `
+      <div>
+        <Button variant="primary" onClick={open}>Book a table</Button>
+      </div>
+    `
 
-    expect(findAnchorWrappedButtons(bad)).toHaveLength(1)
-    expect(findAnchorWrappedButtons(good)).toHaveLength(0)
+    expect(findAnchorWrappedButtons(asChildWithLink)).toEqual([])
+    expect(findAnchorWrappedButtons(asChildWithAnchor)).toEqual([])
+    expect(findAnchorWrappedButtons(buttonWithNoAnchor)).toEqual([])
   })
 })
