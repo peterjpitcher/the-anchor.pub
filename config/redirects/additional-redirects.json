@@ -765,5 +765,15 @@
     "source": "/events/bingo-2026-11-18",
     "destination": "/cash-bingo",
     "permanent": true
+  },
+  {
+    "source": "/bedfont-pub",
+    "destination": "/near-heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/m25-junction-14-pub",
+    "destination": "/near-heathrow",
+    "permanent": true
   }
 ]

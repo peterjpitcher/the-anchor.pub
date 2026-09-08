@@ -129,7 +129,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Terminal 4', href: '/near-heathrow/terminal-4' },
       { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
       { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
-      { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
       { label: 'Layover Dining', href: '/heathrow-layover-dining' },
       { label: 'Pre-Flight Meal', href: '/pre-flight-meal' },
       { label: 'Family Dining', href: '/heathrow-family-dining' },
@@ -157,7 +156,6 @@ const sitemapSections: SitemapSection[] = [
     title: 'Areas We Serve',
     links: [
       { label: 'Ashford', href: '/ashford-pub' },
-      { label: 'Bedfont', href: '/bedfont-pub' },
       { label: 'Colnbrook', href: '/colnbrook-pub' },
       { label: 'Egham', href: '/egham-pub' },
       { label: 'Feltham', href: '/feltham-pub' },

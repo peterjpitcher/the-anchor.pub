@@ -20,14 +20,12 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const AREA_LINKS = [
   { label: 'Ashford', href: '/ashford-pub' },
-  { label: 'Bedfont', href: '/bedfont-pub' },
   { label: 'Colnbrook', href: '/colnbrook-pub' },
   { label: 'Egham', href: '/egham-pub' },
   { label: 'Feltham', href: '/feltham-pub' },
   { label: 'Horton', href: '/horton-pub' },
   { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
   { label: 'Longford', href: '/longford-pub' },
-  { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
   { label: 'Staines', href: '/staines-pub' },
   { label: 'Stanwell', href: '/stanwell-pub' },
   { label: 'Sunbury', href: '/sunbury-pub' },

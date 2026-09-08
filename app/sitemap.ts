@@ -312,7 +312,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/heathrow-hotels-pub', lastModified: DATES.aug2026Growth },
 
     // Venue & facilities
-    { path: '/m25-junction-14-pub', lastModified: DATES.seoOverhaul },
     { path: '/beer-garden', lastModified: DATES.launch },
     { path: '/our-pub', lastModified: DATES.aug2026Growth },
     { path: '/plane-spotting-heathrow', lastModified: DATES.seoOverhaul },
@@ -321,7 +320,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Local area pages
     { path: '/ashford-pub', lastModified: DATES.apr2026 },
-    { path: '/bedfont-pub', lastModified: DATES.apr2026 },
     { path: '/colnbrook-pub', lastModified: DATES.apr2026 },
     { path: '/egham-pub', lastModified: DATES.aug2026Growth },
     { path: '/feltham-pub', lastModified: DATES.aug2026Growth },

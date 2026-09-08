@@ -54,13 +54,11 @@ describe('hero template regressions', () => {
   })
 
   it('uses booking-intent primary CTAs on local pub hero templates', () => {
-    const bedfont = read('app/bedfont-pub/page.tsx')
     const egham = read('app/egham-pub/page.tsx')
     const feltham = read('app/feltham-pub/page.tsx')
     const staines = read('app/staines-pub/page.tsx')
     const heathrowHotels = read('app/heathrow-hotels-pub/page.tsx')
 
-    expect(bedfont).toMatch(/<InteriorHero[\s\S]*?crumb="Bedfont"[\s\S]*?actions=\{[\s\S]*?<BookTableButton/)
     expect(egham).toMatch(/<InteriorHero[\s\S]*?crumb="Egham"[\s\S]*?actions=\{[\s\S]*?<BookTableButton/)
     expect(feltham).toMatch(/<InteriorHero[\s\S]*?crumb="Feltham"[\s\S]*?actions=\{[\s\S]*?<BookTableButton/)
     expect(staines).toMatch(/<InteriorHero[\s\S]*?crumb="Staines"[\s\S]*?actions=\{[\s\S]*?<BookTableButton/)
