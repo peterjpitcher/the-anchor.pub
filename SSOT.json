@@ -1346,7 +1346,7 @@
         "_confirmed": "Owner-confirmed 2026-09-08.",
         "rule": "Never advertise Boxing Day food, a Boxing Day roast or any Boxing Day opening. We are closed on 26 December."
       },
-      "management_api_warning": "As of 2026-09-08 GET /business/hours returns planning.nextClosure: null and a single specialHours row (2026-10-31, Halloween). There is no special_hours row for 2026-12-25, 2026-12-26 or 2027-01-01, so the site resolves all three to regular hours: it will advertise a kitchen on Christmas Day and show us open on both closure days. Three special_hours rows are required in the management app: 25 Dec open 12:00-15:00 with is_kitchen_closed true, 26 Dec is_closed true, 1 Jan is_closed true.",
+      "management_api_warning": "Not a warning: all three dates ARE set in the management app, verified against the database 2026-09-08 (25 Dec opens 12:00 closes 15:00 is_kitchen_closed true; 26 Dec is_closed true; 2027-01-01 is_closed true). GET /business/hours only returns special hours for the next 90 days, so a check run before a date enters that window shows no row and an empty planning.nextClosure, which looks identical to nothing being entered. Christmas Day enters the window 2026-09-26, Boxing Day 2026-09-27, New Year's Day 2026-10-03. Query the database before concluding a closure is missing.",
       "new_years_day": {
         "date": "2027-01-01",
         "open": false,
@@ -1354,7 +1354,8 @@
         "_confirmed": "Owner-confirmed 2026-09-08.",
         "rule": "Never advertise New Year's Day food or opening. We are closed on 1 January."
       },
-      "between_christmas_and_new_year": "NOT CONFIRMED for 27 to 31 December. Say nothing about those dates until the owner confirms them."
+      "between_christmas_and_new_year": "NOT CONFIRMED for 27 to 31 December. Say nothing about those dates until the owner confirms them.",
+      "source_of_truth": "The management app's business hours. This block transcribes what it holds and never overrides it."
     },
     "group_size_bands": {
       "seated_max": 20,
