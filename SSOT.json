@@ -1339,8 +1339,22 @@
       "display": "Christmas Day: open for drinks only, 12pm to 3pm. No food.",
       "_confirmed": "Owner-confirmed 2026-09-06.",
       "rule": "Never advertise Christmas dinner, Christmas lunch, a festive menu or any food on 25 December. Christmas Day sits outside the 10 November to 20 December service window. Licensed exception to the API-only hours rule, like New Year's Eve.",
-      "boxing_day": "NOT CONFIRMED. Say nothing about Boxing Day or the days between Christmas and New Year until the owner confirms them.",
-      "management_api_warning": "As of 2026-09-06 GET /business/hours carries no special_hours row for 2026-12-25, so the site resolves Christmas Day to regular Friday hours including a kitchen open until 21:00. A special_hours row is required in the management app or the site advertises food that will not be served."
+      "boxing_day": {
+        "date": "2026-12-26",
+        "open": false,
+        "display": "Boxing Day: closed.",
+        "_confirmed": "Owner-confirmed 2026-09-08.",
+        "rule": "Never advertise Boxing Day food, a Boxing Day roast or any Boxing Day opening. We are closed on 26 December."
+      },
+      "management_api_warning": "As of 2026-09-08 GET /business/hours returns planning.nextClosure: null and a single specialHours row (2026-10-31, Halloween). There is no special_hours row for 2026-12-25, 2026-12-26 or 2027-01-01, so the site resolves all three to regular hours: it will advertise a kitchen on Christmas Day and show us open on both closure days. Three special_hours rows are required in the management app: 25 Dec open 12:00-15:00 with is_kitchen_closed true, 26 Dec is_closed true, 1 Jan is_closed true.",
+      "new_years_day": {
+        "date": "2027-01-01",
+        "open": false,
+        "display": "New Year's Day: closed.",
+        "_confirmed": "Owner-confirmed 2026-09-08.",
+        "rule": "Never advertise New Year's Day food or opening. We are closed on 1 January."
+      },
+      "between_christmas_and_new_year": "NOT CONFIRMED for 27 to 31 December. Say nothing about those dates until the owner confirms them."
     },
     "group_size_bands": {
       "seated_max": 20,
