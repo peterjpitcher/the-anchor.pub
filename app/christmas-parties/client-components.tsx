@@ -141,6 +141,13 @@ export interface ChristmasSeasonView {
    * only the enquiry route for a phone call.
    */
   bookingClosed: boolean
+  /**
+   * True only between the last Christmas sitting and Christmas Day itself,
+   * the stretch when the season-ended view is showing and "are you open on
+   * Christmas Day" is the live question. Resolved on the server so this client
+   * component never reads the clock and cannot mismatch on hydration.
+   */
+  showChristmasDayNotice: boolean
 }
 
 export interface ChristmasFactsView {
@@ -683,7 +690,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
   // claim, price and enquiry route is replaced with evergreen private hire.
   if (seasonEnded) {
     return (
-      <ChristmasSeasonEndedView season={season} structuredData={structuredData} />
+      <ChristmasSeasonEndedView season={season} structuredData={structuredData} facts={facts} />
     )
   }
 
@@ -1627,16 +1634,41 @@ function ChristmasBookingClosedPanel({
  */
 function ChristmasSeasonEndedView({
   season,
-  structuredData
+  structuredData,
+  facts
 }: {
   season: ChristmasSeasonView
   structuredData: Record<string, unknown>
+  facts: ChristmasFactsView
 }) {
+  /*
+   * Between the last sitting and Christmas Day itself, the most useful thing
+   * this page can say is whether we are open on the 25th. The dinner FAQ that
+   * carries that answer lives on the in-season view, which has already been
+   * swapped out by the time anyone asks. Wording is lifted from that same FAQ
+   * so the two states cannot drift apart, and `foodService` gates it so a
+   * future year that does serve food on the day cannot inherit a stale denial.
+   */
+  const showChristmasDay = season.showChristmasDayNotice && !facts.christmasDay.foodService
+
   return (
     <>
       <Section background="transparent" spacing="md" className="bg-surface">
         <Container>
           <div className="mx-auto space-y-6">
+            {showChristmasDay && (
+              <div className="rounded-2xl border-2 border-red-600/30 bg-red-50 p-6">
+                <h2 className="text-2xl font-bold text-ink-strong">Are we open on Christmas Day?</h2>
+                <p className="mt-3 text-base text-ink-muted">
+                  Yes. We are open on Christmas Day for drinks only, from {facts.christmasDay.opens} to{' '}
+                  {facts.christmasDay.closes}. There is no food service on Christmas Day, so there is no Christmas
+                  dinner, no lunch and no festive menu on the 25th. Come in for a pint and a proper welcome.
+                </p>
+                <p className="mt-3 text-sm text-ink-muted">
+                  Call {CONTACT_PHONE} if you want to check anything before you set off.
+                </p>
+              </div>
+            )}
             <Alert variant="info" title="Christmas bookings are closed for this season">
               Our Christmas service ran {season.windowLabel} and has now finished. We are not taking Christmas bookings at the
               moment. Next season&apos;s dates, menu and prices will be published here once they are confirmed.
