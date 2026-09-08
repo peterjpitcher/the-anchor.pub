@@ -236,6 +236,26 @@ export function isChristmasBookingOpen(isoDate?: string): boolean {
   return normaliseIsoDate(isoDate) <= CHRISTMAS_LAST_BOOKABLE_DATE
 }
 
+/**
+ * Should the Christmas Day opening notice be shown on the given date?
+ *
+ * True from the day after the last Christmas sitting up to and including
+ * Christmas Day itself. Before that the FAQ on the live page already answers
+ * it; after the 25th it is history.
+ *
+ * The gap this closes: the service window ends on 20 December, and from the
+ * 21st the whole page switches to the season-ended view. That is exactly the
+ * stretch when "pubs open christmas day near me" peaks, and until now the page
+ * fell silent on it. GKP puts that cluster in the 1,000 to 10,000 band at a
+ * paid competition index of 1 to 2 (8 September 2026), and we can answer it
+ * honestly because we do open, for drinks.
+ */
+export function isChristmasDayNoticeVisible(isoDate?: string): boolean {
+  const today = normaliseIsoDate(isoDate)
+  const christmasDay = `${CHRISTMAS_WINDOW_END.slice(0, 4)}-12-25`
+  return today > CHRISTMAS_WINDOW_END && today <= christmasDay
+}
+
 /** State of the season on the given Europe/London date. */
 export function getChristmasSeasonState(isoDate?: string): ChristmasSeasonState {
   const today = normaliseIsoDate(isoDate)

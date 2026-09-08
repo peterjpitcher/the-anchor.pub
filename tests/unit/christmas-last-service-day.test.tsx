@@ -28,7 +28,8 @@ import {
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
-  getChristmasSeasonStatus
+  getChristmasSeasonStatus,
+  isChristmasDayNoticeVisible
 } from '@/lib/christmas-season'
 
 const BUFFET_MINIMUM_GUESTS =
@@ -62,7 +63,8 @@ function seasonViewFor(isoDate: string): ChristmasSeasonView {
     minEnquiryDate: CHRISTMAS_WINDOW_START,
     maxEnquiryDate: CHRISTMAS_WINDOW_END,
     isBookable: status.isBookable,
-    bookingClosed: status.state !== 'ended' && !status.isBookable
+    bookingClosed: status.state !== 'ended' && !status.isBookable,
+    showChristmasDayNotice: isChristmasDayNoticeVisible(isoDate)
   }
 }
 
@@ -132,5 +134,57 @@ describe('what the page says on its last trading day', () => {
 
   it('does show the season-ended view once the window has passed', () => {
     expect(renderOn('2026-12-21')).toContain(SEASON_OVER_COPY)
+  })
+})
+
+/*
+ * The service window ends on 20 December and the page then swaps to the
+ * season-ended view, which dropped the Christmas Day answer with everything
+ * else. That silence fell exactly across 21 to 25 December, the days when
+ * "pubs open christmas day near me" peaks. These tests pin the notice to that
+ * window and pin the no-food wording, because an accidental food claim on the
+ * 25th is the expensive failure here, not a missing one.
+ */
+describe('the Christmas Day opening notice', () => {
+  it('says nothing while the season is still running', () => {
+    expect(isChristmasDayNoticeVisible('2026-12-20')).toBe(false)
+    expect(renderOn('2026-12-20')).not.toContain('Are we open on Christmas Day?')
+  })
+
+  it('appears the day after the last sitting, when the page would otherwise fall silent', () => {
+    expect(isChristmasDayNoticeVisible('2026-12-21')).toBe(true)
+    const copy = renderOn('2026-12-21')
+    expect(copy).toContain(SEASON_OVER_COPY)
+    expect(copy).toContain('Are we open on Christmas Day?')
+    expect(copy).toContain('drinks only, from 12pm to 3pm')
+  })
+
+  it('is still there on Christmas Day itself', () => {
+    expect(isChristmasDayNoticeVisible('2026-12-25')).toBe(true)
+    expect(renderOn('2026-12-25')).toContain('Are we open on Christmas Day?')
+  })
+
+  it('never claims food on the 25th', () => {
+    const copy = renderOn('2026-12-25')
+    expect(copy).toContain('There is no food service on Christmas Day')
+    expect(copy).not.toMatch(/christmas (dinner|lunch) on the 25th/i)
+  })
+
+  it('disappears on Boxing Day and stays gone for the rest of the year', () => {
+    expect(isChristmasDayNoticeVisible('2026-12-26')).toBe(false)
+    expect(isChristmasDayNoticeVisible('2027-03-01')).toBe(false)
+    expect(renderOn('2026-12-26')).not.toContain('Are we open on Christmas Day?')
+  })
+
+  it('is suppressed entirely if a future year does serve food, rather than shipping a stale denial', () => {
+    const { container } = render(
+      <ChristmasPartiesPageClient
+        structuredData={christmasPartiesSchema}
+        menu={EMPTY_MENU}
+        season={seasonViewFor('2026-12-23')}
+        facts={{ ...FACTS, christmasDay: { opens: '12pm', closes: '6pm', foodService: true } }}
+      />
+    )
+    expect(container.textContent || '').not.toContain('Are we open on Christmas Day?')
   })
 })

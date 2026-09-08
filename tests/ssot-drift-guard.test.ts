@@ -227,6 +227,30 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(mdPlain).toMatch(/no food service at all on Christmas Day/i)
   })
 
+  it('records the Boxing Day and New Year\'s Day closures, and keeps 27 to 31 December unconfirmed', () => {
+    // Owner-confirmed 8 September 2026. Both dates are closures, not offers:
+    // "pubs open boxing day near me" and "pubs open new year's day" are real
+    // search clusters, and the honest answer is that we are shut.
+    expect(xmas.christmas_day.boxing_day.open).toBe(false)
+    expect(xmas.christmas_day.boxing_day.date).toBe('2026-12-26')
+    expect(xmas.christmas_day.new_years_day.open).toBe(false)
+    expect(xmas.christmas_day.new_years_day.date).toBe('2027-01-01')
+    expect(mdPlain).toContain('We do not open on 26 December or 1 January')
+    expect(xmas.christmas_day.between_christmas_and_new_year).toMatch(/NOT CONFIRMED/)
+  })
+
+  it('defers to the management app for hours, and does not claim the festive rows are missing', () => {
+    // Owner-confirmed 8 September 2026: the SSOT always adheres to the
+    // management app's business hours. It transcribes, it never asserts.
+    expect(mdPlain).toContain('The SSOT always adheres to the management app')
+    expect(mdPlain).toContain('All three dates are already set in the management app')
+    // The 90-day horizon on GET /business/hours made a correctly-set closure
+    // look unset. Keep the explanation next to the fact so the same false
+    // alarm cannot be raised twice.
+    expect(mdPlain).toContain('only returns special hours for the next 90 days')
+    expect(xmas.christmas_day.source_of_truth).toMatch(/management app/i)
+  })
+
   it('records the 21 to 29 band and the drinks-only party rule', () => {
     expect(xmas.group_size_bands.private_booking_band).toBe('21 to 29 seated guests')
     expect(xmas.drinks_only_party.minimum_spend).toBeNull()

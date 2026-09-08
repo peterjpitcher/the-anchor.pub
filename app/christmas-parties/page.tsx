@@ -33,7 +33,8 @@ import {
   formatChristmasWindowLabel,
   getChristmasDay,
   getChristmasSeasonStatus,
-  getLondonIsoDate
+  getLondonIsoDate,
+  isChristmasDayNoticeVisible,
 } from '@/lib/christmas-season'
 
 // Christmas dish data comes live from the management database, so the page is
@@ -230,7 +231,8 @@ function buildSeasonView(): ChristmasSeasonView {
     // last trading day, and drop the menu, the prices and the Menu JSON-LD
     // with it. Use `bookingClosed` for the enquiry route, `state === 'ended'`
     // for whether the page has anything left to sell.
-    bookingClosed: status.state !== 'ended' && !status.isBookable
+    bookingClosed: status.state !== 'ended' && !status.isBookable,
+    showChristmasDayNotice: isChristmasDayNoticeVisible(today)
   }
 }
 

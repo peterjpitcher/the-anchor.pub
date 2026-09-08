@@ -49,7 +49,8 @@ const SEASON: ChristmasSeasonView = {
   minEnquiryDate: CHRISTMAS_WINDOW_START,
   maxEnquiryDate: CHRISTMAS_WINDOW_END,
   isBookable: true,
-  bookingClosed: false
+  bookingClosed: false,
+  showChristmasDayNotice: false
 }
 
 const EMPTY_MENU: ChristmasMenuView = {
