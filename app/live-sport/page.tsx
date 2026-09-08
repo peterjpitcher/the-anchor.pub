@@ -248,14 +248,15 @@ export default async function LiveSportPage() {
                     <Card accent className="mx-auto">
                         <CardBody className="p-8 text-center">
                             <h2 className="text-xl text-accent-text">Boxing</h2>
+                            {/*
+                                The dedicated /live-sport/boxing page was retired on
+                                8 September 2026 (three months of Search Console: zero
+                                impressions). The fact it carried is true and useful, so
+                                it stays here; only the CTA to the dead page has gone.
+                            */}
                             <p className="mt-3 text-sm text-ink-muted">
-                                When a fight lands on BBC, ITV or Channel 4, it goes on the big screens with the sound up. Find out what we can show and what we cannot.
+                                When a fight lands on BBC, ITV or Channel 4, it goes on the big screens with the sound up. We cannot show anything that is only on Sky or TNT.
                             </p>
-                            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                                <Button asChild variant="primary">
-                                    <Link href="/live-sport/boxing">Boxing At The Anchor &rarr;</Link>
-                                </Button>
-                            </div>
                         </CardBody>
                     </Card>
                 </Container>

@@ -85,8 +85,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'Nations Championship Rugby', href: '/live-sport/nations-championship' },
-      { label: 'F1 Racing', href: '/live-sport/f1' },
-      { label: 'Boxing Nights', href: '/live-sport/boxing' },
       { label: 'World Cup 2026', href: '/live-sport/world-cup' },
     ]
   },

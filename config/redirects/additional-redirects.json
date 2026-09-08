@@ -775,5 +775,15 @@
     "source": "/m25-junction-14-pub",
     "destination": "/near-heathrow",
     "permanent": true
+  },
+  {
+    "source": "/live-sport/boxing",
+    "destination": "/live-sport",
+    "permanent": true
+  },
+  {
+    "source": "/live-sport/f1",
+    "destination": "/live-sport",
+    "permanent": true
   }
 ]

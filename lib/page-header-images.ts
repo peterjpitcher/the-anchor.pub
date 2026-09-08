@@ -20,7 +20,6 @@ const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
 const PAGE_HEADER_FOLDER_ALIASES: Record<string, string> = {
   'about': 'our-pub',
   'book-table': 'food-menu',
-  'boxing-day': 'christmas-parties',
   'fish-and-chips-heathrow': 'food-menu',
   'heathrow-parking': 'parking-near-heathrow',
   'heathrow-hotels-pub': 'hotel-near-heathrow',
@@ -66,7 +65,6 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead',
   'our-pub': 'Inside The Anchor, bar, dining room, garden and games area in Stanwell Moor near Heathrow',
   'about': 'Inside The Anchor, bar, dining room, garden and games area in Stanwell Moor near Heathrow',
-  'boxing-day': 'Festively decorated dining area at The Anchor for Boxing Day food and drinks',
   'halloween': 'Hosted event night at The Anchor with guests enjoying seasonal entertainment',
   'new-years-eve': 'Hosted event night at The Anchor with guests celebrating in the pub',
   'reviews': 'Inside The Anchor showing the warm pub atmosphere guests review',
