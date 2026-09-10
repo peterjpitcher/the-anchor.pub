@@ -35,6 +35,13 @@ import {
 import { FoodMenuSection } from './_components/FoodMenuSection'
 import { SundayRoastFeature } from './_components/SundayRoastFeature'
 
+// Beer battered cod and chips, a dish on today's menu. The previous hero showed
+// a lamb shank, which is not served anywhere now. New filenames only: Cloudflare
+// caches /images for a year, so replacing a file in place would not reach anyone.
+const FOOD_MENU_HERO_IMAGE = '/images/food/weekday-2026/beer-battered-cod-and-chips-hero.jpg'
+const FOOD_MENU_SHARE_IMAGE = '/images/food/weekday-2026/beer-battered-cod-and-chips-share.jpg'
+const FOOD_MENU_SHARE_IMAGE_ALT = 'Beer battered cod and chips at The Anchor, Stanwell Moor'
+
 export const revalidate = 3600
 
 // How early the Christmas link appears, in days before the service window opens.
@@ -180,12 +187,12 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
       description,
-      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
+      images: [{ url: FOOD_MENU_SHARE_IMAGE, width: 1200, height: 630, alt: FOOD_MENU_SHARE_IMAGE_ALT }],
     },
     twitter: getTwitterMetadata({
       title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
       description,
-      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+      images: [FOOD_MENU_SHARE_IMAGE]
     }),
     alternates: {
       canonical: './'
@@ -301,7 +308,7 @@ export default async function FoodMenuPage() {
 
       {/* 1. Hero (§7.2.1): kitchen-closed days are never hardcoded; hours are API-only. */}
       <InteriorHero
-        image="/images/page-headers/food-menu/food-menu.jpg"
+        image={FOOD_MENU_HERO_IMAGE}
         crumb="Food"
         kicker="Eat, Drink, Enjoy"
         title="Proper pub food, minutes from Heathrow"
