@@ -188,6 +188,24 @@ describe('Meta Pixel booking tracking', () => {
     expect(purchaseCalls()[0]?.[2]).toMatchObject({ value: 0 })
   })
 
+  it('forwards an explicit zero for a free event booking rather than losing it', () => {
+    // calculateBookingValue returns 0 when a hosted event has no ticket price. That is
+    // a known value, not an absence, so it must survive the forward: only a missing or
+    // invalid value is reported as unknown.
+    trackEventBookingComplete({
+      eventId: 'event-free',
+      eventName: 'Free Quiz',
+      eventDate: '2026-05-10T20:00:00+01:00',
+      tickets: 2,
+      totalValue: 0,
+      bookingId: 'EVT-FREE'
+    })
+
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
+    expect(forwardedPayload).toMatchObject({ bookingId: 'EVT-FREE', tickets: 2, value: 0 })
+    expect(purchaseCalls()[0]?.[2]).toMatchObject({ value: 0 })
+  })
+
   it('reports the estimated covers revenue on the deposit path, not the deposit taken', () => {
     // The PayPal branch passes the deposit as `value`. Sending that to Meta valued the
     // booking at what was paid up front rather than what it is worth, and disagreed

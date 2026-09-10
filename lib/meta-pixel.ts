@@ -76,15 +76,19 @@ export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
 
 // The `fbq` Purchase event needs a number, so an unknown value is reported as 0 there.
 function normaliseValue(value: number | null | undefined) {
-  return normalisePositiveValue(value) ?? 0
+  return normaliseKnownValue(value) ?? 0
 }
 
 // The conversion forward is a record of the booking rather than a pixel event, and it
-// is keyed on the booking reference that the server-side forward also uses. A 0 there
-// is a claim that the booking was worth nothing, which overwrote the real figure; null
-// says "this page does not know" and leaves the stored value alone.
-function normalisePositiveValue(value: number | null | undefined) {
-  return typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : null
+// is keyed on the booking reference the server-side forward also uses. A page that does
+// not know what a booking is worth has to say so with null: sending 0 claimed the
+// booking was worth nothing and overwrote the figure the server had already stored.
+//
+// An explicit zero is still a fact, though. A free hosted event really is worth GBP 0
+// (calculateBookingValue in ManagementEventBookingForm returns 0 when there is no
+// ticket price), so only a missing, non-finite or negative value counts as unknown.
+function normaliseKnownValue(value: number | null | undefined) {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null
 }
 
 function normalisePositiveInteger(value: number | null | undefined) {
@@ -113,7 +117,7 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
       eventCategorySlug: data.eventCategorySlug ?? null,
       eventDate: data.eventDate ?? null,
       tickets: normalisePositiveInteger(data.numItems) ?? null,
-      value: normalisePositiveValue(data.value),
+      value: normaliseKnownValue(data.value),
       currency: data.currency || 'GBP',
       foodIntent: data.foodIntent ?? null,
       sourceUrl: attribution.source_url ?? `${url.origin}${url.pathname}`,
