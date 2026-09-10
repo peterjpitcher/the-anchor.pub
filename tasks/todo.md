@@ -388,3 +388,17 @@ Branch `fix/ssot-superlatives`, from origin/main at aa9c6d00. Owner approval on 
 - [x] Left alone, not asked for: "unbeatable", "ultimate", "finest", "warmest welcome" and similar wording
 - [x] Guards: any hardcoded review count (the old pattern missed "238&nbsp;reviews"), runway designators, and self-superlatives. All three fail against origin/main content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,459 passed each), build (295 pages); 25 changed URLs read back from the production build on port 3112. Most edited tag entries and two of the edited pages (`/pub-garden-heathrow`, the older plane-spotting guide) sit behind redirects, so those edits are not reachable today
+- [x] Merged and verified live: #163 as deployment `dpl_4Uf3fqdvM7NoY3d9wsRRDEE3zUGB` (11bffc3f)
+
+# Retired off-SSOT event posts, 10 September 2026
+
+Branch `fix/retire-off-ssot-event-posts`, from origin/main at 7c0e92ce. Owner approval on 10 September 2026: retire the drag cabaret and Christmas market posts with redirects, and correct the cash bingo post from the SSOT.
+
+- [x] `/blog/drag-cabaret-nikki` deleted and redirected (301) to `/whats-on`, like the retired live-music post (section 10: drag cabaret is discontinued)
+- [x] `/blog/christmas-market` deleted and redirected (301) to `/christmas-parties`, like `christmas-venue` in August (section 7: no market in 2026). That page stays up after the season ends, so there is no chain later
+- [x] Seven older rules that landed on either post now go straight to the new destination: four in `blog-redirects.json`, three in `wix-redirects.json`
+- [x] `/blog/monthly-cash-bingo` rewritten from section 10: monthly on varying dates, arrive by 6:30pm, first game 7pm, about 9:30pm finish, ten games, £10 books and £1 daubers cash only, both halves of the age rule, prizes vary, the snowball rule. Gone: first Thursdays, doors at 6pm, games from 8pm, three games, the guaranteed £50 jackpot, a menu list, invented "coming soon" events. URL, slug and noindex unchanged; two keywords that asserted Thursdays and a £50 prize removed
+- [x] Same fact elsewhere: the 2023 New Year post listed "First Thursday Bingo"; now "Cash bingo"
+- [x] SSOT sections 7, 10 and 18 and the `SSOT.json` market note record the retirements
+- [x] Tests: the two 301s, deleted folders and no rule landing on a retired post (`tests/seo-indexing.test.ts`); cash bingo format guard (`tests/ssot-drift-guard.test.ts`). Both fail against origin/main content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,462 passed each), build (293 pages). Production build checked on port 3113: ten old and new URLs each reach their target in one 301; the cash bingo post shows the new facts and none of the old

@@ -112,7 +112,7 @@ We're proud to be woven into the fabric of Stanwell Moor life.
 - Weekday lunch club
 
 **Monthly Specials:**
-- First Thursday Bingo
+- Cash bingo
 - Tasting evenings
 - Themed food nights
 - Live entertainment

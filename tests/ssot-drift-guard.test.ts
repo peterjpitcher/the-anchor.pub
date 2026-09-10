@@ -697,6 +697,16 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('does not contradict the cash bingo format (section 10)', () => {
+    // Cash bingo is monthly on varying dates, with ten games and prizes that
+    // vary by event. Until 10 September 2026 a post promised first Thursdays,
+    // three games and a guaranteed £50 jackpot, and a New Year post repeated
+    // "First Thursday Bingo".
+    expect(
+      claimSentences(/\bfirst thursday\b|\b(?:three|3) games\b|£50 (?:cash )?jackpot|guaranteed £50|win (?:up to )?£50/i),
+    ).toEqual([])
+  })
+
   it('does not hardcode old kitchen-hour or late-food claims', () => {
     expect(
       matchingFiles(

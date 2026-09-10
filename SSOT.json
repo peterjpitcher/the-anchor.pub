@@ -1238,7 +1238,7 @@
       "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
       "_confirmed": "Owner-confirmed 11 August 2026",
       "christmas_market": false,
-      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market stays noindexed and must not be revived. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
+      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market was retired on 2026-09-10 (owner-approved) and redirects to /christmas-parties; do not revive it. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
     },
     "deposit": {
       "per_person_gbp": 10,
