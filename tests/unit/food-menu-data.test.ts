@@ -60,7 +60,6 @@ describe('food.json structure', () => {
     const allNames = menu.categories.flatMap((c: { sections: { items: { name: string }[] }[] }) =>
       c.sections.flatMap(s => s.items.map(i => i.name))
     )
-    expect(allNames).toContain('Chicken, Ham Hock & Leek Pie')
     expect(allNames).toContain('Butternut Squash, Mixed Bean & Mature Cheddar Pie')
     expect(allNames).toContain('Chocolate Fudge Cake')
     expect(allNames).toContain('Chocolate Fudge Brownie')
@@ -79,6 +78,8 @@ describe('food.json structure', () => {
     expect(allNames).not.toContain('Beef Burger')
     expect(allNames).not.toContain('Vegetable Burger')
     expect(allNames).not.toContain('Sausage & Mash')
+    // No longer served, owner-confirmed 10 September 2026.
+    expect(allNames).not.toContain('Chicken, Ham Hock & Leek Pie')
   })
 
   it('contains new stack burger items', () => {

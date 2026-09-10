@@ -689,6 +689,13 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/page-headers\/food-menu\/food-menu\.jpg/)).toEqual([])
   })
 
+  it('does not list the retired Chicken, Ham Hock & Leek Pie (section 5)', () => {
+    // No longer served, owner-confirmed 10 September 2026. SSOT.json keeps the name
+    // only under food.removed_items, which the customer-facing walk skips.
+    expect(matchingFiles(/ham hock/i)).toEqual([])
+    expect(custBlob).not.toMatch(/ham hock/)
+  })
+
   it('keeps discontinued entertainment out of llms.txt (section 10)', () => {
     // llms.txt still listed live music a month after it stopped in full.
     const llms = fs.readFileSync(path.join(process.cwd(), 'public/llms.txt'), 'utf8')

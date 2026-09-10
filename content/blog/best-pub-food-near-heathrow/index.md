@@ -66,7 +66,7 @@ The [menu](/food-menu) covers proper British pub food without trying to be somet
 
 **British classics:** Fish and chips, scampi and chips, bangers and mash, jumbo sausage and chips
 
-**Pies:** Beef and ale, chicken and wild mushroom, chicken, ham hock and leek, butternut squash and mature cheddar (V), all served with creamy mash and seasonal veg
+**Pies:** Beef and ale, chicken and wild mushroom, or butternut squash and mature cheddar (V), all served with creamy mash and seasonal veg
 
 **Burgers:** Classic beef, chicken, spicy chicken, or garden veg, plus bigger stacks. Build your own with extras
 
