@@ -17,6 +17,8 @@ import type { MenuResponse, MenuSectionData } from '@/lib/api/menu'
 import { anchorAPI, getBusinessHoursSnapshot } from '@/lib/api'
 import { CONTACT } from '@/lib/constants'
 import LunchAndDinnerPage, { metadata } from '@/app/lunch-and-dinner/page'
+import { pickLunchAndDinnerDishes } from '@/lib/lunch-and-dinner'
+import type { MenuPageItem } from '@/lib/menu-page-data'
 
 jest.mock('react', () => {
   const actual = jest.requireActual('react')
@@ -187,25 +189,28 @@ describe('/lunch-and-dinner', () => {
       'Beer Battered Cod & Chips',
       'Spicy Chicken Stack',
       'Beef & Ale Pie',
-      'Pepperoni',
+      'Stone-baked pizzas',
       'Fish Finger Wrap',
       'Bangers & Mash'
     ])
     expect(within(cards[0]).getByText('16')).toBeInTheDocument()
-    expect(within(cards[3]).getByText('14')).toBeInTheDocument()
     expect(within(cards[4]).getByText('10')).toBeInTheDocument()
-    // No card carries a pound sign: single dish prices are shown bare (SSOT).
-    expect(cards.some((card) => card.textContent?.includes('£'))).toBe(false)
+    // The pizza card never names a pizza: it is priced from the cheapest live
+    // pizza, and garlic bread (10) is not a pizza.
+    expect(within(cards[3]).getByText('from £13')).toBeInTheDocument()
+    // Single dish prices are shown bare (SSOT); only the "from" price carries a £.
+    const withPound = cards.filter((card) => card.textContent?.includes('£'))
+    expect(withPound).toEqual([cards[3]])
   })
 
-  it('gives every dish but the pizza its photo, with alt text that describes the dish', async () => {
+  it('gives every card its photo, with alt text that describes it', async () => {
     await renderPage()
 
     const cards = dishCards()
     const images = cards.map((card) => within(card).queryByRole('img'))
-    expect(images[3]).toBeNull() // Pepperoni is text only for now
-    expect(images.filter(Boolean)).toHaveLength(5)
+    expect(images.filter(Boolean)).toHaveLength(6)
     expect(images[0]).toHaveAttribute('alt', expect.stringMatching(/^Beer battered cod and chips/))
+    expect(images[3]).toHaveAttribute('alt', expect.stringMatching(/^A stone-baked pizza/))
     expect(images[5]).toHaveAttribute('alt', expect.stringMatching(/^Bangers and mash/))
   })
 
@@ -263,5 +268,38 @@ describe('/lunch-and-dinner', () => {
 
     const sitemap = fs.readFileSync(path.join(process.cwd(), 'app', 'sitemap.ts'), 'utf8')
     expect(sitemap).not.toContain('lunch-and-dinner')
+  })
+})
+
+describe('the pizza card', () => {
+  const menuItem = (name: string, sectionTitle: string, priceValue: number) =>
+    ({
+      id: name.toLowerCase(),
+      name,
+      price: String(priceValue),
+      description: '',
+      priceValue,
+      priceLabel: '',
+      categoryId: 'food',
+      categoryTitle: sectionTitle,
+      sectionId: sectionTitle.toLowerCase(),
+      sectionTitle,
+      dietaryInfo: [],
+      allergens: []
+    }) as MenuPageItem
+
+  it('is priced from the cheapest pizza, never garlic bread, showing pence when there are any', () => {
+    const dishes = pickLunchAndDinnerDishes({
+      items: [menuItem('Garlic Bread', 'Pizza', 10), menuItem('Pepperoni', 'Pizza', 14), menuItem('Margherita', 'Pizza', 12.5)]
+    })
+    const pizza = dishes.find((dish) => dish.item.name === 'Stone-baked pizzas')
+    expect(pizza?.item.price).toBe('from £12.50')
+    expect(pizza?.item.sectionTitle).toBe('Pizza')
+    expect(pizza?.image?.src).toMatch(/stone-baked-pizza\.jpg$/)
+  })
+
+  it('is left out when the only thing in the pizza section is garlic bread', () => {
+    const dishes = pickLunchAndDinnerDishes({ items: [menuItem('Garlic Bread', 'Pizza', 10)] })
+    expect(dishes.some((dish) => dish.item.name === 'Stone-baked pizzas')).toBe(false)
   })
 })

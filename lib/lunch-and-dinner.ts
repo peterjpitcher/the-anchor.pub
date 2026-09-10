@@ -15,13 +15,32 @@ export type DishImage = {
   alt: string
 }
 
-type DishPick = {
+type SingleDishPick = {
+  kind?: 'dish'
   /** Exact dish name as the menu API serves it. */
   name: string
   /** Only match inside this section, for a name as generic as "Pepperoni". */
   section?: RegExp
   image?: DishImage
 }
+
+/**
+ * A card for a whole menu section, priced "from" its cheapest live item. Used
+ * for the pizzas: the owner's pizza photo matches no single pizza on the menu
+ * (owner decision, 10 September 2026), so the card never names one.
+ */
+type SectionFromPick = {
+  kind: 'sectionFrom'
+  /** Card title, for example "Stone-baked pizzas". */
+  title: string
+  /** The section whose cheapest live price the card shows. */
+  section: RegExp
+  /** Items in that section the card is not about, such as garlic bread. */
+  exclude?: RegExp
+  image?: DishImage
+}
+
+type DishPick = SingleDishPick | SectionFromPick
 
 export type LunchAndDinnerDish = {
   item: MenuPageItem
@@ -53,9 +72,14 @@ export const LUNCH_AND_DINNER_DISH_PICKS: readonly DishPick[] = [
     }
   },
   {
-    // No photo yet, so this card is text only.
-    name: 'Pepperoni',
-    section: /^pizzas?$/i
+    kind: 'sectionFrom',
+    title: 'Stone-baked pizzas',
+    section: /^pizzas?$/i,
+    exclude: /garlic bread/i,
+    image: {
+      src: `${IMAGE_DIR}/stone-baked-pizza.jpg`,
+      alt: 'A stone-baked pizza with a charred crust on a blue plate'
+    }
   },
   {
     name: 'Fish Finger Wrap',
@@ -73,12 +97,45 @@ export const LUNCH_AND_DINNER_DISH_PICKS: readonly DishPick[] = [
   }
 ]
 
+// "from £13": SSOT keeps the pound sign on "from" and range lines; single dish
+// prices stay bare.
+function formatFromPrice(value: number): string {
+  return `from £${value % 1 === 0 ? String(value) : value.toFixed(2)}`
+}
+
+function pickSectionFrom(
+  menu: Pick<MenuPageData, 'items'>,
+  pick: SectionFromPick
+): LunchAndDinnerDish[] {
+  const candidates = menu.items.filter(
+    (candidate) =>
+      pick.section.test(candidate.sectionTitle.trim()) &&
+      !pick.exclude?.test(candidate.name) &&
+      Number.isFinite(candidate.priceValue) &&
+      candidate.priceValue > 0
+  )
+  if (candidates.length === 0) return []
+
+  const cheapest = candidates.reduce((low, candidate) =>
+    candidate.priceValue < low.priceValue ? candidate : low
+  )
+  const item: MenuPageItem = {
+    ...cheapest,
+    id: `${cheapest.sectionId}-from`,
+    name: pick.title,
+    price: formatFromPrice(cheapest.priceValue)
+  }
+  return [pick.image ? { item, image: pick.image } : { item }]
+}
+
 /** The picked dishes the live menu still lists, in the order above. */
 export function pickLunchAndDinnerDishes(
   menu: Pick<MenuPageData, 'items'>,
   picks: readonly DishPick[] = LUNCH_AND_DINNER_DISH_PICKS
 ): LunchAndDinnerDish[] {
   return picks.flatMap((pick) => {
+    if (pick.kind === 'sectionFrom') return pickSectionFrom(menu, pick)
+
     const item = menu.items.find(
       (candidate) =>
         candidate.name.trim() === pick.name &&

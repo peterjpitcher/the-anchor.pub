@@ -154,7 +154,7 @@ export default async function LunchAndDinnerPage() {
                         </p>
                         <h3 className="font-display text-h4 text-ink-strong">{item.name}</h3>
                       </div>
-                      {/* Shown bare, like every single dish price on the site (SSOT). */}
+                      {/* Single dish prices are bare, "from" prices keep the £ (SSOT). */}
                       <span className="shrink-0 font-display text-h4 text-ink-strong">{item.price}</span>
                     </CardBody>
                   </Card>
