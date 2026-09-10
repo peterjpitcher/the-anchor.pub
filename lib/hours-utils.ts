@@ -1,6 +1,8 @@
 // Unified utilities for business hours and kitchen status
 // Single source of truth matching Management API logic
 
+import { formatTime12Hour } from '@/lib/time-utils';
+
 // Match the actual API structure
 type KitchenOpen = {
   opens: string;
@@ -289,6 +291,124 @@ export function isKitchenClosed(effective: DayHours): boolean {
  */
 export function isVenueClosed(effective: DayHours): boolean {
   return effective.is_closed === true;
+}
+
+/** The weekly schedule: this week's hours plus any published future versions. */
+type WeeklyHours = {
+  regularHours: Record<string, DayHours>;
+  upcomingVersions?: UpcomingHoursVersion[] | null;
+};
+
+const WEEKDAY_INDEX: Record<string, number> = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+};
+
+/**
+ * The next London date (YYYY-MM-DD) falling on the given weekday, today included.
+ *
+ * The London calendar date is taken first, then stepped forward at UTC noon, so
+ * neither the server's own zone nor a clock change can move it to another day.
+ */
+export function nextIsoDateForWeekday(day: string, now: Date = new Date()): string {
+  const todayIso = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/London',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const target = WEEKDAY_INDEX[day.toLowerCase()];
+  if (target === undefined) return todayIso;
+
+  const date = new Date(`${todayIso}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + ((target - date.getUTCDay() + 7) % 7));
+  return date.toISOString().slice(0, 10);
+}
+
+/**
+ * A weekday's kitchen sittings in the regular week, read on that weekday's NEXT
+ * occurrence. The schedule is effective-dated: reading today's schedule for every
+ * day described the outgoing hours on the eve of a change.
+ */
+export function getNextKitchenWindowsForWeekday(
+  hours: WeeklyHours,
+  day: string,
+  now: Date = new Date()
+): KitchenWindow[] {
+  const key = day.toLowerCase();
+  const dayHours = resolveRegularHoursForDate(
+    nextIsoDateForWeekday(key, now),
+    hours.regularHours,
+    hours.upcomingVersions
+  )[key];
+  return dayHours ? getKitchenWindows(dayHours) : [];
+}
+
+/** "12pm-3pm & 4pm-9pm". */
+function formatKitchenWindows(windows: KitchenWindow[]): string {
+  return windows
+    .map((window) => `${formatTime12Hour(window.opens)}-${formatTime12Hour(window.closes)}`)
+    .join(' & ');
+}
+
+/**
+ * The kitchen sittings every one of `days` shares, or null when any of them has
+ * no sittings or they differ, so a caller never states one set of times for days
+ * that do not share it. Days count as the same when their times read the same.
+ */
+export function getSharedKitchenWindows(
+  hours: WeeklyHours,
+  days: string[],
+  now: Date = new Date()
+): KitchenWindow[] | null {
+  if (days.length === 0) return null;
+  const perDay = days.map((day) => getNextKitchenWindowsForWeekday(hours, day, now));
+  if (perDay.some((windows) => windows.length === 0)) return null;
+
+  const first = formatKitchenWindows(perDay[0]);
+  return perDay.every((windows) => formatKitchenWindows(windows) === first) ? perDay[0] : null;
+}
+
+const TUESDAY_TO_FRIDAY = ['tuesday', 'wednesday', 'thursday', 'friday'];
+
+/**
+ * The regular week's kitchen hours in one line, for FAQ answers:
+ * "Tuesday to Friday 12pm-3pm & 4pm-9pm, Saturday 12pm-7pm, Sunday 1pm-6pm".
+ *
+ * Read as sittings, not one flattened span: a day serving lunch and then dinner
+ * must not be described as open straight through the gap between them. Days
+ * with no kitchen are left out.
+ */
+export function buildKitchenSchedule(hours: WeeklyHours, now: Date = new Date()): string {
+  const schedule: Record<string, string> = {};
+
+  const sharedWeekday = getSharedKitchenWindows(hours, TUESDAY_TO_FRIDAY, now);
+  if (sharedWeekday) {
+    schedule['Tuesday to Friday'] = formatKitchenWindows(sharedWeekday);
+  } else {
+    for (const day of TUESDAY_TO_FRIDAY) {
+      const windows = getNextKitchenWindowsForWeekday(hours, day, now);
+      if (windows.length > 0) {
+        schedule[day.charAt(0).toUpperCase() + day.slice(1)] = formatKitchenWindows(windows);
+      }
+    }
+  }
+
+  const saturday = getNextKitchenWindowsForWeekday(hours, 'saturday', now);
+  if (saturday.length > 0) schedule.Saturday = formatKitchenWindows(saturday);
+
+  const sunday = getNextKitchenWindowsForWeekday(hours, 'sunday', now);
+  if (sunday.length > 0) schedule.Sunday = formatKitchenWindows(sunday);
+
+  return Object.entries(schedule)
+    .map(([day, time]) => `${day} ${time}`)
+    .join(', ');
 }
 
 /**

@@ -10,9 +10,8 @@ import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { getBusinessHoursSnapshot, isKitchenOpen, type BusinessHours } from '@/lib/api'
-import { formatTime12Hour } from '@/lib/time-utils'
-import { getKitchenWindows, resolveRegularHoursForDate } from '@/lib/hours-utils'
+import { getBusinessHoursSnapshot, isKitchenOpen } from '@/lib/api'
+import { buildKitchenSchedule } from '@/lib/hours-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -50,87 +49,6 @@ export const revalidate = 3600
 // Festive dinner runs on its own menu, so readers of the everyday menu need
 // pointing at it through the run-up, and not at all once the season has passed.
 const CHRISTMAS_LINK_LEAD_DAYS = 120
-
-const WEEKDAY_INDEX: Record<string, number> = {
-  sunday: 0,
-  monday: 1,
-  tuesday: 2,
-  wednesday: 3,
-  thursday: 4,
-  friday: 5,
-  saturday: 6
-}
-
-/** The next London date falling on the given weekday, today included. */
-function nextIsoDateForWeekday(day: string): string {
-  const todayIso = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/London',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(new Date())
-
-  const target = WEEKDAY_INDEX[day.toLowerCase()]
-  if (target === undefined) return todayIso
-
-  const date = new Date(`${todayIso}T12:00:00Z`)
-  date.setUTCDate(date.getUTCDate() + ((target - date.getUTCDay() + 7) % 7))
-  return date.toISOString().slice(0, 10)
-}
-
-function buildKitchenSchedule(hours: BusinessHours): string {
-  const schedule: Record<string, string> = {}
-
-  // Read as sittings, not one flattened span: a day serving lunch and then
-  // dinner must not be described as open straight through the gap between them.
-  //
-  // Each weekday is resolved against its NEXT occurrence, because the schedule
-  // is effective-dated. Reading today's schedule for every day meant this page
-  // described the outgoing hours as "Tuesday to Friday" on the eve of a change,
-  // contradicting its own structured data on the same page.
-  const sittingsLabel = (day: keyof BusinessHours['regularHours']): string | null => {
-    const dayHours = resolveRegularHoursForDate(
-      nextIsoDateForWeekday(String(day)),
-      hours.regularHours,
-      hours.upcomingVersions
-    )[day]
-    if (!dayHours) return null
-    const windows = getKitchenWindows(dayHours)
-    if (windows.length === 0) return null
-    return windows
-      .map(window => `${formatTime12Hour(window.opens)}-${formatTime12Hour(window.closes)}`)
-      .join(' & ')
-  }
-
-  const weekdays: Array<keyof BusinessHours['regularHours']> = ['tuesday', 'wednesday', 'thursday', 'friday']
-  const weekdayHours = weekdays
-    .map(day => {
-      const label = sittingsLabel(day)
-      return label ? { day, label } : null
-    })
-    .filter(Boolean) as Array<{ day: string; label: string }>
-
-  if (
-    weekdayHours.length === weekdays.length &&
-    weekdayHours.every(h => h.label === weekdayHours[0].label)
-  ) {
-    schedule['Tuesday to Friday'] = weekdayHours[0].label
-  } else {
-    weekdayHours.forEach(h => {
-      schedule[h.day.charAt(0).toUpperCase() + h.day.slice(1)] = h.label
-    })
-  }
-
-  const saturdayLabel = sittingsLabel('saturday')
-  if (saturdayLabel) schedule.Saturday = saturdayLabel
-
-  const sundayLabel = sittingsLabel('sunday')
-  if (sundayLabel) schedule.Sunday = sundayLabel
-
-  return Object.entries(schedule)
-    .map(([day, time]) => `${day} ${time}`)
-    .join(', ')
-}
 
 function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
   return items.slice(0, limit)
