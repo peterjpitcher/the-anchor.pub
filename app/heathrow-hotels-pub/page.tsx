@@ -456,14 +456,19 @@ export default async function HeathrowHotelsPubPage() {
             <div className="max-w-md mx-auto mb-8">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Early Evening Dining</h3>
-                <p className="text-2xl font-bold text-accent-text mb-2">Kitchen from 6pm</p>
-                <p className="text-ink-muted">Beat the hotel dinner rush</p>
+                <p className="text-2xl font-bold text-accent-text mb-2">Beat the hotel dinner rush</p>
                 <p className="text-sm mt-2">Quieter atmosphere for jet-lagged guests</p>
               </div>
             </div>
 
+            {/* No typed times: they are live in the opening hours below, and a
+                typed "Kitchen from 6pm" outlived the switch to lunch and dinner. */}
             <p className="text-lg text-ink-muted">
-              Kitchen closes at 9pm Tuesday-Friday, 7pm Saturday, 5pm Sunday
+              Kitchen times vary by day.{' '}
+              <Link href="#opening-hours" className="font-semibold text-accent-text underline underline-offset-2">
+                See this week&apos;s kitchen hours
+              </Link>
+              .
             </p>
           </div>
         </Container>
@@ -554,7 +559,7 @@ export default async function HeathrowHotelsPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="py-section-y bg-surface">
+      <section id="opening-hours" className="scroll-mt-24 py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
             <SectionHeading
@@ -604,7 +609,7 @@ export default async function HeathrowHotelsPubPage() {
 	          },
           {
             question: "Are you open early/late for travellers?",
-            answer: "We are not open for breakfast, but we are ideal for lunch at weekends, dinner or evening drinks. Our current opening and kitchen hours are shown live on this page. Many guests visit us the night before early flights or after afternoon hotel check-in."
+            answer: "We are not open for breakfast, but we are ideal for lunch, dinner or evening drinks. Our current opening and kitchen hours are shown live on this page. Many guests visit us the night before early flights or after afternoon hotel check-in."
           }
         ]}
         className="bg-canvas"

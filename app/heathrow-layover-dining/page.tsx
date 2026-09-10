@@ -131,7 +131,7 @@ export default function HeathrowLayoverDiningPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { title: 'In & Out in 90 Minutes', description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.' },
-              { title: 'Full Menu, All Day', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
+              { title: 'The Full Menu', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
               { title: 'Free Parking & Easy Transfers', description: 'Park free for as long as you are with us, no registering and no time limit. Need a cab back? We’ll organise one with our trusted local partners.' },
               { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
               { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
@@ -245,7 +245,7 @@ export default function HeathrowLayoverDiningPage() {
               { title: 'Charging & WiFi', body: 'Power up devices and download shows before you board. Ask staff for quiet seating.' },
               { title: 'Local Walks', body: 'Take a 15-minute stroll along the River Colne or Stanwell Moor village green between courses.' },
               { title: 'Group-Friendly Menus', body: 'Pre-set menus available for crew briefings or incentive trips. Email manager@the-anchor.pub for options.' },
-              { title: 'Takeaway Ready', body: 'All-day menu items travel well, take leftovers or order takeaway pizzas for the onward journey.' }
+              { title: 'Takeaway Ready', body: 'Our menu travels well. Take leftovers with you, or order takeaway pizzas for the onward journey.' }
             ].map(box => (
               <Card key={box.title} accent>
                 <CardBody>

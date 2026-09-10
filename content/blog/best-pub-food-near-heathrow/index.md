@@ -84,7 +84,7 @@ The beer garden is directly under Heathrow's flight path, which sounds like a dr
 
 ### Practical info
 
-**Kitchen hours:** Monday closed. Tuesday-Friday 4pm-9pm. Saturday 12pm-7pm. Sunday 1pm-6pm.
+**Kitchen hours:** closed on Mondays. [See this week's kitchen times](/find-us#opening-hours) before you set off.
 
 **Getting there from the terminals:** Head south on the M25, exit Junction 14, follow signs for Stanwell Moor. Sat nav: TW19 6AQ. The pub is on Horton Road with parking out front.
 

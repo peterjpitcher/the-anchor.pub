@@ -35,7 +35,7 @@ Searching for a **remote work spot near Heathrow Airport**? Whether you're a dig
 **What Makes The Anchor Ideal for Remote Work:**
 - **Free, reliable WiFi** throughout the pub
 - **Dedicated work-friendly dining room** with tables featuring built-in power points
-- **Quiet atmosphere** during weekday working hours
+- **Quiet atmosphere** on weekday afternoons
 - **Comfortable seating** with plenty of space
 - **Multiple power outlets** available for laptops and devices
 - **Free parking** - no airport fees
@@ -54,8 +54,7 @@ Searching for a **remote work spot near Heathrow Airport**? Whether you're a dig
 ### Ideal Working Hours for Digital Nomads
 
 **Best Times to Work:**
-- **Weekday mornings** (10am-12pm) - Quietest period
-- **Weekday afternoons** (2pm-5pm) - Peaceful atmosphere
+- **Tuesday to Friday afternoons** - Peaceful atmosphere ([see our opening hours](/find-us#opening-hours))
 - **Coffee & laptop setup** from opening
 - **Lunch break** with fresh food menu
 - **Evening wind-down** with local beers
@@ -117,7 +116,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 ### Why Choose The Anchor Over Airport Lounges
 
 **Better Than Terminal Working:**
-- **No time restrictions** - work all day
+- **No time limit** - stay as long as you like while we're open
 - **Fraction of the cost** of airport lounges
 - **Free parking** vs expensive terminal fees
 - **Local atmosphere** not tourist trap
@@ -139,7 +138,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 ### Working Day Packages
 
 **Make a Day of It:**
-- Morning coffee & workspace setup
+- Coffee & workspace setup from opening
 - Lunch break with fresh food
 - Afternoon drinks & snacks
 - Evening meal before heading on
@@ -167,7 +166,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 ☕ **Coffee**: Proper barista coffee  
 🍕 **Food**: Full menu, not airport prices  
 🎮 **Entertainment**: Pool, darts, jukebox, fruit machine  
-⏰ **Best Hours**: Weekdays 10am-5pm  
+⏰ **Best Hours**: Tuesday to Friday afternoons ([opening hours](/find-us#opening-hours))  
 ✈️ **From Heathrow**: Just 7 minutes  
 
 **Contact & Planning:**
