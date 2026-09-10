@@ -75,7 +75,7 @@ If anyone is on two or three courses, you are collecting their choices in advanc
 
 On children: there is no kids two-course or three-course option, and no child price for those tiers. Children can order the adult two or three course tier, at the adult price. There is a kids version of the one-course option. Better you know now than budget for child prices that do not exist.
 
-Adults get a glass of prosecco on all three tiers, swappable for orange juice. Children get a Fruit Shoot or a small soft drink with the one-course option. Trimmings are pigs in blankets, stuffing and brussels sprouts. The menu is released closer to the time, so do not build a plan around a specific dish yet.
+Adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. Children get a Fruit Shoot or a small soft drink with the one-course option. Trimmings are pigs in blankets, stuffing and brussels sprouts. The dishes are published on our [Christmas page](/christmas-parties), so your group can choose from the real menu.
 
 ## Collect the deposit before you book, not after
 

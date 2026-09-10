@@ -137,7 +137,7 @@ export default function GenderRevealPage() {
                         <Card><CardBody>
                             <h3 className="font-display text-h4 mb-3 text-ink-strong">Garden Reveal</h3>
                             <p className="text-ink-muted mb-4">
-                                Our enclosed beer garden is the ideal setting for an outdoor reveal. There is ample open space for smoke cannons, confetti poppers, or balloon drops. Guests can gather in a semicircle, creating a natural amphitheatre for the big moment and your photos.
+                                Our beer garden is the ideal setting for an outdoor reveal. There is ample open space for smoke cannons, confetti poppers, or balloon drops. Guests can gather in a semicircle, creating a natural amphitheatre for the big moment and your photos.
                             </p>
                             <ul className="text-sm text-ink-muted space-y-1">
                                 <li>Best for smoke cannons and outdoor confetti</li>

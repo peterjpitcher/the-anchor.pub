@@ -61,7 +61,7 @@ We run three, and this year they are:
 - **Festive Hot Finger**
 - **Festive Premium Grazing**
 
-Now the honest bit. We are not listing what is in them, because the menu is released closer to the time and we would rather tell you nothing than tell you something that changes. If you find a firm festive dish list published anywhere this early, treat it with suspicion.
+Now the honest bit. We are not listing what is in them here, because the selection is confirmed for your date when you enquire, and we would rather tell you nothing than tell you something that changes.
 
 What we can give you now is the shape: three packages, each a set spread for the whole group rather than a per-person course choice. That is most of what you need in order to choose a format. Prices are live from our system, so ask when you enquire. See menu or contact us for allergen information.
 
@@ -71,7 +71,7 @@ All three festive buffets need **30 guests**. Everywhere, no exceptions, no roun
 
 We know that is annoying if you have 24. It is a hard floor rather than a starting position, so it is worth checking your number against it before you plan anything around a buffet.
 
-If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults get a glass of prosecco on all three tiers, swappable for orange juice.
+If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults on the 2 and 3 course tiers get a glass of prosecco, swappable for orange juice.
 
 A few practical things worth knowing before you enquire:
 
@@ -110,7 +110,7 @@ If two of the three agree, that is your format. Send us numbers, a rough date an
 
 ### Can I see the Christmas buffet menu now?
 
-Not yet. The Christmas menu is released closer to the time. We can confirm the three package names and the structure now, and we will share the full menu with everyone who has booked as soon as it is finalised.
+Yes, ask us. Tell us your date and your numbers and we will send the current selection for each package, along with pricing and service timings. The Christmas dinner menu is published in full on our [Christmas page](/christmas-parties).
 
 ### How many people can you fit for a Christmas buffet?
 

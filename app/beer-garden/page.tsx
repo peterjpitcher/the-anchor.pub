@@ -278,7 +278,7 @@ export default async function BeerGardenPage() {
                 { title: 'Spacious Seating', description: 'Multiple tables with umbrellas for sunny days' },
                 { title: 'Dog Friendly', description: 'Water bowls provided, treats available at the bar' },
                 { title: 'Food Service', description: 'Full menu available in the garden during kitchen hours' },
-                { title: 'Family Friendly', description: 'Safe enclosed space, children always welcome' }
+                { title: 'Family Friendly', description: 'Children always welcome, with supervision: the garden adjoins the car park' }
               ].map(feature => (
                 <Card key={feature.title} accent hover>
                   <CardBody>

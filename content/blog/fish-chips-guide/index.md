@@ -30,12 +30,11 @@ images: []
 
 Looking for authentic **fish and chips near Heathrow**? The Anchor in Stanwell Moor serves traditional British chip shop favourites with **quality food** at local prices. Just 7 minutes from Terminal 5, skip the expensive **Heathrow food** and enjoy proper British comfort food at our **traditional pub**.
 
-> **Fancy fish and chips?** [See our full fish and chips menu](/fish-and-chips-heathrow) with prices, gluten-free options and booking info. Free parking, 7 mins from T5.
+> **Fancy fish and chips?** [See our full fish and chips menu](/fish-and-chips-heathrow) with prices and booking info. Free parking, 7 mins from T5.
 
 ## Quick Summary
 
 - Fresh North Atlantic cod, hand-cut chips and homemade mushy peas every Friday and weekend service
-- Gluten free batter options available on request
 - Free parking, seven minute taxi from Heathrow and easy access from Staines High Street
 - Book ahead for larger groups or pre-order takeaway for hotel rooms and flights
 
@@ -71,7 +70,6 @@ Our signature dish features:
 - **Hand-cut chips** twice-cooked for perfection
 - Traditional accompaniments: mushy peas, tartar sauce
 - Lemon wedge and malt vinegar
-- **Gluten-free batter** available on request
 
 ### Full Chip Shop Selection at The Anchor
 
@@ -109,7 +107,6 @@ We serve proper fish and chips throughout the week. Perfect for **Heathrow trave
 At our **Stanwell Moor pub**, we:
 - Source fish from sustainable British waters
 - Cut chips fresh daily from Maris Piper potatoes
-- Use traditional beef dripping for authentic flavour
 - Prepare everything to order - never pre-cooked
 - Maintain the highest food hygiene standards
 
@@ -180,7 +177,7 @@ Check our website for current service hours. Generous portions are available thr
 Yes. Call 01753 682707 and we will time your order for collection so it stays crisp for the journey.
 
 **Do you offer gluten-free fish and chips?**  
-No. We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. If you need gluten-free options, see our gluten-free menu or ask the bar team for allergen guidance before ordering.
+No. We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. If you avoid gluten, see our NGCI menu or ask the bar team for allergen guidance before ordering. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 
 ## Reviews from Our Chip Shop Fans
 

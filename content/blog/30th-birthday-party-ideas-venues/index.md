@@ -103,7 +103,7 @@ Put your guest count into the [private hire calculator](/private-hire) and it wi
 
 ### Pizza party (genuinely underrated for adults)
 
-There's a reason pizza works at every age. Order a mix of stone-baked pizzas, set them on a table, and let people help themselves. At The Anchor, stone-baked pizzas start at £13 for 12-inch, hand-stretched bases, with gluten-free options available. For a 30th, a pizza buffet with a few sides is relaxed, affordable, and means nobody's agonising over a set menu.
+There's a reason pizza works at every age. Order a mix of stone-baked pizzas, set them on a table, and let people help themselves. At The Anchor, stone-baked pizzas start at £13 for 12-inch, hand-stretched bases, with NGCI options available. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. For a 30th, a pizza buffet with a few sides is relaxed, affordable, and means nobody's agonising over a set menu.
 
 ### Drinks packages vs bar tab: what's actually cheaper?
 

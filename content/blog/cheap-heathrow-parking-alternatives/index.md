@@ -138,7 +138,7 @@ The car park is CCTV-monitored, floodlit and bordered by residential properties.
 
 ### Do you offer electric vehicle charging?
 
-At present we recommend arriving with sufficient charge. Trickle charging is coming soon; check the [main Heathrow parking page](/heathrow-parking) for updates.
+No, we don't have EV charging, so please arrive with enough charge for the journey home. Everything else about parking with us is on the [main Heathrow parking page](/heathrow-parking).
 
 ---
 

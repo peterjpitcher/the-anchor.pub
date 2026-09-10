@@ -2,18 +2,19 @@
  * The Christmas dish list, read from the booking period that actually governs
  * Christmas bookings.
  *
- * The page used to say "the full dish list is released closer to the time"
- * because it only ever read the `christmas` menu container, which holds the
- * course-tier PRICES and nothing else. The dishes themselves live on the
- * Christmas booking period (`booking_period_menu_items`) and are served by
- * `/table-bookings/periods`, which is the same source the booking form uses to
- * build a pre-order. Reading them here means the page and the booking form can
- * never show two different menus.
+ * The page used to say the dish list was still to come, because it only ever
+ * read the `christmas` menu container, which holds the course-tier PRICES and
+ * nothing else. The dishes themselves live on the Christmas booking period
+ * (`booking_period_menu_items`) and are served by `/table-bookings/periods`,
+ * which is the same source the booking form uses to build a pre-order. Reading
+ * them here means the page and the booking form can never show two different
+ * menus.
  *
- * Everything is best-effort: any failure returns null and the caller keeps its
- * existing "released closer to the time" copy. A Christmas page that renders
- * without a dish list is worse than one with it, but far better than one that
- * fails to render at all.
+ * Everything is best-effort: any failure returns null and the caller says
+ * nothing about the dishes, as SSOT section 7 requires, unless the menu API is
+ * down, when it shows a call-us message. A Christmas page that renders without
+ * a dish list is worse than one with it, but far better than one that fails to
+ * render at all.
  */
 
 import { anchorAPI } from '@/lib/api'

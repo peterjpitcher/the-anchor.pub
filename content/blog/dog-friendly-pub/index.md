@@ -49,10 +49,9 @@ Our famous **dog friendly Sunday roast** is a highlight for local families and H
 
 ### Sunday Roast with Your Dog Includes:
 - **Reserved dog-friendly seating** in our garden area (weather permitting)
-- **Traditional Sunday roasts** - beef, pork, chicken, or vegetarian
+- **Traditional Sunday roasts** - beef, pork, turkey, pies or a vegan Wellington
 - **Children welcome** - A true family friendly pub experience
 - **Relaxed atmosphere** - No rushing, enjoy your meal
-- **Special doggy Sunday dinners** available (ask staff)
 
 Book early for Sunday roast - our dog-friendly tables fill up fast!
 
@@ -64,7 +63,6 @@ Book early for Sunday roast - our dog-friendly tables fill up fast!
 
 Our garden terrace is the crown jewel for dog owners visiting our **pub near Heathrow**. Features include:
 
-- **Secure fencing** - Your dog can relax safely
 - **Shaded areas** - Cool spots on sunny days
 - **Plenty of space** - Room for multiple dogs without crowding
 - **Easy clean surfaces** - Accidents happen, we understand
@@ -103,14 +101,14 @@ We want everyone - humans and dogs - to enjoy their visit to our **dog friendly 
 
 1. **All well-behaved dogs welcome** - Size doesn't matter, behaviour does
 2. **Dogs on leads inside** - For everyone's comfort and safety
-3. **Garden terrace freedom** - Dogs can be off-lead in designated areas
+3. **Leads on in the garden too** - Dogs stay on a lead everywhere, garden included
 4. **Clean up stations provided** - Bags and bins available
 5. **Water bowls throughout** - Your dog stays hydrated
-6. **Dog menu available** - Special treats and meals for your pup
+6. **Dog biscuits** - Ask at the bar
 
 ### What We Ask of Dog Owners
 
-- Keep dogs on leads when moving through the pub
+- Keep dogs on a lead at all times
 - Clean up after your dog (bags provided)
 - Don't allow dogs on furniture or to eat from plates
 - Ensure your dog is sociable with others
@@ -157,7 +155,6 @@ Enjoy traditional pub favourites while your dog relaxes:
 **For Dogs:**
 - Complimentary water and biscuits
 - Special dog ice cream in summer
-- "Pawsome Platters" - dog-safe meals
 - Birthday "pupcakes" (advance order)
 - Dental chews at the bar
 

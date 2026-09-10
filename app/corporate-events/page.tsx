@@ -254,7 +254,7 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">What your team gets</h3>
                 <ul className="space-y-2 text-ink-muted">
                   <li><strong className="text-ink-strong">A festive set menu</strong> at one, two or three courses</li>
-                  <li><strong className="text-ink-strong">A glass of prosecco</strong> for every adult, swappable for orange juice</li>
+                  <li><strong className="text-ink-strong">A glass of prosecco</strong> for adults on the two and three course tiers, swappable for orange juice</li>
                   <li><strong className="text-ink-strong">Festive buffets</strong> for parties of {SSOT_CHRISTMAS.buffets.min_guests} guests or more</li>
                   <li><strong className="text-ink-strong">Room for {SSOT_VENUE.capacity.christmas_seated} seated</strong> or {SSOT_VENUE.capacity.christmas_standing} standing at Christmas</li>
                   <li><strong className="text-ink-strong">The full dish list and prices are on the Christmas page</strong>, both served live from our booking system</li>
@@ -519,7 +519,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What is on the Christmas menu for work parties?",
-            answer: "The festive set menu runs at one, two or three courses, and every adult gets a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
+            answer: "The festive set menu runs at one, two or three courses, and adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
           },
           {
             question: "Can you provide a VAT invoice for our company?",

@@ -109,13 +109,13 @@ Whatever you choose, mention dietary requirements when you book. At least a few 
 We host wakes regularly at The Anchor, and we approach every one with care. Here's what we offer:
 
 - A private area suitable for gatherings of **10 to 100+ guests**
-- **Buffet catering from the live approved source**, including finger food, sandwiches, and hot options. We can cater for vegetarian, halal, and gluten-free requirements
+- **Buffet catering from the live approved source**, including finger food, sandwiches, and hot options. We can cater for vegetarian and halal requirements, and we have NGCI options. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - **Free parking** for all guests, with space for funeral cars to pull in
 - **Flexible arrival times** -- come when you're ready after the service. We won't rush you
 - Just **7 minutes from Heathrow Terminal 5**, which helps when family members are flying in from overseas
 - A short drive from both **Hanworth Crematorium** (15 minutes) and **Slough Crematorium** (15 minutes)
-- **Ground-floor access throughout**, including accessible facilities for elderly or less mobile guests
+- **Step free from the car park.** One step from the bar, with a ramp on request. We don't have an accessible toilet, so call us on 01753 682707 if you'd like to check what will work best for your guests
 
 We've been doing this long enough to know that every wake is different. Some families want background music and a photo display. Others just want a quiet room, a cup of tea, and somewhere for people to sit and talk. Both are fine. We take our lead from you.
 

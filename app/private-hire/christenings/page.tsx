@@ -64,7 +64,7 @@ export default function ChristeningsPage() {
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },
-            { "@type": "LocationFeatureSpecification", "name": "Enclosed Beer Garden", "value": true }
+            { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true }
         ],
         "potentialAction": {
             "@type": "CommunicateAction",
@@ -181,7 +181,7 @@ export default function ChristeningsPage() {
                         {[
                             { title: "High Chairs", description: "High chairs are available for babies and toddlers, just let us know when you book how many you need." },
                             { title: "Children's Menu", description: "A dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast." },
-                            { title: "Safe Enclosed Garden", description: "Our beer garden is enclosed and safe for little ones to explore while the adults relax." },
+                            { title: "Beer Garden", description: "Seating for 64, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised." },
                             { title: "Step-Free Access", description: "The bar and dining area are step-free, with free parking right by the entrance to make arrivals easy with a pushchair." },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
@@ -250,7 +250,7 @@ export default function ChristeningsPage() {
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">4</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Photo opportunities</h3>
-                                    <p className="text-ink-muted">Our enclosed beer garden and warm pub interior provide a lovely backdrop for family photographs. You are welcome to arrive a little early on the day to set up and capture those first moments.</p>
+                                    <p className="text-ink-muted">Our beer garden and warm pub interior provide a lovely backdrop for family photographs. You are welcome to arrive a little early on the day to set up and capture those first moments.</p>
                                 </div>
                             </li>
                         </ol>
@@ -368,7 +368,7 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "Can we take photographs in the garden?",
-                        answer: "Of course. Our enclosed beer garden and traditional pub exterior make a lovely backdrop for group photographs. The garden is also safely enclosed, which is reassuring when there are young children about."
+                        answer: "Of course. Our beer garden and traditional pub exterior make a lovely backdrop for group photographs. The garden adjoins the car park, so please keep young children supervised."
                     },
                     {
                         question: "Is there parking for guests?",

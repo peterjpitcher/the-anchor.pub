@@ -302,7 +302,8 @@ Contact us for corporate music bingo events!
 We ensure all can enjoy:
 
 - Ground floor venue
-- Accessible facilities
+- Step free from the car park, with one step from the bar and a ramp on request
+- No accessible toilet, so call 01753 682707 if you'd like to check what will work for you
 - Large print cards available
 - Volume control for needs
 - Helpful staff

@@ -259,6 +259,8 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     // restructure. A section that bans what another section requires cannot be followed.
     expect(mdPlain).not.toContain('Only "menu released closer to the time" is permitted')
     expect(mdPlain).not.toContain('Any earlier "30 everywhere, no exceptions" wording is wrong')
+    // The JSON mirror still mandated the retired line until 10 September 2026.
+    expect(JSON.stringify(ssot)).not.toMatch(/only permitted wording is 'menu released closer to the time'/i)
   })
 
   it('does not give the unsafe ?? advice for kitchen hours', () => {
@@ -521,6 +523,108 @@ describe('SSOT drift guard — high-risk site copy', () => {
       .sort()
   }
 
+  // Section 14 claims are checked one sentence at a time, so the honest "no"
+  // that section 1 asks for stays allowed. A denial before the match passes
+  // ("the garden isn't covered"), and so does one straight after it ("Baby
+  // changing facilities -- no", `"value": false`). A denial further on does
+  // not, so "covered and heated areas make it usable year-round, though you
+  // won't be lingering in a t-shirt" still fails. A question passes too: "Do
+  // you do gluten free bases?" asks rather than claims. `files` skips whole
+  // files (an entry ending in "/" skips a directory); `sentence` lets through a
+  // sentence about something the claim is true of.
+  const DENIAL = /\b(?:no|not|never|without|false|cannot)\b|n't\b/i
+
+  function claimSentences(claim: RegExp, exempt: { files?: string[]; sentence?: RegExp } = {}): string[] {
+    const skipFile = (file: string) =>
+      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry))
+    return siteFiles
+      .map((file) => path.relative(process.cwd(), file))
+      .filter((file) => !skipFile(file))
+      .flatMap((file) =>
+        fs
+          .readFileSync(file, 'utf8')
+          .split(/\n|(?<=[.!?])\s+/)
+          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’/g, "'"))
+          .filter((sentence) => {
+            const match = claim.exec(sentence)
+            if (match === null || exempt.sentence?.test(sentence)) return false
+            if (/^[^.!\n]*\?/.test(sentence.slice(match.index))) return false
+            const end = match.index + match[0].length
+            return !DENIAL.test(sentence.slice(0, match.index)) && !DENIAL.test(sentence.slice(end, end + 30))
+          })
+          .map((sentence) => `${file}: ${sentence.trim()}`),
+      )
+  }
+
+  const SECTION_14_CLAIMS: Array<[string, RegExp, string[]]> = [
+    [
+      'gluten-free food, bases or menus (NGCI instead)',
+      /gluten[- ]free (?:alternatives?|bases?|batter|diets?|dish(?:es)?|fish|food|fryer|menu|options?|pizzas?|requirements|swaps?)\b|(?:made|is|are|be) gluten[- ]free\b|cater(?:s|ing)? for [^.?!\n]{0,40}gluten[- ]free/i,
+      // Section 5 keeps the search phrase in the NGCI page's title and meta
+      // description on purpose, and menu-page-data.ts reads the legacy
+      // "gluten-free base" wording out of live dish data. Neither is a claim.
+      ['app/food-menu/gluten-free/page.tsx', 'lib/menu-page-data.ts'],
+    ],
+    [
+      'a secure, enclosed or off-lead garden',
+      /secure(?:ly)? (?:fenc|enclosed|outdoor|garden|environment)|safe(?:ly)?,? enclosed|enclosed (?:beer garden|garden|grassy|and safe|by fencing|so you)|(?:garden|terrace)[^.\n]{0,30}\b(?:is|are) (?:fully |safely )?(?:enclosed|fenced|secure)\b|safe area for children|off[- ]lead in\b/i,
+      [],
+    ],
+    [
+      'doggy dinners or meals for dogs',
+      /dog(?:gy|gie)? (?:sunday )?(?:dinners?|meals?|menu)\b|meals? for (?:your )?(?:dog|pup)|dog-safe meals?|pawsome platter/i,
+      [],
+    ],
+    [
+      'baby changing facilities',
+      /(?:baby[- ]chang\w*|\bchanging)\W{0,4}(?:facilit|tables?\b|rooms?\b|areas?\b)/i,
+      [],
+    ],
+    [
+      'accessible facilities',
+      /(?:with|including|offers?|has|have)\s+accessible (?:toilets?|loos?|wc|facilities)|^\s*[-*]\s*accessible facilities\s*$/i,
+      [],
+    ],
+    [
+      'cooling or year-round comfort',
+      /year[- ]round comfort|air[- ]?condition(?:ed|ing)|climate[- ]controlled|cool in (?:the )?summer/i,
+      [],
+    ],
+    [
+      'EV charging',
+      /(?:\bev|electric vehicle|trickle)[- ]charg[^.\n]{0,40}coming soon|coming soon[^.\n]{0,40}charg|electric vehicle friendly/i,
+      [],
+    ],
+    ['beef dripping', /beef[- ]dripping/i, []],
+    [
+      'shared Christmas party nights as an offer',
+      /(?:spectacular|our|join (?:us|our)|book (?:a|your|our)) (?:christmas )?party nights?|looking for christmas party nights/i,
+      [],
+    ],
+    [
+      'a retired Sunday roast',
+      /\blamb\b|roast(?:ed)? chicken|pork belly|cauliflower cheese/i,
+      // Dated posts may describe the menu of their day; menu-page-data.ts holds
+      // the filter that keeps these dishes off the live menu pages.
+      ['content/blog/', 'lib/menu-page-data.ts'],
+    ],
+  ]
+
+  it.each(SECTION_14_CLAIMS)('does not claim %s', (_label, claim, exemptFiles) => {
+    expect(claimSentences(claim, { files: exemptFiles })).toEqual([])
+  })
+
+  it('does not reintroduce the retired Christmas wording or deny wedding receptions', () => {
+    // "Menu released closer to the time" was retired on 13 August 2026 (sections
+    // 7 and 14), prosecco comes with the 2 and 3 course tiers only (section 7),
+    // and since 17 August 2026 we take wedding receptions without marketing them.
+    expect(
+      matchingFiles(
+        /released closer to the time|still finalising the christmas|(?:every|each|all) (?:adults?|tiers?)[^.\n]{0,40}prosecco|prosecco[^.\n]{0,60}(?:all three|every|each) (?:tiers?|adults?)|(?:do not|don't|never) (?:host|take|offer) wedding/i,
+      ),
+    ).toEqual([])
+  })
+
   it('does not hardcode volatile review stats', () => {
     expect(
       matchingFiles(
@@ -545,24 +649,6 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
-  // Checked one sentence at a time so an honest denial ("the garden isn't
-  // covered") stays allowed: a negation before the match skips the sentence.
-  // `exempt` lets through a sentence about something the claim is true of.
-  function claimSentences(claim: RegExp, exempt?: RegExp): string[] {
-    const NEGATION = /\b(?:no|not|never|without)\b|n't\b/i
-    return siteFiles.flatMap((file) =>
-      fs
-        .readFileSync(file, 'utf8')
-        .split(/\n|(?<=[.!?])\s+/)
-        .filter((sentence) => {
-          const match = claim.exec(sentence)
-          if (match === null || exempt?.test(sentence)) return false
-          return !NEGATION.test(sentence.slice(0, match.index))
-        })
-        .map((sentence) => `${path.relative(process.cwd(), file)}: ${sentence.trim()}`),
-    )
-  }
-
   it('does not claim the beer garden is heated (owner-confirmed 2026-09-10)', () => {
     // "Heated areas" was once listed as a garden feature in the SSOT and
     // spread to a dozen pages from there. Indoor heating ("the heating keeps
@@ -579,7 +665,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(
       claimSentences(
         /covered (?:seating|sections?|areas?|patio|garden|terrace|tables?)|sheltered (?:areas?|seating|spots?|garden)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) (?:covered|sheltered)/i,
-        /smok/i,
+        { sentence: /smok/i },
       ),
     ).toEqual([])
   })

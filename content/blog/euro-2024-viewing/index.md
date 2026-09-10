@@ -234,7 +234,6 @@ Unlike many sports bars, we welcome families:
 - **Family seating area** away from bar
 - **Children's menu** available
 - **High chairs** provided
-- **Baby changing** facilities
 - **Garden area** for half-time play
 
 ## Corporate Sports Packages

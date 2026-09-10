@@ -234,8 +234,7 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
 	    amenityFeature: [
 	      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
 	      { '@type': 'LocationFeatureSpecification', name: 'Floodlighting', value: true },
-	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true },
-	      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
+	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true }
 	    ],
     paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
     ...(rateCard ? {

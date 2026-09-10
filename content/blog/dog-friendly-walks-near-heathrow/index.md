@@ -97,7 +97,7 @@ Every walk on this list ends the same way, at The Anchor in Stanwell Moor. We've
 - **Dogs welcome throughout**, inside the pub and in the beer garden. No restricted areas.
 - **Water bowls provided**, fresh and topped up. Just ask if you can't see one.
 - **Muddy boots and paws welcome**, we're a country pub, not a show home. Come as you are.
-- **Beer garden**, enclosed, with planes from Heathrow passing overhead. Dogs seem to enjoy watching them as much as the kids do.
+- **Beer garden**, with planes from Heathrow passing overhead. Dogs seem to enjoy watching them as much as the kids do.
 - **Free parking**, about 20 spaces. Handy if you've driven to a walk and are stopping in on the way home.
 - **Food served during live kitchen hours**, proper pub grub, cooked fresh. Check the live menu for current roast prices, and yes, you can bring the dog to the pub.
 
@@ -137,7 +137,7 @@ Bedfont Lakes has designated off-lead areas, and the reservoir path near Staines
 
 ### Can I bring my dog into the beer garden?
 
-Absolutely. Our beer garden is fully dog-friendly, no restrictions. There's water available, and the garden is enclosed so you can relax. It's a popular spot with dog walkers, especially after a morning on Staines Moor.
+Absolutely. Our beer garden is fully dog-friendly, and dogs stay on a lead there, just as they do inside. There's water available. It's a popular spot with dog walkers, especially after a morning on Staines Moor.
 
 ---
 

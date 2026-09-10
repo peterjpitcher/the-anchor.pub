@@ -35,7 +35,7 @@ If your group wants to sit down together, eat a Christmas dinner, talk without s
 |---|---|---|
 | Who shares the room | Other groups you have never met, often several hundred people | Your group at your own table, in a pub with regulars in the bar |
 | Cost structure | One fixed price per head, drinks usually extra | Each person picks 1, 2 or 3 courses and pays for what they order, plus drinks |
-| What is included | A set menu plus entertainment | The meal, the trimmings, and a glass of prosecco for adults, swappable for orange juice |
+| What is included | A set menu plus entertainment | The meal, the trimmings, and a glass of prosecco for adults on 2 or 3 courses, swappable for orange juice |
 | Entertainment | The main event | Not part of the booking, and never included by default. No live act and no party night. A DJ can be arranged on request if your group wants one, and a Christmas quiz runs in the diary |
 | Noise | Loud by design. Hard to talk once the music starts | Pub busy. No dance floor, so a table of eight can actually hear each other |
 | Group size that works | Small groups joining a shared room, or large groups filling tables | Minimum 4. Up to 20 as a table booking, above that it is private hire |
@@ -64,7 +64,7 @@ You are flying in or driving. Terminal 5 is about 7 minutes away, Terminals 2 an
 
 It is a pub. There will be people at the bar who have not come for Christmas dinner and are just having a pint, because that is what a village pub is for. It is not a private ballroom and it does not pretend to be.
 
-You get your own table. The food comes to you, the trimmings come with it (pigs in blankets, stuffing and brussels sprouts), and adults get a glass of prosecco on every tier, or orange juice instead. Children on the 1-course option get a Fruit Shoot or a small soft drink.
+You get your own table. The food comes to you, the trimmings come with it (pigs in blankets, stuffing and brussels sprouts), and adults on the 2 and 3 course tiers get a glass of prosecco, or orange juice instead. Children on the 1-course option get a Fruit Shoot or a small soft drink.
 
 The room is warm and busy rather than hushed, and the noise is people talking rather than amplified music. If that sounds underwhelming, that is a useful signal: you probably want the party night. Plenty of groups read it and think, yes, that is exactly it.
 
@@ -79,7 +79,7 @@ Access belongs in an honest comparison too. The car park, the bar and the dining
 - **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, and choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order, which is the flexible option if your group decides late.
 - **Children:** there is no kids 2-course or 3-course tier and no child price for those. Children may order the adult 2 or 3 course tier at the adult price. The 1 course does have a kids version.
 - **Prices:** live from our booking system, and they differ between Tuesday to Thursday and Friday to Saturday. We will not print a number here that might be stale by the time you read it.
-- **The menu:** released closer to the time. See menu or contact us for allergen information.
+- **The menu:** published on our [Christmas page](/christmas-parties), straight from our booking system. See menu or contact us for allergen information.
 - **Bigger and standing:** we can seat 60 at Christmas, or 200 standing. If you want food that circulates instead, our festive buffets are Festive Sandwich & Salad, Festive Hot Finger and Festive Premium Grazing, minimum 30 guests, no exceptions. We go through that choice properly in [buffet or sit-down for a large group](/blog/festive-buffet-ideas-for-large-groups-near-heathrow).
 
 Full details and how to enquire are on our [Christmas at The Anchor page](/christmas-parties).
