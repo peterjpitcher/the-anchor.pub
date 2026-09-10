@@ -285,6 +285,9 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
       bookingId: 'TB-OK',
       metaEventId: 'TB-OK',
       bookingType: 'table',
+      // The booking's own date; it used to be left out, so every table row reached
+      // CheersAI with an empty event_date.
+      eventDate: '2026-06-12',
       tickets: 3,
       // Estimated covers revenue (3 × £25); table bookings take no payment up front.
       value: 75,

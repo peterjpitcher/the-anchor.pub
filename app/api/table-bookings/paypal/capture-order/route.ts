@@ -87,6 +87,9 @@ async function forwardCapturedDepositConversion(
     bookingId,
     metaEventId: bookingId,
     bookingType: 'table',
+    // Already collected by BodySchema and sent by PayPalDepositSection; it was parsed
+    // and then dropped, leaving event_date empty on every deposit booking.
+    eventDate: payload.bookingDate ?? null,
     tickets: payload.partySize ?? null,
     // Estimated covers revenue, not the deposit — see booking-conversion-value.ts
     value: estimateTableBookingValue(payload.partySize),

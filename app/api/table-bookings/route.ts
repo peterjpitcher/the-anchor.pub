@@ -477,6 +477,9 @@ async function forwardConfirmedTableBookingConversion(
     bookingId,
     metaEventId: bookingId,
     bookingType: 'table',
+    // The booking's own date. Without it every table booking landed in CheersAI with
+    // an empty event_date, so none of them could be reported on by service date.
+    eventDate: payload.date,
     tickets: payload.party_size,
     // Estimated covers revenue, not the deposit — see booking-conversion-value.ts
     value: estimateTableBookingValue(payload.party_size),

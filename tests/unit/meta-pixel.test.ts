@@ -82,7 +82,11 @@ describe('Meta Pixel booking tracking', () => {
     expect(purchases).toHaveLength(1)
     expect(purchases[0]?.[2]).toMatchObject({
       currency: 'GBP',
-      value: 0,
+      // Estimated covers revenue (4 x GBP 25), the same figure the server-side forward
+      // reports for this booking reference. The pixel used to say GBP 0 here.
+      value: 100,
+      num_items: 4,
+      event_date: '2026-05-10',
       booking_type: 'sunday_roast',
       booking_source: 'booking_widget'
     })
@@ -94,6 +98,12 @@ describe('Meta Pixel booking tracking', () => {
       bookingId: 'BK-123',
       metaEventId: 'BK-123',
       bookingType: 'table',
+      // Regression: these three arrived as null, 0 and null, and because the browser
+      // forward shares a booking reference with the server-side one, CheersAI's
+      // idempotent upsert wrote the placeholders over the real figures.
+      tickets: 4,
+      value: 100,
+      eventDate: '2026-05-10',
       sourceSite: 'localhost',
       landingPath: '/book-table',
       utmSource: 'facebook',
@@ -153,6 +163,55 @@ describe('Meta Pixel booking tracking', () => {
       currency: 'GBP',
       foodIntent: 'planning_to_eat'
     })
+  })
+
+  it('forwards an unknown table booking value as null rather than as zero', () => {
+    // No party size, so there is nothing to estimate from. The server-side forward for
+    // this same reference may well know the covers, so the browser must say "unknown"
+    // rather than claim the booking was worth nothing.
+    trackTableBookingFunnel({
+      step: 'success',
+      bookingReference: 'BK-NO-COVERS',
+      bookingType: 'table',
+      source: 'booking_widget',
+      deviceType: 'desktop'
+    })
+
+    expect(conversionCalls()).toHaveLength(1)
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
+    expect(forwardedPayload).toMatchObject({
+      bookingId: 'BK-NO-COVERS',
+      tickets: null,
+      value: null
+    })
+    // The pixel still needs a number.
+    expect(purchaseCalls()[0]?.[2]).toMatchObject({ value: 0 })
+  })
+
+  it('reports the estimated covers revenue on the deposit path, not the deposit taken', () => {
+    // The PayPal branch passes the deposit as `value`. Sending that to Meta valued the
+    // booking at what was paid up front rather than what it is worth, and disagreed
+    // with the server-side forward for the same booking reference.
+    trackTableBookingFunnel({
+      step: 'success',
+      bookingReference: 'BK-DEPOSIT',
+      bookingType: 'table',
+      partySize: 10,
+      bookingDate: '2026-05-23',
+      bookingTime: '19:30',
+      source: 'booking_widget',
+      deviceType: 'desktop',
+      value: 100
+    })
+
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
+    expect(forwardedPayload).toMatchObject({
+      bookingId: 'BK-DEPOSIT',
+      tickets: 10,
+      value: 250,
+      eventDate: '2026-05-23'
+    })
+    expect(purchaseCalls()[0]?.[2]).toMatchObject({ value: 250, num_items: 10 })
   })
 
   it('does not fire a client Purchase for error states or without marketing consent, but still forwards server-side', () => {

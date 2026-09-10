@@ -521,14 +521,24 @@ export function trackTableBookingFunnel(data: {
       }, { sendToApi: true })
     }
 
-	    if (data.bookingReference) {
-	      trackMetaBookingPurchase({
-	        eventId: data.bookingReference,
-	        value: data.value ?? 0,
-	        currency: 'GBP',
-	        bookingType: data.bookingType || 'table',
+    if (data.bookingReference) {
+      // Estimated covers revenue (party size x GBP 25) -- the same figure
+      // app/api/table-bookings/route.ts forwards for this booking reference, and the
+      // same one the GA4 purchase above reports. `data.value` was GBP 0 on the plain
+      // path and the deposit on the PayPal path, and since the browser forward and the
+      // server forward share a booking reference, the weaker payload overwrote the
+      // server's figures in CheersAI. Fall back to `data.value` only when there is no
+      // party size to estimate from.
+      const estimatedValue = estimateTableBookingValue(data.partySize)
+      trackMetaBookingPurchase({
+        eventId: data.bookingReference,
+        value: estimatedValue > 0 ? estimatedValue : data.value ?? null,
+        currency: 'GBP',
+        bookingType: data.bookingType || 'table',
         bookingSource: data.source,
-        contentName: 'Table booking'
+        contentName: 'Table booking',
+        numItems: data.partySize ?? null,
+        eventDate: data.bookingDate ?? null
       })
     }
   }

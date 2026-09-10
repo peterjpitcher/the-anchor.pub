@@ -100,6 +100,8 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
       bookingId: 'TB-PAID-123',
       metaEventId: 'TB-PAID-123',
       bookingType: 'table',
+      // Collected by BodySchema and sent by the deposit form, but previously dropped.
+      eventDate: '2026-05-23',
       tickets: 10,
       // Estimated covers revenue (10 × £25), NOT the £100 deposit.
       value: 250,

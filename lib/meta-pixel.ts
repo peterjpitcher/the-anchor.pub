@@ -74,8 +74,17 @@ export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
   return true
 }
 
+// The `fbq` Purchase event needs a number, so an unknown value is reported as 0 there.
 function normaliseValue(value: number | null | undefined) {
-  return typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : 0
+  return normalisePositiveValue(value) ?? 0
+}
+
+// The conversion forward is a record of the booking rather than a pixel event, and it
+// is keyed on the booking reference that the server-side forward also uses. A 0 there
+// is a claim that the booking was worth nothing, which overwrote the real figure; null
+// says "this page does not know" and leaves the stored value alone.
+function normalisePositiveValue(value: number | null | undefined) {
+  return typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : null
 }
 
 function normalisePositiveInteger(value: number | null | undefined) {
@@ -104,7 +113,7 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
       eventCategorySlug: data.eventCategorySlug ?? null,
       eventDate: data.eventDate ?? null,
       tickets: normalisePositiveInteger(data.numItems) ?? null,
-      value: normaliseValue(data.value),
+      value: normalisePositiveValue(data.value),
       currency: data.currency || 'GBP',
       foodIntent: data.foodIntent ?? null,
       sourceUrl: attribution.source_url ?? `${url.origin}${url.pathname}`,
