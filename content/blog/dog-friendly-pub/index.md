@@ -27,7 +27,7 @@ Yes, you can bring your dog to The Anchor.
 
 > Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
 
-That goes for the bar, the dining area and the beer garden. There's no size limit, and assistance dogs are always welcome.
+That goes for the bar, the dining area and the beer garden, any time we're open, event nights included. There's no size limit, and assistance dogs are always welcome.
 
 ![A black and white collie running along a woodland path with a ball in its mouth, captioned "Admiring them for their unflinching loyalty"](/content/blog/dog-friendly-pub/image-1.jpg)
 
@@ -38,6 +38,7 @@ It's short, because we'd rather keep it simple:
 - **On a lead at all times.** That includes the garden.
 - **Off the furniture,** please.
 - **Any size.** Small, big, enormous, all welcome.
+- **Poo bags** are provided.
 
 Ask at the bar if you can't see a water bowl. If your dog's nervous, or you'd like to check where you'll sit, give us a call on 01753 682707.
 
@@ -59,7 +60,7 @@ We serve food and drink out there while the kitchen's open, and dogs stay on a l
 
 ## Walks nearby
 
-The Stanwell Moor reservoirs are close by, so a walk followed by a pint works well. For routes, distances and where to park, see our [guide to dog walks near Heathrow](/blog/dog-friendly-walks-near-heathrow).
+Staines Moor and the King George VI Reservoir are each about 30 minutes' walk from the pub, so a walk followed by a pint works well. For more routes and where to park, see our [guide to dog walks near Heathrow](/blog/dog-friendly-walks-near-heathrow).
 
 ![A white dog splashing through shallow water, captioned "The hours of fun as you explore beautiful walks together"](/content/blog/dog-friendly-pub/image-3.jpg)
 

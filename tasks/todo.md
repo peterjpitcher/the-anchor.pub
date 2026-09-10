@@ -373,4 +373,6 @@ Branch `fix/dog-friendly-post-facts`, from origin/main at 808e2e72.
 - [x] Everything not in the SSOT removed rather than replaced: dog events, treats beyond biscuits, staff and partner claims, walk timings, garden details, poo bags, "locally-sourced" and "local ales"
 - [x] URL, slug and frontmatter keywords unchanged; description rewritten from SSOT facts; alt text now describes the three images
 - [x] Drift guard (60), lint and audits, `npm test` (2,420), build (294 pages); page read back from the production build
-- [ ] PR opened, merge waiting on the owner
+- [x] PR #160 opened. Owner answers, 10 September 2026: no dog events, no treats beyond biscuits, poo bags provided but no dog bins, no dog-specific staff training or partnerships, Staines Moor and the King George VI Reservoir each about a 30-minute walk one way, dogs welcome everywhere at any opening time. All added to SSOT section 8 (and `SSOT.json`), then to the post
+- [x] Same sweep for the "welcome everywhere" fact: `/find-us`, `/safety-and-respect` and two posts limited dogs to the bar or garden; all now say "throughout the pub, on a lead"
+- [ ] Merge #160 (owner approved) and verify production
