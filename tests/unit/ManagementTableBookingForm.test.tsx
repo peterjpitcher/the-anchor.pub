@@ -5,6 +5,7 @@ import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
 } from '@/lib/booking-attribution'
+import { setConsentStatus } from '@/lib/cookies'
 
 /**
  * Capture time for the attribution assertions below.
@@ -258,6 +259,7 @@ describe('ManagementTableBookingForm', () => {
     jest.useRealTimers()
     clearBookingAttributionForTest()
     window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
     jest.clearAllMocks()
   })
 
@@ -786,6 +788,8 @@ describe('ManagementTableBookingForm', () => {
       '',
       '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=deposit-table&fbclid=fb-123&gclid=g-123&short_code=ma-table&email=jane@example.com',
     )
+    // The payload carries ad tags only with marketing consent (lib/booking-attribution.ts).
+    setConsentStatus({ marketing: true })
     captureBookingAttributionFromLocation(ATTRIBUTION_CAPTURED_AT)
     window.history.pushState({}, '', '/book-table')
 

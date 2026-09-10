@@ -137,7 +137,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Jack & Cola**: The ultimate Tennessee classic.
+🥃 **Jack & Cola**: The classic Tennessee serve.
 
 🥃 **Jack & Lemonade**: A refreshing alternative to cola.
 
@@ -221,7 +221,7 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
   
 
-### **Bacardi White Rum: The Ultimate Mixer**
+### **Bacardi White Rum: The Classic Mixer**
 
 **Tasting Notes:** Bacardi Carta Blanca is a **light-bodied white rum** with delicate notes of **vanilla, almond, and tropical fruits**, finishing with a smooth, crisp taste.
 

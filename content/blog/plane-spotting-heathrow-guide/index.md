@@ -44,7 +44,7 @@ Dogs are welcome, which matters if you're making a day of it. The pub is just se
 
 ## 2. Myrtle Avenue
 
-Myrtle Avenue is the classic Heathrow spotting location, and any serious aviation enthusiast will know it by name. It's a residential street near the northern runway perimeter fence, and it offers excellent views of aircraft on final approach.
+Myrtle Avenue is the classic Heathrow spotting location, and any serious aviation enthusiast will know it by name. It's a residential street near the eastern end of the southern runway, and it offers excellent views of aircraft on final approach.
 
 For photography, it's hard to beat. Aircraft come in low and slow, filling your frame even with a moderate telephoto lens. The proximity to the runway means you get that satisfying roar as they pass overhead, and you can often catch the landing gear deploying if you time it right.
 
@@ -83,7 +83,7 @@ Heathrow is one of the few UK airports where you'll see the full range of widebo
 
 Getting good photos of aircraft at Heathrow isn't difficult, but a few pointers will help.
 
-**Light direction:** In the morning, the sun lights the southern runway beautifully, which is perfect if you're at The Anchor. In the afternoon, the light swings round to favour the northern runway and Myrtle Avenue. Plan your visit accordingly.
+**Light direction:** In the morning, the sun lights the southern runway beautifully, which is perfect if you're at The Anchor. In the afternoon, the light swings round to favour Myrtle Avenue. Plan your visit accordingly.
 
 **Focal lengths:** From The Anchor beer garden, a 200-400mm lens will fill the frame nicely with aircraft on approach. At Myrtle Avenue, where you're closer to the action, a 70-200mm is often enough. A decent smartphone will get you recognisable shots from The Anchor, but you'll want a proper camera for anything publishable.
 

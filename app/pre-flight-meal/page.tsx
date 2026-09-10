@@ -66,7 +66,7 @@ export default function PreFlightDiningPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                { title: 'Fish & Chips', description: 'Freshly battered cod, chunky chips, and mushy peas. The ultimate British goodbye.' },
+                                { title: 'Fish & Chips', description: 'Freshly battered cod, chunky chips, and mushy peas. A classic British goodbye.' },
                                 { title: 'Gourmet Burgers', description: 'Stacked high and served with chips. Perfect comfort food for travel.' },
                                 { title: 'Beef & Ale Pie', description: 'Proper pastry, tender meat, and rich gravy. It beats a foil tray meal any day.' }
                             ].map(feature => (

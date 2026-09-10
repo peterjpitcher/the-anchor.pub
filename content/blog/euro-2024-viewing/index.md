@@ -50,7 +50,7 @@ Looking for the best **sports pub near Heathrow**? The Anchor is your destinatio
 
 ### Big Screens, Bigger Atmosphere
 
-At The Anchor, we've created the ultimate **sports viewing experience near Heathrow Airport**:
+At The Anchor, our **sports viewing experience near Heathrow Airport** includes:
 
 **Premium Setup:**
 - **Multiple HD screens** throughout the pub
@@ -299,7 +299,7 @@ Many traveling fans make us their first or last stop!
 
 ## Watch Sport at The Anchor
 
-Ready for the ultimate **sports viewing experience near Heathrow**? Join us at The Anchor where every match matters and every fan is welcome.
+Ready for a **sports viewing experience near Heathrow**? Join us at The Anchor where every match matters and every fan is welcome.
 
 **Essential Information:**
 📍 Location: Horton Road, Stanwell Moor, TW19 6AQ  

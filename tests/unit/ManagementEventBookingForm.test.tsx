@@ -7,6 +7,7 @@ import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
 } from '@/lib/booking-attribution'
+import { setConsentStatus } from '@/lib/cookies'
 
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
@@ -112,6 +113,40 @@ describe('ManagementEventBookingForm', () => {
   afterEach(() => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+  })
+
+  it('sends no ad tags, click IDs or full URL with a booking made without marketing consent', async () => {
+    const previousFetch = global.fetch
+    const sent: Record<string, unknown>[] = []
+    global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (input === '/api/event-bookings') {
+        sent.push(JSON.parse(String(init?.body)))
+        return new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'booking-fixture' } }), { status: 201 })
+      }
+      return previousFetch(input, init)
+    })
+    window.history.pushState({}, '', '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&fbclid=fb-ad-click&gclid=g-123&short_code=ma-bingo')
+    captureBookingAttributionFromLocation(CAPTURED_AT)
+
+    render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    await screen.findByText('Event booking confirmed')
+
+    const payload = sent[0]
+    for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'short_code', 'source_url', 'attribution_captured_at', 'fbp', 'fbc']) {
+      expect(payload[key]).toBeUndefined()
+    }
+    expect(payload.landing_path).toBe('/events/music-bingo')
+    expect(payload.meta_consent_granted).toBe(false)
+    expect(window.localStorage.getItem('anchor-booking-attribution')).toBeNull()
+    expect(document.cookie).not.toContain('anchor-booking-attribution=')
+    window.history.pushState({}, '', '/')
   })
 
   it.each([true, false])('books without food or early-arrival requests regardless of legacy response flag %s', async (recorded) => {
@@ -370,6 +405,8 @@ describe('ManagementEventBookingForm', () => {
       '',
       '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&gclid=g-123&short_code=ma-bingo&email=jane@example.com',
     )
+    // Ad tags reach the booking only with marketing consent (see the no-consent case above).
+    setConsentStatus({ marketing: true })
     captureBookingAttributionFromLocation(CAPTURED_AT)
     window.history.pushState({}, '', '/events/music-bingo')
 

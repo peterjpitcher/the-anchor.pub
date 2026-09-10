@@ -265,7 +265,7 @@ Nights like this remind us how much fun our community can have when we all come 
 
 ### **Winter Warmers Tasting Night (13th December)**
 
-Our Winter Warmers Tasting Night was truly special, and we were thrilled to hear so many of you say it was our best tasting night yet. We worked hard to create a cosy, intimate setting where you could enjoy some of the finest seasonal drinks paired with delicious canapés.
+Our Winter Warmers Tasting Night was truly special, and we were thrilled to hear so many of you say it was our best tasting night yet. We worked hard to create a cosy, intimate setting where you could enjoy seasonal drinks paired with delicious canapés.
 
   
 

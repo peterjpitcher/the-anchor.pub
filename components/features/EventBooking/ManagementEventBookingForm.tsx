@@ -26,6 +26,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { cn } from '@/lib/utils'
 import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
+import { canUseCookieCategory } from '@/lib/cookies'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
@@ -163,6 +164,11 @@ function hasPolicyViolation(payload: any): boolean {
 function collectBookingAttribution() {
   if (typeof window === 'undefined') return {}
   const url = new URL(window.location.href)
+  // Ad tags and click IDs link the booking to an ad click, which needs marketing
+  // consent. Without it the booking carries the page path only.
+  if (!canUseCookieCategory('marketing')) {
+    return { landing_path: url.pathname, ...getMarketingConsentSignalPayload() }
+  }
   const read = (key: string) => url.searchParams.get(key) || undefined
   const storedAttribution = getBookingAttributionPayload()
   const fbclid = storedAttribution.fbclid ?? read('fbclid')

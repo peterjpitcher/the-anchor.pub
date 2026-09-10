@@ -75,14 +75,32 @@ export interface BookingAttributionPayload {
   client_user_agent?: string
 }
 
+/**
+ * Linking a booking to the ad click that brought it is advertising measurement,
+ * which needs marketing consent (PECR; ICO guidance on storage and access
+ * technologies). Until the visitor accepts, the landing page's tags wait here in
+ * memory only: never written to the device, never sent with a booking. That lets a
+ * visitor who accepts later in the same visit, often on the booking page after the
+ * campaign URL has gone, still be attributed. Refusing or withdrawing discards it.
+ */
+let pendingAttribution: StoredBookingAttribution | null = null
+
+function hasMarketingConsent() {
+  return typeof window !== 'undefined' && canUseCookieCategory('marketing')
+}
+
 export function captureBookingAttributionFromLocation(now = new Date()): BookingAttributionPayload {
   if (typeof window === 'undefined') return {}
 
+  const consented = hasMarketingConsent()
   const current = readAttributionFromUrl(window.location.href, now)
-  const existing = readStoredAttribution(now)
+  // Without consent the device's stored record is neither read nor written.
+  const existing = consented
+    ? mergeAttribution(readStoredAttribution(now), pendingAttribution)
+    : pendingAttribution
 
   if (!current) {
-    return existing ? storedToPayload(existing) : {}
+    return consented && existing ? storedToPayload(existing) : {}
   }
 
   // `latest` carries the most recent campaign params. A paramless navigation
@@ -103,18 +121,44 @@ export function captureBookingAttributionFromLocation(now = new Date()): Booking
     fbclidCapturedAt: resolveFbclidCapturedAt(existing, latest, now),
   }
 
+  if (!consented) {
+    pendingAttribution = stored
+    return {}
+  }
+
+  pendingAttribution = null
   writeStoredAttribution(stored)
   return storedToPayload(stored)
 }
 
 export function getBookingAttributionPayload(): BookingAttributionPayload {
-  if (typeof window === 'undefined') return {}
+  if (typeof window === 'undefined' || !hasMarketingConsent()) return {}
 
   const captured = captureBookingAttributionFromLocation()
   if (Object.keys(captured).length > 0) return captured
 
   const stored = readStoredAttribution()
   return stored ? storedToPayload(stored) : {}
+}
+
+/**
+ * Called on every consent change (the `cookieConsentUpdate` event). Accepting saves
+ * what the visit captured so far; refusing or withdrawing deletes the stored record
+ * and drops the waiting one, so nothing of the ad click is left on the device.
+ */
+export function syncBookingAttributionWithConsent(now = new Date()) {
+  if (typeof window === 'undefined') return
+
+  if (hasMarketingConsent()) {
+    if (!pendingAttribution) return
+    const merged = mergeAttribution(readStoredAttribution(now), pendingAttribution)
+    pendingAttribution = null
+    if (merged) writeStoredAttribution(merged)
+    return
+  }
+
+  pendingAttribution = null
+  removeStoredAttribution()
 }
 
 export function getMarketingConsentSignalPayload(fbclid?: string | null): BookingAttributionPayload {
@@ -139,9 +183,47 @@ export function getMarketingConsentSignalPayload(fbclid?: string | null): Bookin
 }
 
 export function clearBookingAttributionForTest() {
+  pendingAttribution = null
+  removeStoredAttribution()
+}
+
+/** Test helper: forget the in-memory record only, as a new page load would. */
+export function resetPendingAttributionForTest() {
+  pendingAttribution = null
+}
+
+function removeStoredAttribution() {
   if (typeof window === 'undefined') return
-  window.localStorage?.removeItem(ATTRIBUTION_STORAGE_KEY)
+  try {
+    window.localStorage?.removeItem(ATTRIBUTION_STORAGE_KEY)
+  } catch {
+    // Storage may be blocked; the cookie below is still cleared.
+  }
   document.cookie = `${ATTRIBUTION_COOKIE_NAME}=; path=/; max-age=0`
+}
+
+/**
+ * Combine the record from an earlier consented visit with what this visit
+ * captured before the visitor accepted: the earliest landing stays `first`, and
+ * the newer campaign tags become `latest` without losing an earlier click ID.
+ */
+function mergeAttribution(
+  stored: StoredBookingAttribution | null,
+  pending: StoredBookingAttribution | null,
+): StoredBookingAttribution | null {
+  if (!stored) return pending
+  if (!pending) return stored
+
+  const pendingHasParams = Object.keys(pending.latest.params).length > 0
+  const latest = pendingHasParams ? carryClickIdsForward(pending.latest, stored.latest) : stored.latest
+  const fromPending = pendingHasParams && latest.params.fbclid === pending.latest.params.fbclid
+
+  return {
+    first: stored.first,
+    latest,
+    expiresAt: pending.expiresAt > stored.expiresAt ? pending.expiresAt : stored.expiresAt,
+    fbclidCapturedAt: fromPending ? pending.fbclidCapturedAt : stored.fbclidCapturedAt,
+  }
 }
 
 function readAttributionFromUrl(urlValue: string, now: Date): StoredAttributionEntry | null {
@@ -224,7 +306,7 @@ function readStoredAttribution(now = new Date()): StoredBookingAttribution | nul
 
   const expiresAt = new Date(stored.expiresAt)
   if (Number.isNaN(expiresAt.getTime()) || expiresAt.getTime() <= now.getTime()) {
-    clearBookingAttributionForTest()
+    removeStoredAttribution()
     return null
   }
 
