@@ -62,7 +62,7 @@ Yorkshire puddings come with the sliced roasts and kids roast. The wellington is
 
 ### What you need to know
 
-Walk in or book ahead, no pre-order needed. Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. Groups of 15 or more take a £10 per person deposit, fully deducted from the bill. The regular weekday menu, burgers, pizzas, fish and chips, is also available on Sunday.
+Walk in or book ahead, no pre-order needed. Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill. The regular weekday menu, burgers, pizzas, fish and chips, is also available on Sunday.
 
 Free parking for about 20 cars. Dogs welcome throughout the venue. The beer garden seats 64, with planes coming over every 90 seconds (directly under Heathrow's flight path, kids love it). Outside the ULEZ zone.
 
