@@ -48,7 +48,7 @@ As a **quality pub near Heathrow Airport**, The Anchor transforms ordinary eveni
 
 ### A Sold-Out Evening of Discovery
 
-Our March **spring spirits tasting** showcased the season's finest flavours in our transformed private dining room. The event earned a stellar **4.8/5 rating** from guests who praised:
+Our March **spring spirits tasting** showcased seasonal flavours in our transformed private dining room. The event earned a stellar **4.8/5 rating** from guests who praised:
 
 - Warm, knowledgeable hosts
 - Premium spirit selection

@@ -39,7 +39,7 @@ export default function PubGardenPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pub Garden"
         title="A Garden Under the Flight Path"
-        lead="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
+        lead="When the sun is shining, head outside. Cold drinks, fresh air, and real grass between your toes."
       />
 
             <AmenityStrip/>

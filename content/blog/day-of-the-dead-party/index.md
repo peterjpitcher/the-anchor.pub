@@ -148,7 +148,7 @@ In true Day of the Dead spirit, we celebrate life with joy and laughter!
 
 ### Dance with the Spirits
 
-Our **Day of the Dead fancy dress party** is the ultimate celebration:
+Our **Day of the Dead fancy dress party** includes:
 
 **Party Features:**
 - 💀 Fancy dress competition
