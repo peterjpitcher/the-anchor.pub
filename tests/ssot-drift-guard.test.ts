@@ -515,9 +515,15 @@ describe('SSOT drift guard — high-risk site copy', () => {
     })
   }
 
-  const siteFiles = CUSTOMER_DIRS.flatMap((dir) =>
-    collectFiles(path.join(process.cwd(), dir)),
-  )
+  // Customer-facing files outside those folders. llms.txt is how AI assistants
+  // describe the pub, and it claimed gluten-free bases until 10 September 2026
+  // because nothing here read it.
+  const CUSTOMER_FILES = ['public/llms.txt']
+
+  const siteFiles = [
+    ...CUSTOMER_DIRS.flatMap((dir) => collectFiles(path.join(process.cwd(), dir))),
+    ...CUSTOMER_FILES.map((file) => path.join(process.cwd(), file)),
+  ]
 
   function matchingFiles(pattern: RegExp): string[] {
     return siteFiles
@@ -681,6 +687,12 @@ describe('SSOT drift guard — high-risk site copy', () => {
     // which puts it in the site-wide Restaurant JSON-LD. The file stays in public/
     // because Cloudflare caches images for a year; nothing may point at it.
     expect(matchingFiles(/page-headers\/food-menu\/food-menu\.jpg/)).toEqual([])
+  })
+
+  it('keeps discontinued entertainment out of llms.txt (section 10)', () => {
+    // llms.txt still listed live music a month after it stopped in full.
+    const llms = fs.readFileSync(path.join(process.cwd(), 'public/llms.txt'), 'utf8')
+    expect(llms).not.toMatch(/live music|live bands?|open mic|drag cabaret/i)
   })
 
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
