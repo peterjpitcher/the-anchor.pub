@@ -274,7 +274,7 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 Mirrored from the live menu on 10 September 2026. The dish **names** customers see come from the menu API ("Roasted Beef", "Roasted Pork", "Roasted Turkey"): "28-day topside" and the like are descriptions, not names, so never type a dish name that is not on the menu.
 
-Both pies are still served on Sundays (owner-confirmed, 10 September 2026). The Sunday menu the management app sends the website does not include them, so /sunday-roast does not list them until they are added there.
+Both pies are still served on Sundays (owner-confirmed, 10 September 2026). Their Sunday dishes, "Beef & Ale Pie Roast" and "Chicken & Wild Mushroom Pie Roast", had been switched off in `menu_dishes`, which feeds /sunday-roast, while `sunday_lunch_menu_items` had them on. They were switched back on the same day at the owner's request.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
@@ -342,7 +342,7 @@ British, Pizza, Pub Food, Sunday Roast.
 | Chips | (live, DB) |
 | Cheesy Chips | (live, DB) |
 
-**Retired (do not list):** Chicken, Ham Hock & Leek Pie, no longer served (owner-confirmed, 10 September 2026). The management app still had it on the live menu that day, so it needs switching off there too.
+**Retired (do not list):** Chicken, Ham Hock & Leek Pie, no longer served (owner-confirmed, 10 September 2026). It was switched off in the management app the same day, at the owner's request.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
@@ -1007,7 +1007,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
-- **10 September 2026.** The Chicken, Ham Hock & Leek Pie is no longer served (owner-confirmed). It is off §5, `SSOT.json`, `content/menu/food.json` and the one post that named it, but the live /food-menu still showed it at 15 that day, because the management app still has it. The owner confirmed in the same answer that the Beef & Ale and Chicken & Wild Mushroom pies are still Sunday dishes (§4), although /sunday-roast does not list them.
+- **10 September 2026.** The Chicken, Ham Hock & Leek Pie is no longer served (owner-confirmed). It is off §5, `SSOT.json`, `content/menu/food.json` and the one post that named it, and was switched off in the management app the same day. The owner confirmed in the same answer that the Beef & Ale and Chicken & Wild Mushroom pies are still Sunday dishes (§4). /sunday-roast had not listed them, because their Sunday dishes were switched off in `menu_dishes` although `sunday_lunch_menu_items` had them on; they were switched back on. Both app changes were made at the owner's request and are in `audit_logs`.
 - **10 September 2026.** The private-hire Christmas set menu has the same 4-guest minimum as a Christmas dinner table booking (owner-confirmed). `SSOT.json` still gave its three Christmas Dinner tiers a minimum of 6, and seven statements of 6 had survived the 6 September change on `/christmas-parties` and in three posts, in forms a search for "6 guests" misses: "6-guest minimum", "6 to 20", "at least 6" and a table cell. All now say 4, and the tests fail on any form of the retired figure.
 - **10 September 2026.** The beer garden is neither heated nor covered (owner-confirmed). §9 had listed "heated areas" as a garden feature, and from there the claim had reached the `/beer-garden` search description, the `/drinks` page and eight blog posts. Two older posts also gave the smoking area heating, and one listed "entertainment in heated areas". Covered or sheltered garden seating was claimed on `/plane-spotting-heathrow`, `/pub-garden-heathrow`, `/summer-garden-parties` and `/pubs-in-stanwell`, in two posts and in the blog authoring guide. All removed or reworded, and `tests/ssot-drift-guard.test.ts` now fails if either claim comes back. The covered smoking area does have a heater, which stays unmentioned until the owner says the area is ready (§9).
 - **10 September 2026: version 2.0.** Restructured without renumbering: quick card; §1 replaced with a testable voice standard (the voice it replaces had applied to new copy from 14 August 2026); §15 gained a table of who owns each fact; §16, §17 and this changelog added; engineering detail moved to `docs/SSOT-engineering-notes.md`. Two contradictions inside the document removed. §14 banned naming Christmas dishes while §7 required publishing them; §14 now bans the retired "menu released closer to the time" line instead. §11 called a festive-buffet rule wrong in words that matched §7's correct one; §11 now scopes it. §3's advice to use `??` for kitchen hours was unsafe, because `??` falls through on the very null that means "closed"; the corrected rule is in §3 and the engineering notes.
