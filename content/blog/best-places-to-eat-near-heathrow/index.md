@@ -30,7 +30,7 @@ We've put together this honest comparison so you can decide what actually makes 
 |--------|-------------------|---------|-------------------|----------|
 | Airport restaurants (Plane Food, The Perfectionist's Cafe, Wagamama) | £15--35 | N/A (airside) | Inside the terminal | Quick pre-flight bite when you're already through security |
 | Hotel restaurants (Sofitel, Hilton, Marriott) | £18--30 + service charge | £15--25/day | 5--15 mins | Business dinners, convenience if you're already staying |
-| Local pubs and restaurants (The Anchor, The Three Magpies) | £10--20 | Free to £5 | 7--15 mins | Real food, proper atmosphere, genuine value |
+| Local pubs and restaurants | £10--20 | Free to £5 | 7--15 mins | Real food, proper atmosphere, genuine value |
 
 ## Option 1: Airport Restaurants
 
@@ -88,7 +88,7 @@ Here's where the comparison becomes concrete. A meal for two -- two mains, two d
 |-----------|----------------------|
 | Airport restaurant (e.g. Plane Food) | £65--80 |
 | Hotel restaurant (e.g. Hilton) + parking | £55--70 |
-| Local pub (e.g. The Anchor) | £35--50 |
+| Local pub | £35--50 |
 
 That's a meaningful difference, especially if you're eating out before or after a holiday when every pound counts. The local pub option isn't just cheaper -- in most cases, the food is better too, because you're eating at a place that relies on repeat customers rather than a captive audience.
 

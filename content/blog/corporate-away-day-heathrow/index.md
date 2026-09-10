@@ -79,7 +79,7 @@ Here's how a typical corporate day runs with us:
 |---|---|
 | 10:00 | Arrive. Coffee and pastries in the function room. Settle in. |
 | 10:30 | Morning session, presentation, workshop, or planning meeting. AV set up and ready. |
-| 12:30 | Pub lunch. Mains from £10. If it's a Sunday, the roast is from £16 and worth building the day around. |
+| 12:30 | Pub lunch from the [food menu](/food-menu). If it's a Sunday, the roast is worth building the day around. |
 | 14:00 | Afternoon session, or take it outside to the beer garden for something less formal. |
 | 16:00 | Team quiz or informal drinks at the bar. This is where the real conversations happen. |
 | 17:30 | Wrap up. Free parking means nobody's clock-watching or rushing to beat a car park barrier. |
@@ -94,13 +94,13 @@ The day flexes to fit your agenda. Some teams run a tight schedule with three pr
 | Activity venue | £30–50pp | N/A | Free–£10 | £600–1,100 |
 | The Anchor | No DDR | Quote on enquiry | Free | quoted on enquiry |
 
-The hotel figure assumes 15 cars at an average of £20 each. The Anchor figure is based on a buffet lunch, morning refreshments, and an afternoon drinks tab. Your actual cost depends on what you want, but the gap is real, and it widens with larger groups.
+The hotel figure assumes 15 cars at an average of £20 each. We quote The Anchor on enquiry, for whatever you choose, such as a buffet lunch, morning refreshments and an afternoon drinks tab. Your actual cost depends on what you want, but the gap is real, and it widens with larger groups.
 
 ## Frequently asked questions
 
 ### How much does a corporate away day cost near Heathrow?
 
-It depends on the format. Airport hotels with day delegate packages run £50–80 per person before parking. Activity venues range from £30–50 per person for the activity alone. At The Anchor, a full day with catering, AV, and free parking typically comes in at £20–40 per person depending on your food and drink choices, with no bundled charges for things you don't need.
+It depends on the format. Airport hotels with day delegate packages run £50–80 per person before parking. Activity venues range from £30–50 per person for the activity alone. At The Anchor, a full day with catering, AV and free parking is quoted on enquiry, based on your food and drink choices, with no bundled charges for things you don't need.
 
 ### Can a pub host a corporate event?
 

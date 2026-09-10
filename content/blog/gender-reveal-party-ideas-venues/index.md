@@ -221,7 +221,7 @@ Yes -- the beer garden has plenty of space for smoke cannons, confetti, coloured
 
 ### Is The Anchor suitable for a gender reveal with young children?
 
-Completely. We're family-friendly at all times with high chairs, buggy space, and a kids' menu from £8.00 per head. We don't have baby changing facilities, so you'll need to plan for that -- but otherwise, children of all ages are genuinely welcome with no restrictions.
+Completely. We're family-friendly at all times with high chairs, buggy space, and a [kids' menu](/food-menu). We don't have baby changing facilities, so you'll need to plan for that -- but otherwise, children of all ages are genuinely welcome with no restrictions.
 
 ### How far is The Anchor from Heathrow Airport?
 

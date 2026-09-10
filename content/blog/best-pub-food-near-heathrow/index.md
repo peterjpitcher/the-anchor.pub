@@ -56,25 +56,25 @@ You'll save £10-20 per person, eat better food, and sit somewhere that doesn't 
 ## 1. The Anchor, Stanwell Moor
 
 **Distance:** 7 mins from T5 | 11 mins from T2/T3 | 12 mins from T4
-**Price range:** Mains from £11 | **Parking:** Free (20 spaces) | **Dogs:** Welcome
+**Price range:** [see our menu](/food-menu) | **Parking:** Free (20 spaces) | **Dogs:** Welcome
 
 The closest traditional pub to Heathrow Airport, and the one we'd send you to first. The Anchor is an independent village pub in Stanwell Moor, tucked away on Horton Road just off the M25 at Junction 14. It's not a chain, not a hotel bar, not a service station with pretensions, it's a proper local that happens to be seven minutes from Terminal 5.
 
 ### What to eat
 
-The [menu](/food-menu) covers proper British pub food without trying to be something it's not:
+The [menu](/food-menu) covers proper British pub food without trying to be something it's not, and it's where you'll find today's prices:
 
-**British classics:** Fish and chips (£15), scampi and chips (£13), bangers and mash (£14), jumbo sausage and chips (£13)
+**British classics:** Fish and chips, scampi and chips, bangers and mash, jumbo sausage and chips
 
-**Pies:** Beef and ale (£16), chicken and wild mushroom (£15), chicken, ham hock and leek (£15), butternut squash and mature cheddar (£15, V), all served with creamy mash and seasonal veg
+**Pies:** Beef and ale, chicken and wild mushroom, chicken, ham hock and leek, butternut squash and mature cheddar (V), all served with creamy mash and seasonal veg
 
-**Burgers:** Classic beef, chicken, spicy chicken, or garden veg from £11. Stacks from £14. Build your own with extras from £1-2 each
+**Burgers:** Classic beef, chicken, spicy chicken, or garden veg, plus bigger stacks. Build your own with extras
 
-**Comfort food:** Lasagne (£15), mac and cheese (£14, V), chicken katsu curry (£14), spinach and ricotta cannelloni (£14, V)
+**Comfort food:** Lasagne, mac and cheese (V), chicken katsu curry, spinach and ricotta cannelloni (V)
 
 **Pizzas:** Full pizza menu available, good for sharing or a lighter option
 
-**Sunday roasts:** From £16, cooked to order, served Sundays 1pm-6pm, walk in or book ahead. See our [Sunday roast guide](/sunday-roast) for full details.
+**Sunday roasts:** Cooked to order, served Sundays 1pm-6pm, walk in or book ahead. See our [Sunday roast guide](/sunday-roast) for the menu and prices.
 
 ### Why locals rate it
 
@@ -234,7 +234,7 @@ Not all pubs are created equal. Here's what separates the places worth driving t
 
 ### What's the best pub food near Heathrow Airport?
 
-For quality and convenience combined, [The Anchor in Stanwell Moor](/food-menu) is the top option, 7 minutes from Terminal 5, free parking, proper British pub food from £11. It's an independent pub, not a chain, with a full menu of classics plus pizzas and Sunday roasts.
+For quality and convenience combined, [The Anchor in Stanwell Moor](/food-menu) is the top option, 7 minutes from Terminal 5, free parking, proper British pub food. It's an independent pub, not a chain, with a full menu of classics plus pizzas and Sunday roasts.
 
 ### Is it worth eating outside Heathrow Airport?
 
@@ -262,7 +262,7 @@ Terminal 5 is the best-served terminal for nearby pubs. The Anchor in Stanwell M
 
 ### Is there good vegetarian pub food near Heathrow?
 
-Yes. [The Anchor's menu](/food-menu) includes a garden veg burger (£11), mac and cheese (£14), spinach and ricotta cannelloni (£14), and a butternut squash, mixed bean and mature cheddar pie (£15). Most pubs on this list have at least 2-3 vegetarian options. Vegan options are more limited, call ahead if you need strictly vegan.
+Yes. [The Anchor's menu](/food-menu) includes a garden veg burger, mac and cheese, spinach and ricotta cannelloni, and a butternut squash, mixed bean and mature cheddar pie. Most pubs on this list have at least 2-3 vegetarian options. Vegan options are more limited, call ahead if you need strictly vegan.
 
 ---
 

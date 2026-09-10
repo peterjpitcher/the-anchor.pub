@@ -70,7 +70,7 @@ This is where the difference between pub and hotel becomes stark. We've written 
 | Welcome Drinks | Per head, minimum 10 guests |
 | Bar Tab | You set the limit |
 | Parking | Free, 20 spaces |
-| **Total** | **approximately £725** |
+| **Total** | Build it in our [cost estimator](/private-hire) |
 
 **At a Heathrow hotel (typical):**
 
@@ -189,7 +189,7 @@ For small formal events (business dinners, retirement presentations, intimate ce
 
 ### What about dietary requirements at a pub?
 
-We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington, £20) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
+We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
 
 ### Is a pub appropriate for a wake?
 
