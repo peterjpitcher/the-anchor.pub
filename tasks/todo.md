@@ -421,4 +421,15 @@ Branch `fix/myrtle-avenue-southern-runway`, from origin/main at cc520e1b. Flagge
 
 - [x] Checked: Myrtle Avenue is near the eastern end of Heathrow's southern runway (Wikipedia, "Myrtle Avenue, Hounslow", and the spotter guides agree)
 - [x] Four statements tied it to the northern runway: two in the plane-spotting locations guide, two in the older guide that redirects to it. All corrected, without a runway designator (section 9)
-- [x] Left alone: the locations guide says planes pass low over the garden during westerly operations, while Heathrow's own pages say landings come in from the west on easterly days. Section 9 is owner-owned, so it went to the owner in chat rather than into the copy
+- [x] The wind-direction question went to the owner in chat; answered the same day (see below)
+- [x] Merged and verified live: #171 as `dpl_DDs4uv3iW5VBv2L3R14me3UomT5F` (efee288b)
+
+# Three more market posts, the New Year post, and no wind, 10 September 2026
+
+Branch `fix/retire-market-posts-and-wind`, from origin/main at 644aaef6 (after the other session merged #162, #164 and #167). Owner answers on 10 September 2026: "1 yes" (retire the three market posts, trim the New Year post to SSOT facts) and "don't mention the wind, I don't know".
+
+- [x] SSOT first: section 7 lists the three retired posts; section 9 swaps "Westerly operations: ~50% of the year" for a rule never to name a wind or an operation; `SSOT.json` drops `westerly_operations`; changelog entry
+- [x] `christmas-fair-at-the-anchor`, `piano-christmas-performance` and `this-december-at-the-anchor` deleted and redirected (301) to `/christmas-parties`; two older piano rules repointed; the retired-post test covers all five
+- [x] New Year post rewritten from SSOT facts: gone are weekly quizzes, Fish & Chip Fridays, a lunch club, a morning coffee spot, live entertainment, invented quotes and a seasonal calendar
+- [x] Wind: `/plane-spotting-heathrow`, the locations guide and the beer gardens guide no longer name a wind or an operation; the 3pm weekly alternation is the only timing given. Drift guard added
+- [x] Both new tests fail against origin/main content and pass now. Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,484 passed each), build (281 pages); eight redirects and four pages read back from the production build on port 3115
