@@ -394,11 +394,6 @@
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Chicken, Ham Hock & Leek Pie",
-            "price": "LIVE_FROM_DB",
-            "new": true
-          },
-          {
             "name": "Butternut Squash, Mixed Bean & Mature Cheddar Pie",
             "price": "LIVE_FROM_DB",
             "new": true,
@@ -667,7 +662,8 @@
     ],
     "removed_items": [
       "Lamb Shank (removed from both main menu and Sunday roast as of 2026-04-29)",
-      "Speck Ham & Parmesan pizza"
+      "Speck Ham & Parmesan pizza",
+      "Chicken, Ham Hock & Leek Pie (no longer served, owner-confirmed 2026-09-10)"
     ],
     "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu, they were previously listed as removed. Updated in House Burgers section. Prices are LIVE from the management DB, never quote a figure here.",
     "copy_corrections": {

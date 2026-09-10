@@ -274,6 +274,8 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 Mirrored from the live menu on 10 September 2026. The dish **names** customers see come from the menu API ("Roasted Beef", "Roasted Pork", "Roasted Turkey"): "28-day topside" and the like are descriptions, not names, so never type a dish name that is not on the menu.
 
+Both pies are still served on Sundays (owner-confirmed, 10 September 2026). Their Sunday dishes, "Beef & Ale Pie Roast" and "Chicken & Wild Mushroom Pie Roast", had been switched off in `menu_dishes`, which feeds /sunday-roast, while `sunday_lunch_menu_items` had them on. They were switched back on the same day at the owner's request.
+
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
 ### Accompaniments
@@ -329,7 +331,6 @@ British, Pizza, Pub Food, Sunday Roast.
 | Bangers and Mash | (live, DB) |
 | Beef and Ale Pie *(weekday version)* | (live, DB) |
 | Chicken & Wild Mushroom Pie *(weekday version)* | (live, DB) |
-| Chicken, Ham Hock & Leek Pie | (live, DB) |
 | Butternut Squash, Mixed Bean & Mature Cheddar Pie | (live, DB) (vegetarian) |
 | Classic Beef Burger | (live, DB) (chips included) |
 | Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live, DB) |
@@ -340,6 +341,8 @@ British, Pizza, Pub Food, Sunday Roast.
 | Wraps | from (live, DB) |
 | Chips | (live, DB) |
 | Cheesy Chips | (live, DB) |
+
+**Retired (do not list):** Chicken, Ham Hock & Leek Pie, no longer served (owner-confirmed, 10 September 2026). It was switched off in the management app the same day, at the owner's request.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
@@ -1006,6 +1009,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **10 September 2026.** The Chicken, Ham Hock & Leek Pie is no longer served (owner-confirmed). It is off §5, `SSOT.json`, `content/menu/food.json` and the one post that named it, and was switched off in the management app the same day. The owner confirmed in the same answer that the Beef & Ale and Chicken & Wild Mushroom pies are still Sunday dishes (§4). /sunday-roast had not listed them, because their Sunday dishes were switched off in `menu_dishes` although `sunday_lunch_menu_items` had them on; they were switched back on. Both app changes were made at the owner's request and are in `audit_logs`.
 - **10 September 2026.** Two posts retired and one corrected against §10 (owner-approved). `/blog/drag-cabaret-nikki` promoted drag cabaret, which is discontinued; it now redirects to `/whats-on`. `/blog/christmas-market` still invited stall enquiries for a market that is not running; it now redirects to `/christmas-parties`. Every older rule that landed on either post now goes straight to the new destination. `/blog/monthly-cash-bingo` said first Thursdays, doors at 6pm, games from 8pm, three games and a guaranteed £50 jackpot; it now carries the §10 format.
 - **10 September 2026.** Dog facts confirmed by the owner (§8): dogs are welcome everywhere, any time the pub is open, event nights included; poo bags are provided, but there are no dog bins; Staines Moor and the King George VI Reservoir are each about a 30-minute walk, one way. There are no dog events, no treats beyond biscuits, and no dog-specific staff training or partnerships. The dog-friendly blog post had invented a weekly dog social, a village dog show, pupcakes and more, and was rewritten from these facts.
 - **10 September 2026.** The private-hire Christmas set menu has the same 4-guest minimum as a Christmas dinner table booking (owner-confirmed). `SSOT.json` still gave its three Christmas Dinner tiers a minimum of 6, and seven statements of 6 had survived the 6 September change on `/christmas-parties` and in three posts, in forms a search for "6 guests" misses: "6-guest minimum", "6 to 20", "at least 6" and a table cell. All now say 4, and the tests fail on any form of the retired figure.

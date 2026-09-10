@@ -364,6 +364,24 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it("redirects the retired 2023 Father's Day post, and every old link to it, straight to /fathers-day", () => {
+    // Retired 10 September 2026 (owner decision). It described a paper order form and a
+    // deposit on every Sunday roast booking, both long gone. The old blog and Wix
+    // addresses that pointed at it now go to /fathers-day in one hop, not two.
+    for (const source of [
+      '/blog/fathers-day-celebration',
+      '/blog/celebrate-father-s-day-at-the-anchor-unforgettable',
+      '/post/celebrate-father-s-day-at-the-anchor-unforgettable',
+      '/post/celebrate-fathers-day-at-the-anchor',
+      '/post/make-father-s-day-special',
+    ]) {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe('/fathers-day')
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+  })
+
   it('redirects the retired drag cabaret and Christmas market posts (owner-approved 10 September 2026)', () => {
     // Drag cabaret is discontinued and there is no Christmas market in 2026
     // (docs/SSOT.md sections 7 and 10). The folders are deleted so neither

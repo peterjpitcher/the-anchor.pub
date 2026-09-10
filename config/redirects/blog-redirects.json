@@ -46,7 +46,7 @@
   },
   {
     "source": "/blog/celebrate-father-s-day-at-the-anchor-unforgettable",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -182,6 +182,11 @@
   {
     "source": "/blog/live-music-pubs-near-heathrow",
     "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -411,7 +416,7 @@
   },
   {
     "source": "/post/celebrate-father-s-day-at-the-anchor-unforgettable",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {

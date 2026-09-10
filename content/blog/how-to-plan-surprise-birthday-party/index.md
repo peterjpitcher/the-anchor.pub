@@ -102,7 +102,7 @@ A surprise party with no food plan means thirty hungry people descending on the 
 
 **Don't forget the cake.** Most pubs are happy for you to bring your own cake -- we certainly are. Just let the coordinator know so they can arrange a proper moment for it (and make sure there are plates and a knife ready).
 
-**Kids catering matters if it's a family affair.** If children are coming, sort their food separately. Kids burger and chips, chicken nuggets and chips, or mini pizza and chips are all £8.00 per head at The Anchor. High chairs are available too, and the whole venue is family friendly with no age restrictions.
+**Kids catering matters if it's a family affair.** If children are coming, sort their food separately. At The Anchor, kids burger and chips, chicken nuggets and chips, or mini pizza and chips are all priced per head, and we'll give you today's prices when you enquire. High chairs are available too, and the whole venue is family friendly with no age restrictions.
 
 ## Step 7: Decorations and Personal Touches
 
@@ -208,7 +208,7 @@ Four to six weeks is ideal. This gives you enough time to coordinate guests, arr
 The Anchor accommodates private hire events for 10+ to 150 guests. The dining room seats 26 with additional standing room, and the French doors open onto the beer garden for extra space in warmer months.
 
 **Is there a room hire charge?**
-No. We operate on a quote-on-enquiry model -- between £500 and £1,500 depending on the day and group size. That spend covers the food and drink your guests order, so you're not paying extra just for the space.
+Yes. Room hire is charged by the hour for each space, with no setup fees. You'll find the rates, and a cost estimator for the whole event, on our [private hire page](/private-hire).
 
 **Can I bring my own cake and decorations?**
 Absolutely. Bring whatever you like -- cake, balloons, banners, photo displays. We just ask that you let us know in advance so we can arrange the setup time and have everything ready.

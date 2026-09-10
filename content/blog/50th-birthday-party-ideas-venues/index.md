@@ -244,7 +244,7 @@ Buffets are the most popular format for 50th birthday parties because they accom
 
 ### Can I hold a 50th birthday party on a Sunday?
 
-Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £16 per person, or you can arrange a buffet for larger groups.
+Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, you can choose from the [Sunday roast menu](/sunday-roast) or arrange a buffet for larger groups.
 
 ### What's the best venue for a 50th birthday near Heathrow?
 

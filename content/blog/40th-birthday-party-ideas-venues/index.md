@@ -112,7 +112,7 @@ The [private hire calculator](/private-hire) prices any of these against your gu
 
 ### For smaller groups
 
-If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu). Stone-baked pizzas from £13 each, fish and chips at £15, or a beef and ale pie at £16 give you proper pub food in a private setting. Kids eat from £8.
+If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu), where you'll find today's prices. Stone-baked pizzas, fish and chips or a beef and ale pie give you proper pub food in a private setting, and there's a kids menu too.
 
 ### Drinks that set the tone
 
@@ -226,7 +226,7 @@ There's no right number, but 30-50 is the sweet spot for most 40th celebrations.
 
 **What's the best time of day for a 40th birthday party?**
 
-Evening (7pm onwards) is the most popular for a 40th. But don't overlook Saturday or Sunday afternoons, especially if your guest list includes families with young children or relatives who'd rather not drive home late. An afternoon format (1pm-5pm) with a [Sunday roast booking](/sunday-roast) from £16 per person gives you a proper meal in a relaxed setting.
+Evening (7pm onwards) is the most popular for a 40th. But don't overlook Saturday or Sunday afternoons, especially if your guest list includes families with young children or relatives who'd rather not drive home late. An afternoon format (1pm-5pm) with a [Sunday roast booking](/sunday-roast) gives you a proper meal in a relaxed setting.
 
 **Can I bring my own cake?**
 
@@ -234,7 +234,7 @@ Absolutely. Most pub venues, including The Anchor, are happy for you to bring a 
 
 **Is The Anchor family-friendly for a 40th with children?**
 
-Yes. The Anchor is completely family-friendly with no age cut-off. High chairs are available, and bottle warming is provided on request. Buggy space is available. The beer garden gives children room to move around while adults eat and drink. Kids eat from £8 per head from the children's menu.
+Yes. The Anchor is completely family-friendly with no age cut-off. High chairs are available, and bottle warming is provided on request. Buggy space is available. The beer garden gives children room to move around while adults eat and drink. Kids eat from the children's menu, with today's prices on our [food menu](/food-menu).
 
 **Can I bring my dog to a 40th birthday party at a pub?**
 

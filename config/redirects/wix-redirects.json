@@ -131,7 +131,7 @@
   },
   {
     "source": "/post/celebrate-fathers-day-at-the-anchor",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -651,7 +651,7 @@
   },
   {
     "source": "/post/make-father-s-day-special",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {

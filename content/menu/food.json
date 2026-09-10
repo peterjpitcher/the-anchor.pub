@@ -75,13 +75,6 @@
               "vegetarian": false
             },
             {
-              "name": "Chicken, Ham Hock & Leek Pie",
-              "price": "15",
-              "description": "Chicken, slow-cooked ham hock and tender leeks in a rich creamy sauce, baked in crisp pastry.",
-              "allergens": ["gluten", "eggs", "milk", "celery"],
-              "vegetarian": false
-            },
-            {
               "name": "Butternut Squash, Mixed Bean & Mature Cheddar Pie",
               "price": "15",
               "description": "Butternut squash, mixed beans and mature cheddar in a gently spiced tomato sauce, baked in crisp pastry.",
