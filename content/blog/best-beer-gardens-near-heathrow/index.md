@@ -37,7 +37,7 @@ Heathrow's not exactly known for al fresco dining, but there are proper beer gar
 
 **Best for:** Plane spotting, dog owners, families, free parking
 
-The Anchor sits in the village of Stanwell Moor, about seven minutes from Terminal 5. Its beer garden is the pub's best-kept secret, and also its loudest feature, depending on the wind direction.
+The Anchor sits in the village of Stanwell Moor, about seven minutes from Terminal 5. Its beer garden is the pub's best-kept secret, and also its loudest feature.
 
 ### The garden
 

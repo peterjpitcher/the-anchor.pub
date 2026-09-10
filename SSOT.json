@@ -328,7 +328,7 @@
       "Boeing 747"
     ],
     "peak_spotting_times": "Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly.",
-    "westerly_operations": "~50% of the year (alternating weekly schedule)",
+    "wind_direction_note": "Never mention wind direction or westerly/easterly operations. Owner decision 2026-09-10: not known, so not claimed. peak_spotting_times holds the only timing to give.",
     "features": [
       "Dog friendly",
       "Full food and drink service during kitchen hours",

@@ -407,12 +407,16 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
 
   it('redirects the retired drag cabaret and Christmas market posts (owner-approved 10 September 2026)', () => {
     // Drag cabaret is discontinued and there is no Christmas market in 2026
-    // (docs/SSOT.md sections 7 and 10). The folders are deleted so neither
+    // (docs/SSOT.md sections 7 and 10). The folders are deleted so no retired
     // post can come back through a blog listing, and every older rule that
-    // landed on them now goes straight to the new destination.
+    // landed on one now goes straight to the new destination. The last three
+    // still sold the market as an annual event.
     const retired: Array<[string, string]> = [
       ['/blog/drag-cabaret-nikki', '/whats-on'],
       ['/blog/christmas-market', '/christmas-parties'],
+      ['/blog/christmas-fair-at-the-anchor', '/christmas-parties'],
+      ['/blog/piano-christmas-performance', '/christmas-parties'],
+      ['/blog/this-december-at-the-anchor', '/christmas-parties'],
     ]
     for (const [source, destination] of retired) {
       const rule = lookupRedirect(source)

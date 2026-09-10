@@ -731,6 +731,19 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('never says which wind brings the planes (section 9)', () => {
+    // Owner decision, 10 September 2026: nobody here knows which wind brings
+    // aircraft over the garden, so the site does not say. Section 9 had said
+    // westerly operations cover about half the year, and pages turned that into
+    // "westerly winds bring aircraft overhead". The weekly 3pm alternation is
+    // the only timing we give.
+    expect(
+      claimSentences(/\b(?:westerly|easterly|westerlies|easterlies)\b|\bwind direction\b|\bwinds? (?:from the|brings?|favours?)\b/i),
+    ).toEqual([])
+    expect(md).not.toMatch(/\*\*Westerly operations:\*\*/)
+    expect(ssot.beer_garden?.westerly_operations).toBeUndefined()
+  })
+
   it('does not hardcode old kitchen-hour or late-food claims', () => {
     expect(
       matchingFiles(

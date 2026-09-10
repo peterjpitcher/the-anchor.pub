@@ -21,7 +21,7 @@
   },
   {
     "source": "/blog/arjun-r-s-piano-performance-at-the-anchor-s-christ",
-    "destination": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -86,6 +86,21 @@
   },
   {
     "source": "/blog/christmas-market",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-fair-at-the-anchor",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/this-december-at-the-anchor",
     "destination": "/christmas-parties",
     "permanent": true
   },
@@ -411,7 +426,7 @@
   },
   {
     "source": "/post/arjun-r-s-piano-performance-at-the-anchor-s-christ",
-    "destination": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {

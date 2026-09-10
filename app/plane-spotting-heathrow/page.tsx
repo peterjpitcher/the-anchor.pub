@@ -241,7 +241,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
                   <li>06:00-09:00 for sunrise arrivals and cargo</li>
                   <li>16:00-20:00 evening long-haul waves</li>
-                  <li>Check METAR: westerly winds bring aircraft overhead</li>
+                  <li>One week planes land overhead until 3pm, the next week from 3pm</li>
                 </ul>
               </CardBody>
             </Card>
@@ -278,7 +278,7 @@ export default async function PlaneSpottingHeathrowPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
               { title: 'Myrtle Avenue', description: 'Legendary arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and a different angle on the approach.' },
-              { title: 'Visitors Centre / Renaissance Hotel', description: 'Great for departures on easterly operations. Wrap up the day with a pint at The Anchor before heading home.' }
+              { title: 'Visitors Centre / Renaissance Hotel', description: 'A well-known spot for watching aircraft. Wrap up the day with a pint at The Anchor before heading home.' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
