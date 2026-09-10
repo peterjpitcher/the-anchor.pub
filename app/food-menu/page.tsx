@@ -24,6 +24,8 @@ import {
   getFoodMenuPageData,
   getKidsMenuPageData,
   getMenuUnavailableMessage,
+  getPriceFromLabel,
+  getPriceRangeLabel,
   getSundayLunchMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
@@ -133,38 +135,6 @@ function joinItemNames(items: MenuPageItem[]): string {
   return `${items.slice(0, -1).map((item) => item.name).join(', ')} and ${items[items.length - 1].name}`
 }
 
-function formatPoundPrice(price: number): string {
-  return price % 1 === 0 ? `£${price}` : `£${price.toFixed(2)}`
-}
-
-function getPriceFromLabel(items: MenuPageItem[]): string | null {
-  const prices = items
-    .map((item) => item.priceValue)
-    .filter((price) => Number.isFinite(price) && price > 0)
-
-  if (prices.length === 0) return null
-  return `from ${formatPoundPrice(Math.min(...prices))}`
-}
-
-function getPriceRangeLabel(items: MenuPageItem[]): string | null {
-  const prices = items
-    .map((item) => item.priceValue)
-    .filter((price) => Number.isFinite(price) && price > 0)
-
-  if (prices.length === 0) return null
-
-  const min = Math.min(...prices)
-  const max = Math.max(...prices)
-  if (min === max) return formatPoundPrice(min)
-
-  return `${formatPoundPrice(min)} to ${formatPoundPrice(max)}`
-}
-
-function isPrimaryFoodItem(item: MenuPageItem): boolean {
-  const text = `${item.categoryTitle} ${item.sectionTitle} ${item.name}`.toLowerCase()
-  return item.priceValue >= 5 && !/side|extra|sauce|dessert|kids?|children/.test(text)
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getFoodMenuPageData()
   // No price phrase here on purpose. The menu formatter strips currency symbols
@@ -236,7 +206,9 @@ export default async function FoodMenuPage() {
     url: `https://www.the-anchor.pub/food-menu#${category.id}`
   }))
   const fishPreview = itemPreview(fishData?.fishItems ?? [])
-  const primaryFoodPriceRange = getPriceRangeLabel(menuData.items.filter(isPrimaryFoodItem))
+  // Mains, burgers and pizzas only. Ranging over every dish let a side of chips
+  // set the bottom of the range.
+  const mainsPriceRange = getPriceRangeLabel(menuData.mainsItems)
   const pizzaPriceFrom = getPriceFromLabel(menuData.pizzaItems)
   const kidsPriceRange = getPriceRangeLabel(kidsData?.items ?? [])
 
@@ -308,7 +280,7 @@ export default async function FoodMenuPage() {
         lead="Pub classics, stone-baked pizzas, fish and chips, a dedicated kids menu and a proper Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
         badges={
           <>
-            <Badge variant="sand">{primaryFoodPriceRange ? `Food ${primaryFoodPriceRange}` : 'Live menu prices'}</Badge>
+            <Badge variant="sand">{mainsPriceRange ? `Mains ${mainsPriceRange}` : 'Live menu prices'}</Badge>
             <Badge variant="sand">{pizzaPriceFrom ? `Pizzas ${pizzaPriceFrom}` : 'Live pizza prices'}</Badge>
             <Badge variant="sand">{kidsPriceRange ? `Kids' meals ${kidsPriceRange}` : 'Kids menu available'}</Badge>
           </>

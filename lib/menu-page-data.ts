@@ -72,7 +72,10 @@ export type MenuPageItem = MenuItem & {
 export type MenuPageData = {
   menuData: MenuData
   items: MenuPageItem[]
+  /** Pizzas only: the Pizza section without its garlic bread. */
   pizzaItems: MenuPageItem[]
+  /** The Mains, Burgers and Pizza sections without the garlic bread: what a "Mains" price range may quote. */
+  mainsItems: MenuPageItem[]
   fishItems: MenuPageItem[]
   vegetarianItems: MenuPageItem[]
   veganItems: MenuPageItem[]
@@ -181,6 +184,16 @@ function sanitizeMenuItemDescription(description?: string | null): string {
 export function isFishAndChipsFamily(item: { name?: string | null }): boolean {
   return /\b(?:fish|scampi|cod|haddock)/i.test(item.name || '')
 }
+
+// Garlic bread is listed in the live Pizza section but is a side, not a pizza.
+// Counting it made every "Pizzas from" label quote the garlic bread price.
+function isGarlicBread(item: { name?: string | null }): boolean {
+  return /\bgarlic bread\b/i.test(item.name || '')
+}
+
+// Sections whose dishes a "Mains" price range may quote. Exact names, so
+// "Burger Add-ons" stays out: otherwise the range starts at a £1 add-on.
+const MAINS_SECTION_PATTERN = /^(?:mains?|burgers?|pizzas?)$/i
 
 function isLikelyVegetarian(item: MenuSectionItem | SundayLunchMenuItem): boolean {
   if (hasDietaryToken(item, 'vegetarian') || hasDietaryToken(item, 'vegan')) {
@@ -323,18 +336,39 @@ function flattenMenuData(menuData: MenuData): MenuPageItem[] {
   )
 }
 
-function getPriceFrom(items: MenuPageItem[]): string | undefined {
-  const prices = items
+function positivePrices(items: MenuPageItem[]): number[] {
+  return items
     .map((item) => item.priceValue)
     .filter((price) => Number.isFinite(price) && price > 0)
+}
 
+// Aggregate labels ("from £13", "£11 to £16") keep the £. Only a single dish's
+// price is shown bare (SSOT price display rule, owner-confirmed 19 July 2026).
+function formatPoundPrice(price: number): string {
+  return `£${formatMenuPrice(price)}`
+}
+
+/** "from £13": the cheapest priced dish in the list, or undefined when none is priced. */
+export function getPriceFromLabel(items: MenuPageItem[]): string | undefined {
+  const prices = positivePrices(items)
   if (prices.length === 0) return undefined
-  return `from ${formatMenuPrice(Math.min(...prices))}`
+  return `from ${formatPoundPrice(Math.min(...prices))}`
+}
+
+/** "£11 to £16", or "£16" when every priced dish costs the same. */
+export function getPriceRangeLabel(items: MenuPageItem[]): string | undefined {
+  const prices = positivePrices(items)
+  if (prices.length === 0) return undefined
+
+  const min = Math.min(...prices)
+  const max = Math.max(...prices)
+  if (min === max) return formatPoundPrice(min)
+  return `${formatPoundPrice(min)} to ${formatPoundPrice(max)}`
 }
 
 function getAdultPriceFrom(items: MenuPageItem[]): string | undefined {
   const adultItems = items.filter((item) => !/^kids?\b/i.test(item.name.trim()))
-  return getPriceFrom(adultItems.length > 0 ? adultItems : items)
+  return getPriceFromLabel(adultItems.length > 0 ? adultItems : items)
 }
 
 function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined {
@@ -397,7 +431,10 @@ function buildMenuData(
 
 function buildMenuPageData(menuData: MenuData): MenuPageData {
   const items = flattenMenuData(menuData)
-  const pizzaItems = items.filter((item) => /pizza/i.test(item.categoryTitle))
+  const pizzaItems = items.filter((item) => /pizza/i.test(item.categoryTitle) && !isGarlicBread(item))
+  const mainsItems = items.filter(
+    (item) => MAINS_SECTION_PATTERN.test(item.categoryTitle.trim()) && !isGarlicBread(item)
+  )
   const fishItems = items.filter((item) => isFishAndChipsFamily(item))
   const vegetarianItems = items.filter((item) => item.vegetarian || item.vegan)
   const veganItems = items.filter((item) => item.vegan)
@@ -409,13 +446,14 @@ function buildMenuPageData(menuData: MenuData): MenuPageData {
     menuData,
     items,
     pizzaItems,
+    mainsItems,
     fishItems,
     vegetarianItems,
     veganItems,
     veganOptionItems,
     glutenFreeItems,
     glutenFreeOptionItems,
-    priceFromLabel: getPriceFrom(items),
+    priceFromLabel: getPriceFromLabel(items),
     lastUpdated: menuData.lastUpdated
   }
 }
@@ -678,7 +716,10 @@ export const getPizzaMenuPageData = cache(async () => {
   return {
     ...buildMenuPageData(menuData),
     items: data.pizzaItems,
-    pizzaItems: data.pizzaItems
+    pizzaItems: data.pizzaItems,
+    // From the pizzas themselves, not the whole Pizza section, which also lists
+    // the garlic bread.
+    priceFromLabel: getPriceFromLabel(data.pizzaItems)
   }
 })
 

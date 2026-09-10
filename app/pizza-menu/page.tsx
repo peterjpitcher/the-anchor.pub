@@ -24,22 +24,9 @@ function extractSchemaPrice(item: MenuPageItem): string | undefined {
   return match ? match[1].replace(',', '.') : undefined
 }
 
-function formatPoundPrice(price: number): string {
-  return price % 1 === 0 ? `£${price}` : `£${price.toFixed(2)}`
-}
-
-function getPriceFromLabel(items: MenuPageItem[]): string | null {
-  const prices = items
-    .map((item) => item.priceValue)
-    .filter((price) => Number.isFinite(price) && price > 0)
-
-  if (prices.length === 0) return null
-  return `from ${formatPoundPrice(Math.min(...prices))}`
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPizzaMenuPageData()
-  const pricePhrase = data?.priceFromLabel ? ` ${data.priceFromLabel}.` : ''
+  const pricePhrase = data?.priceFromLabel ? ` Pizzas ${data.priceFromLabel}.` : ''
   const description = data
     ? `Pizza near Heathrow from The Anchor's live menu.${pricePhrase} Free parking, 7 minutes from Terminal 5.`
     : 'Pizza near Heathrow at The Anchor. Current dishes and prices from the latest kitchen menu.'
@@ -69,7 +56,8 @@ export default async function PizzaMenuPage() {
   const pizzaItems = data?.pizzaItems ?? []
   const gfAvailable = pizzaItems.some((item) => item.glutenFreeAvailable)
   const veganOptions = pizzaItems.filter((item) => item.veganOptionAvailable)
-  const pizzaPriceFrom = getPriceFromLabel(pizzaItems)
+  // Same label as the search description, from the pizzas alone.
+  const pizzaPriceFrom = data?.priceFromLabel
 
   const menuSchema = data
     ? {

@@ -37,15 +37,13 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const revalidate = 60 * 60 // 1 hour during launch fortnight
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [foodMenu, sundayMenu] = await Promise.all([
-    getFoodMenuPageData(),
-    getSundayLunchMenuPageData()
-  ])
-  const foodPhrase = foodMenu?.priceFromLabel ? ` Food ${foodMenu.priceFromLabel}.` : ''
+  // No food price phrase: "from" the cheapest line on the whole menu is a burger
+  // add-on, which read as "Food from 1." in search results.
+  const sundayMenu = await getSundayLunchMenuPageData()
   const sundayPhrase = sundayMenu.menuData
     ? ' Sunday roast menu details are loaded live.'
     : ' Sunday roast details are available on request.'
-  const description = `Reserve a table at The Anchor, Stanwell Moor.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from Terminal 5.`
+  const description = `Reserve a table at The Anchor, Stanwell Moor.${sundayPhrase} Dog-friendly, free parking, 7 mins from Terminal 5.`
 
   return {
     title: 'Book a Table Near Heathrow T5',
