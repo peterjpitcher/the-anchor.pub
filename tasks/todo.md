@@ -363,3 +363,14 @@ Branch `fix/christmas-minimum-four`, stacked on PR #154 because both edit `/chri
 - [x] `SSOT.json` private-hire Christmas Dinner tiers now say 4. The owner confirmed on 10 September 2026 that the private-hire Christmas set menu has the same minimum as a table booking; the drift test now ties the tiers to that minimum, and `docs/SSOT.md` sections 7 and 18 record it. The management database has no active Christmas set-menu package (its two retired "Festive Menu" packages, inactive since 5 July, still say 6), so it was left alone
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,420 passed), build (294 pages); four pages read back from the production build
 - [x] PR #156 opened; the owner approved the merge on 10 September 2026
+- [x] Merged and verified live: #154 as deployment `dpl_HNqktzorCxt6Fpp3cvq7cYyQMJW4` (2ed8f611), #156 as `dpl_AZfP5a1HZ1UKp2KdQbGVcaLCSnu5` (808e2e72)
+
+# Dog-friendly post rewritten from the SSOT, 10 September 2026
+
+Branch `fix/dog-friendly-post-facts`, from origin/main at 808e2e72.
+
+- [x] Every sentence checked against `docs/SSOT.md` sections 1, 2, 4, 5, 8, 9, 14 and 16; the section 16 Dogs, Sunday roast, Parking, Families and access wording pasted as it stands
+- [x] Everything not in the SSOT removed rather than replaced: dog events, treats beyond biscuits, staff and partner claims, walk timings, garden details, poo bags, "locally-sourced" and "local ales"
+- [x] URL, slug and frontmatter keywords unchanged; description rewritten from SSOT facts; alt text now describes the three images
+- [x] Drift guard (60), lint and audits, `npm test` (2,420), build (294 pages); page read back from the production build
+- [ ] PR opened, merge waiting on the owner
