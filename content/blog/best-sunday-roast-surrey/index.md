@@ -30,7 +30,7 @@ We've pulled together seven of the best Sunday roast pubs across Surrey for 2026
 
 | Pub | Location | Price Range | Booking? | Parking | Dog Friendly | Best For |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor** | Stanwell Moor | From £16 | Recommended, walk-ins welcome | Free (20 spaces) | Yes | Cooked-to-order quality, families |
+| **The Anchor** | Stanwell Moor | [Today's prices](/sunday-roast) | Recommended, walk-ins welcome | Free (20 spaces) | Yes | Cooked-to-order quality, families |
 | **The White Horse** | Shere | ~£18-24 | Recommended | Limited free | Garden only | Picture-perfect village setting |
 | **The Cricketers** | Cobham | ~£17-22 | Recommended | Pub car park | Check ahead | Classic Surrey pub, reliable quality |
 | **The Victoria** | Oxshott | ~£20-28 | Essential | Own car park | Garden only | Gastropub quality, special occasions |
@@ -50,15 +50,15 @@ The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, 
 
 Current options are all served with herb and garlic-crusted roast potatoes, seasonal veg and gravy:
 
-- **Roast Turkey with Stuffing Ball** (£16), carved turkey with sage and onion stuffing
-- **Roast Pork Leg** (£20), sliced to order with Bramley apple sauce
-- **Roast Beef Topside** (£22), 28-day topside carved fresh per plate
-- **Beef & Ale Pie** (£21), slow-cooked British beef in ale gravy
-- **Chicken & Wild Mushroom Pie** (£21), chicken and wild mushrooms in a creamy sauce
-- **Beetroot & Butternut Squash Wellington** (£20), vegan gravy (VG)
-- **Kids Roast** (£14), full trimmings, smaller portion
+- **Roast Turkey with Stuffing Ball**, carved turkey with sage and onion stuffing
+- **Roast Pork Leg**, sliced to order with Bramley apple sauce
+- **Roast Beef Topside**, 28-day topside carved fresh per plate
+- **Beef & Ale Pie**, slow-cooked British beef in ale gravy
+- **Chicken & Wild Mushroom Pie**, chicken and wild mushrooms in a creamy sauce
+- **Beetroot & Butternut Squash Wellington**, vegan gravy (VG)
+- **Kids Roast**, full trimmings, smaller portion
 
-Yorkshire puddings come with the sliced roasts and kids roast. The wellington is vegan as standard.
+Yorkshire puddings come with the sliced roasts and kids roast. The wellington is vegan as standard. You'll find today's prices on our [Sunday roast menu](/sunday-roast).
 
 ### What you need to know
 
@@ -268,7 +268,7 @@ Several. The Anchor, King William IV, Barley Mow, and Running Horses all welcome
 
 ### What's the best Sunday roast in Surrey for vegetarians?
 
-The Anchor's beetroot and butternut squash wellington (£20) is a standout, a proper vegan dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
+The Anchor's beetroot and butternut squash wellington is a standout, a proper vegan dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
 
 ---
 

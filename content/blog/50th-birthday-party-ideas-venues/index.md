@@ -58,7 +58,7 @@ For a certain kind of person (and you probably know whether the birthday person 
 
 No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight, close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-roast) starts from £16 per person, with options including roast turkey (£16), roast pork (£20), roast beef (£22), pies (£21), and a vegan beetroot and butternut squash wellington (£20). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 15 or more take a £10 per person deposit, fully deducted from the final bill on the day.
+At The Anchor, a Sunday roast celebration has options including roast turkey, roast pork, roast beef, pies, and a vegan beetroot and butternut squash wellington, and you'll find today's prices on our [Sunday roast menu](/sunday-roast). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 15 or more take a £10 per person deposit, fully deducted from the final bill on the day.
 
 ### The beer garden party
 
