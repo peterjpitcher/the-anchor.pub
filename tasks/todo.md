@@ -350,7 +350,7 @@ Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. PRs #152 (heated 
 - [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims. About 60 sentences in 30 files, including titles, H1s and meta descriptions on area pages, so they go in a separate PR
 - [x] Guards in `tests/ssot-drift-guard.test.ts`: eleven new checks, one shared helper with #152's heated and covered checks. All thirteen fail against pre-fix content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,419 passed), build (294 pages); changed pages read back from the production build on port 3109
-- [ ] Open the PR, ask the owner before merging
+- [x] PR #154 opened; the owner approved the merge on 10 September 2026
 
 # Stale 6-guest Christmas minimum, 10 September 2026
 
@@ -360,6 +360,6 @@ Branch `fix/christmas-minimum-four`, stacked on PR #154 because both edit `/chri
 - [x] Drinks-only FAQ now reads `facts.minPartySize`
 - [x] Sweep found seven prose statements, not three: "6 to 20" bands in two posts (each sat directly under an "Under 4" band that had been updated), "At least 6", a comparison table row, and the two festive buffet sentences. Plus one stale code comment in `lib/monthly-copy.ts`
 - [x] Drift guard for those shapes; it failed on the three posts before the fix and passes after
-- [ ] `SSOT.json` private-hire Christmas Dinner tiers (`min_guests: 6`) and the drift test that pins them: deliberately unchanged on this branch. The same file's `christmas_sit_down_meals` says 4, and the live private-booking config serves no Christmas Dinner packages at all
+- [x] `SSOT.json` private-hire Christmas Dinner tiers now say 4. The owner confirmed on 10 September 2026 that the private-hire Christmas set menu has the same minimum as a table booking; the drift test now ties the tiers to that minimum, and `docs/SSOT.md` sections 7 and 18 record it. The management database has no active Christmas set-menu package (its two retired "Festive Menu" packages, inactive since 5 July, still say 6), so it was left alone
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,420 passed), build (294 pages); four pages read back from the production build
-- [ ] Open the PR, ask the owner before merging
+- [x] PR #156 opened; the owner approved the merge on 10 September 2026

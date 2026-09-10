@@ -1021,21 +1021,21 @@
         {
           "name": "Christmas Dinner (1 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 6,
+          "min_guests": 4,
           "style": "sit-down",
           "pre_order_required": false
         },
         {
           "name": "Christmas Dinner (2 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 6,
+          "min_guests": 4,
           "style": "sit-down",
           "pre_order_required": true
         },
         {
           "name": "Christmas Dinner (3 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 6,
+          "min_guests": 4,
           "style": "sit-down",
           "pre_order_required": true
         },
