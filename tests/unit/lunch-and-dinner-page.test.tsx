@@ -262,6 +262,17 @@ describe('/lunch-and-dinner', () => {
     expect(currentHref).not.toMatch(/sunday/i)
   })
 
+  it('carries the ad tags from a paid landing URL through both Book buttons', async () => {
+    await renderPage()
+
+    for (const button of screen.getAllByRole('button', { name: 'Book a table' })) {
+      // How a Meta ad lands here: through the short link, with its tags on the URL.
+      currentHref = 'http://localhost/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk'
+      fireEvent.click(button)
+      expect(currentHref).toBe('/book-table?source=lunch_dinner_lp&utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk')
+    }
+  })
+
   it('stays out of search: noindex, self-canonical and not in the sitemap', () => {
     expect(metadata.robots).toEqual({ index: false, follow: true })
     expect(metadata.alternates?.canonical).toBe('./')

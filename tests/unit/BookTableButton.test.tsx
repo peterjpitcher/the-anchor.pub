@@ -119,6 +119,20 @@ describe('BookTableButton', () => {
     expect(currentHref).toBe('/book-table')
   })
 
+  it('carries the landing page ad tags onto the booking page it loads', () => {
+    currentHref = 'http://localhost/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a&fbclid=fb-1&short_code=jbozdk&email=jane@example.com'
+
+    render(<BookTableButton source="lunch_dinner_lp" customHref="/book-table?source=lunch_dinner_lp" />)
+    fireEvent.click(screen.getByRole('button', { name: 'Book a Table' }))
+
+    expect(currentHref).toBe('/book-table?source=lunch_dinner_lp&utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a&fbclid=fb-1&short_code=jbozdk')
+    // Analytics still records the destination the page asked for.
+    expect(mockTrackTableBookingClick).toHaveBeenCalledWith(expect.objectContaining({
+      destination: '/book-table?source=lunch_dinner_lp',
+    }))
+    expect(window.localStorage.getItem('anchor-booking-attribution')).toBeNull()
+  })
+
   it('detects mobile devices when tracking', () => {
     Object.defineProperty(navigator, 'userAgent', {
       value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)',

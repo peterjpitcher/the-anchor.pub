@@ -80,8 +80,9 @@ export interface BookingAttributionPayload {
  * which needs marketing consent (PECR; ICO guidance on storage and access
  * technologies). Until the visitor accepts, the landing page's tags wait here in
  * memory only: never written to the device, never sent with a booking. That lets a
- * visitor who accepts later in the same visit, often on the booking page after the
- * campaign URL has gone, still be attributed. Refusing or withdrawing discards it.
+ * visitor who accepts later in the same visit still be attributed: memory survives
+ * client-side navigation, and CTAs that load a new page carry the tags in the URL
+ * instead (withCarriedAttributionParams). Refusing or withdrawing discards it.
  */
 let pendingAttribution: StoredBookingAttribution | null = null
 
@@ -129,6 +130,47 @@ export function captureBookingAttributionFromLocation(now = new Date()): Booking
   pendingAttribution = null
   writeStoredAttribution(stored)
   return storedToPayload(stored)
+}
+
+/**
+ * Copy the ad tags on the current page's URL onto an internal link that will load
+ * a new page, such as the booking page behind BookTableButton.
+ *
+ * Without marketing consent the landing page's tags wait in memory only, and a
+ * full page load (`window.location.href = ...`) wipes that memory, so a visitor
+ * who taps "Book a table" and accepts on the booking page used to lose them.
+ * Carrying them in the URL stores nothing on the device and behaves the same with
+ * or without consent: the booking page's own capture holds them until the visitor
+ * chooses. Only the allowed attribution params are copied (never customer-like
+ * query data), a param the target already has is kept, external targets are left
+ * alone, and a relative target stays relative.
+ */
+export function withCarriedAttributionParams(targetUrl: string, currentHref?: string): string {
+  const base = currentHref ?? (typeof window === 'undefined' ? undefined : window.location.href)
+  if (!base) return targetUrl
+
+  let current: URL
+  let target: URL
+  try {
+    current = new URL(base)
+    target = new URL(targetUrl, current)
+  } catch {
+    return targetUrl
+  }
+  if (target.origin !== current.origin) return targetUrl
+
+  let carried = false
+  for (const key of ATTRIBUTION_PARAMS) {
+    if (target.searchParams.has(key)) continue
+    const value = sanitizeParam(key, current.searchParams.get(key))
+    if (!value) continue
+    target.searchParams.set(key, value)
+    carried = true
+  }
+  if (!carried) return targetUrl
+
+  const isAbsolute = /^[a-z][a-z\d+.-]*:/i.test(targetUrl) || targetUrl.startsWith('//')
+  return isAbsolute ? target.toString() : `${target.pathname}${target.search}${target.hash}`
 }
 
 export function getBookingAttributionPayload(): BookingAttributionPayload {
