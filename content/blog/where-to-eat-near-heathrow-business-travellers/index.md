@@ -102,7 +102,7 @@ For completeness, here are the realistic alternatives:
 - **Staines town centre**, broader restaurant choice, but 15–20 minutes from most airport hotels
 - **Windsor**, excellent restaurants (Windsor Grill, etc.) but 25–30 minutes away, impractical for one-night trips
 
-For most business travellers, The Anchor is the clear best option within the 15-minute radius of Heathrow.
+For most business travellers, The Anchor is a practical choice within the 15-minute radius of Heathrow.
 
 ## Book Your Table
 

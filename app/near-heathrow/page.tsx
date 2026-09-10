@@ -130,7 +130,7 @@ export default function NearHeathrowPage() {
                 align="left"
                 kicker="The beer garden"
                 title="Plane spotting under the flight path"
-                lead="Our beer garden sits directly under Heathrow's southern approach path, which makes it one of the best things to do near Heathrow if you love watching aircraft. Planes pass roughly every 90 seconds at peak times, from 500 to 800 feet up. Pull up a chair with a drink or a plate of food, served the whole time the kitchen is open."
+                lead="Our beer garden sits directly under Heathrow's southern approach path, so it is a good place near Heathrow to watch aircraft. Planes pass roughly every 90 seconds at peak times, from 500 to 800 feet up. Pull up a chair with a drink or a plate of food, served the whole time the kitchen is open."
                 className="mb-0"
               />
               <div className="flex flex-wrap gap-2">
@@ -194,7 +194,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Where is the best pub for plane spotting near Heathrow?",
-                  answer: "Our beer garden sits directly under Heathrow's southern approach path, so aircraft pass overhead roughly every 90 seconds at peak times, from 500 to 800 feet up. You can sit with a drink or a plate of food and watch everything from A380s to Dreamliners come in to land. It is one of the best free things to do near Heathrow on a clear day."
+                  answer: "Our beer garden sits directly under Heathrow's southern approach path, so aircraft pass overhead roughly every 90 seconds at peak times, from 500 to 800 feet up. You can sit with a drink or a plate of food and watch everything from A380s to Dreamliners come in to land. On a clear day it costs nothing to watch."
                 },
                 {
                   question: "Is The Anchor dog friendly?",

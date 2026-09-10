@@ -33,7 +33,7 @@ This means a 6-hour layover realistically gives you about 3–3.5 hours of usabl
 
 ## 1. Have a Proper Pub Lunch or Dinner at The Anchor
 
-For most Heathrow layover travellers, this is the single best use of time.
+For most Heathrow layover travellers, this is a good use of the time.
 
 **The Anchor** is a traditional British pub in Stanwell Moor village, 7 minutes from Terminal 5 and 10–15 minutes from all other terminals. It offers:
 

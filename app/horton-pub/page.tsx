@@ -131,7 +131,7 @@ export default function HortonPubPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
                                 { title: "Walking Distance", description: "A pleasant 20-minute walk or 2-minute drive from Horton village" },
-                                { title: "Sunday Roasts", description: "The best roast in the area - worth the short hop over the motorway" },
+                                { title: "Sunday Roasts", description: "Famous Sunday roasts, worth the short hop over the motorway" },
                                 { title: "Draught Beers", description: "Properly kept ales and a great wine selection" },
                             ].map((item) => (
                                 <Card key={item.title} accent>

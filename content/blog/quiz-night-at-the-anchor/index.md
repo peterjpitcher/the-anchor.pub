@@ -1,7 +1,7 @@
 ---
 title: Quiz Night Near Heathrow | Monthly Pub Quiz at The Anchor
 description: >-
-  Join the best pub quiz near Heathrow Airport at The Anchor. Professional
+  Join a pub quiz near Heathrow Airport at The Anchor. Professional
   monthly quiz nights with great prizes, drinks prizes, and team fun just 7
   minutes from Terminal 5. Book your table for Stanwell Moor's favourite quiz
   night.
@@ -232,7 +232,7 @@ Contact us for bespoke quiz packages.
 
 ### Your New Midweek Tradition
 
-Don't miss out on **Stanwell Moor's best quiz night**! Whether you're a quiz veteran or first-timer, The Anchor's Monthly Quiz Night offers:
+Don't miss out on **quiz night in Stanwell Moor**! Whether you're a quiz veteran or first-timer, The Anchor's Monthly Quiz Night offers:
 
 ✓ Professional quiz masters  
 ✓ Great prizes every week  

@@ -21,11 +21,11 @@ Heathrow handles roughly 1,300 flights a day. During peak hours, that works out 
 
 Most guides focus on photography angles and runway configurations. This one takes a different approach: we compare seven locations on everything that determines whether you actually enjoy the day -- parking, food, shelter, toilets, and ease of access. Standing on a grass verge with a thermos is fine for an hour, but a proper spotting day needs a base camp.
 
-We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits directly under the flight path. We think it is the best all-round spotting location, and we will make that case below. But we have included six other spots that are genuinely worth your time, with honest assessments of each.
+We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits directly under the flight path. We think it earns its place on this list, and we will make that case below. But we have included six other spots that are genuinely worth your time, with honest assessments of each.
 
 ## Fast Answer: Is There a Heathrow Viewing Area?
 
-Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close runway 27L arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for easterly arrivals and King George VI Reservoir for wider landscape views.
+Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close-up arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for easterly arrivals and King George VI Reservoir for wider landscape views.
 
 If you want comfort, toilets, food and parking, start with [The Anchor beer garden](/beer-garden), and [book a garden table](/book-table) if you are coming at a weekend. Parking is free and there are 64 seats outside, but the good ones go early on a sunny day. If you want the pure photographer's spot, start with Myrtle Avenue and plan your facilities separately.
 
@@ -33,8 +33,8 @@ If you want comfort, toilets, food and parking, start with [The Anchor beer gard
 
 | Location | Ease of Access | Parking | Food & Drink | Best For | Viewing Angle |
 |----------|---------------|---------|--------------|----------|---------------|
-| **The Anchor Beer Garden** | Easy -- 7 min from T5 | Free (20 spaces) | Full pub menu, bar | Families, casual watchers, all-day sessions | Landing (27R approach) |
-| **Myrtle Avenue** | Moderate -- residential street | Street only (limited) | None | Serious photographers | Landing (27L approach) |
+| **The Anchor Beer Garden** | Easy -- 7 min from T5 | Free (20 spaces) | Full pub menu, bar | Families, casual watchers, all-day sessions | Landing (southern runway approach) |
+| **Myrtle Avenue** | Moderate -- residential street | Street only (limited) | None | Serious photographers | Landing (final approach) |
 | **Hatton Cross** | Easy -- Piccadilly Line | Street parking | Cafes nearby | Public transport users | Landing (southern approach) |
 | **Terminal 2 & 5 Viewing** | Easy -- inside terminal | Airport parking (paid) | Full terminal facilities | Transit passengers, rainy days | Taxiing, departure |
 | **Southern Perimeter Road** | Moderate -- car required | Lay-bys (informal) | None | Takeoff photography | Departure (both runways) |
@@ -47,7 +47,7 @@ Now let's look at each in detail.
 
 **The short version:** A proper pub with a beer garden that happens to sit directly under the Heathrow flight path. Aircraft every 90 seconds, a full food and drinks menu, free parking, and dog-friendly outdoor seating.
 
-The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath the approach path for runway 27R. When westerly operations are in effect -- which covers roughly half the year, alternating on a weekly schedule -- aircraft pass directly overhead at around 500 to 800 feet. You do not need a telephoto lens to identify the airline. You can read the registration numbers with your eyes.
+The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath the approach path for the southern runway. When westerly operations are in effect -- which covers roughly half the year, alternating on a weekly schedule -- aircraft pass directly overhead at around 500 to 800 feet. You do not need a telephoto lens to identify the airline. You can read the registration numbers with your eyes.
 
 What makes this different from every other location on this list: you are sitting at a pub table with a pint of Moretti and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
 
@@ -73,9 +73,9 @@ What makes this different from every other location on this list: you are sittin
 
 ## 2. Myrtle Avenue, Hatton
 
-**The short version:** The classic Heathrow spotting spot. Unbeatable proximity to runway 27L arrivals. Absolutely no facilities.
+**The short version:** The classic Heathrow spotting spot. Unbeatable proximity to arriving aircraft. Absolutely no facilities.
 
-Myrtle Avenue is a residential street near the northern runway perimeter and the go-to Heathrow spotting location for decades. The street runs parallel to the runway 27L approach, putting you extremely close to arriving aircraft.
+Myrtle Avenue is a residential street near the northern runway perimeter and the go-to Heathrow spotting location for decades. The street runs parallel to the runway approach, putting you extremely close to arriving aircraft.
 
 For photography, it is exceptional. Aircraft fill a 70--200mm lens with ease, and the angle is ideal for capturing gear deployment and flap configuration. If you are building a portfolio of Heathrow approach shots, start here.
 
@@ -87,7 +87,7 @@ The trade-off is comfort. No facilities whatsoever -- no toilets, no shelter, no
 
 **Best for:** Dedicated aviation photographers. Less suitable for families or casual visitors.
 
-**Viewing angle:** Head-on and slightly below the approach to runway 27L. Superb for nose-on arrival photography.
+**Viewing angle:** Head-on and slightly below the final approach. Superb for nose-on arrival photography.
 
 ## 3. Hatton Cross Area
 
@@ -188,7 +188,7 @@ Morning sun (06:00--10:00) lights up westerly arrivals beautifully -- ideal for 
 
 ### Understanding Runway Operations
 
-Heathrow has two parallel runways: northern (27L/09R) and southern (27R/09L). The airport alternates which handles landings and which handles departures, switching at 15:00 daily. On top of this, runway preference swaps weekly -- meaning the southern runway (over The Anchor) handles arrivals roughly 50% of the time.
+Heathrow has two parallel runways, northern and southern. The airport alternates which handles landings and which handles departures, switching at 15:00 daily. On top of this, runway preference swaps weekly -- meaning the southern runway (over The Anchor) handles arrivals roughly 50% of the time.
 
 "27" designations indicate westerly operations (most common). "09" indicates easterlies. Check before you travel.
 
@@ -196,7 +196,7 @@ Heathrow has two parallel runways: northern (27L/09R) and southern (27R/09L). Th
 
 ### Where is the best place to watch planes land at Heathrow?
 
-For the best combination of views, comfort, food, and parking, [The Anchor beer garden](/beer-garden) in Stanwell Moor is our top recommendation. Aircraft pass overhead every 90 seconds during peak hours, and you are watching from a pub garden rather than a roadside. For pure photography proximity, Myrtle Avenue puts you closest to the approach path.
+If you want views, comfort, food and parking in one place, try [The Anchor beer garden](/beer-garden) in Stanwell Moor. Aircraft pass overhead every 90 seconds during peak hours, and you are watching from a pub garden rather than a roadside. For pure photography proximity, Myrtle Avenue puts you closest to the approach path.
 
 ### Is there an official viewing area at Heathrow?
 

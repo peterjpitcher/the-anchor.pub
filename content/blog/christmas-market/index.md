@@ -212,7 +212,7 @@ While entry is free, consider:
 
 ## Why Choose The Anchor's Christmas Market
 
-### The Best Festive Market Near Heathrow
+### A Festive Market Near Heathrow
 
 - **Authentic experience** - Real community market
 - **Quality vendors** - Carefully selected

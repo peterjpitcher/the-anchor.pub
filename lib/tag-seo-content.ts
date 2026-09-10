@@ -108,7 +108,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Special Offers',
     description: 'Deals, promotions, and exclusive offers',
     metaTitle: 'Pub Deals Stanwell Moor | Special Offers at The Anchor Near Heathrow',
-    metaDescription: 'Save with special offers at The Anchor Stanwell Moor. Lunch deals, quiz night specials & more. Best pub deals - we\'re 7 minutes from Heathrow Airport.',
+    metaDescription: 'Save with special offers at The Anchor Stanwell Moor. Lunch deals, quiz night specials & more. Pub deals, and we\'re 7 minutes from Heathrow Airport.',
     heroContent: 'Make the most of your visit with our fantastic special offers at The Anchor. From daily deals to seasonal promotions, we\'re always finding ways to give our customers extra value.',
     introContent: 'At The Anchor, we believe great experiences shouldn\'t break the bank. That\'s why we offer a variety of special deals throughout the week. Tuck into our value lunch menu Monday to Friday during kitchen hours, or take advantage of our monthly quiz night. We also run seasonal promotions for all our customers.',
     valueProposition: 'Follow us on social media and sign up to our newsletter to be first to hear about new offers and promotions. With something special every day of the week, there\'s always a great reason to visit The Anchor.',
@@ -156,7 +156,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Join our Halloween celebrations at The Anchor Stanwell Moor. Costume parties, themed nights, spooky decorations & special menu. Near Heathrow Airport.',
     heroContent: 'Get ready for frightfully good fun at The Anchor\'s Halloween celebrations. Our spooktacular events are the highlight of Stanwell Moor\'s Halloween calendar.',
     introContent: 'When October arrives, The Anchor transforms into Stanwell Moor\'s spookiest venue. Our Halloween parties feature costume competitions with great prizes, themed cocktails and mysterious concoctions, and decorations that will send shivers down your spine. Our kitchen creates special Halloween menu items that are scary good!',
-    valueProposition: 'Don\'t miss the best Halloween party in the area - book your table for a night of thrills, chills, and fantastic entertainment. Costume encouraged but not required!',
+    valueProposition: 'Don\'t miss our Halloween party - book your table for a night of thrills, chills, and fantastic entertainment. Costume encouraged but not required!',
     keywords: ['halloween party stanwell moor', 'spooky events near heathrow', 'halloween pub surrey', 'october events TW19', 'costume party stanwell moor']
   },
 
@@ -190,7 +190,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Watch terrestrial sports at The Anchor Stanwell Moor. Multiple screens with the sound up for BBC, ITV, Channel 4 and Channel 5 fixtures near Heathrow.',
     heroContent: 'Catch all the big free-to-air sporting action at The Anchor, Stanwell Moor\'s friendly sports pub. With multiple screens and an electric atmosphere, we\'re your home for terrestrial sports.',
     introContent: 'Sports fans choose The Anchor for reliable terrestrial coverage. We show major sporting events available on free-to-air channels including the World Cup, Euros, Six Nations rugby, Wimbledon, and other headline fixtures. The atmosphere during these big tournaments is incredible, with passionate fans creating an unforgettable experience.',
-    valueProposition: 'Book your table for the next major tournament and enjoy great food, cold beers, and the best sporting atmosphere in Stanwell Moor during international competitions.',
+    valueProposition: 'Book your table for the next major tournament and enjoy great food, cold beers, and a proper sporting atmosphere in Stanwell Moor during international competitions.',
     keywords: ['sports pub stanwell moor', 'watch football near heathrow', 'rugby pub surrey', 'terrestrial sports TW19', 'match day stanwell moor']
   },
 
@@ -231,7 +231,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   'stanwell-moor': {
     name: 'Stanwell Moor Village',
     description: 'Your local village pub',
-    metaTitle: 'Stanwell Moor Village Pub | The Anchor - Best Local Pub TW19',
+    metaTitle: 'Stanwell Moor Village Pub | The Anchor, Your Local in TW19',
     metaDescription: 'The Anchor: Stanwell Moor\'s beloved village pub. Traditional atmosphere, community hub, local favourite. Your true local in the heart of TW19.',
     heroContent: 'The Anchor has been at the heart of Stanwell Moor village for generations, serving as the community\'s favourite gathering place and true local pub.',
     introContent: 'Deeply rooted in Stanwell Moor\'s history, The Anchor embodies everything a village pub should be. We\'re where locals catch up over a pint, families gather for Sunday roast, and the community comes together for celebrations. Our connection to the village runs deep - from supporting local suppliers to sponsoring village events, we\'re proud to be Stanwell Moor\'s pub.',
@@ -242,11 +242,11 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   'sunday-roast': {
     name: 'Sunday Roast',
     description: 'Traditional Sunday roasts with all the trimmings',
-    metaTitle: 'Sunday Roast Stanwell Moor | Best Sunday Roast at The Anchor',
-    metaDescription: 'Our renowned Sunday roast at The Anchor Stanwell Moor. Traditional roasts, vegetarian options, book ahead. Best Sunday roast near Heathrow Airport.',
+    metaTitle: 'Sunday Roast Stanwell Moor | Famous Sunday Roasts at The Anchor',
+    metaDescription: 'Our renowned Sunday roast at The Anchor Stanwell Moor. Traditional roasts, vegetarian options, book ahead. Famous Sunday roasts near Heathrow Airport.',
     heroContent: 'Sundays are special at The Anchor, where our traditional roast dinners have become legendary in Stanwell Moor. Join us for the perfect Sunday roast.',
     introContent: 'Our Sunday roasts are a labour of love. Each week, our chefs prepare succulent roasted meats including beef, pork and turkey, accompanied by crispy roast potatoes, seasonal vegetables, Yorkshire puddings, and rich gravies. A fully vegan Wellington means everyone can enjoy Sunday roast at its finest. The generous portions and homemade touches make our Sunday roasts the talk of the village.',
-    valueProposition: 'Sunday roast at The Anchor is more than a meal - it\'s a tradition. Book your table early as we fill up fast, especially for larger family groups. Experience why locals vote us the best Sunday roast in the area.',
+    valueProposition: 'Sunday roast at The Anchor is more than a meal - it\'s a tradition. Book your table early as we fill up fast, especially for larger family groups.',
     keywords: ['sunday roast stanwell moor', 'sunday roast near heathrow', 'best roast dinner surrey', 'traditional sunday roast TW19', 'carvery stanwell moor']
   },
 
@@ -265,7 +265,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Stone-Baked Pizza',
     description: 'Authentic stone-baked pizzas and Italian favourites',
     metaTitle: 'Pizza Stanwell Moor | Stone-Baked Pizza at The Anchor',
-    metaDescription: 'Delicious stone-baked pizzas at The Anchor Stanwell Moor. Authentic Italian recipes, fresh ingredients, eat in or takeaway. Best pizza near Heathrow.',
+    metaDescription: 'Delicious stone-baked pizzas at The Anchor Stanwell Moor. Authentic Italian recipes, fresh ingredients, eat in or takeaway. Stone-baked pizza near Heathrow.',
     heroContent: 'Experience authentic stone-baked pizzas at The Anchor, where traditional Italian methods meet fresh, quality ingredients in the heart of Stanwell Moor.',
     introContent: 'Our pizza menu is a slice of Italy in Stanwell Moor. Each pizza is hand-stretched and stone-baked to perfection, creating that perfect combination of crispy base and bubbling toppings. From the classic Rustic Classic to creative house specials like the Fully Loaded, we use only the finest ingredients including San Marzano tomatoes, fresh mozzarella, and locally-sourced toppings where possible.',
     valueProposition: 'Whether you\'re dining in our cosy restaurant or grabbing a takeaway, our pizzas are always made fresh to order. Try our pizza and drink deal for the perfect casual meal any night of the week.',
@@ -297,7 +297,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   'fish-and-chips': {
     name: 'Fish & Chips',
     description: 'Traditional British fish and chips',
-    metaTitle: 'Fish and Chips Stanwell Moor | Best Fish & Chips at The Anchor',
+    metaTitle: 'Fish and Chips Stanwell Moor | Proper Fish & Chips at The Anchor',
     metaDescription: 'Traditional fish & chips at The Anchor Stanwell Moor. Beer-battered cod, mushy peas, homemade tartar sauce. Classic British pub food near Heathrow.',
     heroContent: 'Enjoy the great British classic at The Anchor - our beer-battered fish and chips are the pride of Stanwell Moor.',
     introContent: 'Our fish and chips exemplify British pub food at its finest. We use sustainably sourced cod, hand-cut chips, and our signature beer batter recipe that creates the perfect golden, crispy coating. Served with mushy peas, homemade tartar sauce, and a wedge of lemon, it\'s a dish that brings comfort and satisfaction with every bite.',
@@ -343,7 +343,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Cocktails',
     description: 'Signature cocktails and mixed drinks',
     metaTitle: 'Cocktails Stanwell Moor | Cocktail Bar at The Anchor',
-    metaDescription: 'Enjoy expertly crafted cocktails at The Anchor Stanwell Moor. Classic & signature cocktails. Best cocktail bar near Heathrow.',
+    metaDescription: 'Enjoy expertly crafted cocktails at The Anchor Stanwell Moor. Classic & signature cocktails. Cocktails near Heathrow.',
     heroContent: 'Discover the art of mixology at The Anchor\'s cocktail bar. From timeless classics to innovative signatures, every cocktail is crafted with passion.',
     introContent: 'Our skilled bartenders bring creativity and expertise to every cocktail they create. Using premium spirits, fresh ingredients, and house-made syrups, we offer a cocktail menu that satisfies every taste. Whether you prefer a perfectly balanced Martini, a refreshing Mojito, or want to try one of our signature creations, each drink is made with care and presented beautifully.',
     valueProposition: 'Elevate your evening with cocktails at The Anchor. Discover your new favourite cocktail - expertly mixed and beautifully presented.',
@@ -355,7 +355,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     description: 'Live entertainment and performances',
     metaTitle: 'Pub Entertainment Stanwell Moor | Live Shows at The Anchor',
     metaDescription: 'Experience great entertainment at The Anchor Stanwell Moor. Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, themed events & more. See /whats-on for the latest.',
-    heroContent: 'The Anchor is Stanwell Moor\'s premier entertainment destination. From quiz nights to hosted events and seasonal specials, we bring the best nights out to your local pub.',
+    heroContent: 'The Anchor is Stanwell Moor\'s village pub for a good night out. From quiz nights to hosted events and seasonal specials, we bring great nights out to your local pub.',
     introContent: 'Entertainment is in our DNA at The Anchor. Our programme includes quiz nights, hosted nights like Music Bingo with Nikki Manfadge, special themed events throughout the year, and unforgettable holiday celebrations. Our venue provides the perfect intimate setting where you\'re close to the action. See /whats-on for what\'s coming up.',
     valueProposition: 'Check our entertainment calendar and book your table for an unforgettable night out. With shows throughout the week, The Anchor is where Stanwell Moor comes to be entertained.',
     keywords: ['pub entertainment stanwell moor', 'live shows heathrow', 'entertainment venue surrey', 'shows TW19', 'live entertainment']
@@ -379,7 +379,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Watch live football at The Anchor Stanwell Moor. World Cup, Euros & international matches on terrestrial TV. Sports pub near Heathrow.',
     heroContent: 'The Anchor is headquarters for football fans in Stanwell Moor during major tournaments. Watch the World Cup, Euros and more on our screens.',
     introContent: 'When major tournaments come around, The Anchor shows all the action on terrestrial TV. We screen the World Cup, European Championships, and other international fixtures available on free-to-air channels. The atmosphere during these tournaments is electric, with passionate fans creating an unforgettable experience.',
-    valueProposition: 'Book your table for the next major tournament and enjoy cold beers, great food, and the best football atmosphere in Stanwell Moor during international competitions.',
+    valueProposition: 'Book your table for the next major tournament and enjoy cold beers, great food, and a proper football atmosphere in Stanwell Moor during international competitions.',
     keywords: ['watch football stanwell moor', 'international football pub heathrow', 'live football surrey', 'sports bar TW19', 'football pub stanwell moor']
   },
 
@@ -398,9 +398,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'British Cuisine',
     description: 'Classic British pub food and traditional dishes',
     metaTitle: 'British Food Stanwell Moor | Traditional Pub Cuisine at The Anchor',
-    metaDescription: 'Authentic British cuisine at The Anchor Stanwell Moor. Pie & mash, bangers & mash, ploughman\'s lunch & more classics. Best British food near Heathrow.',
+    metaDescription: 'Authentic British cuisine at The Anchor Stanwell Moor. Pie & mash, bangers & mash, ploughman\'s lunch & more classics. British pub food near Heathrow.',
     heroContent: 'Celebrate the best of British cuisine at The Anchor, where traditional recipes and quality ingredients create memorable dining experiences.',
-    introContent: 'Our commitment to British cuisine runs deep. The Anchor\'s menu showcases the finest traditional dishes - from hearty steak and kidney pies to classic bangers and mash, shepherd\'s pie to ploughman\'s lunches. Each dish is prepared using time-honoured recipes and the best British ingredients, creating authentic flavours that remind you why British pub food is loved worldwide.',
+    introContent: 'Our commitment to British cuisine runs deep. The Anchor\'s menu showcases the finest traditional dishes - from hearty steak and kidney pies to classic bangers and mash, shepherd\'s pie to ploughman\'s lunches. Each dish is prepared using time-honoured recipes and good British ingredients, creating authentic flavours that remind you why British pub food is loved worldwide.',
     valueProposition: 'Experience true British hospitality and cuisine at The Anchor. Whether you\'re a local or visiting from abroad, our traditional menu offers a taste of authentic Britain.',
     keywords: ['british food stanwell moor', 'traditional pub food heathrow', 'british cuisine surrey', 'classic british TW19', 'english food stanwell moor']
   },
@@ -433,8 +433,8 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'November Events Stanwell Moor | Bonfire Night at The Anchor',
     metaDescription: 'November at The Anchor Stanwell Moor. Bonfire Night, autumn menu, a warm room & warming drinks. Your local pub for November near Heathrow.',
     heroContent: 'November at The Anchor brings autumn at its finest - from Bonfire Night celebrations to cosy evenings by our fires with seasonal comfort food.',
-    introContent: 'As autumn reaches its peak, November at The Anchor offers the warmest welcome in Stanwell Moor. Guy Fawkes Night sees special events and the best views of local fireworks from our beer garden. Our autumn menu features game dishes, hearty stews, and warming puddings. The pub\'s cosy interior provides the perfect escape from November\'s chill.',
-    valueProposition: 'Make The Anchor your November headquarters for Bonfire Night celebrations, cosy dinners, and the best autumn atmosphere in Stanwell Moor.',
+    introContent: 'As autumn reaches its peak, November at The Anchor offers the warmest welcome in Stanwell Moor. Guy Fawkes Night sees special events and views of local fireworks from our beer garden. Our autumn menu features game dishes, hearty stews, and warming puddings. The pub\'s cosy interior provides the perfect escape from November\'s chill.',
+    valueProposition: 'Make The Anchor your November headquarters for Bonfire Night celebrations, cosy dinners, and a cosy autumn atmosphere in Stanwell Moor.',
     keywords: ['november events stanwell moor', 'bonfire night heathrow', 'autumn pub surrey', 'november dining TW19', 'fireworks night stanwell moor']
   },
 
@@ -476,7 +476,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     description: 'Private parties and celebrations',
     metaTitle: 'Party Venue Stanwell Moor | Private Parties at The Anchor',
     metaDescription: 'Host your party at The Anchor Stanwell Moor. Birthday parties, celebrations, private events with in-house catering. Perfect venue - we\'re 7 minutes from Heathrow.',
-    heroContent: 'Make your celebration unforgettable at The Anchor, Stanwell Moor\'s premier party venue with flexible spaces and exceptional service.',
+    heroContent: 'Make your celebration unforgettable at The Anchor, Stanwell Moor\'s village pub for parties, with flexible spaces and exceptional service.',
     introContent: 'The Anchor is the perfect venue for parties of all sizes and occasions. Our experienced team helps you create memorable celebrations, whether it\'s a milestone birthday, anniversary, engagement party, or any special occasion. We offer flexible spaces that can be configured for your needs, customised menus to suit your taste and budget, and dedicated staff to ensure everything runs smoothly.',
     valueProposition: 'Let us take the stress out of party planning. Contact our events team to discuss your requirements and discover why The Anchor is Stanwell Moor\'s favourite party venue.',
     keywords: ['party venue stanwell moor', 'private parties heathrow', 'celebration venue surrey', 'birthday party TW19', 'event space stanwell moor']
@@ -530,10 +530,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'St. Patrick\'s Day',
     description: 'Irish celebrations and St. Patrick\'s festivities',
     metaTitle: 'St Patrick\'s Day Stanwell Moor | Irish Celebration at The Anchor',
-    metaDescription: 'Celebrate St Patrick\'s Day at The Anchor Stanwell Moor. Guinness, Irish music, special menu & festivities. Best Irish party near Heathrow.',
+    metaDescription: 'Celebrate St Patrick\'s Day at The Anchor Stanwell Moor. Guinness, Irish music, special menu & festivities. An Irish party near Heathrow.',
     heroContent: 'The Anchor goes green for St. Patrick\'s Day with the biggest Irish celebration in Stanwell Moor. Sláinte!',
     introContent: 'St. Patrick\'s Day at The Anchor is legendary. We transform into Stanwell Moor\'s own piece of Ireland with traditional Irish music filling the air, Guinness flowing freely, and Irish whiskeys taking center stage. Our special menu features Irish favourites from hearty stews to colcannon, while the atmosphere buzzes with Celtic energy and friendly craic that lasts well into the night.',
-    valueProposition: 'Don\'t miss the best St. Patrick\'s Day party in the area - wear your green, bring your friends, and prepare for an unforgettable Irish celebration.',
+    valueProposition: 'Don\'t miss our St. Patrick\'s Day party - wear your green, bring your friends, and prepare for an unforgettable Irish celebration.',
     keywords: ['st patricks day stanwell moor', 'irish pub heathrow', 'paddys day surrey', 'irish celebration TW19', 'st patricks party']
   },
 
@@ -618,7 +618,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Football Coverage',
     description: 'Major football tournaments and cup finals',
     metaTitle: 'Football Pub Stanwell Moor | Watch Major Tournaments at The Anchor',
-    metaDescription: 'Watch football at The Anchor Stanwell Moor. FA Cup finals, World Cup, Euros shown on terrestrial TV. Best football pub near Heathrow.',
+    metaDescription: 'Watch football at The Anchor Stanwell Moor. FA Cup finals, World Cup, Euros shown on terrestrial TV. A football pub near Heathrow.',
     heroContent: 'The Anchor shows major football tournaments and cup finals available on terrestrial television - join us for the biggest matches.',
     introContent: 'When headline fixtures air on free-to-view channels, The Anchor is the place to watch. Major cup finals and international tournaments featuring Premier League stars are shown on our screens. The atmosphere during these free-to-air matches is fantastic, with passionate fans creating a great matchday experience.',
     valueProposition: 'Book your table for the next televised cup final or international tournament and experience football the way it should be watched - with great beer, good food, and passionate fans.',
@@ -640,7 +640,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Wednesday Specials',
     description: 'Midweek events and Wednesday activities',
     metaTitle: 'Wednesday at The Anchor Stanwell Moor | Midweek Specials',
-    metaDescription: 'Wednesdays at The Anchor Stanwell Moor. Midweek specials, hump day offers. Best Wednesday night out near Heathrow.',
+    metaDescription: 'Wednesdays at The Anchor Stanwell Moor. Midweek specials, hump day offers. A Wednesday night out near Heathrow.',
     heroContent: 'Make Wednesday wonderful at The Anchor with special offers and the perfect midweek atmosphere.',
     introContent: 'Wednesday at The Anchor offers the perfect midweek break. When our monthly quiz falls on a Wednesday, it draws teams from across Stanwell Moor for an evening of trivia, laughter, and friendly competition starting at 7pm. The midweek energy is infectious, making hump day something to look forward to.',
     valueProposition: 'Beat the midweek blues at The Anchor - whether it\'s quiz night or just a regular Wednesday, we\'re here with proper food, a good pint and a room that is actually busy.',
@@ -695,7 +695,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Weekly Specials',
     description: 'Regular weekly deals and offers',
     metaTitle: 'Weekly Specials Stanwell Moor | Daily Deals at The Anchor',
-    metaDescription: 'Weekly specials at The Anchor Stanwell Moor. Monday to Sunday deals, food offers. Best pub deals every day near Heathrow.',
+    metaDescription: 'Weekly specials at The Anchor Stanwell Moor. Monday to Sunday deals, food offers. Pub deals near Heathrow.',
     heroContent: 'Save every day of the week with The Anchor\'s weekly specials - from Monday deals to Sunday offers, there\'s always a reason to visit.',
     introContent: 'Our weekly specials calendar means there\'s never a bad time to visit The Anchor. Monday\'s lunch deals ease you into the week. Tuesday\'s specials make midweek manageable. Our monthly quiz nights bring excitement. Thursday\'s dinner deals. Weekend specials make Saturday and Sunday even more special. Each day brings its own opportunity to enjoy great value.',
     valueProposition: 'Plan your week around our specials - with different offers every day, you can enjoy The Anchor\'s quality at exceptional value throughout the week.',
