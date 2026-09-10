@@ -483,6 +483,7 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
     ['TNT Sports', /tnt/],
     ['wedding reception as an offer', /wedding reception/],
     ['Stanwell Moor Brew as a current product', /stanwell moor brew/],
+    ['a heated beer garden', /heated areas|heated (?:beer )?garden/],
   ]
 
   it.each(banned)('does not contain %s', (_label, re) => {
@@ -541,5 +542,27 @@ describe('SSOT drift guard — high-risk site copy', () => {
         /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|(?<!no )minimum spend|(?<!no )min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
       ),
     ).toEqual([])
+  })
+
+  it('does not claim the beer garden is heated (owner-confirmed 2026-09-10)', () => {
+    // The garden has no heaters. "Heated areas" was once listed as a garden
+    // feature in the SSOT and spread to a dozen pages from there. Checked one
+    // sentence at a time so an honest denial ("we don't have a heated garden")
+    // stays allowed, and indoor heating ("the heating keeps things cosy")
+    // never matches.
+    const CLAIM =
+      /heated (?:areas?|spots?|(?:beer )?gardens?|terrace|patio|outdoor|outside)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) heated|heated in winter|patio heaters?|outdoor heat(?:ing|ers?)/i
+    const NEGATION = /\b(?:no|not|never|without)\b|n't\b/i
+    const claims = siteFiles.flatMap((file) =>
+      fs
+        .readFileSync(file, 'utf8')
+        .split(/\n|(?<=[.!?])\s+/)
+        .filter((sentence) => {
+          const match = CLAIM.exec(sentence)
+          return match !== null && !NEGATION.test(sentence.slice(0, match.index))
+        })
+        .map((sentence) => `${path.relative(process.cwd(), file)}: ${sentence.trim()}`),
+    )
+    expect(claims).toEqual([])
   })
 })

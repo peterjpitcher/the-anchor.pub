@@ -114,7 +114,6 @@ Our covered smoking area received:
 - Improved lighting
 - Comfortable seating
 - Weather protection
-- Heating for winter
 - Maintained social space
 
 ## Future Plans

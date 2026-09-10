@@ -259,7 +259,8 @@
       "Delivery service",
       "Guest ales",
       "Accessible toilet",
-      "EV charging"
+      "EV charging",
+      "Heated beer garden"
     ],
     "accessibility": {
       "step_free_bar": true,
@@ -321,11 +322,11 @@
     "peak_spotting_times": "Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly.",
     "westerly_operations": "~50% of the year (alternating weekly schedule)",
     "features": [
-      "Heated areas",
       "Dog friendly",
       "Full food and drink service during kitchen hours",
       "Free high-speed guest WiFi throughout the venue"
-    ]
+    ],
+    "heating_note": "NOT heated. No heaters or heated areas in the garden (owner-confirmed 2026-09-10). Never describe the garden, or any seating in it, as heated. Indoor heating is true and fine to mention."
   },
   "food": {
     "cuisines": [

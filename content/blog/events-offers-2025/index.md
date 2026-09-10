@@ -160,7 +160,7 @@ Walk-ins are welcome and booking ahead is recommended for peak slots. We’ll al
 
 ## Venue & Ambience Enhancements
 
-*   **New Outside Seating Area: A Cosy Outdoor Haven** Big changes are coming to our outdoor space! We’re transforming our smoking area into a brand-new outside seating area, featuring covered seating, lighting, and heating.
+*   **New Outside Seating Area: A Cosy Outdoor Haven** Big changes are coming to our outdoor space! We’re transforming our smoking area into a brand-new outside seating area, featuring covered seating and lighting.
     
       
     

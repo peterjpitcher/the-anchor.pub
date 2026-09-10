@@ -57,7 +57,7 @@ The classic. And it's a classic because it works, especially for someone who'd n
 
 There's something about an outdoor party that instantly relaxes people. Combine that with one of the most unusual beer garden settings in the country, directly under Heathrow's southern runway approach path, with aircraft at 500-800 feet overhead every 90 seconds during peak times, and you've got a celebration people genuinely remember.
 
-**Make it work:** The Anchor's beer garden seats 64 with heated areas, full food and drink service during kitchen hours, and free WiFi throughout. For a summer 40th (May through September), an afternoon garden party with a buffet and drinks package is hard to beat. Kids can run around, the dog is welcome (on a lead), and you get a built-in conversation starter every time an A380 comes in to land.
+**Make it work:** The Anchor's beer garden seats 64, with full food and drink service during kitchen hours and free WiFi throughout. For a summer 40th (May through September), an afternoon garden party with a buffet and drinks package is hard to beat. Kids can run around, the dog is welcome (on a lead), and you get a built-in conversation starter every time an A380 comes in to land.
 
 ### The "this is my life" evening
 
