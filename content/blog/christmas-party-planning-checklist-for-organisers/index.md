@@ -28,7 +28,7 @@ So here is the order we would use, from watching organisers do this every Novemb
 Headcount comes first because it is the only decision that changes *what* you are booking, rather than just when. Your number puts you in one of four bands, and each one opens or closes doors:
 
 - **Under 4.** Too small for a Christmas set menu with us. A Christmas dinner booking needs at least 4 guests. You are very welcome as an ordinary table, but it will not be the festive booking.
-- **6 to 20.** A table booking. The route most work teams and family groups take.
+- **4 to 20.** A table booking. The route most work teams and family groups take.
 - **More than 20.** This stops being a table booking and becomes [private hire](/private-hire). Different conversation, different contact route, worth starting earlier.
 - **30 or more.** Only here does a festive buffet become possible. All three of our buffet packages carry a 30-guest minimum, everywhere, no exceptions.
 

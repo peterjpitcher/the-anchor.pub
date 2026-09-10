@@ -625,6 +625,18 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('does not state the retired 6-guest Christmas dinner minimum', () => {
+    // Section 7: 4 guests on every Christmas dinner booking since 6 September
+    // 2026. The change left six statements in three posts and one on the live
+    // page, in forms a search for "6 guests" misses: a "6-guest minimum", "6 to
+    // 20" group bands, "at least 6" and a comparison table. Found 10 September.
+    expect(
+      matchingFiles(
+        /\b(?:6|six)-guest minimum|\b(?:6|six) to 20\b|\bat least (?:6|six)\b[^\n]*table booking|group minimum[^\n]*\b(?:6|six) guests|christmas set menu[^\n]*\b(?:starts at|works from|from) (?:6|six) guests/i,
+      ),
+    ).toEqual([])
+  })
+
   it('does not hardcode volatile review stats', () => {
     expect(
       matchingFiles(

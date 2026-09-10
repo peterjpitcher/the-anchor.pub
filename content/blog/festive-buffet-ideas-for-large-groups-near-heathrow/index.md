@@ -38,7 +38,7 @@ If the point is that people who rarely see each other get to move around and spe
 | Timing | Loose, people eat when they want | Structured around courses |
 | Late arrivals | Absorbed easily | Awkward, they miss a course |
 | Ordering admin | One decision for the whole group | Per person, and 2 and 3 courses pre-order 7 days ahead |
-| Group minimum | 30 guests, no exceptions | 6 guests |
+| Group minimum | 30 guests, no exceptions | 4 guests |
 | Budgeting | One package for the group | Varies with how many courses each person takes |
 
 The row people underestimate is timing. A buffet absorbs guests arriving across an hour without anything going wrong, which matters if half your group is coming off shift, off a flight, or out of an office that never finishes when it says it will. A sit-down meal punishes that. Someone always turns up as the plates go down.
@@ -71,7 +71,7 @@ All three festive buffets need **30 guests**. Everywhere, no exceptions, no roun
 
 We know that is annoying if you have 24. It is a hard floor rather than a starting position, so it is worth checking your number against it before you plan anything around a buffet.
 
-If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults on the 2 and 3 course tiers get a glass of prosecco, swappable for orange juice.
+If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 4 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults on the 2 and 3 course tiers get a glass of prosecco, swappable for orange juice.
 
 A few practical things worth knowing before you enquire:
 
@@ -106,7 +106,7 @@ If two of the three agree, that is your format. Send us numbers, a rough date an
 
 ### What is the minimum group size for a festive buffet?
 
-30 guests for all three festive buffet packages, with no exceptions. If your group is smaller, the Christmas set menu works from 6 guests instead.
+30 guests for all three festive buffet packages, with no exceptions. If your group is smaller, the Christmas set menu works from 4 guests instead.
 
 ### Can I see the Christmas buffet menu now?
 

@@ -170,7 +170,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
       }
     case 10:
       // The Christmas push starts here, in the band only. The hero stays about
-      // autumn: group bookings from six need lead time, and the header already
+      // autumn: group bookings from four need lead time, and the header already
       // surfaces a Christmas link from 1 August.
       return {
         script: 'Pull the evenings in',

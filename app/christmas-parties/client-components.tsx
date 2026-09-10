@@ -512,7 +512,7 @@ function buildFaqItems(
     },
     {
       question: 'Can we book a Christmas party for just drinks, no food?',
-      answer: 'Yes. Ask about a drinks-only area and an agreed bar tab. The 6-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks party.'
+      answer: `Yes. Ask about a drinks-only area and an agreed bar tab. The ${facts.minPartySize}-guest minimum and the pre-order rules apply to Christmas dinner, not to a drinks party.`
     },
     {
       question: 'Do you offer corporate Christmas party packages near Heathrow?',

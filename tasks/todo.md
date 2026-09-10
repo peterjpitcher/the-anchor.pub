@@ -351,3 +351,15 @@ Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. PRs #152 (heated 
 - [x] Guards in `tests/ssot-drift-guard.test.ts`: eleven new checks, one shared helper with #152's heated and covered checks. All thirteen fail against pre-fix content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,419 passed), build (294 pages); changed pages read back from the production build on port 3109
 - [ ] Open the PR, ask the owner before merging
+
+# Stale 6-guest Christmas minimum, 10 September 2026
+
+Branch `fix/christmas-minimum-four`, stacked on PR #154 because both edit `/christmas-parties` and the festive buffet post. Section 7: 4 guests on every Christmas dinner booking since 6 September 2026.
+
+- [x] Page test extended to every form of the retired figure; it failed on the drinks-only FAQ ("The 6-guest minimum") before the fix and passes after
+- [x] Drinks-only FAQ now reads `facts.minPartySize`
+- [x] Sweep found seven prose statements, not three: "6 to 20" bands in two posts (each sat directly under an "Under 4" band that had been updated), "At least 6", a comparison table row, and the two festive buffet sentences. Plus one stale code comment in `lib/monthly-copy.ts`
+- [x] Drift guard for those shapes; it failed on the three posts before the fix and passes after
+- [ ] `SSOT.json` private-hire Christmas Dinner tiers (`min_guests: 6`) and the drift test that pins them: deliberately unchanged on this branch. The same file's `christmas_sit_down_meals` says 4, and the live private-booking config serves no Christmas Dinner packages at all
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,420 passed), build (294 pages); four pages read back from the production build
+- [ ] Open the PR, ask the owner before merging
