@@ -347,7 +347,7 @@ Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. PRs #152 (heated 
 - [x] Sweep, facts: doggy dinners and dog meals, off-lead garden, baby changing, "accessible facilities", enclosed or safe garden (five pages and six posts), EV "coming soon" and the EV schema flag, lamb and chicken roasts, party nights, beef dripping, the wedding denial. "19th-century charm" left: section 1 says the building is mid-Victorian
 - [x] Sweep, Christmas: the retired "menu released closer to the time" line on `/christmas-parties` (two live, four fallbacks) and in four posts, plus the SSOT.json key that still mandated it
 - [x] Found in passing: prosecco on every Christmas tier in six places, including `/corporate-events` (section 7: 2 and 3 course only)
-- [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims. About 60 sentences in 30 files, including titles, H1s and meta descriptions on area pages, so they go in a separate PR
+- [x] Sweep, superlatives: "best", "premier" and "top-rated" self-claims, done in their own PR (see "Best and premier self-claims" below)
 - [x] Guards in `tests/ssot-drift-guard.test.ts`: eleven new checks, one shared helper with #152's heated and covered checks. All thirteen fail against pre-fix content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,419 passed), build (294 pages); changed pages read back from the production build on port 3109
 - [x] PR #154 opened; the owner approved the merge on 10 September 2026
@@ -375,4 +375,16 @@ Branch `fix/dog-friendly-post-facts`, from origin/main at 808e2e72.
 - [x] Drift guard (60), lint and audits, `npm test` (2,420), build (294 pages); page read back from the production build
 - [x] PR #160 opened. Owner answers, 10 September 2026: no dog events, no treats beyond biscuits, poo bags provided but no dog bins, no dog-specific staff training or partnerships, Staines Moor and the King George VI Reservoir each about a 30-minute walk one way, dogs welcome everywhere at any opening time. All added to SSOT section 8 (and `SSOT.json`), then to the post
 - [x] Same sweep for the "welcome everywhere" fact: `/find-us`, `/safety-and-respect` and two posts limited dogs to the bar or garden; all now say "throughout the pub, on a lead"
-- [ ] Merge #160 (owner approved) and verify production
+- [x] Merged and verified live: #160 as deployment `dpl_EYWSyR8uHBsUeQFfu1nZHjnR1QR9` (aa9c6d00)
+
+# Best and premier self-claims, 10 September 2026
+
+Branch `fix/ssot-superlatives`, from origin/main at aa9c6d00. Owner approval on 10 September 2026: remove the "best" and "premier" self-claims in a follow-up PR, keeping the search phrase in titles.
+
+- [x] About 125 claims removed across 16 area and landing pages, the tag page meta in `lib/tag-seo-content.ts`, and 31 posts. Titles and headings keep the search phrase and lose the ranking word; "one of the best pubs near X" became "a highly rated pub near X" (section 14)
+- [x] Kept on purpose: searchers' questions, advice ("best for", "the best way"), guides that rank other places, customer quotes and the genuine Google reviews, keyword lists, our own "BEST VALUE" package badge, and idioms such as "best-kept secret"
+- [x] `/our-pub` no longer hardcodes the Google review count (section 12)
+- [x] Found in passing: eight runway designators in the plane-spotting locations post (section 9), one of which put The Anchor under "27R"
+- [x] Left alone, not asked for: "unbeatable", "ultimate", "finest", "warmest welcome" and similar wording
+- [x] Guards: any hardcoded review count (the old pattern missed "238&nbsp;reviews"), runway designators, and self-superlatives. All three fail against origin/main content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,459 passed each), build (295 pages); 25 changed URLs read back from the production build on port 3112. Most edited tag entries and two of the edited pages (`/pub-garden-heathrow`, the older plane-spotting guide) sit behind redirects, so those edits are not reachable today
