@@ -74,7 +74,7 @@ The practical detail:
 - **1 course** needs a pre-book but **no pre-order**. Handy for the colleague who confirms at the last minute.
 - **2 and 3 courses** need a pre-order, and choices are due **seven days before your booking date**. Count back from your date and give your team an internal deadline earlier than ours.
 - There is **no kids 2 or 3 course tier**, and no child price at those tiers. Children can order the adult 2 or 3 course at the adult price.
-- **Adults get a glass of prosecco** on all three tiers, swappable for orange juice. **Children get a Fruit Shoot or a small soft drink** with the 1 course.
+- **Adults on the 2 and 3 course tiers get a glass of prosecco**, swappable for orange juice. **Children get a Fruit Shoot or a small soft drink** with the 1 course.
 - **Trimmings included:** pigs in blankets, stuffing and brussels sprouts.
 
 The menu is published on our [Christmas page](/christmas-parties), and prices come from our live system rather than a leaflet, so what you see there is what you pay. For allergen queries, see menu or contact us for allergen information.

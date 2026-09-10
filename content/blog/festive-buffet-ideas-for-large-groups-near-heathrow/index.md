@@ -71,7 +71,7 @@ All three festive buffets need **30 guests**. Everywhere, no exceptions, no roun
 
 We know that is annoying if you have 24. It is a hard floor rather than a starting position, so it is worth checking your number against it before you plan anything around a buffet.
 
-If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults get a glass of prosecco on all three tiers, swappable for orange juice.
+If your group is under 30, the [Christmas set menu](/christmas-parties) is the better route anyway. It starts at 6 guests, and each person picks 1, 2 or 3 courses individually rather than the whole table committing to the same thing. The 2 and 3 course tiers need a pre-order, and those choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order. Adults on the 2 and 3 course tiers get a glass of prosecco, swappable for orange juice.
 
 A few practical things worth knowing before you enquire:
 
