@@ -96,7 +96,7 @@ export default async function GlutenFreeMenuPage() {
   return (
     <>
       <InteriorHero
-        image="/images/page-headers/food-menu/food-menu.jpg"
+        image="/images/food/weekday-2026/stone-baked-pizza.jpg"
         crumb="NGCI"
         title="NGCI Pub Food"
         lead="No Gluten Containing Ingredients. Current dishes with allergen details from the latest kitchen menu."

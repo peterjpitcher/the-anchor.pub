@@ -675,6 +675,14 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('does not show the old food photo with a lamb shank on it (section 4)', () => {
+    // Lamb is not served on any menu, but this photo has a lamb shank on it. On
+    // 10 September 2026 it was still the hero on four pages and DEFAULT_FOOD_IMAGE,
+    // which puts it in the site-wide Restaurant JSON-LD. The file stays in public/
+    // because Cloudflare caches images for a year; nothing may point at it.
+    expect(matchingFiles(/page-headers\/food-menu\/food-menu\.jpg/)).toEqual([])
+  })
+
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
     // The smoking area is covered, so a sentence about it is exempt.
     expect(
