@@ -75,7 +75,7 @@ What makes this different from every other location on this list: you are sittin
 
 **The short version:** The classic Heathrow spotting spot. Unbeatable proximity to arriving aircraft. Absolutely no facilities.
 
-Myrtle Avenue is a residential street near the northern runway perimeter and the go-to Heathrow spotting location for decades. The street runs parallel to the runway approach, putting you extremely close to arriving aircraft.
+Myrtle Avenue is a residential street near the eastern end of the southern runway and the go-to Heathrow spotting location for decades. The street runs parallel to the runway approach, putting you extremely close to arriving aircraft.
 
 For photography, it is exceptional. Aircraft fill a 70--200mm lens with ease, and the angle is ideal for capturing gear deployment and flap configuration. If you are building a portfolio of Heathrow approach shots, start here.
 
@@ -220,7 +220,7 @@ The full range of commercial aircraft: Airbus A380 (Emirates, BA, Qantas), Boein
 
 ## Make a Day of It
 
-**Morning:** Start at Myrtle Avenue for the tail end of the long-haul rush. The light is good on the northern runway approach. **Lunch:** Drive to [The Anchor](/plane-spotting-heathrow) in Stanwell Moor (15 minutes). Grab a table in the beer garden, order lunch, and settle in. **Afternoon:** Head to the Southern Perimeter Road for departure views, or walk the reservoir paths for landscape shots. Or stay at The Anchor -- nobody will rush you. **Evening:** Return to The Anchor for the transatlantic wave and golden hour light.
+**Morning:** Start at Myrtle Avenue for the tail end of the long-haul rush. The light is good on the approach. **Lunch:** Drive to [The Anchor](/plane-spotting-heathrow) in Stanwell Moor (15 minutes). Grab a table in the beer garden, order lunch, and settle in. **Afternoon:** Head to the Southern Perimeter Road for departure views, or walk the reservoir paths for landscape shots. Or stay at The Anchor -- nobody will rush you. **Evening:** Return to The Anchor for the transatlantic wave and golden hour light.
 
 ---
 
