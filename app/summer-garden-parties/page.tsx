@@ -79,7 +79,7 @@ export default function SummerGardenPartiesPage() {
                         <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="text-lg font-semibold text-ink-strong mb-2">Weather Policy</h3>
-                                <p className="text-ink-muted">We can&apos;t control the British weather! If it rains, we will do our absolute best to move your party indoors or under our covered patio areas.</p>
+                                <p className="text-ink-muted">We can&apos;t control the British weather! If it rains, we will do our absolute best to move your party indoors.</p>
                             </CardBody>
                         </Card>
                     </div>

@@ -136,7 +136,7 @@ We host gender reveals regularly, and there are specific reasons parents keep ch
 
 Sixty-four seats across a proper beer garden with plenty of standing room for larger groups. Open sky above -- and if you're timing it right, aircraft coming into land at Heathrow every 90 seconds overhead at about 500-800 feet. It's a genuinely unique backdrop for photos that your guests will talk about long after the party.
 
-The garden has heated areas for cooler days and connects to the dining room through French doors, so your indoor-outdoor flow works seamlessly. For a messy reveal (smoke cannons, confetti, powder), the garden gives you all the space you need without worrying about the cleanup affecting other diners.
+The garden connects to the dining room through French doors, so your indoor-outdoor flow works seamlessly. For a messy reveal (smoke cannons, confetti, powder), the garden gives you all the space you need without worrying about the cleanup affecting other diners.
 
 ### The dining room (your weather backup)
 

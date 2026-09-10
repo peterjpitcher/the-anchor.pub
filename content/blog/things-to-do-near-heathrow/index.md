@@ -124,7 +124,7 @@ Like Thorpe Park, book online. Walk-up prices are steep, and the queues are shor
 
 This is different from dedicated plane spotting, it's more about the atmosphere. Sitting in a [proper pub beer garden](/beer-garden) with a cold drink while wide-body aircraft descend overhead at regular intervals is a uniquely Heathrow-area experience. It sounds noisy on paper, but the reality is more impressive than annoying. The planes are so close you can read the livery.
 
-The Anchor's garden in Stanwell Moor has 64 seats, is heated for cooler evenings, and is fully dog-friendly. There's a full food and drink service during kitchen hours, so you don't need to go inside to order. It's outside the ULEZ zone too, so no congestion charge worries.
+The Anchor's garden in Stanwell Moor has 64 seats and is fully dog-friendly. There's a full food and drink service during kitchen hours, so you don't need to go inside to order. It's outside the ULEZ zone too, so no congestion charge worries.
 
 On a warm summer evening, a few pints in the garden watching the 6pm rush of long-haul departures is one of the better free things to do near Heathrow.
 

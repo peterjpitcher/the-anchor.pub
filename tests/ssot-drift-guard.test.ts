@@ -485,6 +485,8 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
     ['TNT Sports', /tnt/],
     ['wedding reception as an offer', /wedding reception/],
     ['Stanwell Moor Brew as a current product', /stanwell moor brew/],
+    ['a heated beer garden', /heated areas|heated (?:beer )?garden/],
+    ['a covered beer garden', /covered (?:seating|section|garden|patio)|sheltered areas/],
   ]
 
   it.each(banned)('does not contain %s', (_label, re) => {
@@ -521,18 +523,23 @@ describe('SSOT drift guard — high-risk site copy', () => {
       .sort()
   }
 
-  // Section 14 claims that were still live on 10 September 2026, checked one
-  // sentence at a time. A sentence carrying a denial passes ("we don't have
-  // baby changing", `"value": false`), and so does a question, because "Do you
-  // do gluten free bases?" asks rather than claims. A plain file match would
-  // punish exactly the honest "no" that section 1 asks for.
+  // Section 14 claims are checked one sentence at a time, so the honest "no"
+  // that section 1 asks for stays allowed. A denial before the match passes
+  // ("the garden isn't covered"), and so does one straight after it ("Baby
+  // changing facilities -- no", `"value": false`). A denial further on does
+  // not, so "covered and heated areas make it usable year-round, though you
+  // won't be lingering in a t-shirt" still fails. A question passes too: "Do
+  // you do gluten free bases?" asks rather than claims. `files` skips whole
+  // files (an entry ending in "/" skips a directory); `sentence` lets through a
+  // sentence about something the claim is true of.
   const DENIAL = /\b(?:no|not|never|without|false|cannot)\b|n't\b/i
 
-  function claimSentences(claim: RegExp, exempt: string[]): string[] {
+  function claimSentences(claim: RegExp, exempt: { files?: string[]; sentence?: RegExp } = {}): string[] {
+    const skipFile = (file: string) =>
+      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry))
     return siteFiles
       .map((file) => path.relative(process.cwd(), file))
-      // An entry ending in "/" exempts a whole directory.
-      .filter((file) => !exempt.some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry)))
+      .filter((file) => !skipFile(file))
       .flatMap((file) =>
         fs
           .readFileSync(file, 'utf8')
@@ -540,9 +547,10 @@ describe('SSOT drift guard — high-risk site copy', () => {
           .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’/g, "'"))
           .filter((sentence) => {
             const match = claim.exec(sentence)
-            if (match === null) return false
-            const isQuestion = /^[^.!\n]*\?/.test(sentence.slice(match.index))
-            return !isQuestion && !DENIAL.test(sentence)
+            if (match === null || exempt.sentence?.test(sentence)) return false
+            if (/^[^.!\n]*\?/.test(sentence.slice(match.index))) return false
+            const end = match.index + match[0].length
+            return !DENIAL.test(sentence.slice(0, match.index)) && !DENIAL.test(sentence.slice(end, end + 30))
           })
           .map((sentence) => `${file}: ${sentence.trim()}`),
       )
@@ -602,8 +610,8 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ],
   ]
 
-  it.each(SECTION_14_CLAIMS)('does not claim %s', (_label, claim, exempt) => {
-    expect(claimSentences(claim, exempt)).toEqual([])
+  it.each(SECTION_14_CLAIMS)('does not claim %s', (_label, claim, exemptFiles) => {
+    expect(claimSentences(claim, { files: exemptFiles })).toEqual([])
   })
 
   it('does not reintroduce the retired Christmas wording or deny wedding receptions', () => {
@@ -637,6 +645,27 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(
       matchingFiles(
         /accessible loos|accessible toilets|10[–-]20 guests|10[–-]50|10 to 50|(?<!no )minimum spend|(?<!no )min spend|projector screen|use of projector|projector available|Early-Bird|early bird|early-bird|20% off your food|£36\.95|£39\.95|£29\.56/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not claim the beer garden is heated (owner-confirmed 2026-09-10)', () => {
+    // "Heated areas" was once listed as a garden feature in the SSOT and
+    // spread to a dozen pages from there. Indoor heating ("the heating keeps
+    // things cosy") never matches.
+    expect(
+      claimSentences(
+        /heated (?:areas?|spots?|(?:beer )?gardens?|terrace|patio|outdoor|outside)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) heated|heated in winter|patio heaters?|outdoor heat(?:ing|ers?)/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
+    // The smoking area is covered, so a sentence about it is exempt.
+    expect(
+      claimSentences(
+        /covered (?:seating|sections?|areas?|patio|garden|terrace|tables?)|sheltered (?:areas?|seating|spots?|garden)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) (?:covered|sheltered)/i,
+        { sentence: /smok/i },
       ),
     ).toEqual([])
   })

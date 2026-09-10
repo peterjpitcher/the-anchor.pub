@@ -261,7 +261,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
                   <li>Camera with 70-200mm lens covers most arrivals</li>
                   <li>Radio scanner or FR24 app (free WiFi provided)</li>
-                  <li>Layers: the beer garden is sheltered but breezy</li>
+                  <li>Layers: the beer garden is uncovered and breezy</li>
                 </ul>
               </CardBody>
             </Card>
@@ -300,7 +300,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'Is there shelter if it rains?',
-            answer: 'Yes. Our covered areas and indoor seating mean you can keep spotting even in showers. Staff are happy to update you on runway usage.'
+            answer: 'Yes, indoors. The garden isn\'t covered, but the dining room opens straight onto it, so you can sit out a shower and head back out when it passes. Staff are happy to update you on runway usage.'
           },
           {
             question: 'What aircraft will I see from The Anchor?',

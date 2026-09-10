@@ -68,7 +68,7 @@ Price any of these against your guest count with the [private hire calculator](/
 
 For summer birthdays, The Anchor's beer garden offers something you won't find at any hotel venue: a seat under Heathrow's southern runway approach path, where planes descend at 500-800 feet overhead every 90 seconds during peak times. It sounds unlikely as a party setting, but guests love it. There's always something to look at, always a conversation starter, and the spectacle of an A380 passing overhead never gets old, even for people who've seen it a hundred times.
 
-**Make it work:** The beer garden seats 64 with heated areas, full food and drink service during kitchen hours, and free WiFi. Dogs are welcome (on a lead, with water bowls and treats provided). For a summer 60th, an afternoon garden party with a buffet and drinks package is hard to beat. Pimm's jars (minimum 40 guests) are practically mandatory.
+**Make it work:** The beer garden seats 64, with full food and drink service during kitchen hours and free WiFi. Dogs are welcome (on a lead, with water bowls and treats provided). For a summer 60th, an afternoon garden party with a buffet and drinks package is hard to beat. Pimm's jars (minimum 40 guests) are practically mandatory.
 
 ### Memory lane evening
 

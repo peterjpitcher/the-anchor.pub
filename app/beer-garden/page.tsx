@@ -38,15 +38,15 @@ export const metadata: Metadata = {
   // Short enough that the root layout's " | The Anchor" suffix still fits inside
   // Google's ~60 character cut-off.
   title: 'Beer Garden Near Heathrow | Plane Spotting Pub',
-  description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
+  description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly and free parking.',
   openGraph: {
     title: 'Beer Garden Near Heathrow | Plane Spotting Pub | The Anchor',
-    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
+    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly and free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
     title: 'Beer Garden Near Heathrow | Plane Spotting Pub | The Anchor',
-    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly, heated areas and free parking.',
+    description: 'A 64-seat beer garden near Heathrow, directly under the flight path. Planes 500 to 800 feet overhead, dog friendly and free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg']
   }),
   alternates: {

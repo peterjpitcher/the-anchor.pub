@@ -514,6 +514,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - EV charging *(no "coming soon" claims)*
 - Baby changing facilities *(verified NO)*
 - Air conditioning / climate control *(verified NO, heating only)*
+- Heated beer garden *(verified NO, owner-confirmed 10 September 2026; the smoking area's heater is separate, §9)*
+- Covered seating in the beer garden *(verified NO, owner-confirmed 10 September 2026)*
 
 ### Accessibility
 
@@ -568,7 +570,10 @@ step from the bar, ramp on request.
 - **Common aircraft:** A380, Boeing 777, 787 Dreamliner, A350, A330, Boeing 747.
 - **Operations alternate weekly:** One week, planes land overhead until 3pm; the next, from 3pm onwards.
 - **Westerly operations:** ~50% of the year.
-- **Features:** Heated areas, dog friendly, full food and drink service during kitchen hours, free high-speed WiFi.
+- **Features:** Dog friendly, full food and drink service during kitchen hours, free high-speed WiFi.
+- **Not heated.** The garden is not heated (owner-confirmed 10 September 2026). Never describe the garden, or any seating in it, as heated (§14). Indoor heating is true and fine to mention.
+- **Not covered.** No part of the garden is covered (owner-confirmed 10 September 2026). Never write "covered seating", "a covered section", "sheltered areas" or "covered patio" about it (§14). If it rains, say we will do our best to find guests a spot inside; never promise one.
+- **Smoking area.** The covered smoking area does have a heater, but the owner says the area is "not nice yet" (10 September 2026). A plain mention that there is a sheltered smoking area is fine. Do not mention its heater, or offer it as extra seating, until the owner says it is ready. It does not make the garden heated or covered.
 
 ## 10. Events
 
@@ -859,6 +864,8 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
 - **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only, so describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
+- **Heated beer garden**, verified **NO** (owner-confirmed 10 September 2026). The garden is not heated. Never write "heated areas", "heated spots", patio heaters or "heated in winter" about the garden or any seating in it. The heating is indoors, and saying so is fine. The smoking area's heater is not to be mentioned yet (§9).
+- **Covered beer garden seating**, verified **NO** (owner-confirmed 10 September 2026). No part of the garden is covered. Never write "covered seating", "a covered section", "sheltered areas" or "covered patio areas" about it. The smoking area is covered, and saying there is a sheltered smoking area is fine (§9).
 - **Wedding receptions**, updated 17 August 2026. We **will take** wedding reception bookings, so do not refuse or deny the offer if a customer asks. We do **not** market or optimise for them yet: no wedding landing page, no wedding keywords, no "wedding venue" positioning in page copy, meta, schema or `SSOT.json`. Treat it as a quiet yes on enquiry, not a promoted product. Revisit if the owner decides to push it.
 
 ## 15. Maintaining This Document
@@ -997,6 +1004,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **10 September 2026.** The beer garden is neither heated nor covered (owner-confirmed). §9 had listed "heated areas" as a garden feature, and from there the claim had reached the `/beer-garden` search description, the `/drinks` page and eight blog posts. Two older posts also gave the smoking area heating, and one listed "entertainment in heated areas". Covered or sheltered garden seating was claimed on `/plane-spotting-heathrow`, `/pub-garden-heathrow`, `/summer-garden-parties` and `/pubs-in-stanwell`, in two posts and in the blog authoring guide. All removed or reworded, and `tests/ssot-drift-guard.test.ts` now fails if either claim comes back. The covered smoking area does have a heater, which stays unmentioned until the owner says the area is ready (§9).
 - **10 September 2026: version 2.0.** Restructured without renumbering: quick card; §1 replaced with a testable voice standard (the voice it replaces had applied to new copy from 14 August 2026); §15 gained a table of who owns each fact; §16, §17 and this changelog added; engineering detail moved to `docs/SSOT-engineering-notes.md`. Two contradictions inside the document removed. §14 banned naming Christmas dishes while §7 required publishing them; §14 now bans the retired "menu released closer to the time" line instead. §11 called a festive-buffet rule wrong in words that matched §7's correct one; §11 now scopes it. §3's advice to use `??` for kitchen hours was unsafe, because `??` falls through on the very null that means "closed"; the corrected rule is in §3 and the engineering notes.
 - **9 September 2026.** The festive run confirmed by the owner: open throughout December except 26 December and 1 January, the kitchen's last day is 20 December and it returns on 12 January, Mondays keep their 4pm opening. 27 December had no override in the management app and resolved to a Sunday roast; it now carries one. The Wellington's plate confirmed: vegan by default, buttered cabbage and a Yorkshire pudding added only on request, and the kitchen makes no unbuttered cabbage. Its description in both menu tables had listed a Yorkshire pudding and buttery cabbage on a dish called fully vegan, and it now lists neither; the website's dish also gained the missing `vegan` flag. The tasting night priced at £45, £5 less in advance; it had been stored as free.
 - **27 August 2026.** Runway designators removed. Ten places across `/beer-garden` and `/plane-spotting-heathrow`, including structured data, had asserted "27R", which contradicted the southern-runway line: Heathrow's southern runway is not 27R.

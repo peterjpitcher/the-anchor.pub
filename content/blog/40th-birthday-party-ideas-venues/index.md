@@ -57,7 +57,7 @@ The classic. And it's a classic because it works, especially for someone who'd n
 
 There's something about an outdoor party that instantly relaxes people. Combine that with one of the most unusual beer garden settings in the country, directly under Heathrow's southern runway approach path, with aircraft at 500-800 feet overhead every 90 seconds during peak times, and you've got a celebration people genuinely remember.
 
-**Make it work:** The Anchor's beer garden seats 64 with heated areas, full food and drink service during kitchen hours, and free WiFi throughout. For a summer 40th (May through September), an afternoon garden party with a buffet and drinks package is hard to beat. Kids can run around, the dog is welcome (on a lead), and you get a built-in conversation starter every time an A380 comes in to land.
+**Make it work:** The Anchor's beer garden seats 64, with full food and drink service during kitchen hours and free WiFi throughout. For a summer 40th (May through September), an afternoon garden party with a buffet and drinks package is hard to beat. Kids can run around, the dog is welcome (on a lead), and you get a built-in conversation starter every time an A380 comes in to land.
 
 ### The "this is my life" evening
 
@@ -112,7 +112,7 @@ The [private hire calculator](/private-hire) prices any of these against your gu
 
 ### For smaller groups
 
-If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu). Stone-baked pizzas at £12-14 each, fish and chips at £15, or a beef and ale pie at £16 give you proper pub food in a private setting. Kids eat from £8.
+If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu). Stone-baked pizzas from £13 each, fish and chips at £15, or a beef and ale pie at £16 give you proper pub food in a private setting. Kids eat from £8.
 
 ### Drinks that set the tone
 
