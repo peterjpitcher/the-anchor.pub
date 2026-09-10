@@ -42,7 +42,11 @@ import {
   type AvailabilitySlot,
   type SelectedSlotService,
 } from '@/lib/table-booking/availability'
-import { groupSlotsForDisplay, highChairFlagLabel } from '@/lib/table-booking/slot-groups'
+import {
+  groupSlotsForDisplay,
+  highChairFlagLabel,
+  resolveEveningStartMinutes
+} from '@/lib/table-booking/slot-groups'
 import {
   judgeSlot,
   judgeTime,
@@ -920,11 +924,24 @@ export function ManagementTableBookingForm({
   const quieterTimeLabel = formatTimeList(quieterSlots.map((slot) => formatTimeForDisplay(slot.time)))
   const selectedSlotAdvisory = busynessAdvisory(selectedSlot)
 
+  // Published hours from the global BusinessHoursProvider, so we share the
+  // header status bar's cache. null while they load. Read here, above their
+  // first use: the grid's Lunch and Evening split below needs them, and so does
+  // the hours note further down.
+  const businessHoursContext = useBusinessHoursContext()
+  const businessHours = businessHoursContext?.hours ?? null
+  // Evening starts where this date's dinner sitting starts, special hours
+  // included, rather than at a fixed 5pm.
+  const eveningStartMinutes = useMemo(
+    () => resolveEveningStartMinutes(date, businessHours),
+    [date, businessHours]
+  )
+
   // Two-screen flow: the whole day, grouped Lunch and Evening. The grid decides
   // nothing on its own; it reads the same verdict everything else reads.
   const groupedSlots = useMemo(
-    () => groupSlotsForDisplay(screeningSlots, slotSelectionContext),
-    [screeningSlots, slotSelectionContext]
+    () => groupSlotsForDisplay(screeningSlots, slotSelectionContext, eveningStartMinutes),
+    [screeningSlots, slotSelectionContext, eveningStartMinutes]
   )
   // Every time was hidden because the guest asked for chairs and none are free
   // anywhere on this date. Say so and offer the way out, rather than leaving an
@@ -975,11 +992,8 @@ export function ManagementTableBookingForm({
   const maxBookingDate = useMemo(() => maxBookingIsoDate(today), [today])
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
-  // field on the Find step. Pulls from the global BusinessHoursProvider
-  // so we benefit from the same caching as the header status bar; falls
-  // back to null while hours are still loading or the date is invalid.
-  const businessHoursContext = useBusinessHoursContext()
-  const businessHours = businessHoursContext?.hours ?? null
+  // field on the Find step, from the published hours read above; null
+  // while hours are still loading or the date is invalid.
   const hoursNote = useMemo(
     () => buildBookingHoursNote(date, businessHours),
     [date, businessHours]

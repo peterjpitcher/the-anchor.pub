@@ -190,8 +190,10 @@ describe('there is exactly one selection rule', () => {
 
     // The grid and the alternatives builder.
     expect(form).toContain(
-      'groupSlotsForDisplay(screeningSlots, slotSelectionContext)'
+      'groupSlotsForDisplay(screeningSlots, slotSelectionContext, eveningStartMinutes)'
     )
+    // The Lunch and Evening split comes from the date's own kitchen sittings.
+    expect(form).toContain('resolveEveningStartMinutes(date, businessHours)')
     expect(form).toContain('(currentReading?.time_slots || []).filter(')
     expect(form).toContain('judgeSlot(slot, probeContext)')
     // The alternatives panel inherits the flow's chair policy through the
