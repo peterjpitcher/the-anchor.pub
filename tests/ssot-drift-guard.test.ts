@@ -259,6 +259,8 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     // restructure. A section that bans what another section requires cannot be followed.
     expect(mdPlain).not.toContain('Only "menu released closer to the time" is permitted')
     expect(mdPlain).not.toContain('Any earlier "30 everywhere, no exceptions" wording is wrong')
+    // The JSON mirror still mandated the retired line until 10 September 2026.
+    expect(JSON.stringify(ssot)).not.toMatch(/only permitted wording is 'menu released closer to the time'/i)
   })
 
   it('does not give the unsafe ?? advice for kitchen hours', () => {

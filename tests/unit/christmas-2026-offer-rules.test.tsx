@@ -339,3 +339,54 @@ describe('Christmas 2026 menu and price handling', () => {
     expect(buildChristmasMenuJsonLd([{ title: '1 course', items: [] }])).toBeNull()
   })
 })
+
+describe('Christmas 2026 dish list, published or silent', () => {
+  // SSOT sections 7 and 14: the dishes are published from the Christmas booking
+  // period, and "menu released closer to the time" is retired. With no live dish
+  // list the page says nothing about the dishes; only an outage gets a message.
+  const RETIRED = /closer to the time|still finalising/i
+
+  it('names the dishes in the FAQ when the booking system returns them', () => {
+    const { container } = render(
+      <ChristmasPartiesPageClient
+        structuredData={christmasPartiesSchema}
+        menu={EMPTY_MENU}
+        season={SEASON}
+        facts={FACTS}
+        courseChoices={{
+          groups: [
+            {
+              course: 'main',
+              title: 'Mains',
+              items: [
+                { id: 'turkey', name: 'Roast Turkey', description: '', price: '', allergens: [], allergenStatus: 'unknown' }
+              ]
+            }
+          ],
+          preorderCutoffDays: 7
+        }}
+      />
+    )
+    const text = container.textContent || ''
+
+    expect(text).toContain('What is on the Christmas menu?')
+    expect(text).toContain('Mains: Roast Turkey.')
+    expect(text).not.toMatch(RETIRED)
+  })
+
+  it('says nothing about the dishes when the booking system returns none', () => {
+    const text = renderPage(EMPTY_MENU)
+
+    expect(text).not.toMatch(RETIRED)
+    expect(text).not.toContain('What is on the Christmas menu?')
+    expect(text).not.toContain('The dish list is not showing right now')
+  })
+
+  it('tells guests how to get the menu when the menu API is down', () => {
+    const text = renderPage({ ...EMPTY_MENU, isUnavailable: true })
+
+    expect(text).toContain('The dish list is not showing right now')
+    expect(text).toContain('we will read you the current Christmas menu')
+    expect(text).not.toMatch(RETIRED)
+  })
+})

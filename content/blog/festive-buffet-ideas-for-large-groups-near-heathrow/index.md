@@ -61,7 +61,7 @@ We run three, and this year they are:
 - **Festive Hot Finger**
 - **Festive Premium Grazing**
 
-Now the honest bit. We are not listing what is in them, because the menu is released closer to the time and we would rather tell you nothing than tell you something that changes. If you find a firm festive dish list published anywhere this early, treat it with suspicion.
+Now the honest bit. We are not listing what is in them here, because the selection is confirmed for your date when you enquire, and we would rather tell you nothing than tell you something that changes.
 
 What we can give you now is the shape: three packages, each a set spread for the whole group rather than a per-person course choice. That is most of what you need in order to choose a format. Prices are live from our system, so ask when you enquire. See menu or contact us for allergen information.
 
@@ -110,7 +110,7 @@ If two of the three agree, that is your format. Send us numbers, a rough date an
 
 ### Can I see the Christmas buffet menu now?
 
-Not yet. The Christmas menu is released closer to the time. We can confirm the three package names and the structure now, and we will share the full menu with everyone who has booked as soon as it is finalised.
+Yes, ask us. Tell us your date and your numbers and we will send the current selection for each package, along with pricing and service timings. The Christmas dinner menu is published in full on our [Christmas page](/christmas-parties).
 
 ### How many people can you fit for a Christmas buffet?
 

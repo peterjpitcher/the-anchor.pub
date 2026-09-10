@@ -77,7 +77,7 @@ The practical detail:
 - **Adults get a glass of prosecco** on all three tiers, swappable for orange juice. **Children get a Fruit Shoot or a small soft drink** with the 1 course.
 - **Trimmings included:** pigs in blankets, stuffing and brussels sprouts.
 
-The menu is released closer to the time, and prices come from our live system rather than a leaflet, so ask us for current ones when you enquire. For allergen queries, see menu or contact us for allergen information.
+The menu is published on our [Christmas page](/christmas-parties), and prices come from our live system rather than a leaflet, so what you see there is what you pay. For allergen queries, see menu or contact us for allergen information.
 
 ## The deposit, and why per-person deposits help you
 
@@ -133,4 +133,4 @@ No. Each guest chooses 1, 2 or 3 courses individually. The 2 and 3 course option
 
 ### When can we come, and what is on the menu?
 
-The festive service window runs from 10 November to 20 December 2026, and the 20th is included. Sittings are Tuesday to Saturday, plus Sunday from 1pm to 6pm, and there are no Monday sittings because the kitchen is closed. Bookings need at least 24 hours' notice. The menu is released closer to the time, and prices are live from our system, so ask us when you enquire.
+The festive service window runs from 10 November to 20 December 2026, and the 20th is included. Sittings are Tuesday to Saturday, plus Sunday from 1pm to 6pm, and there are no Monday sittings because the kitchen is closed. Bookings need at least 24 hours' notice. The menu and live prices are on our [Christmas page](/christmas-parties).

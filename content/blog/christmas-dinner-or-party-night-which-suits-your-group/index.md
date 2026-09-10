@@ -79,7 +79,7 @@ Access belongs in an honest comparison too. The car park, the bar and the dining
 - **Courses:** each person picks 1, 2 or 3 courses. The 2 and 3 course tiers need a pre-order, and choices are due seven days before your booking date. The 1 course tier is pre-book only, no pre-order, which is the flexible option if your group decides late.
 - **Children:** there is no kids 2-course or 3-course tier and no child price for those. Children may order the adult 2 or 3 course tier at the adult price. The 1 course does have a kids version.
 - **Prices:** live from our booking system, and they differ between Tuesday to Thursday and Friday to Saturday. We will not print a number here that might be stale by the time you read it.
-- **The menu:** released closer to the time. See menu or contact us for allergen information.
+- **The menu:** published on our [Christmas page](/christmas-parties), straight from our booking system. See menu or contact us for allergen information.
 - **Bigger and standing:** we can seat 60 at Christmas, or 200 standing. If you want food that circulates instead, our festive buffets are Festive Sandwich & Salad, Festive Hot Finger and Festive Premium Grazing, minimum 30 guests, no exceptions. We go through that choice properly in [buffet or sit-down for a large group](/blog/festive-buffet-ideas-for-large-groups-near-heathrow).
 
 Full details and how to enquire are on our [Christmas at The Anchor page](/christmas-parties).

@@ -382,7 +382,9 @@ function buildFaqItems(
   const menuAnswer = (() => {
     const groups = courseChoices?.groups.filter(group => group.course !== 'addon') ?? []
     if (groups.length === 0) {
-      return 'The full menu is released closer to the time. Prices come straight from our booking system, so what you see here is always the current price. Ask us and we will send the menu as soon as it is confirmed.'
+      // SSOT section 7: the dishes are published, so with no live dish list we
+      // say nothing rather than guess. An empty answer drops the question.
+      return ''
     }
 
     const courses = groups
@@ -474,7 +476,7 @@ function buildFaqItems(
     },
     {
       question: 'What Christmas buffet food do you serve?',
-      answer: `There are three festive buffet packages: Festive Sandwich and Salad, Festive Hot Finger and Festive Premium Grazing. All three need ${facts.buffetMinimumGuests} guests or more. The dish list is released closer to the time, so ask us and we will send the current selection for your date.`
+      answer: `There are three festive buffet packages: Festive Sandwich and Salad, Festive Hot Finger and Festive Premium Grazing. All three need ${facts.buffetMinimumGuests} guests or more. Ask us and we will send the current selection for your date.`
     },
     {
       question: 'What if our group is bigger than 20?',
@@ -520,7 +522,7 @@ function buildFaqItems(
       question: 'Where is The Anchor for Christmas party guests?',
       answer: "We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around seven minutes from Heathrow Terminal 5 and eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site."
     }
-  ]
+  ].filter(item => item.answer !== '')
 }
 
 const WHY_BOOK_REASONS = [
@@ -729,7 +731,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               guests or more.{' '}
               {courseChoices && courseChoices.groups.length > 0
                 ? <>The full Christmas dinner menu is <a href="#christmas-menu" className="font-semibold text-accent-text underline">on this page</a>; the festive buffet selection is confirmed for your date when you enquire.</>
-                : 'The full dish list is released closer to the time.'}
+                : 'The festive buffet selection is confirmed for your date when you enquire.'}
             </p>
             <ul className="grid gap-3 text-sm text-ink-muted sm:grid-cols-2" aria-label="Christmas booking facts at a glance">
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Dates</strong>{season.windowLabel}, the 20th included</li>
@@ -1025,7 +1027,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </p>
             <p className="text-sm text-ink-muted">
               Tell us your date and your numbers and we will send the current selection for each package, along with pricing
-              and service timings. The full dish list is released closer to the time.
+              and service timings.
             </p>
           </div>
 
@@ -1790,9 +1792,7 @@ function ChristmasMenuAndPricing({
           <p className="text-base text-ink-muted">
             Each guest chooses 1, 2 or 3 courses for themselves, {season.windowLabel}. Prices are served live from our
             booking system, so what you see here is what you pay.{' '}
-            {hasCourseChoices
-              ? 'The full dish list is below.'
-              : 'The full dish list is released closer to the time.'}
+            {hasCourseChoices || menu.hasLiveDishes ? 'The full dish list is below.' : null}
           </p>
         </div>
 
@@ -1945,19 +1945,20 @@ function ChristmasMenuAndPricing({
               </div>
             ))}
           </div>
-        ) : hasCourseChoices ? null : (
+        ) : hasCourseChoices || !menu.isUnavailable ? null : (
+          // An outage is the one case that gets a message. With no dishes from
+          // the booking system and no outage, SSOT section 7 says say nothing.
           <Card accent className="mx-auto mt-10">
             <div className="p-6 space-y-3">
-              <h3 className="text-lg font-semibold text-ink-strong">The full menu is released closer to the time</h3>
+              <h3 className="text-lg font-semibold text-ink-strong">The dish list is not showing right now</h3>
               <p className="text-sm text-ink-muted">
-                {menu.isUnavailable
-                  ? 'The dish list is temporarily unavailable here. Call us and we will read you the current Christmas menu.'
-                  : 'We are still finalising the Christmas dishes and will publish the full list here as soon as it is confirmed.'}{' '}
-                The tier structure, the booking rules and the deposit above are confirmed and will not change.
+                It is temporarily unavailable here. The tier structure, the booking rules and the deposit above are
+                confirmed and will not change.
               </p>
               <p className="text-sm text-ink-muted">
-                Want it sent to you as soon as it lands? Send an enquiry or call{' '}
-                <a href={CONTACT_PHONE_LINK} className="font-semibold text-accent-text underline">{CONTACT_PHONE}</a>.
+                Call{' '}
+                <a href={CONTACT_PHONE_LINK} className="font-semibold text-accent-text underline">{CONTACT_PHONE}</a> and
+                we will read you the current Christmas menu, or send an enquiry and we will send it to you.
               </p>
             </div>
           </Card>
