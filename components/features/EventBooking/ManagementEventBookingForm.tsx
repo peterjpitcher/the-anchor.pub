@@ -1051,7 +1051,7 @@ export function ManagementEventBookingForm({
             }
           />
 
-          {isPrepaidEvent(event) && !isMultiTypeEvent && <div className="rounded-lg border border-anchor-gold/30 bg-anchor-cream p-4" aria-label="Ticket total">
+          {isPrepaidEvent(event) && !isMultiTypeEvent && <div className="rounded-lg border border-line bg-surface-sunk p-4 text-ink" aria-label="Ticket total">
             <p className="flex justify-between gap-3 font-semibold"><span>Total ({effectiveSeats} {effectiveSeats === 1 ? 'ticket' : 'tickets'})</span><span>{formatEventBookingMoney((eventUnitPrice ?? 0) * effectiveSeats)}</span></p>
             <p className="mt-1 text-sm">Review the guest details above. You will pay securely on the next step.</p>
           </div>}
