@@ -109,7 +109,7 @@ Whatever you choose, mention dietary requirements when you book. At least a few 
 We host wakes regularly at The Anchor, and we approach every one with care. Here's what we offer:
 
 - A private area suitable for gatherings of **10 to 100+ guests**
-- **Buffet catering from the live approved source**, including finger food, sandwiches, and hot options. We can cater for vegetarian, halal, and gluten-free requirements
+- **Buffet catering from the live approved source**, including finger food, sandwiches, and hot options. We can cater for vegetarian and halal requirements, and we have NGCI options. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - **Free parking** for all guests, with space for funeral cars to pull in
 - **Flexible arrival times** -- come when you're ready after the service. We won't rush you

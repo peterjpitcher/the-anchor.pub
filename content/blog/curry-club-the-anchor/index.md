@@ -92,8 +92,10 @@ Don't miss the **best curry near Heathrow Airport**:
 We cater for:
 - Vegetarian options
 - Vegan modifications
-- Gluten-free alternatives (advance notice required)
+- NGCI alternatives (advance notice required)
 - Spice level adjustments
+
+NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 
 ## Experience Authentic Indian at The Anchor
 

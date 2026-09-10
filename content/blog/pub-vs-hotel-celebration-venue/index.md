@@ -121,7 +121,7 @@ We're also outside the ULEZ zone, which saves visitors £12.50 per day compared 
 
 There's an outdated assumption that pub food means microwaved lasagne and frozen chips. That hasn't been true for years, and it's certainly not true at venues that take their food seriously.
 
-At The Anchor, the kitchen turns out stone-baked pizzas on hand-stretched dough (with gluten-free bases available), proper Sunday roasts with herb and garlic-crusted roast potatoes, beef and ale pie, and a full menu that changes seasonally. The 5-star food hygiene rating has been maintained for seven consecutive years, and all kitchen staff hold Level 2 food safety qualifications.
+At The Anchor, the kitchen turns out stone-baked pizzas on hand-stretched dough (with NGCI bases available), proper Sunday roasts with herb and garlic-crusted roast potatoes, beef and ale pie, and a full menu that changes seasonally. NGCI means No Gluten Containing Ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The 5-star food hygiene rating has been maintained for seven consecutive years, and all kitchen staff hold Level 2 food safety qualifications.
 
 For private events, buffet catering ranges from a straightforward Sandwich Buffet to a full Indoor BBQ. Children get proper meals rather than a sad sandwich on a paper plate: burger and chips, chicken nuggets and chips, or mini pizza and chips.
 
@@ -189,7 +189,7 @@ For small formal events (business dinners, retirement presentations, intimate ce
 
 ### What about dietary requirements at a pub?
 
-We cater for vegetarian, vegan, gluten-free, and dairy-free diets. Gluten-free pizza bases are available, and the vegan Sunday roast option (beetroot and butternut squash wellington, £20) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
+We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington, £20) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
 
 ### Is a pub appropriate for a wake?
 

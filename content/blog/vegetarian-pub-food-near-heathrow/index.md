@@ -43,7 +43,7 @@ The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes
 
 ### Good to Know
 
-- **Gluten-free options** are available on several dishes. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
+- **NGCI options** are available on several dishes. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
 - **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
 - **Stone-baked pizzas** are available in vegetarian and vegan options from £11.
 - **Sunday roast** with the butternut squash wellington is served 1pm-6pm, walk in or [book online](/book-table). Booking is recommended for groups of six or more. Call 01753 682707 for larger parties.
@@ -94,4 +94,4 @@ Yes, our stone-baked pizza menu includes vegetarian and vegan options such as Ma
 
 ### Does The Anchor cater for gluten-free diets as well?
 
-Several dishes can be made gluten-free. If you have coeliac disease or a serious intolerance, mention it when booking and the kitchen team will walk you through the safe options. Cross-contamination is always worth discussing for severe allergies.
+Several dishes are NGCI, made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. If you have coeliac disease or a serious intolerance, mention it when booking and the kitchen team will walk you through the options. Cross-contamination is always worth discussing for severe allergies.

@@ -79,9 +79,9 @@ Our entire team has undergone training to ensure that our drinks are always serv
 
 ## Elevate Your Experience in Our New Dining Room - Best Beer Garden Near Heathrow
 
-### **Year-Round Comfort in Our Exceptional Space**
+### **A Warm Room for the Cooler Months**
 
-In addition to our new T-Bar beer pumps, we've also introduced a gorgeous new dining room, elevating the experience at The Anchor. This stunning space features beautiful French doors at the back creating an inside/outside flow that's cool in the summer evenings and lovely and warm during the days. Perfect for catching the big matches on BBC or ITV, enjoying a meal, or relaxing with a well-poured pint near Heathrow.
+In addition to our new T-Bar beer pumps, we've also introduced a gorgeous new dining room, elevating the experience at The Anchor. This stunning space features beautiful French doors at the back creating an inside/outside flow, and it's lovely and warm in the cooler months. Perfect for catching the big matches on BBC or ITV, enjoying a meal, or relaxing with a well-poured pint near Heathrow.
 
   
 

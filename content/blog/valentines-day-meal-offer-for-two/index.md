@@ -86,7 +86,7 @@ Choose from our delicious selection:
 - **Nice & Spicy** - For couples who like heat
 
 **Dietary Options**
-- Gluten-free bases available
+- NGCI bases available (No Gluten Containing Ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination)
 - Vegetarian choices
 - Customisation welcomed
 
@@ -180,7 +180,7 @@ Don't miss out on our special offer:
 **Valentine's Special Terms:**
 1. Valid Thursday-Saturday of Valentine's weekend
 2. Pizza selection from standard menu
-3. Gluten-free pizza base available
+3. NGCI pizza base available
 4. Wine selection as specified
 5. No substitutions on deal items
 6. Subject to availability

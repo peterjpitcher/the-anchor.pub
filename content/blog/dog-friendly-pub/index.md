@@ -64,7 +64,6 @@ Book early for Sunday roast - our dog-friendly tables fill up fast!
 
 Our garden terrace is the crown jewel for dog owners visiting our **pub near Heathrow**. Features include:
 
-- **Secure fencing** - Your dog can relax safely
 - **Shaded areas** - Cool spots on sunny days
 - **Heated areas** - Comfortable even in cooler weather
 - **Plenty of space** - Room for multiple dogs without crowding

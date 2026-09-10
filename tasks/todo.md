@@ -338,3 +338,16 @@ Two of the five claims flagged as unsourced were sourced after all. All fifteen 
 - Needs request logs: deleting the availability route itself.
 - Deferred by recommendation: EV-021 template ordering, EV-022 subscription capture.
 - Blocked on a performance baseline and new photography: EV-034.
+
+# SSOT section 14 banned claims still live, 10 September 2026
+
+Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. Open PRs #152 (heated garden) and #153 (pizza prices) touch some of the same files; check merge-tree against both before opening the PR.
+
+- [ ] Named: dog secure fencing, "year-round comfort" and summer cooling, "gluten-free" claims in blog posts (NGCI plus the section 16 caveat; honest denials, guests' diets, questions and the `/food-menu/gluten-free` URL stay)
+- [ ] Sweep, facts: doggy dinners and dog meals, off-lead garden, baby changing, "accessible facilities", enclosed or safe garden, EV "coming soon" and the EV schema flag, lamb and chicken roasts, party nights, beef dripping, 19th-century origin, the wedding denial
+- [ ] Sweep, Christmas: the retired "menu released closer to the time" line on `/christmas-parties` and in four posts, plus the SSOT.json key that still mandates it
+- [ ] Found in passing: prosecco on all three Christmas tiers in two posts (section 7: 2 and 3 course only)
+- [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims (questions, listicle topics, customer quotes and keyword lists stay)
+- [ ] Guards in `tests/ssot-drift-guard.test.ts`, negation-aware and one sentence at a time
+- [ ] Lint, typecheck, `npm test`, `npm run test:utc`, build; check changed pages in the browser
+- [ ] Push, open the PR, ask the owner before merging
