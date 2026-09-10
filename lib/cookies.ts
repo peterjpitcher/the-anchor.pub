@@ -97,7 +97,8 @@ function cleanupCookies() {
     '_fbp', 'fr', // Facebook
     '_gcl_au', '_gcl_aw', // Google Ads
     'IDE', 'test_cookie', // DoubleClick
-    '_twitter_sess', 'personalization_id' // Twitter
+    '_twitter_sess', 'personalization_id', // Twitter
+    'anchor-booking-attribution' // our own ad-click attribution (lib/booking-attribution.ts)
   ];
 
   cookiesToRemove.forEach(cookieName => {
