@@ -378,7 +378,7 @@ export default function CorporateEventsPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">Heating</strong><p className="text-sm">A warm, comfortable space through the cooler months</p></li>
                   <li><strong className="text-ink-strong">Natural Light</strong><p className="text-sm">The dining room has French doors opening onto the beer garden</p></li>
-                  <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step-free bar and dining area; garden ramp on request; no accessible toilet</p></li>
+                  <li><strong className="text-ink-strong">Accessibility</strong><p className="text-sm">Step free from the car park to the bar, dining area and garden; one step from the bar to the garden, ramp on request; no accessible toilet</p></li>
                   <li><strong className="text-ink-strong">Table Service</strong><p className="text-sm">Food is brought to your tables rather than collected from the bar</p></li>
                 </ul>
               </CardBody></Card>

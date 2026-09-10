@@ -227,7 +227,7 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(mdPlain).toMatch(/no food service at all on Christmas Day/i)
   })
 
-  it('records the Boxing Day and New Year\'s Day closures, and keeps 27 to 31 December unconfirmed', () => {
+  it('records the Boxing Day and New Year\'s Day closures, and the confirmed rest of the festive run', () => {
     // Owner-confirmed 8 September 2026. Both dates are closures, not offers:
     // "pubs open boxing day near me" and "pubs open new year's day" are real
     // search clusters, and the honest answer is that we are shut.
@@ -236,7 +236,35 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(xmas.christmas_day.new_years_day.open).toBe(false)
     expect(xmas.christmas_day.new_years_day.date).toBe('2027-01-01')
     expect(mdPlain).toContain('We do not open on 26 December or 1 January')
-    expect(xmas.christmas_day.between_christmas_and_new_year).toMatch(/NOT CONFIRMED/)
+    // Owner-confirmed 9 September 2026. Until then 27 to 31 December was held
+    // as unconfirmed; it is now open, with the kitchen closed from 21 December.
+    expect(xmas.christmas_day.between_christmas_and_new_year).toMatch(/^CONFIRMED/)
+    expect(xmas.christmas_day.between_christmas_and_new_year).not.toMatch(/NOT CONFIRMED/)
+    expect(xmas.christmas_day.kitchen_festive_closure.last_service).toBe('2026-12-20')
+    expect(xmas.christmas_day.kitchen_festive_closure.returns).toBe('2027-01-12')
+    expect(mdPlain).toContain('The kitchen serves up to and including Sunday 20 December, then closes until Tuesday 12 January')
+    expect(mdPlain).not.toContain('27 to 31 December remain unconfirmed')
+  })
+
+  it('records the Wellington as vegan as it comes, with the non-vegan extras on request', () => {
+    // Owner-confirmed 9 September 2026. The descriptions in both menu tables
+    // had listed a Yorkshire pudding and buttery cabbage on the vegan dish.
+    expect(mdPlain).toContain('The plate as it comes is vegan.')
+    expect(mdPlain).toContain('The kitchen makes no unbuttered cabbage')
+    expect(mdPlain).toContain('Fully vegan as it comes.')
+  })
+
+  it('no longer contradicts itself on Christmas dishes or the festive buffet minimum', () => {
+    // Both were contradictions inside the SSOT, removed in the 10 September 2026
+    // restructure. A section that bans what another section requires cannot be followed.
+    expect(mdPlain).not.toContain('Only "menu released closer to the time" is permitted')
+    expect(mdPlain).not.toContain('Any earlier "30 everywhere, no exceptions" wording is wrong')
+  })
+
+  it('does not give the unsafe ?? advice for kitchen hours', () => {
+    // `??` falls back on null, and null is the value that means the kitchen is closed.
+    expect(mdPlain).not.toContain('Use ?? (not ||) when resolving special vs. regular kitchen data')
+    expect(mdPlain).toContain('fall back to the regular week only when the date has no override at all')
   })
 
   it('defers to the management app for hours, and does not claim the festive rows are missing', () => {

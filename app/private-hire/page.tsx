@@ -560,7 +560,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                     <div className="mx-auto">
                         <h2 className="mb-4 font-display text-h3 text-ink-strong">Accessibility</h2>
                         <p className="mb-3 text-ink-muted">
-                            The bar and dining area are step-free. The beer garden has steps from the bar, with a ramp available on request.
+                            The bar and dining area are step-free, and the beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, with a ramp on request.
                         </p>
                         <p className="mb-4 text-ink-muted">
                             We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}

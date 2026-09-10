@@ -82,7 +82,7 @@ When you're planning a 60th birthday party, accessibility isn't a nice-to-have. 
 
 **What The Anchor offers:**
 - Step-free access to the bar, dining area, and car park
-- Ramp available on request for the beer garden (there are steps from the bar)
+- Beer garden step free from the car park, with one step from the bar and a ramp on request
 - Free on-site parking on a level surface, close to the entrance, CCTV and floodlit
 - Assistance dogs always welcome
 - Guests with specific access needs are encouraged to call ahead on 01753 682707 so we can plan their visit
@@ -207,7 +207,7 @@ Eight to twelve weeks is ideal. Sunday roast dates at popular venues book up qui
 
 **Is The Anchor suitable for guests in wheelchairs?**
 
-The bar, dining area, and car park all have step-free access. The beer garden has steps from the bar, but a ramp is available on request. We strongly recommend calling ahead on 01753 682707 so we can discuss specific requirements and make sure everything is ready. Please note there is no accessible toilet on site.
+The bar, dining area, and car park all have step-free access. The beer garden is step free from the car park, with one step from the bar and a ramp on request. We strongly recommend calling ahead on 01753 682707 so we can discuss specific requirements and make sure everything is ready. Please note there is no accessible toilet on site.
 
 **Can children attend a 60th birthday party at The Anchor?**
 

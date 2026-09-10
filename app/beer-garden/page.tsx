@@ -298,7 +298,7 @@ export default async function BeerGardenPage() {
           <div className="mx-auto">
             <h2 className="font-display text-h2 text-ink-strong mb-4">Accessibility</h2>
             <p className="text-ink-muted mb-3">
-              Step-free access to the bar and dining area. The beer garden has steps, but a ramp is available on request.
+              Step free from the car park, straight into the beer garden, the bar and the dining area. From inside, there's one step between the bar and the garden, and we'll put a ramp out for it if you ask.
             </p>
             <p className="text-ink-muted mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}

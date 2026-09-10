@@ -1,22 +1,67 @@
 # The Anchor, Single Source of Truth
 
-> **PRICING POLICY:** All food and drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database, POS, menu API, or latest approved private-hire source**. This document holds stable rules and item structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures such as deposits, ULEZ saving, quiz/bingo entry and fixed prizes may remain only where confirmed.
->
-> **PRICE DISPLAY:** Menu item prices are displayed **without currency symbols** (e.g. "16", not "£16"): a deliberate menu-psychology choice, owner-confirmed 2026-07-19. Do not "fix" bare menu prices by adding £. JSON-LD `Offer.price` values are always bare numeric strings regardless of display. Aggregate copy lines (e.g. "Food £5 to £16", "from £16") keep the £ symbol; the rule applies to per-item menu prices only.
+| | |
+|---|---|
+| **Version** | 2.0, restructured 10 September 2026 |
+| **Owner** | Peter Pitcher, licensee |
+| **Last full review** | 10 September 2026 |
+| **Next full review** | 10 December 2026, then every quarter |
+| **To change a fact** | Update the source that owns it first (§15 says which), then this document, then everything that mirrors it. Record the change in §18. |
 
 > **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask**, do not guess, do not infer, do not fall back on training data.
 >
-> If this document and existing page copy disagree, the SSOT wins. Update this document first when operational reality changes; the page copy and JSON-LD must follow.
+> If this document and existing page copy disagree, the SSOT wins, and the page is wrong. If this document and the system that owns a fact disagree (the management app for hours, prices, capacities and events), the owning system wins and this document is stale: fix it. §15 lists who owns what.
 
-This file is the human-edited source. `/SSOT.json` mirrors a subset of these facts in structured form for programmatic lookup. When the two diverge, this Markdown file is canonical and the JSON should be reconciled to match.
+> **PRICING POLICY:** All food and drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database, POS, menu API, or latest approved private-hire source**. This document holds stable rules and item structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures such as deposits, ULEZ saving, quiz/bingo entry and fixed prizes may remain only where confirmed.
+>
+> **PRICE DISPLAY:** Menu item prices are displayed **without currency symbols** (e.g. "16", not "£16"): a deliberate menu-psychology choice, owner-confirmed 2026-07-19. Do not "fix" bare menu prices by adding £. JSON-LD `Offer.price` values are always bare numeric strings regardless of display. Aggregate copy lines (e.g. "Food £5 to £16", "from £16") keep the £ symbol; the rule applies to per-item menu prices only.
 
 > **Strategy data lives elsewhere.** Marketing strategy (target audiences, psychographic segments, competitive landscape) is not a brand fact and lives in `docs/brand-strategy.md`, not here and not in `SSOT.json`. Do not quote competitor names or audience labels in customer-facing copy.
 
 Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaffirmed as vegan; cauliflower cheese retired). Walk-in launch shipped **2026-05-17**. Christmas 2026 offer confirmed by the owner **2026-07-21** (see §7).
 
+### How this document is laid out
+
+- **Quick card**, below: the handful of facts most copy needs.
+- **§1** how we sound. Read it before writing anything.
+- **§2 to §13** the facts, one area per section.
+- **§14** what we never say, and what to say instead.
+- **§15** who owns each fact, and how to keep this document true.
+- **§16** approved wording you can paste as it stands.
+- **§17** claims that need evidence behind them.
+- **§18** what changed, and when.
+- Engineering detail (how the API behaves, why a database row is kept) lives in `docs/SSOT-engineering-notes.md`, not here.
+
+**The section numbers are stable on purpose.** Around 140 references across the site's pages, components, tests and docs cite this document as "SSOT §7" and so on. New material goes at the end; nothing is renumbered.
+
+---
+
+## Quick card
+
+The facts most copy needs. Each is detailed, with its source, further down.
+
+| | |
+|---|---|
+| Name | The Anchor. "The Anchor Pub" only in page titles, alt text and schema names (§1). |
+| Phone | 01753 682707, also on WhatsApp (§2). |
+| Email | manager@the-anchor.pub, the only correct address (§2). |
+| Address | Horton Road, Stanwell Moor, Surrey, TW19 6AQ (§2). |
+| Established | 1751 (§1). |
+| Opening hours | Always from the management app's live hours, never typed in (§3). |
+| Sunday roast | Sundays 1pm to 6pm, last seating 5:30pm, walk-ins welcome, nothing to pre-order (§4). |
+| Group deposit | 15 or more guests: £10 per person, deducted from the bill. More than 20 is private hire (§7). |
+| Christmas 2026 | Sittings 10 November to 20 December, from 4 guests, 24 hours' notice, £10 per person deposit (§7). |
+| Over Christmas | Drinks only 12pm to 3pm on 25 December. Closed 26 December and 1 January. Kitchen's last day is 20 December, back on 12 January (§7). |
+| Parking | 20 free spaces, no time limit while visiting, nothing to register (§8). |
+| Getting in | Step free from the car park. One step between the bar and the garden, ramp on request. No accessible toilet (§8, §16). |
+| Dogs | Welcome throughout, on a lead (§8). |
+| Never say | 1866, gluten-free, red wine gravy, beef dripping, Sky or TNT Sports, breakfast, delivery, mulled wine, "Doors open", a runway designator (§14). |
+
 ---
 
 ## 1. Identity & Voice
+
+### The facts
 
 - **Name:** The Anchor.
 - **Naming rule:** Use **"The Anchor"** as the default customer-facing name. Use "The Anchor Pub" only where SEO value warrants it (page titles, alt text, schema name fields). Never use "The Anchor Pub" as the conversational default.
@@ -28,44 +73,145 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Heritage line:** A village pub since 1751. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.
 - **Local listing:** Locally listed by Spelthorne Borough Council as **The Anchor Public House**, building reference **LL/072**, listed **19 February 2004**. Described as a mid-Victorian pub on the site of an earlier pub dating from at least 1730.
 - **Heritage safe wording:** "The Anchor has served Stanwell Moor since at least 1751, with evidence of an Anchor Inn on the site by 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub."
-- **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
-- **Tone:** Warm, excited, cheeky, inclusive. We sound like people who genuinely love this pub and can't wait for you to visit. Never flat, never corporate.
-- **Perspective:** First-person plural, "we" / "our".
+- **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests. (Evidence status in §17.)
+- **Perspective:** First-person plural, "we" and "our". Address the reader as "you".
 - **Language:** British English spelling and idiom.
-- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. Exclamation marks are allowed but earn their place: at most one per section, never stacked.
-- **Audience note:** Responds to local demographic change including the growing Indian community.
 
-### Emotional core (what we stand for)
+### The voice in one line
 
-Copy should make people **feel invited, not just informed**. The feelings we are selling:
+**We sound like a friendly local telling you about their favourite pub.** Warm, a bit excited, easy to read, and never showing off.
+
+If the copy could belong to any pub chain, it is wrong. Rewrite it.
+
+### What we stand for
+
+Copy should make people **feel invited, not just informed**.
 
 - **Belonging.** "Where Everyone's Welcome" is a promise, not a strapline. Every piece of copy should read like a friend saying "come along, you'll love it".
+- **The village first.** We are Stanwell Moor's pub. The airport is why people find us, not why we exist.
 - **Pride.** A village pub that has stood here since 1751, before Heathrow existed. We are proud of that and it is fine to show it.
-- **Simple joy.** A proper roast, a full beer garden, planes thundering overhead, a quiz night that gets competitive. Small pleasures, done properly.
+- **Simple joy.** A proper roast. A full beer garden. Planes thundering overhead. A quiz that gets far too competitive. Small pleasures, done properly.
 
-### Voice principles
+### Rule 1: Plain simple English
 
-1. **Lead with feeling, then facts.** Open with why something is brilliant, then give the details. Not the other way round.
-2. **Enthusiasm is on-brand.** "We love", "we can't wait", "our favourite" are encouraged. If the copy could belong to any pub chain website, rewrite it.
-3. **Cheeky, never snide.** Jokes point at ourselves, the weather, or the planes. Never at guests, staff, or other venues.
-4. **Concrete beats generic.** Name the Yorkshire pudding, the flight path, the beer garden. Banned filler: "great atmosphere", "something for everyone", "hidden gem", "look no further".
-5. **Inclusive by default.** Write as if inviting someone who has never set foot in a pub. No in-jokes that exclude newcomers, no assumed knowledge.
-6. **Excitement never invents facts.** Every claim still comes from this SSOT. §14 banned claims still apply. Prices stay live from the management DB. Energy is in the delivery, never in exaggeration.
+This is the rule that matters most. Short words, short sentences, one idea at a time.
+
+**Testable standards:**
+
+- Aim for an average sentence under 15 words. Review any sentence over 25: it is almost always two.
+- One idea per sentence. If it needs an "and" plus a "but", it is two sentences.
+- **Use contractions.** "We're", "you'll", "don't", "it's", "there's". Not "we are", "you will", "do not". This is the single fastest way to sound human.
+- Use the short word every time.
+- If a sentence needs reading twice, cut it in half.
+- Say the location fact **once per page**, in your own words. Do not paste "seven minutes from Heathrow Terminal 5 with free parking" into every intro. It reads like a machine.
+
+**Word swaps:**
+
+| Don't write | Write |
+|---|---|
+| patrons *(always)*, guests *(when you mean the reader)* | you |
+| venue, establishment, facility | the pub |
+| complimentary | free |
+| approximately, around *(for a confirmed number)* | the number itself |
+| in close proximity to | near |
+| we are able to | we can |
+| please note that | *(delete it)* |
+| at this moment in time | now |
+| dining experience, guest experience | dinner, a meal, your visit |
+| our team will be happy to assist | ask the bar team |
+| offering, provision, curated, bespoke | *(never)* |
+
+"Guests" stays where it is a count or a policy term: "a minimum of 4 guests", "groups of 15 or more guests". Those rules have to be exact, and "you" cannot carry a number.
+
+### Rule 2: Upbeat, with a limit
+
+**Lead with what the reader needs.** For an invitation, that is why it is worth coming, then the details. For an allergen, an access question or a booking rule, it is the answer, straight away. Never make someone read three lines of excitement to find out whether they can get in.
+
+- Energy comes from **verbs and specifics**, not punctuation. One exclamation mark per page, maximum. Usually none.
+- "We love", "we can't wait", "our favourite" are encouraged.
+- **Never open a description with a command.** Banned openers: *Delight in, Indulge in, Savour, Treat yourself to, Experience, Discover, Enjoy.* Say what the thing is and why it's good.
+- **Banned flourish words:** quintessentially, sophisticated, elegant, effervescent, utterly, iconic, premium, artisan, indulgent, luxurious, elevates, sensation, pinnacle.
+- **Banned filler:** great atmosphere, something for everyone, hidden gem, look no further, nestled, boasts, a must-visit.
+
+**Before and after, from our own pages:**
+
+> ❌ "Indulge in a comforting roast beef dinner that is rich and full of flavour."
+> ✅ "28-day topside, carved when you order it. Yorkshire pudding, triple-cooked potatoes, our own gravy."
+
+> ❌ "Quintessentially British elegance in a glass. Premium gin infused with delicate elderflower creates a sophisticated summer sipper."
+> ✅ "Gin and elderflower, long and cold. The one everyone orders in the garden."
+
+> ❌ "We serve Sunday roasts from 1pm to 6pm."
+> ✅ "Sunday is what we live for. Roasts carved fresh from 1pm, walk in whenever suits you."
+
+> ❌ "The beer garden is located near Heathrow Airport."
+> ✅ "Pint in hand, planes roaring over the garden, seven minutes from Terminal 5. There's nowhere else like it."
+
+### Rule 3: Community first
+
+We're the village's pub. Write like it.
+
+- **Name real things.** The notice board. The charity quiz. The team that always comes second. The reservoirs walk. The village hall. Not "the local community" in the abstract.
+- **Credit people.** A charity night says who it's for. An event says who hosts it. A win says who won.
+- **"We" means the team and the regulars**, not the business.
+- **Locals first, travellers second.** A page can serve both, but the village voice comes first. "Your local" beats "a convenient stop near the airport".
+- If a piece of copy could have been written by someone who has never been to Stanwell Moor, rewrite it.
+
+### Rule 4: Inclusive by default
+
+- Write as if you're inviting someone who has **never set foot in a pub**. No assumed knowledge. No in-jokes that need a regular to get.
+- **Everyone goes in the same sentence**, not a special paragraph at the bottom. The vegan roast sits in the roast list. The kids menu is a menu, not a concession.
+- **Drinking is never the price of entry.** Soft drinks, food, and just sitting there all count.
+- Write for who actually walks in: families, women on their own, the growing Indian community, dog owners, airport staff coming off shift, older regulars, people with a buggy, people who don't drink.
+- **Accessibility copy always states the route, never a single adjective.** "Step free" alone is not a fact, it's half a fact. See §8, and paste §16.
+- **A welcome is not a promise that every need can be met.** The warmth is in helping someone decide, which includes telling them plainly what we don't have.
+
+**How to say no.** We have real nos: no accessible toilet, no baby changing, no Sky Sports, no delivery, no gluten-free. Never hide them and never apologise for them. Use this shape every time:
+
+> **What we don't have + what we do have or can do + how to check.**
+
+The live example to copy:
+
+> "We currently don't have an accessible toilet. If you'd like to visit and want to check what will work best for you, give us a call on 01753 682707 and we'll help."
+
+### Rule 5: Excitement never invents facts
+
+Every claim comes from this SSOT. §14 banned claims still apply. Prices, hours, capacities and event details stay live from their real sources. The energy is in the delivery, never in exaggeration.
+
+Never hedge a confirmed number. It's "20 free spaces", not "around 20".
+
+**Buttons say what happens next** ("Book a table", "Book your places", "See the menu"), and they match how the booking really works. Never promise a table on a night with shared seating.
+
+### Punctuation
+
+- Do not use em dashes in customer-facing copy. Use commas, short sentences, or brackets.
+- Exclamation marks earn their place: one per page at most, never stacked.
 
 ### Register dial
 
 - **High energy:** homepage hero, event pages, blog posts, social copy, marketing emails.
 - **Medium:** menu descriptions, area and feature pages, FAQs.
-- **Calm and clear:** opening hours, booking flow, deposits, allergen information, confirmations, anything operational or legal. Accuracy beats excitement here, always.
+- **Calm and exact:** opening hours, booking flow, deposits, allergen information, accessibility, confirmations, anything operational or legal. Accuracy beats energy here, always. No jokes.
 
-### Examples (illustrative only, not published copy)
+**The test for all three:** read it aloud. If you wouldn't say it to someone standing at the bar, rewrite it.
 
-- Flat: "We serve Sunday roasts from 1pm to 6pm." On-brand: "Sunday is what we live for. Roasts carved fresh from 1pm, walk in whenever suits you."
-- Flat: "The beer garden is located near Heathrow Airport." On-brand: "Pint in hand, planes roaring over the garden, seven minutes from Terminal 5. There's nowhere else like it."
+### The 60-second check before publishing
+
+1. Does the first sentence give the reader what they came for?
+2. Is any sentence over 25 words?
+3. Have I used contractions?
+4. Could this copy belong to any pub chain? If yes, rewrite.
+5. Is every fact in this SSOT?
+6. Any banned word from Rules 1 and 2?
+7. Is every "no" followed by a next step?
+8. Exclamation marks: one, or none?
+9. Does every button say what happens next, and match the real booking?
 
 ### Scope
 
-This voice applies to **all new customer-facing copy from 14 August 2026**. Existing pages are not being rewritten proactively; bring copy onto this voice as pages are touched.
+This voice applies to **all new customer-facing copy from 10 September 2026**. Existing pages aren't being rewritten all at once; bring copy onto this voice as pages are touched. Menu and event descriptions written in the management app follow these rules too: they publish straight to the website, so they are customer-facing copy.
+
+The checkable half of this section and of §14 is enforced in the management app by `src/lib/copy/house-style.ts`. `npx tsx scripts/audit-house-style.ts` in that repo runs it over the menus, the events and every marketing email.
 
 ## 2. Contact & Location
 
@@ -77,7 +223,7 @@ This voice applies to **all new customer-facing copy from 14 August 2026**. Exis
 - **Google Maps:** https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ.
 - **M25:** 2 minutes from Junction 14.
 - **Bus:** Routes 441, 442, 555 from Heathrow Central Bus Station.
-- **ULEZ:** Outside the ULEZ zone (saves visitors approximately £12.50/day vs. London venues).
+- **ULEZ:** Outside the ULEZ zone (saves visitors approximately £12.50/day vs. London venues). The saving depends on the vehicle and the route; see §17 before quoting it.
 - **Location framing:** Stanwell Moor, near Heathrow Airport, the closest proper pub to Terminal 5, ~7 minutes by car.
 
 ### Heathrow proximity
@@ -98,7 +244,7 @@ Only ever use the API for opening hours in case they have to change. No hardcode
 
 **The SSOT always adheres to the management app's business hours.** (Owner-confirmed, 8 September 2026.) Where this document names an opening time or a closure, it is transcribing what the management app holds, never asserting it independently. If the two ever disagree, the management app is right and this document is stale: fix this document. That includes the Christmas Day, Boxing Day and New Year's Day entries in §7.
 
-> Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
+> Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. **When a date has an override, use its kitchen value exactly as it stands, null included; fall back to the regular week only when the date has no override at all.** Neither `||` nor `??` does this on its own: both fall back on null, which is the very value that means closed. The rule for code, with the cases to test, is in `docs/SSOT-engineering-notes.md`.
 >
 > Last orders are 15 minutes before the bar closes and 30 minutes before the kitchen closes. Do not claim late food on any event night unless the event record or live kitchen hours explicitly confirms it.
 
@@ -123,13 +269,16 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 | Beef & Ale Pie | (live, DB) | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
 | Chicken & Wild Mushroom Pie | (live, DB) | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
 | Beetroot & Butternut Squash Wellington | (live, DB) | No | **Fully vegan.** Default plate is vegan |
-| Kids Roast | (live, DB) | If pork or turkey | Smaller, child-sized portion. Choice of pork, turkey or wellington |
+| Kids Roasted Beef, Kids Roasted Pork, Kids Roasted Turkey | (live, DB) | Yes | Smaller, child-sized portions of the three sliced roasts |
+| Broccoli Cheese, Gourmet Broccoli Cheese | (live, DB) | n/a | Sides |
+
+Mirrored from the live menu on 10 September 2026. The dish **names** customers see come from the menu API ("Roasted Beef", "Roasted Pork", "Roasted Turkey"): "28-day topside" and the like are descriptions, not names, so never type a dish name that is not on the menu.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
 ### Accompaniments
 
-Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables. Yorkshire pudding with the three sliced roasts and the kids roast (no yorkshire with the pies). Our signature gravy.
+Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables, including buttered cabbage with the meat roasts. Yorkshire pudding with the three sliced roasts and the kids roast (no yorkshire with the pies). Our signature gravy.
 
 > **We do not use beef dripping.** Never claim that we do. Never describe the potatoes as "beef-dripping potatoes". The correct phrase is "triple-cooked, herb-and-garlic crusted".
 
@@ -145,6 +294,8 @@ Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables. York
 
 The wellington is **fully vegan**. In customer-facing copy, schemas, and JSON-LD always use "vegan", never "vegetarian". The wellington is a dish in its own right, not an afterthought.
 
+**The plate as it comes is vegan.** Buttered cabbage and a Yorkshire pudding can be added on request, for someone who orders the Wellington because they fancy it rather than because they are vegan; either one makes the plate no longer vegan, so say so when offering. **The kitchen makes no unbuttered cabbage**, so cabbage is never part of the vegan plate. (Owner-confirmed, 9 September 2026.) Paste §16 rather than rewording this.
+
 ### Retired items (do not list)
 
 - Roasted Chicken (adult)
@@ -152,7 +303,7 @@ The wellington is **fully vegan**. In customer-facing copy, schemas, and JSON-LD
 - Crispy Pork Belly
 - Cauliflower Cheese side
 
-The DB rows for these items are deactivated (`is_active = false`) rather than deleted because `table_booking_items` has foreign keys into `sunday_lunch_menu_items`. Historical bookings still need their menu rows to resolve.
+Their database rows are deactivated rather than deleted, so old bookings still resolve; the detail is in `docs/SSOT-engineering-notes.md`. A deactivated row is not a menu item: never list one.
 
 ### Reversed prior guidance
 
@@ -250,7 +401,7 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **More than 20 guests:** This is **not a table booking**, it is private hire. Direct the enquiry to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707. See §11.
 - **Standard copy:** "Groups of 15 or more: a £10 per person deposit, fully deducted from your bill."
 
-**Changed 9 August 2026.** The threshold was 10 guests until this date. A party of ten is an ordinary family Sunday, and putting a payment screen in front of them was the most likely reason the pub took only two bookings of ten or more in ninety days. The per-person rate is unchanged, and the Christmas rule below is unaffected.
+The threshold was 10 guests until 9 August 2026; §18 records why it moved.
 
 ### Christmas 2026 (owner-confirmed 21 July 2026)
 
@@ -271,7 +422,7 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **There is no Christmas market in 2026.** (Owner-confirmed, 6 September 2026.) A market ran in earlier years, so archived copy and old imagery still describe one. Treat every such reference as historical, never as an offer, and do not revive `/blog/christmas-market`.
 - **Christmas Day itself is outside the offer.** **On 25 December we open for drinks only, 12pm to 3pm. There is no food service at all on Christmas Day.** (Owner-confirmed, 6 September 2026.) This is a licensed exception to the rule in §3 that opening hours only ever come from the API, in the same way as the New Year's Eve closing time, because the offer window ends on 20 December and the page would otherwise say nothing. **Never advertise Christmas dinner, a Christmas lunch, a festive menu or any food on 25 December.**
 - **Boxing Day and New Year's Day: CLOSED.** **We do not open on 26 December or 1 January.** (Owner-confirmed, 8 September 2026.) Never advertise Boxing Day food, a Boxing Day roast, a New Year's Day lunch or any opening on either date. If a page must answer the question, say plainly that we are closed and point at the dates we are open; do not dress a closure up as an offer.
-- **27 to 31 December remain unconfirmed.** Say nothing about them until the owner confirms them. New Year's Eve itself keeps its existing licensed closing-time exception.
+- **The rest of the festive run is confirmed.** (Owner-confirmed, 9 September 2026.) We are open throughout December apart from 26 December, and closed on 1 January. **The kitchen serves up to and including Sunday 20 December, then closes until Tuesday 12 January**; the bar stays open. Mondays keep their usual 4pm opening. New Year's Eve itself keeps its existing licensed closing-time exception. The management app holds every one of these dates: take them from there, and use §16 for the wording.
 - **All three dates are already set in the management app**, verified directly against the database on 8 September 2026: 25 December opens 12:00 and closes 15:00 with `is_kitchen_closed` true; 26 December and 1 January are both `is_closed` true. The management app is the source of truth and these entries are it. This section records what it holds so customer-facing copy has a reference; it never overrides it.
 - **`GET /business/hours` only returns special hours for the next 90 days.** A check run before a date enters that window shows no row and an empty `planning.nextClosure`, which looks exactly like "nobody entered it". It is not. On 8 September 2026 the horizon reached only 7 December, so all three festive rows were invisible while being correctly set. Christmas Day enters the window on 26 September, Boxing Day on 27 September and New Year's Day on 3 October. **Query the database before concluding a closure is missing.**
 - **Group size band:** **21 to 29 seated guests is handled as a private booking, not a table booking.** (Owner-confirmed, 6 September 2026. The reason is the no-show exposure at that size, which is too large to carry on a table booking.) It sits between the sit-down maximum of 20 and the 30-guest buffet minimum, so route it to the manager rather than leaving the organiser with no route. Present it as how we look after a group that size, never as a refusal.
@@ -281,16 +432,14 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
 - **Included, adults:** a glass of prosecco on the **2 and 3 course tiers only**, swappable for
   orange juice. **The 1 course tier does NOT include a drink for adults.** (Owner-corrected,
-  15 August 2026. This entry previously read "all three tiers", which had reached the live
-  christmas-parties page as "whichever courses they choose" and two marketing emails before
-  it was caught.)
+  15 August 2026; see §18.)
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
 - **Trimmings:** pigs in blankets, stuffing, brussels sprouts, **Yorkshire pudding, roast potatoes, mashed potato and peas**. (Yorkshire pudding, roast potatoes, mash and peas owner-confirmed, 13 August 2026.)
 - **The Vegetable Wellington is the exception.** It is **vegan**, so it takes **no Yorkshire pudding and no pigs in blankets**, matching the Sunday roast rule where the Wellington and the pies carry no Yorkshire. Describe it as vegan Christmas trimmings and vegan gravy. Never apply the full trimmings list to it.
 - **Menu dishes ARE published.** (Owner-confirmed, 13 August 2026.) The dish list lives on the Christmas booking period in the management database and reaches the website through `/table-bookings/periods`, which is the same source the booking form builds a pre-order from. Publish the dishes the API returns and nothing else: the old "menu released closer to the time" wording is retired, and inventing or padding the list is still forbidden. If the API returns no menu, say nothing rather than guessing.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
 - **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
-- **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.**
+- **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.** That minimum is for the festive buffets only: the year-round buffets carry their own minimums, several below 30 (§11).
 - **The festive menu catering packages stay.** They are the real sit-down set menu. They are **not** the discontinued shared party nights, do not deactivate them.
 
 #### Christmas 2026 price structure, provenance only
@@ -413,7 +562,7 @@ step from the bar, ramp on request.
 
 - **Seats:** 64.
 - **Flight path:** Directly under Heathrow's southern runway approach path.
-- **Never publish a runway designator.** Do not write 27R, 27L, 09L or 09R in page copy, FAQs or JSON-LD. Until 27 August 2026 ten places across `/beer-garden` and `/plane-spotting-heathrow` asserted "27R", including structured data, which contradicted the southern-runway line directly above: Heathrow's southern runway is not 27R. The designator adds nothing a visitor needs, and it is the sort of claim an enthusiast will notice and correct in public. Say "under Heathrow's southern runway approach path", and use the weekly alternation for timing.
+- **Never publish a runway designator.** Do not write 27R, 27L, 09L or 09R in page copy, FAQs or JSON-LD (§18 records the incident). The designator adds nothing a visitor needs, and it is the sort of claim an enthusiast will notice and correct in public. Say "under Heathrow's southern runway approach path", and use the weekly alternation for timing.
 - **Aircraft frequency:** Approximately every 90 seconds during peak times.
 - **Aircraft altitude:** 500 – 800 feet overhead.
 - **Common aircraft:** A380, Boeing 777, 787 Dreamliner, A350, A330, Boeing 747.
@@ -504,6 +653,7 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 - Occasional (no fixed frequency).
 - Expert-led sessions across whisky, gin, rum, wine and beer.
+- **Ticketed and paid.** £45 a person unless the event record says otherwise, with £5 off tickets bought in advance. (Owner-confirmed, 9 September 2026.) The record is `prepaid`, which is what makes the advance discount apply.
 - Capacity 25, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.**
 
 ### Party nights
@@ -513,7 +663,7 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 > **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. They are consistent within each category as at 6 September 2026: quiz night, cash bingo, music bingo and karaoke all 60, party nights 150, tasting nights 25. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one.
 
-> **Payment method comes from the event record's `payment_mode`, not from this document.** (Recorded 7 September 2026 after a page audit flagged cash-only claims on quiz and music bingo as unsourced. They are sourced, just not from here.) Verified across all 15 upcoming events: quiz night, cash bingo and music bingo records all carry `payment_mode: cash_only`; karaoke, party nights and tasting nights carry `free`. The cash-only line under §Cash Bingo below is about the £10 books and the £1 daubers specifically, which is why it reads as a Cash Bingo rule; it was never meant to imply the other formats take cards. Read the record.
+> **Payment method comes from the event record's `payment_mode`, not from this document.** (Recorded 7 September 2026 after a page audit flagged cash-only claims on quiz and music bingo as unsourced. They are sourced, just not from here.) Verified across the upcoming events on 7 September 2026: quiz night, cash bingo and music bingo records all carry `payment_mode: cash_only`; karaoke and party nights carry `free`. The 20 November 2026 tasting night moved from `free` to `prepaid` on 9 September 2026, when it was priced. The cash-only line under §Cash Bingo below is about the £10 books and the £1 daubers specifically, which is why it reads as a Cash Bingo rule; it was never meant to imply the other formats take cards. Read the record.
 
 > Event details are managed per-event in the management app and live canonically in `SSOT.json` under `events`. The summaries above are for reference; confirm current dates, times and prices against the management app / API.
 
@@ -522,6 +672,14 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 - **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/whats-on`.
 - **Live music is discontinued.** (Owner-confirmed, 11 Aug 2026.) Do not list, promote, schedule or link to live music, live bands, acoustic sets, tribute acts or solo performers. Do not target live music keywords or call The Anchor a live music venue or music pub. `/live-music` and `/blog/live-music-pubs-near-heathrow` are retired and redirect to `/whats-on`. Karaoke and a DJ still happen occasionally, but only promote either when a specific event record lists it.
 - **Drag cabaret is discontinued.** Do not list, promote, or link to drag cabaret nights, and do not target drag cabaret or drag show keywords. **Music Bingo is the only drag night.** (Owner-confirmed, 9 Aug 2026.) The retired `/whats-on/drag-shows` route redirects to `/whats-on`, and past "Drag Cabaret & Karaoke" event pages stay live but out of search. Music Bingo copy may still refer to its drag host.
+
+### Nations Championship screenings, owner decision 5 September 2026
+
+We show Nations Championship games broadcast on terrestrial TV during our existing opening hours. Bookings must not wait for the exact channel, screen allocation or commentary arrangement. Early games are shown from opening. If a game runs beyond our usual closing time and people are still in watching, we will stay open until it finishes (owner-confirmed 5 September 2026). This is conditional continuation for viewers already in the pub, not a guaranteed late opening or permission for arrivals after usual closing. Regular opening times, kitchen service and bookable arrival hours remain unchanged. A missing match finish time uses the existing two-hour booking window for booking planning only, never as a claim about the actual final whistle. Kitchen promotion follows the live service intervals.
+
+### Online event booking, owner decision 6 September 2026
+
+Offer standing tickets only once all seated places are sold out, with clear notice that no table seat is included. Do not ask customers to choose seated or standing tickets. Online event bookings allow up to 6 tickets; the single-quantity form uses a 1 to 6 picker; larger groups should call 01753 682707.
 
 ## 11. Private Hire
 
@@ -581,7 +739,7 @@ Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts
 | Festive Hot Finger | (live, DB) | 30 guests |
 | Festive Premium Grazing | (live, DB) | 30 guests |
 
-**The 30-guest minimum is a festive-buffet rule, not a universal one.** Year-round packages carry their own minimums, listed above, and several are below 30. Any earlier "30 everywhere, no exceptions" wording is wrong and was corrected on 17 August 2026 against the live `catering_packages` table. The one figure that must never drop is the **festive** buffet minimum of 30.
+**The 30-guest minimum is a festive-buffet rule, not a universal one.** Year-round packages carry their own minimums, listed above, and several are below 30, as the live `catering_packages` table shows (checked 17 August 2026). Never apply the festive minimum to a year-round buffet. The one figure that must never drop is the **festive** buffet minimum of 30.
 
 ### Drinks Packages
 
@@ -637,6 +795,8 @@ Wakes / memorials · Christenings · Engagement parties · Baby showers · Gende
 - **TripAdvisor:** Volatile. Do not hardcode rank in evergreen copy.
 - **Food Hygiene:** 5-star rating, maintained 7 years (since 2019). All staff Level 2 qualified.
 
+The evidence behind each rating, and how often to recheck it, is in §17.
+
 ## 13. Areas Served & Nearby Hotels
 
 **Primary areas:** Stanwell Moor, Stanwell, Staines-upon-Thames.
@@ -652,7 +812,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **1866 or 1869 as founding year**, correct year is 1751.
 - **"Since the 1800s"**, too vague; use 1751.
 - **"Community hub since 1995"**, this conflicts with the 1751 established date and weakens trust with Google. Only use 1995 if it refers specifically to the current ownership or operating chapter, and always clarify the distinction.
-- **"Best" or "premier" claims** without substantiation.
+- **"Best" or "premier" claims** without substantiation. Say "highly rated" instead, and see §17 for what can be claimed.
 
 ### Sunday roast
 - **Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side**, all retired 2026-04-29. Lamb is no longer served anywhere.
@@ -677,7 +837,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **"All Christmas meals are pre-order only"**, wrong. 1 course is pre-book without pre-order.
 - **Christmas bookings under 4 guests, or with less than 24 hours notice**, not accepted, never imply otherwise.
 - **A kids 2-course or 3-course price**, does not exist. Never invent one.
-- **Named Christmas dishes**, the menu is not finalised. Only "menu released closer to the time" is permitted.
+- **"Menu released closer to the time"**, retired 13 August 2026. The dishes are published, from the Christmas booking period (§7). Publish what that returns, never invent or pad the list, and if it returns nothing, say nothing.
 - **26-guest or 25-guest festive buffet minimums**, wrong. The minimum is 30.
 
 ### Allergens
@@ -703,19 +863,142 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
 ## 15. Maintaining This Document
 
-**The update rule:** When operational reality changes, update **this document first**. Page copy, JSON-LD, schemas, blog posts, and the management DB all follow.
+### Who owns each fact
 
-**Mirror file:** `/SSOT.json` carries a structured subset of stable facts for programmatic lookup. Opening hours, kitchen hours, drinks stock, prices, current review counts and ranks must come from live sources. When this Markdown file changes, the JSON should be reconciled. If the two ever disagree, this Markdown is canonical.
+Every fact has one owner. Update the owner first; everything else follows it. **Never change live operational data to match a stale line here: fix the line.**
+
+| Fact | Owned by | What this document does |
+|---|---|---|
+| Opening hours, special hours, kitchen hours, closures | The management app's business hours and special hours | Mirrors them, never overrides them (§3) |
+| Prices: food, drink, catering, Christmas | The management database, through the menu API | Never holds a live price (pricing policy above) |
+| Capacities | The management app (`venue_spaces`, each event record) | Mirrors them with a pull date (§8, §10, §11) |
+| Menu dishes and their descriptions | The management database: `menu_dishes` feeds the website, `sunday_lunch_menu_items` feeds the booking system | Holds the rules about dishes (vegan, Yorkshire, gravy, potatoes), not the list |
+| Event dates, times, prices and payment mode | The event record in the management app | Holds the standing rules for each format (§10) |
+| Voice, naming, banned claims, approved wording | This document | Canonical |
+| Facilities, access and amenities | This document, owner-confirmed | Canonical; `SSOT.json` mirrors it |
+| Claims that need evidence (ratings, "closest", heritage) | §17 | Canonical, each with a review date |
+
+Two consequences worth stating, because both have caused real faults:
+
+- **Menu descriptions are customer-facing copy.** They publish straight from the management database to the website without passing any page code, so the rules in §1, §4 and §14 apply to them as much as to a page. A Yorkshire pudding sat on the vegan Wellington's description for months because nothing checked it.
+- **The two menu tables drift independently.** `menu_dishes` and `sunday_lunch_menu_items` hold separate copies of the Sunday roast, and a fix to one does not reach the other. Change both, then check both.
+
+### The update rule
+
+For a fact the management app owns, change it in the app, then bring this document into line. For a fact this document owns, change it here first; page copy, JSON-LD, schemas, blog posts and emails follow.
+
+**Mirror file:** `/SSOT.json` carries a structured subset of stable facts for programmatic lookup. Opening hours, kitchen hours, drinks stock, prices, current review counts and ranks must come from live sources. When this Markdown file changes, the JSON should be reconciled. If the two ever disagree, this Markdown is canonical. `npx jest tests/ssot-drift-guard.test.ts` fails when they contradict on key facts: run it after every change.
 
 **Word doc render:** `docs/SSOT-Review-The-Anchor.docx` can be regenerated for non-technical reviewers via `node docs/generate-ssot-docx.mjs` (the script reads `/SSOT.json`, so update the JSON first if the docx is what an external reviewer is reading).
 
 **Process docs (separate concern):** `docs/ssot-review-spec.json` is a spec for the SSOT *review process*, not a brand-fact source. Don't edit it as part of routine fact updates.
 
-### Nations Championship screenings, owner decision 5 September 2026
+### Before anything is published: two passes
 
-We show Nations Championship games broadcast on terrestrial TV during our existing opening hours. Bookings must not wait for the exact channel, screen allocation or commentary arrangement. Early games are shown from opening. If a game runs beyond our usual closing time and people are still in watching, we will stay open until it finishes (owner-confirmed 5 September 2026). This is conditional continuation for viewers already in the pub, not a guaranteed late opening or permission for arrivals after usual closing. Regular opening times, kitchen service and bookable arrival hours remain unchanged. A missing match finish time uses the existing two-hour booking window for booking planning only, never as a claim about the actual final whistle. Kitchen promotion follows the live service intervals.
+Run these separately. Mixing them is how a warm sentence with a wrong fact gets through.
 
+**The fact pass.** Is every fact in this document, or read live from its owner? Do dates, times and prices match the owning record? Are inclusions, exceptions and conditions stated, not softened? Does the page contradict itself anywhere? Are access and dietary claims taken from §8, §4 and §5, not reworded from memory?
 
-### Online event booking, owner decision 6 September 2026
+**The voice pass.** The 60-second check in §1. Plus: no unfinished sentences, no internal system language ("the dates people search for", "pulled from the API"), and the location fact said once.
 
-Offer standing tickets only once all seated places are sold out, with clear notice that no table seat is included. Do not ask customers to choose seated or standing tickets. Online event bookings allow up to 6 tickets; the single-quantity form uses a 1 to 6 picker; larger groups should call 01753 682707.
+### Keeping it true
+
+- **Every quarter:** read the live site's raw page text against §16, not an AI summary of it. A summarising tool once reported the drinks menu selling mulled wine and calling the pub a "premier drinks destination"; neither was on the page. Twenty minutes, four times a year.
+- **Every change:** record it in §18, with the date and who confirmed it.
+- **Every mirror** (a capacity, a rating, a count) carries the date it was pulled. A number that can change without anyone editing this document is a mirror.
+
+## 16. Approved Wording
+
+Paste these as they stand. Each one is built from the facts in this document, and each has already been checked against its section. If the facts change, change the block here, then everywhere it was pasted.
+
+### Getting in and around
+
+> Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
+
+Short form, for a feature list or a garden page:
+
+> Step free from the car park. One step from the bar, with a ramp on request.
+
+### Parking
+
+> We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
+
+### Dogs
+
+> Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
+
+### Families
+
+> High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities.
+
+### Sunday roast
+
+> Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm.
+
+### The Wellington
+
+> Fully vegan as it comes. Ask if you'd like buttered cabbage or a Yorkshire pudding added, both of which make the plate no longer vegan.
+
+### Gravy
+
+> Our signature gravy is a recipe we've refined over the years, and it contains meat stock. Our regular gravy is fully vegan: it comes with the Wellington, and you can have it with any dish.
+
+### Allergens, when the data is missing
+
+> See menu or contact us for allergen information
+
+### NGCI
+
+> NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
+
+### Group deposit
+
+> Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
+
+### Christmas 2026
+
+> Christmas sittings run from 10 November to 20 December 2026, for four guests or more, with 24 hours' notice. There's a £10 per person deposit, which comes off your bill.
+
+### Over Christmas and New Year
+
+> On Christmas Day we're open for drinks only, 12pm to 3pm, with no food. We're closed on Boxing Day and on New Year's Day. Our kitchen's last day of the year is Sunday 20 December, and it's back on Tuesday 12 January. The bar stays open throughout, apart from those two days.
+
+### Sport
+
+> We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports.
+
+### Takeaway and breakfast
+
+> We don't do breakfast or delivery, but you can phone a takeaway order through to collect.
+
+### Event arrival times
+
+> Arrive from 6:30pm for a 7pm start.
+
+Never "doors 6:30pm": the pub is open long before then, and "doors" tells people it isn't (§10).
+
+## 17. Claims Register
+
+Claims that are objective, and so need evidence rather than enthusiasm. "We love a Sunday roast" needs none; "the best Sunday roast near Heathrow" needs proof we do not hold. Keep them apart.
+
+| Claim | Evidence on file | How to use it | Review |
+|---|---|---|---|
+| Established 1751 | British History Online; Spelthorne local list, reference LL/072 | "A village pub since 1751", or the heritage safe wording in §1 | Stable |
+| Closest traditional pub to Heathrow, to Terminal 5 | None recorded in this document | In use in §1 and §2. Journey times (§2) carry the same message and can be checked | Each quarter |
+| Journey times to the terminals | §2 table, by terminal | Use the terminal-specific figure, or the 7 to 12 minute range. Never apply the Terminal 5 time to every terminal | Each quarter |
+| Google rating 4.6 | Google Business Profile, figure not dated here | Show the rating while it is current. Never a review count (§12) | Monthly |
+| Highly rated near Heathrow | The ratings in §12 | As written. A "highest-rated" claim needs current evidence | Each quarter |
+| 5-star food hygiene, since 2019 | Food Standards Agency rating (§12) | "5-star food hygiene rating" | Each quarter |
+| Outside the ULEZ | Location | "We're outside the ULEZ zone." | Stable |
+| ULEZ saving of about £12.50 a day | §2. Transport for London charges by vehicle and by route, so the saving is not the same for everyone | If a saving is stated, say it depends on the vehicle | Each quarter |
+| Famous Sunday roasts | Enthusiasm, not a factual claim | Fine as warmth. Never "best" or "premier" (§14) | Stable |
+
+## 18. Changelog
+
+Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **10 September 2026: version 2.0.** Restructured without renumbering: quick card; §1 replaced with a testable voice standard (the voice it replaces had applied to new copy from 14 August 2026); §15 gained a table of who owns each fact; §16, §17 and this changelog added; engineering detail moved to `docs/SSOT-engineering-notes.md`. Two contradictions inside the document removed. §14 banned naming Christmas dishes while §7 required publishing them; §14 now bans the retired "menu released closer to the time" line instead. §11 called a festive-buffet rule wrong in words that matched §7's correct one; §11 now scopes it. §3's advice to use `??` for kitchen hours was unsafe, because `??` falls through on the very null that means "closed"; the corrected rule is in §3 and the engineering notes.
+- **9 September 2026.** The festive run confirmed by the owner: open throughout December except 26 December and 1 January, the kitchen's last day is 20 December and it returns on 12 January, Mondays keep their 4pm opening. 27 December had no override in the management app and resolved to a Sunday roast; it now carries one. The Wellington's plate confirmed: vegan by default, buttered cabbage and a Yorkshire pudding added only on request, and the kitchen makes no unbuttered cabbage. Its description in both menu tables had listed a Yorkshire pudding and buttery cabbage on a dish called fully vegan, and it now lists neither; the website's dish also gained the missing `vegan` flag. The tasting night priced at £45, £5 less in advance; it had been stored as free.
+- **27 August 2026.** Runway designators removed. Ten places across `/beer-garden` and `/plane-spotting-heathrow`, including structured data, had asserted "27R", which contradicted the southern-runway line: Heathrow's southern runway is not 27R.
+- **15 August 2026.** The adult drink on the Christmas menu corrected to the 2 and 3 course tiers only. An earlier version applied it to every tier, which reached the live christmas-parties page and two marketing emails before it was caught.
+- **9 August 2026.** Group deposit threshold raised from 10 guests to 15. A party of ten is an ordinary family Sunday, and putting a payment screen in front of them was the most likely reason the pub took only two bookings of ten or more in ninety days. The per-person rate was unchanged, and the Christmas rule was unaffected.

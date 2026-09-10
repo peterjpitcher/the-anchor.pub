@@ -108,7 +108,7 @@ This is the big one, and it's often overlooked. A retirement party guest list te
 - Ramp availability for any outdoor spaces
 - Whether assistance dogs are welcome
 
-**A note on honesty:** Not every venue ticks every accessibility box, and that's better to know upfront than to discover on the day. At The Anchor, the bar, dining area, and car park are all step-free. The beer garden has steps from the bar, but a ramp is available on request. We don't have an accessible toilet, we'd rather tell you that now so you can plan accordingly. Guests with specific needs are always welcome to call ahead so we can help plan their visit.
+**A note on honesty:** Not every venue ticks every accessibility box, and that's better to know upfront than to discover on the day. At The Anchor, the bar, dining area, and car park are all step-free. The beer garden is step free from the car park, with one step from the bar and a ramp on request. We don't have an accessible toilet, we'd rather tell you that now so you can plan accordingly. Guests with specific needs are always welcome to call ahead so we can help plan their visit.
 
 ### Private space
 
@@ -156,7 +156,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 **Parking:** Free on-site parking for approximately 20 cars. Level surface, close to the entrance, CCTV and floodlit. No charges, no time limits while visiting.
 
-**Accessibility:** Step-free access to the bar, dining area, and car park. Beer garden ramp available on request. Assistance dogs always welcome. No accessible toilet, please call us on 01753 682707 if you'd like to discuss specific accessibility needs before booking.
+**Accessibility:** Step-free access to the bar, dining area, and car park. Beer garden step free from the car park, one step from the bar, ramp on request. Assistance dogs always welcome. No accessible toilet, please call us on 01753 682707 if you'd like to discuss specific accessibility needs before booking.
 
 **Location:** Stanwell Moor, 2 minutes from Junction 14 of the M25. Bus routes 441, 442, and 555 from Heathrow Central Bus Station. Eight minutes from Staines, 7-12 minutes from Heathrow terminals.
 

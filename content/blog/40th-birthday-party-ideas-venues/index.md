@@ -242,7 +242,7 @@ The Anchor welcomes dogs throughout the entire venue. Water bowls are provided, 
 
 **What if I need to accommodate guests with mobility requirements?**
 
-The Anchor has step-free access to the bar, dining area, and car park. The beer garden has steps from the bar, but a ramp is available on request. We'd encourage guests with specific access needs to call ahead on 01753 682707 so we can plan their visit. It's worth noting honestly that there is no accessible toilet on site, we'd rather you know that upfront than discover it on the night.
+The Anchor has step-free access to the bar, dining area, and car park. The beer garden is step free from the car park, with one step from the bar and a ramp on request. We'd encourage guests with specific access needs to call ahead on 01753 682707 so we can plan their visit. It's worth noting honestly that there is no accessible toilet on site, we'd rather you know that upfront than discover it on the night.
 
 ---
 

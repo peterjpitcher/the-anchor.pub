@@ -288,8 +288,8 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <Section background="white" spacing="sm" container className="border-b border-line">
         <h2 className="text-2xl font-bold text-accent-text mb-4">Accessibility</h2>
         <p className="text-ink-muted mb-3">
-          Step-free access to the bar and dining area. There are steps from the bar to the beer
-          garden, but a ramp is available on request.
+          Step free from the car park to the bar, the dining area and the beer garden. There's one step
+          between the bar and the garden, and we'll put a ramp out for it if you ask.
         </p>
         <p className="text-ink-muted mb-4">
           We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}

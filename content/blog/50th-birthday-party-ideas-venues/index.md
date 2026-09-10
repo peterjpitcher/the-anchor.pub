@@ -168,7 +168,7 @@ You can also bring your own food at no charge if you prefer to arrange catering 
 
 - **Free parking** for all guests, 20 spaces on site, no fees, no time limits. CCTV and floodlit.
 - **Step-free access** to the bar, dining area, and car park
-- **Beer garden ramp** available on request (there are steps from the bar, but we have a ramp for those who need it)
+- **Beer garden access:** step free from the car park, with one step from the bar and a ramp for it on request
 - **AV equipment**, TVs and sound system for slideshows, speeches, or that embarrassing montage someone always puts together
 - **Dedicated events coordinator** who handles the details
 - **Dog friendly** throughout the venue, water bowls and treats provided, so the family dog is welcome too

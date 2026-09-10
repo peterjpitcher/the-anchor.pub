@@ -11,7 +11,7 @@ import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Accessibility | Stanwell Moor Pub',
-  description: 'Step-free access to the bar and dining area, with a ramp available for the beer garden. Everything you need to know to plan your visit to The Anchor, Stanwell Moor.',
+  description: 'Step free from the car park to the bar, dining area and garden. One step from bar to garden, with a ramp on request. Plan your visit to The Anchor.',
   alternates: {
     canonical: '/accessibility'
   }
@@ -50,7 +50,7 @@ export default function AccessibilityPage() {
               {[
                 { area: 'Bar area', icon: '' },
                 { area: 'Dining area', icon: '' },
-                { area: 'Beer garden', icon: '', note: 'There are steps from the bar to the garden, but a ramp is available on request' },
+                { area: 'Beer garden', icon: '', note: 'Step free from the car park. One step from the bar to the garden, with a ramp on request' },
                 { area: 'Car park', icon: '', note: 'Level surface, close to the entrance' },
               ].map(({ area, icon, note }) => (
                 <Card key={area}>
@@ -146,11 +146,11 @@ export default function AccessibilityPage() {
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
-            answer: 'The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet, please call ahead if you\'d like to talk through your visit.'
+            answer: 'The bar and dining area are step-free, and the beer garden is step free from the car park. There\'s one step between the bar and the garden, with a ramp on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet, please call ahead if you\'d like to talk through your visit.'
           },
           {
             question: 'Is the beer garden step-free?',
-            answer: 'There are steps from the bar to the beer garden, but a ramp is available on request. It\'s a great spot for watching aircraft overhead with a drink or a meal.'
+            answer: 'The beer garden is step free straight from the car park. From the bar there\'s one step, and we\'ll put a ramp out for it if you ask. It\'s a great spot for watching aircraft overhead with a drink or a meal.'
           },
           {
             question: 'Do you have an accessible toilet?',
@@ -162,7 +162,7 @@ export default function AccessibilityPage() {
           },
           {
             question: 'Can I bring a wheelchair or mobility aid?',
-            answer: 'Yes. The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. If you\'d like to check specific details in advance, please call us.'
+            answer: 'Yes. The bar and dining area are step-free, and the beer garden is step free from the car park, with one step from the bar and a ramp on request. If you\'d like to check specific details in advance, please call us.'
           },
           {
             question: 'Are assistance dogs welcome?',

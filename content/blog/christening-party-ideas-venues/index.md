@@ -218,7 +218,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 ### Parking and access
 
-Twenty free parking spaces on site. Level surface, right by the entrance, CCTV monitored and floodlit. No time limits while you're visiting. Additional parking available nearby for larger groups. Grandparents and anyone with mobility considerations appreciate the level access from car park to entrance and throughout the bar and dining area (step-free throughout, with a ramp available on request for the beer garden).
+Twenty free parking spaces on site. Level surface, right by the entrance, CCTV monitored and floodlit. No time limits while you're visiting. Additional parking available nearby for larger groups. Grandparents and anyone with mobility considerations appreciate the level access from car park to entrance and throughout the bar and dining area (step free throughout, and into the beer garden from the car park, with one step between the bar and the garden and a ramp for it on request).
 
 We're two minutes from M25 Junction 14 and outside the ULEZ zone, saving London-based guests £12.50 per day. Bus routes 441, 442, and 555 connect from Heathrow Central Bus Station for anyone arriving by public transport.
 

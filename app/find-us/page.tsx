@@ -505,7 +505,7 @@ export default async function FindUsPage() {
                   </div>
                   <div>
                     <strong className="text-ink-strong">Accessible Entry</strong>
-                    <p className="text-sm">Ramp available at back door</p>
+                    <p className="text-sm">Step free from the car park</p>
                   </div>
                   <div>
                     <strong className="text-ink-strong">All Cards Accepted</strong>
@@ -564,7 +564,7 @@ export default async function FindUsPage() {
           },
           {
             question: "Is The Anchor wheelchair accessible?",
-            answer: "The Anchor has a wheelchair ramp available at the back door for step-free access to the main areas. Please note that we do not currently have accessible toilet facilities."
+            answer: "Getting in from the car park is step free, and so are the bar and the dining area. There's one step between the bar and the beer garden, and we'll put our ramp out for it if you ask. We don't currently have an accessible toilet."
           },
           {
             question: "What payment methods does The Anchor accept?",

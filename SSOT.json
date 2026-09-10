@@ -1354,8 +1354,14 @@
         "_confirmed": "Owner-confirmed 2026-09-08.",
         "rule": "Never advertise New Year's Day food or opening. We are closed on 1 January."
       },
-      "between_christmas_and_new_year": "NOT CONFIRMED for 27 to 31 December. Say nothing about those dates until the owner confirms them.",
-      "source_of_truth": "The management app's business hours. This block transcribes what it holds and never overrides it."
+      "between_christmas_and_new_year": "CONFIRMED 2026-09-09. Open throughout December apart from 26 December, and closed on 1 January. The kitchen serves up to and including Sunday 20 December, then closes until Tuesday 12 January; the bar stays open. Mondays keep their usual 4pm opening. The management app holds every date: read it, not this line.",
+      "source_of_truth": "The management app's business hours. This block transcribes what it holds and never overrides it.",
+      "kitchen_festive_closure": {
+        "last_service": "2026-12-20",
+        "returns": "2027-01-12",
+        "bar_stays_open": true,
+        "_confirmed": "Owner-confirmed 2026-09-09."
+      }
     },
     "group_size_bands": {
       "seated_max": 20,

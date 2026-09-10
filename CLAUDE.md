@@ -9,7 +9,7 @@ Applies to page copy, JSON-LD, blog posts, social copy, emails, press copy, alt 
 1. Read `docs/SSOT.md` (identity and voice, contact, hours, Sunday roast, weekday food, drinks, booking and deposits, venue and parking, beer garden, events, private hire, ratings, areas served, banned claims). `SSOT.json` mirrors the structured subset (menu prices, drinks, hours) and is imported at build time by code such as `components/HeroBadge.tsx` and `lib/menu-page-data.ts`.
 2. The SSOT wins. If page copy disagrees with it, the page is wrong: fix the page.
 3. Do not invent facts. If a claim is not in the SSOT, stop and ask. No inference, no embellishment, no training-data fallback.
-4. When operational reality changes, update `docs/SSOT.md` first; page copy, JSON-LD and the management DB follow.
+4. When operational reality changes, update the source that owns the fact first (`docs/SSOT.md` §15 says which). Hours, prices, capacities and events are owned by the management app, so change them there and bring the SSOT into line; voice, banned claims, facilities and approved wording are owned by the SSOT, so change it first and let pages follow. Paste the approved wording in SSOT §16 rather than rewording access, allergen or deposit copy.
 5. After any SSOT change run `npx jest tests/ssot-drift-guard.test.ts`; it fails if `docs/SSOT.md` and `SSOT.json` contradict on key facts.
 
 `docs/brand-strategy.md` is audience and competitor strategy, not brand facts.
