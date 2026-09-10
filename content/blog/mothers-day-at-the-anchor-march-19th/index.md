@@ -51,7 +51,7 @@ Looking for the perfect **Mother's Day lunch near Heathrow Airport**? The Anchor
 - 📞 **Call**: 01753 682707
 - 💬 **Facebook**: [Message us](http://m.me/theanchorpubsm)
 - 📱 **WhatsApp**: [01753 682707](https://api.whatsapp.com/send?phone=4401753682707)
-- **Sunday roast bookings**: A £10 per person deposit applies to groups of 10 or more.
+- **Sunday roast bookings**: A £10 per person deposit applies to groups of 15 or more.
 
 **Important**: Walk-ins are welcome, but Mother's Day fills quickly. Book ahead for peak slots.
 
