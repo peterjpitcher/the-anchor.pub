@@ -67,7 +67,7 @@ Yes, there’s plenty of space around tables, and the team will help position pr
 Our team caters for dairy-free and vegetarian diets, and there are NGCI dishes too. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. Mention needs when booking so the kitchen can prepare.
 
 ### Are dogs allowed?
-Friendly, well-behaved dogs are welcome in the bar and garden areas. We have water bowls and dog treats available.
+Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
 
 ## Make Your Booking Easy
 

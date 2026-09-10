@@ -32,7 +32,7 @@ This is us, so we'll be upfront about that. But the facts speak for themselves:
 - **Current bar and kitchen hours**, live on our website before you visit
 - **Full menu**, proper pub food, Sunday roasts, pizzas, daily specials
 - **Beer garden**, large outdoor area with seating
-- **Dog-friendly**, well-behaved dogs welcome in the bar area
+- **Dog-friendly**, dogs welcome throughout the pub, on a lead
 
 We're on Horton Road in Stanwell Moor, just off the A3044. It's a straight run from the airport with no motorway tolls or congestion charges. Local taxi firms and Uber drivers know us well if you'd rather not drive back.
 
