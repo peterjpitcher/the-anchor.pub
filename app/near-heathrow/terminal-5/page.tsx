@@ -153,7 +153,7 @@ export default function Terminal5Page() {
               </div>
             </div>
             <div className="bg-surface border border-line rounded-md shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-accent-text mb-2">All-Day Menu</h3>
+              <h3 className="text-lg font-semibold text-accent-text mb-2">Pub Menu</h3>
               <p className="text-sm text-ink-muted mb-4">
                 Burgers, fish & chips, veggie options and sharers served fast, great for BA crews and Sofitel/Hilton guests.
               </p>

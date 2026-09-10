@@ -275,7 +275,11 @@ export default async function WorldCupPage() {
                   <li>If we're empty at close, we'll close as normal</li>
                 </ul>
                 <p className="mt-4 text-xs text-ink-muted">
-                  Core hours: Mon-Thu 4pm-10pm • Fri 4pm-10pm • Sat 12pm-10pm • Sun 12pm-10pm. Extended to midnight for selected knockout matches.
+                  Core hours: see our{' '}
+                  <Link href="/find-us#opening-hours" className="font-semibold text-accent-text hover:underline">
+                    opening hours
+                  </Link>
+                  . Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
                   <Link href="#fixtures" className="font-semibold text-accent-text hover:underline">
@@ -301,7 +305,7 @@ export default async function WorldCupPage() {
                 <ul className="mt-4 space-y-2 text-sm text-ink-muted">
                   <li>4 screens (no projector)</li>
                   <li>Sound on for all games we show (reviewed if another event clashes)</li>
-                  <li>Kitchen open during our opening hours</li>
+                  <li>Food served during kitchen hours</li>
                   <li>Free parking ({PARKING.capacity} spaces)</li>
                 </ul>
               </div>
@@ -364,7 +368,11 @@ export default async function WorldCupPage() {
                 <p>
                   Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
                 </p>
-                <p>Kitchen is open during our opening hours (check the menu for current serving times).</p>
+                <p>
+                  Food is served during kitchen hours, which are shorter than the bar&apos;s, and the kitchen is
+                  closed on Mondays. Check our{' '}
+                  <Link href="/find-us#opening-hours">opening hours</Link> for today&apos;s times.
+                </p>
               </div>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button asChild variant="primary">

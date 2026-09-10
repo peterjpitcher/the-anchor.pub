@@ -294,8 +294,8 @@ export default async function PubsInStanwellPage() {
 
             <div className="grid gap-4">
               {[
-                { day: "Monday", text: "Bar open all day • Kitchen closed • Perfect for drinks" },
-                { day: "Tuesday - Pizza Night", text: "Stone-baked pizzas • See today's kitchen hours above" },
+                { day: "Monday", text: "Drinks only • Kitchen closed • See today's hours above" },
+                { day: "Tuesday", text: "Stone-baked pizzas and the full menu • See today's kitchen hours above" },
                 { day: "Wednesday-Thursday", text: "Full menu available • See today's kitchen hours above" },
                 { day: "Friday - Fish & Chips", text: "Fish & chips served • See today's kitchen hours above" },
                 { day: "Saturday - Entertainment Night", text: "Hosted nights & one-off events • See /whats-on for details" },
@@ -370,7 +370,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "What food do you serve?",
-            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips, stone-baked pizzas, burgers, pies, and vegetarian options. Kitchen hours vary by day - closed Mondays, dinner service Tuesday-Friday, lunch and dinner on weekends."
+            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips, stone-baked pizzas, burgers, pies, and vegetarian options. Kitchen hours vary by day, and the kitchen is closed on Mondays. Our Find Us page shows this week's times."
           },
           {
             question: "How far is The Anchor from Stanwell village?",

@@ -379,7 +379,7 @@ export default function FelthamPubPage() {
                 along Feltham Hill Road, thousands of people finishing shifts every evening with limited options for a
                 proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is just
                 ten minutes down Feltham Hill Road and the A30, with free parking and a kitchen serving hearty pub food
-                from 6pm on weeknights. It is the kind of place where you can unwind with a pint of draught beer and a
+                at lunch and dinner from Tuesday to Friday. It is the kind of place where you can unwind with a pint of draught beer and a
                 stone-baked pizza without fighting for a table.
               </p>
               <p>

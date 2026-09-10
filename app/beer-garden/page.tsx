@@ -169,7 +169,7 @@ export default async function BeerGardenPage() {
             </Card>
             <Card accent hover>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">All-Day Food & Drinks</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Food & Drinks in the Garden</h3>
                 <p className="text-sm text-ink-muted mb-4">
                   Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>

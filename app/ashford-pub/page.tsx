@@ -497,9 +497,9 @@ export default function AshfordPubPage() {
               </p>
               <p>
                 We see a lot of Ashford Hospital staff, especially those finishing late shifts and looking for
-                somewhere with a warm kitchen and a decent pint. Our kitchen opens at 6pm on weekdays, which suits
-                nurses and support staff who clock off in the afternoon and want a proper meal rather than a
-                supermarket sandwich. The hospital is only about eight minutes away, and the free parking means no
+                somewhere with a warm kitchen and a decent pint. Our kitchen serves lunch and dinner from Tuesday to
+                Friday, which suits nurses and support staff who clock off in the afternoon and want a proper meal
+                rather than a supermarket sandwich. The hospital is only about eight minutes away, and the free parking means no
                 scrambling for change after a long day on your feet.
               </p>
               <p>

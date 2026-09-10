@@ -38,7 +38,7 @@ For most Heathrow layover travellers, this is the single best use of time.
 **The Anchor** is a traditional British pub in Stanwell Moor village, 7 minutes from Terminal 5 and 10–15 minutes from all other terminals. It offers:
 
 - A genuine British pub experience (not a chain, not an airport restaurant)
-- Home-cooked food including fish & chips, Sunday roasts (weekends), burgers, and daily specials
+- Home-cooked food including fish & chips, Sunday roasts, burgers, and daily specials
 - Bottled beers and proper draught lagers
 - A large beer garden for sunny days
 - Free parking if you've picked up a rental car
@@ -47,9 +47,8 @@ For many international travellers, a layover stop at a proper British local pub 
 
 **Practical details:**
 - Postcode for taxi: TW19 6AQ
-- Open from 4pm Tuesday–Friday, noon Saturday–Sunday
+- Opening and kitchen hours: [see this week's times](/find-us#opening-hours) before you set off
 - Sunday roast is walk-in friendly, with booking recommended for peak slots (call 01753 682707)
-- Monday: pub open, kitchen closed
 
 [Plan your pre-flight meal at The Anchor →](/heathrow-layover-dining)
 

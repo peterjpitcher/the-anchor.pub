@@ -175,9 +175,9 @@ export default async function PlaneSpottingHeathrowPage() {
             </Card>
             <Card accent hover>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Hot Food & Drinks All Day</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Hot Food & Drinks</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Burgers, fish & chips, sharers and a full bar served to the beer garden. Free parking and WiFi keep you comfortable between arrivals.
+                  Burgers, fish & chips, sharers and a full bar served to the beer garden during kitchen hours. Free parking and WiFi keep you comfortable between arrivals.
                 </p>
                 <div className="flex flex-col gap-2 items-start">
                   <BookTableButton

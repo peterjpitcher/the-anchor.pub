@@ -16,15 +16,15 @@
 - **Food Hygiene:** 5-star rating (Food Standards Agency)
 
 ## Opening Hours
-The bar is open until 10pm every day. The kitchen closes earlier, with last food orders 30 minutes before the kitchen closes. Hours are managed live from our booking system; current times and holiday exceptions are at https://www.the-anchor.pub.
+The bar is open until 10pm every day. The kitchen closes earlier, with last food orders 30 minutes before the kitchen closes. Hours are managed live from our booking system; current times and holiday exceptions are at https://www.the-anchor.pub/find-us#opening-hours.
 
 | Day | Bar | Kitchen |
 |-----|-----|---------|
 | Monday | 4pm-10pm | Closed (no food) |
-| Tuesday | 4pm-10pm | 4pm-9pm |
-| Wednesday | 4pm-10pm | 4pm-9pm |
-| Thursday | 4pm-10pm | 4pm-9pm |
-| Friday | 4pm-10pm | 4pm-9pm |
+| Tuesday | 12pm-10pm | 12pm-3pm and 4pm-9pm |
+| Wednesday | 12pm-10pm | 12pm-3pm and 4pm-9pm |
+| Thursday | 12pm-10pm | 12pm-3pm and 4pm-9pm |
+| Friday | 12pm-10pm | 12pm-3pm and 4pm-9pm |
 | Saturday | 12pm-10pm | 12pm-7pm |
 | Sunday | 12pm-10pm | 1pm-6pm (roast) |
 
@@ -39,7 +39,8 @@ The bar is open until 10pm every day. The kitchen closes earlier, with last food
 - Traditional British pub classics: fish & chips, pies, burgers, bangers & mash
 - Stone-baked 12-inch pizzas (gluten-free bases on request)
 - Sunday roast: Beef Topside, Pork Leg, Turkey with stuffing ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, vegan Beetroot & Butternut Squash Wellington, and a Kids Roast
-- Sunday roast is walk-in friendly, served 1pm to 6pm. Booking recommended but not required. £10 per person deposit only for groups of 10 or more, deducted from the bill.
+- Sunday roast is walk-in friendly, served 1pm to 6pm. Booking recommended but not required.
+- Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 - Live menu and prices: https://www.the-anchor.pub/food-menu
 
 ## Events
