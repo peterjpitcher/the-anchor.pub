@@ -382,6 +382,29 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('redirects the eight dated offer and event posts retired on 10 September 2026 in one hop', () => {
+    // Owner decision, 10 September 2026: their offers had ended or their events had
+    // passed, and several still quoted 2019 to 2025 prices. Each goes to the live page
+    // that covers it now, and so do the older addresses that used to point at them.
+    const retired: Record<string, string> = {
+      'prices-frozen-until-autumn-theanchor-pub': '/drinks',
+      'events-offers-2025': '/whats-on',
+      'botanist-gin-july-2025': '/drinks/managers-special',
+      'salami-day-pizza': '/pizza-menu',
+      'rum-tasting-caribbean': '/whats-on',
+      'the-boys-are-back-in-town': '/drinks',
+      'valentines-day-meal-offer-for-two': '/valentines-day',
+      'tequila-tasting-events': '/whats-on',
+    }
+    for (const [slug, destination] of Object.entries(retired)) {
+      const rule = lookupRedirect(`/blog/${slug}`)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+    expect(lookupRedirect('/post/prices-frozen-until-autumn-theanchor-pub')?.destination).toBe('/drinks')
+    expect(lookupRedirect('/post/valentines-day-meal-offer-for-two')?.destination).toBe('/valentines-day')
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects

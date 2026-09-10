@@ -1,7 +1,7 @@
 [
   {
     "source": "/blog/5-star-tequila-tasting-night-at-the-anchor-an-unfo",
-    "destination": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -131,7 +131,7 @@
   },
   {
     "source": "/blog/exciting-new-events-offers-at-the-anchor-for-2025-",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -185,6 +185,46 @@
     "permanent": true
   },
   {
+    "source": "/blog/prices-frozen-until-autumn-theanchor-pub",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/events-offers-2025",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
+    "permanent": true
+  },
+  {
+    "source": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
+    "permanent": true
+  },
+  {
+    "source": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/the-boys-are-back-in-town",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/blog/monthly-music-bingo-nights-great-food-prizes-and-f",
     "destination": "/blog/music-bingo-nights",
     "permanent": true
@@ -226,7 +266,7 @@
   },
   {
     "source": "/blog/rum-tasting-night-stanwell-moor-explore-caribbean-",
-    "destination": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -291,7 +331,7 @@
   },
   {
     "source": "/blog/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
@@ -331,7 +371,7 @@
   },
   {
     "source": "/blog/world-salami-day-pizza-dive-into-exclusive-pizza-d",
-    "destination": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
@@ -341,7 +381,7 @@
   },
   {
     "source": "/post/5-star-tequila-tasting-night-at-the-anchor-an-unfo",
-    "destination": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -496,7 +536,7 @@
   },
   {
     "source": "/post/exciting-new-events-offers-at-the-anchor-for-2025-",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -621,7 +661,7 @@
   },
   {
     "source": "/post/prices-frozen-until-autumn-theanchor-pub",
-    "destination": "/blog/prices-frozen-until-autumn-theanchor-pub",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -661,7 +701,7 @@
   },
   {
     "source": "/post/rum-tasting-night-stanwell-moor-explore-caribbean-",
-    "destination": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -741,12 +781,12 @@
   },
   {
     "source": "/post/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
     "source": "/post/the-boys-are-back-in-town",
-    "destination": "/blog/the-boys-are-back-in-town",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -776,7 +816,7 @@
   },
   {
     "source": "/post/valentines-day-meal-offer-for-two",
-    "destination": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -816,7 +856,7 @@
   },
   {
     "source": "/post/world-salami-day-pizza-dive-into-exclusive-pizza-d",
-    "destination": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
