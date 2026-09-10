@@ -421,7 +421,7 @@
   },
   {
     "source": "/post/bombay-sapphire-special-this-month-theanchor-pub",
-    "destination": "/blog/bombay-sapphire-special-this-month-theanchor-pub",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
@@ -431,7 +431,7 @@
   },
   {
     "source": "/post/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
-    "destination": "/blog/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
@@ -521,7 +521,7 @@
   },
   {
     "source": "/post/easter-2024-at-the-anchor-family-dog-friendly-fun-",
-    "destination": "/blog/easter-2024-at-the-anchor-family-dog-friendly-fun-",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
@@ -576,12 +576,12 @@
   },
   {
     "source": "/post/gameshow-house-party-success-snatch-phrase-edition",
-    "destination": "/blog/gameshow-house-party-success-snatch-phrase-edition",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
     "source": "/post/get-ready-for-the-ultimate-zombie-apocalypse-hallo",
-    "destination": "/blog/get-ready-for-the-ultimate-zombie-apocalypse-hallo",
+    "destination": "/halloween",
     "permanent": true
   },
   {
@@ -606,7 +606,7 @@
   },
   {
     "source": "/post/introducing-affordable-foster-s-lager-budget-frien",
-    "destination": "/blog/introducing-affordable-foster-s-lager-budget-frien",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -616,7 +616,7 @@
   },
   {
     "source": "/post/january-opening-dates",
-    "destination": "/blog/january-opening-dates",
+    "destination": "/find-us#opening-hours",
     "permanent": true
   },
   {
@@ -626,7 +626,7 @@
   },
   {
     "source": "/post/latest-updates-from-the-anchor-pub",
-    "destination": "/blog/latest-updates-from-the-anchor-pub",
+    "destination": "/blog",
     "permanent": true
   },
   {
@@ -636,7 +636,7 @@
   },
   {
     "source": "/post/mother-s-day-lunch-near-heathrow-a-day-to-remember",
-    "destination": "/blog/mother-s-day-lunch-near-heathrow-a-day-to-remember",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
@@ -646,7 +646,7 @@
   },
   {
     "source": "/post/new-menu-launch-postponed",
-    "destination": "/blog/new-menu-launch-postponed",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -656,7 +656,7 @@
   },
   {
     "source": "/post/opihr-gin-a-journey-through-spice-at-the-anchor-th",
-    "destination": "/blog/opihr-gin-a-journey-through-spice-at-the-anchor-th",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -691,7 +691,7 @@
   },
   {
     "source": "/post/pub-quiz-embrace-the-new-wave-with-pub-pursuit-liv",
-    "destination": "/blog/pub-quiz-embrace-the-new-wave-with-pub-pursuit-liv",
+    "destination": "/quiz-night",
     "permanent": true
   },
   {
@@ -706,7 +706,7 @@
   },
   {
     "source": "/post/relive-the-laughter-at-the-anchor-s-gameshow-house",
-    "destination": "/blog/relive-the-laughter-at-the-anchor-s-gameshow-house",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
@@ -721,7 +721,7 @@
   },
   {
     "source": "/post/spring-tasting-night-a-celebration-of-exquisite-sp",
-    "destination": "/blog/spring-tasting-night-a-celebration-of-exquisite-sp",
+    "destination": "/blog/spring-tasting-night",
     "permanent": true
   },
   {
@@ -811,12 +811,12 @@
   },
   {
     "source": "/post/unforgettable-gameshow-house-party-at-the-anchor",
-    "destination": "/blog/unforgettable-gameshow-house-party-at-the-anchor",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
     "source": "/post/unveiling-our-april-2019-pricing-update-at-the-anc",
-    "destination": "/blog/unveiling-our-april-2019-pricing-update-at-the-anc",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -851,7 +851,7 @@
   },
   {
     "source": "/post/women-s-world-cup-final-at-the-anchor-football-fev",
-    "destination": "/blog/women-s-world-cup-final-at-the-anchor-football-fev",
+    "destination": "/live-sport",
     "permanent": true
   },
   {

@@ -719,6 +719,22 @@ describe('redirect-loops', () => {
     expect(selfLoops).toEqual([])
   })
 
+  it('has no redirect that lands on a blog post which does not exist', () => {
+    // Seventeen Wix-era addresses pointed at posts deleted long ago, so visitors ended
+    // on a 404, until 10 September 2026, when each was pointed at the closest live page.
+    // Retiring a post means repointing every redirect that lands on it.
+    const missing = ALL_REDIRECTS.filter((rule) => {
+      const match = /^\/blog\/([^/?#:*]+)(?:[?#].*)?$/.exec(rule.destination)
+      if (!match) return false
+      const slug = match[1]
+      return (
+        !fs.existsSync(path.join(process.cwd(), 'content', 'blog', slug, 'index.md')) &&
+        !fs.existsSync(path.join(process.cwd(), 'app', 'blog', slug, 'page.tsx'))
+      )
+    }).map((rule) => `${rule.source} -> ${rule.destination}`)
+    expect(missing).toEqual([])
+  })
+
   it('has no two-step redirect chains (a redirect destination is not also a redirect source)', () => {
     // A destination that is also a source forces Googlebot to follow a
     // chain (A -> B -> C). One-step chains waste crawl budget; longer
