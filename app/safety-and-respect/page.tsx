@@ -116,7 +116,7 @@ export default function SafetyAndRespectPage() {
         faqs={[
           {
             question: 'Is The Anchor dog-friendly?',
-            answer: 'Yes, dogs are welcome in the bar and beer garden.'
+            answer: "Yes. Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
           },
           {
             question: 'Is The Anchor family-friendly?',

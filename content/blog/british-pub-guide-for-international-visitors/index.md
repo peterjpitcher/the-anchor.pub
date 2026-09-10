@@ -23,7 +23,7 @@ The British pub is one of the most distinctive cultural institutions in the worl
 
 ## What Makes a British Pub Different
 
-A British pub isn't simply a bar. The best ones, and The Anchor in Stanwell Moor is one of them, are community spaces that have served the same village or neighbourhood for generations. You'll find local regulars who have been drinking in the same spot for decades, sitting next to first-time visitors from the other side of the world.
+A British pub isn't simply a bar. Many, The Anchor in Stanwell Moor among them, are community spaces that have served the same village or neighbourhood for generations. You'll find local regulars who have been drinking in the same spot for decades, sitting next to first-time visitors from the other side of the world.
 
 That mix is the point. A pub is not designed to impress or perform. It exists to be comfortable, welcoming, and reliably itself. That's exactly what most visitors find so disarming.
 

@@ -42,7 +42,7 @@ The town of Windsor itself is worth an hour of wandering too. Cobbled streets, i
 
 **Distance from Heathrow:** 7 minutes from T5 | **Time needed:** 1-2 hours | **Cost:** Free (plus whatever you eat and drink)
 
-This one's a genuine hidden gem. The village of Stanwell Moor sits directly under Heathrow's southern runway approach path, which means aircraft come over at 500-800 feet every 90 seconds during peak times. A380s, Boeing 777s, 787 Dreamliners, the lot. [The Anchor's beer garden](/plane-spotting-heathrow) is one of the best spots to watch them, with 64 seats outdoors and full food and drink service.
+This one's a genuine hidden gem. The village of Stanwell Moor sits directly under Heathrow's southern runway approach path, which means aircraft come over at 500-800 feet every 90 seconds during peak times. A380s, Boeing 777s, 787 Dreamliners, the lot. [The Anchor's beer garden](/plane-spotting-heathrow) is a good spot to watch them, with 64 seats outdoors and full food and drink service.
 
 Kids absolutely love it. Adults pretend they're only watching because the kids are, but nobody's fooling anyone. There's free WiFi throughout, so you can pull up Flightradar24 and identify every aircraft as it comes over.
 

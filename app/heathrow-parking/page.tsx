@@ -375,7 +375,7 @@ export default async function HeathrowParkingPage() {
             <SectionHeading
               kicker="Book online"
               title="Reserve & Pay for Heathrow Parking in Four Steps"
-              lead="Check live availability, lock in the best long stay parking price and pay securely with PayPal, perfect for airport drop-offs, contractors and extended holidays."
+              lead="Check live availability, lock in your long stay parking price and pay securely with PayPal, perfect for airport drop-offs, contractors and extended holidays."
             />
             <ParkingBookingWizard initialRates={rateCard} />
           </div>

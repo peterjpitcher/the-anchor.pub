@@ -195,7 +195,7 @@ export default function LongfordPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden is one of the best plane-spotting spots in the area, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
+                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden sits right under the flight path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
                             </p>
                             <p>
                                 Getting here from Longford takes about five minutes. The simplest route is along the Colnbrook bypass, pick up the A3044 heading south and turn onto Horton Road into Stanwell Moor. If you&rsquo;re coming from the Bath Road end near the hotels, it&rsquo;s barely any further. You can also walk along the Longford River path if you fancy stretching your legs, it&rsquo;s a pleasant stroll through proper countryside, and you end up practically on our doorstep.

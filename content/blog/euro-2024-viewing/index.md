@@ -30,7 +30,7 @@ noindex: true
 
 ![Euro 2024 promotional image for The Anchor](/content/blog/euro-2024-viewing/hero.jpg)
 
-Looking for the best **sports pub near Heathrow**? The Anchor is your premier destination for watching the biggest terrestrial TV sporting events! With 4 HD screens, fantastic atmosphere, and just 7 minutes from Terminal 5, we're the perfect spot to catch BBC, ITV, Channel 4, and Channel 5 coverage. World Cup, Euros, Six Nations, Wimbledon, FA Cup finals and more!
+Looking for the best **sports pub near Heathrow**? The Anchor is your destination for watching the biggest terrestrial TV sporting events! With 4 HD screens, fantastic atmosphere, and just 7 minutes from Terminal 5, we're the perfect spot to catch BBC, ITV, Channel 4, and Channel 5 coverage. World Cup, Euros, Six Nations, Wimbledon, FA Cup finals and more!
 
 ## Quick Summary
 

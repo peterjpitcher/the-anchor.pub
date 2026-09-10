@@ -270,7 +270,7 @@ export default async function PubsInStanwellPage() {
                       </div>
                       <div className="pt-3 border-t border-line">
                         <p className="font-bold text-ink">
-                          The Anchor offers the best combination of location,
+                          The Anchor brings together location,
                           parking, food, and atmosphere
                         </p>
                       </div>
@@ -357,8 +357,8 @@ export default async function PubsInStanwellPage() {
       <FAQAccordionWithSchema
         faqs={[
           {
-            question: "What makes The Anchor the best pub in Stanwell Moor?",
-            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere. Our combination of location, facilities, and friendly service makes us the preferred choice for locals."
+            question: "What makes The Anchor worth a visit in Stanwell Moor?",
+            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere."
           },
           {
             question: "Do you have parking at the pub?",

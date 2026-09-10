@@ -44,7 +44,7 @@ export default function SummerGardenPartiesPage() {
                 <Container>
                     <div className="mx-auto text-center">
                         <PageTitle className="text-ink-strong mb-4">
-                            The Best Beer Garden Around
+                            A Beer Garden Under the Flight Path
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
                             When the British summer finally arrives, there's no better place to be than The Anchor's garden. With a large grassy area, plenty of picnic benches, and dedicated space for private events, it's the ultimate spot for soaking up the sun.

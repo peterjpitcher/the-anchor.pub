@@ -4,7 +4,7 @@ description: >-
   Join The Anchor's pool team in Stanwell Moor, just 7 minutes from Heathrow
   Terminal 5. We welcome all skill levels from beginners to pros. Regular league
   matches, practise nights, and tournaments. Perfect for airport staff and
-  locals. Free parking, great atmosphere, and the best pool table near Heathrow.
+  locals. Free parking, great atmosphere, and a pool table near Heathrow.
 date: '2025-01-15'
 oldUrl: 'https://www.the-anchor.pub/post/calling-all-pool-players'
 author: Billy
@@ -35,7 +35,7 @@ noindex: true
 
 ![calling all pool players image](/content/blog/calling-all-pool-players/hero.jpg)
 
-## Join The Anchor Pool Team - Best Pool League Near Heathrow Airport
+## Join The Anchor Pool Team - Pool League Near Heathrow Airport
 
 Looking for a **pool league near Heathrow**? The Anchor pub in **Stanwell Moor** is building a competitive pool team and we want YOU! Located just **7 minutes from Heathrow Terminal 5**, we're the perfect spot for airport staff, locals, and anyone passionate about pool.
 
@@ -76,7 +76,7 @@ Looking for a **pool league near Heathrow**? The Anchor pub in **Stanwell Moor**
 
 ## How to Join Our Pool Team
 
-Ready to join the best **pool team near Heathrow Airport**? Here's how:
+Ready to join our **pool team near Heathrow Airport**? Here's how:
 
 **Call Billy**: 01753 682707
 **Visit Us**: Drop by The Anchor and speak to our staff
