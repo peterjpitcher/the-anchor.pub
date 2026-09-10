@@ -382,6 +382,25 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('redirects the retired drag cabaret and Christmas market posts (owner-approved 10 September 2026)', () => {
+    // Drag cabaret is discontinued and there is no Christmas market in 2026
+    // (docs/SSOT.md sections 7 and 10). The folders are deleted so neither
+    // post can come back through a blog listing, and every older rule that
+    // landed on them now goes straight to the new destination.
+    const retired: Array<[string, string]> = [
+      ['/blog/drag-cabaret-nikki', '/whats-on'],
+      ['/blog/christmas-market', '/christmas-parties'],
+    ]
+    for (const [source, destination] of retired) {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      expect(fs.existsSync(path.join(process.cwd(), 'content', source))).toBe(false)
+      expect(ALL_REDIRECTS.filter((r) => r.destination === source)).toEqual([])
+    }
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects

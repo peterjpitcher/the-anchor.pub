@@ -89,7 +89,7 @@ In the late 18th and early 19th centuries, this bustling Italian city saw its st
 
 ## Join Us for World Salami Day
 
-The story of pizza is one of evolution, transformation, and perfection. From the bustling streets of Naples to our modern-day ovens, this dish has traveled through time, bringing joy to many. This World Salami Day, immerse yourself in this culinary journey and celebrate with the best pizza in town. Don't miss out on our special discount and expertly recommended drink pairings to elevate your dining experience.
+The story of pizza is one of evolution, transformation, and perfection. From the bustling streets of Naples to our modern-day ovens, this dish has traveled through time, bringing joy to many. This World Salami Day, immerse yourself in this culinary journey and celebrate with a pizza at The Anchor. Don't miss out on our special discount and expertly recommended drink pairings to elevate your dining experience.
 
   
 

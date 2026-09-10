@@ -85,7 +85,7 @@ Different situations call for different pizza. Here is a rough guide:
 - **Delivery to a hotel room:** Domino's or an independent via Just Eat. Fastest, easiest, no travel required.
 - **Family dinner out:** Pizza Hut if the kids want the salad bar experience. The Anchor if you want somewhere less corporate with a beer garden.
 - **Date night:** Pizza Express for a polished chain feel, or The Anchor for something with more character and a better price.
-- **Best value:** The Anchor, stone-baked pizzas at pub prices, with free parking. Check the website for any current offers.
+- **Good value:** The Anchor, stone-baked pizzas at pub prices, with free parking. Check the website for any current offers.
 - **Quick solo meal:** Domino's collection deal or an independent takeaway.
 - **Before or after a flight:** The Anchor is seven minutes from Terminal 5 with free parking. Grab a pizza and a pint before you fly.
 

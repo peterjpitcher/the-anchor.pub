@@ -282,13 +282,20 @@
       "children_welcome_until": "Always welcome, completely family friendly including dogs. No age cut-off."
     },
     "dog_policy": {
-      "welcome_areas": "Throughout the entire venue",
+      "welcome_areas": "Throughout the entire venue, any time the pub is open, event nights included (owner-confirmed 2026-09-10)",
       "water_bowls": true,
       "treats": "Dog biscuits in a jar near the door",
+      "poo_bags": true,
+      "dog_bins": false,
       "on_lead": "Must be kept on a lead at all times",
       "no_furniture": "Dogs not allowed on furniture",
       "size_limit": "None",
-      "nearby_walks": "Stanwell Moor reservoirs"
+      "nearby_walks": "Stanwell Moor reservoirs. Staines Moor and the King George VI Reservoir are each about a 30-minute walk, one way (owner-confirmed 2026-09-10)",
+      "does_NOT_have": [
+        "Dog events of any kind",
+        "Dog treats beyond biscuits: no dog ice cream, pupcakes or dental chews",
+        "Dog-specific staff training, partnerships or sponsorships"
+      ]
     },
     "smoking": "Outside only",
     "payment_accepted": [
@@ -1227,7 +1234,7 @@
       "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
       "_confirmed": "Owner-confirmed 11 August 2026",
       "christmas_market": false,
-      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market stays noindexed and must not be revived. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
+      "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market was retired on 2026-09-10 (owner-approved) and redirects to /christmas-parties; do not revive it. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
     },
     "deposit": {
       "per_person_gbp": 10,

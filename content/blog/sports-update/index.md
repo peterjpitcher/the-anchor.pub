@@ -106,7 +106,7 @@ We remain in active negotiations with these providers and are hopeful for a posi
 🍻 **Facilities**: Multiple screens, great atmosphere
 📞 **Information**: 01753 682707
 
-Whether you're an **airport worker** catching the match after your shift or a **local sports fan** from Staines, we remain committed to showing major sporting events at the best **family pub near Heathrow**.
+Whether you're an **airport worker** catching the match after your shift or a **local sports fan** from Staines, we remain committed to showing major sporting events at our **family pub near Heathrow**.
 
   
 

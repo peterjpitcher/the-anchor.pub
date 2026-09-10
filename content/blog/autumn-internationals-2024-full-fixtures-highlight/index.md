@@ -50,7 +50,7 @@ The tournament follows the **Rugby World Cup 2023**, and all teams will be comin
 
 ## **Autumn Internationals 2024 Fixtures: Complete Schedule**
 
-Watch all these fixtures at The Anchor, your premier **sports pub near Heathrow Airport**:
+Watch all these fixtures at The Anchor, your **sports pub near Heathrow Airport**:
 
 ### **Week 1 - Saturday, 2nd November 2024**
 *   **England v New Zealand**, 3:10 pm - *Kitchen open, book early!*
@@ -94,7 +94,7 @@ Several fixtures stand out as must-watch matches during the **Autumn Internation
 
 ## **Watch Every Match at The Anchor - Your Local Rugby Pub Near Heathrow**
 
-Why travel to Twickenham when you can enjoy the **Autumn Internationals 2024** at The Anchor? As the premier **sports pub near Heathrow**, we offer:
+Why travel to Twickenham when you can enjoy the **Autumn Internationals 2024** at The Anchor? As a **sports pub near Heathrow**, we offer:
 
 ### Match Day Specials
 - **Multiple HD screens** showing every match live
@@ -136,9 +136,9 @@ Don't miss out on the rugby action! Book your table now for popular fixtures:
 📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 **Parking**: Free for all guests
 
-**Popular matches book up fast** - especially England games. Reserve your spot at the best **pub near Heathrow Airport** for rugby.
+**Popular matches book up fast** - especially England games. Reserve your spot at our **pub near Heathrow Airport** for rugby.
 
-## **Why The Anchor is the Best Rugby Pub Near Staines**
+## **Why Choose The Anchor as Your Rugby Pub Near Staines**
 
 - **Authentic atmosphere**: Real rugby fans, real passion
 - **Traditional pub food**: Proper British grub, not chain pub microwave meals  

@@ -197,7 +197,7 @@ Don't miss our next **race night event** at The Anchor:
 
 ## Why Choose The Anchor for Race Night
 
-### The Best Race Night Venue Near Heathrow
+### A Race Night Venue Near Heathrow
 
 - **Experienced hosts** - We've run dozens of successful race nights
 - **Professional setup** - Quality equipment and presentation

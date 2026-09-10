@@ -647,10 +647,69 @@ describe('SSOT drift guard — high-risk site copy', () => {
   })
 
   it('does not hardcode volatile review stats', () => {
+    // Section 12: show the 4.6 rating, never a review count. /our-pub carried
+    // "238&nbsp;reviews" until 10 September 2026, which a plain "238 reviews"
+    // search missed, so any number of reviews fails here, however it is spaced.
     expect(
       matchingFiles(
-        /238 Google|238 reviews|Highest-rated|highest-rated/i,
+        /\b\d[\d,]{1,5}(?:\s|&nbsp;)*\+?(?:\s|&nbsp;)*(?:google(?:\s|&nbsp;)+)?reviews\b|238 Google|Highest-rated|highest-rated/i,
       ),
+    ).toEqual([])
+  })
+
+  it('never publishes a runway designator (section 9)', () => {
+    // The 27 August 2026 fix cleared /beer-garden and /plane-spotting-heathrow;
+    // eight more were still in a blog post on 10 September.
+    expect(matchingFiles(/\b(?:27|09)[LR]\b/)).toEqual([])
+  })
+
+  it('does not call the pub the best or premier (section 14)', () => {
+    // Section 14 bans "best" and "premier" without substantiation: say "highly
+    // rated" instead. About 125 had built up by September 2026, in forms like
+    // "the best pub near Heathrow", "Stanwell Moor's premier pub" and "one of
+    // the best pubs near Egham". Still allowed: a searcher's question ("Looking
+    // for the best roast near Heathrow?"), advice ("best for families", "the
+    // best way to get here"), keyword lists, customer quotes, the genuine
+    // Google reviews, and the comparison guides below, which rank other places.
+    const SELF_SUPERLATIVE = new RegExp(
+      [
+        /\bpremier\b(?![- ](?:league|inn)\b)/,
+        /\btop[- ]rated\b/,
+        /\bone of the best (?:pubs?|places|spots?|bars?|venues?)\b/,
+        /\b(?:stanwell moor|staines|heathrow)'s (?:\*\*)?best\b(?!-)/,
+        /\bwe(?:'re| are)(?: known for)? the best\b/,
+        /\bbest (?!(?:for|of|to|way|ways|time|times|option|options|bet|use|venues|places|pubs|spots|things|walks|views)\b)(?:(?!to\b)[\w&'*-]+ ){0,4}(?:in|near|around) (?:\*\*)?(?:heathrow|staines|stanwell|terminal|t5|the area|town|tw19)\b/,
+      ]
+        .map((part) => part.source)
+        .join('|'),
+      'i',
+    )
+    const COMPARISON_GUIDES = [
+      'content/blog/best-beer-gardens-near-heathrow/index.md',
+      'content/blog/best-places-to-eat-near-heathrow/index.md',
+      'content/blog/best-pub-food-near-heathrow/index.md',
+      'content/blog/best-sunday-roast-surrey/index.md',
+      'content/blog/heathrow-plane-spotting-locations/index.md',
+      'content/blog/pizza-near-heathrow/index.md',
+      'content/blog/quiz-nights-near-heathrow/index.md',
+      'content/blog/things-to-do-near-heathrow/index.md',
+    ]
+    expect(
+      claimSentences(SELF_SUPERLATIVE, {
+        files: [...COMPARISON_GUIDES, 'lib/google-reviews.ts', 'lib/google/review-utils.ts'],
+        // A frontmatter keyword, a `keywords:` array, or a quote.
+        sentence: /^\s*- [a-z0-9 &'-]+$|\bkeywords:|^\s*(?:[-*>]\s*)?["“]/,
+      }),
+    ).toEqual([])
+  })
+
+  it('does not contradict the cash bingo format (section 10)', () => {
+    // Cash bingo is monthly on varying dates, with ten games and prizes that
+    // vary by event. Until 10 September 2026 a post promised first Thursdays,
+    // three games and a guaranteed £50 jackpot, and a New Year post repeated
+    // "First Thursday Bingo".
+    expect(
+      claimSentences(/\bfirst thursday\b|\b(?:three|3) games\b|£50 (?:cash )?jackpot|guaranteed £50|win (?:up to )?£50/i),
     ).toEqual([])
   })
 

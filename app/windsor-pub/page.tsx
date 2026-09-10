@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: `Pubs near Windsor? ${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts and stone-baked pizzas. Outside the ULEZ zone.`,
   openGraph: {
     title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    description: 'A highly rated pub near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    description: 'A highly rated pub near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -420,7 +420,7 @@ export default function WindsorPubPage() {
                 We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
               </p>
               <p>
-                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s genuinely one of the best free shows in Surrey. Dogs are welcome throughout, so if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
+                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s a genuinely good free show. Dogs are welcome throughout, so if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
               </p>
             </div>
           </div>

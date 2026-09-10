@@ -14,6 +14,7 @@ describe('the countdown banner stays off pages that already do its job', () => {
     ['/cash-bingo', 'leads with its own dated CTA and booking form'],
     ['/music-bingo', 'leads with its own dated CTA and booking form'],
     ['/karaoke', 'leads with its own dated CTA and booking form'],
+    ['/lunch-and-dinner', 'the food ads land here and it leads with Book a table'],
   ])('is suppressed on %s (%s)', (path) => {
     expect(shouldSuppressPath(path)).toBe(true)
   })

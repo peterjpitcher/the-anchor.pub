@@ -77,7 +77,7 @@ Our entire team has undergone training to ensure that our drinks are always serv
 
   
 
-## Elevate Your Experience in Our New Dining Room - Best Beer Garden Near Heathrow
+## Elevate Your Experience in Our New Dining Room - Beer Garden Near Heathrow
 
 ### **A Warm Room for the Cooler Months**
 
@@ -127,7 +127,7 @@ We've also installed a new carpet with thicker underlay to ensure that The Ancho
 
 All these changes are part of our commitment to ensuring that The Anchor remains a trusted beer destination near Heathrow Airport. Established in 1751, we combine heritage with innovation, our new T-Bar technology and sustainable practices help us serve great pints for generations to come.
 
-## Find The Best Beer Pub Near Heathrow Airport
+## Find The Anchor, Your Beer Pub Near Heathrow Airport
 
 **Location**: Horton Road, **Stanwell Moor** (**7 minutes from Heathrow Terminal 5**)
 

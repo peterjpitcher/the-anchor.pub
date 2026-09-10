@@ -23,6 +23,10 @@ const MAX_LEAD_DAYS = 3
  * the booking form for that date. The banner is fixed at bottom-28, which on a
  * tall hero lands directly on top of that CTA and swallows the click, so the
  * page's primary action stopped working while the banner was showing.
+ *
+ * '/lunch-and-dinner' is the landing page for the weekday food ads (from 15 September
+ * 2026). On a phone the banner covered the lower half of its "Book a table" button,
+ * and a visitor who came for lunch or dinner has no use for an event card.
  */
 const HIDDEN_PATH_PREFIXES = [
   '/events',
@@ -30,6 +34,7 @@ const HIDDEN_PATH_PREFIXES = [
   '/cash-bingo',
   '/music-bingo',
   '/karaoke',
+  '/lunch-and-dinner',
 ]
 
 interface BannerState {

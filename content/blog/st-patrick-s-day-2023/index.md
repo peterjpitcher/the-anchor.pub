@@ -36,7 +36,7 @@ Looking for the perfect **St Patrick's Day pub near Heathrow Airport**? The Anch
 
 ### Annual St Patrick's Day Celebration Near Heathrow
 
-Every year, The Anchor hosts one of the best **St Patrick's Day celebrations near Heathrow**:
+Every year, The Anchor hosts a **St Patrick's Day celebration near Heathrow**:
 - **Live Irish music** throughout the day
 - **Traditional Irish menu** featuring corned beef and cabbage
 - **Guinness and Irish whiskey** specials
@@ -166,4 +166,4 @@ Join us for a proper **Irish pub experience near Heathrow Airport**:
 - Easy access from all Heathrow terminals
 - Local community celebration feel
 
-Join us every March 17th for the best **St Patrick's Day pub experience near Heathrow Airport**!
+Join us every March 17th for a **St Patrick's Day pub experience near Heathrow Airport**!

@@ -85,6 +85,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/christmas-market",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
     "source": "/blog/creations-by-lee-jewellery-event-at-the-anchor-exc",
     "destination": "/blog/jewellery-event",
     "permanent": true
@@ -106,7 +111,7 @@
   },
   {
     "source": "/blog/drag-cabaret-at-the-anchor-a-night-of-fun-with-nik",
-    "destination": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -141,7 +146,7 @@
   },
   {
     "source": "/blog/experience-the-magic-at-the-anchor-s-christmas-mar",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -182,6 +187,11 @@
   {
     "source": "/blog/fathers-day-celebration",
     "destination": "/fathers-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -461,7 +471,7 @@
   },
   {
     "source": "/post/drag-cabaret-at-the-anchor-a-night-of-fun-with-nik",
-    "destination": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -511,7 +521,7 @@
   },
   {
     "source": "/post/experience-the-magic-at-the-anchor-s-christmas-mar",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
