@@ -88,8 +88,15 @@ describe('event availability fails closed', () => {
       const body = await response.json()
 
       expect(response.status).toBe(503)
-      expect(JSON.stringify(body)).not.toContain('100')
-      expect(body.data?.available).toBeUndefined()
+      // The reply is the error envelope and nothing else: no availability, no
+      // capacity, nothing booked, no percentage. The timestamp is checked by
+      // type, never by value, because it is the clock: searching the whole
+      // reply for "100" failed whenever the time ended in .100 seconds.
+      expect(body).toEqual({
+        error: expect.any(String),
+        status: 503,
+        timestamp: expect.any(String),
+      })
     }
   )
 
