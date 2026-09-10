@@ -50,6 +50,7 @@ The facts most copy needs. Each is detailed, with its source, further down.
 | Opening hours | Always from the management app's live hours, never typed in (§3). |
 | Sunday roast | Sundays 1pm to 6pm, last seating 5:30pm, walk-ins welcome, nothing to pre-order (§4). |
 | Group deposit | 15 or more guests: £10 per person, deducted from the bill. More than 20 is private hire (§7). |
+| Private hire deposit | £250, instead of the group deposit, never both. Held separately and refunded after the event, not taken off the bill (§11). |
 | Christmas 2026 | Sittings 10 November to 20 December, from 4 guests, 24 hours' notice, £10 per person deposit (§7). |
 | Over Christmas | Drinks only 12pm to 3pm on 25 December. Closed 26 December and 1 January. Kitchen's last day is 20 December, back on 12 January (§7). |
 | Parking | 20 free spaces, no time limit while visiting, nothing to register (§8). |
@@ -400,7 +401,7 @@ The full drinks inventory must come from POS/API before publishing. The website 
 Applies to non-Christmas bookings. Christmas has its own deposit rule, see the Christmas 2026 block below.
 
 - **14 guests or fewer:** No deposit. No card details required at booking.
-- **15 or more guests:** £10 per person, fully deducted from the bill on the day. Any day, any booking type.
+- **15 or more guests:** £10 per person, fully deducted from the bill on the day. Any day, any table booking type. It never applies to a private hire, which takes its own £250 deposit instead (§11). (Owner-confirmed, 10 September 2026.)
 - **More than 20 guests:** This is **not a table booking**, it is private hire. Direct the enquiry to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707. See §11.
 - **Standard copy:** "Groups of 15 or more: a £10 per person deposit, fully deducted from your bill."
 
@@ -697,7 +698,7 @@ Offer standing tickets only once all seated places are sold out, with clear noti
 - **Dining room:** 26 seated or up to 50 standing. French doors open onto the beer garden.
 - **Spaces available:** Beer garden, dining room.
 - **Room hire charge:** Charged by the hour, per space, from the management DB `venue_spaces.rate_per_hour`. Rates are published (see the table below). No setup fees. Do not publish minimum-spend wording. **Wakes are charged for like any other booking** (owner-confirmed 17 August 2026); the older "no room hire charge for wakes" line is retired.
-- **Deposit:** £250.
+- **Deposit:** £250, a refundable booking and damage deposit. It **replaces** the £10 per person group deposit in §7: a private hire never pays both (owner-confirmed, 10 September 2026). It is held separately from the bill, never taken off it, and refunded after the event less any documented deductions. The signed contract says exactly this, so copy must never call it "deducted from the final bill" (§14). Approved wording is in §16.
 - **Pricing rule:** Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.
 
 ### Venue hire rates (live, DB `venue_spaces`)
@@ -863,6 +864,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
 ### Operations
 - **A ULEZ saving figure**, in any form: "£12.50 a day", "save £12.50", "saves each driver £12.50". Retired 10 September 2026 (owner decision). Whether someone pays the charge depends on their vehicle and their route, so no figure is true for everyone. Say "we're outside the ULEZ zone" and stop. The tests fail on any ULEZ sentence that carries a £ figure.
+- **The private-hire deposit "deducted from the final bill"**, wrong. The £250 is a booking and damage deposit, held separately and refunded after the event (§11). The signed contract says so, and a page saying otherwise contradicts it.
 - **`info@theanchorpub.co.uk`**, legacy email. Use `manager@the-anchor.pub`.
 - **EV charging "coming soon"**, not happening; remove all "coming soon" references.
 - **Dog secure fencing**, unverified, do not claim.
@@ -968,6 +970,12 @@ Short form, for a feature list or a garden page:
 
 > Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 
+### Private hire deposit
+
+> A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
+
+Never pair it with the group deposit: a private hire pays the £250 only.
+
 ### Christmas 2026
 
 > Christmas sittings run from 10 November to 20 December 2026, for four guests or more, with 24 hours' notice. There's a £10 per person deposit, which comes off your bill.
@@ -1010,6 +1018,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **10 September 2026.** A private hire pays the £250 deposit instead of the £10 per person group deposit, never both (owner-confirmed; §7, §11). The £250 is a booking and damage deposit, held separately and refunded after the event, as the signed contract says, but `/private-hire/anniversary-parties` and `/private-hire/engagement-parties` told customers it was deducted from the final bill, in five places, and one of them added the group deposit on top. The catering card on nine private-hire pages, and the deposit answer on every landmark private-hire page, gave the group deposit instead. All now use the §16 wording, and `tests/retired-claims-wording.test.ts` fails on either mistake.
 - **10 September 2026.** The ULEZ saving figure is retired (owner decision). "£12.50 a day" was on eight pages (two of them through a shared value strip), six blog posts and `/llms.txt`, but whether a driver pays depends on their vehicle and route. Each now says only that we're outside the ULEZ zone, `SSOT.json` no longer holds a figure, and `tests/retired-claims-wording.test.ts` fails on any ULEZ sentence with a £ figure (§2, §14, §17).
 - **10 September 2026.** Three more posts that still sold a Christmas market were retired (owner-approved): `christmas-fair-at-the-anchor`, `piano-christmas-performance` (which also promoted live piano, §10) and `this-december-at-the-anchor`, all redirected to `/christmas-parties`. The 2023 New Year post was rewritten from SSOT facts; it had listed weekly quizzes, Fish & Chip Fridays, a lunch club and live entertainment. Wind direction is no longer mentioned (§9): the owner does not know which wind brings aircraft over the garden, and §9 had said westerly operations cover about half the year, which pages then turned into "westerly winds bring aircraft overhead".
 - **10 September 2026.** The £2 double-up on spirits is still running (owner-confirmed), so §6 now says so and `/blog/double-up-offer` stays. Eight dated offer and event posts from 2019 to 2025 were retired with redirects to the live pages that cover them, on the owner's instruction: their offers had ended or their events had passed, and several still quoted old prices, such as Carlsberg at £4.75 and a £19.99 Valentine's meal for two.
