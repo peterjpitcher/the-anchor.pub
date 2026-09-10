@@ -38,7 +38,7 @@ This is the one most people don't know about, and it's honestly the best all-rou
 
 The difference between The Anchor and every other spot on this list is simple: you're watching the world's biggest aircraft thunder overhead while sitting at a proper pub table with a cold pint and a plate of fish and chips. No flask of lukewarm tea. No camping chair on a grass verge. Just a comfortable seat, decent food, and a steady stream of A380s and 787s rolling in above you.
 
-The beer garden has heated areas for winter spotting and covered seating for when the British weather does its thing. Dogs are welcome, which matters if you're making a day of it. The pub is just seven minutes from Terminal 5, so if you're picking someone up or dropping them off, it's the perfect place to kill time.
+Dogs are welcome, which matters if you're making a day of it. The pub is just seven minutes from Terminal 5, so if you're picking someone up or dropping them off, it's the perfect place to kill time.
 
 **Getting there:** Head to Stanwell Moor village, The Anchor is on the High Street. Free parking for around 20 cars.
 

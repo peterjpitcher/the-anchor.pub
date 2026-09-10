@@ -111,8 +111,11 @@ has no carvery claim and inventing one would be a banned claim.
 
 **`/beer-garden` and `/plane-spotting-heathrow`**
 `plane spotting heathrow` (1K-10K, Low 1, essentially no advertiser interest) ·
-`heated beer garden near me` · `pubs with nice gardens near me` (1K-10K) ·
+`pubs with nice gardens near me` (1K-10K) ·
 `pubs near me with playground` (1K-10K, Low 15)
+
+**Note on heated gardens.** `heated beer garden near me` was on this list. The garden
+is not heated (owner-confirmed 10 September 2026, SSOT §9 and §14), so do not chase it.
 
 **`/food-menu` and children**
 `pub lunch near me` (10K-100K, Low 23) · `best pub food near me` (10K-100K, Low 18) ·

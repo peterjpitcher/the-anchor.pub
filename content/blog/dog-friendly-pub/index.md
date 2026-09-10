@@ -66,7 +66,6 @@ Our garden terrace is the crown jewel for dog owners visiting our **pub near Hea
 
 - **Secure fencing** - Your dog can relax safely
 - **Shaded areas** - Cool spots on sunny days
-- **Heated areas** - Comfortable even in cooler weather
 - **Plenty of space** - Room for multiple dogs without crowding
 - **Easy clean surfaces** - Accidents happen, we understand
 
@@ -187,7 +186,7 @@ Our commitment to being a **dog friendly pub** goes beyond just allowing dogs:
 - **Accessibility**: Level access for older or disabled dogs
 
 ### Opening Hours for Dogs
-Dogs are welcome during all opening hours. Check our website for current opening hours, as they may vary by season. The garden terrace is open year-round (heated in winter).
+Dogs are welcome during all opening hours. Check our website for current opening hours, as they may vary by season. The garden terrace is open year-round.
 
 ## Book Your Dog-Friendly Visit
 

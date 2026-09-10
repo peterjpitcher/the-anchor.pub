@@ -55,7 +55,6 @@ What makes this different from every other location on this list: you are sittin
 - Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-roast), served Sundays 1pm to 6pm with walk-ins welcome
 - Draught lagers, bottled ales, wines, spirits, and soft drinks
 - Free WiFi for Flightradar24 tracking
-- Heated areas for spotting in the cooler months
 - Indoor seating when the weather turns
 - Toilets, power sockets for charging
 - Dog-friendly with water bowls provided

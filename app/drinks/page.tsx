@@ -322,7 +322,7 @@ export default async function DrinksMenuPage() {
               {[
                 {
                   title: 'The Beer Garden Experience',
-                  body: "Sixty-four seats directly under the Heathrow flight path, with a plane over your head roughly every 90 seconds at peak. Heated areas keep the garden usable when the evening turns cool.",
+                  body: "Sixty-four seats directly under the Heathrow flight path, with a plane over your head roughly every 90 seconds at peak.",
                   note: 'Dog-friendly outdoor areas, so bring your four-legged friends.'
                 },
                 {
