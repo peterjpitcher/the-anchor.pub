@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { captureBookingAttributionFromLocation } from '@/lib/booking-attribution'
+import { captureBookingAttributionFromLocation, syncBookingAttributionWithConsent } from '@/lib/booking-attribution'
 import { useAnalytics } from '@/lib/use-analytics'
 import { useClarity } from '@/lib/use-clarity'
 
@@ -15,6 +15,11 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     captureBookingAttributionFromLocation()
+
+    // Accepting saves what this visit captured; refusing or withdrawing deletes it.
+    const onConsentUpdate = () => syncBookingAttributionWithConsent()
+    window.addEventListener('cookieConsentUpdate', onConsentUpdate)
+    return () => window.removeEventListener('cookieConsentUpdate', onConsentUpdate)
   }, [])
   
   return <>{children}</>

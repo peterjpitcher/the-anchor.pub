@@ -117,7 +117,7 @@ So, gather your friends, family, and fellow fans, and come down to The Anchor fo
 
 ## Watch Premier League at The Anchor - Your Local Sports Pub Near Heathrow
 
-Ready for the ultimate **football viewing experience near Heathrow Airport**? Join us at The Anchor for all major football events on terrestrial TV!
+Ready for a **football viewing experience near Heathrow Airport**? Join us at The Anchor for all major football events on terrestrial TV!
 
 ### Visit Details
 

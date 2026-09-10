@@ -106,6 +106,6 @@ Yes. We have a TVs that go up for major sporting events. For the big tournaments
 
 ---
 
-**The Anchor** is at Stanwell Moor, just seven minutes from Heathrow Terminal 5. Free parking, proper food, dog-friendly, and honest about what we do and don't show. For the big free-to-air events, there's nowhere better nearby. For Sky Sports, we'll happily point you in the right direction.
+**The Anchor** is at Stanwell Moor, just seven minutes from Heathrow Terminal 5. Free parking, proper food, dog-friendly, and honest about what we do and don't show. For the big free-to-air events, come and watch with us. For Sky Sports, we'll happily point you in the right direction.
 
 Call us on **01753 682707** or email **manager@the-anchor.pub** to check what's showing.

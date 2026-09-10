@@ -553,7 +553,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
         fs
           .readFileSync(file, 'utf8')
           .split(/\n|(?<=[.!?])\s+/)
-          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’/g, "'"))
+          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’|\\'/g, "'"))
           .filter((sentence) => {
             const match = claim.exec(sentence)
             if (match === null || exempt.sentence?.test(sentence)) return false
@@ -663,14 +663,29 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/\b(?:27|09)[LR]\b/)).toEqual([])
   })
 
+  // Shared by the two superlative checks below: guides that rank other places,
+  // the genuine Google reviews, and text that is not our own claim (a
+  // frontmatter keyword, a `keywords:` array, a quote, or a quote's attribution).
+  const COMPARISON_GUIDES = [
+    'content/blog/best-beer-gardens-near-heathrow/index.md',
+    'content/blog/best-places-to-eat-near-heathrow/index.md',
+    'content/blog/best-pub-food-near-heathrow/index.md',
+    'content/blog/best-sunday-roast-surrey/index.md',
+    'content/blog/heathrow-plane-spotting-locations/index.md',
+    'content/blog/pizza-near-heathrow/index.md',
+    'content/blog/quiz-nights-near-heathrow/index.md',
+    'content/blog/things-to-do-near-heathrow/index.md',
+  ]
+  const SUPERLATIVE_EXEMPT_FILES = [...COMPARISON_GUIDES, 'lib/google-reviews.ts', 'lib/google/review-utils.ts']
+  const NOT_OUR_CLAIM = /^\s*- [a-z0-9 &'-]+$|\bkeywords:|^\s*(?:[-*>]\s*)?["“]|["”]\s*-\s*[A-Z]/
+
   it('does not call the pub the best or premier (section 14)', () => {
     // Section 14 bans "best" and "premier" without substantiation: say "highly
     // rated" instead. About 125 had built up by September 2026, in forms like
     // "the best pub near Heathrow", "Stanwell Moor's premier pub" and "one of
     // the best pubs near Egham". Still allowed: a searcher's question ("Looking
     // for the best roast near Heathrow?"), advice ("best for families", "the
-    // best way to get here"), keyword lists, customer quotes, the genuine
-    // Google reviews, and the comparison guides below, which rank other places.
+    // best way to get here"), and everything exempted above.
     const SELF_SUPERLATIVE = new RegExp(
       [
         /\bpremier\b(?![- ](?:league|inn)\b)/,
@@ -684,22 +699,25 @@ describe('SSOT drift guard — high-risk site copy', () => {
         .join('|'),
       'i',
     )
-    const COMPARISON_GUIDES = [
-      'content/blog/best-beer-gardens-near-heathrow/index.md',
-      'content/blog/best-places-to-eat-near-heathrow/index.md',
-      'content/blog/best-pub-food-near-heathrow/index.md',
-      'content/blog/best-sunday-roast-surrey/index.md',
-      'content/blog/heathrow-plane-spotting-locations/index.md',
-      'content/blog/pizza-near-heathrow/index.md',
-      'content/blog/quiz-nights-near-heathrow/index.md',
-      'content/blog/things-to-do-near-heathrow/index.md',
-    ]
     expect(
-      claimSentences(SELF_SUPERLATIVE, {
-        files: [...COMPARISON_GUIDES, 'lib/google-reviews.ts', 'lib/google/review-utils.ts'],
-        // A frontmatter keyword, a `keywords:` array, or a quote.
-        sentence: /^\s*- [a-z0-9 &'-]+$|\bkeywords:|^\s*(?:[-*>]\s*)?["“]/,
-      }),
+      claimSentences(SELF_SUPERLATIVE, { files: SUPERLATIVE_EXEMPT_FILES, sentence: NOT_OUR_CLAIM }),
+    ).toEqual([])
+  })
+
+  it('does not say "best" in other words either (section 14)', () => {
+    // Owner-approved 10 September 2026, after the "best" and "premier" sweep:
+    // "unbeatable prices", "the ultimate spot", "the warmest welcome in
+    // Stanwell Moor" and "unmatched standards" make the same claim. A line
+    // about someone else ("Scotland's finest distilleries"), a slug and a
+    // code identifier are not ours.
+    expect(
+      claimSentences(
+        /\bunbeatable\b|(?<![-/])\bultimate\b(?!-)|\bfinest\b|\bwarmest\b|\bunmatched\b|\bunrivall?ed\b|\bsecond to none\b|\bno better (?:place|way|spot|pub|venue|setting)\b|\bnowhere better\b|\bhottest\b/i,
+        {
+          files: [...SUPERLATIVE_EXEMPT_FILES, 'app/[...unmatched]/page.tsx'],
+          sentence: new RegExp(`${NOT_OUR_CLAIM.source}|\\b(?:Europe|Scotland|England|Ireland|Wales|Italy|France)'s finest\\b`),
+        },
+      ),
     ).toEqual([])
   })
 
