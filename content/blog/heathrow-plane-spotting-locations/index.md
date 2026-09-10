@@ -67,7 +67,7 @@ What makes this different from every other location on this list: you are sittin
 
 **Best times:** The morning rush from 06:00 to 09:00 brings long-haul arrivals from Asia and the Middle East. The afternoon wave from 16:00 to 20:00 delivers transatlantic traffic. Our current bar and kitchen hours are live on the site, so check before you set off. If you are planning a full session around one of those peaks, [book a garden table](/book-table) and you will not lose the view to a busy afternoon.
 
-**Our honest take:** Factor in the bias -- this is our pub. But the combination of views, food, drink, shelter, and free parking is unmatched at any other Heathrow spotting location.
+**Our honest take:** Factor in the bias -- this is our pub. But it puts views, food, drink and free parking in one place.
 
 [Plan your visit to The Anchor](/plane-spotting-heathrow) | [Book a table](/book-table)
 

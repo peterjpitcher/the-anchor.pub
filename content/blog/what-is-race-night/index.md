@@ -26,7 +26,7 @@ Looking for exciting **race night events near Heathrow**? The Anchor in Stanwell
 
 ## What is a Race Night at The Anchor?
 
-### The Ultimate Pub Entertainment Experience
+### Pub Entertainment with a Difference
 
 A **race night** at our **pub near Heathrow** isn't just another quiz or karaoke evening - it's an immersive racing experience that combines:
 

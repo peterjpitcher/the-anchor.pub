@@ -138,7 +138,7 @@ Make sure to check the events calendar at [The Anchor](https://www.the-anchor.pu
     
       
     
-*   **Craft Beer Festival**: Sample a selection of the finest local brews along with food trucks offering a variety of cuisines.
+*   **Craft Beer Festival**: Sample a selection of local brews along with food trucks offering a variety of cuisines.
     
       
     

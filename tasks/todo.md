@@ -402,3 +402,13 @@ Branch `fix/retire-off-ssot-event-posts`, from origin/main at 7c0e92ce. Owner ap
 - [x] SSOT sections 7, 10 and 18 and the `SSOT.json` market note record the retirements
 - [x] Tests: the two 301s, deleted folders and no rule landing on a retired post (`tests/seo-indexing.test.ts`); cash bingo format guard (`tests/ssot-drift-guard.test.ts`). Both fail against origin/main content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,462 passed each), build (293 pages). Production build checked on port 3113: ten old and new URLs each reach their target in one 301; the cash bingo post shows the new facts and none of the old
+
+# "Best" in other words, 10 September 2026
+
+Branch `fix/ssot-superlative-synonyms`, from origin/main at 83ca9c51. Owner approval on 10 September 2026: remove the "unbeatable", "ultimate" and "warmest" claims the same way as "best".
+
+- [x] 35 claims reworded across 3 pages, 14 posts and the tag page text: unbeatable, ultimate, finest, warmest, unmatched, no better place and nowhere better, when said of the pub or what it sells
+- [x] Kept: lines about someone else (Europe's finest teams, Scotland's finest distilleries, Myrtle Avenue's unbeatable proximity), customer quotes, slugs, code identifiers, and "X's favourite" (SSOT section 1 encourages "favourite")
+- [x] Guard for "best" in other words, sharing the comparison-guide and quote exemptions with the best and premier check. The helper now reads a TypeScript `\'` as an apostrophe, which the tag page text uses; that also closes a gap in the best and premier check. Fails against origin/main content and passes now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,463 passed each), build (293 pages); eleven changed URLs read back from the production build on port 3114
+- [x] Overlap: #167 (another session) deletes the Valentine's post edited here. Whichever lands second keeps the deletion
