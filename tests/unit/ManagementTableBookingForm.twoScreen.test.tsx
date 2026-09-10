@@ -38,6 +38,14 @@ jest.mock('@/components/features/TableBooking/PayPalDepositSection', () => ({
   PayPalDepositSection: ({ onSuccess }: { onSuccess: () => void }) => <button onClick={() => { onSuccess(); onSuccess() }}>Complete mock deposit</button>,
 }))
 
+// null, as the form sees it with no BusinessHoursProvider above it, unless a
+// test supplies published hours.
+let mockBusinessHoursContext: { hours: unknown; loading: boolean; error: null } | null = null
+jest.mock('@/components/providers/BusinessHoursProvider', () => ({
+  ...jest.requireActual('@/components/providers/BusinessHoursProvider'),
+  useBusinessHoursContext: () => mockBusinessHoursContext
+}))
+
 jest.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(),
   usePathname: () => '/book-table',
@@ -194,7 +202,7 @@ const FAKE_DATE_ONLY: Parameters<typeof jest.useFakeTimers>[0] = {
 
 const BOOKING_DATE = '2026-07-07'
 
-// Lunch and evening either side of the 5pm boundary, plus a kitchen-closed late
+// Lunch and evening either side of the Evening boundary, plus a kitchen-closed late
 // slot, which is the shape the route really produces.
 const DAY_SLOTS: TimeSlot[] = [
   { time: '12:30', available: true, available_capacity: 8, kitchen_open: true },
@@ -202,6 +210,24 @@ const DAY_SLOTS: TimeSlot[] = [
   { time: '18:00', available: true, available_capacity: 8, kitchen_open: true },
   { time: '22:00', available: true, available_capacity: 8, kitchen_open: false }
 ]
+
+// Published hours as /business/hours served them on 10 September 2026 for a
+// Tuesday: lunch and dinner sittings with the kitchen shut in between.
+const TUESDAY_SITTINGS_HOURS = {
+  regularHours: {
+    tuesday: {
+      opens: '12:00:00',
+      closes: '22:00:00',
+      kitchen: { opens: '12:00:00', closes: '21:00:00' },
+      is_kitchen_closed: false,
+      schedule_config: [
+        { name: 'Lunch', starts_at: '12:00', ends_at: '15:00', booking_type: 'regular' },
+        { name: 'Dinner', starts_at: '16:00', ends_at: '21:00', booking_type: 'regular' }
+      ]
+    }
+  },
+  specialHours: []
+}
 
 function renderTwoScreen(prefill: { date?: string; partySize?: number } = { date: BOOKING_DATE }) {
   return render(<ManagementTableBookingForm prefill={prefill} twoScreenFlow />)
@@ -440,6 +466,67 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(within(lunch).getByRole('button', { name: /^1pm,/ })).toBeInTheDocument()
       expect(within(evening).getByRole('button', { name: /^6pm,/ })).toBeInTheDocument()
       expect(within(evening).getByRole('button', { name: /^10pm,/ })).toBeInTheDocument()
+    })
+
+    describe('where Evening starts', () => {
+      const dinnerSlots: TimeSlot[] = ['13:00', '16:00', '16:30', '17:00', '17:30'].map((time) => ({
+        time,
+        available: true,
+        available_capacity: 8,
+        kitchen_open: true
+      }))
+
+      afterEach(() => {
+        mockBusinessHoursContext = null
+      })
+
+      it('starts Evening at the dinner sitting, so 4pm and 4:30pm on a Tuesday are not lunch', async () => {
+        mockBusinessHoursContext = { hours: TUESDAY_SITTINGS_HOURS, loading: false, error: null }
+        setupFetchMock({ availability: dinnerSlots })
+        renderTwoScreen() // BOOKING_DATE is a Tuesday
+        await findATable()
+
+        const lunch = screen.getByRole('heading', { name: 'Lunch' }).parentElement as HTMLElement
+        const evening = screen.getByRole('heading', { name: 'Evening' }).parentElement as HTMLElement
+
+        expect(within(lunch).getByRole('button', { name: /^1pm,/ })).toBeInTheDocument()
+        expect(within(lunch).queryByRole('button', { name: /^4pm,/ })).not.toBeInTheDocument()
+        expect(within(evening).getByRole('button', { name: /^4pm,/ })).toBeInTheDocument()
+        expect(within(evening).getByRole('button', { name: /^4:30pm,/ })).toBeInTheDocument()
+      })
+
+      it('moves the split with a special-hours date, because it reads the date’s own sittings', async () => {
+        mockBusinessHoursContext = {
+          hours: {
+            ...TUESDAY_SITTINGS_HOURS,
+            specialHours: [
+              {
+                date: BOOKING_DATE,
+                opens: '12:00:00',
+                closes: '22:00:00',
+                kitchen: { opens: '12:00:00', closes: '21:00:00' },
+                is_closed: false,
+                is_kitchen_closed: false,
+                schedule_config: [
+                  { starts_at: '12:00', ends_at: '15:00' },
+                  { starts_at: '17:30', ends_at: '21:00' }
+                ]
+              }
+            ]
+          },
+          loading: false,
+          error: null
+        }
+        setupFetchMock({ availability: dinnerSlots })
+        renderTwoScreen()
+        await findATable()
+
+        const lunch = screen.getByRole('heading', { name: 'Lunch' }).parentElement as HTMLElement
+        const evening = screen.getByRole('heading', { name: 'Evening' }).parentElement as HTMLElement
+
+        expect(within(lunch).getByRole('button', { name: /^5pm,/ })).toBeInTheDocument()
+        expect(within(evening).getByRole('button', { name: /^5:30pm,/ })).toBeInTheDocument()
+      })
     })
 
     it('shows every time, with no seven-slot window to expand', async () => {
