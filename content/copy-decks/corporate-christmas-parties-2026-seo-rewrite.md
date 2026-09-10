@@ -8,6 +8,7 @@
 > - **Shared Christmas party nights were discontinued on 21 July 2026.**
 > - Any "late bar until midnight" claim. Not documented in the SSOT.
 > - **"Deposit (non-refundable)" (added 5 September 2026).** The £10 per person deposit is refunded in full if the booking is cancelled more than 7 days before the booking date. Only inside 7 days is it not refunded.
+> - **Any ULEZ saving figure (added 10 September 2026).** "£12.50 per vehicle", "no £12.50 ULEZ fee" and the like are retired: whether someone pays depends on their car and route. Say "we're outside the ULEZ zone" and stop (SSOT §14).
 >
 > Read `docs/SSOT.md` before reusing anything here. The live pages at `/christmas-parties` and `/corporate-events` are already correct; this file is kept for history only.
 

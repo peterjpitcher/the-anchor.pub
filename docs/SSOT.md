@@ -55,7 +55,7 @@ The facts most copy needs. Each is detailed, with its source, further down.
 | Parking | 20 free spaces, no time limit while visiting, nothing to register (§8). |
 | Getting in | Step free from the car park. One step between the bar and the garden, ramp on request. No accessible toilet (§8, §16). |
 | Dogs | Welcome throughout, on a lead (§8). |
-| Never say | 1866, gluten-free, red wine gravy, beef dripping, Sky or TNT Sports, breakfast, delivery, mulled wine, "Doors open", a runway designator (§14). |
+| Never say | 1866, gluten-free, red wine gravy, beef dripping, Sky or TNT Sports, breakfast, delivery, mulled wine, "Doors open", a runway designator, a ULEZ saving figure (§14). |
 
 ---
 
@@ -223,7 +223,7 @@ The checkable half of this section and of §14 is enforced in the management app
 - **Google Maps:** https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ.
 - **M25:** 2 minutes from Junction 14.
 - **Bus:** Routes 441, 442, 555 from Heathrow Central Bus Station.
-- **ULEZ:** Outside the ULEZ zone (saves visitors approximately £12.50/day vs. London venues). The saving depends on the vehicle and the route; see §17 before quoting it.
+- **ULEZ:** Outside the ULEZ zone. Never quote a saving figure: whether a driver pays the charge depends on their vehicle and their route, so no figure is true for everyone (owner decision, 10 September 2026; §14).
 - **Location framing:** Stanwell Moor, near Heathrow Airport, the closest proper pub to Terminal 5, ~7 minutes by car.
 
 ### Heathrow proximity
@@ -862,6 +862,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Champions League viewing**, we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
 
 ### Operations
+- **A ULEZ saving figure**, in any form: "£12.50 a day", "save £12.50", "saves each driver £12.50". Retired 10 September 2026 (owner decision). Whether someone pays the charge depends on their vehicle and their route, so no figure is true for everyone. Say "we're outside the ULEZ zone" and stop. The tests fail on any ULEZ sentence that carries a £ figure.
 - **`info@theanchorpub.co.uk`**, legacy email. Use `manager@the-anchor.pub`.
 - **EV charging "coming soon"**, not happening; remove all "coming soon" references.
 - **Dog secure fencing**, unverified, do not claim.
@@ -1002,13 +1003,14 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 | Highly rated near Heathrow | The ratings in §12 | As written. A "highest-rated" claim needs current evidence | Each quarter |
 | 5-star food hygiene, since 2019 | Food Standards Agency rating (§12) | "5-star food hygiene rating" | Each quarter |
 | Outside the ULEZ | Location | "We're outside the ULEZ zone." | Stable |
-| ULEZ saving of about £12.50 a day | §2. Transport for London charges by vehicle and by route, so the saving is not the same for everyone | If a saving is stated, say it depends on the vehicle | Each quarter |
+| ULEZ saving figure | Retired 10 September 2026 (owner decision). The charge depends on the vehicle and the route | Never quote one (§14). The claim is "We're outside the ULEZ zone." | Stable |
 | Famous Sunday roasts | Enthusiasm, not a factual claim | Fine as warmth. Never "best" or "premier" (§14) | Stable |
 
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **10 September 2026.** The ULEZ saving figure is retired (owner decision). "£12.50 a day" was on eight pages (two of them through a shared value strip), six blog posts and `/llms.txt`, but whether a driver pays depends on their vehicle and route. Each now says only that we're outside the ULEZ zone, `SSOT.json` no longer holds a figure, and `tests/retired-claims-wording.test.ts` fails on any ULEZ sentence with a £ figure (§2, §14, §17).
 - **10 September 2026.** Three more posts that still sold a Christmas market were retired (owner-approved): `christmas-fair-at-the-anchor`, `piano-christmas-performance` (which also promoted live piano, §10) and `this-december-at-the-anchor`, all redirected to `/christmas-parties`. The 2023 New Year post was rewritten from SSOT facts; it had listed weekly quizzes, Fish & Chip Fridays, a lunch club and live entertainment. Wind direction is no longer mentioned (§9): the owner does not know which wind brings aircraft over the garden, and §9 had said westerly operations cover about half the year, which pages then turned into "westerly winds bring aircraft overhead".
 - **10 September 2026.** The £2 double-up on spirits is still running (owner-confirmed), so §6 now says so and `/blog/double-up-offer` stays. Eight dated offer and event posts from 2019 to 2025 were retired with redirects to the live pages that cover them, on the owner's instruction: their offers had ended or their events had passed, and several still quoted old prices, such as Carlsberg at £4.75 and a £19.99 Valentine's meal for two.
 - **10 September 2026.** The Chicken, Ham Hock & Leek Pie is no longer served (owner-confirmed). It is off §5, `SSOT.json`, `content/menu/food.json` and the one post that named it, and was switched off in the management app the same day. The owner confirmed in the same answer that the Beef & Ale and Chicken & Wild Mushroom pies are still Sunday dishes (§4). /sunday-roast had not listed them, because their Sunday dishes were switched off in `menu_dishes` although `sunday_lunch_menu_items` had them on; they were switched back on. Both app changes were made at the owner's request and are in `audit_logs`.

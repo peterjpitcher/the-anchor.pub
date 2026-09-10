@@ -171,7 +171,7 @@ Twenty free spaces on-site. Level surface, close to the entrance, CCTV monitored
 
 Seven minutes from Heathrow Terminal 5, two minutes from Junction 14 of the M25. If you've got family flying in for the occasion, we're literally the closest traditional British pub to the airport. Address: Horton Road, Stanwell Moor, Surrey, TW19 6AQ.
 
-We're outside the ULEZ zone too, which saves London-based guests £12.50 each way.
+We're outside the ULEZ zone too.
 
 ## Decoration Ideas That Work at a Pub Venue
 

@@ -115,7 +115,7 @@ If your guests are driving to a Heathrow hotel, they're paying to park. Airport-
 
 At The Anchor, parking is free. Twenty spaces on site -- level surface, close to the entrance, CCTV and floodlit -- with additional parking available nearby. For an event with families (car seats, pushchairs, gifts), this matters more than you'd think.
 
-We're also outside the ULEZ zone, which saves visitors £12.50 per day compared to venues within the zone.
+We're also outside the ULEZ zone, so there's no charge at our end of the journey.
 
 ## Food Quality: Pub Grub Has Changed
 

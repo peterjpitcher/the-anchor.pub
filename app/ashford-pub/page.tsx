@@ -148,7 +148,7 @@ export default function AshfordPubPage() {
               {[
                 { title: "Easy Access", description: "10 minutes via A30 with 20 free parking spaces" },
                 { title: "Real Pub Feel", description: "Traditional atmosphere Ashford chain pubs can't match" },
-                { title: "ULEZ Free", description: "Save £12.50 - we're outside the zone!" },
+                { title: "Outside the ULEZ", description: "No ULEZ charge at our end of the journey" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -542,7 +542,7 @@ export default function AshfordPubPage() {
           },
           {
             question: "What makes The Anchor different from pubs in Ashford?",
-            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
+            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone."
           },
           {
             question: "Do you get many customers from Ashford?",

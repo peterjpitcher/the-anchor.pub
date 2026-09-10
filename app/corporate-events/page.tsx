@@ -438,8 +438,8 @@ export default function CorporateEventsPage() {
               <h3 className="font-display text-h4 text-ink-strong mb-4">Cost Savings for Your Business</h3>
               <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
                 <div>
-                  <strong className="text-ink-strong">No ULEZ Charges</strong>
-                  <p className="text-sm">Around £12.50 a day saved per attendee against a London venue</p>
+                  <strong className="text-ink-strong">Outside the ULEZ</strong>
+                  <p className="text-sm">Unlike a London venue, there&apos;s no ULEZ charge at our end of the journey</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Free Parking</strong>

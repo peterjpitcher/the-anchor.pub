@@ -160,7 +160,7 @@ The numbers speak for themselves. And the irony is that the most expensive optio
 
 If you're bringing together guests from across west London, Surrey, Berkshire, and beyond, a central-ish location near good transport links makes everything easier. Stanwell Moor ticks those boxes while feeling like a proper destination rather than a motorway services.
 
-**By car:** Two minutes from M25 Junction 14. Outside the ULEZ zone (saves London-based drivers £12.50). Free parking on site.
+**By car:** Two minutes from M25 Junction 14. Outside the ULEZ zone. Free parking on site.
 
 **By bus:** Routes 441, 442, and 555 run from Heathrow Central Bus Station.
 

@@ -155,7 +155,7 @@ Those figures tell a clear story. A 30th birthday at an airport hotel can cost f
 
 ## Location matters: why Stanwell Moor works for a 30th
 
-If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone, saving your London-based guests £12.50 they'd rather spend at the bar.
+If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone.
 
 Stanwell Moor itself is a proper village. It's quiet, it's got character, and it's a world away from the identikit venues you'll find along the Bath Road hotel corridor. The Anchor has been here since 1751, nearly 275 years, which means it's not some pop-up party venue. It's a real pub with real history that happens to be brilliant for events.
 
