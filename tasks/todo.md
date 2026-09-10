@@ -341,13 +341,13 @@ Two of the five claims flagged as unsourced were sourced after all. All fifteen 
 
 # SSOT section 14 banned claims still live, 10 September 2026
 
-Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. Open PRs #152 (heated garden) and #153 (pizza prices) touch some of the same files; check merge-tree against both before opening the PR.
+Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. PRs #152 (heated garden) and #153 (pizza prices) merged while it was open; origin/main was merged in, with one textual conflict and one clashing test helper, both resolved.
 
-- [ ] Named: dog secure fencing, "year-round comfort" and summer cooling, "gluten-free" claims in blog posts (NGCI plus the section 16 caveat; honest denials, guests' diets, questions and the `/food-menu/gluten-free` URL stay)
-- [ ] Sweep, facts: doggy dinners and dog meals, off-lead garden, baby changing, "accessible facilities", enclosed or safe garden, EV "coming soon" and the EV schema flag, lamb and chicken roasts, party nights, beef dripping, 19th-century origin, the wedding denial
-- [ ] Sweep, Christmas: the retired "menu released closer to the time" line on `/christmas-parties` and in four posts, plus the SSOT.json key that still mandates it
-- [ ] Found in passing: prosecco on all three Christmas tiers in two posts (section 7: 2 and 3 course only)
-- [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims (questions, listicle topics, customer quotes and keyword lists stay)
-- [ ] Guards in `tests/ssot-drift-guard.test.ts`, negation-aware and one sentence at a time
-- [ ] Lint, typecheck, `npm test`, `npm run test:utc`, build; check changed pages in the browser
-- [ ] Push, open the PR, ask the owner before merging
+- [x] Named: dog secure fencing, "year-round comfort" and summer cooling, "gluten-free" claims in eight posts (NGCI plus the section 16 caveat; honest denials, guests' diets, questions and the `/food-menu/gluten-free` URL stay)
+- [x] Sweep, facts: doggy dinners and dog meals, off-lead garden, baby changing, "accessible facilities", enclosed or safe garden (five pages and six posts), EV "coming soon" and the EV schema flag, lamb and chicken roasts, party nights, beef dripping, the wedding denial. "19th-century charm" left: section 1 says the building is mid-Victorian
+- [x] Sweep, Christmas: the retired "menu released closer to the time" line on `/christmas-parties` (two live, four fallbacks) and in four posts, plus the SSOT.json key that still mandated it
+- [x] Found in passing: prosecco on every Christmas tier in six places, including `/corporate-events` (section 7: 2 and 3 course only)
+- [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims. About 60 sentences in 30 files, including titles, H1s and meta descriptions on area pages, so they go in a separate PR
+- [x] Guards in `tests/ssot-drift-guard.test.ts`: eleven new checks, one shared helper with #152's heated and covered checks. All thirteen fail against pre-fix content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,419 passed), build (294 pages); changed pages read back from the production build on port 3109
+- [ ] Open the PR, ask the owner before merging
