@@ -240,7 +240,7 @@ export default async function PubsInStanwellPage() {
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-accent-text mt-1">✓</span>
-                        <div><strong>Outdoor Space:</strong> Large beer garden with covered area</div>
+                        <div><strong>Outdoor Space:</strong> Large beer garden</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-accent-text mt-1">✓</span>

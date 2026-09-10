@@ -484,6 +484,7 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
     ['wedding reception as an offer', /wedding reception/],
     ['Stanwell Moor Brew as a current product', /stanwell moor brew/],
     ['a heated beer garden', /heated areas|heated (?:beer )?garden/],
+    ['a covered beer garden', /covered (?:seating|section|garden|patio)|sheltered areas/],
   ]
 
   it.each(banned)('does not contain %s', (_label, re) => {
@@ -544,25 +545,42 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
-  it('does not claim the beer garden is heated (owner-confirmed 2026-09-10)', () => {
-    // The garden has no heaters. "Heated areas" was once listed as a garden
-    // feature in the SSOT and spread to a dozen pages from there. Checked one
-    // sentence at a time so an honest denial ("we don't have a heated garden")
-    // stays allowed, and indoor heating ("the heating keeps things cosy")
-    // never matches.
-    const CLAIM =
-      /heated (?:areas?|spots?|(?:beer )?gardens?|terrace|patio|outdoor|outside)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) heated|heated in winter|patio heaters?|outdoor heat(?:ing|ers?)/i
+  // Checked one sentence at a time so an honest denial ("the garden isn't
+  // covered") stays allowed: a negation before the match skips the sentence.
+  // `exempt` lets through a sentence about something the claim is true of.
+  function claimSentences(claim: RegExp, exempt?: RegExp): string[] {
     const NEGATION = /\b(?:no|not|never|without)\b|n't\b/i
-    const claims = siteFiles.flatMap((file) =>
+    return siteFiles.flatMap((file) =>
       fs
         .readFileSync(file, 'utf8')
         .split(/\n|(?<=[.!?])\s+/)
         .filter((sentence) => {
-          const match = CLAIM.exec(sentence)
-          return match !== null && !NEGATION.test(sentence.slice(0, match.index))
+          const match = claim.exec(sentence)
+          if (match === null || exempt?.test(sentence)) return false
+          return !NEGATION.test(sentence.slice(0, match.index))
         })
         .map((sentence) => `${path.relative(process.cwd(), file)}: ${sentence.trim()}`),
     )
-    expect(claims).toEqual([])
+  }
+
+  it('does not claim the beer garden is heated (owner-confirmed 2026-09-10)', () => {
+    // "Heated areas" was once listed as a garden feature in the SSOT and
+    // spread to a dozen pages from there. Indoor heating ("the heating keeps
+    // things cosy") never matches.
+    expect(
+      claimSentences(
+        /heated (?:areas?|spots?|(?:beer )?gardens?|terrace|patio|outdoor|outside)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) heated|heated in winter|patio heaters?|outdoor heat(?:ing|ers?)/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
+    // The smoking area is covered, so a sentence about it is exempt.
+    expect(
+      claimSentences(
+        /covered (?:seating|sections?|areas?|patio|garden|terrace|tables?)|sheltered (?:areas?|seating|spots?|garden)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) (?:covered|sheltered)/i,
+        /smok/i,
+      ),
+    ).toEqual([])
   })
 })

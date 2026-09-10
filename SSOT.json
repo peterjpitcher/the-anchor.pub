@@ -260,7 +260,8 @@
       "Guest ales",
       "Accessible toilet",
       "EV charging",
-      "Heated beer garden"
+      "Heated beer garden",
+      "Covered beer garden seating"
     ],
     "accessibility": {
       "step_free_bar": true,
@@ -326,7 +327,9 @@
       "Full food and drink service during kitchen hours",
       "Free high-speed guest WiFi throughout the venue"
     ],
-    "heating_note": "NOT heated. No heaters or heated areas in the garden (owner-confirmed 2026-09-10). Never describe the garden, or any seating in it, as heated. Indoor heating is true and fine to mention."
+    "heating_note": "NOT heated (owner-confirmed 2026-09-10). Never describe the garden, or any seating in it, as heated. Indoor heating is true and fine to mention.",
+    "cover_note": "NOT covered. No part of the garden is covered (owner-confirmed 2026-09-10). Never write covered seating, a covered section, sheltered areas or covered patio areas about it. If it rains, say we will do our best to find guests a spot inside; never promise one.",
+    "smoking_area_note": "The covered smoking area does have a heater, but the owner says it is 'not nice yet' (2026-09-10). A plain mention of a sheltered smoking area is fine. Do not mention its heater, or offer it as extra seating, until the owner says it is ready. It does not make the garden heated or covered."
   },
   "food": {
     "cuisines": [

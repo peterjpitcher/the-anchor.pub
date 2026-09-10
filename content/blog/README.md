@@ -175,7 +175,6 @@ Our unique location near Heathrow means you can enjoy your drink while watching 
 
 - Comfortable outdoor seating for up to 50 guests
 - Full table service
-- Covered areas for those unpredictable British summer days
 - Dog-friendly space with water bowls provided
 
 ## Summer Specials

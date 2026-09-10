@@ -41,7 +41,7 @@ The Anchor sits in the village of Stanwell Moor, about seven minutes from Termin
 
 ### The garden
 
-Sixty-four seats spread across a mix of traditional wooden benches and more sheltered areas. There's a covered section for when the British weather does what it always does. It's not a manicured gastropub terrace, it's a proper pub garden with enough space to spread out.
+Sixty-four seats, including traditional wooden benches. It's not a manicured gastropub terrace, it's a proper pub garden with enough space to spread out.
 
 ### The planes
 
