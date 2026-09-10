@@ -521,6 +521,102 @@ describe('SSOT drift guard — high-risk site copy', () => {
       .sort()
   }
 
+  // Section 14 claims that were still live on 10 September 2026, checked one
+  // sentence at a time. A sentence carrying a denial passes ("we don't have
+  // baby changing", `"value": false`), and so does a question, because "Do you
+  // do gluten free bases?" asks rather than claims. A plain file match would
+  // punish exactly the honest "no" that section 1 asks for.
+  const DENIAL = /\b(?:no|not|never|without|false|cannot)\b|n't\b/i
+
+  function claimSentences(claim: RegExp, exempt: string[]): string[] {
+    return siteFiles
+      .map((file) => path.relative(process.cwd(), file))
+      // An entry ending in "/" exempts a whole directory.
+      .filter((file) => !exempt.some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry)))
+      .flatMap((file) =>
+        fs
+          .readFileSync(file, 'utf8')
+          .split(/\n|(?<=[.!?])\s+/)
+          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’/g, "'"))
+          .filter((sentence) => {
+            const match = claim.exec(sentence)
+            if (match === null) return false
+            const isQuestion = /^[^.!\n]*\?/.test(sentence.slice(match.index))
+            return !isQuestion && !DENIAL.test(sentence)
+          })
+          .map((sentence) => `${file}: ${sentence.trim()}`),
+      )
+  }
+
+  const SECTION_14_CLAIMS: Array<[string, RegExp, string[]]> = [
+    [
+      'gluten-free food, bases or menus (NGCI instead)',
+      /gluten[- ]free (?:alternatives?|bases?|batter|diets?|dish(?:es)?|fish|food|fryer|menu|options?|pizzas?|requirements|swaps?)\b|(?:made|is|are|be) gluten[- ]free\b|cater(?:s|ing)? for [^.?!\n]{0,40}gluten[- ]free/i,
+      // Section 5 keeps the search phrase in the NGCI page's title and meta
+      // description on purpose, and menu-page-data.ts reads the legacy
+      // "gluten-free base" wording out of live dish data. Neither is a claim.
+      ['app/food-menu/gluten-free/page.tsx', 'lib/menu-page-data.ts'],
+    ],
+    [
+      'a secure, enclosed or off-lead garden',
+      /secure(?:ly)? (?:fenc|enclosed|outdoor|garden|environment)|safe(?:ly)?,? enclosed|enclosed (?:beer garden|garden|grassy|and safe|by fencing|so you)|(?:garden|terrace)[^.\n]{0,30}\b(?:is|are) (?:fully |safely )?(?:enclosed|fenced|secure)\b|safe area for children|off[- ]lead in\b/i,
+      [],
+    ],
+    [
+      'doggy dinners or meals for dogs',
+      /dog(?:gy|gie)? (?:sunday )?(?:dinners?|meals?|menu)\b|meals? for (?:your )?(?:dog|pup)|dog-safe meals?|pawsome platter/i,
+      [],
+    ],
+    [
+      'baby changing facilities',
+      /(?:baby[- ]chang\w*|\bchanging)\W{0,4}(?:facilit|tables?\b|rooms?\b|areas?\b)/i,
+      [],
+    ],
+    [
+      'accessible facilities',
+      /(?:with|including|offers?|has|have)\s+accessible (?:toilets?|loos?|wc|facilities)|^\s*[-*]\s*accessible facilities\s*$/i,
+      [],
+    ],
+    [
+      'cooling or year-round comfort',
+      /year[- ]round comfort|air[- ]?condition(?:ed|ing)|climate[- ]controlled|cool in (?:the )?summer/i,
+      [],
+    ],
+    [
+      'EV charging',
+      /(?:\bev|electric vehicle|trickle)[- ]charg[^.\n]{0,40}coming soon|coming soon[^.\n]{0,40}charg|electric vehicle friendly/i,
+      [],
+    ],
+    ['beef dripping', /beef[- ]dripping/i, []],
+    [
+      'shared Christmas party nights as an offer',
+      /(?:spectacular|our|join (?:us|our)|book (?:a|your|our)) (?:christmas )?party nights?|looking for christmas party nights/i,
+      [],
+    ],
+    [
+      'a retired Sunday roast',
+      /\blamb\b|roast(?:ed)? chicken|pork belly|cauliflower cheese/i,
+      // Dated posts may describe the menu of their day; menu-page-data.ts holds
+      // the filter that keeps these dishes off the live menu pages.
+      ['content/blog/', 'lib/menu-page-data.ts'],
+    ],
+  ]
+
+  it.each(SECTION_14_CLAIMS)('does not claim %s', (_label, claim, exempt) => {
+    expect(claimSentences(claim, exempt)).toEqual([])
+  })
+
+  it('does not reintroduce the retired Christmas wording or deny wedding receptions', () => {
+    // "Menu released closer to the time" was retired on 13 August 2026 (sections
+    // 7 and 14), prosecco comes with the 2 and 3 course tiers only (section 7),
+    // and since 17 August 2026 we take wedding receptions without marketing them.
+    expect(
+      matchingFiles(
+        /released closer to the time|still finalising the christmas|(?:every|each|all) (?:adults?|tiers?)[^.\n]{0,40}prosecco|prosecco[^.\n]{0,60}(?:all three|every|each) (?:tiers?|adults?)|(?:do not|don't|never) (?:host|take|offer) wedding/i,
+      ),
+    ).toEqual([])
+  })
+
   it('does not hardcode volatile review stats', () => {
     expect(
       matchingFiles(

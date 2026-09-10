@@ -91,7 +91,7 @@ The solution is a buffet format with genuine variety, or a set menu with enough 
 Common dietary considerations to plan for:
 
 - Vegetarian and vegan options (not an afterthought, proper dishes)
-- Gluten-free alternatives
+- Guests who avoid gluten
 - Nut allergies (especially in shared buffet settings)
 - Halal requirements (increasingly relevant in the Heathrow corridor, where guest lists often reflect the area's diversity)
 - Children's portions at a reasonable price
