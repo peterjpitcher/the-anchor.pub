@@ -347,7 +347,7 @@ Branch `fix/ssot-banned-claims`, from origin/main at ae37b618. PRs #152 (heated 
 - [x] Sweep, facts: doggy dinners and dog meals, off-lead garden, baby changing, "accessible facilities", enclosed or safe garden (five pages and six posts), EV "coming soon" and the EV schema flag, lamb and chicken roasts, party nights, beef dripping, the wedding denial. "19th-century charm" left: section 1 says the building is mid-Victorian
 - [x] Sweep, Christmas: the retired "menu released closer to the time" line on `/christmas-parties` (two live, four fallbacks) and in four posts, plus the SSOT.json key that still mandated it
 - [x] Found in passing: prosecco on every Christmas tier in six places, including `/corporate-events` (section 7: 2 and 3 course only)
-- [ ] Sweep, superlatives: "best", "premier" and "top-rated" self-claims. About 60 sentences in 30 files, including titles, H1s and meta descriptions on area pages, so they go in a separate PR
+- [x] Sweep, superlatives: "best", "premier" and "top-rated" self-claims, done in their own PR (see "Best and premier self-claims" below)
 - [x] Guards in `tests/ssot-drift-guard.test.ts`: eleven new checks, one shared helper with #152's heated and covered checks. All thirteen fail against pre-fix content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,419 passed), build (294 pages); changed pages read back from the production build on port 3109
 - [x] PR #154 opened; the owner approved the merge on 10 September 2026
@@ -363,3 +363,42 @@ Branch `fix/christmas-minimum-four`, stacked on PR #154 because both edit `/chri
 - [x] `SSOT.json` private-hire Christmas Dinner tiers now say 4. The owner confirmed on 10 September 2026 that the private-hire Christmas set menu has the same minimum as a table booking; the drift test now ties the tiers to that minimum, and `docs/SSOT.md` sections 7 and 18 record it. The management database has no active Christmas set-menu package (its two retired "Festive Menu" packages, inactive since 5 July, still say 6), so it was left alone
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,420 passed), build (294 pages); four pages read back from the production build
 - [x] PR #156 opened; the owner approved the merge on 10 September 2026
+- [x] Merged and verified live: #154 as deployment `dpl_HNqktzorCxt6Fpp3cvq7cYyQMJW4` (2ed8f611), #156 as `dpl_AZfP5a1HZ1UKp2KdQbGVcaLCSnu5` (808e2e72)
+
+# Dog-friendly post rewritten from the SSOT, 10 September 2026
+
+Branch `fix/dog-friendly-post-facts`, from origin/main at 808e2e72.
+
+- [x] Every sentence checked against `docs/SSOT.md` sections 1, 2, 4, 5, 8, 9, 14 and 16; the section 16 Dogs, Sunday roast, Parking, Families and access wording pasted as it stands
+- [x] Everything not in the SSOT removed rather than replaced: dog events, treats beyond biscuits, staff and partner claims, walk timings, garden details, poo bags, "locally-sourced" and "local ales"
+- [x] URL, slug and frontmatter keywords unchanged; description rewritten from SSOT facts; alt text now describes the three images
+- [x] Drift guard (60), lint and audits, `npm test` (2,420), build (294 pages); page read back from the production build
+- [x] PR #160 opened. Owner answers, 10 September 2026: no dog events, no treats beyond biscuits, poo bags provided but no dog bins, no dog-specific staff training or partnerships, Staines Moor and the King George VI Reservoir each about a 30-minute walk one way, dogs welcome everywhere at any opening time. All added to SSOT section 8 (and `SSOT.json`), then to the post
+- [x] Same sweep for the "welcome everywhere" fact: `/find-us`, `/safety-and-respect` and two posts limited dogs to the bar or garden; all now say "throughout the pub, on a lead"
+- [x] Merged and verified live: #160 as deployment `dpl_EYWSyR8uHBsUeQFfu1nZHjnR1QR9` (aa9c6d00)
+
+# Best and premier self-claims, 10 September 2026
+
+Branch `fix/ssot-superlatives`, from origin/main at aa9c6d00. Owner approval on 10 September 2026: remove the "best" and "premier" self-claims in a follow-up PR, keeping the search phrase in titles.
+
+- [x] About 125 claims removed across 16 area and landing pages, the tag page meta in `lib/tag-seo-content.ts`, and 31 posts. Titles and headings keep the search phrase and lose the ranking word; "one of the best pubs near X" became "a highly rated pub near X" (section 14)
+- [x] Kept on purpose: searchers' questions, advice ("best for", "the best way"), guides that rank other places, customer quotes and the genuine Google reviews, keyword lists, our own "BEST VALUE" package badge, and idioms such as "best-kept secret"
+- [x] `/our-pub` no longer hardcodes the Google review count (section 12)
+- [x] Found in passing: eight runway designators in the plane-spotting locations post (section 9), one of which put The Anchor under "27R"
+- [x] Left alone, not asked for: "unbeatable", "ultimate", "finest", "warmest welcome" and similar wording
+- [x] Guards: any hardcoded review count (the old pattern missed "238&nbsp;reviews"), runway designators, and self-superlatives. All three fail against origin/main content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,459 passed each), build (295 pages); 25 changed URLs read back from the production build on port 3112. Most edited tag entries and two of the edited pages (`/pub-garden-heathrow`, the older plane-spotting guide) sit behind redirects, so those edits are not reachable today
+- [x] Merged and verified live: #163 as deployment `dpl_4Uf3fqdvM7NoY3d9wsRRDEE3zUGB` (11bffc3f)
+
+# Retired off-SSOT event posts, 10 September 2026
+
+Branch `fix/retire-off-ssot-event-posts`, from origin/main at 7c0e92ce. Owner approval on 10 September 2026: retire the drag cabaret and Christmas market posts with redirects, and correct the cash bingo post from the SSOT.
+
+- [x] `/blog/drag-cabaret-nikki` deleted and redirected (301) to `/whats-on`, like the retired live-music post (section 10: drag cabaret is discontinued)
+- [x] `/blog/christmas-market` deleted and redirected (301) to `/christmas-parties`, like `christmas-venue` in August (section 7: no market in 2026). That page stays up after the season ends, so there is no chain later
+- [x] Seven older rules that landed on either post now go straight to the new destination: four in `blog-redirects.json`, three in `wix-redirects.json`
+- [x] `/blog/monthly-cash-bingo` rewritten from section 10: monthly on varying dates, arrive by 6:30pm, first game 7pm, about 9:30pm finish, ten games, £10 books and £1 daubers cash only, both halves of the age rule, prizes vary, the snowball rule. Gone: first Thursdays, doors at 6pm, games from 8pm, three games, the guaranteed £50 jackpot, a menu list, invented "coming soon" events. URL, slug and noindex unchanged; two keywords that asserted Thursdays and a £50 prize removed
+- [x] Same fact elsewhere: the 2023 New Year post listed "First Thursday Bingo"; now "Cash bingo"
+- [x] SSOT sections 7, 10 and 18 and the `SSOT.json` market note record the retirements
+- [x] Tests: the two 301s, deleted folders and no rule landing on a retired post (`tests/seo-indexing.test.ts`); cash bingo format guard (`tests/ssot-drift-guard.test.ts`). Both fail against origin/main content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,462 passed each), build (293 pages). Production build checked on port 3113: ten old and new URLs each reach their target in one 301; the cash bingo post shows the new facts and none of the old

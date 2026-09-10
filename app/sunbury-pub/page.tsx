@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     description: `Looking for pubs near Sunbury? Sunday roasts, stone-baked pizzas, a family-friendly welcome and free parking, a short drive away.`,
     openGraph: {
         title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
-        description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
+        description: 'Worth the short drive from Sunbury for our famous Sunday roast. Free parking and great value.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
-        description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
+        description: 'Worth the short drive from Sunbury for our famous Sunday roast. Free parking and great value.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -111,7 +111,7 @@ export default function SunburyPubPage() {
                             }}
                             className="mb-4"
                         >
-                            Pubs in Sunbury, The Best Sunday Roast Near You
+                            Pubs in Sunbury, a Sunday Roast Worth the Drive
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
                             Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.

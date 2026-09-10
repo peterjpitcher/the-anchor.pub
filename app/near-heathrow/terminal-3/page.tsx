@@ -68,7 +68,7 @@ export default function Terminal3Page() {
           <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="text-2xl font-bold text-accent-text mb-3">Key Info For Terminal 3 Travellers</h2>
             <p className="text-ink-muted mb-4">
-              One of the best pubs near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
+              A highly rated pub near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">

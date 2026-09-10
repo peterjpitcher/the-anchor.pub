@@ -306,9 +306,8 @@ export default function OurPubPage() {
                 >
                   pub garden near Heathrow
                 </Link>{' '}
-                is honestly one of the best spots around, and we&apos;re not
-                the only ones who think so (4.6&nbsp;stars on Google, 238&nbsp;reviews
-                and counting).
+                is one of our favourite places to be, and we&apos;re rated
+                4.6&nbsp;stars on Google.
               </p>
             </div>
           </div>

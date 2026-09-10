@@ -13,7 +13,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Dining Near Heathrow T5 | Best Pre-Flight Meal',
+    title: 'Dining Near Heathrow T5 | Pre-Flight Meals',
     description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Draught Beer - we're just 7 mins from T5.`,
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',

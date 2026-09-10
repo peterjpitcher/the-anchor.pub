@@ -18,7 +18,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Pubs in Wraysbury | Dining & Free Parking',
-    description: `${BRAND.name} is a top-rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
+    description: `${BRAND.name} is a highly rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
     openGraph: {
         title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
@@ -268,7 +268,7 @@ export default function WraysburyPubPage() {
 
             <CtaBand
                 title="Worth the 5 Minute Drive"
-                copy="Experience the best hospitality in the area at The Anchor."
+                copy="A proper village pub welcome at The Anchor."
             >
                 <Button asChild variant="primary" size="lg">
                     <Link href={CONTACT.phoneHref}>Book a Table</Link>

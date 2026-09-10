@@ -29,7 +29,7 @@ images: []
 
 ![curry club the anchor image](/content/blog/curry-club-the-anchor/hero.jpg)
 
-## Monthly Curry Club - Best Indian Food Near Heathrow Airport
+## Monthly Curry Club - Indian Food Near Heathrow Airport
 
 Looking for authentic **curry near Heathrow**? The Anchor's monthly Curry Club brings the vibrant flavours of India to **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**. Our expert chef creates rotating curry-night specials that rival any Indian restaurant near the airport.
 
@@ -81,7 +81,7 @@ Our **curry night near Terminal 5** attracts:
 
 ## How to Book Your Curry Night
 
-Don't miss the **best curry near Heathrow Airport**:
+Don't miss our **curry near Heathrow Airport**:
 
 📞 **Call**: 01753 682707
 📍 **Visit**: The Anchor, Horton Road, Stanwell Moor

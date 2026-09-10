@@ -1,7 +1,7 @@
 ---
 title: Dog Friendly Pub Near Heathrow | Dogs Welcome in Stanwell Moor
 slug: dog-friendly-pub
-description: "Dogs are welcome throughout, garden included, with water bowls and treats on us. Sunday roast, free parking, seven minutes from Terminal 5."
+description: "Dogs are welcome throughout The Anchor, garden included, on a lead. Water bowls and biscuits waiting, Sunday roasts and 20 free parking spaces."
 date: '2023-03-05'
 oldUrl: 'https://www.the-anchor.pub/post/the-importance-of-being-dog-friendly'
 author: Billy
@@ -23,202 +23,62 @@ hero: hero.jpg
 images: []
 ---
 
-Looking for a **dog friendly pub near Heathrow**? The Anchor in Stanwell Moor welcomes well-behaved dogs with open arms! Our spacious garden terrace, warm hospitality, and dog-friendly amenities make us the perfect spot for you and your four-legged friend. Just 7 minutes from Terminal 5, we're your local **family friendly pub** where dogs are part of the family.
+Yes, you can bring your dog to The Anchor.
 
-## Why The Anchor is the Best Dog Friendly Pub Near Heathrow Airport
+> Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
 
-### More Than Just Dog Tolerant - We're Dog Loving!
+That goes for the bar, the dining area and the beer garden, any time we're open, event nights included. There's no size limit, and assistance dogs are always welcome.
 
-Unlike many pubs that merely tolerate dogs, The Anchor actively welcomes them. As a true **dog friendly pub** in the heart of Stanwell Moor, we understand that your dog is family. That's why we've created a space where both you and your furry companion can relax and enjoy quality time together.
+![A black and white collie running along a woodland path with a ball in its mouth, captioned "Admiring them for their unflinching loyalty"](/content/blog/dog-friendly-pub/image-1.jpg)
 
-### What Makes Us Special for Dog Owners
+## Our dog policy
 
-- **Spacious garden terrace** - Perfect for dogs to relax
-- **Free water bowls** - Always fresh and clean
-- **Dog treats available** - Ask at the bar!
-- **Nearby walking routes** - Including Staines Moor Nature Reserve
-- **Understanding staff** - Many are dog owners themselves
-- **Other dog-friendly guests** - Your pup can make friends
-- **Free parking** - Easy access for you and your dog
+It's short, because we'd rather keep it simple:
 
-## Dog Friendly Sunday Roast at The Anchor
+- **On a lead at all times.** That includes the garden.
+- **Off the furniture,** please.
+- **Any size.** Small, big, enormous, all welcome.
+- **Poo bags** are provided.
 
-### The Ultimate Sunday Experience for Dog Owners
+Ask at the bar if you can't see a water bowl. If your dog's nervous, or you'd like to check where you'll sit, give us a call on 01753 682707.
 
-Our famous **dog friendly Sunday roast** is a highlight for local families and Heathrow travelers alike. Picture this: a traditional roast dinner in our cozy pub while your dog relaxes at your feet. It's the perfect Sunday afternoon!
+## Sunday roast with your dog
 
-### Sunday Roast with Your Dog Includes:
-- **Reserved dog-friendly seating** in our garden area (weather permitting)
-- **Traditional Sunday roasts** - beef, pork, turkey, pies or a vegan Wellington
-- **Children welcome** - A true family friendly pub experience
-- **Relaxed atmosphere** - No rushing, enjoy your meal
+> Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm.
 
-Book early for Sunday roast - our dog-friendly tables fill up fast!
+There's beef, pork and turkey, two pies and a fully vegan Wellington, plus kids' roasts. Your dog can stay with you, on a lead, wherever you sit.
 
-## Our Dog-Friendly Garden Terrace
+Booking's worth it for a group or a busy slot, but you don't have to. [Book a table](/book-table) or [see the Sunday roast](/sunday-roast).
 
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-1.jpg)
+## The beer garden
 
-### The Perfect Outdoor Space for Dogs
+The garden seats 64 and sits right under Heathrow's southern runway approach path. At busy times a plane comes over about every 90 seconds, 500 to 800 feet up. The landings swap each week: one week they're overhead until 3pm, the next from 3pm onwards.
 
-Our garden terrace is the crown jewel for dog owners visiting our **pub near Heathrow**. Features include:
+We serve food and drink out there while the kitchen's open, and dogs stay on a lead in the garden like everywhere else. There's more about it on our [beer garden page](/beer-garden).
 
-- **Shaded areas** - Cool spots on sunny days
-- **Plenty of space** - Room for multiple dogs without crowding
-- **Easy clean surfaces** - Accidents happen, we understand
+![A beagle sitting on the grass, looking at the camera, captioned "That little face that's always there to welcome you home"](/content/blog/dog-friendly-pub/image-2.jpg)
 
-## Dog Walking Routes Near The Anchor
+## Walks nearby
 
-### Explore Stanwell Moor with Your Dog
+Staines Moor and the King George VI Reservoir are each about 30 minutes' walk from the pub, so a walk followed by a pint works well. For more routes and where to park, see our [guide to dog walks near Heathrow](/blog/dog-friendly-walks-near-heathrow).
 
-Being a **family friendly pub** in Stanwell Moor means we're perfectly positioned for dog walks:
+![A white dog splashing through shallow water, captioned "The hours of fun as you explore beautiful walks together"](/content/blog/dog-friendly-pub/image-3.jpg)
 
-#### Staines Moor Nature Reserve (5 minutes walk)
-- Beautiful open grassland
-- Variety of wildlife to spot
-- Well-maintained paths
-- Other dog walkers to meet
+## Food for you
 
-#### Stanwell Moor Village Walk (10 minutes)
-- Quiet village streets
-- Historic church to explore
-- Local fields and footpaths
-- Return to the pub for refreshments
+The main menu has stone-baked pizzas, fish and chips, burgers and pies, plus vegetarian dishes and a kids menu. You can order from it on Sundays too, alongside the roast. Prices are live on the [food menu](/food-menu).
 
-#### King George VI Reservoir Path (15 minutes)
-- Longer circular walk
-- Water views
-- Good for energetic dogs
-- Approximately 2 hours round trip
+## Bringing the family too?
 
-## Our Official Dog-Friendly Policy
+High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities.
 
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-2.jpg)
+## Getting here
 
-### Clear Guidelines for a Great Experience
+- **Where:** Horton Road, Stanwell Moor, Surrey, TW19 6AQ.
+- **By car:** seven minutes from Heathrow Terminal 5, eight from Staines, and two from junction 14 of the M25.
+- **Parking:** We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
+- **By bus:** routes 441, 442 and 555 from Heathrow Central Bus Station.
+- **Getting in:** Step free from the car park. One step from the bar, with a ramp on request.
+- **Opening hours:** always up to date on our [find us page](/find-us).
 
-We want everyone - humans and dogs - to enjoy their visit to our **dog friendly pub near Heathrow**:
-
-1. **All well-behaved dogs welcome** - Size doesn't matter, behaviour does
-2. **Dogs on leads inside** - For everyone's comfort and safety
-3. **Leads on in the garden too** - Dogs stay on a lead everywhere, garden included
-4. **Clean up stations provided** - Bags and bins available
-5. **Water bowls throughout** - Your dog stays hydrated
-6. **Dog biscuits** - Ask at the bar
-
-### What We Ask of Dog Owners
-
-- Keep dogs on a lead at all times
-- Clean up after your dog (bags provided)
-- Don't allow dogs on furniture or to eat from plates
-- Ensure your dog is sociable with others
-- Let us know if your dog has special needs
-
-## Why Local Dog Owners Choose The Anchor
-
-### A Community Hub for Dog Lovers
-
-As Stanwell Moor's premier **family friendly pub**, we've become a meeting place for local dog owners:
-
-- **Regular dog meet-ups** - Informal gatherings every week
-- **Charity dog events** - Supporting local animal charities
-- **Dog birthday parties** - Yes, we've hosted several!
-- **Training class meet-point** - Post-class socializing spot
-- **Lost dog network** - Community board for local pets
-
-## Perfect for Heathrow Travelers with Dogs
-
-### Convenient Location for Flying with Pets
-
-Many visitors discover our **dog friendly pub near Heathrow** when:
-
-- **Pre-flight meals** - Last quality time before kennels/flight
-- **Post-arrival reunions** - Celebrate being back together
-- **Pet transport delays** - Comfortable waiting spot
-- **Visiting with pets** - Exploring the UK with your dog
-
-Just 7 minutes from Terminal 5, we're the ideal stop for pet-traveling families.
-
-## Food & Drink for You (and Treats for Your Dog!)
-
-### Quality Pub Food in a Dog-Friendly Setting
-
-Enjoy traditional pub favourites while your dog relaxes:
-
-**For Humans:**
-- Fresh, locally-sourced ingredients
-- Traditional British pub classics
-- Vegetarian and vegan options
-- Children's menu available
-- Local ales and wines
-
-**For Dogs:**
-- Complimentary water and biscuits
-- Special dog ice cream in summer
-- Birthday "pupcakes" (advance order)
-- Dental chews at the bar
-
-## The Anchor: Building a Dog-Friendly Community
-
-### More Than Just a Pub - We're Dog People
-
-Our commitment to being a **dog friendly pub** goes beyond just allowing dogs:
-
-- Staff trained in dog behaviour and safety
-- Partnerships with local vets and groomers
-- Support for dog rescue charities
-- Host of the annual Stanwell Moor Dog Show
-- Sponsor of local dog agility club
-
-## Visit The Anchor - Where Dogs Are Always Welcome
-
-### Find Our Dog Friendly Pub Near Heathrow
-
-**Address**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-
-**Getting Here with Your Dog:**
-- **By car**: Free parking, just 7 mins from Heathrow Terminal 5
-- **By bus**: Routes 441 & 442 (dogs welcome on buses)
-- **Walking**: Pleasant routes from Staines and Stanwell
-- **Accessibility**: Level access for older or disabled dogs
-
-### Opening Hours for Dogs
-Dogs are welcome during all opening hours. Check our website for current opening hours, as they may vary by season. The garden terrace is open year-round.
-
-## Book Your Dog-Friendly Visit
-
-Planning a visit to our **family friendly pub** in Stanwell Moor? 
-
-📞 **Call**: 01753 682707 (let us know you're bringing your dog)
-🌐 **Book online**: Via our website
-🐕 **Dog group bookings**: Welcome for special occasions
-
-### Special Dog-Friendly Events
-
-Join us for:
-- **Woof Wednesday**: Mid-week dog social, 6-8pm
-- **Sunday Funday**: Dog agility fun in the garden (summer)
-- **Howl-oween**: Annual dog costume contest
-- **Santa Paws**: Christmas photos with your dog
-
-## Why Choose The Anchor as Your Dog Friendly Local
-
-When searching for a **dog friendly pub near Heathrow** or **dog friendly Sunday roast**, The Anchor stands out:
-
-✅ Genuine love for dogs - not just tolerance
-✅ Purpose-built facilities for four-legged guests
-✅ Strong community of local dog owners
-✅ Convenient location with parking
-✅ Quality food and service for humans too
-✅ Year-round dog-friendly spaces
-✅ Experienced, understanding staff
-
-## The Anchor: Where Every Dog Has Its Day
-
-At The Anchor, we believe that the best times are shared with all family members - including the furry ones. Our **family friendly pub** in Stanwell Moor has become the go-to destination for dog owners seeking great food, warm hospitality, and a genuine welcome for their pets.
-
-Whether you're a Heathrow traveler with time to spare, a local looking for your new regular, or visiting the area with your dog, The Anchor provides the perfect dog-friendly experience. Because life's too short to leave your best friend at home!
-
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-3.jpg)
-
-*Follow The Anchor on social media for dog event updates and photos from our four-legged visitors! #DogFriendlyPubNearHeathrow*
+Questions before you come? Call 01753 682707 or send a WhatsApp to the same number.

@@ -97,7 +97,7 @@ The Six Nations Championship runs every year from February to March, bringing th
 
 ![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-4.jpg)
 
-## Experience Six Nations at The Best Rugby Pub Near Heathrow Airport
+## Experience Six Nations at Our Rugby Pub Near Heathrow Airport
 
 Don't miss a single try, conversion, or victory celebration! The Anchor is your home for Six Nations rugby near **Heathrow Airport**. With our **multiple HD screens**, **passionate atmosphere**, and **traditional pub hospitality**, we set the scene for an unforgettable match day experience.
 

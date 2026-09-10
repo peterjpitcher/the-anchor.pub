@@ -34,7 +34,7 @@ Now let's break each one down properly.
 
 ## 1. The Anchor Beer Garden, Stanwell Moor
 
-This is the one most people don't know about, and it's honestly the best all-round spotting location at Heathrow. The Anchor's 64-seat beer garden sits directly under the southern runway flight path. During peak hours, aircraft pass overhead every 90 seconds, low enough that you can identify airlines, aircraft types, and even read the registration numbers on the fuselage.
+This is the one most people don't know about, and it works well as an all-round spotting location. The Anchor's 64-seat beer garden sits directly under the southern runway flight path. During peak hours, aircraft pass overhead every 90 seconds, low enough that you can identify airlines, aircraft types, and even read the registration numbers on the fuselage.
 
 The difference between The Anchor and every other spot on this list is simple: you're watching the world's biggest aircraft thunder overhead while sitting at a proper pub table with a cold pint and a plate of fish and chips. No flask of lukewarm tea. No camping chair on a grass verge. Just a comfortable seat, decent food, and a steady stream of A380s and 787s rolling in above you.
 
@@ -105,7 +105,7 @@ Dogs are welcome in the garden, so bring the whole family. If you want to extend
 
 ### Where is the best place to watch planes at Heathrow?
 
-It depends what you're after. For the best all-round experience, good views, food, drink, and comfort, The Anchor beer garden in Stanwell Moor is unbeatable. For serious photography of aircraft on final approach, Myrtle Avenue is the classic choice.
+It depends what you're after. If you want good views, food, drink and comfort in one place, try The Anchor beer garden in Stanwell Moor. For serious photography of aircraft on final approach, Myrtle Avenue is the classic choice.
 
 ### Can you see planes from Heathrow beer gardens?
 

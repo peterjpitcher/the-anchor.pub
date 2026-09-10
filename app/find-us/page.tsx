@@ -438,7 +438,7 @@ export default async function FindUsPage() {
                     <p className="text-ink text-sm">Free parking for patrons</p>
                     <p className="text-ink text-sm">Kitchen times update live</p>
                     <p className="text-ink text-sm">Children always welcome</p>
-                    <p className="text-ink text-sm">Dogs welcome in bar & garden</p>
+                    <p className="text-ink text-sm">Dogs welcome throughout, on a lead</p>
                   </div>
 
                   <div className="rounded-md border border-line bg-surface-sunk p-5">

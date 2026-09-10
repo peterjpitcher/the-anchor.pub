@@ -106,7 +106,7 @@ export default async function LiveSportPage() {
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Live Sport"
               title="Live Sport at The Anchor"
-              lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
+              lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. A proper matchday atmosphere."
               actions={
                 /*
                  * EV-023. This was the only event page with no hero action, so the

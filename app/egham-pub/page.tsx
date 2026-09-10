@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   description: 'Searching for pubs in Egham? Twelve minutes away, with free parking, Sunday roasts, stone-baked pizzas and a warm welcome.',
   openGraph: {
     title: 'Pubs in Egham, The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
+    description: 'A highly rated pub near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs in Egham, The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
+    description: 'A highly rated pub near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
