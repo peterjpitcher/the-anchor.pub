@@ -382,6 +382,29 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('redirects the eight dated offer and event posts retired on 10 September 2026 in one hop', () => {
+    // Owner decision, 10 September 2026: their offers had ended or their events had
+    // passed, and several still quoted 2019 to 2025 prices. Each goes to the live page
+    // that covers it now, and so do the older addresses that used to point at them.
+    const retired: Record<string, string> = {
+      'prices-frozen-until-autumn-theanchor-pub': '/drinks',
+      'events-offers-2025': '/whats-on',
+      'botanist-gin-july-2025': '/drinks/managers-special',
+      'salami-day-pizza': '/pizza-menu',
+      'rum-tasting-caribbean': '/whats-on',
+      'the-boys-are-back-in-town': '/drinks',
+      'valentines-day-meal-offer-for-two': '/valentines-day',
+      'tequila-tasting-events': '/whats-on',
+    }
+    for (const [slug, destination] of Object.entries(retired)) {
+      const rule = lookupRedirect(`/blog/${slug}`)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+    expect(lookupRedirect('/post/prices-frozen-until-autumn-theanchor-pub')?.destination).toBe('/drinks')
+    expect(lookupRedirect('/post/valentines-day-meal-offer-for-two')?.destination).toBe('/valentines-day')
+  })
+
   it('redirects the retired drag cabaret and Christmas market posts (owner-approved 10 September 2026)', () => {
     // Drag cabaret is discontinued and there is no Christmas market in 2026
     // (docs/SSOT.md sections 7 and 10). The folders are deleted so neither
@@ -694,6 +717,22 @@ describe('redirect-loops', () => {
   it('has no redirect whose destination matches its own source', () => {
     const selfLoops = ALL_REDIRECTS.filter((r) => r.destination === r.source)
     expect(selfLoops).toEqual([])
+  })
+
+  it('has no redirect that lands on a blog post which does not exist', () => {
+    // Seventeen Wix-era addresses pointed at posts deleted long ago, so visitors ended
+    // on a 404, until 10 September 2026, when each was pointed at the closest live page.
+    // Retiring a post means repointing every redirect that lands on it.
+    const missing = ALL_REDIRECTS.filter((rule) => {
+      const match = /^\/blog\/([^/?#:*]+)(?:[?#].*)?$/.exec(rule.destination)
+      if (!match) return false
+      const slug = match[1]
+      return (
+        !fs.existsSync(path.join(process.cwd(), 'content', 'blog', slug, 'index.md')) &&
+        !fs.existsSync(path.join(process.cwd(), 'app', 'blog', slug, 'page.tsx'))
+      )
+    }).map((rule) => `${rule.source} -> ${rule.destination}`)
+    expect(missing).toEqual([])
   })
 
   it('has no two-step redirect chains (a redirect destination is not also a redirect source)', () => {

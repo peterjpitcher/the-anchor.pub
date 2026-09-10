@@ -83,7 +83,7 @@ This is where the difference between pub and hotel becomes stark. We've written 
 | AV hire | £150-£500 |
 | **Total** | **£2,300-£4,750** |
 
-That's not a minor difference. For 30 guests, you're looking at spending roughly two to six times more at a hotel for a comparable event. Some of that premium buys you genuine upgrades (bigger space, higher-end furnishings). Some of it is just overhead.
+That hotel total is not a small number. Build the same evening in our [cost estimator](/private-hire) and compare. Some of a hotel's premium buys you genuine upgrades (bigger space, higher-end furnishings). Some of it is just overhead.
 
 ### Why hotel costs are higher
 

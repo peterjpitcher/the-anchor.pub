@@ -179,6 +179,6 @@ Outside the airport, local pubs usually offer better value than terminal restaur
 
 Airport food isn't terrible. It's just expensive for what it is, and the atmosphere leaves a lot to be desired. If you've got time -- and especially if you've got a car -- eating outside the airport is cheaper, better, and far more enjoyable.
 
-The numbers don't lie. A meal for two at The Anchor costs roughly half what you'd pay at the airport, with free parking, a beer garden, and food that's made from scratch. Whether you're killing time before a flight, celebrating a landing, or picking someone up, it's seven minutes well spent.
+Put the airport prices above next to our [live menu](/food-menu) and the difference is plain, with free parking, a beer garden, and food that's made from scratch. Whether you're killing time before a flight, celebrating a landing, or picking someone up, it's seven minutes well spent.
 
 [Book a table](/book-table) or call us on 01753 682707. Current bar and kitchen hours are live on our website.

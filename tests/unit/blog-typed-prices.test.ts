@@ -19,17 +19,10 @@ import path from 'path'
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog')
 
-// Dated offer and event posts from 2023 to 2025, where the price is the point of the
-// post. Whether to retire them is the owner's call (raised 10 September 2026), so they
-// are left out rather than stripped.
-const DATED_OFFER_POSTS = new Set([
-  'botanist-gin-july-2025',
-  'double-up-offer',
-  'events-offers-2025',
-  'prices-frozen-until-autumn-theanchor-pub',
-  'rum-tasting-caribbean',
-  'salami-day-pizza',
-])
+// A running promotion whose price is the offer itself: the £2 double-up on spirits
+// (owner-confirmed 10 September 2026, SSOT section 6). The dated offer and event posts
+// that used to sit here were retired the same day.
+const CURRENT_PROMOTION_POSTS = new Set(['double-up-offer'])
 
 const POUND = /£\s?\d/
 const US_BY_NAME = /\bthe anchor\b/i
@@ -161,7 +154,7 @@ describe('blog posts do not type out our prices', () => {
 
   it('finds none of our food or drink prices typed into a post', () => {
     const offenders = posts
-      .filter((slug) => !DATED_OFFER_POSTS.has(slug))
+      .filter((slug) => !CURRENT_PROMOTION_POSTS.has(slug))
       .flatMap((slug) =>
         findOurTypedPrices(fs.readFileSync(path.join(BLOG_DIR, slug, 'index.md'), 'utf8')).map(
           (hit) => `${slug}:${hit}`,

@@ -767,7 +767,7 @@
       "cocktails": "Cocktail menu includes spritzes, martinis, margaritas, mojito, rum cocktails, long drinks, Pimm's and shots; confirm current menu before publishing."
     },
     "promotions": {
-      "optics_double_up": "Available when current POS/promotion data confirms it; price must come from approved live source.",
+      "optics_double_up": "Running: a double for £2 more than a single (owner-confirmed 2026-09-10). Any other offer only when current POS/promotion data confirms it.",
       "managers_special": "Monthly discounted featured premium spirit; use current Manager's Special source."
     },
     "bar_tab_policy": "Regular customers only, 7 days, maximum £50.",

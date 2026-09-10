@@ -33,19 +33,19 @@ The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes
 - **Beetroot and butternut squash wellington**, available as part of the [Sunday roast menu](/sunday-roast). A proper vegan centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm, no pre-order needed.
 - **Stone-baked Margherita pizza**, with a proper thin base and fresh toppings. Available every day the kitchen is open.
 - **Vegetable stone-baked pizza**, loaded with roasted veg, same thin base, same price bracket.
-- **Veggie burger**, a substantial patty with proper toppings, not a frozen disc from a catering supplier.
+- **Garden Veg Burger**, a Bangkok Bad Boy vegetable patty in a soft floured bap with butterhead salad and tomato, served with your choice of chips.
 
 ### Vegan Options
 
-- **Vegan burger**, loaded with plant-based toppings, served in a vegan-friendly bun. One of the more generous vegan pub meals you will find near Heathrow.
-- **Margherita pizza**, can be made vegan on request (swap the mozzarella for a plant-based alternative). Just mention it when you order.
-- Several **sides and starters** work for vegans too, check with the kitchen when you visit, as the options rotate.
+- **Beetroot and butternut squash wellington**, on Sundays, fully vegan as it comes.
+- **Chips, chunky chips, sweet potato fries and onion rings** are all vegan.
+- For anything else, **ask at the bar** which dishes can be made vegan on the day.
 
 ### Good to Know
 
 - **NGCI options** are available on several dishes. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
 - **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
-- **Stone-baked pizzas** are available in vegetarian and vegan options.
+- **Stone-baked pizzas** are available in vegetarian options.
 - **Sunday roast** with the butternut squash wellington is served 1pm-6pm, walk in or [book online](/book-table). Booking is recommended for groups of six or more. Call 01753 682707 for larger parties.
 - **Free parking** and **dog-friendly** throughout the pub. The beer garden is a bonus in warmer months, with planes overhead for a bit of Heathrow theatre.
 
@@ -90,7 +90,7 @@ Yes. The Anchor offers a beetroot and butternut squash wellington as part of the
 
 ### Does The Anchor offer vegetarian pizzas?
 
-Yes, our stone-baked pizza menu includes vegetarian and vegan options such as Margherita and vegetable pizzas. You'll find today's prices on our [food menu](/food-menu).
+Yes, our stone-baked pizza menu includes vegetarian options such as the Margherita and the Veggie Classic. You'll find today's prices on our [food menu](/food-menu).
 
 ### Does The Anchor cater for gluten-free diets as well?
 

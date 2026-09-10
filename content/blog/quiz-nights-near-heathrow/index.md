@@ -24,7 +24,7 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 | Pub | Day | Start | Entry | Prize | Team Size | Distance from T5 |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7:30pm | £3 pp | £25 bar tab | Up to 6 | 7 mins |
+| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7pm | £3 pp | £25 bar tab | Up to 6 | 7 mins |
 | **Greene King pubs** (various) | Usually Tue/Wed | 7–8pm | Free–£2 | £50–£100 voucher | Open | 10–20 mins |
 | **Independent pubs**, Staines | Various | 7–8pm | £1–£3 | Varies | Varies | 15 mins |
 | **Wetherspoon**, Staines | Usually Thurs | 8pm | Free | Drinks vouchers | Open | 15 mins |
@@ -80,7 +80,7 @@ The local Wetherspoon runs a free quiz, usually on Thursday evenings. It's no-fr
 
 ### Arrive early
 
-Wherever you go, the best tables go first. If the quiz starts at 7:30pm, aim for 7pm. This is especially true at smaller pubs like The Anchor where seating is limited.
+Wherever you go, the best tables go first. If the quiz starts at 7pm, aim for 6:30pm. That matters most at smaller pubs like The Anchor, where seating is limited.
 
 ### Team size matters
 
