@@ -10,7 +10,8 @@ import path from 'path'
  * Posts may still quote other people's prices (airport restaurants, hotels, taxis, other
  * pubs) and our fixed figures that are not food or drink (deposits, quiz and bingo entry,
  * room hire by the hour). So a pound figure only counts when it is about us: the sentence
- * names The Anchor, says "our", "we" or "us", or names one of our dishes; the nearest
+ * names The Anchor, says "our", "we" or "us", names one of our dishes or links to one of
+ * our menu or booking pages; the nearest
  * heading that names anyone names The Anchor; or it sits in a table row or column
  * labelled The Anchor. It is a tripwire for the ways prices were actually typed, not a
  * proof that no post can ever quote one.
@@ -36,6 +37,9 @@ const ABOUT_US = /\b(?:the anchor|our|we|we're|we've|we'll|us)\b/i
 // Dishes only our menu brings up in these posts, so a price beside one is ours.
 const OUR_DISHES =
   /stone-baked|wellington|topside|beef (?:and|&) ale|wild mushroom|ham hock|butternut|cannelloni|katsu|garden veg|jumbo sausage/i
+// A link to one of our menu or booking pages ("a [Sunday roast booking](/sunday-roast)
+// from £16") says whose price it is, where the words "Sunday roast" alone would not.
+const OUR_PAGE_LINK = /\]\(\/(?:sunday-roast|food-menu|pizza-menu|book-table|private-hire|drinks)\b/i
 // Figures we may state that are not food or drink prices: deposits (£250 for private
 // hire), entry and prizes, room hire, bar tab limits, race night bets, parking and fares.
 const FIXED_FIGURE =
@@ -109,7 +113,7 @@ function findOurTypedPrices(markdown: string): string[] {
     for (const sentence of line.split(/(?<=[.!?])\s+/)) {
       if (!POUND.test(sentence) || headingIsFixed) continue
       if (FIXED_FIGURE.test(sentence) || THIRD_PARTY.test(sentence)) continue
-      if (ABOUT_US.test(sentence) || OUR_DISHES.test(sentence) || sectionIsOurs) {
+      if (ABOUT_US.test(sentence) || OUR_DISHES.test(sentence) || OUR_PAGE_LINK.test(sentence) || sectionIsOurs) {
         found.push(`${index + 1}: ${sentence}`)
       }
     }
@@ -129,6 +133,7 @@ describe('findOurTypedPrices', () => {
     expect(findOurTypedPrices('No. We operate on a quote-on-enquiry model, between £500 and £1,500.')).toHaveLength(1)
     expect(findOurTypedPrices("Completely. We're family-friendly, with a kids' menu from £8.00 per head.")).toHaveLength(1)
     expect(findOurTypedPrices('**Working Lunch Menu:**\n- **Stone-baked pizzas** from £13')).toHaveLength(1)
+    expect(findOurTypedPrices('An afternoon with a [Sunday roast booking](/sunday-roast) from £16 per person.')).toHaveLength(1)
   })
 
   it('leaves prices that are not ours, and our fixed figures, alone', () => {
