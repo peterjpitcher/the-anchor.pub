@@ -192,6 +192,14 @@ describe('Christmas 2026 owner decisions of 6 September', () => {
     expect(text).not.toMatch(/Christmas dinner[^.]{0,60}\b6 guests or more/i)
     // The day-dependent reading was wrong and must not come back.
     expect(text).not.toMatch(/midweek[^.]{0,40}6 on Friday/i)
+    // Every other way of writing the retired figure. Matching only "6 guests or
+    // more" let "The 6-guest minimum" survive on the drinks-only FAQ until
+    // 10 September 2026. Times such as "6:30pm" are not a minimum.
+    expect(text).not.toMatch(/\b(?:6|six)[- ]guests?\b|\b(?:minimum(?: of)?|at least|from|starts at) (?:6|six)\b(?!:)/i)
+    // The drinks-only answer reads the live minimum rather than a typed number.
+    expect(text).toContain(
+      `The ${CHRISTMAS_MINIMUM_PARTY_SIZE}-guest minimum and the pre-order rules apply to Christmas dinner`
+    )
   })
 
   it('never puts a minimum party size on the Sunday roast', () => {

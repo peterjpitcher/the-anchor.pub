@@ -357,7 +357,10 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     expect(mdPlain).toContain('Minimum 30 guests, everywhere, no exceptions.')
   })
 
-  it('the sit-down course tiers are the three-tier structure at 6 guests minimum', () => {
+  it('the sit-down course tiers are the three-tier structure at the Christmas dinner minimum', () => {
+    // Owner-confirmed 10 September 2026: the private-hire Christmas set menu has
+    // the same 4-guest minimum as a Christmas dinner table booking. These tiers
+    // said 6 until then, left behind by the 6 September change.
     const sitDown = ssot.private_hire.catering_packages.christmas.filter(
       (p: { style?: string }) => p.style === 'sit-down',
     )
@@ -367,7 +370,7 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
       'Christmas Dinner (3 course)',
     ])
     for (const tier of sitDown) {
-      expect(tier.min_guests).toBe(6)
+      expect(tier.min_guests).toBe(xmas.booking_rules.min_party_size)
       expect(tier.price_per_head_gbp).toBe('LIVE_FROM_DB')
     }
     // The retired weekday/weekend two-price split must not come back.
@@ -621,6 +624,18 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(
       matchingFiles(
         /released closer to the time|still finalising the christmas|(?:every|each|all) (?:adults?|tiers?)[^.\n]{0,40}prosecco|prosecco[^.\n]{0,60}(?:all three|every|each) (?:tiers?|adults?)|(?:do not|don't|never) (?:host|take|offer) wedding/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('does not state the retired 6-guest Christmas dinner minimum', () => {
+    // Section 7: 4 guests on every Christmas dinner booking since 6 September
+    // 2026. The change left six statements in three posts and one on the live
+    // page, in forms a search for "6 guests" misses: a "6-guest minimum", "6 to
+    // 20" group bands, "at least 6" and a comparison table. Found 10 September.
+    expect(
+      matchingFiles(
+        /\b(?:6|six)-guest minimum|\b(?:6|six) to 20\b|\bat least (?:6|six)\b[^\n]*table booking|group minimum[^\n]*\b(?:6|six) guests|christmas set menu[^\n]*\b(?:starts at|works from|from) (?:6|six) guests/i,
       ),
     ).toEqual([])
   })

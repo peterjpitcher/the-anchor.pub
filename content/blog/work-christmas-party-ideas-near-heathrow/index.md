@@ -46,7 +46,7 @@ If the pub option fits, the format and dates are on our [Christmas party page](/
 The number in your spreadsheet quietly changes which product you are buying.
 
 - **Fewer than 4 guests.** Not a Christmas booking. Our festive menu needs a minimum of 4.
-- **6 to 20 guests.** A normal table booking. You book it, you turn up, we look after you.
+- **4 to 20 guests.** A normal table booking. You book it, you turn up, we look after you.
 - **More than 20 guests.** No longer a table booking. This is [private hire](/private-hire), and it goes through a person rather than a form: manager@the-anchor.pub, 01753 682707, or WhatsApp on the same number.
 
 Our Christmas capacity is 60 seated and 200 standing, so a large team is doable. It just needs a conversation, because at that size you are agreeing space and layout, not a table.
@@ -117,7 +117,7 @@ Ready to talk dates? See [what our Christmas offer includes](/christmas-parties)
 
 ### How many people do I need for a work Christmas booking?
 
-At least 6. Up to 20 is a standard table booking. Above 20 becomes private hire, arranged with us directly on 01753 682707 or manager@the-anchor.pub.
+At least 4. Up to 20 is a standard table booking. Above 20 becomes private hire, arranged with us directly on 01753 682707 or manager@the-anchor.pub.
 
 ### Do you run shared Christmas party nights with a DJ?
 
