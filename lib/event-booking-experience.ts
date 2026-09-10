@@ -15,6 +15,7 @@ export type EventBookingPaymentSource = {
   price?: string | number | null
   ticket_price?: string | number | null
   price_per_seat?: string | number | null
+  online_discount_ends_at?: string | null
   online_discount_type?: string | null
   online_discount_value?: string | number | null
   offers?: OfferLike | null
@@ -153,6 +154,9 @@ export function getEventUnitPrice(event: EventBookingPaymentSource): number | nu
     return getLowestTicketTypePrice(event)
   }
 
+  if (event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()) {
+    return getEventTicketPrice(event)
+  }
   const directPrice = parsePositiveMoney(event.price)
   if (directPrice !== null) return directPrice
 
@@ -177,6 +181,7 @@ export function getEventTicketPrice(event: EventBookingPaymentSource): number | 
 }
 
 export function getEventOnlineSaving(event: EventBookingPaymentSource): number {
+  if (event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()) return 0
   if (!hasOnlineDiscountSignal(event)) return 0
 
   const ticketPrice = getEventTicketPrice(event)

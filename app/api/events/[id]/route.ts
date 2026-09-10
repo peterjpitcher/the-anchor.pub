@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const event = await anchorAPI.getEvent(params.id)
+    const event = await anchorAPI.getEvent(params.id, true)
 
     if (!event) {
       return createApiErrorResponse('Event not found', 404)

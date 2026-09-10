@@ -25,11 +25,20 @@ export interface EventTicketType {
   description?: string | null
   /** Final, post-discount price per seat, in GBP. */
   price: number
+  base_price?: number
   /** Per-type capacity (null/undefined = shares the event pool). */
   capacity?: number | null
   /** Seats still available for this type (null/undefined = unknown). */
   remaining?: number | null
   sort_order: number
+}
+
+export interface EventBookingQuestion {
+  id: string
+  label: string
+  type: 'text' | 'yes_no' | 'choice'
+  required: boolean
+  options?: string[]
 }
 
 export interface Event {
@@ -120,6 +129,8 @@ export interface Event {
   ticket_price?: number | null
   price_per_seat?: number | null
   online_discount_type?: 'fixed' | 'percent' | string | null
+  online_discount_ends_at?: string | null
+  booking_questions?: EventBookingQuestion[]
   online_discount_value?: number | null
   // Multiple ticket options. The management API returns snake_case `ticket_types`;
   // `ticketTypes` is the camelCase alias. Read both via `getEventTicketTypes()`.
@@ -480,6 +491,7 @@ export function formatPrice(price: string | number, currency: string = 'GBP'): s
 // A minimal event shape carrying ticket-type data, so helpers can be reused by
 // callers that only hold a partial event (booking form, price helpers, etc.).
 type EventTicketTypeSource = {
+  online_discount_ends_at?: string | null
   ticketTypes?: EventTicketType[] | null
   ticket_types?: EventTicketType[] | null
 }
@@ -509,7 +521,9 @@ export function getEventTicketTypes(event: EventTicketTypeSource): EventTicketTy
     })
     .map((type) => ({
       ...type,
-      price: parseTicketTypePrice(type.price) ?? 0,
+      price: event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()
+        ? parseTicketTypePrice(type.base_price) ?? parseTicketTypePrice(type.price) ?? 0
+        : parseTicketTypePrice(type.price) ?? 0,
       sort_order: typeof type.sort_order === 'number' ? type.sort_order : 0,
     }))
     .sort((a, b) => a.sort_order - b.sort_order)

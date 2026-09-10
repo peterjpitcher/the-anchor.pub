@@ -343,3 +343,24 @@ describe('website /api/event-bookings proxy, ticket_selections passthrough', () 
     expect('ticket_selections' in forwarded).toBe(false)
   })
 })
+
+describe('structured ticket holder details', () => {
+  const attendees = [
+    { id: '11111111-1111-4111-8111-111111111111', name: 'Alice', answers: { '33333333-3333-4333-8333-333333333333': 'no' } },
+    { id: '22222222-2222-4222-8222-222222222222', name: 'Bob', answers: {} },
+  ]
+  it('forwards each named person and answers intact', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const response = await POST(buildRequest({ ...VALID_BASE, attendees }) as any)
+    expect(response.status).toBe(201)
+    expect(JSON.parse(String(calls[0].init.body)).attendees).toEqual(attendees)
+  })
+  it('rejects missing people and duplicate identities without calling management', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: attendees.slice(0, 1) }) as any)).status).toBe(400)
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: [attendees[0], attendees[0]] }) as any)).status).toBe(400)
+    expect(calls).toHaveLength(0)
+  })
+})

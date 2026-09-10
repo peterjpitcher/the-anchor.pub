@@ -811,7 +811,7 @@ export class AnchorAPI {
     return this.request<EventsResponse>(`/events?${query.toString()}`, options)
   }
 
-  async getEvent(idOrSlug: string): Promise<Event> {
+  async getEvent(idOrSlug: string, fresh = false): Promise<Event> {
     const lookupValue = idOrSlug.trim()
     const encodedLookup = encodeURIComponent(lookupValue)
     const headers: Record<string, string> = {
@@ -833,7 +833,9 @@ export class AnchorAPI {
         headers: requestHeaders
       }
 
-      if (typeof window === 'undefined') {
+      if (fresh) {
+        options.cache = 'no-store'
+      } else if (typeof window === 'undefined') {
         options.next = { revalidate: 300 }
       }
 

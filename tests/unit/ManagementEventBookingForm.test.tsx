@@ -126,6 +126,7 @@ describe('ManagementEventBookingForm', () => {
     })
     render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -142,7 +143,7 @@ describe('ManagementEventBookingForm', () => {
 
   })
 
-  it('submits mixed ticket quantities without collecting guest names', async () => {
+  it('submits mixed tickets with a separate name for every guest', async () => {
     const sent: Record<string, unknown>[] = []
     global.fetch = jest.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       sent.push(JSON.parse(String(init?.body)))
@@ -160,11 +161,12 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
     fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
-    expect(screen.queryByLabelText(/ticket .* name/i)).not.toBeInTheDocument()
+    expect(screen.getAllByLabelText(/ticket .* name/i)).toHaveLength(3)
     fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
     await screen.findByText('Event booking confirmed')
     expect(sent[0]).toMatchObject({
@@ -228,6 +230,7 @@ describe('ManagementEventBookingForm', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '4' }))
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -252,6 +255,7 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -298,6 +302,7 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -313,7 +318,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('First name')).not.toBeInTheDocument()
   })
 
-  it('submits a prepaid group booking with only lead booker details and quantity', async () => {
+  it('submits a prepaid group booking with purchaser and attendee details', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
 
@@ -391,6 +396,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: '6' }))
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -403,6 +409,8 @@ describe('ManagementEventBookingForm', () => {
     const payload = JSON.parse(String((bookingCall?.[1] as RequestInit).body))
 
     expect(payload.seats).toBe(6)
+    expect(payload.attendees).toHaveLength(6)
+    expect(payload.attendees[0]).toMatchObject({ name: 'Guest 1', answers: {} })
     expect(payload.first_name).toBe('Jane')
     expect(payload.last_name).toBe('Guest')
     expect(payload.attendee_names).toBeUndefined()
@@ -413,6 +421,7 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.event_category_name).toBe('Bingo')
     expect(payload.event_price).toBe(6)
     expect(payload.event_value).toBe(36)
+    expect(payload.expected_total).toBe(36)
     expect(payload.utm_source).toBe('facebook')
     expect(payload.utm_medium).toBe('paid_social')
     expect(payload.utm_campaign).toBe('music-bingo')
@@ -487,6 +496,7 @@ describe('ManagementEventBookingForm', () => {
     })
     render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', booking_mode: 'communal', seated_remaining: 2, standing_remaining: 11 }} />)
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -568,6 +578,7 @@ describe('ManagementEventBookingForm', () => {
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -655,6 +666,7 @@ describe('ManagementEventBookingForm', () => {
     // No per-ticket names here: this is a pay-on-the-night event, so the booker's
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -749,6 +761,7 @@ describe('ManagementEventBookingForm', () => {
       )
 
       fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -827,6 +840,7 @@ describe('ManagementEventBookingForm', () => {
     ): void {
       render(<ManagementEventBookingForm event={{ ...UPCOMING_EVENT, ...eventOverrides }} />)
       fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1045,6 +1059,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
 
   function fillBookerDetails() {
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1282,4 +1297,79 @@ describe('ManagementEventBookingForm security check recovery', () => {
     advanceBy(10_000)
     expectRecoveryPanel(RECOVERY_MESSAGE)
   })
+})
+
+it('keeps per-person answers separate and requires an explicit yes or no', () => {
+  render(<ManagementEventBookingForm event={{
+    id: 'questions-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    booking_questions: [{ id: 'requirements', label: 'Any requirements?', type: 'yes_no', required: true }],
+  }} />)
+  const answers = screen.getAllByLabelText('Any requirements? (required)')
+  expect(answers).toHaveLength(2)
+  expect(answers[0]).toBeRequired()
+  expect(answers[0]).toHaveValue('')
+  fireEvent.change(answers[0], { target: { value: 'no' } })
+  expect(answers[0]).toHaveValue('no')
+  expect(answers[1]).toHaveValue('')
+})
+
+it('keeps free event booking free of attendee questions', () => {
+  render(<ManagementEventBookingForm event={{
+    id: 'free-fixture', name: 'Free fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free', is_free: true, price: 0,
+    booking_questions: [{ id: 'requirements', label: 'Any requirements?', type: 'yes_no', required: true }],
+  }} />)
+  expect(screen.queryByText('Who is coming?')).not.toBeInTheDocument()
+  expect(screen.queryByLabelText('Any requirements? (required)')).not.toBeInTheDocument()
+})
+
+it('refreshes a changed quote without losing attendee details', async () => {
+  const event = { id: 'quote-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10 }
+  global.fetch = jest.fn(async (url) => String(url).startsWith('/api/events/')
+    ? new Response(JSON.stringify({ success: true, data: { ...event, price: 12 } }), { status: 200 })
+    : new Response(JSON.stringify({ success: false, error: { code: 'PRICE_CHANGED' } }), { status: 409 }))
+  render(<ManagementEventBookingForm event={event} />)
+  screen.getAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Person ${index + 1}` } }))
+  fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Buyer' } })
+  fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Example' } })
+  fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'buyer@example.com' } })
+  fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await screen.findByText(/Please review the updated tickets, questions and total/)
+  expect(screen.getByLabelText('Ticket 1 full name')).toHaveValue('Person 1')
+  expect(screen.getByLabelText('Ticket 2 full name')).toHaveValue('Person 2')
+  expect(global.fetch).toHaveBeenCalledWith('/api/events/quote-fixture', { cache: 'no-store' })
+})
+
+it('keeps ordinary pay-on-arrival reservations simple', () => {
+  render(<ManagementEventBookingForm event={{ id: 'arrival-fixture', name: 'Quiz fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'cash_only', price: 3 }} />)
+  expect(screen.queryByText('Who is coming?')).not.toBeInTheDocument()
+  expect(screen.getByLabelText('First name')).toBeInTheDocument()
+})
+
+it('drops removed questions from the next submission without losing remaining guest details', async () => {
+  const question = { id: 'old-question', label: 'Old question', type: 'text' as const, required: false }
+  const event = { id: 'question-refresh', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10, booking_questions: [question] }
+  const sent: any[] = []
+  global.fetch = jest.fn(async (url, options) => {
+    if (String(url).startsWith('/api/events/')) return new Response(JSON.stringify({ success: true, data: { ...event, booking_questions: [] } }), { status: 200 })
+    sent.push(JSON.parse(String(options?.body)))
+    return new Response(JSON.stringify({ success: false, error: { code: 'BOOKING_QUESTIONS_CHANGED' } }), { status: 409 })
+  })
+  render(<ManagementEventBookingForm event={event} />)
+  screen.getAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Person ${index + 1}` } }))
+  fireEvent.change(screen.getAllByLabelText('Old question (optional)')[0], { target: { value: 'An answer' } })
+  for (const [label, value] of [['First name', 'Buyer'], ['Last name', 'Example'], ['Email address', 'buyer@example.com'], ['Mobile number', '07700900123']]) fireEvent.change(screen.getByLabelText(label), { target: { value } })
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await screen.findByText(/Please review the updated tickets, questions and total/)
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await waitFor(() => expect(sent).toHaveLength(2))
+  expect(sent[1].attendees[0]).toEqual(expect.objectContaining({ name: 'Person 1', answers: {} }))
+})
+
+it('shows separately selectable ticket types even when their prices match', () => {
+  render(<ManagementEventBookingForm event={{ id: 'equal-prices', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    ticket_types: [{ id: 'one', name: 'With alcohol', price: 10, remaining: 10, sort_order: 0 }, { id: 'two', name: 'Without alcohol', price: 10, remaining: 10, sort_order: 1 }],
+  }} />)
+  expect(screen.getByText('With alcohol')).toBeInTheDocument()
+  expect(screen.getByText('Without alcohol')).toBeInTheDocument()
 })

@@ -1,3 +1,4 @@
+import type { EventAttendee } from '@/lib/event-attendees'
 import type { EventDiningRequest } from '@/lib/api/events'
 import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
@@ -27,6 +28,8 @@ type EventBookingPayload = {
   phone: string
   seats: number
   attendee_names?: string[]
+  attendees?: EventAttendee[]
+  expected_total?: number
   ticket_selections?: TicketSelection[]
   first_name?: string
   last_name?: string
@@ -163,11 +166,24 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const defaultCountryCode = asTrimmedString(body.default_country_code)
   const eventPrice = asNonNegativeNumber(body.event_price)
   const eventValue = asNonNegativeNumber(body.event_value)
+  const expectedTotal = asNonNegativeNumber(body.expected_total)
+  if (body.expected_total !== undefined && expectedTotal === undefined) return { error: 'Please review the ticket total.' }
   const metaConsentGranted = body.meta_consent_granted === true
   const rawSeatingPreference = body.seating_preference ?? body.seatingPreference
   const seatingPreference = asSeatingPreference(rawSeatingPreference)
   const attendeeNames = asNameArray(body.attendee_names)
   const ticketSelections = asTicketSelections(body.ticket_selections)
+  if (body.attendees !== undefined) {
+    const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    if (!Array.isArray(body.attendees) || body.attendees.length !== seats || body.attendees.length > 20 || body.attendees.some((person: unknown) => {
+      if (!person || typeof person !== 'object') return true
+      const value = person as EventAttendee
+      return typeof value.id !== 'string' || !uuid.test(value.id) || typeof value.name !== 'string' || !value.name.trim() || value.name.length > 120 ||
+        (value.ticket_type_id != null && (typeof value.ticket_type_id !== 'string' || !uuid.test(value.ticket_type_id))) ||
+        !value.answers || typeof value.answers !== 'object' || Array.isArray(value.answers) ||
+        Object.entries(value.answers).some(([id, answer]) => !uuid.test(id) || typeof answer !== 'string' || answer.length > 2000)
+    }) || new Set(body.attendees.map((person: EventAttendee) => person.id)).size !== body.attendees.length) return { error: 'Please provide valid details for every ticket.' }
+  }
   const communicationConsent = sanitizeCommunicationConsent(body.communication_consent)
 
   if (!eventId || !phone || !seats) {
@@ -190,7 +206,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       event_id: eventId,
       phone,
       seats,
-      ...(firstName ? { first_name: firstName } : {}),
+      ...(expectedTotal !== undefined ? { expected_total: expectedTotal } : {}),      ...(firstName ? { first_name: firstName } : {}),
       ...(lastName ? { last_name: lastName } : {}),
       ...(email ? { email } : {}),
       ...(notes ? { notes } : {}),
@@ -199,6 +215,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(body.dining_request ? { dining_request: body.dining_request as EventDiningRequest } : {}),
       ...(body.early_arrival_request === true ? { early_arrival_request: true } : {}),
       ...(attendeeNames?.length ? { attendee_names: attendeeNames } : {}),
+      ...(body.attendees ? { attendees: body.attendees as EventAttendee[] } : {}),
       ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
       ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
@@ -471,9 +488,11 @@ export async function POST(request: NextRequest) {
         event_id: normalized.payload.event_id,
         phone: normalized.payload.phone,
         seats: normalized.payload.seats,
+        ...(normalized.payload.expected_total !== undefined ? { expected_total: normalized.payload.expected_total } : {}),
         ...(normalized.payload.seating_preference ? { seating_preference: normalized.payload.seating_preference } : {}),
         ...(normalized.payload.dining_request ? { dining_request: normalized.payload.dining_request } : {}),
         ...(normalized.payload.early_arrival_request ? { early_arrival_request: true } : {}),
+        ...(normalized.payload.attendees ? { attendees: normalized.payload.attendees } : {}),
         ...(normalized.payload.attendee_names ? { attendee_names: normalized.payload.attendee_names } : {}),
         ...(normalized.payload.ticket_selections ? { ticket_selections: normalized.payload.ticket_selections } : {}),
         communication_consent: communicationConsentIdempotencyPart(normalized.payload.communication_consent),

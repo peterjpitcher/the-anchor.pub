@@ -13,7 +13,7 @@ import {
 import { trackDirectionsClick, trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
 import { AddToCalendar } from '@/components/events/AddToCalendar'
 import type { Event, EventTicketType } from '@/lib/api'
-import { getEventTicketTypes, hasMultipleTicketPrices } from '@/lib/api'
+import { getEventTicketTypes } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
 import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney, isPrepaidEvent } from '@/lib/event-booking-experience'
 import {
@@ -27,6 +27,7 @@ import { cn } from '@/lib/utils'
 import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
+import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
@@ -104,7 +105,7 @@ interface ManagementEventBookingFormProps {
    * merely undated to that gate, and it would offer the diary entry anyway.
    */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -198,11 +199,21 @@ function isCommunalBookingMode(mode: string | null | undefined): boolean {
 }
 
 export function ManagementEventBookingForm({
-  event,
+  event: initialEvent,
   title,
   compact = false,
   bookingClosed = false,
 }: ManagementEventBookingFormProps) {
+  const [event, setEvent] = useState(initialEvent)
+  useEffect(() => setEvent(initialEvent), [initialEvent])
+  const [discountChangeAcknowledged, setDiscountChangeAcknowledged] = useState(() => Boolean(event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()))
+  const [attendees, setAttendees] = useState<EventAttendee[]>([])
+  const [, tick] = useState(0)
+  useEffect(() => {
+    if (!event.online_discount_ends_at) return
+    const timer = window.setInterval(() => tick(value => value + 1), 1000)
+    return () => window.clearInterval(timer)
+  }, [event.online_discount_ends_at])
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -254,7 +265,7 @@ export function ManagementEventBookingForm({
   // Multi-type flow: only when the event exposes 2+ active types at differing
   // prices AND is not communal (communal uses the available seating type).
   const ticketTypes = getEventTicketTypes(event)
-  const isMultiTypeEvent = !isCommunalEvent && hasMultipleTicketPrices(event)
+  const isMultiTypeEvent = !isCommunalEvent && ticketTypes.length > 1
   const eventUnitPrice = getEventUnitPrice(event)
   const isPaidEvent = typeof eventUnitPrice === 'number' && eventUnitPrice > 0
   /**
@@ -268,12 +279,25 @@ export function ManagementEventBookingForm({
    */
   const eventTakesPayment =
     isPaidEvent || isPrepaidEvent(event) || ticketTypes.some((type) => type.price > 0)
+  const collectGuestDetails = eventTakesPayment && (isPrepaidEvent(event) || (event.booking_questions?.length ?? 0) > 0)
   // Multi-type derived state.
   const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
   const multiTypeBreakdown = getSelectionBreakdown(ticketTypes, ticketQuantities)
   const multiTypeOverCapacity = isMultiTypeEvent && isSelectionOverCapacity(ticketTypes, ticketQuantities)
   // Seats actually being booked, regardless of flow.
   const effectiveSeats = isMultiTypeEvent ? multiTypeTotalSeats : seats
+  const attendeeSlots = isMultiTypeEvent
+    ? ticketTypes.flatMap(type => Array.from({ length: ticketQuantities[type.id] || 0 }, () => type.id))
+    : Array.from({ length: effectiveSeats }, () => ticketTypes.length === 1 ? ticketTypes[0].id : null)
+  const attendeeSlotKey = JSON.stringify(attendeeSlots)
+  useEffect(() => {
+    if (collectGuestDetails) setAttendees(previous => reconcileAttendees(previous, JSON.parse(attendeeSlotKey), () => crypto.randomUUID()))
+  }, [attendeeSlotKey, collectGuestDetails])
+  const questions = event.booking_questions ?? []
+  const discountExpired = Boolean(event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now())
+  function updateAttendee(id: string, patch: Partial<EventAttendee>) {
+    setAttendees(previous => previous.map(person => person.id === id ? { ...person, ...patch } : person))
+  }
   const ticketSelectionValid = !isMultiTypeEvent || (multiTypeTotalSeats > 0 && multiTypeTotalSeats <= 6 && !multiTypeOverCapacity)
   const seatedRemaining = normalizeRemaining(latestAvailability ? latestAvailability.seated_remaining : event.seated_remaining)
   const standingRemaining = normalizeRemaining(latestAvailability ? latestAvailability.standing_remaining : event.standing_remaining)
@@ -403,6 +427,17 @@ export function ManagementEventBookingForm({
       }
     }
 
+    if (collectGuestDetails) {
+      const attendeeError = validateEventAttendees(attendees, effectiveSeats, questions)
+      if (attendeeError) { setLoading(false); setError(attendeeError); return }
+      if (discountExpired && !discountChangeAcknowledged) {
+        setDiscountChangeAcknowledged(true)
+        setLoading(false)
+        setError('The online discount has ended. Please review the updated ticket total, then select the booking button again. Your details are still here.')
+        return
+      }
+    }
+
     if (!firstName.trim()) {
       setLoading(false)
       setError('Please enter your first name.')
@@ -486,6 +521,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
+          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])) })), expected_total: totalValue } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
@@ -507,6 +543,20 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        if (hasErrorCode(body, 'PRICE_CHANGED') || hasErrorCode(body, 'BOOKING_QUESTIONS_CHANGED')) {
+          try {
+            const refreshed = await fetch(`/api/events/${encodeURIComponent(event.id)}`, { cache: 'no-store' })
+            const quote = await refreshed.json()
+            if (!refreshed.ok || !quote.success || quote.data?.id !== event.id) throw new Error('Quote unavailable')
+            setEvent(quote.data)
+            setDiscountChangeAcknowledged(true)
+            setError('The booking details have changed. Please review the updated tickets, questions and total, then try again. Your answers are still here.')
+          } catch {
+            setError('The booking details have changed, but we could not load the latest information. Please try again. Your answers are still here and no payment has been taken.')
+          }
+          return
+        }
+
         // The event's online sales cutoff passed between page load and submit.
         // Route into the component's own closed-state so the friendly closed
         // panel shows, the spinner clears, and no generic error is thrown.
@@ -910,6 +960,37 @@ export function ManagementEventBookingForm({
             </p>
           ) : null}
 
+          {collectGuestDetails ? (
+            <section className="space-y-4" aria-label="Ticket holder details">
+              <div>
+                <h3 className="font-semibold text-ink">Who is coming?</h3>
+                <p className="text-sm text-ink-muted">Add a name and answers for each person. You can buy tickets without attending yourself.</p>
+              </div>
+              {event.online_discount_ends_at ? <p className="text-sm text-ink-muted">{discountExpired ? 'Online discount ended' : 'Online discount ends'} {new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(event.online_discount_ends_at))} (UK time).</p> : null}
+              {attendees.map((person, index) => (
+                <fieldset key={person.id} className="space-y-3 rounded-sm border border-line p-3">
+                  <legend className="px-1 font-semibold text-ink">Ticket {index + 1}{person.ticket_type_id ? `: ${ticketTypes.find(type => type.id === person.ticket_type_id)?.name ?? ''}` : ''}</legend>
+                  <Input label={`Ticket ${index + 1} full name`} value={person.name} maxLength={120} required onChange={e => updateAttendee(person.id, { name: e.target.value })} />
+                  {questions.map(question => (
+                    <label key={question.id} className="block space-y-1 text-sm text-ink">
+                      <span>{question.label} ({question.required ? 'required' : 'optional'})</span>
+                      {question.type === 'text' ? (
+                        <textarea className="block w-full rounded-sm border border-line bg-surface p-2" maxLength={2000} required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })} />
+                      ) : (
+                        <select className="block min-h-[44px] w-full rounded-sm border border-line bg-surface p-2" required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })}>
+                          <option value="">Choose an answer</option>
+                          {(question.type === 'yes_no' ? ['yes', 'no'] : question.options ?? []).map(option => <option key={option} value={option}>{question.type === 'yes_no' ? option === 'yes' ? 'Yes' : 'No' : option}</option>)}
+                        </select>
+                      )}
+                    </label>
+                  ))}
+                </fieldset>
+              ))}
+              <h3 className="font-semibold text-ink">Your contact details</h3>
+              <p className="text-sm text-ink-muted">We will send the booking confirmation to you.</p>
+            </section>
+          ) : null}
+
           <div className="grid grid-cols-2 gap-2">
             <Input
               label="First name"
@@ -969,6 +1050,11 @@ export function ManagementEventBookingForm({
                 : 'So we can send your confirmation.'
             }
           />
+
+          {isPrepaidEvent(event) && !isMultiTypeEvent && <div className="rounded-lg border border-anchor-gold/30 bg-anchor-cream p-4" aria-label="Ticket total">
+            <p className="flex justify-between gap-3 font-semibold"><span>Total ({effectiveSeats} {effectiveSeats === 1 ? 'ticket' : 'tickets'})</span><span>{formatEventBookingMoney((eventUnitPrice ?? 0) * effectiveSeats)}</span></p>
+            <p className="mt-1 text-sm">Review the guest details above. You will pay securely on the next step.</p>
+          </div>}
 
           <CommunicationConsentFields
             value={communicationConsent}
