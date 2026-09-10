@@ -33,7 +33,7 @@ The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes
 - **Beetroot and butternut squash wellington**, available as part of the [Sunday roast menu](/sunday-roast). A proper vegan centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm, no pre-order needed.
 - **Stone-baked Margherita pizza**, with a proper thin base and fresh toppings. Available every day the kitchen is open.
 - **Vegetable stone-baked pizza**, loaded with roasted veg, same thin base, same price bracket.
-- **Veggie burger**, a substantial patty with proper toppings, not a frozen disc from a catering supplier.
+- **Garden Veg Burger**, a Bangkok Bad Boy vegetable patty in a soft floured bap with butterhead salad and tomato, served with your choice of chips.
 
 ### Vegan Options
 

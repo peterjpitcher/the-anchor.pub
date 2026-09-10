@@ -758,10 +758,11 @@ describe('SSOT drift guard — high-risk site copy', () => {
   it('does not bring back the menu and comparison claims corrected on 10 September 2026', () => {
     // A pizza the menu does not have, vegan pizzas and a vegan burger the live vegan list
     // does not include, sandwiches and salads, a 7:30pm quiz start (section 10 says 7pm),
-    // steaks, a roast "at weekends", and cheaper-than-hotel figures with no source.
+    // steaks, a roast "at weekends", cheaper-than-hotel figures with no source, and a
+    // veggie burger said not to come from a catering supplier when its patty does.
     expect(
       matchingFiles(
-        /meat feast|vegetarian and vegan options (?:are available|such as)|available in vegetarian and vegan options|made vegan on request \(swap the mozzarella|vegan burger\*\*, loaded|fresh sandwiches\*\* and wraps|healthy salads\*\*|The Anchor\*\*, Stanwell Moor \| Monthly \(Wednesdays\) \| 7:30pm|steaks and pub classics|\*\*Sunday Roast\*\* \(weekends\)|40[–-]50% lower than hotel|roughly half what you'd pay|two to six times more at a hotel/i,
+        /meat feast|vegetarian and vegan options (?:are available|such as)|available in vegetarian and vegan options|made vegan on request \(swap the mozzarella|vegan burger\*\*, loaded|fresh sandwiches\*\* and wraps|healthy salads\*\*|The Anchor\*\*, Stanwell Moor \| Monthly \(Wednesdays\) \| 7:30pm|steaks and pub classics|\*\*Sunday Roast\*\* \(weekends\)|40[–-]50% lower than hotel|roughly half what you'd pay|two to six times more at a hotel|frozen disc from a catering supplier/i,
       ),
     ).toEqual([])
   })
