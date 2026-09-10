@@ -39,7 +39,7 @@ There is a fourth option most travellers don't know about.
 - **Quieter dining room** separated from the main bar, suitable for client dinners
 - **Free WiFi**, useful if you need to review materials over dinner
 - **Group bookings**, easy to arrange for teams of 6 to 30+
-- **Prices 40–50% lower than hotel restaurants**, better for budgets and more defensible on expenses
+- **Pub prices, not hotel prices**, better for budgets and more defensible on expenses
 
 You'll find today's prices on our [food menu](/food-menu).
 
@@ -47,8 +47,8 @@ You'll find today's prices on our [food menu](/food-menu).
 
 For client entertaining, The Anchor works best when you book the dining room rather than eating in the main bar area. Recommended dishes:
 
-- **Sunday Roast** (weekends), impressive, traditional, and genuinely British. Excellent for international clients who want an authentic UK experience.
-- **Steaks and pub classics**, reliable, freshly cooked, and crowd-pleasing
+- **Sunday Roast** (Sundays), impressive, traditional, and genuinely British. Excellent for international clients who want an authentic UK experience.
+- **Pies, burgers and pub classics**, reliable, freshly cooked, and crowd-pleasing
 - **Fish & chips**, the quintessentially British meal; always a talking point with overseas clients
 
 Call ahead on **01753 682707** and mention you want a quieter table for a business meal. The team will sort it.

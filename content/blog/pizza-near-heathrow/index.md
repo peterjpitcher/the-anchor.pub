@@ -40,7 +40,7 @@ The Anchor is a proper village pub in Stanwell Moor, about seven minutes from He
 
 You'll find today's prices on our [food menu](/food-menu). The pizzas are good value for what you get, proper stone-baked quality at pub prices rather than chain prices.
 
-The menu covers the classics, Margherita, pepperoni, BBQ chicken, meat feast, plus a few specials that rotate. Vegetarian and vegan options are available too.
+The menu covers the classics: Margherita, pepperoni, BBQ chicken, spicy meatball, smoky chilli chicken and a Veggie Classic.
 
 You can eat inside in the bar or dining room, or head out to the **beer garden** where you get a front-row seat to planes landing at Heathrow. Free parking on site, dog-friendly, and they have a full bar with draught lagers, bottled ales, wines and spirits. It is a proper evening out rather than just a pizza.
 

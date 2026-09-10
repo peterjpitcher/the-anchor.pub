@@ -107,8 +107,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 
 **Working Lunch Menu:**
 - **Stone-baked pizzas** (see our [food menu](/food-menu) for today's prices)
-- **Fresh sandwiches** and wraps
-- **Healthy salads** for lighter meals
+- **Wraps**, fish finger or chicken goujon, with chips
 - **Traditional pub classics**
 - **Vegetarian & vegan** options
 - **Quick service** for meeting breaks
