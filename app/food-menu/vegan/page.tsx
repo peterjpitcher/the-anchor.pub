@@ -89,7 +89,7 @@ export default async function VeganMenuPage() {
   return (
     <>
       <InteriorHero
-        image="/images/page-headers/food-menu/food-menu.jpg"
+        image="/images/food/weekday-2026/stone-baked-pizza.jpg"
         crumb="Vegan"
         title="Vegan Menu"
         lead="Current vegan and vegan-option dishes from the latest kitchen menu."

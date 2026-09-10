@@ -41,7 +41,7 @@ There is a fourth option most travellers don't know about.
 - **Group bookings**, easy to arrange for teams of 6 to 30+
 - **Prices 40–50% lower than hotel restaurants**, better for budgets and more defensible on expenses
 
-Mains start from £8.99. A proper client dinner for two with drinks typically comes to £40–60, versus £100–150 at a hotel restaurant.
+You'll find today's prices on our [food menu](/food-menu).
 
 ## What to Order for a Business Dinner
 
