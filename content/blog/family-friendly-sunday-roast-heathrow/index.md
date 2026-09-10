@@ -55,7 +55,7 @@ Planning a **family Sunday roast near Heathrow**? Whether you’re welcoming rel
 ## Family-Focused FAQ
 
 ### Do you have high chairs and baby-changing?
-Yes, multiple high chairs and baby-change facilities right off the dining room.
+High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities.
 
 ### Can we split the bill by family?
 Of course. Let your server know and we’ll itemise by seat or family group.

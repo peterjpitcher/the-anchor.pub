@@ -107,7 +107,6 @@ We serve proper fish and chips throughout the week. Perfect for **Heathrow trave
 At our **Stanwell Moor pub**, we:
 - Source fish from sustainable British waters
 - Cut chips fresh daily from Maris Piper potatoes
-- Use traditional beef dripping for authentic flavour
 - Prepare everything to order - never pre-cooked
 - Maintain the highest food hygiene standards
 

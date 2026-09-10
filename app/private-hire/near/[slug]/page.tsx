@@ -333,7 +333,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'What kind of celebrations do you host?',
-                        answer: 'We host naming ceremonies, engagement parties, renewal celebrations and family receptions. We do not host wedding receptions, but we are happy to help with smaller private celebrations.',
+                        answer: 'We host naming ceremonies, engagement parties, renewal celebrations and family receptions.',
                     },
                     {
                         question: 'Do you have a private space?',
@@ -603,7 +603,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'What kinds of events do you host?',
-                        answer: 'We host private parties, celebrations, family gatherings and corporate events. We do not host wedding receptions, but we are happy to help with smaller private celebrations.',
+                        answer: 'We host private parties, celebrations, family gatherings and corporate events.',
                     },
                     {
                         question: 'Can you cater for dietary requirements?',

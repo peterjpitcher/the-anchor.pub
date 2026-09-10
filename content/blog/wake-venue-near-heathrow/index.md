@@ -115,7 +115,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 - **Flexible arrival times** -- come when you're ready after the service. We won't rush you
 - Just **7 minutes from Heathrow Terminal 5**, which helps when family members are flying in from overseas
 - A short drive from both **Hanworth Crematorium** (15 minutes) and **Slough Crematorium** (15 minutes)
-- **Ground-floor access throughout**, including accessible facilities for elderly or less mobile guests
+- **Step free from the car park.** One step from the bar, with a ramp on request. We don't have an accessible toilet, so call us on 01753 682707 if you'd like to check what will work best for your guests
 
 We've been doing this long enough to know that every wake is different. Some families want background music and a photo display. Others just want a quiet room, a cup of tea, and somewhere for people to sit and talk. Both are fine. We take our lead from you.
 

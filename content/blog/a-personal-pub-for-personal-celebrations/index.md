@@ -50,7 +50,7 @@ We love hosting children's celebrations at our **family-friendly pub near Heathr
 
 - Themed party setups
 - Child-friendly catering options
-- Safe, enclosed beer garden
+- Beer garden under the Heathrow flight path
 - Entertainment coordination
 - Stress-free planning for parents
 

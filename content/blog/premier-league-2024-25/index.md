@@ -34,6 +34,8 @@ images: []
 noindex: true
 ---
 
+**Update:** This post dates from the 2024/25 season. We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports, so only the Premier League games shown on terrestrial TV are on our screens.
+
 ## Watch Major Football Matches Near Heathrow Airport
 
 Looking for the perfect **pub near Heathrow** to watch football? The Anchor in **Stanwell Moor** shows major matches on 4 HD screens when available on terrestrial TV. Just **7 minutes from Heathrow Terminal 5**, we're the ideal venue for airport staff, travelers, and local football fans to enjoy World Cup, Euros, FA Cup matches and selected Premier League games shown on BBC or ITV.

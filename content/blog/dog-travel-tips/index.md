@@ -114,9 +114,8 @@ When travelling with dogs near **Heathrow Terminal 5**, The Anchor provides the 
 **For Dogs:**
 - Fresh water bowls always available
 - Dog treats at the bar
-- Secure outdoor seating area
+- Outdoor seating in the beer garden
 - Grassy areas for relief stops
-- Safe, enclosed spaces away from traffic
 
 **For Owners:**
 - **Free parking** (no airport fees!)

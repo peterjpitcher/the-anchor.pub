@@ -86,7 +86,7 @@ export default function FamilyDiningPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Family-Friendly Pub & Restaurant Near Heathrow Airport"
-                            lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment."
+                            lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs."
                         />
                     </div>
                 </Container>
@@ -102,7 +102,7 @@ export default function FamilyDiningPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                { title: 'Large Beer Garden', description: 'A safe, enclosed grassy area where kids can play freely while you watch from your table.' },
+                                { title: 'Large Beer Garden', description: 'Seating for 64, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised.' },
                                 { title: 'Kids Menu', description: 'Proper portions of favourites like fish fingers and sausages - nothing too fancy!' },
                                 { title: 'Plane Spotting', description: 'We are under the flight path! Kids love watching the giant planes land nearby.' }
                             ].map(feature => (
@@ -129,8 +129,8 @@ export default function FamilyDiningPage() {
                                     <p className="text-sm text-ink-muted">Plenty available, just ask when booking.</p>
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-ink-strong">Changing Facilities</p>
-                                    <p className="text-sm text-ink-muted">Please ask staff for assistance.</p>
+                                    <p className="font-semibold text-ink-strong">Baby Changing</p>
+                                    <p className="text-sm text-ink-muted">We don&apos;t have baby changing facilities. Bottle warming is on request, and breastfeeding is welcome.</p>
                                 </div>
                                 <div>
                                     <p className="font-semibold text-ink-strong">Kid-Friendly Drinks</p>
@@ -146,7 +146,7 @@ export default function FamilyDiningPage() {
                 faqs={[
                     {
                         question: "Is the garden secure?",
-                        answer: "Our garden is enclosed by fencing, making it safer for children. However, as it is a car park adjoining, we always ask parents to supervise their children."
+                        answer: `We can't promise that it is. The garden adjoins the car park, so please keep children with you and supervised at all times. If you'd like to check the layout before you come, call us on ${CONTACT.phone}.`
                     },
                     {
                         question: "Can we bring a pushchair inside?",

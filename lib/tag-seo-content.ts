@@ -132,7 +132,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     description: 'Festive celebrations, Christmas menus, and holiday events',
     metaTitle: 'Christmas Pub Stanwell Moor | Festive Menu & Events Near Heathrow',
     metaDescription: 'Celebrate Christmas at The Anchor Stanwell Moor. Festive menu, Christmas parties, seasonal events & bookings. Perfect venue - we\'re 7 minutes from Heathrow.',
-    heroContent: 'Make your Christmas magical at The Anchor Stanwell Moor. From intimate festive dinners to spectacular party nights, we\'re your perfect Christmas venue near Heathrow.',
+    heroContent: 'Make your Christmas magical at The Anchor Stanwell Moor. From intimate festive dinners to festive buffets for 30 or more, we\'re your perfect Christmas venue near Heathrow.',
     introContent: 'Christmas at The Anchor is truly special. Our pub transforms into a winter wonderland complete with twinkling lights, festive decorations, and the warmest atmosphere in Stanwell Moor. Our specially crafted Christmas menu features all the traditional favourites alongside creative festive dishes, while our bar offers seasonal cocktails and winter warmers.',
     valueProposition: 'Book your Christmas celebration early to avoid disappointment. Whether it\'s an office party, family gathering, or festive night out with friends, we\'ll make your Christmas unforgettable. Contact us today to discuss your requirements.',
     keywords: ['christmas pub stanwell moor', 'festive menu heathrow', 'christmas party venue surrey', 'xmas events TW19', 'holiday dining stanwell moor']
@@ -144,7 +144,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Easter Sunday Roast Stanwell Moor | Easter Events at The Anchor',
     metaDescription: 'Celebrate Easter at The Anchor Stanwell Moor. Special Easter menu, family events, egg hunts & spring celebrations. Book your table near Heathrow.',
     heroContent: 'Hop into spring with Easter celebrations at The Anchor. Join us for special menus, family fun, and the warmest welcome in Stanwell Moor.',
-    introContent: 'Easter at The Anchor brings families together for joyful spring celebrations. Our special Easter menu features seasonal ingredients at their best, including succulent spring lamb and fresh seasonal vegetables. For the little ones, we organise Easter egg hunts in our beer garden, making it a perfect family day out.',
+    introContent: 'Easter at The Anchor brings families together for joyful spring celebrations. Our special Easter menu features seasonal ingredients at their best, including fresh seasonal vegetables. For the little ones, we organise Easter egg hunts in our beer garden, making it a perfect family day out.',
     valueProposition: 'Make Easter extra special with a visit to The Anchor. Book your table early for our popular Easter Sunday roast and create memories that will last long after the chocolate eggs are gone.',
     keywords: ['easter sunday roast stanwell moor', 'easter events surrey pub', 'family easter heathrow', 'spring events TW19', 'easter menu stanwell moor']
   },
@@ -245,7 +245,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Sunday Roast Stanwell Moor | Best Sunday Roast at The Anchor',
     metaDescription: 'Our renowned Sunday roast at The Anchor Stanwell Moor. Traditional roasts, vegetarian options, book ahead. Best Sunday roast near Heathrow Airport.',
     heroContent: 'Sundays are special at The Anchor, where our traditional roast dinners have become legendary in Stanwell Moor. Join us for the perfect Sunday roast.',
-    introContent: 'Our Sunday roasts are a labour of love. Each week, our chefs prepare succulent roasted meats including beef, lamb, pork, and chicken, accompanied by crispy roast potatoes, seasonal vegetables, Yorkshire puddings, and rich gravies. Vegetarian and vegan roasts ensure everyone can enjoy Sunday roast at its finest. The generous portions and homemade touches make our Sunday roasts the talk of the village.',
+    introContent: 'Our Sunday roasts are a labour of love. Each week, our chefs prepare succulent roasted meats including beef, pork and turkey, accompanied by crispy roast potatoes, seasonal vegetables, Yorkshire puddings, and rich gravies. A fully vegan Wellington means everyone can enjoy Sunday roast at its finest. The generous portions and homemade touches make our Sunday roasts the talk of the village.',
     valueProposition: 'Sunday roast at The Anchor is more than a meal - it\'s a tradition. Book your table early as we fill up fast, especially for larger family groups. Experience why locals vote us the best Sunday roast in the area.',
     keywords: ['sunday roast stanwell moor', 'sunday roast near heathrow', 'best roast dinner surrey', 'traditional sunday roast TW19', 'carvery stanwell moor']
   },

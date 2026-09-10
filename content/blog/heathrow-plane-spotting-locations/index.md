@@ -213,7 +213,7 @@ The morning rush between 06:00 and 09:00 is exceptional, with a wall of long-hau
 
 ### Can I go plane spotting at Heathrow with children?
 
-Absolutely. The Anchor beer garden is particularly well suited for families -- there is food, drink, toilets, and a safe enclosed space, plus the planes are frequent enough to keep children entertained. High chairs are available and children are welcome at all hours. Booking is not required, but a garden table is worth reserving on a sunny weekend, so [book one here](/book-table) or call 01753 682707. Myrtle Avenue and roadside spots are less practical with small children due to the lack of facilities and proximity to traffic.
+Absolutely. The Anchor beer garden is particularly well suited for families -- there is food, drink and toilets, plus the planes are frequent enough to keep children entertained. High chairs are available and children are welcome at all hours. Booking is not required, but a garden table is worth reserving on a sunny weekend, so [book one here](/book-table) or call 01753 682707. Myrtle Avenue and roadside spots are less practical with small children due to the lack of facilities and proximity to traffic.
 
 ### What planes can I see at Heathrow?
 

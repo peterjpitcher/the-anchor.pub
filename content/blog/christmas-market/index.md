@@ -35,7 +35,7 @@ Looking for a magical **Christmas market near Heathrow**? The Anchor's annual Fe
 
 ## Planning a Christmas Party Too?
 
-If you're looking for Christmas party nights, festive menus or private hire near Heathrow and Staines, start here:
+If you're looking for a Christmas dinner, a festive buffet or private hire near Heathrow and Staines, start here:
 
 - [Christmas Parties at The Anchor →](/christmas-parties)
 

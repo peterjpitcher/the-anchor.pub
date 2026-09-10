@@ -63,7 +63,6 @@ We've replaced the high fence with a charming white picket fence, creating:
 - Better views of our garden
 - Family-friendly outdoor space
 - Perfect for summer evenings
-- Safe area for children
 - Dog-friendly zones
 
 ## What These Improvements Mean for You
