@@ -54,7 +54,7 @@ Our steadfast partnership with **Spelthorne Council's Food Hygiene team** has be
 
 1.  **Our Motivation:** The tenet of food hygiene is non-negotiable at The Anchor. We believe it's the foundation that enables our customers to rely on us for unparalleled culinary experiences.
     
-2.  **Sustaining Excellence:** Our journey's smoothness stems from our commitment to upholding unmatched cleanliness and hygiene, ensuring every dish is both delightful and safe.
+2.  **Sustaining Excellence:** Our journey's smoothness stems from our commitment to upholding high standards of cleanliness and hygiene, ensuring every dish is both delightful and safe.
     
 3.  **Team's Credentials:** Everyone at The Anchor, from bar staff to the kitchen brigade, is armed with a **Level 2 food hygiene qualification**. Their expertise underlines our commitment to impeccable food experiences.
     
@@ -125,6 +125,6 @@ While our 5-star hygiene rating ensures safety, we also promise:
 - **Customer focused** - Your safety is our priority
 - **Local favourite** - Trusted by the community
 
-Join us in celebrating another year of trust, unmatched standards, and delightful dining experiences at The Anchor!
+Join us in celebrating another year of trust, high standards, and delightful dining experiences at The Anchor!
 
 *The Anchor - Your 5-star hygiene rated pub near Heathrow Airport*
