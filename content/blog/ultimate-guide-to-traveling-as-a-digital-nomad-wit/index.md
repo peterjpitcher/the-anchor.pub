@@ -107,7 +107,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 ### Lunch Options for Digital Nomads
 
 **Working Lunch Menu:**
-- **Stone-baked pizzas** from £11
+- **Stone-baked pizzas** from £13
 - **Fresh sandwiches** and wraps
 - **Healthy salads** for lighter meals
 - **Traditional pub classics**

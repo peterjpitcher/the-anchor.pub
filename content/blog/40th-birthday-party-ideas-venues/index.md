@@ -112,7 +112,7 @@ The [private hire calculator](/private-hire) prices any of these against your gu
 
 ### For smaller groups
 
-If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu). Stone-baked pizzas at £12-14 each, fish and chips at £15, or a beef and ale pie at £16 give you proper pub food in a private setting. Kids eat from £8.
+If your 40th is an intimate affair, 10 to 25 guests, you don't need a buffet package. Book the private dining room and order from the [regular menu](/food-menu). Stone-baked pizzas from £13 each, fish and chips at £15, or a beef and ale pie at £16 give you proper pub food in a private setting. Kids eat from £8.
 
 ### Drinks that set the tone
 
