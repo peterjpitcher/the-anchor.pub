@@ -135,7 +135,7 @@ export const christmasPartiesSchema = {
         ),
         enquiryService(
           'Sit-down Christmas lunch or dinner',
-          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm, and never on a Monday. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Choices are sent to us ${PRE_ORDER_DEADLINE_DAYS} days before the booking date. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
+          `A one, two or three course Christmas dinner for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more, booked at least 24 hours ahead. Sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm, and never on a Monday. Courses are chosen per person, not for the whole table. Every guest chooses a main. A starter and a dessert are optional, so guests at the same table can have different numbers of courses. Two and three course choices are sent to us ${PRE_ORDER_DEADLINE_DAYS} days before the booking date, so a booking made after that is one course. A deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size.`
         ),
         enquiryService(
           'Festive buffet',

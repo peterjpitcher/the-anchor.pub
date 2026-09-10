@@ -1214,6 +1214,7 @@
       },
       "pre_order_note": "Courses are chosen per person, not for the whole table: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Whole-table copy such as '1 course is pre-book only, no pre-order' is retired.",
       "pre_order_deadline_days": 7,
+      "inside_pre_order_deadline": "1 course only. From noon 7 days before the booking date the 2 and 3 course tiers cannot be booked, so a later booking is the 1 course tier for every guest, with no pre-order. Owner decision 10 September 2026; enforced by the management app.",
       "pre_order_deadline_note": "Pre-orders for the 2 and 3 course tiers are due 7 days before the booking date. Owner-confirmed 11 August 2026. State the deadline plainly rather than hedging with wording such as 'confirmed with your booking'.",
       "min_party_size_note": "Owner-confirmed 2026-09-06: 4 guests on every Christmas dinner booking, regardless of the day. An earlier reading of the same conversation had this as 4 midweek and 6 at the weekend and was corrected the same day. The Sunday roast is a separate offer with NO minimum party size; never copy this figure onto it."
     },

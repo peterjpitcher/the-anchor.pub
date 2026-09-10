@@ -249,6 +249,28 @@ describe('POST /api/enquiry/christmas', () => {
     expect(result.error).toContain(TOMORROW)
   })
 
+  // SSOT §7, owner decision 10 September 2026: inside the 2 and 3 course deadline (noon,
+  // 7 days before) only the 1 course menu can be booked. "Today" is 09:00 on 20 November.
+  it('refuses 2 or 3 courses for a date inside the pre-order deadline, and says why', async () => {
+    const response = await post(validPayload({ preferredDate: '2026-11-26', courseTier: 'three_course' }))
+    const result = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(result.error).toContain("it's the 1 course menu")
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('takes 1 course for a date inside the deadline, and 3 courses until noon on the deadline day', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue(jsonResponse({ success: true }, 201))
+
+    const oneCourse = await post(validPayload({ preferredDate: '2026-11-26', courseTier: 'one_course' }))
+    expect(oneCourse.status).toBe(200)
+
+    // 27 November's deadline is noon today, and it is 9am.
+    const threeCourses = await post(validPayload({ preferredDate: '2026-11-27', courseTier: 'three_course' }))
+    expect(threeCourses.status).toBe(200)
+  })
+
   it('keeps legacy dinner submissions compatible during rollout', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({ success: true }, 201))
 

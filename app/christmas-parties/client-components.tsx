@@ -22,6 +22,7 @@ import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT } from '@/lib/constants'
+import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
 const CONTACT_EMAIL = CONTACT.email
 const CONTACT_PHONE = CONTACT.phone
@@ -448,7 +449,7 @@ function buildFaqItems(
     },
     {
       question: 'Do we have to pre-order our meals?',
-      answer: `One course needs a booking but no pre-order. Two or three courses need a pre-order ${deadlineDays} days before your booking date. Courses are picked per person, not for the whole table, so guests can have different numbers of courses.`
+      answer: `One course needs a booking but no pre-order. Two or three courses need a pre-order ${deadlineDays} days before your booking date, so a booking made after that is 1 course. Courses are picked per person, not for the whole table, so guests can have different numbers of courses.`
     },
     {
       question: 'When is the Christmas pre-order deadline?',
@@ -916,7 +917,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">Two and three course pre-orders are due {deadlineDays} days before your date.</strong> One course needs no pre-order. Send dietary requirements with any pre-order.</span>
+                  <span><strong className="text-ink-strong">Two and three course pre-orders are due {deadlineDays} days before your date.</strong> One course needs no pre-order, and it&apos;s the only choice for a booking made inside that. Send dietary requirements with any pre-order.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -2028,6 +2029,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   const minimumGuests = context.mode === 'party' && partyFormat === 'buffet_party'
     ? facts.buffetMinimumGuests
     : facts.minPartySize
+  // Inside the 2 and 3 course deadline only the 1 course menu can be booked (SSOT §7).
+  const onlyOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
 
   useEffect(() => {
     if (timeOptions.some(option => option.value === preferredTime)) return
@@ -2054,6 +2057,12 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
     if (isMondayIsoDate(preferredDate)) {
       setStatus('error')
       setMessage(MONDAY_UNAVAILABLE_MESSAGE)
+      return
+    }
+
+    if (onlyOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course')) {
+      setStatus('error')
+      setMessage(`${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.`)
       return
     }
 
@@ -2247,9 +2256,16 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
                 className="mt-1 w-full rounded-sm border-[1.5px] border-amber-400 bg-white px-3 py-2 text-sm text-amber-950 focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               >
                 {COURSE_TIER_OPTIONS.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    disabled={onlyOneCourse && (option.value === 'two_course' || option.value === 'three_course')}
+                  >
+                    {option.label}
+                  </option>
                 ))}
               </select>
+              {onlyOneCourse ? <p className="mt-1 text-xs font-semibold">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
             </div>
           </div>
         ) : (
@@ -2537,6 +2553,9 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
     }
   }, [closeLightbox, visible])
 
+  // The lightbox has no course picker, so inside the 2 and 3 course deadline it sends the only
+  // tier that can be booked, and says so beside the date (SSOT §7).
+  const lateOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
@@ -2581,7 +2600,9 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
           ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
-          courseTier: context.mode === 'meal' ? context.courseTier : undefined,
+          courseTier: context.mode === 'meal'
+            ? (lateOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course') ? 'one_course' : context.courseTier)
+            : undefined,
           partyFormat: undefined,
           source: 'lightbox',
           name: name.trim(),
@@ -2765,6 +2786,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 <p className="text-xs font-semibold text-amber-950">
                   Courses are chosen per person. A main each, starter and dessert optional.
                 </p>
+                {lateOneCourse ? <p className="mt-1 text-xs text-amber-950">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(['lunch', 'dinner'] as MealService[]).map(service => (
                     <button
