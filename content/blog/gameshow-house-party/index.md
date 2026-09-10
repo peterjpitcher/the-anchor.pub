@@ -100,7 +100,7 @@ Our **gameshow nights near Heathrow** are perfect for:
 
 ### **Monthly Events - Limited Tickets**
 
-Our **monthly gameshow nights** at this **entertainment venue near Heathrow** sell out within days. With only 60 tickets available, booking early is essential. Regular attendees include **airport staff**, locals from **Stanwell Moor** and **Staines**, and visitors discovering the best entertainment near **Terminal 5**.
+Our **monthly gameshow nights** at this **entertainment venue near Heathrow** sell out within days. With only 60 tickets available, booking early is essential. Regular attendees include **airport staff**, locals from **Stanwell Moor** and **Staines**, and visitors looking for entertainment near **Terminal 5**.
 
 ### **How to Book Gameshow Nights at The Anchor**
 
@@ -121,4 +121,4 @@ Our **monthly gameshow nights** at this **entertainment venue near Heathrow** se
 - **Accessible location**: Easy reach from Terminal 5 and Staines
 - **Regular events**: Same date monthly for easy planning
 
-*Join the hundreds who've discovered the best gameshow night near Heathrow Airport!*
+*Join us for a gameshow night near Heathrow Airport!*

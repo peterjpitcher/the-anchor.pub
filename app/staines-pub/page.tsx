@@ -132,7 +132,7 @@ export default function StainesPubPage() {
         <Container>
           <Card accent className="mx-auto">
             <CardBody className="p-6">
-              <h2 className="font-display text-h3 text-ink-strong mb-3">Why We&apos;re One of the Best Pubs Near Staines-upon-Thames</h2>
+              <h2 className="font-display text-h3 text-ink-strong mb-3">Why We&apos;re a Highly Rated Pub Near Staines-upon-Thames</h2>
               <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>

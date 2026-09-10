@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     description: `Enjoy a pint in the sun at ${BRAND.name}. Large grassy beer garden, outdoor dining tables, and plenty of space. Just minutes from Heathrow Airport.`,
     openGraph: {
         title: 'The Anchor Beer Garden',
-        description: 'Sun, cider, and space to relax. The best garden in Stanwell Moor.',
+        description: 'Sun, cider, and space to relax, right under the Heathrow flight path.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'The Anchor Beer Garden',
-        description: 'Sun, cider, and space to relax. The best garden in Stanwell Moor.',
+        description: 'Sun, cider, and space to relax, right under the Heathrow flight path.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -38,7 +38,7 @@ export default function PubGardenPage() {
             <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pub Garden"
-        title="The Best Garden Around"
+        title="A Garden Under the Flight Path"
         lead="When the sun is shining, there's no better place. Cold drinks, fresh air, and real grass between your toes."
       />
 

@@ -21,7 +21,7 @@ Heathrow handles roughly 1,300 flights a day. During peak hours, that works out 
 
 Most guides focus on photography angles and runway configurations. This one takes a different approach: we compare seven locations on everything that determines whether you actually enjoy the day -- parking, food, shelter, toilets, and ease of access. Standing on a grass verge with a thermos is fine for an hour, but a proper spotting day needs a base camp.
 
-We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits directly under the flight path. We think it is the best all-round spotting location, and we will make that case below. But we have included six other spots that are genuinely worth your time, with honest assessments of each.
+We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits directly under the flight path. We think it earns its place on this list, and we will make that case below. But we have included six other spots that are genuinely worth your time, with honest assessments of each.
 
 ## Fast Answer: Is There a Heathrow Viewing Area?
 
@@ -196,7 +196,7 @@ Heathrow has two parallel runways: northern (27L/09R) and southern (27R/09L). Th
 
 ### Where is the best place to watch planes land at Heathrow?
 
-For the best combination of views, comfort, food, and parking, [The Anchor beer garden](/beer-garden) in Stanwell Moor is our top recommendation. Aircraft pass overhead every 90 seconds during peak hours, and you are watching from a pub garden rather than a roadside. For pure photography proximity, Myrtle Avenue puts you closest to the approach path.
+If you want views, comfort, food and parking in one place, try [The Anchor beer garden](/beer-garden) in Stanwell Moor. Aircraft pass overhead every 90 seconds during peak hours, and you are watching from a pub garden rather than a roadside. For pure photography proximity, Myrtle Avenue puts you closest to the approach path.
 
 ### Is there an official viewing area at Heathrow?
 
