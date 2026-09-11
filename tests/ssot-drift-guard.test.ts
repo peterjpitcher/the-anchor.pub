@@ -895,7 +895,14 @@ describe('SSOT drift guard — high-risk site copy', () => {
   it('keeps discontinued entertainment out of llms.txt (section 10)', () => {
     // llms.txt still listed live music a month after it stopped in full.
     const llms = fs.readFileSync(path.join(process.cwd(), 'public/llms.txt'), 'utf8')
-    expect(llms).not.toMatch(/live music|live bands?|open mic|drag cabaret/i)
+    expect(llms).not.toMatch(/live music|live bands?|open mic|drag cabaret|curry[- ]club|curry nights?/i)
+  })
+
+  it('does not mention Curry Club or a curry night anywhere (sections 10 and 14)', () => {
+    // Curry Club stopped (owner-confirmed 11 September 2026). Its post said
+    // "our curry nights sell out fast", and two more posts listed it as a
+    // monthly night. The Chicken Katsu Curry and the curry buffet never match.
+    expect(matchingFiles(/curry[- ]club|curry[- ]nights?/i)).toEqual([])
   })
 
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {

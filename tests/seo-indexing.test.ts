@@ -428,6 +428,50 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('sends the retired Curry Club post, and every older URL for it, to the food menu in one hop (owner-approved 11 September 2026)', async () => {
+    // Curry Club has stopped (docs/SSOT.md section 10), but the indexable post
+    // still said the nights sell out. The folder is deleted, and the three
+    // older Wix and /post/ rules that landed on the post now go straight to
+    // /food-menu, the main food menu page, rather than through a chain.
+    const RETIRED_POST = '/blog/curry-club-the-anchor'
+    const DESTINATION = '/food-menu'
+    const sources = [RETIRED_POST, '/post/curry-club-the-anchor', '/post/curry-club-september-2019', '/post/curry-club']
+
+    expect(fs.existsSync(path.join(process.cwd(), 'content', RETIRED_POST))).toBe(false)
+    expect(ALL_REDIRECTS.filter((r) => r.destination === RETIRED_POST)).toEqual([])
+    // Exactly one rule per source, so no later file can quietly override it.
+    for (const source of sources) {
+      expect(ALL_REDIRECTS.filter((r) => r.source === source).map((r) => r.destination)).toEqual([DESTINATION])
+      const rule = lookupRedirect(source)
+      expect(rule?.destination).toBe(DESTINATION)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+    // The destination is a live page, not another redirect.
+    expect(lookupRedirect(DESTINATION)).toBeUndefined()
+
+    // next.config.js redirects run before middleware, so no pattern there may
+    // catch these URLs first and send them somewhere else.
+    const nextConfig = require('../next.config.js')
+    const frameworkPatterns = ((await nextConfig.redirects()) as RedirectRule[]).map(
+      (rule) => new RegExp(`^${rule.source.replace(/:\w+\*/g, '.*').replace(/:\w+/g, '[^/]+')}$`),
+    )
+    for (const source of sources) {
+      expect(frameworkPatterns.filter((pattern) => pattern.test(source))).toEqual([])
+    }
+
+    // End to end through the middleware that serves these rules, on the
+    // canonical host and the apex: one 301, straight to the rule's target.
+    for (const source of sources) {
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${DESTINATION}`)
+      }
+    }
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects

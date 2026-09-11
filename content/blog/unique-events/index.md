@@ -74,10 +74,6 @@ Did you know that draught lager and cider experiences remain some of the most po
 
   
 
-Regularly hosting food-themed events is another hallmark of The Anchor. For instance, the **Monthly Curry Night** draws in crowds eager to try unique curry dishes created by guest chefs. The combination of flavourful food and a friendly atmosphere makes this event a hit!
-
-  
-
 ![Wide angle view of a cozy pub atmosphere during an event](/content/blog/unique-events/image-1.jpg)
 
 Cozy setting with patrons enjoying drinks and food at The Anchor.

@@ -40,7 +40,6 @@ The dates vary, so [What's On](/whats-on) always has the next ones.
 - **Quiz night:** once a month, currently on Wednesdays.
 - **Cash bingo:** on set Wednesdays. See [cash bingo](/cash-bingo).
 - **Music bingo:** hosted by Nikki Manfadge. See [music bingo](/music-bingo).
-- **Curry Club:** a monthly rotating curry-night special.
 - **Tasting nights:** every so often, expert-led and ticketed.
 
 ## Sunday roast

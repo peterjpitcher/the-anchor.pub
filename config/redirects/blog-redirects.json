@@ -250,6 +250,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
     "source": "/blog/monthly-music-bingo-nights-great-food-prizes-and-f",
     "destination": "/blog/music-bingo-nights",
     "permanent": true
@@ -501,7 +506,7 @@
   },
   {
     "source": "/post/curry-club-the-anchor",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {

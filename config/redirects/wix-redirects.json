@@ -626,7 +626,7 @@
   },
   {
     "source": "/post/curry-club-september-2019",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -731,7 +731,7 @@
   },
   {
     "source": "/post/curry-club",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
