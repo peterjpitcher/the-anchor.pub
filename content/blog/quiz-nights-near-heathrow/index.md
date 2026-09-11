@@ -43,13 +43,13 @@ This isn't a chain quiz run off an app by someone who'd rather be somewhere else
 
 ### Food and drink
 
-You can book a table if you want to eat during the quiz. The full food menu is available, so you're not limited to chips and nuts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
+Every team has its own table, and you can eat at it during the quiz. The full food menu is available, so you're not limited to chips and nuts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
 
 ### Practical details
 
 - **Free parking**, about 20 spaces in the pub car park
 - **Location:** Horton Road, Stanwell Moor, TW19 6AQ, seven minutes from Heathrow Terminal 5
-- **Booking:** Not essential for the quiz itself, but recommended if you want a table for food
+- **Booking:** worth doing, one table per team. Your booking holds your team's table, and you eat at the same table
 - **Dates:** Check The Anchor's social media or website for the next quiz date
 
 ---
@@ -104,7 +104,7 @@ It's a pub quiz, not Mastermind. The best quiz teams are the ones having the mos
 
 ### Do I need to book for a pub quiz near Heathrow?
 
-For most pub quizzes, you can just turn up. At The Anchor, you don't need to book for the quiz itself, but it's worth booking a table if you want to eat. At busier chain pubs, arriving early is your best bet to get a decent spot.
+For most pub quizzes, you can just turn up. At The Anchor, booking is worth doing: each team has its own table, your booking holds it, and you eat at the same table. At busier chain pubs, arriving early is your best bet to get a decent spot.
 
 ### Are pub quizzes suitable for couples or small groups?
 
