@@ -90,6 +90,13 @@ export interface BusinessHours {
     kitchenOpen: boolean
     closesIn: string | null
     opensIn: string | null
+    // The London date whose hours are in force, and that day's closing time ('01:00:00') and
+    // instant, set only while open. From midnight until an after-midnight close (1am on New
+    // Year's Eve) the day in force is yesterday, and today's own row may be a closed day with
+    // no closing time at all. Optional: older management deploys do not send them.
+    tradingDate?: string
+    closes?: string | null
+    closesAt?: string | null
     // Optional new fields for future API version
     currentTime?: string
     timestamp?: string
