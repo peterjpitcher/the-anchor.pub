@@ -292,7 +292,7 @@ describe('ics text safety', () => {
   it('escapes commas, semicolons and newlines so the file cannot break', () => {
     const event = makeEvent({
       name: 'Quiz Night, Cash Prizes; Free Entry',
-      shortDescription: 'Teams of up to six.\nDoors at 6pm, quiz at 7pm; last orders 11pm.'
+      shortDescription: 'Teams of up to six.\nArrive from 6pm, quiz at 7pm; last orders 11pm.'
     })
     const lines = icsLines(event)
 
@@ -302,7 +302,7 @@ describe('ics text safety', () => {
     expect(summary).toEqual(['SUMMARY:Quiz Night\\, Cash Prizes\\; Free Entry'])
     // One line only: a raw newline here would end the property and corrupt the file.
     expect(description).toHaveLength(1)
-    expect(description[0]).toContain('Teams of up to six.\\nDoors at 6pm\\, quiz at 7pm\\; last orders 11pm.')
+    expect(description[0]).toContain('Teams of up to six.\\nArrive from 6pm\\, quiz at 7pm\\; last orders 11pm.')
     expect(description[0]).toContain('More info: https://www.the-anchor.pub/events/quiz-night-2026-07-29')
   })
 
@@ -339,11 +339,25 @@ describe('calendar destinations', () => {
     expect(googleUrl).toContain('dates=20260729T180000Z/20260729T180000Z')
   })
 
-  it('mentions the door time in the description without moving the start', () => {
+  // docs/SSOT.md §10 bans "Doors" for an event time: the pub is open from
+  // midday. Every diary entry said "Doors from 6:30pm." until 11 September 2026.
+  it('gives the arrival time in the description without moving the start', () => {
     const event = makeEvent({ doors_time: '18:30' })
 
     expect(icsProperty(event, 'DTSTART')).toBe('DTSTART:20260729T180000Z')
-    expect(icsProperty(event, 'DESCRIPTION')).toContain('Doors from 6:30pm.')
+    expect(icsProperty(event, 'DESCRIPTION')).toContain('Arrive from 6:30pm.')
+    expect(icsProperty(event, 'DESCRIPTION')).not.toMatch(/doors/i)
+    expect(decodeURIComponent(buildGoogleCalendarUrl(event) || '')).toContain('Arrive from 6:30pm.')
+    expect(decodeURIComponent(buildGoogleCalendarUrl(event) || '')).not.toMatch(/doors/i)
+  })
+
+  it('cleans door wording out of the record summary in both destinations', () => {
+    const event = makeEvent({ shortDescription: 'Doors open at 6:45pm, and the quiz starts at 7pm.' })
+
+    expect(icsProperty(event, 'DESCRIPTION')).toContain('Arrive from 6:45pm\\, and the quiz starts at 7pm.')
+    expect(decodeURIComponent(buildGoogleCalendarUrl(event) || '')).toContain(
+      'Arrive from 6:45pm, and the quiz starts at 7pm.'
+    )
   })
 
   it('gives up rather than guessing when the start date is unusable', () => {

@@ -1,5 +1,6 @@
 import type { Event } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
+import { normaliseProseField } from '@/lib/text/normalise-api-prose'
 
 const EVENT_TIME_ZONE = 'Europe/London'
 const DEFAULT_EVENT_DURATION_MINUTES = 120
@@ -293,7 +294,8 @@ export function getEventCalendarUid(event: Pick<Event, 'id' | 'slug'>): string {
 const CLOCK_TIME_PATTERN = /^\d{1,2}:\d{2}(?::\d{2})?$/
 
 /**
- * Doors, when the API gives them, as London wall time. Never used as the
+ * The arrival time, when the API gives one, as London wall time. The API calls
+ * the field `doors_time`; the words shown to guests never do. Never used as the
  * calendar start: the entry starts when the event starts.
  */
 function formatEventDoorTime(event: Pick<Event, 'doorTime' | 'doors_time' | 'startDate'>): string | null {
@@ -313,11 +315,22 @@ function formatEventDoorTime(event: Pick<Event, 'doorTime' | 'doors_time' | 'sta
   return formatEventLocalTime(`${localDate}T${raw}`, { fallback: '' }) || null
 }
 
+/**
+ * The body of a diary entry, for the Google Calendar link and the .ics file.
+ *
+ * "Arrive from 6:30pm.", never "Doors from 6:30pm.": docs/SSOT.md §10 bans
+ * "Doors" for event times, because the pub is open from midday and the word
+ * tells a guest it is shut until then. Every entry said it until 11 September
+ * 2026. The summary is record prose, so it goes through the same normaliser as
+ * the event page: door phrases and em dashes in it are cleaned here too, which
+ * covers the .ics route and the hub date cards as well as the event page.
+ */
 function buildCalendarDescription(event: Event, eventUrl: string): string {
-  const summary = event.shortDescription || event.description || 'Event at The Anchor'
-  const doorTime = formatEventDoorTime(event)
+  const summary =
+    normaliseProseField(event.shortDescription || event.description) || 'Event at The Anchor'
+  const arrivalTime = formatEventDoorTime(event)
 
-  return [summary, doorTime ? `Doors from ${doorTime}.` : null, `More info: ${eventUrl}`]
+  return [summary, arrivalTime ? `Arrive from ${arrivalTime}.` : null, `More info: ${eventUrl}`]
     .filter(Boolean)
     .join('\n\n')
 }

@@ -23,8 +23,9 @@ describe('normaliseProseField', () => {
   })
 
   it('replaces an unspaced em dash with a comma and a space', () => {
+    // "doors at 7pm" is also rewritten, see the door phrase tests below.
     expect(normaliseProseField(`doors at 7pm${EM}bingo starts at 8pm`)).toBe(
-      'doors at 7pm, bingo starts at 8pm',
+      'arrive from 7pm, bingo starts at 8pm',
     )
   })
 
@@ -48,12 +49,12 @@ describe('normaliseProseField', () => {
   it('drops a dash that opens or closes the value, or opens a line', () => {
     expect(normaliseProseField(`${EM} Free entry`)).toBe('Free entry')
     expect(normaliseProseField(`Free entry ${EM}`)).toBe('Free entry')
-    expect(normaliseProseField(`Doors 7pm\n${EM} Bingo 8pm`)).toBe('Doors 7pm\nBingo 8pm')
+    expect(normaliseProseField(`Doors 7pm\n${EM} Bingo 8pm`)).toBe('Arrive from 7pm\nBingo 8pm')
   })
 
   it('keeps paragraph breaks intact', () => {
     expect(normaliseProseField(`Doors 7pm ${EM} bingo 8pm\n\nBook online.`)).toBe(
-      'Doors 7pm, bingo 8pm\n\nBook online.',
+      'Arrive from 7pm, bingo 8pm\n\nBook online.',
     )
   })
 
@@ -111,8 +112,8 @@ describe('normaliseProseField', () => {
     expect(normaliseProseField(undefined)).toBeUndefined()
   })
 
-  it('returns prose without an em dash byte for byte', () => {
-    const input = 'Music bingo, doors 7pm. Free entry, no tickets needed.'
+  it('returns prose with nothing to change byte for byte', () => {
+    const input = 'Music bingo, 7pm start. Free entry, no tickets needed.'
     expect(normaliseProseField(input)).toBe(input)
   })
 
@@ -135,11 +136,72 @@ describe('normaliseProseField', () => {
   })
 })
 
+/**
+ * docs/SSOT.md §10 bans "Doors" for an event time (owner-confirmed 16 August
+ * 2026): the pub is open from midday, so the word tells a guest it is shut
+ * until then. Record copy on indexable past pages still said it.
+ */
+describe('normaliseProseField, "doors" as an event time', () => {
+  it.each([
+    // Verbatim from /events/gavin-and-stacey-quiz-night-2026-05-15 and
+    // /events/quiz-night-2026-03-04, live on 11 September 2026.
+    [
+      'Arrive early to soak in the atmosphere and secure a good spot, doors open at 7:15 PM, and we encourage you to be seated by 7:45',
+      'Arrive early to soak in the atmosphere and secure a good spot, arrive from 7:15 PM, and we encourage you to be seated by 7:45'
+    ],
+    [
+      'Arrive early to secure your spot, doors open at 6:45pm, and we recommend being seated by 6:55pm for',
+      'Arrive early to secure your spot, arrive from 6:45pm, and we recommend being seated by 6:55pm for'
+    ],
+    ['Doors from 6:30pm.', 'Arrive from 6:30pm.'],
+    ['The doors open at 7pm for an 8pm start.', 'Arrive from 7pm for an 8pm start.'],
+    ['Doors: 6:30pm. First game 7pm.', 'Arrive from 6:30pm. First game 7pm.'],
+    [`Doors ${EM} 6.30pm`, 'Arrive from 6.30pm'],
+    ['Food from 5pm and doors open at 6:30pm.', 'Food from 5pm and arrive from 6:30pm.'],
+    ['Doors will open at 19:15 sharp.', 'Arrive from 19:15 sharp.'],
+    ['Quiz night.\nDoors 7 p.m. Teams of six.', 'Quiz night.\nArrive from 7 p.m. Teams of six.']
+  ])('rewrites %j', (input, expected) => {
+    expect(normaliseProseField(input)).toBe(expected)
+  })
+
+  it.each([
+    'French doors open onto the beer garden.',
+    'Doors open early for food, so come when you like.',
+    'We will have the doors open from 6pm.',
+    'Head indoors at 7pm when the sun goes down.',
+    'Next door to the car park, 7pm start.'
+  ])('leaves %j alone', (input) => {
+    expect(normaliseProseField(input)).toBe(input)
+  })
+
+  it('leaves a door phrase inside a tag attribute or a link alone', () => {
+    const input = 'Book at <a href="/events/doors-7pm" title="Doors 7pm">our page</a>. Doors 7pm.'
+    expect(normaliseProseField(input)).toBe(
+      'Book at <a href="/events/doors-7pm" title="Doors 7pm">our page</a>. Arrive from 7pm.',
+    )
+  })
+
+  it('is applied wherever an event is normalised', () => {
+    const result = normaliseEventProse({
+      id: 'evt-doors',
+      slug: 'quiz-night-doors-7pm',
+      description: 'Doors open at 7pm.',
+      highlights: ['Doors 6:30pm'],
+      faq: [{ name: 'What time should we arrive?', acceptedAnswer: { text: 'Doors from 6:30pm.' } }]
+    })
+
+    expect(result.description).toBe('Arrive from 7pm.')
+    expect(result.highlights).toEqual(['Arrive from 6:30pm'])
+    expect(result.faq[0].acceptedAnswer.text).toBe('Arrive from 6:30pm.')
+    expect(result.slug).toBe('quiz-night-doors-7pm')
+  })
+})
+
 describe('normaliseProseList', () => {
   it('normalises every highlight', () => {
     expect(normaliseProseList([`Free entry ${EM} no tickets`, 'Doors 7pm'])).toEqual([
       'Free entry, no tickets',
-      'Doors 7pm',
+      'Arrive from 7pm',
     ])
   })
 
@@ -207,7 +269,7 @@ describe('normaliseEventProse', () => {
     const result = normaliseEventProse(event)
 
     expect(result.description).toBe('Plenty of chances to join in, no music expertise needed')
-    expect(result.longDescription).toBe('Doors at 7pm, bingo starts at 8pm')
+    expect(result.longDescription).toBe('Arrive from 7pm, bingo starts at 8pm')
     expect(result.about).toBe('A high energy night, close to Heathrow')
     expect(result.metaDescription).toBe('Music bingo in Stanwell Moor, free entry')
     expect(result.image_alt_text).toBe('Music bingo night, The Anchor')
