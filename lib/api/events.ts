@@ -1099,13 +1099,69 @@ export async function checkEventAvailability(eventId: string, seats: number = 1)
   }
 }
 
-export async function getEventCategories(): Promise<EventCategory[]> {
+/**
+ * True while `next build` runs without external calls.
+ *
+ * lib/api/client.ts deliberately answers from its fallbacks during the build,
+ * so a fallback seen here is expected rather than an outage, and logging it
+ * would put errors into every clean build. Mirrors the check in the client and
+ * in app/sitemap.ts.
+ */
+export function isBuildWithoutExternalApi(): boolean {
+  return (
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+  )
+}
+
+export interface EventCategoriesReadResult {
+  status: 'ok' | 'unavailable'
+  categories: EventCategory[]
+  /** Undefined when `status` is `ok`. */
+  failure?: EventsReadFailure
+}
+
+/**
+ * The event categories, with the outcome of the read attached.
+ *
+ * The API client does not throw when `/event-categories` fails: it answers with
+ * FALLBACK_EVENT_CATEGORIES, and it does the same during the build. Those
+ * placeholder ids match no real category, so a game night page that looked its
+ * category up in them found nothing and told the visitor no dates were on sale,
+ * on exactly the days we could not check. The fallback is recognised by
+ * identity, because the client hands back that same object, which turns it into
+ * an outage the page can report instead of an empty diary.
+ *
+ * `getEventCategories` stays the `EventCategory[]` form.
+ */
+export async function readEventCategories(): Promise<EventCategoriesReadResult> {
   const { anchorAPI } = await import('./client')
   try {
     const response = await anchorAPI.getEventCategories()
-    return (response.categories || []).filter(category => !isRetiredEventCategory(category))
+
+    if (response === FALLBACK_EVENT_CATEGORIES) {
+      if (!isBuildWithoutExternalApi()) {
+        logError('api-event-categories', new Error('Event categories answered from the offline fallback'))
+      }
+      return { status: 'unavailable', categories: [], failure: 'transient' }
+    }
+
+    const categories = (response as { categories?: unknown } | null | undefined)?.categories
+    if (!Array.isArray(categories)) {
+      logError('api-event-categories', new Error('Event categories response carried no categories array'))
+      return { status: 'unavailable', categories: [], failure: 'invalid-payload' }
+    }
+
+    return {
+      status: 'ok',
+      categories: (categories as EventCategory[]).filter(category => !isRetiredEventCategory(category))
+    }
   } catch (error) {
     logError('api-event-categories', error)
-    return []
+    return { status: 'unavailable', categories: [], failure: classifyReadFailure(error) }
   }
+}
+
+export async function getEventCategories(): Promise<EventCategory[]> {
+  return (await readEventCategories()).categories
 }

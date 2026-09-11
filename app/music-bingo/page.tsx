@@ -17,7 +17,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { musicBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { musicBingo, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import {
@@ -130,10 +130,11 @@ function getEntryLabel(event: Event) {
   return 'Entry details announced'
 }
 
-function MusicBingoEventCards({ events }: { events: Event[] }) {
+function MusicBingoEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: musicBingo.name } : undefined}
       eyebrow="Music bingo night"
       bookingSource="music_bingo_event_card"
       calendarSource="music_bingo_date_card"
@@ -160,7 +161,11 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function MusicBingoPage() {
-  const events = await getGameNightEvents(musicBingo)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(musicBingo)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
@@ -271,6 +276,7 @@ export default async function MusicBingoPage() {
                   gameName={musicBingo.name}
                   gameSlug={musicBingo.slug}
                   bookingNote={musicBingo.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               <GameNightSocialProof gameName={musicBingo.name} />
@@ -331,7 +337,7 @@ export default async function MusicBingoPage() {
               or on 01753 682707.
             </p>
             <SectionViewTracker sectionId="music_bingo_dates">
-              <MusicBingoEventCards events={events} />
+              <MusicBingoEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>

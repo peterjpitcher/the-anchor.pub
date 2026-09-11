@@ -15,7 +15,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { karaoke, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { karaoke, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
@@ -101,10 +101,11 @@ const FAQS = [
   }
 ]
 
-function KaraokeEventCards({ events }: { events: Event[] }) {
+function KaraokeEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: karaoke.name } : undefined}
       eyebrow="Karaoke night"
       bookingSource="karaoke_event_card"
       calendarSource="karaoke_date_card"
@@ -134,14 +135,21 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function KaraokePage() {
-  const events = await getGameNightEvents(karaoke)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(karaoke)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : null
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : null
 
+  // "Nothing in the diary" is only sayable when the diary answered.
   const heroDescription = nextEvent
     ? `The next one is ${nextEvent.name} on ${nextEventDate} at ${nextEventTime}. Free entry, and you can book your places below.`
-    : 'There is no karaoke night in the diary at the moment. Call 01753 682707 and we will let you know when the next one is confirmed.'
+    : datesUnavailable
+      ? 'We could not load the karaoke dates just now. Call 01753 682707 and we will tell you when the next one is on.'
+      : 'There is no karaoke night in the diary at the moment. Call 01753 682707 and we will let you know when the next one is confirmed.'
 
   return (
     <>
@@ -199,6 +207,7 @@ export default async function KaraokePage() {
                   gameName={karaoke.name}
                   gameSlug={karaoke.slug}
                   bookingNote={karaoke.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               {/* The rating badge used to sit in its own band under the hero,
@@ -249,7 +258,7 @@ export default async function KaraokePage() {
               or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="karaoke_dates">
-              <KaraokeEventCards events={events} />
+              <KaraokeEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>

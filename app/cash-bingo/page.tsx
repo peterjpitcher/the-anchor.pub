@@ -16,7 +16,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { cashBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { cashBingo, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
@@ -104,10 +104,11 @@ const FAQS = [
   }
 ]
 
-function BingoEventCards({ events }: { events: Event[] }) {
+function BingoEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: cashBingo.name } : undefined}
       eyebrow="Monthly cash bingo"
       bookingSource="cash_bingo_event_card"
       calendarSource="cash_bingo_date_card"
@@ -134,7 +135,11 @@ function BingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function CashBingoPage() {
-  const events = await getGameNightEvents(cashBingo)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(cashBingo)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   // 6:30pm, owner-confirmed 17 August 2026: "I want people in for 6:30pm so they
@@ -195,6 +200,7 @@ export default async function CashBingoPage() {
                   gameName={cashBingo.name}
                   gameSlug={cashBingo.slug}
                   bookingNote={cashBingo.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               <GameNightSocialProof gameName={cashBingo.name} />
@@ -255,7 +261,7 @@ export default async function CashBingoPage() {
               or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="cash_bingo_dates">
-              <BingoEventCards events={events} />
+              <BingoEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>

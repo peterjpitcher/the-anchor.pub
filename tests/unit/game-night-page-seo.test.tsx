@@ -20,7 +20,7 @@ import path from 'path'
 import type { Metadata } from 'next'
 import { isValidElement, type ReactElement } from 'react'
 import { render } from '@testing-library/react'
-import type { Event } from '@/lib/api'
+import type { EventsReadResult } from '@/lib/api'
 import { InteriorHero } from '@/components/hero'
 import {
   GameNightBreadcrumb,
@@ -28,11 +28,11 @@ import {
 } from '@/components/features/GameNight'
 import { GAME_NIGHTS, type GameNightConfig } from '@/lib/game-nights'
 
-const mockGetGameNightEvents = jest.fn<Promise<Event[]>, [GameNightConfig]>()
+const mockReadGameNightEvents = jest.fn<Promise<EventsReadResult>, [GameNightConfig]>()
 
 jest.mock('@/lib/game-nights', () => ({
   ...jest.requireActual('@/lib/game-nights'),
-  getGameNightEvents: (config: GameNightConfig) => mockGetGameNightEvents(config)
+  readGameNightEvents: (config: GameNightConfig) => mockReadGameNightEvents(config)
 }))
 
 import QuizNightPage, { metadata as quizMetadata } from '@/app/quiz-night/page'
@@ -119,8 +119,8 @@ function breadcrumbSchema(config: GameNightConfig) {
 }
 
 beforeEach(() => {
-  mockGetGameNightEvents.mockReset()
-  mockGetGameNightEvents.mockResolvedValue([])
+  mockReadGameNightEvents.mockReset()
+  mockReadGameNightEvents.mockResolvedValue({ status: 'ok', events: [] })
 })
 
 describe.each(PAGES)('/$slug', ({ slug, Page, metadata }) => {

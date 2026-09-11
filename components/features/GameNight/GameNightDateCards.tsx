@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react'
 import { EventDateCards, type EventDateCardsProps } from '@/components/features/EventDateCards'
 import { AddToCalendar } from '@/components/events/AddToCalendar'
 import type { Event } from '@/lib/api'
+import { GameNightDatesUnavailable } from './GameNightDatesUnavailable'
 
 /**
  * The upcoming-dates list for a game night page, with an add-to-calendar control
@@ -25,11 +26,19 @@ import type { Event } from '@/lib/api'
 export interface GameNightDateCardsProps extends EventDateCardsProps {
   /** Where the calendar control is mounted, e.g. `quiz_night_date_card`. */
   calendarSource: string
+  /**
+   * Set when the event diary could not be read in full. Each page's
+   * `emptyState` says nothing is listed or that a date is being finalised,
+   * which an outage cannot support, so the outage notice replaces it; a short
+   * list that did load keeps the notice above it.
+   */
+  datesUnavailable?: { gameName: string }
 }
 
 export function GameNightDateCards({
   calendarSource,
   renderDetails,
+  datesUnavailable,
   ...props
 }: GameNightDateCardsProps): ReactElement {
   const renderDetailsWithCalendar = (event: Event): ReactNode => (
@@ -45,5 +54,23 @@ export function GameNightDateCards({
     </>
   )
 
-  return <EventDateCards {...props} renderDetails={renderDetailsWithCalendar} />
+  const list = <EventDateCards {...props} renderDetails={renderDetailsWithCalendar} />
+
+  if (!datesUnavailable) return list
+
+  const notice = (
+    <GameNightDatesUnavailable
+      gameName={datesUnavailable.gameName}
+      source={`${calendarSource}_unavailable`}
+    />
+  )
+
+  if (props.events.length === 0) return notice
+
+  return (
+    <div className="space-y-6">
+      {notice}
+      {list}
+    </div>
+  )
 }

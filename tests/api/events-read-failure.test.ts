@@ -1,14 +1,19 @@
 import { anchorAPI } from '@/lib/api/client'
+import { logError } from '@/lib/error-handling'
 import {
   combineEventsReadResults,
+  FALLBACK_EVENT_CATEGORIES,
+  getEventCategories,
   getRecentEvents,
   getUpcomingEvents,
   getUpcomingEventsByCategory,
+  readEventCategories,
   readRecentEvents,
   readUpcomingEvents,
   readUpcomingEventsByCategories,
   readUpcomingEventsByCategory,
   type Event,
+  type EventCategoriesResponse,
   type EventsReadResult
 } from '@/lib/api/events'
 
@@ -277,6 +282,87 @@ describe('the existing Event[] helpers are unchanged', () => {
 
     getEventsSpy.mockRejectedValue(upstreamError(500))
     await expect(getUpcomingEventsByCategory('quiz-nights', 5)).resolves.toEqual([])
+  })
+})
+
+describe('the event categories read', () => {
+  const getCategoriesSpy = jest.spyOn(anchorAPI, 'getEventCategories')
+
+  const category = (id: string, name: string) => ({
+    id,
+    name,
+    slug: id,
+    description: '',
+    color: '',
+    icon: '',
+    is_active: true,
+    default_start_time: '19:00',
+    default_capacity: 60,
+    event_count: 1
+  })
+
+  const categoriesResponse = (categories: ReturnType<typeof category>[]): EventCategoriesResponse => ({
+    categories,
+    meta: { total: categories.length, lastUpdated: '2026-09-11T09:00:00Z' }
+  })
+
+  beforeEach(() => {
+    getCategoriesSpy.mockReset()
+    ;(logError as jest.Mock).mockClear()
+  })
+
+  afterAll(() => {
+    getCategoriesSpy.mockRestore()
+  })
+
+  it('reports the real categories as ok, without retired ones', async () => {
+    getCategoriesSpy.mockResolvedValue(
+      categoriesResponse([category('quiz', 'Pub Quiz Night'), category('open-mic', 'Open Mic')])
+    )
+
+    const result = await readEventCategories()
+
+    expect(result.status).toBe('ok')
+    expect(result.categories.map(entry => entry.id)).toEqual(['quiz'])
+  })
+
+  it('reports the client’s offline fallback as unavailable, not as real categories', async () => {
+    // What lib/api/client.ts hands back when /event-categories fails: the same
+    // object, not a copy. Its placeholder ids match no real category.
+    getCategoriesSpy.mockResolvedValue(FALLBACK_EVENT_CATEGORIES)
+
+    const result = await readEventCategories()
+
+    expect(result).toEqual({ status: 'unavailable', categories: [], failure: 'transient' })
+    expect(logError).toHaveBeenCalledWith('api-event-categories', expect.any(Error))
+    await expect(getEventCategories()).resolves.toEqual([])
+  })
+
+  it('does not log the fallback during a build, where it is expected', async () => {
+    const originalPhase = process.env.NEXT_PHASE
+    process.env.NEXT_PHASE = 'phase-production-build'
+    getCategoriesSpy.mockResolvedValue(FALLBACK_EVENT_CATEGORIES)
+    try {
+      const result = await readEventCategories()
+
+      expect(result.status).toBe('unavailable')
+      expect(logError).not.toHaveBeenCalled()
+    } finally {
+      if (originalPhase === undefined) delete process.env.NEXT_PHASE
+      else process.env.NEXT_PHASE = originalPhase
+    }
+  })
+
+  it('reports a thrown error as unavailable', async () => {
+    getCategoriesSpy.mockRejectedValue(upstreamError(503))
+
+    await expect(readEventCategories()).resolves.toMatchObject({ status: 'unavailable', failure: 'transient' })
+  })
+
+  it('reports a 200 with no categories array as an invalid payload', async () => {
+    getCategoriesSpy.mockResolvedValue({} as unknown as EventCategoriesResponse)
+
+    await expect(readEventCategories()).resolves.toMatchObject({ status: 'unavailable', failure: 'invalid-payload' })
   })
 })
 

@@ -11,7 +11,7 @@ export type {
   GameNightPhoto
 } from './types'
 export { quizNight, cashBingo, musicBingo, karaoke }
-export { getGameNightEvents } from './events'
+export { readGameNightEvents } from './events'
 export { buildGameNightMetadata } from './metadata'
 export type { GameNightMetadataOptions } from './metadata'
 
