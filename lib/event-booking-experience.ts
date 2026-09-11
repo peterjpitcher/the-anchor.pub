@@ -1,6 +1,7 @@
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
+import { getCategoryPageUrl } from '@/lib/event-seo-strategy'
 
 type OfferLike = {
   price?: string | number | null
@@ -9,6 +10,8 @@ type OfferLike = {
 
 export type EventBookingPaymentSource = {
   name?: string | null
+  slug?: string | null
+  category?: { name?: string | null; slug?: string | null } | null
   event_type?: string | null
   booking_mode?: string | null
   payment_mode?: string | null
@@ -125,6 +128,26 @@ function hasPaidOnlineSignal(event: EventBookingPaymentSource): boolean {
   return /prepaid|pre-pay|online|payment_link|ticket/.test(text)
 }
 
+/**
+ * Cash Bingo is sold by the book, not by the person. docs/SSOT.md §10: "£10
+ * per book (cash only)", and supervised under-18s may come along but may not
+ * play. "Pay £10 per person on arrival" told a family of four, two of them
+ * children, that they would owe £40.
+ *
+ * Recognised by "cash bingo" in the record's name, type or category, or by the
+ * category the /cash-bingo hub is built from, which is how the rest of the site
+ * already files these nights.
+ */
+function isCashBingoEvent(event: EventBookingPaymentSource): boolean {
+  const text = [event.name, event.event_type, event.category?.name, event.category?.slug]
+    .filter((value): value is string => typeof value === 'string')
+    .join(' ')
+    .toLowerCase()
+    .replace(/[-_]+/g, ' ')
+
+  return text.includes('cash bingo') || getCategoryPageUrl(event.category?.slug) === '/cash-bingo'
+}
+
 function hasOnlineDiscountSignal(event: EventBookingPaymentSource): boolean {
   const text = eventPaymentText(event)
   return event.payment_mode === 'prepaid' || /prepaid|pre-pay|online|payment_link/.test(text)
@@ -238,6 +261,12 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
   }
 
   if (event.payment_mode === 'cash_only' || unitPrice) {
+    if (isCashBingoEvent(event)) {
+      return unitPrice
+        ? `No payment now. Buy your bingo books when you arrive, ${formatEventBookingMoney(unitPrice)} a book in cash.`
+        : 'No payment now. Buy your bingo books in cash when you arrive.'
+    }
+
     const priceText = unitPrice ? ` ${formatEventBookingMoney(unitPrice)} per person` : ''
     return isCommunal
       ? `No payment now. Book online and pay${priceText} on arrival.`
@@ -264,6 +293,12 @@ export function getEventShortPaymentReassurance(event: EventBookingPaymentSource
   }
 
   if (event.payment_mode === 'cash_only' || unitPrice) {
+    if (isCashBingoEvent(event)) {
+      return unitPrice
+        ? `No payment now, ${formatEventBookingMoney(unitPrice)} a book in cash on arrival`
+        : 'No payment now, bingo books in cash on arrival'
+    }
+
     const priceText = unitPrice ? ` ${formatEventBookingMoney(unitPrice)}` : ''
     return `No payment now, pay${priceText} on arrival`
   }

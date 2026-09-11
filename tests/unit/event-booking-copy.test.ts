@@ -180,6 +180,75 @@ describe('getEventBookingCopy', () => {
 })
 
 /**
+ * docs/SSOT.md §10: Cash Bingo is "£10 per book (cash only)", and supervised
+ * under-18s may attend but may not play. The event pages said "Book online and
+ * pay £10 per person on arrival", which told a family of four, two of them
+ * children, that they would owe £40.
+ */
+describe('Cash Bingo is priced by the book', () => {
+  const cashBingo = {
+    name: 'Autumn Jackpot Cash Bingo',
+    startDate: '2026-09-30T19:00:00+01:00',
+    booking_mode: 'communal',
+    payment_mode: 'cash_only',
+    ticket_price: 10,
+    category: { id: 'cat-bingo', name: 'Cash Bingo', slug: 'bingo-night', color: '#000' }
+  }
+
+  it('says £10 a book, paid in cash on arrival, with nothing to pay now', () => {
+    expect(getEventBookingReassurance(cashBingo)).toBe(
+      'No payment now. Buy your bingo books when you arrive, £10 a book in cash.'
+    )
+    expect(getEventShortPaymentReassurance(cashBingo)).toBe('No payment now, £10 a book in cash on arrival')
+    expect(getEventBookingHeroStatement(cashBingo)).toContain(
+      'Wednesday 30 September. No payment now, £10 a book in cash on arrival.'
+    )
+  })
+
+  it('never prices Cash Bingo per person, anywhere in the booking copy', () => {
+    const copy = [
+      getEventBookingReassurance(cashBingo),
+      getEventShortPaymentReassurance(cashBingo),
+      getEventBookingHeroStatement(cashBingo),
+      getEventBookingCopy(cashBingo as any).policy
+    ].join(' ')
+
+    expect(copy).not.toMatch(/per person/i)
+  })
+
+  it('recognises a Cash Bingo night by the category its hub is built from', () => {
+    // No "cash bingo" in the name: the category is the /cash-bingo hub's.
+    const snowball = {
+      ...cashBingo,
+      name: 'Snowball Showdown',
+      category: { id: 'cat-bingo', name: 'Bingo Night', slug: 'bingo-night', color: '#000' }
+    }
+
+    expect(getEventBookingReassurance(snowball)).toBe(
+      'No payment now. Buy your bingo books when you arrive, £10 a book in cash.'
+    )
+  })
+
+  it('still says what to bring when the record carries no price', () => {
+    expect(getEventBookingReassurance({ ...cashBingo, ticket_price: null })).toBe(
+      'No payment now. Buy your bingo books in cash when you arrive.'
+    )
+  })
+
+  it('leaves Music Bingo priced per person, because that is how it is sold', () => {
+    expect(
+      getEventBookingReassurance({
+        name: 'Screams & Soundtracks: Classic Horror Music Bingo',
+        booking_mode: 'communal',
+        payment_mode: 'cash_only',
+        ticket_price: 5,
+        category: { name: 'Music Bingo', slug: 'music-bingo' }
+      })
+    ).toBe('No payment now. Book online and pay £5 per person on arrival.')
+  })
+})
+
+/**
  * Three of these strings contradicted docs/SSOT.md §10 and were live on desktop
  * event pages: Music Bingo "starts at 8pm" when the SSOT says 7pm and that
  * "anything still saying 8pm is wrong"; Cash Bingo and Quiz "arrive from 6pm"
