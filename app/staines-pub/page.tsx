@@ -300,7 +300,7 @@ export default function StainesPubPage() {
                     <h3 className="font-display text-h4 text-ink-strong">Wednesday</h3>
                     <Badge variant="gold">QUIZ</Badge>
                   </div>
-                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher and prizes! See /whats-on for details.</p>
+                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher! See /whats-on for details.</p>
                 </CardBody>
               </Card>
 

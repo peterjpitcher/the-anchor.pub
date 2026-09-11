@@ -108,7 +108,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Special Offers',
     description: 'Deals, promotions, and exclusive offers',
     metaTitle: 'Pub Deals Stanwell Moor | Special Offers at The Anchor Near Heathrow',
-    metaDescription: 'Save with special offers at The Anchor Stanwell Moor. Lunch deals, quiz night specials & more. Pub deals, and we\'re 7 minutes from Heathrow Airport.',
+    metaDescription: 'Save with special offers at The Anchor Stanwell Moor. Lunch deals & more. Pub deals, and we\'re 7 minutes from Heathrow Airport.',
     heroContent: 'Make the most of your visit with our fantastic special offers at The Anchor. From daily deals to seasonal promotions, we\'re always finding ways to give our customers extra value.',
     introContent: 'At The Anchor, we believe great experiences shouldn\'t break the bank. That\'s why we offer a variety of special deals throughout the week. Tuck into our value lunch menu Monday to Friday during kitchen hours, or take advantage of our monthly quiz night. We also run seasonal promotions for all our customers.',
     valueProposition: 'Follow us on social media and sign up to our newsletter to be first to hear about new offers and promotions. With something special every day of the week, there\'s always a great reason to visit The Anchor.',
@@ -168,7 +168,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Join our monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, £3 entry. Book your team table. We are around 7 minutes from Heathrow.',
     heroContent: 'Put your knowledge to the test at The Anchor. Join us monthly, dates vary, for team trivia, prizes and bragging rights.',
     introContent: 'Our monthly quiz nights bring the community together. The quiz usually starts at 7pm, with questions ranging from general knowledge to music, sport and local history. Entry is £3 per person.',
-    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With a £25 bar voucher for the winning team and spot prizes throughout, it\'s the perfect night out.',
+    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With a £25 bar voucher for the winning team, it\'s the perfect night out.',
     keywords: ['pub quiz stanwell moor', 'quiz night near heathrow', 'monthly quiz surrey', 'trivia night TW19', 'team quiz stanwell moor']
   },
 
@@ -323,7 +323,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Latest Pub Offers | The Anchor Stanwell Moor Deals & Promotions',
     metaDescription: 'Check out current offers at The Anchor Stanwell Moor. Daily deals, seasonal promotions & more. Save on food & drinks near Heathrow.',
     heroContent: 'Never miss a deal at The Anchor! Check out our latest offers and promotions designed to give you more value every visit.',
-    introContent: 'We\'re always creating new ways to reward our customers. From daily deals to seasonal specials, our current offers include lunch meal deals, quiz night specials, and exclusive promotions for our regular guests. Follow us on social media to be first to know about flash deals and limited-time offers.',
+    introContent: 'We\'re always creating new ways to reward our customers. From daily deals to seasonal specials, our current offers include lunch meal deals and exclusive promotions for our regular guests. Follow us on social media to be first to know about flash deals and limited-time offers.',
     valueProposition: 'Why pay full price? Check our current offers before your visit and enjoy great food and drinks for less at The Anchor.',
     keywords: ['pub offers stanwell moor', 'current deals heathrow', 'promotions surrey pub', 'latest offers TW19', 'pub discounts stanwell moor']
   },

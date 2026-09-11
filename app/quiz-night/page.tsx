@@ -361,7 +361,7 @@ export default async function QuizNightPage() {
       </section>
 
       <CtaBand
-        title="Ready to play for the tab?"
+        title="Ready to play for the voucher?"
         copy="Book your team in, or call the bar and we'll make sure your seats are ready."
       >
         <GameNightCtaActions
