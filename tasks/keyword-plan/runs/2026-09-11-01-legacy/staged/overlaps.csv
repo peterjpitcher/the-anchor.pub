@@ -1,0 +1,11 @@
+query_text,keyword_id,candidate_cluster_ids,resolution_cluster_id,resolution_method,resolved_at
+bingo events near me,kw_001476,cl_0004|cl_0005,,,
+charity quiz night near me,kw_001485,cl_0001|cl_0002,,,
+drag bingo near me,kw_000010,cl_0003|cl_0004,,,
+music bingo near me,kw_000026,cl_0003|cl_0004,,,
+music bingo near me thursday,kw_000829,cl_0003|cl_0004,,,
+music bingo near me tonight,kw_000830,cl_0003|cl_0004,,,
+music bingo night,kw_000027,cl_0003|cl_0004,,,
+music bingo nights,kw_001532,cl_0003|cl_0004,,,
+musical bingo near me,kw_000031,cl_0003|cl_0004,,,
+rock and roll bingo near me,kw_000050,cl_0003|cl_0004,,,

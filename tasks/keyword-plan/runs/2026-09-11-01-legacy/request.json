@@ -1,0 +1,272 @@
+{
+  "created_at": "2026-09-11T12:00:00+00:00",
+  "mode": "legacy",
+  "profile": "established-local",
+  "pulls": [
+    {
+      "attested_facts": [
+        "property"
+      ],
+      "cluster_id": "",
+      "expected": {
+        "country": "GB",
+        "filter_type": "page",
+        "filter_value": "https://www.the-anchor.pub/whats-on",
+        "preset": "Last 16 months",
+        "property": "sc-domain:the-anchor.pub",
+        "search_type": "web",
+        "tabs": [
+          "Chart.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Filters.csv"
+        ],
+        "window_end": "2026-09-08",
+        "window_start": "2025-05-09"
+      },
+      "page_id": "pg_0001",
+      "pull_id": "gsc-16m-p-pg_0001",
+      "purpose": "Legacy evidence: page-filtered Search Console export for https://www.the-anchor.pub/whats-on, Search Console's Last 16 months preset, exported 11 September 2026 with no Country filter. Sizes clusters and seeds the universe; not comparable with a calendar window.",
+      "required": true,
+      "source": "gsc",
+      "target_folder": "raw/gsc-16m-p-pg_0001",
+      "verified_facts": [
+        "window",
+        "filters",
+        "tabs",
+        "row_counts"
+      ]
+    },
+    {
+      "attested_facts": [
+        "property"
+      ],
+      "cluster_id": "",
+      "expected": {
+        "country": "GB",
+        "filter_type": "page",
+        "filter_value": "https://www.the-anchor.pub/quiz-night",
+        "preset": "Last 16 months",
+        "property": "sc-domain:the-anchor.pub",
+        "search_type": "web",
+        "tabs": [
+          "Chart.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Filters.csv"
+        ],
+        "window_end": "2026-09-08",
+        "window_start": "2025-05-09"
+      },
+      "page_id": "pg_0002",
+      "pull_id": "gsc-16m-p-pg_0002",
+      "purpose": "Legacy evidence: page-filtered Search Console export for https://www.the-anchor.pub/quiz-night, Search Console's Last 16 months preset, exported 11 September 2026 with no Country filter. Sizes clusters and seeds the universe; not comparable with a calendar window.",
+      "required": true,
+      "source": "gsc",
+      "target_folder": "raw/gsc-16m-p-pg_0002",
+      "verified_facts": [
+        "window",
+        "filters",
+        "tabs",
+        "row_counts"
+      ]
+    },
+    {
+      "attested_facts": [
+        "property"
+      ],
+      "cluster_id": "",
+      "expected": {
+        "country": "GB",
+        "filter_type": "page",
+        "filter_value": "https://www.the-anchor.pub/music-bingo",
+        "preset": "Last 16 months",
+        "property": "sc-domain:the-anchor.pub",
+        "search_type": "web",
+        "tabs": [
+          "Chart.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Filters.csv"
+        ],
+        "window_end": "2026-09-08",
+        "window_start": "2025-05-09"
+      },
+      "page_id": "pg_0004",
+      "pull_id": "gsc-16m-p-pg_0004",
+      "purpose": "Legacy evidence: page-filtered Search Console export for https://www.the-anchor.pub/music-bingo, Search Console's Last 16 months preset, exported 11 September 2026 with no Country filter. Sizes clusters and seeds the universe; not comparable with a calendar window.",
+      "required": true,
+      "source": "gsc",
+      "target_folder": "raw/gsc-16m-p-pg_0004",
+      "verified_facts": [
+        "window",
+        "filters",
+        "tabs",
+        "row_counts"
+      ]
+    },
+    {
+      "attested_facts": [
+        "property"
+      ],
+      "cluster_id": "",
+      "expected": {
+        "country": "GB",
+        "filter_type": "page",
+        "filter_value": "https://www.the-anchor.pub/cash-bingo",
+        "preset": "Last 16 months",
+        "property": "sc-domain:the-anchor.pub",
+        "search_type": "web",
+        "tabs": [
+          "Chart.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Filters.csv"
+        ],
+        "window_end": "2026-09-08",
+        "window_start": "2025-05-09"
+      },
+      "page_id": "pg_0005",
+      "pull_id": "gsc-16m-p-pg_0005",
+      "purpose": "Legacy evidence: page-filtered Search Console export for https://www.the-anchor.pub/cash-bingo, Search Console's Last 16 months preset, exported 11 September 2026 with no Country filter. Sizes clusters and seeds the universe; not comparable with a calendar window.",
+      "required": true,
+      "source": "gsc",
+      "target_folder": "raw/gsc-16m-p-pg_0005",
+      "verified_facts": [
+        "window",
+        "filters",
+        "tabs",
+        "row_counts"
+      ]
+    },
+    {
+      "attested_facts": [
+        "location",
+        "language",
+        "network",
+        "volume_mode"
+      ],
+      "expected": {
+        "language": "English",
+        "layout": "volumes",
+        "location": "United Kingdom",
+        "network": "Google Search",
+        "window": "last 12 months"
+      },
+      "keywords": [
+        "best pub quiz near me",
+        "bingo ashford middlesex",
+        "bingo near feltham",
+        "bingo night near me",
+        "bingo night staines",
+        "bingo night surrey",
+        "bingo staines",
+        "cash bingo near me",
+        "cash prize bingo",
+        "drag bingo near me",
+        "family friendly pub quiz",
+        "free karaoke near me",
+        "karaoke ashford middlesex",
+        "karaoke bar near me",
+        "karaoke egham",
+        "karaoke feltham",
+        "karaoke near me",
+        "karaoke night near me",
+        "karaoke pub near me",
+        "karaoke staines",
+        "karaoke surrey",
+        "live entertainment near me",
+        "local pub quiz",
+        "midweek quiz night",
+        "music bingo feltham",
+        "music bingo near me",
+        "music bingo night",
+        "music bingo staines",
+        "music bingo surrey",
+        "music quiz night near me",
+        "musical bingo near me",
+        "name that tune bingo",
+        "nights out in staines",
+        "pub bingo near me",
+        "pub bingo surrey",
+        "pub events near me",
+        "pub games night near me",
+        "pub quiz ashford middlesex",
+        "pub quiz egham",
+        "pub quiz feltham",
+        "pub quiz near me",
+        "pub quiz staines",
+        "pub quiz surrey",
+        "pub quiz tonight near me",
+        "pub with events near me",
+        "quiz night near me",
+        "quiz night near staines",
+        "quiz night staines",
+        "quiz night stanwell moor",
+        "rock and roll bingo near me",
+        "snowball bingo",
+        "song bingo",
+        "stanwell moor pub events",
+        "themed bingo night",
+        "things to do in ashford middlesex",
+        "things to do in staines tonight",
+        "traditional bingo near me",
+        "trivia night near me",
+        "wednesday pub quiz",
+        "whats on in staines this week"
+      ],
+      "lens": "country",
+      "pull_id": "gkp-volumes-01",
+      "purpose": "Legacy evidence: Keyword Planner Get search volume export for the four game-night pages, pulled 17 August 2026 (tasks/keyword-plan-game-nights-2026-08-17.md).",
+      "required": true,
+      "source": "gkp-volumes",
+      "target_file": "raw/gkp-volumes-01-game-nights.csv",
+      "url_seed": "",
+      "verified_facts": [
+        "layout",
+        "date_range"
+      ]
+    },
+    {
+      "attested_facts": [
+        "location",
+        "language",
+        "network",
+        "volume_mode"
+      ],
+      "expected": {
+        "language": "English",
+        "layout": "discover",
+        "location": "United Kingdom",
+        "network": "Google Search",
+        "window": "last 12 months"
+      },
+      "lens": "country",
+      "pull_id": "gkp-discover-01",
+      "purpose": "Legacy evidence: Keyword Planner Discover export, batch 8 What's on and things to do, pulled 8 September 2026 (tasks/keyword-plan-2026-09-08-seeds.md).",
+      "required": true,
+      "seeds": [
+        "whats on near me tonight",
+        "things to do in staines",
+        "things to do near heathrow",
+        "night out near heathrow",
+        "pub events near me",
+        "quiz night near me",
+        "karaoke near me",
+        "bingo night near me",
+        "pub entertainment near me",
+        "whats on this weekend near me"
+      ],
+      "source": "gkp-discover",
+      "target_file": "raw/gkp-discover-01-whats-on-things-to-do.csv",
+      "url_seed": "",
+      "verified_facts": [
+        "layout",
+        "date_range"
+      ]
+    }
+  ],
+  "reporting_country": "GB",
+  "run_id": "2026-09-11-01-legacy",
+  "total_pulls": 6
+}

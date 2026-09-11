@@ -1,0 +1,5 @@
+export_id,page,page_id,clicks,impressions,ctr,position,scope,level,completeness,truncated,window_start,window_end,reporting_country,search_type,filter_type,filter_value,source_file
+gsc-16m-p-pg_0001,https://www.the-anchor.pub/whats-on,pg_0001,91,15289,0.006,6.73,page-group,page,complete,false,2025-05-09,2026-09-08,all,web,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Pages.csv
+gsc-16m-p-pg_0002,https://www.the-anchor.pub/quiz-night,pg_0002,30,2463,0.0122,9.31,page-group,page,complete,false,2025-05-09,2026-09-08,all,web,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Pages.csv
+gsc-16m-p-pg_0004,https://www.the-anchor.pub/music-bingo,pg_0004,5,360,0.0139,15.09,page-group,page,complete,false,2025-05-09,2026-09-08,all,web,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Pages.csv
+gsc-16m-p-pg_0005,https://www.the-anchor.pub/cash-bingo,pg_0005,6,1009,0.0059,11.91,page-group,page,complete,false,2025-05-09,2026-09-08,all,web,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Pages.csv

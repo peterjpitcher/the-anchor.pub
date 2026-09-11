@@ -1,0 +1,13 @@
+export_id,device,clicks,impressions,ctr,position,scope,window_start,window_end,filter_type,filter_value,source_file
+gsc-16m-p-pg_0001,Desktop,6,1613,0.0037,14.21,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Devices.csv
+gsc-16m-p-pg_0001,Mobile,23,6513,0.0035,5.83,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Devices.csv
+gsc-16m-p-pg_0001,Tablet,0,79,0,4.8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Devices.csv
+gsc-16m-p-pg_0002,Desktop,0,161,0,23.04,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Devices.csv
+gsc-16m-p-pg_0002,Mobile,4,438,0.0091,6.62,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Devices.csv
+gsc-16m-p-pg_0002,Tablet,0,3,0,15.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Devices.csv
+gsc-16m-p-pg_0004,Desktop,0,10,0,28.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Devices.csv
+gsc-16m-p-pg_0004,Mobile,0,25,0,17.72,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Devices.csv
+gsc-16m-p-pg_0004,Tablet,0,1,0,18,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Devices.csv
+gsc-16m-p-pg_0005,Desktop,0,65,0,25.09,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Devices.csv
+gsc-16m-p-pg_0005,Mobile,0,106,0,35.41,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Devices.csv
+gsc-16m-p-pg_0005,Tablet,0,1,0,6,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Devices.csv

@@ -1,3 +1,20 @@
+# Game nights growth review, 11 September 2026
+
+Owner ask: hosted events (quiz, music bingo, cash bingo) are not in growth and may be stopped; understand
+performance, research growth strategies, and run the keyword-plan skill on the event pages. Read only:
+no site, database or messaging changes without an explicit yes. Branch `docs/events-growth-2026-09-11`
+(worktree `OJ-The-Anchor.pub-wt-events`), local only. Takings and booking figures stay out of this
+public repository; they live in the owner's private report.
+
+- [x] Attendance, booking-source, SMS and takings analysis from the management app (read-only SQL)
+- [x] Research on growing pub event attendance (subagent)
+- [x] Read-only audit of /whats-on, the three game hubs, /quiz-night/themed and /events/ pages (subagent)
+- [x] Keyword programme workspace `tasks/keyword-plan/` (v2.1): config, brief, clusters, pages, site events
+- [x] Legacy run `2026-09-11-01-legacy`: four Search Console page exports and two Keyword Planner exports imported
+- [x] Targeted run `2026-09-11-02-targeted`: request for five page exports and one volume upload written
+- [ ] Owner supplies the six exports; then validate, import, join, diagnose, plan, lint, one approval
+- [ ] Owner decisions: costs per night, quiz host, fixed slots, text cap, unsourced page claims, website fix list
+
 # Workspace standards, security and context work, 4 to 5 September 2026
 
 Owner decisions on the record: unlink the never-used marketing skills; standardise CLAUDE.md and AGENTS.md across every project; fix everything found, excluding the Barons projects.

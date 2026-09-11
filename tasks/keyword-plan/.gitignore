@@ -1,0 +1,3 @@
+# The repository is public (config.toml [repo]). Raw Search Console, Keyword Planner and
+# Business Profile exports stay on the operator's machine, never in git.
+runs/*/raw/
