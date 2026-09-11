@@ -91,6 +91,7 @@ const HUB_NIGHTS: ReadonlyArray<{
   price?: string
   tag: string
   href: string
+  related?: { label: string; href: string }
 }> = [
   {
     cadence: 'Monthly',
@@ -105,7 +106,10 @@ const HUB_NIGHTS: ReadonlyArray<{
     meta: 'Test your knowledge for a £25 bar tab, with a bottle of house wine for the second-from-last team.',
     price: '£3 entry',
     tag: '£25 bar tab',
-    href: '/quiz-night'
+    href: '/quiz-night',
+    // Beside the quiz, where someone looking for a show-themed quiz will look.
+    // The themed page was linked only from body copy on /quiz-night.
+    related: { label: 'Themed quiz nights', href: '/quiz-night/themed' }
   },
   {
     cadence: 'Monthly',
@@ -375,6 +379,7 @@ export default async function WhatsOnPage() {
                 price={night.price}
                 tag={night.tag}
                 href={night.href}
+                related={night.related}
               />
             ))}
           </div>

@@ -321,12 +321,15 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            {/* No named night or date here: this page cannot tell when one has
+                passed, and it said "Friday 25 September" in fixed text. The
+                themed page works out which night is next. */}
             <p className="mb-3 text-ink-muted">
               Every so often we build the whole quiz around one show. See our{' '}
               <Link href="/quiz-night/themed" className="font-semibold text-accent-text transition hover:text-accent-text">
                 themed quiz nights
               </Link>
-              , including the Only Fools and Horses charity quiz on Friday 25 September.
+              .
             </p>
             <p className="text-ink-muted">
               Not a quiz night? Play along at{' '}
