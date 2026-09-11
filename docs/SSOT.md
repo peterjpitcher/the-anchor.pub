@@ -379,7 +379,7 @@ This applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and
 
 ### Kids menu (regular)
 
-Sausage and mash · Fish fingers · Tomato pasta · Chicken goujons · Mini roasts (Sundays).
+Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy · Cheeseburger and chips · Chicken burger and chips · Veg burger and chips · Mac and cheese · Fish finger wrap and chips · Chicken goujon wrap and chips · On Sundays, a kids roast of beef, pork or turkey. (Mirrored from the management app on 11 September 2026.)
 
 ## 6. Drinks
 
@@ -389,7 +389,7 @@ The full drinks inventory must come from POS/API before publishing. The website 
 - **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
-- **Promotions:** The £2 double-up on spirits is running: a double for £2 more than a single (owner-confirmed, 10 September 2026). Promote any other offer only when current POS or promotion data confirms it. Monthly Manager's Special uses the current live Manager's Special source.
+- **Promotions:** The £2 double-up is running on our optics, the house spirits: a double is £2 more than a single (owner-confirmed, 10 September 2026; the optics scope mirrored from the management app's drinks prices on 11 September 2026). Promote any other offer only when current POS or promotion data confirms it. Monthly Manager's Special uses the current live Manager's Special source.
 - **Shandies:** Available for all draught lagers.
 - **Drink pricing:** Never show drink pricing unless it comes from an approved live source. Cocktail pricing may be shown only from the current approved cocktail menu/API.
 - **No food deals:** Remove stale food-deal claims unless the live management system confirms a current offer.
@@ -432,7 +432,7 @@ The threshold was 10 guests until 9 August 2026; §18 records why it moved.
 - **`GET /business/hours` only returns special hours for the next 90 days.** A check run before a date enters that window shows no row and an empty `planning.nextClosure`, which looks exactly like "nobody entered it". It is not. On 8 September 2026 the horizon reached only 7 December, so all three festive rows were invisible while being correctly set. Christmas Day enters the window on 26 September, Boxing Day on 27 September and New Year's Day on 3 October. **Query the database before concluding a closure is missing.**
 - **Group size band:** **21 to 29 seated guests is handled as a private booking, not a table booking.** (Owner-confirmed, 6 September 2026. The reason is the no-show exposure at that size, which is too large to carry on a table booking.) It sits between the sit-down maximum of 20 and the 30-guest buffet minimum, so route it to the manager rather than leaving the organiser with no route. Present it as how we look after a group that size, never as a refusal.
 - **Drinks-only Christmas party:** **no minimum spend.** (Owner-confirmed, 6 September 2026.) Arranged as a private booking so we can confirm no other services are needed. Never invent a package, a per-head price or a bar-tab minimum for it.
-- **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
+- **Christmas entertainment:** the Christmas-themed nights for the rest of 2026 are Tinsel & Tipples Christmas Tasting Night (Friday 20 November), Tinsel & Trivia Quiz Night (Wednesday 2 December), Sleigh My Name: Festive Music Bingo (Friday 11 December) and Christmas Jackpot Cash Bingo (Wednesday 16 December). Tinsel & Trivia is our normal quiz with a festive nod, not a fully themed Christmas quiz, so describe it that way. (Mirrored from the management app on 11 September 2026.) A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
 - **There is no kids 2 course or 3 course.** No child portion and no child price exists for those tiers. Children may order the adult 2-course or 3-course tier, at the adult price. State this plainly wherever the tiers are listed.
 - **Included, adults:** a glass of prosecco on the **2 and 3 course tiers only**, swappable for
@@ -593,28 +593,31 @@ step from the bar, ramp on request.
 
 ### Quiz Night
 
-- Monthly, dates vary, see listings. Currently Wednesdays.
+- Monthly, on a Wednesday, plus the occasional themed quiz on another night. The rest of 2026 is fixed: Wednesday 16 September, Friday 25 September (an Only Fools and Horses charity quiz for Macmillan Cancer Support), Wednesday 7 October, Wednesday 4 November and Wednesday 2 December. (Dates mirrored from the management app on 11 September 2026; owner-confirmed 11 September 2026 that they will not move.) Take any later date from the event records.
 - Arrive from 6:30pm · Start usually 7pm · **Aims to finish 9:30pm** (owner-confirmed 17 August 2026, and matches `end_time` 21:30 on every scheduled quiz in the management DB). The older "~9:45pm" is retired: anything still saying 9:45pm is wrong.
 - £3 per person. Team size max 6.
+- Solo players and pairs are found a team to join on the night. (Owner-confirmed 11 September 2026.)
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
 - Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 80). Every scheduled quiz record carries 60. Anything still saying 80 is wrong. **This is a mirror, not a source: page code must read capacity from the API, never from this line.**
 - Prizes: 1st place £25 bar tab; second from last gets a bottle of house wine.
-- **Phone-free.** -5 points for phone use.
-- Host: Question One Quiz Masters (Nikki Manfadge occasional).
+- **Phones away during the question rounds:** 5 points off for using one. The interactive round is played on phones. (Mirrored from the management app on 11 September 2026. Three records say one phone per player; the 25 September charity quiz says one phone per team.)
+- Host: Peter Pitcher, the owner, hosts quiz night himself. (Owner-confirmed 11 September 2026.) The older Question One Quiz Masters line is retired: anything still naming them is wrong.
 
 ### Cash Bingo
 
-- Monthly (dates vary).
+- Wednesdays, on set dates rather than every month. The rest of 2026 is fixed: 30 September, 18 November and 16 December, with no cash bingo in October. (Dates mirrored from the management app on 11 September 2026; owner-confirmed 11 September 2026 that they will not move.) Take any later date from the event records.
 - **Arrive by 6:30pm · First game 7pm · Finishes about 9:30pm.** (Owner-confirmed 17 August 2026: "I want people in for 6:30pm so they have time to get a drink, order some food, get their books and get comfortable for a 7pm start.") This supersedes the older "arrive from 6pm, book sales from 6pm" line. Books are bought on arrival, so do not publish a separate book-sales start time.
 - **The pub itself is open from 12pm.** Say so rather than implying the venue opens at the arrival time. See the banned-"Doors" note above.
 - £10 per book (**cash only**). £1 daubers cash only.
 - **18+ to play. Supervised under-18s are welcome to attend but may not play.** Publish both halves together, never one without the other.
 - 10 games. Capacity 60, mirrored from the management app on 6 September 2026. Every scheduled cash bingo record carries 60. **Mirror only: page code reads capacity from the API.**
-- Prizes vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.
+- Host: Peter Pitcher, the owner, runs cash bingo himself. (Owner-confirmed 11 September 2026.)
+- **Jackpot:** half of all book sales go into the final cash jackpot, so the prize grows with the room. (Owner-confirmed 11 September 2026.) It is the last game, and it takes £5 from every £10 book. (Mirrored from the management app on 11 September 2026.) Other prizes vary by event.
+- **Snowball (game 9):** a full house within a set number of calls. If nobody wins it, it grows by £20 and two calls at the next cash bingo night. To win it you must have played at one of the previous three cash bingo nights. Current values belong in event records only. (Mirrored from the management app on 11 September 2026.)
 
 ### Music Bingo
 
-- Dates vary.
+- Once a month on a Friday for the rest of 2026: 16 October, 13 November and 11 December. The 11 September night was cancelled in the management app on the day. (Dates mirrored from the management app on 11 September 2026; owner-confirmed 11 September 2026 that they will not move.) Take any later date from the event records.
 - Arrive from 6:30pm · **Start 7pm** unless the event record says otherwise. (Start
   time corrected from 8pm, owner-confirmed 16 August 2026. Anything still saying
   8pm is wrong.)
@@ -648,7 +651,7 @@ step from the bar, ramp on request.
 
 ### New Year's Eve
 
-- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026.) This is the one night where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. It is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip it as a hardcoded hours claim.
+- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026.) New Year's Eve and Halloween are the nights where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. Each is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip either as a hardcoded hours claim. Halloween's times are under Party nights below.
 - A DJ and a midnight countdown are confirmed for the night, see the DJ entry above.
 
 ### Curry Club
@@ -671,13 +674,14 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 ### Party nights
 
 - Standalone party nights such as the Halloween party. Not a recurring format, and only promoted when an event record lists one.
+- Halloween, Saturday 31 October 2026: the pub is open 12pm to midnight. Full menu 12pm to 6pm, no food 6pm to 9pm, then pizza only 9pm to midnight, to eat in or take away. The party runs 8pm to midnight, free entry, with DJ Jermaine. (Mirrored from the management app on 11 September 2026.)
 - Capacity 150, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.** This is the party-night figure. Do not apply it to quiz, bingo, music bingo or karaoke, which are all 60, and do not confuse it with the retired live-music capacity of 150 in the discontinued-formats note below.
 
 > **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. They are consistent within each category as at 6 September 2026: quiz night, cash bingo, music bingo and karaoke all 60, party nights 150, tasting nights 25. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one.
 
 > **Payment method comes from the event record's `payment_mode`, not from this document.** (Recorded 7 September 2026 after a page audit flagged cash-only claims on quiz and music bingo as unsourced. They are sourced, just not from here.) Verified across the upcoming events on 7 September 2026: quiz night, cash bingo and music bingo records all carry `payment_mode: cash_only`; karaoke and party nights carry `free`. The 20 November 2026 tasting night moved from `free` to `prepaid` on 9 September 2026, when it was priced. The cash-only line under §Cash Bingo below is about the £10 books and the £1 daubers specifically, which is why it reads as a Cash Bingo rule; it was never meant to imply the other formats take cards. Read the record.
 
-> Event details are managed per-event in the management app and live canonically in `SSOT.json` under `events`. The summaries above are for reference; confirm current dates, times and prices against the management app / API.
+> Event details are managed per event in the management app, which owns them (§15). The summaries above are mirrors kept for reference.
 
 ### Retired entertainment formats
 
@@ -697,7 +701,7 @@ Offer standing tickets only once all seated places are sold out, with clear noti
 
 - **Capacity:** 10+ – 150 guests. (Full venue exclusive hire: 119 seated or 300 standing; 60 seated at Christmas, 200 standing.) Values from the management DB `venue_spaces`: dining room 26 seated / 50 standing, main area 29 / 150, garden 64 / 250, whole venue 119 / 300.
 - **Dining room:** 26 seated or up to 50 standing. French doors open onto the beer garden.
-- **Spaces available:** Beer garden, dining room.
+- **Spaces:** four can be hired: the dining room, the garden, the main area and the whole pub. The dining room and the garden are the ones we want booked; the main area is priced to discourage it (see below). (Mirrored from the management app on 11 September 2026.)
 - **Room hire charge:** Charged by the hour, per space, from the management DB `venue_spaces.rate_per_hour`. Rates are published (see the table below). No setup fees. Do not publish minimum-spend wording. **Wakes are charged for like any other booking** (owner-confirmed 17 August 2026); the older "no room hire charge for wakes" line is retired.
 - **Deposit:** £250, a refundable booking and damage deposit. It **replaces** the £10 per person group deposit in §7: a private hire never pays both (owner-confirmed, 10 September 2026). It is held separately from the bill, never taken off it, and refunded after the event less any documented deductions. The signed contract says exactly this, so copy must never call it "deducted from the final bill" (§14). Approved wording is in §16.
 - **Pricing rule:** Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.
@@ -759,14 +763,14 @@ Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts
 |---|---|---|
 | Welcome Drinks | quoted per booking | 10 |
 | Bar Tab | variable, prepaid limit set by the organiser | 10 |
-| Welcome Prosecco / Orange Juice | (live, DB) | 20 |
+| Welcome Prosecco | (live, DB) | 20 |
 | Welcome Orange Juice | (live, DB) | 20 |
 | Unlimited Tea and Coffee | (live, DB) | 20 |
 | Kids Unlimited Squash | (live, DB) | 20 |
 | Pimm's Jar | (live, DB) | 40 |
 | Bring Your Own Food | free, organiser signs an outside-food waiver | none |
 
-**Welcome Orange Juice** is the non-alcoholic alternative to the Welcome Prosecco, added to the management DB on 17 August 2026 at the owner's instruction. Note the overlap: the older **Welcome Prosecco / Orange Juice** package still describes itself as covering "prosecco for adults or orange juice for children/non-drinkers" at the higher price, which now reads oddly next to a cheaper juice-only option. Flagged for the owner to decide whether that package should be renamed to Welcome Prosecco and its description narrowed.
+**Welcome Orange Juice** is the non-alcoholic partner to the **Welcome Prosecco**, with the same 20-guest minimum. The older combined package was renamed Welcome Prosecco and now covers prosecco only. (Mirrored from the management app on 11 September 2026.)
 
 ### Kids Catering
 
@@ -999,6 +1003,8 @@ Never pair it with the group deposit: a private hire pays the £250 only.
 
 > Arrive from 6:30pm for a 7pm start.
 
+Use it for quiz night, both bingos and the tasting night. Karaoke on 18 September is arrive from 7pm for an 8pm start, and the Halloween party starts at 8pm. (Mirrored from the management app on 11 September 2026.) Take any other night's times from its event record.
+
 Never "doors 6:30pm": the pub is open long before then, and "doors" tells people it isn't (§10).
 
 ## 17. Claims Register
@@ -1020,6 +1026,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **11 September 2026.** Brought into line with the management app at the owner's request, with the owner's answers of the same day. Peter Pitcher, the owner, hosts quiz night and runs cash bingo himself, so the Question One Quiz Masters line is retired; solo quiz players and pairs are found a team on the night; half of all cash bingo book sales go into the final cash jackpot (all owner-confirmed, §10). The rest of 2026's quiz, cash bingo and Music Bingo dates are set and will not move (owner-confirmed), and §10 now lists them. Cash bingo is not monthly, with none in October, and its Snowball rolls over to the next cash bingo night, not the next month. Mirrored from the app the same day: those dates (the 11 September Music Bingo was cancelled), the festive nights that replace the "Christmas quiz" line (§7), the Halloween hours and party, which join New Year's Eve as a night whose closing time copy may state (§10), the quiz phone rule, the scope of the arrival wording (§16), the kids menu (§5), the optics scope of the £2 double-up (§6), the four spaces that can be hired and the renamed Welcome Prosecco (§11). `SSOT.json` also gained the Sunday roast menu names and the three kids roasts, the six current pizzas, and price, payment and capacity mirrors for tasting and party nights.
 
 - **10 September 2026.** A Christmas booking made inside the 2 and 3 course deadline (noon, 7 days before) takes the 1 course tier only (owner decision, §7). The online form and the booking function already refused late 2 and 3 course bookings. Staff bookings, which record no courses, were read as "every guest owes a main", and the reminder cron runs at noon, the minute the form locks, so it texted guests a link to a form that refused them. Late staff bookings are now recorded as 1 course, nobody is texted once the form has locked (the manager is told instead), and both Christmas enquiry forms stop offering 2 and 3 courses for a date inside the week.
 - **10 September 2026.** A private hire pays the £250 deposit instead of the £10 per person group deposit, never both (owner-confirmed; §7, §11). The £250 is a booking and damage deposit, held separately and refunded after the event, as the signed contract says, but `/private-hire/anniversary-parties` and `/private-hire/engagement-parties` told customers it was deducted from the final bill, in five places, and one of them added the group deposit on top. The catering card on nine private-hire pages, and the deposit answer on every landmark private-hire page, gave the group deposit instead. All now use the §16 wording, and `tests/retired-claims-wording.test.ts` fails on either mistake.

@@ -497,37 +497,30 @@
       {
         "name": "Stone-Baked Pizza",
         "note": "12-inch, hand-stretched. NGCI bases available on request.",
+        "_items_source": "Active pizzas and sides mirrored from the management app 2026-09-11.",
         "items": [
           {
-            "name": "Rustic Classic",
+            "name": "Margherita",
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Simply Salami",
+            "name": "Pepperoni",
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Fully Loaded",
+            "name": "Spicy Meatball",
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Nice & Spicy",
+            "name": "BBQ Chicken",
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "The Garden Club",
+            "name": "Smoky Chilli Chicken",
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Smoked Chilli Chicken",
-            "price": "LIVE_FROM_DB"
-          },
-          {
-            "name": "Chicken & Pesto",
-            "price": "LIVE_FROM_DB"
-          },
-          {
-            "name": "Barbecue Chicken",
+            "name": "Veggie Classic",
             "price": "LIVE_FROM_DB"
           }
         ],
@@ -537,7 +530,7 @@
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Garlic Bread with Mozzarella",
+            "name": "Garlic Bread + Mozzarella",
             "price": "LIVE_FROM_DB"
           }
         ]
@@ -663,7 +656,15 @@
     "removed_items": [
       "Lamb Shank (removed from both main menu and Sunday roast as of 2026-04-29)",
       "Speck Ham & Parmesan pizza",
-      "Chicken, Ham Hock & Leek Pie (no longer served, owner-confirmed 2026-09-10)"
+      "Chicken, Ham Hock & Leek Pie (no longer served, owner-confirmed 2026-09-10)",
+      "Rustic Classic pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Simply Salami pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Fully Loaded pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Nice & Spicy pizza (inactive in the management app, mirrored 2026-09-11)",
+      "The Garden Club pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Smoked Chilli Chicken pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Chicken & Pesto pizza (inactive in the management app, mirrored 2026-09-11)",
+      "Barbecue Chicken pizza (inactive in the management app, mirrored 2026-09-11)"
     ],
     "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu, they were previously listed as removed. Updated in House Burgers section. Prices are LIVE from the management DB, never quote a figure here.",
     "copy_corrections": {
@@ -677,62 +678,92 @@
       "fallback_string": "See menu or contact us for allergen information",
       "rule": "Never render 'no allergens' or any wording implying a dish is free from allergens when allergen data is missing. Missing data means unknown, not safe. Applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and print."
     },
+    "_kids_menu_source": "Mirrored from the management app's kids menu (active dishes) 2026-09-11. Tomato pasta was listed here until then, but no pasta or tomato dish exists on any menu.",
     "kids_menu": [
-      "Sausage and mash",
-      "Fish fingers",
-      "Tomato pasta",
-      "Chicken goujons",
-      "Mini roasts (Sundays)"
+      "Chicken goujons and chips",
+      "Fish fingers and chips",
+      "Sausage, mash and gravy",
+      "Cheeseburger and chips",
+      "Chicken burger and chips",
+      "Veg burger and chips",
+      "Mac and cheese",
+      "Fish finger wrap and chips",
+      "Chicken goujon wrap and chips",
+      "On Sundays, a kids roast of beef, pork or turkey"
     ]
   },
   "sunday_roast": {
     "_source": "Menu refreshed 2026-04-29. DB table sunday_lunch_menu_items in the management project is the live source; old rows soft-deleted (is_active=false) because table_booking_items has FKs into them.",
     "price_from": "LIVE_FROM_DB",
     "currency": "GBP",
+    "_menu_names_source": "menu_name is the dish name customers see, mirrored from the management app's Sunday menu 2026-09-11. The booking system's sunday_lunch_menu_items calls the turkey 'Roasted Turkey with Stuffing Ball'. Never type a dish name that is not on the menu.",
     "options": [
       {
         "name": "Roast Beef Topside",
+        "menu_name": "Roasted Beef",
         "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "28-day topside, slow-roasted, carved fresh per plate."
       },
       {
         "name": "Roast Pork Leg",
+        "menu_name": "Roasted Pork",
         "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "Roasted pork leg sliced to order with Bramley apple sauce."
       },
       {
         "name": "Roast Turkey with Stuffing Ball",
+        "menu_name": "Roasted Turkey",
         "price": "LIVE_FROM_DB",
         "yorkshire_pudding": true,
         "notes": "Carved fresh, served with a sage and onion stuffing ball."
       },
       {
         "name": "Beef & Ale Pie",
+        "menu_name": "Beef & Ale Pie Roast",
         "price": "LIVE_FROM_DB",
         "yorkshire_pudding": false,
         "notes": "Slow-cooked British beef in ale gravy under golden short-crust pastry. NO Yorkshire pudding with the pies."
       },
       {
         "name": "Chicken & Wild Mushroom Pie",
+        "menu_name": "Chicken & Wild Mushroom Pie Roast",
         "price": "LIVE_FROM_DB",
         "yorkshire_pudding": false,
         "notes": "Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry. NO Yorkshire pudding with the pies."
       },
       {
         "name": "Beetroot & Butternut Squash Wellington",
+        "menu_name": "Beetroot & Butternut Squash Wellington",
         "price": "LIVE_FROM_DB",
         "vegan": true,
         "yorkshire_pudding": false,
         "notes": "Fully vegan. Default gravy is the regular vegan gravy. Free upgrade to the signature gravy on request, that contains meat stock, so the upgrade makes the dish non-vegan. Use 'vegan' (never 'vegetarian') in customer copy."
       },
       {
-        "name": "Kids Roast",
+        "name": "Kids Roasted Beef",
         "price": "LIVE_FROM_DB",
+        "yorkshire_pudding": true,
         "kids": true,
         "smaller_portion": true,
-        "notes": "Smaller, child-sized plate. Choice of roast pork, roast turkey or beetroot & butternut squash wellington. Yorkshire pudding only with pork or turkey."
+        "notes": "Smaller, child-sized portion. Mirrored from the management app 2026-09-11."
+      },
+      {
+        "name": "Kids Roasted Pork",
+        "price": "LIVE_FROM_DB",
+        "yorkshire_pudding": true,
+        "kids": true,
+        "smaller_portion": true,
+        "notes": "Smaller, child-sized portion. Mirrored from the management app 2026-09-11."
+      },
+      {
+        "name": "Kids Roasted Turkey",
+        "price": "LIVE_FROM_DB",
+        "yorkshire_pudding": true,
+        "kids": true,
+        "smaller_portion": true,
+        "notes": "Smaller, child-sized portion. Mirrored from the management app 2026-09-11."
       }
     ],
     "RETIRED_OPTIONS": "As of 2026-04-29 the following are RETIRED. Do NOT list: Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb in particular is no longer offered anywhere.",
@@ -767,7 +798,7 @@
       "cocktails": "Cocktail menu includes spritzes, martinis, margaritas, mojito, rum cocktails, long drinks, Pimm's and shots; confirm current menu before publishing."
     },
     "promotions": {
-      "optics_double_up": "Running: a double for £2 more than a single (owner-confirmed 2026-09-10). Any other offer only when current POS/promotion data confirms it.",
+      "optics_double_up": "Running on the optics (the house spirits): a double for £2 more than a single (owner-confirmed 2026-09-10; optics scope mirrored from the management app's drinks prices 2026-09-11). Any other offer only when current POS/promotion data confirms it.",
       "managers_special": "Monthly discounted featured premium spirit; use current Manager's Special source."
     },
     "bar_tab_policy": "Regular customers only, 7 days, maximum £50.",
@@ -824,9 +855,9 @@
     }
   ],
   "events": {
-    "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-03-22. Actual event dates, prices, and times are managed per-event in the management app, the values below are defaults.",
+    "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-09-11. Actual event dates, prices, and times are managed per-event in the management app, the values below are defaults.",
     "quiz_night": {
-      "schedule": "Monthly (dates vary, see listings). Currently Wednesdays.",
+      "schedule": "Monthly, on a Wednesday, plus the occasional themed quiz on another night. Rest of 2026: Wednesday 2026-09-16, Friday 2026-09-25 (an Only Fools and Horses charity quiz for Macmillan Cancer Support), Wednesday 2026-10-07, Wednesday 2026-11-04 and Wednesday 2026-12-02. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
       "arrive": "Usually from 6:30pm, confirm against event listing",
       "start": "Usually 7:00pm, confirm against event listing",
       "end": "Aims to finish 9:30pm",
@@ -834,17 +865,18 @@
       "duration": "2.5 hours",
       "entry_fee_gbp": 3,
       "team_size_max": 6,
+      "solo_players": "Solo players and pairs are found a team to join on the night. Owner-confirmed 2026-09-11.",
       "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
       "capacity": 60,
       "prizes": {
         "first": "£25 bar tab",
         "second_from_last": "Bottle of house wine"
       },
-      "rules": "Phone-free. -5 points for phone use.",
-      "host": "Question One Quiz Masters"
+      "rules": "Phones away during the question rounds: 5 points off for using one. The interactive round is played on phones (three records say one phone per player; the 2026-09-25 charity quiz says one phone per team). Mirrored from the management app 2026-09-11.",
+      "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired."
     },
     "cash_bingo": {
-      "schedule": "Monthly (dates vary, see listings)",
+      "schedule": "Wednesdays, on set dates. Rest of 2026: 2026-09-30, 2026-11-18, 2026-12-16, none in October. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
       "arrive": "By 6:30pm, so there is time for a drink, food and buying books before the first game",
       "_arrive_confirmed": "Owner-confirmed 17 August 2026. Retired the older 6:00pm arrival and the separate book-sales time; books are bought on arrival. The pub itself is open from 12pm.",
       "start": "7:00pm (first game)",
@@ -854,11 +886,13 @@
       "age_policy": "18+ to play. Supervised under-18s are welcome to attend but may not play. Always publish both halves together.",
       "games": 10,
       "capacity": 60,
-      "prizes": "Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls each month it rolls over. Current jackpot values belong in event records only.",
-      "snowball_rule": "Increases by £20 and 2 calls each month it rolls over."
+      "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11.",
+      "prizes": "Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls at the next cash bingo night when unclaimed. Current jackpot values belong in event records only.",
+      "jackpot_rule": "Half of all book sales (£5 of every £10 book) go into the final game's cash jackpot, so the prize grows with the room. Owner-confirmed 2026-09-11.",
+      "snowball_rule": "Grows by £20 and 2 calls at the next cash bingo night when unclaimed. Only players from one of the previous three cash bingo nights can win it. Mirrored from the management app 2026-09-11."
     },
     "music_bingo": {
-      "schedule": "Dates vary (see listings)",
+      "schedule": "Once a month on a Friday. Rest of 2026: 2026-10-16, 2026-11-13, 2026-12-11; the 2026-09-11 night was cancelled in the management app on the day. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
       "arrive": "From 6:30pm",
       "start": "7:00pm unless event record says otherwise",
       "entry_fee_gbp": 5,
@@ -920,7 +954,18 @@
         "Wine",
         "Beer"
       ],
-      "format": "Expert-led sessions"
+      "format": "Expert-led sessions",
+      "entry_fee_gbp": 45,
+      "advance_discount_gbp": 5,
+      "payment_mode": "prepaid",
+      "capacity": 25,
+      "_mirrored": "Price, advance discount, payment mode and capacity mirrored from the management app 2026-09-11 (the 2026-11-20 record). The event record wins if they differ."
+    },
+    "party_nights": {
+      "capacity": 150,
+      "payment_mode": "free",
+      "schedule": "Not recurring; only when an event record lists one",
+      "_mirrored": "Mirrored from the management app 2026-09-11 (the 2026-10-31 Halloween party record). The event record wins if they differ."
     },
     "retired_event_formats": {
       "open_mic": "Discontinued. Do not list, promote, or link to open mic nights. The retired /open-mic route redirects to /whats-on."
@@ -931,9 +976,12 @@
     "dining_room_seated": 26,
     "dining_room_note": "26 seated or up to 50 standing. French doors open onto beer garden.",
     "spaces": [
-      "Beer garden",
-      "Dining room (private hire)"
+      "The Dining Room",
+      "Outdoor Terrace/Garden",
+      "The Main Area",
+      "Entire Pub"
     ],
+    "spaces_note": "Four spaces can be hired, mirrored from the management app's active venue_spaces 2026-09-11. The dining room and the garden are the ones we want booked; the Main Area rate is set to discourage hiring it.",
     "room_hire_charge": "Charged by the hour, per space, live from the management DB venue_spaces.rate_per_hour. No setup fees. Wakes are charged for like any other booking (owner-confirmed 2026-08-17); do not publish minimum-spend wording.",
     "catering_buffet_from_gbp": "LIVE_FROM_DB",
     "catering_sitdown_from_gbp": "LIVE_FROM_DB",
@@ -1082,9 +1130,10 @@
           "min_guests": 10
         },
         {
-          "name": "Welcome Prosecco/Orange Juice",
+          "name": "Welcome Prosecco",
           "price_per_head_gbp": "LIVE_FROM_DB",
-          "min_guests": 20
+          "min_guests": 20,
+          "note": "Renamed from Welcome Prosecco/Orange Juice and now prosecco only; Welcome Orange Juice is its non-alcoholic partner. Mirrored from the management app 2026-09-11."
         },
         {
           "name": "Welcome Orange Juice",
@@ -1226,13 +1275,19 @@
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "entertainment": {
-      "christmas_quiz": true,
+      "festive_nights_2026": [
+        "2026-11-20 Tinsel & Tipples Christmas Tasting Night",
+        "2026-12-02 Tinsel & Trivia Quiz Night (normal quiz with a festive nod, not a fully themed Christmas quiz)",
+        "2026-12-11 Sleigh My Name: Festive Music Bingo",
+        "2026-12-16 Christmas Jackpot Cash Bingo"
+      ],
+      "_festive_nights_2026_source": "Mirrored from the management app 2026-09-11. Replaces the retired christmas_quiz flag: the only December quiz is not a fully themed Christmas quiz.",
       "karaoke": false,
       "live_band": false,
       "dj": "ON_REQUEST",
       "dance_floor": false,
       "shared_party_night": false,
-      "rule": "A Christmas quiz runs and may be promoted. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
+      "rule": "The festive nights in festive_nights_2026 may be promoted. Describe Tinsel & Trivia as our normal quiz with a festive nod, never as a fully themed Christmas quiz. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
       "_confirmed": "Owner-confirmed 11 August 2026",
       "christmas_market": false,
       "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market was retired on 2026-09-10 (owner-approved) and redirects to /christmas-parties; do not revive it. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
