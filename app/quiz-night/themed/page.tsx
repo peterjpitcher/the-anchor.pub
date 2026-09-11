@@ -217,7 +217,7 @@ export default function ThemedQuizNightsPage() {
           monthly quiz. Silently hiding the section leaves a page about themed
           quiz nights with no way to attend one, which reads as abandoned. */}
       {upcoming.length === 0 && (
-        <section className="bg-canvas py-section-y">
+        <section id="themed-dates" className="bg-canvas py-section-y">
           <Container>
             <div>
               <h2 className="mb-4 text-h3 text-ink-strong">Nothing themed booked in just yet</h2>
@@ -245,7 +245,7 @@ export default function ThemedQuizNightsPage() {
       )}
 
       {upcoming.length > 0 && (
-        <section className="bg-canvas py-section-y">
+        <section id="themed-dates" className="bg-canvas py-section-y">
           <Container>
             <div>
               <h2 className="mb-6 text-h3 text-ink-strong">Coming up</h2>

@@ -45,6 +45,17 @@ function isCommunalBookingMode(mode: string | null | undefined): boolean {
   return typeof mode === 'string' && mode.trim().toLowerCase() === 'communal'
 }
 
+/**
+ * True when a booking holds places rather than a table: communal seating, or
+ * general admission (the Halloween party, for example). docs/SSOT.md §1 never
+ * lets copy promise a table on a night that has none to hold.
+ */
+function isPlacesBookingMode(mode: string | null | undefined): boolean {
+  if (typeof mode !== 'string') return false
+  const normalised = mode.trim().toLowerCase()
+  return normalised === 'communal' || normalised === 'general'
+}
+
 function parseRemaining(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : null
 }
@@ -245,7 +256,11 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
   const isCommunal = isCommunalBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
-    if (!isCommunal) return 'No payment needed. Reserve seats online so your table is held.'
+    if (!isCommunal) {
+      return isPlacesBookingMode(event.booking_mode)
+        ? 'No payment needed. Book a free place for each person so we know how many to expect.'
+        : 'No payment needed. Reserve seats online so your table is held.'
+    }
 
     return hasStandingTickets(event)
       ? 'No payment needed. Book standing places online.'
@@ -280,7 +295,7 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
 
 export function getEventShortPaymentReassurance(event: EventBookingPaymentSource): string {
   const unitPrice = getEventUnitPrice(event)
-  const isCommunal = isCommunalBookingMode(event.booking_mode)
+  const isCommunal = isPlacesBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
     return isCommunal ? 'No payment needed' : 'No payment needed, booking holds your table'
@@ -323,7 +338,7 @@ export function getEventBookingAnchorHref(event: Pick<Event, 'id'> & Partial<Pic
  * mode. Standing tickets keep their own label in the form.
  */
 export function getEventBookingActionLabel(event: Pick<EventBookingPaymentSource, 'booking_mode'>): string {
-  return isCommunalBookingMode(event.booking_mode) ? 'Book your places' : 'Book a table'
+  return isPlacesBookingMode(event.booking_mode) ? 'Book your places' : 'Book a table'
 }
 
 export function getEventBookingHeroStatement(
