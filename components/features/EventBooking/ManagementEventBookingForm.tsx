@@ -106,7 +106,7 @@ interface ManagementEventBookingFormProps {
    * merely undated to that gate, and it would offer the diary entry anyway.
    */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -313,17 +313,34 @@ export function ManagementEventBookingForm({
   const availableForSelection = isCommunalEvent
     ? (seatingPreference === 'standing' ? standingRemaining : seatedRemaining)
     : normalizeRemaining(event.seats_remaining)
-  const selectionOverCapacity = availableForSelection !== null && seats > availableForSelection
+  /**
+   * A night the page shows as full, on an event that keeps a waitlist.
+   *
+   * The form used to refuse these before sending anything, so the API's
+   * `full_with_waitlist_option` answer and the Join Waitlist button below could
+   * never be reached, while the hubs label the same date "Full, join the
+   * waitlist". The count on the page is also a snapshot, and a cached page can
+   * be hours old. So the request is sent: the management API books any places
+   * that have come free since, or answers full, and the form then offers the
+   * waitlist. An event with no waitlist is still stopped here.
+   */
+  const fullWithWaitlist = !isMultiTypeEvent && availableForSelection === 0 && event.waitlist_enabled === true
+  const selectionOverCapacity = !fullWithWaitlist && availableForSelection !== null && seats > availableForSelection
   const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
   const fellBackToStanding = isCommunalEvent &&
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
   const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
+  // A fresh token is needed until something has been booked, and on a full
+  // night until the guest is on the waitlist, because joining it is a second
+  // request and every token is spent by the first.
+  const turnstileStillNeeded =
+    !result || (result.state === 'full_with_waitlist_option' && waitlistResult?.state !== 'queued')
   // The security check is standing between the guest and a booking they cannot
   // otherwise make. Say so, rather than leaving a disabled button unexplained.
   const turnstileUnavailable =
     Boolean(turnstileSiteKey) &&
-    !result &&
+    turnstileStillNeeded &&
     !turnstileToken &&
     (turnstileTimedOut || turnstileStatus === 'error' || turnstileStatus === 'unsupported')
   const turnstileRetryable = turnstileStatus !== 'unsupported'
@@ -367,7 +384,8 @@ export function ManagementEventBookingForm({
     if (!turnstileSiteKey) return
     // A booking already exists, so the post-submit widget reset behind the
     // confirmation is housekeeping, not a failure the guest needs to hear about.
-    if (result) return
+    // A full night still needs a token to join the waitlist, so its clock runs.
+    if (!turnstileStillNeeded) return
 
     if (turnstileToken || turnstileStatus === 'error' || turnstileStatus === 'unsupported') {
       setTurnstileTimedOut(false)
@@ -377,7 +395,7 @@ export function ManagementEventBookingForm({
     setTurnstileTimedOut(false)
     const timer = window.setTimeout(() => setTurnstileTimedOut(true), TURNSTILE_RECOVERY_DELAY_MS)
     return () => window.clearTimeout(timer)
-  }, [result, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
+  }, [turnstileStillNeeded, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
 
   // Adjust a ticket type's quantity within its available capacity.
   function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
@@ -790,6 +808,10 @@ export function ManagementEventBookingForm({
       setError(joinError?.message || 'We could not join the waitlist right now.')
     } finally {
       setWaitlistLoading(false)
+      // The token was spent on this request, whatever the answer, so a retry
+      // or a fresh booking needs a new one.
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -928,7 +950,7 @@ export function ManagementEventBookingForm({
                       key={count}
                       type="button"
                       aria-pressed={selected}
-                      disabled={availableForSelection !== null && count > availableForSelection}
+                      disabled={!fullWithWaitlist && availableForSelection !== null && count > availableForSelection}
                       onClick={() => {
                         setSeats(count)
                       }}
@@ -956,6 +978,13 @@ export function ManagementEventBookingForm({
               {availableForSelection === 0
                 ? 'No tickets are available. Please call us for help.'
                 : `Only ${availableForSelection} ${seatingPreference === 'standing' ? 'standing ticket' : 'seat'}${availableForSelection === 1 ? ' remains' : 's remain'}. Please choose fewer tickets or call us.`}
+            </p>
+          ) : null}
+
+          {fullWithWaitlist ? (
+            <p className="rounded-sm border border-line bg-surface-sunk p-2.5 text-sm leading-relaxed text-ink">
+              This night is showing as full. Send your details and we will check again. If it is still
+              full, you can join the waitlist.
             </p>
           ) : null}
 
@@ -1253,7 +1282,17 @@ export function ManagementEventBookingForm({
           <Alert variant="info" title="This event is currently full">
             <p>You can join the waitlist and we will contact you if {waitlistPlaceLabel} become available.</p>
             <div className="mt-3">
-              <Button type="button" size="sm" loading={waitlistLoading} onClick={handleJoinWaitlist}>
+              {/* Held until the security check hands over a fresh token: the
+                  booking attempt spent the last one, and a request without a
+                  token is refused. The recovery panel explains a long wait. */}
+              <Button
+                type="button"
+                size="sm"
+                loading={waitlistLoading}
+                disabled={turnstileSiteKey ? !turnstileToken : false}
+                aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
+                onClick={handleJoinWaitlist}
+              >
                 Join Waitlist
               </Button>
             </div>

@@ -723,6 +723,117 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.requested_seats).toBe(4)
   })
 
+  /**
+   * The hubs label a full date "Full, join the waitlist", but when the page
+   * said nothing was left the form refused before sending anything, so the
+   * API's full_with_waitlist_option answer and the Join Waitlist button were
+   * never reached. Mocked end to end: nothing here reaches the live API.
+   */
+  describe('a night the page shows as full', () => {
+    const FULL_EVENT = {
+      id: '550e8400-e29b-41d4-a716-446655440000',
+      name: 'Autumn Kick-Off Quiz Night',
+      slug: 'autumn-kick-off-quiz-night-2999-01-01',
+      startDate: '2999-01-01T19:00:00Z',
+      payment_mode: 'cash_only',
+      price_per_seat: 3
+    }
+
+    function fillDetails() {
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    }
+
+    function answerBookingWith(bookingData: Record<string, unknown>) {
+      const sent: { booking: Record<string, unknown>[]; waitlist: Record<string, unknown>[] } = { booking: [], waitlist: [] }
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input)
+        if (url === '/api/event-bookings') {
+          sent.booking.push(JSON.parse(String(init?.body)))
+          return new Response(JSON.stringify({ success: true, data: bookingData }), { status: 200 })
+        }
+        if (url === '/api/event-waitlist') {
+          sent.waitlist.push(JSON.parse(String(init?.body)))
+          return new Response(
+            JSON.stringify({ success: true, data: { queued: true, state: 'queued', waitlist_entry_id: 'waitlist-1', reason: null, seats_remaining: 0 } }),
+            { status: 201 }
+          )
+        }
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+      return sent
+    }
+
+    const FULL_ANSWER = {
+      state: 'full_with_waitlist_option',
+      booking_id: null,
+      reason: 'insufficient_capacity',
+      seats_remaining: 0,
+      next_step_url: null,
+      manage_booking_url: null
+    }
+
+    it.each([
+      ['a table night', { booking_mode: 'table', seats_remaining: 0 }],
+      ['a communal night', { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 0, total_remaining: 0 }]
+    ])('sends %s with a waitlist to the API, then offers the waitlist', async (_label, capacity) => {
+      const sent = answerBookingWith(FULL_ANSWER)
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, ...capacity, waitlist_enabled: true }} />)
+
+      expect(screen.getByText(/This night is showing as full/)).toBeInTheDocument()
+      expect(screen.queryByText('No tickets are available. Please call us for help.')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '4' })).toBeEnabled()
+
+      fireEvent.click(screen.getByRole('button', { name: '4' }))
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+      fireEvent.click(await screen.findByRole('button', { name: 'Join Waitlist' }))
+      await screen.findByText(/on the waitlist/)
+
+      expect(sent.booking).toHaveLength(1)
+      expect(sent.booking[0].seats).toBe(4)
+      expect(sent.waitlist).toHaveLength(1)
+      expect(sent.waitlist[0]).toMatchObject({
+        event_id: FULL_EVENT.id,
+        requested_seats: 4,
+        first_name: 'Jane',
+        last_name: 'Guest'
+      })
+    })
+
+    it('books the places when some have come free since the page was cached', async () => {
+      const sent = answerBookingWith({ state: 'confirmed', booking_id: 'booking-freed', reason: null, seats_remaining: 3, next_step_url: null, manage_booking_url: null })
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, booking_mode: 'table', seats_remaining: 0, waitlist_enabled: true }} />)
+
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+      await screen.findByText('Event booking confirmed')
+      expect(sent.booking).toHaveLength(1)
+      expect(sent.waitlist).toHaveLength(0)
+    })
+
+    it('still stops a full night with no waitlist before sending anything', async () => {
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+        throw new Error(`Unexpected fetch call: ${String(input)}`)
+      })
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, booking_mode: 'table', seats_remaining: 0 }} />)
+
+      expect(screen.getByText('No tickets are available. Please call us for help.')).toBeInTheDocument()
+      expect(screen.queryByText(/This night is showing as full/)).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '1' })).toBeDisabled()
+
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+      await screen.findByText('That many tickets are no longer available. Please choose fewer tickets or call us.')
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+  })
+
   // /karaoke is free entry, and the email field still promised "any payment
   // follow-up". There is no payment on a free event, so there is no follow-up.
   it('promises a payment follow-up only when the event can actually charge', () => {
@@ -1333,6 +1444,87 @@ describe('ManagementEventBookingForm security check recovery', () => {
     expect(mockTurnstileReset).toHaveBeenCalled()
     advanceBy(10_000)
     expectRecoveryPanel(RECOVERY_MESSAGE)
+  })
+
+  /**
+   * Joining the waitlist is a second request, and the booking attempt that
+   * answered "full" spent the only token. A Join Waitlist click without a fresh
+   * one is refused by the security check, so the button waits for it.
+   */
+  describe('on a full night', () => {
+    function renderFullNight() {
+      return render(
+        <ManagementEventBookingForm
+          event={{
+            id: 'turnstile-full-fixture',
+            name: 'Quiz Night',
+            startDate: '2999-01-01T19:00:00Z',
+            price_per_seat: 3,
+            booking_mode: 'table',
+            seats_remaining: 0,
+            waitlist_enabled: true
+          }}
+        />
+      )
+    }
+
+    function answerFullThenQueued(): Array<{ url: string; body: Record<string, unknown> }> {
+      const sent: Array<{ url: string; body: Record<string, unknown> }> = []
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input)
+        if (url === '/api/event-bookings' || url === '/api/event-waitlist') {
+          sent.push({ url, body: JSON.parse(String(init?.body)) })
+          const data = url === '/api/event-bookings'
+            ? { state: 'full_with_waitlist_option', booking_id: null, reason: 'insufficient_capacity', seats_remaining: 0, next_step_url: null, manage_booking_url: null }
+            : { queued: true, state: 'queued', waitlist_entry_id: 'waitlist-1', reason: null, seats_remaining: 0 }
+          return new Response(JSON.stringify({ success: true, data }), { status: 200 })
+        }
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+      return sent
+    }
+
+    it('holds Join Waitlist until a fresh token arrives, then spends that token', async () => {
+      const sent = answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      const joinWaitlist = screen.getByRole('button', { name: 'Join Waitlist' })
+      expect(joinWaitlist).toBeDisabled()
+      expect(mockTurnstileReset).toHaveBeenCalledTimes(1)
+
+      emitTurnstile('onSuccess', 'waitlist-token')
+      expect(joinWaitlist).toBeEnabled()
+      fireEvent.click(joinWaitlist)
+
+      await waitFor(() => expect(screen.getByText(/on the waitlist/)).toBeInTheDocument())
+      expect(sent.map((request) => request.url)).toEqual(['/api/event-bookings', '/api/event-waitlist'])
+      expect(sent[0].body.turnstile_token).toBe('booking-token')
+      expect(sent[1].body.turnstile_token).toBe('waitlist-token')
+      // Spent on the waitlist request, so it is reset for anything that follows.
+      expect(mockTurnstileReset).toHaveBeenCalledTimes(2)
+    })
+
+    it('explains the held button when no fresh token turns up', async () => {
+      answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      advanceBy(10_000)
+
+      expectRecoveryPanel(RECOVERY_MESSAGE)
+      expect(screen.getByRole('button', { name: 'Join Waitlist' })).toHaveAttribute(
+        'aria-describedby',
+        'event-booking-turnstile-recovery'
+      )
+      expectDetailsSurvived()
+    })
   })
 })
 
