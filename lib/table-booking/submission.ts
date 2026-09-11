@@ -94,6 +94,30 @@ export function confirmationDeliveryCopy(
 }
 
 /**
+ * Where the deposit screen sends the guest to find their payment link. The
+ * management app sends that message by email first when the guest has a usable
+ * address, so the screen names the channel the API reports rather than
+ * assuming a text.
+ */
+export function paymentLinkDestination(
+  channel?: ManagementTableBookingResult['notification_channel']
+): string {
+  if (channel === 'email') return 'to your email'
+  if (channel === 'whatsapp') return 'on WhatsApp'
+  if (channel === 'sms') return 'to your phone'
+  return 'you'
+}
+
+export function paymentLinkReminderCopy(
+  channel?: ManagementTableBookingResult['notification_channel']
+): string {
+  if (channel === 'email') return "Or check your email, we've sent you a secure payment link."
+  if (channel === 'whatsapp') return "Or check WhatsApp, we've sent you a secure payment link."
+  if (channel === 'sms') return "Or check your phone, we've sent you a secure payment link by SMS."
+  return "Or check your phone or email for the secure payment link we've sent you."
+}
+
+/**
  * One seat's meal choices, on the wire exactly as the management API takes them.
  * Position in the array is the seat, so entries are never sorted or filtered.
  */
