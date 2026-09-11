@@ -10,6 +10,8 @@ describe('page booking actions', () => {
     ['/quiz-night/', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
     ['/music-bingo', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
     ['/karaoke', { kind: 'link', label: 'View upcoming dates', href: '#book' }],
+    ['/whats-on', { kind: 'link', label: 'View upcoming dates', href: '#upcoming-events' }],
+    ['/whats-on/', { kind: 'link', label: 'View upcoming dates', href: '#upcoming-events' }],
     ['/christmas-parties', { kind: 'christmas', label: 'Christmas enquiry' }],
     ['/live-sport/nations-championship', { kind: 'link', label: 'Choose a game', href: '#fixtures' }],
   ])('%s chooses its own journey', (pathname, expected) => {

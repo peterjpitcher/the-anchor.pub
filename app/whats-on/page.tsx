@@ -7,6 +7,7 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
 import { UpcomingEvents } from '@/components/events/UpcomingEvents'
 import { RegularEventCard } from './_components/RegularEventCard'
+import { WhatsOnUpcomingButton, WHATS_ON_UPCOMING_ANCHOR } from './_components/WhatsOnUpcomingButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -276,11 +277,7 @@ export default async function WhatsOnPage() {
         }
         actions={
           <>
-            <Button asChild variant="primary" size="lg" fullWidth>
-              <Link href="/book-table?source=whats_on_hero" className="w-full sm:w-auto">
-                Reserve an event table
-              </Link>
-            </Button>
+            <WhatsOnUpcomingButton />
             <Button asChild variant="outline" size="lg" fullWidth>
               <Link href="/food-menu" className="w-full sm:w-auto">
                 See the food menu
@@ -289,13 +286,12 @@ export default async function WhatsOnPage() {
           </>
         }
       />
-      <TournamentLink />
-
-      {/* 2. AmenityStrip (§7.3.2) */}
-      <AmenityStrip/>
-
-      {/* 3. Next up (§7.3.3): cream, live events from the management API. */}
-      <section id="upcoming-events" className="bg-canvas py-section-y">
+      {/* 2. Next up (§7.3.3): cream, live events from the management API.
+          Directly under the hero on purpose. It used to sit below the Nations
+          Championship card and the amenity strip, which put the first event
+          card 1,522px down on a 375px phone, on the page people open to find
+          out what is on. */}
+      <section id={WHATS_ON_UPCOMING_ANCHOR} className="bg-canvas py-section-y">
         <Container>
           {/* The heading says nothing about how far ahead the list reaches.
               "This month's headline nights" sat above fifteen events running
@@ -354,6 +350,11 @@ export default async function WhatsOnPage() {
           </SpeakableContent>
         </Container>
       </section>
+
+      <TournamentLink />
+
+      {/* 3. AmenityStrip (§7.3.2) */}
+      <AmenityStrip/>
 
       {/* 4. The regulars (§7.3.4): white, verified recurring nights only (O4). */}
       <section className="bg-surface py-section-y">
