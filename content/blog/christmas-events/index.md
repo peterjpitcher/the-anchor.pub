@@ -30,7 +30,7 @@ images: []
 
 ![A table laid for Christmas dinner at The Anchor in Stanwell Moor](/content/blog/christmas-events/hero-2026.jpg)
 
-Christmas at The Anchor is a village pub Christmas: your own table, a proper roast dinner, and a quiz on a Tuesday. We are in Stanwell Moor, seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.
+Christmas at The Anchor is a village pub Christmas: your own table, a proper roast dinner, and a quiz on a Wednesday. We are in Stanwell Moor, seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.
 
 This is what is happening here this festive season, and when we are open.
 

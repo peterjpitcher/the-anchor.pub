@@ -78,7 +78,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Explore our exceptional drinks selection at The Anchor Stanwell Moor. Bottled beers, draught lagers, premium spirits, wines & cocktails. We\'re 7 minutes from Heathrow.',
     heroContent: 'Discover our exceptional drinks selection at The Anchor, where quality meets tradition in the heart of Stanwell Moor village. From well-kept draught beers to premium spirits, we\'ve curated a bar menu that satisfies every taste.',
     introContent: 'At The Anchor, we take pride in our carefully curated drinks menu. Our bar features a good range of bottled beers, familiar draught lagers, premium spirits from around the world, and a wine list chosen to complement our food menu perfectly. Whether you\'re a beer lover, cocktail connoisseur, or wine lover, our knowledgeable staff are here to help you find your perfect drink.',
-    valueProposition: 'Discover why The Anchor is Stanwell Moor\'s favourite drinking destination. With regular tasting events, seasonal specials, and a warm welcome near Heathrow, your perfect pint is always waiting.',
+    valueProposition: 'Discover why The Anchor is Stanwell Moor\'s favourite drinking destination. With occasional tasting events, seasonal specials, and a warm welcome near Heathrow, your perfect pint is always waiting.',
     keywords: ['pub drinks menu stanwell moor', 'draught beer near heathrow', 'cocktails stanwell moor', 'wine bar surrey', 'drinks TW19']
   },
 
@@ -168,7 +168,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Join our monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, £3 entry. Book your team table. We are around 7 minutes from Heathrow.',
     heroContent: 'Put your knowledge to the test at The Anchor. Join us monthly, dates vary, for team trivia, prizes and bragging rights.',
     introContent: 'Our monthly quiz nights bring the community together. The quiz usually starts at 7pm, with questions ranging from general knowledge to music, sport and local history. Entry is £3 per person.',
-    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With cash prizes for the winners and spot prizes throughout, it\'s the perfect night out. Tables fill up fast, so book early!',
+    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With £25 for the winning team to spend at the bar and spot prizes throughout, it\'s the perfect night out.',
     keywords: ['pub quiz stanwell moor', 'quiz night near heathrow', 'monthly quiz surrey', 'trivia night TW19', 'team quiz stanwell moor']
   },
 
@@ -289,7 +289,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Tasting Events Stanwell Moor | Wine & Spirit Tastings at The Anchor',
     metaDescription: 'Join exclusive tasting events at The Anchor Stanwell Moor. Wine, whisky, gin & rum tastings with experts. Book your tasting experience near Heathrow.',
     heroContent: 'Elevate your palate at The Anchor\'s exclusive tasting events. From fine wines to premium spirits, discover new favourites in Stanwell Moor.',
-    introContent: 'Our regular tasting events have become a highlight for discerning drinkers in Stanwell Moor. Led by expert hosts, these intimate gatherings explore the world of wine, whisky, gin, rum, and other premium spirits. Each event includes carefully selected samples, expert commentary, tasting notes, and paired nibbles to enhance the experience.',
+    introContent: 'Our occasional tasting events have become a highlight for discerning drinkers in Stanwell Moor. Led by expert hosts, these intimate gatherings explore the world of wine, whisky, gin, rum, and other premium spirits. Each event includes carefully selected samples, expert commentary, tasting notes, and paired nibbles to enhance the experience.',
     valueProposition: 'Spaces are limited for our tasting events to ensure an intimate, educational experience. Book early to secure your place at our next tasting and expand your drinks knowledge in great company.',
     keywords: ['tasting events stanwell moor', 'wine tasting heathrow', 'whisky tasting surrey', 'gin tasting TW19', 'spirit events stanwell moor']
   },

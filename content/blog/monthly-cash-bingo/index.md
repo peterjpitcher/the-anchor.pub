@@ -1,10 +1,10 @@
 ---
-title: Cash Bingo Near Heathrow | Monthly in Stanwell Moor
+title: Cash Bingo Near Heathrow | Wednesdays in Stanwell Moor
 slug: monthly-cash-bingo
 description: >-
-  Monthly cash bingo at The Anchor in Stanwell Moor, near Heathrow. Ten games,
-  £10 books (cash only), first game at 7pm. 18+ to play, supervised under-18s
-  welcome.
+  Cash bingo on set Wednesdays at The Anchor in Stanwell Moor, near Heathrow.
+  Ten games, £10 books (cash only), first game at 7pm. 18+ to play, supervised
+  under-18s welcome.
 date: '2025-01-26'
 oldUrl: >-
   https://www.the-anchor.pub/post/cash-bingo-at-the-anchor-win-50-at-our-monthly-bin
@@ -27,7 +27,7 @@ noindex: true
 
 ![Graphic reading "Monthly Cash Bingo", surrounded by colourful bingo balls, with The Anchor, Stanwell Moor Village logo on a dark green background.](/content/blog/monthly-cash-bingo/hero.jpg)
 
-For **bingo near Heathrow**, cash bingo runs once a month at The Anchor in Stanwell Moor. The dates vary, so the [cash bingo page](/cash-bingo) always has the next one.
+For **bingo near Heathrow**, cash bingo runs on set Wednesdays at The Anchor in Stanwell Moor. It is not every month, so the [cash bingo page](/cash-bingo) always has the next date.
 
 ## How the night works
 
@@ -36,7 +36,7 @@ For **bingo near Heathrow**, cash bingo runs once a month at The Anchor in Stanw
 - **Ten games** over the evening.
 - **Books are £10 each, cash only.** You buy them when you arrive. Daubers are £1, also cash only.
 - **Prizes vary by event.**
-- **The snowball** grows by £20 and 2 calls every month nobody wins it. The current jackpot is on the event listing.
+- **The snowball** grows by £20 and 2 calls at the next cash bingo night whenever nobody wins it. To win it, you need to have played at one of the previous three cash bingo nights. The current jackpot is on the event listing.
 
 ## Who can play
 

@@ -222,7 +222,7 @@ Host your own **private tasting event** at our **pub near Heathrow**:
 ### More Than Just Tastings
 
 Beyond our spirit events, The Anchor hosts:
-- **Quiz nights** every Thursday
+- **Quiz nights**, monthly and usually on a Wednesday
 - **Weekend entertainment**
 - **Seasonal celebrations**
 - **Food pairing dinners**

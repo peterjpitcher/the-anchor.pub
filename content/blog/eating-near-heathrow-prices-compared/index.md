@@ -135,7 +135,7 @@ Proper British pub food, cooked fresh to order. Our menu covers pub classics, bu
 
 On Sundays, we do proper roasts: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington. Walk in or book ahead, no pre-order needed. It's proper Sunday food with herb and garlic-crusted potatoes, seasonal veg and gravy.
 
-We also have a kids menu: sausage and mash, fish fingers, chicken goujons, or tomato pasta, with current prices shown on the live menu.
+We also have a kids menu: sausage, mash and gravy, fish fingers, chicken goujons, or mac and cheese, with current prices shown on the live menu.
 
 ### The setting
 
