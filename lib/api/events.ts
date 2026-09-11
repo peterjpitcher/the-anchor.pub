@@ -270,20 +270,20 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       color: '#8b5cf6',
       icon: '',
       is_active: true,
-      default_start_time: '20:00',
-      default_capacity: 120,
+      default_start_time: '19:00',
+      default_capacity: 60,
       event_count: 0
     },
     {
       id: 'quiz-nights',
       name: 'Quiz Nights',
       slug: 'quiz-nights',
-      description: 'Weekly quiz nights with rolling jackpots and prizes.',
+      description: 'Monthly quiz nights, usually on a Wednesday.',
       color: '#0ea5e9',
       icon: '',
       is_active: true,
-      default_start_time: '19:30',
-      default_capacity: 80,
+      default_start_time: '19:00',
+      default_capacity: 60,
       event_count: 0
     }
     // No live music category. Live music is discontinued in full

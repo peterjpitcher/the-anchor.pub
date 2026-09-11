@@ -722,7 +722,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
   })
 
   it('does not contradict the cash bingo format (section 10)', () => {
-    // Cash bingo is monthly on varying dates, with ten games and prizes that
+    // Cash bingo runs on set Wednesdays (not every month), with ten games and prizes that
     // vary by event. Until 10 September 2026 a post promised first Thursdays,
     // three games and a guaranteed £50 jackpot, and a New Year post repeated
     // "First Thursday Bingo".

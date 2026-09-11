@@ -147,7 +147,7 @@ export default async function EventArchivePage() {
 
       <CtaBand
         title="Fancy the next one?"
-        copy="Our quiz nights, music bingo and cash bingo run every month. Pick a date and reserve a table."
+        copy="Quiz night and Music Bingo run monthly, and cash bingo on set Wednesdays. Pick a date and book your places."
       >
         <Button asChild size="lg" className="w-full sm:w-auto">
           <Link href="/whats-on">See what&rsquo;s on</Link>

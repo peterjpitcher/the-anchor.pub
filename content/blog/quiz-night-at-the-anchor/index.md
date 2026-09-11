@@ -39,9 +39,9 @@ Our **pub quiz near Heathrow Airport** has become the highlight of the week for 
 **Quiz Night Details:**
 - **Monthly quiz nights** starting at 7:00 PM
 - **Hosted by the owner**, Peter Pitcher
-- **6 rounds** of varied questions
-- **Prizes every week** for top teams
-- **Drinks prizes** scattered throughout
+- **Four rounds** of ten questions, plus an interactive quick-fire round
+- **A £25 prize** for the winning team, and a bottle of house wine for second from last
+- **Spot prizes** through the night
 - **Maximum 6 people** per team
 
 Join us for an evening of brain-teasing fun, friendly competition, and great prizes!
@@ -50,8 +50,8 @@ Join us for an evening of brain-teasing fun, friendly competition, and great pri
 
 ### More Than Just Questions and Answers
 
-**Professional Quality:**
-- Expert quiz masters ensure fair play
+**Run properly:**
+- Phones away during the rounds, so it stays fair
 - Balanced questions for all knowledge levels
 - Picture rounds and music rounds
 - Current events and classic trivia
@@ -89,12 +89,10 @@ Join us for an evening of brain-teasing fun, friendly competition, and great pri
 
 Our **monthly pub quiz** offers fantastic prizes:
 
-**Regular Prizes:**
-- **1st Place**: £50 bar tab
-- **2nd Place**: £30 bar tab
-- **3rd Place**: £20 bar tab
-- **Spot prizes**: Free drinks throughout
-- **Bonus rounds**: Extra chances to win
+**Prizes:**
+- **Winning team**: £25 to spend at the bar
+- **Second from last**: a bottle of house wine
+- **Spot prizes** through the night
 
 **Special Events:**
 - Monthly rollover jackpot
@@ -234,8 +232,8 @@ Contact us for bespoke quiz packages.
 
 Don't miss out on **quiz night in Stanwell Moor**! Whether you're a quiz veteran or first-timer, The Anchor's Monthly Quiz Night offers:
 
-✓ Professional quiz masters  
-✓ Great prizes every week  
+✓ A quiz hosted by the owner  
+✓ A £25 prize for the winners  
 ✓ Friendly atmosphere  
 ✓ Delicious food and drinks  
 ✓ Free parking  

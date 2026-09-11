@@ -265,13 +265,15 @@ export const bingoEventSeries = {
   "@context": "https://schema.org",
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#bingo-series",
-  "name": "Monthly Cash Bingo Night",
-  "description": "Monthly cash bingo night, £10 per book, cash only. 10 games with various prizes, plus a rolling snowball and a cash jackpot on the last game. 18+ to play.",
+  "name": "Cash Bingo Night at The Anchor",
+  "description": "Cash bingo on set Wednesday nights, £10 a book, cash only. Ten games with prizes, a snowball and a cash jackpot on the last game. 18+ to play; supervised under-18s are welcome to attend.",
   "startDate": "2024-01-01",
   "endDate": rollingSeriesEndDate(),
   "eventSchedule": {
     "@type": "Schedule",
-    "repeatFrequency": "P1M",
+    // No repeatFrequency: cash bingo runs on set Wednesdays, not every month
+    // (mirrored from the management app, 11 September 2026).
+    "byDay": "https://schema.org/Wednesday",
     "startTime": "19:00:00",
     // 21:30, matching `end_time` on every scheduled cash bingo in the management
     // DB. This said 21:00 while the page said "finale by 9:30pm".

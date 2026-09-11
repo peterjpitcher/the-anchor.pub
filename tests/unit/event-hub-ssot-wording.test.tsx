@@ -70,11 +70,16 @@ describe('/whats-on', () => {
     expect(serialise(await WhatsOnPage())).not.toMatch(/free entry nights/i)
   })
 
-  it('claims no monthly cadence for Music Bingo', async () => {
+  // docs/SSOT.md §10, mirrored from the management app on 11 September 2026:
+  // Music Bingo is monthly on a Friday for the rest of 2026, and cash bingo
+  // runs on set Wednesdays, not every month.
+  it('labels each night with the cadence the SSOT gives it', async () => {
     const output = serialise(await WhatsOnPage())
 
     expect(output).not.toMatch(/three that come round every month/i)
-    expect(output).toMatch(/"cadence":"Dates vary","title":"Music Bingo with Nikki Manfadge"/)
+    expect(output).toMatch(/"cadence":"Monthly","title":"Music Bingo with Nikki Manfadge"/)
+    expect(output).toMatch(/"cadence":"Set Wednesdays","title":"Cash Prize Bingo"/)
+    expect(output).not.toMatch(/cash bingo (?:is|are|runs?) (?:every month|monthly)/i)
   })
 
   it('publishes no venue capacity or stage, sound or lighting features', async () => {

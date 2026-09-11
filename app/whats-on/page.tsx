@@ -94,8 +94,9 @@ const HUB_NIGHTS: ReadonlyArray<{
   related?: { label: string; href: string }
 }> = [
   {
-    // docs/SSOT.md §10: Music Bingo "Dates vary". It is not a monthly fixture.
-    cadence: 'Dates vary',
+    // docs/SSOT.md §10: once a month on a Friday for the rest of 2026
+    // (mirrored from the management app, 11 September 2026).
+    cadence: 'Monthly',
     title: 'Music Bingo with Nikki Manfadge',
     meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
     tag: 'Hosted night',
@@ -113,7 +114,8 @@ const HUB_NIGHTS: ReadonlyArray<{
     related: { label: 'Themed quiz nights', href: '/quiz-night/themed' }
   },
   {
-    cadence: 'Monthly',
+    // docs/SSOT.md §10: set Wednesdays, not every month (no October night in 2026).
+    cadence: 'Set Wednesdays',
     title: 'Cash Prize Bingo',
     meta: 'Cash-only books with prizes throughout the night and a jackpot to finish.',
     price: '£10 a book',
@@ -259,7 +261,7 @@ export default async function WhatsOnPage() {
         crumb="What's On"
         kicker="What's on"
         title="What's On at The Anchor"
-        lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and reserve your table."
+        lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and book your places."
         badges={
           // No "Free entry nights" chip: quiz, Music Bingo and cash bingo are
           // all paid (docs/SSOT.md §10), and only karaoke is free.
@@ -353,9 +355,9 @@ export default async function WhatsOnPage() {
       <section className="bg-surface py-section-y">
         <Container>
           <SectionHeading
-            kicker="The regulars"
+            kicker="Game nights"
             title="Our nights"
-            lead="Quiz night and cash bingo are monthly, Music Bingo dates vary, and karaoke is occasional. See each page for the next date and to book your places."
+            lead="Quiz night and Music Bingo are monthly, cash bingo runs on set Wednesdays, and karaoke is occasional. See each page for the next date and to book your places."
           />
 
           <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">

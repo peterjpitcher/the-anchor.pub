@@ -44,7 +44,7 @@ export const quizNight: GameNightConfig = {
     { label: 'Entry', value: '£3 per player, cash' },
     { label: 'Teams', value: 'Up to 6 players' },
     { label: 'Time', value: '7pm to 9:30pm' },
-    { label: 'House rule', value: 'Phones away' },
+    { label: 'House rule', value: 'Phones away in the rounds' },
     { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 

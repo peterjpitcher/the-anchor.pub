@@ -255,7 +255,7 @@ export default async function QuizNightPage() {
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
             Once a month we turn The Anchor into a proper pub quiz for Stanwell Moor, Staines,
-            Ashford and Bedfont. No app, no specialist rounds, no need for a full team.{' '}
+            Ashford and Bedfont. No specialist rounds, and no need for a full team.{' '}
             {heroDescription}
           </p>
         </Container>

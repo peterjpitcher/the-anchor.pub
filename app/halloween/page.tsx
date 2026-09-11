@@ -96,7 +96,7 @@ const faqs = [
   {
     question: 'Do you serve food on Halloween?',
     answer:
-      'Yes, our regular food menu is available earlier in the evening before the disco gets going. Confirmed kitchen times for the night go on our What\u2019s On page. Book a table if you\u2019d like to eat.',
+      'Yes, but plan around the kitchen. The full menu runs until 6pm, the kitchen is closed from 6pm to 9pm, and pizza is served from 9pm to midnight, to eat in or take away. Book a table if you\u2019d like to eat before 6pm.',
   },
   {
     question: 'What Halloween events are on near me?',
@@ -190,8 +190,8 @@ export default function HalloweenPage() {
                 Food &amp; drink
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                Our regular food menu is available earlier in the evening, so you can come for dinner before the
-                disco gets going. Confirmed kitchen times for the night go on our What&apos;s On page. Take a look at
+                The full menu runs until 6pm, so come early if you want dinner. The kitchen is closed from 6pm to
+                9pm, then pizza is served from 9pm to midnight, to eat in or take away. Take a look at
                 our{' '}
                 <Link href="/food-menu" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                   food menu

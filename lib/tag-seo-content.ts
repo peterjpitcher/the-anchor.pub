@@ -267,7 +267,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Pizza Stanwell Moor | Stone-Baked Pizza at The Anchor',
     metaDescription: 'Delicious stone-baked pizzas at The Anchor Stanwell Moor. Authentic Italian recipes, fresh ingredients, eat in or takeaway. Stone-baked pizza near Heathrow.',
     heroContent: 'Experience authentic stone-baked pizzas at The Anchor, where traditional Italian methods meet fresh, quality ingredients in the heart of Stanwell Moor.',
-    introContent: 'Our pizza menu is a slice of Italy in Stanwell Moor. Each pizza is hand-stretched and stone-baked to perfection, creating that perfect combination of crispy base and bubbling toppings. From the classic Rustic Classic to creative house specials like the Fully Loaded, we use ingredients including San Marzano tomatoes, fresh mozzarella, and locally-sourced toppings where possible.',
+    introContent: 'Our pizza menu is a slice of Italy in Stanwell Moor. Each pizza is hand-stretched and stone-baked to perfection, creating that perfect combination of crispy base and bubbling toppings. From a classic Margherita to a Smoky Chilli Chicken, we use ingredients including San Marzano tomatoes, fresh mozzarella, and locally-sourced toppings where possible.',
     valueProposition: 'Whether you\'re dining in our cosy restaurant or grabbing a takeaway, our pizzas are always made fresh to order. Try our pizza and drink deal for the perfect casual meal any night of the week.',
     keywords: ['pizza stanwell moor', 'stone baked pizza heathrow', 'italian restaurant surrey', 'best pizza TW19', 'pizza takeaway stanwell moor']
   },

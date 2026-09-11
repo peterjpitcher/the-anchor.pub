@@ -466,7 +466,7 @@ export default async function MusicBingoPage() {
       </section>
 
       {/* No <JsonLd data={bingoEventSeries} /> here. That constant describes the
-          CASH bingo series ("Monthly Cash Bingo Night", £10 per book, cash only)
+          CASH bingo series (£10 per book, cash only)
           and this page was publishing it alongside its own music bingo series, so
           the music bingo URL declared itself to be a £10 cash bingo night as well
           as a £5 music bingo one. It belongs on /cash-bingo only. */}

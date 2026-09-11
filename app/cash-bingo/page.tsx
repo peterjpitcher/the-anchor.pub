@@ -63,11 +63,11 @@ const WHAT_IT_IS = [
   },
   {
     title: 'Winnings paid on the night',
-    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from month to month.'
+    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from night to night.'
   },
   {
     title: 'The rolling snowball',
-    body: 'Every month nobody claims it, the snowball grows by £20 and gains two extra calls, which makes it easier to win the longer it survives. The current target is on the event listing.'
+    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on the event listing.'
   }
 ]
 
@@ -90,7 +90,7 @@ const FAQS = [
   {
     question: 'How does the snowball jackpot work?',
     answer:
-      'It is a full house within a set number of calls. Each month it goes unclaimed it grows by £20 and gains two extra calls, so it gets easier to win over time. The current target and who is eligible are on the event listing below, because those change every month.'
+      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on the event listing below, because it changes from night to night.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -109,7 +109,7 @@ function BingoEventCards({ events, datesUnavailable }: { events: Event[]; datesU
     <GameNightDateCards
       events={events}
       datesUnavailable={datesUnavailable ? { gameName: cashBingo.name } : undefined}
-      eyebrow="Monthly cash bingo"
+      eyebrow="Cash bingo nights"
       bookingSource="cash_bingo_event_card"
       calendarSource="cash_bingo_date_card"
       imageAltSuffix="cash bingo night at The Anchor"
@@ -245,7 +245,7 @@ export default async function CashBingoPage() {
         gameName={cashBingo.name}
         gameSlug={cashBingo.slug}
         title="What a cash bingo night looks like"
-        intro="Real photos from recent nights. Ten games, winnings paid out on the night, and a snowball that grows every month nobody claims it."
+        intro="Real photos from recent nights. Ten games, winnings paid out on the night, and a snowball that grows every night nobody claims it."
       />
 
       <section id="bingo-dates" className="py-section-y bg-surface">
