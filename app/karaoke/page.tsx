@@ -358,7 +358,7 @@ export default async function KaraokePage() {
               <Link href="/quiz-night" className="font-semibold text-accent-text transition hover:text-accent-text">
                 Wednesday pub quiz
               </Link>{' '}
-              with a £25 bar tab for the winners,{' '}
+              with a £25 bar voucher for the winners,{' '}
               <Link href="/music-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
                 music bingo
               </Link>{' '}

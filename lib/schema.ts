@@ -208,7 +208,7 @@ export const quizNightEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#quiz-night-series",
   "name": "Monthly Quiz Night at The Anchor",
-  "description": "Test your knowledge at our monthly Wednesday pub quiz. £3 per person, teams up to 6, 7pm to 9:30pm, with a £25 bar tab for the winners.",
+  "description": "Test your knowledge at our monthly Wednesday pub quiz. £3 per person, teams up to 6, 7pm to 9:30pm, with a £25 bar voucher for the winners.",
   "startDate": "2024-01-01",
   "endDate": rollingSeriesEndDate(),
   "eventSchedule": {

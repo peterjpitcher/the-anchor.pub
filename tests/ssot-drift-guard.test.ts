@@ -785,6 +785,14 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('calls the quiz prize a bar voucher and gives each quiz team its own table (section 10)', () => {
+    // Owner-confirmed 11 September 2026. Until then the quiz prize was a "£25 bar
+    // tab" in page copy, JSON-LD, llms.txt and two posts, and the quiz FAQ said a
+    // long table may be shared with another team. The private-hire Bar Tab
+    // package is a different thing, and nothing here matches it.
+    expect(matchingFiles(/(?:£|&pound;)\s?25 bar tab|quiz night\W+win bar tabs|shared with another team/i)).toEqual([])
+  })
+
   it('does not contradict the cash bingo format (section 10)', () => {
     // Cash bingo runs on set Wednesdays (not every month), with ten games and prizes that
     // vary by event. Until 10 September 2026 a post promised first Thursdays,

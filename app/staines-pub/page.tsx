@@ -296,10 +296,11 @@ export default function StainesPubPage() {
               <Card accent className="border-l-4 border-l-anchor-gold">
                 <CardBody className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-display text-h4 text-ink-strong">Thursday</h3>
+                    {/* Monthly on a Wednesday (docs/SSOT.md §10). This said Thursday. */}
+                    <h3 className="font-display text-h4 text-ink-strong">Wednesday</h3>
                     <Badge variant="gold">QUIZ</Badge>
                   </div>
-                  <p className="text-ink-muted">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
+                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher and prizes! See /whats-on for details.</p>
                 </CardBody>
               </Card>
 

@@ -105,9 +105,9 @@ const HUB_NIGHTS: ReadonlyArray<{
   {
     cadence: 'Monthly',
     title: 'Quiz Night',
-    meta: 'Test your knowledge for a £25 bar tab, with a bottle of house wine for the second-from-last team.',
+    meta: 'Test your knowledge for a £25 bar voucher, with a bottle of house wine for the second-from-last team.',
     price: '£3 entry',
-    tag: '£25 bar tab',
+    tag: '£25 bar voucher',
     href: '/quiz-night',
     // Beside the quiz, where someone looking for a show-themed quiz will look.
     // The themed page was linked only from body copy on /quiz-night.

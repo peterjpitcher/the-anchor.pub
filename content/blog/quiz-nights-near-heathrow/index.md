@@ -24,7 +24,7 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 | Pub | Day | Start | Entry | Prize | Team Size | Distance from T5 |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7pm | £3 pp | £25 bar tab | Up to 6 | 7 mins |
+| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7pm | £3 pp | £25 bar voucher | Up to 6 | 7 mins |
 | **Greene King pubs** (various) | Usually Tue/Wed | 7–8pm | Free–£2 | £50–£100 voucher | Open | 10–20 mins |
 | **Independent pubs**, Staines | Various | 7–8pm | £1–£3 | Varies | Varies | 15 mins |
 | **Wetherspoon**, Staines | Usually Thurs | 8pm | Free | Drinks vouchers | Open | 15 mins |
@@ -35,7 +35,7 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 **Best for:** Smaller teams, friendly atmosphere, a proper pub setting
 
-The Anchor runs a monthly quiz night on Wednesdays, and it's become one of the better-known pub quizzes near Heathrow. Entry is £3 per person, teams can have up to six players, and the winning team takes home a £25 bar tab. It's general knowledge, no niche specialist rounds that leave half the room baffled, with a few picture and music rounds thrown in to keep things interesting.
+The Anchor runs a monthly quiz night on Wednesdays, and it's become one of the better-known pub quizzes near Heathrow. Entry is £3 per person, teams can have up to six players, and the winning team takes home a £25 bar voucher. It's general knowledge, no niche specialist rounds that leave half the room baffled, with a few picture and music rounds thrown in to keep things interesting.
 
 ### What makes it different
 

@@ -168,7 +168,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Join our monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, £3 entry. Book your team table. We are around 7 minutes from Heathrow.',
     heroContent: 'Put your knowledge to the test at The Anchor. Join us monthly, dates vary, for team trivia, prizes and bragging rights.',
     introContent: 'Our monthly quiz nights bring the community together. The quiz usually starts at 7pm, with questions ranging from general knowledge to music, sport and local history. Entry is £3 per person.',
-    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With £25 for the winning team to spend at the bar and spot prizes throughout, it\'s the perfect night out.',
+    valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With a £25 bar voucher for the winning team and spot prizes throughout, it\'s the perfect night out.',
     keywords: ['pub quiz stanwell moor', 'quiz night near heathrow', 'monthly quiz surrey', 'trivia night TW19', 'team quiz stanwell moor']
   },
 

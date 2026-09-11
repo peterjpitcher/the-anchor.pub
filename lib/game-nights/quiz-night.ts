@@ -4,8 +4,12 @@ import type { GameNightConfig } from './types'
  * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
  * from 6:30pm, start usually 7pm, aims to finish 9:30pm, £3 per person, teams
  * capped at six, four rounds of ten questions plus an interactive quick-fire round
- * and a comfort break, capacity 60, £25 bar tab for the winners and a bottle of
- * house wine for second from last, phone-free with a 5 point penalty.
+ * and a comfort break, capacity 60, a £25 bar voucher for the winners and a bottle
+ * of house wine for second from last, phone-free with a 5 point penalty.
+ *
+ * Owner-confirmed 11 September 2026: the prize is a voucher, not a bar tab, and
+ * seating is team tables. Each team has its own table, so nothing here may say a
+ * team shares its table with another team or that quiz seating is communal.
  *
  * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed
  * and matching `end_time` 21:30 on every scheduled quiz in the management DB. The
@@ -29,7 +33,7 @@ export const quizNight: GameNightConfig = {
     crumb: 'Quiz Night',
     title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     lead:
-      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of house wine for whoever comes second from last.'
+      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar voucher for the winners, and a bottle of house wine for whoever comes second from last.'
   },
 
   share: {
@@ -52,7 +56,7 @@ export const quizNight: GameNightConfig = {
   bookingCtaFallback: 'Call about the next quiz night',
 
   bookingNote:
-    'Your booking is your team’s seats, and you do not need a separate table booking to eat. Entry is £3 per player paid in cash on the night, so there is nothing to pay now.',
+    'Your booking is your team’s table, and you do not need a separate table booking to eat. Entry is £3 per player paid in cash on the night, so there is nothing to pay now.',
 
   objections: [
     {
@@ -80,12 +84,12 @@ export const quizNight: GameNightConfig = {
     {
       question: 'Will my team sit together?',
       answer:
-        'Yes. Book everyone in one booking and we will seat your team together. On a busy night a long table may be shared with another team.'
+        'Yes. Every team has its own table. Book your whole team in one booking, and that booking is your table.'
     },
     {
       question: 'Do we have to pay now?',
       answer:
-        'No. It is £3 per player in cash on the night. The booking just holds your team’s seats.'
+        'No. It is £3 per player in cash on the night. The booking just holds your team’s table.'
     }
   ],
 
@@ -118,7 +122,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-winners.jpg',
       alt: 'Quiz night winners with their prize at The Anchor',
-      caption: '£25 bar tab for the winners'
+      caption: '£25 bar voucher for the winners'
     },
     {
       src: '/images/events/quiz-night/quiz-night-second-room.jpg',

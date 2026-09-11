@@ -108,7 +108,7 @@ const FAQS = [
   {
     question: 'How much is entry and do I need to book?',
     answer:
-      'It is £3 per player, paid in cash on the night, the same as our normal quiz. Booking holds your team’s seats. Call 01753 682707 if online booking is closed.'
+      'It is £3 per player, paid in cash on the night, the same as our normal quiz. Booking holds your team’s table. Call 01753 682707 if online booking is closed.'
   },
   {
     question: 'When is the next themed quiz night?',

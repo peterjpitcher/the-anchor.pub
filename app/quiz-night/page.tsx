@@ -33,8 +33,9 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
  * tasks/keyword-plan-game-nights-2026-08-17.md.
  *
  * "Cash Prizes" was removed from the title on 17 August 2026. The advertised
- * prize is a £25 bar tab, not cash, so the old title promised something the page
- * does not deliver and would have been earning clicks it then disappointed.
+ * prize is a £25 bar voucher, not cash, so the old title promised something the
+ * page does not deliver and would have been earning clicks it then disappointed.
+ * It is a voucher, not a bar tab (owner-confirmed 11 September 2026).
  */
 export const metadata: Metadata = buildGameNightMetadata(quizNight, {
   title: 'Pub Quiz Near Me | Wednesday Quiz Night',
@@ -42,7 +43,7 @@ export const metadata: Metadata = buildGameNightMetadata(quizNight, {
     'Monthly Wednesday pub quiz in Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm. Free parking, and we match up solo players.',
   shareTitle: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
   shareDescription:
-    'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.'
+    'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar voucher for the winners.'
 })
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
@@ -66,7 +67,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It is £3 per player, paid in cash on the night. Booking is worth doing because it holds your team’s seats: if booking is open you will see a button above, and if not, call 01753 682707.'
+      'It is £3 per player, paid in cash on the night. Booking is worth doing because it holds your team’s table: if booking is open you will see a button above, and if not, call 01753 682707.'
   },
   {
     question: 'How many players can we bring?',
@@ -122,7 +123,7 @@ function QuizNightEvents({ events, datesUnavailable }: { events: Event[]; datesU
       renderDetails={() => (
         <>
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Badge variant="success">£25 bar tab for winners</Badge>
+            <Badge variant="success">£25 bar voucher for winners</Badge>
             <Badge variant="sand">Bottle of wine for second-from-last</Badge>
           </div>
           <p className="text-sm text-ink-muted">
@@ -184,7 +185,7 @@ export default async function QuizNightPage() {
           <p className="mx-auto text-center text-lg leading-relaxed text-ink-muted md:text-xl">
             The Anchor runs a monthly Wednesday pub quiz in Stanwell Moor, near Staines. Entry is
             &pound;3 per player, teams are up to six, the quiz runs 7pm to 9:30pm, and the winners
-            take a &pound;25 bar tab.
+            take a &pound;25 bar voucher.
           </p>
         </Container>
       </section>
@@ -245,7 +246,7 @@ export default async function QuizNightPage() {
         gameName={quizNight.name}
         gameSlug={quizNight.slug}
         title="What quiz night actually looks like"
-        intro="Real photos from recent quizzes. Teams of up to six, solo players matched up on arrival, and a £25 bar tab on the line."
+        intro="Real photos from recent quizzes. Teams of up to six, solo players matched up on arrival, and a £25 bar voucher on the line."
       />
 
       <section className="py-section-y bg-surface">
@@ -284,7 +285,7 @@ export default async function QuizNightPage() {
           <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">What you are playing for</h2>
             <div className="grid gap-4 md:grid-cols-3">
-              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
+              <PrizeCard title="Champions" reward="£25 Bar Voucher" copy="For the winning team, to spend at our bar." />
               <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
               <PrizeCard title="Best team name" reward="Seasonal Prop" copy="Worth the effort. The room decides whether you earned it." />
             </div>
