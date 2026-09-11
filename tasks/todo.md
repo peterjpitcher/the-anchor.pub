@@ -1,3 +1,27 @@
+# Owner answers of 11 September 2026, applied
+
+Branch `fix/owner-answers-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-answers`), local only. SSOT first, then
+`SSOT.json`, then page copy. Background: reconciliation sections B1 to B5, A10 and D1.
+
+- [x] Quiz prize is a £25 bar voucher, not a bar tab; mirror the closest-answer drink and spot prizes (SSOT §10, JSON, site)
+- [x] Events finish by 10pm, Halloween and New Year's Eve excepted (SSOT §10, JSON); correct any later finish on the site
+- [x] Quiz seating is team tables, one table per team (SSOT §10, JSON, `lib/game-nights/quiz-night.ts`)
+- [x] Peter Pitcher hosts karaoke (SSOT §10, JSON, code comments); no new host copy
+- [x] Curry Club discontinued (SSOT §10 and §14, JSON); retire the post with a 301, repoint older rules, remove mentions, guard it
+- [x] Old Festive Menu catering packages switched off (SSOT §7 and §14, JSON, three Christmas Dinner objects flagged); check `/christmas-parties`
+- [x] Drift guard, lint, `npm test`, `npm run test:utc`, build; commit in logical pieces; no push
+
+Results:
+- Eight commits on the branch (this record is the last), not pushed. The drift guard gained a check for every
+  answer (78 tests). Lint, `npm test` and `npm run test:utc` (224 suites, 2,647 passed, 1 skipped) and the build
+  (279 pages) all pass.
+- `/music-bingo` series schema ended at 23:00; now 22:00. No other late finish in site copy.
+- `/blog/curry-club-the-anchor` and three older `/post/` URLs 301 to `/food-menu` in one hop, proved in
+  `tests/seo-indexing.test.ts` through the real middleware and by curl against a local production server.
+- Management app records still end after 10pm (Music Bingo 23:00, karaoke 18 September 23:30, tasting night
+  20 November 22:30) and four quiz records still say communal seating. They render on event pages until
+  corrected in the app, which is a data change for the owner to approve.
+
 # Game nights growth review, 11 September 2026
 
 Owner ask: hosted events (quiz, music bingo, cash bingo) are not in growth and may be stopped; understand
