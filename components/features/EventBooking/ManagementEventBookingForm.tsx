@@ -266,6 +266,7 @@ export function ManagementEventBookingForm({
   const formLoadedAt = useRef(Date.now())
   const phoneEnteredTracked = useRef(false)
   const formViewedTracked = useRef(false)
+  const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
   // Online ticket sales are closed if the caller says so, or the event's own
@@ -403,11 +404,38 @@ export function ManagementEventBookingForm({
     return () => window.clearTimeout(timer)
   }, [turnstileStillNeeded, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
 
+  /**
+   * `event_booking_started`, once per form, on the guest's first real move:
+   * a field changed or a quantity chosen. Mounting is `form_view`, and a
+   * submit is `event_booking_submit`, so start now sits between the two and
+   * the gap to submit shows who began and gave up. It used to fire at submit,
+   * which made start and submit the same number.
+   */
+  function trackBookingStartOnce(): void {
+    if (bookingStartTracked.current) return
+    bookingStartTracked.current = true
+    trackEventBookingStart({
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      source: 'event_booking_form'
+    })
+  }
+
+  // Changes bubble up from every field in the form. The hidden honeypot is the
+  // one field no person fills, so a change there is not a start.
+  function handleFormChange(changeEvent: FormEvent<HTMLFormElement>): void {
+    const target = changeEvent.target as HTMLInputElement | null
+    if (target?.name === 'website') return
+    trackBookingStartOnce()
+  }
+
   // Adjust a ticket type's quantity within its available capacity.
   function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
     const max = Math.min(getMaxForType(type, ticketTypes, ticketQuantities), 6 - multiTypeTotalSeats + (ticketQuantities[type.id] || 0))
     const clamped = Math.max(0, Math.min(nextQuantity, max))
     setTicketQuantities((prev) => ({ ...prev, [type.id]: clamped }))
+    trackBookingStartOnce()
   }
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
@@ -505,13 +533,6 @@ export function ManagementEventBookingForm({
       return
     }
 
-    trackEventBookingStart({
-      eventId: event.id,
-      eventName: event.name,
-      eventDate: event.startDate,
-      partySize: clampedSeats,
-      source: 'event_booking_form'
-    })
     trackEventBookingFunnelStep({
       step: 'submit',
       eventId: event.id,
@@ -867,7 +888,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form onSubmit={handleSubmit} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
@@ -959,6 +980,7 @@ export function ManagementEventBookingForm({
                       disabled={!fullWithWaitlist && availableForSelection !== null && count > availableForSelection}
                       onClick={() => {
                         setSeats(count)
+                        trackBookingStartOnce()
                       }}
                       className={cn(
                         'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50',

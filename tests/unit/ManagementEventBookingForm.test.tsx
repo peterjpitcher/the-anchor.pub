@@ -2,7 +2,12 @@ import type { ComponentProps } from 'react'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
-import { trackDirectionsClick, trackEventBookingComplete } from '@/lib/gtm-events'
+import {
+  trackDirectionsClick,
+  trackEventBookingComplete,
+  trackEventBookingFunnelStep,
+  trackEventBookingStart
+} from '@/lib/gtm-events'
 import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
@@ -13,7 +18,8 @@ jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
   trackEventBookingComplete: jest.fn(),
   trackEventBookingFunnelStep: jest.fn(),
-  trackDirectionsClick: jest.fn()
+  trackDirectionsClick: jest.fn(),
+  trackAddToCalendarClick: jest.fn()
 }))
 
 const TEST_TURNSTILE_SITE_KEY = 'test-turnstile-site-key'
@@ -176,6 +182,60 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByText(/request has been recorded for the team/)).not.toBeInTheDocument()
     expect(screen.queryByText(/early.arrival|arriving early|discuss food/i)).not.toBeInTheDocument()
 
+  })
+
+  /**
+   * `event_booking_started` fired at submit, beside `event_booking_submit`, so
+   * "started" always equalled "submitted" and abandonment was invisible. It now
+   * fires once, on the guest's first real move, and submit stays at submit.
+   */
+  describe('booking start', () => {
+    const START_EVENT = { id: 'start-fixture', name: 'Quiz Night', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }
+
+    it('fires once on the first field a guest changes, and not again at submit', async () => {
+      global.fetch = jest.fn(async () =>
+        new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'start-booking' } }), { status: 201 })
+      ) as unknown as typeof fetch
+      render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      // Seeing the form is form_view, not a start.
+      expect(trackEventBookingStart).not.toHaveBeenCalled()
+
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+      expect(trackEventBookingStart).toHaveBeenCalledWith({
+        eventId: 'start-fixture',
+        eventName: 'Quiz Night',
+        eventDate: '2999-01-01T19:00:00Z',
+        source: 'event_booking_form'
+      })
+
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+      await screen.findByText('Event booking confirmed')
+
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+      expect(trackEventBookingFunnelStep).toHaveBeenCalledWith(expect.objectContaining({ step: 'submit' }))
+    })
+
+    it('counts choosing how many people as a start', () => {
+      render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      fireEvent.click(screen.getByRole('button', { name: '3' }))
+      fireEvent.click(screen.getByRole('button', { name: '4' }))
+
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not count the hidden field only a bot fills', () => {
+      const { container } = render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      fireEvent.change(container.querySelector('#evt-website') as HTMLInputElement, { target: { value: 'spam' } })
+
+      expect(trackEventBookingStart).not.toHaveBeenCalled()
+    })
   })
 
   it('submits mixed tickets with a separate name for every guest', async () => {
