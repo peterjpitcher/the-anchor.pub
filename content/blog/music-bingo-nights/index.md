@@ -57,7 +57,7 @@ Our **music bingo nights** have become legendary:
 - ⏰ **7pm** start (arrive from 6:30pm)
 - 🎫 **Paid entry**, in cash on the night (the price is on the [music bingo](/music-bingo) page)
 - 🍽️ **Full menu** available
-- 🏆 **Prizes** every round
+- 🏆 **Prizes**: a £25 voucher for winners, to spend with us
 - 👥 **All ages** welcome
 
 Join the fun at Surrey's most entertaining Wednesday night!
@@ -84,21 +84,7 @@ Join the fun at Surrey's most entertaining Wednesday night!
 
 ### Win While You Sing
 
-Our **music bingo prizes** include:
-
-**Regular Prizes:**
-- Bar tabs for winners
-- Bottles of wine
-- Meal vouchers
-- Anchor merchandise
-- Mystery prizes
-- Rollover jackpots
-
-**Special Rounds:**
-- Bonus prizes for singing along
-- Dance-off challenges
-- Music trivia bonuses
-- Team prizes available
+Winners get a £25 voucher to spend with us, the same as our quiz night winners.
 
 Everyone has multiple chances to win throughout the night!
 
@@ -122,7 +108,6 @@ Enjoy our full menu during **music bingo**:
 - Burger and chips
 - Fish and chips
 - Vegetarian options
-- Desserts for winners!
 
 **Drinks Specials:**
 - Pre-bingo drink deals
@@ -215,7 +200,6 @@ Everyone will hear songs they love!
 - Clear music quality
 - Experienced host
 - Fair game play
-- Great prize selection
 - Fantastic atmosphere
 
 ## Booking Your Table
@@ -249,7 +233,7 @@ Music bingo fills up fast:
 - Summer Vibes (July)
 - Back to School (September)
 
-Dress up for themed nights and win extra prizes!
+Dress up for themed nights!
 
 ## Tips for Music Bingo Success
 
