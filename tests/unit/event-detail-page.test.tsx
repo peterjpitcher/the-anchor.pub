@@ -18,7 +18,7 @@
  * pattern as tests/unit/parking-page-prices.test.tsx.
  */
 
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import type { Event } from '@/lib/api'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 
@@ -315,6 +315,32 @@ describe('event detail page, what a customer reads', () => {
     // The form's heading is the same words.
     expect(mockBookingFormProps).toHaveBeenCalledWith(expect.objectContaining({ title: action }))
     expect(visibleText(container)).not.toMatch(/Book tickets|Reserve table|Reserve my seats/)
+  })
+
+  // The visible crumb was plain text while the BreadcrumbList JSON-LD declared
+  // it as the hub's URL, so the two trails disagreed and a phone visitor had no
+  // quick route back to the hub above the form.
+  it.each([
+    ['its hub', {}, 'Music Bingo', '/music-bingo'],
+    [
+      'the listing when the category has no hub',
+      { category: { id: 'cat-tasting', name: 'Tasting Nights', slug: 'tasting-nights' } },
+      'Tasting Nights',
+      '/whats-on'
+    ]
+  ])('links the category crumb to %s, as the JSON-LD breadcrumb does', async (_label, overrides, crumbName, href) => {
+    const container = await renderEventPage(makeEvent(overrides as Partial<Event>))
+
+    const trail = container.querySelector('nav[aria-label="Breadcrumb"]') as HTMLElement
+    expect(within(trail).getByRole('link', { name: crumbName })).toHaveAttribute('href', href)
+
+    const breadcrumbJsonLd = Array.from(container.querySelectorAll('script[type="application/ld+json"]'))
+      .map((script) => JSON.parse(script.textContent || '{}'))
+      .find((block) => block['@type'] === 'BreadcrumbList')
+    expect(breadcrumbJsonLd.itemListElement[1]).toMatchObject({
+      name: crumbName,
+      item: `https://www.the-anchor.pub${href}`
+    })
   })
 
   it('names the map frame', async () => {

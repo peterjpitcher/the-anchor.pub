@@ -662,6 +662,8 @@ export default async function EventPage({ params }: Props) {
           imageAlt={imageAlt}
           wide={heroArtworkIsWide}
           crumb={event.category?.name ?? "What's On"}
+          // The same name and URL as the BreadcrumbList in EventSchema.
+          crumbHref={getCategoryPageUrl(event.category?.slug)}
           title={event.name}
           lead={heroDescription}
           badges={
