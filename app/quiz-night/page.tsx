@@ -80,8 +80,10 @@ const FAQS = [
   },
   {
     question: 'What food and drink is available?',
+    // No kitchen closing time: it comes from the live hours and varies by date
+    // (docs/SSOT.md §3). This said 9pm in fixed text.
     answer:
-      'The kitchen runs to 9pm, so order before the first round or during the comfort break. Cocktails, mocktails and bottled ales are available from the bar all evening.'
+      'Kitchen times vary by date, so order when you arrive, or call 01753 682707 to check that night’s times. Cocktails, mocktails and bottled ales are available from the bar all evening.'
   },
   {
     question: 'Do you host private or corporate quiz nights?',
@@ -213,7 +215,7 @@ export default async function QuizNightPage() {
                     <li><strong>6:30pm</strong> · tables set, soundtrack on, order food while you settle in.</li>
                     <li><strong>7pm</strong> · first round. Four rounds of ten questions, general knowledge, no specialist subjects.</li>
                     <li><strong>8:15pm</strong> · interactive quick-fire round to get everyone on their feet.</li>
-                    <li><strong>8:30pm</strong> · comfort break and last call for the kitchen, which closes at 9pm.</li>
+                    <li><strong>8:30pm</strong> · comfort break, time to top up drinks.</li>
                     {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
                         21:30 in the management DB. This said 9:45pm while the event
                         pages said 9:30pm. */}
@@ -298,10 +300,13 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before you quiz</h2>
+            {/* Kitchen times vary by date and come from the live hours
+                (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              The kitchen runs to 9pm on quiz night: pizzas, burgers, pies and the full menu. Order at
-              your table before the first round or during the comfort break. You do not need a
-              separate dining booking, because your quiz booking is your team&rsquo;s table.
+              Order pizzas, burgers, pies or anything else on the full menu at your table. Kitchen
+              times vary by date, so get your order in when you arrive, or call 01753 682707 to
+              check that night&rsquo;s times. You do not need a separate dining booking, because your
+              quiz booking is your team&rsquo;s table.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <BookTableButton source="quiz_night_food_cta" variant="outline" size="sm">

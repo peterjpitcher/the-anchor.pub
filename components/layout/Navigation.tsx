@@ -101,7 +101,8 @@ const defaultItems: NavigationItem[] = [
     label: "What's On",
     href: '/whats-on',
     items: [
-      { label: 'Upcoming Events', href: '/whats-on#upcoming-events', description: 'The next hosted events and weekly nights' },
+      // Nothing at The Anchor runs weekly (docs/SSOT.md §10), so no cadence here.
+      { label: 'Upcoming Events', href: '/whats-on#upcoming-events', description: 'Every upcoming hosted night, by date' },
       { label: 'Quiz Night', href: '/quiz-night', description: 'Pub quiz nights, teams and prizes' },
       { label: 'Music Bingo', href: '/music-bingo', description: 'Hosted music bingo with food and prizes' },
       { label: 'Cash Bingo', href: '/cash-bingo', description: 'Classic bingo sessions with cash prizes' },

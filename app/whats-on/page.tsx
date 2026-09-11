@@ -94,7 +94,8 @@ const HUB_NIGHTS: ReadonlyArray<{
   related?: { label: string; href: string }
 }> = [
   {
-    cadence: 'Monthly',
+    // docs/SSOT.md §10: Music Bingo "Dates vary". It is not a monthly fixture.
+    cadence: 'Dates vary',
     title: 'Music Bingo with Nikki Manfadge',
     meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
     tag: 'Hosted night',
@@ -232,23 +233,10 @@ export default async function WhatsOnPage() {
                 "postalCode": "TW19 6AQ",
                 "addressCountry": "GB"
               },
-              "maximumAttendeeCapacity": 100,
+              // No maximumAttendeeCapacity and no stage, sound system or
+              // lighting features: none of those is in docs/SSOT.md §8, which
+              // says a capacity not in its table is wrong. This said 100.
               "amenityFeature": [
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Stage Area",
-                  "value": true
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Sound System",
-                  "value": true
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Lighting",
-                  "value": true
-                },
                 {
                   "@type": "LocationFeatureSpecification",
                   "name": "Bar Service",
@@ -273,8 +261,9 @@ export default async function WhatsOnPage() {
         title="What's On at The Anchor"
         lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and reserve your table."
         badges={
+          // No "Free entry nights" chip: quiz, Music Bingo and cash bingo are
+          // all paid (docs/SSOT.md §10), and only karaoke is free.
           <>
-            <Badge variant="sand">Free entry nights</Badge>
             <Badge variant="sand">Family friendly</Badge>
             <Badge variant="sand">Free parking</Badge>
           </>
@@ -366,7 +355,7 @@ export default async function WhatsOnPage() {
           <SectionHeading
             kicker="The regulars"
             title="Our nights"
-            lead="Three that come round every month, plus karaoke when we run it. See each page for the next date and to book your places."
+            lead="Quiz night and cash bingo are monthly, Music Bingo dates vary, and karaoke is occasional. See each page for the next date and to book your places."
           />
 
           <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">

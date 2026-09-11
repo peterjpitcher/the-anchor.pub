@@ -71,9 +71,11 @@ export const quizNight: GameNightConfig = {
         'We aim to finish at 9:30pm. Tables are set from 6:30pm and the pub is open from 12pm, so come early and eat first if you want a full evening of it.'
     },
     {
+      // No kitchen closing time: it varies by date and comes from the live
+      // hours (docs/SSOT.md §3). Worded as karaoke's is. This said 9pm.
       question: 'Can we eat first?',
       answer:
-        'Yes. The kitchen runs to 9pm, so order before the first round or during the comfort break.'
+        'Yes, and the pub is open from 12pm. Kitchen times vary by date, so call 01753 682707 if you want to check that night’s times.'
     },
     {
       question: 'Will my team sit together?',
@@ -111,7 +113,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-food-on-the-table.jpg',
       alt: 'Quiz players with food and drinks on the table before the first round',
-      caption: 'Kitchen runs to 9pm, so eat first'
+      caption: 'Eat before the first round'
     },
     {
       src: '/images/events/quiz-night/quiz-night-winners.jpg',

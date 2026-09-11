@@ -295,10 +295,12 @@ export default async function CashBingoPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before the first game</h2>
+            {/* Kitchen times vary by date and come from the live hours
+                (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              The full menu runs until 9pm, so order at your table when you arrive or during one of
-              the breaks. You do not need a separate dining booking, because your bingo booking is
-              your seat for the night.
+              Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707
+              to check that night&rsquo;s times. You do not need a separate dining booking, because
+              your bingo booking is your seat for the night.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <BookTableButton source="bingo_food_cta" variant="outline" size="sm">
