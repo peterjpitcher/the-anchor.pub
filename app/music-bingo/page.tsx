@@ -298,7 +298,9 @@ export default async function MusicBingoPage() {
                         to claim five rounds, which the SSOT does not support. */}
                     <li><strong>Two games</strong> · song clips instead of numbers, with interactive music games and quizzes between them.</li>
                     <li><strong>Breaks between games</strong> · order food, top up drinks, and compare answers.</li>
-                    <li><strong>Finale</strong> · last card of the night with the headline prize.</li>
+                    {/* No "headline prize": winners get a £25 voucher to spend with
+                        us, the same as the quiz (owner-confirmed 11 September 2026). */}
+                    <li><strong>Finale</strong> · last card of the night. Winners get a £25 voucher to spend with us.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
                     Song clips are short, so keep ears open and phones away during the rounds.

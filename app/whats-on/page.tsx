@@ -98,7 +98,9 @@ const HUB_NIGHTS: ReadonlyArray<{
     // (mirrored from the management app, 11 September 2026).
     cadence: 'Monthly',
     title: 'Music Bingo with Nikki Manfadge',
-    meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
+    // Owner-confirmed 11 September 2026: winners get a £25 voucher to spend
+    // with us. This said "prizes every round", which nothing supports.
+    meta: 'Song clips instead of numbers, singalong rounds and a £25 voucher for the winners.',
     tag: 'Hosted night',
     href: '/music-bingo'
   },
