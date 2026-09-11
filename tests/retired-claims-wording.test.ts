@@ -102,6 +102,19 @@ describe('retired claims stay retired', () => {
     expect(offenders).toEqual([])
   })
 
+  it('never lists a pie among the Sunday roasts (retired 11 September 2026)', () => {
+    const offenders: string[] = []
+    for (const file of customerFacingFiles()) {
+      const text = flatten(file)
+      for (const piece of pieces(text)) {
+        if (/\bpie roasts?\b|\btwo pies\b|roast (?:beef|pork|turkey), (?:and )?pies\b/i.test(piece)) {
+          offenders.push(`${file}: "${piece.trim().slice(0, 120)}"`)
+        }
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('keeps the rules and the approved wording in the SSOT', () => {
     const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
     expect(ssot).toContain('**A ULEZ saving figure**, in any form')

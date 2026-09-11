@@ -64,7 +64,7 @@ export default function EasterSundayPage() {
   const faqs = [
     {
       question: 'Where can I find an Easter Sunday roast near me?',
-      answer: `The Anchor in Stanwell Moor (TW19), about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. We serve a family-friendly Easter Sunday roast cooked from scratch, with roast beef, pork, turkey, two pies or a vegan wellington. Walk in or book ahead, free parking on site.`
+      answer: `The Anchor in Stanwell Moor (TW19), about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. We serve a family-friendly Easter Sunday roast cooked from scratch, with roast beef, pork, turkey or a vegan wellington. Walk in or book ahead, free parking on site.`
     },
     {
       question: 'What time is the Easter Sunday roast served?',
@@ -83,7 +83,7 @@ export default function EasterSundayPage() {
     {
       question: 'What is on the Easter Sunday menu?',
       answer:
-        'Our Easter Sunday menu is our regular Sunday roast: roast beef, roast pork, roast turkey, a beef and ale pie, a chicken and wild mushroom pie, or a vegan wellington, all cooked from scratch. Current dishes and prices are live on our Sunday roast menu.'
+        'Our Easter Sunday menu is our regular Sunday roast: roast beef, roast pork, roast turkey or a vegan wellington, all cooked from scratch. Current dishes and prices are live on our Sunday roast menu.'
     },
     {
       question: 'Are you open over the Easter weekend and on Easter Monday?',
@@ -176,7 +176,7 @@ export default function EasterSundayPage() {
               lunch that marks the start of spring and gets everyone in one place.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              Choose from roast beef, roast pork, roast turkey, a beef and ale pie, a chicken and wild mushroom pie,
+              Choose from roast beef, roast pork, roast turkey
               or a vegan wellington, all cooked from scratch and served with triple-cooked roast potatoes and seasonal
               vegetables. The sliced roasts come with Yorkshire puddings and our signature gravy; the vegan wellington
               is served with our regular vegan gravy. Current dishes and

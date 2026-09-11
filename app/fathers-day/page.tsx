@@ -64,7 +64,7 @@ export default function FathersDayPage() {
     {
       question: "What's on the Father's Day menu?",
       answer:
-        "Father's Day falls on a Sunday, so the full Sunday roast menu is on, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. " +
+        "Father's Day falls on a Sunday, so the full Sunday roast menu is on, with roast turkey, roast pork, roast beef or a vegan wellington. " +
         "Current dishes and prices are listed on the Sunday roast menu."
     },
     {
@@ -178,7 +178,7 @@ export default function FathersDayPage() {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               Father&apos;s Day pub lunch lands on a Sunday, which means the full Father&apos;s Day Sunday roast menu is on. Roast turkey,
-              roast pork, roast beef, pies or a vegan wellington, all cooked from scratch, served with golden roast potatoes,
+              roast pork, roast beef or a vegan wellington, all cooked from scratch, served with golden roast potatoes,
               seasonal vegetables and proper gravy. Yorkshire puddings come with the sliced roasts.
             </p>
             <p className="text-ink-muted leading-relaxed">

@@ -12,7 +12,7 @@
 >
 > If this document and existing page copy disagree, the SSOT wins, and the page is wrong. If this document and the system that owns a fact disagree (the management app for hours, prices, capacities and events), the owning system wins and this document is stale: fix it. §15 lists who owns what.
 
-> **PRICING POLICY:** All food and drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database, POS, menu API, or latest approved private-hire source**. This document holds stable rules and item structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures such as deposits, ULEZ saving, quiz/bingo entry and fixed prizes may remain only where confirmed.
+> **PRICING POLICY:** All food and drink prices (roast, menu, drinks, catering/buffet) are **LIVE from the management database, POS, menu API, or latest approved private-hire source**. This document holds stable rules and item structure only. **Never hardcode or quote a price from here or anywhere else; always pull live.** Non-food figures such as deposits, quiz/bingo entry and fixed prizes may remain only where confirmed. There is no ULEZ saving figure to quote (§14).
 >
 > **PRICE DISPLAY:** Menu item prices are displayed **without currency symbols** (e.g. "16", not "£16"): a deliberate menu-psychology choice, owner-confirmed 2026-07-19. Do not "fix" bare menu prices by adding £. JSON-LD `Offer.price` values are always bare numeric strings regardless of display. Aggregate copy lines (e.g. "Food £5 to £16", "from £16") keep the £ symbol; the rule applies to per-item menu prices only.
 
@@ -267,21 +267,19 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 | Roast Beef Topside | (live, DB) | Yes | 28-day topside, slow-roasted, carved fresh per plate |
 | Roast Pork Leg | (live, DB) | Yes | Sliced to order with Bramley apple sauce |
 | Roast Turkey with Stuffing Ball | (live, DB) | Yes | Carved fresh; sage and onion stuffing ball |
-| Beef & Ale Pie | (live, DB) | **No** | Slow-cooked British beef in ale gravy under golden short-crust pastry |
-| Chicken & Wild Mushroom Pie | (live, DB) | **No** | Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry |
 | Beetroot & Butternut Squash Wellington | (live, DB) | No | **Fully vegan.** Default plate is vegan |
 | Kids Roasted Beef, Kids Roasted Pork, Kids Roasted Turkey | (live, DB) | Yes | Smaller, child-sized portions of the three sliced roasts |
 | Broccoli Cheese, Gourmet Broccoli Cheese | (live, DB) | n/a | Sides |
 
-Mirrored from the live menu on 10 September 2026. The dish **names** customers see come from the menu API ("Roasted Beef", "Roasted Pork", "Roasted Turkey"): "28-day topside" and the like are descriptions, not names, so never type a dish name that is not on the menu.
+Mirrored from the live menu on 11 September 2026. The dish **names** customers see come from the menu API ("Roasted Beef", "Roasted Pork", "Roasted Turkey"): "28-day topside" and the like are descriptions, not names, so never type a dish name that is not on the menu.
 
-Both pies are still served on Sundays (owner-confirmed, 10 September 2026). Their Sunday dishes, "Beef & Ale Pie Roast" and "Chicken & Wild Mushroom Pie Roast", had been switched off in `menu_dishes`, which feeds /sunday-roast, while `sunday_lunch_menu_items` had them on. They were switched back on the same day at the owner's request.
+**The pie roasts are off the Sunday menu** (owner-confirmed, 11 September 2026). "Beef & Ale Pie Roast" and "Chicken & Wild Mushroom Pie Roast" are switched off in both `menu_dishes`, which feeds /sunday-roast, and `sunday_lunch_menu_items`. The weekday pies stay on the main menu (§5). Never list a pie as a Sunday roast option.
 
 **Price range to quote in copy:** Do NOT quote a hardcoded range. Prices are live from the management DB (menu API). Pull live.
 
 ### Accompaniments
 
-Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables, including buttered cabbage with the meat roasts. Yorkshire pudding with the three sliced roasts and the kids roast (no yorkshire with the pies). Our signature gravy.
+Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables, including buttered cabbage with the meat roasts. Yorkshire pudding with the three sliced roasts and the kids roasts. Our signature gravy.
 
 > **We do not use beef dripping.** Never claim that we do. Never describe the potatoes as "beef-dripping potatoes". The correct phrase is "triple-cooked, herb-and-garlic crusted".
 
@@ -854,6 +852,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **"Red wine gravy"**, never describe our gravy as red wine gravy. Use "signature gravy" (default, contains meat stock) or "regular gravy" (vegan, available on request and default with the wellington).
 - **Sunday roast pre-order / Saturday 1pm cutoff / per-roast prepayment**, all retired with the 2026-05-17 walk-in launch. Don't reintroduce.
 - **Beef as "not on the menu"**, that older guidance is reversed; beef is now the headline roast.
+- **Pie roasts on a Sunday**, "Beef & Ale Pie Roast" and "Chicken & Wild Mushroom Pie Roast", retired 11 September 2026 (owner-confirmed). The weekday pies are still on the main menu.
 
 ### Christmas (retired 2026-07-21)
 
@@ -1048,6 +1047,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **11 September 2026.** The pie roasts are off the Sunday menu (owner-confirmed; §4, §14). They had gone back on the day before. Three pages and four posts that listed pies among the Sunday roasts, and `/llms.txt`, no longer do. The weekday pies stay. The pricing note at the top no longer lists a ULEZ saving among the figures that may be quoted; the figure was retired on 10 September.
 - **11 September 2026, the owner's answers to the open questions.** The quiz winners get a £25 bar voucher, not a bar tab, and second from last still gets the wine; the closest-answer drink in every round and the spot prizes are mirrored from the quiz records (§10). Every event finishes by 10pm, except special nights such as the Halloween party and New Year's Eve, which stays open until 1am (reconfirmed); the `/music-bingo` schema had said 11pm (§10). Quiz seating is team tables, one table per team, where the quiz page had said a long table might be shared with another team (§10). Peter Pitcher hosts karaoke, so the "no fixed host" line is retired (§10). Curry Club has stopped: it is recorded as discontinued (§10, §14), and `/blog/curry-club-the-anchor`, which still said the nights sell out, now redirects to `/food-menu` (owner-approved). The old Festive Menu catering packages are switched off in the management app, and `/christmas-parties` refers only to the 1, 2 and 3 course Christmas menu (§7, §14); `SSOT.json` now flags its three Christmas Dinner entries as not being catering-package rows. All owner-confirmed, except what is marked as mirrored.
 
 - **11 September 2026.** Brought into line with the management app at the owner's request, with the owner's answers of the same day. Peter Pitcher, the owner, hosts quiz night and runs cash bingo himself, so the Question One Quiz Masters line is retired; solo quiz players and pairs are found a team on the night; half of all cash bingo book sales go into the final cash jackpot (all owner-confirmed, §10). The rest of 2026's quiz, cash bingo and Music Bingo dates are set and will not move (owner-confirmed), and §10 now lists them. Cash bingo is not monthly, with none in October, and its Snowball rolls over to the next cash bingo night, not the next month. Mirrored from the app the same day: those dates (the 11 September Music Bingo was cancelled), the festive nights listed beside the owner-confirmed Christmas quiz, which is Tinsel & Trivia on 2 December (§7), the Halloween hours and party, which join New Year's Eve as a night whose closing time copy may state (§10), the quiz phone rule, the scope of the arrival wording (§16), the kids menu (§5), the optics scope of the £2 double-up (§6), the four spaces that can be hired and the renamed Welcome Prosecco (§11). `SSOT.json` also gained the Sunday roast menu names and the three kids roasts, the six current pizzas, and price, payment and capacity mirrors for tasting and party nights.

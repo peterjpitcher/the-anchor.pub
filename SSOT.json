@@ -720,20 +720,6 @@
         "notes": "Carved fresh, served with a sage and onion stuffing ball."
       },
       {
-        "name": "Beef & Ale Pie",
-        "menu_name": "Beef & Ale Pie Roast",
-        "price": "LIVE_FROM_DB",
-        "yorkshire_pudding": false,
-        "notes": "Slow-cooked British beef in ale gravy under golden short-crust pastry. NO Yorkshire pudding with the pies."
-      },
-      {
-        "name": "Chicken & Wild Mushroom Pie",
-        "menu_name": "Chicken & Wild Mushroom Pie Roast",
-        "price": "LIVE_FROM_DB",
-        "yorkshire_pudding": false,
-        "notes": "Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry. NO Yorkshire pudding with the pies."
-      },
-      {
         "name": "Beetroot & Butternut Squash Wellington",
         "menu_name": "Beetroot & Butternut Squash Wellington",
         "price": "LIVE_FROM_DB",
@@ -766,7 +752,7 @@
         "notes": "Smaller, child-sized portion. Mirrored from the management app 2026-09-11."
       }
     ],
-    "RETIRED_OPTIONS": "As of 2026-04-29 the following are RETIRED. Do NOT list: Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb in particular is no longer offered anywhere.",
+    "RETIRED_OPTIONS": "As of 2026-04-29 the following are RETIRED. Do NOT list: Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb in particular is no longer offered anywhere. As of 2026-09-11 (owner-confirmed) also RETIRED on Sundays: Beef & Ale Pie Roast, Chicken & Wild Mushroom Pie Roast (the weekday pies stay on the main menu).",
     "accompaniments": "Triple-cooked, herb-and-garlic crusted roast potatoes (we do NOT use beef dripping); seasonal vegetables; Yorkshire pudding with the three sliced roasts and the kids roast (NOT with the pies); our signature gravy, a secret recipe refined ourselves over the years. Regular gravy IS vegan and is the default for the wellington.",
     "gravy_rules": {
       "signature_gravy": "Default for all meat dishes. Secret recipe, made from scratch. Contains meat stock, NOT vegan.",

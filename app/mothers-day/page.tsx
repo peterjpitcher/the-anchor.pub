@@ -143,7 +143,7 @@ export default function MothersDayPage() {
       question: 'Where can I find a Mother’s Day Sunday roast near me?',
       answer:
         `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
-        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef, pies and a vegan wellington. ` +
+        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef and a vegan wellington. ` +
         `Walk-ins welcome 1pm to 6pm, booking recommended.`
     },
     {
