@@ -793,6 +793,28 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/(?:£|&pound;)\s?25 bar tab|quiz night\W+win bar tabs|shared with another team/i)).toEqual([])
   })
 
+  it('finishes every event schedule and every event sentence by 10pm (section 10)', () => {
+    // Owner-confirmed 11 September 2026: "all events run until 10pm except for
+    // things like the Halloween party and New Year's Eve". The /music-bingo
+    // series schema said 23:00, copied from the event records. Both special
+    // nights' pages may state their late close. lib/static-events.ts is not
+    // rendered anywhere (only a unit test imports it), so it is left out.
+    const SPECIAL_NIGHTS = /^app\/(?:halloween|new-years-eve)\//
+    const lateSchedules = siteFiles
+      .map((file) => path.relative(process.cwd(), file))
+      .filter((file) => /^(?:app|lib)\//.test(file) && !SPECIAL_NIGHTS.test(file) && file !== 'lib/static-events.ts')
+      .flatMap((file) =>
+        [...fs.readFileSync(file, 'utf8').matchAll(/["']?endTime["']?\s*:\s*["'](\d{2}):(\d{2})/g)]
+          .filter((match) => Number(match[1]) * 60 + Number(match[2]) > 22 * 60)
+          .map((match) => `${file}: ${match[0]}`),
+      )
+    expect(lateSchedules).toEqual([])
+
+    const FORMAT = String.raw`\b(?:quiz(?:zes)?|bingo|karaoke|tasting)\b[^.!?\n]{0,80}`
+    const lateFinish = new RegExp(`${FORMAT}\\b(?:10[.:]30|11(?:[.:][0-5]\\d)?)\\s?pm\\b|${FORMAT}\\b(?:until|till|til) late\\b`, 'i')
+    expect(claimSentences(lateFinish, { files: ['app/halloween/', 'app/new-years-eve/'] })).toEqual([])
+  })
+
   it('does not contradict the cash bingo format (section 10)', () => {
     // Cash bingo runs on set Wednesdays (not every month), with ten games and prizes that
     // vary by event. Until 10 September 2026 a post promised first Thursdays,

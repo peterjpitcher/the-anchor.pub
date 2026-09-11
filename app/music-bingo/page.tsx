@@ -196,11 +196,13 @@ export default async function MusicBingoPage() {
             "repeatFrequency": "P1M",
             // 7pm start, owner-confirmed 16 August 2026. This said 20:00, which
             // is where the "starts at 8pm" copy across the page came from. End
-            // time is 23:00 to match `end_time` on the scheduled events in the
-            // management DB, rather than the 21:00 that was carried over from an
-            // older version of this block.
+            // time is 22:00: the owner confirmed on 11 September 2026 that all
+            // events run until 10pm, bar special nights such as Halloween and
+            // New Year's Eve (docs/SSOT.md §10). This said 23:00, copied from
+            // `end_time` on the scheduled events in the management DB, and
+            // those records need correcting there too.
             "startTime": "19:00:00",
-            "endTime": "23:00:00",
+            "endTime": "22:00:00",
             "scheduleTimezone": "Europe/London"
           },
           "location": {
