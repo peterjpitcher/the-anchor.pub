@@ -1275,19 +1275,20 @@
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
     "entertainment": {
+      "christmas_quiz": true,
       "festive_nights_2026": [
         "2026-11-20 Tinsel & Tipples Christmas Tasting Night",
-        "2026-12-02 Tinsel & Trivia Quiz Night (normal quiz with a festive nod, not a fully themed Christmas quiz)",
+        "2026-12-02 Tinsel & Trivia Quiz Night (the Christmas quiz: our normal quiz with a festive nod, not a fully themed Christmas quiz)",
         "2026-12-11 Sleigh My Name: Festive Music Bingo",
         "2026-12-16 Christmas Jackpot Cash Bingo"
       ],
-      "_festive_nights_2026_source": "Mirrored from the management app 2026-09-11. Replaces the retired christmas_quiz flag: the only December quiz is not a fully themed Christmas quiz.",
+      "_festive_nights_2026_source": "Mirrored from the management app 2026-09-11. The christmas_quiz flag stays (owner-confirmed 2026-08-11): Tinsel & Trivia on 2 December is the Christmas quiz.",
       "karaoke": false,
       "live_band": false,
       "dj": "ON_REQUEST",
       "dance_floor": false,
       "shared_party_night": false,
-      "rule": "The festive nights in festive_nights_2026 may be promoted. Describe Tinsel & Trivia as our normal quiz with a festive nod, never as a fully themed Christmas quiz. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
+      "rule": "A Christmas quiz runs and may be promoted, and so may the other festive nights in festive_nights_2026. Tinsel & Trivia, the Christmas quiz, is our normal quiz with a festive nod, so never call it a fully themed Christmas quiz. A DJ can be arranged on request but is never included by default, so present it as something a group can ask for, never as part of a package. Never advertise Christmas karaoke, a live band, a dance floor or a shared party night.",
       "_confirmed": "Owner-confirmed 11 August 2026",
       "christmas_market": false,
       "christmas_market_note": "NOT running in 2026. Owner-confirmed 2026-09-06. /blog/christmas-market was retired on 2026-09-10 (owner-approved) and redirects to /christmas-parties; do not revive it. A Christmas market ran in earlier years, so old copy and old imagery still describe one; treat any such reference as historical, never as an offer."
