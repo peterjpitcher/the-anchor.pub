@@ -19,10 +19,11 @@ Results:
 - Read from a local production build (`next start`): `/quiz-night` shows two prize cards in a two-column
   grid, "Ready to play for the voucher?" and the phone exception; `/quiz-night/themed`, `/music-bingo` and `/whats-on`
   show the new lines; the three blog posts render corrected.
-- The five upcoming quiz records in the management app still say "a closest-wins free drink question in
-  every round" and "spot prizes" (the 25 September one also "free drinks during the night"), read from
-  the live events API on 11 September 2026. They publish on the event pages until corrected in the app,
-  which is a data change for the owner to approve.
+- The five upcoming quiz records in the management app said "a closest-wins free drink question in every
+  round" and "spot prizes" on the first read of the live events API. They were corrected the same evening
+  (the management app's main branch gained migration `20260911220000_quiz_prize_claims` at 20:56), and a
+  second read at 21:10 found neither. The app's guest email campaigns for the 16 and 25 September quizzes still promise spot
+  prizes (the 16th also free-drink questions): an owner decision, if they have not gone out.
 - Left as outside these facts: `/blog/music-bingo-nights` still gives the last Wednesday at 7:30pm, five
   rounds and "sells out"; `/music-bingo` keeps its own "phones away during the rounds"; the comparison
   guide's generic no-phones tip; the `/reviews` quote that mentions quiz cash prizes; the closed 22 July
