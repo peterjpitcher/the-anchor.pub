@@ -255,7 +255,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/drinks/baby-guinness', lastModified: DATES.seoOverhaul },
 
     // Events & entertainment
-    { path: '/whats-on', lastModified: DATES.apr2026 },
+    // /whats-on is listed below without a date: it changes with the diary.
     { path: '/quiz-night', lastModified: DATES.aug2026Growth },
     { path: '/quiz-night/themed', lastModified: DATES.aug2026Growth },
     { path: '/cash-bingo', lastModified: DATES.aug2026Growth },
@@ -412,6 +412,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: event._meta?.lastUpdated ? getSafeDate(event._meta.lastUpdated) : undefined,
     }))
 
+  // /whats-on changes whenever the event diary does, so a fixed date was false
+  // the day after it was written: it said 21 April 2026 for months of daily
+  // changes. Nothing trustworthy records when the listing last changed (the
+  // events list carries no update timestamp), so no lastmod is given, the same
+  // rule the event URLs and the Nations Championship hub follow.
+  const whatsOnEntry: MetadataRoute.Sitemap[number] = { url: `${baseUrl}/whats-on` }
+
   const nationsEntry: MetadataRoute.Sitemap[number] = { url: `${baseUrl}/live-sport/nations-championship` }
   if (process.env.NEXT_PHASE !== 'phase-production-build') {
     try {
@@ -419,5 +426,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (feed.meta.contentUpdatedAt) nationsEntry.lastModified = new Date(feed.meta.contentUpdatedAt)
     } catch { /* Keep the stable hub URL; do not invent its modification date. */ }
   }
-  return [...staticSitemap, nationsEntry, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
+  return [...staticSitemap, whatsOnEntry, nationsEntry, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
 }
